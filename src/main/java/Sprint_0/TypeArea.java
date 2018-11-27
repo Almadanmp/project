@@ -1,30 +1,29 @@
 package Sprint_0;
 
 public class TypeArea {
-    private String name;
+    private String typeDesignation;
 
-    public TypeArea(String name) {
-        setType(name);
+    public TypeArea(String nameGiven) {
+        setTypeOfGeographicArea(nameGiven);
     }
 
-    public void setType(String name) {
-        this.name = name;
+    public void setTypeOfGeographicArea(String nameGiven) {
+        this.typeDesignation = nameGiven;
     }
 
-    public String getType() {
-        String result = this.name;
-        return result;
+    public String getTypeOfGeographicArea() {
+        return this.typeDesignation;
     }
 
-    public boolean equals(Object testType) {
-        if (this == testType) {
+    public boolean equals(Object objectToTest) {
+        if (this == objectToTest) {
             return true;
         }
-        if (!(testType instanceof TypeArea)) {
+        if (!(objectToTest instanceof TypeArea)) {
             return false;
         }
-        TypeArea localVariable = (TypeArea) testType;
-        if (localVariable.getType().equals(this.name)) {
+        TypeArea localVariable = (TypeArea) objectToTest;
+        if (localVariable.getTypeOfGeographicArea().equals(this.typeDesignation)) {
             return true;
         }
         return false;
