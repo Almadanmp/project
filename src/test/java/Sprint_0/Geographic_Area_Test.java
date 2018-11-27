@@ -47,7 +47,6 @@ public class Geographic_Area_Test {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
-        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
         SensorList list1 = new SensorList(s1);
         SensorList expectedResult = new SensorList(new Sensor[]{s1});
         SensorList actualResult;
@@ -59,5 +58,23 @@ public class Geographic_Area_Test {
 
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfSetSensorListRefusesListWithDuplicates(){
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
+        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
+        Sensor s3 = new Sensor("Chuva", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
+        SensorList l1 = new SensorList(new Sensor[]{s1,s2,s3});
+        Geographic_Area c = new Geographic_Area(new TypeArea("Rua"), new Local(12,35,2), new SensorList(s1));
+        boolean expectedResult = false;
+        boolean actualResult;
+
+        //Act
+        actualResult = c.setSensorList(l1);
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 }
