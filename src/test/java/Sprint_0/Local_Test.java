@@ -109,8 +109,9 @@ public class Local_Test {
 
     @Test
     public void hashCodeDummyTest(){
-        int expectedResult = 22671767;
-        int actualResult = hashCode();
+        Local l1 = new Local(21,21,5);
+        int expectedResult = 1;
+        int actualResult = l1.hashCode();
         assertEquals(expectedResult,actualResult);
     }
 }
