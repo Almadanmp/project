@@ -2,20 +2,36 @@ package Sprint_0;
 
 import java.util.Date;
 
-
+/**
+ * This class will contain a value read by a Sensor, associated with a date of said reading.
+ */
 public class Reading {
+
     private double mValue;
     private Date mDate;
 
+    /**
+     * Builder with 'value' and 'date'
+     * @param value
+     * @param date
+     */
     public Reading(double value, Date date) {
         setmValue(value);
         setData(date);
     }
 
+    /**
+     * Builder with 'value'.
+     * @param value
+     */
     public Reading(double value) {
         setmValue(value);
     }
 
+    /**
+     * getters e setters
+     * @param value
+     */
     public void setmValue(double value) {
         this.mValue = value;
     }
@@ -24,6 +40,10 @@ public class Reading {
         return this.mValue;
     }
 
+    /**
+     * getters e setters
+     * @param date
+     */
     public void setData(Date date) {
         this.mDate = date;
     }
@@ -32,6 +52,11 @@ public class Reading {
         return this.mDate;
     }
 
+    /**
+     * Method 'equals' is required so that each 'Reading' can be added to a 'ReadingList'.
+     * @param o
+     * @return
+     */
     public boolean equals(Object o) {
         if (this == o) {
             return true;
