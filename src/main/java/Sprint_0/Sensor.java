@@ -1,20 +1,31 @@
 package Sprint_0;
 
 import java.util.Date;
+import java.util.List;
 
+/**
+ * Represents a Sensor.
+ * It is defined by a name, type of sensor, localization and the date it started functioning.
+ * It contains a list with one or more weather readings.
+ */
 public class Sensor {
     private String name;
     private TypeSensor typeSensor;
     private Local local;
     private Date dateStartedFunctioning;
+    private List<ReadingList> readingList;
 
     public Sensor (String name, TypeSensor typeSensor, Local local, Date date){
         setName(name);
         setTypeSensor(typeSensor);
         setLocal(local);
         setDateStartedFunctioning(date);
+
     }
 
+    /**
+     * Getters and Setters
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -50,6 +61,11 @@ public class Sensor {
         Date result = this.dateStartedFunctioning;
         return result;
     }
+
+
+    /**
+     * Specific Methods
+     */
 
     public boolean equals(Object testObject) {
         if (this == testObject) {

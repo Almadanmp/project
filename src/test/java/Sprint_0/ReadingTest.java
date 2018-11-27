@@ -45,7 +45,17 @@ class ReadingTest {
         double result = l1.getmValue();
         assertEquals(expectedResult,result,0.01);
     }
-
+    @Test
+    public void testarSetEGetValorDeLeitura(){
+        Date date1 = new Date(118,10,26);
+        ReadingList listal = new ReadingList();
+        Reading leitura1 = new Reading(15,date1);
+        listal.addReading(leitura1);
+        leitura1.setmValue(19);
+        double result = leitura1.getmValue();
+        double expectedResult = 19;
+        assertEquals(result,expectedResult,0.01);
+    }
 
 
 }
