@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,167 +15,156 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <start-class>training.TrainingMain</start-class>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.3.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.3.1</version>
+            <version>5.3.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-core</artifactId>
+            <version>2.6.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-matchers</artifactId>
+            <version>2.6.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-            <plugins>
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
-                </plugin>
-                <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
-                    <configuration>
-                        <release>11</release>
+        <plugins>
+            <!-- Required for compiling the project usign maven -->
+            <plugin><!-- Compiler configuration-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
 
-                        <showWarnings>true</showWarnings>   <!-- Needs this -->
+                    <showWarnings>true</showWarnings>   <!-- Needs this -->
 
-                        <compilerArgs>
-                            <arg>-Werror</arg>      <!-- Very drastic -->
-                            <arg>-Xlint:all</arg>   <!-- recommended -->
-                        </compilerArgs>
-                    </configuration>
-                </plugin>
+                    <compilerArgs>
+                        <arg>-Werror</arg>      <!-- Very drastic -->
+                        <arg>-Xlint:all</arg>   <!-- recommended -->
+                    </compilerArgs>
 
-                <!-- Required for running unit tests -->
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.1</version>
-                    <configuration>
-                        <argLine>
-                            --illegal-access=permit
-                        </argLine>
-                        <includes>
-                            <include>**/Test*.java</include>
-                            <include>**/*Test.java</include>
-                            <include>**/*Tests.java</include>
-                            <include>**/*TestCase.java</include>
-                        </includes>
-                        <excludes>
-                            <exclude>**/*IT.java</exclude>
-                        </excludes>
-                        <!-- new configuration needed for coverage per test -->
-                        <properties>
-                            <property>
-                                <name>listener</name>
-                                <value>org.sonar.java.jacoco.JUnitListener</value>
-                            </property>
-                        </properties>
-                    </configuration>
-                </plugin>
+                    <encoding>${project.build.sourceEncoding}</encoding>
 
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
-                </plugin>
-                <!-- Required for generating coverage report -->
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.2</version>
-                    <executions>
-                        <execution>
-                            <id>default-prepare-agent</id>
-                            <goals>
-                                <goal>prepare-agent</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>default-report</id>
-                            <!--<phase>prepare-package</phase>-->
-                            <goals>
-                                <goal>report</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>default-check</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <rules> <!-- only used for jacoco:check goal https://www.eclemma.org/jacoco/trunk/doc/check-mojo.html -->
-                            <rule>
-                                <element>CLASS
-                                </element> <!-- can be specified by BUNDLE, PACKAGE, CLASS, SOURCEFILE or METHOD -->
-                                <excludes>
-                                    <exclude>*Test</exclude> <!-- Exclude Test classes from coverage report -->
-                                </excludes>
-                                <limits>
-                                    <!-- An example limit-->
-                                    <!--<limit>
-                                        <counter>LINE</counter>--> <!-- INSTRUCTION, LINE, BRANCH, COMPLEXITY, METHOD, CLASS -->
-                                    <!--<value>COVEREDRATIO</value>--> <!-- can be specified by TOTALCOUNT, COVEREDCOUNT, MISSEDCOUNT, COVEREDRATIO, MISSEDRATIO -->
-                                    <!--<minimum>0.50</minimum>-->
-                                    <!--</limit>-->
-                                </limits>
-                            </rule>
-                        </rules>
-                    </configuration>
-                </plugin>
-                <!-- Required for generating PIT Mutation reports -->
-                <plugin>
-                    <groupId>org.pitest</groupId>
-                    <artifactId>pitest-maven</artifactId>
-                    <version>1.4.3</version>
-                    <dependencies>
-                        <dependency> <!-- Only required because PITest does not work with JUnit5 without it -->
-                            <groupId>org.pitest</groupId>
-                            <artifactId>pitest-junit5-plugin</artifactId>
-                            <version>0.8</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <!--<timestampedReports>false</timestampedReports>-->
-                        <!--<inScopeClasses>
-                            <param>lapr.project.model.*</param>
-                            <param>lapr.project.utils.*</param>
-                        </inScopeClasses>-->
-                        <targetClasses>
-                            <param>switch2018.*</param>
-                        </targetClasses>
-                        <targetTests>
-                            <param>switch2018.*</param>
-                        </targetTests>
+                </configuration>
+            </plugin>
 
-                        <outputFormats>
-                            <outputFormat>XML</outputFormat>
-                            <outputFormat>HTML</outputFormat>
-                        </outputFormats>
-                        <!--<verbose>true</verbose>-->
-                    </configuration>
-                </plugin>
+            <!-- Required for running unit tests -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <!-- new configuration needed for coverage per test -->
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>org.sonar.java.jacoco.JUnitListener</value>
+                        </property>
+                    </properties>
 
-            </plugins>
-        </pluginManagement>
+                </configuration>
+                <dependencies>
+                    <!-- This dependency must be included, otherwise Maven Surefire will not recognise the test cases -->
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>1.2.0</version>
+                    </dependency>
+                </dependencies>
+
+            </plugin>
+
+            <!-- Required for generating coverage report -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Required for generating PIT Mutation reports -->
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.4.3</version>
+                <dependencies>
+                    <dependency> <!-- Only required because PITest does not work with JUnit5 without it -->
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>0.8</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <!--<timestampedReports>false</timestampedReports>-->
+                    <!--<inScopeClasses>
+                        <param>lapr.project.model.*</param>
+                        <param>lapr.project.utils.*</param>
+                    </inScopeClasses>-->
+                    <targetClasses>
+                        <param>Sprint_0.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>Sprint_0.*</param>
+                    </targetTests>
+
+                    <outputFormats>
+                        <outputFormat>XML</outputFormat>
+                        <outputFormat>HTML</outputFormat>
+                    </outputFormats>
+                    <!--<verbose>true</verbose>-->
+                </configuration>
+            </plugin>
+
+            <!-- Build an executable JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
+
 
 </project>
