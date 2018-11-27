@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is the ReadingList Class, A List of Readings that the Sensor gets.
+ * This is the ReadingList Class, A List of Readings that the Sensor receives.
  */
 public class ReadingList {
     List<Reading> mReadings;
@@ -18,10 +18,11 @@ public class ReadingList {
 
     /**
      * Method to Add a reading only if it's not contained in the list already.
+     *
      * @param reading
      * @return
      */
-    public boolean addReading (Reading reading) {
+    public boolean addReading(Reading reading) {
         if (!(mReadings.contains(reading))) {
             mReadings.add(reading);
             return true;
@@ -31,20 +32,20 @@ public class ReadingList {
     }
 
     /**
-     *
      * @param reading
      * @return
      */
-    public boolean containsReading (Reading reading) {
+    public boolean containsReading(Reading reading) {
         return mReadings.contains(reading);
     }
 
 
     /**
      * Getter
+     *
      * @return
      */
-    public List<Reading> getListOfReadings () {
+    public List<Reading> getListOfReadings() {
         return this.mReadings;
     }
 }

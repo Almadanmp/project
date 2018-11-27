@@ -16,17 +16,18 @@ public class SensorList {
         }
     }
 
-    public SensorList(){}
 
     public SensorList(Sensor sensorToAdd) {
         sensorList = new ArrayList<>();
         sensorList.add(sensorToAdd);
     }
 
-    public void addSensor(Sensor sensorToAdd) {
+    public boolean addSensor(Sensor sensorToAdd) {
         if (!(sensorList.contains(sensorToAdd))) {
             sensorList.add(sensorToAdd);
+            return true;
         }
+        return false;
     }
 
     public boolean containsSensor(Sensor sensor){
