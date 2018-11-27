@@ -95,4 +95,12 @@ public class ReadingTest{
         boolean expectedResult = true;
         assertEquals(result,expectedResult);
     }
+
+    @Test
+    public void hashCodeDummyTest(){
+        Reading r1 = new Reading(2, new GregorianCalendar());
+        int expectedResult = 1;
+        int actualResult = r1.hashCode();
+        assertEquals(expectedResult,actualResult);
+    }
 }
