@@ -110,4 +110,12 @@ public class Type_Area_Test {
         //Assert
         assertEquals(expectedResult,actualResult);
     }
+
+    @Test
+    public void hashCodeDummyTest() {
+        TypeArea t1 = new TypeArea("Rua");
+        int expectedResult = 1;
+        int actualResult = t1.hashCode();
+        assertEquals(expectedResult, actualResult);
+    }
 }
