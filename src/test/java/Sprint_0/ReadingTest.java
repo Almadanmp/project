@@ -6,7 +6,7 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
-class ReadingTest {
+public class ReadingTest{
     @Test
     public void getmDateTest() {
         Date date1 = new Date(110,5,11,15,30,26);
