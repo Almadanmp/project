@@ -16,6 +16,8 @@ public class SensorList {
         }
     }
 
+    public SensorList(){}
+
     public SensorList(Sensor sensorToAdd) {
         sensorList = new ArrayList<>();
         sensorList.add(sensorToAdd);
@@ -25,6 +27,10 @@ public class SensorList {
         if (!(sensorList.contains(sensorToAdd))) {
             sensorList.add(sensorToAdd);
         }
+    }
+
+    public boolean containsSensor(Sensor sensor){
+        return sensorList.contains(sensor);
     }
 
     public Sensor[] getSensors() {
