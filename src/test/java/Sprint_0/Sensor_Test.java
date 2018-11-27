@@ -90,5 +90,29 @@ public class Sensor_Test {
         //Assert
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void seeIfEqualsWorksNotAnInstance() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
+        Local l1 = new Local(21, 23, 1);
+        boolean expectedResult = false;
+        boolean actualResult;
+
+        //Act
+        actualResult = s1.equals(l1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
+    public void hashCodeDummyTest() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
+        int expectedResult = 1;
+        int actualResult = s1.hashCode();
+        assertEquals(expectedResult, actualResult);
+    }
 }
 
