@@ -92,5 +92,21 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, result);
     }
+    @Test
+    public void ensureThatAReadingDoesNotAddBecauseItIsAlreadyContained() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25));
+        Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3));
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        readingList.addReading(reading2);
+        boolean expectedResult = true;
 
+        //Act
+        boolean result = readingList.containsReading(reading2);
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
 }
