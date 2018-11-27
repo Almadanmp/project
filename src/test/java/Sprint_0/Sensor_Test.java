@@ -12,7 +12,7 @@ public class Sensor_Test {
     @Test
     public void seeIfSetGetNameWorks() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
+        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
         c.setName("Temperatura");
         String expectedResult = "Temperatura";
         String actualResult;
@@ -24,18 +24,15 @@ public class Sensor_Test {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void seeIfSetGetNameWorksWithEmptyName() {
-        //TODO finish exception test
-        Sensor c = new Sensor("", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
-        String actualResult = c.getName();
-
+    @Test(expected = IllegalArgumentException.class)
+    public void seeIfSetGetThrowsException() {
+        Sensor c = new Sensor("", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
     }
 
     @Test
     public void seeIfSetGetLocalWorks() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
+        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
         Local testLocal = new Local(34, 2, 110);
         Local expectedResult = new Local(34, 2, 110);
         Local actualResult;
@@ -51,7 +48,7 @@ public class Sensor_Test {
     @Test
     public void seeIfGetSetTypeSensorWorks() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
+        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
         TypeSensor testSensor = new TypeSensor("Atmosphere");
         TypeSensor expectedResult = new TypeSensor("Atmosphere");
         TypeSensor actualResult;
@@ -67,17 +64,34 @@ public class Sensor_Test {
     @Test
     public void seeIfGetSetDateStartedFunctioningWorks() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
+        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
         Calendar myCalendar = new GregorianCalendar(2014, Calendar.FEBRUARY, 11);
         Date expectedResult = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
         Date actualResult;
 
         //Act
         c.setDateStartedFunctioning(myCalendar.getTime());
-        actualResult=c.getDateStartedFunctioning();
+        actualResult = c.getDateStartedFunctioning();
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfSeTAndGetReadingList() {
+        //Arrange
+        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
+        ReadingList rl1 = new ReadingList();
+        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25));
+        rl1.addReading(reading1);
+
+        //Act
+        c.setReadingList(rl1);
+        ReadingList expectedResult = rl1;
+        ReadingList result = c.getReadingList();
+
+        //Assert
+        assertEquals(expectedResult, result);
     }
 }
 
