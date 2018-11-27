@@ -1,11 +1,12 @@
 package Sprint_0;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReadingList {
     List<Reading> mReadings;
 
-    public readingList() {
+    public ReadingList() {
         mReadings = new ArrayList<>();
     }
 
