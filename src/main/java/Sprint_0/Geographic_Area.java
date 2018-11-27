@@ -17,9 +17,8 @@ public class Geographic_Area {
     // They can be made with or without a sensor list.
 
     /**
-     *
      * @param typeArea Determines the type of the GeoArea object - e.g. "Street", "City", etc.
-     * @param local Determines the central point of a GeoArea. Is a point, not an area.
+     * @param local    Determines the central point of a GeoArea. Is a point, not an area.
      */
 
     public Geographic_Area(TypeArea typeArea, Local local) {
@@ -44,16 +43,15 @@ public class Geographic_Area {
     }
 
     /**
-     *
      * @param listToSet The condition inside the method determines that the listToSet will be refused if there are duplicate
      *                  sensors in it.
      * @return Returns true if the list was added. Returns false otherwise.
      */
 
-    public boolean setSensorList(SensorList listToSet){
-        for (int i = 0; i < listToSet.getSensorList().size(); i++){
-            for (int j = i+1; j < listToSet.getSensorList().size(); j++){
-                if (listToSet.getSensorList().get(i).equals(listToSet.getSensorList().get(j))){
+    public boolean setSensorList(SensorList listToSet) {
+        for (int i = 0; i < listToSet.getSensorList().size(); i++) {
+            for (int j = i + 1; j < listToSet.getSensorList().size(); j++) {
+                if (listToSet.getSensorList().get(i).equals(listToSet.getSensorList().get(j))) {
                     return false;
                 }
             }
