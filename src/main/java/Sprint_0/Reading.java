@@ -1,6 +1,7 @@
 package Sprint_0;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * This class will contain a value read by a Sensor, associated with a date of said reading.
@@ -8,14 +9,14 @@ import java.util.Date;
 public class Reading {
 
     private double mValue;
-    private Date mDate;
+    private GregorianCalendar mDate;
 
     /**
      * Builder with 'value' and 'date'
      * @param value
      * @param date
      */
-    public Reading(double value, Date date) {
+    public Reading(double value, GregorianCalendar date) {
         setmValue(value);
         setData(date);
     }
@@ -44,11 +45,11 @@ public class Reading {
      * getters e setters
      * @param date
      */
-    public void setData(Date date) {
+    public void setData(GregorianCalendar date) {
         this.mDate = date;
     }
 
-    public Date getmDate() {
+    public GregorianCalendar getmDate() {
         return this.mDate;
     }
 

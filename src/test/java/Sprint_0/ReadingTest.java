@@ -3,27 +3,28 @@ package Sprint_0;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertEquals;
 
 public class ReadingTest{
     @Test
     public void getmDateTest() {
-        Date date1 = new Date(110,5,11,15,30,26);
+        GregorianCalendar date1 = new GregorianCalendar(110,5,11,15,30,26);
         Reading l1 = new Reading(15.0,date1);
-        Date result =l1.getmDate();
-        Date expectedResult = date1;
+        GregorianCalendar result =l1.getmDate();
+        GregorianCalendar expectedResult = date1;
         assertEquals(expectedResult,result);
     }
 
     @Test
     public void setDateSeeIfItWorks() {
-        Date date1 = new Date(110,5,11,15,30,26);
+        GregorianCalendar date1 = new GregorianCalendar(110,5,11,15,30,26);
         Reading l1 = new Reading(15,date1);
-        Date date2 = new Date(118,5,11,15,30,26);
+        GregorianCalendar date2 = new GregorianCalendar(118,5,11,15,30,26);
         l1.setData(date2);
-        Date expectedResult = date2;
-        Date result = l1.getmDate();
+        GregorianCalendar expectedResult = date2;
+        GregorianCalendar result = l1.getmDate();
         assertEquals(expectedResult,result);
     }
     @Test
@@ -47,7 +48,7 @@ public class ReadingTest{
     }
     @Test
     public void testSetEGetValueOfReading(){
-        Date date1 = new Date(118,10,26);
+        GregorianCalendar date1 = new GregorianCalendar(118,10,26);
         ReadingList listal = new ReadingList();
         Reading leitura1 = new Reading(15,date1);
         listal.addReading(leitura1);
