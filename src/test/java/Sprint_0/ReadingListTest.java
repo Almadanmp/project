@@ -130,4 +130,23 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult,actualResult);
     }
+
+    @Test
+    public void seeIfGetMostRecentReadingSwitchedDates() {
+
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        Reading reading2= new Reading(16, new GregorianCalendar(118, 11, 25));
+        Reading reading1 = new Reading(29, new GregorianCalendar(118, 9, 3));
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        Reading expectedResult = new Reading(16, new GregorianCalendar(118, 11, 25));
+        Reading actualResult;
+
+        //Act
+        actualResult = readingList.getMostRecentReading();
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
 }
