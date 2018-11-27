@@ -21,7 +21,7 @@ public class Geographic_Area_Methods_Test {
         ga1.setLocal(l1);
         ga2.setLocal(l2);
         double result = Geographic_Area_Methods.getLinearDistanceBetweenTwoPoints( ga1, ga2);
-        double expectedresult = 2.236;
-        assertEquals(expectedresult, result, 0.001);
+        double expectedresult = 244;
+        assertEquals(expectedresult, result, 1);
     }
 }
