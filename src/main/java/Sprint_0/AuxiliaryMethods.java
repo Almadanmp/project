@@ -5,7 +5,7 @@ public class AuxiliaryMethods {
     public static boolean isNameValid(String name) {
         if (name != null && !name.isEmpty()) {
             {
-                return false;
+                return true;
             }
         }
         throw new IllegalArgumentException("Please Insert Valid Name");

@@ -39,13 +39,6 @@ public class ReadingList {
         return mReadings.contains(reading);
     }
 
-    /**
-     * Setter
-     * @param readings
-     */
-    public void setReadings(List<Reading> readings) {
-        this.mReadings = readings;
-    }
 
     /**
      * Getter

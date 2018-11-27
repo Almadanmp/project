@@ -8,7 +8,10 @@ public class TypeArea {
     }
 
     public void setTypeOfGeographicArea(String nameGiven) {
-        this.typeDesignation = nameGiven;
+        if( nameGiven != null) {
+            this.typeDesignation = nameGiven;
+        }
+        throw new IllegalArgumentException("Please Insert Valid Designation.");
     }
 
     public String getTypeOfGeographicArea() {

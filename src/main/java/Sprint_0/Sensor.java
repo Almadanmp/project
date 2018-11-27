@@ -1,7 +1,6 @@
 package Sprint_0;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Represents a Sensor.
@@ -13,12 +12,10 @@ public class Sensor {
     private TypeSensor typeSensor;
     private Local local;
     private Date dateStartedFunctioning;
-    private List<ReadingList> readingList;
+    private ReadingList readingList;
 
-    public Sensor (String name, TypeSensor typeSensor, Local local, Date date){
-        if(name != null && !name.isEmpty()){
-        setName(name);}
-
+    public Sensor(String name, TypeSensor typeSensor, Local local, Date date) {
+        setName(name);
         setTypeSensor(typeSensor);
         setLocal(local);
         setDateStartedFunctioning(date);
@@ -28,9 +25,9 @@ public class Sensor {
      * Getters and Setters
      */
     public void setName(String name) {
-        if (name != null && !name.isEmpty()) {
+        if (AuxiliaryMethods.isNameValid(name)) {
             this.name = name;
-        } throw new IllegalArgumentException("Please Insert Valid Name");
+        }
     }
 
     public void setLocal(Local local) {
@@ -65,6 +62,13 @@ public class Sensor {
         return result;
     }
 
+    public ReadingList getReadingList() {
+        return readingList;
+    }
+
+    public void setReadingList(ReadingList readingList) {
+        this.readingList = readingList;
+    }
 
     /**
      * Specific Methods
