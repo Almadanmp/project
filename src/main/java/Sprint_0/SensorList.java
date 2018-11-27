@@ -16,7 +16,6 @@ public class SensorList {
         }
     }
 
-    public SensorList(){}
 
     public SensorList(Sensor sensorToAdd) {
         sensorList = new ArrayList<>();
