@@ -2,6 +2,7 @@ package Sprint_0;
 
 public class TypeArea {
     private String name;
+    private Object testType;
 
     public TypeArea(String name) {
         setType(name);
@@ -17,6 +18,7 @@ public class TypeArea {
     }
 
     public boolean equals(Object testType) {
+        this.testType = testType;
         if (this == testType) {
             return true;
         }
