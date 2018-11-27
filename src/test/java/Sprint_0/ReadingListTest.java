@@ -1,11 +1,9 @@
 package Sprint_0;
 
 import org.junit.Test;
-
-import java.time.LocalDate;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 public class ReadingListTest {
 
