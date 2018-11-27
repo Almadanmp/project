@@ -18,6 +18,7 @@ public class TypeSensor {
         return result;
     }
 
+    @Override
     public boolean equals(Object testSensor) {
         if (this == testSensor){
             return true;
@@ -30,5 +31,10 @@ public class TypeSensor {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return 1;
     }
 }

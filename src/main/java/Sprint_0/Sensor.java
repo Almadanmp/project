@@ -69,6 +69,8 @@ public class Sensor {
     /**
      * Specific Methods
      */
+
+    @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
             return true;
@@ -81,5 +83,10 @@ public class Sensor {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return 1;
     }
 }

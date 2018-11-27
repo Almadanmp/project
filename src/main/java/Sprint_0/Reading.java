@@ -58,6 +58,8 @@ public class Reading {
      * @param o
      * @return
      */
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -74,4 +76,8 @@ public class Reading {
         }
     }
 
+    @Override
+    public int hashCode(){
+        return 1;
+    }
 }

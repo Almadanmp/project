@@ -13,7 +13,7 @@ public class Local {
     public Local(double latitude, double longitude, double altitude) {
         setLatitude(latitude);
         setLongitude(longitude);
-        setAltitude (altitude);
+        setAltitude(altitude);
     }
 
     public void setAltitude(double altitude) {
@@ -43,15 +43,16 @@ public class Local {
         return result;
     }
 
-    public double getLinearDistanceBetweenLocals(Local local1, Local local2){
+    public double getLinearDistanceBetweenLocals(Local local1, Local local2) {
         double firstLat = local1.getLatitude();
         double secondLat = local2.getLatitude();
         double firstLon = local1.getLongitude();
         double secondLon = local2.getLongitude();
-        double linearDistance =  Math.sqrt(Math.pow(Math.abs(secondLat-firstLat),2)+Math.pow(Math.abs(secondLon-firstLon),2));
+        double linearDistance = Math.sqrt(Math.pow(Math.abs(secondLat - firstLat), 2) + Math.pow(Math.abs(secondLon - firstLon), 2));
         return linearDistance;
     }
 
+    @Override
     public boolean equals(Object testLocal) {
         if (this == testLocal) {
             return true;
@@ -64,5 +65,10 @@ public class Local {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

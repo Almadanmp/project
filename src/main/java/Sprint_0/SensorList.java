@@ -42,8 +42,8 @@ public class SensorList {
         return result;
     }
 
-    public List getSensorList() {
-        List result = this.sensorList;
+    public List<Sensor> getSensorList() {
+        List<Sensor> result = this.sensorList;
         return result;
     }
 
@@ -51,6 +51,7 @@ public class SensorList {
         sensorList.remove(sensorToRemove);
     }
 
+    @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
             return true;
@@ -63,5 +64,10 @@ public class SensorList {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return 1;
     }
 }

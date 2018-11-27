@@ -15,6 +15,7 @@ public class TypeArea {
         return this.typeDesignation;
     }
 
+    @Override
     public boolean equals(Object objectToTest) {
         if (this == objectToTest) {
             return true;
@@ -27,5 +28,10 @@ public class TypeArea {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return 1;
     }
 }
