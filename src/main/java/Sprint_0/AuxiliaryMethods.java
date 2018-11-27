@@ -11,7 +11,7 @@ public class AuxiliaryMethods {
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
     public static boolean isNameValid(String name) {
-        if (name != null || !name.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
             {
                 return true;
             }
