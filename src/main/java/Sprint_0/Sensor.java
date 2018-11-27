@@ -23,6 +23,9 @@ public class Sensor {
 
     }
 
+    /**
+     * Getters and Setters
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -58,6 +61,11 @@ public class Sensor {
         Date result = this.dateStartedFunctioning;
         return result;
     }
+
+
+    /**
+     * Specific Methods
+     */
 
     public boolean equals(Object testObject) {
         if (this == testObject) {
