@@ -170,6 +170,15 @@ public class SensorList_Test {
         assertEquals(expectedResult, actualResult);
 
     }
+
+    @Test
+    public void hashCodeDummyTest() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
+        SensorList l1 = new SensorList(s1);
+        int expectedResult = 1;
+        int actualResult = l1.hashCode();
+        assertEquals(expectedResult, actualResult);
+    }
 }
 
 
