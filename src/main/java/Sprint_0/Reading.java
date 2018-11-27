@@ -2,6 +2,7 @@ package Sprint_0;
 
 import java.util.Date;
 
+
 public class Reading {
     private double mValue;
     private Date mDate;
