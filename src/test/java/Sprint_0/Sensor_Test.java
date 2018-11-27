@@ -24,20 +24,12 @@ public class Sensor_Test {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void seeIfSetGetNameWorksWithEmptyName() {
-        //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
-        c.setName("");
-        String expectedResult = "";
-        String actualResult;
+        //TODO finish exception test
+        Sensor c = new Sensor("", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
+        String actualResult = c.getName();
 
-        //Act
-        actualResult = c.getName();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-        System.out.println(actualResult);
     }
 
     @Test
