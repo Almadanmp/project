@@ -1,13 +1,13 @@
 package Sprint_0;
 
-import org.junit.Test;
 
-import java.util.Date;
+import org.junit.jupiter.api.Test;
 import java.util.GregorianCalendar;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReadingTest{
+
     @Test
     public void getmDateTest() {
         //Arrange

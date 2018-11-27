@@ -1,11 +1,12 @@
 package Sprint_0;
 
-import org.junit.Test;
 
-import java.util.Date;
+import org.junit.jupiter.api.Test;
+
 import java.util.GregorianCalendar;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ReadingListTest {
 
@@ -120,13 +121,13 @@ public class ReadingListTest {
         Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3));
         readingList.addReading(reading1);
         readingList.addReading(reading2);
-        double expectedResult = 15;
-        double actualResult;
+        Reading expectedResult = new Reading(15, new GregorianCalendar(118, 11, 25));
+        Reading actualResult;
 
         //Act
         actualResult = readingList.getMostRecentReading();
 
         //Assert
-        assertEquals(expectedResult,actualResult,0.001);
+        assertEquals(expectedResult,actualResult);
     }
 }

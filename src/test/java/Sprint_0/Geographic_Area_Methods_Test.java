@@ -1,11 +1,9 @@
 package Sprint_0;
 
-import org.junit.Test;
 
-import java.lang.reflect.Type;
-import java.util.Date;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Geographic_Area_Methods_Test {
 

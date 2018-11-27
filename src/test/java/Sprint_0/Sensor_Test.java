@@ -1,12 +1,14 @@
 package Sprint_0;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class Sensor_Test {
     @Test
@@ -22,11 +24,6 @@ public class Sensor_Test {
 
         //Assert
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void seeIfSetGetThrowsException() {
-        Sensor c = new Sensor("", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
     }
 
     @Test

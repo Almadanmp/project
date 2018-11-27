@@ -1,13 +1,14 @@
 package Sprint_0;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class SensorList_Test {
 
@@ -19,7 +20,7 @@ public class SensorList_Test {
                 new Local(10, 30, 20), new Date());
         Sensor[] expectedResult = new Sensor[]{s1, s2};
         Sensor[] result;
-        SensorList lc = new SensorList(new Sensor[]{s1,s2});
+        SensorList lc = new SensorList(new Sensor[]{s1, s2});
         result = lc.getSensors();
         assertArrayEquals(result, expectedResult);
     }
@@ -169,10 +170,6 @@ public class SensorList_Test {
         assertEquals(expectedResult, actualResult);
 
     }
-
-
-
-
 }
 
 

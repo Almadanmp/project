@@ -57,7 +57,7 @@ public class ReadingList {
      *
      */
 
-    public double getMostRecentReading() {
+    public Reading getMostRecentReading() {
         int mostRecentReadingIndex=0;
         for (int i = 0; i < mReadings.size()-1; i++){
             Date firstDate = mReadings.get(i).getmDate().getTime();
@@ -66,7 +66,7 @@ public class ReadingList {
                 mostRecentReadingIndex = i+1;
             }
         }
-        return mReadings.get(mostRecentReadingIndex).getmValue();
+        return mReadings.get(mostRecentReadingIndex);
     }
 
     /**
