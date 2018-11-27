@@ -74,4 +74,25 @@ public class ReadingTest{
     }
 
 
+    @Test
+    public void testEqualsReturnFalse(){
+        //Arrange
+        GregorianCalendar g1 = new GregorianCalendar(110,10,12);
+        Reading r1 = new Reading(15,g1);
+        int i1 = 0;
+        boolean result = r1.equals(i1);
+        boolean expectedResult = false;
+        assertEquals(result,expectedResult);
+    }
+
+    @Test
+    public void testEqualsReturnTrue(){
+        //Arrange
+        GregorianCalendar g1 = new GregorianCalendar(110,10,12);
+        Reading r1 = new Reading(15,g1);
+        Reading r2 = new Reading(15,g1);
+        boolean result = r1.equals(r2);
+        boolean expectedResult = true;
+        assertEquals(result,expectedResult);
+    }
 }
