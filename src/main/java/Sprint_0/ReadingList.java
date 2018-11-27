@@ -38,7 +38,7 @@ public class ReadingList {
     public boolean containsReading (Reading reading) {
         return mReadings.contains(reading);
     }
-    
+
 
     /**
      * Getter
