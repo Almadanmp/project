@@ -87,52 +87,5 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult,result);
     }
-    @Test
-    public void ensureThatWeGetADayFromAReadingInsideAList() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        Reading reading1 = new Reading(15,new GregorianCalendar(118,11,25));
-        Reading reading2 = new Reading (29,new GregorianCalendar(118,9,3));
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        double expectedResult = 25;
-
-        //Act
-        double result = readingList.getListOfReadings().get(0).getmDate().getDate();
-
-        //Assert
-        assertEquals(expectedResult,result, 0.1);
-    }
-    @Test
-    public void ensureThatWeGetAMonthFromAReadingInsideAList() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        Reading reading1 = new Reading(15,new GregorianCalendar(118,11,25));
-        Reading reading2 = new Reading (29,new GregorianCalendar(118,9,3));
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        double expectedResult = 9;
-
-        //Act
-        double result = readingList.getListOfReadings().get(1).getmDate().getMonth();
-
-        //Assert
-        assertEquals(expectedResult,result,0.1);
-    }
-    @Test
-    public void ensureThatWeGetAYearFromAReadingInsideAList() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        Reading reading1 = new Reading(15,new GregorianCalendar(118,11,25));
-        Reading reading2 = new Reading (29,new GregorianCalendar(118,9,3));
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        double expectedResult = 118;
-
-        //Act
-        double result = readingList.getListOfReadings().get(1).getmDate().getYear();
-
-        //Assert
-        assertEquals(expectedResult,result, 0.1);
-    }
+   
 }
