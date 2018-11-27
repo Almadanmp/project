@@ -92,5 +92,5 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, result);
     }
-    
+
 }
