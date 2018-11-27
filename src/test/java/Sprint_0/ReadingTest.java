@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ReadingTest {
     @Test
-    public void getmData() {
+    public void getmDateTest() {
         Date date1 = new Date(110,5,11,15,30,26);
         Reading l1 = new Reading(15.0,date1);
         Date result =l1.getmDate();
@@ -17,7 +17,7 @@ class ReadingTest {
     }
 
     @Test
-    public void setDataVerSeFunciona() {
+    public void setDateSeeIfItWorks() {
         Date date1 = new Date(110,5,11,15,30,26);
         Reading l1 = new Reading(15,date1);
         Date date2 = new Date(118,5,11,15,30,26);
@@ -27,7 +27,7 @@ class ReadingTest {
         assertEquals(expectedResult,result);
     }
     @Test
-    public void getmValor() {
+    public void getmValueTest() {
         double valor1 = 15.0;
         Reading l1 = new Reading(valor1);
         double result =l1.getmValue();
@@ -36,7 +36,7 @@ class ReadingTest {
     }
 
     @Test
-    public void setValorVerSeFunciona() {
+    public void setValueSeeIfItWorks() {
         double valor1 = 15.0;
         Reading l1 = new Reading(valor1);
         double valor2 = 18.0;
@@ -46,7 +46,7 @@ class ReadingTest {
         assertEquals(expectedResult,result,0.01);
     }
     @Test
-    public void testarSetEGetValorDeLeitura(){
+    public void testSetEGetValueOfReading(){
         Date date1 = new Date(118,10,26);
         ReadingList listal = new ReadingList();
         Reading leitura1 = new Reading(15,date1);
