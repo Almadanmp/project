@@ -53,7 +53,7 @@ public class ReadingListTest {
         double result = readingList.getListOfReadings().get(0).getmValue();
 
         //Assert
-        assertEquals(expectedResult,result);
+        assertEquals (expectedResult,result,0.1);
     }
     @Test
     public void ensureThatWeGetAValueFromAReading2InsideAList() {
@@ -69,7 +69,7 @@ public class ReadingListTest {
         double result = readingList.getListOfReadings().get(1).getmValue();
 
         //Assert
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult,result, 0.1);
     }
     @Test
     public void ensureThatAReadingListDoesNotContainAReading() {
@@ -100,7 +100,7 @@ public class ReadingListTest {
         double result = readingList.getListOfReadings().get(0).getmDate().getDate();
 
         //Assert
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult,result, 0.1);
     }
     @Test
     public void ensureThatWeGetAMonthFromAReadingInsideAList() {
@@ -116,7 +116,7 @@ public class ReadingListTest {
         double result = readingList.getListOfReadings().get(1).getmDate().getMonth();
 
         //Assert
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult,result,0.1);
     }
     @Test
     public void ensureThatWeGetAYearFromAReadingInsideAList() {
@@ -132,6 +132,6 @@ public class ReadingListTest {
         double result = readingList.getListOfReadings().get(1).getmDate().getYear();
 
         //Assert
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult,result, 0.1);
     }
 }
