@@ -1,7 +1,11 @@
 package Sprint_0;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import static java.lang.Double.parseDouble;
 
 /**
  * This is the ReadingList Class, A List of Readings that the Sensor receives.
@@ -48,6 +52,26 @@ public class ReadingList {
     public List<Reading> getListOfReadings() {
         return this.mReadings;
     }
+
+    /**
+     *
+     */
+
+    public double getMostRecentReading() {
+        int mostRecentReadingIndex=0;
+        for (int i = 0; i < mReadings.size()-1; i++){
+            Date firstDate = mReadings.get(i).getmDate().getTime();
+            Date secondDate = mReadings.get(i+1).getmDate().getTime();
+            if (firstDate.before(secondDate)){
+                mostRecentReadingIndex = i+1;
+            }
+        }
+        return mReadings.get(mostRecentReadingIndex).getmValue();
+    }
+
+    /**
+     *
+     */
 }
 
 

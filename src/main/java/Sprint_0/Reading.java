@@ -68,8 +68,7 @@ public class Reading {
             return false;
         } else {
             Reading reading = (Reading) o;
-            if (this.mValue == reading.getmValue() && this.mDate.equals(reading.getmDate())) {
-                return true;
+            if (this.mValue == reading.getmValue() && this.mDate.equals(reading.getmDate())) { return true;
             } else {
                 return false;
             }

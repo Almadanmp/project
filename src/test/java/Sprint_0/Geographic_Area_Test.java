@@ -1,6 +1,5 @@
 package Sprint_0;
 
-import Sprint_0.*;
 import org.junit.Test;
 
 import java.util.Date;
