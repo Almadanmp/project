@@ -25,6 +25,22 @@ public class Sensor_Test {
     }
 
     @Test
+    public void seeIfSetGetNameWorksWithEmptyName() {
+        //Arrange
+        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());
+        c.setName("");
+        String expectedResult = "";
+        String actualResult;
+
+        //Act
+        actualResult = c.getName();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+        System.out.println(actualResult);
+    }
+
+    @Test
     public void seeIfSetGetLocalWorks() {
         //Arrange
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12,31,21), new Date());

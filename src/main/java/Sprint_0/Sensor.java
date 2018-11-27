@@ -16,18 +16,21 @@ public class Sensor {
     private List<ReadingList> readingList;
 
     public Sensor (String name, TypeSensor typeSensor, Local local, Date date){
-        setName(name);
+        if(name != null && !name.isEmpty()){
+        setName(name);}
+
         setTypeSensor(typeSensor);
         setLocal(local);
         setDateStartedFunctioning(date);
-
     }
 
     /**
      * Getters and Setters
      */
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.isEmpty()) {
+            this.name = name;
+        } throw new IllegalArgumentException("Please Insert Valid Name");
     }
 
     public void setLocal(Local local) {
@@ -66,7 +69,6 @@ public class Sensor {
     /**
      * Specific Methods
      */
-
     public boolean equals(Object testObject) {
         if (this == testObject) {
             return true;
