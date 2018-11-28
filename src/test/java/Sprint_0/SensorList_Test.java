@@ -188,6 +188,33 @@ public class SensorList_Test {
     }
 
     @Test
+    public void seeIfGetMostRecentlyUsedSensorWorksSwitchedSensors() {
+
+        //Arrange
+        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25));
+        Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3));
+        Reading reading3 = new Reading(15, new GregorianCalendar(113, 11, 25));
+        Reading reading4 = new Reading(29, new GregorianCalendar(111, 9, 3));
+        ReadingList l1 = new ReadingList();
+        ReadingList l2 = new ReadingList();
+        l1.addReading(reading1);
+        l1.addReading(reading2);
+        l2.addReading(reading3);
+        l2.addReading(reading4);
+        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date(), l1);
+        Sensor s1 = new Sensor("Movimento", new TypeSensor("Atmosphere"), new Local(10, 30, 20), new Date(), l2);
+        SensorList list1 = new SensorList(new Sensor[]{s1, s2});
+        Sensor expectedResult = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date(), l1);
+        Sensor actualResult;
+
+        //Act
+        actualResult = list1.getMostRecentlyUsedSensor();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void equalsSensorListWithDifferentObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21), new Date());

@@ -14,7 +14,7 @@ public class ReadingListTest {
     public void ensureThatWeAddAReading1ToAList() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25));
+        Reading reading1 = new Reading(17, new GregorianCalendar(118, 11, 25));
         Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3));
         readingList.addReading(reading1);
         readingList.addReading(reading2);
@@ -32,7 +32,7 @@ public class ReadingListTest {
         //Arrange
         ReadingList readingList = new ReadingList();
         Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25));
-        Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3));
+        Reading reading2 = new Reading(2, new GregorianCalendar(118, 9, 3));
         readingList.addReading(reading1);
         readingList.addReading(reading2);
         boolean expectedResult = true;
