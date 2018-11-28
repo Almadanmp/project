@@ -34,4 +34,18 @@ public class Geographic_Area_Methods {
         dist = rad2deg(dist);
         return (dist * 60 * 1.1515 * 1.609344);
     }
+
+    public static double getLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
+        Local l1 = sensor1.getLocal();
+        Local l2 = sensor2.getLocal();
+        double latitude1 = l1.getLatitude();
+        double latitude2 = l2.getLatitude();
+        double longitude1 = l1.getLongitude();
+        double longitude2 = l2.getLongitude();
+        double theta = longitude1 - longitude2;
+        double dist = Math.sin(deg2rad(latitude1)) * Math.sin(deg2rad(latitude2)) + Math.cos(deg2rad(latitude1)) * Math.cos(deg2rad(latitude2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        return (dist * 60 * 1.1515 * 1.609344);
+    }
 }

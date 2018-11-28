@@ -3,6 +3,7 @@ package Sprint_0;
 
 import org.junit.jupiter.api.Test;
 
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -113,6 +114,21 @@ public class Sensor_Test {
         int expectedResult = 1;
         int actualResult = s1.hashCode();
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void getLinearDistanceBetweenTwoSensors(){
+        Local l1 = new Local(23,46);
+        Local l2 = new Local(25,47);
+        TypeSensor t1 = new TypeSensor("Termometro");
+        TypeSensor t2 = new TypeSensor("Lololometro");
+        Sensor s1 = new Sensor("Sensor1", t1, l1, new Date());
+        Sensor s2 = new Sensor("Sensor2", t2, l2, new Date());
+        s1.setLocal(l1);
+        s2.setLocal(l2);
+        double result = Geographic_Area_Methods.getLinearDistanceBetweenTwoSensors( s1, s2);
+        double expectedresult = 244;
+        assertEquals(expectedresult, result, 1);
     }
 }
 
