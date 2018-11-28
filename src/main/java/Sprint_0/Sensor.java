@@ -21,6 +21,14 @@ public class Sensor {
         setDateStartedFunctioning(date);
     }
 
+    public Sensor(String name, TypeSensor typeSensor, Local local, Date date, ReadingList readingList) {
+        setName(name);
+        setTypeSensor(typeSensor);
+        setLocal(local);
+        setDateStartedFunctioning(date);
+        setReadingList(readingList);
+    }
+
     /**
      * Getters and Setters
      */

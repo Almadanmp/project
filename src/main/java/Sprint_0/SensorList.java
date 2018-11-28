@@ -2,6 +2,7 @@ package Sprint_0;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class SensorList {
@@ -30,7 +31,7 @@ public class SensorList {
         return false;
     }
 
-    public boolean containsSensor(Sensor sensor){
+    public boolean containsSensor(Sensor sensor) {
         return sensorList.contains(sensor);
     }
 
@@ -52,6 +53,21 @@ public class SensorList {
         sensorList.remove(sensorToRemove);
     }
 
+
+    public Sensor getMostRecentlyUsedSensor() {
+        List<Sensor> listToTest = this.sensorList;
+        int indexMostRecentlyUsedSensor = 0;
+        for (int i = 0; i < listToTest.size() - 1; i++) {
+            Date firstDate = listToTest.get(i).getReadingList().getMostRecentReading().getmDate().getTime();
+            Date secondDate = listToTest.get(i + 1).getReadingList().getMostRecentReading().getmDate().getTime();
+            if (firstDate.before(secondDate)) {
+                indexMostRecentlyUsedSensor = i + 1;
+            }
+        }
+        Sensor result = listToTest.get(indexMostRecentlyUsedSensor);
+        return result;
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
@@ -61,14 +77,14 @@ public class SensorList {
             return false;
         }
         SensorList list = (SensorList) testObject;
-        if (Arrays.equals(this.getSensors(), list.getSensors())){
+        if (Arrays.equals(this.getSensors(), list.getSensors())) {
             return true;
         }
         return false;
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return 1;
     }
 }
