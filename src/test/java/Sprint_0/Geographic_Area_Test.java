@@ -145,4 +145,33 @@ public class Geographic_Area_Test {
         assertEquals(expectedResult, result, 0.01);
 
     }
+    @Test
+    public void ensureThatWeRemoveAListWithAnotherType() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3));
+        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4));
+        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1));
+        ReadingList readingList2 = new ReadingList();
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 12, 20));
+        Reading r5 = new Reading(25, new GregorianCalendar(2018, 12, 2));
+        Reading r6 = new Reading(45, new GregorianCalendar(2018, 12, 1));
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList2.addReading(r4);
+        readingList2.addReading(r5);
+        readingList2.addReading(r6);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(), readingList);
+        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade"), new Local(16, 17, 18), new Date(), readingList2);
+        SensorList sensorList = new SensorList(s1);
+        sensorList.addSensor(s2);
+        Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
+        double expectedResult = 19;
+        //Act
+        double result = ga1.getMostRecentReadingValue("Temperatura");
+        //Assert
+        assertEquals(expectedResult, result, 0.01);
+
+    }
 }
