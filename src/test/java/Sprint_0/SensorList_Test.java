@@ -194,6 +194,7 @@ public class SensorList_Test {
     public void seeIfGetMostRecentlyUsedSensorWorks() {
 
         //Arrange
+
         Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25).getTime());
         Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3).getTime());
         Reading reading3 = new Reading(15, new GregorianCalendar(113, 11, 25).getTime());
