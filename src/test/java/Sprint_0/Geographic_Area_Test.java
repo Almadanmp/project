@@ -4,6 +4,7 @@ package Sprint_0;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -89,5 +90,24 @@ public class Geographic_Area_Test {
         double result = ga1.calculateDistanceToGA(ga2);
         double expectedresult = 244;
         assertEquals(expectedresult, result, 1);
+    }
+    @Test
+    public void ensureThatWeGetMostRecentReadingValueOfACertainTypeOfSensor(){
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15,new GregorianCalendar(2018,12,3));
+        Reading r2 = new Reading(19,new GregorianCalendar(2018,12,4));
+        Reading r3 = new Reading(17,new GregorianCalendar(2018,12,1));
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(16,17,18),new Date(108,11,3),readingList);
+        SensorList sensorList = new SensorList(s1);
+        Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"),new Local(16,17,18),sensorList);
+        double expectedResult = 19;
+
+        double result = ga1.getMostRecentReadingValue("Temperatura");
+
+        assertEquals(expectedResult,result,0.01);
+
     }
 }

@@ -76,7 +76,7 @@ public class Geographic_Area {
         return result;
     }
 
-    public double getMostRecentReading(String typeOfSensor){
+    public double getMostRecentReadingValue(String typeOfSensor){
         SensorList listToTest = this.sensorList;
         for(int i = 0; i < listToTest.getSensorList().size(); i++){
             if(!(listToTest.getSensorList().get(i).getTypeSensor().getName().equals(typeOfSensor))){

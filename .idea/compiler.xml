@@ -14,7 +14,6 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="GroupProject" options="-Werror -Xlint:all" />
       <module name="project_g2" options="-Werror -Xlint:all" />
     </option>
   </component>
