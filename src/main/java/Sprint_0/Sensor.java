@@ -30,7 +30,7 @@ public class Sensor {
     }
 
     /**
-     * Getters and Setters
+     * Getters and Setters.
      */
     public void setName(String name) {
         if (AuxiliaryMethods.isNameValid(name)) {
@@ -78,13 +78,13 @@ public class Sensor {
         this.readingList = readingList;
     }
 
-    public double calculateDistanceToSensor(Sensor s1){
+    public double calculateDistanceToSensor(Sensor s1) {
         Local l = s1.getLocal();
         return this.local.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     /**
-     * Specific Methods
+     * Specific Methods.
      */
 
     @Override
@@ -103,7 +103,7 @@ public class Sensor {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return 1;
     }
 }
