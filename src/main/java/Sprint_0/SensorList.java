@@ -86,8 +86,8 @@ public class SensorList {
         List<Sensor> listToTest = this.sensorList;
         int indexMostRecentlyUsedSensor = 0;
         for (int i = 0; i < listToTest.size() - 1; i++) {
-            Date firstDate = listToTest.get(i).getReadingList().getMostRecentReading().getmDate().getTime();
-            Date secondDate = listToTest.get(i + 1).getReadingList().getMostRecentReading().getmDate().getTime();
+            Date firstDate = listToTest.get(i).getReadingList().getMostRecentReading().getmDate();
+            Date secondDate = listToTest.get(i + 1).getReadingList().getMostRecentReading().getmDate();
             if (firstDate.before(secondDate)) {
                 indexMostRecentlyUsedSensor = i + 1;
             }
