@@ -80,7 +80,7 @@ public class Sensor_Test {
         //Arrange
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
         ReadingList rl1 = new ReadingList();
-        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25));
+        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25).getTime());
         rl1.addReading(reading1);
 
         //Act
