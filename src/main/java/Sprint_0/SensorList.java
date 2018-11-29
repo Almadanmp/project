@@ -5,8 +5,16 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Represents a List of Sensors.
+ */
 public class SensorList {
     private List<Sensor> sensorList;
+
+    /**
+     * Constructor to always create an ArrayList of Arrays.
+     * @param sensorsToAdd
+     */
 
     public SensorList(Sensor[] sensorsToAdd) {
         sensorList = new ArrayList<>();
@@ -17,11 +25,20 @@ public class SensorList {
         }
     }
 
-
+    /**
+     * Constructor to always create an Array of Sensors.
+     * @param sensorToAdd
+     */
     public SensorList(Sensor sensorToAdd) {
         sensorList = new ArrayList<>();
         sensorList.add(sensorToAdd);
     }
+
+    /**
+     *Method to Add a sensor only if it's not contained in the list already.
+     * @param sensorToAdd
+     * @return
+     */
 
     public boolean addSensor(Sensor sensorToAdd) {
         if (!(sensorList.contains(sensorToAdd))) {
@@ -35,6 +52,10 @@ public class SensorList {
         return sensorList.contains(sensor);
     }
 
+    /**
+     * Getter (array of sensors)
+     * @return
+     */
     public Sensor[] getSensors() {
         int sizeOfResultArray = sensorList.size();
         Sensor[] result = new Sensor[sizeOfResultArray];
@@ -44,6 +65,10 @@ public class SensorList {
         return result;
     }
 
+    /**
+     * Gettter (list of sensors)
+     * @return
+     */
     public List<Sensor> getSensorList() {
         List<Sensor> result = this.sensorList;
         return result;
@@ -53,7 +78,10 @@ public class SensorList {
         sensorList.remove(sensorToRemove);
     }
 
-
+    /**
+     *
+     * @return
+     */
     public Sensor getMostRecentlyUsedSensor() {
         List<Sensor> listToTest = this.sensorList;
         int indexMostRecentlyUsedSensor = 0;
@@ -68,6 +96,11 @@ public class SensorList {
         return result;
     }
 
+    /**
+     * Specific Methods.
+     * @param testObject
+     * @return
+     */
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
