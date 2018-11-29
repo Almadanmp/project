@@ -86,4 +86,9 @@ public class Geographic_Area {
         double result = listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
         return result;
     }
+
+    public double calculateDistanceToGA(Geographic_Area ga){
+        Local l = ga.getLocal();
+        return this.local.getLinearDistanceBetweenLocalsInKm(l);
+    }
 }

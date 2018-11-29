@@ -52,6 +52,30 @@ public class Local {
         return linearDistance;
     }
 
+    /**converte PARA graus radianos
+     */
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    /**converte DE graus radianos
+     */
+    private static double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+    public double getLinearDistanceBetweenLocalsInKm(Local local1) {
+        double latitude1 = local1.getLatitude();
+        double latitude2 = getLatitude();
+        double longitude1 = local1.getLongitude();
+        double longitude2 = getLongitude();
+        double theta = longitude1 - longitude2;
+        double dist = Math.sin(deg2rad(latitude1)) * Math.sin(deg2rad(latitude2)) + Math.cos(deg2rad(latitude1)) * Math.cos(deg2rad(latitude2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        return (dist * 60 * 1.1515 * 1.609344);
+    }
+
     @Override
     public boolean equals(Object testLocal) {
         if (this == testLocal) {
