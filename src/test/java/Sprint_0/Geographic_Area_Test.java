@@ -105,7 +105,7 @@ public class Geographic_Area_Test {
         readingList.addReading(r1);
         readingList.addReading(r2);
         readingList.addReading(r3);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(108, 11, 3), readingList);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(), readingList);
         SensorList sensorList = new SensorList(s1);
         Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
         double expectedResult = 19;
@@ -133,8 +133,8 @@ public class Geographic_Area_Test {
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(108, 11, 3), readingList);
-        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(108, 11, 3), readingList2);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(), readingList);
+        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(), readingList2);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
