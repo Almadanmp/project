@@ -99,9 +99,9 @@ public class Geographic_Area_Test {
     public void ensureThatWeGetMostRecentReadingValueOfACertainTypeOfSensor() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3));
-        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4));
-        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1));
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3).getTime());
+        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4).getTime());
+        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1).getTime());
         readingList.addReading(r1);
         readingList.addReading(r2);
         readingList.addReading(r3);
@@ -120,13 +120,13 @@ public class Geographic_Area_Test {
     public void ensureThatWeGetMostRecentReadingValueOfACertainTypeOfSensorWithMultipleSensors() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3));
-        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4));
-        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1));
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3).getTime());
+        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4).getTime());
+        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1).getTime());
         ReadingList readingList2 = new ReadingList();
-        Reading r4 = new Reading(20, new GregorianCalendar(2018, 12, 20));
-        Reading r5 = new Reading(25, new GregorianCalendar(2018, 12, 2));
-        Reading r6 = new Reading(45, new GregorianCalendar(2018, 12, 1));
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 12, 20).getTime());
+        Reading r5 = new Reading(25, new GregorianCalendar(2018, 12, 2).getTime());
+        Reading r6 = new Reading(45, new GregorianCalendar(2018, 12, 1).getTime());
         readingList.addReading(r1);
         readingList.addReading(r2);
         readingList.addReading(r3);
@@ -149,13 +149,13 @@ public class Geographic_Area_Test {
     public void ensureThatWeRemoveAListWithAnotherType() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3));
-        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4));
-        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1));
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3).getTime());
+        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4).getTime());
+        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1).getTime());
         ReadingList readingList2 = new ReadingList();
-        Reading r4 = new Reading(20, new GregorianCalendar(2018, 12, 20));
-        Reading r5 = new Reading(25, new GregorianCalendar(2018, 12, 2));
-        Reading r6 = new Reading(45, new GregorianCalendar(2018, 12, 1));
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 12, 20).getTime());
+        Reading r5 = new Reading(25, new GregorianCalendar(2018, 12, 2).getTime());
+        Reading r6 = new Reading(45, new GregorianCalendar(2018, 12, 1).getTime());
         readingList.addReading(r1);
         readingList.addReading(r2);
         readingList.addReading(r3);
