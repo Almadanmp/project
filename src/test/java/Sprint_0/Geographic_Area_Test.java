@@ -47,7 +47,7 @@ public class Geographic_Area_Test {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
         SensorList list1 = new SensorList(s1);
         SensorList expectedResult = new SensorList(new Sensor[]{s1});
         SensorList actualResult;
@@ -64,9 +64,9 @@ public class Geographic_Area_Test {
     @Test
     public void seeIfSetSensorListRefusesListWithDuplicates() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
-        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
-        Sensor s3 = new Sensor("Chuva", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new Date());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s3 = new Sensor("Chuva", new TypeSensor("Atmosphere"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
         SensorList l1 = new SensorList(new Sensor[]{s1, s2, s3});
         Geographic_Area c = new Geographic_Area(new TypeArea("Rua"), new Local(12, 35, 2), new SensorList(s1));
         boolean expectedResult = false;
@@ -105,7 +105,7 @@ public class Geographic_Area_Test {
         readingList.addReading(r1);
         readingList.addReading(r2);
         readingList.addReading(r3);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(), readingList);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList);
         SensorList sensorList = new SensorList(s1);
         Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
         double expectedResult = 19;
@@ -133,8 +133,8 @@ public class Geographic_Area_Test {
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(), readingList);
-        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(), readingList2);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList);
+        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList2);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
@@ -162,8 +162,8 @@ public class Geographic_Area_Test {
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new Date(), readingList);
-        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade"), new Local(16, 17, 18), new Date(), readingList2);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList);
+        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList2);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
