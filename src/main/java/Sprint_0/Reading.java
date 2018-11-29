@@ -9,14 +9,14 @@ import java.util.GregorianCalendar;
 public class Reading {
 
     private double mValue;
-    private GregorianCalendar mDate;
+    private Date mDate;
 
     /**
      * Builder with 'value' and 'date'
      * @param value
      * @param date
      */
-    public Reading(double value, GregorianCalendar date) {
+    public Reading(double value, Date date) {
         setmValue(value);
         setData(date);
     }
@@ -45,11 +45,11 @@ public class Reading {
      * getters e setters
      * @param date
      */
-    public void setData(GregorianCalendar date) {
+    public void setData(Date date) {
         this.mDate = date;
     }
 
-    public GregorianCalendar getmDate() {
+    public Date getmDate() {
         return this.mDate;
     }
 
