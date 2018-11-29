@@ -78,6 +78,11 @@ public class Sensor {
         this.readingList = readingList;
     }
 
+    public double calculateDistanceToSensor(Sensor s1){
+        Local l = s1.getLocal();
+        return this.local.getLinearDistanceBetweenLocalsInKm(l);
+    }
+
     /**
      * Specific Methods
      */

@@ -86,8 +86,6 @@ public class Geographic_Area_Test {
         TypeArea t2 = new TypeArea("Braga");
         Geographic_Area ga1 = new Geographic_Area(t1, l1);
         Geographic_Area ga2 = new Geographic_Area(t2, l2);
-        ga1.setLocal(l1);
-        ga2.setLocal(l2);
         double result = ga1.calculateDistanceToGA(ga2);
         double expectedresult = 244;
         assertEquals(expectedresult, result, 1);
