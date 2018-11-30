@@ -100,4 +100,45 @@ public class Local_Test {
         int actualResult = l1.hashCode();
         assertEquals(expectedResult,actualResult);
     }
+    @Test
+    public void ensureThatWeGetLinearDistanceInKmBetweenTwoLocations() {
+        //Arrange
+        Local porto = new Local(41.1496100,-8.6109900);
+        Local sidney = new Local(-33.865143,151.209900);
+        double expectedResult = 18064.77;
+
+        //Act
+        double result = porto.getLinearDistanceBetweenLocalsInKm(sidney);
+
+        //Assert
+        assertEquals(expectedResult,result,0.01);
+    }
+    @Test
+    public void ensureThatWeGetLinearDistanceInKmBetweenTwoLocationsWithConstructorWith3Parameters() {
+        //Arrange
+        Local porto = new Local(41.1496100,-8.6109900,97);
+        Local lisboa = new Local(38.7166700,-9.1333300,45);
+        double expectedResult = 274.15;
+
+        //Act
+        double result = lisboa.getLinearDistanceBetweenLocalsInKm(porto);
+
+        //Assert
+        assertEquals(expectedResult,result,0.01);
+    }
+    @Test
+    public void ensureThatWeGetLinearDistanceInKmBetweenTwoLocationsChangingTheLatitude() {
+        //Arrange
+        Local porto = new Local(30,-8.6109900,97);
+        Local lisboa = new Local(38.7166700,-9.1333300,45);
+        porto.setLatitude(41.1496100);
+        double expectedResult = 274.15;
+
+        //Act
+        double result = lisboa.getLinearDistanceBetweenLocalsInKm(porto);
+
+        //Assert
+        assertEquals(expectedResult,result,0.01);
+    }
+
 }

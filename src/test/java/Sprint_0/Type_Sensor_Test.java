@@ -3,8 +3,66 @@ package Sprint_0;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class Type_Sensor_Test {
+
+    @Test
+    public void constructorTypeSensorTest() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Humidade");
+        String actualResult = "Humidade";
+
+        //Act
+        String expectedResult = t1.getName();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void constructorTypeSensorTestSameObject() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Humidade");
+        TypeSensor t2 = new TypeSensor("Vento");
+        t2.setName("Humidade");
+
+        //Act
+         boolean expectedResult = t1.equals(t2);
+
+        //Assert
+        assertTrue(expectedResult);
+        
+    }
+    @Test
+    public void testTypeSensorGetAndSet() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Humidade");
+        t1.setName("Movimento");
+        String actualResult = "Movimento";
+
+        //Act
+        String expectedResult = t1.getName();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testTypeSensorGetAndSetPartII() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Humidade");
+        t1.setName("Movimento");
+        t1.setName("Luz");
+        String actualResult = "Luz";
+
+        //Act
+        String expectedResult = t1.getName();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
     @Test
     public void seeIfEqualsWorksDifferentObject() {
         //Arrange
