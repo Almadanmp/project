@@ -5,39 +5,75 @@ public class Local {
     private double longitude;
     private double altitude;
 
+    /**
+     * Construtor Local(), com dois parâmetros : um double latitude e um double longitude.
+     *  Criado para ser usado no método -> getLinearDistanceBetweenLocalsInKm(Local local1)
+     * @param latitude
+     * @param longitude
+     */
     public Local(double latitude, double longitude) {
         setLatitude(latitude);
         setLongitude(longitude);
     }
 
+    /**
+     * Construtor Local(), com todos os parâmetros para definir uma localização.
+     * @param latitude
+     * @param longitude
+     * @param altitude
+     */
     public Local(double latitude, double longitude, double altitude) {
         setLatitude(latitude);
         setLongitude(longitude);
         setAltitude(altitude);
     }
 
+    /**
+     * Setter Altitude
+     * @param altitude
+     */
     public void setAltitude(double altitude) {
         this.altitude = altitude;
     }
 
+    /**
+     * Setter Latitude
+     * @param latitude
+     */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * Setter Longitude
+     * @param longitude
+     */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
+    /**
+     * Getter Latitude
+     * @return
+     */
     public double getLatitude() {
         double result = this.latitude;
         return result;
     }
 
+    /**
+     * Getter Longitude
+     * @return
+     */
     public double getLongitude() {
         double result = this.longitude;
         return result;
     }
 
+    /**
+     * Getter Altitude
+     * @return
+     */
     public double getAltitude() {
         double result = this.altitude;
         return result;
@@ -55,6 +91,12 @@ public class Local {
         return (rad * 180.0 / Math.PI);
     }
 
+    /**
+     * Método para Obter distância linear entre duas Localizações em Km.
+     * Só é necessário construtor Local () com dois parâmetros - Latitude e Longitude
+     * @param local1
+     * @return
+     */
     public double getLinearDistanceBetweenLocalsInKm(Local local1) {
         double latitude1 = local1.getLatitude();
         double latitude2 = getLatitude();
@@ -67,6 +109,11 @@ public class Local {
         return (dist * 60 * 1.1515 * 1.609344);
     }
 
+    /**
+     * Specific Method
+     * @param testLocal
+     * @return
+     */
     @Override
     public boolean equals(Object testLocal) {
         if (this == testLocal) {
@@ -82,6 +129,10 @@ public class Local {
         return false;
     }
 
+    /**
+     * Specific Method
+     * @return
+     */
     @Override
     public int hashCode() {
         return 1;
