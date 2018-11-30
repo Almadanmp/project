@@ -24,7 +24,7 @@ public class ReadingListTest {
                 boolean expectedResult = true;
 
                 //Act
-                boolean result = readingList.containsReading(reading1);
+                boolean result = readingList.getListOfReadings().contains(reading1);
 
                 //Assert
                 assertEquals(expectedResult, result);
@@ -43,7 +43,7 @@ public class ReadingListTest {
                 boolean expectedResult = true;
 
                 //Act
-                boolean result = readingList.containsReading(reading2);
+                boolean result = readingList.getListOfReadings().contains(reading2);
 
                 //Assert
                 assertEquals(expectedResult, result);
@@ -99,7 +99,7 @@ public class ReadingListTest {
                 boolean expectedResult = false;
 
                 //Act
-                boolean result = readingList.containsReading(reading2);
+                boolean result = readingList.getListOfReadings().contains(reading2);
 
                 //Assert
                 assertEquals(expectedResult, result);
@@ -119,7 +119,7 @@ public class ReadingListTest {
                 boolean expectedResult = true;
 
                 //Act
-                boolean result = readingList.containsReading(reading2);
+                boolean result = readingList.getListOfReadings().contains(reading2);
 
                 //Assert
                 assertEquals(expectedResult, result);

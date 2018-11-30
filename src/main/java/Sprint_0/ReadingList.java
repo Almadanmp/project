@@ -33,14 +33,6 @@ public class ReadingList {
     }
 
     /**
-     * @param reading
-     * @return
-     */
-    public boolean containsReading(Reading reading) {
-        return mReadings.contains(reading);
-    }
-
-    /**
      * Getter
      *
      * @return
