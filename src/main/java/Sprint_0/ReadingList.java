@@ -1,5 +1,6 @@
 package Sprint_0;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 import static java.lang.Double.parseDouble;
@@ -46,12 +47,12 @@ public class ReadingList {
      */
 
     public Reading getMostRecentReading() {
-        int mostRecentReadingIndex=0;
-        for (int i = 0; i < mReadings.size()-1; i++){
+        int mostRecentReadingIndex = 0;
+        for (int i = 0; i < mReadings.size() - 1; i++) {
             Date firstDate = mReadings.get(i).getmDate();
-            Date secondDate = mReadings.get(i+1).getmDate();
-            if (firstDate.before(secondDate)){
-                mostRecentReadingIndex = i+1;
+            Date secondDate = mReadings.get(i + 1).getmDate();
+            if (firstDate.before(secondDate)) {
+                mostRecentReadingIndex = i + 1;
             }
         }
         return mReadings.get(mostRecentReadingIndex);
@@ -62,8 +63,8 @@ public class ReadingList {
      * Get Mean Value of The Day
      */
     public double meanOftheDay(int year, int month, int day) {
-        GregorianCalendar dayMin = new GregorianCalendar(year, month, day - 1,23,59,59);
-        GregorianCalendar dayMax = new GregorianCalendar(year, month, day +1);
+        GregorianCalendar dayMin = new GregorianCalendar(year, month, day - 1, 23, 59, 59);
+        GregorianCalendar dayMax = new GregorianCalendar(year, month, day + 1);
 
         double sum = 0;
         int counter = 0;
@@ -119,6 +120,40 @@ public class ReadingList {
         return sum / daysArray.size();
     }
 
+    public double meanOfArray(double[] array) {
+        double temporaryValue = 0;
+        for (int posInArray = 0; posInArray < array.length; posInArray++) {
+            temporaryValue = array[posInArray] + temporaryValue;
+        }
+        return (temporaryValue / array.length);
+    }
+
+    public double getAverageOfMinimumReadingsMonth(int year, int month) {
+        ArrayList<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
+        double[] minsOfDaysInMonth = new double[daysWithReadings.size()];
+        int posInMinArray = 0;
+        double minValueOfDay;
+        for (int i = 0; i < daysWithReadings.size(); i++) {
+            ArrayList<Double> valuesOfDay = new ArrayList<>();
+            minValueOfDay = 900;
+            int dayOfMonth = daysWithReadings.get(i);
+            for (Reading r : mReadings) {
+                GregorianCalendar tempCalendar = new GregorianCalendar();
+                tempCalendar.setTime(r.getmDate());
+                if ((tempCalendar.get(Calendar.DAY_OF_MONTH)) == dayOfMonth) {
+                    valuesOfDay.add(r.getmValue());
+                }
+            }
+            for (int k = 0; k < valuesOfDay.size() - 1; k++) {
+                if (valuesOfDay.get(k) < minValueOfDay) {
+                    minValueOfDay = valuesOfDay.get(k);
+                }
+            }
+            minsOfDaysInMonth[posInMinArray] = minValueOfDay;
+            posInMinArray++;
+        }
+        return meanOfArray(minsOfDaysInMonth);
+    }
 }
 
 

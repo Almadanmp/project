@@ -301,4 +301,95 @@ public class ReadingListTest {
                 double result = rList.meanOfMonth(2018, 10);
                 assertEquals(expectedResult, result, 0.1);
         }
+
+        //Funçao ainda nao existente, nome é PLACEHOLDER.
+        //1- Haverá à partida uma função que cria arraylist com todos os maximos de cada dia
+        //2- Outra que cria com todos os minimos
+        //3- Uma ultima que faz a média (seria a maneira ideal).
+        //4- Será depois preciso implementar para cada tipo de sensor
+
+        //Testa média de temperatura minima por dia ao longo do mês.
+        //Ou seja, pega na minima de cada dia e faz a média para o mês. É suposto dar sempre 10.
+
+
+
+        //Teste igual mas para máximo, é suposto dar sempre 20.
+        @Test
+        public void seeIfGetMinimumValuesMonth() {
+                //Arrange
+                ReadingList rl1 = new ReadingList();
+                Reading reading1 = new Reading(10, new GregorianCalendar(118, 11, 1, 0, 0, 0).getTime());
+                Reading reading2 = new Reading(15, new GregorianCalendar(118, 11, 1, 1, 0, 0).getTime());
+                Reading reading3 = new Reading(20, new GregorianCalendar(118, 11, 1, 2, 0, 0).getTime());
+                Reading reading4 = new Reading(10, new GregorianCalendar(118, 11, 5, 1, 0, 0).getTime());
+                Reading reading5 = new Reading(20, new GregorianCalendar(118, 11, 5, 2, 0, 0).getTime());
+                Reading reading6 = new Reading(10, new GregorianCalendar(118, 11, 10, 1, 0, 0).getTime());
+                Reading reading7 = new Reading(20, new GregorianCalendar(118, 11, 10, 2, 0, 0).getTime());
+                Reading reading8 = new Reading(10, new GregorianCalendar(118, 11, 15, 1, 0, 0).getTime());
+                Reading reading9 = new Reading(15, new GregorianCalendar(118, 11, 15, 5, 0, 0).getTime());
+                Reading reading10 = new Reading(20, new GregorianCalendar(118, 11, 15, 20, 0, 0).getTime());
+                Reading reading11 = new Reading(10, new GregorianCalendar(118, 11, 20, 0, 0, 0).getTime());
+                Reading reading12 = new Reading(15, new GregorianCalendar(118, 11, 20, 1, 0, 0).getTime());
+                Reading reading13 = new Reading(20, new GregorianCalendar(118, 11, 20, 2, 0, 0).getTime());
+                rl1.addReading(reading1);
+                rl1.addReading(reading2);
+                rl1.addReading(reading3);
+                rl1.addReading(reading4);
+                rl1.addReading(reading5);
+                rl1.addReading(reading6);
+                rl1.addReading(reading7);
+                rl1.addReading(reading8);
+                rl1.addReading(reading9);
+                rl1.addReading(reading10);
+                rl1.addReading(reading11);
+                rl1.addReading(reading12);
+                rl1.addReading(reading13);
+
+                //Act
+                double expectedResult = 10;
+                double result = rl1.getAverageOfMinimumReadingsMonth(118,11);
+
+                //Assert
+                assertEquals(expectedResult, result, 0.001);
+        }
+
+
+        @Test
+        public void seeIfGetMinimumValuesMonth2() {
+                //Arrange
+                ReadingList rl1 = new ReadingList();
+                Reading reading1 = new Reading(7, new GregorianCalendar(118, 11, 1, 0, 0, 0).getTime());
+                Reading reading2 = new Reading(10, new GregorianCalendar(118, 11, 1, 1, 0, 0).getTime());
+                Reading reading3 = new Reading(20, new GregorianCalendar(118, 11, 1, 2, 0, 0).getTime());
+                Reading reading4 = new Reading(12, new GregorianCalendar(118, 11, 5, 1, 0, 0).getTime());
+                Reading reading5 = new Reading(20, new GregorianCalendar(118, 11, 5, 2, 0, 0).getTime());
+                Reading reading6 = new Reading(10, new GregorianCalendar(118, 11, 10, 1, 0, 0).getTime());
+                Reading reading7 = new Reading(20, new GregorianCalendar(118, 11, 10, 2, 0, 0).getTime());
+                Reading reading8 = new Reading(-2, new GregorianCalendar(118, 11, 15, 1, 0, 0).getTime());
+                Reading reading9 = new Reading(15, new GregorianCalendar(118, 11, 15, 5, 0, 0).getTime());
+                Reading reading10 = new Reading(20, new GregorianCalendar(118, 11, 15, 20, 0, 0).getTime());
+                Reading reading11 = new Reading(10, new GregorianCalendar(118, 11, 20, 0, 0, 0).getTime());
+                Reading reading12 = new Reading(15, new GregorianCalendar(118, 11, 20, 1, 0, 0).getTime());
+                Reading reading13 = new Reading(20, new GregorianCalendar(118, 11, 20, 2, 0, 0).getTime());
+                rl1.addReading(reading1);
+                rl1.addReading(reading2);
+                rl1.addReading(reading3);
+                rl1.addReading(reading4);
+                rl1.addReading(reading5);
+                rl1.addReading(reading6);
+                rl1.addReading(reading7);
+                rl1.addReading(reading8);
+                rl1.addReading(reading9);
+                rl1.addReading(reading10);
+                rl1.addReading(reading11);
+                rl1.addReading(reading12);
+                rl1.addReading(reading13);
+
+                //Act
+                double expectedResult = 7.4;
+                double result = rl1.getAverageOfMinimumReadingsMonth(118,11);
+
+                //Assert
+                assertEquals(expectedResult, result, 0.001);
+        }
 }
