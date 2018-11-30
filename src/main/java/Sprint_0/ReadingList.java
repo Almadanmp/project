@@ -40,7 +40,6 @@ public class ReadingList {
         return mReadings.contains(reading);
     }
 
-
     /**
      * Getter
      *
