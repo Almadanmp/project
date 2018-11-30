@@ -2,8 +2,8 @@ package Sprint_0;
 
 import org.junit.jupiter.api.Test;
 
+import static junit.framework.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class Type_Sensor_Test {
 
