@@ -57,8 +57,8 @@ public class ReadingList {
     public Reading getMostRecentReading() {
         int mostRecentReadingIndex=0;
         for (int i = 0; i < mReadings.size()-1; i++){
-            Date firstDate = mReadings.get(i).getmDate().getTime();
-            Date secondDate = mReadings.get(i+1).getmDate().getTime();
+            Date firstDate = mReadings.get(i).getmDate();
+            Date secondDate = mReadings.get(i+1).getmDate();
             if (firstDate.before(secondDate)){
                 mostRecentReadingIndex = i+1;
             }
@@ -79,8 +79,8 @@ public class ReadingList {
 
 
         for (int i = 0; i < mReadings.size(); i++) {
-            GregorianCalendar currentReadingDate = mReadings.get(i).getmDate();
-            if (currentReadingDate.after(dayMin) && currentReadingDate.before(dayMax)) {
+            Date currentReadingDate = mReadings.get(i).getmDate();
+            if (currentReadingDate.after(dayMin.getTime()) && currentReadingDate.before(dayMax.getTime())) {
                 sum += mReadings.get(i).getmValue();
                 counter++;
             }
@@ -98,11 +98,12 @@ public class ReadingList {
         ArrayList<Integer> daysArray = new ArrayList<>();
 
         for (int i = 0; i < mReadings.size(); i++) {
-            GregorianCalendar currentReadingDate = mReadings.get(i).getmDate();
+            Date currentReadingDate = mReadings.get(i).getmDate();
 
-            if (currentReadingDate.compareTo(actualMonth) >= 0 && currentReadingDate.before(maxDate)) {
-
-                int auxDay = currentReadingDate.get(Calendar.DAY_OF_MONTH);
+            if (currentReadingDate.compareTo(actualMonth.getTime()) >= 0 && currentReadingDate.before(maxDate.getTime())) {
+                GregorianCalendar tempCalendar = new GregorianCalendar();
+                tempCalendar.setTime(currentReadingDate);
+                int auxDay = tempCalendar.get(Calendar.DAY_OF_MONTH);
                 if (!daysArray.contains(auxDay)) {
                     daysArray.add(auxDay);
                 }
