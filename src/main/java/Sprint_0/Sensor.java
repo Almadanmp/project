@@ -142,8 +142,15 @@ public class Sensor {
     }
 
     /**
-     * Specific Methods.
+     * Method to determine the month average of a sensor reading (e.g. temperature, wind...)
+     * @param s1 - sensor
+     * @param year
+     * @param month
+     * @return average of readings on a month on a sensor
      */
+    public double calculateMonthMeanOnSensor(Sensor s1, int year, int month) {
+        return s1.getReadingList().meanOfMonth(year, month);
+    }
 
     @Override
     public boolean equals(Object testObject) {

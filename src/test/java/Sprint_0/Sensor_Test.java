@@ -270,5 +270,42 @@ public class Sensor_Test {
         double expectedresult = 244;
         assertEquals(expectedresult, result, 1);
     }
+
+    @Test
+    public void seeGetMeanOfMonthThroughSensor() {
+        ReadingList rList = new ReadingList();
+        Sensor s1 = new Sensor("sensor1",new TypeSensor("temperature"), new Local(15,23), new Date(), rList);
+        GregorianCalendar g0 =new GregorianCalendar(2018, 9, 31, 23, 59, 59);
+        GregorianCalendar g1 =new GregorianCalendar(2018, 10, 1, 0, 0, 0);
+        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g3 =new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        GregorianCalendar g4 =new GregorianCalendar(2018, 10, 23, 18, 14, 3);
+        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
+        GregorianCalendar g6 =new GregorianCalendar(2018, 10, 28, 12, 12, 12);
+        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 30, 23, 59, 59);
+        GregorianCalendar g8 =new GregorianCalendar(2018, 11, 01, 00, 00, 00);
+        Reading r0 = new Reading(23, g0.getTime());
+        Reading r1 = new Reading(23, g1.getTime());
+        Reading r2 = new Reading(24,g2.getTime());
+        Reading r3 = new Reading(25, g3.getTime());
+        Reading r4 = new Reading(26, g4.getTime());
+        Reading r5 = new Reading(23,g5.getTime());
+        Reading r6 = new Reading(22, g6.getTime());
+        Reading r7 = new Reading(23,g7.getTime());
+        Reading r8 = new Reading(22, g8.getTime());
+        rList.addReading(r0);
+        rList.addReading(r1);
+        rList.addReading(r2);
+        rList.addReading(r3);
+        rList.addReading(r4);
+        rList.addReading(r5);
+        rList.addReading(r6);
+        rList.addReading(r7);
+        rList.addReading(r8);
+
+        double expectedResult = 23.5;
+        double result = s1.calculateMonthMeanOnSensor(s1,2018,10);
+        assertEquals(expectedResult, result, 0.1);
+    }
 }
 
