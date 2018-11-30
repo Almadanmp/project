@@ -3,6 +3,7 @@ package Sprint_0;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public class Local_Test {
     @Test
@@ -113,6 +114,20 @@ public class Local_Test {
         //Assert
         assertEquals(expectedResult,result,0.01);
     }
+    @Test
+    public void ensureThatWeDoNotGetLinearDistanceInKmBetweenTwoLocations() {
+        //Arrange
+        Local porto = new Local(41.1496100,-8.6109900);
+        Local lisboa = new Local(38.7166700,-9.1333300,45);
+        double expectedResult = 300;
+
+        //Act
+        double result = porto.getLinearDistanceBetweenLocalsInKm(lisboa);
+
+        //Assert
+        assertNotSame(expectedResult,result);
+    }
+
     @Test
     public void ensureThatWeGetLinearDistanceInKmBetweenTwoLocationsWithConstructorWith3Parameters() {
         //Arrange
