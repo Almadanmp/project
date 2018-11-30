@@ -12,7 +12,7 @@ public class SensorList {
     private List<Sensor> sensorList;
 
     /**
-     * Constructor to always create an ArrayList of Arrays.
+     * Constructor of an ArrayList of Arrays.
      * @param sensorsToAdd
      */
 
@@ -48,13 +48,18 @@ public class SensorList {
         return false;
     }
 
+    /**
+     * Checks if a Sensor is inside the Sensor List
+     * @param sensor
+     * @return
+     */
     public boolean containsSensor(Sensor sensor) {
         return sensorList.contains(sensor);
     }
 
     /**
      * Getter (array of sensors)
-     * @return
+     * @return array of sensors
      */
     public Sensor[] getSensors() {
         int sizeOfResultArray = sensorList.size();
@@ -67,20 +72,24 @@ public class SensorList {
 
     /**
      * Gettter (list of sensors)
-     * @return
+     * @return list of sensors
      */
     public List<Sensor> getSensorList() {
         List<Sensor> result = this.sensorList;
         return result;
     }
 
+    /**
+     * Removes a sensor from the Sensor List
+     * @param sensorToRemove
+     */
     public void removeSensor(Sensor sensorToRemove) {
         sensorList.remove(sensorToRemove);
     }
 
     /**
-     *
-     * @return
+     * Method to find the most recently used sensor in the sensor list
+     * @return the most recently used sensor
      */
     public Sensor getMostRecentlyUsedSensor() {
         List<Sensor> listToTest = this.sensorList;
