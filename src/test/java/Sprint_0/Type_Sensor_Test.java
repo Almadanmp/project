@@ -2,7 +2,7 @@ package Sprint_0;
 
 import org.junit.jupiter.api.Test;
 
-import static junit.framework.Assert.assertTrue;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Type_Sensor_Test {
@@ -29,9 +29,10 @@ public class Type_Sensor_Test {
 
         //Act
          boolean expectedResult = t1.equals(t2);
+         boolean result = true;
 
         //Assert
-        assertTrue(expectedResult);
+        assertEquals(result, expectedResult);
         
     }
     @Test
