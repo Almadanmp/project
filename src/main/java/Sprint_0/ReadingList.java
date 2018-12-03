@@ -1,5 +1,6 @@
 package Sprint_0;
 
+import java.util.List;
 import java.util.*;
 
 /**
@@ -17,7 +18,6 @@ public class ReadingList {
 
     /**
      * Method to Add a reading only if it's not contained in the list already.
-     * @return
      */
     public boolean addReading(Reading reading) {
         if (!(mReadings.contains(reading))) {
@@ -78,11 +78,11 @@ public class ReadingList {
         return sum / counter;
     }
 
-    public ArrayList<Integer> getDaysOfMonthWithReadings(int year, int month) {
+    public List<Integer> getDaysOfMonthWithReadings(int year, int month) {
         GregorianCalendar actualMonth = new GregorianCalendar(year, month, 1);
         GregorianCalendar maxDate = new GregorianCalendar(year, month + 1, 1);
 
-        ArrayList<Integer> daysArray = new ArrayList<>();
+        List<Integer> daysArray = new ArrayList<>();
 
         for (int i = 0; i < mReadings.size(); i++) {
             Date currentReadingDate = mReadings.get(i).getmDate();
@@ -101,7 +101,7 @@ public class ReadingList {
 
     public double meanOfMonth(int year, int month) {
 
-        ArrayList<Integer> daysArray = getDaysOfMonthWithReadings(year, month);
+        List<Integer> daysArray = getDaysOfMonthWithReadings(year, month);
         double sum = 0;
 
         if (daysArray.isEmpty()) {
@@ -124,7 +124,7 @@ public class ReadingList {
     }
 
     public double getAverageOfMinimumValuesInTheReadingsOfMonth(int year, int month) {
-        ArrayList<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
+        List<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
         double[] minsOfDaysInMonth = new double[daysWithReadings.size()];
         int posInMinArray = 0;
         double minValueOfDay;
@@ -151,7 +151,7 @@ public class ReadingList {
     }
 
     public double getAverageOfMaximumValuesInTheReadingsOfMonth(int year, int month) {
-        ArrayList<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
+        List<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
         double[] MaxsOfDaysInMonth = new double[daysWithReadings.size()];
         int posInMaxArray = 0;
         double maxValueOfDay;

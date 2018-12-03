@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -303,13 +304,13 @@ public class ReadingListTest {
                 rList.addReading(r6);
                 rList.addReading(r7);
                 rList.addReading(r8);
-                ArrayList<Integer> expectedResult = new ArrayList<>();
+                List<Integer> expectedResult = new ArrayList<>();
                 expectedResult.add(1);
                 expectedResult.add(23);
                 expectedResult.add(27);
                 expectedResult.add(28);
                 expectedResult.add(30);
-                ArrayList<Integer> result = rList.getDaysOfMonthWithReadings(2018, 10);
+                List<Integer> result = rList.getDaysOfMonthWithReadings(2018, 10);
                 assertEquals(expectedResult, result);
         }
 
