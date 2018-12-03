@@ -104,7 +104,7 @@ public class ReadingList {
         ArrayList<Integer> daysArray = getDaysOfMonthWithReadings(year, month);
         double sum = 0;
 
-        if (daysArray.size() == 0) {
+        if (daysArray.isEmpty()) {
             return 0;
         }
 
