@@ -1,9 +1,6 @@
 package Sprint_0;
 
-import java.sql.SQLOutput;
 import java.util.*;
-
-import static java.lang.Double.parseDouble;
 
 /**
  * This is the ReadingList Class, A List of Readings that the Sensor receives.
@@ -20,8 +17,6 @@ public class ReadingList {
 
     /**
      * Method to Add a reading only if it's not contained in the list already.
-     *
-     * @param reading
      * @return
      */
     public boolean addReading(Reading reading) {
