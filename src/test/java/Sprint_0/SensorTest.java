@@ -71,6 +71,15 @@ public class SensorTest {
     }
 
     @Test
+    public void seeIfSetNameWorksEmpty() {
+        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21), new Date());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            c.setName("");
+        });
+    }
+
+    @Test
     public void seeIfSetGetLocalWorks() {
         //Arrange
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),

@@ -47,6 +47,14 @@ public class TypeSensorTest {
     }
 
     @Test
+    public void seeIfSetNameWorksEmpty() {
+        TypeSensor t1 = new TypeSensor("Humidade");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            t1.setName("");
+        });
+    }
+
+    @Test
     public void testTypeSensorGetAndSet() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade");
