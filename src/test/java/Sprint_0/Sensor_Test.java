@@ -28,7 +28,6 @@ public class Sensor_Test {
         assertEquals(expectedResult, actualResult);
     }
 
-    
     @Test
     public void seeIfSetGetNameWorksSecondName() {
         //Arrange
