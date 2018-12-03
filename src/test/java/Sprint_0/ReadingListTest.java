@@ -3,7 +3,6 @@ package Sprint_0;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -347,7 +346,7 @@ public class ReadingListTest {
 
                 //Act
                 double expectedResult = 10;
-                double result = rl1.getAverageOfMinimumReadingsMonth(118,11);
+                double result = rl1.getAverageOfMinimumValuesInTheReadingsOfMonth(118,11);
 
                 //Assert
                 assertEquals(expectedResult, result, 0.001);
@@ -387,7 +386,7 @@ public class ReadingListTest {
 
                 //Act
                 double expectedResult = 7.4;
-                double result = rl1.getAverageOfMinimumReadingsMonth(118,11);
+                double result = rl1.getAverageOfMinimumValuesInTheReadingsOfMonth(118,11);
 
                 //Assert
                 assertEquals(expectedResult, result, 0.001);
