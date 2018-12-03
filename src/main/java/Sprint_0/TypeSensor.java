@@ -1,7 +1,5 @@
 package Sprint_0;
 
-import java.net.Proxy;
-
 /**
  * Defines the Type of the Sensor.
  */
@@ -62,12 +60,11 @@ public class TypeSensor {
             return false;
         }
         TypeSensor typeSensor = (TypeSensor) testSensor;
-        if(this.getName().equals(typeSensor.getName())){
-            return true;
+        if(this.getName().equals(typeSensor.getName())){ return true;
         }
         return false;
     }
-    
+
     /**
      * Specific Method
      * @return
