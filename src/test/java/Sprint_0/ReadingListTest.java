@@ -11,6 +11,54 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ReadingListTest {
 
         @Test
+        public void seeAddReadingIfListIsEmpty() {
+                //Arrange
+                ReadingList readingList = new ReadingList();
+                GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
+                Reading reading1 = new Reading(17, calendar.getTime());
+                boolean expectedResult = true;
+
+                //Act
+                boolean result = readingList.addReading(reading1);
+
+                //Assert
+                assertEquals(expectedResult, result);
+        }
+        @Test
+        public void seeAddReadingIfListHasDifferentReading() {
+                //Arrange
+                ReadingList readingList = new ReadingList();
+                GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
+                Reading reading1 = new Reading(17, calendar.getTime());
+                GregorianCalendar calendar2 = new GregorianCalendar(118, 9, 3);
+                Reading reading2 = new Reading(29, calendar2.getTime());
+                boolean expectedResult = true;
+
+                //Act
+                readingList.addReading(reading1);
+                boolean result = readingList.addReading(reading2);
+
+                //Assert
+                assertEquals(expectedResult, result);
+        }
+        @Test
+        public void seeAddReadingIfListHasSameReading() {
+                //Arrange
+                ReadingList readingList = new ReadingList();
+                GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
+                Reading reading1 = new Reading(17, calendar.getTime());
+                Reading reading2 = new Reading(17, calendar.getTime());
+                boolean expectedResult = false;
+
+                //Act
+                readingList.addReading(reading1);
+                boolean result = readingList.addReading(reading2);
+
+                //Assert
+                assertEquals(expectedResult, result);
+        }
+
+        @Test
         public void ensureThatWeAddAReading1ToAList() {
                 //Arrange
                 ReadingList readingList = new ReadingList();
