@@ -1,11 +1,14 @@
 package Sprint_0;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Type_Sensor_Test {
+public class TypeSensorTest {
 
     @Test
     public void constructorTypeSensorTest() {
@@ -33,8 +36,16 @@ public class Type_Sensor_Test {
 
         //Assert
         assertEquals(result, expectedResult);
-        
     }
+
+    @Test
+    public void seeIfSetNameWorksNull() {
+        TypeSensor t1 = new TypeSensor("Humidade");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            t1.setName(null);
+        });
+    }
+
     @Test
     public void testTypeSensorGetAndSet() {
         //Arrange
