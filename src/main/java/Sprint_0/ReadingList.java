@@ -1,9 +1,6 @@
 package Sprint_0;
 
-import java.sql.SQLOutput;
 import java.util.*;
-
-import static java.lang.Double.parseDouble;
 
 /**
  * This is the ReadingList Class, A List of Readings that the Sensor receives.
@@ -20,8 +17,6 @@ public class ReadingList {
 
     /**
      * Method to Add a reading only if it's not contained in the list already.
-     *
-     * @param reading
      * @return
      */
     public boolean addReading(Reading reading) {
@@ -144,7 +139,7 @@ public class ReadingList {
                     valuesOfDay.add(r.getmValue());
                 }
             }
-            for (int k = 0; k < valuesOfDay.size() - 1; k++) {
+            for (int k = 0; k < valuesOfDay.size(); k++) {
                 if (valuesOfDay.get(k) < minValueOfDay) {
                     minValueOfDay = valuesOfDay.get(k);
                 }
@@ -153,6 +148,33 @@ public class ReadingList {
             posInMinArray++;
         }
         return meanOfArray(minsOfDaysInMonth);
+    }
+
+    public double getAverageOfMaximumValuesInTheReadingsOfMonth(int year, int month) {
+        ArrayList<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
+        double[] MaxsOfDaysInMonth = new double[daysWithReadings.size()];
+        int posInMaxArray = 0;
+        double maxValueOfDay;
+        for (int i = 0; i < daysWithReadings.size(); i++) {
+            ArrayList<Double> valuesOfDay = new ArrayList<>();
+            maxValueOfDay = -900;
+            int dayOfMonth = daysWithReadings.get(i);
+            for (Reading r : mReadings) {
+                GregorianCalendar tempCalendar = new GregorianCalendar();
+                tempCalendar.setTime(r.getmDate());
+                if ((tempCalendar.get(Calendar.DAY_OF_MONTH)) == dayOfMonth) {
+                    valuesOfDay.add(r.getmValue());
+                }
+            }
+            for (int k = 0; k < valuesOfDay.size(); k++) {
+                if (valuesOfDay.get(k) > maxValueOfDay) {
+                    maxValueOfDay = valuesOfDay.get(k);
+                }
+            }
+            MaxsOfDaysInMonth[posInMaxArray] = maxValueOfDay;
+            posInMaxArray++;
+        }
+        return meanOfArray(MaxsOfDaysInMonth);
     }
 }
 
