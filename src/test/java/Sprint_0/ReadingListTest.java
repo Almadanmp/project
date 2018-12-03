@@ -240,7 +240,7 @@ public class ReadingListTest {
                 rl.addReading(r6);
                 rl.addReading(r7);
                 double expectedResult = 23.71;
-                double result = rl.meanOftheDay(2018, 11, 23);
+                double result = rl.getMeanOftheDay(2018, 11, 23);
                 assertEquals(expectedResult, result, 0.1);
 
         }
@@ -270,7 +270,7 @@ public class ReadingListTest {
                 rl.addReading(r6);
                 rl.addReading(r7);
                 double expectedResult = 23.8;
-                double result = rl.meanOftheDay(2018, 11, 23);
+                double result = rl.getMeanOftheDay(2018, 11, 23);
                 assertEquals(expectedResult, result, 0.1);
         }
 
@@ -346,7 +346,7 @@ public class ReadingListTest {
                 rList.addReading(r8);
 
                 double expectedResult = 23.5;
-                double result = rList.meanOfMonth(2018, 10);
+                double result = rList.getMeanOfRecordedValuesMonth(2018, 10);
                 assertEquals(expectedResult, result, 0.1);
         }
 
@@ -486,7 +486,7 @@ public class ReadingListTest {
         ReadingList rl1 = new ReadingList();
         //Act
         double expectedResult = 0;
-        double result = rl1.meanOfMonth(118,11);
+        double result = rl1.getMeanOfRecordedValuesMonth(118,11);
 
         //Assert
         assertEquals(expectedResult, result, 0.001);
@@ -498,7 +498,7 @@ public class ReadingListTest {
         ReadingList rl1 = new ReadingList();
         //Act
         double expectedResult = 0;
-        double result = rl1.meanOftheDay(118,11, 1);
+        double result = rl1.getMeanOftheDay(118,11, 1);
 
         //Assert
         assertEquals(expectedResult, result, 0.001);
