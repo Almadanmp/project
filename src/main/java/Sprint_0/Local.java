@@ -8,8 +8,8 @@ public class Local {
     /**
      * Construtor Local(), com dois parâmetros : um double latitude e um double longitude.
      *  Criado para ser usado no método -> getLinearDistanceBetweenLocalsInKm(Local local1)
-     * @param latitude
-     * @param longitude
+     * @param latitude do local
+     * @param longitude do local
      */
     public Local(double latitude, double longitude) {
         setLatitude(latitude);
@@ -18,9 +18,9 @@ public class Local {
 
     /**
      * Construtor Local(), com todos os parâmetros para definir uma localização.
-     * @param latitude
-     * @param longitude
-     * @param altitude
+     * @param latitude do local
+     * @param longitude do local
+     * @param altitude do local
      */
     public Local(double latitude, double longitude, double altitude) {
         setLatitude(latitude);
@@ -30,7 +30,7 @@ public class Local {
 
     /**
      * Setter Altitude
-     * @param altitude
+     * @param altitude do local
      */
     public void setAltitude(double altitude) {
         this.altitude = altitude;
@@ -38,7 +38,7 @@ public class Local {
 
     /**
      * Setter Latitude
-     * @param latitude
+     * @param latitude do local
      */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
@@ -46,7 +46,7 @@ public class Local {
 
     /**
      * Setter Longitude
-     * @param longitude
+     * @param longitude do local
      */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
@@ -54,7 +54,7 @@ public class Local {
 
     /**
      * Getter Latitude
-     * @return
+     * @return Latitude Value
      */
     public double getLatitude() {
         double result = this.latitude;
@@ -63,7 +63,7 @@ public class Local {
 
     /**
      * Getter Longitude
-     * @return
+     * @return Longitude value
      */
     public double getLongitude() {
         double result = this.longitude;
@@ -72,20 +72,20 @@ public class Local {
 
     /**
      * Getter Altitude
-     * @return
+     * @return Altitude value
      */
     public double getAltitude() {
         double result = this.altitude;
         return result;
     }
 
-    /**converte PARA graus radianos
+    /**Convert TO radians
      */
     private static double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     }
 
-    /**converte DE graus radianos
+    /**Convert FROM radians
      */
     private static double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
@@ -94,8 +94,8 @@ public class Local {
     /**
      * Método para Obter distância linear entre duas Localizações em Km.
      * Só é necessário construtor Local () com dois parâmetros - Latitude e Longitude
-     * @param local1
-     * @return
+     * @param local1 Localization 1
+     * @return linear distance from Localization 1 to Localization 2
      */
     public double getLinearDistanceBetweenLocalsInKm(Local local1) {
         double latitude1 = local1.getLatitude();
@@ -111,8 +111,8 @@ public class Local {
 
     /**
      * Specific Method
-     * @param testLocal
-     * @return
+     * @param testLocal -
+     * @return -
      */
     @Override
     public boolean equals(Object testLocal) {
@@ -131,7 +131,7 @@ public class Local {
 
     /**
      * Specific Method
-     * @return
+     * @return -
      */
     @Override
     public int hashCode() {
