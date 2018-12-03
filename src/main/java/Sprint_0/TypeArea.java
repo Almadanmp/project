@@ -8,11 +8,25 @@ public class TypeArea {
     }
 
     public void setTypeOfGeographicArea(String nameGiven) {
-            this.typeDesignation = nameGiven;
-        }
+        this.typeDesignation = nameGiven;
+    }
 
     public String getTypeOfGeographicArea() {
         return this.typeDesignation;
+    }
+
+    /**
+     * Method to restrain input name so they cant be null or empty
+     * @param name name inserted by user
+     * @return will return true if the name is valid or it will throw an exception if Invalid
+     */
+    public boolean isNameValid(String name) {
+        if (name != null && !name.isEmpty() && !name.matches(".*\\d+.*")) {
+            {
+                return true;
+            }
+        }
+        throw new IllegalArgumentException("Please Insert Valid Name");
     }
 
     @Override
@@ -31,7 +45,7 @@ public class TypeArea {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return 1;
     }
 }
