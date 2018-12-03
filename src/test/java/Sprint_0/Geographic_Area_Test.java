@@ -19,7 +19,6 @@ public class Geographic_Area_Test {
         TypeArea expectedResult = t1;
         TypeArea actualResult;
         Geographic_Area c = new Geographic_Area(t1, l1);
-
         //Act
         c.setTypeArea(t1);
         actualResult = c.getTypeArea();
@@ -41,7 +40,6 @@ public class Geographic_Area_Test {
         //Act
         c.setTypeArea(t2);
         actualResult = c.getTypeArea();
-
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -305,6 +303,5 @@ public class Geographic_Area_Test {
         double result = ga1.getMostRecentReadingValue("Temperatura");
         //Assert
         assertEquals(expectedResult, result, 0.01);
-
     }
 }

@@ -128,7 +128,7 @@ public class ReadingList {
         return (temporaryValue / array.length);
     }
 
-    public double getAverageOfMinimumReadingsMonth(int year, int month) {
+    public double getAverageOfMinimumValuesInTheReadingsOfMonth(int year, int month) {
         ArrayList<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
         double[] minsOfDaysInMonth = new double[daysWithReadings.size()];
         int posInMinArray = 0;
