@@ -123,7 +123,7 @@ public class Local {
             return false;
         }
         Local localVariable = (Local) testLocal;
-        if (localVariable.getLatitude() == this.latitude && localVariable.getLongitude() == this.longitude) {
+        if (java.lang.Double.compare(this.latitude,localVariable.getLatitude())==0 && java.lang.Double.compare(this.longitude,localVariable.getLongitude())==0 ) {
             return true;
         }
         return false;

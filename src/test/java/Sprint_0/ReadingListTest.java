@@ -430,4 +430,28 @@ public class ReadingListTest {
                 //Assert
                 assertEquals(expectedResult, result, 0.001);
         }
+
+    @Test
+    public void seeIfMeanOfMonthWithAnEmptyArrayReturnsZero() {
+        //Arrange
+        ReadingList rl1 = new ReadingList();
+        //Act
+        double expectedResult = 0;
+        double result = rl1.meanOfMonth(118,11);
+
+        //Assert
+        assertEquals(expectedResult, result, 0.001);
+    }
+
+    @Test
+    public void seeIfMeanOfTheDayWithAnEmptyArrayReturnsZero() {
+        //Arrange
+        ReadingList rl1 = new ReadingList();
+        //Act
+        double expectedResult = 0;
+        double result = rl1.meanOftheDay(118,11, 1);
+
+        //Assert
+        assertEquals(expectedResult, result, 0.001);
+    }
 }

@@ -24,7 +24,7 @@ public class TypeArea {
         if (name != null && !name.isEmpty() && !name.matches(".*\\d+.*")) {
             {
                 return true;
-                
+
             }
         }
         throw new IllegalArgumentException("Please Insert Valid Name");
@@ -49,4 +49,6 @@ public class TypeArea {
     public int hashCode() {
         return 1;
     }
+
+
 }

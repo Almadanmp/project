@@ -1,8 +1,10 @@
 package Sprint_0;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Type_Area_Test {
 
@@ -117,5 +119,54 @@ public class Type_Area_Test {
         int expectedResult = 1;
         int actualResult = t1.hashCode();
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testIsNameValid() {
+        //Arrange
+        TypeArea a1 = new TypeArea("Humidade");
+
+        //Act
+        boolean result = a1.isNameValid("Vale");
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    public void testIsNameInvalidNameEmpty() {
+
+        //Arrange
+        TypeArea a1 = new TypeArea("Humidade");
+        //Act
+
+        //Assert
+                Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                    a1.isNameValid("");
+                });
+    }
+    @Test
+    public void testIsNameInvalidNameWithNumbers() {
+
+        //Arrange
+        TypeArea a1 = new TypeArea("Humidade");
+        //Act
+
+        //Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            a1.isNameValid("Humidade1");
+        });
+    }
+    @Test
+    public void testIsNameInvalidNameNull() {
+
+        //Arrange
+        TypeArea a1 = new TypeArea("Humidade");
+        //Act
+
+        //Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            a1.isNameValid(null);
+        });
     }
 }
