@@ -152,7 +152,7 @@ public class ReadingList {
 
     public double getAverageOfMaximumValuesInTheReadingsOfMonth(int year, int month) {
         List<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
-        double[] MaxsOfDaysInMonth = new double[daysWithReadings.size()];
+        double[] maxsOfDaysInMonth = new double[daysWithReadings.size()];
         int posInMaxArray = 0;
         double maxValueOfDay;
         for (int i = 0; i < daysWithReadings.size(); i++) {
@@ -171,10 +171,10 @@ public class ReadingList {
                     maxValueOfDay = valuesOfDay.get(k);
                 }
             }
-            MaxsOfDaysInMonth[posInMaxArray] = maxValueOfDay;
+            maxsOfDaysInMonth[posInMaxArray] = maxValueOfDay;
             posInMaxArray++;
         }
-        return meanOfArray(MaxsOfDaysInMonth);
+        return meanOfArray(maxsOfDaysInMonth);
     }
 }
 
