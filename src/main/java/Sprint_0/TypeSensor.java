@@ -50,8 +50,11 @@ public class TypeSensor {
      */
     @Override
     public boolean equals(Object testSensor) {
-        if (this == testSensor || (testSensor instanceof TypeSensor)){
+        if (this == testSensor) {
             return true;
+        }
+        if (!(testSensor instanceof TypeSensor)) {
+            return false;
         }
         TypeSensor typeSensor = (TypeSensor) testSensor;
           if(this.getName().equals(typeSensor.getName())){
