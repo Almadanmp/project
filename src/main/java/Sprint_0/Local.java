@@ -1,15 +1,15 @@
 package Sprint_0;
 
 public class Local {
-    private double latitude;
-    private double longitude;
-    private double altitude;
+    private double mLatitude;
+    private double mLongitude;
+    private double mAltitude;
 
     /**
-     * Construtor Local(), com dois parâmetros : um double latitude e um double longitude.
-     *  Criado para ser usado no método -> getLinearDistanceBetweenLocalsInKm(Local local1)
-     * @param latitude do local
-     * @param longitude do local
+     * Builder Local(), with two parameters: double latitude and longitude.
+     * Build to be use in method -> getLinearDistanceBetweenLocalsInKm(Local local1)
+     * @param latitude of the local
+     * @param longitude of the local
      */
     public Local(double latitude, double longitude) {
         setLatitude(latitude);
@@ -17,10 +17,10 @@ public class Local {
     }
 
     /**
-     * Construtor Local(), com todos os parâmetros para definir uma localização.
-     * @param latitude do local
-     * @param longitude do local
-     * @param altitude do local
+     * Builder Local(), with all the parameters to define a local.
+     * @param latitude of the local
+     * @param longitude of the local
+     * @param altitude of the local
      */
     public Local(double latitude, double longitude, double altitude) {
         setLatitude(latitude);
@@ -30,26 +30,26 @@ public class Local {
 
     /**
      * Setter Altitude
-     * @param altitude do local
+     * @param altitude of the local
      */
     public void setAltitude(double altitude) {
-        this.altitude = altitude;
+        this.mAltitude = altitude;
     }
 
     /**
      * Setter Latitude
-     * @param latitude do local
+     * @param latitude of the local
      */
     public void setLatitude(double latitude) {
-        this.latitude = latitude;
+        this.mLatitude = latitude;
     }
 
     /**
      * Setter Longitude
-     * @param longitude do local
+     * @param longitude of the local
      */
     public void setLongitude(double longitude) {
-        this.longitude = longitude;
+        this.mLongitude = longitude;
     }
 
     /**
@@ -57,8 +57,7 @@ public class Local {
      * @return Latitude Value
      */
     public double getLatitude() {
-        double result = this.latitude;
-        return result;
+        return this.mLatitude;
     }
 
     /**
@@ -66,8 +65,7 @@ public class Local {
      * @return Longitude value
      */
     public double getLongitude() {
-        double result = this.longitude;
-        return result;
+        return this.mLongitude;
     }
 
     /**
@@ -75,8 +73,7 @@ public class Local {
      * @return Altitude value
      */
     public double getAltitude() {
-        double result = this.altitude;
-        return result;
+        return this.mAltitude;
     }
 
     /**Convert coordinates TO radians
@@ -92,8 +89,8 @@ public class Local {
     }
 
     /**
-     * Método para Obter distância linear entre duas Localizações em Km.
-     * Só é necessário construtor Local () com dois parâmetros - Latitude e Longitude
+     * Method to obtain the linear distance between two locals in Km.
+     * We only need the builder with two parameters - Latitude & Longitude
      * @param local1 Localization 1
      * @return linear distance from Localization 1 to Localization 2
      */
@@ -123,10 +120,11 @@ public class Local {
             return false;
         }
         Local localVariable = (Local) testLocal;
-        if (java.lang.Double.compare(this.latitude,localVariable.getLatitude())==0 && java.lang.Double.compare(this.longitude,localVariable.getLongitude())==0 ) {
+        if (java.lang.Double.compare(this.mLatitude,localVariable.getLatitude())==0 && java.lang.Double.compare(this.mLongitude,localVariable.getLongitude())==0 ) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     /**

@@ -3,7 +3,6 @@ package Sprint_0;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -140,7 +139,7 @@ public class SensorList_Test {
         List<Sensor> result;
         SensorList lc = new SensorList(s1);
         lc.addSensor(s2);
-        result = lc.getSensorList();
+        result = lc.getSensorlist();
         expectedResult.add(s1);
         expectedResult.add(s2);
         assertEquals(result, expectedResult);
