@@ -1,9 +1,9 @@
 package Sprint_0;
 
 public class Local {
-    private double latitude;
-    private double longitude;
-    private double altitude;
+    private double mLatitude;
+    private double mLongitude;
+    private double mAltitude;
 
     /**
      * Construtor Local(), com dois parâmetros : um double latitude e um double longitude.
@@ -33,7 +33,7 @@ public class Local {
      * @param altitude do local
      */
     public void setAltitude(double altitude) {
-        this.altitude = altitude;
+        this.mAltitude = altitude;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Local {
      * @param latitude do local
      */
     public void setLatitude(double latitude) {
-        this.latitude = latitude;
+        this.mLatitude = latitude;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Local {
      * @param longitude do local
      */
     public void setLongitude(double longitude) {
-        this.longitude = longitude;
+        this.mLongitude = longitude;
     }
 
     /**
@@ -57,8 +57,7 @@ public class Local {
      * @return Latitude Value
      */
     public double getLatitude() {
-        double result = this.latitude;
-        return result;
+        return this.mLatitude;
     }
 
     /**
@@ -66,8 +65,7 @@ public class Local {
      * @return Longitude value
      */
     public double getLongitude() {
-        double result = this.longitude;
-        return result;
+        return this.mLongitude;
     }
 
     /**
@@ -75,8 +73,7 @@ public class Local {
      * @return Altitude value
      */
     public double getAltitude() {
-        double result = this.altitude;
-        return result;
+        return this.mAltitude;
     }
 
     /**Convert coordinates TO radians
@@ -123,7 +120,7 @@ public class Local {
             return false;
         }
         Local localVariable = (Local) testLocal;
-        if (java.lang.Double.compare(this.latitude,localVariable.getLatitude())==0 && java.lang.Double.compare(this.longitude,localVariable.getLongitude())==0 ) {
+        if (java.lang.Double.compare(this.mLatitude,localVariable.getLatitude())==0 && java.lang.Double.compare(this.mLongitude,localVariable.getLongitude())==0 ) {
             return true;
         }
         return false;
