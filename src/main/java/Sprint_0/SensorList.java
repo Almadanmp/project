@@ -9,7 +9,7 @@ import java.util.List;
  * Represents a List of Sensors.
  */
 public class SensorList {
-    private List<Sensor> Sensorlist;
+    private List<Sensor> sensorList;
 
     /**
      * Constructor of an ArrayList of Arrays.
@@ -17,10 +17,10 @@ public class SensorList {
      */
 
     public SensorList(Sensor[] sensorsToAdd) {
-        Sensorlist = new ArrayList<>();
+        sensorList = new ArrayList<>();
         if (sensorsToAdd.length > 0) {
             for (int i = 0; i < sensorsToAdd.length; i++) {
-                Sensorlist.add(sensorsToAdd[i]);
+                sensorList.add(sensorsToAdd[i]);
             }
         }
     }
@@ -30,8 +30,8 @@ public class SensorList {
      * @param sensorToAdd
      */
     public SensorList(Sensor sensorToAdd) {
-        Sensorlist = new ArrayList<>();
-        Sensorlist.add(sensorToAdd);
+        sensorList = new ArrayList<>();
+        sensorList.add(sensorToAdd);
     }
 
     /**
@@ -41,8 +41,8 @@ public class SensorList {
      */
 
     public boolean addSensor(Sensor sensorToAdd) {
-        if (!(Sensorlist.contains(sensorToAdd))) {
-            Sensorlist.add(sensorToAdd);
+        if (!(sensorList.contains(sensorToAdd))) {
+            sensorList.add(sensorToAdd);
             return true;
         }
         return false;
@@ -54,7 +54,7 @@ public class SensorList {
      * @return
      */
     public boolean containsSensor(Sensor sensor) {
-        return Sensorlist.contains(sensor);
+        return sensorList.contains(sensor);
     }
 
     /**
@@ -62,10 +62,10 @@ public class SensorList {
      * @return array of sensors
      */
     public Sensor[] getSensors() {
-        int sizeOfResultArray = Sensorlist.size();
+        int sizeOfResultArray = sensorList.size();
         Sensor[] result = new Sensor[sizeOfResultArray];
-        for (int i = 0; i < Sensorlist.size(); i++) {
-            result[i] = Sensorlist.get(i);
+        for (int i = 0; i < sensorList.size(); i++) {
+            result[i] = sensorList.get(i);
         }
         return result;
     }
@@ -74,8 +74,8 @@ public class SensorList {
      * Gettter (list of sensors)
      * @return list of sensors
      */
-    public List<Sensor> getSensorlist() {
-        return this.Sensorlist;
+    public List<Sensor> getSensorList() {
+        return this.sensorList;
     }
 
     /**
@@ -83,7 +83,7 @@ public class SensorList {
      * @param sensorToRemove
      */
     public void removeSensor(Sensor sensorToRemove) {
-        Sensorlist.remove(sensorToRemove);
+        sensorList.remove(sensorToRemove);
     }
 
     /**
@@ -91,7 +91,7 @@ public class SensorList {
      * @return the most recently used sensor
      */
     public Sensor getMostRecentlyUsedSensor() {
-        List<Sensor> listToTest = this.Sensorlist;
+        List<Sensor> listToTest = this.sensorList;
         int indexMostRecentlyUsedSensor = 0;
         for (int i = 0; i < listToTest.size() - 1; i++) {
             Date firstDate = listToTest.get(i).getReadingList().getMostRecentReading().getmDate();
