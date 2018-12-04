@@ -36,7 +36,7 @@ public class TypeArea {
             return false;
         }
         TypeArea localVariable = (TypeArea) objectToTest;
-        if (localVariable.getTypeOfGeographicArea().equals(this.typeDesignation)) {
+        if (localVariable.getTypeOfGeographicArea().equals(typeDesignation)) {
             return true;
         }
         return false;
@@ -44,6 +44,7 @@ public class TypeArea {
 
     @Override
     public int hashCode() {
+
         return 1;
     }
 
