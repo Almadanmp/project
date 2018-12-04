@@ -4,7 +4,7 @@ package Sprint_0;
  * Defines the Type of the Sensor.
  */
 public class TypeSensor {
-    private String name;
+    private String mName;
 
     /**
      * Empty Constructor to always create an object that names the Tye of the Sensor.
@@ -20,7 +20,7 @@ public class TypeSensor {
      */
     public void setName(String name) {
         if (isTypeSensorNameValid(name)){
-            this.name = name;
+            this.mName = name;
         }
     }
 
@@ -28,7 +28,7 @@ public class TypeSensor {
      * Getter Name
      */
     public String getName() {
-        return this.name;
+        return this.mName;
     }
 
     /**
