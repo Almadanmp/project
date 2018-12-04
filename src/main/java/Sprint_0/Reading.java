@@ -24,7 +24,7 @@ public class Reading {
     /**
      * Builder with 'value'.
      *
-     * @param value
+     * @param value of reading made
      */
     public Reading(double value) {
         setmValue(value);
@@ -33,7 +33,7 @@ public class Reading {
     /**
      * getters e setters
      *
-     * @param value
+     * @param value of reading made
      */
     public void setmValue(double value) {
         this.mValue = value;
@@ -46,7 +46,7 @@ public class Reading {
     /**
      * getters e setters
      *
-     * @param date
+     * @param date of the reading
      */
     public void setData(Date date) {
         this.mDate = date;
@@ -59,8 +59,8 @@ public class Reading {
     /**
      * Method 'equals' is required so that each 'Reading' can be added to a 'ReadingList'.
      *
-     * @param o
-     * @return
+     * @param o object
+     * @return boolean
      */
 
     @Override
@@ -74,11 +74,11 @@ public class Reading {
             Reading reading = (Reading) o;
             if (java.lang.Double.compare(this.mValue,reading.getmValue())==0 && this.mDate.equals(reading.getmDate())) {
                 return true;
-            } else {
+            }
                 return false;
             }
         }
-    }
+
 
     @Override
     public int hashCode() {
