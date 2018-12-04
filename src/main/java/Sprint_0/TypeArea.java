@@ -22,10 +22,7 @@ public class TypeArea {
      */
     public boolean isNameValid(String name) {
         if (name != null && !name.isEmpty() && !name.matches(".*\\d+.*")) {
-            {
                 return true;
-
-            }
         }
         throw new IllegalArgumentException("Please Insert Valid Name");
     }
@@ -39,14 +36,12 @@ public class TypeArea {
             return false;
         }
         TypeArea localVariable = (TypeArea) objectToTest;
-        if (localVariable.getTypeOfGeographicArea().equals(this.typeDesignation)) {
-            return true;
-        }
-        return false;
+        return localVariable.getTypeOfGeographicArea().equals(this.typeDesignation);
     }
 
     @Override
     public int hashCode() {
+
         return 1;
     }
 

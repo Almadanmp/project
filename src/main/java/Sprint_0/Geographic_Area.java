@@ -19,8 +19,8 @@ public class Geographic_Area {
      * @param local    Localization is defined by longitude, latitude and altitude.
      */
     public Geographic_Area(TypeArea typeArea, Local local) {
-        setTypeArea(typeArea);
-        setLocal(local);
+        this.setTypeArea(typeArea);
+        this.setLocal(local);
     }
 
     /** Constructor of the class Geographic_Area that receives the type of Geographic Area, its localization
@@ -30,9 +30,9 @@ public class Geographic_Area {
      * @param sensorList Defined by a List<Sensor>.
      */
     public Geographic_Area(TypeArea typeArea, Local local, SensorList sensorList) {
-        setTypeArea(typeArea);
-        setLocal(local);
-        setSensorList(sensorList);
+        this.setTypeArea(typeArea);
+        this.setLocal(local);
+        this.setSensorList(sensorList);
     }
 
     // Setters and Getters for all the parameters.
@@ -56,9 +56,9 @@ public class Geographic_Area {
      * @return Returns true if the list was added. Returns false otherwise.
      */
     public boolean setSensorList(SensorList listToSet) {
-        for (int i = 0; i < listToSet.getSensorList().size(); i++) {
-            for (int j = i + 1; j < listToSet.getSensorList().size(); j++) {
-                if (listToSet.getSensorList().get(i).equals(listToSet.getSensorList().get(j))) {
+        for (int i = 0; i < listToSet.getSensorlist().size(); i++) {
+            for (int j = i + 1; j < listToSet.getSensorlist().size(); j++) {
+                if (listToSet.getSensorlist().get(i).equals(listToSet.getSensorlist().get(j))) {
                     return false;
                 }
             }
@@ -94,9 +94,9 @@ public class Geographic_Area {
      */
     public double getMostRecentReadingValue(String typeOfSensor){
         SensorList listToTest = this.sensorList;
-        for(int i = 0; i < listToTest.getSensorList().size(); i++){
-            if(!(listToTest.getSensorList().get(i).getTypeSensor().getName().equals(typeOfSensor))){
-                listToTest.removeSensor(listToTest.getSensorList().get(i));
+        for(int i = 0; i < listToTest.getSensorlist().size(); i++){
+            if(!(listToTest.getSensorlist().get(i).getTypeSensor().getName().equals(typeOfSensor))){
+                listToTest.removeSensor(listToTest.getSensorlist().get(i));
             }
         }
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
