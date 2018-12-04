@@ -84,8 +84,7 @@ public class Sensor {
      * @return
      */
     public String getName() {
-        String result = this.mName;
-        return result;
+        return (this.mName);
     }
 
     /**
@@ -93,8 +92,7 @@ public class Sensor {
      * @return
      */
     public TypeSensor getTypeSensor() {
-        TypeSensor result = this.mTypeSensor;
-        return result;
+        return (this.mTypeSensor);
     }
 
     /**
@@ -102,8 +100,7 @@ public class Sensor {
      * @return
      */
     public Local getLocal() {
-        Local result = this.mLocal;
-        return result;
+        return (this.mLocal);
     }
 
     /**
@@ -111,8 +108,7 @@ public class Sensor {
      * @return
      */
     public Date getDateStartedFunctioning() {
-        Date result = this.mDateStartedFunctioning;
-        return result;
+        return (this.mDateStartedFunctioning);
     }
 
     /**
@@ -176,10 +172,7 @@ public class Sensor {
             return false;
         }
         Sensor sensor = (Sensor) testObject;
-        if (this.getName().equals(sensor.getName())) {
-            return true;
-        }
-        return false;
+        return this.getName().equals(sensor.getName());
     }
 
     @Override

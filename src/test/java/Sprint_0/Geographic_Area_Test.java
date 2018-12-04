@@ -26,6 +26,53 @@ public class Geographic_Area_Test {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+    @Test
+    public void seeIfFirstConstructorSetsTypeArea() {
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        TypeArea expectedResult = t1;
+        TypeArea actualResult;
+        Geographic_Area c = new Geographic_Area(t1, l1);
+        actualResult = c.getTypeArea();
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void seeIfSecondConstructorSetsTypeArea() {
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        SensorList list1 = new SensorList(s1);
+        Geographic_Area c = new Geographic_Area(t1, l1, list1);
+        TypeArea expectedResult = t1;
+        TypeArea actualResult;
+        actualResult = c.getTypeArea();
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void seeIfSecondConstructorSetsLocal() {
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        SensorList list1 = new SensorList(s1);
+        Geographic_Area c = new Geographic_Area(t1, l1, list1);
+        Local expectedResult =l1;
+        Local actualResult;
+        actualResult = c.getLocal();
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void seeIfSecondConstructorSetsSensorList() {
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        SensorList list1 = new SensorList(s1);
+        Geographic_Area c = new Geographic_Area(t1, l1, list1);
+        SensorList expectedResult = list1;
+        SensorList actualResult;
+        actualResult = c.getSensorList();
+        assertEquals(expectedResult, actualResult);
+    }
+
 
     @Test
     public void seeIfGetSetTypeWorksIfDifferentOfGivenConstructor() {
