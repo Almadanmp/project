@@ -1,7 +1,6 @@
 package Sprint_0;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * This class will contain a value read by a Sensor, associated with a date of said reading.

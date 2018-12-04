@@ -1,8 +1,8 @@
 package Sprint_0;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 
 import java.util.Calendar;
 import java.util.Date;
@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class Sensor_Test {
+public class SensorTest {
     @Test
     public void seeIfSetGetNameWorks() {
         //Arrange
@@ -28,7 +28,7 @@ public class Sensor_Test {
         assertEquals(expectedResult, actualResult);
     }
 
-    
+
     @Test
     public void seeIfSetGetNameWorksSecondName() {
         //Arrange
@@ -59,6 +59,24 @@ public class Sensor_Test {
 
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfSetNameWorksNull() {
+        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21), new Date());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            c.setName(null);
+        });
+    }
+
+    @Test
+    public void seeIfSetNameWorksEmpty() {
+        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21), new Date());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            c.setName("");
+        });
     }
 
     @Test
@@ -231,6 +249,7 @@ public class Sensor_Test {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfEqualsWorksTrueSameName() {
         //Arrange
@@ -259,9 +278,9 @@ public class Sensor_Test {
 
 
     @Test
-    public void seeIfcalculateDistanceToSensorWorks(){
-        Local l1 = new Local(23,46);
-        Local l2 = new Local(25,47);
+    public void seeIfcalculateDistanceToSensorWorks() {
+        Local l1 = new Local(23, 46);
+        Local l2 = new Local(25, 47);
         TypeSensor t1 = new TypeSensor("Termometro");
         TypeSensor t2 = new TypeSensor("Lololometro");
         Sensor s1 = new Sensor("Sensor1", t1, l1, new Date());
@@ -274,24 +293,24 @@ public class Sensor_Test {
     @Test
     public void seeGetMeanOfMonthThroughSensor() {
         ReadingList rList = new ReadingList();
-        Sensor s1 = new Sensor("sensor1",new TypeSensor("temperature"), new Local(15,23), new Date(), rList);
-        GregorianCalendar g0 =new GregorianCalendar(2018, 9, 31, 23, 59, 59);
-        GregorianCalendar g1 =new GregorianCalendar(2018, 10, 1, 0, 0, 0);
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(15, 23), new Date(), rList);
+        GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
+        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
         GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g3 =new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        GregorianCalendar g4 =new GregorianCalendar(2018, 10, 23, 18, 14, 3);
+        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 18, 14, 3);
         GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
-        GregorianCalendar g6 =new GregorianCalendar(2018, 10, 28, 12, 12, 12);
+        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 28, 12, 12, 12);
         GregorianCalendar g7 = new GregorianCalendar(2018, 10, 30, 23, 59, 59);
-        GregorianCalendar g8 =new GregorianCalendar(2018, 11, 01, 00, 00, 00);
+        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 01, 00, 00, 00);
         Reading r0 = new Reading(23, g0.getTime());
         Reading r1 = new Reading(23, g1.getTime());
-        Reading r2 = new Reading(24,g2.getTime());
+        Reading r2 = new Reading(24, g2.getTime());
         Reading r3 = new Reading(25, g3.getTime());
         Reading r4 = new Reading(26, g4.getTime());
-        Reading r5 = new Reading(23,g5.getTime());
+        Reading r5 = new Reading(23, g5.getTime());
         Reading r6 = new Reading(22, g6.getTime());
-        Reading r7 = new Reading(23,g7.getTime());
+        Reading r7 = new Reading(23, g7.getTime());
         Reading r8 = new Reading(22, g8.getTime());
         rList.addReading(r0);
         rList.addReading(r1);
@@ -304,7 +323,7 @@ public class Sensor_Test {
         rList.addReading(r8);
 
         double expectedResult = 23.5;
-        double result = s1.calculateMonthMeanOnSensor(s1,2018,10);
+        double result = s1.calculateMonthMeanOnSensor(s1, 2018, 10);
         assertEquals(expectedResult, result, 0.1);
     }
 }

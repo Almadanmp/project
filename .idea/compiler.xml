@@ -15,6 +15,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="project_g2" options="-Werror -Xlint:all" />
+      <module name="smarthome" options="-Werror -Xlint:all" />
     </option>
   </component>
 </project>

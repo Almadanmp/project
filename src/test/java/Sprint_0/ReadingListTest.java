@@ -5,10 +5,59 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReadingListTest {
+
+        @Test
+        public void seeAddReadingIfListIsEmpty() {
+                //Arrange
+                ReadingList readingList = new ReadingList();
+                GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
+                Reading reading1 = new Reading(17, calendar.getTime());
+                boolean expectedResult = true;
+
+                //Act
+                boolean result = readingList.addReading(reading1);
+
+                //Assert
+                assertEquals(expectedResult, result);
+        }
+        @Test
+        public void seeAddReadingIfListHasDifferentReading() {
+                //Arrange
+                ReadingList readingList = new ReadingList();
+                GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
+                Reading reading1 = new Reading(17, calendar.getTime());
+                GregorianCalendar calendar2 = new GregorianCalendar(118, 9, 3);
+                Reading reading2 = new Reading(29, calendar2.getTime());
+                boolean expectedResult = true;
+
+                //Act
+                readingList.addReading(reading1);
+                boolean result = readingList.addReading(reading2);
+
+                //Assert
+                assertEquals(expectedResult, result);
+        }
+        @Test
+        public void seeAddReadingIfListHasSameReading() {
+                //Arrange
+                ReadingList readingList = new ReadingList();
+                GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
+                Reading reading1 = new Reading(17, calendar.getTime());
+                Reading reading2 = new Reading(17, calendar.getTime());
+                boolean expectedResult = false;
+
+                //Act
+                readingList.addReading(reading1);
+                boolean result = readingList.addReading(reading2);
+
+                //Assert
+                assertEquals(expectedResult, result);
+        }
 
         @Test
         public void ensureThatWeAddAReading1ToAList() {
@@ -191,7 +240,7 @@ public class ReadingListTest {
                 rl.addReading(r6);
                 rl.addReading(r7);
                 double expectedResult = 23.71;
-                double result = rl.meanOftheDay(2018, 11, 23);
+                double result = rl.getMeanOftheDay(2018, 11, 23);
                 assertEquals(expectedResult, result, 0.1);
 
         }
@@ -221,7 +270,7 @@ public class ReadingListTest {
                 rl.addReading(r6);
                 rl.addReading(r7);
                 double expectedResult = 23.8;
-                double result = rl.meanOftheDay(2018, 11, 23);
+                double result = rl.getMeanOftheDay(2018, 11, 23);
                 assertEquals(expectedResult, result, 0.1);
         }
 
@@ -255,13 +304,13 @@ public class ReadingListTest {
                 rList.addReading(r6);
                 rList.addReading(r7);
                 rList.addReading(r8);
-                ArrayList<Integer> expectedResult = new ArrayList<>();
+                List<Integer> expectedResult = new ArrayList<>();
                 expectedResult.add(1);
                 expectedResult.add(23);
                 expectedResult.add(27);
                 expectedResult.add(28);
                 expectedResult.add(30);
-                ArrayList<Integer> result = rList.getDaysOfMonthWithReadings(2018, 10);
+                List<Integer> result = rList.getDaysOfMonthWithReadings(2018, 10);
                 assertEquals(expectedResult, result);
         }
 
@@ -297,7 +346,7 @@ public class ReadingListTest {
                 rList.addReading(r8);
 
                 double expectedResult = 23.5;
-                double result = rList.meanOfMonth(2018, 10);
+                double result = rList.getMeanOfRecordedValuesMonth(2018, 10);
                 assertEquals(expectedResult, result, 0.1);
         }
 
@@ -430,4 +479,28 @@ public class ReadingListTest {
                 //Assert
                 assertEquals(expectedResult, result, 0.001);
         }
+
+    @Test
+    public void seeIfMeanOfMonthWithAnEmptyArrayReturnsZero() {
+        //Arrange
+        ReadingList rl1 = new ReadingList();
+        //Act
+        double expectedResult = 0;
+        double result = rl1.getMeanOfRecordedValuesMonth(118,11);
+
+        //Assert
+        assertEquals(expectedResult, result, 0.001);
+    }
+
+    @Test
+    public void seeIfMeanOfTheDayWithAnEmptyArrayReturnsZero() {
+        //Arrange
+        ReadingList rl1 = new ReadingList();
+        //Act
+        double expectedResult = 0;
+        double result = rl1.getMeanOftheDay(118,11, 1);
+
+        //Assert
+        assertEquals(expectedResult, result, 0.001);
+    }
 }
