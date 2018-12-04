@@ -18,7 +18,7 @@ public class SensorList {
 
     public SensorList(Sensor[] sensorsToAdd) {
         sensorList = new ArrayList<>();
-        if (sensorsToAdd.length > 0) {
+        if (sensorsToAdd.length >= 1) {
             for (int i = 0; i < sensorsToAdd.length; i++) {
                 sensorList.add(sensorsToAdd[i]);
             }
