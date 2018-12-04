@@ -25,6 +25,7 @@ public class ReadingListTest {
                 //Assert
                 assertEquals(expectedResult, result);
         }
+
         @Test
         public void seeAddReadingIfListHasDifferentReading() {
                 //Arrange
@@ -42,6 +43,7 @@ public class ReadingListTest {
                 //Assert
                 assertEquals(expectedResult, result);
         }
+
         @Test
         public void seeAddReadingIfListHasSameReading() {
                 //Arrange
@@ -123,7 +125,7 @@ public class ReadingListTest {
                 GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
                 Reading reading1 = new Reading(15, g1.getTime());
                 GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
-                Reading reading2 = new Reading(29,g2.getTime());
+                Reading reading2 = new Reading(29, g2.getTime());
                 readingList.addReading(reading1);
                 readingList.addReading(reading2);
                 double expectedResult = 29;
@@ -139,10 +141,10 @@ public class ReadingListTest {
         public void ensureThatAReadingListDoesNotContainAReading() {
                 //Arrange
                 ReadingList readingList = new ReadingList();
-                GregorianCalendar g1 =  new GregorianCalendar(118, 11, 25);
-                Reading reading1 = new Reading(15,g1.getTime());
-                GregorianCalendar g2 =  new GregorianCalendar(118, 9, 3);
-                Reading reading2 = new Reading(29,g2.getTime());
+                GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
+                Reading reading1 = new Reading(15, g1.getTime());
+                GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
+                Reading reading2 = new Reading(29, g2.getTime());
                 readingList.addReading(reading1);
                 boolean expectedResult = false;
 
@@ -157,10 +159,10 @@ public class ReadingListTest {
         public void ensureThatAReadingDoesNotAddBecauseItIsAlreadyContained() {
                 //Arrange
                 ReadingList readingList = new ReadingList();
-                GregorianCalendar g1 =  new GregorianCalendar(118, 11, 25);
-                Reading reading1 = new Reading(15,g1.getTime());
-                GregorianCalendar g2 =  new GregorianCalendar(118, 9, 3);
-                Reading reading2 = new Reading(29,g2.getTime());
+                GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
+                Reading reading1 = new Reading(15, g1.getTime());
+                GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
+                Reading reading2 = new Reading(29, g2.getTime());
                 readingList.addReading(reading1);
                 readingList.addReading(reading2);
                 readingList.addReading(reading2);
@@ -178,13 +180,13 @@ public class ReadingListTest {
 
                 //Arrange
                 ReadingList readingList = new ReadingList();
-                GregorianCalendar g1 =  new GregorianCalendar(118, 11, 25);
-                Reading reading1 = new Reading(15,g1.getTime());
-                GregorianCalendar g2 =new GregorianCalendar(118, 9, 3);
+                GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
+                Reading reading1 = new Reading(15, g1.getTime());
+                GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
                 Reading reading2 = new Reading(29, g2.getTime());
                 readingList.addReading(reading1);
                 readingList.addReading(reading2);
-                Reading expectedResult = new Reading(15,g1.getTime());
+                Reading expectedResult = new Reading(15, g1.getTime());
                 Reading actualResult;
 
                 //Act
@@ -222,11 +224,11 @@ public class ReadingListTest {
                 GregorianCalendar g2 = new GregorianCalendar(2018, 11, 23, 23, 26, 21);
                 GregorianCalendar g3 = new GregorianCalendar(2018, 11, 23, 8, 21, 22);
                 GregorianCalendar g4 = new GregorianCalendar(2018, 11, 23, 18, 14, 3);
-                GregorianCalendar g5 =new GregorianCalendar(2018, 11, 23, 12, 14, 23);
-                GregorianCalendar g6 =new GregorianCalendar(2018, 11, 23, 12, 12, 12);
-                GregorianCalendar g7 =new GregorianCalendar(2018, 11, 23, 13, 12, 33);
+                GregorianCalendar g5 = new GregorianCalendar(2018, 11, 23, 12, 14, 23);
+                GregorianCalendar g6 = new GregorianCalendar(2018, 11, 23, 12, 12, 12);
+                GregorianCalendar g7 = new GregorianCalendar(2018, 11, 23, 13, 12, 33);
                 Reading r1 = new Reading(23, g1.getTime());
-                Reading r2 = new Reading(24,g2.getTime());
+                Reading r2 = new Reading(24, g2.getTime());
                 Reading r3 = new Reading(25, g3.getTime());
                 Reading r4 = new Reading(26, g4.getTime());
                 Reading r5 = new Reading(23, g5.getTime());
@@ -252,11 +254,11 @@ public class ReadingListTest {
                 GregorianCalendar g2 = new GregorianCalendar(2018, 11, 23, 23, 26, 21);
                 GregorianCalendar g3 = new GregorianCalendar(2018, 11, 23, 8, 21, 22);
                 GregorianCalendar g4 = new GregorianCalendar(2018, 11, 23, 18, 14, 3);
-                GregorianCalendar g5 =new GregorianCalendar(2018, 11, 23, 12, 14, 23);
-                GregorianCalendar g6 =new GregorianCalendar(2018, 11, 23, 12, 12, 12);
-                GregorianCalendar g7 =new GregorianCalendar(2018, 11, 23, 13, 12, 33);
+                GregorianCalendar g5 = new GregorianCalendar(2018, 11, 23, 12, 14, 23);
+                GregorianCalendar g6 = new GregorianCalendar(2018, 11, 23, 12, 12, 12);
+                GregorianCalendar g7 = new GregorianCalendar(2018, 11, 23, 13, 12, 33);
                 Reading r1 = new Reading(23, g1.getTime());
-                Reading r2 = new Reading(24,g2.getTime());
+                Reading r2 = new Reading(24, g2.getTime());
                 Reading r3 = new Reading(25, g3.getTime());
                 Reading r4 = new Reading(26, g4.getTime());
                 Reading r5 = new Reading(23, g5.getTime());
@@ -277,23 +279,23 @@ public class ReadingListTest {
         @Test
         public void seeIfGetDaysOfTheMonthWithReadings() {
                 ReadingList rList = new ReadingList();
-                GregorianCalendar g0 =new GregorianCalendar(2018, 9, 31, 23, 59, 59);
-                GregorianCalendar g1 =new GregorianCalendar(2018, 10, 1, 0, 0, 0);
+                GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
+                GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
                 GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-                GregorianCalendar g3 =new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-                GregorianCalendar g4 =new GregorianCalendar(2018, 10, 23, 18, 14, 3);
+                GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+                GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 18, 14, 3);
                 GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
-                GregorianCalendar g6 =new GregorianCalendar(2018, 10, 28, 12, 12, 12);
+                GregorianCalendar g6 = new GregorianCalendar(2018, 10, 28, 12, 12, 12);
                 GregorianCalendar g7 = new GregorianCalendar(2018, 10, 30, 23, 59, 59);
-                GregorianCalendar g8 =new GregorianCalendar(2018, 11, 01, 00, 00, 00);
+                GregorianCalendar g8 = new GregorianCalendar(2018, 11, 01, 00, 00, 00);
                 Reading r0 = new Reading(23, g0.getTime());
                 Reading r1 = new Reading(23, g1.getTime());
-                Reading r2 = new Reading(24,g2.getTime());
+                Reading r2 = new Reading(24, g2.getTime());
                 Reading r3 = new Reading(25, g3.getTime());
                 Reading r4 = new Reading(26, g4.getTime());
-                Reading r5 = new Reading(23,g5.getTime());
+                Reading r5 = new Reading(23, g5.getTime());
                 Reading r6 = new Reading(22, g6.getTime());
-                Reading r7 = new Reading(23,g7.getTime());
+                Reading r7 = new Reading(23, g7.getTime());
                 Reading r8 = new Reading(22, g8.getTime());
                 rList.addReading(r0);
                 rList.addReading(r1);
@@ -317,23 +319,23 @@ public class ReadingListTest {
         @Test
         public void seeGetMeanOfMonth() {
                 ReadingList rList = new ReadingList();
-                GregorianCalendar g0 =new GregorianCalendar(2018, 9, 31, 23, 59, 59);
-                GregorianCalendar g1 =new GregorianCalendar(2018, 10, 1, 0, 0, 0);
+                GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
+                GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
                 GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-                GregorianCalendar g3 =new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-                GregorianCalendar g4 =new GregorianCalendar(2018, 10, 23, 18, 14, 3);
+                GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+                GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 18, 14, 3);
                 GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
-                GregorianCalendar g6 =new GregorianCalendar(2018, 10, 28, 12, 12, 12);
+                GregorianCalendar g6 = new GregorianCalendar(2018, 10, 28, 12, 12, 12);
                 GregorianCalendar g7 = new GregorianCalendar(2018, 10, 30, 23, 59, 59);
-                GregorianCalendar g8 =new GregorianCalendar(2018, 11, 01, 00, 00, 00);
+                GregorianCalendar g8 = new GregorianCalendar(2018, 11, 01, 00, 00, 00);
                 Reading r0 = new Reading(23, g0.getTime());
                 Reading r1 = new Reading(23, g1.getTime());
-                Reading r2 = new Reading(24,g2.getTime());
+                Reading r2 = new Reading(24, g2.getTime());
                 Reading r3 = new Reading(25, g3.getTime());
                 Reading r4 = new Reading(26, g4.getTime());
-                Reading r5 = new Reading(23,g5.getTime());
+                Reading r5 = new Reading(23, g5.getTime());
                 Reading r6 = new Reading(22, g6.getTime());
-                Reading r7 = new Reading(23,g7.getTime());
+                Reading r7 = new Reading(23, g7.getTime());
                 Reading r8 = new Reading(22, g8.getTime());
                 rList.addReading(r0);
                 rList.addReading(r1);
@@ -358,7 +360,6 @@ public class ReadingListTest {
 
         //Testa média de temperatura minima por dia ao longo do mês.
         //Ou seja, pega na minima de cada dia e faz a média para o mês. É suposto dar sempre 10.
-
 
 
         //Teste igual mas para máximo, é suposto dar sempre 20.
@@ -395,7 +396,7 @@ public class ReadingListTest {
 
                 //Act
                 double expectedResult = 10;
-                double result = rl1.getAverageOfMinimumValuesInTheReadingsOfMonth(118,11);
+                double result = rl1.getAverageOfMinimumValuesInTheReadingsOfMonth(118, 11);
 
                 //Assert
                 assertEquals(expectedResult, result, 0.001);
@@ -406,11 +407,11 @@ public class ReadingListTest {
         public void seeIfGetMinimumValuesMonth2() {
                 //Arrange
                 ReadingList rl1 = new ReadingList();
-                Reading reading1 = new Reading(7, new GregorianCalendar(118, 11, 1, 0, 0, 0).getTime());
+                Reading reading1 = new Reading(20, new GregorianCalendar(118, 11, 1, 0, 0, 0).getTime());
                 Reading reading2 = new Reading(10, new GregorianCalendar(118, 11, 1, 1, 0, 0).getTime());
                 Reading reading3 = new Reading(20, new GregorianCalendar(118, 11, 1, 2, 0, 0).getTime());
                 Reading reading4 = new Reading(12, new GregorianCalendar(118, 11, 5, 1, 0, 0).getTime());
-                Reading reading5 = new Reading(20, new GregorianCalendar(118, 11, 5, 2, 0, 0).getTime());
+                Reading reading5 = new Reading(7, new GregorianCalendar(118, 11, 5, 2, 0, 0).getTime());
                 Reading reading6 = new Reading(10, new GregorianCalendar(118, 11, 10, 1, 0, 0).getTime());
                 Reading reading7 = new Reading(20, new GregorianCalendar(118, 11, 10, 2, 0, 0).getTime());
                 Reading reading8 = new Reading(-2, new GregorianCalendar(118, 11, 15, 1, 0, 0).getTime());
@@ -434,8 +435,8 @@ public class ReadingListTest {
                 rl1.addReading(reading13);
 
                 //Act
-                double expectedResult = 7.4;
-                double result = rl1.getAverageOfMinimumValuesInTheReadingsOfMonth(118,11);
+                double expectedResult = 7.0;
+                double result = rl1.getAverageOfMinimumValuesInTheReadingsOfMonth(118, 11);
 
                 //Assert
                 assertEquals(expectedResult, result, 0.001);
@@ -474,33 +475,34 @@ public class ReadingListTest {
 
                 //Act
                 double expectedResult = 15.4;
-                double result = rl1.getAverageOfMaximumValuesInTheReadingsOfMonth(118,11);
+                double result = rl1.getAverageOfMaximumValuesInTheReadingsOfMonth(118, 11);
 
                 //Assert
                 assertEquals(expectedResult, result, 0.001);
         }
 
-    @Test
-    public void seeIfMeanOfMonthWithAnEmptyArrayReturnsZero() {
-        //Arrange
-        ReadingList rl1 = new ReadingList();
-        //Act
-        double expectedResult = 0;
-        double result = rl1.getMeanOfRecordedValuesMonth(118,11);
+        @Test
+        public void seeIfMeanOfMonthWithAnEmptyArrayReturnsZero() {
+                //Arrange
+                ReadingList rl1 = new ReadingList();
+                //Act
+                double expectedResult = 0;
+                double result = rl1.getMeanOfRecordedValuesMonth(118, 11);
 
-        //Assert
-        assertEquals(expectedResult, result, 0.001);
-    }
+                //Assert
+                assertEquals(expectedResult, result, 0.001);
+        }
 
-    @Test
-    public void seeIfMeanOfTheDayWithAnEmptyArrayReturnsZero() {
-        //Arrange
-        ReadingList rl1 = new ReadingList();
-        //Act
-        double expectedResult = 0;
-        double result = rl1.getMeanOftheDay(118,11, 1);
+        @Test
+        public void seeIfMeanOfTheDayWithAnEmptyArrayReturnsZero() {
+                //Arrange
+                ReadingList rl1 = new ReadingList();
+                //Act
+                double expectedResult = 0;
+                double result = rl1.getMeanOftheDay(118, 11, 1);
 
-        //Assert
-        assertEquals(expectedResult, result, 0.001);
-    }
+                //Assert
+                assertEquals(expectedResult, result, 0.001);
+        }
+
 }
