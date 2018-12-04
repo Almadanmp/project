@@ -71,15 +71,15 @@ public class Reading {
         }
         if (!(o instanceof Reading)) {
             return false;
-        }
-        Reading reading = (Reading) o;
-        if (this.mValue == reading.getmValue() && this.mDate.equals(reading.getmDate())) {
-            return true;
         } else {
-            return false;
+            Reading reading = (Reading) o;
+            if (java.lang.Double.compare(this.mValue,reading.getmValue())==0 && this.mDate.equals(reading.getmDate())) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
-
 
     @Override
     public int hashCode() {

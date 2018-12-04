@@ -15,12 +15,15 @@ public class TypeSensor {
         setName(name);
     }
 
+
     /**
      * Setter Name
      * @param name
      */
     public void setName(String name) {
-        this.name = name;
+        if (isTypeSensorNameValid(name)){
+            this.name = name;
+        }
     }
 
     /**
@@ -29,6 +32,20 @@ public class TypeSensor {
     public String getName() {
         String result = this.name;
         return result;
+    }
+
+    /**
+     * Method to restrain input name so they cant be null or empty
+     * @param name name inserted by user
+     * @return will return true if the name is valid or it will throw an exception if Invalid
+     */
+    public static boolean isTypeSensorNameValid(String name) {
+        if (name != null && !name.isEmpty()) {
+            {
+                return true;
+            }
+        }
+        throw new IllegalArgumentException("Please Insert Valid Name");
     }
 
     /**

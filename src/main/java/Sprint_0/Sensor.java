@@ -50,7 +50,7 @@ public class Sensor {
      * @param name
      */
     public void setName(String name) {
-        if (AuxiliaryMethods.isNameValid(name)) {
+        if (isSensorNameValid(name)) {
             this.name = name;
         }
     }
@@ -150,6 +150,21 @@ public class Sensor {
      */
     public double calculateMonthMeanOnSensor(Sensor s1, int year, int month) {
         return s1.getReadingList().meanOfMonth(year, month);
+    }
+
+
+    /**
+     * Method to restrain input name so they cant be null or empty.
+     * @param name name inserted by user
+     * @return will return true if the name is valid or it will throw an exception if Invalid
+     */
+    public static boolean isSensorNameValid(String name) {
+        if (name != null && !name.isEmpty()) {
+            {
+                return true;
+            }
+        }
+        throw new IllegalArgumentException("Please Insert Valid Name");
     }
 
     @Override
