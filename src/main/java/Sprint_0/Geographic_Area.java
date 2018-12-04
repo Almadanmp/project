@@ -19,8 +19,8 @@ public class Geographic_Area {
      * @param local    Localization is defined by longitude, latitude and altitude.
      */
     public Geographic_Area(TypeArea typeArea, Local local) {
-        this.setTypeArea(typeArea);
-        this.setLocal(local);
+        setTypeArea(typeArea);
+        setLocal(local);
     }
 
     /** Constructor of the class Geographic_Area that receives the type of Geographic Area, its localization
@@ -30,9 +30,9 @@ public class Geographic_Area {
      * @param sensorList Defined by a List<Sensor>.
      */
     public Geographic_Area(TypeArea typeArea, Local local, SensorList sensorList) {
-        this.setTypeArea(typeArea);
-        this.setLocal(local);
-        this.setSensorList(sensorList);
+        setTypeArea(typeArea);
+        setLocal(local);
+        setSensorList(sensorList);
     }
 
     // Setters and Getters for all the parameters.
@@ -56,7 +56,7 @@ public class Geographic_Area {
      * @return Returns true if the list was added. Returns false otherwise.
      */
     public boolean setSensorList(SensorList listToSet) {
-        for (int i = 0; i < listToSet.getSensorlist().size(); i++) {
+        for (int i = 0; i <= listToSet.getSensorlist().size(); i++) {
             for (int j = i + 1; j < listToSet.getSensorlist().size(); j++) {
                 if (listToSet.getSensorlist().get(i).equals(listToSet.getSensorlist().get(j))) {
                     return false;
