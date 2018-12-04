@@ -5,9 +5,9 @@ package Sprint_0;
  */
 
 public class Geographic_Area {
-    private TypeArea typeArea;
-    private Local local;
-    private SensorList sensorList;
+    private TypeArea mTypeArea;
+    private Local mLocal;
+    private SensorList mSensorList;
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -40,14 +40,14 @@ public class Geographic_Area {
      * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
      */
     public void setTypeArea(TypeArea typeArea) {
-        this.typeArea = typeArea;
+        this.mTypeArea = typeArea;
     }
 
     /** Setter for Geographic Area localization.
      * @param local Localization is defined by three doubles (longitude, latitude and altitude).
      */
     public void setLocal(Local local) {
-        this.local = local;
+        this.mLocal = local;
     }
 
     /** Setter for Geographic Area List of Sensors.  The method determines that the parameter listToSet will
@@ -63,28 +63,28 @@ public class Geographic_Area {
                 }
             }
         }
-        this.sensorList = listToSet;
+        this.mSensorList = listToSet;
         return true;
     }
     /** Getter for type of Geographic Area.
      * @return  returns the attribute TypeArea from an object of the class Geographic Area
      */
     public TypeArea getTypeArea() {
-        return this.typeArea;
+        return this.mTypeArea;
     }
 
     /** Getter for Geographic Area localization.
      * @return  returns the attribute local from an object of the class Geographic Area
      */
     public Local getLocal() {
-        return this.local;
+        return this.mLocal;
     }
 
     /** Getter for Geographic Area sensor list.
      * @return  returns the attribute sensorList from an object of the class Geographic Area
      */
     public SensorList getSensorList() {
-        return this.sensorList;
+        return this.mSensorList;
     }
 
     /** Method will go through Geographic Area's sensor list, create a second list with the type
@@ -93,7 +93,7 @@ public class Geographic_Area {
      * @return  returns a double of the most recent value recorded in every type sensor given
      */
     public double getMostRecentReadingValue(String typeOfSensor){
-        SensorList listToTest = this.sensorList;
+        SensorList listToTest = this.mSensorList;
         for(int i = 0; i < listToTest.getSensorList().size(); i++){
             if(!(listToTest.getSensorList().get(i).getTypeSensor().getName().equals(typeOfSensor))){
                 listToTest.removeSensor(listToTest.getSensorList().get(i));
@@ -108,6 +108,6 @@ public class Geographic_Area {
      */
     public double calculateDistanceToGA(Geographic_Area ga){
         Local l = ga.getLocal();
-        return this.local.getLinearDistanceBetweenLocalsInKm(l);
+        return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
     }
 }
