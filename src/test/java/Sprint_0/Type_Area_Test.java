@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class Type_Area_Test {
 
     @Test
-    public void checkTypeOfGeographicAreaConstructor(){
+    public void seeTypeOfGeographicAreaConstructor(){
         //Arrange
         String expectedResult = "Rua";
         String actualResult;
@@ -22,7 +22,7 @@ public class Type_Area_Test {
     }
 
     @Test
-    public void checkSetGeographicAreaTypeWithSameDesignationFromConstructor(){
+    public void seeSetGeographicAreaTypeWithSameDesignationFromConstructor(){
         //Arrange
         String expectedResult = "Rua";
         String actualResult;
@@ -36,7 +36,7 @@ public class Type_Area_Test {
         assertEquals(expectedResult,actualResult);
     }
     @Test
-    public void checkSetGeographicAreaTypeWithDifferentDesignationFromConstructor(){
+    public void seeSetGeographicAreaTypeWithDifferentDesignationFromConstructor(){
         //Arrange
         String expectedResult = "Freguesia";
         String actualResult;
@@ -51,7 +51,7 @@ public class Type_Area_Test {
     }
 
     @Test
-    public void checkGetGeographicAreaTypeAfterSet(){
+    public void seeGetGeographicAreaTypeAfterSet(){
         //Arrange
         String expectedResult = "Porto";
         String actualResult;
@@ -66,7 +66,7 @@ public class Type_Area_Test {
     }
 
     @Test
-    public void checkEqualsBetweenTwoGeographicAreaTypesWithSameDesignation(){
+    public void seeEqualsBetweenTwoGeographicAreaTypesWithSameDesignation(){
         //Arrange
         Boolean expectedResult = true;
         Boolean actualResult;
@@ -78,7 +78,7 @@ public class Type_Area_Test {
         assertEquals(expectedResult,actualResult);
     }
     @Test
-    public void checkEqualsBetweenTwoGeographicAreaTypesWithDifferentDesignation(){
+    public void seeEqualsBetweenTwoGeographicAreaTypesWithDifferentDesignation(){
         //Arrange
         Boolean expectedResult = false;
         Boolean actualResult;
@@ -90,7 +90,7 @@ public class Type_Area_Test {
         assertEquals(expectedResult,actualResult);
     }
     @Test
-    public void checkEqualsBetweenSameObject(){
+    public void seeEqualsBetweenSameObject(){
         //Arrange
         Boolean expectedResult = true;
         Boolean actualResult;
@@ -101,7 +101,7 @@ public class Type_Area_Test {
         assertEquals(expectedResult,actualResult);
     }
     @Test
-    public void checkEqualsBetweenObjectsFromDifferentClasses(){
+    public void seeEqualsBetweenObjectsFromDifferentClasses(){
         //Arrange
         Boolean expectedResult = false;
         Boolean actualResult;
@@ -122,7 +122,7 @@ public class Type_Area_Test {
     }
 
     @Test
-    public void testIsNameValid() {
+    public void seeIfNameValid() {
         //Arrange
         TypeArea a1 = new TypeArea("Humidade");
 
@@ -134,7 +134,7 @@ public class Type_Area_Test {
     }
 
     @Test
-    public void testIsNameInvalidNameEmpty() {
+    public void seeIfNameInvalidNameEmpty() {
 
         //Arrange
         TypeArea a1 = new TypeArea("Humidade");
@@ -146,7 +146,7 @@ public class Type_Area_Test {
                 });
     }
     @Test
-    public void testIsNameInvalidNameWithNumbers() {
+    public void seeIfNameInvalidNameWithNumbers() {
 
         //Arrange
         TypeArea a1 = new TypeArea("Humidade");
@@ -158,7 +158,7 @@ public class Type_Area_Test {
         });
     }
     @Test
-    public void testIsNameInvalidNameNull() {
+    public void seeIfNameInvalidNameNull() {
 
         //Arrange
         TypeArea a1 = new TypeArea("Humidade");
