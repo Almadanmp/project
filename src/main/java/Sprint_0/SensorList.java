@@ -1,9 +1,6 @@
 package Sprint_0;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents a List of Sensors.
@@ -18,7 +15,7 @@ public class SensorList {
 
     public SensorList(Sensor[] sensorsToAdd) {
         sensorList = new ArrayList<>();
-        if (sensorsToAdd.length >= 1) {
+        if (sensorsToAdd.length > 0) {
             for (int i = 0; i < sensorsToAdd.length; i++) {
                 sensorList.add(sensorsToAdd[i]);
             }

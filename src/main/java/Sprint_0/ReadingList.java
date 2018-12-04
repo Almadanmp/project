@@ -143,7 +143,7 @@ public class ReadingList {
     }
 
     /**
-     * @param list receives a list of odubles.
+     * @param list receives a list of doubles.
      * @return returns the average of all values contained within array.
      */
 
