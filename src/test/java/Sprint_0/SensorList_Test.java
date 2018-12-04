@@ -28,6 +28,21 @@ public class SensorList_Test {
     }
 
     @Test
+    public void seeIfConstructorWorksNoSensor() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118,10,4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118,1,4).getTime());
+        Sensor[] expectedResult = new Sensor[]{};
+        Sensor[] result;
+        SensorList lc = new SensorList(new Sensor[]{});
+        result = lc.getSensors();
+        assertArrayEquals(result, expectedResult);
+    }
+
+    @Test
     public void seeIfAddSensorsWorks_true() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
@@ -139,14 +154,14 @@ public class SensorList_Test {
         List<Sensor> result;
         SensorList lc = new SensorList(s1);
         lc.addSensor(s2);
-        result = lc.getSensorlist();
+        result = lc.getSensorList();
         expectedResult.add(s1);
         expectedResult.add(s2);
         assertEquals(result, expectedResult);
     }
 
     @Test
-    public void equalsSameObject() {
+    public void seeIfequalsSameObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118,12,4).getTime());
@@ -158,7 +173,7 @@ public class SensorList_Test {
     }
 
     @Test
-    public void equalsSensorListWithSameContent() {
+    public void seeIfequalsSensorListWithSameContent() {
         Sensor s1 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118,12,4).getTime());
@@ -174,7 +189,7 @@ public class SensorList_Test {
     }
 
     @Test
-    public void equalsSensorListWithDifferentContent() {
+    public void seeIfequalsSensorListWithDifferentContent() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118,12,4).getTime());
@@ -257,7 +272,7 @@ public class SensorList_Test {
     }
 
     @Test
-    public void equalsSensorListWithDifferentObject() {
+    public void seeIfequalsSensorListWithDifferentObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118,12,4).getTime());
@@ -270,7 +285,7 @@ public class SensorList_Test {
     }
 
     @Test
-    public void hashCodeDummyTest() {
+    public void seeHashCodeDummyTest() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118,12,4).getTime());

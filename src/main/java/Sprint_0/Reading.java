@@ -72,12 +72,9 @@ public class Reading {
             return false;
         } else {
             Reading reading = (Reading) o;
-            if (java.lang.Double.compare(this.mValue,reading.getmValue())==0 && this.mDate.equals(reading.getmDate())) {
-                return true;
-            }
-                return false;
-            }
+            return (java.lang.Double.compare(this.mValue, reading.getmValue()) == 0 && this.mDate.equals(reading.getmDate()));
         }
+    }
 
 
     @Override

@@ -1,18 +1,18 @@
 package Sprint_0;
 
 public class TypeArea {
-    private String typeDesignation;
+    private String mTypeDesignation;
 
     public TypeArea(String nameGiven) {
         setTypeOfGeographicArea(nameGiven);
     }
 
     public void setTypeOfGeographicArea(String nameGiven) {
-        this.typeDesignation = nameGiven;
+        this.mTypeDesignation = nameGiven;
     }
 
     public String getTypeOfGeographicArea() {
-        return this.typeDesignation;
+        return this.mTypeDesignation;
     }
 
     /**
@@ -36,7 +36,7 @@ public class TypeArea {
             return false;
         }
         TypeArea localVariable = (TypeArea) objectToTest;
-        return localVariable.getTypeOfGeographicArea().equals(this.typeDesignation);
+        return localVariable.getTypeOfGeographicArea().equals(this.mTypeDesignation);
     }
 
     @Override

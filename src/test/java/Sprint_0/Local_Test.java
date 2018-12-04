@@ -95,6 +95,51 @@ public class Local_Test {
     }
 
     @Test
+    public void seeIfEqualsWorksDifferentLatitude(){
+        //Arrange
+        Local l1 = new Local(23, 21, 5);
+        Local l2 = new Local(21,21,5);
+        boolean expectedResult = false;
+        boolean actualResult;
+
+        //Act
+        actualResult = l1.equals(l2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEqualsWorksDifferentLongitude(){
+        //Arrange
+        Local l1 = new Local(21, 23, 5);
+        Local l2 = new Local(21,21,5);
+        boolean expectedResult = false;
+        boolean actualResult;
+
+        //Act
+        actualResult = l1.equals(l2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEqualsWorksDifferentAltitude(){
+        //Arrange
+        Local l1 = new Local(21, 21, 6);
+        Local l2 = new Local(21,21,5);
+        boolean expectedResult = true;
+        boolean actualResult;
+
+        //Act
+        actualResult = l1.equals(l2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void hashCodeDummyTest(){
         Local l1 = new Local(21,21,5);
         int expectedResult = 1;
@@ -102,7 +147,7 @@ public class Local_Test {
         assertEquals(expectedResult,actualResult);
     }
     @Test
-    public void ensureThatWeGetLinearDistanceInKmBetweenTwoLocations() {
+    public void seeIfWeGetLinearDistanceInKmBetweenTwoLocations() {
         //Arrange
         Local porto = new Local(41.1496100,-8.6109900);
         Local sidney = new Local(-33.865143,151.209900);
@@ -115,7 +160,7 @@ public class Local_Test {
         assertEquals(expectedResult,result,0.01);
     }
     @Test
-    public void ensureThatWeDoNotGetLinearDistanceInKmBetweenTwoLocations() {
+    public void seeIfWeDoNotGetLinearDistanceInKmBetweenTwoLocations() {
         //Arrange
         Local porto = new Local(41.1496100,-8.6109900);
         Local lisboa = new Local(38.7166700,-9.1333300,45);
@@ -129,7 +174,7 @@ public class Local_Test {
     }
 
     @Test
-    public void ensureThatWeGetLinearDistanceInKmBetweenTwoLocationsWithConstructorWith3Parameters() {
+    public void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsWithConstructorWith3Parameters() {
         //Arrange
         Local porto = new Local(41.1496100,-8.6109900,97);
         Local lisboa = new Local(38.7166700,-9.1333300,45);
@@ -142,7 +187,7 @@ public class Local_Test {
         assertEquals(expectedResult,result,0.01);
     }
     @Test
-    public void ensureThatWeGetLinearDistanceInKmBetweenTwoLocationsChangingTheLatitude() {
+    public void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsChangingTheLatitude() {
         //Arrange
         Local porto = new Local(30,-8.6109900,97);
         Local lisboa = new Local(38.7166700,-9.1333300,45);
