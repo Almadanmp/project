@@ -28,6 +28,21 @@ public class SensorList_Test {
     }
 
     @Test
+    public void seeIfConstructorWorksNoSensor() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118,10,4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118,1,4).getTime());
+        Sensor[] expectedResult = new Sensor[]{};
+        Sensor[] result;
+        SensorList lc = new SensorList(new Sensor[]{});
+        result = lc.getSensors();
+        assertArrayEquals(result, expectedResult);
+    }
+
+    @Test
     public void seeIfAddSensorsWorks_true() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
