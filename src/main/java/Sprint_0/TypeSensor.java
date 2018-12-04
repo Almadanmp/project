@@ -57,10 +57,7 @@ public class TypeSensor {
             return false;
         }
         TypeSensor typeSensor = (TypeSensor) testSensor;
-          if(this.getName().equals(typeSensor.getName())){
-            return true;
-        }
-        return false;
+          return this.getName().equals(typeSensor.getName());
     }
 
     /**
