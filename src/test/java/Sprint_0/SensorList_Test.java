@@ -161,7 +161,7 @@ public class SensorList_Test {
     }
 
     @Test
-    public void equalsSameObject() {
+    public void seeIfequalsSameObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118,12,4).getTime());
@@ -173,7 +173,7 @@ public class SensorList_Test {
     }
 
     @Test
-    public void equalsSensorListWithSameContent() {
+    public void seeIfequalsSensorListWithSameContent() {
         Sensor s1 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118,12,4).getTime());
@@ -189,7 +189,7 @@ public class SensorList_Test {
     }
 
     @Test
-    public void equalsSensorListWithDifferentContent() {
+    public void seeIfequalsSensorListWithDifferentContent() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118,12,4).getTime());
@@ -272,7 +272,7 @@ public class SensorList_Test {
     }
 
     @Test
-    public void equalsSensorListWithDifferentObject() {
+    public void seeIfequalsSensorListWithDifferentObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118,12,4).getTime());
@@ -285,7 +285,7 @@ public class SensorList_Test {
     }
 
     @Test
-    public void hashCodeDummyTest() {
+    public void seeHashCodeDummyTest() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118,12,4).getTime());
