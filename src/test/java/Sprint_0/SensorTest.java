@@ -1,14 +1,14 @@
 package Sprint_0;
 
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class SensorTest {
@@ -63,9 +63,11 @@ public class SensorTest {
 
     @Test
     public void seeIfSetNameWorksNull() {
+        //Arrange
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21), new Date());
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+
+        assertThrows(IllegalArgumentException.class, () -> {
             c.setName(null);
         });
     }
@@ -74,7 +76,7 @@ public class SensorTest {
     public void seeIfSetNameWorksEmpty() {
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21), new Date());
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             c.setName("");
         });
     }
