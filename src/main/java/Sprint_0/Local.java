@@ -76,13 +76,13 @@ public class Local {
         return this.mAltitude;
     }
 
-    /**Convert TO radians
+    /**Convert coordinates TO radians
      */
     private static double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     }
 
-    /**Convert FROM radians
+    /**Convert coordinates FROM radians
      */
     private static double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);

@@ -16,7 +16,7 @@ public class TypeSensor {
 
     /**
      * Setter Name
-     * @param name
+     * @param name of type of sensor
      */
     public void setName(String name) {
         if (isTypeSensorNameValid(name)){
@@ -28,8 +28,7 @@ public class TypeSensor {
      * Getter Name
      */
     public String getName() {
-        String result = this.name;
-        return result;
+        return this.name;
     }
 
     /**
@@ -39,28 +38,24 @@ public class TypeSensor {
      */
     public static boolean isTypeSensorNameValid(String name) {
         if (name != null && !name.isEmpty()) {
-            {
                 return true;
-            }
         }
         throw new IllegalArgumentException("Please Insert Valid Name");
     }
 
     /**
      * Specific Method
-     * @param testSensor
-     * @return
+     * @param testSensor -
+     * @return boolean
      */
     @Override
     public boolean equals(Object testSensor) {
-        if (this == testSensor){
+        if (this == testSensor || (testSensor instanceof TypeSensor)){
             return true;
         }
-        if (!(testSensor instanceof TypeSensor)){
-            return false;
-        }
         TypeSensor typeSensor = (TypeSensor) testSensor;
-        if(this.getName().equals(typeSensor.getName())){ return true;
+          if(this.getName().equals(typeSensor.getName())){
+            return true;
         }
         return false;
     }
