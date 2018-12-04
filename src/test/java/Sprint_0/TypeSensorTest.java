@@ -55,6 +55,15 @@ public class TypeSensorTest {
     }
 
     @Test
+    public void seeIfSetNameWorks(){
+        TypeSensor t1 = new TypeSensor("luz");
+        t1.setName("Densidade");
+        String expectedResult = "Densidade";
+        String result = t1.getName();
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
     public void testTypeSensorGetAndSet() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade");
