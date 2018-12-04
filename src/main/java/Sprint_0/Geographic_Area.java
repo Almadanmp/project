@@ -19,8 +19,8 @@ public class Geographic_Area {
      * @param local    Localization is defined by longitude, latitude and altitude.
      */
     public Geographic_Area(TypeArea typeArea, Local local) {
-        setTypeArea(typeArea);
-        setLocal(local);
+        this.setTypeArea(typeArea);
+        this.setLocal(local);
     }
 
     /** Constructor of the class Geographic_Area that receives the type of Geographic Area, its localization
@@ -30,9 +30,9 @@ public class Geographic_Area {
      * @param sensorList Defined by a List<Sensor>.
      */
     public Geographic_Area(TypeArea typeArea, Local local, SensorList sensorList) {
-        setTypeArea(typeArea);
-        setLocal(local);
-        setSensorList(sensorList);
+        this.setTypeArea(typeArea);
+        this.setLocal(local);
+        this.setSensorList(sensorList);
     }
 
     // Setters and Getters for all the parameters.
