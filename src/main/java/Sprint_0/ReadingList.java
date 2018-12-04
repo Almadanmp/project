@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.*;
 
 /**
- * This is the ReadingList Class, A List of Readings that the Sensor receives.
+ * This is the ReadingList Class, a List of Readings that the Sensor receives.
  */
 
 public class ReadingList {
