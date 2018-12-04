@@ -122,8 +122,9 @@ public class Local {
         Local localVariable = (Local) testLocal;
         if (java.lang.Double.compare(this.mLatitude,localVariable.getLatitude())==0 && java.lang.Double.compare(this.mLongitude,localVariable.getLongitude())==0 ) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     /**
