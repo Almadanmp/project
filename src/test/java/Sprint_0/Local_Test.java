@@ -95,6 +95,51 @@ public class Local_Test {
     }
 
     @Test
+    public void seeIfEqualsWorksDifferentLatitude(){
+        //Arrange
+        Local l1 = new Local(23, 21, 5);
+        Local l2 = new Local(21,21,5);
+        boolean expectedResult = false;
+        boolean actualResult;
+
+        //Act
+        actualResult = l1.equals(l2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEqualsWorksDifferentLongitude(){
+        //Arrange
+        Local l1 = new Local(21, 23, 5);
+        Local l2 = new Local(21,21,5);
+        boolean expectedResult = false;
+        boolean actualResult;
+
+        //Act
+        actualResult = l1.equals(l2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEqualsWorksDifferentAltitude(){
+        //Arrange
+        Local l1 = new Local(21, 21, 6);
+        Local l2 = new Local(21,21,5);
+        boolean expectedResult = true;
+        boolean actualResult;
+
+        //Act
+        actualResult = l1.equals(l2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void hashCodeDummyTest(){
         Local l1 = new Local(21,21,5);
         int expectedResult = 1;
