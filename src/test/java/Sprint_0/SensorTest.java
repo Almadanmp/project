@@ -61,15 +61,18 @@ public class SensorTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    //Acrescentado teste quanto à string apresentada ao utilizador
     @Test
-    public void seeIfSetNameWorksNull() {
+    public void seeIfSetNameWorksNullAndThrowsStringMessage() {
         //Arrange
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21), new Date());
-
-        assertThrows(IllegalArgumentException.class, () -> {
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             c.setName(null);
         });
+        //Assert
+        assertEquals("Please Insert Valid Name", exception.getMessage());
     }
 
     @Test
