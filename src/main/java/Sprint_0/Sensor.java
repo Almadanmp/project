@@ -160,6 +160,15 @@ public class Sensor {
         }
         throw new IllegalArgumentException("Please Insert Valid Name");
     }
+    public boolean isSensorContainedInArea (GeographicArea area){
+        double latS = this.getLocal().getLatitude();
+        double longS = this.getLocal().getLongitude();
+        double latTopVert = area.getTopLeftVertex().getLatitude();
+        double longTopVert = area.getTopLeftVertex().getLongitude();
+        double latBotVert = area.getBottomRightVertex().getLatitude();
+        double longBotVert = area.getBottomRightVertex().getLongitude();
+        return ( latS > latTopVert && latS < latBotVert && longS > longBotVert && longS < longTopVert);
+    }
 
     @Override
     public boolean equals(Object testObject) {

@@ -119,4 +119,15 @@ public class SensorList {
     public int hashCode() {
         return 1;
     }
+
+    public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area) {
+        List<Sensor> containedSensors = new ArrayList<>();
+        for (Sensor sensor : mSensorList) {
+            if (sensor.isSensorContainedInArea(area))
+                if (!mSensorList.contains(sensor))
+                    containedSensors.add(sensor);
+
+        }
+        return containedSensors;
+    }
 }
