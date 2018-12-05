@@ -1,6 +1,9 @@
 package Sprint_0;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Represents a List of Sensors.
@@ -10,18 +13,20 @@ public class SensorList {
 
     /**
      * Constructor of an ArrayList of Arrays.
+     *
      * @param sensorsToAdd
      */
 
     public SensorList(Sensor[] sensorsToAdd) {
         mSensorList = new ArrayList<>();
-            for (int i = 0; i < sensorsToAdd.length; i++) {
-                mSensorList.add(sensorsToAdd[i]);
+        for (int i = 0; i < sensorsToAdd.length; i++) {
+            mSensorList.add(sensorsToAdd[i]);
         }
     }
 
     /**
      * Constructor to always create an Array of Sensors.
+     *
      * @param sensorToAdd
      */
     public SensorList(Sensor sensorToAdd) {
@@ -30,7 +35,8 @@ public class SensorList {
     }
 
     /**
-     *Method to Add a sensor only if it's not contained in the list already.
+     * Method to Add a sensor only if it's not contained in the list already.
+     *
      * @param sensorToAdd
      * @return
      */
@@ -45,6 +51,7 @@ public class SensorList {
 
     /**
      * Checks if a Sensor is inside the Sensor List
+     *
      * @param sensor
      * @return
      */
@@ -54,6 +61,7 @@ public class SensorList {
 
     /**
      * Getter (array of sensors)
+     *
      * @return array of sensors
      */
     public Sensor[] getSensors() {
@@ -67,6 +75,7 @@ public class SensorList {
 
     /**
      * Gettter (list of sensors)
+     *
      * @return list of sensors
      */
     public List<Sensor> getSensorList() {
@@ -75,6 +84,7 @@ public class SensorList {
 
     /**
      * Removes a sensor from the Sensor List
+     *
      * @param sensorToRemove
      */
     public void removeSensor(Sensor sensorToRemove) {
@@ -83,6 +93,7 @@ public class SensorList {
 
     /**
      * Method to find the most recently used sensor in the sensor list
+     *
      * @return the most recently used sensor
      */
     public Sensor getMostRecentlyUsedSensor() {
@@ -100,6 +111,7 @@ public class SensorList {
 
     /**
      * Specific Methods.
+     *
      * @param testObject
      * @return
      */
@@ -123,10 +135,9 @@ public class SensorList {
     public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area) {
         List<Sensor> containedSensors = new ArrayList<>();
         for (Sensor sensor : mSensorList) {
-            if (sensor.isSensorContainedInArea(area))
-                if (!mSensorList.contains(sensor))
-                    containedSensors.add(sensor);
-
+            if (sensor.isSensorContainedInArea(area) && (!mSensorList.contains(sensor))) {
+                containedSensors.add(sensor);
+            }
         }
         return containedSensors;
     }
