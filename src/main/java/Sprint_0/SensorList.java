@@ -38,7 +38,7 @@ public class SensorList {
     public boolean addSensor(Sensor sensorToAdd) {
         if (!(mSensorList.contains(sensorToAdd))) {
             mSensorList.add(sensorToAdd);
-            return true;
+
         }
         return false;
     }

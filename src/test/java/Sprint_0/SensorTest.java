@@ -13,6 +13,87 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SensorTest {
     @Test
+    public void seeIfFirstConstructorSetsTypeArea() {
+        //Arrange
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura");
+        Local l1 = new Local(38, 7);
+        Date d1= new GregorianCalendar(2018, 8,9).getTime();
+        TypeSensor expectedResult = t1;
+        TypeSensor actualResult;
+        Sensor c = new Sensor(name, t1, l1,d1);
+        //Act
+        actualResult = c.getTypeSensor();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void seeIfFirstConstructorSetsDate() {
+        //Arrange
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura");
+        Local l1 = new Local(38, 7);
+        Date d1= new GregorianCalendar(2018, 8,9).getTime();
+        Date expectedResult = d1;
+        Date actualResult;
+        Sensor c = new Sensor(name, t1, l1,d1);
+        //Act
+        actualResult = c.getDateStartedFunctioning();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void seeIfSecondConstructorSetsTypeArea() {
+        //Arrange
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura");
+        Local l1 = new Local(38, 7);
+        Date d1= new GregorianCalendar(2018, 8,9).getTime();
+        ReadingList rl1= new ReadingList();
+        TypeSensor expectedResult = t1;
+        TypeSensor actualResult;
+        Sensor c = new Sensor(name, t1, l1,d1, rl1);
+        //Act
+        actualResult = c.getTypeSensor();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void seeIfSecondConstructorSetsDate() {
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura");
+        Local l1 = new Local(38, 7);
+        Date d1= new GregorianCalendar(2018, 8,9).getTime();
+        ReadingList rl1= new ReadingList();
+        Date expectedResult = d1;
+        Date actualResult;
+        Sensor c = new Sensor(name, t1, l1,d1, rl1);
+        //Act
+        actualResult = c.getDateStartedFunctioning();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void seeIfSecondConstructorSetsLocal() {
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura");
+        Local l1 = new Local(38, 7);
+        Date d1= new GregorianCalendar(2018, 8,9).getTime();
+        ReadingList rl1= new ReadingList();
+        Local expectedResult = l1;
+        Local actualResult;
+        Sensor c = new Sensor(name, t1, l1,d1, rl1);
+        //Act
+        actualResult = c.getLocal();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
     public void seeIfSetGetNameWorks() {
         //Arrange
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
@@ -278,11 +359,9 @@ public class SensorTest {
                 new Local(12, 31, 21), new Date());
         Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21), new Date());
+        boolean actualResult = s1.equals(s2);
         boolean expectedResult = true;
-        boolean actualResult;
 
-        //Act
-        actualResult = s1.equals(s2);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -296,10 +375,7 @@ public class SensorTest {
         Sensor s2 = new Sensor("Vento", new TypeSensor("Chuva"),
                 new Local(10, 30, 20), new Date());
         boolean expectedResult = true;
-        boolean actualResult;
-
-        //Act
-        actualResult = s1.equals(s2);
+        boolean actualResult = s1.equals(s2);
 
         //Assert
         assertEquals(expectedResult, actualResult);
