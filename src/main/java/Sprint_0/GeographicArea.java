@@ -52,6 +52,7 @@ public class GeographicArea {
         setLocal(local);
         setTopLeftVertex(topLeftVertex);
         setBottomRightVertex(bottomRightVertex);
+        setSensorList(sensorList);
     }
 
     // Setters and Getters for all the parameters.
