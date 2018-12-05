@@ -4,7 +4,7 @@ package Sprint_0;
  * This is the central class.
  */
 
-public class Geographic_Area {
+public class GeographicArea {
     private TypeArea typeArea;
     private Local local;
     private SensorList sensorList;
@@ -13,23 +13,23 @@ public class Geographic_Area {
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
     // They can be made with or without a sensor list.
 
-    /** Constructor of the class Geographic_Area that receives the type of Geographic Area and its localization
+    /** Constructor of the class GeographicArea that receives the type of Geographic Area and its localization
      * as parameters.
      * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
      * @param local    Localization is defined by longitude, latitude and altitude.
      */
-    public Geographic_Area(TypeArea typeArea, Local local) {
+    public GeographicArea(TypeArea typeArea, Local local) {
         setTypeArea(typeArea);
         setLocal(local);
     }
 
-    /** Constructor of the class Geographic_Area that receives the type of Geographic Area, its localization
+    /** Constructor of the class GeographicArea that receives the type of Geographic Area, its localization
      * and a list of sensors as parameters.
      * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
      * @param local    Localization is defined by three doubles (longitude, latitude and altitude).
      * @param sensorList Defined by a List<Sensor>.
      */
-    public Geographic_Area(TypeArea typeArea, Local local, SensorList sensorList) {
+    public GeographicArea(TypeArea typeArea, Local local, SensorList sensorList) {
         setTypeArea(typeArea);
         setLocal(local);
         setSensorList(sensorList);
@@ -103,10 +103,10 @@ public class Geographic_Area {
     }
 
     /** Method will calculate the distance between two different Geographic Areas.
-     * @param ga  object of the class Geographic_Area
+     * @param ga  object of the class GeographicArea
      * @return  returns a double of the distance between Geographic Areas.
      */
-    public double calculateDistanceToGA(Geographic_Area ga){
+    public double calculateDistanceToGA(GeographicArea ga){
         Local l = ga.getLocal();
         return this.local.getLinearDistanceBetweenLocalsInKm(l);
     }

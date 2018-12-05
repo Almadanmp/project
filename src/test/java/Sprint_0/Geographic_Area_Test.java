@@ -3,7 +3,6 @@ package Sprint_0;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +17,7 @@ public class Geographic_Area_Test {
         Local l1 = new Local(38, 7);
         TypeArea expectedResult = t1;
         TypeArea actualResult;
-        Geographic_Area c = new Geographic_Area(t1, l1);
+        GeographicArea c = new GeographicArea(t1, l1);
         //Act
         c.setTypeArea(t1);
         actualResult = c.getTypeArea();
@@ -32,7 +31,7 @@ public class Geographic_Area_Test {
         Local l1 = new Local(38, 7);
         TypeArea expectedResult = t1;
         TypeArea actualResult;
-        Geographic_Area c = new Geographic_Area(t1, l1);
+        GeographicArea c = new GeographicArea(t1, l1);
         actualResult = c.getTypeArea();
         assertEquals(expectedResult, actualResult);
     }
@@ -42,7 +41,7 @@ public class Geographic_Area_Test {
         Local l1 = new Local(21, 38, 40);
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
         SensorList list1 = new SensorList(s1);
-        Geographic_Area c = new Geographic_Area(t1, l1, list1);
+        GeographicArea c = new GeographicArea(t1, l1, list1);
         TypeArea expectedResult = t1;
         TypeArea actualResult;
         actualResult = c.getTypeArea();
@@ -54,7 +53,7 @@ public class Geographic_Area_Test {
         Local l1 = new Local(21, 38, 40);
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
         SensorList list1 = new SensorList(s1);
-        Geographic_Area c = new Geographic_Area(t1, l1, list1);
+        GeographicArea c = new GeographicArea(t1, l1, list1);
         Local expectedResult =l1;
         Local actualResult;
         actualResult = c.getLocal();
@@ -66,7 +65,7 @@ public class Geographic_Area_Test {
         Local l1 = new Local(21, 38, 40);
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
         SensorList list1 = new SensorList(s1);
-        Geographic_Area c = new Geographic_Area(t1, l1, list1);
+        GeographicArea c = new GeographicArea(t1, l1, list1);
         SensorList expectedResult = list1;
         SensorList actualResult;
         actualResult = c.getSensorList();
@@ -82,7 +81,7 @@ public class Geographic_Area_Test {
         Local l1 = new Local(38, 7);
         TypeArea expectedResult = t2;
         TypeArea actualResult;
-        Geographic_Area c = new Geographic_Area(t1, l1);
+        GeographicArea c = new GeographicArea(t1, l1);
 
         //Act
         c.setTypeArea(t2);
@@ -96,7 +95,7 @@ public class Geographic_Area_Test {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7);
-        Geographic_Area c = new Geographic_Area(t1, l1);
+        GeographicArea c = new GeographicArea(t1, l1);
         boolean expectedResult = true;
 
         //Act
@@ -113,7 +112,7 @@ public class Geographic_Area_Test {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7);
         Local l2 = new Local(65, 56);
-        Geographic_Area c = new Geographic_Area(t1, l1);
+        GeographicArea c = new GeographicArea(t1, l1);
         Local expectedResult = l2;
         Local actualResult;
         //Act
@@ -133,7 +132,7 @@ public class Geographic_Area_Test {
         SensorList list1 = new SensorList(s1);
         SensorList expectedResult = list1;
         SensorList actualResult;
-        Geographic_Area c = new Geographic_Area(t1, l1, list1);
+        GeographicArea c = new GeographicArea(t1, l1, list1);
 
         //Act
         c.setSensorList(list1);
@@ -153,7 +152,7 @@ public class Geographic_Area_Test {
         SensorList list2 = new SensorList(s2);
         SensorList expectedResult = list2;
         SensorList actualResult;
-        Geographic_Area c = new Geographic_Area(t1, l1, list1);
+        GeographicArea c = new GeographicArea(t1, l1, list1);
 
         //Act
         c.setSensorList(list2);
@@ -170,7 +169,7 @@ public class Geographic_Area_Test {
         Sensor s2 = new Sensor("Vento2", new TypeSensor("Vento"), new Local(32, 87, 21), new GregorianCalendar(2016,2,19).getTime());
         Sensor s3 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade"), new Local(56, 31, 11), new GregorianCalendar(2011,8,2).getTime());
         SensorList l1 = new SensorList(new Sensor[]{s1, s2, s3});
-        Geographic_Area c = new Geographic_Area(new TypeArea("Rua"), new Local(12, 35, 2), new SensorList(s1));
+        GeographicArea c = new GeographicArea(new TypeArea("Rua"), new Local(12, 35, 2), new SensorList(s1));
         boolean expectedResult = true;
         boolean actualResult;
 
@@ -187,7 +186,7 @@ public class Geographic_Area_Test {
         Sensor s2 = new Sensor("Vento1", new TypeSensor("Vento"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
         Sensor s3 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
         SensorList l1 = new SensorList(new Sensor[]{s1, s2, s3});
-        Geographic_Area c = new Geographic_Area(new TypeArea("Rua"), new Local(12, 35, 2), new SensorList(s1));
+        GeographicArea c = new GeographicArea(new TypeArea("Rua"), new Local(12, 35, 2), new SensorList(s1));
         boolean expectedResult = false;
         boolean actualResult;
 
@@ -205,8 +204,8 @@ public class Geographic_Area_Test {
         Local l2 = new Local(25, 47);
         TypeArea t1 = new TypeArea("Porto");
         TypeArea t2 = new TypeArea("Braga");
-        Geographic_Area ga1 = new Geographic_Area(t1, l1);
-        Geographic_Area ga2 = new Geographic_Area(t2, l2);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
         double result = ga1.calculateDistanceToGA(ga2);
         //Act
         double expectedresult = 244;
@@ -220,8 +219,8 @@ public class Geographic_Area_Test {
         Local l2 = new Local(23, 46);
         TypeArea t1 = new TypeArea("Porto");
         TypeArea t2 = new TypeArea("Braga");
-        Geographic_Area ga1 = new Geographic_Area(t1, l1);
-        Geographic_Area ga2 = new Geographic_Area(t2, l2);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
         double result = ga1.calculateDistanceToGA(ga2);
         //Act
         double expectedresult = 0;
@@ -235,8 +234,8 @@ public class Geographic_Area_Test {
         Local l2 = new Local(23, 46);
         TypeArea t1 = new TypeArea("Porto");
         TypeArea t2 = new TypeArea("Porto");
-        Geographic_Area ga1 = new Geographic_Area(t1, l1);
-        Geographic_Area ga2 = new Geographic_Area(t2, l2);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
         double result = ga1.calculateDistanceToGA(ga2);
         //Act
         double expectedresult = 0;
@@ -256,7 +255,7 @@ public class Geographic_Area_Test {
         readingList.addReading(r3);
         Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList);
         SensorList sensorList = new SensorList(s1);
-        Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
         double expectedResult = 19;
         //Act
         double result = ga1.getMostRecentReadingValue("Temperatura");
@@ -286,7 +285,7 @@ public class Geographic_Area_Test {
         Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList2);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
-        Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
         double expectedResult = 20;
         //Act
         double result = ga1.getMostRecentReadingValue("Temperatura");
@@ -315,7 +314,7 @@ public class Geographic_Area_Test {
         Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList2);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
-        Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
         double expectedResult = 19;
         //Act
         double result = ga1.getMostRecentReadingValue("Temperatura");
@@ -344,7 +343,7 @@ public class Geographic_Area_Test {
         Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList2);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
-        Geographic_Area ga1 = new Geographic_Area(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
         double expectedResult = 19;
         //Act
         double result = ga1.getMostRecentReadingValue("Temperatura");
