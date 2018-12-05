@@ -156,16 +156,19 @@ public class ReadingList {
 
     /**
      * @param values is a list of all the values obtained from all the valid readings within a day.
-     * @return returns the lowest value of all the readings within a day.
-     * Duplicate warnings are disabled because method is similar to getHighestValue, but still needed.
+     * @return returns the lowest value of all the readings within a day (0 if list null or empty).
      */
-
-    @SuppressWarnings("Duplicates")
-
     public double getLowestValueInList(List<Double> values) {
-        double minValue = values.get(0);
+        double minValue;
+
+        if (values == null || values.isEmpty()) {
+            return 0;
+        }
+
+        minValue = values.get(0);
+
         for (double value : values) {
-            if (value < minValue) {
+            if (value <= minValue) {
                 minValue = value;
             }
         }
@@ -173,17 +176,22 @@ public class ReadingList {
     }
 
     /**
+     *
      * @param values is a list of all the values obtained from all the valid readings within a day.
-     * @return returns the highest value of all the readings within a day.
-     * Duplicate warnings are disabled because method is similar to getHighestValue, but still needed.
+     * @return returns the highest value of all the readings within a day (0 if list null or empty).
      */
 
-    @SuppressWarnings("Duplicates")
-
     public double getHighestValueInList(List<Double> values) {
-        double maxValue = values.get(0);
+      double maxValue;
+
+        if (values == null || values.isEmpty()) {
+            return 0;
+        }
+
+        maxValue = values.get(0);
+
         for (double value : values) {
-            if (value > maxValue) {
+            if (value >= maxValue) {
                 maxValue = value;
             }
         }
@@ -228,6 +236,7 @@ public class ReadingList {
 
     /**
      * Method to get the 1st day of the week. We assume the weeks starts on a Sunday and ends on Saturday.
+     *
      * @param d1 input date from user
      * @return 1stDayOfWeek
      */

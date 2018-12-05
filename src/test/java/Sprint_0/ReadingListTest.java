@@ -600,6 +600,35 @@ public class ReadingListTest {
     }
 
     @Test
+    public void seeIfGetLowestValueEmpty() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double expectedResult = 0;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        actualResult = rl1.getLowestValueInList(valuesOfDay);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
+    public void seeIfGetLowestValueNull() {
+        //Arrange
+        double expectedResult = 0;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        actualResult = rl1.getLowestValueInList(null);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
     public void seeIfGetHighestValueFromEndOfList() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
@@ -640,6 +669,35 @@ public class ReadingListTest {
         valuesOfDay.add(value3);
         valuesOfDay.add(value4);
         actualResult = rl1.getHighestValueInList(valuesOfDay);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
+    public void seeIfGetHighestValueEmpty() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double expectedResult = 0;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        actualResult = rl1.getHighestValueInList(valuesOfDay);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
+    public void seeIfGetHighestValueNull() {
+        //Arrange
+        double expectedResult = 0;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        actualResult = rl1.getHighestValueInList(null);
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
