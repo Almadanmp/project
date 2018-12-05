@@ -156,9 +156,7 @@ public class Sensor {
      */
     public boolean isSensorNameValid(String name) {
         if (name != null && !name.isEmpty()) {
-            {
                 return true;
-            }
         }
         throw new IllegalArgumentException("Please Insert Valid Name");
     }
