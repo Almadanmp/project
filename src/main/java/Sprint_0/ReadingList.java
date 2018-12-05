@@ -65,7 +65,7 @@ public class ReadingList {
      * Does not filter for month - only finds readings of a day inside a month. Year / month must be filtered elsewhere.
      */
 
-    public ArrayList<Double> getValueReadingsThatMatchDayWithinMonth(int dayOfMonth) {
+    public List<Double> getValueReadingsThatMatchDayWithinMonth(int dayOfMonth) {
         ArrayList<Double> valuesOfDay = new ArrayList<>();
         for (Reading r : mReadings) {
             GregorianCalendar tempCalendar = new GregorianCalendar();
@@ -201,7 +201,7 @@ public class ReadingList {
         List<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
         List<Double> minsOfDaysInMonth = new ArrayList<>();
         for (int day : daysWithReadings) {
-            ArrayList<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchDayWithinMonth(day);
+            List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchDayWithinMonth(day);
             double minValueOfDay;
             minValueOfDay = getLowestValueInList(valueReadingsThatMatchDay);
             minsOfDaysInMonth.add(minValueOfDay);
@@ -219,7 +219,7 @@ public class ReadingList {
         List<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
         List<Double> maxsOfDaysInMonth = new ArrayList<>();
         for (int day: daysWithReadings) {
-            ArrayList<Double> valuesOfDay = getValueReadingsThatMatchDayWithinMonth(day);
+            List<Double> valuesOfDay = getValueReadingsThatMatchDayWithinMonth(day);
             double maxValueOfDay;
             maxValueOfDay = getHighestValueInList(valuesOfDay);
             maxsOfDaysInMonth.add(maxValueOfDay);
