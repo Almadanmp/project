@@ -1,6 +1,5 @@
 package Sprint_0;
 
-import java.util.List;
 import java.util.*;
 
 /**
@@ -218,13 +217,35 @@ public class ReadingList {
     public double getAverageOfMaximumValuesInTheReadingsOfMonth(int year, int month) {
         List<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
         List<Double> maxsOfDaysInMonth = new ArrayList<>();
-        for (int day: daysWithReadings) {
+        for (int day : daysWithReadings) {
             List<Double> valuesOfDay = getValueReadingsThatMatchDayWithinMonth(day);
             double maxValueOfDay;
             maxValueOfDay = getHighestValueInList(valuesOfDay);
             maxsOfDaysInMonth.add(maxValueOfDay);
         }
         return getMeanOfList(maxsOfDaysInMonth);
+    }
+
+    public GregorianCalendar getFirstDayOfWeekFromGivenDay(Date d1) {
+        GregorianCalendar firstDayOfWeek = new GregorianCalendar();
+        firstDayOfWeek.setTime(d1);
+        int day = firstDayOfWeek.get(Calendar.DAY_OF_YEAR);
+
+        while (firstDayOfWeek.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+            firstDayOfWeek.set(Calendar.DAY_OF_YEAR, --day);
+        }
+        return firstDayOfWeek;
+    }
+
+    public GregorianCalendar getLastDayOfWeekFromGivenDay(Date d1) {
+        GregorianCalendar lastDayOfWeek = new GregorianCalendar();
+        lastDayOfWeek.setTime(d1);
+        int day = lastDayOfWeek.get(Calendar.DAY_OF_YEAR);
+
+        while (lastDayOfWeek.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
+            lastDayOfWeek.set(Calendar.DAY_OF_YEAR, ++day);
+        }
+        return lastDayOfWeek;
     }
 }
 
