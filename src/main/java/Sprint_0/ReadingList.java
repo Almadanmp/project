@@ -166,7 +166,7 @@ public class ReadingList {
     public double getLowestValueInList(List<Double> valuesOfDay) {
         double minValueOfDay = valuesOfDay.get(0);
         for (double value : valuesOfDay) {
-            if (value <= minValueOfDay) {
+            if (value < minValueOfDay) {
                 minValueOfDay = value;
             }
         }
@@ -184,7 +184,7 @@ public class ReadingList {
     public double getHighestValueInList(List<Double> valuesOfDay) {
         double maxValueOfDay = valuesOfDay.get(0);
         for (double value : valuesOfDay) {
-            if (value >= maxValueOfDay) {
+            if (value > maxValueOfDay) {
                 maxValueOfDay = value;
             }
         }
