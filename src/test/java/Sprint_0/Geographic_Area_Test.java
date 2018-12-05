@@ -214,6 +214,7 @@ public class Geographic_Area_Test {
         assertEquals(expectedResult, actualResult);
     }
 
+
     @Test
     public void seeIfCalculateDistanceToDifferentGAWorks() {
         //Arrange
