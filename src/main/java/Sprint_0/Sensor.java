@@ -169,7 +169,7 @@ public class Sensor {
         double longTopVert = area.getTopLeftVertex().getLongitude();
         double latBotVert = area.getBottomRightVertex().getLatitude();
         double longBotVert = area.getBottomRightVertex().getLongitude();
-        return ( latS > latTopVert && latS < latBotVert && longS > longBotVert && longS < longTopVert);
+        return ( latS > latTopVert && latS < latBotVert && longS > longBotVert && longS < longTopVert );
     }
 
     public boolean isSensorActiveOnGivenDate(GregorianCalendar date1){

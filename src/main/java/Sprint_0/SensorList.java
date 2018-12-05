@@ -130,10 +130,10 @@ public class SensorList {
         return 1;
     }
 
-    public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area) {
+    public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area, TypeSensor type) {
         List<Sensor> containedSensors = new ArrayList<>();
         for (Sensor sensor : mSensorList) {
-            if (sensor.isSensorContainedInArea(area) && (!mSensorList.contains(sensor))) {
+            if (sensor.isSensorContainedInArea(area) && (!mSensorList.contains(sensor)) && sensor.getTypeSensor().equals(type)) {
                 containedSensors.add(sensor);
             }
         }
