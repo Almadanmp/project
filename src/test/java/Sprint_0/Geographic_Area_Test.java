@@ -72,6 +72,101 @@ public class Geographic_Area_Test {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    public void seeIfConstructorWithVerticesWorksTopLeft() {
+        //Arrange
+
+        Local v1 = new Local (21,31);
+        Local v2 = new Local (32,66);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        SensorList list1 = new SensorList(s1);
+        GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
+        Local expectedResult = new Local(21,31);
+        Local actualResult;
+
+        //Act
+
+        actualResult = c.getTopLeftVertex();
+
+        //Assert
+
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void seeIfConstructorWithVerticesWorksBottomRight() {
+        //Arrange
+
+        Local v1 = new Local (21,31);
+        Local v2 = new Local (32,66);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        SensorList list1 = new SensorList(s1);
+        GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
+        Local expectedResult = new Local(32,66);
+        Local actualResult;
+
+        //Act
+
+        actualResult = c.getBottomRightVertex();
+
+        //Assert
+
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void seeIfGetSetWorksTopLeftVertex() {
+        //Arrange
+
+        Local topLeftVertex = new Local (15,88);
+        Local v1 = new Local (21,31);
+        Local v2 = new Local (32,66);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        SensorList list1 = new SensorList(s1);
+        GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
+        Local expectedResult = new Local(15,88);
+        Local actualResult;
+
+        //Act
+
+        c.setTopLeftVertex(topLeftVertex);
+        actualResult = c.getTopLeftVertex();
+
+        //Assert
+
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void seeIfGetSetWorksBottomRightVertex() {
+        //Arrange
+
+        Local bottomRightVertex = new Local (15,88);
+        Local v1 = new Local (21,31);
+        Local v2 = new Local (32,66);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        SensorList list1 = new SensorList(s1);
+        GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
+        Local expectedResult = new Local(15,88);
+        Local actualResult;
+
+        //Act
+
+        c.setBottomRightVertex(bottomRightVertex);
+        actualResult = c.getBottomRightVertex();
+
+        //Assert
+
+        assertEquals(expectedResult,actualResult);
+    }
 
     @Test
     public void seeIfGetSetTypeWorksIfDifferentOfGivenConstructor() {
