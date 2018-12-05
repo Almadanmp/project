@@ -328,7 +328,23 @@ public class SensorList_Test {
         List<Sensor> expectedResult=new ArrayList<>();
         assertEquals(expectedResult,result);
     }
+    @Test
+    void getSensorsInGAInACertainTimePeriodWrongArea() {
+        Sensor s1 = new Sensor("s1",new TypeSensor("temperatura"), new Local(20,14,15),new GregorianCalendar(2000,5,1).getTime());
+        Sensor s2 = new Sensor("s2",new TypeSensor("temperatura"), new Local(50,19,15),new GregorianCalendar(2000,7,1).getTime());
+        Sensor s3 = new Sensor("s2",new TypeSensor("temperatura"), new Local(15,19,15),new GregorianCalendar(2000,11,1).getTime());
+        SensorList sensorList = new SensorList(s1);
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        sensorList.addSensor(s3);
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18),sensorList,new Local(0,30), new Local(30,0));
+        GregorianCalendar date1 = new GregorianCalendar(2000,10,5);
+        List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1,ga1);
+        List<Sensor> expectedResult=new ArrayList<>();
+        expectedResult.add(s1);
 
+        assertEquals(expectedResult,result);
+    }
     @Test
     void getListOfSensorsContainedInGA() {
         //Arrange
