@@ -196,6 +196,23 @@ public class Geographic_Area_Test {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+    @Test
+    public void seeIfSetSensorListRefusesListWithDuplicatesBetweenSecondAndThird() {
+        //Arrange
+        Sensor s2 = new Sensor("Vento1", new TypeSensor("Vento"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s3 = new Sensor("Vento1", new TypeSensor("Vento"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        SensorList l1 = new SensorList(new Sensor[]{s1, s2, s3});
+        GeographicArea c = new GeographicArea(new TypeArea("Rua"), new Local(12, 35, 2), new SensorList(s1));
+        boolean expectedResult = false;
+        boolean actualResult;
+
+        //Act
+        actualResult = c.setSensorList(l1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     public void seeIfCalculateDistanceToDifferentGAWorks() {
