@@ -6,8 +6,15 @@ package Sprint_0;
 public class TypeSensor {
     private String mName;
 
+
     /**
-     * Empty Constructor to always create an object that names the Tye of the Sensor.
+     *  Constructor to always create an object that names the Type of the Sensor.
+     */
+    public TypeSensor() {
+    }
+
+    /**
+     *  Constructor to always create an object that names the Type of the Sensor.
      */
     public TypeSensor(String name) {
         setName(name);
