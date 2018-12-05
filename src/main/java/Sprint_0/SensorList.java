@@ -94,7 +94,8 @@ public class SensorList {
             if (firstDate.before(secondDate)) {
                 indexMostRecentlyUsedSensor = i + 1;
             }
-        }return listToTest.get(indexMostRecentlyUsedSensor);
+        }
+        return listToTest.get(indexMostRecentlyUsedSensor);
     }
 
     /**
