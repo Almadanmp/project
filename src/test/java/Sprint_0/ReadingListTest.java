@@ -529,6 +529,30 @@ public class ReadingListTest {
                 //Assert
                 assertEquals(expectedResult, actualResult, 0.001);
         }
+
+    @Test
+    public void seeIfGetLowestValueFromListIfValuesEqual() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 2;
+        double value2 = 2;
+        double value3 = 2;
+        double value4 = 2;
+        double expectedResult = 2;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        valuesOfDay.add(value3);
+        valuesOfDay.add(value4);
+        actualResult = rl1.getLowestValueInList(valuesOfDay);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
         @Test
         public void seeIfGetLowestValueFromMiddleOfList() {
                 //Arrange
