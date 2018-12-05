@@ -48,11 +48,7 @@ public class TypeSensor {
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
     public static boolean isTypeSensorNameValid(String name) {
-        if (name != null && !name.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return (name != null && !name.isEmpty());
     }
 
     /**
