@@ -56,7 +56,7 @@ public class GeographicArea {
      * @return Returns true if the list was added. Returns false otherwise.
      */
     public boolean setSensorList(SensorList listToSet) {
-        for (int i = 0; i <= listToSet.getSensorList().size(); i++) {
+        for (int i = 0; i < listToSet.getSensorList().size(); i++) {
             for (int j = i + 1; j < listToSet.getSensorList().size(); j++) {
                 if (listToSet.getSensorList().get(i).equals(listToSet.getSensorList().get(j))) {
                     return false;
