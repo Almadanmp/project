@@ -78,6 +78,22 @@ public class SensorTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
+    public void seeIfSecondConstructorSetsLocal() {
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura");
+        Local l1 = new Local(38, 7);
+        Date d1= new GregorianCalendar(2018, 8,9).getTime();
+        ReadingList rl1= new ReadingList();
+        Local expectedResult = l1;
+        Local actualResult;
+        Sensor c = new Sensor(name, t1, l1,d1, rl1);
+        //Act
+        actualResult = c.getLocal();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
     public void seeIfSetGetNameWorks() {
         //Arrange
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
