@@ -54,7 +54,7 @@ public class SensorList_Test {
         sl.addSensor(s2);
         boolean expectedResult = true;
 
-        boolean actualResult = sl.containsSensor(s1);
+        boolean actualResult = sl.containsSensor(s2);
 
         assertEquals(expectedResult, actualResult);
     }
