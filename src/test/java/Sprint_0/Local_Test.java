@@ -50,6 +50,20 @@ public class Local_Test {
     }
 
     @Test
+    public void seeIfGetAltitudeBuilderWorks() {
+        //Arrange
+        double expectedResult = 210;
+        double actualResult;
+        Local c = new Local(21, 3, 210);
+
+        //Act
+        actualResult = c.getAltitude();
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
     public void seeIfEqualsWorksSameObjects() {
         //Arrange
         Local l1 = new Local(23, 42, 2);
