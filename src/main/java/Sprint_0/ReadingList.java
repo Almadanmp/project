@@ -226,6 +226,11 @@ public class ReadingList {
         return getMeanOfList(maxsOfDaysInMonth);
     }
 
+    /**
+     * Method to get the 1st day of the week. We assume the weeks starts on a Sunday and ends on Saturday.
+     * @param d1 input date from user
+     * @return 1stDayOfWeek
+     */
     public GregorianCalendar getFirstDayOfWeekFromGivenDay(Date d1) {
         GregorianCalendar firstDayOfWeek = new GregorianCalendar();
         firstDayOfWeek.setTime(d1);
@@ -235,17 +240,6 @@ public class ReadingList {
             firstDayOfWeek.set(Calendar.DAY_OF_YEAR, --day);
         }
         return firstDayOfWeek;
-    }
-
-    public GregorianCalendar getLastDayOfWeekFromGivenDay(Date d1) {
-        GregorianCalendar lastDayOfWeek = new GregorianCalendar();
-        lastDayOfWeek.setTime(d1);
-        int day = lastDayOfWeek.get(Calendar.DAY_OF_YEAR);
-
-        while (lastDayOfWeek.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
-            lastDayOfWeek.set(Calendar.DAY_OF_YEAR, ++day);
-        }
-        return lastDayOfWeek;
     }
 }
 

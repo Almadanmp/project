@@ -660,15 +660,4 @@ public class ReadingListTest {
         GregorianCalendar result = rl1.getFirstDayOfWeekFromGivenDay(d1);
         assertEquals(expectedResult, result);
     }
-
-    @Test
-    public void seeIfGetLastDayOfWeek() {
-        ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 10, 7);
-        Date d1 = cal.getTime();
-        GregorianCalendar expectedResult = new GregorianCalendar(2018, 10, 10);
-        GregorianCalendar result = rl1.getLastDayOfWeekFromGivenDay(d1);
-        assertEquals(expectedResult, result);
-    }
-
 }
