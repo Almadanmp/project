@@ -1,6 +1,9 @@
 package Sprint_0;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Represents a Sensor.
@@ -168,6 +171,14 @@ public class Sensor {
         double latBotVert = area.getBottomRightVertex().getLatitude();
         double longBotVert = area.getBottomRightVertex().getLongitude();
         return ( latS > latTopVert && latS < latBotVert && longS > longBotVert && longS < longTopVert);
+    }
+
+    public boolean isSensorActiveOnGivenDate(GregorianCalendar date1){
+            if (this.getDateStartedFunctioning().before(date1.getTime())) {
+                return true;
+            }
+          return false;
+
     }
 
     @Override

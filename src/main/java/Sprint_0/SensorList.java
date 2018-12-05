@@ -1,15 +1,14 @@
 package Sprint_0;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents a List of Sensors.
  */
 public class SensorList {
     private List<Sensor> mSensorList;
+
+
 
     /**
      * Constructor of an ArrayList of Arrays.
@@ -44,7 +43,6 @@ public class SensorList {
     public boolean addSensor(Sensor sensorToAdd) {
         if (!(mSensorList.contains(sensorToAdd))) {
             mSensorList.add(sensorToAdd);
-
         }
         return false;
     }
@@ -140,5 +138,15 @@ public class SensorList {
             }
         }
         return containedSensors;
+    }
+
+
+    public List<Sensor> getSensorsInGAAtACertainTimePeriod(GregorianCalendar date1, GeographicArea ga){
+        List<Sensor> finalList = new ArrayList<>();
+        for(Sensor s: mSensorList){
+            if(s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)){
+                finalList.add(s);
+            }
+        } return finalList;
     }
 }

@@ -45,7 +45,6 @@ public class Reading {
 
     /**
      * getters e setters
-     *
      * @param date of the reading
      */
     public void setData(Date date) {
@@ -58,7 +57,6 @@ public class Reading {
 
     /**
      * Method 'equals' is required so that each 'Reading' can be added to a 'ReadingList'.
-     *
      * @param o object
      * @return boolean
      */
