@@ -507,28 +507,28 @@ public class ReadingListTest {
     }
 
 
-        @Test
-        public void seeIfGetLowestValueFromEndOfList() {
-                //Arrange
-                List<Double> valuesOfDay = new ArrayList<>();
-                double value1 = 2;
-                double value2 = 2.5;
-                double value3 = 5;
-                double value4 = -2;
-                double expectedResult = -2;
-                double actualResult;
-                ReadingList rl1 = new ReadingList();
+    @Test
+    public void seeIfGetLowestValueFromEndOfList() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 2;
+        double value2 = 2.5;
+        double value3 = 5;
+        double value4 = -2;
+        double expectedResult = -2;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
 
-                //Act
-                valuesOfDay.add(value1);
-                valuesOfDay.add(value2);
-                valuesOfDay.add(value3);
-                valuesOfDay.add(value4);
-                actualResult = rl1.getLowestValueInList(valuesOfDay);
+        //Act
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        valuesOfDay.add(value3);
+        valuesOfDay.add(value4);
+        actualResult = rl1.getLowestValueInList(valuesOfDay);
 
-                //Assert
-                assertEquals(expectedResult, actualResult, 0.001);
-        }
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
 
     @Test
     public void seeIfGetLowestValueFromListIfValuesEqual() {
@@ -553,117 +553,120 @@ public class ReadingListTest {
         assertEquals(expectedResult, actualResult, 0.001);
     }
 
-        @Test
-        public void seeIfGetLowestValueFromMiddleOfList() {
-                //Arrange
-                List<Double> valuesOfDay = new ArrayList<>();
-                double value1 = 2;
-                double value2 = -2;
-                double value3 = 2;
-                double value4 = 5;
-                double expectedResult = -2;
-                double actualResult;
-                ReadingList rl1 = new ReadingList();
+    @Test
+    public void seeIfGetLowestValueFromMiddleOfList() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 2;
+        double value2 = -2;
+        double value3 = 2;
+        double value4 = 5;
+        double expectedResult = -2;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
 
-                //Act
-                valuesOfDay.add(value1);
-                valuesOfDay.add(value2);
-                valuesOfDay.add(value3);
-                valuesOfDay.add(value4);
-                actualResult = rl1.getLowestValueInList(valuesOfDay);
+        //Act
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        valuesOfDay.add(value3);
+        valuesOfDay.add(value4);
+        actualResult = rl1.getLowestValueInList(valuesOfDay);
 
-                //Assert
-                assertEquals(expectedResult, actualResult, 0.001);
-        }
-        @Test
-        public void seeIfGetLowestValueFromBeginningOfList() {
-                //Arrange
-                List<Double> valuesOfDay = new ArrayList<>();
-                double value1 =-2;
-                double value2 = 15;
-                double value3 = 2;
-                double value4 = 5;
-                double expectedResult = -2;
-                double actualResult;
-                ReadingList rl1 = new ReadingList();
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
 
-                //Act
-                valuesOfDay.add(value1);
-                valuesOfDay.add(value2);
-                valuesOfDay.add(value3);
-                valuesOfDay.add(value4);
-                actualResult = rl1.getLowestValueInList(valuesOfDay);
+    @Test
+    public void seeIfGetLowestValueFromBeginningOfList() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = -2;
+        double value2 = 15;
+        double value3 = 2;
+        double value4 = 5;
+        double expectedResult = -2;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
 
-                //Assert
-                assertEquals(expectedResult, actualResult, 0.001);
-        }
+        //Act
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        valuesOfDay.add(value3);
+        valuesOfDay.add(value4);
+        actualResult = rl1.getLowestValueInList(valuesOfDay);
 
-        @Test
-        public void seeIfGetHighestValueFromEndOfList() {
-                //Arrange
-                List<Double> valuesOfDay = new ArrayList<>();
-                double value1 = 2;
-                double value2 = 2.5;
-                double value3 = 5;
-                double value4 = 16;
-                double expectedResult = 16;
-                double actualResult;
-                ReadingList rl1 = new ReadingList();
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
 
-                //Act
-                valuesOfDay.add(value1);
-                valuesOfDay.add(value2);
-                valuesOfDay.add(value3);
-                valuesOfDay.add(value4);
-                actualResult = rl1.getHighestValueInList(valuesOfDay);
+    @Test
+    public void seeIfGetHighestValueFromEndOfList() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 2;
+        double value2 = 2.5;
+        double value3 = 5;
+        double value4 = 16;
+        double expectedResult = 16;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
 
-                //Assert
-                assertEquals(expectedResult, actualResult, 0.001);
-        }
-        @Test
-        public void seeIfGetHighestValueFromMiddleOfList() {
-                //Arrange
-                List<Double> valuesOfDay = new ArrayList<>();
-                double value1 = 2;
-                double value2 = 16;
-                double value3 = 2;
-                double value4 = 5;
-                double expectedResult = 16;
-                double actualResult;
-                ReadingList rl1 = new ReadingList();
+        //Act
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        valuesOfDay.add(value3);
+        valuesOfDay.add(value4);
+        actualResult = rl1.getHighestValueInList(valuesOfDay);
 
-                //Act
-                valuesOfDay.add(value1);
-                valuesOfDay.add(value2);
-                valuesOfDay.add(value3);
-                valuesOfDay.add(value4);
-                actualResult = rl1.getHighestValueInList(valuesOfDay);
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
 
-                //Assert
-                assertEquals(expectedResult, actualResult, 0.001);
-        }
-        @Test
-        public void seeIfGetHighestValueFromBeginningOfList() {
-                //Arrange
-                List<Double> valuesOfDay = new ArrayList<>();
-                double value1 = 16;
-                double value2 = 15;
-                double value3 = 2;
-                double value4 = 5;
-                double expectedResult = 16;
-                double actualResult;
-                ReadingList rl1 = new ReadingList();
+    @Test
+    public void seeIfGetHighestValueFromMiddleOfList() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 2;
+        double value2 = 16;
+        double value3 = 2;
+        double value4 = 5;
+        double expectedResult = 16;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
 
-                //Act
-                valuesOfDay.add(value1);
-                valuesOfDay.add(value2);
-                valuesOfDay.add(value3);
-                valuesOfDay.add(value4);
-                actualResult = rl1.getHighestValueInList(valuesOfDay);
+        //Act
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        valuesOfDay.add(value3);
+        valuesOfDay.add(value4);
+        actualResult = rl1.getHighestValueInList(valuesOfDay);
 
-                //Assert
-                assertEquals(expectedResult, actualResult, 0.001);
-        }
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
+    public void seeIfGetHighestValueFromBeginningOfList() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 16;
+        double value2 = 15;
+        double value3 = 2;
+        double value4 = 5;
+        double expectedResult = 16;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        valuesOfDay.add(value3);
+        valuesOfDay.add(value4);
+        actualResult = rl1.getHighestValueInList(valuesOfDay);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
 
     @Test
     public void seeIfGet1stDayOfWeek() {
