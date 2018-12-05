@@ -155,39 +155,39 @@ public class ReadingList {
     }
 
     /**
-     * @param valuesOfDay is a list of all the values obtained from all the valid readings within a day.
+     * @param values is a list of all the values obtained from all the valid readings within a day.
      * @return returns the lowest value of all the readings within a day.
      * Duplicate warnings are disabled because method is similar to getHighestValue, but still needed.
      */
 
     @SuppressWarnings("Duplicates")
 
-    public double getLowestValueInList(List<Double> valuesOfDay) {
-        double minValueOfDay = valuesOfDay.get(0);
-        for (double value : valuesOfDay) {
-            if (value < minValueOfDay) {
-                minValueOfDay = value;
+    public double getLowestValueInList(List<Double> values) {
+        double minValue = values.get(0);
+        for (double value : values) {
+            if (value < minValue) {
+                minValue = value;
             }
         }
-        return minValueOfDay;
+        return minValue;
     }
 
     /**
-     * @param valuesOfDay is a list of all the values obtained from all the valid readings within a day.
+     * @param values is a list of all the values obtained from all the valid readings within a day.
      * @return returns the highest value of all the readings within a day.
      * Duplicate warnings are disabled because method is similar to getHighestValue, but still needed.
      */
 
     @SuppressWarnings("Duplicates")
 
-    public double getHighestValueInList(List<Double> valuesOfDay) {
-        double maxValueOfDay = valuesOfDay.get(0);
-        for (double value : valuesOfDay) {
-            if (value > maxValueOfDay) {
-                maxValueOfDay = value;
+    public double getHighestValueInList(List<Double> values) {
+        double maxValue = values.get(0);
+        for (double value : values) {
+            if (value > maxValue) {
+                maxValue = value;
             }
         }
-        return maxValueOfDay;
+        return maxValue;
     }
 
     /**
