@@ -8,13 +8,13 @@ public class TypeSensor {
 
 
     /**
-     *  Constructor to always create an object that names the Type of the Sensor.
+     * Constructor to always create an object that names the Type of the Sensor.
      */
     public TypeSensor() {
     }
 
     /**
-     *  Constructor to always create an object that names the Type of the Sensor.
+     * Constructor to always create an object that names the Type of the Sensor.
      */
     public TypeSensor(String name) {
         setName(name);
@@ -23,11 +23,14 @@ public class TypeSensor {
 
     /**
      * Setter Name
+     *
      * @param name of type of sensor
      */
     public void setName(String name) {
-        if (isTypeSensorNameValid(name)){
+        if (isTypeSensorNameValid(name)) {
             this.mName = name;
+        } else {
+            throw new IllegalArgumentException("Please Insert Valid Name");
         }
     }
 
@@ -40,18 +43,21 @@ public class TypeSensor {
 
     /**
      * Method to restrain input name so they cant be null or empty
+     *
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
     public static boolean isTypeSensorNameValid(String name) {
         if (name != null && !name.isEmpty()) {
-                return true;
+            return true;
+        } else {
+            return false;
         }
-        throw new IllegalArgumentException("Please Insert Valid Name");
     }
 
     /**
      * Specific Method
+     *
      * @param testSensor -
      * @return boolean
      */
@@ -64,15 +70,16 @@ public class TypeSensor {
             return false;
         }
         TypeSensor typeSensor = (TypeSensor) testSensor;
-          return this.getName().equals(typeSensor.getName());
+        return this.getName().equals(typeSensor.getName());
     }
 
     /**
      * Specific Method
+     *
      * @return
      */
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return 1;
     }
 }
