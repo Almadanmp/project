@@ -440,5 +440,13 @@ public class SensorTest {
         double result = s1.calculateMonthMeanOnSensor(s1, 2018, 10);
         assertEquals(expectedResult, result, 0.1);
     }
+
+    @Test
+    public void seeIfSensorIsActiveOnAGivenDateFalse(){
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(15, 23), new GregorianCalendar(118,10,5).getTime());
+        GregorianCalendar d2 = new GregorianCalendar(118,7,5);
+        Boolean result = s1.isSensorActiveOnGivenDate(d2);
+        assertEquals(false, result);
+    }
 }
 
