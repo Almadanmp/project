@@ -50,21 +50,12 @@ public class GeographicArea {
         this.local = local;
     }
 
-    /** Setter for Geographic Area List of Sensors.  The method determines that the parameter listToSet will
-     * not be given to Geographic Area as a parameter if there are duplicated sensors inside it.
-     * @param listToSet Object of SensorList class that is defined by a List<Sensor>.
-     * @return Returns true if the list was added. Returns false otherwise.
+    /**
+     * Setter for Sensor List.
+     * @param listToSet
      */
-    public boolean setSensorList(SensorList listToSet) {
-        for (int i = 0; i <= listToSet.getSensorList().size(); i++) {
-            for (int j = i + 1; j < listToSet.getSensorList().size(); j++) {
-                if (listToSet.getSensorList().get(i).equals(listToSet.getSensorList().get(j))) {
-                    return false;
-                }
-            }
-        }
+    public void setSensorList(SensorList listToSet) {
         this.sensorList = listToSet;
-        return true;
     }
     /** Getter for type of Geographic Area.
      * @return  returns the attribute TypeArea from an object of the class Geographic Area
