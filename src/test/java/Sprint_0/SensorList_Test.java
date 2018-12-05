@@ -328,6 +328,92 @@ public class SensorList_Test {
         List<Sensor> expectedResult=new ArrayList<>();
         assertEquals(expectedResult,result);
     }
+
+    @Test
+    void getListOfSensorsContainedInGA() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Humidade");
+        Sensor s1 = new Sensor("s1",t1, new Local(15,16),new GregorianCalendar(2000,10,8).getTime());
+        Sensor s2 = new Sensor("s2",t1, new Local(16,17),new GregorianCalendar(2000,11,2).getTime());
+        Sensor s3 = new Sensor("s3",t1, new Local(0,0),new GregorianCalendar(2000,11,1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        Local l1 = new Local(20, 20);
+        TypeArea ta1 = new TypeArea("Pantano");
+        GeographicArea ga1 = new GeographicArea(ta1,l1);
+        Local l2 = new Local(10, 30);
+        Local l3 = new Local(30, 10);
+
+        //Act
+        ga1.setBottomRightVertex(l3);
+        ga1.setTopLeftVertex(l2);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        List<Sensor> actualResult = sensorList1.getListOfSensorsContainedInGeographicArea(ga1,t1);
+        List<Sensor> expectedResult= new ArrayList<>();
+        expectedResult.add(s1);
+        expectedResult.add(s2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void getListOfSensorsContainedInGAAllThreeContained() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Humidade");
+        Sensor s1 = new Sensor("s1",t1, new Local(15,16),new GregorianCalendar(2000,10,8).getTime());
+        Sensor s2 = new Sensor("s2",t1, new Local(16,17),new GregorianCalendar(2000,11,2).getTime());
+        Sensor s3 = new Sensor("s3",t1, new Local(15,15),new GregorianCalendar(2000,11,1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        Local l1 = new Local(20, 20);
+        TypeArea ta1 = new TypeArea("Pantano");
+        GeographicArea ga1 = new GeographicArea(ta1,l1);
+        Local l2 = new Local(10, 30);
+        Local l3 = new Local(30, 10);
+
+        //Act
+        ga1.setBottomRightVertex(l3);
+        ga1.setTopLeftVertex(l2);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        List<Sensor> actualResult = sensorList1.getListOfSensorsContainedInGeographicArea(ga1,t1);
+        List<Sensor> expectedResult= new ArrayList<>();
+        expectedResult.add(s1);
+        expectedResult.add(s2);
+        expectedResult.add(s3);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void getListOfSensorsContainedInGADifferentTypeSensor() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Humidade");
+        TypeSensor t2 = new TypeSensor("Vento");
+        Sensor s1 = new Sensor("s1",t1, new Local(15,16),new GregorianCalendar(2000,10,8).getTime());
+        Sensor s2 = new Sensor("s2",t2, new Local(16,17),new GregorianCalendar(2000,11,2).getTime());
+        Sensor s3 = new Sensor("s3",t1, new Local(0,0),new GregorianCalendar(2000,11,1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        Local l1 = new Local(20, 20);
+        TypeArea ta1 = new TypeArea("Pantano");
+        GeographicArea ga1 = new GeographicArea(ta1,l1);
+        Local l2 = new Local(10, 30);
+        Local l3 = new Local(30, 10);
+
+        //Act
+        ga1.setBottomRightVertex(l3);
+        ga1.setTopLeftVertex(l2);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        List<Sensor> actualResult = sensorList1.getListOfSensorsContainedInGeographicArea(ga1,t1);
+        List<Sensor> expectedResult= new ArrayList<>();
+        expectedResult.add(s1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 }
 
 
