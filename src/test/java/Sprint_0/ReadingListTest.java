@@ -535,10 +535,10 @@ public class ReadingListTest {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 2;
-        double value2 = 2;
+        double value2 = 0;
         double value3 = 2;
-        double value4 = 2;
-        double expectedResult = 2;
+        double value4 = -2;
+        double expectedResult = -2;
         double actualResult;
         ReadingList rl1 = new ReadingList();
 
@@ -605,7 +605,7 @@ public class ReadingListTest {
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 2;
         double value2 = 2.5;
-        double value3 = 5;
+        double value3 = 0;
         double value4 = 16;
         double expectedResult = 16;
         double actualResult;
