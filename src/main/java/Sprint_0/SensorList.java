@@ -147,6 +147,7 @@ public class SensorList {
             if(s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)){
                 finalList.add(s);
             }
-        } return finalList;
+        }
+        return finalList;
     }
 }
