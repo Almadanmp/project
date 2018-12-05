@@ -174,11 +174,7 @@ public class Sensor {
     }
 
     public boolean isSensorActiveOnGivenDate(GregorianCalendar date1){
-            if (this.getDateStartedFunctioning().before(date1.getTime())) {
-                return true;
-            }
-          return false;
-
+        return this.getDateStartedFunctioning().before(date1.getTime());
     }
 
     @Override
