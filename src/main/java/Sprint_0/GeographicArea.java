@@ -1,8 +1,5 @@
 package Sprint_0;
 
-import java.sql.Date;
-import java.util.GregorianCalendar;
-
 /**
  * This is the central class.
  */
