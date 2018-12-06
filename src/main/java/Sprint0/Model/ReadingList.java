@@ -277,6 +277,10 @@ public class ReadingList {
         while (firstDayOfWeek.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
             firstDayOfWeek.set(Calendar.DAY_OF_YEAR, --day);
         }
+        firstDayOfWeek.set(Calendar.HOUR,0);
+        firstDayOfWeek.set(Calendar.MINUTE,0);
+        firstDayOfWeek.set(Calendar.SECOND,0);
+        firstDayOfWeek.set(Calendar.MILLISECOND,0);
         return firstDayOfWeek;
     }
 }
