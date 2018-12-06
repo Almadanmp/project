@@ -25,6 +25,7 @@ public class Geographic_Area_Test {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfFirstConstructorSetsTypeArea() {
         TypeArea t1 = new TypeArea("Rua");
@@ -35,11 +36,12 @@ public class Geographic_Area_Test {
         actualResult = c.getTypeArea();
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfSecondConstructorSetsTypeArea() {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1);
         TypeArea expectedResult = t1;
@@ -47,23 +49,25 @@ public class Geographic_Area_Test {
         actualResult = c.getTypeArea();
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfSecondConstructorSetsLocal() {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1);
-        Local expectedResult =l1;
+        Local expectedResult = l1;
         Local actualResult;
         actualResult = c.getLocal();
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfSecondConstructorSetsSensorList() {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1);
         SensorList expectedResult = list1;
@@ -76,14 +80,14 @@ public class Geographic_Area_Test {
     public void seeIfConstructorWithVerticesWorksTopLeft() {
         //Arrange
 
-        Local v1 = new Local (21,31);
-        Local v2 = new Local (32,66);
+        Local v1 = new Local(21, 31);
+        Local v2 = new Local(32, 66);
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
-        Local expectedResult = new Local(21,31);
+        Local expectedResult = new Local(21, 31);
         Local actualResult;
 
         //Act
@@ -92,21 +96,21 @@ public class Geographic_Area_Test {
 
         //Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void seeIfConstructorWithVerticesWorksBottomRight() {
         //Arrange
 
-        Local v1 = new Local (21,31);
-        Local v2 = new Local (32,66);
+        Local v1 = new Local(21, 31);
+        Local v2 = new Local(32, 66);
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
-        Local expectedResult = new Local(32,66);
+        Local expectedResult = new Local(32, 66);
         Local actualResult;
 
         //Act
@@ -115,22 +119,79 @@ public class Geographic_Area_Test {
 
         //Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfConstructorWithVerticesWorksTypeArea() {
+        //Arrange
+
+        Local v1 = new Local(21, 31);
+        Local v2 = new Local(32, 66);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
+        SensorList list1 = new SensorList(s1);
+        GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
+        TypeArea expectedResult = t1;
+        TypeArea actualResult;
+
+        //Act
+
+        actualResult = c.getTypeArea();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfConstructorWithVerticesWorksLocal() {
+        //Arrange
+
+        Local v1 = new Local(21, 31);
+        Local v2 = new Local(32, 66);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
+        SensorList list1 = new SensorList(s1);
+        GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
+        Local expectedResult = l1;
+        Local actualResult;
+        actualResult = c.getLocal();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfConstructorWithVerticesWorksSensorList() {
+        //Arrange
+
+        Local v1 = new Local(21, 31);
+        Local v2 = new Local(32, 66);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(21, 38, 40);
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
+        SensorList list1 = new SensorList(s1);
+        GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
+        SensorList expectedResult = list1;
+        SensorList actualResult;
+        actualResult = c.getSensorList();
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void seeIfGetSetWorksTopLeftVertex() {
         //Arrange
 
-        Local topLeftVertex = new Local (15,88);
-        Local v1 = new Local (21,31);
-        Local v2 = new Local (32,66);
+        Local topLeftVertex = new Local(15, 88);
+        Local v1 = new Local(21, 31);
+        Local v2 = new Local(32, 66);
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
-        Local expectedResult = new Local(15,88);
+        Local expectedResult = new Local(15, 88);
         Local actualResult;
 
         //Act
@@ -140,22 +201,22 @@ public class Geographic_Area_Test {
 
         //Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void seeIfGetSetWorksBottomRightVertex() {
         //Arrange
 
-        Local bottomRightVertex = new Local (15,88);
-        Local v1 = new Local (21,31);
-        Local v2 = new Local (32,66);
+        Local bottomRightVertex = new Local(15, 88);
+        Local v1 = new Local(21, 31);
+        Local v2 = new Local(32, 66);
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
-        Local expectedResult = new Local(15,88);
+        Local expectedResult = new Local(15, 88);
         Local actualResult;
 
         //Act
@@ -165,7 +226,7 @@ public class Geographic_Area_Test {
 
         //Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -223,7 +284,7 @@ public class Geographic_Area_Test {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         SensorList expectedResult = list1;
         SensorList actualResult;
@@ -236,13 +297,14 @@ public class Geographic_Area_Test {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfGetSetSensorListDifferentOfConstructorWorks() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade"), new Local(12, 31, 21), new GregorianCalendar(2010,8,9).getTime());
-        Sensor s2 = new Sensor("Temperatura", new TypeSensor("Temperatura"), new Local(43, 23, 65), new GregorianCalendar(2010,8,9).getTime());
+        Sensor s1 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
+        Sensor s2 = new Sensor("Temperatura", new TypeSensor("Temperatura"), new Local(43, 23, 65), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         SensorList list2 = new SensorList(s2);
         SensorList expectedResult = list2;
@@ -260,11 +322,11 @@ public class Geographic_Area_Test {
     @Test
     public void seeIfSetSensorListAcceptsListSameAsConstructor() {
         //Arrange
-        Sensor s1 = new Sensor("Vento1", new TypeSensor("Vento"), new Local(21, 65, 21), new GregorianCalendar(2016,8,6).getTime());
-        Sensor s2 = new Sensor("Vento2", new TypeSensor("Vento"), new Local(32, 87, 21), new GregorianCalendar(2016,2,19).getTime());
-        Sensor s3 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade"), new Local(56, 31, 11), new GregorianCalendar(2011,8,2).getTime());
+        Sensor s1 = new Sensor("Vento1", new TypeSensor("Vento"), new Local(21, 65, 21), new GregorianCalendar(2016, 8, 6).getTime());
+        Sensor s2 = new Sensor("Vento2", new TypeSensor("Vento"), new Local(32, 87, 21), new GregorianCalendar(2016, 2, 19).getTime());
+        Sensor s3 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade"), new Local(56, 31, 11), new GregorianCalendar(2011, 8, 2).getTime());
         SensorList l1 = new SensorList(new Sensor[]{s1, s2, s3});
-        GeographicArea c = new GeographicArea(new TypeArea("Rua"), new Local(12, 35, 2),l1);
+        GeographicArea c = new GeographicArea(new TypeArea("Rua"), new Local(12, 35, 2), l1);
         SensorList expectedResult = l1;
         SensorList actualResult;
         //Act
@@ -274,12 +336,13 @@ public class Geographic_Area_Test {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfSetSensorListAcceptsListDifferentThenConstructor() {
         //Arrange
-        Sensor s1 = new Sensor("Vento1", new TypeSensor("Vento"), new Local(21, 65, 21), new GregorianCalendar(2016,8,6).getTime());
-        Sensor s2 = new Sensor("Vento2", new TypeSensor("Vento"), new Local(32, 87, 21), new GregorianCalendar(2016,2,19).getTime());
-        Sensor s3 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade"), new Local(56, 31, 11), new GregorianCalendar(2011,8,2).getTime());
+        Sensor s1 = new Sensor("Vento1", new TypeSensor("Vento"), new Local(21, 65, 21), new GregorianCalendar(2016, 8, 6).getTime());
+        Sensor s2 = new Sensor("Vento2", new TypeSensor("Vento"), new Local(32, 87, 21), new GregorianCalendar(2016, 2, 19).getTime());
+        Sensor s3 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade"), new Local(56, 31, 11), new GregorianCalendar(2011, 8, 2).getTime());
         SensorList l1 = new SensorList(new Sensor[]{s1, s2, s3});
         GeographicArea c = new GeographicArea(new TypeArea("Rua"), new Local(12, 35, 2), new SensorList(s1));
         SensorList expectedResult = l1;
@@ -291,7 +354,6 @@ public class Geographic_Area_Test {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
 
 
     @Test
@@ -309,6 +371,7 @@ public class Geographic_Area_Test {
         //Assert
         assertEquals(expectedresult, result, 1);
     }
+
     @Test
     public void seeIfCalculateDistanceToDifferentGAWithSameLocalizationWorks() {
         //Arrange
@@ -324,6 +387,7 @@ public class Geographic_Area_Test {
         //Assert
         assertEquals(expectedresult, result, 1);
     }
+
     @Test
     public void seeIfCalculateDistanceToSameGAWorks() {
         //Arrange
@@ -350,7 +414,7 @@ public class Geographic_Area_Test {
         readingList.addReading(r1);
         readingList.addReading(r2);
         readingList.addReading(r3);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList);
         SensorList sensorList = new SensorList(s1);
         GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
         double expectedResult = 19;
@@ -378,8 +442,8 @@ public class Geographic_Area_Test {
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList);
-        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList2);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList);
+        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
@@ -407,8 +471,8 @@ public class Geographic_Area_Test {
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList);
-        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList2);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList);
+        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
@@ -419,6 +483,7 @@ public class Geographic_Area_Test {
         assertEquals(expectedResult, result, 0.01);
 
     }
+
     @Test
     public void seeThatWeRemoveAListWithAnotherType() {
         //Arrange
@@ -436,8 +501,8 @@ public class Geographic_Area_Test {
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList);
-        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade"), new Local(16, 17, 18), new GregorianCalendar(2010,8,9).getTime(), readingList2);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList);
+        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
