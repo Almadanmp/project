@@ -3,12 +3,9 @@ package Sprint0_Test.Model_Test;
 import Sprint0.Model.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Local_Test {
     @Test
