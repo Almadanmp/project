@@ -62,12 +62,16 @@ public class GeographicArea {
      * is assumed to be a rectangle.
      */
 
-    public void setTopLeftVertex(Local local) {
-        this.mTopLeftVertex = local;
+    public void setTopLeftVertex(Local localv1) {
+        if (localv1.getLatitude() <= mLocal.getLatitude() && localv1.getLongitude() >= mLocal.getLongitude()) {
+        this.mTopLeftVertex = localv1;
+        }
     }
 
-    public void setBottomRightVertex(Local local) {
-        this.mBottomRightVertex = local;
+    public void setBottomRightVertex(Local localv2) {
+        if (localv2.getLatitude() >= mLocal.getLatitude() && localv2.getLongitude() <= mLocal.getLongitude()) {
+            this.mBottomRightVertex = localv2;
+        }
     }
 
     /**

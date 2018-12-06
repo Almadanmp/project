@@ -80,14 +80,14 @@ public class Geographic_Area_Test {
     public void seeIfConstructorWithVerticesWorksTopLeft() {
         //Arrange
 
-        Local v1 = new Local(21, 31);
-        Local v2 = new Local(32, 66);
+        Local v1 = new Local(0, 30);
+        Local v2 = new Local(30, 0);
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(21, 38, 40);
+        Local l1 = new Local(21, 25, 40);
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
-        Local expectedResult = new Local(21, 31);
+        Local expectedResult = new Local(0, 30);
         Local actualResult;
 
         //Act
@@ -103,14 +103,14 @@ public class Geographic_Area_Test {
     public void seeIfConstructorWithVerticesWorksBottomRight() {
         //Arrange
 
-        Local v1 = new Local(21, 31);
-        Local v2 = new Local(32, 66);
+        Local v1 = new Local(0, 30);
+        Local v2 = new Local(30, 0);
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(21, 38, 40);
+        Local l1 = new Local(10, 10, 40);
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
-        Local expectedResult = new Local(32, 66);
+        Local expectedResult = new Local(30, 0);
         Local actualResult;
 
         //Act
@@ -208,15 +208,15 @@ public class Geographic_Area_Test {
     public void seeIfGetSetWorksBottomRightVertex() {
         //Arrange
 
-        Local bottomRightVertex = new Local(15, 88);
-        Local v1 = new Local(21, 31);
-        Local v2 = new Local(32, 66);
+        Local bottomRightVertex = new Local(40, 10);
+        Local v1 = new Local(0, 30);
+        Local v2 = new Local(30, 0);
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(21, 38, 40);
+        Local l1 = new Local(10, 10, 40);
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
         SensorList list1 = new SensorList(s1);
         GeographicArea c = new GeographicArea(t1, l1, list1, v1, v2);
-        Local expectedResult = new Local(15, 88);
+        Local expectedResult = new Local(40, 10);
         Local actualResult;
 
         //Act
