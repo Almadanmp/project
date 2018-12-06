@@ -1,4 +1,4 @@
-package Sprint0.UI;
+package Sprint0.View;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
