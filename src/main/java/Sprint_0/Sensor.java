@@ -54,6 +54,8 @@ public class Sensor {
     public void setName(String name) {
         if (isSensorNameValid(name)) {
             this.mName = name;
+        }else {
+            throw new IllegalArgumentException("Please Insert Valid Name");
         }
     }
 
@@ -157,11 +159,9 @@ public class Sensor {
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
     public boolean isSensorNameValid(String name) {
-        if (name != null && !name.isEmpty()) {
-                return true;
-        }
-        throw new IllegalArgumentException("Please Insert Valid Name");
+        return (name != null && !name.isEmpty());
     }
+
     public boolean isSensorContainedInArea (GeographicArea area){
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
