@@ -1,5 +1,7 @@
 package Sprint0.View;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainUI {
@@ -8,20 +10,25 @@ public class MainUI {
     {
     Scanner input = new Scanner(System.in);
 
-    //Titulo consola
+    //Console title
 
-    System.out.println("*************************************************\n"+
-                       "************** Menu Principal Teste *************\n"+
-                       "******************sWitCh 2018********************\n"+
-                       "*************************************************");
+    System.out.println("***************************************************\n"+
+                       "***************** Main Menu Test ******************\n"+
+                       "****************** sWitCh 2018 ********************\n"+
+                       "***************************************************\n");
 
-    // Input da selecao do submenu
-    String[] menuArray = {
-            "1. Opcao1",
-            "2. Opcao2",
-            "3. Opcao3",
-            "4. Opcao4",
-            "5. Opcao5",
-    };
+    // Submenus Input selection
+
+    String[] menu = {" 1. Option1\n","2. Option2\n","3. Option3\n","4. Option4\n","5. Option5\n"};
+    int[] menuLinks = {1,2,3,4,5};
+
+    System.out.println("Select the talk you want to do:" );
+
+    String formattedString = Arrays.toString(menu)
+            .replace(",", "")  //remove the commas
+            .replace("[", "")  //remove the right bracket
+            .replace("]", "");  //remove the left bracket
+
+    System.out.print(formattedString);
     }
 }

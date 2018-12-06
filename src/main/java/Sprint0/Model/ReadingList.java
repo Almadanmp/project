@@ -122,6 +122,35 @@ public class ReadingList {
         return daysArray;
     }
 
+    public List<Date> getDaysOfWeekWithReadings(Date inputDate){
+        ReadingList rl1 = new ReadingList();
+        Date firstDayOfWeek = rl1.getFirstDayOfWeekFromGivenDay(inputDate).getTime();
+        Date lastDayOfWeek = firstDayOfWeek;
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(firstDayOfWeek);
+        cal.add(Calendar.SECOND, -1);
+        Date dayBeforeBegMonth = cal.getTime();
+
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(lastDayOfWeek);
+        cal1.add(Calendar.DAY_OF_MONTH, 7);
+        cal1.add(Calendar.SECOND, -1);
+        Date dayAfterEndMonth = cal1.getTime();
+
+        List<Date> daysArray = new ArrayList<>();
+        for (int i = 0; i < mReadings.size(); i++) {
+            Date currentReadingDate = mReadings.get(i).getmDate();
+            if (currentReadingDate.after(dayBeforeBegMonth) && currentReadingDate.before(dayAfterEndMonth)){
+                if(!daysArray.contains((currentReadingDate))) {
+                    daysArray.add(currentReadingDate);
+                }
+            }
+        } return daysArray;
+    }
+
+
     /**
      * @param year  filters the date through year.
      * @param month filters the date through month.
@@ -248,6 +277,10 @@ public class ReadingList {
         while (firstDayOfWeek.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
             firstDayOfWeek.set(Calendar.DAY_OF_YEAR, --day);
         }
+        firstDayOfWeek.set(Calendar.HOUR,0);
+        firstDayOfWeek.set(Calendar.MINUTE,0);
+        firstDayOfWeek.set(Calendar.SECOND,0);
+        firstDayOfWeek.set(Calendar.MILLISECOND,0);
         return firstDayOfWeek;
     }
 }
