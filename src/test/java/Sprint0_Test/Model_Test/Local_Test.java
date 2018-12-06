@@ -1,9 +1,12 @@
 package Sprint0_Test.Model_Test;
 
-import Sprint0.Model.Local;
-import Sprint0.Model.TypeSensor;
+import Sprint0.Model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
@@ -215,6 +218,30 @@ public class Local_Test {
 
         //Assert
         assertEquals(expectedResult,result,0.01);
+    }
+
+    @Test
+    public void seeIfAreaIsContainedInArea() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Terriola");
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l1 = new Local(20, 15);
+        GeographicArea a1 = new GeographicArea(t1,l1);
+        Local l2 = new Local(20, 20);
+        GeographicArea a2 = new GeographicArea(t2,l2);
+        Local v1 = new Local (15,20);
+        Local v2 = new Local (20,15);
+        Local v3 = new Local(10,25);
+        Local v4 = new Local(25,10);
+        //Act
+        a1.setBottomRightVertex(v2);
+        a1.setTopLeftVertex(v1);
+        a2.setBottomRightVertex(v4);
+        a2.setTopLeftVertex(v3);
+        boolean result = l1.isAreaContainedInAnotherArea(a1,a2);
+
+        //Assert
+        assertTrue(result);
     }
 
 }
