@@ -1,8 +1,7 @@
-package Sprint_0;
+package Sprint0.Model;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * Represents a Sensor.

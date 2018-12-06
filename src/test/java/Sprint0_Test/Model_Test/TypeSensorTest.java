@@ -1,10 +1,10 @@
-package Sprint_0;
+package Sprint0_Test.Model_Test;
 
+import Sprint0.Model.Local;
+import Sprint0.Model.TypeSensor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

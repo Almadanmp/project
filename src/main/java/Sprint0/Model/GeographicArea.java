@@ -1,4 +1,4 @@
-package Sprint_0;
+package Sprint0.Model;
 
 /**
  * This is the central class.

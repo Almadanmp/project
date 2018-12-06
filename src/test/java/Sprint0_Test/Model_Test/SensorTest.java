@@ -1,6 +1,7 @@
-package Sprint_0;
+package Sprint0_Test.Model_Test;
 
 
+import Sprint0.Model.*;
 import org.junit.jupiter.api.*;
 
 import java.util.Calendar;

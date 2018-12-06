@@ -1,5 +1,6 @@
-package Sprint_0;
+package Sprint0_Test.Model_Test;
 
+import Sprint0.Model.TypeArea;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
