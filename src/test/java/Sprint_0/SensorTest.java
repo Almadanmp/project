@@ -171,31 +171,6 @@ public class SensorTest {
         assertEquals("Please Insert Valid Name", exception.getMessage());
     }
 
-    @Test
-    public void seeIfSetValidNameWorksEmptyAndThrowsStringException() {
-        //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
-                new Local(12, 31, 21), new Date());
-
-        //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            c.isSensorNameValid(null);
-        });
-
-        //Assert
-        assertEquals("Please Insert Valid Name", exception.getMessage());
-    }
-    @Test
-    public void seeIfSetValidNameWorks() {
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere"),
-                new Local(12, 31, 21), new Date());
-        Throwable exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            c.isSensorNameValid("");
-        });
-
-        //Assert
-        assertEquals("Please Insert Valid Name", exception.getMessage());
-    }
 
     @Test
     public void seeIfSetGetLocalWorks() {
