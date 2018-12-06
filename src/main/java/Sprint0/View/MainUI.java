@@ -1,4 +1,4 @@
-package Sprint0.UI;
+package Sprint0.View;
 
 import java.util.Scanner;
 
