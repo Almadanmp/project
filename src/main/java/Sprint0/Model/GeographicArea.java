@@ -16,7 +16,7 @@ public class GeographicArea {
     // They can be made with or without a sensor list.
 
     /**
-     * Constructor of the class GeographicArea that receives the type of Geographic Area and its localization
+     * Constructor of the class GeographicAreaController that receives the type of Geographic Area and its localization
      * as parameters.
      *
      * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
@@ -28,7 +28,7 @@ public class GeographicArea {
     }
 
     /**
-     * Constructor of the class GeographicArea that receives the type of Geographic Area, its location
+     * Constructor of the class GeographicAreaController that receives the type of Geographic Area, its location
      * and a list of sensors as parameters.
      *
      * @param typeArea   Type area is determined by a string - e.g. "Street", "City", etc.
@@ -42,7 +42,7 @@ public class GeographicArea {
     }
 
     /**
-     * Constructor of the class GeographicArea that receives the type of Geographic Area, its location, a
+     * Constructor of the class GeographicAreaController that receives the type of Geographic Area, its location, a
      * list of sensors contained in it, and two vertices. The two vertices define a rectangular physical
      * area that matches an approximation of the physical area covered by the Geographic Area.
      */
@@ -165,7 +165,7 @@ public class GeographicArea {
     /**
      * Method will calculate the distance between two different Geographic Areas.
      *
-     * @param ga object of the class GeographicArea
+     * @param ga object of the class GeographicAreaController
      * @return returns a double of the distance between Geographic Areas.
      */
     public double calculateDistanceToGA(GeographicArea ga) {
