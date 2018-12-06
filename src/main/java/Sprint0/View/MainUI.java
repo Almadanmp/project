@@ -22,7 +22,7 @@ public class MainUI {
     String[] menu = {" 1. Option1\n","2. Option2\n","3. Option3\n","4. Option4\n","5. Option5\n"};
     int[] menuLinks = {1,2,3,4,5};
 
-    System.out.println("Select the talk you want to do: \n" );
+    System.out.println("Select the talk you want to do:" );
 
     String formattedString = Arrays.toString(menu)
             .replace(",", "")  //remove the commas
