@@ -143,9 +143,7 @@ public class ReadingList {
         for (int i = 0; i < mReadings.size(); i++) {
             Date currentReadingDate = mReadings.get(i).getmDate();
             if (currentReadingDate.after(dayBeforeBegMonth) && currentReadingDate.before(dayAfterEndMonth)){
-                if(!daysArray.contains((currentReadingDate))) {
                     daysArray.add(currentReadingDate);
-                }
             }
         }
         return daysArray;
