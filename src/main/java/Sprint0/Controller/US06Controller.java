@@ -6,7 +6,7 @@ import Sprint0.Model.TypeSensor;
 
 import java.util.Date;
 
-public class UserStory06Controller {
+public class US06Controller {
     private String mName;
     private TypeSensor mTypeSensor;
     private Local mLocal;

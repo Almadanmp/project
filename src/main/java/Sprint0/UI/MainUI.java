@@ -1,6 +1,5 @@
-package Sprint0.View;
+package Sprint0.UI;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
 

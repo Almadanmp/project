@@ -1,8 +1,8 @@
-package Sprint0.View;
+package Sprint0.UI;
 
 import java.util.Scanner;
 
-public class UserStory06View {
+public class US06UI {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);

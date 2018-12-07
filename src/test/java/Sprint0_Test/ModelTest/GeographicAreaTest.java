@@ -1,4 +1,4 @@
-package Sprint0_Test.Model_Test;
+package Sprint0_Test.ModelTest;
 
 
 import Sprint0.Model.*;
@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Geographic_Area_Test {
+public class GeographicAreaTest {
 
 
     @Test

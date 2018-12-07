@@ -1,4 +1,4 @@
-package Sprint0_Test.Model_Test;
+package Sprint0_Test.ModelTest;
 
 import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;

@@ -1,4 +1,4 @@
-package Sprint0_Test.Model_Test;
+package Sprint0_Test.ModelTest;
 
 import Sprint0.Model.TypeArea;
 import org.junit.jupiter.api.Assertions;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Type_Area_Test {
+public class TypeAreaTest {
 
     @Test
     public void seeTypeOfGeographicAreaConstructor(){
