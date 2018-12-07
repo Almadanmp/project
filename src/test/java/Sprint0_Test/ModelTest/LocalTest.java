@@ -1,4 +1,4 @@
-package Sprint0_Test.Model_Test;
+package Sprint0_Test.ModelTest;
 
 import Sprint0.Model.*;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Local_Test {
+public class LocalTest {
     @Test
     public void seeIfGetSetLatitudeWorks() {
         //Arrange

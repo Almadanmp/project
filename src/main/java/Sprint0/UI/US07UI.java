@@ -1,8 +1,8 @@
-package Sprint0.View;
+package Sprint0.UI;
 
 import Sprint0.Model.GeographicArea;
 
-public class US07View {
+public class US07UI {
 
 
     public void printGeographicAreaContainedInAnotherGeographicArea(GeographicArea ga1, GeographicArea ga2){
