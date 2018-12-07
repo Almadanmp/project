@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class US06UI {
 
-    public static void main(String[] args) {
+    public void US06UI (String[] args) {
         Scanner input = new Scanner(System.in);
 
         //Console title
