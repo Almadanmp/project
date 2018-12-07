@@ -4,7 +4,7 @@ import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
 import Sprint0.Model.Local;
 import Sprint0.Model.TypeArea;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
