@@ -173,4 +173,26 @@ public class GeographicArea {
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
     }
 
+    /**
+     * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two
+     * Geographic Areas cannot have the same Localization
+     * @param testObject
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof GeographicArea)) {
+            return false;
+        }
+        GeographicArea gA = (GeographicArea) testObject;
+        return this.getLocal().equals(gA.getLocal());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }
