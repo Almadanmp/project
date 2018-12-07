@@ -187,13 +187,9 @@ public class ReadingList {
      * @return returns the lowest value of all the readings within a day (0 if list null or empty).
      */
     public double getLowestValueInList(List<Double> values) {
-        double minValue;
+        AuxiliaryMethods.checkIfListValid(values);
 
-        if (values == null || values.isEmpty()) {
-            return 0;
-        }
-
-        minValue = values.get(0);
+        double minValue = values.get(0);
 
         for (double value : values) {
             if (value < minValue) {
@@ -210,13 +206,9 @@ public class ReadingList {
      */
 
     public double getHighestValueInList(List<Double> values) {
-      double maxValue;
+        AuxiliaryMethods.checkIfListValid(values);
 
-        if (values == null || values.isEmpty()) {
-            return 0;
-        }
-
-        maxValue = values.get(0);
+       double maxValue = values.get(0);
 
         for (double value : values) {
             if (value >= maxValue) {
