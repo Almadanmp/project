@@ -147,7 +147,8 @@ public class ReadingList {
                     daysArray.add(currentReadingDate);
                 }
             }
-        } return daysArray;
+        }
+        return daysArray;
     }
 
 
