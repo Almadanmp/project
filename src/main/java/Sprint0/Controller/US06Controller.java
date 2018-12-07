@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class UserStory06Controller {
+public class US06Controller {
 
     private Sensor mSensor;
     private String mName;
@@ -20,7 +20,7 @@ public class UserStory06Controller {
     private ReadingList mReadingList;
     private List<Sensor> mSensorList;
 
-    public UserStory06Controller(Sensor sensor) {
+    public US06Controller(Sensor sensor) {
         this.mSensor = sensor;
     }
 
@@ -31,5 +31,5 @@ public class UserStory06Controller {
         }
         return false;
     }
-    
+
 }

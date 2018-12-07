@@ -1,25 +1,25 @@
-package Sprint0.View;
+package Sprint0.UI;
 
-import Sprint0.Controller.UserStory06Controller;
+import Sprint0.Controller.US06Controller;
 import Sprint0.Model.Sensor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class UserStory06View {
+public class US06UI {
 
     private List<String> mSensors;
-    private UserStory06Controller mController;
+    private US06Controller mController;
 
-    public UserStory06View(Sensor sensor) {
+    public US06UI(Sensor sensor) {
         Scanner input = new Scanner(System.in);
-        UserStory06Controller controller = new UserStory06Controller(sensor);
+        US06Controller controller = new US06Controller(sensor);
         //Console title
         System.out.println("***************************************************\n"+
-                           "************** Sensor Addition Menu ***************\n"+
-                           "****************** sWitCh 2018 ********************\n"+
-                           "***************************************************\n");
+                "************** Sensor Addition Menu ***************\n"+
+                "****************** sWitCh 2018 ********************\n"+
+                "***************************************************\n");
 
         System.out.println("New Sensor Input:" );
         String sensorNome = input.nextLine();
