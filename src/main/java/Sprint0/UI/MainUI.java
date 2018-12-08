@@ -29,6 +29,7 @@ public class MainUI {
             .replace("]", "");  //remove the left bracket
 
     System.out.print(formattedString);
+    System.out.print("\nEnter option number:\t");
     option = scanner.nextInt();
     switch (option){
         case 1:

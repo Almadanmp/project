@@ -14,24 +14,22 @@ public class US06Controller {
     private TypeSensor mSensorTypeSensor;
     private Local mSensorLocal;
     private Date mSensorDateStartedFunctioning;
-    private ReadingList mSensorReadingList;
-    private List<Sensor> mSensorList;
-    private GeographicArea GA;
+    private SensorList mSensorList;
+    private GeographicArea mGeoArea;
 
-    public US06Controller(Sensor sensor) {
+    public US06Controller(Sensor sensor, GeographicArea gArea) {
         this.mSensor = sensor;
+        this.mGeoArea = gArea;
     }
 
     public boolean addSensor(Sensor sensorToAdd){
         this.mSensor = sensorToAdd;
-        mSensorList = new ArrayList<>();
-        if (!(mSensorList.contains(sensorToAdd))) {
-            mSensorList.add(sensorToAdd);
+        mSensorList = new SensorList(mSensor);
+        if (!(mSensorList.containsSensor(mSensor))) {
+            mSensorList.addSensor(mSensor);
+            mGeoArea.setSensorList(mSensorList);
         }
         return false;
-    }
-    public void addSensorToGeographicArea(Sensor sensorToAdd) {
-
     }
     public void setType(Sensor sensor,String name){
         TypeSensor type = new TypeSensor();
