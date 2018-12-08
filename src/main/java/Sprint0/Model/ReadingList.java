@@ -58,6 +58,130 @@ public class ReadingList {
         return mReadings.get(mostRecentReadingIndex);
     }
 
+    public double getAverageOfAllRecordedValuesFromAGivenMonth(Date d1) {
+        List<Date> daysArray = getDatesOfMonthWithReadings(d1);
+        double sum = 0;
+        double counter = 0;
+        if (daysArray.isEmpty()) {
+            return 0;
+        }
+        for (Date d : daysArray) {
+            for(Reading r : this.mReadings) {
+                if(r.getmDate() == d) {
+                    sum = sum + r.getmValue();
+                    counter++;
+                }
+            }
+        }
+
+        return sum / counter;
+    }
+
+    public List<Date> getDatesOfMonthWithReadings(Date monthToTest) {
+        ReadingList rl1 = new ReadingList();
+        Date beginningMonth = rl1.getFirstDateOfMonthFromGivenDate(monthToTest);
+        Date endMonth = rl1.getLastDateOfMonthFromGivenDate(monthToTest);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(beginningMonth);
+        cal.add(Calendar.SECOND, -1);
+        Date dayBeforeBegMonth = cal.getTime();
+
+        cal.setTime(endMonth);
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        Date dayAfterEndMonth = cal.getTime();
+
+        List<Date> daysArray = new ArrayList<>();
+        for (int i = 0; i < mReadings.size(); i++) {
+            Date currentReadingDate = mReadings.get(i).getmDate();
+            if ((currentReadingDate.after(dayBeforeBegMonth)) && (currentReadingDate.before(dayAfterEndMonth))) {
+                if (!daysArray.contains(currentReadingDate)) {
+                    daysArray.add(currentReadingDate);
+                }
+            }
+        }
+        return daysArray;
+    }
+
+    public Date getFirstDateOfMonthFromGivenDate (Date d1){
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(d1);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        return cal.getTime();
+    }
+
+    public Date getLastDateOfMonthFromGivenDate (Date d1){
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(d1);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return cal.getTime();
+    }
+
+
+
+    public double getAverageOfMinimumValuesInTheReadingsOfMonth(Date dateGiven) {
+        removeReadingsWithDifferentMonthAndYearFromDateGiven(dateGiven);
+        List<Integer> daysWithReadings = getDaysOfMonthWithReadings(dateGiven);
+        List<Double> minsValuesFromDaysWithReadings = new ArrayList<>();
+        for (int day : daysWithReadings) {
+            List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchDayWithinMonth(day);
+            double minValueOfDay;
+            minValueOfDay = getLowestValueInList(valueReadingsThatMatchDay);
+            minsValuesFromDaysWithReadings.add(minValueOfDay);
+        }
+        return getAverageFromGivenList(minsValuesFromDaysWithReadings);
+    }
+
+    public List<Reading> removeReadingsWithDifferentMonthAndYearFromDateGiven(Date dateGiven) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(dateGiven);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+        for(int i = mReadings.size()-1; i>=0; i--) {
+            Reading reading = mReadings.get(i);
+            cal.setTime(reading.getmDate());
+            if(!(cal.get(Calendar.MONTH) == month) && (cal.get(Calendar.YEAR) == year)) {
+                this.mReadings.remove(reading);
+            }
+        }
+        return this.mReadings;
+    }
+
+
+    public List<Integer> getDaysOfMonthWithReadings(Date dateGiven) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(dateGiven);
+        cal.add(Calendar.MONTH, -1);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
+        Date dayBeforeStartOfMonth = cal.getTime();
+
+        cal.setTime(dateGiven);
+        cal.add(Calendar.MONTH, +1);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        Date dayAfterEndOfMonth = cal.getTime();
+
+        List<Integer> daysWithReadings = new ArrayList<>();
+        for (int i = 0; i < mReadings.size(); i++) {
+            Date currentReadingDate = mReadings.get(i).getmDate();
+            if (currentReadingDate.after(dayBeforeStartOfMonth) && currentReadingDate.before(dayAfterEndOfMonth)){
+                GregorianCalendar temporaryCalend = new GregorianCalendar();
+                temporaryCalend.setTime(currentReadingDate);
+                int dayToAdd = temporaryCalend.get(Calendar.DAY_OF_MONTH);
+                if (!daysWithReadings.contains(dayToAdd)) {
+                    daysWithReadings.add(dayToAdd);
+                }
+            }
+        }
+        return daysWithReadings;
+    }
+
     /**
      * @param dayOfMonth is an integer that matches the day that we want to look for readings of.
      * @return gives us an ArrayList with the values of all the readings from a particular day.
@@ -65,29 +189,116 @@ public class ReadingList {
      */
 
     public List<Double> getValueReadingsThatMatchDayWithinMonth(int dayOfMonth) {
-        ArrayList<Double> valuesOfDay = new ArrayList<>();
+        ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (Reading r : mReadings) {
-            GregorianCalendar tempCalendar = new GregorianCalendar();
-            tempCalendar.setTime(r.getmDate());
-            if ((tempCalendar.get(Calendar.DAY_OF_MONTH)) == dayOfMonth) {
-                valuesOfDay.add(r.getmValue());
+            GregorianCalendar temporaryCalend = new GregorianCalendar();
+            temporaryCalend.setTime(r.getmDate());
+
+            if ((temporaryCalend.get(Calendar.DAY_OF_MONTH)) == dayOfMonth) {
+                valueReadingsFromGivenDay.add(r.getmValue());
             }
         }
-        return valuesOfDay;
+        return valueReadingsFromGivenDay;
     }
 
     /**
-     * @return returns the mean of all values of readings
+     * @param values is a list of all the values obtained from all the valid readings within a day.
+     * @return returns the lowest value of all the readings within a day (0 if list null or empty).
+     */
+    public double getLowestValueInList(List<Double> values) {
+        double minValue;
+
+        if (values == null || values.isEmpty()) {
+            return 0;
+        }
+
+        minValue = values.get(0);
+
+        for (double value : values) {
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
+        return minValue;
+    }
+
+    /**
+     * @param listToTest receives a list of doubles.
+     * @return returns the average of all values contained within array.
      */
 
-    public double getMeanOftheDay(int year, int month, int day) {
-        GregorianCalendar dayMin = new GregorianCalendar(year, month, day - 1, 23, 59, 59);
-        GregorianCalendar dayMax = new GregorianCalendar(year, month, day + 1);
+    public double getAverageFromGivenList(List<Double> listToTest) {
+        double sum = 0;
+        if(listToTest.size() == 0) {
+            return -1;
+        }
+
+        for (int i = 0; i < listToTest.size(); i++) {
+            sum =  sum + listToTest.get(i);
+        }
+        return (sum / listToTest.size());
+    }
+
+    public double getAverageOfMaximumValuesInTheReadingsOfMonth(Date dateGiven) {
+        removeReadingsWithDifferentMonthAndYearFromDateGiven(dateGiven);
+        List<Integer> daysWithReadings = getDaysOfMonthWithReadings(dateGiven);
+        List<Double> maxValuesFromDaysWithReadings = new ArrayList<>();
+        for (int day : daysWithReadings) {
+            List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchDayWithinMonth(day);
+            double maxValueOfDay;
+            maxValueOfDay = getHighestValueInList(valueReadingsThatMatchDay);
+            maxValuesFromDaysWithReadings.add(maxValueOfDay);
+        }
+        return getAverageFromGivenList(maxValuesFromDaysWithReadings);
+    }
+
+    /**
+     *
+     * @param values is a list of all the values obtained from all the valid readings within a day.
+     * @return returns the highest value of all the readings within a day (0 if list null or empty).
+     */
+
+    public double getHighestValueInList(List<Double> values) {
+        double maxValue;
+
+        if (values == null || values.isEmpty()) {
+            return 0;
+        }
+
+        maxValue = values.get(0);
+
+        for (double value : values) {
+            if (value >= maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
+    }
+
+
+    public double getMeanOfGivenDay(Date dateGiven) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dateGiven);
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
+        Date beginDay = cal.getTime();
+
+        cal.setTime(dateGiven);
+        cal.add(Calendar.DAY_OF_MONTH, +1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date endDay = cal.getTime();
+
         double sum = 0;
         int counter = 0;
         for (int i = 0; i < mReadings.size(); i++) {
             Date currentReadingDate = mReadings.get(i).getmDate();
-            if (currentReadingDate.after(dayMin.getTime()) && currentReadingDate.before(dayMax.getTime())) {
+            if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay)) {
                 sum += mReadings.get(i).getmValue();
                 counter++;
             }
@@ -98,33 +309,9 @@ public class ReadingList {
         return sum / counter;
     }
 
-    /**
-     * @param year  filters the date through year.
-     * @param month filters the date through month.
-     * @return gives the days within the filtered year and month that contain valid readings.
-     */
-
-    public List<Integer> getDaysOfMonthWithReadings(int year, int month) {
-        GregorianCalendar actualMonth = new GregorianCalendar(year, month, 1);
-        GregorianCalendar maxDate = new GregorianCalendar(year, month + 1, 1);
-        List<Integer> daysArray = new ArrayList<>();
-        for (int i = 0; i < mReadings.size(); i++) {
-            Date currentReadingDate = mReadings.get(i).getmDate();
-            if (currentReadingDate.compareTo(actualMonth.getTime()) >= 0 && currentReadingDate.before(maxDate.getTime())) {
-                GregorianCalendar tempCalendar = new GregorianCalendar();
-                tempCalendar.setTime(currentReadingDate);
-                int auxDay = tempCalendar.get(Calendar.DAY_OF_MONTH);
-                if (!daysArray.contains(auxDay)) {
-                    daysArray.add(auxDay);
-                }
-            }
-        }
-        return daysArray;
-    }
-
     public List<Date> getDaysOfWeekWithReadings(Date inputDate){
         ReadingList rl1 = new ReadingList();
-        Date firstDayOfWeek = rl1.getFirstDayOfWeekFromGivenDay(inputDate).getTime();
+        Date firstDayOfWeek = rl1.getFirstDayOfWeekFromGivenDay(inputDate);
         Date lastDayOfWeek = firstDayOfWeek;
 
 
@@ -143,115 +330,10 @@ public class ReadingList {
         for (int i = 0; i < mReadings.size(); i++) {
             Date currentReadingDate = mReadings.get(i).getmDate();
             if (currentReadingDate.after(dayBeforeBegMonth) && currentReadingDate.before(dayAfterEndMonth)){
-                    daysArray.add(currentReadingDate);
+                daysArray.add(currentReadingDate);
             }
         }
         return daysArray;
-    }
-
-
-    /**
-     * @param year  filters the date through year.
-     * @param month filters the date through month.
-     * @return returns the average of all mean values of days with valid readings within a month.
-     */
-
-    public double getMeanOfRecordedValuesMonth(int year, int month) {
-        List<Integer> daysArray = getDaysOfMonthWithReadings(year, month);
-        double sum = 0;
-        if (daysArray.isEmpty()) {
-            return 0;
-        }
-        for (int i = 0; i < daysArray.size(); i++) {
-            sum += getMeanOftheDay(year, month, daysArray.get(i));
-        }
-
-        return sum / daysArray.size();
-    }
-
-    /**
-     * @param list receives a list of doubles.
-     * @return returns the average of all values contained within array.
-     */
-
-    public double getMeanOfList(List<Double> list) {
-        double temporaryValue = 0;
-        for (int posInArray = 0; posInArray < list.size(); posInArray++) {
-            temporaryValue = list.get(posInArray) + temporaryValue;
-        }
-        return (temporaryValue / list.size());
-    }
-
-    /**
-     * @param values is a list of all the values obtained from all the valid readings within a day.
-     * @return returns the lowest value of all the readings within a day (0 if list null or empty).
-     */
-    public double getLowestValueInList(List<Double> values) {
-        AuxiliaryMethods.checkIfListValid(values);
-
-        double minValue = values.get(0);
-
-        for (double value : values) {
-            if (value < minValue) {
-                minValue = value;
-            }
-        }
-        return minValue;
-    }
-
-    /**
-     *
-     * @param values is a list of all the values obtained from all the valid readings within a day.
-     * @return returns the highest value of all the readings within a day (0 if list null or empty).
-     */
-
-    public double getHighestValueInList(List<Double> values) {
-        AuxiliaryMethods.checkIfListValid(values);
-
-       double maxValue = values.get(0);
-
-        for (double value : values) {
-            if (value >= maxValue) {
-                maxValue = value;
-            }
-        }
-        return maxValue;
-    }
-
-    /**
-     * @param year  filters date through year.
-     * @param month filters date through month.
-     * @return gives the average of all the minimum values of each day in which there were valid readings.
-     */
-
-    public double getAverageOfMinimumValuesInTheReadingsOfMonth(int year, int month) {
-        List<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
-        List<Double> minsOfDaysInMonth = new ArrayList<>();
-        for (int day : daysWithReadings) {
-            List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchDayWithinMonth(day);
-            double minValueOfDay;
-            minValueOfDay = getLowestValueInList(valueReadingsThatMatchDay);
-            minsOfDaysInMonth.add(minValueOfDay);
-        }
-        return getMeanOfList(minsOfDaysInMonth);
-    }
-
-    /**
-     * @param year  filters date through year.
-     * @param month filters date through month.
-     * @return gives the average of all the maximum values of each day in which there were valid readings.
-     */
-
-    public double getAverageOfMaximumValuesInTheReadingsOfMonth(int year, int month) {
-        List<Integer> daysWithReadings = getDaysOfMonthWithReadings(year, month);
-        List<Double> maxsOfDaysInMonth = new ArrayList<>();
-        for (int day : daysWithReadings) {
-            List<Double> valuesOfDay = getValueReadingsThatMatchDayWithinMonth(day);
-            double maxValueOfDay;
-            maxValueOfDay = getHighestValueInList(valuesOfDay);
-            maxsOfDaysInMonth.add(maxValueOfDay);
-        }
-        return getMeanOfList(maxsOfDaysInMonth);
     }
 
     /**
@@ -260,7 +342,7 @@ public class ReadingList {
      * @param d1 input date from user
      * @return 1stDayOfWeek
      */
-    public GregorianCalendar getFirstDayOfWeekFromGivenDay(Date d1) {
+    public Date getFirstDayOfWeekFromGivenDay(Date d1) {
         GregorianCalendar firstDayOfWeek = new GregorianCalendar();
         firstDayOfWeek.setTime(d1);
         int day = firstDayOfWeek.get(Calendar.DAY_OF_YEAR);
@@ -268,12 +350,10 @@ public class ReadingList {
         while (firstDayOfWeek.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
             firstDayOfWeek.set(Calendar.DAY_OF_YEAR, --day);
         }
-        firstDayOfWeek.set(Calendar.HOUR,0);
-        firstDayOfWeek.set(Calendar.MINUTE,0);
-        firstDayOfWeek.set(Calendar.SECOND,0);
-        firstDayOfWeek.set(Calendar.MILLISECOND,0);
-        return firstDayOfWeek;
+        return firstDayOfWeek.getTime();
     }
+
+
 }
 
 
