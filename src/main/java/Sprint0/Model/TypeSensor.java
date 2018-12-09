@@ -3,6 +3,7 @@ package Sprint0.Model;
 /**
  * Defines the Type of the Sensor.
  */
+
 public class TypeSensor {
     private String mName;
 
@@ -10,12 +11,14 @@ public class TypeSensor {
     /**
      * Constructor to always create an object that names the Type of the Sensor.
      */
+
     public TypeSensor() {
     }
 
     /**
      * Constructor to always create an object that names the Type of the Sensor.
      */
+
     public TypeSensor(String name) {
         setName(name);
     }
@@ -47,16 +50,18 @@ public class TypeSensor {
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
-    public static boolean isTypeSensorNameValid(String name) {
+
+    private boolean isTypeSensorNameValid(String name) {
         return (name != null && !name.isEmpty());
     }
 
     /**
      * Specific Method
      *
-     * @param testSensor -
-     * @return boolean
+     * @param testSensor Receives an object to verify if it matches current instance of TypeSensor.
+     * @return boolean returns true if equal, false if not equal.
      */
+
     @Override
     public boolean equals(Object testSensor) {
         if (this == testSensor) {
