@@ -146,7 +146,7 @@ public class Sensor {
      * @return average of readings on a month on a sensor
      */
     public double calculateMonthMeanOnSensor(Sensor s1, Date dateGiven) {
-        return s1.getReadingList().getAverageOfAllRecordedValuesFromAGivenMonth(dateGiven);
+        return s1.getReadingList().getAverageOfAllRecordedValueReadingsFromGivenMonth(dateGiven);
     }
 
 
