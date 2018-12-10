@@ -406,6 +406,19 @@ public class ReadingList {
         return getAverageFromGivenList(minValuesFromDaysWithReadings);
     }
 
+    public double getAverageOfMaximumValuesInTheReadingsOfWeek(Date dateGiven) {
+        removeReadingsWithDifferentMonthAndYearFromDateGiven(dateGiven);
+        List<Integer> daysWithReadings = getListOfDatesWithReadingsFromWeekOfDateGiven(dateGiven);
+        List<Double> maxValuesFromDaysWithReadings = new ArrayList<>();
+        for (int day : daysWithReadings) {
+            List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(day);
+            double maxValueOfDay;
+            maxValueOfDay = getHighestValueInList(valueReadingsThatMatchDay);
+            maxValuesFromDaysWithReadings.add(maxValueOfDay);
+        }
+        return getAverageFromGivenList(maxValuesFromDaysWithReadings);
+    }
+
 
 }
 
