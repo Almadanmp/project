@@ -1,4 +1,4 @@
-package Sprint0_Test.Model_Test;
+package Sprint0_Test.ModelTest;
 
 
 import Sprint0.Model.*;
@@ -411,8 +411,10 @@ public class SensorTest {
         rList.addReading(r7);
         rList.addReading(r8);
 
-        double expectedResult = 23.5;
-        double result = s1.calculateMonthMeanOnSensor(s1, 2018, 10);
+        double expectedResult = 23.71;
+        GregorianCalendar gc = new GregorianCalendar(2018,10,7);
+        Date dateToTest = gc.getTime();
+        double result = s1.calculateMonthMeanOnSensor(s1,dateToTest);
         assertEquals(expectedResult, result, 0.1);
     }
     @Test

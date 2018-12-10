@@ -1,14 +1,13 @@
-package Sprint0.View;
+package Sprint0.UI;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainUI {
 
-    public static void main(String[] args)
-    {
-    Scanner input = new Scanner(System.in);
+    public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    int option =-1;
 
     //Console title
 
@@ -20,9 +19,9 @@ public class MainUI {
     // Submenus Input selection
 
     String[] menu = {" 1. Option1\n","2. Option2\n","3. Option3\n","4. Option4\n","5. Option5\n"};
-    int[] menuLinks = {1,2,3,4,5};
 
-    System.out.println("Select the talk you want to do:" );
+
+    System.out.println("Select the task you want to do:" );
 
     String formattedString = Arrays.toString(menu)
             .replace(",", "")  //remove the commas
@@ -30,5 +29,24 @@ public class MainUI {
             .replace("]", "");  //remove the left bracket
 
     System.out.print(formattedString);
+    System.out.print("\nEnter option number:\t");
+    option = scanner.nextInt();
+    switch (option){
+        case 1:
+            System.out.println("test BANANAS");
+            break;
+        case 2:
+            System.out.println("test PERAS");
+            break;
+        case 3:
+            System.out.println("test MAÇAS");
+            break;
+        case 4:
+            System.out.println("test LIMOES");
+            break;
+        case 5:
+            System.out.println("test LARANJAS");
+            break;
+    }
     }
 }
