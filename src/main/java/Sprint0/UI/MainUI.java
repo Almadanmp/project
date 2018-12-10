@@ -2,7 +2,6 @@ package Sprint0.UI;
 
 import Sprint0.Model.SensorList;
 import Sprint0.Model.TypeAreaList;
-import Sprint0.Model.Sensor;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,11 +9,10 @@ import java.util.Scanner;
 public class MainUI {
 
     public static final SensorList mSensorList = new SensorList();
-    private static Sensor mSensor;
 
     public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
-    int option =-1;
+    int option = -1;
 
     //Console title
 
@@ -38,7 +36,7 @@ public class MainUI {
     System.out.print(formattedString);
     System.out.print("\nEnter option number:\t");
     option = scanner.nextInt();
-    switch (option){
+    switch (option) {
         case 1:
             TypeAreaList list = new TypeAreaList();
             US01UI us = new US01UI(list);
@@ -56,7 +54,6 @@ public class MainUI {
         case 5:
             US05UI view5 = new US05UI();
             view5.run();
-        case 6:
             break;
     }
     }
