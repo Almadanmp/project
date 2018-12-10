@@ -7,8 +7,8 @@ import java.util.List;
 
 public class US08Controller {
 
-    private GeographicArea mGeographicArea1;
-    private GeographicArea mGeographicArea2;
+    private GeographicArea mGeographicAreaContained;
+    private GeographicArea mGeographicAreaContainer;
 
 
     public US08Controller(){}
@@ -17,14 +17,10 @@ public class US08Controller {
         if (checkIfListIsValid(MainUI.mGeographicAreaList.getGeographicAreaList())) {
             for (GeographicArea ga1 : MainUI.mGeographicAreaList.getGeographicAreaList()) {
                 if (ga1.getName().equals(area1Name)) {
-                    mGeographicArea1.setBottomRightVertex(ga1.getBottomRightVertex());
-                    mGeographicArea1.setTopLeftVertex(ga1.getTopLeftVertex());
-                    mGeographicArea1.setName(area1Name);
+                    mGeographicAreaContained = ga1;
                     for (GeographicArea ga2 : MainUI.mGeographicAreaList.getGeographicAreaList()) {
                         if (ga2.getName().equals(area2Name)) {
-                            mGeographicArea2.setBottomRightVertex(ga2.getBottomRightVertex());
-                            mGeographicArea2.setTopLeftVertex(ga2.getTopLeftVertex());
-                            mGeographicArea2.setName(area2Name);
+                            mGeographicAreaContainer = ga2;
                             return true;
                         }
                     }
@@ -34,7 +30,7 @@ public class US08Controller {
     }
 
     public boolean seeIfItsContained(){
-        if (mGeographicArea1.isAreaContainedInAnotherArea(mGeographicArea1,mGeographicArea2)){
+        if (mGeographicAreaContained.isAreaContainedInAnotherArea(mGeographicAreaContained,mGeographicAreaContainer)){
         return true;
         }return false;
     }
