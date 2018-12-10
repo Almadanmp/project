@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class MainUI {
 
-    public static SensorList mSensorList = new SensorList();
+    public static final SensorList mSensorList = new SensorList();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
