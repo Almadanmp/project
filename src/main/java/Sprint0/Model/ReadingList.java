@@ -65,7 +65,7 @@ public class ReadingList {
     public double getAverageOfAllRecordedValueReadingsFromGivenMonth(Date dateGiven) {
         List<Date> datesOfMonth = getListOfDatesOfMonthWithReadings(dateGiven);
         double sum = 0;
-        double counter = 0;
+        int counter = 0;
         if (datesOfMonth.isEmpty()) {
             return 0;
         }
@@ -77,10 +77,10 @@ public class ReadingList {
                 }
             }
         }
-        if (counter != 0) {
-            return sum / counter;
+        if (counter == 0) {
+            return 0;
         }
-        return 0;
+        return sum / counter;
     }
 
     /**
