@@ -1,28 +1,45 @@
 package Sprint0.Controller;
 
 import Sprint0.Model.GeographicArea;
-import Sprint0.Model.Local;
-import Sprint0.Model.TypeArea;
+import Sprint0.UI.MainUI;
+
+import java.util.List;
 
 public class US08Controller {
 
     private GeographicArea mGeographicArea1;
-    private TypeArea mTypeArea1;
     private GeographicArea mGeographicArea2;
-    private TypeArea mTypeArea2;
-    private Local mLocal;
 
-    public US08Controller(GeographicArea geographicArea1, GeographicArea geographicArea2) {
-        this.mGeographicArea1 = geographicArea1;
-        this.mTypeArea1 = geographicArea1.getTypeArea();
-        this.mGeographicArea2 = geographicArea2;
-        this.mTypeArea2 = geographicArea2.getTypeArea();
+
+    public US08Controller(){}
+
+    public boolean setGeographicAreas(String area1Name, String area2Name){
+        if (checkIfListIsValid(MainUI.mGeographicAreaList.getGeographicAreaList())) {
+            for (GeographicArea ga1 : MainUI.mGeographicAreaList.getGeographicAreaList()) {
+                if (ga1.getName().equals(area1Name)) {
+                    mGeographicArea1.setBottomRightVertex(ga1.getBottomRightVertex());
+                    mGeographicArea1.setTopLeftVertex(ga1.getTopLeftVertex());
+                    mGeographicArea1.setName(area1Name);
+                    for (GeographicArea ga2 : MainUI.mGeographicAreaList.getGeographicAreaList()) {
+                        if (ga2.getName().equals(area2Name)) {
+                            mGeographicArea2.setBottomRightVertex(ga2.getBottomRightVertex());
+                            mGeographicArea2.setTopLeftVertex(ga2.getTopLeftVertex());
+                            mGeographicArea2.setName(area2Name);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }return false;
     }
 
-    public String isAreacontainedInGivenArea(){
-        if (this.mLocal.isAreaContainedInAnotherArea(this.mGeographicArea1, this.mGeographicArea2)){
-            return "This " + mTypeArea1 + " is contained in " + mTypeArea2 + "!";
-        }
-        return "This " + mTypeArea1 + " is NOT contained in " + mTypeArea2 + "!";
+    public String getGeographicArea1(){return mGeographicArea1.getName();}
+
+    public String getGeographicArea2(){return mGeographicArea2.getName();}
+
+    private boolean checkIfListIsValid(List<GeographicArea> values){
+        if (values == null || values.isEmpty()){
+            return false;
+        }return true;
     }
 }

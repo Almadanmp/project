@@ -17,6 +17,10 @@ public class GeographicArea {
         return this.mName;
     }
 
+    public void setName(String name){
+        this.mName = name;
+    }
+
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
     // They can be made with or without a sensor list.
 

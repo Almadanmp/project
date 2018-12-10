@@ -8,22 +8,45 @@ import java.util.Scanner;
 public class US08UI {
 
     private GeographicArea mGeographicArea1;
+    private String mNameGeographicArea1;
     private GeographicArea mGeographicArea2;
-    private US08Controller mUI;
+    private String mNameGeographicArea2;
+    private boolean active;
+    private boolean isContained;
 
-    public US08UI(GeographicArea ga1, GeographicArea ga2){
-        this.mGeographicArea1 = ga1;
-        this.mGeographicArea2 = ga2;
-        US08Controller controller = new US08Controller(mGeographicArea1, mGeographicArea2);
-    }
+    public US08UI(){active = false;}
 
     public void run(){
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("See if an Area is contained in another Area:\n");
-        System.out.println("\nSelect first Area name: \t");
-        String ga1 = input.nextLine();
-        System.out.println("\nSelect second Area name: \t");
+        this.active = true;
+        while (this.active) {
+            getInputGeographicArea1();
+            getInputGeographicArea2();
+            updateModel();
+            displayState();
+        }
     }
 
+    private void getInputGeographicArea2(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Type the name of the area you want to check if it CONTAINS another area: ");
+        this.mNameGeographicArea2 = scanner.next();
+    }
+
+    private void getInputGeographicArea1(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Type the name of the area you want to check if its CONTAINED IN another area: ");
+        this.mNameGeographicArea1 = scanner.next();
+    }
+
+    private void updateModel(){
+        US08Controller controller = new US08Controller();
+        this.isContained = controller.setGeographicAreas(mNameGeographicArea1,mNameGeographicArea2);
+    }
+
+    private void displayState(){
+        if (isContained){
+            System.out.print(mNameGeographicArea1 + " is contained in " + mNameGeographicArea2);
+        } else System.out.print(mNameGeographicArea1 + " is NOT contained in " + mNameGeographicArea2);
+        active = false;
+    }
 }

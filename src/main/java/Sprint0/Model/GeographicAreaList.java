@@ -11,6 +11,8 @@ public class GeographicAreaList {
         mGeographicAreaList.add(geographicAreaToAdd);
     }
 
+    public GeographicAreaList() {}
+
     public boolean addGeographicAreaToGeographicAreaList(GeographicArea geographicAreaToAdd) {
         if(!(mGeographicAreaList.contains(geographicAreaToAdd))) {
             mGeographicAreaList.add(geographicAreaToAdd);

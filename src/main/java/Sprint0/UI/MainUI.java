@@ -1,5 +1,6 @@
 package Sprint0.UI;
 
+import Sprint0.Model.GeographicAreaList;
 import Sprint0.Model.SensorList;
 import Sprint0.Model.TypeAreaList;
 
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class MainUI {
 
     public static final SensorList mSensorList = new SensorList();
+    public static final GeographicAreaList mGeographicAreaList = new GeographicAreaList();
 
     public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -23,7 +25,7 @@ public class MainUI {
 
     // Submenus Input selection
 
-    String[] menu = {" 1. Create a new Type of Geographic Area\n", "2. Option2\n", "3. Option3\n", "4. Option4\n", "5. Determine the type of a sensor.\n"};
+    String[] menu = {" 1. Create a new Type of Geographic Area\n", "2. Option2\n", "3. Option3\n", "4. Option4\n", "5. Determine the type of a sensor.\n", "6. Option 6\n", "7. Option 7\n", "8. See if an area is contained in another area.\n"};
 
 
     System.out.println("Select the task you want to do:" );
@@ -54,6 +56,16 @@ public class MainUI {
         case 5:
             US05UI view5 = new US05UI();
             view5.run();
+            break;
+        case 6:
+            System.out.println("test pegaLaPeras");
+            break;
+        case 7:
+            System.out.println("test pegaLaMaças");
+            break;
+        case 8:
+            US08UI view8 = new US08UI();
+            view8.run();
             break;
     }
     }
