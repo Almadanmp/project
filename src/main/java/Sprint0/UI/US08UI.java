@@ -10,6 +10,7 @@ public class US08UI {
     private String mNameGeographicArea1;
     private String mNameGeographicArea2;
     private boolean active;
+    private boolean validGeographicAreas;
     private boolean isContained;
 
     public US08UI(){active = false;}
@@ -38,11 +39,12 @@ public class US08UI {
 
     private void updateModel(){
         US08Controller controller = new US08Controller();
-        this.isContained = controller.setGeographicAreas(mNameGeographicArea1,mNameGeographicArea2);
+        this.validGeographicAreas = controller.setGeographicAreas(mNameGeographicArea1,mNameGeographicArea2);
+        this.isContained = controller.seeIfItsContained();
     }
 
     private void displayState(){
-        if (isContained){
+        if (isContained && validGeographicAreas){
             System.out.print(mNameGeographicArea1 + " is contained in " + mNameGeographicArea2);
         } else System.out.print(mNameGeographicArea1 + " is NOT contained in " + mNameGeographicArea2);
         active = false;

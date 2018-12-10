@@ -33,6 +33,12 @@ public class US08Controller {
         }return false;
     }
 
+    public boolean seeIfItsContained(){
+        if (mGeographicArea1.isAreaContainedInAnotherArea(mGeographicArea1,mGeographicArea2)){
+        return true;
+        }return false;
+    }
+
     private boolean checkIfListIsValid(List<GeographicArea> values){
         if (values == null || values.isEmpty()){
             return false;

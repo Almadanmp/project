@@ -184,6 +184,19 @@ public class GeographicArea {
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
     }
 
+    public boolean isAreaContainedInAnotherArea (GeographicArea area1, GeographicArea area2){
+        double latTopVert1 = area1.getTopLeftVertex().getLatitude();
+        double longTopVert1 = area1.getTopLeftVertex().getLongitude();
+        double latBotVert1 = area1.getBottomRightVertex().getLatitude();
+        double longBotVert1 = area1.getBottomRightVertex().getLongitude();
+        double latTopVert2 = area2.getTopLeftVertex().getLatitude();
+        double longTopVert2 = area2.getTopLeftVertex().getLongitude();
+        double latBotVert2 = area2.getBottomRightVertex().getLatitude();
+        double longBotVert2 = area2.getBottomRightVertex().getLongitude();
+        return ( latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1 );
+    }
+
+
     /**
      * Method will calculate the distance between two different Geographic Areas.
      *
