@@ -7,9 +7,7 @@ import java.util.Scanner;
 
 public class US08UI {
 
-    private GeographicArea mGeographicArea1;
     private String mNameGeographicArea1;
-    private GeographicArea mGeographicArea2;
     private String mNameGeographicArea2;
     private boolean active;
     private boolean isContained;
