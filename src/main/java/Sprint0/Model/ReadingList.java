@@ -63,7 +63,7 @@ public class ReadingList {
     public double getAverageOfAllRecordedValueReadingsFromGivenMonth(Date dateGiven) {
         List<Date> datesOfMonth = getListOfDatesOfMonthWithReadings(dateGiven);
         double sum = 0;
-        double counter = 0;
+        int counter = 0;
         if (datesOfMonth.isEmpty()) {
             return 0;
         }
