@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class SensorList_Test {
+public class SensorListTest {
 
     @Test
     public void seeIfConstructorWorks() {
