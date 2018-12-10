@@ -1,10 +1,7 @@
 package Sprint0.Controller;
 
-import Sprint0.Model.AuxiliaryMethods;
 import Sprint0.Model.Sensor;
 import Sprint0.UI.MainUI;
-import Sprint0.UI.US05UI;
-import sun.applet.Main;
 
 import java.util.List;
 
