@@ -19,6 +19,15 @@ public class GeographicAreaList {
         return false;
     }
 
+    /**
+     * Checks if a Geographic Area is inside the Geographic Area List
+     * @param geoArea
+     * @return
+     */
+    public boolean containsGA(GeographicArea geoArea) {
+        return mGeographicAreaList.contains(geoArea);
+    }
+
     public List<GeographicArea> getGeographicAreaList() {
         return mGeographicAreaList;
     }

@@ -10,6 +10,7 @@ public class GeographicArea {
     private SensorList mSensorList;
     private Local mTopLeftVertex;
     private Local mBottomRightVertex;
+    private GeographicAreaList mGeographicAreaList;
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -103,6 +104,10 @@ public class GeographicArea {
         this.mSensorList = listToSet;
     }
 
+    public void setGeoAreaList (GeographicAreaList listToSet){
+        this.mGeographicAreaList = listToSet;
+    }
+
     /**
      * @return returns a Local object containing the top left Vertex.
      */
@@ -143,6 +148,15 @@ public class GeographicArea {
      */
     public SensorList getSensorList() {
         return this.mSensorList;
+    }
+
+    /**
+     * Getter for Geographic Area list.
+     *
+     * @return returns the attribute geographicAreaList from an object of the class Geographic Area
+     */
+    public GeographicAreaList getmGeographicAreaList() {
+        return mGeographicAreaList;
     }
 
     /**
