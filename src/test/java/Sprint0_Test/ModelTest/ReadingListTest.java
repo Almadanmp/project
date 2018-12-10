@@ -3,7 +3,6 @@ package Sprint0_Test.ModelTest;
 
 import Sprint0.Model.Reading;
 import Sprint0.Model.ReadingList;
-import com.sun.xml.internal.fastinfoset.algorithm.IntEncodingAlgorithm;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
