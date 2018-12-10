@@ -3,9 +3,8 @@ package Sprint0.Controller;
 import Sprint0.Model.GeographicArea;
 import Sprint0.Model.Local;
 import Sprint0.Model.TypeArea;
-import Sprint0.UI.US07UI;
 
-public class US07Controller {
+public class US08Controller {
 
     private GeographicArea mGeographicArea1;
     private TypeArea mTypeArea1;
@@ -13,7 +12,7 @@ public class US07Controller {
     private TypeArea mTypeArea2;
     private Local mLocal;
 
-    public US07Controller(GeographicArea geographicArea1, GeographicArea geographicArea2) {
+    public US08Controller(GeographicArea geographicArea1, GeographicArea geographicArea2) {
         this.mGeographicArea1 = geographicArea1;
         this.mTypeArea1 = geographicArea1.getTypeArea();
         this.mGeographicArea2 = geographicArea2;
