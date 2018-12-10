@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TypeAreaList {
     private ArrayList<TypeArea> areas;
 
-    TypeAreaList() {
+    public TypeAreaList() {
         areas = new ArrayList<>();
     }
 

@@ -1,5 +1,7 @@
 package Sprint0.UI;
 
+import Sprint0.Model.TypeAreaList;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -18,7 +20,7 @@ public class MainUI {
 
     // Submenus Input selection
 
-    String[] menu = {" 1. Option1\n","2. Option2\n","3. Option3\n","4. Option4\n","5. Option5\n"};
+    String[] menu = {" 1. Create a new Type of Geographic Area\n","2. Option2\n","3. Option3\n","4. Option4\n","5. Option5\n"};
 
 
     System.out.println("Select the task you want to do:" );
@@ -33,7 +35,9 @@ public class MainUI {
     option = scanner.nextInt();
     switch (option){
         case 1:
-            System.out.println("test BANANAS");
+            TypeAreaList list = new TypeAreaList();
+            US01UI us = new US01UI(list);
+            us.run();
             break;
         case 2:
             System.out.println("test PERAS");
@@ -49,4 +53,5 @@ public class MainUI {
             break;
     }
     }
+
 }
