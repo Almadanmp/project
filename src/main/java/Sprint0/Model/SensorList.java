@@ -8,13 +8,16 @@ import java.util.*;
 public class SensorList {
     private List<Sensor> mSensorList;
 
+    public SensorList(){
 
+    }
 
     /**
      * Constructor of an ArrayList of Arrays.
      *
      * @param sensorsToAdd
      */
+
 
     public SensorList(Sensor[] sensorsToAdd) {
         mSensorList = new ArrayList<>();
@@ -105,6 +108,13 @@ public class SensorList {
             }
         }
         return listToTest.get(indexMostRecentlyUsedSensor);
+    }
+
+    public static boolean checkIfListValid(List<Sensor> values) {
+        if (values == null || values.isEmpty()) {
+            throw new IllegalArgumentException("List is not valid");
+        }
+        return true;
     }
 
     /**

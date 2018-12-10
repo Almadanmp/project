@@ -11,7 +11,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReadingListTest {
 
@@ -259,7 +258,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.1);
     }
-
     @Test
     public void seeIfAverageReturnsZeroWhenEmptyReadingList() {
         //Arrange
@@ -272,7 +270,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfAverageReturnsZeroWhenReadingListHasValuesFromDifferentMonthThanGiven() {
         //Arrange
@@ -353,12 +350,11 @@ public class ReadingListTest {
         expectedResult.add(g5.getTime());
         expectedResult.add(g6.getTime());
         expectedResult.add(g7.getTime());
-        GregorianCalendar dateWithMonthToTest = new GregorianCalendar(2018, 10, 11, 9, 0, 4);
+        GregorianCalendar dateWithMonthToTest = new GregorianCalendar(2018,10,11,9,0,4);
         List<Date> actualResult = rList.getListOfDatesOfMonthWithReadings(dateWithMonthToTest.getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetDatesOfTheMonthWithReadingsWithLimitsOfFebruary() {
         //Arrange
@@ -399,12 +395,11 @@ public class ReadingListTest {
         expectedResult.add(g5.getTime());
         expectedResult.add(g6.getTime());
         expectedResult.add(g7.getTime());
-        GregorianCalendar dateWithMonthToTest = new GregorianCalendar(2018, 1, 11, 9, 0, 4);
+        GregorianCalendar dateWithMonthToTest = new GregorianCalendar(2018,1,11,9,0,4);
         List<Date> actualResult = rList.getListOfDatesOfMonthWithReadings(dateWithMonthToTest.getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetEmptyListWhenReadingListHasValuesFromDifferentMonthThanMonthGiven() {
         //Arrange
@@ -437,7 +432,7 @@ public class ReadingListTest {
         rList.addReading(r7);
         rList.addReading(r8);
         List<Date> expectedResult = new ArrayList<>();
-        GregorianCalendar dateWithMonthToTest = new GregorianCalendar(2018, 9, 11, 9, 0, 4);
+        GregorianCalendar dateWithMonthToTest = new GregorianCalendar(2018,9,11,9,0,4);
         List<Date> actualResult = rList.getListOfDatesOfMonthWithReadings(dateWithMonthToTest.getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -447,47 +442,44 @@ public class ReadingListTest {
     public void seeIfGetFirstDateOfMonthIfDateGivenInMiddleOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 10, 7, 4, 5, 7);
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 7,4,5,7);
         Date d1 = cal.getTime();
-        Date expectedResult = (new GregorianCalendar(2018, 10, 1, 0, 0, 0)).getTime();
+        Date expectedResult = (new GregorianCalendar(2018, 10, 1,0,0,0)).getTime();
         //Act
         Date actualResult = rl1.getFirstDateOfMonthFromGivenDate(d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetFirstDateOfMonthIfDateGivenIsStartOfMonth() {
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 1,0,0,0);
         Date d1 = cal.getTime();
-        Date expectedResult = (new GregorianCalendar(2018, 10, 1, 0, 0, 0)).getTime();
+        Date expectedResult = (new GregorianCalendar(2018, 10, 1,0,0,0)).getTime();
         //Act
         Date actualResult = rl1.getFirstDateOfMonthFromGivenDate(d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetFirstDateOfMonthIfDateGivenIsEndOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 11, 31, 23, 59, 59);
+        GregorianCalendar cal = new GregorianCalendar(2018, 11, 31,23,59,59);
         Date d1 = cal.getTime();
-        Date expectedResult = (new GregorianCalendar(2018, 11, 1, 0, 0, 0)).getTime();
+        Date expectedResult = (new GregorianCalendar(2018, 11, 1,0,0,0)).getTime();
         //Act
         Date actualResult = rl1.getFirstDateOfMonthFromGivenDate(d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetFirstDateOfMonthIfDateGivenIsEndOfFebruary() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 1, 28, 23, 59, 59);
+        GregorianCalendar cal = new GregorianCalendar(2018, 1, 28,23,59,59);
         Date d1 = cal.getTime();
-        Date expectedResult = (new GregorianCalendar(2018, 1, 1, 0, 0, 0)).getTime();
+        Date expectedResult = (new GregorianCalendar(2018, 1, 1,0,0,0)).getTime();
         //Act
         Date actualResult = rl1.getFirstDateOfMonthFromGivenDate(d1);
         //Assert
@@ -499,48 +491,45 @@ public class ReadingListTest {
     public void seeIfGetLastDayOfMonthIfDateGivenInMiddleOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 11, 7, 6, 32, 32);
+        GregorianCalendar cal = new GregorianCalendar(2018, 11, 7,6,32,32);
         Date d1 = cal.getTime();
-        Date expectedResult = (new GregorianCalendar(2018, 11, 31, 23, 59, 59)).getTime();
+        Date expectedResult = (new GregorianCalendar(2018, 11, 31,23,59,59)).getTime();
         //Act
         Date actualResult = rl1.getLastDateOfMonthFromGivenDate(d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetLastDayOfMonthIfDateGivenIsStartOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 2, 1, 0, 0, 0);
+        GregorianCalendar cal = new GregorianCalendar(2018, 2, 1,0,0,0);
         Date d1 = cal.getTime();
-        Date expectedResult = (new GregorianCalendar(2018, 2, 31, 23, 59, 59)).getTime();
+        Date expectedResult = (new GregorianCalendar(2018, 2, 31,23,59,59)).getTime();
         //Act
         Date actualResult = rl1.getLastDateOfMonthFromGivenDate(d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetLastDayOfMonthIfDateGivenIsEndOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 2, 31, 23, 59, 59);
+        GregorianCalendar cal = new GregorianCalendar(2018, 2, 31,23,59,59);
         Date d1 = cal.getTime();
-        Date expectedResult = (new GregorianCalendar(2018, 2, 31, 23, 59, 59)).getTime();
+        Date expectedResult = (new GregorianCalendar(2018, 2, 31,23,59,59)).getTime();
         //Act
         Date actualResult = rl1.getLastDateOfMonthFromGivenDate(d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetLastDayOfMonthIfMiddleOfFebruary() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 1, 4, 23, 59, 59);
+        GregorianCalendar cal = new GregorianCalendar(2018, 1, 4,23,59,59);
         Date d1 = cal.getTime();
-        Date expectedResult = (new GregorianCalendar(2018, 1, 28, 23, 59, 59)).getTime();
+        Date expectedResult = (new GregorianCalendar(2018, 1, 28,23,59,59)).getTime();
         Date actualResult = rl1.getLastDateOfMonthFromGivenDate(d1);
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -588,7 +577,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfGetAverageOfMinusOneWhenValuesReadingsAreFromDifferentMonth() {
         //Arrange
@@ -630,7 +618,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfGetAverageOfMinusOneWhenValuesReadingsAreFromDifferentYear() {
         //Arrange
@@ -672,7 +659,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfGetAverageOfMinusOneWhenValuesReadingsAreFromDifferentMonthAndYear() {
         //Arrange
@@ -714,7 +700,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfGetAverageOfMinusOneWhenEmptyList() {
         //Arrange
@@ -777,7 +762,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfWillNotRemoveReadingsWhenListHasSameMonthAndYearGiven() {
         //Arrange
@@ -820,7 +804,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfRemovesAllReadingsWhenListHasDifferentMonthAndYearThenGiven() {
         //Arrange
@@ -856,7 +839,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfRemovesAllReadingsWhenListHasDifferentMonthThenGiven() {
         //Arrange
@@ -892,7 +874,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfRemovesAllReadingsWhenListHasDifferentYearSameMonthThenGiven() {
         //Arrange
@@ -974,7 +955,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfEmptyListWhenDateDifferentThenDateOfReadings() {
         //Arrange
@@ -1041,7 +1021,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsWhenDayIsInBeginning() {
         //Arrange
@@ -1063,7 +1042,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsWhenDayIsInEnd() {
         //Arrange
@@ -1085,7 +1063,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsWhenDayIsMiddle() {
         //Arrange
@@ -1201,33 +1178,32 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLowestValueEmptyAndThrowsStringException() {
+    public void seeIfGetLowestValueEmpty() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
+        double expectedResult = 0;
+        double actualResult;
         ReadingList rl1 = new ReadingList();
 
         //Act
+        actualResult = rl1.getLowestValueFromGivenList(valuesOfDay);
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rl1.getLowestValueFromGivenList(valuesOfDay);
-        });
         //Assert
-        assertEquals("List is not valid", exception.getMessage());
+        assertEquals(expectedResult, actualResult, 0.001);
     }
 
-
     @Test
-    public void seeIfGetLowestValueNullAndThrowsStringException() {
+    public void seeIfGetLowestValueNull() {
         //Arrange
+        double expectedResult = 0;
+        double actualResult;
         ReadingList rl1 = new ReadingList();
 
         //Act
+        actualResult = rl1.getLowestValueFromGivenList(null);
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rl1.getLowestValueFromGivenList(null);
-        });
         //Assert
-        assertEquals("List is not valid", exception.getMessage());
+        assertEquals(expectedResult, actualResult, 0.001);
     }
 
     @Test
@@ -1248,7 +1224,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfAverageIsMinusOneWhenListIsEmpty() {
         //Arrange
@@ -1304,7 +1279,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfGetAverageOfMinusOneMaximumWhenListIsEmpty() {
         //Arrange
@@ -1318,7 +1292,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfAverageOfMinusOneWhenGivenDateIsFromDifferentMonthThenList() {
         //Arrange
@@ -1360,7 +1333,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfAverageOfMinusOneWhenGivenDateIsFromDifferentYearThenList() {
         //Arrange
@@ -1402,7 +1374,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfAverageOfMinusOneWhenGivenDateIsFromDifferentMonthAndYearThenList() {
         //Arrange
@@ -1492,35 +1463,33 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetHighestValueEmptyAndThrowsStringException() {
+    public void seeIfGetHighestValueEmpty() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
+        double expectedResult = 0;
+        double actualResult;
         ReadingList rl1 = new ReadingList();
 
         //Act
+        actualResult = rl1.getHighestValueInList(valuesOfDay);
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rl1.getHighestValueInList(valuesOfDay);
-        });
         //Assert
-        assertEquals("List is not valid", exception.getMessage());
+        assertEquals(expectedResult, actualResult, 0.001);
     }
 
     @Test
-    public void seeIfGetHighestValueNullAndThrowsStringException() {
+    public void seeIfGetHighestValueNull() {
         //Arrange
+        double expectedResult = 0;
+        double actualResult;
         ReadingList rl1 = new ReadingList();
 
         //Act
+        actualResult = rl1.getHighestValueInList(null);
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rl1.getHighestValueInList(null);
-        });
         //Assert
-        assertEquals("List is not valid", exception.getMessage());
+        assertEquals(expectedResult, actualResult, 0.001);
     }
-
-
 
     @Test
     public void seeIfGetHighestValueFromBeginningOfList() {
@@ -1584,7 +1553,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfGetAverageOfMinusOneWhenDateGivenIsNotInList() {
         //Arrange
@@ -1624,7 +1592,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfGetAverageOfMinusOneWhenDateGivenIsFromSameDayDifferentMonth() {
         //Arrange
@@ -1664,7 +1631,6 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
-
     @Test
     public void seeIfGetAverageOfMinusOneWhenDateGivenIsFromSameDaySameMonthDifferentYear() {
         //Arrange
@@ -1736,18 +1702,16 @@ public class ReadingListTest {
         rList.addReading(r6);
         rList.addReading(r7);
         rList.addReading(r8);
-        List<Date> expectedResult = new ArrayList<>();
-        expectedResult.add(g2.getTime());
-        expectedResult.add(g4.getTime());
-        expectedResult.add(g5.getTime());
-        expectedResult.add(g6.getTime());
+        List<Integer> expectedResult = new ArrayList<>();
+        expectedResult.add(18);
+        expectedResult.add(22);
+        expectedResult.add(24);
         //Act
-        GregorianCalendar dateWithWeekToTest = new GregorianCalendar(2018, 10, 21);
-        List<Date> actualResult = rList.getListOfDatesWithReadingsFromWeekOfDateGiven(dateWithWeekToTest.getTime());
+        GregorianCalendar dateWithWeekToTest = new GregorianCalendar(2018,10,21);
+        List<Integer> actualResult = rList.getListOfDatesWithReadingsFromWeekOfDateGiven(dateWithWeekToTest.getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetEmptyListWhenDateGivenIsFromDifferentMonthThenInList() {
         //Arrange
@@ -1781,12 +1745,11 @@ public class ReadingListTest {
         rList.addReading(r8);
         List<Date> expectedResult = new ArrayList<>();
         //Act
-        GregorianCalendar dateWithWeekToTest = new GregorianCalendar(2018, 1, 2);
-        List<Date> actualResult = rList.getListOfDatesWithReadingsFromWeekOfDateGiven(dateWithWeekToTest.getTime());
+        GregorianCalendar dateWithWeekToTest = new GregorianCalendar(2018,1,2);
+        List<Integer> actualResult = rList.getListOfDatesWithReadingsFromWeekOfDateGiven(dateWithWeekToTest.getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetEmptyListWhenDateGivenIsFromDifferentYear() {
         //Arrange
@@ -1820,8 +1783,8 @@ public class ReadingListTest {
         rList.addReading(r8);
         List<Date> expectedResult = new ArrayList<>();
         //Act
-        GregorianCalendar dateWithWeekToTest = new GregorianCalendar(2017, 10, 22);
-        List<Date> actualResult = rList.getListOfDatesWithReadingsFromWeekOfDateGiven(dateWithWeekToTest.getTime());
+        GregorianCalendar dateWithWeekToTest = new GregorianCalendar(2017,10,22);
+        List<Integer> actualResult = rList.getListOfDatesWithReadingsFromWeekOfDateGiven(dateWithWeekToTest.getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -1830,22 +1793,33 @@ public class ReadingListTest {
     public void seeIfGetFirstDateOfWeekIfMiddleOfWeek() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 10, 7, 2, 12, 6);
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 7,2,12,6);
         Date d1 = cal.getTime();
-        Date expectedResult = new GregorianCalendar(2018, 10, 4, 0, 0, 0).getTime();
+        Date expectedResult = new GregorianCalendar(2018, 10, 4,0,0,0).getTime();
         //Act
         Date actualResult = rl1.getFirstDateOfWeekFromDateGiven(d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void seeIfGetFirstDateOfWeekIfDateGivenIsAlreadyFirstDateOfWeek() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 10, 4, 0, 0, 0);
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 4,0,0,0);
         Date d1 = cal.getTime();
-        Date expectedResult = new GregorianCalendar(2018, 10, 4, 0, 0, 0).getTime();
+        Date expectedResult = new GregorianCalendar(2018, 10, 4,0,0,0).getTime();
+        //Act
+        Date actualResult = rl1.getFirstDateOfWeekFromDateGiven(d1);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void seeIfGetFirstDateOfWeekIfDateGivenIsLastDateOfWeek() {
+        //Arrange
+        ReadingList rl1 = new ReadingList();
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 9,0,0,0);
+        Date d1 = cal.getTime();
+        Date expectedResult = new GregorianCalendar(2018, 10, 4,0,0,0).getTime();
         //Act
         Date actualResult = rl1.getFirstDateOfWeekFromDateGiven(d1);
         //Assert
@@ -1853,15 +1827,82 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetFirstDateOfWeekIfDateGivenIsLastDateOfWeek() {
+    public void seeIfGetAverageOfMinusDifferentWeek() {
         //Arrange
-        ReadingList rl1 = new ReadingList();
-        GregorianCalendar cal = new GregorianCalendar(2018, 10, 9, 0, 0, 0);
-        Date d1 = cal.getTime();
-        Date expectedResult = new GregorianCalendar(2018, 10, 4, 0, 0, 0).getTime();
+        ReadingList rList = new ReadingList();
+        GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
+        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 24, 0, 0, 0);
+        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 18, 14, 3);
+        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
+        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 28, 12, 12, 12);
+        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 22, 23, 59, 59);
+        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 1, 0, 0, 0);
+        Reading r0 = new Reading(-2, g0.getTime());
+        Reading r1 = new Reading(10, g1.getTime());
+        Reading r2 = new Reading(31, g2.getTime());
+        Reading r3 = new Reading(25, g3.getTime());
+        Reading r4 = new Reading(26, g4.getTime());
+        Reading r5 = new Reading(23, g5.getTime());
+        Reading r6 = new Reading(22, g6.getTime());
+        Reading r7 = new Reading(23, g7.getTime());
+        Reading r8 = new Reading(22, g8.getTime());
+        rList.addReading(r0);
+        rList.addReading(r1);
+        rList.addReading(r2);
+        rList.addReading(r3);
+        rList.addReading(r4);
+        rList.addReading(r5);
+        rList.addReading(r6);
+        rList.addReading(r7);
+        rList.addReading(r8);
         //Act
-        Date actualResult = rl1.getFirstDateOfWeekFromDateGiven(d1);
+        double expectedResult = 18.67;
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 23);
+        Date dateToTest = cal.getTime();
+        double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfWeek(dateToTest);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    public void seeIfGetAverageOfMaxDifferentWeek() {
+        //Arrange
+        ReadingList rList = new ReadingList();
+        GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
+        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 24, 0, 0, 0);
+        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 18, 14, 3);
+        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
+        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 28, 12, 12, 12);
+        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 22, 23, 59, 59);
+        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 1, 0, 0, 0);
+        Reading r0 = new Reading(-2, g0.getTime());
+        Reading r1 = new Reading(10, g1.getTime());
+        Reading r2 = new Reading(31, g2.getTime());
+        Reading r3 = new Reading(25, g3.getTime());
+        Reading r4 = new Reading(26, g4.getTime());
+        Reading r5 = new Reading(23, g5.getTime());
+        Reading r6 = new Reading(22, g6.getTime());
+        Reading r7 = new Reading(23, g7.getTime());
+        Reading r8 = new Reading(22, g8.getTime());
+        rList.addReading(r0);
+        rList.addReading(r1);
+        rList.addReading(r2);
+        rList.addReading(r3);
+        rList.addReading(r4);
+        rList.addReading(r5);
+        rList.addReading(r6);
+        rList.addReading(r7);
+        rList.addReading(r8);
+        //Act
+        double expectedResult = 21.34;
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 23);
+        Date dateToTest = cal.getTime();
+        double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfWeek(dateToTest);
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.01);
     }
 }

@@ -9,6 +9,7 @@ public class US01UI {
     private US01Controller ctrl;
     private boolean active;
 
+
     public US01UI(TypeAreaList type){
         active=false;
         ctrl= new US01Controller(type);
@@ -16,7 +17,6 @@ public class US01UI {
 
     public void run(){
         System.out.println("Please insert the name of the new Geographic Area Type");
-        while(this.active){
         Scanner ler= new Scanner(System.in);
         String nome = ler.nextLine();
         if(ctrl.newTAG(nome)==true){
@@ -25,7 +25,7 @@ public class US01UI {
         else{
             System.out.println("Unsuccess");
         }
-        }
+
     }
 
 }
