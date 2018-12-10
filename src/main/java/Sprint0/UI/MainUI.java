@@ -58,7 +58,8 @@ public class MainUI {
             view5.run();
             break;
         case 6:
-            System.out.println("test pegaLaPeras");
+            US06UI view6 = new US06UI();
+            view6.run();
             break;
         case 7:
             System.out.println("test pegaLaMaças");

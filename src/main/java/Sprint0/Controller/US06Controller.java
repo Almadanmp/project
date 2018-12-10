@@ -1,6 +1,7 @@
 package Sprint0.Controller;
 
 import Sprint0.Model.*;
+import Sprint0.UI.MainUI;
 
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
@@ -8,6 +9,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * User Story 06
+ * As a system administrator, I want to be able to manually input a new sensor and add it to a pre-input Geographic Area
+ */
 
 public class US06Controller {
 
@@ -15,7 +20,6 @@ public class US06Controller {
    private Date mDate;
    private TypeSensor mType;
    private Sensor mSensor;
-   private SensorList mSensorList;
 
 
     public US06Controller() {
@@ -39,16 +43,10 @@ public class US06Controller {
         return mSensor;
     }
     public boolean addSensor(){
-        this.mSensorList = new SensorList(mSensor);
-        if (!(mSensorList.containsSensor(mSensor))) {
-            mSensorList.addSensor(mSensor);
+        if (!(MainUI.mSensorList.containsSensor(this.mSensor))) {
+            MainUI.mSensorList.addSensor(this.mSensor);
         }
         return false;
     }
-    public void setType(Sensor sensor,String name){
-        TypeSensor type = new TypeSensor();
-        type.setName(name);
-    }
-
 }
 

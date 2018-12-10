@@ -23,6 +23,7 @@ public class US06UI {
     private Date mDate;
     private TypeSensor mType;
     private Sensor mSensor;
+    private SensorList mSensors;
 
 
     public US06UI() {
@@ -30,10 +31,11 @@ public class US06UI {
         // placeholder
     }
     public void run() {
+        this.active = true;
         while (this.active) {
             getInput();
-            update();
-            display();
+            updateUS06();
+            displayUS06();
         }
     }
     private void getInput() {
@@ -76,15 +78,22 @@ public class US06UI {
         System.out.println("You entered type " + sensorType);
     }
 
-    private void update() {
+    private void updateUS06() {
         US06Controller ctrl = new US06Controller();
         this.mLocal = ctrl.createLocal(this.sensorLat,this.sensorLong,this.sensorAlt);
         this.mType = ctrl.createType(this.sensorType);
         this.mDate = ctrl.createData(this.dataYear,this.dataMonth,this.dataDay);
         this.mSensor = ctrl.createSensor(this.sensorName,this.mType,this.mLocal,mDate);
-        ctrl.addSensor();
     }
 
-    private void display() {
+    private void displayUS06() {
+        this.active = true;
+        US06Controller ctrl = new US06Controller();
+        if (ctrl.addSensor()) {
+            System.out.println("Sensor has been sucessefully added to the list");
+        }
+        else {
+            System.out.println("Sensor could not be added to the list.");
+        }
     }
 }
