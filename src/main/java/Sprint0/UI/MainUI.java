@@ -23,7 +23,7 @@ public class MainUI {
 
         // Submenus Input selection
 
-        String[] menu = {" 1. Create a new Type of Geographic Area\n", "2. Option2\n", "3. Option3\n", "4. Option4\n", "5. Option5\n"};
+        String[] menu = {" 1. Create a new Type of Geographic Area\n", "2. Option2\n", "3. Option3\n", "4. Option4\n", "5. Determine the type of a sensor.\n"};
 
 
         System.out.println("Select the task you want to do:");
