@@ -33,10 +33,6 @@ public class US08Controller {
         }return false;
     }
 
-    public String getGeographicArea1(){return mGeographicArea1.getName();}
-
-    public String getGeographicArea2(){return mGeographicArea2.getName();}
-
     private boolean checkIfListIsValid(List<GeographicArea> values){
         if (values == null || values.isEmpty()){
             return false;
