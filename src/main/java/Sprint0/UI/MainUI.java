@@ -27,7 +27,7 @@ public class MainUI {
 
     // Submenus Input selection
 
-    String[] menu = {" 1. Create a new Type of Geographic Area\n", "2. Option2\n", "3. Create a new Geographic Area\n", "4. Option4\n", "5. Determine the type of a sensor.\n", "6. Option 6\n", "7. Option 7\n", "8. See if an area is contained in another area.\n"};
+    String[] menu = {" 1. Create a new Type of Geographic Area\n", "2. List all area Types\n", "3. Create a new Geographic Area\n", "4. Option4\n", "5. Determine the type of a sensor.\n", "6. Option 6\n", "7. Option 7\n", "8. See if an area is contained in another area.\n"};
 
 
     System.out.println("Select the task you want to do:" );
@@ -46,7 +46,8 @@ public class MainUI {
             us.run();
             break;
         case 2:
-            System.out.println("test PERAS");
+            US02UI view2 = new US02UI();
+            view2.run();
             break;
         case 3:
             US03UI view3 = new US03UI();
