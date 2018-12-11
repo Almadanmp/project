@@ -5,26 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TypeAreaList {
-    private List<TypeArea> areas;
+    private List<TypeArea> typeAreaList;
 
     public TypeAreaList() {
-        areas = new ArrayList<>();
+        typeAreaList = new ArrayList<>();
     }
 
     public void setTypeAreaList(ArrayList<TypeArea> list){
-        this.areas=list;
+        this.typeAreaList =list;
     }
     public List<TypeArea> getTypeAreaList() {
-        return this.areas;
+        return this.typeAreaList;
     }
 
     public boolean containsTypeArea(TypeArea tipo) {
-        return areas.contains(tipo);
+        return typeAreaList.contains(tipo);
     }
 
     public boolean addTypeArea(TypeArea type) {
-        if (!areas.contains(type)){
-            areas.add(type);
+        if (!typeAreaList.contains(type)){
+            typeAreaList.add(type);
             return true;
         }
         else{
