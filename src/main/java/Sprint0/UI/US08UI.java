@@ -38,7 +38,7 @@ public class US08UI {
 
     private void updateModel(){
         US08Controller controller = new US08Controller();
-        this.validGeographicAreas = controller.setGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer);
+        this.validGeographicAreas = controller.setGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer, MainUI.mGeographicAreaList);
         if (!this.validGeographicAreas){
             System.out.println("The given areas are invalid");
             active = false;
