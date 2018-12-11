@@ -6,10 +6,11 @@ import java.util.*;
  * Represents a List of Sensors.
  */
 public class SensorList {
+
     private List<Sensor> mSensorList;
 
     public SensorList(){
-
+        this.mSensorList = new ArrayList<>();
     }
 
     /**
