@@ -13,7 +13,8 @@ import java.util.Scanner;
 
 public class US01UI {
     private boolean active;
-    private TypeAreaList mTypeAreaList;
+    private boolean mTypeAreaList;
+    private String mTypeArea;
 
 
     public US01UI(){
@@ -21,22 +22,28 @@ public class US01UI {
     }
 
     public void run(){
-        System.out.println("Please insert the name of the new Geographic Area Type");
-        Scanner ler= new Scanner(System.in);
-        String nome = ler.nextLine();
-        US01Controller ctrl1 = new US01Controller();
+        getInput();
+        updateModel();
+        displayState();
+    }
+
+    private void getInput() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please insert the name of the new Geographic Area Type: ");
+        this.mTypeArea = scanner.nextLine();
+    }
+
+    private void updateModel() {
+        US01Controller ctrl = new US01Controller();
+        this.mTypeAreaList = ctrl.newTAG(mTypeArea);
+    }
+    private void displayState() {
         this.active = true;
-        if(ctrl1.newTAG(nome)){
+        if(mTypeAreaList){
             System.out.println("Success, you have inserted a new Type of Geographic Area");
         }
         else{
             System.out.println("Unsuccess");
         }
     }
-
-
-
-
-
-
-}
+    }
