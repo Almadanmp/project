@@ -51,7 +51,8 @@ public class MainUI {
             System.out.println("test MAÇAS");
             break;
         case 4:
-            System.out.println("test LIMOES");
+            US04UI view4 = new US04UI();
+            view4.run();
             break;
         case 5:
             US05UI view5 = new US05UI();
