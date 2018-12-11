@@ -2,14 +2,11 @@ package Sprint0_Test.ControllerTest;
 
 import Sprint0.Controller.US01Controller;
 import Sprint0.Model.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import static org.testng.Assert.*;
 
 public class US01ControllerTest {
-
 
     @Test
     public void seeIfnewTAGWorks() {
@@ -30,6 +27,4 @@ public class US01ControllerTest {
         boolean result = ctrl.newTAG(null);
         assertFalse(result);
     }
-
-
 }
