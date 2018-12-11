@@ -48,5 +48,12 @@ public class US06Controller {
         }
         return false;
     }
+    public boolean addSensorToGeopgraphicArea(String name, SensorList sensorList) {
+        for(GeographicArea ga : MainUI.mGeographicAreaList.getGeographicAreaList()) {
+            if (ga.getName().equals(name)) {
+                ga.setSensorList(sensorList);
+            }
+        }
+    return false;
 }
-
+}

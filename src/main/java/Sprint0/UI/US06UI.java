@@ -10,7 +10,6 @@ import java.util.*;
 public class US06UI {
 
     private boolean active;
-    private US06Controller mController;
     private String sensorName;
     private String sensorType;
     private double sensorLat;
@@ -23,21 +22,25 @@ public class US06UI {
     private Date mDate;
     private TypeSensor mType;
     private Sensor mSensor;
-    private SensorList mSensors;
+    private String mGeographicAreaName;
 
 
     public US06UI() {
         active = false;
         // placeholder
     }
+
     public void run() {
         this.active = true;
         while (this.active) {
             getInput();
             updateUS06();
             displayUS06();
+            getInputPart2();
+            updateAndDisplayUS06Part2();
         }
     }
+
     private void getInput() {
         Scanner input = new Scanner(System.in);
 
@@ -80,10 +83,10 @@ public class US06UI {
 
     private void updateUS06() {
         US06Controller ctrl = new US06Controller();
-        this.mLocal = ctrl.createLocal(this.sensorLat,this.sensorLong,this.sensorAlt);
+        this.mLocal = ctrl.createLocal(this.sensorLat, this.sensorLong, this.sensorAlt);
         this.mType = ctrl.createType(this.sensorType);
-        this.mDate = ctrl.createData(this.dataYear,this.dataMonth,this.dataDay);
-        this.mSensor = ctrl.createSensor(this.sensorName,this.mType,this.mLocal,mDate);
+        this.mDate = ctrl.createData(this.dataYear, this.dataMonth, this.dataDay);
+        this.mSensor = ctrl.createSensor(this.sensorName, this.mType, this.mLocal, mDate);
     }
 
     private void displayUS06() {
@@ -91,9 +94,33 @@ public class US06UI {
         US06Controller ctrl = new US06Controller();
         if (ctrl.addSensor()) {
             System.out.println("Sensor has been sucessefully added to the list");
-        }
-        else {
+        } else {
             System.out.println("Sensor could not be added to the list.");
+        }
+    }
+
+    private void getInputPart2() {
+        this.active = true;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Add sensor to Geographic Area?\n");
+        System.out.println("\nYes/No:\t");
+        String answer = input.nextLine();
+        if (answer == "No") {
+            this.active = false;
+        } else {
+            System.out.println("Type the name of the Geographic Area wich the sensor will be adeed to");
+            System.out.println("\nEnter Geographic Area Name:\t");
+            this.mGeographicAreaName = input.nextLine();
+            System.out.println("You entered" + this.mGeographicAreaName);
+        }
+    }
+    private void updateAndDisplayUS06Part2() {
+        this.active = true;
+        US06Controller ctrl = new US06Controller();
+        if (ctrl.addSensorToGeopgraphicArea(mGeographicAreaName, MainUI.mSensorList )) {
+            System.out.println("Sensor has been sucessefully added to the Geographic Area");
+        } else {
+            System.out.println("Sensor could not be added to the Area.");
         }
     }
 }
