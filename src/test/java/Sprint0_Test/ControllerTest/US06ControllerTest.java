@@ -1,10 +1,7 @@
 package Sprint0_Test.ControllerTest;
 
 import Sprint0.Controller.US06Controller;
-import Sprint0.Model.Local;
-import Sprint0.Model.Sensor;
-import Sprint0.Model.SensorList;
-import Sprint0.Model.TypeSensor;
+import Sprint0.Model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -208,9 +205,17 @@ public class US06ControllerTest {
         Date date1 = ctrl.createDate(year,month,day);
         Sensor sens1 = ctrl.createSensor(nameString,type1,loc1,date1);
         SensorList xSensorList = new SensorList();
+        xSensorList.addSensor(sens1);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea areaG = new GeographicArea(t1,l1);
+
+        String areaNameInput = "Rua";
+        GeographicAreaList xgaList = new GeographicAreaList();
+        xgaList.addGeographicAreaToGeographicAreaList(areaG);
 
         //Act
-        boolean actualResult = ctrl.addSensor(sens1,xSensorList);
+        boolean actualResult = ctrl.addSensorToGeographicArea(areaNameInput, xgaList, xSensorList);
 
         //Assert
         assertTrue(actualResult);
