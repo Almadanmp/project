@@ -1,9 +1,6 @@
 package Sprint0.UI;
 
 import Sprint0.Controller.US01Controller;
-import Sprint0.Model.TypeArea;
-import Sprint0.Model.TypeAreaList;
-
 import java.util.Scanner;
 
 /**
