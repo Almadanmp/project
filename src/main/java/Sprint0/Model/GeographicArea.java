@@ -5,7 +5,7 @@ package Sprint0.Model;
  */
 
 public class GeographicArea {
-    private String mName = "Porto";
+    private String mName;
     private TypeArea mTypeArea;
     private Local mLocal;
     private SensorList mSensorList;
@@ -23,6 +23,13 @@ public class GeographicArea {
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
     // They can be made with or without a sensor list.
+
+
+    public GeographicArea(String mName, TypeArea mTypeArea, Local mLocal) {
+        this.mName = mName;
+        this.mTypeArea = mTypeArea;
+        this.mLocal = mLocal;
+    }
 
     /**
      * Constructor of the class GeographicAreaController that receives the type of Geographic Area and its localization

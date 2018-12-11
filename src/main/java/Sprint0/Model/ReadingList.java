@@ -64,9 +64,6 @@ public class ReadingList {
         List<Date> datesOfMonth = getListOfDatesOfMonthWithReadings(dateGiven);
         double sum = 0;
         int counter = 0;
-        if (datesOfMonth.isEmpty()) {
-            return 0;
-        }
         for (Date d : datesOfMonth) {
             for(Reading r : this.mReadings) {
                 if(r.getmDate() == d) {
