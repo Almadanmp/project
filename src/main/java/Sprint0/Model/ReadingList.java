@@ -75,9 +75,6 @@ public class ReadingList {
                 }
             }
         }
-        if(counter == 0) {
-            return 0;
-        }
         return sum / counter;
     }
 
