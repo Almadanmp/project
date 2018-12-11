@@ -1,4 +1,4 @@
-package Sprint0.Controller;
+package Sprint0_Test.ControllerTest;
 
 import static org.testng.Assert.*;
 
