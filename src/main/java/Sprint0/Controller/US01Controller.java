@@ -1,18 +1,19 @@
 package Sprint0.Controller;
 
 import Sprint0.Model.TypeArea;
-import Sprint0.Model.TypeAreaList;
+import Sprint0.UI.MainUI;
 
 
 public class US01Controller {
-    private TypeAreaList mList;
 
-    public US01Controller(TypeAreaList type){
-        this.mList=type;
+    public US01Controller(){
     }
-    public boolean newTAG (String tipo){
-        TypeArea novoTAG = new TypeArea (tipo);
-       return mList.addTypeArea(novoTAG);
+
+    public boolean newTAG (String name){
+        TypeArea tipo = new TypeArea(name);
+        return MainUI.mTypeAreaList.addTypeArea(tipo);
     }
+
+
 
 }

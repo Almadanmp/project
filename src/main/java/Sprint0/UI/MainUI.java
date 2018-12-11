@@ -2,6 +2,7 @@ package Sprint0.UI;
 
 import Sprint0.Model.GeographicAreaList;
 import Sprint0.Model.SensorList;
+import Sprint0.Model.TypeArea;
 import Sprint0.Model.TypeAreaList;
 
 import java.util.Arrays;
@@ -11,6 +12,7 @@ public class MainUI {
 
     public static final SensorList mSensorList = new SensorList();
     public static final GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+    public static final TypeAreaList mTypeAreaList = new TypeAreaList();
 
     public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -40,8 +42,7 @@ public class MainUI {
     option = scanner.nextInt();
     switch (option) {
         case 1:
-            TypeAreaList list = new TypeAreaList();
-            US01UI us = new US01UI(list);
+            US01UI us = new US01UI();
             us.run();
             break;
         case 2:
