@@ -2,7 +2,9 @@ package Sprint0.UI;
 
 import Sprint0.Controller.US02Controller;
 import Sprint0.Model.TypeArea;
+
 import java.util.List;
+
 
 /**
  * User Story 2
@@ -33,14 +35,23 @@ public class US02UI {
 
     private void updateModel() {
         US02Controller controller = new US02Controller();
-        this.typeList = controller.getTypeAreaList();
+
+        //       if (typeList == null) {
+        //         throw new NullPointerException(
+        //               "Type List hasn't been created/initialized.");
+        // }
+
+        try {
+            this.typeList = controller.getTypeAreaList();
+        } catch (NullPointerException e) {
+            System.out.print("Type List hasn't been created/initialized.");
+        }
     }
 
     private void displayState() {
-        if(typeList == null) {
+        if (typeList == null) {
             System.out.print("Type List hasn't been created/initialized.");
-        }
-        else {
+        } else {
             if (typeList.isEmpty()) {
                 System.out.print("No previously defined area types.");
             } else {
