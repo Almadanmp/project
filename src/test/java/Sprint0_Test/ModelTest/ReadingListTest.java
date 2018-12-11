@@ -272,7 +272,6 @@ public class ReadingListTest {
         assertEquals(expectedResult, actualResult, 0.001);
     }
 
-
     @Test
     public void seeIfAverageReturnsZeroWhenReadingListHasValuesFromDifferentMonthThanGiven() {
         //Arrange
