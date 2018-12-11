@@ -42,8 +42,8 @@ public class MainUI {
     option = scanner.nextInt();
     switch (option) {
         case 1:
-            US01UI us = new US01UI();
-            us.run();
+            US01UI view1 = new US01UI();
+            view1.run();
             break;
         case 2:
             US02UI view2 = new US02UI();

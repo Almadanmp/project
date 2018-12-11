@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  * User Story 01
- * As a system administrator, I wish to definy a new type of geographic area, so that later I can classify said geographic area.
+ * As a system administrator, I wish to define a new type of geographic area, so that later I can classify said geographic area.
  */
 
 public class US01UI {
