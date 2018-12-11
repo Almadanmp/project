@@ -33,7 +33,6 @@ public class US04UI {
             getInput();
             update();
             display();
-
         }
     }
 
@@ -49,7 +48,7 @@ public class US04UI {
     }
 
     private void display() {
-        List<GeographicArea> ga =ctrl04.getGeographicAreaListOfTypeGiven();
+        List<GeographicArea> ga = ctrl04.getGeographicAreaListOfTypeGiven();
         String result = ga.stream().map(GeographicArea::getName).collect(Collectors.joining(", "));
         System.out.print(result);
     }
