@@ -3,23 +3,45 @@ package Sprint0.UI;
 import Sprint0.Controller.US06Controller;
 import Sprint0.Model.*;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLOutput;
 import java.util.*;
 
 public class US06UI {
 
+    private boolean active;
+    private String sensorName;
+    private String sensorType;
+    private double sensorLat;
+    private double sensorLong;
+    private double sensorAlt;
+    private int dataYear;
+    private int dataMonth;
+    private int dataDay;
+    private Local mLocal;
+    private Date mDate;
+    private TypeSensor mType;
     private Sensor mSensor;
-    private GeographicArea mAG;
-    private US06Controller mController;
+    private String mGeographicAreaName;
 
 
-    public US06UI(Sensor sensor,GeographicArea ga) {
-        this.mSensor = sensor;
-        this.mAG = ga;
-        US06Controller controller = new US06Controller(mSensor, mAG);
-
+    public US06UI() {
+        active = false;
+        // placeholder
     }
+
     public void run() {
+        this.active = true;
+        while (this.active) {
+            getInput();
+            updateUS06();
+            displayUS06();
+            getInputPart2();
+            updateAndDisplayUS06Part2();
+        }
+    }
+
+    private void getInput() {
         Scanner input = new Scanner(System.in);
 
         //Console title
@@ -29,36 +51,76 @@ public class US06UI {
                            "***************************************************\n");
 
         System.out.println("New Sensor Input\n");
+
+        // Name Getter
         System.out.println("\nEnter Sensor Name:\t");
-        String sensorName = input.nextLine();
+        this.sensorName = input.nextLine();
         System.out.println("You entered sensor " + sensorName);
 
+        // Type Getter
         System.out.println("\nEnter Sensor type:\t");
-        String sensorType = input.nextLine();
-        TypeSensor sensorT = new TypeSensor(sensorType);
+        this.sensorType = input.nextLine();
         System.out.println("You entered type " + sensorType);
 
+        // Local Getter
         System.out.println("\nEnter Sensor Localization:\t");
-        double sensorLat = input.nextDouble();
-        double sensorLong = input.nextDouble();
-        double sensorAlt = input.nextDouble();
+        this.sensorLat = input.nextDouble();
+        this.sensorLong = input.nextDouble();
+        this.sensorAlt = input.nextDouble();
         System.out.println("You entered sensor on coordinates" + sensorLat + "," + sensorLong + "," + sensorAlt);
 
+        // Date Getter
         System.out.println("\nEnter Sensor starting date:\t");
         System.out.println("\nEnter the year:\t");
-        int dataYear = input.nextInt();
+        this.dataYear = input.nextInt();
         System.out.println("\nEnter the Month:\t");
-        int dataMonth = input.nextInt();
+        this.dataMonth = input.nextInt();
         System.out.println("\nEnter the Day:\t");
-        int dataDay = input.nextInt();
-        Date date = new GregorianCalendar(dataYear, dataMonth,dataDay).getTime();
+        this.dataDay = input.nextInt();
+        Date date = new GregorianCalendar(dataYear, dataMonth, dataDay).getTime();
         System.out.println("You entered type " + sensorType);
+    }
 
-        Local local = new Local(sensorLat, sensorLong, sensorAlt);
-        Sensor sensorCreated = new Sensor(sensorName,sensorT,local,date);
+    private void updateUS06() {
+        US06Controller ctrl = new US06Controller();
+        this.mLocal = ctrl.createLocal(this.sensorLat, this.sensorLong, this.sensorAlt);
+        this.mType = ctrl.createType(this.sensorType);
+        this.mDate = ctrl.createData(this.dataYear, this.dataMonth, this.dataDay);
+        this.mSensor = ctrl.createSensor(this.sensorName, this.mType, this.mLocal, mDate);
+    }
 
-        System.out.println("Sensor sucessefully created!");
+    private void displayUS06() {
+        this.active = true;
+        US06Controller ctrl = new US06Controller();
+        if (ctrl.addSensor()) {
+            System.out.println("Sensor has been sucessefully added to the list");
+        } else {
+            System.out.println("Sensor could not be added to the list.");
+        }
+    }
 
-        mController.addSensor(sensorCreated);
+    private void getInputPart2() {
+        this.active = true;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Add sensor to Geographic Area?\n");
+        System.out.println("\nYes/No:\t");
+        String answer = input.nextLine();
+        if (answer == "No") {
+            this.active = false;
+        } else {
+            System.out.println("Type the name of the Geographic Area wich the sensor will be adeed to");
+            System.out.println("\nEnter Geographic Area Name:\t");
+            this.mGeographicAreaName = input.nextLine();
+            System.out.println("You entered" + this.mGeographicAreaName);
+        }
+    }
+    private void updateAndDisplayUS06Part2() {
+        this.active = true;
+        US06Controller ctrl = new US06Controller();
+        if (ctrl.addSensorToGeopgraphicArea(mGeographicAreaName, MainUI.mSensorList )) {
+            System.out.println("Sensor has been sucessefully added to the Geographic Area");
+        } else {
+            System.out.println("Sensor could not be added to the Area.");
+        }
     }
 }

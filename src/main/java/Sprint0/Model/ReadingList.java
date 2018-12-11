@@ -63,7 +63,7 @@ public class ReadingList {
     public double getAverageOfAllRecordedValueReadingsFromGivenMonth(Date dateGiven) {
         List<Date> datesOfMonth = getListOfDatesOfMonthWithReadings(dateGiven);
         double sum = 0;
-        double counter = 0;
+        int counter = 0;
         if (datesOfMonth.isEmpty()) {
             return 0;
         }
@@ -81,23 +81,38 @@ public class ReadingList {
         return sum / counter;
     }
 
+    /**
+     * Get before start and after end month
+     * @param dateGiven
+     * @return
+     */
+    public Date getDateBeforeStartMonth (Date dateGiven){
+        ReadingList rl1 = new ReadingList();
+        Date startOfMonth = rl1.getFirstDateOfMonthFromGivenDate(dateGiven);
+
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(startOfMonth);
+        cal.add(Calendar.SECOND, -1);
+        return cal.getTime();
+    }
+
+    public Date getDateAfterEndMonth (Date dateGiven){
+        ReadingList rl1 = new ReadingList();
+        Date endOfMonth = rl1.getLastDateOfMonthFromGivenDate(dateGiven);
+
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(endOfMonth);
+        cal.add(Calendar.SECOND, +1);
+        return cal.getTime();
+    }
+
     /**Method receives a date and will return a list with every date in the given date's month.
      * @param dateGiven date that will correspond to the month where to look for readings
      * @return list of dates of readings from the given date's month
      */
     public List<Date> getListOfDatesOfMonthWithReadings(Date dateGiven) {
-        ReadingList rl1 = new ReadingList();
-        Date startOfMonth = rl1.getFirstDateOfMonthFromGivenDate(dateGiven);
-        Date endOfMonth = rl1.getLastDateOfMonthFromGivenDate(dateGiven);
-
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTime(startOfMonth);
-        cal.add(Calendar.SECOND, -1);
-        Date dateBeforeStartMonth = cal.getTime();
-
-        cal.setTime(endOfMonth);
-        cal.add(Calendar.SECOND, +1);
-        Date dateAfterEndMonth = cal.getTime();
+        Date dateBeforeStartMonth = getDateBeforeStartMonth(dateGiven);
+        Date dateAfterEndMonth = getDateAfterEndMonth(dateGiven);
 
         List<Date> datesList = new ArrayList<>();
         for (int i = 0; i < mReadings.size(); i++) {
@@ -181,18 +196,8 @@ public class ReadingList {
      * @return list of days of given date's month and year with readings
      */
     public List<Integer> getDaysOfMonthWithReadings(Date dateGiven) {
-        ReadingList rl1 = new ReadingList();
-        Date startOfMonth = rl1.getFirstDateOfMonthFromGivenDate(dateGiven);
-        Date endOfMonth = rl1.getLastDateOfMonthFromGivenDate(dateGiven);
-
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTime(startOfMonth);
-        cal.add(Calendar.SECOND, -1);
-        Date dateBeforeStartMonth = cal.getTime();
-
-        cal.setTime(endOfMonth);
-        cal.add(Calendar.SECOND, +1);
-        Date dateAfterEndMonth = cal.getTime();
+        Date dateBeforeStartMonth = getDateBeforeStartMonth(dateGiven);
+        Date dateAfterEndMonth = getDateAfterEndMonth(dateGiven);
 
         List<Integer> daysWithReadings = new ArrayList<>();
         for (int i = 0; i < mReadings.size(); i++) {
@@ -255,7 +260,7 @@ public class ReadingList {
      */
     public double getAverageFromGivenList(List<Double> valueList) {
         double sum = 0;
-        if(valueList.size() == 0) {
+        if(valueList.isEmpty()) {
             return -1;
         }
 

@@ -5,6 +5,7 @@ package Sprint0.Model;
  */
 
 public class GeographicArea {
+    private String mName = "Porto";
     private TypeArea mTypeArea;
     private Local mLocal;
     private SensorList mSensorList;
@@ -12,6 +13,13 @@ public class GeographicArea {
     private Local mBottomRightVertex;
     private GeographicAreaList mGeographicAreaList;
 
+    public String getName() {
+        return this.mName;
+    }
+
+    public void setName(String name){
+        this.mName = name;
+    }
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
     // They can be made with or without a sensor list.
@@ -175,6 +183,19 @@ public class GeographicArea {
         }
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
     }
+
+    public boolean isAreaContainedInAnotherArea (GeographicArea area1, GeographicArea area2){
+        double latTopVert1 = area1.getTopLeftVertex().getLatitude();
+        double longTopVert1 = area1.getTopLeftVertex().getLongitude();
+        double latBotVert1 = area1.getBottomRightVertex().getLatitude();
+        double longBotVert1 = area1.getBottomRightVertex().getLongitude();
+        double latTopVert2 = area2.getTopLeftVertex().getLatitude();
+        double longTopVert2 = area2.getTopLeftVertex().getLongitude();
+        double latBotVert2 = area2.getBottomRightVertex().getLatitude();
+        double longBotVert2 = area2.getBottomRightVertex().getLongitude();
+        return ( latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1 );
+    }
+
 
     /**
      * Method will calculate the distance between two different Geographic Areas.
