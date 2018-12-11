@@ -93,8 +93,7 @@ public class ReadingList {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(startOfMonth);
         cal.add(Calendar.SECOND, -1);
-        Date dateBeforeStartMonth = cal.getTime();
-        return dateBeforeStartMonth;
+        return cal.getTime();
     }
 
     public Date getDateAfterEndMonth (Date dateGiven){
@@ -104,9 +103,7 @@ public class ReadingList {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(endOfMonth);
         cal.add(Calendar.SECOND, +1);
-        Date dateAfterEndMonth = cal.getTime();
-
-        return dateAfterEndMonth;
+        return cal.getTime();
     }
 
     /**Method receives a date and will return a list with every date in the given date's month.
