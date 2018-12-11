@@ -255,7 +255,7 @@ public class ReadingList {
      */
     public double getAverageFromGivenList(List<Double> valueList) {
         double sum = 0;
-        if(valueList.size() == 0) {
+        if(valueList.isEmpty()) {
             return -1;
         }
 
