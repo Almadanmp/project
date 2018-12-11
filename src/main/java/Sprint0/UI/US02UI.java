@@ -37,13 +37,17 @@ public class US02UI {
     }
 
     private void displayState() {
-        if(typeList.isEmpty()) {
-            System.out.print("No previously defined area types.");
+        if(typeList == null) {
+            System.out.print("Type List hasn't been created/initialized.");
         }
         else {
-            System.out.print("Previously defined area types:");
-            for (int i = 0; i < typeList.size(); i++) {
-                System.out.println(typeList.get(i));
+            if (typeList.isEmpty()) {
+                System.out.print("No previously defined area types.");
+            } else {
+                System.out.print("Previously defined area types:");
+                for (int i = 0; i < typeList.size(); i++) {
+                    System.out.println(typeList.get(i));
+                }
             }
         }
         active = false;
