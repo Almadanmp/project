@@ -1,6 +1,7 @@
 package Sprint0.UI;
 
 import Sprint0.Controller.US08Controller;
+import Sprint0.Model.GeographicAreaList;
 
 import java.util.Scanner;
 
@@ -8,19 +9,16 @@ public class US08UI {
 
     private String mNameGeographicAreaContained;
     private String mNameGeographicAreaContainer;
-    private boolean active;
-    private boolean validGeographicAreas;
-    private boolean isContained;
+    private boolean mActive;
 
-    public US08UI(){active = false;}
+    public US08UI(){mActive = false;}
 
-    public void run(){
-        this.active = true;
-        while (this.active) {
+    public void run(GeographicAreaList list){
+        this.mActive = true;
+        while (this.mActive) {
             getInputGeographicArea1();
             getInputGeographicArea2();
-            updateModel();
-            displayState();
+            verifyAndDisplayState(list);
         }
     }
 
@@ -36,19 +34,20 @@ public class US08UI {
         this.mNameGeographicAreaContained = scanner.next();
     }
 
-    private void updateModel(){
-        US08Controller controller = new US08Controller();
-        this.validGeographicAreas = controller.setGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer, MainUI.mGeographicAreaList);
-        if (!this.validGeographicAreas){
+    private void verifyAndDisplayState(GeographicAreaList list){
+        US08Controller controller = new US08Controller(list);
+        controller.matchGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer);
+        if (!(controller.matchGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer))){
             System.out.println("The given areas are invalid");
-            active = false;
-        }else this.isContained = controller.seeIfItsContained();
-    }
-
-    private void displayState(){
-        if (isContained && validGeographicAreas){
-            System.out.print(mNameGeographicAreaContained + " is contained in " + mNameGeographicAreaContainer);
-        } else System.out.print(mNameGeographicAreaContained + " is NOT contained in " + mNameGeographicAreaContainer);
-        active = false;
+            return;
+        }controller.seeIfAreasHaveVertices();
+        if (!(controller.seeIfAreasHaveVertices())){
+            System.out.print("The given geographic areas don't have vertices!");
+            return;
+        }controller.seeIfItsContained();
+        if (!(controller.seeIfItsContained())){
+            System.out.print(mNameGeographicAreaContained + " is NOT contained in " + mNameGeographicAreaContainer);
+            return;
+        }System.out.print(mNameGeographicAreaContained + " is contained in " + mNameGeographicAreaContainer);
     }
 }

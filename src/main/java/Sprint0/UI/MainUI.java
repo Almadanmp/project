@@ -75,7 +75,7 @@ public class MainUI {
                     break;
                 case 8:
                     US08UI view8 = new US08UI();
-                    view8.run();
+                    view8.run(mGeographicAreaList);
                     break;
             }
         }
