@@ -10,7 +10,8 @@ import Sprint0.UI.MainUI;
  */
 public class US01Controller {
  private TypeAreaList mTypeAreaList = new TypeAreaList();
-    public US01Controller() {
+    public US01Controller(TypeAreaList tipo) {
+        this.mTypeAreaList = tipo;
     }
 
     /**
@@ -21,11 +22,10 @@ public class US01Controller {
      * false - the name is null.
      */
     public boolean CreateAndAddTypeAreaToList(String input) {
-        return MainUI.mTypeAreaList.newTAG(input);
+        return mTypeAreaList.newTAG(input);
     }
 
     public String getTypeAreaList(){
-
         return mTypeAreaList.getTypeAreaList();
     }
 }

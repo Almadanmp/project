@@ -18,15 +18,17 @@ public class US01UI {
     private String mTypeArea;
 
 
-    public US01UI(TypeAreaList list){
-        this.mListFinal=list;
+    public US01UI(){
         active=false;
     }
 
-    public void run(){
-        getInput();
-        updateModel();
-        displayState();
+    public void run(TypeAreaList list){
+        this.active = true;
+        while (this.active) {
+            getInput();
+            updateModel(list);
+            displayState();
+        }
     }
 
     private void getInput() {
@@ -35,8 +37,8 @@ public class US01UI {
         this.mTypeArea = scanner.nextLine();
     }
 
-    private void updateModel() {
-        US01Controller ctrl = new US01Controller();
+    private void updateModel(TypeAreaList list) {
+        US01Controller ctrl = new US01Controller(list);
         this.mTypeAreaList = ctrl.CreateAndAddTypeAreaToList(mTypeArea);
         System.out.println(ctrl.getTypeAreaList());
     }
