@@ -1,9 +1,6 @@
 package Sprint0_Test.ModelTest;
 
-import Sprint0.Model.GeographicArea;
-import Sprint0.Model.GeographicAreaList;
-import Sprint0.Model.Local;
-import Sprint0.Model.TypeArea;
+import Sprint0.Model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -99,5 +96,39 @@ public class GeographicAreaListTest {
         actualResult = geographicAreaList.getGeographicAreaListOfTypeGiven(typeToTest);
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfSetGeographicAreasAddValidGAs(){
+        //Arrange
+        Local l1 = new Local(43,55);
+        TypeArea t1 = new TypeArea("Cidade");
+        Local l2 = new Local(40,50);
+        TypeArea t2 = new TypeArea("Rua");
+        GeographicArea ga1 = new GeographicArea("Porto",t1, l1);
+        GeographicArea ga2 = new GeographicArea("Rua Portuense",t2, l2);
+        GeographicAreaList lista = new GeographicAreaList(ga1);
+        lista.addGeographicAreaToGeographicAreaList(ga2);
+        //Act
+        boolean result = lista.setContainerAreaAndContainedArea("Porto","Rua Portuense");
+        //Assert
+        assertEquals(true,result);
+    }
+
+    @Test
+    public void seeIfSetGeographicAreasAddInvalidGAs(){
+        //Arrange
+        Local l1 = new Local(43,55);
+        TypeArea t1 = new TypeArea("Cidade");
+        Local l2 = new Local(40,50);
+        TypeArea t2 = new TypeArea("Rua");
+        GeographicArea ga1 = new GeographicArea("Porto",t1, l1);
+        GeographicArea ga2 = new GeographicArea("Rua Portuense",t2, l2);
+        GeographicAreaList lista = new GeographicAreaList(ga1);
+        lista.addGeographicAreaToGeographicAreaList(ga2);
+        //Act
+        boolean result = lista.setContainerAreaAndContainedArea("Porto","Rua dos Bragas");
+        //Assert
+        assertEquals(false,result);
     }
 }
