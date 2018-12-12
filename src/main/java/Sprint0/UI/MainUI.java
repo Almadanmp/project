@@ -47,8 +47,8 @@ public class MainUI {
                     activeProgram = false;
                     break;
                 case 1:
-                    US01UI us = new US01UI();
-                    us.run(mTypeAreaList);
+                    US01UI view1 = new US01UI();
+                    view1.run(mTypeAreaList);
                     break;
                 case 2:
                     US02UI view2 = new US02UI();

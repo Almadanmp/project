@@ -25,6 +25,6 @@ public class US01Controller {
     }
 
     public String getTypeAreaList(){
-        return mTypeAreaList.getTypeAreaList();
+        return mTypeAreaList.printTypeAreaList();
     }
 }
