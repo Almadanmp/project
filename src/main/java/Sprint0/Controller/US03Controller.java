@@ -22,13 +22,7 @@ public class US03Controller {
 
     }
 
-    public GeographicArea createGeoArea(String name, TypeArea newtype, Local newlocal) {
-        this.mGeoArea = new GeographicArea(name, newtype, newlocal);
-        return mGeoArea;
-    }
-
-
-    public boolean addNewGeoArea(GeographicArea geoAToAdd, GeographicAreaList geoList) {
+       public boolean addNewGeoArea(GeographicArea geoAToAdd, GeographicAreaList geoList) {
         this.mGeoArea = geoAToAdd;
         this.mGeoList = geoList;
         checkIfListValid(geoList.getGeographicAreaList());
