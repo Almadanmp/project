@@ -61,7 +61,7 @@ public class MainUI {
                     break;
                 case 4:
                     US04UI view4 = new US04UI();
-                    view4.run();
+                    view4.run(mGeographicAreaList);
                     break;
                 case 5:
                     US05UI view5 = new US05UI();
