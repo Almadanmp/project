@@ -38,7 +38,6 @@ public class US01UI {
     private void updateModel(TypeAreaList list) {
         US01Controller ctrl = new US01Controller(list);
         this.mTypeAreaList = ctrl.CreateAndAddTypeAreaToList(mTypeArea);
-        System.out.println(ctrl.getTypeAreaList());
     }
 
     private void displayState() {
