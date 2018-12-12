@@ -42,10 +42,8 @@ public class US02UI {
     }
 
     private void displayState() {
-        Scanner s=new Scanner(System.in);
         this.active = true;
         System.out.println("List finished.");
-        s.nextLine();
         active = false;
     }
 }

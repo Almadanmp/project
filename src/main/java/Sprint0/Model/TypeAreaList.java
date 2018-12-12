@@ -15,7 +15,7 @@ public class TypeAreaList {
     }
 
     public String printTypeAreaList() {
-        String finalString= "Area Types List";
+        String finalString= "Area Types List:";
         for(TypeArea tipo: mTypeAreaList)
            finalString = finalString + " \n"+ "-" + tipo.getTypeOfGeographicArea() + ";";
         return finalString;

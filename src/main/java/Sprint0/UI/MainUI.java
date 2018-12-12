@@ -16,7 +16,7 @@ public class MainUI {
         SensorList mSensorList = new SensorList();
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
         TypeAreaList mTypeAreaList = new TypeAreaList();
-
+        Scanner enterToReturnToConsole=new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
         int option = -1;
 
@@ -49,9 +49,12 @@ public class MainUI {
                 case 1:
                     US01UI view1 = new US01UI();
                     view1.run(mTypeAreaList);
+                    enterToReturnToConsole.nextLine();
                     break;
                 case 2:
                     US02UI view2 = new US02UI();
+                    view2.run(mTypeAreaList);
+                    enterToReturnToConsole.nextLine();
                     break;
                 case 3:
                     US03UI view3 = new US03UI();
