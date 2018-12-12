@@ -19,7 +19,7 @@ public class US03UI {
     private double geoAreaLat;
     private double geoAreaLong;
     private GeographicArea newGeo;
-    public boolean newGeoAreaAdded;
+    private boolean newGeoAreaAdded;
     private GeographicAreaList newGeoList;
 
     private boolean active;
