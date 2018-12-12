@@ -43,7 +43,7 @@ public class US02UI {
 
     private void displayState() {
         this.active = true;
-        System.out.println("List finished.");
+        System.out.println("\nList finished.");
         active = false;
     }
 }

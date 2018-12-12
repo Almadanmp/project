@@ -49,6 +49,7 @@ public class MainUI {
                 case 1:
                     US01UI view1 = new US01UI();
                     view1.run(mTypeAreaList);
+                    System.out.println("\nPress ENTER to return.");
                     enterToReturnToConsole.nextLine();
                     break;
                 case 2:
