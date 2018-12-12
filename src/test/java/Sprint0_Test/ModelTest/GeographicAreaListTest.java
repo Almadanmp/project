@@ -99,36 +99,16 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfSetGeographicAreasAddValidGAs(){
-        //Arrange
-        Local l1 = new Local(43,55);
-        TypeArea t1 = new TypeArea("Cidade");
-        Local l2 = new Local(40,50);
-        TypeArea t2 = new TypeArea("Rua");
-        GeographicArea ga1 = new GeographicArea("Porto",t1, l1);
-        GeographicArea ga2 = new GeographicArea("Rua Portuense",t2, l2);
-        GeographicAreaList lista = new GeographicAreaList(ga1);
-        lista.addGeographicAreaToGeographicAreaList(ga2);
-        //Act
-        boolean result = lista.setContainerAreaAndContainedArea("Porto","Rua Portuense");
-        //Assert
-        assertEquals(true,result);
-    }
-
-    @Test
-    public void seeIfSetGeographicAreasAddInvalidGAs(){
-        //Arrange
-        Local l1 = new Local(43,55);
-        TypeArea t1 = new TypeArea("Cidade");
-        Local l2 = new Local(40,50);
-        TypeArea t2 = new TypeArea("Rua");
-        GeographicArea ga1 = new GeographicArea("Porto",t1, l1);
-        GeographicArea ga2 = new GeographicArea("Rua Portuense",t2, l2);
-        GeographicAreaList lista = new GeographicAreaList(ga1);
-        lista.addGeographicAreaToGeographicAreaList(ga2);
-        //Act
-        boolean result = lista.setContainerAreaAndContainedArea("Porto","Rua dos Bragas");
-        //Assert
-        assertEquals(false,result);
+    public void seeIfAreasWithoutVerticesFail() {
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        TypeArea t2 = new TypeArea("Freguesia");
+        Local l2 = new Local(43, 71);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
+        GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        boolean result = ga1.doGeographicAreasHaveVerticesDetermined(ga1, ga2);
+        assertEquals(false, result);
     }
 }
