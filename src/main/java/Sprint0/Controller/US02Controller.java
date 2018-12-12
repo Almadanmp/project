@@ -15,9 +15,4 @@ import java.util.List;
 
 public class US02Controller {
 
-    private TypeAreaList mTypeAreaList;
-
-    public List<TypeArea> getTypeAreaList() {
-        return this.mTypeAreaList.getTypeAreaList();
-    }
 }
