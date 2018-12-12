@@ -25,9 +25,10 @@ public class GeographicAreaList {
     }
 
     public boolean validateIfGeographicAreaToGeographicAreaList(String geographicAreaToAdd) {
-        GeographicArea gA = new GeographicArea(geographicAreaToAdd);
-        if(mGeographicAreaList.contains(gA)) {
-            return true;
+        for(GeographicArea ga : mGeographicAreaList) {
+            if ((ga.getName().equals(geographicAreaToAdd))) {
+                return true;
+            }
         }
         return false;
     }

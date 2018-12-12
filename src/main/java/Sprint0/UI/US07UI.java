@@ -74,7 +74,7 @@ public class US07UI {
 
 
     private void displayState() {
-        System.out.print("The Geographic Area " + mNameGeographicAreaDaughter + "is contained in " + mNameGeographicAreaMother + "\n");
+        System.out.print("The Geographic Area " + mNameGeographicAreaDaughter + " is contained in " + mNameGeographicAreaMother + "\n");
         active = false;
     }
 }
