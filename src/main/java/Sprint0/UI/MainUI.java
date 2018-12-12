@@ -55,6 +55,7 @@ public class MainUI {
                 case 2:
                     US02UI view2 = new US02UI();
                     view2.run(mTypeAreaList);
+                    System.out.println("\nPress ENTER to return.");
                     enterToReturnToConsole.nextLine();
                     break;
                 case 3:
@@ -64,6 +65,7 @@ public class MainUI {
                 case 4:
                     US04UI view4 = new US04UI();
                     view4.run(mGeographicAreaList);
+                    System.out.println("\nPress ENTER to return.");
                     enterToReturnToConsole.nextLine();
                     break;
                 case 5:
@@ -80,6 +82,7 @@ public class MainUI {
                 case 8:
                     US08UI view8 = new US08UI();
                     view8.run(mGeographicAreaList);
+                    System.out.println("\nPress ENTER to return.");
                     enterToReturnToConsole.nextLine();
                     break;
             }
