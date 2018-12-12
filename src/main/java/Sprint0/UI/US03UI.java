@@ -1,11 +1,11 @@
 package Sprint0.UI;
 
-import Sprint0.Controller.US03Controller;
-import Sprint0.Model.GeographicArea;
-import Sprint0.Model.Local;
-import Sprint0.Model.TypeArea;
+        import Sprint0.Controller.US03Controller;
+        import Sprint0.Model.GeographicArea;
+        import Sprint0.Model.Local;
+        import Sprint0.Model.TypeArea;
 
-import java.util.Scanner;
+        import java.util.Scanner;
 
 /**
  * * User Story 03
@@ -17,8 +17,8 @@ public class US03UI {
     private String typeArea;
     private double geoAreaLat;
     private double geoAreaLong;
+    private GeographicArea newGeo;
     public boolean newGeoAreaAdded;
-
 
     private boolean active;
 
@@ -33,7 +33,8 @@ public class US03UI {
             getInputNameNewArea();
             getInputTypeOfArea();
             getLocalGeoArea();
-
+            updateGeoArea();
+            updateModel();
             displayState();
         }
     }
@@ -46,23 +47,27 @@ public class US03UI {
 
     private void getInputTypeOfArea() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Type the name of the Geographic Area you Want to Add: ");
+        System.out.print("Type the Type of the Geographic Area you Want to Add: ");
         this.typeArea = scanner.next();
     }
 
     private void getLocalGeoArea() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please Insert Latitude for the New Geografic Area: ");
+        System.out.print("Please Insert Latitude for the New Geographic Area: ");
         this.geoAreaLat = scanner.nextDouble();
-        System.out.print("Please Insert Longitude for the New Geografic Area: ");
+        System.out.print("Please Insert Longitude for the New Geographic Area: ");
         this.geoAreaLong = scanner.nextDouble();
+    }
+
+    private void updateGeoArea() {
+        System.out.print("The Geographic Area you want to Create is " + nameOfGeoArea + " with the type " + typeArea + " and "
+                + " its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " Longitude\n");
     }
 
     private void updateModel() {
         US03Controller controller = new US03Controller();
-        TypeArea typ1 = controller.createType(typeArea);
-        GeographicArea newGeo = new GeographicArea(nameOfGeoArea, typ1, new Local(geoAreaLat,geoAreaLong));
-        this.newGeoAreaAdded = controller.addNewGeoArea(newGeo);
+        this.newGeo = new GeographicArea(nameOfGeoArea, new TypeArea(typeArea), new Local(geoAreaLat, geoAreaLong));
+        this.newGeoAreaAdded = controller.addNewGeoArea(newGeo, MainUI.mGeographicAreaList);
     }
 
     private void displayState() {
@@ -72,5 +77,4 @@ public class US03UI {
             System.out.print("The Geographic Area hasn't been added to the list. There is already an area with the characteristics inputed");
         active = false;
     }
-
 }
