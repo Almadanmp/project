@@ -34,6 +34,7 @@ public class US01UI {
         US01Controller ctrl = new US01Controller();
         this.mTypeAreaList = ctrl.newTAG(mTypeArea);
     }
+
     private void displayState() {
         this.active = true;
         if(mTypeAreaList){
@@ -43,4 +44,5 @@ public class US01UI {
             System.out.println("Unsuccess");
         }
     }
+
     }
