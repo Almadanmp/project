@@ -1,9 +1,9 @@
 package Sprint0.Controller;
 
-        import Sprint0.Model.GeographicArea;
-        import Sprint0.Model.GeographicAreaList;
+import Sprint0.Model.GeographicArea;
+import Sprint0.Model.GeographicAreaList;
 
-        import java.util.List;
+import java.util.List;
 
 
 /**
