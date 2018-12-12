@@ -14,7 +14,7 @@ public class US01ControllerTest {
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
         US01Controller ctrl = new US01Controller();
-        boolean result = ctrl.newTAG("cidade");
+        boolean result = ctrl.CreateAndAddTypeAreaToList("cidade");
         assertTrue(result);
     }
 
@@ -24,7 +24,7 @@ public class US01ControllerTest {
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
         US01Controller ctrl = new US01Controller();
-        boolean result = ctrl.newTAG(null);
+        boolean result = ctrl.CreateAndAddTypeAreaToList(null);
         assertFalse(result);
     }
 }
