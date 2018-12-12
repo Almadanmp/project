@@ -44,11 +44,20 @@ public class US06Controller {
         return mSensor;
     }
     public boolean addSensor(Sensor sensor, SensorList sensorList){
-           if(!(sensorList.addSensor(sensor))) {
+        checkIfListValid(sensorList.getSensorList());
+        if(!(sensorList.getSensorList().contains(sensor))) {
+            sensorList.getSensorList().add(sensor);
             return true;
         }
         return false;
     }
+    private boolean checkIfListValid(List<Sensor> values) {
+        if (values == null || values.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean addSensorToGeographicArea(String name, GeographicAreaList gaList, SensorList sensorList) {
         for(GeographicArea ga : gaList.getGeographicAreaList()) {
             if ((ga.getName().equals(name))) {
@@ -58,6 +67,7 @@ public class US06Controller {
         }
     return false;
     }
+
     public Local getLocal() {
         return this.mLocal;
     }
