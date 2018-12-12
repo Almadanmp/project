@@ -30,9 +30,10 @@ public class GeographicArea {
 
 
     public GeographicArea(String mName, TypeArea mTypeArea, Local mLocal) {
-        this.mName = mName;
-        this.mTypeArea = mTypeArea;
-        this.mLocal = mLocal;
+        setName(mName);
+        setTypeArea(mTypeArea);
+        setLocal(mLocal);
+
     }
 
     /**
