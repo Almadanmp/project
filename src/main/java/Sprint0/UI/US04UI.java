@@ -14,42 +14,37 @@ import java.util.stream.Collectors;
  * US 04:
  * Como Administrador de Sistema pretendo saber
  * quais são as áreas geográficas de um determinado tipo.
- * */
+ */
 
 public class US04UI {
     private String action;
-    private boolean active;
-    private TypeArea mTypeArea;
-    private US04Controller ctrl04;
+    private GeographicAreaList mGeoAreaList;
 
     public US04UI() {
-        active = false;
     }
 
-    public void run(GeographicAreaList list) {
-        this.active = true;
-        while(this.active) {
-            getInput();
-            update(list);
-            display();
-        }
+    public void run(GeographicAreaList geoArea) {
+        this.mGeoAreaList = geoArea;
+        getInput();
+        update();
+        display();
+
     }
 
     private void getInput() {
         System.out.println("Please insert Geographic Area type:");
         Scanner input = new Scanner(System.in);
         this.action = input.nextLine();
-        System.out.println("You entered Geographic Area Type: " + action);
+        System.out.println("You entered Geographic Area Type: " + this.action);
     }
 
-    private void update(GeographicAreaList list) {
-        US04Controller ctrl04 = new US04Controller(list);
+    private void update() {
+        US04Controller ctrl04 = new US04Controller(mGeoAreaList);
         ctrl04.setGeographicAreaListWithGeographicAreasFromTypeGivenUS04UI(this.action);
     }
 
     private void display() {
-        GeographicAreaList gal = ctrl04.getGeographicAreaList();
-        List<GeographicArea> list = new ArrayList<>();
+        List<GeographicArea> list = mGeoAreaList.getGeographicAreaList();
         String result = list.stream().map(GeographicArea::getName).collect(Collectors.joining(", "));
         System.out.print(result);
     }

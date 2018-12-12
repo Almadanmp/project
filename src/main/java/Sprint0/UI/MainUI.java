@@ -63,6 +63,7 @@ public class MainUI {
                 case 4:
                     US04UI view4 = new US04UI();
                     view4.run(mGeographicAreaList);
+                    enterToReturnToConsole.nextLine();
                     break;
                 case 5:
                     US05UI view5 = new US05UI();
