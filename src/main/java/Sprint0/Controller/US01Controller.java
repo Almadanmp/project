@@ -1,15 +1,14 @@
 package Sprint0.Controller;
 
-import Sprint0.Model.TypeArea;
 import Sprint0.Model.TypeAreaList;
-import Sprint0.UI.MainUI;
 
 /**
  * User Story 01
  * As a system administrator, I wish to define a new type of geographic area, so that later I can classify said geographic area.
  */
 public class US01Controller {
- private TypeAreaList mTypeAreaList = new TypeAreaList();
+ private TypeAreaList mTypeAreaList;
+
     public US01Controller(TypeAreaList tipo) {
         this.mTypeAreaList = tipo;
     }
