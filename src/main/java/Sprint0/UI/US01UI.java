@@ -3,7 +3,6 @@ package Sprint0.UI;
 import Sprint0.Controller.US01Controller;
 import Sprint0.Model.TypeAreaList;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
@@ -14,21 +13,20 @@ import java.util.Scanner;
 public class US01UI {
     private boolean active;
     private boolean mTypeAreaList;
-    private TypeAreaList mListFinal;
     private String mTypeArea;
 
 
-    public US01UI(){
-        active=false;
+    public US01UI() {
+        active = false;
     }
 
-    public void run(TypeAreaList list){
+    public void run(TypeAreaList list) {
         this.active = true;
-        while (this.active) {
-            getInput();
-            updateModel(list);
-            displayState();
-        }
+
+        getInput();
+        updateModel(list);
+        displayState();
+
     }
 
     private void getInput() {
@@ -45,12 +43,11 @@ public class US01UI {
 
     private void displayState() {
         this.active = true;
-        if(mTypeAreaList){
-            System.out.println("Success, you have inserted a new Type of Geographic Area");
-        }
-        else{
-            System.out.println("Unsuccess");
+        if (mTypeAreaList) {
+            System.out.println("Success, you have inserted a new Type of Geographic Area.");
+        } else {
+            System.out.println("Unsuccess, you have inserted an invalid or repeated Type of Geographic Area.");
         }
     }
 
-    }
+}

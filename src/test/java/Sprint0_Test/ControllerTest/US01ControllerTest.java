@@ -10,16 +10,24 @@ public class US01ControllerTest {
 
     @Test
     public void seeIfnewTAGWorks() {
-        TypeArea tipo = new TypeArea("cidade");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(tipo);
-        US01Controller ctrl = new US01Controller(list);
+        TypeAreaList newList = new TypeAreaList();
+        US01Controller ctrl = new US01Controller(newList);
         boolean result = ctrl.CreateAndAddTypeAreaToList("cidade");
         assertTrue(result);
     }
 
     @Test
-    public void seeIfNewTAGDoesntWork(){
+    public void seeIfnewTAGDoesntWorkWhenDuplicatedISAdded() {
+        TypeArea tipo = new TypeArea("cidade");
+        TypeAreaList expectedResult = new TypeAreaList();
+        expectedResult.addTypeArea(tipo);
+        US01Controller ctrl = new US01Controller(expectedResult);
+        boolean result = ctrl.CreateAndAddTypeAreaToList("cidade");
+        assertFalse(result);
+    }
+
+    @Test
+    public void seeIfNewTAGDoesntWorkWhenNullIsAdded(){
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
