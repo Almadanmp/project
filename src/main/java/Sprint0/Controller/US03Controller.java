@@ -33,9 +33,6 @@ public class US03Controller {
     }
 
     private boolean checkIfListValid(List<GeographicArea> values) {
-        if (values == null || values.isEmpty()) {
-            return false;
-        }
-        return true;
+        return (values == null || values.isEmpty());
     }
 }
