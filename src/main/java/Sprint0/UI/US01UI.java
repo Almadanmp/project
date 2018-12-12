@@ -1,6 +1,9 @@
 package Sprint0.UI;
 
 import Sprint0.Controller.US01Controller;
+import Sprint0.Model.TypeAreaList;
+
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
@@ -11,6 +14,7 @@ import java.util.Scanner;
 public class US01UI {
     private boolean active;
     private boolean mTypeAreaList;
+    private TypeAreaList mListFinal;
     private String mTypeArea;
 
 
@@ -18,10 +22,13 @@ public class US01UI {
         active=false;
     }
 
-    public void run(){
-        getInput();
-        updateModel();
-        displayState();
+    public void run(TypeAreaList list){
+        this.active = true;
+        while (this.active) {
+            getInput();
+            updateModel(list);
+            displayState();
+        }
     }
 
     private void getInput() {
@@ -30,9 +37,10 @@ public class US01UI {
         this.mTypeArea = scanner.nextLine();
     }
 
-    private void updateModel() {
-        US01Controller ctrl = new US01Controller();
-        this.mTypeAreaList = ctrl.newTAG(mTypeArea);
+    private void updateModel(TypeAreaList list) {
+        US01Controller ctrl = new US01Controller(list);
+        this.mTypeAreaList = ctrl.CreateAndAddTypeAreaToList(mTypeArea);
+        System.out.println(ctrl.getTypeAreaList());
     }
 
     private void displayState() {

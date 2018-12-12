@@ -1,26 +1,30 @@
 package Sprint0.Model;
 
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TypeAreaList {
-    private List<TypeArea> typeAreaList;
+    private List<TypeArea> mTypeAreaList;
 
     public TypeAreaList() {
-        typeAreaList = new ArrayList<>();
+        mTypeAreaList = new ArrayList<>();
     }
 
     public void setTypeAreaList(ArrayList<TypeArea> list){
-        this.typeAreaList =list;
+        this.mTypeAreaList =list;
     }
 
-    public List<TypeArea> getTypeAreaList() {
-        return this.typeAreaList;
+    public String getTypeAreaList() {
+        String finalString= "";
+        for(TypeArea tipo: mTypeAreaList)
+           finalString = tipo.getTypeOfGeographicArea();
+        return finalString;
     }
 
     public boolean containsTypeArea(TypeArea tipo) {
-        return typeAreaList.contains(tipo);
+        return mTypeAreaList.contains(tipo);
     }
 
     public boolean newTAG(String name) {
@@ -32,8 +36,8 @@ public class TypeAreaList {
     }
 
     public boolean addTypeArea(TypeArea type) {
-        if (!typeAreaList.contains(type)){
-            typeAreaList.add(type);
+        if (!mTypeAreaList.contains(type)){
+            mTypeAreaList.add(type);
             return true;
         }
         else{
