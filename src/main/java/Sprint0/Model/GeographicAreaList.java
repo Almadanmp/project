@@ -1,6 +1,7 @@
 package Sprint0.Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GeographicAreaList {
@@ -37,7 +38,7 @@ public class GeographicAreaList {
     }
 
     //PARA USAR NA USERSTORY 04??
-    public GeographicAreaList matchGeographicAreaListOfTypeGiven(String typeOfGeographicArea) {
+    public GeographicAreaList matchGeographicAreaWithInputType(String typeOfGeographicArea) {
         GeographicAreaList finalList = new GeographicAreaList();
         TypeArea typeAreaToTest = new TypeArea(typeOfGeographicArea);
         for (GeographicArea ga : mGeographicAreaList) {
@@ -48,5 +49,20 @@ public class GeographicAreaList {
         return finalList;
     }
 
+    @Override
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof GeographicAreaList)) {
+            return false;
+        }
+        GeographicAreaList list = (GeographicAreaList) testObject;
+        return Arrays.equals(this.getGeographicAreaList().toArray(), list.getGeographicAreaList().toArray());
+    }
 
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

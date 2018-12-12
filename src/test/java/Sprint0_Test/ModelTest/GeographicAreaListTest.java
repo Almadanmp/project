@@ -93,7 +93,7 @@ public class GeographicAreaListTest {
         expectedResult.addGeographicAreaToGeographicAreaList(ga2);
         GeographicAreaList actualResult;
         //Act
-        actualResult = geographicAreaList.matchGeographicAreaListOfTypeGiven(typeToTest);
+        actualResult = geographicAreaList.matchGeographicAreaWithInputType(typeToTest);
         //Assert
         assertEquals(expectedResult, actualResult);
     }

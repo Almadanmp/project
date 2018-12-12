@@ -1,10 +1,6 @@
 package Sprint0.Controller;
 
-import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
-import Sprint0.UI.MainUI;
-
-import java.util.List;
 
 public class US04Controller {
 
@@ -15,7 +11,7 @@ public class US04Controller {
     }
 
     public void setGeographicAreaListWithGeographicAreasFromTypeGivenUS04UI(String input) {
-        mGeographicAreaListOfTypeGiven.matchGeographicAreaListOfTypeGiven(input);
+        mGeographicAreaListOfTypeGiven = this.mGeographicAreaListOfTypeGiven.matchGeographicAreaWithInputType(input);
     }
 
     public GeographicAreaList getGeographicAreaList() {

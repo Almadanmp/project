@@ -30,18 +30,18 @@ public class US04ControllerTest {
         GeographicArea ga4 = new GeographicArea(t4, l4);
 
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga4);
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga4);
         US04Controller ctrl = new US04Controller(geographicAreaList);
         GeographicAreaList expectedResult = new GeographicAreaList();
         expectedResult.addGeographicAreaToGeographicAreaList(ga1);
         expectedResult.addGeographicAreaToGeographicAreaList(ga2);
         expectedResult.addGeographicAreaToGeographicAreaList(ga3);
         expectedResult.addGeographicAreaToGeographicAreaList(ga4);
-        GeographicAreaList actualResult = new GeographicAreaList();
+
         //Act
-        ctrl.getGeographicAreaList();
+        GeographicAreaList actualResult = ctrl.getGeographicAreaList();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -75,12 +75,12 @@ public class US04ControllerTest {
         expectedResult.addGeographicAreaToGeographicAreaList(ga3);
 
         //Act
-        GeographicAreaList result;
+        GeographicAreaList actualResult;
         ctrl.setGeographicAreaListWithGeographicAreasFromTypeGivenUS04UI("Rua");
-        result = ctrl.getGeographicAreaList();
+        actualResult = ctrl.getGeographicAreaList();
 
         //Assert
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 
 
