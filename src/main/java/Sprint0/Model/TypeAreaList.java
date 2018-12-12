@@ -14,6 +14,7 @@ public class TypeAreaList {
     public void setTypeAreaList(ArrayList<TypeArea> list){
         this.typeAreaList =list;
     }
+
     public List<TypeArea> getTypeAreaList() {
         return this.typeAreaList;
     }
