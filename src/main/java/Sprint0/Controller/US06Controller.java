@@ -21,10 +21,20 @@ public class US06Controller {
     private TypeSensor mType;
     private Sensor mSensor;
 
-
+    /**
+     * Builder US06Controller(), with no parameters, as it will only be used in UI to apply methods on given inputs
+     */
     public US06Controller() {
     }
 
+    /**
+     * Method to create a Local with given doubles
+     * Calls the original method from Model
+     * @param latitude Latitude
+     * @param latitude Longitude
+     * @param latitude Altitude
+     * @return Local created
+     */
     public Local createLocal(Double latitude, Double longitude, Double altitude) {
         Local local = new Local(latitude, longitude, altitude);
         this.mLocal = local;
@@ -43,27 +53,40 @@ public class US06Controller {
         this.mSensor = new Sensor(name,type,local,date);
         return mSensor;
     }
+    /**
+     * Method to add a Sensor to a SensorList
+     * Calls the original method from Model
+     */
     public boolean addSensor(Sensor sensor, SensorList sensorList){
-        checkIfListValid(sensorList.getSensorList());
         if(!(sensorList.getSensorList().contains(sensor))) {
             sensorList.getSensorList().add(sensor);
             return true;
         }
         return false;
     }
-    private boolean checkIfListValid(List<Sensor> values) {
+    /**
+     * Method to check if a list is either composed by null values or is empty
+     *
+     */
+    private boolean checkIfListValid(List<GeographicArea> values) {
         if (values == null || values.isEmpty()) {
             return false;
         }
         return true;
     }
-
+    /**
+     * Method to add a SensorList to a GeographicArea given that both the name of the Geographis Area and the name given
+     * as parameter match
+     * Calls the original method from Model
+     */
     public boolean addSensorToGeographicArea(String name, GeographicAreaList gaList, SensorList sensorList) {
-        for(GeographicArea ga : gaList.getGeographicAreaList()) {
-            if ((ga.getName().equals(name))) {
-                ga.setSensorList(sensorList);
-                return true;
-            }
+        if (checkIfListValid(gaList.getGeographicAreaList())) {
+            for (GeographicArea ga : gaList.getGeographicAreaList())
+                if ((ga.getName().equals(name))) {
+                    ga.setSensorList(sensorList);
+                    return true;
+                }
+
         }
     return false;
     }

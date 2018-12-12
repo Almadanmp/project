@@ -186,6 +186,33 @@ public class US06ControllerTest {
         assertTrue(actualResult);
     }
     @Test
+    public void seeIfSensorIsNotAddedToSensorList() {
+
+        //Arrange
+        US06Controller ctrl = new US06Controller();
+        String nameString = "XV-56D";
+        Double lat = 50.0;
+        Double lon = 50.0;
+        Double alt = 50.0;
+        Local loc1 = ctrl.createLocal(lat,lon,alt);
+        String typeStr = "Humedade";
+        TypeSensor type1 = ctrl.createType(typeStr);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year,month,day);
+        Sensor sens1 = ctrl.createSensor(nameString,type1,loc1,date1);
+        SensorList xSensorList = new SensorList();
+        xSensorList.addSensor(sens1);
+
+        //Act
+        boolean actualResult = ctrl.addSensor(sens1,xSensorList);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
     public void seeIfSensorListIsAddedToGeographicArea() {
 
         //Arrange
@@ -246,6 +273,39 @@ public class US06ControllerTest {
         String areaNameInput = "Direita";
         GeographicAreaList xgaList = new GeographicAreaList();
         xgaList.addGeographicAreaToGeographicAreaList(areaG);
+
+        //Act
+        boolean actualResult = ctrl.addSensorToGeographicArea(areaNameInput, xgaList, xSensorList);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+    @Test
+    public void seeIfSensorListIsAddedToGeographicAreaEmptyList() {
+
+        //Arrange
+        US06Controller ctrl = new US06Controller();
+        String nameString = "XV-56D";
+        Double lat = 50.0;
+        Double lon = 50.0;
+        Double alt = 50.0;
+        Local loc1 = ctrl.createLocal(lat,lon,alt);
+        String typeStr = "Humedade";
+        TypeSensor type1 = ctrl.createType(typeStr);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year,month,day);
+        Sensor sens1 = ctrl.createSensor(nameString,type1,loc1,date1);
+        SensorList xSensorList = new SensorList();
+        xSensorList.addSensor(sens1);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea areaG = new GeographicArea(t1,l1);
+        areaG.setName("Alegria");
+
+        String areaNameInput = "Alegria";
+        GeographicAreaList xgaList = new GeographicAreaList();
 
         //Act
         boolean actualResult = ctrl.addSensorToGeographicArea(areaNameInput, xgaList, xSensorList);
