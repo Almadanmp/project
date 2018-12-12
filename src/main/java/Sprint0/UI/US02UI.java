@@ -4,7 +4,7 @@ import Sprint0.Controller.US02Controller;
 import Sprint0.Model.TypeArea;
 import Sprint0.Model.TypeAreaList;
 
-import java.io.*;
+import java.util.Scanner;
 
 import java.util.List;
 
@@ -43,8 +43,10 @@ public class US02UI {
     }
 
     private void displayState() {
+        Scanner s=new Scanner(System.in);
         this.active = true;
         System.out.println("List finished.");
+        s.nextLine();
         active = false;
     }
 }
