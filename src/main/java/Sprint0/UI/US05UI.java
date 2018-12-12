@@ -1,6 +1,8 @@
 package Sprint0.UI;
 
 import Sprint0.Controller.US05Controller;
+import Sprint0.Model.Sensor;
+import Sprint0.Model.SensorList;
 
 import java.util.Scanner;
 
@@ -13,21 +15,21 @@ import java.util.Scanner;
 
 public class US05UI {
 
-    private String typeSensor;
-    private String nameSensor;
-    private boolean active;
-    private boolean typeAdded;
+    private String mTypeSensor;
+    private String mNameSensor;
+    private boolean mActive;
+    private boolean mTypeAdded;
 
     public US05UI() {
-        active = false;
+        mActive = false;
     }
 
-    public void run() {
-        this.active = true;
-        while (this.active) {
+    public void run(SensorList list) {
+        this.mActive = true;
+        while (this.mActive) {
             getInputSensor();
             getInput();
-            updateModel();
+            updateModel(list);
             displayState();
         }
     }
@@ -35,24 +37,24 @@ public class US05UI {
     private void getInputSensor() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the name of the sensor to add the type to: ");
-        this.nameSensor = scanner.next();
+        this.mNameSensor = scanner.next();
     }
 
     private void getInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the type of sensor you want to assign to the sensor: ");
-        this.typeSensor = scanner.next();
+        this.mTypeSensor = scanner.next();
     }
 
-    private void updateModel() {
-        US05Controller controller = new US05Controller();
-        this.typeAdded = controller.setTypeSensor(nameSensor, typeSensor);
+    private void updateModel(SensorList list) {
+        US05Controller controller = new US05Controller(list);
+        this.mTypeAdded = controller.setTypeSensor(mNameSensor, mTypeSensor);
     }
 
     private void displayState() {
-        if (typeAdded) {
+        if (mTypeAdded) {
             System.out.print("The type has been successfully assigned.");
         } else System.out.print("The type of sensor wasn't added. There's no sensor with that name.");
-        active = false;
+        mActive = false;
     }
 }

@@ -1,7 +1,7 @@
 package Sprint0.Controller;
 
 import Sprint0.Model.Sensor;
-import Sprint0.UI.MainUI;
+import Sprint0.Model.SensorList;
 
 import java.util.List;
 
@@ -13,14 +13,15 @@ import java.util.List;
 
 
 public class US05Controller {
-    private Sensor mModel;
+    private SensorList mSensorList;
 
-    public US05Controller() {
+    public US05Controller(SensorList list) {
+        this.mSensorList = list;
     }
 
     public boolean setTypeSensor(String name, String typeToSet) {
-        if (checkIfListValid(MainUI.mSensorList.getSensorList())) {
-            for (Sensor sensor : MainUI.mSensorList.getSensorList())
+        if (checkIfListValid(mSensorList.getSensorList())) {
+            for (Sensor sensor : mSensorList.getSensorList())
                 if (sensor.getName().equals(name)) {
                     sensor.getTypeSensor().setName(typeToSet);
                     return true;
@@ -29,7 +30,7 @@ public class US05Controller {
         return false;
     }
 
-    public String getTypeSensor() {
+    public String getTypeSensor(Sensor mModel) {
         return mModel.getTypeSensor().getName();
     }
 

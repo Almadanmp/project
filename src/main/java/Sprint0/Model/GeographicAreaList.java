@@ -40,12 +40,12 @@ public class GeographicAreaList {
     }
 
     //PARA USAR NA USERSTORY 04??
-    public List<GeographicArea> getGeographicAreaListOfTypeGiven(String typeOfGeographicArea) {
-        List<GeographicArea> finalList = new ArrayList<>();
+    public GeographicAreaList getGeographicAreaListOfTypeGiven(String typeOfGeographicArea) {
+        GeographicAreaList finalList = new GeographicAreaList();
         TypeArea typeAreaToTest = new TypeArea(typeOfGeographicArea);
         for (GeographicArea ga : mGeographicAreaList) {
             if(ga.getTypeArea().equals(typeAreaToTest)) {
-                finalList.add(ga);
+                finalList.addGeographicAreaToGeographicAreaList(ga);
             }
         }
         return finalList;

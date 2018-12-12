@@ -2,10 +2,8 @@ package Sprint0.UI;
 
 import Sprint0.Controller.US04Controller;
 import Sprint0.Model.GeographicArea;
-import Sprint0.Model.TypeArea;
+import Sprint0.Model.GeographicAreaList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -19,11 +17,8 @@ import java.util.stream.Collectors;
 public class US04UI {
     private String action;
     private boolean active;
-    private TypeArea mTypeArea;
-    private US04Controller ctrl04;
 
     public US04UI() {
-        US04Controller ctrl04 = new US04Controller();
         active = false;
     }
 
@@ -44,12 +39,16 @@ public class US04UI {
     }
 
     private void update() {
+        US04Controller ctrl04 = new US04Controller();
         ctrl04.receiveTypeOfGeographicArea(this.action);
     }
 
     private void display() {
-        List<GeographicArea> ga = ctrl04.getGeographicAreaListOfTypeGiven();
-        String result = ga.stream().map(GeographicArea::getName).collect(Collectors.joining(", "));
+        US04Controller ctrl04 = new US04Controller();
+        GeographicAreaList ga = ctrl04.matchGeographicAreaTypeGiven();
+        List<GeographicArea> lga;
+        lga = ga.getGeographicAreaList();
+        String result = lga.stream().map(GeographicArea::getName).collect(Collectors.joining(", "));
         System.out.print(result);
     }
 }
