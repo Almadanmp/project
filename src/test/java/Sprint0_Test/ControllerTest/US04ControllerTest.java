@@ -5,7 +5,6 @@ import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
 import Sprint0.Model.Local;
 import Sprint0.Model.TypeArea;
-import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
 import static org.testng.Assert.*;

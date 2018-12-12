@@ -52,7 +52,6 @@ public class MainUI {
                     break;
                 case 2:
                     US02UI view2 = new US02UI();
-                    view2.run();
                     break;
                 case 3:
                     US03UI view3 = new US03UI();
