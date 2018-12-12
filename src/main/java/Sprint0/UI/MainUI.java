@@ -1,8 +1,6 @@
 package Sprint0.UI;
 
-import Sprint0.Model.GeographicAreaList;
-import Sprint0.Model.SensorList;
-import Sprint0.Model.TypeAreaList;
+import Sprint0.Model.*;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -29,7 +27,7 @@ public class MainUI {
 
             // Submenus Input selection
 
-            String[] menu = {" 0. Exit\n", "1. Create a new Type of Geographic Area\n", "2. List all area Types\n", "3. Create a new Geographic Area\n", "4. Option4\n", "5. Determine the type of a sensor.\n", "6. Create a new Sensor and Add it to a GA 6\n", "7. Say that an area is contained in another area \n", "8. See if an area is contained in another area.\n"};
+            String[] menu = {" 0. Exit\n", "1. Create a new Type of Geographic Area\n", "2. List all area Types\n", "3. Create a new Geographic Area\n", "4. Option4\n", "5. Determine the type of a sensor.\n", "6. Create a new Sensor and Add it to a GA 6\n", "7. Say that an area is contained in another area \n", "8. See if an area is contained in another area.\n", "9. Display Sensor List\n", "10. Display Geographic Area\n"};
 
 
             System.out.println("Select the task you want to do:");
@@ -85,6 +83,16 @@ public class MainUI {
                     view8.run(mGeographicAreaList);
                     System.out.println("\nPress ENTER to return.");
                     enterToReturnToConsole.nextLine();
+                    break;
+                case 9:
+                    for(Sensor sensor : mSensorList.getSensorList()) {
+                        System.out.println(sensor.getName());
+                    }
+                    break;
+                case 10:
+                    for(GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
+                        System.out.println(ga.getName());
+                    }
                     break;
             }
         }
