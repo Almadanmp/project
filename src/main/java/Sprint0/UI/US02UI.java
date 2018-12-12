@@ -38,6 +38,7 @@ public class US02UI {
 
     private void updateModel(TypeAreaList list) {
         US02Controller ctrl = new US02Controller(list);
+        System.out.println("Area Types List:");
         System.out.println(ctrl.getTypeAreaList());
     }
 
