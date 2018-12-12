@@ -1,11 +1,9 @@
 package Sprint0.Controller;
 
-import Sprint0.Model.GeographicArea;
-import Sprint0.Model.GeographicAreaList;
-import Sprint0.Model.Local;
-import Sprint0.Model.TypeArea;
+        import Sprint0.Model.GeographicArea;
+        import Sprint0.Model.GeographicAreaList;
 
-import java.util.List;
+        import java.util.List;
 
 
 /**
@@ -18,11 +16,12 @@ public class US03Controller {
     private GeographicAreaList mGeoList;
 
 
-    public US03Controller() {
-
+    public US03Controller(GeographicArea newGeo, GeographicAreaList newGeoList) {
+        this.mGeoArea = newGeo;
+        this.mGeoList = newGeoList;
     }
 
-       public boolean addNewGeoArea(GeographicArea geoAToAdd, GeographicAreaList geoList) {
+    public boolean addNewGeoArea(GeographicArea geoAToAdd, GeographicAreaList geoList) {
         this.mGeoArea = geoAToAdd;
         this.mGeoList = geoList;
         checkIfListValid(geoList.getGeographicAreaList());

@@ -1,11 +1,12 @@
 package Sprint0.UI;
 
-        import Sprint0.Controller.US03Controller;
-        import Sprint0.Model.GeographicArea;
-        import Sprint0.Model.Local;
-        import Sprint0.Model.TypeArea;
+import Sprint0.Controller.US03Controller;
+import Sprint0.Model.GeographicArea;
+import Sprint0.Model.GeographicAreaList;
+import Sprint0.Model.Local;
+import Sprint0.Model.TypeArea;
 
-        import java.util.Scanner;
+import java.util.Scanner;
 
 /**
  * * User Story 03
@@ -19,6 +20,7 @@ public class US03UI {
     private double geoAreaLong;
     private GeographicArea newGeo;
     public boolean newGeoAreaAdded;
+    private GeographicAreaList newGeoList;
 
     private boolean active;
 
@@ -27,8 +29,9 @@ public class US03UI {
     }
 
 
-    public void run() {
+    public void run(GeographicAreaList newGeoListUi) {
         this.active = true;
+        this.newGeoList = newGeoListUi;
         while (this.active) {
             getInputNameNewArea();
             getInputTypeOfArea();
@@ -65,10 +68,11 @@ public class US03UI {
     }
 
     private void updateModel() {
-        US03Controller controller = new US03Controller();
         this.newGeo = new GeographicArea(nameOfGeoArea, new TypeArea(typeArea), new Local(geoAreaLat, geoAreaLong));
-        this.newGeoAreaAdded = controller.addNewGeoArea(newGeo, MainUI.mGeographicAreaList);
+        US03Controller controller = new US03Controller(newGeo, newGeoList);
+        this.newGeoAreaAdded = controller.addNewGeoArea(newGeo, newGeoList);
     }
+
 
     private void displayState() {
         if (newGeoAreaAdded) {
