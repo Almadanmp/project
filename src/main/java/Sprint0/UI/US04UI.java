@@ -3,9 +3,7 @@ package Sprint0.UI;
 import Sprint0.Controller.US04Controller;
 import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
-import Sprint0.Model.TypeArea;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -19,6 +17,7 @@ import java.util.stream.Collectors;
 public class US04UI {
     private String action;
     private GeographicAreaList mGeoAreaList;
+    private GeographicAreaList filteredList;
 
     public US04UI() {
     }
@@ -40,11 +39,12 @@ public class US04UI {
 
     private void update() {
         US04Controller ctrl04 = new US04Controller(mGeoAreaList);
-        ctrl04.setGeographicAreaListWithGeographicAreasFromTypeGivenUS04UI(this.action);
+        ctrl04.matchGeoAreaTypeWithInput(this.action);
+        filteredList = ctrl04.getGeographicAreaList();
     }
 
     private void display() {
-        List<GeographicArea> list = mGeoAreaList.getGeographicAreaList();
+        List<GeographicArea> list = filteredList.getGeographicAreaList();
         String result = list.stream().map(GeographicArea::getName).collect(Collectors.joining(", "));
         System.out.print(result);
     }

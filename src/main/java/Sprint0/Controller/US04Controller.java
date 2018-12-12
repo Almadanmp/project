@@ -10,7 +10,7 @@ public class US04Controller {
         this.mGeographicAreaListOfTypeGiven = list;
     }
 
-    public void setGeographicAreaListWithGeographicAreasFromTypeGivenUS04UI(String input) {
+    public void matchGeoAreaTypeWithInput(String input) {
         mGeographicAreaListOfTypeGiven = this.mGeographicAreaListOfTypeGiven.matchGeographicAreaWithInputType(input);
     }
 

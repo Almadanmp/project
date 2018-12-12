@@ -76,7 +76,7 @@ public class US04ControllerTest {
 
         //Act
         GeographicAreaList actualResult;
-        ctrl.setGeographicAreaListWithGeographicAreasFromTypeGivenUS04UI("Rua");
+        ctrl.matchGeoAreaTypeWithInput("Rua");
         actualResult = ctrl.getGeographicAreaList();
 
         //Assert
