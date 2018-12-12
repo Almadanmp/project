@@ -59,7 +59,7 @@ public class TypeSensor {
      * Specific Method
      *
      * @param testSensor Receives an object to verify if it matches current instance of TypeSensor.
-     * @return boolean returns true if equal, false if not equal.
+     * @return boolean returns true if equal, false if they are not equal.
      */
 
     @Override
