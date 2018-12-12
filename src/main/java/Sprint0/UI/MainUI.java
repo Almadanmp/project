@@ -67,7 +67,7 @@ public class MainUI {
                     view5.run(mSensorList);
                     break;
                 case 6:
-                    US06UI view6 = new US06UI();
+                    US06UI view6 = new US06UI(mSensorList,mGeographicAreaList);
                     view6.run();
                     break;
                 case 7:
