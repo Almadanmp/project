@@ -8,7 +8,6 @@ import Sprint0.UI.MainUI;
  * As a system administrator, I wish to define a new type of geographic area, so that later I can classify said geographic area.
  */
 public class US01Controller {
-    private TypeArea mTypeArea;
 
     public US01Controller() {
     }
@@ -21,10 +20,11 @@ public class US01Controller {
      * false - the name is null.
      */
     public boolean newTAG(String name) {
-            this.mTypeArea = new TypeArea(name);
-                 if (name == null || name.isEmpty()) {
-            return false;
-        }
-        return MainUI.mTypeAreaList.addTypeArea(mTypeArea);
+
+        return MainUI.mTypeAreaList.newTAG(name);
+    }
+
+    public String getTypeAreaList(){
+        return MainUI.mTypeAreaList.getTypeAreaList().toArray().toString();
     }
 }

@@ -22,6 +22,14 @@ public class TypeAreaList {
         return typeAreaList.contains(tipo);
     }
 
+    public boolean newTAG(String name) {
+        if (name == null || name.isEmpty()) {
+            return false;
+        }
+        TypeArea tipo = new TypeArea(name);
+        return addTypeArea(tipo);
+    }
+
     public boolean addTypeArea(TypeArea type) {
         if (!typeAreaList.contains(type)){
             typeAreaList.add(type);

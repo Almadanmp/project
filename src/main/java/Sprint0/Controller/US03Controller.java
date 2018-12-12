@@ -5,6 +5,8 @@ import Sprint0.Model.GeographicAreaList;
 import Sprint0.Model.Local;
 import Sprint0.Model.TypeArea;
 
+import java.util.List;
+
 
 /**
  * User Story 3
@@ -14,31 +16,27 @@ import Sprint0.Model.TypeArea;
 public class US03Controller {
     private GeographicArea mGeoArea;
     private GeographicAreaList mGeoList;
-    private TypeArea mTypeGeoArea;
-    private Local mGeoAreaLocal;
 
 
     public US03Controller() {
 
     }
 
-    public boolean addNewGeoArea(GeographicArea geoAToAdd) {
+       public boolean addNewGeoArea(GeographicArea geoAToAdd, GeographicAreaList geoList) {
         this.mGeoArea = geoAToAdd;
-        this.mGeoList = new GeographicAreaList(mGeoArea);
+        this.mGeoList = geoList;
+        checkIfListValid(geoList.getGeographicAreaList());
         if (!(mGeoList.containsGA(mGeoArea))) {
             mGeoList.addGeographicAreaToGeographicAreaList(mGeoArea);
-            mGeoArea.setGeoAreaList(mGeoList);
+            return true;
         }
         return false;
     }
 
-    public TypeArea createType(String geoAreaType){
-        this.mTypeGeoArea = new TypeArea(geoAreaType);
-        return this.mTypeGeoArea;
-    }
-
-    public Local createLocal(double latitude, double longitude){
-        this.mGeoAreaLocal = new Local(latitude, longitude);
-        return this.mGeoAreaLocal;
+    private boolean checkIfListValid(List<GeographicArea> values) {
+        if (values == null || values.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }
