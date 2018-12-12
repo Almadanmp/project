@@ -89,11 +89,11 @@ public class GeographicAreaListTest {
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
 
-        List<GeographicArea> expectedResult = new ArrayList<>();
-        expectedResult.add(ga2);
-        List<GeographicArea> actualResult;
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicAreaToGeographicAreaList(ga2);
+        GeographicAreaList actualResult;
         //Act
-        actualResult = geographicAreaList.getGeographicAreaListOfTypeGiven(typeToTest);
+        actualResult = geographicAreaList.matchGeographicAreaListOfTypeGiven(typeToTest);
         //Assert
         assertEquals(expectedResult, actualResult);
     }

@@ -2,7 +2,6 @@ package Sprint0.UI;
 
 import Sprint0.Model.GeographicAreaList;
 import Sprint0.Model.SensorList;
-import Sprint0.Model.TypeArea;
 import Sprint0.Model.TypeAreaList;
 
 import java.util.Arrays;
@@ -45,7 +44,7 @@ public class MainUI {
             option = scanner.nextInt();
             switch (option) {
                 case 0:
-                    activeProgram=false;
+                    activeProgram = false;
                     break;
                 case 1:
                     US01UI us = new US01UI();
@@ -57,11 +56,11 @@ public class MainUI {
                     break;
                 case 3:
                     US03UI view3 = new US03UI();
-                    view3.run();
+                    view3.run(mGeographicAreaList);
                     break;
                 case 4:
                     US04UI view4 = new US04UI();
-                    view4.run();
+                    view4.run(mGeographicAreaList);
                     break;
                 case 5:
                     US05UI view5 = new US05UI();
