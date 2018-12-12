@@ -4,9 +4,13 @@ package Sprint0_Test.ModelTest;
 import Sprint0.Model.*;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static javafx.scene.input.KeyCode.M;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GeographicAreaTest {
 
@@ -558,4 +562,37 @@ public class GeographicAreaTest {
         assertEquals(true,result);
     }
 
+    @Test
+    public void seeIfSetNameWorksNullAndThrowsStringMessage() {
+        //Arrange
+        String name1 = "Porto";
+        TypeArea tA1 = new TypeArea("rua");
+        Local l1 = new Local (11,12);
+        GeographicArea gA1 = new GeographicArea(name1, tA1, l1);
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            gA1.setName(null);
+        });
+
+        //Assert
+        assertEquals("Please Insert Valid Name", exception.getMessage());
+    }
+
+    @Test
+    public void seeIfSetNameWorksEmptyAndThrowsStringException() {
+        //Arrange
+        String name1 = "Porto";
+        TypeArea tA1 = new TypeArea("rua");
+        Local l1 = new Local (11,12);
+        GeographicArea gA1 = new GeographicArea(name1, tA1, l1);
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            gA1.setName("");
+        });
+
+        //Assert
+        assertEquals("Please Insert Valid Name", exception.getMessage());
+    }
 }

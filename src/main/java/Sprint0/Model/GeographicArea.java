@@ -17,8 +17,12 @@ public class GeographicArea {
         return this.mName;
     }
 
-    public void setName(String name){
-        this.mName = name;
+    public void setName(String name) {
+        if (isGeographicNameValid(name)) {
+            this.mName = name;
+        } else {
+            throw new IllegalArgumentException("Please Insert Valid Name");
+        }
     }
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -80,7 +84,7 @@ public class GeographicArea {
 
     public void setTopLeftVertex(Local localv1) {
         if (localv1.getLatitude() <= mLocal.getLatitude() && localv1.getLongitude() >= mLocal.getLongitude()) {
-        this.mTopLeftVertex = localv1;
+            this.mTopLeftVertex = localv1;
         }
     }
 
@@ -119,7 +123,7 @@ public class GeographicArea {
         this.mSensorList = listToSet;
     }
 
-    public void setGeoAreaList (GeographicAreaList listToSet){
+    public void setGeoAreaList(GeographicAreaList listToSet) {
         this.mGeographicAreaList = listToSet;
     }
 
@@ -174,6 +178,18 @@ public class GeographicArea {
         return mGeographicAreaList;
     }
 
+
+    /**
+     * Method to restrain input name so they cant be null or empty.
+     *
+     * @param name name inserted by user
+     * @return will return true if the name is valid or it will throw an exception if Invalid
+     */
+    public boolean isGeographicNameValid(String name) {
+        return (name != null && !name.isEmpty());
+    }
+
+
     /**
      * Method will go through Geographic Area's sensor list, create a second list with the type
      * of sensors defined by the parameter and finally return the most recent value recorded in that list.
@@ -191,13 +207,14 @@ public class GeographicArea {
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
     }
 
-    public boolean doGeographicAreasHaveVerticesDetermined(GeographicArea area1, GeographicArea area2){
-        if (area1.getBottomRightVertex() == null || area1.getTopLeftVertex() == null || area2.getBottomRightVertex() == null || area2.getTopLeftVertex() == null){
+    public boolean doGeographicAreasHaveVerticesDetermined(GeographicArea area1, GeographicArea area2) {
+        if (area1.getBottomRightVertex() == null || area1.getTopLeftVertex() == null || area2.getBottomRightVertex() == null || area2.getTopLeftVertex() == null) {
             return false;
-        }return true;
+        }
+        return true;
     }
 
-    public boolean isAreaContainedInAnotherArea (GeographicArea area1, GeographicArea area2){
+    public boolean isAreaContainedInAnotherArea(GeographicArea area1, GeographicArea area2) {
         double latTopVert1 = area1.getTopLeftVertex().getLatitude();
         double longTopVert1 = area1.getTopLeftVertex().getLongitude();
         double latBotVert1 = area1.getBottomRightVertex().getLatitude();
@@ -206,7 +223,7 @@ public class GeographicArea {
         double longTopVert2 = area2.getTopLeftVertex().getLongitude();
         double latBotVert2 = area2.getBottomRightVertex().getLatitude();
         double longBotVert2 = area2.getBottomRightVertex().getLongitude();
-        return ( latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1 );
+        return (latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1);
     }
 
 
@@ -224,6 +241,7 @@ public class GeographicArea {
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two
      * Geographic Areas cannot have the same Localization
+     *
      * @param testObject
      * @return boolean
      */
