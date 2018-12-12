@@ -79,6 +79,7 @@ public class MainUI {
                 case 8:
                     US08UI view8 = new US08UI();
                     view8.run(mGeographicAreaList);
+                    enterToReturnToConsole.nextLine();
                     break;
             }
         }
