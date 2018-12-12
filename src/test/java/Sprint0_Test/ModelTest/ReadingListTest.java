@@ -11,6 +11,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReadingListTest {
 
@@ -1200,32 +1201,30 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLowestValueEmpty() {
+    public void seeIfGetLowestValueEmptyAndThrowsStringException() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
-        double expectedResult = 0;
-        double actualResult;
         ReadingList rl1 = new ReadingList();
 
         //Act
-        actualResult = rl1.getLowestValueFromGivenList(valuesOfDay);
-
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            rl1.getLowestValueFromGivenList(valuesOfDay);
+        });
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals("List is not valid", exception.getMessage());
     }
 
     @Test
-    public void seeIfGetLowestValueNull() {
-        //Arrange
-        double expectedResult = 0;
-        double actualResult;
+    public void seeIfGetLowestValueNullAndThrowsStringException() {
+//Arrange
         ReadingList rl1 = new ReadingList();
 
         //Act
-        actualResult = rl1.getLowestValueFromGivenList(null);
-
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            rl1.getLowestValueFromGivenList(null);
+        });
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals("List is not valid", exception.getMessage());
     }
 
     @Test
@@ -1489,34 +1488,6 @@ public class ReadingListTest {
         assertEquals(expectedResult, actualResult, 0.001);
     }
 
-    @Test
-    public void seeIfGetHighestValueEmpty() {
-        //Arrange
-        List<Double> valuesOfDay = new ArrayList<>();
-        double expectedResult = 0;
-        double actualResult;
-        ReadingList rl1 = new ReadingList();
-
-        //Act
-        actualResult = rl1.getHighestValueInList(valuesOfDay);
-
-        //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
-    }
-
-    @Test
-    public void seeIfGetHighestValueNull() {
-        //Arrange
-        double expectedResult = 0;
-        double actualResult;
-        ReadingList rl1 = new ReadingList();
-
-        //Act
-        actualResult = rl1.getHighestValueInList(null);
-
-        //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
-    }
 
     @Test
     public void seeIfGetHighestValueFromBeginningOfList() {
@@ -1539,6 +1510,33 @@ public class ReadingListTest {
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
+    public void seeIfGetHighestValueEmptyAndThrowsStringException() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            rl1.getHighestValueInList(valuesOfDay);
+        });
+        //Assert
+        assertEquals("List is not valid", exception.getMessage());
+    }
+
+    @Test
+    public void seeIfGetHighestValueNullAndThrowsStringException() {
+//Arrange
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            rl1.getHighestValueInList(null);
+        });
+        //Assert
+        assertEquals("List is not valid", exception.getMessage());
     }
 
     @Test

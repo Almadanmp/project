@@ -237,11 +237,9 @@ public class ReadingList {
      * @return returns the lowest of all value readings
      */
     public double getLowestValueFromGivenList(List<Double> valueList) {
-        double minValue;
-        if (valueList == null || valueList.isEmpty()) {
-            return 0;
-        }
-        minValue = valueList.get(0);
+        AuxiliaryMethods.checkIfListValid(valueList);
+
+      double  minValue = valueList.get(0);
 
         for (double value : valueList) {
             if (value < minValue) {
@@ -289,12 +287,9 @@ public class ReadingList {
      * @return returns the highest of all value readings within list
      */
     public double getHighestValueInList(List<Double> valueList) {
-        double maxValue;
+        AuxiliaryMethods.checkIfListValid(valueList);
 
-        if (valueList == null || valueList.isEmpty()) {
-            return 0;
-        }
-        maxValue = valueList.get(0);
+       double maxValue = valueList.get(0);
         for (double value : valueList) {
             if (value >= maxValue) {
                 maxValue = value;
