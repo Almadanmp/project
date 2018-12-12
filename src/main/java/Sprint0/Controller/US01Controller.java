@@ -1,6 +1,7 @@
 package Sprint0.Controller;
 
 import Sprint0.Model.TypeArea;
+import Sprint0.Model.TypeAreaList;
 import Sprint0.UI.MainUI;
 
 /**
@@ -8,23 +9,23 @@ import Sprint0.UI.MainUI;
  * As a system administrator, I wish to define a new type of geographic area, so that later I can classify said geographic area.
  */
 public class US01Controller {
-
-    public US01Controller() {
+ private TypeAreaList mTypeAreaList = new TypeAreaList();
+    public US01Controller(TypeAreaList tipo) {
+        this.mTypeAreaList = tipo;
     }
 
     /**
      * This method creates a new Type of Geographic Area.
      *
-     * @param name - the String name of the Type of Geographic Area.
+     * @param input - the String name of the Type of Geographic Area.
      * @return true - the Type of Geographic Area was successfully created;
      * false - the name is null.
      */
-    public boolean newTAG(String name) {
-
-        return MainUI.mTypeAreaList.newTAG(name);
+    public boolean CreateAndAddTypeAreaToList(String input) {
+        return mTypeAreaList.newTAG(input);
     }
 
     public String getTypeAreaList(){
-        return MainUI.mTypeAreaList.getTypeAreaList().toArray().toString();
+        return mTypeAreaList.getTypeAreaList();
     }
 }
