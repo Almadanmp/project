@@ -24,7 +24,5 @@ public class US01Controller {
         return mTypeAreaList.newTAG(input);
     }
 
-    public String getTypeAreaList(){
-        return mTypeAreaList.printTypeAreaList();
-    }
+
 }
