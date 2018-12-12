@@ -4,6 +4,8 @@ import Sprint0.Controller.US02Controller;
 import Sprint0.Model.TypeArea;
 import Sprint0.Model.TypeAreaList;
 
+import java.io.*;
+
 import java.util.List;
 
 
@@ -17,4 +19,31 @@ import java.util.List;
 
 public class US02UI {
 
+    private boolean active;
+    private boolean mTypeAreaList;
+    private String mTypeArea;
+
+
+    public US02UI() {
+        active = false;
+    }
+
+    public void run(TypeAreaList list) {
+        this.active = true;
+        while (this.active) {
+            updateModel(list);
+            displayState();
+        }
+    }
+
+    private void updateModel(TypeAreaList list) {
+        US02Controller ctrl = new US02Controller(list);
+        System.out.println(ctrl.getTypeAreaList());
+    }
+
+    private void displayState() {
+        this.active = true;
+        System.out.println("List finished.");
+        active = false;
+    }
 }
