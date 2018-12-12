@@ -29,7 +29,7 @@ public class MainUI {
 
             // Submenus Input selection
 
-            String[] menu = {" 0. Exit\n", "1. Create a new Type of Geographic Area\n", "2. List all area Types\n", "3. Create a new Geographic Area\n", "4. Option4\n", "5. Determine the type of a sensor.\n", "6. Create a new Sensor and Add it to a GA 6\n", "7. Option 7\n", "8. See if an area is contained in another area.\n"};
+            String[] menu = {" 0. Exit\n", "1. Create a new Type of Geographic Area\n", "2. List all area Types\n", "3. Create a new Geographic Area\n", "4. Option4\n", "5. Determine the type of a sensor.\n", "6. Create a new Sensor and Add it to a GA 6\n", "7. Say that an area is contained in another area \n", "8. See if an area is contained in another area.\n"};
 
 
             System.out.println("Select the task you want to do:");
@@ -77,7 +77,8 @@ public class MainUI {
                     view6.run();
                     break;
                 case 7:
-                    System.out.println("test pegaLaMaças");
+                    US07UI view7 = new US07UI();
+                    view7.run(mGeographicAreaList);
                     break;
                 case 8:
                     US08UI view8 = new US08UI();

@@ -24,6 +24,20 @@ public class GeographicAreaList {
         return false;
     }
 
+    public boolean validateIfGeographicAreaToGeographicAreaList(String geographicAreaToAdd) {
+        GeographicArea gA = new GeographicArea(geographicAreaToAdd);
+        if(mGeographicAreaList.contains(gA)) {
+            return true;
+        }
+        return false;
+    }
+
+    public String printGeoAreaList() {
+        String finalString= "Geographic Area List:";
+        for(GeographicArea tipo: mGeographicAreaList)
+            finalString = finalString + " \n"+ "-" + tipo.getName() + ";";
+        return finalString;
+    }
     /**
      * Checks if a Geographic Area is inside the Geographic Area List
      * @param geoArea

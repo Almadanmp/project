@@ -12,6 +12,7 @@ public class GeographicArea {
     private Local mTopLeftVertex;
     private Local mBottomRightVertex;
     private GeographicAreaList mGeographicAreaList;
+    private GeographicArea mMotherArea;
 
     public String getName() {
         return this.mName;
@@ -36,6 +37,10 @@ public class GeographicArea {
 
     }
 
+    public GeographicArea(String mName) {
+        setName(mName);
+
+    }
     /**
      * Constructor of the class GeographicAreaController that receives the type of Geographic Area and its localization
      * as parameters.
@@ -127,6 +132,8 @@ public class GeographicArea {
     public void setGeoAreaList(GeographicAreaList listToSet) {
         this.mGeographicAreaList = listToSet;
     }
+
+    public void setmMotherArea (GeographicArea geoArea){this.mMotherArea = geoArea;}
 
     /**
      * @return returns a Local object containing the top left Vertex.
