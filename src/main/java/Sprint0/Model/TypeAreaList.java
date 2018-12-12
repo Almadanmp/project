@@ -14,10 +14,10 @@ public class TypeAreaList {
         this.mTypeAreaList =list;
     }
 
-    public String getTypeAreaList() {
+    public String printTypeAreaList() {
         String finalString= "";
         for(TypeArea tipo: mTypeAreaList)
-           finalString = tipo.getTypeOfGeographicArea();
+           finalString = finalString + " \n"+ tipo.getTypeOfGeographicArea();
         return finalString;
     }
 
