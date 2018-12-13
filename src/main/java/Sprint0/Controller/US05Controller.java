@@ -30,8 +30,8 @@ public class US05Controller {
         return false;
     }
 
-    public String getTypeSensor(Sensor mModel) {
-        return mModel.getTypeSensor().getName();
+    public SensorList getSensorList() {
+        return this.mSensorList;
     }
 
     private boolean checkIfListValid(List<Sensor> values) {

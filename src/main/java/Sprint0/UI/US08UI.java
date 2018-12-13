@@ -11,9 +11,11 @@ public class US08UI {
     private String mNameGeographicAreaContainer;
     private boolean mActive;
 
-    public US08UI(){mActive = false;}
+    public US08UI() {
+        mActive = false;
+    }
 
-    public void run(GeographicAreaList list){
+    public void run(GeographicAreaList list) {
         this.mActive = true;
         while (this.mActive) {
             getInputGeographicArea1();
@@ -22,32 +24,32 @@ public class US08UI {
         }
     }
 
-    private void getInputGeographicArea2(){
+    private void getInputGeographicArea2() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the name of the area you want to check if it CONTAINS another area: ");
         this.mNameGeographicAreaContainer = scanner.next();
     }
 
-    private void getInputGeographicArea1(){
+    private void getInputGeographicArea1() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the name of the area you want to check if its CONTAINED IN another area: ");
         this.mNameGeographicAreaContained = scanner.next();
     }
 
-    private void verifyAndDisplayState(GeographicAreaList list){
+    private void verifyAndDisplayState(GeographicAreaList list) {
         US08Controller controller = new US08Controller(list);
-        controller.matchGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer);
-        if (!(controller.matchGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer))){
+        if (!(controller.matchGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer))) {
             System.out.println("The given areas are invalid");
             return;
-        }controller.seeIfAreasHaveVertices();
-        if (!(controller.seeIfAreasHaveVertices())){
+        }
+        if (!(controller.seeIfAreasHaveVertices())) {
             System.out.print("The given geographic areas don't have vertices!");
             return;
-        }controller.seeIfItsContained();
-        if (!(controller.seeIfItsContained())){
+        }
+        if (!(controller.seeIfItsContained())) {
             System.out.print(mNameGeographicAreaContained + " is NOT contained in " + mNameGeographicAreaContainer);
             return;
-        }System.out.print(mNameGeographicAreaContained + " is contained in " + mNameGeographicAreaContainer);
+        }
+        System.out.print(mNameGeographicAreaContained + " is contained in " + mNameGeographicAreaContainer);
     }
 }

@@ -27,7 +27,6 @@ public class US04UI {
         getInput();
         update();
         display();
-
     }
 
     private void getInput() {
