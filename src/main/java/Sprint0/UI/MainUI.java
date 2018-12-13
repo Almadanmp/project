@@ -59,6 +59,8 @@ public class MainUI {
                 case 3:
                     US03UI view3 = new US03UI();
                     view3.run(mGeographicAreaList);
+                    System.out.println("\nPress ENTER to return.");
+                    enterToReturnToConsole.nextLine();
                     break;
                 case 4:
                     US04UI view4 = new US04UI();
@@ -69,14 +71,20 @@ public class MainUI {
                 case 5:
                     US05UI view5 = new US05UI();
                     view5.run(mSensorList);
+                    System.out.println("\nPress ENTER to return.");
+                    enterToReturnToConsole.nextLine();
                     break;
                 case 6:
                     US06UI view6 = new US06UI(mSensorList,mGeographicAreaList);
                     view6.run();
+                    System.out.println("\nPress ENTER to return.");
+                    enterToReturnToConsole.nextLine();
                     break;
                 case 7:
                     US07UI view7 = new US07UI();
                     view7.run(mGeographicAreaList);
+                    System.out.println("\nPress ENTER to return.");
+                    enterToReturnToConsole.nextLine();
                     break;
                 case 8:
                     US08UI view8 = new US08UI();
@@ -88,11 +96,15 @@ public class MainUI {
                     for(Sensor sensor : mSensorList.getSensorList()) {
                         System.out.println(sensor.getName());
                     }
+                    System.out.println("\nPress ENTER to return.");
+                    enterToReturnToConsole.nextLine();
                     break;
                 case 10:
                     for(GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
                         System.out.println(ga.getName());
                     }
+                    System.out.println("\nPress ENTER to return.");
+                    enterToReturnToConsole.nextLine();
                     break;
                 case 666:
                     US666UI view666 = new US666UI();
