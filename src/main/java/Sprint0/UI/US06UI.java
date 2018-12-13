@@ -65,20 +65,44 @@ public class US06UI {
         // Local Getter
         System.out.println("\nEnter Sensor Localization:\t");
         System.out.println("\nEnter Latitude:\t");
+        while(!input.hasNextDouble()) {
+            input.next();
+            System.out.println("Not a valid latitude. Try again");
+        }
         this.sensorLat = input.nextDouble();
         System.out.println("\nEnter Longitude:\t");
+        while(!input.hasNextDouble()) {
+            input.next();
+            System.out.println("Not a valid longitude. Try again");
+        }
         this.sensorLong = input.nextDouble();
         System.out.println("\nEnter Altitude:\t");
+        while(!input.hasNextDouble()) {
+            input.next();
+            System.out.println("Not a valid altitude. Try again");
+        }
         this.sensorAlt = input.nextDouble();
         System.out.println("You entered sensor on coordinates  " + sensorLat + "  ,  " + sensorLong + "  ,  " + sensorAlt);
 
         // Date Getter
         System.out.println("\nEnter Sensor starting date:\t");
         System.out.println("\nEnter the year:\t");
+        while(!input.hasNextInt()) {
+            input.next();
+            System.out.println("Not a valid year. Try again");
+        }
         this.dataYear = input.nextInt();
         System.out.println("\nEnter the Month:\t");
+        while(!input.hasNextInt()) {
+            input.next();
+            System.out.println("Not a valid month. Try again");
+        }
         this.dataMonth = input.nextInt();
         System.out.println("\nEnter the Day:\t");
+        while(!input.hasNextInt()) {
+            input.next();
+            System.out.println("Not a valid day. Try again");
+        }
         this.dataDay = input.nextInt();
         Date date = new GregorianCalendar(dataYear, dataMonth, dataDay).getTime();
         System.out.println("You entered the date: " + date);
@@ -120,7 +144,7 @@ public class US06UI {
 
             US06Controller ctrl = new US06Controller();
             if (ctrl.addSensorToGeographicArea(mGeographicAreaName, mGeographicAreaList, mSensorList)) {
-                System.out.println("\nSensor has been sucessefully added to the Geographic Area");
+                System.out.println("\nSensor has been successfully added to the Geographic Area");
             } else {
                 System.out.println("\nSensor could not be added to the Area.");
             }
