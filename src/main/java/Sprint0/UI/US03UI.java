@@ -80,8 +80,7 @@ public class US03UI {
 
     private void updateModel(GeographicAreaList newGeoListUi) {
         US03Controller controller = new US03Controller();
-        GeographicArea newGeo = controller.createNewGeographicArea(nameOfGeoArea, new TypeArea(typeArea), new Local(geoAreaLat, geoAreaLong));
-        this.newGeoAreaAdded = controller.addNewGeoArea(newGeo, newGeoListUi);
+        this.newGeoAreaAdded = controller.addNewGeoArea(new GeographicArea(nameOfGeoArea, new TypeArea(typeArea), new Local(geoAreaLat, geoAreaLong)), newGeoListUi);
     }
 
     private void displayState() {
