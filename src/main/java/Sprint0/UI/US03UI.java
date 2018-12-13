@@ -45,20 +45,36 @@ public class US03UI {
     private void getInputNameNewArea() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the name of the Geographic Area you Want to Add: ");
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid name for a Geographic Area. Please insert only Alphabetic Characters");
+            scanner.next();
+        }
         this.nameOfGeoArea = scanner.next();
     }
 
     private void getInputTypeOfArea() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the Type of the Geographic Area you Want to Add: ");
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
+            scanner.next();
+        }
         this.typeArea = scanner.next();
     }
 
     private void getLocalGeoArea() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please Insert Latitude for the New Geographic Area: ");
+        while (!scanner.hasNextDouble()) {
+            System.out.println("That's not a Valid Input for Latitude. Please insert numbers");
+            scanner.next();
+        }
         this.geoAreaLat = scanner.nextDouble();
         System.out.print("Please Insert Longitude for the New Geographic Area: ");
+        while (!scanner.hasNextDouble()) {
+            System.out.println("That's not a Valid Input for Longitude. Please insert numbers");
+            scanner.next();
+        }
         this.geoAreaLong = scanner.nextDouble();
     }
 

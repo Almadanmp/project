@@ -26,7 +26,6 @@ public class US03ControllerTest {
         boolean result = us3.addNewGeoArea(g1, geographicAreaList);
 
         assertTrue(result);
-
     }
 
     @Test
@@ -51,5 +50,29 @@ public class US03ControllerTest {
         assertFalse(result);
     }
 
+    @Test
+    public void seeIfCreatesGeographicAreaWithNullNameAndThrowsException() {
+        GeographicAreaList geolist1 = new GeographicAreaList();
+
+        //Arrange
+        String name1 = "Porto";
+        TypeArea tA1 = new TypeArea("Distrito");
+        Local l1 = new Local(11, 12);
+        GeographicArea gA1 = new GeographicArea(name1, tA1, l1);
+
+        TypeArea tA2 = new TypeArea("rua");
+        Local l2 = new Local(11, 12);
+        GeographicArea gA2 = new GeographicArea(null, tA2, l2);
+
+        US03Controller us3 = new US03Controller(gA1, geolist1);
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            us3.addNewGeoArea(gA2, geolist1);
+        });
+
+        //Assert
+        assertEquals("Please Insert Valid Name", exception.getMessage());
+    }
 
 }
