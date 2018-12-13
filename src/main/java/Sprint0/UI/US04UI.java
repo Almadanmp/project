@@ -37,6 +37,7 @@ public class US04UI {
         System.out.println("Please insert Geographic Area type:");
         Scanner input = new Scanner(System.in);
         this.action = input.nextLine();
+        System.out.println(this.action + " was successfully entered\n");
     }
 
     /**
