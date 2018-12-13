@@ -595,4 +595,89 @@ public class GeographicAreaTest {
         //Assert
         assertEquals("Please Insert Valid Name", exception.getMessage());
     }
+    @Test
+    public void seeIfConstructorWithOneParameterWorks(){
+        //Arrange
+        GeographicArea ga1 = new GeographicArea("Porto");
+        String expectedResult = "Porto";
+
+        //Act
+        String actualResult = ga1.getName();
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+   @Test
+    public void seeIfWeSetMotherArea() {
+        //Arrange
+        GeographicArea ga1 = new GeographicArea("Porto",new TypeArea("Cidade"),new Local(22,23));
+        GeographicArea ga2 = new GeographicArea("Portugal",new TypeArea("País"),new Local(22,17));
+        ga1.setMotherArea(ga2);
+        GeographicArea expectedResult = ga2;
+
+        //Act
+        GeographicArea actualResult = ga1.getMotherArea();
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+  @Test
+    public void seeIfWeHaveVerticesDetermined (){
+      //Arrange
+      Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
+      GeographicArea ga1 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
+      GeographicArea ga2 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
+      Boolean expectedResult = true;
+
+      //Act
+      Boolean actualResult = ga1.doGeographicAreasHaveVerticesDetermined(ga1,ga2);
+
+      //Assert
+      assertEquals(expectedResult,actualResult);
+  }
+    @Test
+    public void ensureThatAObjectIsNotAInstanceOf (){
+      GeographicArea ga1 = new GeographicArea("Porto");
+        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
+        Boolean expectedResult = false;
+
+        Boolean actualResult = ga1.equals(s1);
+
+        assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    public void ensureThatAreaIsContained () {
+        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
+        GeographicArea ga2 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
+    ga1.setMotherArea(ga2);
+    Boolean expectedResult = true;
+    Boolean actualResult = ga1.checkIfAreaIsContained(ga1,ga2);
+
+    assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    public void ensureThatAreaIsNotContained () {
+        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
+        GeographicArea ga2 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
+        ga1.setMotherArea(ga2);
+        Boolean expectedResult = false;
+        Boolean actualResult = ga1.checkIfAreaIsContained(ga2,ga1);
+
+        assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    public void ensureThatGrandsonAreaIsContainedInGrandmotherArea () {
+        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
+        GeographicArea grandDaughter = new GeographicArea("Porto",new TypeArea("Cidade"),new Local(22,22));
+        GeographicArea mother = new GeographicArea("Portugal",new TypeArea("Cidade"),new Local(22,22));
+        GeographicArea grandMother = new GeographicArea("Europa",new TypeArea("Cidade"),new Local(22,22));
+        grandDaughter.setMotherArea(mother);
+        mother.setMotherArea(grandMother);
+        Boolean expectedResult = true;
+        Boolean actualResult = grandDaughter.checkIfAreaIsContained(grandDaughter,grandMother);
+
+        assertEquals(expectedResult,actualResult);
+    }
 }
+
