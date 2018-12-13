@@ -1,17 +1,32 @@
-package Sprint0_Test.ControllerTest;
+package Sprint0_Test.ModelTest;
 
-import Sprint0.Controller.US01Controller;
-import Sprint0.Model.*;
+import Sprint0.Model.TypeArea;
+import Sprint0.Model.TypeAreaList;
 import org.junit.jupiter.api.Test;
-import static org.testng.Assert.*;
 
-public class US01ControllerTest {
+import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
+class TypeAreaListTest {
 
     @Test
-    public void seeIfnewTAGWorks() {
+    public void seeIfPrintTypeAreaListWorks(){
+        TypeAreaList list =new TypeAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        list.addTypeArea(t1);
+        String result = list.printTypeAreaList();
+        String expectedResult = "\n" +
+                "Area Types List:\n" +
+                "\n" +
+                "-Rua;";
+        assertEquals(result,expectedResult);
+    }
+
+    @Test
+    void newTAG() {
         TypeAreaList newList = new TypeAreaList();
-        US01Controller ctrl = new US01Controller(newList);
-        boolean result = ctrl.createAndAddTypeAreaToList("cidade");
+        boolean result = newList.newTAG("cidade");
         assertTrue(result);
     }
 
@@ -20,8 +35,7 @@ public class US01ControllerTest {
         TypeArea tipo = new TypeArea("rua");
         TypeAreaList newList = new TypeAreaList();
         newList.addTypeArea(tipo);
-        US01Controller ctrl = new US01Controller(newList);
-        boolean result = ctrl.createAndAddTypeAreaToList("cidade");
+        boolean result = newList.newTAG("cidade");
         assertTrue(result);
     }
 
@@ -30,8 +44,7 @@ public class US01ControllerTest {
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList expectedResult = new TypeAreaList();
         expectedResult.addTypeArea(tipo);
-        US01Controller ctrl = new US01Controller(expectedResult);
-        boolean result = ctrl.createAndAddTypeAreaToList("cidade");
+        boolean result = expectedResult.newTAG("cidade");
         assertFalse(result);
     }
 
@@ -40,8 +53,7 @@ public class US01ControllerTest {
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
-        US01Controller ctrl = new US01Controller(list);
-        boolean result = ctrl.createAndAddTypeAreaToList(null);
+        boolean result = list.newTAG(null);
         assertFalse(result);
     }
 
@@ -50,8 +62,7 @@ public class US01ControllerTest {
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
-        US01Controller ctrl = new US01Controller(list);
-        boolean result = ctrl.createAndAddTypeAreaToList("");
+        boolean result = list.newTAG("");
         assertFalse(result);
     }
     @Test
@@ -59,8 +70,7 @@ public class US01ControllerTest {
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
-        US01Controller ctrl = new US01Controller(list);
-        boolean result = ctrl.createAndAddTypeAreaToList("cidade1");
+        boolean result = list.newTAG("cidade1");
         assertFalse(result);
     }
 }

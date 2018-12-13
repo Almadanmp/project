@@ -21,6 +21,7 @@ public class TypeAreaList {
         return finalString;
     }
 
+
     public boolean newTAG(String name) {
 
         if (name == null || name.isEmpty() || name.matches(".*\\d+.*")) {
