@@ -3,8 +3,6 @@ package Sprint0.Controller;
 import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
 
-import java.util.List;
-
 public class US08Controller {
 
     private GeographicArea mGeographicAreaContained;
@@ -31,6 +29,7 @@ public class US08Controller {
      * @param nameOfAreaContainer
      * @return
      */
+
     public boolean matchGeographicAreas(String nameOfAreaContained, String nameOfAreaContainer) {
         if (mGeographicAreaList.checkIfListIsValid()) {
             for (GeographicArea ga1 : mGeographicAreaList.getGeographicAreaList()) {
