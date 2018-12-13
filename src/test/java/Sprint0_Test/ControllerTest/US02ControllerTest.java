@@ -18,12 +18,12 @@ public class US02ControllerTest {
         TypeArea t1 = new TypeArea("Rua");
         list.addTypeArea(t1);
         US02Controller ctrl = new US02Controller(list);
-        String result = ctrl.getTypeAreaList();
+        String actualResult = ctrl.getTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +
                 "-Rua;";
-        assertEquals(result,expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -34,13 +34,13 @@ public class US02ControllerTest {
         list.addTypeArea(t1);
         list.addTypeArea(t2);
         US02Controller ctrl = new US02Controller(list);
-        String result = ctrl.getTypeAreaList();
+        String actualResult = ctrl.getTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +
                 "-Rua;\n" +
                 "-Cidade;";
-        assertEquals(result,expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -53,13 +53,26 @@ public class US02ControllerTest {
         list.addTypeArea(t2);
         list.addTypeArea(t3);
         US02Controller ctrl = new US02Controller(list);
-        String result = ctrl.getTypeAreaList();
+        String actualResult = ctrl.getTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +
                 "-Rua;\n" +
                 "-Cidade;\n" +
                 "-Viela;";
-        assertEquals(result,expectedResult);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfPrintTypeAreaListWorksWithEmptyList(){
+        TypeAreaList list =new TypeAreaList();
+        US02Controller ctrl = new US02Controller(list);
+        String actualResult = ctrl.getTypeAreaList();
+        String expectedResult = "\n" +
+                "Area Types List:\n" +
+                "\n" +
+                "|||| List is Empty ||||\n" +
+                "Add types to list first";
+        assertEquals(expectedResult, actualResult);
     }
 }
