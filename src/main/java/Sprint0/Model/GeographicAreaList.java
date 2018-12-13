@@ -110,6 +110,17 @@ public class GeographicAreaList {
         return finalList;
     }
 
+    /**
+     * This method checks if the list exists
+     * @return
+     */
+    public boolean checkIfListIsValid() {
+        if (mGeographicAreaList == null || mGeographicAreaList.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {

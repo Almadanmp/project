@@ -733,4 +733,13 @@ public class GeographicAreaListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void seeIfAnInvalidListIsAdded(){
+        GeographicAreaList list = new GeographicAreaList();
+        boolean expectedResult = false;
+        boolean actualResult = list.checkIfListIsValid();
+
+        assertEquals(expectedResult, actualResult);
+    }
 }
