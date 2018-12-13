@@ -25,6 +25,20 @@ public class GeographicAreaList {
     }
 
     /**
+     * Method that receives a geographic area as a parameter and adds that
+     * GA to the list in case it is not contained in that list already.
+     * @param geographicAreaToAdd geographic area to be added
+     * @return returns true in case the geographic area is added and false if not
+     * **/
+    public boolean addGeographicAreaToGeographicAreaList(GeographicArea geographicAreaToAdd) {
+        if(!(mGeographicAreaList.contains(geographicAreaToAdd))) {
+            mGeographicAreaList.add(geographicAreaToAdd);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Method that receives a string as a parameter, compares that string with every
      * Geographic Area name of every GA in the list.
      * @param areaToMatch string that corresponds to a geographic area name
@@ -44,23 +58,13 @@ public class GeographicAreaList {
      */
     public String printGeoAreaList() {
         String finalString= "Geographic Area List:";
+        String emptyList= "The list is empty.";
+        if(mGeographicAreaList.isEmpty()) {
+            return emptyList;
+        }
         for(GeographicArea tipo: mGeographicAreaList)
             finalString = finalString + " \n"+ "-" + tipo.getName() + ";";
         return finalString;
-    }
-
-    /**
-     * Method that receives a geographic area as a parameter and adds that
-     * GA to the list in case it is not contained in that list already.
-     * @param geographicAreaToAdd geographic area to be added
-     * @return returns true in case the geographic area is added and false if not
-     * **/
-    public boolean addGeographicAreaToGeographicAreaList(GeographicArea geographicAreaToAdd) {
-        if(!(mGeographicAreaList.contains(geographicAreaToAdd))) {
-            mGeographicAreaList.add(geographicAreaToAdd);
-            return true;
-        }
-        return false;
     }
 
     /**
