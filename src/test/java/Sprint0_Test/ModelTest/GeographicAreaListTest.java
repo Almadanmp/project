@@ -159,6 +159,18 @@ public class GeographicAreaListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+    @Test
+    public void seeIfGetsNullWhenListIsEmpty() {
+        //Arrange
+        String stringToTest = "Lisboa";
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicArea expectedResult = null;
+        GeographicArea actualResult;
+        //Act
+        actualResult = geographicAreaList.matchGeoArea(stringToTest);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     public void seeIfPrintsNamesOfGeoAreaList() {
