@@ -16,6 +16,15 @@ public class GeographicAreaList {
         mGeographicAreaList = new ArrayList<>();
     }
 
+    public GeographicArea matchGeoArea (String areaToMatch){
+        for (GeographicArea g: mGeographicAreaList){
+            if (g.getName().equals(areaToMatch)){
+                return g;
+            }
+        }
+        return null;
+    }
+
     public boolean addGeographicAreaToGeographicAreaList(GeographicArea geographicAreaToAdd) {
         if(!(mGeographicAreaList.contains(geographicAreaToAdd))) {
             mGeographicAreaList.add(geographicAreaToAdd);
