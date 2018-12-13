@@ -9,6 +9,10 @@ import Sprint0.Model.TypeAreaList;
 public class US01Controller {
  private TypeAreaList mTypeAreaList;
 
+    /**
+     * The Builder recieves a List Of Types Of Geographic Areas and sets it.
+     * @param tipo
+     */
     public US01Controller(TypeAreaList tipo) {
         this.mTypeAreaList = tipo;
     }
