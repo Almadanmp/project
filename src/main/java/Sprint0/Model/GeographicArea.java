@@ -133,7 +133,8 @@ public class GeographicArea {
         this.mGeographicAreaList = listToSet;
     }
 
-    public void setmMotherArea (GeographicArea geoArea){this.mMotherArea = geoArea;}
+    public void setMotherArea (GeographicArea geoArea) {this.mMotherArea = geoArea;}
+
 
     /**
      * @return returns a Local object containing the top left Vertex.

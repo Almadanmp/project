@@ -1,6 +1,7 @@
 package Sprint0.UI;
 
 import Sprint0.Controller.US07Controller;
+import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
 
 import java.util.Scanner;
@@ -27,12 +28,12 @@ public class US07UI {
             displayStateMother(newGeoListUi);
             getDaughterGeographicArea();
             displayStateDaughter(newGeoListUi);
-            updateGeoArea();
+            updateState();
             displayState();
         }
     }
 
-    private void displayGeoList(){
+    private void displayGeoList() {
         US07Controller ctrl = new US07Controller(mGeoList);
         System.out.println(ctrl.getGeographicAreaList());
     }
@@ -67,11 +68,12 @@ public class US07UI {
         }
     }
 
-    private void updateGeoArea() {
+    private void updateState() {
         US07Controller ctrl = new US07Controller(mGeoList);
-        System.out.println(ctrl.getGeographicAreaList());
+        GeographicArea daughterArea = ctrl.matchGeoArea(mNameGeographicAreaDaughter);
+        GeographicArea motherArea = ctrl.matchGeoArea(mNameGeographicAreaMother);
+        ctrl.setMotherArea(daughterArea, motherArea);
     }
-
 
     private void displayState() {
         System.out.print("The Geographic Area " + mNameGeographicAreaDaughter + " is contained in " + mNameGeographicAreaMother + "\n");

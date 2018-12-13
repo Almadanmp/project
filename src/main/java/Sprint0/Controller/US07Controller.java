@@ -1,5 +1,6 @@
 package Sprint0.Controller;
 
+import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
 
 public class US07Controller {
@@ -11,6 +12,14 @@ public class US07Controller {
         this.mGeographicAreaList = list;
     }
 
+    public GeographicArea matchGeoArea(String nameArea){
+        return mGeographicAreaList.matchGeoArea(nameArea);
+    }
+
+    public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea){
+        daughterArea.setMotherArea(motherArea);
+    }
+
     public String getGeographicAreaList() {
         return mGeographicAreaList.printGeoAreaList();
     }
@@ -19,6 +28,8 @@ public class US07Controller {
 
         return mGeographicAreaList.validateIfGeographicAreaToGeographicAreaList(ga);
     }
+
+
 
 
 }
