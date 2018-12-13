@@ -18,26 +18,21 @@ public class US03UI {
     private String typeArea;
     private double geoAreaLat;
     private double geoAreaLong;
-    private GeographicArea newGeo;
     private boolean newGeoAreaAdded;
-    private GeographicAreaList newGeoList;
-
     private boolean active;
 
     public US03UI() {
         active = false;
     }
 
-
     public void run(GeographicAreaList newGeoListUi) {
         this.active = true;
-        this.newGeoList = newGeoListUi;
         while (this.active) {
             getInputNameNewArea();
             getInputTypeOfArea();
             getLocalGeoArea();
             updateGeoArea();
-            updateModel();
+            updateModel(newGeoListUi);
             displayState();
         }
     }
@@ -79,14 +74,14 @@ public class US03UI {
     }
 
     private void updateGeoArea() {
-        System.out.print("The Geographic Area you want to Create is " + nameOfGeoArea + " with the type " + typeArea + " and "
-                + " its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " Longitude\n");
+        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + typeArea + " and "
+                + " its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude\n");
     }
 
-    private void updateModel() {
-        this.newGeo = new GeographicArea(nameOfGeoArea, new TypeArea(typeArea), new Local(geoAreaLat, geoAreaLong));
-        US03Controller controller = new US03Controller(newGeo, newGeoList);
-        this.newGeoAreaAdded = controller.addNewGeoArea(newGeo, newGeoList);
+    private void updateModel(GeographicAreaList newGeoListUi) {
+        US03Controller controller = new US03Controller();
+        GeographicArea newGeo = controller.createNewGeographicArea(nameOfGeoArea, new TypeArea(typeArea), new Local(geoAreaLat, geoAreaLong));
+        this.newGeoAreaAdded = controller.addNewGeoArea(newGeo, newGeoListUi);
     }
 
     private void displayState() {

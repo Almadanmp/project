@@ -2,6 +2,8 @@ package Sprint0.Controller;
 
 import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
+import Sprint0.Model.Local;
+import Sprint0.Model.TypeArea;
 
 
 /**
@@ -10,23 +12,21 @@ import Sprint0.Model.GeographicAreaList;
  */
 
 public class US03Controller {
-    private GeographicArea mGeoArea;
-    private GeographicAreaList mGeoList;
 
 
-    public US03Controller(GeographicArea newGeo, GeographicAreaList newGeoList) {
-        this.mGeoArea = newGeo;
-        this.mGeoList = newGeoList;
+    public US03Controller() {
     }
 
-    public boolean addNewGeoArea(GeographicArea geoAToAdd, GeographicAreaList geoList) {
-        this.mGeoArea = geoAToAdd;
-        this.mGeoList = geoList;
-        if (!(mGeoList.containsGA(mGeoArea))) {
-            mGeoList.addGeographicAreaToGeographicAreaList(mGeoArea);
+    public GeographicArea createNewGeographicArea(String newName, TypeArea newType, Local newLocal) {
+        GeographicArea newGeoArea = new GeographicArea(newName, newType, newLocal);
+        return newGeoArea;
+    }
+
+    public boolean addNewGeoArea(GeographicArea geoAToAdd, GeographicAreaList newGeoList) {
+        if (!(newGeoList.containsGA(geoAToAdd))) {
+            newGeoList.addGeographicAreaToGeographicAreaList(geoAToAdd);
             return true;
         }
         return false;
     }
-
 }
