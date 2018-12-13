@@ -106,12 +106,6 @@ public class MainUI {
                     System.out.println("\nPress ENTER to return.");
                     enterToReturnToConsole.nextLine();
                     break;
-                case 666:
-                    US666UI view666 = new US666UI();
-                    view666.run();
-                    System.out.println("\nPress ENTER to return.");
-                    enterToReturnToConsole.nextLine();
-                    break;
             }
         }
     }
