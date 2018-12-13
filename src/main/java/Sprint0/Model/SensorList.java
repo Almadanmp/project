@@ -9,7 +9,7 @@ public class SensorList {
 
     private List<Sensor> mSensorList;
 
-    public SensorList(){
+    public SensorList() {
         this.mSensorList = new ArrayList<>();
     }
 
@@ -111,11 +111,18 @@ public class SensorList {
         return listToTest.get(indexMostRecentlyUsedSensor);
     }
 
-    public static boolean checkIfListValid(List<Sensor> values) {
-        if (values == null || values.isEmpty()) {
-            throw new IllegalArgumentException("List is not valid");
+    /**
+     * @param name name of the sensor to find in the list.
+     * @return return the sensor whose name matches the name introduced.
+     */
+
+    public Sensor getSensorByName(String name) {
+        for (Sensor s : mSensorList) {
+            if (s.getName().equals(name)) {
+                return s;
+            }
         }
-        return true;
+        return null;
     }
 
     /**
@@ -124,6 +131,7 @@ public class SensorList {
      * @param testObject
      * @return
      */
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
@@ -152,10 +160,10 @@ public class SensorList {
     }
 
 
-    public List<Sensor> getSensorsInGAAtACertainTimePeriod(GregorianCalendar date1, GeographicArea ga){
+    public List<Sensor> getSensorsInGAAtACertainTimePeriod(GregorianCalendar date1, GeographicArea ga) {
         List<Sensor> finalList = new ArrayList<>();
-        for(Sensor s: mSensorList){
-            if(s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)){
+        for (Sensor s : mSensorList) {
+            if (s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)) {
                 finalList.add(s);
             }
         }
