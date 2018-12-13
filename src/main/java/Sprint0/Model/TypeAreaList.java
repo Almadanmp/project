@@ -40,4 +40,8 @@ public class TypeAreaList {
             return false;
         }
     }
+
+    public List<TypeArea> getmTypeAreaList() {
+        return this.mTypeAreaList;
+    }
 }

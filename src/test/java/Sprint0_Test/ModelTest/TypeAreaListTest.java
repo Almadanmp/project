@@ -4,6 +4,9 @@ import Sprint0.Model.TypeArea;
 import Sprint0.Model.TypeAreaList;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -20,6 +23,21 @@ class TypeAreaListTest {
                 "Area Types List:\n" +
                 "\n" +
                 "-Rua;";
+        assertEquals(result,expectedResult);
+    }
+    @Test
+    public void seeIfPrintsWhenTypeAreaListIsEmpty(){
+        TypeAreaList list =new TypeAreaList();
+        String result = list.printTypeAreaList();
+        String expectedResult = "\nArea Types List:\n\n|||| List is Empty ||||\nAdd types to list first";
+        assertEquals(result,expectedResult);
+    }
+    @Test
+    public void seeIfPrintsWhenTypeAreaListIsNull(){
+        TypeAreaList list =new TypeAreaList();
+        List<TypeArea> mTypeAreaList = list.getmTypeAreaList();   //sem esta linha o teste não passava
+        String result = list.printTypeAreaList();
+        String expectedResult = "\nArea Types List:\n\n|||| List is Empty ||||\nAdd types to list first";
         assertEquals(result,expectedResult);
     }
 
