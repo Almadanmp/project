@@ -44,8 +44,14 @@ public class US04UI {
     }
 
     private void display() {
-        List<GeographicArea> list = filteredList.getGeographicAreaList();
-        String result = list.stream().map(GeographicArea::getName).collect(Collectors.joining(", "));
-        System.out.print(result);
+        if (mGeoAreaList.getGeographicAreaList().isEmpty()) {
+            System.out.println("The Geographic Area list is currently empty.");
+        } else if (filteredList.getGeographicAreaList().isEmpty()) {
+            System.out.println("There are no Geographic Areas with this Area Type.");
+        } else {
+            List<GeographicArea> list = filteredList.getGeographicAreaList();
+            String result = list.stream().map(GeographicArea::getName).collect(Collectors.joining(", "));
+            System.out.print(result);
+        }
     }
 }
