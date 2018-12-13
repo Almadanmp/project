@@ -35,7 +35,11 @@ public class US07UI {
 
     private void displayGeoList() {
         US07Controller ctrl = new US07Controller(mGeoList);
-        System.out.println(ctrl.getGeographicAreaList());
+        if (ctrl.getGeographicAreaList().isEmpty()) {
+        }
+        else {
+            System.out.println(ctrl.getGeographicAreaList());
+        }
     }
 
     private void getMotherGeographicArea() {
