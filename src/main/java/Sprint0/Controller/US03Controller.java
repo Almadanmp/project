@@ -20,18 +20,16 @@ public class US03Controller {
      * @return will return true if the area was added or false if it wasnt added
      */
     public boolean addNewGeoArea(GeographicArea geoAToAdd, GeographicAreaList newGeoList) {
-        if (checkIfListValid(newGeoList.getGeographicAreaList())) {
-            if (!(newGeoList.containsGA(geoAToAdd))) {
-                newGeoList.addGeographicAreaToGeographicAreaList(geoAToAdd);
-                return true;
-            }
-
+        if (!(newGeoList.containsGA(geoAToAdd))) {
+            newGeoList.addGeographicAreaToGeographicAreaList(geoAToAdd);
+            return true;
         }
         return false;
     }
 
     /**
      * Method to check if the list of Geographic Areas is Valid
+     *
      * @param values
      * @return returns false if its not valid (null or empty) or true if valid.
      */
