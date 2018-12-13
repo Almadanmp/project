@@ -24,7 +24,7 @@ public class US03Controller {
      * @param longitude  input number for longitude
      * @return success if a new GA is added, false otherwise
      */
-    public boolean addNewGeoArea(GeographicAreaList newGeoList, String newName, String typeArea, double latitude, double longitude) {
+    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, String typeArea, double latitude, double longitude) {
         if (newGeoList == null) {
             return false;
         }

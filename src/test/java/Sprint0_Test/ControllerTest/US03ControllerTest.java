@@ -3,7 +3,6 @@ package Sprint0_Test.ControllerTest;
 import Sprint0.Controller.US03Controller;
 import Sprint0.Model.GeographicAreaList;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -21,7 +20,7 @@ public class US03ControllerTest {
         double latitude = 38;
         double longitude = 7;
         US03Controller us3 = new US03Controller();
-        boolean result = us3.addNewGeoArea(geoList, name, typeArea, latitude, longitude);
+        boolean result = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
 
         assertTrue(result);
         assertEquals(1, geoList.getGeographicAreaList().size());
@@ -36,8 +35,8 @@ public class US03ControllerTest {
         double longitude = 7;
 
         US03Controller us3 = new US03Controller();
-        boolean result1 = us3.addNewGeoArea(geoList, name, typeArea, latitude, longitude);
-        boolean result2 = us3.addNewGeoArea(geoList, name, typeArea, latitude, longitude);
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
+        boolean result2 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
 
         assertTrue(result1); //safety check (already covered on previous test)
         assertFalse(result2);
@@ -54,8 +53,8 @@ public class US03ControllerTest {
         String name2 = "Lisboa";
 
         US03Controller us3 = new US03Controller();
-        boolean result1 = us3.addNewGeoArea(geoList, name1, typeArea, latitude, longitude);
-        boolean result2 = us3.addNewGeoArea(geoList, name2, typeArea, latitude, longitude);
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name1, typeArea, latitude, longitude);
+        boolean result2 = us3.addNewGeoAreaToList(geoList, name2, typeArea, latitude, longitude);
 
         assertTrue(result1); //safety check (already covered on previous test)
         assertTrue(result2);
@@ -70,7 +69,7 @@ public class US03ControllerTest {
         double longitude = 7;
 
         US03Controller us3 = new US03Controller();
-        boolean result = us3.addNewGeoArea(null, name1, typeArea, latitude, longitude);
+        boolean result = us3.addNewGeoAreaToList(null, name1, typeArea, latitude, longitude);
 
         assertFalse(result);
     }

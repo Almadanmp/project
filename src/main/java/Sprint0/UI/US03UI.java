@@ -2,7 +2,6 @@ package Sprint0.UI;
 
 import Sprint0.Controller.US03Controller;
 import Sprint0.Model.GeographicAreaList;
-
 import java.util.Scanner;
 
 /**
@@ -60,12 +59,12 @@ public class US03UI {
 
     private void updateGeoArea() {
         System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + typeArea +
-                " and its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude\n");
+                " and its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude.\n");
     }
 
     private void updateModel(GeographicAreaList newGeoListUi) {
         US03Controller controller = new US03Controller();
-        this.areaAddedResult = controller.addNewGeoArea(newGeoListUi, nameOfGeoArea, typeArea, geoAreaLat, geoAreaLong);
+        this.areaAddedResult = controller.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, typeArea, geoAreaLat, geoAreaLong);
     }
 
     private void displayState() {
@@ -73,7 +72,7 @@ public class US03UI {
             System.out.print("The Geographic Area has been successfully added.");
         } else
             System.out.print("The Geographic Area hasn't been added to the list. " +
-                    "There is already an area with those input values");
+                    "There is already an area with those input values.");
         active = false;
     }
 
