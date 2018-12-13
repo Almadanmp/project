@@ -17,7 +17,8 @@ public class US02ControllerTest {
         TypeAreaList list =new TypeAreaList();
         TypeArea t1 = new TypeArea("Rua");
         list.addTypeArea(t1);
-        String result = list.printTypeAreaList();
+        US02Controller ctrl = new US02Controller(list);
+        String result = ctrl.getTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +
