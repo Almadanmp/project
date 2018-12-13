@@ -17,12 +17,13 @@ public class US02ControllerTest {
         TypeAreaList list =new TypeAreaList();
         TypeArea t1 = new TypeArea("Rua");
         list.addTypeArea(t1);
-        String result = list.printTypeAreaList();
+        US02Controller ctrl = new US02Controller(list);
+        String actualResult = ctrl.getTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +
                 "-Rua;";
-        assertEquals(result,expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -32,13 +33,14 @@ public class US02ControllerTest {
         TypeArea t2 = new TypeArea("Cidade");
         list.addTypeArea(t1);
         list.addTypeArea(t2);
-        String result = list.printTypeAreaList();
+        US02Controller ctrl = new US02Controller(list);
+        String actualResult = ctrl.getTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +
                 "-Rua;\n" +
                 "-Cidade;";
-        assertEquals(result,expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -50,13 +52,27 @@ public class US02ControllerTest {
         list.addTypeArea(t1);
         list.addTypeArea(t2);
         list.addTypeArea(t3);
-        String result = list.printTypeAreaList();
+        US02Controller ctrl = new US02Controller(list);
+        String actualResult = ctrl.getTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +
                 "-Rua;\n" +
                 "-Cidade;\n" +
                 "-Viela;";
-        assertEquals(result,expectedResult);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfPrintTypeAreaListWorksWithEmptyList(){
+        TypeAreaList list =new TypeAreaList();
+        US02Controller ctrl = new US02Controller(list);
+        String actualResult = ctrl.getTypeAreaList();
+        String expectedResult = "\n" +
+                "Area Types List:\n" +
+                "\n" +
+                "|||| List is Empty ||||\n" +
+                "Add types to list first";
+        assertEquals(expectedResult, actualResult);
     }
 }
