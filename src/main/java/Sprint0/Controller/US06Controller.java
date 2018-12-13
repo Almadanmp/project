@@ -1,10 +1,6 @@
 package Sprint0.Controller;
 
 import Sprint0.Model.*;
-import Sprint0.UI.MainUI;
-
-import javax.xml.crypto.Data;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -21,10 +17,10 @@ public class US06Controller {
     private TypeSensor mType;
     private Sensor mSensor;
 
-    /**
-     * Builder US06Controller(), with no parameters, as it will only be used in UI to apply methods on given inputs
-     */
     public US06Controller() {
+        /*
+         * Builder US06Controller(), with no parameters, as it will only be used in UI to apply methods on given inputs
+         */
     }
 
     /**

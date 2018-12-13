@@ -1,10 +1,5 @@
 package Sprint0.Controller;
-
-import Sprint0.UI.MainUI;
 import Sprint0.Model.TypeAreaList;
-import Sprint0.Model.TypeArea;
-
-import java.util.List;
 
 
 /**

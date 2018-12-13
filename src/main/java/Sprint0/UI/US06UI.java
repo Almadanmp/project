@@ -2,10 +2,8 @@ package Sprint0.UI;
 
 import Sprint0.Controller.US06Controller;
 import Sprint0.Model.*;
-
-import javax.xml.crypto.Data;
-import java.sql.SQLOutput;
 import java.util.*;
+
 
 public class US06UI {
 
@@ -18,9 +16,6 @@ public class US06UI {
     private int dataYear;
     private int dataMonth;
     private int dataDay;
-    private Local mLocal;
-    private Date mDate;
-    private TypeSensor mType;
     private Sensor mSensor;
     private String mGeographicAreaName;
     private SensorList mSensorList;
@@ -91,17 +86,17 @@ public class US06UI {
 
     private void updateUS06() {
         US06Controller ctrl = new US06Controller();
-        this.mLocal = ctrl.createLocal(this.sensorLat, this.sensorLong, this.sensorAlt);
-        this.mType = ctrl.createType(this.sensorType);
-        this.mDate = ctrl.createDate(this.dataYear, this.dataMonth, this.dataDay);
-        this.mSensor = ctrl.createSensor(this.sensorName, this.mType, this.mLocal, mDate);
+        Local mLocal = ctrl.createLocal(this.sensorLat, this.sensorLong, this.sensorAlt);
+        TypeSensor mType = ctrl.createType(this.sensorType);
+        Date mDate = ctrl.createDate(this.dataYear, this.dataMonth, this.dataDay);
+        this.mSensor = ctrl.createSensor(this.sensorName, mType, mLocal, mDate);
     }
 
     private void displayUS06() {
         this.active = true;
         US06Controller ctrl = new US06Controller();
         if (ctrl.addSensor(mSensor, mSensorList)) {
-            System.out.println("\n \n Sensor has been sucessefully added to the list");
+            System.out.println("\n \n Sensor has been successfully added to the list");
         } else {
             System.out.println("\n \nSensor could not be added to the list.");
         }
