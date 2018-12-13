@@ -15,30 +15,48 @@ public class US02ControllerTest {
     @Test
     public void seeIfPrintTypeAreaListWorks(){
         TypeAreaList list =new TypeAreaList();
-        TypeArea t1 = new TypeArea("rua");
+        TypeArea t1 = new TypeArea("Rua");
         list.addTypeArea(t1);
         String result = list.printTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
-                " \n" +
-                "-rua;";
+                "\n" +
+                "-Rua;";
         assertEquals(result,expectedResult);
     }
 
     @Test
     public void seeIfPrintTypeAreaListWorksWithTwoTypes(){
         TypeAreaList list =new TypeAreaList();
-        TypeArea t1 = new TypeArea("rua");
-        TypeArea t2 = new TypeArea("cidade");
+        TypeArea t1 = new TypeArea("Rua");
+        TypeArea t2 = new TypeArea("Cidade");
         list.addTypeArea(t1);
         list.addTypeArea(t2);
         String result = list.printTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
-                " \n" +
-                "-rua; \n" +
-                "-cidade;";
+                "\n" +
+                "-Rua;\n" +
+                "-Cidade;";
         assertEquals(result,expectedResult);
     }
 
+    @Test
+    public void seeIfPrintTypeAreaListWorksWithThreeTypes(){
+        TypeAreaList list =new TypeAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        TypeArea t2 = new TypeArea("Cidade");
+        TypeArea t3 = new TypeArea("Viela");
+        list.addTypeArea(t1);
+        list.addTypeArea(t2);
+        list.addTypeArea(t3);
+        String result = list.printTypeAreaList();
+        String expectedResult = "\n" +
+                "Area Types List:\n" +
+                "\n" +
+                "-Rua;\n" +
+                "-Cidade;\n" +
+                "-Viela;";
+        assertEquals(result,expectedResult);
+    }
 }
