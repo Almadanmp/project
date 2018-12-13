@@ -42,7 +42,7 @@ public class US08Controller {
      * @return
      */
     public boolean seeIfItsContained() {
-        return mGeographicAreaContained.isAreaMotherOfAnotherArea(mGeographicAreaContained, mGeographicAreaContainer);
+        return mGeographicAreaContained.checkIfAreaIsContained(mGeographicAreaContained, mGeographicAreaContainer);
     }
 
 

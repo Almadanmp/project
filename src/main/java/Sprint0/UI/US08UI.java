@@ -63,5 +63,6 @@ public class US08UI {
             return;
         }
         System.out.print(mNameGeographicAreaContained + " is contained in " + mNameGeographicAreaContainer);
+        return;
     }
 }

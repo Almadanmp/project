@@ -41,6 +41,7 @@ public class GeographicArea {
         setName(mName);
 
     }
+
     /**
      * Constructor of the class GeographicAreaController that receives the type of Geographic Area and its localization
      * as parameters.
@@ -88,17 +89,6 @@ public class GeographicArea {
      * is assumed to be a rectangle.
      */
 
-    public void setTopLeftVertexThroughString(String topLeftLat, String topLeftLong){
-        double topLeftLati = Double.parseDouble(topLeftLat);
-        double topLeftLon = Double.parseDouble(topLeftLong);
-        this.mTopLeftVertex  = new Local(topLeftLati, topLeftLon);
-    }
-
-    public void setBottomRightVertexThroughString(String botRightLat, String botRightLong){
-        double botRightLati = Double.parseDouble(botRightLat);
-        double botRightLon = Double.parseDouble(botRightLong);
-        this.mBottomRightVertex  = new Local(botRightLati, botRightLon);
-    }
 
     public void setTopLeftVertex(Local localv1) {
         if (localv1.getLatitude() <= mLocal.getLatitude() && localv1.getLongitude() >= mLocal.getLongitude()) {
@@ -145,7 +135,25 @@ public class GeographicArea {
         this.mGeographicAreaList = listToSet;
     }
 
-    public void setMotherArea (GeographicArea geoArea) {this.mMotherArea = geoArea;}
+    public void setMotherArea(GeographicArea geoArea) {
+        this.mMotherArea = geoArea;
+    }
+
+    public GeographicArea getMotherArea() {
+        return this.mMotherArea;
+    }
+
+    public boolean checkIfAreaIsContained(GeographicArea daughterArea, GeographicArea motherArea) {
+        GeographicArea onTest = daughterArea;
+        while (onTest.getMotherArea() != null) {
+            if (onTest.getMotherArea().equals(motherArea)) {
+                return true;
+            } else {
+                onTest = onTest.getMotherArea();
+            }
+        }
+        return false;
+    }
 
 
     /**
@@ -246,13 +254,6 @@ public class GeographicArea {
         double longBotVert2 = area2.getBottomRightVertex().getLongitude();
         return (latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1);
     }
-
-    public boolean isAreaMotherOfAnotherArea(GeographicArea gAContained, GeographicArea gAContainer){
-        if(gAContained.mMotherArea == gAContainer){
-            return true;
-        }return false;
-    }
-
 
     /**
      * Method will calculate the distance between two different Geographic Areas.

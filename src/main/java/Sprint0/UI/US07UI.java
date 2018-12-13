@@ -40,7 +40,7 @@ public class US07UI {
 
     private void getMotherGeographicArea() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please type the area to add the new geographic area to: ");
+        System.out.print("Type the name of the GeographicArea that you want to say contains another: ");
         this.mNameGeographicAreaMother = scanner.next();
     }
 
@@ -55,7 +55,7 @@ public class US07UI {
 
     private void getDaughterGeographicArea() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Type the name of the area you want to check if its CONTAINED IN another area: ");
+        System.out.print("Type the name of the GeographicArea that you want to say is contained in another: ");
         this.mNameGeographicAreaDaughter = scanner.next();
     }
 
