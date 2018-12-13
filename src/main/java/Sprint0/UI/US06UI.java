@@ -132,7 +132,7 @@ public class US06UI {
         System.out.println("\n Add sensor to Geographic Area?\n");
         System.out.println("Yes/No:\t");
         if (input.nextLine().equals("Yes")) {
-            System.out.println("Type the name of the Geographic Area wich the sensor will be added to");
+            System.out.println("Type the name of the Geographic Area which the sensor will be added to");
             System.out.println("\nEnter Geographic Area Name:\t");
             this.mGeographicAreaName = input.nextLine();
             System.out.println("You entered  " + this.mGeographicAreaName);
