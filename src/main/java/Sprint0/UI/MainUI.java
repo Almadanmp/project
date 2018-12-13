@@ -16,7 +16,7 @@ public class MainUI {
         TypeAreaList mTypeAreaList = new TypeAreaList();
         Scanner enterToReturnToConsole=new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
-        int option = -1;
+        int option;
 
         while (activeProgram) {
 
