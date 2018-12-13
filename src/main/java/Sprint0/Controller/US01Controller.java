@@ -24,7 +24,7 @@ public class US01Controller {
      * @return true - the Type of Geographic Area was successfully created;
      * false - the name is null.
      */
-    public boolean CreateAndAddTypeAreaToList(String input) {
+    public boolean createAndAddTypeAreaToList(String input) {
         return mTypeAreaList.newTAG(input);
     }
 
