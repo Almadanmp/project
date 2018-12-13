@@ -10,23 +10,17 @@ public class TypeAreaList {
         mTypeAreaList = new ArrayList<>();
     }
 
-    public void setTypeAreaList(ArrayList<TypeArea> list){
-        this.mTypeAreaList =list;
-    }
 
     public String printTypeAreaList() {
-        String finalString= "\nArea Types List:\n";
-        for(TypeArea tipo: mTypeAreaList)
-           finalString = finalString + " \n"+ "-" + tipo.getTypeOfGeographicArea() + ";";
+        String finalString = "\nArea Types List:\n";
+        for (TypeArea tipo : mTypeAreaList)
+            finalString = finalString + " \n" + "-" + tipo.getTypeOfGeographicArea() + ";";
         return finalString;
     }
 
-    public boolean containsTypeArea(TypeArea tipo) {
-        return mTypeAreaList.contains(tipo);
-    }
-
     public boolean newTAG(String name) {
-        if (name == null || name.isEmpty()) {
+
+        if (name == null || name.isEmpty() || name.matches(".*\\d+.*")) {
             return false;
         }
         TypeArea tipo = new TypeArea(name);

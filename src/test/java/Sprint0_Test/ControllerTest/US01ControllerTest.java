@@ -3,7 +3,6 @@ package Sprint0_Test.ControllerTest;
 import Sprint0.Controller.US01Controller;
 import Sprint0.Model.*;
 import org.junit.jupiter.api.Test;
-
 import static org.testng.Assert.*;
 
 public class US01ControllerTest {
@@ -33,6 +32,21 @@ public class US01ControllerTest {
         list.addTypeArea(tipo);
         US01Controller ctrl = new US01Controller(list);
         boolean result = ctrl.CreateAndAddTypeAreaToList(null);
+        assertFalse(result);
+    }
+
+    @Test
+    public void seeIfNewTAGDoesntWorkWhenNameIsEmpty(){
+        TypeAreaList list = new TypeAreaList();
+        US01Controller ctrl = new US01Controller(list);
+        boolean result = ctrl.CreateAndAddTypeAreaToList("");
+        assertFalse(result);
+    }
+    @Test
+    public void seeIfNewTAGDoesntWorkWhenNumbersAreAdded(){
+        TypeAreaList list = new TypeAreaList();
+        US01Controller ctrl = new US01Controller(list);
+        boolean result = ctrl.CreateAndAddTypeAreaToList("cidade1");
         assertFalse(result);
     }
 }
