@@ -3,8 +3,6 @@ package Sprint0.Controller;
 import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
 
-import java.util.List;
-
 
 /**
  * User Story 3
@@ -24,7 +22,6 @@ public class US03Controller {
     public boolean addNewGeoArea(GeographicArea geoAToAdd, GeographicAreaList geoList) {
         this.mGeoArea = geoAToAdd;
         this.mGeoList = geoList;
-        checkIfListValid(geoList.getGeographicAreaList());
         if (!(mGeoList.containsGA(mGeoArea))) {
             mGeoList.addGeographicAreaToGeographicAreaList(mGeoArea);
             return true;
@@ -32,7 +29,4 @@ public class US03Controller {
         return false;
     }
 
-    private boolean checkIfListValid(List<GeographicArea> values) {
-        return (values == null || values.isEmpty());
-    }
 }

@@ -89,7 +89,6 @@ public class US03UI {
         this.newGeoAreaAdded = controller.addNewGeoArea(newGeo, newGeoList);
     }
 
-
     private void displayState() {
         if (newGeoAreaAdded) {
             System.out.print("The Geographic Area has been successfully added.");
