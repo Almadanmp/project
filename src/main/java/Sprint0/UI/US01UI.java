@@ -23,16 +23,20 @@ public class US01UI {
     public void run(TypeAreaList list) {
         this.active = true;
 
-        getInput();
-        updateModel(list);
-        displayState();
+            getInput();
+            updateModel(list);
+            displayState();
 
     }
 
     private void getInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please insert the name of the new Geographic Area Type: ");
-        this.mTypeArea = scanner.nextLine();
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
+            scanner.next();
+        }
+        this.mTypeArea = scanner.next();
     }
 
     private void updateModel(TypeAreaList list) {
@@ -41,11 +45,11 @@ public class US01UI {
     }
 
     private void displayState() {
-        this.active = true;
         if (mTypeAreaList) {
             System.out.println("Success, you have inserted a new Type of Geographic Area.");
         } else {
             System.out.println("Unsuccess, you have inserted an invalid or repeated Type of Geographic Area.");
+            this.active = false;
         }
     }
 
