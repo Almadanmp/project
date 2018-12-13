@@ -1,30 +1,38 @@
 package Sprint0.UI;
 
 import Sprint0.Controller.US03Controller;
-import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
-import Sprint0.Model.Local;
-import Sprint0.Model.TypeArea;
 
 import java.util.Scanner;
 
 /**
  * * User Story 03
  * As a System Administrator I want to Create a new Geographic Area.
+ * <p>
  * This class is responsible for handling user input.
+ * It calls the respective US03 controller.
  */
 public class US03UI {
     private String nameOfGeoArea;
     private String typeArea;
     private double geoAreaLat;
     private double geoAreaLong;
-    private boolean newGeoAreaAdded;
+    private boolean areaAddedResult;
     private boolean active;
+    private Scanner scanner;
 
     public US03UI() {
-        active = false;
+        this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * US 03 view - run method.
+     * Reads necessary user inputs .
+     * Calls controller to create the GA and add it to the list (received as a parameter).
+     * Displays result information to the user.
+     *
+     * @param newGeoListUi the list where new GA shall be added to
+     */
     public void run(GeographicAreaList newGeoListUi) {
         this.active = true;
         while (this.active) {
@@ -38,56 +46,66 @@ public class US03UI {
     }
 
     private void getInputNameNewArea() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Type the name of the Geographic Area you Want to Add: ");
-        while (!scanner.hasNext("[a-zA-Z_]+")) {
-            System.out.println("That's not a valid name for a Geographic Area. Please insert only Alphabetic Characters");
-            scanner.next();
-        }
-        this.nameOfGeoArea = scanner.next();
+        this.nameOfGeoArea = readInputString("name");
     }
 
     private void getInputTypeOfArea() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Type the Type of the Geographic Area you Want to Add: ");
-        while (!scanner.hasNext("[a-zA-Z_]+")) {
-            System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
-            scanner.next();
-        }
-        this.typeArea = scanner.next();
+        this.typeArea = readInputString("Type Area");
     }
 
     private void getLocalGeoArea() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please Insert Latitude for the New Geographic Area: ");
-        while (!scanner.hasNextDouble()) {
-            System.out.println("That's not a Valid Input for Latitude. Please insert numbers");
-            scanner.next();
-        }
-        this.geoAreaLat = scanner.nextDouble();
-        System.out.print("Please Insert Longitude for the New Geographic Area: ");
-        while (!scanner.hasNextDouble()) {
-            System.out.println("That's not a Valid Input for Longitude. Please insert numbers");
-            scanner.next();
-        }
-        this.geoAreaLong = scanner.nextDouble();
+        this.geoAreaLat = readInputNumber("Latitude");
+        this.geoAreaLong = readInputNumber("Longitude");
     }
 
     private void updateGeoArea() {
-        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + typeArea + " and "
-                + " its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude\n");
+        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + typeArea +
+                " and its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude\n");
     }
 
     private void updateModel(GeographicAreaList newGeoListUi) {
         US03Controller controller = new US03Controller();
-        this.newGeoAreaAdded = controller.addNewGeoArea(new GeographicArea(nameOfGeoArea, new TypeArea(typeArea), new Local(geoAreaLat, geoAreaLong)), newGeoListUi);
+        this.areaAddedResult = controller.addNewGeoArea(newGeoListUi, nameOfGeoArea, typeArea, geoAreaLat, geoAreaLong);
     }
 
     private void displayState() {
-        if (newGeoAreaAdded) {
+        if (areaAddedResult) {
             System.out.print("The Geographic Area has been successfully added.");
         } else
-            System.out.print("The Geographic Area hasn't been added to the list. There is already an area with the characteristics inputed");
+            System.out.print("The Geographic Area hasn't been added to the list. " +
+                    "There is already an area with those input values");
         active = false;
+    }
+
+    private String createInputMsg(String inputType) {
+        return "Please Insert " + inputType + " for the New Geographic Area: ";
+    }
+
+    private String createInvalidStringMsg(String inputType) {
+        return "That's not a valid " + inputType + ". Please insert only Alphabetic Characters";
+    }
+
+    private String createInvalidNumberMsg(String inputType) {
+        return "That's not a valid " + inputType + ". Please insert only Numbers";
+    }
+
+    private String readInputString(String inputType) {
+        System.out.print(createInputMsg(inputType));
+
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println(createInvalidStringMsg(inputType));
+            scanner.next();
+        }
+        return scanner.next();
+    }
+
+    private double readInputNumber(String inputType) {
+        System.out.print(createInputMsg(inputType));
+
+        while (!scanner.hasNextDouble()) {
+            System.out.println(createInvalidNumberMsg(inputType));
+            scanner.next();
+        }
+        return scanner.nextDouble();
     }
 }

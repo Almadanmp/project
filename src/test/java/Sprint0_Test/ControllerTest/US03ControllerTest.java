@@ -1,51 +1,76 @@
 package Sprint0_Test.ControllerTest;
 
-
 import Sprint0.Controller.US03Controller;
-import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
-import Sprint0.Model.Local;
-import Sprint0.Model.TypeArea;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-
+/**
+ * User Story 03 - Controller Tests
+ */
 public class US03ControllerTest {
 
     @Test
     public void seeIfCreatesGeographicAreaAndAddsItToList() {
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        String name1 = "Porto";
-        TypeArea t1 = new TypeArea("Distrito");
-        Local l1 = new Local(38, 7);
-        GeographicArea g1 = new GeographicArea(name1, t1, l1);
+        GeographicAreaList geoList = new GeographicAreaList();
+        String name = "Porto";
+        String typeArea = "Distrito";
+        double latitude = 38;
+        double longitude = 7;
         US03Controller us3 = new US03Controller();
-
-        boolean result = us3.addNewGeoArea(g1, geographicAreaList);
+        boolean result = us3.addNewGeoArea(geoList, name, typeArea, latitude, longitude);
 
         assertTrue(result);
+        assertEquals(1, geoList.getGeographicAreaList().size());
     }
 
     @Test
     public void seeIfFailsCreatingSecondEqualGeographicArea() {
-        GeographicAreaList geolist1 = new GeographicAreaList();
-
-        String name1 = "Porto";
-        TypeArea t1 = new TypeArea("Distrito");
-        Local l1 = new Local(38, 7);
-        GeographicArea g1 = new GeographicArea(name1, t1, l1);
-
-        String name2 = "Porto";
-        TypeArea t2 = new TypeArea("Distrito");
-        Local l2 = new Local(38, 7);
-        GeographicArea g2 = new GeographicArea(name2, t2, l2);
-        geolist1.addGeographicAreaToGeographicAreaList(g1);
+        GeographicAreaList geoList = new GeographicAreaList();
+        String name = "Porto";
+        String typeArea = "Distrito";
+        double latitude = 38;
+        double longitude = 7;
 
         US03Controller us3 = new US03Controller();
+        boolean result1 = us3.addNewGeoArea(geoList, name, typeArea, latitude, longitude);
+        boolean result2 = us3.addNewGeoArea(geoList, name, typeArea, latitude, longitude);
 
-        boolean result = us3.addNewGeoArea(g2, geolist1);
+        assertTrue(result1); //safety check (already covered on previous test)
+        assertFalse(result2);
+        assertEquals(1, geoList.getGeographicAreaList().size());
+    }
+
+    @Test
+    public void seeIfCreatesTwoDifferentGeographicAreas() {
+        GeographicAreaList geoList = new GeographicAreaList();
+        String name1 = "Porto";
+        String typeArea = "Distrito";
+        double latitude = 38;
+        double longitude = 7;
+        String name2 = "Lisboa";
+
+        US03Controller us3 = new US03Controller();
+        boolean result1 = us3.addNewGeoArea(geoList, name1, typeArea, latitude, longitude);
+        boolean result2 = us3.addNewGeoArea(geoList, name2, typeArea, latitude, longitude);
+
+        assertTrue(result1); //safety check (already covered on previous test)
+        assertTrue(result2);
+        assertEquals(2, geoList.getGeographicAreaList().size());
+    }
+
+    @Test
+    public void seeIfFailsWithNullInputGeoList() {
+        String name1 = "Porto";
+        String typeArea = "Distrito";
+        double latitude = 38;
+        double longitude = 7;
+
+        US03Controller us3 = new US03Controller();
+        boolean result = us3.addNewGeoArea(null, name1, typeArea, latitude, longitude);
 
         assertFalse(result);
     }

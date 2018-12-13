@@ -14,7 +14,7 @@ public class MainUI {
         SensorList mSensorList = new SensorList();
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
         TypeAreaList mTypeAreaList = new TypeAreaList();
-        Scanner enterToReturnToConsole=new Scanner(System.in);
+        Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
         int option;
 
@@ -27,7 +27,17 @@ public class MainUI {
 
             // Submenus Input selection
 
-            String[] menu = {" 0. Exit\n", "1. Create a new Type of Geographic Area\n", "2. List all area Types\n", "3. Create a new Geographic Area\n", "4. List All Geographic Areas With Area Type Given\n", "5. Determine the type of a sensor\n", "6. Create a new Sensor and Add it to a GA\n", "7. Say that an area is contained in another area \n", "8. See if an area is contained in another area.\n", "9. Display Sensor List\n", "10. Display Geographic Area\n"};
+            String[] menu = {" 0. Exit\n",
+                    "1. Create a new Type of Geographic Area\n",
+                    "2. List all area Types\n",
+                    "3. Create a new Geographic Area\n",
+                    "4. List All Geographic Areas With Area Type Given\n",
+                    "5. Determine the type of a sensor\n",
+                    "6. Create a new Sensor and Add it to a GA\n",
+                    "7. Say that an area is contained in another area \n",
+                    "8. See if an area is contained in another area.\n",
+                    "9. Display Sensor List\n",
+                    "10. Display Geographic Area\n"};
 
 
             System.out.println("Select the task you want to do:");
@@ -75,7 +85,7 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 6:
-                    US06UI view6 = new US06UI(mSensorList,mGeographicAreaList);
+                    US06UI view6 = new US06UI(mSensorList, mGeographicAreaList);
                     view6.run();
                     System.out.println("\nPress ENTER to return.");
                     enterToReturnToConsole.nextLine();
@@ -93,14 +103,14 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 9:
-                    for(Sensor sensor : mSensorList.getSensorList()) {
+                    for (Sensor sensor : mSensorList.getSensorList()) {
                         System.out.println(sensor.getName());
                     }
                     System.out.println("\nPress ENTER to return.");
                     enterToReturnToConsole.nextLine();
                     break;
                 case 10:
-                    for(GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
+                    for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
                         System.out.println(ga.getName());
                     }
                     System.out.println("\nPress ENTER to return.");
