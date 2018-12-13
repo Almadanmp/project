@@ -55,7 +55,7 @@ public class US08UI {
     private void verifyAndDisplayState(GeographicAreaList list) {
         US08Controller controller = new US08Controller(list);
         if (!(controller.matchGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer))) {
-            System.out.println("The given areas are invalid");
+            System.out.println("The given areas are invalid!");
             return;
         }
         if (!(controller.seeIfItsContained())) {

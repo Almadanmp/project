@@ -32,7 +32,7 @@ public class US08Controller {
      * @return
      */
     public boolean matchGeographicAreas(String nameOfAreaContained, String nameOfAreaContainer) {
-        if (checkIfListIsValid(mGeographicAreaList.getGeographicAreaList())) {
+        if (mGeographicAreaList.checkIfListIsValid()) {
             for (GeographicArea ga1 : mGeographicAreaList.getGeographicAreaList()) {
                 if (ga1.getName().equals(nameOfAreaContained)) {
                     mGeographicAreaContained = ga1;
@@ -55,19 +55,5 @@ public class US08Controller {
      */
     public boolean seeIfItsContained() {
         return mGeographicAreaContained.checkIfAreaIsContained(mGeographicAreaContained, mGeographicAreaContainer);
-    }
-
-
-    /**
-     * This method checks if the list exists
-     *
-     * @param values
-     * @return
-     */
-    private boolean checkIfListIsValid(List<GeographicArea> values) {
-        if (values == null || values.isEmpty()) {
-            return false;
-        }
-        return true;
     }
 }

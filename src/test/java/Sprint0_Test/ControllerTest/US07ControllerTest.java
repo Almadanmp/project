@@ -53,5 +53,42 @@ public class US07ControllerTest {
 
     }
 
+    @Test
+    public void seeIfGetGeographicAreaList (){
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicArea ga1 = new GeographicArea("Porto");
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        US07Controller ctrl = new US07Controller(geographicAreaList);
+
+        String actualResult = ctrl.getGeographicAreaList();
+
+        assertEquals("Geographic Area List: \n" +
+                "-Porto;", actualResult);
+    }
+    @Test
+    public void seeIfValidateGeoAreaTrue (){
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicArea ga1 = new GeographicArea("Porto");
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        US07Controller ctrl = new US07Controller(geographicAreaList);
+        boolean actualResult = ctrl.validateGeoArea("Porto");
+
+        assertEquals(true, actualResult);
+
+
+    }
+    @Test
+    public void seeIfValidateGeoAreaFalse (){
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicArea ga1 = new GeographicArea("Porto");
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        US07Controller ctrl = new US07Controller(geographicAreaList);
+        boolean actualResult = ctrl.validateGeoArea("Gaia");
+
+        assertEquals(false, actualResult);
+
+
+    }
+
 
 }

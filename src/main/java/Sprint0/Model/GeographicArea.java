@@ -14,17 +14,6 @@ public class GeographicArea {
     private GeographicAreaList mGeographicAreaList;
     private GeographicArea mMotherArea;
 
-    public String getName() {
-        return this.mName;
-    }
-
-    public void setName(String name) {
-        if (isGeographicNameValid(name)) {
-            this.mName = name;
-        } else {
-            throw new IllegalArgumentException("Please Insert Valid Name");
-        }
-    }
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
     // They can be made with or without a sensor list.
@@ -83,6 +72,18 @@ public class GeographicArea {
     }
 
     // Setters and Getters for all the parameters.
+
+    public String getName() {
+        return this.mName;
+    }
+
+    public void setName(String name) {
+        if (isGeographicNameValid(name)) {
+            this.mName = name;
+        } else {
+            throw new IllegalArgumentException("Please Insert Valid Name");
+        }
+    }
 
     /**
      * Setters for the Vertexes of the geographic area. For the purposes of the area they define, the area
