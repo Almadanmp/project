@@ -31,8 +31,8 @@ public class GeographicAreaListTest {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7);
-        GeographicArea ga1 = new GeographicArea(t1, l1);
-        GeographicArea ga2 = new GeographicArea(t1,l1);
+        GeographicArea ga1 = new GeographicArea("porto",t1, l1);
+        GeographicArea ga2 = new GeographicArea("porto",t1,l1);
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
         boolean expectedResult = false;
         boolean actualResult;

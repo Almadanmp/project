@@ -282,7 +282,7 @@ public class GeographicArea {
             return false;
         }
         GeographicArea gA = (GeographicArea) testObject;
-        return this.getLocal().equals(gA.getLocal());
+        return (this.getLocal().equals(gA.getLocal()) && (this.getName().equals(gA.getName()) && (this.getTypeArea().getTypeOfGeographicArea().equals(gA.getTypeArea().getTypeOfGeographicArea()))));
     }
 
     @Override

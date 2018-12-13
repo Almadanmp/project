@@ -6,6 +6,7 @@ import Sprint0.Model.GeographicAreaList;
 public class US07Controller {
 
     private GeographicAreaList mGeographicAreaList;
+    private GeographicArea mMotherArea;
 
 
     public US07Controller(GeographicAreaList list) {
@@ -18,6 +19,12 @@ public class US07Controller {
 
     public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea){
         daughterArea.setMotherArea(motherArea);
+        this.mMotherArea = motherArea;
+    }
+
+    public GeographicArea getMotherArea (){
+        return this.mMotherArea;
+
     }
 
     public String getGeographicAreaList() {
