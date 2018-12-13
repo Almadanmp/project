@@ -88,6 +88,18 @@ public class GeographicArea {
      * is assumed to be a rectangle.
      */
 
+    public void setTopLeftVertexThroughString(String topLeftLat, String topLeftLong){
+        double topLeftLati = Double.parseDouble(topLeftLat);
+        double topLeftLon = Double.parseDouble(topLeftLong);
+        this.mTopLeftVertex  = new Local(topLeftLati, topLeftLon);
+    }
+
+    public void setBottomRightVertexThroughString(String botRightLat, String botRightLong){
+        double botRightLati = Double.parseDouble(botRightLat);
+        double botRightLon = Double.parseDouble(botRightLong);
+        this.mBottomRightVertex  = new Local(botRightLati, botRightLon);
+    }
+
     public void setTopLeftVertex(Local localv1) {
         if (localv1.getLatitude() <= mLocal.getLatitude() && localv1.getLongitude() >= mLocal.getLongitude()) {
             this.mTopLeftVertex = localv1;
@@ -233,6 +245,12 @@ public class GeographicArea {
         double latBotVert2 = area2.getBottomRightVertex().getLatitude();
         double longBotVert2 = area2.getBottomRightVertex().getLongitude();
         return (latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1);
+    }
+
+    public boolean isAreaMotherOfAnotherArea(GeographicArea gAContained, GeographicArea gAContainer){
+        if(gAContained.mMotherArea == gAContainer){
+            return true;
+        }return false;
     }
 
 

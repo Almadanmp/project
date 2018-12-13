@@ -14,16 +14,22 @@ public class US08Controller {
 
     public US08Controller(GeographicAreaList list){this.mGeographicAreaList = list;}
 
-    public boolean matchGeographicAreas(String area1Name, String area2Name){
+    /**
+     * This method define the GeographicAreas Container and Contained
+     * @param nameOfAreaContained
+     * @param nameOfAreaContainer
+     * @return
+     */
+    public boolean matchGeographicAreas(String nameOfAreaContained, String nameOfAreaContainer){
         if (checkIfListIsValid(mGeographicAreaList.getGeographicAreaList())) {
             for (GeographicArea ga1 : mGeographicAreaList.getGeographicAreaList()) {
-                if (ga1.getName().equals(area1Name)) {
+                if (ga1.getName().equals(nameOfAreaContained)) {
                     mGeographicAreaContained = ga1;
                     break;
                 }
             }
             for (GeographicArea ga2 : mGeographicAreaList.getGeographicAreaList()) {
-                        if (ga2.getName().equals(area2Name)) {
+                        if (ga2.getName().equals(nameOfAreaContainer)) {
                             mGeographicAreaContainer = ga2;
                             return true;
                         }
@@ -31,14 +37,20 @@ public class US08Controller {
         }return false;
     }
 
-    public boolean seeIfAreasHaveVertices(){
-        return mGeographicAreaContained.doGeographicAreasHaveVerticesDetermined(mGeographicAreaContained, mGeographicAreaContainer);
-    }
-
+    /**
+     * This methods checks if one area (AreaContained) is contained in another area (AreaContainer)
+     * @return
+     */
     public boolean seeIfItsContained() {
-        return mGeographicAreaContained.isAreaContainedInAnotherArea(mGeographicAreaContained, mGeographicAreaContainer);
+        return mGeographicAreaContained.isAreaMotherOfAnotherArea(mGeographicAreaContained, mGeographicAreaContainer);
     }
 
+
+    /**
+     * This method checks if the list exists
+     * @param values
+     * @return
+     */
     private boolean checkIfListIsValid(List<GeographicArea> values){
         if (values == null || values.isEmpty()){
             return false;
