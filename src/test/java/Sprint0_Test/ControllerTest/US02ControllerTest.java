@@ -33,7 +33,8 @@ public class US02ControllerTest {
         TypeArea t2 = new TypeArea("Cidade");
         list.addTypeArea(t1);
         list.addTypeArea(t2);
-        String result = list.printTypeAreaList();
+        US02Controller ctrl = new US02Controller(list);
+        String result = ctrl.getTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +
@@ -51,7 +52,8 @@ public class US02ControllerTest {
         list.addTypeArea(t1);
         list.addTypeArea(t2);
         list.addTypeArea(t3);
-        String result = list.printTypeAreaList();
+        US02Controller ctrl = new US02Controller(list);
+        String result = ctrl.getTypeAreaList();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +

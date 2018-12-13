@@ -13,8 +13,11 @@ public class TypeAreaList {
 
     public String printTypeAreaList() {
         String finalString = "\nArea Types List:\n";
-        for (TypeArea tipo : mTypeAreaList)
-            finalString = finalString + "\n" + "-" + tipo.getTypeOfGeographicArea() + ";";
+        if(mTypeAreaList == null || mTypeAreaList.isEmpty()) {
+            finalString = finalString + "\n|||| List is Empty ||||\nAdd types to list first";
+        }
+        else { for (TypeArea tipo : mTypeAreaList)
+            finalString = finalString + "\n" + "-" + tipo.getTypeOfGeographicArea() + ";";}
         return finalString;
     }
 
