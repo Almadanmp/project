@@ -37,7 +37,7 @@ public class US04UI {
         System.out.println("Please insert Geographic Area type:");
         Scanner input = new Scanner(System.in);
         this.action = input.nextLine();
-        System.out.println("You entered Geographic Area Type: " + this.action);
+        System.out.println(this.action + " was successfully entered.\n");
     }
 
     /**
@@ -59,7 +59,7 @@ public class US04UI {
             System.out.println("There are no Geographic Areas with this Area Type.");
         } else {
             List<GeographicArea> list = filteredList.getGeographicAreaList();
-            String result = list.stream().map(GeographicArea::getName).collect(Collectors.joining(", "));
+            String result = ("List Of Geographic Areas with the Area Type Given:\n"+list.stream().map(GeographicArea::getName).collect(Collectors.joining(", ")));
             System.out.print(result);
         }
     }
