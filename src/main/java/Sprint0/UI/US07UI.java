@@ -23,19 +23,30 @@ public class US07UI {
         this.active = true;
         this.mGeoList = newGeoListUi;
         while (this.active) {
-            displayGeoList();
-            getMotherGeographicArea();
-            displayStateMother(newGeoListUi);
-            getDaughterGeographicArea();
-            displayStateDaughter(newGeoListUi);
-            updateState();
-            displayState();
+            if(!displayGeoList()) {
+                return;
+            }
+            else {
+                getMotherGeographicArea();
+                displayStateMother(newGeoListUi);
+                getDaughterGeographicArea();
+                displayStateDaughter(newGeoListUi);
+                updateState();
+                displayState();
+            }
         }
     }
 
-    private void displayGeoList() {
+    private boolean displayGeoList() {
         US07Controller ctrl = new US07Controller(mGeoList);
-        System.out.println(ctrl.getGeographicAreaList());
+        if(ctrl.getmGeographicAreaList().getGeographicAreaList().isEmpty()) {
+            System.out.println(ctrl.printGeographicAreaListNames());
+            return false;
+        }
+        else {
+            System.out.println(ctrl.printGeographicAreaListNames());
+            return true;
+        }
     }
 
     private void getMotherGeographicArea() {

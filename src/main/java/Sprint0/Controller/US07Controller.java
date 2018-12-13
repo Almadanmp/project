@@ -3,6 +3,8 @@ package Sprint0.Controller;
 import Sprint0.Model.GeographicArea;
 import Sprint0.Model.GeographicAreaList;
 
+import java.util.List;
+
 public class US07Controller {
 
     private GeographicAreaList mGeographicAreaList;
@@ -27,7 +29,11 @@ public class US07Controller {
 
     }
 
-    public String getGeographicAreaList() {
+    public GeographicAreaList getmGeographicAreaList() {
+        return mGeographicAreaList;
+    }
+
+    public String printGeographicAreaListNames() {
         return mGeographicAreaList.printGeoAreaList();
     }
 
