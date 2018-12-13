@@ -18,6 +18,7 @@ public class Sensor {
 
     /**
      * Constructor with:name, typesensor, local, date
+     *
      * @param name
      * @param typeSensor
      * @param local
@@ -31,7 +32,8 @@ public class Sensor {
     }
 
     /**
-     *Constructor with name, type sensor, local, date, reading list
+     * Constructor with name, type sensor, local, date, reading list
+     *
      * @param name
      * @param typeSensor
      * @param local
@@ -48,18 +50,20 @@ public class Sensor {
 
     /**
      * Setter: name
+     *
      * @param name
      */
     public void setName(String name) {
         if (isSensorNameValid(name)) {
             this.mName = name;
-        }else {
+        } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
     }
 
     /**
      * Setter: local
+     *
      * @param local
      */
     public void setLocal(Local local) {
@@ -68,6 +72,7 @@ public class Sensor {
 
     /**
      * Setter: type sensor
+     *
      * @param sensor
      */
     public void setTypeSensor(TypeSensor sensor) {
@@ -76,6 +81,7 @@ public class Sensor {
 
     /**
      * Setter: date started functioning
+     *
      * @param dateStartedFunctioning
      */
     public void setDateStartedFunctioning(Date dateStartedFunctioning) {
@@ -84,6 +90,7 @@ public class Sensor {
 
     /**
      * Getter: name
+     *
      * @return
      */
     public String getName() {
@@ -92,6 +99,7 @@ public class Sensor {
 
     /**
      * Getter: type sensor
+     *
      * @return
      */
     public TypeSensor getTypeSensor() {
@@ -100,6 +108,7 @@ public class Sensor {
 
     /**
      * Getter: local
+     *
      * @return
      */
     public Local getLocal() {
@@ -108,6 +117,7 @@ public class Sensor {
 
     /**
      * Getter: date started functioning
+     *
      * @return
      */
     public Date getDateStartedFunctioning() {
@@ -116,6 +126,7 @@ public class Sensor {
 
     /**
      * Getter: reading list
+     *
      * @return
      */
     public ReadingList getReadingList() {
@@ -124,6 +135,7 @@ public class Sensor {
 
     /**
      * Setter: reading list
+     *
      * @param readingList
      */
     public void setReadingList(ReadingList readingList) {
@@ -132,6 +144,7 @@ public class Sensor {
 
     /**
      * Method to calculate distance to sensor from a sensor to a local
+     *
      * @param s1 - sensor
      * @return the distance from a local to sensor in km (doubles)
      */
@@ -142,6 +155,7 @@ public class Sensor {
 
     /**
      * Method to determine the month average of a sensor reading (e.g. temperature, wind...)
+     *
      * @param s1 - sensor
      * @return average of readings on a month on a sensor
      */
@@ -152,6 +166,7 @@ public class Sensor {
 
     /**
      * Method to restrain input name so they cant be null or empty.
+     *
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
@@ -159,17 +174,17 @@ public class Sensor {
         return (name != null && !name.isEmpty());
     }
 
-    public boolean isSensorContainedInArea (GeographicArea area){
+    public boolean isSensorContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
         double latTopVert = area.getTopLeftVertex().getLatitude();
         double longTopVert = area.getTopLeftVertex().getLongitude();
         double latBotVert = area.getBottomRightVertex().getLatitude();
         double longBotVert = area.getBottomRightVertex().getLongitude();
-        return ( latS >= latTopVert && latS <= latBotVert && longS >= longBotVert && longS <= longTopVert );
+        return (latS >= latTopVert && latS <= latBotVert && longS >= longBotVert && longS <= longTopVert);
     }
 
-    public boolean isSensorActiveOnGivenDate(GregorianCalendar date1){
+    public boolean isSensorActiveOnGivenDate(GregorianCalendar date1) {
         return this.getDateStartedFunctioning().before(date1.getTime());
     }
 

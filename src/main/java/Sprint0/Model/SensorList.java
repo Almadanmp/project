@@ -115,7 +115,6 @@ public class SensorList {
      * @param name name of the sensor to find in the list.
      * @return return the sensor whose name matches the name introduced.
      */
-
     public Sensor getSensorByName(String name) {
         for (Sensor s : mSensorList) {
             if (s.getName().equals(name)) {
