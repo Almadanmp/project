@@ -60,7 +60,7 @@ public class US07ControllerTest {
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
         US07Controller ctrl = new US07Controller(geographicAreaList);
 
-        String actualResult = ctrl.getGeographicAreaList();
+        String actualResult = ctrl.printGeographicAreaListNames();
 
         assertEquals("Geographic Area List: \n" +
                 "-Porto;", actualResult);
