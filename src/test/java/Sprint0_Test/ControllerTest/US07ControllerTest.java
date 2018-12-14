@@ -7,7 +7,7 @@ import Sprint0.Model.Local;
 import Sprint0.Model.TypeArea;
 import org.junit.jupiter.api.Test;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class US07ControllerTest {
     @Test
@@ -23,7 +23,7 @@ public class US07ControllerTest {
     }
 
     @Test
-    public void seeIfMatchGeoArea_null() {
+    public void seeIfMatchGeoAreaNull() {
         GeographicAreaList geographicAreaList = new GeographicAreaList();
         GeographicArea ga1 = new GeographicArea("Gaia");
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
@@ -31,7 +31,7 @@ public class US07ControllerTest {
 
         GeographicArea actualResult = ctrl.matchGeoArea("Porto");
 
-        assertEquals(null, actualResult);
+        assertNull(actualResult);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class US07ControllerTest {
     }
 
     @Test
-    public void seeIfGetGeographicAreaList (){
+    public void seeIfPrintGeographicAreaList (){
         GeographicAreaList geographicAreaList = new GeographicAreaList();
         GeographicArea ga1 = new GeographicArea("Porto");
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
@@ -73,7 +73,7 @@ public class US07ControllerTest {
         US07Controller ctrl = new US07Controller(geographicAreaList);
         boolean actualResult = ctrl.validateGeoArea("Porto");
 
-        assertEquals(true, actualResult);
+        assertTrue( actualResult);
 
 
     }
@@ -85,10 +85,31 @@ public class US07ControllerTest {
         US07Controller ctrl = new US07Controller(geographicAreaList);
         boolean actualResult = ctrl.validateGeoArea("Gaia");
 
-        assertEquals(false, actualResult);
+        assertFalse(actualResult);
 
 
     }
 
+    @Test
+    public void seeIfGetGeographicAreaList (){
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+
+        TypeArea t1 = new TypeArea("Cidade");
+        Local l1 = new Local(38, 7);
+        String n1 = "Porto";
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        ga1.setName(n1);
+
+        Local l2 = new Local(39, 67);
+        String n2 = "Braga";
+        GeographicArea ga2 = new GeographicArea(t1, l2);
+        ga2.setName(n2);
+
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        US07Controller ctrl = new US07Controller(geographicAreaList);
+        GeographicAreaList actualResult = ctrl.getGeographicAreaList();
+        assertEquals(geographicAreaList, actualResult);
+    }
 
 }

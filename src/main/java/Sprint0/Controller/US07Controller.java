@@ -29,7 +29,7 @@ public class US07Controller {
 
     }
 
-    public GeographicAreaList getmGeographicAreaList() {
+    public GeographicAreaList getGeographicAreaList() {
         return mGeographicAreaList;
     }
 
