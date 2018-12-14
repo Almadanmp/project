@@ -179,7 +179,7 @@ public class ReadingList {
         for(int i = mReadings.size()-1; i>=0; i--) {
             Reading reading = mReadings.get(i);
             cal.setTime(reading.getmDate());
-            if(!(cal.get(Calendar.MONTH) == month) || !(cal.get(Calendar.YEAR) == year)) {
+            if((cal.get(Calendar.MONTH) != month) || (cal.get(Calendar.YEAR) != year)) {
                 this.mReadings.remove(reading);
             }
         }
