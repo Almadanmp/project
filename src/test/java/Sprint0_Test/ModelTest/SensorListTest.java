@@ -513,6 +513,7 @@ public class SensorListTest {
         assertEquals(expectedResult, actualResult);
     }
 
+
     @Test
     public void seeIfSetTypeWorksFalse() {
         //Arrange

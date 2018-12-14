@@ -123,11 +123,6 @@ public class SensorList {
         }
         return null;
     }
-    public boolean seeIfDoesntContainSensor(Sensor sensor, SensorList sensorList){
-        return (!(sensorList.getSensorList().contains(sensor)));
-    }
-
-
 
     public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area, TypeSensor type) {
         List<Sensor> containedSensors = new ArrayList<>();

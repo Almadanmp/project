@@ -54,11 +54,11 @@ public class US06Controller {
      * Calls the original method from Model
      */
     public boolean addSensor(Sensor sensor, SensorList sensorList){
-        if(sensorList.seeIfDoesntContainSensor(sensor,sensorList)) {
+        if(sensorList.containsSensor(sensor)) {
             sensorList.getSensorList().add(sensor);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
     /**
      * Method to check if a list is either composed by null values or is empty
