@@ -114,7 +114,7 @@ public class ReadingList {
         List<Date> datesList = new ArrayList<>();
         for (int i = 0; i < mReadings.size(); i++) {
             Date currentReadingDate = mReadings.get(i).getmDate();
-            if ((currentReadingDate.after(dateBeforeStartMonth)) && (currentReadingDate.before(dateAfterEndMonth)) && !datesList.contains(currentReadingDate)) {
+            if ((currentReadingDate.after(dateBeforeStartMonth)) && (currentReadingDate.before(dateAfterEndMonth))) {
                     datesList.add(currentReadingDate);
 
             }
