@@ -16,9 +16,6 @@ import Sprint0.Model.TypeAreaList;
 public class US02UI {
 
     private boolean active;
-    private boolean mTypeAreaList;
-    private String mTypeArea;
-
 
     public US02UI() {
         active = false;
