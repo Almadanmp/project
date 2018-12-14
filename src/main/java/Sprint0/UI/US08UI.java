@@ -60,9 +60,11 @@ public class US08UI {
         }
         if (!(controller.seeIfItsContained())) {
             System.out.println(mNameGeographicAreaContained + " is NOT contained in " + mNameGeographicAreaContainer);
+            this.mActive = false;
             return;
         }
         System.out.println(mNameGeographicAreaContained + " is contained in " + mNameGeographicAreaContainer);
+        this.mActive = false;
         return;
     }
 }
