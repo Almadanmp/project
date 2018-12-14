@@ -13,7 +13,7 @@ public class TypeAreaList {
 
     public String printTypeAreaList() {
         String finalString = "\nArea Types List:\n";
-        if(mTypeAreaList == null || mTypeAreaList.isEmpty()) {
+        if(mTypeAreaList.isEmpty()) {
             finalString = finalString + "\n|||| List is Empty ||||\nAdd types to list first";
         }
         else { for (TypeArea tipo : mTypeAreaList)
