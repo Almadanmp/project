@@ -489,6 +489,67 @@ public class SensorListTest {
 
         assertEquals(expectedResult,actualResult);
     }
+
+    @Test
+    public void seeIfSetTypeWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList(new Sensor[]{s1, s2});
+        String expectedResult = "Movement";
+
+        //Act
+        lc.setTypeSensorByString("Chuva", "Movement");
+        String actualResult = lc.getSensorByName("Chuva").getTypeSensor().getName();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfSetTypeWorksFalse() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList(new Sensor[]{s1, s2});
+        boolean expectedResult = false;
+
+        //Act
+
+        boolean actualResult = lc.setTypeSensorByString("Portugal", "Movement");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfSetTypeWorksEmptyList() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList();
+        lc.addSensor(s1);
+        lc.addSensor(s2);
+        boolean expectedResult = false;
+
+        //Act
+        boolean actualResult = lc.setTypeSensorByString("Portugal", "Movement");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 }
 
 

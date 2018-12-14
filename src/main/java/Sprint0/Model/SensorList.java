@@ -132,6 +132,41 @@ public class SensorList {
 
 
 
+    public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area, TypeSensor type) {
+        List<Sensor> containedSensors = new ArrayList<>();
+        for (Sensor sensor : mSensorList) {
+            if (sensor.isSensorContainedInArea(area) && sensor.getTypeSensor().equals(type)) {
+                containedSensors.add(sensor);
+            }
+        }
+        return containedSensors;
+    }
+
+    public List<Sensor> getSensorsInGAAtACertainTimePeriod(GregorianCalendar date1, GeographicArea ga) {
+        List<Sensor> finalList = new ArrayList<>();
+        for (Sensor s : mSensorList) {
+            if (s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)) {
+                finalList.add(s);
+            }
+        }
+        return finalList;
+    }
+
+    public boolean setTypeSensorByString(String nameOfSensor, String typeToSet) {
+        if (!checkIfListInvalid()) {
+            for (Sensor sensor : mSensorList)
+                if (sensor.getName().equals(nameOfSensor)) {
+                    sensor.getTypeSensor().setName(typeToSet);
+                    return true;
+                }
+        }
+        return false;
+    }
+
+    private boolean checkIfListInvalid() {
+        return (this.mSensorList == null || this.mSensorList.isEmpty());
+    }
+
     /**
      * Specific Methods.
      *
@@ -156,24 +191,4 @@ public class SensorList {
         return 1;
     }
 
-    public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area, TypeSensor type) {
-        List<Sensor> containedSensors = new ArrayList<>();
-        for (Sensor sensor : mSensorList) {
-            if (sensor.isSensorContainedInArea(area) && sensor.getTypeSensor().equals(type)) {
-                containedSensors.add(sensor);
-            }
-        }
-        return containedSensors;
-    }
-
-
-    public List<Sensor> getSensorsInGAAtACertainTimePeriod(GregorianCalendar date1, GeographicArea ga) {
-        List<Sensor> finalList = new ArrayList<>();
-        for (Sensor s : mSensorList) {
-            if (s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)) {
-                finalList.add(s);
-            }
-        }
-        return finalList;
-    }
 }
