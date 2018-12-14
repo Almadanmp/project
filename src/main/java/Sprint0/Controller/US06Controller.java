@@ -54,7 +54,7 @@ public class US06Controller {
      * Calls the original method from Model
      */
     public boolean addSensor(Sensor sensor, SensorList sensorList){
-        if(!(sensorList.getSensorList().contains(sensor))) {
+        if(sensorList.seeIfDoesntContainSensor(sensor,sensorList)) {
             sensorList.getSensorList().add(sensor);
             return true;
         }
@@ -75,6 +75,7 @@ public class US06Controller {
      * as parameter match
      * Calls the original method from Model
      */
+
     public boolean addSensorToGeographicArea(String name, GeographicAreaList gaList, SensorList sensorList) {
         if (checkIfListValid(gaList.getGeographicAreaList())) {
             for (GeographicArea ga : gaList.getGeographicAreaList())
@@ -82,7 +83,6 @@ public class US06Controller {
                     ga.setSensorList(sensorList);
                     return true;
                 }
-
         }
     return false;
     }
