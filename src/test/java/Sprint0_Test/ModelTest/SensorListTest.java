@@ -4,6 +4,7 @@ import Sprint0.Model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -457,6 +458,7 @@ public class SensorListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void seeItGetSensorByNameIfNameDoestExist() {
         //Arrange
@@ -477,8 +479,9 @@ public class SensorListTest {
         //Assert
         assertEquals(null, actualResult);
     }
+
     @Test
-    public void ensureThatWeTestEmptyConstructor () {
+    public void ensureThatWeTestEmptyConstructor() {
         SensorList sl = new SensorList();
         TypeSensor t1 = new TypeSensor("Humidade");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
@@ -487,7 +490,7 @@ public class SensorListTest {
 
         Sensor actualResult = sl.getMostRecentlyUsedSensor();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -548,7 +551,24 @@ public class SensorListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void seeIfAnInvalidListIsAdded() {
+        SensorList list = new SensorList();
+        boolean expectedResult = false;
+        boolean actualResult = list.checkIfListIsValid();
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfAnValidListIsAdded() {
+        SensorList list = new SensorList();
+        Sensor sensor = new Sensor("Termometro", new TypeSensor(), new Local(1,1), new Date());
+        list.addSensor(sensor);
+        boolean expectedResult = true;
+        boolean actualResult = list.checkIfListIsValid();
+
+        assertEquals(expectedResult, actualResult);
+    }
 }
-
-
-
