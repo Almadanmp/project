@@ -34,4 +34,48 @@ public class US05ControllerTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void seeIfSetTypeWorksFalse() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList();
+        lc.addSensor(s1);
+        lc.addSensor(s2);
+        boolean expectedResult = false;
+        US05Controller ctrl = new US05Controller(lc);
+
+        //Act
+        boolean actualResult = ctrl.setTypeSensor("Portugal", "Movement");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfSetTypeWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList();
+        lc.addSensor(s1);
+        lc.addSensor(s2);
+        boolean expectedResult = true;
+        US05Controller ctrl = new US05Controller(lc);
+
+        //Act
+        boolean actualResult = ctrl.setTypeSensor("Vento", "Movement");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 }

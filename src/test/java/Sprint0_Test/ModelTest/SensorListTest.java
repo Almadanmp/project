@@ -540,8 +540,6 @@ public class SensorListTest {
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 1, 4).getTime());
         SensorList lc = new SensorList();
-        lc.addSensor(s1);
-        lc.addSensor(s2);
         boolean expectedResult = false;
 
         //Act
