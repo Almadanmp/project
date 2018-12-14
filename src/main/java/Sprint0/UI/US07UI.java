@@ -39,7 +39,7 @@ public class US07UI {
 
     private boolean displayGeoList() {
         US07Controller ctrl = new US07Controller(mGeoList);
-        if(ctrl.getmGeographicAreaList().getGeographicAreaList().isEmpty()) {
+        if(ctrl.getGeographicAreaList().getGeographicAreaList().isEmpty()) {
             System.out.println(ctrl.printGeographicAreaListNames());
             return false;
         }

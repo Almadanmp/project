@@ -618,20 +618,6 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfAreasWithoutVerticesFail() {
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
-        GeographicArea ga1 = new GeographicArea(t1, l1);
-        TypeArea t2 = new TypeArea("Freguesia");
-        Local l2 = new Local(43, 71);
-        GeographicArea ga2 = new GeographicArea(t2, l2);
-        GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        boolean result = ga1.doGeographicAreasHaveVerticesDetermined(ga1, ga2);
-        assertEquals(false, result);
-    }
-
-    @Test
     public void seeIfEqualsWhenObjectsAreDifferentButWithSameContent() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
