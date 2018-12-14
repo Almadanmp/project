@@ -236,17 +236,17 @@ public class ReadingList {
      * @return returns the lowest of all value readings
      */
     public double getLowestValueFromGivenList(List<Double> valueList) {
-        AuxiliaryMethods.checkIfListValid(valueList);
+        checkIfListValid(valueList);
+            double minValue = valueList.get(0);
 
-      double  minValue = valueList.get(0);
-
-        for (double value : valueList) {
-            if (value < minValue) {
-                minValue = value;
+            for (double value : valueList) {
+                if (value < minValue) {
+                    minValue = value;
+                }
             }
+            return minValue;
         }
-        return minValue;
-    }
+
 
     /**This method receives a list of doubles that correspond to value readings and
      * will return the average value on that list.
@@ -286,7 +286,7 @@ public class ReadingList {
      * @return returns the highest of all value readings within list
      */
     public double getHighestValueInList(List<Double> valueList) {
-        AuxiliaryMethods.checkIfListValid(valueList);
+        checkIfListValid(valueList);
 
        double maxValue = valueList.get(0);
         for (double value : valueList) {
@@ -413,6 +413,13 @@ public class ReadingList {
             maxValuesFromDaysWithReadings.add(maxValueOfDay);
         }
         return getAverageFromGivenList(maxValuesFromDaysWithReadings);
+    }
+
+    public boolean checkIfListValid(List<Double> values) {
+        if (values == null || values.isEmpty()) {
+            throw new IllegalArgumentException("List is not valid");
+        }
+        return true;
     }
 
 

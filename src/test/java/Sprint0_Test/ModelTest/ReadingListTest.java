@@ -10,8 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReadingListTest {
 
@@ -1936,5 +1935,44 @@ public class ReadingListTest {
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfWeek(dateToTest);
         //Assert
         assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    public void seeIfListNullThrowsException() {
+        ReadingList rList = new ReadingList();
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            rList.checkIfListValid(null);
+        });
+        //Assert
+        assertEquals("List is not valid", exception.getMessage());
+    }
+
+    @Test
+    public void seeIfListEmptyThrowsException() {
+        //Arrange
+        ReadingList rList = new ReadingList();
+        List<Double> valuesOfDay = new ArrayList<>();
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            rList.checkIfListValid(valuesOfDay);
+        });
+        //Assert
+        assertEquals("List is not valid", exception.getMessage());
+    }
+
+    @Test
+    public void seeIfTrueIfListIsValid() {
+        //Arrange
+        ReadingList rList = new ReadingList();
+        List<Double> valuesOfDay = new ArrayList<>();
+        valuesOfDay.add(31.0);
+
+        //Act
+        boolean actualResult = rList.checkIfListValid(valuesOfDay);
+
+        //Assert
+        assertTrue(actualResult);
     }
 }
