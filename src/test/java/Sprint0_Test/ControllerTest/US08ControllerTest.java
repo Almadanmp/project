@@ -85,6 +85,26 @@ public class US08ControllerTest {
     }
 
     @Test
+    public void seeIfAreaContainedInAnotherAreaFailsWithContainerNotFilled(){
+        GeographicAreaList list = new GeographicAreaList();
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45,45));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45,45));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45,45));
+        list.addGeographicAreaToGeographicAreaList(area1);
+        list.addGeographicAreaToGeographicAreaList(area2);
+        list.addGeographicAreaToGeographicAreaList(area3);
+        US08Controller ctrl = new US08Controller(list);
+
+        area1.setMotherArea(area2);
+        area2.setMotherArea(area3);
+        ctrl.matchGeographicAreas("Porto","Polonia");
+        boolean actualResult = ctrl.seeIfItsContained();
+        boolean expectedResult = false;
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void seeIfAreaContainedInAnotherAreaFails(){
         GeographicAreaList list = new GeographicAreaList();
         GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45,45));

@@ -36,10 +36,6 @@ public class US05UI {
     private void getInputSensor() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the name of the sensor to add the type to: ");
-        while (!scanner.hasNext("[a-zA-Z_]+")) {
-            System.out.println("That's not a valid name of Type Area. Please insert only Alphabetic Characters");
-            scanner.next();
-        }
         this.mNameSensor = scanner.next();
 
     }

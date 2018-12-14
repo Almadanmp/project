@@ -59,7 +59,12 @@ public class US06UI {
 
         // Type Getter
         System.out.println("\nEnter Sensor type:\t");
+        while (!input.hasNext("[a-zA-Z_]+")) {
+            input.next();
+            System.out.println("Not a valid type. Try again");
+        }
         this.sensorType = input.nextLine();
+
         System.out.println("You entered type " + sensorType);
 
         // Local Getter
@@ -105,7 +110,7 @@ public class US06UI {
         }
         this.dataDay = input.nextInt();
         Date date = new GregorianCalendar(dataYear, dataMonth, dataDay).getTime();
-        System.out.println("You entered the date: " + date);
+        System.out.println("You entered the date successfully!");
     }
 
     private void updateUS06() {
@@ -131,7 +136,7 @@ public class US06UI {
         Scanner input = new Scanner(System.in);
         System.out.println("\n Add sensor to Geographic Area?\n");
         System.out.println("Yes/No:\t");
-        if (input.nextLine().equals("Yes")) {
+        if (input.nextLine().equals("Yes") || input.nextLine().equals("yes") || input.nextLine().equals("Y")  || input.nextLine().equals("y")) {
             System.out.println("Type the name of the Geographic Area which the sensor will be added to");
             System.out.println("\nEnter Geographic Area Name:\t");
             this.mGeographicAreaName = input.nextLine();
