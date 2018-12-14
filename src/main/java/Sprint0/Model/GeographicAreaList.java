@@ -115,7 +115,7 @@ public class GeographicAreaList {
      * @return
      */
     public boolean checkIfListIsValid() {
-        if (mGeographicAreaList == null || mGeographicAreaList.isEmpty()) {
+        if (mGeographicAreaList.isEmpty()) {
             return false;
         }
         return true;
