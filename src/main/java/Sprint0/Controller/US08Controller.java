@@ -24,7 +24,6 @@ public class US08Controller {
 
     /**
      * This method define the GeographicAreas Container and Contained
-     *
      * @param nameOfAreaContained
      * @param nameOfAreaContainer
      * @return
@@ -32,17 +31,15 @@ public class US08Controller {
 
     public boolean matchGeographicAreas(String nameOfAreaContained, String nameOfAreaContainer) {
         if (mGeographicAreaList.checkIfListIsValid()) {
-            for (GeographicArea ga1 : mGeographicAreaList.getGeographicAreaList()) {
-                if (ga1.getName().equals(nameOfAreaContained)) {
-                    mGeographicAreaContained = ga1;
-                    for (GeographicArea ga2 : mGeographicAreaList.getGeographicAreaList()) {
-                        if (ga2.getName().equals(nameOfAreaContainer)) {
-                            mGeographicAreaContainer = ga2;
-                            return true;
-                        }
-                    }
+            for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
+                if (ga.getName().equals(nameOfAreaContained)) {
+                    mGeographicAreaContained = ga;
+                }
+                if (ga.getName().equals(nameOfAreaContainer)) {
+                    mGeographicAreaContainer = ga;
                 }
             }
+            return mGeographicAreaContained != null && mGeographicAreaContainer != null;
         }
         return false;
     }
