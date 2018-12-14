@@ -18,10 +18,10 @@ public class US01Controller {
     }
 
     /**
-     * This method creates a new Type of Geographic Area.
+     * This method creates a new Type of Geographic Area and adds it to a List.
      *
      * @param input - the String name of the Type of Geographic Area.
-     * @return true - the Type of Geographic Area was successfully created;
+     * @return true - the Type of Geographic Area was successfully created and added to a list;
      * false - the name is null.
      */
     public boolean createAndAddTypeAreaToList(String input) {
