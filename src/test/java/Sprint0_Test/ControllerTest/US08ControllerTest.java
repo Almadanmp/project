@@ -102,4 +102,13 @@ public class US08ControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void seeIfListIsInvalid(){
+        GeographicAreaList list = new GeographicAreaList();
+        US08Controller ctrl = new US08Controller(list);
+        boolean actualResult = ctrl.matchGeographicAreas("Porto","Europa");
+        boolean expectedResult = false;
+        assertEquals(expectedResult, actualResult);
+    }
 }
