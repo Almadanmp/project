@@ -52,6 +52,10 @@ public class US07UI {
     private void getMotherGeographicArea() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the name of the GeographicArea that you want to say contains another: ");
+        while (!scanner.hasNext("[\\p{L}\\s]+")) {
+            System.out.println("Please,try again:");
+            scanner.next();
+        }
         this.mNameGeographicAreaMother = scanner.next();
     }
 
@@ -67,6 +71,10 @@ public class US07UI {
     private void getDaughterGeographicArea() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the name of the GeographicArea that you want to say is contained in another: ");
+        while (!scanner.hasNext("[\\p{L}\\s]+")) {
+            System.out.println("Please,try again:");
+            scanner.next();
+        }
         this.mNameGeographicAreaDaughter = scanner.next();
     }
 
