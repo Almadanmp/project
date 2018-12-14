@@ -124,10 +124,7 @@ public class SensorList {
         return null;
     }
     public boolean seeIfDoesntContainSensor(Sensor sensor, SensorList sensorList){
-        if(!(sensorList.getSensorList().contains(sensor))) {
-            return true;
-        }
-        return false;
+        return (!(sensorList.getSensorList().contains(sensor)));
     }
 
 
