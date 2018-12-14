@@ -53,7 +53,6 @@ public class MainUI {
             option = scanner.nextInt();
 
 
-
             switch (option) {
                 case 0:
                     activeProgram = false;
@@ -107,6 +106,8 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 9:
+                    if (mSensorList.checkIfListIsValid())
+                        System.out.println("The list of sensors is empty!");
                     for (Sensor sensor : mSensorList.getSensorList()) {
                         System.out.println(sensor.getName());
                     }
@@ -114,6 +115,8 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 10:
+                    if (mGeographicAreaList.checkIfListIsValid())
+                        System.out.println("The list of geographic areas is empty!");
                     for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
                         System.out.println(ga.getName());
                     }

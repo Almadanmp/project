@@ -167,6 +167,13 @@ public class SensorList {
         return (this.mSensorList.isEmpty());
     }
 
+    public boolean checkIfListIsValid() {
+        if (mSensorList.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Specific Methods.
      *
