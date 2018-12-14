@@ -114,7 +114,6 @@ public class US06UI {
             System.out.println("Not a valid day. Try again");
         }
         this.dataDay = input.nextInt();
-        Date date = new GregorianCalendar(dataYear, dataMonth, dataDay).getTime();
         System.out.println("You entered the date successfully!");
         input.nextLine();
     }
@@ -142,7 +141,7 @@ public class US06UI {
         Scanner input = new Scanner(System.in);
         System.out.println("\n Add sensor to Geographic Area?\n");
         System.out.println("Yes/No:\t");
-        if (input.nextLine().equals("Yes") || input.nextLine().equals("yes") || input.nextLine().equals("Y")  || input.nextLine().equals("y")) {
+        if ("Yes".equals(input.nextLine()) || "yes".equals(input.nextLine()) || "Y".equals(input.nextLine()) || "y".equals(input.nextLine())) {
             System.out.println("Type the name of the Geographic Area which the sensor will be added to");
             System.out.println("\nEnter Geographic Area Name:\t");
             this.mGeographicAreaName = input.nextLine();
