@@ -4,6 +4,9 @@ import java.util.List;
 
 public class AuxiliaryMethods {
 
+    private AuxiliaryMethods(){
+
+    }
     /**
      * Method to check if an input list is Valid. It cannot be empty or Null
      * @param values - list inputed
