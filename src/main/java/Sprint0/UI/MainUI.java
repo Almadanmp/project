@@ -51,6 +51,9 @@ public class MainUI {
             System.out.print("\nEnter option number:\n");
             String pressEnter = "\nPress ENTER to return.";
             option = scanner.nextInt();
+
+
+
             switch (option) {
                 case 0:
                     activeProgram = false;
@@ -115,6 +118,10 @@ public class MainUI {
                         System.out.println(ga.getName());
                     }
                     System.out.println(pressEnter);
+                    enterToReturnToConsole.nextLine();
+                    break;
+                default:
+                    System.out.println("Invalid option. Try again");
                     enterToReturnToConsole.nextLine();
                     break;
             }
