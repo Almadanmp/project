@@ -477,6 +477,18 @@ public class SensorListTest {
         //Assert
         assertEquals(null, actualResult);
     }
+    @Test
+    public void ensureThatWeTestEmptyConstructor () {
+        SensorList sl = new SensorList();
+        TypeSensor t1 = new TypeSensor("Humidade");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
+        sl.addSensor(s1);
+        Sensor expectedResult = s1;
+
+        Sensor actualResult = sl.getMostRecentlyUsedSensor();
+
+        assertEquals(expectedResult,actualResult);
+    }
 }
 
 
