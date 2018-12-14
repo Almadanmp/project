@@ -57,14 +57,16 @@ public class GeographicAreaList {
      * and returns a string with every GA name
      */
     public String printGeoAreaList() {
-        String finalString= "Geographic Area List:";
+        StringBuilder finalString = new StringBuilder();
         String emptyList= "The list is empty.";
         if(mGeographicAreaList.isEmpty()) {
             return emptyList;
         }
-        for(GeographicArea tipo: mGeographicAreaList)
-            finalString = finalString + " \n"+ "-" + tipo.getName() + ";";
-        return finalString;
+        finalString.append("Geographic Area List:");
+        for(GeographicArea tipo: mGeographicAreaList) {
+            finalString.append(" \n" + "-").append(tipo.getName()).append(";");
+        }
+        return finalString.toString();
     }
 
     /**
