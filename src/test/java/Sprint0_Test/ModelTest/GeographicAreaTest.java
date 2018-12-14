@@ -4,11 +4,8 @@ package Sprint0_Test.ModelTest;
 import Sprint0.Model.*;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Type;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static javafx.scene.input.KeyCode.M;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -620,20 +617,6 @@ public class GeographicAreaTest {
         //Assert
         assertEquals(expectedResult,actualResult);
     }
-  @Test
-    public void seeIfWeHaveVerticesDetermined (){
-      //Arrange
-      Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
-      GeographicArea ga1 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
-      GeographicArea ga2 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
-      Boolean expectedResult = true;
-
-      //Act
-      Boolean actualResult = ga1.doGeographicAreasHaveVerticesDetermined(ga1,ga2);
-
-      //Assert
-      assertEquals(expectedResult,actualResult);
-  }
     @Test
     public void ensureThatAObjectIsNotAInstanceOf (){
       GeographicArea ga1 = new GeographicArea("Porto");

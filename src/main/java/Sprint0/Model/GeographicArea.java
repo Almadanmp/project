@@ -237,13 +237,6 @@ public class GeographicArea {
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
     }
 
-    public boolean doGeographicAreasHaveVerticesDetermined(GeographicArea area1, GeographicArea area2) {
-        if (area1.getBottomRightVertex() == null || area1.getTopLeftVertex() == null || area2.getBottomRightVertex() == null || area2.getTopLeftVertex() == null) {
-            return false;
-        }
-        return true;
-    }
-
     public boolean isAreaContainedInAnotherArea(GeographicArea area1, GeographicArea area2) {
         double latTopVert1 = area1.getTopLeftVertex().getLatitude();
         double longTopVert1 = area1.getTopLeftVertex().getLongitude();
