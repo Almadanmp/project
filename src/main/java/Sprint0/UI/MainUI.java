@@ -49,6 +49,7 @@ public class MainUI {
 
             System.out.print(formattedString);
             System.out.print("\nEnter option number:\n");
+            String pressEnter = "\nPress ENTER to return.";
             option = scanner.nextInt();
             switch (option) {
                 case 0:
@@ -57,63 +58,63 @@ public class MainUI {
                 case 1:
                     US01UI view1 = new US01UI();
                     view1.run(mTypeAreaList);
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 2:
                     US02UI view2 = new US02UI();
                     view2.run(mTypeAreaList);
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 3:
                     US03UI view3 = new US03UI();
                     view3.run(mGeographicAreaList);
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 4:
                     US04UI view4 = new US04UI();
                     view4.run(mGeographicAreaList);
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 5:
                     US05UI view5 = new US05UI();
                     view5.run(mSensorList);
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 6:
                     US06UI view6 = new US06UI(mSensorList, mGeographicAreaList);
                     view6.run();
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 7:
                     US07UI view7 = new US07UI();
                     view7.run(mGeographicAreaList);
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 8:
                     US08UI view8 = new US08UI();
                     view8.run(mGeographicAreaList);
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 9:
                     for (Sensor sensor : mSensorList.getSensorList()) {
                         System.out.println(sensor.getName());
                     }
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 10:
                     for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
                         System.out.println(ga.getName());
                     }
-                    System.out.println("\nPress ENTER to return.");
+                    System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
             }
