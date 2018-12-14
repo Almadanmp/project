@@ -54,19 +54,20 @@ public class US06UI {
 
         // Name Getter
         System.out.println("\nEnter Sensor Name:\t");
-        this.sensorName = input.nextLine();
+        this.sensorName = input.next();
         System.out.println("You entered sensor " + sensorName);
 
         // Type Getter
         System.out.println("\nEnter Sensor type:\t");
-        while (!input.hasNext("[a-zA-Z_]+")) {
+
+        while(!input.hasNext("[a-zA-Z]+")) {
             input.next();
             System.out.println("Not a valid type. Try again");
         }
-        this.sensorType = input.nextLine();
 
+        this.sensorType = input.next();
         System.out.println("You entered type " + sensorType);
-
+        input.nextLine();
         // Local Getter
         System.out.println("\nEnter Sensor Localization:\t");
         System.out.println("\nEnter Latitude:\t");
@@ -75,6 +76,7 @@ public class US06UI {
             System.out.println("Not a valid latitude. Try again");
         }
         this.sensorLat = input.nextDouble();
+        input.nextLine();
         System.out.println("\nEnter Longitude:\t");
         while(!input.hasNextDouble()) {
             input.next();
@@ -87,6 +89,7 @@ public class US06UI {
             System.out.println("Not a valid altitude. Try again");
         }
         this.sensorAlt = input.nextDouble();
+        input.nextLine();
         System.out.println("You entered sensor on coordinates  " + sensorLat + "  ,  " + sensorLong + "  ,  " + sensorAlt);
 
         // Date Getter
@@ -97,12 +100,14 @@ public class US06UI {
             System.out.println("Not a valid year. Try again");
         }
         this.dataYear = input.nextInt();
+        input.nextLine();
         System.out.println("\nEnter the Month:\t");
         while(!input.hasNextInt()) {
             input.next();
             System.out.println("Not a valid month. Try again");
         }
         this.dataMonth = input.nextInt();
+        input.nextLine();
         System.out.println("\nEnter the Day:\t");
         while(!input.hasNextInt()) {
             input.next();
@@ -111,6 +116,7 @@ public class US06UI {
         this.dataDay = input.nextInt();
         Date date = new GregorianCalendar(dataYear, dataMonth, dataDay).getTime();
         System.out.println("You entered the date successfully!");
+        input.nextLine();
     }
 
     private void updateUS06() {
