@@ -161,7 +161,14 @@ public class SensorList {
     }
 
     private boolean checkIfListInvalid() {
-        return (this.mSensorList == null || this.mSensorList.isEmpty());
+        return (this.mSensorList.isEmpty());
+    }
+
+    public boolean checkIfListIsValid() {
+        if (mSensorList.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     /**
