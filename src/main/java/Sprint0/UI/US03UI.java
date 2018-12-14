@@ -91,7 +91,7 @@ public class US03UI {
     private String readInputString(String inputType) {
         System.out.print(createInputMsg(inputType));
 
-        while (!scanner.hasNext("[\\p{L}\\s]+")) {
+        while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
             System.out.println(createInvalidStringMsg(inputType));
             scanner.next();
         }
