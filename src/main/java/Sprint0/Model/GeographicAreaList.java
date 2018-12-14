@@ -115,10 +115,7 @@ public class GeographicAreaList {
      * @return
      */
     public boolean checkIfListIsValid() {
-        if (mGeographicAreaList.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !mGeographicAreaList.isEmpty();
     }
 
     @Override
