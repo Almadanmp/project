@@ -37,7 +37,6 @@ public class US05UI {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the name of the sensor to add the type to: ");
         this.mNameSensor = scanner.next();
-
     }
 
     private void getInput() {
