@@ -5,7 +5,7 @@ import java.util.List;
 public class RoomList {
     List<Room> mRooms;
 
-    Public RoomList () {
+    public RoomList () {
         this.mRooms = new List<Room>();
     }
 
