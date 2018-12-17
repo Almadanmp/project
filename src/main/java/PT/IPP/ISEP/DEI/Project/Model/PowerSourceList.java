@@ -92,29 +92,6 @@ public class PowerSourceList {
         mPowerSourceList.remove(powerSourceToRemove);
     }
 
-    /**
-     * @param name name of the powerSource to find in the list.
-     * @return return the powerSource whose name matches the name introduced.
-     */
-    public PowerSource getPowerSourceByName(String name) {
-        for (PowerSource p : mPowerSourceList) {
-            if (p.getName().equals(name)) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-    public List<PowerSource> getListOfPowerSourceContainedInRoom(Room room, PowerSource powerSource) {
-        List<PowerSource> containedPowerSource = new ArrayList<>();
-        for (PowerSource powerSource : mPowerSourceList) {
-            if (powerSource.isPowerSourceContainedInRoom(room) && powerSource.getPowerSourceType().equals(powerSource)) {
-                containedPowerSource.add(powerSource);
-            }
-        }
-        return containedPowerSource;
-    }
-
     private boolean checkIfListInvalid() {
         return (this.mPowerSourceList.isEmpty());
     }
