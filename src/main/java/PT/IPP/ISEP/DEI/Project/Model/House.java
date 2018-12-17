@@ -14,6 +14,8 @@ public class House {
     private RoomList mRoomList;
 
     //CONSTRUCTORS
+    public House(){}
+
     public House(String mAdress, Local mGPS, String mZipCode, GeographicArea mMotherGA) {
         this.mAdress = mAdress;
         this.mGPS = mGPS;

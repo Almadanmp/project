@@ -1,5 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
+import java.util.Date;
+
 public class Room {
     private String mRoomName;
     private int mHouseFloor;
@@ -12,6 +14,13 @@ public class Room {
         mRoomName = name;
         mHouseFloor = houseFloor;
         mRoomDimensions = dimensions;
+    }
+
+    public Room(String name, int houseFloor, double dimensions, SensorList listSensor) {
+        mRoomName = name;
+        mHouseFloor = houseFloor;
+        mRoomDimensions = dimensions;
+        mRoomSensorList = listSensor;
     }
 
     public void setRoomName(String name) {
@@ -60,5 +69,16 @@ public class Room {
 
     public double getRoomTotalPower() {
         return mRoomTotalPower;
+    }
+
+    public double getMaxTemperatureInARoomOnAGivenDay(Date day){
+        SensorList list= getRoomSensorList();
+        House h =new House();
+        TypeSensor type = new TypeSensor("temperature");
+        Sensor s = new Sensor("sensor1",type,h.getmGPS(), new Date());
+        for (int i = 0; i<list.getSensors().length; i++){
+            s = list.getSensors()[i];
+        }
+        return s.getReadingList().getMaximumOfGivenDayValueReadings(day);
     }
 }
