@@ -123,6 +123,14 @@ public class SensorList {
         }
         return null;
     }
+    public Sensor getSensorByType(String name) {
+        for (Sensor s : mSensorList) {
+            if (s.getTypeSensor().getName().equals(name)) {
+                return s;
+            }
+        }
+        return null;
+    }
 
     public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area, TypeSensor type) {
         List<Sensor> containedSensors = new ArrayList<>();
