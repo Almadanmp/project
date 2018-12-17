@@ -141,10 +141,10 @@
                         <param>lapr.project.utils.*</param>
                     </inScopeClasses>-->
                     <targetClasses>
-                        <param>Sprint0.*</param>
+                        <param>PT.IPP.ISEP.DEI.Project.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>Sprint0.*</param>
+                        <param>PT.IPP.ISEP.DEI.Project.*</param>
                     </targetTests>
 
                     <outputFormats>
