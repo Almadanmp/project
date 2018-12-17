@@ -1,6 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
 public class EnergyGrid {
+    private String mName;
     private RoomList mListOfRooms;
     private double mTotalPower;
     private PowerSourceList mListPowerSources;
@@ -8,6 +9,10 @@ public class EnergyGrid {
 
     public RoomList getmListOfRooms() {
         return mListOfRooms;
+    }
+
+    public String getmName() {
+        return mName;
     }
 
     public double getmTotalPower() {
@@ -36,5 +41,9 @@ public class EnergyGrid {
 
     public void setmTotalPower(double mTotalPower) {
         this.mTotalPower = mTotalPower;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 }
