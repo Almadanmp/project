@@ -57,6 +57,17 @@ public class ReadingList {
         return mReadings.get(mostRecentReadingIndex);
     }
 
+    public double getMostRecentValueOfReading() {
+        int mostRecentReadingIndex = 0;
+        for (int i = 0; i < mReadings.size() - 1; i++) {
+            Date firstDate = mReadings.get(i).getmDate();
+            Date secondDate = mReadings.get(i + 1).getmDate();
+            if (firstDate.before(secondDate)) {
+                mostRecentReadingIndex = i + 1;
+            }
+        }
+        return mReadings.get(mostRecentReadingIndex).getmValue();
+    }
     /**Method receives a date and will return the average of all recorded value reading from the given date's month.
      * @return average value of all reading from given date's month
      */
