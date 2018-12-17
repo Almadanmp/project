@@ -262,7 +262,7 @@ public class GeographicArea {
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two
-     * Geographic Areas cannot have the same Localization
+     * Geographic Areas cannot have the same Localization, name and TypeArea
      *
      * @param testObject
      * @return boolean
