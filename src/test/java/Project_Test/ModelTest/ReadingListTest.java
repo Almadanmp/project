@@ -1975,4 +1975,73 @@ public class ReadingListTest {
         //Assert
         assertTrue(actualResult);
     }
+
+    @Test
+    public void seeIfGetMaximumValueOnGivenDateWorks(){
+        ReadingList list = new ReadingList();
+        Date d1= new GregorianCalendar(2015,11,2).getTime();
+        Reading r1 = new Reading(15,d1);
+        Reading r2 = new Reading(30,d1);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMaximumOfGivenDayValueReadings(d1);
+        double expectedResult = 30.0;
+        assertEquals(expectedResult,result,0.01);
+    }
+
+    @Test
+    public void seeIfGetMaximumValueOnGivenDateWorksWithNegatives(){
+        ReadingList list = new ReadingList();
+        Date d1= new GregorianCalendar(2015,11,2).getTime();
+        Reading r1 = new Reading(-15,d1);
+        Reading r2 = new Reading(-30,d1);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMaximumOfGivenDayValueReadings(d1);
+        double expectedResult = -15.0;
+        assertEquals(expectedResult,result,0.01);
+    }
+
+    @Test
+    public void seeIfGetMaximumValueOnGivenDateWorksWithDifDays(){
+        ReadingList list = new ReadingList();
+        Date d1= new GregorianCalendar(2015,11,2).getTime();
+        Date d2= new GregorianCalendar(2015,11,3).getTime();
+        Reading r1 = new Reading(15,d1);
+        Reading r2 = new Reading(30,d2);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMaximumOfGivenDayValueReadings(d1);
+        double expectedResult = 15.0;
+        assertEquals(expectedResult,result,0.01);
+    }
+    @Test
+    public void seeIfGetMostRecentValueOfReadingWorks(){
+        ReadingList list = new ReadingList();
+        Date d1= new GregorianCalendar(2015,11,2).getTime();
+        Date d2= new GregorianCalendar(2015,11,3).getTime();
+        Reading r1 = new Reading(15,d1);
+        Reading r2 = new Reading(30,d2);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMostRecentValueOfReading();
+        double expectedResult = 30.0;
+        assertEquals(expectedResult,result,0.01);
+
+    }
+
+    @Test
+    public void seeIfGetMostRecentValueOfReadingWorksSameDay(){
+        ReadingList list = new ReadingList();
+        Date d1= new GregorianCalendar(2015,11,2,20,0).getTime();
+        Date d2= new GregorianCalendar(2015,11,2,5,0).getTime();
+        Reading r1 = new Reading(15,d1);
+        Reading r2 = new Reading(30,d2);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMostRecentValueOfReading();
+        double expectedResult = 15.0;
+        assertEquals(expectedResult,result,0.01);
+
+    }
 }
