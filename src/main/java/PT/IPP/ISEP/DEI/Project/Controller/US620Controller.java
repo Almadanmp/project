@@ -20,6 +20,6 @@ public class US620Controller {
     }
     public double getTotalRainfallOnGivenDay(House casa,Date dia) {
         GeographicArea geoAreaHouse = casa.getmMotherGA();
-        return geoAreaHouse.getSensorList().getSensorByName("Pluviosidade").getReadingList().getTotalSumOfGivenDayValueReadings(dia);
+        return geoAreaHouse.getSensorList().getSensorByType("Pluviosidade").getReadingList().getTotalSumOfGivenDayValueReadings(dia);
     }
 }

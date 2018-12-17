@@ -50,7 +50,7 @@ public class US620ControllerTest {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
 
