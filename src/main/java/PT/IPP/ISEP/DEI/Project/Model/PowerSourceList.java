@@ -60,5 +60,84 @@ public class PowerSourceList {
         return mPowerSourceList.contains(powerSource);
     }
 
+    /**
+     * Getter (array of PowerSources)
+     *
+     * @return array of powerSources
+     */
+    public PowerSource[] getPowerSources() {
+        int sizeOfResultArray = mPowerSourceList.size();
+        PowerSource[] result = new PowerSource[sizeOfResultArray];
+        for (int i = 0; i < mPowerSourceList.size(); i++) {
+            result[i] = mPowerSourceList.get(i);
+        }
+        return result;
+    }
+
+    /**
+     * Gettter (list of powerSources)
+     *
+     * @return list of powerSources
+     */
+    public List<PowerSource> getPowerSourceList() {
+        return this.mPowerSourceList;
+    }
+
+    /**
+     * Removes a powerSources from the powerSource List
+     *
+     * @param powerSourceToRemove
+     */
+    public void removePowerSource(PowerSource powerSourceToRemove) {
+        mPowerSourceList.remove(powerSourceToRemove);
+    }
+
+    /**
+     * @param name name of the powerSource to find in the list.
+     * @return return the powerSource whose name matches the name introduced.
+     */
+    public PowerSource getPowerSourceByName(String name) {
+        for (PowerSource p : mPowerSourceList) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public List<PowerSource> getListOfPowerSourceContainedInRoom(Room room, PowerSource powerSource) {
+        List<PowerSource> containedPowerSource = new ArrayList<>();
+        for (PowerSource powerSource : mPowerSourceList) {
+            if (powerSource.isPowerSourceContainedInRoom(room) && powerSource.getPowerSourceType().equals(powerSource)) {
+                containedPowerSource.add(powerSource);
+            }
+        }
+        return containedPowerSource;
+    }
+
+    private boolean checkIfListInvalid() {
+        return (this.mPowerSourceList.isEmpty());
+    }
+
+    public boolean checkIfListIsValid() {
+        return !mPowerSourceList.isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof PowerSourceList)) {
+            return false;
+        }
+        PowerSourceList list = (PowerSourceList) testObject;
+        return Arrays.equals(this.getPowerSources(), list.getPowerSources());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 
 }
