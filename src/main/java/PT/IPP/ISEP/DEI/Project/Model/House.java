@@ -6,6 +6,7 @@ import java.util.Objects;
  * House Class. Defines de House
  */
 public class House {
+    private String mDesignation;
     private String mAddress;
     private Local mGPS;
     private String mZipCode;
@@ -16,14 +17,16 @@ public class House {
     //CONSTRUCTORS
     public House(){}
 
-    public House (String mAddress, Local mGPS, String mZipCode){
+    public House (String designation, String mAddress, Local mGPS, String mZipCode){
+        this.mDesignation = designation;
         this.mAddress = mAddress;
         this.mGPS = mGPS;
         this.mZipCode = mZipCode;
 
     }
 
-    public House(String mAddress, Local mGPS, String mZipCode, GeographicArea mMotherGA) {
+    public House(String designation, String mAddress, Local mGPS, String mZipCode, GeographicArea mMotherGA) {
+        this.mDesignation = designation;
         this.mAddress = mAddress;
         this.mGPS = mGPS;
         this.mZipCode = mZipCode;
@@ -32,6 +35,13 @@ public class House {
 
     //SETTERS AND GETTERS
 
+    public String getHouseDesignation() {
+        return mDesignation;
+    }
+
+    public void setHouseDesignation(String designation) {
+        mDesignation = designation;
+    }
 
     public String getmAddress() {
         return mAddress;
