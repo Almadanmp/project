@@ -80,4 +80,77 @@ public class HouseListTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    public void seeIfEqualsToSameObject() {
+        //Arrange
+        String address1 = "rua da rua 345";
+        String address2 = "rua da rua 455";
+        String zipCode = "4450";
+        double latitude = 38;
+        double longitude = 7;
+        Local local = new Local(latitude, longitude);
+        House house1 = new House(address1, local, zipCode);
+        House house2 = new House(address2, local, zipCode);
+        HouseList houseList1 = new HouseList(house1);
+        houseList1.addHouseToHouseList(house2);
+        HouseList houseList2 = new HouseList(house1);
+        houseList2.addHouseToHouseList(house2);
+
+        boolean expectedResult = true;
+        boolean actualResult;
+        //Act
+        actualResult = houseList1.equals(houseList2);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEqualsToDifferentObject() {
+        //Arrange
+        String address1 = "rua da rua 345";
+        String address2 = "rua da rua 455";
+        String zipCode = "4450";
+        double latitude = 38;
+        double longitude = 7;
+        Local local = new Local(latitude, longitude);
+        House house1 = new House(address1, local, zipCode);
+        House house2 = new House(address2, local, zipCode);
+        House house3 = new House("rua da estrada", local, "3450");
+        HouseList houseList1 = new HouseList(house1);
+        houseList1.addHouseToHouseList(house2);
+        HouseList houseList2 = new HouseList(house2);
+        houseList2.addHouseToHouseList(house3);
+
+        boolean expectedResult = false;
+        boolean actualResult;
+        //Act
+        actualResult = houseList1.equals(houseList2);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void seeIfFalseWhenObjectsAreFromDifferentClass() {
+        //Arrange
+
+        String address1 = "rua da rua 345";
+        String address2 = "rua da rua 455";
+        String zipCode = "4450";
+        double latitude = 38;
+        double longitude = 7;
+        Local local = new Local(latitude, longitude);
+        House house1 = new House(address1, local, zipCode);
+        House house2 = new House(address2, local, zipCode);
+        HouseList houseList1 = new HouseList(house1);
+        houseList1.addHouseToHouseList(house2);
+
+
+
+        boolean expectedResult = false;
+        boolean actualResult;
+        //Act
+        actualResult = houseList1.equals(latitude);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
 }
