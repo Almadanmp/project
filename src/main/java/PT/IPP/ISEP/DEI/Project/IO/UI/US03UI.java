@@ -2,6 +2,7 @@ package PT.IPP.ISEP.DEI.Project.IO.UI;
 
 import PT.IPP.ISEP.DEI.Project.Controller.US03Controller;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
+
 import java.util.Scanner;
 
 /**

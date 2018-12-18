@@ -81,4 +81,12 @@ public class Room {
         }
         return s.getReadingList().getMaximumOfGivenDayValueReadings(day);
     }
+    public boolean addDevice(Device device) {
+        if (!(mRoomDeviceList.getDeviceList().contains(device))) {
+            mRoomDeviceList.getDeviceList().add(device);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

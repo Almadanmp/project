@@ -29,6 +29,13 @@ public class RoomList {
     public int hashCode() {
         return 1;
     }
-
+    public boolean addRoom(Room room) {
+        if (!(mRooms.contains(room))) {
+            mRooms.add(room);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
