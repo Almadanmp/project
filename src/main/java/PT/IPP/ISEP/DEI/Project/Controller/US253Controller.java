@@ -10,6 +10,7 @@ import PT.IPP.ISEP.DEI.Project.Model.SensorList;
 
 public class US253Controller {
 
+    private Room mRoom;
 
     public US253Controller() {
         /*
@@ -17,7 +18,11 @@ public class US253Controller {
          * as it will only be used in UI to apply methods on given inputs
          */
     }
-    public void addSensorToRoom(Room room,Sensor sensorToAdd) {
-        room.getRoomSensorList().getSensorList().add(sensorToAdd);
+    public void addSensorToRoom(Room room, Sensor sensorToAdd) {
+        this.mRoom = room; 
+        this.mRoom.getRoomSensorList().getSensorList().add(sensorToAdd);
+    }
+    public SensorList getSensorsFromRoom() {
+        return this.mRoom.getRoomSensorList();
     }
 }
