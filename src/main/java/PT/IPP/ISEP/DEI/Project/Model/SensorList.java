@@ -123,6 +123,16 @@ public class SensorList {
         }
         return null;
     }
+
+    public boolean doesSensorListContainSensorByName(String name) {
+        for (Sensor s : mSensorList) {
+            if (s.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Sensor getSensorByType(String name) {
         for (Sensor s : mSensorList) {
             if (s.getTypeSensor().getName().equals(name)) {

@@ -1,6 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Controller;
 
 import PT.IPP.ISEP.DEI.Project.Model.Room;
+import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 
 import java.util.*;
 
@@ -9,13 +10,31 @@ import java.util.*;
  * in order to check if heating/cooling in that room was effective.
  */
 public class US610Controller {
-    private Room mRoom;
+    private RoomList mListRoom;
+    private Date mDate;
 
-    public US610Controller(Room room){
-        this.mRoom=room;
+
+    public US610Controller(RoomList room){
+        this.mListRoom=room;
     }
 
     public double getMaxTemperatureInARoomOnAGivenDay(Date day){
-        return mRoom.getMaxTemperatureInARoomOnAGivenDay(day);
+        double max=-275;
+        for(Room r: this.mListRoom.getListOfRooms()){
+        max=r.getMaxTemperatureInARoomOnAGivenDay(day);
+    } return max;
+    }
+
+    public boolean doesListContainRoomByName(String name){
+        return this.mListRoom.doesListOfRoomsContainRoomByName(name);
+    }
+    public boolean doesSensorListInARoomContainASensorByName(String name){
+        return this.mListRoom.doesListOfRoomsContainRoomByName(name);
+    }
+
+    public Date createDate(int year, int month, int day) {
+        Date date = new GregorianCalendar(year, month, day).getTime();
+        this.mDate = date;
+        return this.mDate;
     }
 }
