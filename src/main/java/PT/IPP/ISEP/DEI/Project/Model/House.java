@@ -6,7 +6,7 @@ import java.util.Objects;
  * House Class. Defines de House
  */
 public class House {
-    private String mAdress;
+    private String mAddress;
     private Local mGPS;
     private String mZipCode;
     GeographicArea mMotherGA;
@@ -16,15 +16,15 @@ public class House {
     //CONSTRUCTORS
     public House(){}
 
-    public House (String mAdress, Local mGPS, String mZipCode){
-        this.mAdress = mAdress;
+    public House (String mAddress, Local mGPS, String mZipCode){
+        this.mAddress = mAddress;
         this.mGPS = mGPS;
         this.mZipCode = mZipCode;
 
     }
 
-    public House(String mAdress, Local mGPS, String mZipCode, GeographicArea mMotherGA) {
-        this.mAdress = mAdress;
+    public House(String mAddress, Local mGPS, String mZipCode, GeographicArea mMotherGA) {
+        this.mAddress = mAddress;
         this.mGPS = mGPS;
         this.mZipCode = mZipCode;
         this.mMotherGA = mMotherGA;
@@ -33,12 +33,12 @@ public class House {
     //SETTERS AND GETTERS
 
 
-    public String getmAdress() {
-        return mAdress;
+    public String getmAddress() {
+        return mAddress;
     }
 
-    public void setmAdress(String mAdress) {
-        this.mAdress = mAdress;
+    public void setmAddress(String mAddress) {
+        this.mAddress = mAddress;
     }
 
     public Local getmGPS() {
@@ -70,12 +70,12 @@ public class House {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         House house = (House) o;
-        return Objects.equals(mAdress, house.mAdress);
+        return Objects.equals(mAddress, house.mAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mAdress);
+        return Objects.hash(mAddress);
     }
 }
 

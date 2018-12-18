@@ -1,6 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DeviceList {
@@ -33,4 +34,25 @@ public class DeviceList {
         mDeviceList.remove(deviceToRemove);
     }
 
+    public boolean checkIfListIsValid() {
+        return !mDeviceList.isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof DeviceList)) {
+            return false;
+        }
+        DeviceList list = (DeviceList) testObject;
+        return Arrays.equals(this.getDeviceList().toArray(), list.getDeviceList().toArray());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+}
 }
