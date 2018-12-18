@@ -1,5 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
+import java.util.List;
+
 public class EnergyGrid {
     private String mName;
     private RoomList mListOfRooms;
@@ -7,9 +9,7 @@ public class EnergyGrid {
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
 
-    public RoomList getmListOfRooms() {
-        return mListOfRooms;
-    }
+
 
     public String getmName() {
         return mName;
@@ -35,6 +35,8 @@ public class EnergyGrid {
         this.mListOfRooms = mListOfRooms;
     }
 
+    public RoomList getmListOfRooms () { return this.mListOfRooms;}
+
     public void setmListPowerSources(PowerSourceList mListPowerSources) {
         this.mListPowerSources = mListPowerSources;
     }
@@ -45,5 +47,14 @@ public class EnergyGrid {
 
     public void setmName(String mName) {
         this.mName = mName;
+    }
+
+    public boolean addRoom(Room room) {
+        if (!(mListOfRooms.getListOfRooms().contains(room))) {
+            mListOfRooms.getListOfRooms().add(room);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
