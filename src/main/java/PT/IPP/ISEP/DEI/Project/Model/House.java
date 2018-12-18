@@ -16,6 +16,13 @@ public class House {
     //CONSTRUCTORS
     public House(){}
 
+    public House (String mAdress, Local mGPS, String mZipCode){
+        this.mAdress = mAdress;
+        this.mGPS = mGPS;
+        this.mZipCode = mZipCode;
+
+    }
+
     public House(String mAdress, Local mGPS, String mZipCode, GeographicArea mMotherGA) {
         this.mAdress = mAdress;
         this.mGPS = mGPS;
