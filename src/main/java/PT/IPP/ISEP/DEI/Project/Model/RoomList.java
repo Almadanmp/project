@@ -1,6 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RoomList {
@@ -28,10 +29,6 @@ public class RoomList {
         return this.mRooms;
     }
 
-    @Override
-    public int hashCode() {
-        return 1;
-    }
 
     public boolean addRoom(Room room) {
         if (!(mRooms.contains(room))) {
@@ -41,5 +38,23 @@ public class RoomList {
             return false;
         }
     }
+
+    @Override
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof HouseList)) {
+            return false;
+        }
+        RoomList list = (RoomList) testObject;
+        return Arrays.equals(this.getListOfRooms().toArray(), list.getListOfRooms().toArray());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
 }
 
