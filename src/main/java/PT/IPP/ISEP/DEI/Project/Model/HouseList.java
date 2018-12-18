@@ -18,7 +18,7 @@ public class HouseList {
     }
 
     public boolean addHouseToHouseList(House house) {
-        if(!mHouseList.contains(house)) {
+        if (!mHouseList.contains(house)) {
             mHouseList.add(house);
             return true;
         }
@@ -26,10 +26,9 @@ public class HouseList {
     }
 
     public boolean checkIfHouseListIsValid() {
-        if(mHouseList.isEmpty()) {
-            return false;
+        {
+            return !mHouseList.isEmpty();
         }
-        return true;
     }
 
     public List<House> getHouseList() {
