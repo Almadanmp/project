@@ -19,6 +19,29 @@ public class MainUI {
         Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
         int option;
+        int loginFlag = 0;
+        String loginAdmin;
+        String loginRegular;
+
+        // Login Input
+
+        System.out.println("User Login");
+        System.out.println("\nLogin:");
+        String login = scanner.nextLine();
+        System.out.println("\nPassword:");
+        String password = scanner.nextLine();
+
+        // Login Definition
+
+        if ("admin".equals(login) && "admin".equals(password)) {
+            loginFlag = 1;
+        }
+        else if ("".equals(login) && "".equals(password)) {
+            loginFlag = 2;
+        }
+        else System.out.println("Invalid Login");
+
+        System.out.println("User Flag is:\n" +loginFlag);
 
         while (activeProgram) {
 
