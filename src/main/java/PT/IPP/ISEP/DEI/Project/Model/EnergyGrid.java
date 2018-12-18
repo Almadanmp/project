@@ -16,7 +16,11 @@ public class EnergyGrid {
     }
 
     public double getmTotalPower() {
-        return mTotalPower;
+       double sum = 0;
+        for (Device d : mListDevices.getDeviceList()) {
+            sum =+  d.getmTotalPower();
+        }
+        return sum;
     }
 
     public DeviceList getmListDevices() {
