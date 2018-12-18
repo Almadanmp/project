@@ -14,6 +14,7 @@ public class MainUI {
         SensorList mSensorList = new SensorList();
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
         TypeAreaList mTypeAreaList = new TypeAreaList();
+
         Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
         int option;
@@ -128,6 +129,7 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
             }
+
         }
     }
 }

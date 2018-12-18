@@ -22,7 +22,7 @@ public class EnergyGridList {
         }
         return false;
     }
-    public EnergyGrid matchenergyGrid (String gridToMatch){
+    public EnergyGrid matchEnergyGrid(String gridToMatch){
         for (EnergyGrid g: mEnergyGridList){
             if (g.getmName().equals(gridToMatch)){
                 return g;
@@ -33,6 +33,7 @@ public class EnergyGridList {
     public boolean checkIfListIsValid() {
         return !mEnergyGridList.isEmpty();
     }
+
     public List<EnergyGrid> getEnergyGridList() {
         return mEnergyGridList;
     }
