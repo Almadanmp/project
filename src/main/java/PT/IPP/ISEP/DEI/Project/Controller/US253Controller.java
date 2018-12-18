@@ -19,7 +19,7 @@ public class US253Controller {
          */
     }
     public void addSensorToRoom(Room room, Sensor sensorToAdd) {
-        this.mRoom = room; 
+        this.mRoom = room;
         this.mRoom.getRoomSensorList().getSensorList().add(sensorToAdd);
     }
     public SensorList getSensorsFromRoom() {
