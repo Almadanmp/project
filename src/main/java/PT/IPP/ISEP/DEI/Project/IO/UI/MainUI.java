@@ -14,6 +14,7 @@ public class MainUI {
         SensorList mSensorList = new SensorList();
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
         TypeAreaList mTypeAreaList = new TypeAreaList();
+        HouseList mHouseList = new HouseList();
 
         Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
@@ -121,6 +122,12 @@ public class MainUI {
                     for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
                         System.out.println(ga.getName());
                     }
+                    System.out.println(pressEnter);
+                    enterToReturnToConsole.nextLine();
+                    break;
+                case 11:
+                    US101UI view11 = new US101UI();
+                    view11.run(mHouseList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
