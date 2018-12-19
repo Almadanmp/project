@@ -1,7 +1,5 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
-import java.util.List;
-
 public class EnergyGrid {
     private String mName;
     private RoomList mListOfRooms;
@@ -18,7 +16,7 @@ public class EnergyGrid {
     public double getmTotalPower() {
        double sum = 0;
         for (Device d : mListDevices.getDeviceList()) {
-            sum =+  d.getmTotalPower();
+            sum =+  d.getmTotalPowerDevice();
         }
         return sum;
     }
