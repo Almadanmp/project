@@ -4,6 +4,7 @@ public class EnergyGrid {
     private String mName;
     private RoomList mListOfRooms;
     private double mTotalPower;
+    private double mAllocatedTotalPower;
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
 
@@ -25,6 +26,10 @@ public EnergyGrid(String name, RoomList listOfRooms, double totalPower, PowerSou
     public String getmName() {
         return mName;
     }
+
+    public void setAllocatedTotalPower(double allocatedTotalPower){ this.mAllocatedTotalPower = allocatedTotalPower;}
+
+    public double getAllocatedTotalPower(){return this.mAllocatedTotalPower;}
 
     public double getmTotalPower() {
        double sum = 0;

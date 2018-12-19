@@ -12,10 +12,24 @@ public class US130Controller {
     private EnergyGrid mEnergyGrid;
     private RoomList mRoomList;
 
-    public US130Controller() {}
+    public US130Controller(EnergyGrid grid) {this.mEnergyGrid = grid;}
 
-    //public boolean attachRoomToEnergyGrid(Room mRoomToAttach){
+    public void setRoomList(RoomList list){this.mRoomList = list;}
 
-   // }
+    public RoomList getRoomList(){return this.mRoomList;}
+
+    public boolean attachRoomToEnergyGrid(Room mRoomToAttach, double totalPower){
+        if(mRoomList.checkIfListIsValid()){
+            mRoomToAttach.setRoomTotalPower(totalPower);
+            mRoomList.addRoom(mRoomToAttach);
+            return true;
+        }return false;
+    }
+
+    public void setGridMaximumPower(double gridMaxPower){
+        this.mEnergyGrid.setAllocatedTotalPower(gridMaxPower);
+    }
+
+    public double getGridMaximumPower(){return this.mEnergyGrid.getAllocatedTotalPower();}
 
 }

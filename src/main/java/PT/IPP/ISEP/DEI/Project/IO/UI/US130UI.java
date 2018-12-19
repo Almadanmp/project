@@ -5,4 +5,9 @@ package PT.IPP.ISEP.DEI.Project.IO.UI;
 
 
 public class US130UI {
+
+
+    public void run(){
+
+    }
 }

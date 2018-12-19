@@ -12,9 +12,16 @@ public class Room {
     private double mRoomTotalPower;
 
     public Room(String name, int houseFloor, double dimensions) {
-        mRoomName = name;
-        mHouseFloor = houseFloor;
-        mRoomDimensions = dimensions;
+        setRoomName(name);
+        setRoomHouseFloor(houseFloor);
+        setRoomDimensions(dimensions);
+    }
+
+    public Room(String name, int houseFloor, double dimensions, double roomTotalPower) {
+        setRoomName(name);
+        setRoomHouseFloor(houseFloor);
+        setRoomDimensions(dimensions);
+        setRoomTotalPower(roomTotalPower);
     }
 
     public Room(String name, int houseFloor, double dimensions, SensorList listSensor) {

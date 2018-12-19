@@ -63,6 +63,10 @@ public class RoomList {
         return null;
     }
 
+    public boolean checkIfListIsValid() {
+        return !mRoomList.isEmpty();
+    }
+
 
     @Override
     public boolean equals(Object testObject) {
