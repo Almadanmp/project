@@ -39,6 +39,14 @@ public class House {
         this.mMotherGA = mMotherGA;
     }
 
+    public House(String designation, String mAddress, Local mGPS, String mZipCode, RoomList roomList) {
+        this.mDesignation = designation;
+        this.mAddress = mAddress;
+        this.mGPS = mGPS;
+        this.mZipCode = mZipCode;
+        this.mRoomList = roomList;
+    }
+
     //SETTERS AND GETTERS
 
     public String getHouseDesignation() {
