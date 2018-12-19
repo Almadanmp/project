@@ -7,8 +7,20 @@ public class EnergyGrid {
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
 
+public EnergyGrid(){}
 
-    public EnergyGrid(){ }
+public EnergyGrid(String name, RoomList listOfRooms, double totalPower, PowerSourceList listPowerSources, DeviceList deviceList){
+    setmName(name);
+    setmListOfRooms(listOfRooms);
+    setmTotalPower(totalPower);
+    setmListPowerSources(listPowerSources);
+    setmListDevices(deviceList);
+}
+
+    public EnergyGrid(String houseGridDesignation,double maxContractedPower){
+       setmName(houseGridDesignation);
+       setmTotalPower(maxContractedPower);
+    }
 
     public String getmName() {
         return mName;
