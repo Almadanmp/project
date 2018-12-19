@@ -187,6 +187,11 @@ public class Sensor {
     public boolean isSensorActiveOnGivenDate(GregorianCalendar date1) {
         return this.getDateStartedFunctioning().before(date1.getTime());
     }
+
+    public double getDistanceToHouse(House house){
+        Local l = house.getmGPS();
+        return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
+    }
     
     @Override
     public boolean equals(Object testObject) {

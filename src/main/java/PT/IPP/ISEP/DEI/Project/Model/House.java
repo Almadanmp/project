@@ -65,6 +65,11 @@ public class House {
         this.mMotherGA = mMotherGA;
     }
 
+    public double calculateDistanceToSensor(Sensor sensor) {
+        Local l = sensor.getLocal();
+        return this.mGPS.getLinearDistanceBetweenLocalsInKm(l);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

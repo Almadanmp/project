@@ -14,8 +14,6 @@ public class US610UI {
     private boolean active;
     private String mNameRoom;
     private RoomList mRoomList;
-    private int mHouseFloor;
-    private double mDimensions;
     private String mNameSensor;
     private int dataYear;
     private int dataMonth;
@@ -27,40 +25,18 @@ public class US610UI {
         this.active=false;
     }
 
-    private void run(){
+    private void run(RoomList list){
         this.active = true;
         getInputRoom();
-        getInputHouseFloor();
-        getInputDimensions();
         getInputSensorName();
         getInputDate();
-        updateModel();
+        updateModel(list);
         displayState();
 
     }
 
     private void getInputRoom() {
         this.mNameRoom = readInputString("Room");
-    }
-
-    private void getInputHouseFloor(){
-        System.out.println("\nEnter the house floor:\t");
-        while(!scanner.hasNextInt()) {
-            scanner.next();
-            out.println("Not a valid House Floor. Try again");
-        }
-        this.mHouseFloor = scanner.nextInt();
-        scanner.nextLine();
-    }
-
-    private void getInputDimensions(){
-        System.out.println("\nEnter the Room Dimensions\t");
-        while(!scanner.hasNextInt()) {
-            scanner.next();
-            out.println("Not a valid Dimension. Try again");
-        }
-        this.mDimensions = scanner.nextInt();
-        scanner.nextLine();
     }
 
     private void getInputSensorName() {
@@ -94,9 +70,8 @@ public class US610UI {
     }
 
 
-    private void updateModel() {
-        this.mRoomList=new RoomList();
-        US610Controller ctrl = new US610Controller(mRoomList);
+    private void updateModel(RoomList list) {
+        US610Controller ctrl = new US610Controller(list);
         out.print("The room is " + this.mNameRoom + " the Temperature Sensor is " + this.mNameSensor +
                 " and the date is " + this.dataDay +"-"+ this.dataMonth +"-"+ this.dataYear + "\n");
         Date mDate = ctrl.createDate(this.dataYear, this.dataMonth, this.dataDay);
@@ -120,7 +95,6 @@ public class US610UI {
     private String createInvalidStringMsg(String inputType) {
         return "That's not a valid " + inputType + ". Please insert only Alphabetic Characters";
     }
-
 
     private String readInputString(String inputType) {
         System.out.print(createInputMsg(inputType));
