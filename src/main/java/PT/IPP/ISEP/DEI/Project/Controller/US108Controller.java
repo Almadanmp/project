@@ -1,7 +1,26 @@
 package PT.IPP.ISEP.DEI.Project.Controller;
 
+import PT.IPP.ISEP.DEI.Project.Model.House;
+import PT.IPP.ISEP.DEI.Project.Model.HouseList;
+import PT.IPP.ISEP.DEI.Project.Model.Room;
+import PT.IPP.ISEP.DEI.Project.Model.RoomList;
+
 /** As an Administrator, I want to have a list of existing rooms, so that I can choose one
 to edit it. **/
 
 public class US108Controller {
+
+    private HouseList mHouseList;
+    private RoomList mRoomList;
+    private Room mRoom;
+    private House mHouse;
+
+    public HouseList getHouseList(){
+        return mHouseList;
+    }
+
+    public String printHouseListNames() {
+        return mHouseList.printHouseList();
+    }
 }
+
