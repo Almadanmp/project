@@ -91,6 +91,17 @@ public class Room {
         }
     }
 
+    public double getCurrentRoomTemperature (Date day) {
+        SensorList list= getRoomSensorList();
+        House h =new House();
+        TypeSensor type = new TypeSensor("temperature");
+        Sensor s = new Sensor("sensor1",type,h.getmGPS(), new Date());
+        for (int i = 0; i<list.getSensors().length; i++){
+            s = list.getSensors()[i];
+        }
+        return s.getReadingList().getMostRecentValueOfReading();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
