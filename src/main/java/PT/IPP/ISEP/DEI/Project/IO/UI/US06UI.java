@@ -3,6 +3,10 @@ package PT.IPP.ISEP.DEI.Project.IO.UI;
 import PT.IPP.ISEP.DEI.Project.Controller.US06Controller;
 import PT.IPP.ISEP.DEI.Project.Model.*;
 import java.util.*;
+/**
+ * User Story 06
+ * As a system administrator, I want to be able to manually input a new sensor and add it to a pre-input Geographic Area
+ */
 
 
 public class US06UI {

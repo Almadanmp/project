@@ -75,6 +75,18 @@ public class House {
         this.mMotherGA = mMotherGA;
     }
 
+    public boolean addRoomToRoomList(Room roomToAdd) {
+        String roomToAddName = roomToAdd.getRoomName();
+        for(Room r : this.mRoomList.getListOfRooms()) {
+            String roomDesignationToTest = r.getRoomName();
+            if(roomDesignationToTest.equals(roomToAddName)) {
+                return false;
+            }
+        }
+        this.mRoomList.addRoom(roomToAdd);
+        return true;
+    }
+
     public double calculateDistanceToSensor(Sensor sensor) {
         Local l = sensor.getLocal();
         return this.mGPS.getLinearDistanceBetweenLocalsInKm(l);

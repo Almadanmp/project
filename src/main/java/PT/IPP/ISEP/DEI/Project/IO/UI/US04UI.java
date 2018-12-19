@@ -31,7 +31,7 @@ public class US04UI {
     }
 
     /**
-     * Usual getInput() method for UI's. This method stores the input to use in the update() method later.
+     * Usual getInputRoom() method for UI's. This method stores the input to use in the update() method later.
      */
     private void getInput() {
         System.out.println("Please insert Geographic Area type:");

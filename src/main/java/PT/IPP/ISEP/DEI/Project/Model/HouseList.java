@@ -35,6 +35,31 @@ public class HouseList {
         return mHouseList;
     }
 
+    public boolean checkIfHouseListContainsHouseWithGivenDesignation(String houseDesignation) {
+        for(House h : this.mHouseList) {
+            String houseDesignationToTest = h.getHouseDesignation();
+            if(houseDesignationToTest.equals(houseDesignation)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean addRoomToHouseInHouseList(String houseDesignation, Room roomToAdd) {
+        for(House h : this.mHouseList) {
+            String houseDesignationToTest = h.getHouseDesignation();
+            if(houseDesignationToTest.equals(houseDesignationToTest)) {
+                if(h.addRoomToRoomList(roomToAdd)) {
+                 return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
