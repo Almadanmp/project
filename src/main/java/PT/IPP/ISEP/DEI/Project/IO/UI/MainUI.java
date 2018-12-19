@@ -157,7 +157,6 @@ public class MainUI {
                     break;
                 case 11:
                     if (loginFlag == 1) {
-                        System.out.println("Bravo!");
                         US101UI view11 = new US101UI();
                         view11.run(mHouseList);
                         System.out.println(pressEnter);
