@@ -16,11 +16,19 @@ public class US108Controller {
     private House mHouse;
 
     public HouseList getHouseList(){
-        return mHouseList;
+        return this.mHouseList;
+    }
+
+    public RoomList getRoomList(){
+        return this.mRoomList;
     }
 
     public String printHouseListNames() {
         return mHouseList.printHouseList();
+    }
+
+    public String printRoomListNames() {
+        return mRoomList.printRoomList();
     }
 }
 

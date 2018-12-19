@@ -64,7 +64,14 @@ public class US108UI {
     }
 
     private boolean displayRoomList() {
-        return false;
+        US108Controller ctrl = new US108Controller();
+        if (ctrl.getRoomList().getListOfRooms().isEmpty()) {
+            System.out.println(ctrl.printRoomListNames());
+            return false;
+        } else {
+            System.out.println(ctrl.printRoomListNames());
+            return true;
+        }
     }
 
     private void getRoom() {
