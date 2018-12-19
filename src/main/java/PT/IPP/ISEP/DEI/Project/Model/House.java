@@ -98,6 +98,18 @@ public class House {
         return this.mGPS.getLinearDistanceBetweenLocalsInKm(l);
     }
 
+    public double getTheMinorDistanceFromTheHouseToTheSensor(){
+        Sensor firstSensor = getmMotherGA().getSensorList().getSensors()[0];
+        double distance = calculateDistanceToSensor(firstSensor);
+        for(int i =0; i<getmMotherGA().getSensorList().getSensors().length;i++) {
+            Sensor copo = getmMotherGA().getSensorList().getSensors()[i];
+            if (distance>calculateDistanceToSensor(copo)){
+                distance = calculateDistanceToSensor(copo);
+            }
+        }
+        return distance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

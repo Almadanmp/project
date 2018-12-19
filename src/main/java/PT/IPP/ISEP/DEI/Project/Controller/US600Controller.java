@@ -6,23 +6,25 @@ import PT.IPP.ISEP.DEI.Project.Model.Sensor;
 public class US600Controller {
     private House mHouse;
 
-    public US600Controller(){}
+    public US600Controller(House house){
+        this.mHouse=house;
+    }
 
-    public double getTheMinorDistanceFromTheHouseToTheSensor(House house){
+    public double getTheMinorDistanceFromTheHouseToTheSensor(){
         double distance=0;
 
-        for (Sensor s: house.getmMotherGA().getSensorList().getSensors()){
-            if (house.calculateDistanceToSensor(s)>distance){
-                distance = house.calculateDistanceToSensor(s);
+        for (Sensor s: this.mHouse.getmMotherGA().getSensorList().getSensors()){
+            if (this.mHouse.calculateDistanceToSensor(s)>distance){
+                distance = this.mHouse.calculateDistanceToSensor(s);
 
             }
     }
     return distance;
     }
 
-    public Sensor getSensorWithTheMinimumDistanceToHouse(House house){
-        for (Sensor s: house.getmMotherGA().getSensorList().getSensors()) {
-            if (getTheMinorDistanceFromTheHouseToTheSensor(house) == s.getDistanceToHouse(house)){
+    public Sensor getSensorWithTheMinimumDistanceToHouse(){
+        for (Sensor s: this.mHouse.getmMotherGA().getSensorList().getSensors()) {
+            if (getTheMinorDistanceFromTheHouseToTheSensor() == s.getDistanceToHouse(this.mHouse)){
                 return s;
             }
         }
@@ -30,10 +32,6 @@ public class US600Controller {
     }
 
     public double getTheMaximumTemperatureInTheHouseArea(){
-        double result=-275;
-        for (Sensor s: mHouse.getmMotherGA().getSensorList().getSensors()){
-            result = s.getReadingList().getMostRecentValueOfReading();
-        }
-        return result;
+        return getSensorWithTheMinimumDistanceToHouse().getReadingList().getMostRecentValueOfReading();
         }
 }
