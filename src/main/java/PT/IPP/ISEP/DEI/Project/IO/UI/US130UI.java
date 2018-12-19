@@ -26,7 +26,6 @@ public class US130UI {
             }else {
                 createEnergyGridRoomList();
                 attachRoomsToEnergyGridRoomList(mainRoomList);
-                defineTheGridMaximumPower();
                 displayState();
             }
         }
@@ -68,14 +67,6 @@ public class US130UI {
         }else {
             System.out.println("The room FAILED to attach to the the energy grid!");
         }
-    }
-
-    public void defineTheGridMaximumPower(){
-        US130Controller ctrl = new US130Controller();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Define the maximum potency for this energy grid: ");
-        double maxInput = scanner.nextDouble();
-        ctrl.setGridMaximumPower(maxInput);
     }
 
     public void displayState(){
