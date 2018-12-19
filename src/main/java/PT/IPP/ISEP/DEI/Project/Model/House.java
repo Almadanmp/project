@@ -110,6 +110,15 @@ public class House {
         return distance;
     }
 
+    public Sensor getSensorWithTheMinimumDistanceToHouse(House house){
+        for (Sensor s: house.getmMotherGA().getSensorList().getSensors()) {
+            if (house.getTheMinorDistanceFromTheHouseToTheSensor() == s.getDistanceToHouse(house)){
+                return s;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -42,5 +42,16 @@ public class HouseTest {
         assertEquals(110.91871788829754,result,0.01);
     }
 
+    @Test
+    public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks(){
+        Sensor s1 = new Sensor("sensor1",new TypeSensor("temperature"),new Local(4,6),new GregorianCalendar(4,4,4).getTime());
+        Sensor s2 = new Sensor("sensor2",new TypeSensor("temperature"),new Local(4,8),new GregorianCalendar(4,4,4).getTime());
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        House house = new House("casa","rua coise",new Local(4,5),"440-4",new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList));
+        Sensor result= house.getSensorWithTheMinimumDistanceToHouse(house);
+        assertEquals(s1,result);
+    }
 }
 

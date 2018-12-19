@@ -192,6 +192,8 @@ public class Sensor {
         Local l = house.getmGPS();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
     }
+
+
     
     @Override
     public boolean equals(Object testObject) {

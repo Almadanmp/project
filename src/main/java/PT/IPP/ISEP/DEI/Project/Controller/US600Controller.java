@@ -11,24 +11,11 @@ public class US600Controller {
     }
 
     public double getTheMinorDistanceFromTheHouseToTheSensor(){
-        double distance=0;
-
-        for (Sensor s: this.mHouse.getmMotherGA().getSensorList().getSensors()){
-            if (this.mHouse.calculateDistanceToSensor(s)>distance){
-                distance = this.mHouse.calculateDistanceToSensor(s);
-
-            }
-    }
-    return distance;
+        return mHouse.getTheMinorDistanceFromTheHouseToTheSensor();
     }
 
     public Sensor getSensorWithTheMinimumDistanceToHouse(){
-        for (Sensor s: this.mHouse.getmMotherGA().getSensorList().getSensors()) {
-            if (getTheMinorDistanceFromTheHouseToTheSensor() == s.getDistanceToHouse(this.mHouse)){
-                return s;
-            }
-        }
-        return null;
+        return mHouse.getSensorWithTheMinimumDistanceToHouse(mHouse);
     }
 
     public double getTheMaximumTemperatureInTheHouseArea(){
