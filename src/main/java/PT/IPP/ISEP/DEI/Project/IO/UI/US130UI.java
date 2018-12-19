@@ -25,8 +25,9 @@ public class US130UI {
                 return;
             }else {
                 createEnergyGridRoomList();
-                //attachRoomsToEnergyGridRoomList();
-                //displayState();
+                attachRoomsToEnergyGridRoomList(mainRoomList);
+                defineTheGridMaximumPower();
+                displayState();
             }
         }
     }
@@ -57,4 +58,27 @@ public class US130UI {
         ctrl.createEnergyGridRoomList();
     }
 
+    public void attachRoomsToEnergyGridRoomList(RoomList mainRoomList){
+        US130Controller ctrl = new US130Controller();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Write the name of the room which you want to attach: ");
+        String roomToAttach = scanner.next();
+        if (ctrl.attachRoomToEnergyGrid(roomToAttach, mainRoomList)){
+            System.out.println("The room was attached to the the energy grid!");
+        }else {
+            System.out.println("The room FAILED to attach to the the energy grid!");
+        }
+    }
+
+    public void defineTheGridMaximumPower(){
+        US130Controller ctrl = new US130Controller();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Define the maximum potency for this energy grid: ");
+        double maxInput = scanner.nextDouble();
+        ctrl.setGridMaximumPower(maxInput);
+    }
+
+    public void displayState(){
+        System.out.println("This energy grid contains the following rooms: " + mEnergyGrid.getmListOfRooms() + "\n And its maximum potency is: " + mEnergyGrid.getmMaxPower());
+    }
 }
