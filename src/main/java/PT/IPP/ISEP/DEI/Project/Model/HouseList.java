@@ -60,6 +60,19 @@ public class HouseList {
         return false;
     }
 
+    public String printHouseList() {
+        StringBuilder finalString = new StringBuilder();
+        String emptyList= "The list is empty.";
+        if(mHouseList.isEmpty()) {
+            return emptyList;
+        }
+        finalString.append("House List:");
+        for(House house: mHouseList) {
+            finalString.append(" \n" + "-").append(house.getHouseDesignation()).append(";");
+        }
+        return finalString.toString();
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
