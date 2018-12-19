@@ -2,6 +2,7 @@ package PT.IPP.ISEP.DEI.Project.IO.UI;
 
 import PT.IPP.ISEP.DEI.Project.Controller.US101Controller;
 import PT.IPP.ISEP.DEI.Project.Model.HouseList;
+import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 
 import java.util.Scanner;
 
