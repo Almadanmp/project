@@ -4,6 +4,7 @@ package Project_Test.ModelTest;
 import PT.IPP.ISEP.DEI.Project.Model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -521,10 +522,10 @@ public class GeographicAreaTest {
 
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        GeographicArea gArea1 = new GeographicArea(t1,l1);
+        GeographicArea gArea1 = new GeographicArea(t1, l1);
         GeographicAreaList GAl = new GeographicAreaList(gArea1);
 
-        GeographicAreaList expectedResult =  GAl;
+        GeographicAreaList expectedResult = GAl;
         GeographicAreaList actualResult;
 
         //Act
@@ -541,22 +542,22 @@ public class GeographicAreaTest {
         TypeArea t1 = new TypeArea("Terriola");
         TypeArea t2 = new TypeArea("Cidade");
         Local l1 = new Local(20, 15);
-        GeographicArea a1 = new GeographicArea(t1,l1);
+        GeographicArea a1 = new GeographicArea(t1, l1);
         Local l2 = new Local(20, 20);
-        GeographicArea a2 = new GeographicArea(t2,l2);
-        Local v1 = new Local (15,20);
-        Local v2 = new Local (20,15);
-        Local v3 = new Local(10,25);
-        Local v4 = new Local(25,10);
+        GeographicArea a2 = new GeographicArea(t2, l2);
+        Local v1 = new Local(15, 20);
+        Local v2 = new Local(20, 15);
+        Local v3 = new Local(10, 25);
+        Local v4 = new Local(25, 10);
         //Act
         a1.setBottomRightVertex(v2);
         a1.setTopLeftVertex(v1);
         a2.setBottomRightVertex(v4);
         a2.setTopLeftVertex(v3);
-        boolean result = a1.isAreaContainedInAnotherArea(a1,a2);
+        boolean result = a1.isAreaContainedInAnotherArea(a1, a2);
 
         //Assert
-        assertEquals(true,result);
+        assertEquals(true, result);
     }
 
     @Test
@@ -564,7 +565,7 @@ public class GeographicAreaTest {
         //Arrange
         String name1 = "Porto";
         TypeArea tA1 = new TypeArea("rua");
-        Local l1 = new Local (11,12);
+        Local l1 = new Local(11, 12);
         GeographicArea gA1 = new GeographicArea(name1, tA1, l1);
 
         //Act
@@ -581,7 +582,7 @@ public class GeographicAreaTest {
         //Arrange
         String name1 = "Porto";
         TypeArea tA1 = new TypeArea("rua");
-        Local l1 = new Local (11,12);
+        Local l1 = new Local(11, 12);
         GeographicArea gA1 = new GeographicArea(name1, tA1, l1);
 
         //Act
@@ -592,8 +593,9 @@ public class GeographicAreaTest {
         //Assert
         assertEquals("Please Insert Valid Name", exception.getMessage());
     }
+
     @Test
-    public void seeIfConstructorWithOneParameterWorks(){
+    public void seeIfConstructorWithOneParameterWorks() {
         //Arrange
         GeographicArea ga1 = new GeographicArea("Porto");
         String expectedResult = "Porto";
@@ -601,13 +603,14 @@ public class GeographicAreaTest {
         //Act
         String actualResult = ga1.getName();
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
-   @Test
+
+    @Test
     public void seeIfWeSetMotherArea() {
         //Arrange
-        GeographicArea ga1 = new GeographicArea("Porto",new TypeArea("Cidade"),new Local(22,23));
-        GeographicArea ga2 = new GeographicArea("Portugal",new TypeArea("País"),new Local(22,17));
+        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(22, 23));
+        GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("País"), new Local(22, 17));
         ga1.setMotherArea(ga2);
         GeographicArea expectedResult = ga2;
 
@@ -615,52 +618,160 @@ public class GeographicAreaTest {
         GeographicArea actualResult = ga1.getMotherArea();
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
+
     @Test
-    public void ensureThatAObjectIsNotAInstanceOf (){
-      GeographicArea ga1 = new GeographicArea("Porto");
-        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
+    public void ensureThatAObjectIsNotAInstanceOf() {
+        GeographicArea ga1 = new GeographicArea("Porto");
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(22, 22), new GregorianCalendar(2018, 11, 25).getTime(), new ReadingList());
         Boolean expectedResult = false;
 
         Boolean actualResult = ga1.equals(s1);
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
-    @Test
-    public void ensureThatAreaIsContained () {
-        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
-        GeographicArea ga1 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
-        GeographicArea ga2 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
-    ga1.setMotherArea(ga2);
-    Boolean expectedResult = true;
-    Boolean actualResult = ga1.checkIfAreaIsContained(ga1,ga2);
 
-    assertEquals(expectedResult,actualResult);
-    }
     @Test
-    public void ensureThatAreaIsNotContained () {
-        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
-        GeographicArea ga1 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
-        GeographicArea ga2 = new GeographicArea(new TypeArea("Cidade"),new Local(22,22),new SensorList(s1),new Local(20,24),new Local(24,20));
+    public void ensureThatAreaIsContained() {
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(22, 22), new GregorianCalendar(2018, 11, 25).getTime(), new ReadingList());
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Cidade"), new Local(22, 22), new SensorList(s1), new Local(20, 24), new Local(24, 20));
+        GeographicArea ga2 = new GeographicArea(new TypeArea("Cidade"), new Local(22, 22), new SensorList(s1), new Local(20, 24), new Local(24, 20));
+        ga1.setMotherArea(ga2);
+        Boolean expectedResult = true;
+        Boolean actualResult = ga1.checkIfAreaIsContained(ga1, ga2);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void ensureThatAreaIsNotContained() {
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(22, 22), new GregorianCalendar(2018, 11, 25).getTime(), new ReadingList());
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Cidade"), new Local(22, 22), new SensorList(s1), new Local(20, 24), new Local(24, 20));
+        GeographicArea ga2 = new GeographicArea(new TypeArea("Cidade"), new Local(22, 22), new SensorList(s1), new Local(20, 24), new Local(24, 20));
         ga1.setMotherArea(ga2);
         Boolean expectedResult = false;
-        Boolean actualResult = ga1.checkIfAreaIsContained(ga2,ga1);
+        Boolean actualResult = ga1.checkIfAreaIsContained(ga2, ga1);
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
+
     @Test
-    public void ensureThatGrandsonAreaIsContainedInGrandmotherArea () {
-        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura"),new Local(22,22),new GregorianCalendar(2018,11,25).getTime(),new ReadingList());
-        GeographicArea grandDaughter = new GeographicArea("Porto",new TypeArea("Cidade"),new Local(22,22));
-        GeographicArea mother = new GeographicArea("Portugal",new TypeArea("Cidade"),new Local(22,22));
-        GeographicArea grandMother = new GeographicArea("Europa",new TypeArea("Cidade"),new Local(22,22));
+    public void ensureThatGrandsonAreaIsContainedInGrandmotherArea() {
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura"), new Local(22, 22), new GregorianCalendar(2018, 11, 25).getTime(), new ReadingList());
+        GeographicArea grandDaughter = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(22, 22));
+        GeographicArea mother = new GeographicArea("Portugal", new TypeArea("Cidade"), new Local(22, 22));
+        GeographicArea grandMother = new GeographicArea("Europa", new TypeArea("Cidade"), new Local(22, 22));
         grandDaughter.setMotherArea(mother);
         mother.setMotherArea(grandMother);
         Boolean expectedResult = true;
-        Boolean actualResult = grandDaughter.checkIfAreaIsContained(grandDaughter,grandMother);
+        Boolean actualResult = grandDaughter.checkIfAreaIsContained(grandDaughter, grandMother);
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfGetsAverageOfSensorTypeOnAGeographicArea() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 11, 3).getTime());
+        Reading r2 = new Reading(19, new GregorianCalendar(2018, 11, 4).getTime());
+        Reading r3 = new Reading(17, new GregorianCalendar(2018, 11, 1).getTime());
+        ReadingList readingList2 = new ReadingList();
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 11, 20).getTime());
+        Reading r5 = new Reading(25, new GregorianCalendar(2018, 11, 2).getTime());
+        Reading r6 = new Reading(45, new GregorianCalendar(2018, 11, 1).getTime());
+        readingList2.addReading(r4);
+        readingList2.addReading(r5);
+        readingList2.addReading(r6);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Rainfall"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList);
+        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperature"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
+        Sensor s3 = new Sensor("Sensor 3", new TypeSensor("Rainfall"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s2);
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s3);
+
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
+        GregorianCalendar dateMin = new GregorianCalendar(2018, 11, 1);
+        GregorianCalendar dateMax = new GregorianCalendar(2018, 11, 20);
+        Date dateToTest1 = dateMin.getTime();
+        Date dateToTest2 = dateMax.getTime();
+        double expectedResult = 23.5;
+        //Act
+        double result = ga1.getAvgReadingsFromSensorTypeInGA("Rainfall", dateToTest1, dateToTest2);
+        //Assert
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
+    public void seeIFChecksvalidListOnAverageOfSensorTypeOnAGeographicArea() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 11, 3).getTime());
+        Reading r2 = new Reading(19, new GregorianCalendar(2018, 11, 4).getTime());
+        Reading r3 = new Reading(17, new GregorianCalendar(2018, 11, 1).getTime());
+        ReadingList readingList2 = new ReadingList();
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 11, 20).getTime());
+        Reading r5 = new Reading(25, new GregorianCalendar(2018, 11, 2).getTime());
+        Reading r6 = new Reading(45, new GregorianCalendar(2018, 11, 1).getTime());
+        readingList2.addReading(r4);
+        readingList2.addReading(r5);
+        readingList2.addReading(r6);
+        SensorList sensorList = new SensorList();
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
+        GregorianCalendar dateMin = new GregorianCalendar(2018, 11, 1);
+        GregorianCalendar dateMax = new GregorianCalendar(2018, 11, 20);
+        Date dateToTest1 = dateMin.getTime();
+        Date dateToTest2 = dateMax.getTime();
+        double expectedResult = -1;
+        //Act
+        double result = ga1.getAvgReadingsFromSensorTypeInGA("Rainfall", dateToTest1, dateToTest2);
+        //Assert
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
+    public void seeWhatReturnsIfListWithoutInputTypeSensor() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 11, 3).getTime());
+        Reading r2 = new Reading(19, new GregorianCalendar(2018, 11, 4).getTime());
+        Reading r3 = new Reading(17, new GregorianCalendar(2018, 11, 1).getTime());
+        ReadingList readingList2 = new ReadingList();
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 11, 20).getTime());
+        Reading r5 = new Reading(25, new GregorianCalendar(2018, 11, 2).getTime());
+        Reading r6 = new Reading(45, new GregorianCalendar(2018, 11, 1).getTime());
+        readingList2.addReading(r4);
+        readingList2.addReading(r5);
+        readingList2.addReading(r6);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Rainfall"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList);
+        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperature"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
+        Sensor s3 = new Sensor("Sensor 3", new TypeSensor("Rainfall"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s2);
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s3);
+
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList);
+        GregorianCalendar dateMin = new GregorianCalendar(2018, 11, 1);
+        GregorianCalendar dateMax = new GregorianCalendar(2018, 11, 20);
+        Date dateToTest1 = dateMin.getTime();
+        Date dateToTest2 = dateMax.getTime();
+        double expectedResult = -1;
+        //Act
+        double result = ga1.getAvgReadingsFromSensorTypeInGA("Wind", dateToTest1, dateToTest2);
+        //Assert
+        assertEquals(expectedResult, result, 0.01);
     }
 }
 

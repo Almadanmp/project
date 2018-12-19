@@ -1,5 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
+import java.util.Date;
+
 /**
  * This is the central class.
  */
@@ -258,6 +260,32 @@ public class GeographicArea {
     public double calculateDistanceToGA(GeographicArea ga) {
         Local l = ga.getLocal();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
+    }
+
+    /**
+     * Method to get the Average of Readings on a certain typeofSensor on a GeographicArea.
+     * @param typeSensor String input, the type of the sensor we want to get from the list e.g, "Rainfall"
+     * @param dateMin the start date of readings (start of interval)
+     * @param dateMax the end date of readings (end of interval)
+     * @return average of the readings off all sensors of the GA SensorList with the input typeSensor
+     */
+    public double getAvgReadingsFromSensorTypeInGA(String typeSensor, Date dateMin, Date dateMax) {
+        double average = 0;
+        int counter = 0;
+        if (mSensorList.getSensorList().isEmpty()) {
+            return -1;
+        }
+        for (int i = 0; i < mSensorList.getSensorList().size(); i++) {
+            Sensor sensorToGetAVG = mSensorList.getSensorList().get(i);
+            if (sensorToGetAVG.getTypeSensor().getName().equals(typeSensor)) {
+                average += sensorToGetAVG.getReadingList().getAverageReadingsBetweenTwoDays(dateMin, dateMax);
+                counter++;
+            }
+            if (counter == 0){
+                return -1;
+            }
+        }
+        return average / counter;
     }
 
     /**
