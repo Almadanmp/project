@@ -141,6 +141,15 @@ public class SensorList {
         }
         return null;
     }
+    public List<Sensor> getSensorListByType(String name) {
+        List<Sensor> containedTypeSensors = new ArrayList<>();
+        for (Sensor sensor : mSensorList) {
+            if (sensor.getTypeSensor().getName().equals(name) && !(mSensorList.contains(sensor))) {
+                containedTypeSensors.add(sensor);
+            }
+        }
+        return containedTypeSensors;
+    }
 
     public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area, TypeSensor type) {
         List<Sensor> containedSensors = new ArrayList<>();

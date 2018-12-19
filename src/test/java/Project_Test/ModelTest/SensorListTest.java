@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -592,5 +593,28 @@ public class SensorListTest {
 
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void seeItGetSensorListByType() {
+        //Arrange
+
+        TypeSensor t1 = new TypeSensor("Rain");
+        TypeSensor t2 = new TypeSensor("Vento");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+
+        //Act
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        List<Sensor> actualResult = sensorList1.getSensorListByType("Rain");
+        List<Sensor> expectedResult = new ArrayList<>();
+        expectedResult.add(s1);
+        expectedResult.add(s3);
+
+        //Assert
+        expectedResult.equals(actualResult);
     }
 }
