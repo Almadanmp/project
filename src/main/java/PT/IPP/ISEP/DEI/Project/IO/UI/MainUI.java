@@ -17,6 +17,7 @@ public class MainUI {
         TypeAreaList mTypeAreaList = new TypeAreaList();
         HouseList mHouseList = new HouseList();
         RoomList mRoomList = new RoomList();
+        EnergyGridList mEnergyGridList = new EnergyGridList();
         ReadingList readingList = new ReadingList();
         Reading reading = new Reading(30,new GregorianCalendar(2018,8,6).getTime());
         Reading reading1 = new Reading(40, new GregorianCalendar(2018,8,5).getTime());
@@ -83,6 +84,8 @@ public class MainUI {
                     "11. Configure a house.\n",
                     "12. Add a new room to a house.\n",
                     "13.get max temp.\n",
+                    "14. Create an energy grid.\n",
+                    "15. Add a power source to an energy grid.\n",
                     "20. Menu for Admin only test.\n"};
 
             System.out.println("Select the task you want to do:");
@@ -190,6 +193,18 @@ public class MainUI {
                 case 13:
                     US610UI view123 = new US610UI();
                     view123.run(mRoomList);
+                    System.out.println(pressEnter);
+                    enterToReturnToConsole.nextLine();
+                    break;
+                case 14:
+                    US130UI view14 = new US130UI();
+                    view14.run(mRoomList);
+                    System.out.println(pressEnter);
+                    enterToReturnToConsole.nextLine();
+                    break;
+                case 15:
+                    US135UI view15 = new US135UI();
+                    view15.run(mEnergyGridList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

@@ -8,19 +8,13 @@ import PT.IPP.ISEP.DEI.Project.Model.PowerSource;
 
 public class US135Controller {
 
-    private PowerSource mPowerSource;
-
     public US135Controller(){}
 
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){
-        return this.mPowerSource = new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+        return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
-    public void definePowerSource(PowerSource powerSourceToAdd){
-        this.mPowerSource = powerSourceToAdd;
-    }
-
-    public void addPowerSourceToEnergyGrid(EnergyGrid energyGrid){
-        energyGrid.addPowerSource(mPowerSource);
+    public void addPowerSourceToEnergyGrid(EnergyGrid energyGrid, PowerSource powerSource){
+        energyGrid.addPowerSource(powerSource);
     }
 }

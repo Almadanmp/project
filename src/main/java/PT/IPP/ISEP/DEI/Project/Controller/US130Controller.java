@@ -27,10 +27,6 @@ public class US130Controller {
         }return false;
     }
 
-    public void setGridMaximumPower(double gridMaxPower){
-        this.mEnergyGrid.setmMaxPower(gridMaxPower);
-    }
-
     public String printRoomListNames() {
         return mEnergyGrid.getmListOfRooms().printRoomList();
     }

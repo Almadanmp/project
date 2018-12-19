@@ -1,7 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.IO.UI;
 
 import PT.IPP.ISEP.DEI.Project.Controller.US135Controller;
-import PT.IPP.ISEP.DEI.Project.Model.EnergyGrid;
+import PT.IPP.ISEP.DEI.Project.Model.EnergyGridList;
 import PT.IPP.ISEP.DEI.Project.Model.PowerSource;
 
 import java.util.Scanner;
@@ -11,18 +11,18 @@ import java.util.Scanner;
 
 public class US135UI {
 
+    private PowerSource mPowerSource;
     private boolean mActive;
 
     public US135UI() {
         mActive = false;
     }
 
-    public void run(EnergyGrid energyGrid) {
+    public void run(EnergyGridList energyGridList) {
         this.mActive = true;
         while (this.mActive) {
             addPowerSourceToEnergyGrid();
-            updateModel(energyGrid);
-            //displayState();
+            updateModelAndDisplayState(energyGridList);
         }
     }
 
@@ -35,12 +35,16 @@ public class US135UI {
         double maxPowerOutput = scanner.nextDouble();
         System.out.println("Type the maximum energy storage of the power source you want to add (type 0 if the power source can't storage energy.): ");
         double maxEnergyStorage = scanner.nextDouble();
-        PowerSource templateToAdd = ctrl.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
-        ctrl.definePowerSource(templateToAdd);
+        this.mPowerSource = ctrl.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
-    public void updateModel(EnergyGrid energyGrid) {
-
+    public void updateModelAndDisplayState(EnergyGridList energyGridList) {
+        US135Controller ctrl = new US135Controller();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type the designation of the energy grid that the power source should be added on: ");
+        String energyGridName = scanner.next();
+        ctrl.addPowerSourceToEnergyGrid(energyGridList.matchEnergyGrid(energyGridName), mPowerSource);
+        System.out.println("The power source was added with success!");
     }
 
 }
