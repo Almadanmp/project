@@ -1,5 +1,6 @@
-package PT.IPP.ISEP.DEI.Project.Model;
+package Project_Test.ModelTest;
 
+import PT.IPP.ISEP.DEI.Project.Model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.GregorianCalendar;
