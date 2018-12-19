@@ -16,10 +16,10 @@ public class US101UI {
     private double mHouseLong;
     private boolean houseAddedResult;
     private boolean active;
-    private Scanner scanner;
+
 
     public US101UI() {
-        this.scanner = new Scanner(System.in);
+        active = false;;
     }
 
     public void run(HouseList newHouseListUi) {

@@ -4,15 +4,15 @@ public class Device {
     private String mName;
     private String mDeviceType;
     private Room mParentRoom;
-    private ReadingList mReadingList;
-    private double mTotalPower;
+    private ReadingList mEnergyConsumptionList;
+    private double mTotalPowerDevice;
 
     public Device(String name, String type, Room parentRoom, ReadingList list, double totalPower){
         setmName(name);
         setmDeviceType(type);
         setmParentRoom(parentRoom);
-        setmReadingList(list);
-        setmTotalPower(totalPower);
+        setmEnergyConsumptionList(list);
+        setmTotalPowerDevice(totalPower);
     }
 
     public String getmName(){
@@ -39,19 +39,19 @@ public class Device {
         this.mParentRoom=parentRoom;
     }
 
-    public ReadingList getmReadingList(){
-        return mReadingList;
+    public ReadingList getmEnergyConsumptionList(){
+        return mEnergyConsumptionList;
     }
 
-    public void setmReadingList(ReadingList list){
-        this.mReadingList=list;
+    public void setmEnergyConsumptionList(ReadingList list){
+        this.mEnergyConsumptionList =list;
     }
 
-    public double getmTotalPower(){
-        return this.mTotalPower;
+    public double getmTotalPowerDevice(){
+        return this.mTotalPowerDevice;
     }
 
-    public void setmTotalPower(double totalPower){
-        this.mTotalPower=totalPower;
+    public void setmTotalPowerDevice(double totalPower){
+        this.mTotalPowerDevice =totalPower;
     }
 }

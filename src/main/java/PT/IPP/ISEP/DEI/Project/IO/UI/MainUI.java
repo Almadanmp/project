@@ -15,6 +15,7 @@ public class MainUI {
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
         TypeAreaList mTypeAreaList = new TypeAreaList();
         HouseList mHouseList = new HouseList();
+        RoomList mRoomList = new RoomList();
 
         Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
@@ -22,26 +23,30 @@ public class MainUI {
         int loginFlag = 0;
         String loginAdmin;
         String loginRegular;
+        boolean activeLogin = false;
 
         // Login Input
 
-        System.out.println("User Login");
-        System.out.println("\nLogin:");
-        String login = scanner.nextLine();
-        System.out.println("\nPassword:");
-        String password = scanner.nextLine();
+        while (!activeLogin) {
 
-        // Login Definition
+            System.out.println("User Login");
+            System.out.println("Login:");
+            String login = scanner.nextLine();
+            System.out.println("\nPassword:");
+            String password = scanner.nextLine();
 
-        if ("admin".equals(login) && "admin".equals(password)) {
-            loginFlag = 1;
+            // Login Definition
+
+            if ("admin".equals(login) && "admin".equals(password)) {
+                loginFlag = 1;
+                activeLogin = true;
+            } else if ("user".equals(login) && "user".equals(password)) {
+                loginFlag = 2;
+                activeLogin = true;
+            } else System.out.println("Invalid user\n");
         }
-        else if ("".equals(login) && "".equals(password)) {
-            loginFlag = 2;
-        }
-        else System.out.println("Invalid Login");
+            System.out.println("User Flag is:\n" + loginFlag);
 
-        System.out.println("User Flag is:\n" +loginFlag);
 
         while (activeProgram) {
 
@@ -62,8 +67,9 @@ public class MainUI {
                     "7. Say that an area is contained in another area.\n",
                     "8. See if an area is contained in another area.\n",
                     "9. Display all available sensors.\n",
-                    "10. Display all available Geographic Areas.\n"};
-
+                    "10. Display all available Geographic Areas.\n",
+                    "11. Configure a house.\n",
+                    "20. Menu for Admin only test.\n"};
 
             System.out.println("Select the task you want to do:");
 
@@ -153,6 +159,15 @@ public class MainUI {
                     view11.run(mHouseList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
+                    break;
+                case 20:
+                    if (loginFlag == 1) {
+                        System.out.println("Bravo!");
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        break;
+                    }
+                    else System.out.println("No permissions");
                     break;
                 default:
                     System.out.println("Invalid option. Try again");

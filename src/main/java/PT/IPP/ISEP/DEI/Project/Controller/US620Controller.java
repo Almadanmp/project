@@ -18,8 +18,10 @@ public class US620Controller {
          * as it will only be used in UI to apply methods on given inputs
          */
     }
-    public double getTotalRainfallOnGivenDay(House casa,Date dia) {
-        GeographicArea geoAreaHouse = casa.getmMotherGA();
-        return geoAreaHouse.getSensorList().getSensorByType("Pluviosidade").getReadingList().getTotalSumOfGivenDayValueReadings(dia);
+
+    public double getTotalRainfallOnGivenDay(House house,Date day) {
+        GeographicArea geoAreaHouse = house.getmMotherGA();
+        return geoAreaHouse.getSensorList().getSensorByType("Rain").getReadingList().getTotalSumOfGivenDayValueReadings(day);
     }
+
 }

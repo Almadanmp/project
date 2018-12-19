@@ -1,6 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Room {
     private String mRoomName;
@@ -89,4 +90,20 @@ public class Room {
             return false;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return Objects.equals(mRoomName, room.mRoomName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mRoomName);
+    }
 }
+
+
+
