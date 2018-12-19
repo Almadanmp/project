@@ -63,9 +63,6 @@ public class US610UI {
     private boolean getInputSensorName(RoomList list) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please insert the name of the Sensor you want to get the Maximum Temperature from: ");
-        while (!scanner.hasNext("[a-zA-Z_]+")) {
-            System.out.println("That's not a valid name for a Sensor. Please insert only Alphabetic Characters");
-        }
         this.mNameSensor = scanner.next();
         US610Controller ctrl = new US610Controller(list);
         if(ctrl.doesSensorListInARoomContainASensorByName(this.mNameSensor)) {
@@ -116,7 +113,6 @@ public class US610UI {
     }
 
     private void displayState(){
-        US610Controller ctrl = new US610Controller(this.mRoomList);
             out.println("The Maximum Temperature in the room " + this.mNameRoom  +
                     " on the day " + this.dataDay + "-" + this.dataMonth + "-" + this.dataYear +
                     " was " + this.mMaxTemperature);

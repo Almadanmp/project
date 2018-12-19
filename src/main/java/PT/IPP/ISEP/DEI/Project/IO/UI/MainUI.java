@@ -17,6 +17,16 @@ public class MainUI {
         TypeAreaList mTypeAreaList = new TypeAreaList();
         HouseList mHouseList = new HouseList();
         RoomList mRoomList = new RoomList();
+        ReadingList readingList = new ReadingList();
+        Reading reading = new Reading(30,new GregorianCalendar(2018,8,6).getTime());
+        Reading reading1 = new Reading(40, new GregorianCalendar(2018,8,5).getTime());
+        readingList.addReading(reading);
+        readingList.addReading(reading1);
+        Sensor sensor1 = new Sensor("sensor",new TypeSensor("temperature"),new Local(4,4),new GregorianCalendar(8,8,8).getTime(),readingList);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(sensor1);
+        Room room = new Room("cozinha",8,2,sensorList);
+        mRoomList.addRoom(room);
 
 
         Scanner enterToReturnToConsole = new Scanner(System.in);
@@ -72,6 +82,7 @@ public class MainUI {
                     "10. Display all available Geographic Areas.\n",
                     "11. Configure a house.\n",
                     "12. Add a new room to a house.\n",
+                    "13.get max temp.\n",
                     "20. Menu for Admin only test.\n"};
 
             System.out.println("Select the task you want to do:");
@@ -173,6 +184,12 @@ public class MainUI {
                 case 12:
                     US105UI view12 = new US105UI();
                     view12.run(mHouseList);
+                    System.out.println(pressEnter);
+                    enterToReturnToConsole.nextLine();
+                    break;
+                case 13:
+                    US610UI view123 = new US610UI();
+                    view123.run(mRoomList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
