@@ -10,6 +10,7 @@ import java.util.Scanner;
  **/
 
 public class US101UI {
+    private String mHouseDesignation;
     private String mHouseAddress;
     private String mHouseZipCode;
     private double mHouseLat;
@@ -19,62 +20,63 @@ public class US101UI {
 
 
     public US101UI() {
-        active = false;;
+        active = false;
     }
 
     public void run(HouseList newHouseListUi) {
         this.active = true;
         while (this.active) {
-            getInputAddress();
-            getInputZipCode();
-            getHouseLat();
-            getHouseLong();
+            getInputHouse();
             updateHouse();
             updateModel(newHouseListUi);
             displayState();
         }
     }
 
-    public void getInputAddress() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please, type the adress of the house: ");
-        this.mHouseAddress = scanner.next();
-    }
+    public void getInputHouse() {
 
-    public void getInputZipCode() {
+        //gethousedesignation
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Please, type the name of the house: ");
+        this.mHouseDesignation = scanner.nextLine();
+
+        //gethouseaddress
+        System.out.print("Please, type the address of the house: ");
+        this.mHouseAddress = scanner.nextLine();
+
+
+        //getzipcode
         System.out.print("Please, type the Zip Code of the house: ");
-        this.mHouseZipCode = scanner.next();
-    }
+        this.mHouseZipCode = scanner.nextLine();
 
-    public void getHouseLat() {
-        Scanner scanner = new Scanner(System.in);
+
+        //getlatitude
         System.out.print("Please, type the latitude: ");
         while (!scanner.hasNextDouble()) {
             System.out.println("Please,try again. Only numbers this time:");
             scanner.next();
         }
         this.mHouseLat = scanner.nextDouble();
-    }
 
-    public void getHouseLong() {
-        Scanner scanner = new Scanner(System.in);
+
+        //getlongitude
         System.out.print("Please, type the latitude: ");
         while (!scanner.hasNextDouble()) {
             System.out.println("Please,try again. Only numbers this time:");
             scanner.next();
         }
         this.mHouseLong = scanner.nextDouble();
+
     }
 
     public void updateHouse() {
-        System.out.print("The house you want to create is " + mHouseAddress + " with the zipcode " + mHouseZipCode +
+        System.out.print("The house named " + mHouseDesignation + " you want to create is " + mHouseAddress + " with the zipcode " + mHouseZipCode +
                 " and its localization is on " + mHouseLat + " latitude " + mHouseLong + " longitude.\n");
     }
 
     public void updateModel(HouseList newHouseListUi) {
         US101Controller ctrl = new US101Controller();
-        this.houseAddedResult = ctrl.addHouseToHouseList(newHouseListUi, mHouseAddress, mHouseZipCode, mHouseLat, mHouseLong);
+        this.houseAddedResult = ctrl.addHouseToHouseList(newHouseListUi, mHouseDesignation, mHouseAddress, mHouseZipCode, mHouseLat, mHouseLong);
     }
 
     public void displayState() {
