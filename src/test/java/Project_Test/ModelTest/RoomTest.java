@@ -36,8 +36,8 @@ public class RoomTest {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature");
         ReadingList listR = new ReadingList();
-        Date d2 = new GregorianCalendar(2018,2,1).getTime();
-        Date d3 = new GregorianCalendar(2018,2,2).getTime();
+        Date d2 = new GregorianCalendar(2018,2,1,16,30).getTime();
+        Date d3 = new GregorianCalendar(2018,2,1,20,30).getTime();
         Reading r1;
         Reading r2;
         r1 = new Reading(30,d2);

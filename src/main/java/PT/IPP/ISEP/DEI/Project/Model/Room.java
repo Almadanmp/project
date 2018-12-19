@@ -91,13 +91,18 @@ public class Room {
         }
     }
 
+    /**
+     * Gets most recent reading for current temperature.
+     * @param day
+     * @return
+     */
+
     public double getCurrentRoomTemperature (Date day) {
-        SensorList list= getRoomSensorList();
         House h =new House();
         TypeSensor type = new TypeSensor("temperature");
         Sensor s = new Sensor("sensor1",type,h.getmGPS(), new Date());
-        for (int i = 0; i<list.getSensors().length; i++){
-            s = list.getSensors()[i];
+        for (int i = 0; i<mRoomSensorList.getSensors().length; i++){
+            s = mRoomSensorList.getSensors()[i];
         }
         return s.getReadingList().getMostRecentValueOfReading();
     }
