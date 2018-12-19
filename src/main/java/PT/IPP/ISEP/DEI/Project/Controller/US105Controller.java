@@ -17,6 +17,10 @@ public class US105Controller {
         this.mRoom = new Room(roomDesignation, roomHouseFloor ,roomDimensions);
     }
 
+    public Room getRoomFromRoomList() {
+        return this.mRoom;
+    }
+
     public boolean checkIfHouseExistsInList(String houseDesignation, HouseList houseList) {
         mHouseList = houseList;
         if(mHouseList.checkIfHouseListContainsHouseWithGivenDesignation(houseDesignation)){
@@ -27,9 +31,9 @@ public class US105Controller {
         }
     }
 
-    public boolean addRoomToHouse(String houseDesignation, HouseList houseList) {
+    public boolean addRoomToHouse(String houseDesignation, HouseList houseList, Room roomGiven) {
         mHouseList = houseList;
-        if(mHouseList.addRoomToHouseInHouseList(houseDesignation, mRoom)) {
+        if(mHouseList.addRoomToHouseInHouseList(houseDesignation, roomGiven)) {
             return true;
         }
         else {

@@ -69,6 +69,7 @@ public class MainUI {
                     "9. Display all available sensors.\n",
                     "10. Display all available Geographic Areas.\n",
                     "11. Configure a house.\n",
+                    "12. Add a new room to a house.\n",
                     "20. Menu for Admin only test.\n"};
 
             System.out.println("Select the task you want to do:");
@@ -157,6 +158,12 @@ public class MainUI {
                 case 11:
                     US101UI view11 = new US101UI();
                     view11.run(mHouseList);
+                    System.out.println(pressEnter);
+                    enterToReturnToConsole.nextLine();
+                    break;
+                case 12:
+                    US105UI view12 = new US105UI();
+                    view12.run(mHouseList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

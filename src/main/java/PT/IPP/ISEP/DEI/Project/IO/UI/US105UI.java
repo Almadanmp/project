@@ -2,6 +2,7 @@ package PT.IPP.ISEP.DEI.Project.IO.UI;
 
 import PT.IPP.ISEP.DEI.Project.Controller.US105Controller;
 import PT.IPP.ISEP.DEI.Project.Model.HouseList;
+import PT.IPP.ISEP.DEI.Project.Model.Room;
 
 import java.util.Scanner;
 
@@ -16,19 +17,18 @@ public class US105UI {
     private String mRoomName;
     private int mRoomHouseFloor;
     private double mRoomDimensions;
+    private Room mRoom;
 
     public void run(HouseList houseList) {
         this.active = true;
         this.mHouseList = houseList;
-        while(updateInputHouseAndDisplayState()) {
+        while(this.active) {
             getInputRoom();
             updateInputRoom();
             displayStateRoom();
             getInputHouse();
-            updateInputHouseAndDisplayState();
             updateRoomAndDisplayState();
         }
-        this.active = false;
     }
 
     public void getInputRoom() {
@@ -58,6 +58,7 @@ public class US105UI {
     public void updateInputRoom() {
         US105Controller ctrl105 = new US105Controller();
         ctrl105.createNewRoom(mRoomName, mRoomHouseFloor, mRoomDimensions);
+        this.mRoom = ctrl105.getRoomFromRoomList();
     }
 
     public void displayStateRoom() {
@@ -86,26 +87,19 @@ public class US105UI {
         System.out.println("You entered the house name " + this.mHouseDesignation);
     }
 
-    public boolean updateInputHouseAndDisplayState() {
-        US105Controller ctrl105 = new US105Controller();
-        if(ctrl105.checkIfHouseExistsInList(mHouseDesignation, mHouseList)) {
-            System.out.println("The house you entered is currently on the list.");
-            return true;
-        }
-        else {
-            System.out.println("The house you entered is not on the list. Try again!");
-            return false;
-        }
-    }
-
     public void updateRoomAndDisplayState() {
         US105Controller ctrl105 = new US105Controller();
-        if(ctrl105.addRoomToHouse(mHouseDesignation, mHouseList)){
+        if(!ctrl105.checkIfHouseExistsInList(mHouseDesignation, mHouseList)) {
+            System.out.println("The house you entered is not on the list. Try again!");
+            getInputHouse();
+        }
+        else if(ctrl105.addRoomToHouse(mHouseDesignation, mHouseList, mRoom)){
             System.out.println("The room " + mRoomName + " has been added to house " + mHouseDesignation);
         }
         else {
             System.out.println("The room you entered already exists in house " + mHouseDesignation);
         }
+        this.active = false;
     }
 
 
