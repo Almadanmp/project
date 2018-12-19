@@ -22,7 +22,6 @@ public class RoomTest {
         r2 = new Reading(20, d2);
         listR.addReading(r1);
         listR.addReading(r2);
-        listR.addReading(r1);
         Sensor s1  = new Sensor("sensor1",tipo,new Local(1,1),new Date(),listR);
         list.addSensor(s1);
         Room room = new Room("quarto",1,80, list);
