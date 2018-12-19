@@ -1,5 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
+import java.util.ArrayList;
+
 public class EnergyGrid {
     private String mName;
     private RoomList mListOfRooms;
@@ -57,6 +59,15 @@ public EnergyGrid(String name, RoomList listOfRooms, double totalPower, PowerSou
 
     public void setmListPowerSources(PowerSourceList mListPowerSources) {
         this.mListPowerSources = mListPowerSources;
+    }
+
+    public boolean addPowerSource(PowerSource powerSource) {
+        if (!(mListPowerSources.getPowerSourceList().contains(powerSource))) {
+            mListPowerSources.getPowerSourceList().add(powerSource);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setmMaxPower(double mMaxPower) {

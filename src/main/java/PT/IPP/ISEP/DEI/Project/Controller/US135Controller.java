@@ -1,5 +1,6 @@
 package PT.IPP.ISEP.DEI.Project.Controller;
 
+import PT.IPP.ISEP.DEI.Project.Model.EnergyGrid;
 import PT.IPP.ISEP.DEI.Project.Model.PowerSource;
 
 /** As an Administrator, I want to add a power source to a house grid,
@@ -15,7 +16,11 @@ public class US135Controller {
         return this.mPowerSource = new PowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
-    public void addPowerSource(PowerSource powerSourceToAdd){
+    public void definePowerSource(PowerSource powerSourceToAdd){
         this.mPowerSource = powerSourceToAdd;
+    }
+
+    public void addPowerSourceToEnergyGrid(EnergyGrid energyGrid){
+        energyGrid.addPowerSource(mPowerSource);
     }
 }

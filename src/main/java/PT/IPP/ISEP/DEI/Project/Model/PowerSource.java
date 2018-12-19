@@ -1,5 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
+import java.util.ArrayList;
+
 public class PowerSource {
 
     private String mPowerSourceType;

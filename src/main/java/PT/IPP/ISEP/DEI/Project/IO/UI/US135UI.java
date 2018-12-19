@@ -13,17 +13,20 @@ public class US135UI {
 
     private boolean mActive;
 
-    public US135UI(){mActive = false;}
+    public US135UI() {
+        mActive = false;
+    }
 
-    public void run(EnergyGrid energyGrid){
+    public void run(EnergyGrid energyGrid) {
         this.mActive = true;
-        while(this.mActive){
+        while (this.mActive) {
             addPowerSourceToEnergyGrid();
+            updateModel(energyGrid);
             //displayState();
         }
     }
 
-    public void addPowerSourceToEnergyGrid(){
+    public void addPowerSourceToEnergyGrid() {
         US135Controller ctrl = new US135Controller();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the power source you want to add: ");
@@ -33,6 +36,11 @@ public class US135UI {
         System.out.println("Type the maximum energy storage of the power source you want to add (type 0 if the power source can't storage energy.): ");
         double maxEnergyStorage = scanner.nextDouble();
         PowerSource templateToAdd = ctrl.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
-        ctrl.addPowerSource(templateToAdd);
+        ctrl.definePowerSource(templateToAdd);
     }
+
+    public void updateModel(EnergyGrid energyGrid) {
+
+    }
+
 }
