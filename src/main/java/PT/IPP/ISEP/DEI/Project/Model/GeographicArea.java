@@ -264,9 +264,10 @@ public class GeographicArea {
 
     /**
      * Method to get the Average of Readings on a certain typeofSensor on a GeographicArea.
+     *
      * @param typeSensor String input, the type of the sensor we want to get from the list e.g, "Rainfall"
-     * @param dateMin the start date of readings (start of interval)
-     * @param dateMax the end date of readings (end of interval)
+     * @param dateMin    the start date of readings (start of interval)
+     * @param dateMax    the end date of readings (end of interval)
      * @return average of the readings off all sensors of the GA SensorList with the input typeSensor
      */
     public double getAvgReadingsFromSensorTypeInGA(String typeSensor, Date dateMin, Date dateMax) {
@@ -281,9 +282,9 @@ public class GeographicArea {
                 average += sensorToGetAVG.getReadingList().getAverageReadingsBetweenTwoDays(dateMin, dateMax);
                 counter++;
             }
-            if (counter == 0){
-                return -1;
-            }
+        }
+        if (counter == 0) {
+            return -1;
         }
         return average / counter;
     }
