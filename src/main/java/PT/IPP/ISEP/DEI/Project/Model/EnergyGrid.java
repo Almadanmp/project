@@ -8,10 +8,7 @@ public class EnergyGrid {
     private DeviceList mListDevices;
 
 
-    public EnergyGrid(String houseGridDesignation,double maxContractedPower){
-        this.mName = houseGridDesignation;
-        this.mTotalPower = maxContractedPower;
-    }
+    public EnergyGrid(){ }
 
     public String getmName() {
         return mName;
