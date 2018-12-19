@@ -3,8 +3,7 @@ package PT.IPP.ISEP.DEI.Project.Model;
 public class EnergyGrid {
     private String mName;
     private RoomList mListOfRooms;
-    private double mTotalPower;
-    private double mAllocatedTotalPower;
+    private double mMaxPower;
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
 
@@ -13,25 +12,23 @@ public EnergyGrid(){}
 public EnergyGrid(String name, RoomList listOfRooms, double totalPower, PowerSourceList listPowerSources, DeviceList deviceList){
     setmName(name);
     setmListOfRooms(listOfRooms);
-    setmTotalPower(totalPower);
+    setmMaxPower(totalPower);
     setmListPowerSources(listPowerSources);
     setmListDevices(deviceList);
 }
 
     public EnergyGrid(String houseGridDesignation,double maxContractedPower){
        setmName(houseGridDesignation);
-       setmTotalPower(maxContractedPower);
+       setmMaxPower(maxContractedPower);
     }
 
     public String getmName() {
         return mName;
     }
 
-    public void setAllocatedTotalPower(double allocatedTotalPower){ this.mAllocatedTotalPower = allocatedTotalPower;}
+    public double getTotalPower(){return this.mMaxPower;}
 
-    public double getAllocatedTotalPower(){return this.mAllocatedTotalPower;}
-
-    public double getmTotalPower() {
+    public double getmMaxPower() {
        double sum = 0;
         for (Device d : mListDevices.getDeviceList()) {
             sum =+  d.getmTotalPowerDevice();
@@ -61,8 +58,8 @@ public EnergyGrid(String name, RoomList listOfRooms, double totalPower, PowerSou
         this.mListPowerSources = mListPowerSources;
     }
 
-    public void setmTotalPower(double mTotalPower) {
-        this.mTotalPower = mTotalPower;
+    public void setmMaxPower(double mMaxPower) {
+        this.mMaxPower = mMaxPower;
     }
 
     public void setmName(String mName) {

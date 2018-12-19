@@ -27,9 +27,9 @@ public class US130Controller {
     }
 
     public void setGridMaximumPower(double gridMaxPower){
-        this.mEnergyGrid.setAllocatedTotalPower(gridMaxPower);
+        this.mEnergyGrid.setmMaxPower(gridMaxPower);
     }
 
-    public double getGridMaximumPower(){return this.mEnergyGrid.getAllocatedTotalPower();}
+    public double getGridMaximumPower(){return this.mEnergyGrid.getTotalPower();}
 
 }

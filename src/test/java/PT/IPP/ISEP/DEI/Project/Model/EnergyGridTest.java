@@ -29,7 +29,7 @@ public class EnergyGridTest {
         eg.setmListDevices(dl1);
         double expectedResult = 500;
         //Act
-        double actualResult = eg.getmTotalPower();
+        double actualResult = eg.getmMaxPower();
         //Assert
         assertEquals(expectedResult,actualResult);
     }
