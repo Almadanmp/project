@@ -41,6 +41,7 @@ public class US135UI {
     public void updateModelAndDisplayState(EnergyGridList energyGridList) {
         US135Controller ctrl = new US135Controller();
         Scanner scanner = new Scanner(System.in);
+        System.out.println(energyGridList.getEnergyGridList());
         System.out.println("Type the designation of the energy grid that the power source should be added on: ");
         String energyGridName = scanner.next();
         ctrl.addPowerSourceToEnergyGrid(energyGridList.matchEnergyGrid(energyGridName), mPowerSource);
