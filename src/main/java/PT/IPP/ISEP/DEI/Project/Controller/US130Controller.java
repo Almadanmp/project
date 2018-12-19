@@ -1,6 +1,5 @@
 package PT.IPP.ISEP.DEI.Project.Controller;
 
-import PT.IPP.ISEP.DEI.Project.Model.HouseGrid;
 import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 
 /** As an Administrator, I want to create a house grid,
