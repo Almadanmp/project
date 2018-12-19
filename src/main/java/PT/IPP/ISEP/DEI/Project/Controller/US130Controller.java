@@ -11,7 +11,6 @@ public class US130Controller {
     private HouseGrid mHouseGrid;
     private RoomList mRoomList;
 
-    public US130Controller() {}
-
+    public US130Controller(RoomList list) {this.mRoomList = list;}
 
 }
