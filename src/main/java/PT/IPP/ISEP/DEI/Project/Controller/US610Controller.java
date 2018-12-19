@@ -29,7 +29,10 @@ public class US610Controller {
         return this.mListRoom.doesListOfRoomsContainRoomByName(name);
     }
     public boolean doesSensorListInARoomContainASensorByName(String name){
-        return this.mListRoom.doesListOfRoomsContainRoomByName(name);
+        boolean result = true;
+        for (Room r: mListRoom.getRooms()){
+        result= r.getRoomSensorList().doesSensorListContainSensorByName(name);}
+        return result;
     }
 
     public Date createDate(int year, int month, int day) {

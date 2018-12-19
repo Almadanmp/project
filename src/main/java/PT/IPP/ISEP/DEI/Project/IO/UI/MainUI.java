@@ -3,6 +3,7 @@ package PT.IPP.ISEP.DEI.Project.IO.UI;
 import PT.IPP.ISEP.DEI.Project.Model.*;
 
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class MainUI {
@@ -16,6 +17,7 @@ public class MainUI {
         TypeAreaList mTypeAreaList = new TypeAreaList();
         HouseList mHouseList = new HouseList();
         RoomList mRoomList = new RoomList();
+
 
         Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
@@ -157,7 +159,6 @@ public class MainUI {
                     break;
                 case 11:
                     if (loginFlag == 1) {
-                        System.out.println("Bravo!");
                         US101UI view11 = new US101UI();
                         view11.run(mHouseList);
                         System.out.println(pressEnter);

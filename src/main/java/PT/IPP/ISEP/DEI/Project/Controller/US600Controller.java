@@ -18,7 +18,7 @@ public class US600Controller {
         return mHouse.getSensorWithTheMinimumDistanceToHouse(mHouse);
     }
 
-    public double getTheMaximumTemperatureInTheHouseArea(){
+    public double getCurrentTemperatureInTheHouseArea(){
         return getSensorWithTheMinimumDistanceToHouse().getReadingList().getMostRecentValueOfReading();
         }
 }

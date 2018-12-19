@@ -1,7 +1,6 @@
 package PT.IPP.ISEP.DEI.Project.Controller;
 
 import PT.IPP.ISEP.DEI.Project.Model.EnergyGrid;
-import PT.IPP.ISEP.DEI.Project.Model.Room;
 import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 
 /** As an Administrator, I want to create a energy grid,
@@ -19,13 +18,11 @@ public class US130Controller {
     }
     public void createEnergyGridRoomList(){mEnergyGridRoomList = new RoomList();}
 
-    public void setRoomList(RoomList list){this.mEnergyGrid.setmListOfRooms(list);}
-
     public RoomList getRoomList(){return this.mEnergyGrid.getmListOfRooms();}
 
-    public boolean attachRoomToEnergyGrid(Room mRoomToAttach, double totalPower){
+    public boolean attachRoomToEnergyGrid(String mRoomToAttach, RoomList mainList){
         if(mEnergyGrid.getmListOfRooms().checkIfListIsValid()){
-            mEnergyGrid.getmListOfRooms().addRoom(mRoomToAttach);
+            mEnergyGridRoomList.addRoom(mainList.getRoomByName(mRoomToAttach));
             return true;
         }return false;
     }

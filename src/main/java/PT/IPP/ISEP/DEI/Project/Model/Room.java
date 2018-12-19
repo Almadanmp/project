@@ -98,6 +98,22 @@ public class Room {
         }
     }
 
+    public boolean doesSensorListInARoomContainASensorByName(String name){
+        for(Sensor s: mRoomSensorList.getSensorList()){
+            if(s.getName().equals(name)){
+                return true;
+            }
+        } return false;
+    }
+
+        public boolean addSensor(Sensor sensor) {
+        if (!(mRoomSensorList.getSensorList().contains(sensor))) {
+            mRoomSensorList.getSensorList().add(sensor);
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * Gets most recent reading for current temperature.
      * @param day
