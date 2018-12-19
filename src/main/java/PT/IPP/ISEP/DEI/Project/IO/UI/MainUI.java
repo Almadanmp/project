@@ -67,6 +67,7 @@ public class MainUI {
                     "8. See if an area is contained in another area.\n",
                     "9. Display all available sensors.\n",
                     "10. Display all available Geographic Areas.\n",
+                    "11. Configure a house.\n",
                     "20. Menu for Admin only test.\n"};
 
             System.out.println("Select the task you want to do:");
