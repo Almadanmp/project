@@ -32,15 +32,17 @@ public class RoomTest {
 
 
     }
+    @Test
     public void seeIfGetCurrentRoomTemperatureWorks(){
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature");
         ReadingList listR = new ReadingList();
-        Date d2 = new GregorianCalendar(2018,2,2).getTime();
+        Date d2 = new GregorianCalendar(2018,2,1).getTime();
+        Date d3 = new GregorianCalendar(2018,2,2).getTime();
         Reading r1;
         Reading r2;
         r1 = new Reading(30,d2);
-        r2 = new Reading(20, d2);
+        r2 = new Reading(20, d3);
         listR.addReading(r1);
         listR.addReading(r2);
         Sensor s1  = new Sensor("sensor1",tipo,new Local(1,1),new Date(),listR);
