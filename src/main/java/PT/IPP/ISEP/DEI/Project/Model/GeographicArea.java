@@ -15,6 +15,7 @@ public class GeographicArea {
     private Local mBottomRightVertex;
     private GeographicAreaList mGeographicAreaList;
     private GeographicArea mMotherArea;
+    private HouseList mHouseList;
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -140,6 +141,14 @@ public class GeographicArea {
 
     public void setMotherArea(GeographicArea geoArea) {
         this.mMotherArea = geoArea;
+    }
+
+    public HouseList getmHouseList() {
+        return mHouseList;
+    }
+
+    public void setmHouseList(HouseList mHouseList) {
+        this.mHouseList = mHouseList;
     }
 
     public GeographicArea getMotherArea() {
