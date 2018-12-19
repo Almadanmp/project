@@ -1,13 +1,60 @@
 package PT.IPP.ISEP.DEI.Project.IO.UI;
 
+import PT.IPP.ISEP.DEI.Project.Controller.US130Controller;
+import PT.IPP.ISEP.DEI.Project.Model.EnergyGrid;
+import PT.IPP.ISEP.DEI.Project.Model.RoomList;
+
+import java.util.Scanner;
+
 /** As an Administrator, I want to create a house grid,
  * so that I can define the rooms that are attached to it and the contracted maximum power for that grid. **/
 
 
 public class US130UI {
 
+    private EnergyGrid mEnergyGrid;
+    private boolean mActive;
 
-    public void run(){
+    public US130UI(){mActive = false;}
 
+    public void run(RoomList mainRoomList){
+        this.mActive = true;
+        while (this.mActive){
+            createEnergyGrid();
+            if (!displayRoomList(mainRoomList)) {
+                return;
+            }else {
+                createEnergyGridRoomList();
+                //attachRoomsToEnergyGridRoomList();
+                //displayState();
+            }
+        }
     }
+
+    public void createEnergyGrid(){
+        US130Controller ctrl = new US130Controller();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type the designation of the energy grid you want to create: ");
+        String name = scanner.next();
+        System.out.println("Set the maximum potency of this energy grid: ");
+        double maxPower = scanner.nextDouble();
+        this.mEnergyGrid = ctrl.createEnergyGrid(name, maxPower);
+    }
+
+    public boolean displayRoomList(RoomList mainRoomList) {
+        US130Controller ctrl = new US130Controller();
+        if (ctrl.getRoomList().getListOfRooms().isEmpty()) {
+            System.out.println("The list of rooms is empty!");
+            return false;
+        } else {
+            System.out.println(ctrl.printRoomListNames());
+            return true;
+        }
+    }
+
+    public void createEnergyGridRoomList(){
+        US130Controller ctrl = new US130Controller();
+        ctrl.createEnergyGridRoomList();
+    }
+
 }

@@ -6,6 +6,7 @@ public class EnergyGrid {
     private double mMaxPower;
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
+    private EnergyGridList mEnergyGridList;
 
 public EnergyGrid(){}
 
