@@ -8,11 +8,11 @@ import PT.IPP.ISEP.DEI.Project.Model.HouseList;
 
 public class US101Controller {
 
-    public boolean addHouseToHouseList(HouseList newHouseList, String houseName, String newHouseAddress, String newHouseZipCode, double latitude, double longitude) {
+    public boolean addHouseToHouseList(HouseList newHouseList, String newHouseAddress, String newHouseZipCode, double latitude, double longitude) {
         if (newHouseList == null) {
             return false;
         }
-        House houseToAdd = new House(houseName, newHouseAddress, new Local (latitude, longitude), newHouseZipCode);
+        House houseToAdd = new House(newHouseAddress, new Local (latitude, longitude), newHouseZipCode);
         return newHouseList.addHouseToHouseList(houseToAdd);
     }
 }

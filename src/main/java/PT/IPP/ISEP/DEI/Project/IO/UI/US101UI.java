@@ -10,7 +10,6 @@ import java.util.Scanner;
  **/
 
 public class US101UI {
-    private String mHouseName;
     private String mHouseAddress;
     private String mHouseZipCode;
     private double mHouseLat;
@@ -26,7 +25,6 @@ public class US101UI {
     public void run(HouseList newHouseListUi) {
         this.active = true;
         while (this.active) {
-            getInputName();
             getInputAddress();
             getInputZipCode();
             getHouseLat();
@@ -35,12 +33,6 @@ public class US101UI {
             updateModel(newHouseListUi);
             displayState();
         }
-    }
-
-    public void getInputName() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please, type the name of the house: ");
-        this.mHouseName = scanner.next();
     }
 
     public void getInputAddress() {
@@ -76,13 +68,13 @@ public class US101UI {
     }
 
     public void updateHouse() {
-        System.out.print("The house you want to create is " + mHouseName + " located on " + mHouseAddress + " with the zipcode " + mHouseZipCode +
+        System.out.print("The house you want to create is " + mHouseAddress + " with the zipcode " + mHouseZipCode +
                 " and its localization is on " + mHouseLat + " latitude " + mHouseLong + " longitude.\n");
     }
 
     public void updateModel(HouseList newHouseListUi) {
         US101Controller ctrl = new US101Controller();
-        this.houseAddedResult = ctrl.addHouseToHouseList(newHouseListUi, mHouseName, mHouseAddress, mHouseZipCode, mHouseLat, mHouseLong);
+        this.houseAddedResult = ctrl.addHouseToHouseList(newHouseListUi, mHouseAddress, mHouseZipCode, mHouseLat, mHouseLong);
     }
 
     public void displayState() {
