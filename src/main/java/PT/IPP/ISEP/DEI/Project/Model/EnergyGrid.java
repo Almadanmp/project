@@ -6,12 +6,11 @@ public class EnergyGrid {
     private double mTotalPower;
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
-    private double mMaximumContractedPower;
 
 
     public EnergyGrid(String houseGridDesignation,double maxContractedPower){
         this.mName = houseGridDesignation;
-        this.mMaximumContractedPower = maxContractedPower;
+        this.mTotalPower = maxContractedPower;
     }
 
     public String getmName() {
@@ -63,9 +62,5 @@ public class EnergyGrid {
         } else {
             return false;
         }
-    }
-
-    public void changeMaximumContractedPower(double maxContractedPower){
-        this.mMaximumContractedPower = maxContractedPower;
     }
 }
