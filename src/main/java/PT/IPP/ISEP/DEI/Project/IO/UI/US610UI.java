@@ -2,6 +2,7 @@ package PT.IPP.ISEP.DEI.Project.IO.UI;
 import PT.IPP.ISEP.DEI.Project.Controller.US610Controller;
 import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 import static java.lang.System.out;
@@ -18,34 +19,70 @@ public class US610UI {
     private int dataYear;
     private int dataMonth;
     private int dataDay;
-    private Scanner scanner;
+
     private double mMaxTemperature;
 
     public US610UI(){
         this.active=false;
     }
 
-    private void run(RoomList list){
-        this.active = true;
-        getInputRoom();
-        getInputSensorName();
-        getInputDate();
-        updateModel(list);
-        displayState();
-
+    public void run(RoomList list){
+        while(this.active = true) {
+            if(!getInputRoom(list)){
+                return;
+            }
+            if(!getInputSensorName(list)){
+                return;
+            }
+            getInputDate();
+            updateModel(list);
+            displayState();
+            return;
+        }
     }
 
-    private void getInputRoom() {
-        this.mNameRoom = readInputString("Room");
+    private boolean getInputRoom(RoomList list){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please insert the name of the Room you want to get the Maximum Temperature from: ");
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid name for a Room. Please insert only Alphabetic Characters");
+            scanner.next();
+        }
+        this.mNameRoom = scanner.next();
+        US610Controller ctrl = new US610Controller(list);
+        if(ctrl.doesListContainRoomByName(this.mNameRoom)) {
+            System.out.println("You chose the Room "+this.mNameRoom);
+        }
+        else{
+            System.out.println("This room does not exist in the list of rooms.");
+            return false;
+        }
+        return true;
     }
 
-    private void getInputSensorName() {
-        this.mNameSensor = readInputString("Sensor");
+    private boolean getInputSensorName(RoomList list) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please insert the name of the Sensor you want to get the Maximum Temperature from: ");
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid name for a Sensor. Please insert only Alphabetic Characters");
+        }
+        this.mNameSensor = scanner.next();
+        US610Controller ctrl = new US610Controller(list);
+        if(ctrl.doesSensorListInARoomContainASensorByName(this.mNameSensor)) {
+            System.out.println("You chose the Sensor " + this.mNameSensor);
+        }
+        else{
+            System.out.println("This sensor does not exist in the list of sensors.");
+            return false;
+        }
+        return true;
     }
+
 
     private void getInputDate(){
-        System.out.println("\nEnter the day:\t");
-        out.println("\nEnter the year:\t");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the day:");
+        out.println("Enter the year:");
         while(!scanner.hasNextInt()) {
             scanner.next();
         out.println("Not a valid year. Try again");
@@ -80,30 +117,12 @@ public class US610UI {
 
     private void displayState(){
         US610Controller ctrl = new US610Controller(this.mRoomList);
-        if (ctrl.doesListContainRoomByName(this.mNameRoom) && ctrl.doesSensorListInARoomContainASensorByName(this.mNameSensor)) {
-            out.println("The Maximum Temperature in the room " + this.mNameRoom + "\n" +
-                    " on the day " + this.dataDay + "-" + this.dataMonth + "-" + this.dataYear + "\n" +
+            out.println("The Maximum Temperature in the room " + this.mNameRoom  +
+                    " on the day " + this.dataDay + "-" + this.dataMonth + "-" + this.dataYear +
                     " was " + this.mMaxTemperature);
-        }
-        out.println("this is all wrong");
     }
 
-    private String createInputMsg(String inputType) {
-        return "Please Insert The " + inputType + " : ";
-    }
 
-    private String createInvalidStringMsg(String inputType) {
-        return "That's not a valid " + inputType + ". Please insert only Alphabetic Characters";
-    }
 
-    private String readInputString(String inputType) {
-        System.out.print(createInputMsg(inputType));
-
-        while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
-            System.out.println(createInvalidStringMsg(inputType));
-            scanner.next();
-        }
-        return scanner.next();
-    }
 
 }

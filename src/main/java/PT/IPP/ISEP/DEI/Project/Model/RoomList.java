@@ -29,6 +29,15 @@ public class RoomList {
         return this.mRoomList;
     }
 
+    public Room[] getRooms() {
+        int sizeOfResultArray = mRoomList.size();
+        Room[] result = new Room[sizeOfResultArray];
+        for (int i = 0; i < mRoomList.size(); i++) {
+            result[i] = mRoomList.get(i);
+        }
+        return result;
+    }
+
 
     public boolean addRoom(Room room) {
         if (!(mRoomList.contains(room))) {
