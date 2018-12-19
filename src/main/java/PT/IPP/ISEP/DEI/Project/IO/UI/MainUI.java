@@ -45,7 +45,7 @@ public class MainUI {
                 activeLogin = true;
             } else System.out.println("Invalid user\n");
         }
-            System.out.println("User Flag is:\n" + loginFlag);
+        System.out.println("User Flag is:\n" + loginFlag);
 
 
         while (activeProgram) {
@@ -156,11 +156,19 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 11:
-                    US101UI view11 = new US101UI();
-                    view11.run(mHouseList);
-                    System.out.println(pressEnter);
+                    if (loginFlag == 1) {
+                        System.out.println("Bravo!");
+                        US101UI view11 = new US101UI();
+                        view11.run(mHouseList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        break;
+
+                    }
+                    else System.out.println("No permissions\n");
                     enterToReturnToConsole.nextLine();
                     break;
+
                 case 12:
                     US105UI view12 = new US105UI();
                     view12.run(mHouseList);
@@ -173,8 +181,7 @@ public class MainUI {
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         break;
-                    }
-                    else System.out.println("No permissions");
+                    } else System.out.println("No permissions");
                     break;
                 default:
                     System.out.println("Invalid option. Try again");
