@@ -9,7 +9,7 @@ public class Room {
     private double mRoomDimensions;
     private SensorList mRoomSensorList;
     private DeviceList mRoomDeviceList;
-    private double mRoomTotalPower;
+    private double mRoomMaxPower;
 
     public Room(String name, int houseFloor, double dimensions) {
         setRoomName(name);
@@ -21,14 +21,14 @@ public class Room {
         setRoomName(name);
         setRoomHouseFloor(houseFloor);
         setRoomDimensions(dimensions);
-        setRoomTotalPower(roomTotalPower);
+        setRoomMaxPower(roomTotalPower);
     }
 
     public Room(String name, int houseFloor, double dimensions, SensorList listSensor) {
-        mRoomName = name;
-        mHouseFloor = houseFloor;
-        mRoomDimensions = dimensions;
-        mRoomSensorList = listSensor;
+        setRoomName(name);
+        setRoomHouseFloor(houseFloor);
+        setRoomDimensions(dimensions);
+        setRoomSensorList(listSensor);
     }
 
     public void setRoomName(String name) {
@@ -51,8 +51,8 @@ public class Room {
         mRoomDeviceList = deviceList;
     }
 
-    public void setRoomTotalPower(double totalPower) {
-        mRoomTotalPower = totalPower;
+    public void setRoomMaxPower(double totalPower) {
+        mRoomMaxPower = totalPower;
     }
 
     public String getRoomName() {
@@ -75,8 +75,8 @@ public class Room {
         return mRoomDeviceList;
     }
 
-    public double getRoomTotalPower() {
-        return mRoomTotalPower;
+    public double getRoomMaxPower() {
+        return mRoomMaxPower;
     }
 
     public double getMaxTemperatureInARoomOnAGivenDay(Date day){
@@ -129,6 +129,7 @@ public class Room {
         }
         return s.getReadingList().getMostRecentValueOfReading();
     }
+
 
     @Override
     public boolean equals(Object o) {

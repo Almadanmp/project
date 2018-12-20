@@ -1,6 +1,5 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
-import java.util.ArrayList;
 
 public class EnergyGrid {
     private String mName;
@@ -78,9 +77,9 @@ public EnergyGrid(String name, RoomList listOfRooms, double totalPower, PowerSou
         this.mName = mName;
     }
 
-    public boolean addRoom(Room room) {
-        if (!(mListOfRooms.getListOfRooms().contains(room))) {
-            mListOfRooms.getListOfRooms().add(room);
+    public boolean addRoomToAEnergyGrid(Room room) {
+        if (!(this.mMaxPower < this.mListOfRooms.getSumRoomListMaxPower() + room.getRoomMaxPower())) {
+            this.mListOfRooms.addRoom(room);
             return true;
         } else {
             return false;

@@ -78,17 +78,24 @@ public class RoomList {
 
     public String printRoomList() {
         StringBuilder finalString = new StringBuilder();
-        String emptyList= "The list is empty.";
-        if(mRoomList.isEmpty()) {
+        String emptyList = "The list is empty.";
+        if (mRoomList.isEmpty()) {
             return emptyList;
         }
         finalString.append("Room List:");
-        for(Room room: mRoomList) {
+        for (Room room : mRoomList) {
             finalString.append(" \n" + "-").append(room.getRoomName()).append(";");
         }
         return finalString.toString();
     }
 
+    public double getSumRoomListMaxPower() {
+        double sum = 0;
+        for (Room room : mRoomList) {
+            sum = +room.getRoomMaxPower();
+        }
+        return sum;
+    }
 
     @Override
     public boolean equals(Object testObject) {

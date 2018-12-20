@@ -21,7 +21,7 @@ public class EnergyGridTest {
         EnergyGrid eg = new EnergyGrid();
         RoomList roomList = new RoomList();
         eg.setmListOfRooms(roomList);
-        eg.addRoom(room);
+        eg.addRoomToAEnergyGrid(room);
         Device device = new Device("Device 1","Power",room,rl1,500);
         DeviceList dl1 = new DeviceList();
         dl1.addDevices(device);
