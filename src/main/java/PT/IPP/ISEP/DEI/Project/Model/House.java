@@ -15,15 +15,17 @@ public class House {
     private RoomList mRoomList;
 
     //CONSTRUCTORS
-    public House(){}
+    public House() {
+    }
 
-    public House (String mAddress, Local mGPS, String mZipCode){
+    public House(String mAddress, Local mGPS, String mZipCode) {
         this.mAddress = mAddress;
         this.mGPS = mGPS;
         this.mZipCode = mZipCode;
 
     }
-    public House (String designation, String mAddress, Local mGPS, String mZipCode){
+
+    public House(String designation, String mAddress, Local mGPS, String mZipCode) {
         this.mDesignation = designation;
         this.mAddress = mAddress;
         this.mGPS = mGPS;
@@ -95,9 +97,9 @@ public class House {
 
     public boolean addRoomToRoomList(Room roomToAdd) {
         String roomToAddName = roomToAdd.getRoomName();
-        for(Room r : this.mRoomList.getListOfRooms()) {
+        for (Room r : this.mRoomList.getListOfRooms()) {
             String roomDesignationToTest = r.getRoomName();
-            if(roomDesignationToTest.equals(roomToAddName)) {
+            if (roomDesignationToTest.equals(roomToAddName)) {
                 return false;
             }
         }
@@ -110,21 +112,21 @@ public class House {
         return this.mGPS.getLinearDistanceBetweenLocalsInKm(l);
     }
 
-    public double getTheMinorDistanceFromTheHouseToTheSensor(){
+    public double getTheMinorDistanceFromTheHouseToTheSensor() {
         Sensor firstSensor = getmMotherGA().getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
-        for(int i =0; i<getmMotherGA().getSensorList().getSensors().length;i++) {
+        for (int i = 0; i < getmMotherGA().getSensorList().getSensors().length; i++) {
             Sensor copo = getmMotherGA().getSensorList().getSensors()[i];
-            if (distance>calculateDistanceToSensor(copo)){
+            if (distance > calculateDistanceToSensor(copo)) {
                 distance = calculateDistanceToSensor(copo);
             }
         }
         return distance;
     }
 
-    public Sensor getSensorWithTheMinimumDistanceToHouse(House house){
-        for (Sensor s: house.getmMotherGA().getSensorList().getSensors()) {
-            if (house.getTheMinorDistanceFromTheHouseToTheSensor() == s.getDistanceToHouse(house)){
+    public Sensor getSensorWithTheMinimumDistanceToHouse(House house) {
+        for (Sensor s : house.getmMotherGA().getSensorList().getSensors()) {
+            if (house.getTheMinorDistanceFromTheHouseToTheSensor() == s.getDistanceToHouse(house)) {
                 return s;
             }
         }

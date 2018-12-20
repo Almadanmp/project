@@ -21,6 +21,12 @@ public class GeographicArea {
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
     // They can be made with or without a sensor list.
 
+    /**
+     * empty constructor to use on UIs
+     */
+    public GeographicArea() {
+
+    }
 
     public GeographicArea(String mName, TypeArea mTypeArea, Local mLocal) {
         setName(mName);
@@ -221,15 +227,17 @@ public class GeographicArea {
 
     /**
      * This method prints all Houses  in  House List from a Specific Geographic Area.
+     *
      * @return
      */
     public String printGAHouseList() {
         String finalString = "\nHouses on this Geographic Area:\n";
-        if(mHouseList.getHouseList().isEmpty()) {
+        if (mHouseList.getHouseList().isEmpty()) {
             finalString = finalString + "\n|||| List is Empty ||||\nAdd Houses to list first";
+        } else {
+            for (House house : mHouseList.getHouseList())
+                finalString = finalString + "\n" + "-" + house.getHouseDesignation() + ";";
         }
-        else { for (House house : mHouseList.getHouseList())
-            finalString = finalString + "\n" + "-" + house.getHouseDesignation() + ";";}
         return finalString;
     }
 
