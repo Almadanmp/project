@@ -14,7 +14,7 @@ public class US623Controller {
 
     public double getAVGDailyRainfallOnGivenPeriod(House house, Date minDay, Date maxDay) {
         GeographicArea geoAreaOfTheHouse = house.getmMotherGA();
-        return geoAreaOfTheHouse.getAvgReadingsFromSensorTypeInGA("Rainfall", minDay, maxDay);
+        return geoAreaOfTheHouse.getAvgReadingsFromSensorTypeInGA("rainfall", minDay, maxDay);
     }
 }
 

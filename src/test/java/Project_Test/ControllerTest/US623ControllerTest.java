@@ -38,9 +38,9 @@ public class US623ControllerTest {
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Rainfall"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList);
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("rainfall"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList);
         Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperature"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
-        Sensor s3 = new Sensor("Sensor 3", new TypeSensor("Rainfall"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
+        Sensor s3 = new Sensor("Sensor 3", new TypeSensor("rainfall"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime(), readingList2);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s2);
         sensorList.addSensor(s1);
