@@ -20,49 +20,43 @@ public class US130UI {
     public void run(RoomList mainRoomList){
         this.mActive = true;
         while (this.mActive){
-            createEnergyGrid();
-            if (!displayRoomList(mainRoomList)) {
+            getInput();
+            if (!displayExistingRoomList(mainRoomList)) {
                 return;
             }else {
-                createEnergyGridRoomList();
-                attachRoomsToEnergyGridRoomList(mainRoomList);
+                updateEnergyGridRoomList(mainRoomList);
                 displayState();
             }
         }
     }
 
-    public void createEnergyGrid(){
+    public void getInput(){
         US130Controller ctrl = new US130Controller();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
         System.out.println("Set the maximum potency of this energy grid: ");
         double maxPower = scanner.nextDouble();
-        this.mEnergyGrid = ctrl.createEnergyGrid(name, maxPower);
+        ctrl.createEnergyGrid(name, maxPower);
+        this.mEnergyGrid = ctrl.getEnergyGrid();
     }
 
-    public boolean displayRoomList(RoomList mainRoomList) {
-        US130Controller ctrl = new US130Controller();
-        if (ctrl.getRoomList().getListOfRooms().isEmpty()) {
+    public boolean displayExistingRoomList(RoomList mainRoomList) {
+        if (mainRoomList.getListOfRooms().isEmpty()) {
             System.out.println("The list of rooms is empty!");
             return false;
         } else {
-            System.out.println(ctrl.printRoomListNames());
+            System.out.println(mainRoomList);
             return true;
         }
     }
 
-    public void createEnergyGridRoomList(){
-        US130Controller ctrl = new US130Controller();
-        ctrl.createEnergyGridRoomList();
-    }
-
-    public void attachRoomsToEnergyGridRoomList(RoomList mainRoomList){
+    public void updateEnergyGridRoomList(RoomList mainRoomList){
         US130Controller ctrl = new US130Controller();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Write the name of the room which you want to attach: ");
         String roomToAttach = scanner.next();
-        if (ctrl.attachRoomToEnergyGrid(roomToAttach, mainRoomList)){
+        if (ctrl.addExistingRoomToEnergyGrid(mainRoomList,roomToAttach)){ //controller boolean
             System.out.println("The room was attached to the the energy grid!");
         }else {
             System.out.println("The room FAILED to attach to the the energy grid!");
@@ -70,6 +64,6 @@ public class US130UI {
     }
 
     public void displayState(){
-        System.out.println("This energy grid contains the following rooms: " + mEnergyGrid.getmListOfRooms() + "\n And its maximum potency is: " + mEnergyGrid.getmMaxPower());
+        System.out.println("This energy grid contains the following rooms: \n" + mEnergyGrid.getmListOfRooms().printRoomList() + "\n And its maximum potency is: " + mEnergyGrid.getmMaxPower());
     }
 }

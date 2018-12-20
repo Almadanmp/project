@@ -22,6 +22,7 @@ public class US135UI {
         this.mActive = true;
         while (this.mActive) {
             addPowerSourceToEnergyGrid();
+            displayEnergyGridList(energyGridList);
             updateModelAndDisplayState(energyGridList);
         }
     }
@@ -36,6 +37,16 @@ public class US135UI {
         System.out.println("Type the maximum energy storage of the power source you want to add (type 0 if the power source can't storage energy.): ");
         double maxEnergyStorage = scanner.nextDouble();
         this.mPowerSource = ctrl.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
+    }
+
+    public boolean displayEnergyGridList(EnergyGridList energyGridList) {
+        if (energyGridList.getEnergyGridList().isEmpty()) {
+            System.out.println("The list of rooms is empty!");
+            return false;
+        } else {
+            System.out.println(energyGridList.printEnergyGridList());
+            return true;
+        }
     }
 
     public void updateModelAndDisplayState(EnergyGridList energyGridList) {
