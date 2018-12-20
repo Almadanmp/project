@@ -18,6 +18,8 @@ public class MainUI {
 
         TypeAreaList mTypeAreaList = new TypeAreaList();
         HouseList mHouseList = new HouseList();
+        House house = new House("casa","coise",new Local(4,5),"coise");
+        mHouseList.addHouseToHouseList(house);
         RoomList mRoomList = new RoomList();
         EnergyGridList mEnergyGridList = new EnergyGridList();
         ReadingList readingList = new ReadingList();
@@ -28,6 +30,8 @@ public class MainUI {
         Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(sensor1);
+        GeographicArea geoa = new GeographicArea("porto",new TypeArea("cidade"),new Local(4,4),sensorList,mHouseList);
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa);
         Room room = new Room("cozinha", 8, 2, sensorList);
         mRoomList.addRoom(room);
 
@@ -90,6 +94,7 @@ public class MainUI {
                     "14. Create an energy grid.\n",
                     "15. Add a power source to an energy grid.\n",
                     "16. See Room List.\n",
+                    "17. Get Current Temperature in a House Area.\n",
                     "623. Add a power source to an energy grid.\n",
                     "20. Menu for Admin only test.\n"};
 
@@ -215,6 +220,12 @@ public class MainUI {
                 case 16:
                     US108UI view16 = new US108UI();
                     view16.run( mHouseList, mRoomList);
+                    System.out.println(pressEnter);
+                    enterToReturnToConsole.nextLine();
+                    break;
+                case 17:
+                    US600UI view17 = new US600UI();
+                    view17.run( mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

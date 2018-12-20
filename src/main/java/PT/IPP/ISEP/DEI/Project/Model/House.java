@@ -110,11 +110,11 @@ public class House {
         return this.mGPS.getLinearDistanceBetweenLocalsInKm(l);
     }
 
-    public double getTheMinorDistanceFromTheHouseToTheSensor(){
-        Sensor firstSensor = getmMotherGA().getSensorList().getSensors()[0];
+    public double getTheMinorDistanceFromTheHouseToTheSensor(GeographicArea ga){
+        Sensor firstSensor = ga.getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
-        for(int i =0; i<getmMotherGA().getSensorList().getSensors().length;i++) {
-            Sensor copo = getmMotherGA().getSensorList().getSensors()[i];
+        for(int i =0; i<ga.getSensorList().getSensors().length;i++) {
+            Sensor copo = ga.getSensorList().getSensors()[i];
             if (distance>calculateDistanceToSensor(copo)){
                 distance = calculateDistanceToSensor(copo);
             }
@@ -122,9 +122,9 @@ public class House {
         return distance;
     }
 
-    public Sensor getSensorWithTheMinimumDistanceToHouse(House house){
-        for (Sensor s: house.getmMotherGA().getSensorList().getSensors()) {
-            if (house.getTheMinorDistanceFromTheHouseToTheSensor() == s.getDistanceToHouse(house)){
+    public Sensor getSensorWithTheMinimumDistanceToHouse(GeographicArea ga, House house){
+        for (Sensor s: ga.getSensorList().getSensors()) {
+            if (house.getTheMinorDistanceFromTheHouseToTheSensor(ga) == s.getDistanceToHouse(house)){
                 return s;
             }
         }

@@ -38,20 +38,20 @@ public class US600Controller {
         return mGeographicAreaList.getGeographicAreaByName(geographicAreaName);
     }
 
-    public House getHouseByName(String houseName) {
-        return getGeographicAreaByName(mGeographicAreaName).getmHouseList().getHouseByDesignation(houseName);
+    public House getHouseByName(GeographicArea ga, String houseName) {
+        return ga.getHouseList().getHouseByDesignation(houseName);
     }
 
-    public Sensor getSensorWithTheMinimumDistanceToHouse() {
-        return mHouse.getSensorWithTheMinimumDistanceToHouse(mHouse);
+    public Sensor getSensorWithTheMinimumDistanceToHouse(House house, GeographicArea ga) {
+        return house.getSensorWithTheMinimumDistanceToHouse(ga, house);
     }
 
-    public double getCurrentTemperatureInTheHouseArea() {
-        return getSensorWithTheMinimumDistanceToHouse().getReadingList().getMostRecentValueOfReading();
+    public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {
+        return getSensorWithTheMinimumDistanceToHouse(house,ga).getReadingList().getMostRecentValueOfReading();
     }
 
-    public boolean matchHouseFromList(String houseName) {
-        return getGeographicAreaByName(mGeographicAreaName).getmHouseList().matchHouse(houseName);
+    public boolean matchHouseFromList(GeographicArea ga, String houseName) {
+        return ga.getHouseList().matchHouse(houseName);
     }
 
 }

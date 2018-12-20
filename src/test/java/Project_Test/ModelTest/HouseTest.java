@@ -26,8 +26,9 @@ public class HouseTest {
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        House house = new House("casa de praia","rua coise e tal",new Local(4,5),"447-56",new GeographicArea(new TypeArea("cidade"),new Local(6,7),sensorList));
-        double result = house.getTheMinorDistanceFromTheHouseToTheSensor();
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
+        House house = new House("casa de praia","rua coise e tal",new Local(4,5),"447-56",ga);
+        double result = house.getTheMinorDistanceFromTheHouseToTheSensor(ga);
         assertEquals(110.91871788829754,result,0.01);
     }
 
@@ -37,8 +38,9 @@ public class HouseTest {
         Sensor s2 = new Sensor("sensr5",new TypeSensor("temperatura"),new Local(4,6),new GregorianCalendar(2018,10,1).getTime());
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
-        House house = new House("casa de rua","rua coise e tal",new Local(4,5),"447-56",new GeographicArea(new TypeArea("cidade"),new Local(6,7),sensorList));
-        double result = house.getTheMinorDistanceFromTheHouseToTheSensor();
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
+        House house = new House("casa de rua","rua coise e tal",new Local(4,5),"447-56",ga);
+        double result = house.getTheMinorDistanceFromTheHouseToTheSensor(ga);
         assertEquals(110.91871788829754,result,0.01);
     }
 
@@ -49,8 +51,9 @@ public class HouseTest {
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        House house = new House("casa","rua coise",new Local(4,5),"440-4",new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList));
-        Sensor result= house.getSensorWithTheMinimumDistanceToHouse(house);
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
+        House house = new House("casa","rua coise",new Local(4,5),"440-4",ga);
+        Sensor result= house.getSensorWithTheMinimumDistanceToHouse(ga,house);
         assertEquals(s1,result);
     }
     @Test
@@ -60,8 +63,9 @@ public class HouseTest {
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        House house = new House("casa","rua coise",new Local(4,5),"440-4",new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList));
-        Sensor result= house.getSensorWithTheMinimumDistanceToHouse(house);
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
+        House house = new House("casa","rua coise",new Local(4,5),"440-4",ga);
+        Sensor result= house.getSensorWithTheMinimumDistanceToHouse(ga,house);
         assertEquals(s2,result);
     }
 }

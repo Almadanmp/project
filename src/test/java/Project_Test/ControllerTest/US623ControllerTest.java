@@ -22,7 +22,7 @@ public class US623ControllerTest {
         house.setmMotherGA(gA1);
         HouseList hL1 = new HouseList();
         hL1.addHouseToHouseList(house);
-        gA1.setmHouseList(hL1);
+        gA1.setHouseList(hL1);
         //Arrange
         ReadingList readingList = new ReadingList();
         Reading r1 = new Reading(15, new GregorianCalendar(2018, 11, 3).getTime());

@@ -37,7 +37,7 @@ public class US600UI {
 
     public boolean displayGeographicAreaListGetInputAndUpdate(GeographicAreaList list) {
         US600Controller ctrl = new US600Controller(list);
-        ctrl.printGeoAreaList();
+        System.out.println(ctrl.printGeoAreaList());
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please insert the name of the Geographic Area in which your House is in: ");
         this.mGeoAreaName = scanner.next();
@@ -53,13 +53,13 @@ public class US600UI {
 
     public boolean displayHouseListGetInputAndDisplayState(GeographicAreaList list) {
         US600Controller ctrl = new US600Controller(list);
-        ctrl.printHouseList(mGeoArea);
+        System.out.println(ctrl.printHouseList(mGeoArea));
         System.out.println("Please insert name from the list: ");
         Scanner scanner = new Scanner(System.in);
         this.mHouseName=scanner.next();
-        if (ctrl.matchHouseFromList(mHouseName)) {
+        if (ctrl.matchHouseFromList(mGeoArea,mHouseName)) {
             System.out.println("You have inserted the house " + mHouseName);
-            this.mHouse = ctrl.getHouseByName(mHouseName);
+            this.mHouse = ctrl.getHouseByName(mGeoArea,mHouseName);
         } else {
             System.out.println("That house does not belong to the list.");
             return false;
@@ -69,7 +69,7 @@ public class US600UI {
 
     public void updateModel(){
         US600Controller ctrl = new US600Controller(mHouse);
-        mCurrentHouseAreaTemperature = ctrl.getCurrentTemperatureInTheHouseArea();
+        mCurrentHouseAreaTemperature = ctrl.getCurrentTemperatureInTheHouseArea(mHouse,mGeoArea);
     }
 
     public void displayState(){

@@ -66,6 +66,14 @@ public class GeographicArea {
         setSensorList(sensorList);
     }
 
+    public GeographicArea(String name, TypeArea typeArea, Local local, SensorList sensorList, HouseList houselist) {
+        setHouseList(houselist);
+        setName(name);
+        setTypeArea(typeArea);
+        setLocal(local);
+        setSensorList(sensorList);
+    }
+
     /**
      * Constructor of the class GeographicAreaController that receives the type of Geographic Area, its location, a
      * list of sensors contained in it, and two vertices. The two vertices define a rectangular physical
