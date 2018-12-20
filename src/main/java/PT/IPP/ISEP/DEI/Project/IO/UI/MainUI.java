@@ -1,5 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.IO.UI;
+
 import PT.IPP.ISEP.DEI.Project.Model.*;
+
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -19,14 +21,14 @@ public class MainUI {
         RoomList mRoomList = new RoomList();
         EnergyGridList mEnergyGridList = new EnergyGridList();
         ReadingList readingList = new ReadingList();
-        Reading reading = new Reading(30,new GregorianCalendar(2018,8,6).getTime());
-        Reading reading1 = new Reading(40, new GregorianCalendar(2018,8,5).getTime());
+        Reading reading = new Reading(30, new GregorianCalendar(2018, 8, 6).getTime());
+        Reading reading1 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
         readingList.addReading(reading);
         readingList.addReading(reading1);
-        Sensor sensor1 = new Sensor("sensor",new TypeSensor("temperature"),new Local(4,4),new GregorianCalendar(8,8,8).getTime(),readingList);
+        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(sensor1);
-        Room room = new Room("cozinha",8,2,sensorList);
+        Room room = new Room("cozinha", 8, 2, sensorList);
         mRoomList.addRoom(room);
 
 
@@ -49,7 +51,7 @@ public class MainUI {
             System.out.println("\nPassword:");
             String password = scanner.nextLine();
 
-         // Login Definition
+            // Login Definition
 
             if ("admin".equals(login) && "admin".equals(password)) {
                 loginFlag = 1;
@@ -69,7 +71,7 @@ public class MainUI {
                     "****************** sWitCh 2018 ********************\n" +
                     "***************************************************\n");
 
-         // Submenus Input selection
+            // Submenus Input selection
 
             String[] menu = {" 0. Exit.\n",
                     "1. Create a new Type of Geographic Area.\n",
@@ -87,6 +89,7 @@ public class MainUI {
                     "13.get max temp.\n",
                     "14. Create an energy grid.\n",
                     "15. Add a power source to an energy grid.\n",
+                    "16. See Room List.\n",
                     "623. Add a power source to an energy grid.\n",
                     "20. Menu for Admin only test.\n"};
 
@@ -181,8 +184,7 @@ public class MainUI {
                         enterToReturnToConsole.nextLine();
                         break;
 
-                    }
-                    else System.out.println("No permissions\n");
+                    } else System.out.println("No permissions\n");
                     enterToReturnToConsole.nextLine();
                     break;
 
@@ -207,6 +209,12 @@ public class MainUI {
                 case 15:
                     US135UI view15 = new US135UI();
                     view15.run(mEnergyGridList);
+                    System.out.println(pressEnter);
+                    enterToReturnToConsole.nextLine();
+                    break;
+                case 16:
+                    US108UI view16 = new US108UI();
+                    view16.run( mHouseList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

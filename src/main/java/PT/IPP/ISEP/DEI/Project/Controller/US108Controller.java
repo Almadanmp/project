@@ -14,6 +14,10 @@ public class US108Controller {
     private Room mRoom;
     private House mHouse;
 
+    public US108Controller(HouseList houseList) {
+        this.mHouseList = houseList;
+    }
+
     public HouseList getHouseList() {
         return this.mHouseList;
     }

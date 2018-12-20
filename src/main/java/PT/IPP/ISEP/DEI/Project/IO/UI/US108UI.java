@@ -25,9 +25,9 @@ public class US108UI {
         this.active = false;
     }
 
-    public void run(RoomList newRoomList) {
+    public void run(HouseList newHouseList) {
         this.active = true;
-        this.mRoomList = newRoomList;
+        this.mHouseList = newHouseList;
 
         while (this.active) {
             if (!displayHouseList()) {
@@ -46,7 +46,7 @@ public class US108UI {
 
 
     public boolean displayHouseList() {
-        US108Controller ctrl = new US108Controller();
+        US108Controller ctrl = new US108Controller(mHouseList);
         if (ctrl.getHouseList().getHouseList().isEmpty()) {
             System.out.println(ctrl.printHouseListNames());
             return false;
@@ -64,7 +64,7 @@ public class US108UI {
             scanner.next();
         }
         this.mHouseDesignation = scanner.next();
-        US108Controller ctrl = new US108Controller();
+        US108Controller ctrl = new US108Controller(mHouseList);
         if (ctrl.matchHouse(mHouseDesignation)) {
             System.out.println("You chose the Room " + this.mHouseDesignation);
         } else {
@@ -76,7 +76,7 @@ public class US108UI {
 
 
     private boolean displayRoomList() {
-        US108Controller ctrl = new US108Controller();
+        US108Controller ctrl = new US108Controller(mHouseList);
         if (ctrl.getRoomList().getListOfRooms().isEmpty()) {
             System.out.println(ctrl.printRoomListNames());
             return false;
@@ -94,7 +94,7 @@ public class US108UI {
             scanner.next();
         }
         this.mRoomDesignation = scanner.next();
-        US108Controller ctrl = new US108Controller();
+        US108Controller ctrl = new US108Controller(mHouseList);
         if (ctrl.matchRoom(mRoomDesignation)) {
             System.out.println("You chose the Room " + this.mRoomDesignation);
         } else {
@@ -106,6 +106,7 @@ public class US108UI {
 
 
     private void setInputRoom() {
+
 
     }
 
