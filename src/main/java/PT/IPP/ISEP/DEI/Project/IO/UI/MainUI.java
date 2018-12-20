@@ -1,7 +1,5 @@
 package PT.IPP.ISEP.DEI.Project.IO.UI;
-
 import PT.IPP.ISEP.DEI.Project.Model.*;
-
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -9,11 +7,13 @@ import java.util.Scanner;
 public class MainUI {
 
     public static void main(String[] args) {
+
         //Program Variables
 
         boolean activeProgram = true;
         SensorList mSensorList = new SensorList();
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+
         TypeAreaList mTypeAreaList = new TypeAreaList();
         HouseList mHouseList = new HouseList();
         RoomList mRoomList = new RoomList();
@@ -48,7 +48,7 @@ public class MainUI {
             System.out.println("\nPassword:");
             String password = scanner.nextLine();
 
-            // Login Definition
+         // Login Definition
 
             if ("admin".equals(login) && "admin".equals(password)) {
                 loginFlag = 1;
@@ -68,7 +68,7 @@ public class MainUI {
                     "****************** sWitCh 2018 ********************\n" +
                     "***************************************************\n");
 
-            // Submenus Input selection
+         // Submenus Input selection
 
             String[] menu = {" 0. Exit.\n",
                     "1. Create a new Type of Geographic Area.\n",

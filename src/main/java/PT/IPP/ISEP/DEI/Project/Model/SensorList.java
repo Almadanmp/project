@@ -143,8 +143,8 @@ public class SensorList {
     }
     public List<Sensor> getSensorListByType(String name) {
         List<Sensor> containedTypeSensors = new ArrayList<>();
-        for (Sensor sensor : mSensorList) {
-            if (sensor.getTypeSensor().getName().equals(name) && !(mSensorList.contains(sensor))) {
+        for (Sensor sensor : this.mSensorList) {
+            if (name.equals(sensor.getTypeSensor().getName()) && (!(containedTypeSensors.contains(sensor)))) {
                 containedTypeSensors.add(sensor);
             }
         }
