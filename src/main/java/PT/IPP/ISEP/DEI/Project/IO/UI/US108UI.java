@@ -1,7 +1,9 @@
 package PT.IPP.ISEP.DEI.Project.IO.UI;
 
 import PT.IPP.ISEP.DEI.Project.Controller.US108Controller;
+import PT.IPP.ISEP.DEI.Project.Model.House;
 import PT.IPP.ISEP.DEI.Project.Model.HouseList;
+import PT.IPP.ISEP.DEI.Project.Model.Room;
 import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 
 import java.util.Scanner;
@@ -13,7 +15,8 @@ import java.util.Scanner;
 public class US108UI {
     private HouseList mHouseList;
     private RoomList mRoomList;
-    private String mRoomName;
+    private String mHouseDesignation;
+    private String mRoomDesignation;
     private int mHouseRoomFloor;
     private double mRoomDimensions;
     private boolean active;
@@ -53,15 +56,24 @@ public class US108UI {
         }
     }
 
-    private void getHouse() {
+    private boolean getHouse() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type the name of the house where the room is in:");
+        System.out.println("Type the designation of the house where the room is in:");
         while (!scanner.hasNext("[\\p{L}\\s]+")) {
             System.out.println("Please,try again:");
             scanner.next();
         }
-        this.mRoomName = scanner.next();
+        this.mHouseDesignation = scanner.next();
+        US108Controller ctrl = new US108Controller();
+        if (ctrl.matchHouse(mHouseDesignation)) {
+            System.out.println("You chose the Room " + this.mHouseDesignation);
+        } else {
+            System.out.println("This room does not exist in the list of rooms.");
+            return false;
+        }
+        return true;
     }
+
 
     private boolean displayRoomList() {
         US108Controller ctrl = new US108Controller();
@@ -74,18 +86,34 @@ public class US108UI {
         }
     }
 
-    private void getRoom() {
+    private boolean getRoom() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type the name of the room you want to reconfigure:");
+        while (!scanner.hasNext("[\\p{L}\\s]+")) {
+            System.out.println("Please,try again:");
+            scanner.next();
+        }
+        this.mRoomDesignation = scanner.next();
+        US108Controller ctrl = new US108Controller();
+        if (ctrl.matchRoom(mRoomDesignation)) {
+            System.out.println("You chose the Room " + this.mRoomDesignation);
+        } else {
+            System.out.println("This room does not exist in the list of rooms.");
+            return false;
+        }
+        return true;
+    }
+
+
+    private void setInputRoom() {
 
     }
 
-    private void setInputRoom(){
+    private void updateState() {
 
     }
 
-    private void updateState(){
-
-    }
-    private void displayState(){
+    private void displayState() {
 
     }
 
