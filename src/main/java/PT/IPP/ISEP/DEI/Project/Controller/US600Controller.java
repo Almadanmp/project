@@ -1,9 +1,6 @@
 package PT.IPP.ISEP.DEI.Project.Controller;
 
-import PT.IPP.ISEP.DEI.Project.Model.GeographicArea;
-import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
-import PT.IPP.ISEP.DEI.Project.Model.House;
-import PT.IPP.ISEP.DEI.Project.Model.Sensor;
+import PT.IPP.ISEP.DEI.Project.Model.*;
 
 /**
  * As a Regular User, I want to get the current temperature in the house area. If, in the
@@ -16,44 +13,45 @@ public class US600Controller {
     private String mGeographicAreaName;
     private GeographicAreaList mGeographicAreaList;
 
-    public US600Controller(House house){
-        this.mHouse=house;
+    public US600Controller(House house) {
+        this.mHouse = house;
     }
 
-    public US600Controller(String nameOfGeographicArea){
-        mGeographicAreaName=nameOfGeographicArea;
+    public US600Controller(GeographicAreaList list) {
+        this.mGeographicAreaList = list;
     }
 
-    public US600Controller(GeographicAreaList list){
-        this.mGeographicAreaList=list;
-    }
-
-    public String printGeoAreaList(){
+    public String printGeoAreaList() {
         return mGeographicAreaList.printGeoAreaList();
     }
 
-    public boolean validateIfGeographicAreaToGeographicAreaList(String geographicArea){
+    public String printHouseList(GeographicArea ga) {
+        return ga.printGAHouseList();
+    }
+
+    public boolean validateIfGeographicAreaToGeographicAreaList(String geographicArea) {
         return mGeographicAreaList.validateIfGeographicAreaToGeographicAreaList(geographicArea);
     }
 
-    public double getTheClosestDistanceFromTheHouseToTheSensor(){
-        return mHouse.getTheMinorDistanceFromTheHouseToTheSensor();
-    }
-
     public GeographicArea getGeographicAreaByName(String geographicAreaName) {
-        mGeographicAreaName=geographicAreaName;
+        mGeographicAreaName = geographicAreaName;
         return mGeographicAreaList.getGeographicAreaByName(geographicAreaName);
     }
 
-    public House gethousenbyname(String houseName){
+    public House getHouseByName(String houseName) {
         return getGeographicAreaByName(mGeographicAreaName).getmHouseList().getHouseByDesignation(houseName);
     }
 
-    public Sensor getSensorWithTheMinimumDistanceToHouse(){
+    public Sensor getSensorWithTheMinimumDistanceToHouse() {
         return mHouse.getSensorWithTheMinimumDistanceToHouse(mHouse);
     }
 
-    public double getCurrentTemperatureInTheHouseArea(){
+    public double getCurrentTemperatureInTheHouseArea() {
         return getSensorWithTheMinimumDistanceToHouse().getReadingList().getMostRecentValueOfReading();
-        }
+    }
+
+    public boolean matchHouseFromList(String houseName) {
+        return getGeographicAreaByName(mGeographicAreaName).getmHouseList().matchHouse(houseName);
+    }
+
 }

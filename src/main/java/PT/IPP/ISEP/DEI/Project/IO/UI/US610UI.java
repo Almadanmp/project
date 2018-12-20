@@ -115,8 +115,4 @@ public class US610UI {
                     " on the day " + this.dataDay + "-" + this.dataMonth + "-" + this.dataYear +
                     " was " + this.mMaxTemperature);
     }
-
-
-
-
 }
