@@ -52,6 +52,15 @@ public class GeographicAreaList {
         return null;
     }
 
+    public GeographicArea[] getGeographicAreas() {
+        int sizeOfResultArray = mGeographicAreaList.size();
+        GeographicArea[] result = new GeographicArea[sizeOfResultArray];
+        for (int i = 0; i < mGeographicAreaList.size(); i++) {
+            result[i] = mGeographicAreaList.get(i);
+        }
+        return result;
+    }
+
     /**
      * Method that goes through every geographic area from the attribute mGeographicAreaList
      * and returns a string with every GA name
@@ -82,6 +91,14 @@ public class GeographicAreaList {
             }
         }
         return false;
+    }
+
+    public String printListOfHousesInAGeographicAreaContainedInAList(){
+        String finalString= "";
+        for (GeographicArea ga: mGeographicAreaList){
+            finalString=ga.getmHouseList().printHouseList();
+        }
+        return finalString;
     }
 
     /**
