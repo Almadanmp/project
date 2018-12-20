@@ -25,16 +25,17 @@ public class US108UI {
         this.active = false;
     }
 
-    public void run(HouseList newHouseList) {
+    public void run(HouseList newHouseList, RoomList newRoomList) {
         this.active = true;
         this.mHouseList = newHouseList;
+        this.mRoomList =newRoomList;
 
         while (this.active) {
             if (!displayHouseList()) {
                 return;
             } else {
                 getHouse();
-                displayRoomList();
+                displayRoomList(newRoomList);
                 getRoom();
                 setInputRoom();
                 updateState();
@@ -66,17 +67,17 @@ public class US108UI {
         this.mHouseDesignation = scanner.next();
         US108Controller ctrl = new US108Controller(mHouseList);
         if (ctrl.matchHouse(mHouseDesignation)) {
-            System.out.println("You chose the Room " + this.mHouseDesignation);
+            System.out.println("You chose the House " + this.mHouseDesignation);
         } else {
-            System.out.println("This room does not exist in the list of rooms.");
+            System.out.println("This house does not exist in the list of houses.");
             return false;
         }
         return true;
     }
 
 
-    private boolean displayRoomList() {
-        US108Controller ctrl = new US108Controller(mHouseList);
+    private boolean displayRoomList(RoomList roomList) {
+        US108Controller ctrl = new US108Controller(roomList);
         if (ctrl.getRoomList().getListOfRooms().isEmpty()) {
             System.out.println(ctrl.printRoomListNames());
             return false;
@@ -94,7 +95,7 @@ public class US108UI {
             scanner.next();
         }
         this.mRoomDesignation = scanner.next();
-        US108Controller ctrl = new US108Controller(mHouseList);
+        US108Controller ctrl = new US108Controller(mRoomList);
         if (ctrl.matchRoom(mRoomDesignation)) {
             System.out.println("You chose the Room " + this.mRoomDesignation);
         } else {

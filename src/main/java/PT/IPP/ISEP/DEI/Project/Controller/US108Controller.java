@@ -17,7 +17,9 @@ public class US108Controller {
     public US108Controller(HouseList houseList) {
         this.mHouseList = houseList;
     }
-
+    public US108Controller(RoomList roomList) {
+        this.mRoomList = roomList;
+    }
     public HouseList getHouseList() {
         return this.mHouseList;
     }
