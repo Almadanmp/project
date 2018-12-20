@@ -13,10 +13,15 @@ import PT.IPP.ISEP.DEI.Project.Model.Sensor;
  */
 public class US600Controller {
     private House mHouse;
+    private String mGeographicAreaName;
     private GeographicAreaList mGeographicAreaList;
 
     public US600Controller(House house){
         this.mHouse=house;
+    }
+
+    public US600Controller(String nameOfGeographicArea){
+        mGeographicAreaName=nameOfGeographicArea;
     }
 
     public US600Controller(GeographicAreaList list){
@@ -36,7 +41,12 @@ public class US600Controller {
     }
 
     public GeographicArea getGeographicAreaByName(String geographicAreaName) {
+        mGeographicAreaName=geographicAreaName;
         return mGeographicAreaList.getGeographicAreaByName(geographicAreaName);
+    }
+
+    public House gethousenbyname(String houseName){
+        return getGeographicAreaByName(mGeographicAreaName).getmHouseList().getHouseByDesignation(houseName);
     }
 
     public Sensor getSensorWithTheMinimumDistanceToHouse(){
