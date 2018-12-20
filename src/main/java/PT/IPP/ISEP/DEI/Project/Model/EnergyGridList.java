@@ -50,6 +50,15 @@ public class EnergyGridList {
     public List<EnergyGrid> getEnergyGridList() {
         return mEnergyGridList;
     }
+    public boolean seeIfContainsEnergyGrid (String energyGridName){
+        for (EnergyGrid eg: mEnergyGridList){
+            if (eg.getmName().equals(energyGridName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {

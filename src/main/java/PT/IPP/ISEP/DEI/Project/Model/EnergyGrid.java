@@ -1,6 +1,8 @@
 package PT.IPP.ISEP.DEI.Project.Model;
 
 
+import java.util.Objects;
+
 public class EnergyGrid {
     private String mName;
     private RoomList mListOfRooms;
@@ -89,5 +91,17 @@ public void setmEnergyGridList(EnergyGridList energyGridList){this.mEnergyGridLi
         } else {
             return false;
         }
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EnergyGrid eg = (EnergyGrid) o;
+        return Objects.equals(mName, eg.getmName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mName);
     }
 }

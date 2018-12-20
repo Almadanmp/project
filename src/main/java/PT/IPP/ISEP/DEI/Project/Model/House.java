@@ -93,6 +93,18 @@ public class House {
         this.mRoomList = roomList;
     }
 
+
+    public RoomList getmRoomList () {
+        return this.mRoomList;
+    }
+
+    public void setmEGList(EnergyGridList energyGridList){
+        this.mEGList = energyGridList;
+    }
+    public EnergyGridList getmEGList (){
+        return this.mEGList;
+    }
+
     public boolean addRoomToRoomList(Room roomToAdd) {
         String roomToAddName = roomToAdd.getRoomName();
         for(Room r : this.mRoomList.getListOfRooms()) {

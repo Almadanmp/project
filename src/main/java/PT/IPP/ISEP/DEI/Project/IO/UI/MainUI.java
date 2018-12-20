@@ -97,6 +97,7 @@ public class MainUI {
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
                     "623. Add a power source to an energy grid.\n",
+                    "19. Add A Room to a Energy Grid\n",
                     "20. Menu for Admin only test.\n"};
 
             System.out.println("Select the task you want to do:");
@@ -239,6 +240,12 @@ public class MainUI {
                 case 623:
                     US623UI view623 = new US623UI();
                     view623.run(mGeographicAreaList, mHouseList);
+                    System.out.println(pressEnter);
+                    enterToReturnToConsole.nextLine();
+                    break;
+                case 19:
+                    US145UI view145 = new US145UI();
+                    view145.run(mHouseList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
