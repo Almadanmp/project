@@ -2,7 +2,6 @@ package PT.IPP.ISEP.DEI.Project.IO.UI;
 import PT.IPP.ISEP.DEI.Project.Controller.US610Controller;
 import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 import static java.lang.System.out;
@@ -19,7 +18,6 @@ public class US610UI {
     private int dataYear;
     private int dataMonth;
     private int dataDay;
-
     private double mMaxTemperature;
 
     public US610UI(){
