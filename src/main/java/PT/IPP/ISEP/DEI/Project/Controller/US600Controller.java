@@ -1,5 +1,6 @@
 package PT.IPP.ISEP.DEI.Project.Controller;
 
+import PT.IPP.ISEP.DEI.Project.Model.GeographicArea;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
 import PT.IPP.ISEP.DEI.Project.Model.House;
 import PT.IPP.ISEP.DEI.Project.Model.Sensor;
@@ -32,6 +33,10 @@ public class US600Controller {
 
     public double getTheClosestDistanceFromTheHouseToTheSensor(){
         return mHouse.getTheMinorDistanceFromTheHouseToTheSensor();
+    }
+
+    public GeographicArea getGeographicAreaByName(String geographicAreaName) {
+        return mGeographicAreaList.getGeographicAreaByName(geographicAreaName);
     }
 
     public Sensor getSensorWithTheMinimumDistanceToHouse(){
