@@ -17,7 +17,7 @@ public class US105Controller {
         this.mRoom = new Room(roomDesignation, roomHouseFloor ,roomDimensions);
     }
 
-    public Room getRoomFromRoomList() {
+    public Room getRoom() {
         return this.mRoom;
     }
 

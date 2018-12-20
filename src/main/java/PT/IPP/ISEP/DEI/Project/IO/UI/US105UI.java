@@ -58,7 +58,7 @@ public class US105UI {
     public void updateInputRoom() {
         US105Controller ctrl105 = new US105Controller();
         ctrl105.createNewRoom(mRoomName, mRoomHouseFloor, mRoomDimensions);
-        this.mRoom = ctrl105.getRoomFromRoomList();
+        this.mRoom = ctrl105.getRoom();
     }
 
     public void displayStateRoom() {

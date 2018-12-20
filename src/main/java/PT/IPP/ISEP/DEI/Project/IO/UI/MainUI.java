@@ -32,6 +32,7 @@ public class MainUI {
 
         Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
+
         int option;
         int loginFlag = 0;
         String loginAdmin;

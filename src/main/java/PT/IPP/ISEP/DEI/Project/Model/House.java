@@ -89,6 +89,10 @@ public class House {
         this.mMotherGA = mMotherGA;
     }
 
+    public void setmRoomList(RoomList roomList) {
+        this.mRoomList = roomList;
+    }
+
     public boolean addRoomToRoomList(Room roomToAdd) {
         String roomToAddName = roomToAdd.getRoomName();
         for(Room r : this.mRoomList.getListOfRooms()) {
