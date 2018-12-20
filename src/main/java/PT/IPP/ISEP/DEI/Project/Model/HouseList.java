@@ -60,6 +60,15 @@ public class HouseList {
         return false;
     }
 
+    public boolean matchHouse (String houseToMatch){
+        for (House g: mHouseList){
+            if (g.getHouseDesignation().equals(houseToMatch)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String printHouseList() {
         StringBuilder finalString = new StringBuilder();
         String emptyList= "The list is empty.";

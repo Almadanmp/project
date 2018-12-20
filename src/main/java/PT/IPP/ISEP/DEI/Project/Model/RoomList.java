@@ -72,6 +72,15 @@ public class RoomList {
         return null;
     }
 
+    public boolean matchRoom (String roomToMatch){
+        for (Room r: mRoomList){
+            if (r.getRoomName().equals(roomToMatch)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean checkIfListIsValid() {
         return !mRoomList.isEmpty();
     }

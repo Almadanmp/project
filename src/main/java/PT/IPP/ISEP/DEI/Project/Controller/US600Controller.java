@@ -1,5 +1,6 @@
 package PT.IPP.ISEP.DEI.Project.Controller;
 
+import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
 import PT.IPP.ISEP.DEI.Project.Model.House;
 import PT.IPP.ISEP.DEI.Project.Model.Sensor;
 
@@ -11,12 +12,25 @@ import PT.IPP.ISEP.DEI.Project.Model.Sensor;
  */
 public class US600Controller {
     private House mHouse;
+    private GeographicAreaList mGeographicAreaList;
 
     public US600Controller(House house){
         this.mHouse=house;
     }
 
-    public double getTheMinorDistanceFromTheHouseToTheSensor(){
+    public US600Controller(GeographicAreaList list){
+        this.mGeographicAreaList=list;
+    }
+
+    public String printGeoAreaList(){
+        return mGeographicAreaList.printGeoAreaList();
+    }
+
+    public boolean validateIfGeographicAreaToGeographicAreaList(String geographicArea){
+        return mGeographicAreaList.validateIfGeographicAreaToGeographicAreaList(geographicArea);
+    }
+
+    public double getTheClosestDistanceFromTheHouseToTheSensor(){
         return mHouse.getTheMinorDistanceFromTheHouseToTheSensor();
     }
 
