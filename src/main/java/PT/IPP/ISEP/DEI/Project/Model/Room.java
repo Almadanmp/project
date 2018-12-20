@@ -17,11 +17,13 @@ public class Room {
         setRoomDimensions(dimensions);
     }
 
-    public Room(String name, int houseFloor, double dimensions, double roomTotalPower) {
+    public Room(String name, int houseFloor, double dimensions,SensorList sensorList,DeviceList deviceList, double roomMaxPower) {
         setRoomName(name);
         setRoomHouseFloor(houseFloor);
         setRoomDimensions(dimensions);
-        setRoomMaxPower(roomTotalPower);
+        setRoomSensorList(sensorList);
+        setRoomDeviceList(deviceList);
+        setRoomMaxPower(roomMaxPower);
     }
 
     public Room(String name, int houseFloor, double dimensions, SensorList listSensor) {

@@ -105,6 +105,16 @@ public class RoomList {
         }
         return sum;
     }
+    public double getCurrentRoomEnergyConsumption(String roomName){
+        double sum = 0;
+        Room room = getRoomByName(roomName);
+        DeviceList deviceList = room.getRoomDeviceList();
+        for(Device d: deviceList.getDeviceList()){
+            for(Reading r: d.getmEnergyConsumptionList().getListOfReadings()){
+                sum =+ r.getmValue();
+            }
+        } return sum;
+    }
 
     @Override
     public boolean equals(Object testObject) {
