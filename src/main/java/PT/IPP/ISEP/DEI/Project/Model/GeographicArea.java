@@ -219,6 +219,19 @@ public class GeographicArea {
         return mGeographicAreaList;
     }
 
+    /**
+     * This method prints all Houses  in  House List from a Specific Geographic Area.
+     * @return
+     */
+    public String printGAHouseList() {
+        String finalString = "\nHouses on this Geographic Area:\n";
+        if(mHouseList.getHouseList().isEmpty()) {
+            finalString = finalString + "\n|||| List is Empty ||||\nAdd Houses to list first";
+        }
+        else { for (House house : mHouseList.getHouseList())
+            finalString = finalString + "\n" + "-" + house.getHouseDesignation() + ";";}
+        return finalString;
+    }
 
     /**
      * Method to restrain input name so they cant be null or empty.

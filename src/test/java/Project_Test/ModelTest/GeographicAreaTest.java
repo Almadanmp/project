@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -772,6 +773,36 @@ public class GeographicAreaTest {
         double result = ga1.getAvgReadingsFromSensorTypeInGA("Wind", dateToTest1, dateToTest2);
         //Assert
         assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
+    public void seeIfPrintGeoHouseListWorks() {
+        String address1 = "rua da rua 345";
+        String address2 = "rua da rua 455";
+        String zipCode = "4450";
+        double latitude = 38;
+        double longitude = 7;
+        Local local = new Local(latitude, longitude);
+        House house1 = new House("1175", address1, local, zipCode);
+        House house2 = new House("4350", address2, local, zipCode);
+        HouseList houseList = new HouseList(house1);
+        houseList.addHouseToHouseList(house2);
+
+        String result = houseList.printHouseList();
+        String expectedResult =
+                "House List: \n" +
+                "-1175; " +
+                "\n" +
+                "-4350;";
+        assertEquals(result, expectedResult);
+    }
+
+    @Test
+    public void seeIfPrintsGeoHouseListEmpty() {
+        HouseList list = new HouseList();
+        String result = list.printHouseList();
+        String expectedResult = "The list is empty.";
+        assertEquals(result, expectedResult);
     }
 }
 
