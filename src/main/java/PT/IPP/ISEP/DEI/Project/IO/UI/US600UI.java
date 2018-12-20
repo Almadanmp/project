@@ -1,5 +1,6 @@
 package PT.IPP.ISEP.DEI.Project.IO.UI;
 
+import PT.IPP.ISEP.DEI.Project.Controller.US600Controller;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicArea;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
 
@@ -25,11 +26,12 @@ public class US600UI {
     }
 
     public boolean displayGeographicAreasAndGetInput(GeographicAreaList list){
-        list.printGeoAreaList();
+        US600Controller ctrl = new US600Controller(list);
+        ctrl.printGeoAreaList();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please insert the name of the Geographic Area in which your House is in: ");
         this.mGeoAreaName = scanner.next();
-        if (list.validateIfGeographicAreaToGeographicAreaList(mGeoAreaName)){
+        if (ctrl.validateIfGeographicAreaToGeographicAreaList(mGeoAreaName)){
             System.out.println("You have inserted the Geographic Area "+mGeoAreaName);
         }
         else
@@ -38,6 +40,8 @@ public class US600UI {
             return false;}
             return true;
     }
+
+
 
 
 }
