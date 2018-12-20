@@ -27,6 +27,7 @@ public class US620Controller {
             sum = sum + sensor.getReadingList().getTotalSumOfGivenDayValueReadings(day);
             counter++;
         }
-        return sum / counter;
+        if (counter !=0) return sum / counter;
+        else return 0;
     }
 }
