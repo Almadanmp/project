@@ -30,7 +30,7 @@ public class US130UI {
         }
     }
 
-    public void getInput(){
+    private void getInput(){
         US130Controller ctrl = new US130Controller();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the energy grid you want to create: ");
@@ -41,7 +41,7 @@ public class US130UI {
         this.mEnergyGrid = ctrl.getEnergyGrid();
     }
 
-    public boolean displayExistingRoomList(RoomList mainRoomList) {
+    private boolean displayExistingRoomList(RoomList mainRoomList) {
         if (mainRoomList.getListOfRooms().isEmpty()) {
             System.out.println("The list of rooms is empty!");
             return false;
@@ -51,7 +51,7 @@ public class US130UI {
         }
     }
 
-    public void updateEnergyGridRoomList(RoomList mainRoomList){
+    private void updateEnergyGridRoomList(RoomList mainRoomList){
         US130Controller ctrl = new US130Controller();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Write the name of the room which you want to attach: ");
@@ -63,7 +63,7 @@ public class US130UI {
         }
     }
 
-    public void displayState(){
+    private void displayState(){
         System.out.println("This energy grid contains the following rooms: \n" + mEnergyGrid.getmListOfRooms().printRoomList() + "\n And its maximum potency is: " + mEnergyGrid.getmMaxPower());
     }
 }

@@ -197,18 +197,6 @@ public class MainUI {
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
-                case 14:
-                    US130UI view14 = new US130UI();
-                    view14.run(mRoomList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 15:
-                    US135UI view15 = new US135UI();
-                    view15.run(mEnergyGridList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
                 case 20:
                     if (loginFlag == 1) {
                         System.out.println("Bravo!");
