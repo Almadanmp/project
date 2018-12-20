@@ -84,8 +84,7 @@ public void setmEnergyGridList(EnergyGridList energyGridList){this.mEnergyGridLi
     }
 
     public boolean addRoomToAEnergyGrid(Room room) {
-        if (!(this.mMaxPower < this.mListOfRooms.getSumRoomListMaxPower() + room.getRoomMaxPower())) {
-            this.mListOfRooms.addRoom(room);
+         if(this.mListOfRooms.addRoom(room)){
             return true;
         } else {
             return false;
