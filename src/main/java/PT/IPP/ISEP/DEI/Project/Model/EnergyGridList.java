@@ -34,6 +34,19 @@ public class EnergyGridList {
         return !mEnergyGridList.isEmpty();
     }
 
+    public String printEnergyGridList() {
+        StringBuilder finalString = new StringBuilder();
+        String emptyList= "The list is empty.";
+        if(mEnergyGridList.isEmpty()) {
+            return emptyList;
+        }
+        finalString.append("Room List:");
+        for(EnergyGrid energyGrid: mEnergyGridList) {
+            finalString.append(" \n" + "-").append(energyGrid.getmName()).append(";");
+        }
+        return finalString.toString();
+    }
+
     public List<EnergyGrid> getEnergyGridList() {
         return mEnergyGridList;
     }

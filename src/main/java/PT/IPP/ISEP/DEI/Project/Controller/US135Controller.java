@@ -1,6 +1,7 @@
 package PT.IPP.ISEP.DEI.Project.Controller;
 
 import PT.IPP.ISEP.DEI.Project.Model.EnergyGrid;
+import PT.IPP.ISEP.DEI.Project.Model.EnergyGridList;
 import PT.IPP.ISEP.DEI.Project.Model.PowerSource;
 
 /** As an Administrator, I want to add a power source to a house grid,
