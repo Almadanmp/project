@@ -149,11 +149,11 @@ public class GeographicArea {
         this.mMotherArea = geoArea;
     }
 
-    public HouseList getmHouseList() {
+    public HouseList getHouseList() {
         return mHouseList;
     }
 
-    public void setmHouseList(HouseList mHouseList) {
+    public void setHouseList(HouseList mHouseList) {
         this.mHouseList = mHouseList;
     }
 

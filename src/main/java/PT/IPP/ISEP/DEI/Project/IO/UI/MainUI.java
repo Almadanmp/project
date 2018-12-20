@@ -179,7 +179,7 @@ public class MainUI {
                 case 11:
                     if (loginFlag == 1) {
                         US101UI view11 = new US101UI();
-                        view11.run(mHouseList);
+                        view11.run(mHouseList, mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         break;

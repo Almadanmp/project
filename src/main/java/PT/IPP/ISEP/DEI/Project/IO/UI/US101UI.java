@@ -1,6 +1,8 @@
 package PT.IPP.ISEP.DEI.Project.IO.UI;
 
 import PT.IPP.ISEP.DEI.Project.Controller.US101Controller;
+import PT.IPP.ISEP.DEI.Project.Model.GeographicArea;
+import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
 import PT.IPP.ISEP.DEI.Project.Model.HouseList;
 import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 
@@ -18,18 +20,23 @@ public class US101UI {
     private double mHouseLong;
     private boolean houseAddedResult;
     private boolean active;
+    private GeographicArea mGeoArea;
+    private String mNameGeoArea;
 
 
     public US101UI() {
         active = false;
     }
 
-    public void run(HouseList newHouseListUi) {
+    public void run(HouseList newHouseListUi, GeographicAreaList newGeoAreaList) {
         this.active = true;
         while (this.active) {
             getInputHouse();
+            displayGeoList(newGeoAreaList);
+            getGeographicArea();
+            displayGeoArea(newGeoAreaList);
             updateHouse();
-            updateModel(newHouseListUi);
+            updateModel(newHouseListUi, newGeoAreaList);
             displayState();
         }
     }
@@ -43,6 +50,7 @@ public class US101UI {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please, type the name of the house: ");
         this.mHouseDesignation = scanner.nextLine();
+
 
         //gethouseaddress
         System.out.print("Please, type the address of the house: ");
@@ -73,22 +81,57 @@ public class US101UI {
 
     }
 
+    private boolean displayGeoList(GeographicAreaList geoAreaList) {
+        US101Controller ctrl = new US101Controller(geoAreaList);
+        if(ctrl.getGeographicAreaList().getGeographicAreaList().isEmpty()) {
+            System.out.println(ctrl.printGeographicAreaListNames());
+            return false;
+        }
+        else {
+            System.out.println(ctrl.printGeographicAreaListNames());
+            return true;
+        }
+    }
+
+    private void getGeographicArea() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Type the name of the GeographicArea of your home: ");
+        while (!scanner.hasNext("[\\p{L}\\s]+")) {
+            System.out.println("Please,try again:");
+            scanner.next();
+        }
+        this.mNameGeoArea = scanner.next();
+    }
+
+    private void displayGeoArea(GeographicAreaList list) {
+        US101Controller ctrl = new US101Controller(list);
+        if (ctrl.validateGeoArea(mNameGeoArea)) {
+            System.out.println("Success, you have inserted a valid Geographic Area.");
+        } else {
+            System.out.println("Unsuccess, you have inserted a non-existing Geographic Area.");
+        }
+    }
+
     /**
      * Update the new house configurations
      */
     public void updateHouse() {
-        System.out.print("The house named " + mHouseDesignation + " you want to create is in " + mHouseAddress + " with the zipcode " + mHouseZipCode +
+        System.out.print("The house named " + mHouseDesignation + " you want to create is in the Geo Area " + mNameGeoArea + " in the address " + mHouseAddress + " with the zipcode " + mHouseZipCode +
                 " and its localization is on " + mHouseLat + " latitude " + mHouseLong + " longitude.\n");
     }
 
     /**
      * Add the new House to the House list
+     *
      * @param newHouseListUi
      */
-    public void updateModel(HouseList newHouseListUi) {
-        US101Controller ctrl = new US101Controller();
+    public void updateModel(HouseList newHouseListUi, GeographicAreaList geoList) {
+        US101Controller ctrl = new US101Controller(geoList);
         this.houseAddedResult = ctrl.addHouseToHouseList(newHouseListUi, mHouseDesignation, mHouseAddress, mHouseZipCode, mHouseLat, mHouseLong);
+        GeographicArea geoArea = ctrl.matchGeoArea(mNameGeoArea);
+        ctrl.setHouseListToGeoArea(newHouseListUi, geoArea);
     }
+
 
     public void displayState() {
         if (houseAddedResult) {
