@@ -1,9 +1,10 @@
 package PT.IPP.ISEP.DEI.Project.IO.UI;
 
+
 import PT.IPP.ISEP.DEI.Project.Controller.US108Controller;
-import PT.IPP.ISEP.DEI.Project.Model.House;
+
 import PT.IPP.ISEP.DEI.Project.Model.HouseList;
-import PT.IPP.ISEP.DEI.Project.Model.Room;
+
 import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 
 import java.util.Scanner;
@@ -17,7 +18,8 @@ public class US108UI {
     private RoomList mRoomList;
     private String mHouseDesignation;
     private String mRoomDesignation;
-    private int mHouseRoomFloor;
+    private String mNewRoomDesignation;
+    private int mRoomHouseFloor;
     private double mRoomDimensions;
     private boolean active;
 
@@ -28,7 +30,7 @@ public class US108UI {
     public void run(HouseList newHouseList, RoomList newRoomList) {
         this.active = true;
         this.mHouseList = newHouseList;
-        this.mRoomList =newRoomList;
+        this.mRoomList = newRoomList;
 
         while (this.active) {
             if (!displayHouseList()) {
@@ -38,8 +40,9 @@ public class US108UI {
                 displayRoomList(newRoomList);
                 getRoom();
                 setInputRoom();
-                updateState();
+                updateState(newRoomList);
                 displayState();
+                return;
             }
         }
 
@@ -107,17 +110,48 @@ public class US108UI {
 
 
     private void setInputRoom() {
+        Scanner input = new Scanner(System.in);
 
+        ////GET ROOM DESIGNATION
+        System.out.println("Please insert the room name: ");
+        this.mNewRoomDesignation = input.nextLine();
 
+        //GET ROOM HOUSE FLOOR
+        System.out.println("Please insert your room's house floor: ");
+        while (!input.hasNextInt()) {
+            input.next();
+            System.out.println("Please insert a valid number.");
+        }
+        this.mRoomHouseFloor = input.nextInt();
+
+        //GET ROOM DIMENSIONS
+        System.out.println("Please insert your room's dimensions in square meters: ");
+        while (!input.hasNextDouble()) {
+            input.next();
+            System.out.println("Please insert a valid number.");
+        }
+        this.mRoomDimensions = input.nextDouble();
     }
 
-    private void updateState() {
-
+    private void updateState(RoomList newRoomList) {
+        US108Controller ctrl = new US108Controller(newRoomList);
+        ctrl.setRoom(this.mNewRoomDesignation, this.mRoomHouseFloor, this.mRoomDimensions);
     }
+
 
     private void displayState() {
-
+        if (mRoomHouseFloor == 1) {
+            System.out.println("Your room is now called " + mNewRoomDesignation + ", it is located on the " + mRoomHouseFloor + "st floor and has " + mRoomDimensions + " square meters.");
+        } else if (mRoomHouseFloor == 2) {
+            System.out.println("Your room is now called " + mNewRoomDesignation + ", it is located on the " + mRoomHouseFloor + "nd floor and has " + mRoomDimensions + " square meters.");
+        } else if (mRoomHouseFloor == 3) {
+            System.out.println("Your room is now called " + mNewRoomDesignation + ", it is located on the " + mRoomHouseFloor + "rd floor and has " + mRoomDimensions + " square meters.");
+        } else {
+            System.out.println("Your room is now called " + mNewRoomDesignation + ", it is located on the " + mRoomHouseFloor + "th floor and has " + mRoomDimensions + " square meters.");
+        }
     }
 
 }
+
+
 

@@ -44,5 +44,9 @@ public class US108Controller {
         return mRoomList.matchRoom(roomDesignation);
     }
 
+    public void setRoom(String roomDesignation, int roomHouseFloor, double roomDimensions) {
+        this.mRoom = new Room(roomDesignation, roomHouseFloor ,roomDimensions);
+    }
+
 }
 
