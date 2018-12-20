@@ -69,6 +69,15 @@ public class HouseList {
         return false;
     }
 
+    public House getHouseByDesignation(String name) {
+        for (House g : mHouseList) {
+            if (g.getHouseDesignation().equals(name)) {
+                return g;
+            }
+        }
+        return null;
+    }
+
     public String printHouseList() {
         StringBuilder finalString = new StringBuilder();
         String emptyList= "The list is empty.";
