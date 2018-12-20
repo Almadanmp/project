@@ -34,6 +34,9 @@ public class US101UI {
         }
     }
 
+    /**
+     * Get the house definitions by the admin: designation, address, zipcode, local (latitude + longitude)
+     */
     public void getInputHouse() {
 
         //gethousedesignation
@@ -70,11 +73,18 @@ public class US101UI {
 
     }
 
+    /**
+     * Update the new house configurations
+     */
     public void updateHouse() {
-        System.out.print("The house named " + mHouseDesignation + " you want to create is " + mHouseAddress + " with the zipcode " + mHouseZipCode +
+        System.out.print("The house named " + mHouseDesignation + " you want to create is in " + mHouseAddress + " with the zipcode " + mHouseZipCode +
                 " and its localization is on " + mHouseLat + " latitude " + mHouseLong + " longitude.\n");
     }
 
+    /**
+     * Add the new House to the House list
+     * @param newHouseListUi
+     */
     public void updateModel(HouseList newHouseListUi) {
         US101Controller ctrl = new US101Controller();
         this.houseAddedResult = ctrl.addHouseToHouseList(newHouseListUi, mHouseDesignation, mHouseAddress, mHouseZipCode, mHouseLat, mHouseLong);

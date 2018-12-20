@@ -81,7 +81,7 @@ public class MainUI {
                     "8. See if an area is contained in another area.\n",
                     "9. Display all available sensors.\n",
                     "10. Display all available Geographic Areas.\n",
-                    "11. Configure a house.\n",
+                    "11. Configure a new house.\n",
                     "12. Add a new room to a house.\n",
                     "13.get max temp.\n",
                     "14. Create an energy grid.\n",

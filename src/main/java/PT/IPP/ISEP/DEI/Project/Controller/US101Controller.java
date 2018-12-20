@@ -10,7 +10,16 @@ import PT.IPP.ISEP.DEI.Project.Model.RoomList;
 public class US101Controller {
 
 
-
+    /**
+     * Add a house, configure in the UI, to a list of Houses
+     * @param newHouseList
+     * @param newHouseDesignation
+     * @param newHouseAddress
+     * @param newHouseZipCode
+     * @param latitude
+     * @param longitude
+     * @return
+     */
     public boolean addHouseToHouseList(HouseList newHouseList, String newHouseDesignation, String newHouseAddress, String newHouseZipCode, double latitude, double longitude) {
         if (newHouseList == null) {
             return false;
