@@ -21,10 +21,10 @@ public class US600UI {
 
     public void run(GeographicAreaList list) {
         while (this.active = true) {
-            if (!displayGeographicAreaListGetInputAndUpdate(list)) {
+            if (!getInputGeographicArea(list)) {
                 return;
             }
-            if(!displayHouseListGetInputAndDisplayState(list)){
+            if(!getInputHouse(list)){
                 return;
             }
             updateModel();
@@ -34,37 +34,62 @@ public class US600UI {
 
     }
 
-    public boolean displayGeographicAreaListGetInputAndUpdate(GeographicAreaList list) {
-        US600Controller ctrl = new US600Controller(list);
-        System.out.println(ctrl.printGeoAreaList());
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please insert the name of the Geographic Area in which your House is in: ");
-        this.mGeoAreaName = scanner.next();
-        if (ctrl.validateIfGeographicAreaToGeographicAreaList(mGeoAreaName)) {
-            System.out.println("You have inserted the Geographic Area " + mGeoAreaName);
-            this.mGeoArea = ctrl.getGeographicAreaByName(mGeoAreaName);
-        } else {
-            System.out.println("That Geographic Area does not belong to the List.");
-            return false;
+
+    private boolean getInputGeographicArea(GeographicAreaList newGeoListUi) {
+        boolean activeInput = false;
+        Double option;
+        System.out.println("Please select the Geographic Area in which your House is in from the list: ");
+        Scanner mScanner = new Scanner(System.in);
+        US600Controller ctrl = new US600Controller(newGeoListUi);
+        while (!activeInput) {
+            ctrl.printGAList(newGeoListUi);
+
+            while (!mScanner.hasNextDouble()) {
+                System.out.println("Please enter a valid option");
+                mScanner.next();
+            }
+
+            option = mScanner.nextDouble();
+            int aux = option.intValue();
+            if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
+                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
+                activeInput = true;
+
+            } else {
+                System.out.println("Please enter a valid option");
+                return false;
+            }
+        } return true;
+    }
+
+    private boolean getInputHouse(GeographicAreaList newGeoListUi) {
+        boolean activeInput = false;
+        Double option;
+        System.out.println("Please select one of the existing houses on the selected geographic area: ");
+        Scanner mScanner = new Scanner(System.in);
+        US600Controller ctrl = new US600Controller(newGeoListUi);
+        while (!activeInput) {
+            ctrl.printHouseList(mGeoArea);
+
+            while (!mScanner.hasNextDouble()) {
+                System.out.println("Please enter a valid option");
+                mScanner.next();
+            }
+
+            option = mScanner.nextDouble();
+            int aux = option.intValue();
+            if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
+                mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
+                activeInput = true;
+            } else {
+                System.out.println("Please enter a valid option");
+                return false;
+            }
         }
         return true;
     }
 
-    public boolean displayHouseListGetInputAndDisplayState(GeographicAreaList list) {
-        US600Controller ctrl = new US600Controller(list);
-        System.out.println(ctrl.printHouseList(mGeoArea));
-        System.out.println("Please insert name from the list: ");
-        Scanner scanner = new Scanner(System.in);
-        this.mHouseName=scanner.next();
-        if (ctrl.matchHouseFromList(mGeoArea,mHouseName)) {
-            System.out.println("You have inserted the house " + mHouseName);
-            this.mHouse = ctrl.getHouseByName(mGeoArea,mHouseName);
-        } else {
-            System.out.println("That house does not belong to the list.");
-            return false;
-        }
-        return true;
-    }
+
 
     public void updateModel(){
         US600Controller ctrl = new US600Controller(mHouse);
