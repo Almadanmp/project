@@ -17,12 +17,15 @@ import static java.lang.System.out;
  * given period (days), as it is needed to assess the garden’s watering needs.
  */
 public class US623UI {
-    private boolean active;
     private Scanner mScanner;
+
     private House mHouse;
-    private String mGeoAreaName;
+    //private String mGeoAreaName;
     private GeographicArea mGeoArea;
-    private double mResult;
+    //private GeographicAreaList mGeoAreaList;
+
+    private double mResult620;
+    private double mResult623;
     private Date mStartDate;
     private Date mEndDate;
     private int dataYear1;
@@ -31,54 +34,138 @@ public class US623UI {
     private int dataYear2;
     private int dataMonth2;
     private int dataDay2;
-    private US623Controller controller;
+    private US623Controller controller623;
     private US620Controller controller620;
 
 
     public US623UI() {
         this.mScanner = new Scanner(System.in);
-        this.controller = new US623Controller();
+        this.controller623 = new US623Controller();
         this.controller620 = new US620Controller();
     }
 
     public void run(GeographicAreaList newGeoListUi, HouseList newHouseListUi) {
-        this.active = true;
         boolean activeInput = false;
+        String option;
+
         getInputGeographicArea(newGeoListUi);
-        getInputHouse(newHouseListUi);
+        getInputHouse();
         while (!activeInput) {
-            System.out.println("\n Do you wish to know the average rainfall on a specific day or day interval?\n");
-            System.out.println("1 for Option1 / 2 for Option2 / 0 to exit:\t");
-            if ("1".equals(mScanner.nextLine())) {
-                getInputSingularDate();
-                updateModelUS620();
-                displayState620();
-                activeInput = true;
+            printOptionMessage();
+            option = mScanner.next();
+            switch (option) {
+                case "1":
+                    getInputSingularDate();
+                    updateModelUS620();
+                    displayState620();
+                    activeInput = true;
+                    break;
+                case "2":
+                    getInputStartDate();
+                    getInputEndDate();
+                    updateModelUS623();
+                    displayState623();
+                    activeInput = true;
+                    break;
+                case "0":
+                    return;
+
+                default:
+                    System.out.println("Please enter a valid option");
+                    break;
             }
-            if ("2".equals(mScanner.nextLine())) {
-                getInputStartDate();
-                getInputEndDate();
-                updateModelUS623(mGeoAreaName, mHouse);
-                displayState();
-                activeInput = true;
-            }
-            if ("0".equals(mScanner.nextLine())) {
-                activeInput = true;
-                return;
-            }
-            else System.out.println("Please enter a valid option");
         }
     }
-    private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
-        System.out.println("Please Select One Of The Existing Geographic Areas: " + newGeoListUi.printGeoAreaList());
-        mGeoAreaName = mScanner.nextLine();
+
+    private void printOptionMessage() {
+        System.out.println("\nDo you wish to know the average rainfall on:");
+        System.out.println("1) A specific day.");
+        System.out.println("2) A day interval.");
+        System.out.println("0) (Return to main menu)");
     }
 
-    private void getInputHouse(HouseList newHouseListUi) {
+    private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
+        boolean activeInput = false;
+        Double option;
+        System.out.println("Please select the Geographic Area in which your House is in from the list: ");
+
+
+        while (!activeInput) {
+            printGaList(newGeoListUi);
+
+            while (!mScanner.hasNextDouble()) {
+                System.out.println("Please enter a valid option");
+                mScanner.next();
+            }
+
+            option = mScanner.nextDouble();
+            int aux = option.intValue();
+            if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
+                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
+                activeInput = true;
+            } else {
+                System.out.println("Please enter a valid option");
+            }
+        }
+    }
+
+    private void getInputHouse() {
+        boolean activeInput = false;
+        Double option;
+        System.out.println("Please select one of the existing houses on the selected geographic area: ");
+
+        while (!activeInput) {
+            printHouseList(mGeoArea);
+
+            while (!mScanner.hasNextDouble()) {
+                System.out.println("Please enter a valid option");
+                mScanner.next();
+            }
+
+            option = mScanner.nextDouble();
+            int aux = option.intValue();
+            if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
+                mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
+                activeInput = true;
+            } else {
+                System.out.println("Please enter a valid option");
+            }
+        }
+    }
+
+    private void printGaList(GeographicAreaList newGeoListUi) {
+        System.out.println("---------------");
+
+        for (int i = 0; i < newGeoListUi.getGeographicAreaList().size(); i++) {
+            GeographicArea aux = newGeoListUi.getGeographicAreaList().get(i);
+            System.out.print(i + ") Name: " + aux.getName() + " | ");
+            System.out.print("Type: " + aux.getTypeArea().getTypeOfGeographicArea() + " | ");
+            System.out.print("Latitude: " + aux.getLocal().getLatitude() + " | ");
+            System.out.print("Longitude: " + aux.getLocal().getLongitude());
+            System.out.println();
+        }
+        System.out.println("---------------");
+    }
+
+    private void printHouseList(GeographicArea geoArea) {
+        System.out.println("---------------");
+
+        for (int i = 0; i < geoArea.getHouseList().getHouseList().size(); i++) {
+            House aux = geoArea.getHouseList().getHouseList().get(i);
+            System.out.print(i + ") Designation: " + aux.getHouseDesignation() + " | ");
+            System.out.print("Address: " + aux.getmAddress() + " | ");
+            System.out.print("ZipCode: " + aux.getmZipCode());
+            System.out.println();
+        }
+        System.out.println("---------------");
+    }
+
+ /*   private void getInputHouse(GeographicAreaList newGeoListUi) {
         System.out.println("Please Select One Of The Existing Houses on " + mGeoAreaName + "\n" + newHouseListUi.printHouseList());
         String house = mScanner.nextLine();
         mHouse = newHouseListUi.getHouseByDesignation(house);
     }
+*/
     private void getInputSingularDate() {
         System.out.println("Enter the year:");
         while (!mScanner.hasNextInt()) {
@@ -104,31 +191,35 @@ public class US623UI {
         mScanner.nextLine();
     }
 
+    // TODO improve this method remove duplicated
     private void getInputStartDate() {
         System.out.println("Enter the year:");
         while (!mScanner.hasNextInt()) {
             mScanner.next();
-            out.println("Not a valid year. Try again");
+            System.out.println("Not a valid year. Try again");
         }
         this.dataYear1 = mScanner.nextInt();
+
         mScanner.nextLine();
         out.println("\nEnter the Month:\t");
         while (!mScanner.hasNextInt()) {
             mScanner.next();
-            out.println("Not a valid month. Try again");
+            System.out.println("Not a valid month. Try again");
         }
         this.dataMonth1 = mScanner.nextInt();
+
         mScanner.nextLine();
         out.println("\nEnter the Day:\t");
         while (!mScanner.hasNextInt()) {
             mScanner.next();
-            out.println("Not a valid day. Try again");
+            System.out.println("Not a valid day. Try again");
         }
         this.dataDay1 = mScanner.nextInt();
-        out.println("You entered the date successfully!");
+        System.out.println("You entered the date successfully!");
         mScanner.nextLine();
     }
 
+    // TODO improve this method remove duplicated
     private void getInputEndDate() {
         System.out.println("Enter the year:");
         while (!mScanner.hasNextInt()) {
@@ -155,27 +246,23 @@ public class US623UI {
     }
 
     private void updateModelUS620() {
-        this.mStartDate = controller.createDate(dataDay1, dataMonth1, dataYear1);
-        this.mResult = controller620.getTotalRainfallOnGivenDayHouseArea(mHouse,mStartDate);
+        this.mStartDate = controller623.createDate(dataDay1, dataMonth1, dataYear1);
+        this.mResult620 = controller620.getTotalRainfallOnGivenDayHouseArea(mHouse, mStartDate);
     }
 
-    private void updateModelUS623(String mGeoArea, House mHouse) {
-        this.mGeoArea = controller.getGeographicArea(mGeoArea);
-        this.mStartDate = controller.createDate(dataDay1, dataMonth1, dataYear1);
-        this.mEndDate = controller.createDate(dataDay2, dataMonth2, dataYear2);
-        this.mResult = controller.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
+    private void updateModelUS623() {
+        this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
+        this.mEndDate = controller623.createDate(dataYear2, dataMonth2, dataDay2);
+        this.mResult623 = controller623.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
     }
 
-    private void displayState() {
-        System.out.print("The Average Temperature on " + mHouse + "that is located on " + mGeoAreaName + "between the dates" +
-                mStartDate + "and " + mEndDate + "is " + mResult + "%.");
-        active = false;
+    private void displayState623() {
+        System.out.print("The Average Temperature is " + mResult623 + "%.");
     }
 
     private void displayState620() {
-        System.out.print("The Average Temperature on " + mHouse + "that is located on " + mGeoAreaName + "on the date" +
-                mStartDate + "is " + mResult + "%.");
-        active = false;
+        System.out.print("The Average Temperature on " + mHouse + "that is located on " + mGeoArea.getName() + "on the date" +
+                mStartDate + "is " + mResult620 + "%.");
     }
 }
 
