@@ -8,14 +8,16 @@ import java.util.Scanner;
 
 import static java.lang.System.out;
 
+/**
+ * US605   As a Regular User, I want to get the current temperature in a room, in order to check
+ * if it meets my personal comfort requirements.
+ */
+
 public class US605UI {
     private boolean active;
     private String mNameRoom;
     private RoomList mRoomList;
     private String mNameSensor;
-    private int dataYear;
-    private int dataMonth;
-    private int dataDay;
     private double mCurrentTemperature;
 
     public US605UI(){
@@ -77,8 +79,8 @@ public class US605UI {
 
     private void updateModel(RoomList list) {
         US605Controller ctrl = new US605Controller(list);
-        out.print("The room is " + this.mNameRoom + " the Temperature Sensor is " + this.mNameSensor + "\n");
-        Date mDate = ctrl.createDate(this.dataYear, this.dataMonth, this.dataDay);
+        out.print("The room is " + this.mNameRoom + " and the Temperature Sensor is " + this.mNameSensor + "\n");
+        Date mDate = new Date();
         this.mCurrentTemperature = ctrl.getCurrentRoomTemperature(mDate);
     }
 
