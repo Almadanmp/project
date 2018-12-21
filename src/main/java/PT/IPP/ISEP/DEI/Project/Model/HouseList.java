@@ -91,6 +91,20 @@ public class HouseList {
         return finalString.toString();
     }
 
+
+    public void printHouseList(GeographicArea geoArea) {
+        System.out.println("---------------");
+
+        for (int i = 0; i < geoArea.getHouseList().getHouseList().size(); i++) {
+            House aux = geoArea.getHouseList().getHouseList().get(i);
+            System.out.print(i + ") Designation: " + aux.getHouseDesignation() + " | ");
+            System.out.print("Address: " + aux.getmAddress() + " | ");
+            System.out.print("ZipCode: " + aux.getmZipCode());
+            System.out.println();
+        }
+        System.out.println("---------------");
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {

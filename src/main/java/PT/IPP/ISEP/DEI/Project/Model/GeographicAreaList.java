@@ -78,6 +78,20 @@ public class GeographicAreaList {
         return finalString.toString();
     }
 
+   public void printGaList(GeographicAreaList newGeoListUi) {
+        System.out.println("---------------");
+
+        for (int i = 0; i < newGeoListUi.getGeographicAreaList().size(); i++) {
+            GeographicArea aux = newGeoListUi.getGeographicAreaList().get(i);
+            System.out.print(i + ") Name: " + aux.getName() + " | ");
+            System.out.print("Type: " + aux.getTypeArea().getTypeOfGeographicArea() + " | ");
+            System.out.print("Latitude: " + aux.getLocal().getLatitude() + " | ");
+            System.out.print("Longitude: " + aux.getLocal().getLongitude());
+            System.out.println();
+        }
+        System.out.println("---------------");
+    }
+
     /**
      * Method that receives a string as a parameter, compares that string with every
      * Geographic Area name of every GA in the list and returns true in case of match.

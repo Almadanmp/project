@@ -91,7 +91,7 @@ public class US623UI {
 
 
         while (!activeInput) {
-            printGaList(newGeoListUi);
+            controller623.printGAList(newGeoListUi);
 
             while (!mScanner.hasNextDouble()) {
                 System.out.println("Please enter a valid option");
@@ -115,7 +115,7 @@ public class US623UI {
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
 
         while (!activeInput) {
-            printHouseList(mGeoArea);
+           controller623.printHouseList(mGeoArea);
 
             while (!mScanner.hasNextDouble()) {
                 System.out.println("Please enter a valid option");
@@ -133,39 +133,6 @@ public class US623UI {
         }
     }
 
-    private void printGaList(GeographicAreaList newGeoListUi) {
-        System.out.println("---------------");
-
-        for (int i = 0; i < newGeoListUi.getGeographicAreaList().size(); i++) {
-            GeographicArea aux = newGeoListUi.getGeographicAreaList().get(i);
-            System.out.print(i + ") Name: " + aux.getName() + " | ");
-            System.out.print("Type: " + aux.getTypeArea().getTypeOfGeographicArea() + " | ");
-            System.out.print("Latitude: " + aux.getLocal().getLatitude() + " | ");
-            System.out.print("Longitude: " + aux.getLocal().getLongitude());
-            System.out.println();
-        }
-        System.out.println("---------------");
-    }
-
-    private void printHouseList(GeographicArea geoArea) {
-        System.out.println("---------------");
-
-        for (int i = 0; i < geoArea.getHouseList().getHouseList().size(); i++) {
-            House aux = geoArea.getHouseList().getHouseList().get(i);
-            System.out.print(i + ") Designation: " + aux.getHouseDesignation() + " | ");
-            System.out.print("Address: " + aux.getmAddress() + " | ");
-            System.out.print("ZipCode: " + aux.getmZipCode());
-            System.out.println();
-        }
-        System.out.println("---------------");
-    }
-
- /*   private void getInputHouse(GeographicAreaList newGeoListUi) {
-        System.out.println("Please Select One Of The Existing Houses on " + mGeoAreaName + "\n" + newHouseListUi.printHouseList());
-        String house = mScanner.nextLine();
-        mHouse = newHouseListUi.getHouseByDesignation(house);
-    }
-*/
     private void getInputSingularDate() {
         System.out.println("Enter the year:");
         while (!mScanner.hasNextInt()) {
