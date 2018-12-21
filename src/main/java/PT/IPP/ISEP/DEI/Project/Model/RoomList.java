@@ -98,13 +98,26 @@ public class RoomList {
         return finalString.toString();
     }
 
+    public void printRoomList (House house){
+        System.out.println("-----------");
+
+        for (int i = 0; i < house.getmRoomList().getListOfRooms().size();i++){
+            Room aux = house.getmRoomList().getListOfRooms().get(i);
+            System.out.println(i+") Designation: " + aux.getRoomName() + " | ");
+            System.out.println("Floor: " + aux.getHouseFloor() + " | ");
+            System.out.println("Dimensions: " + aux.getRoomDimensions());
+            System.out.println();
+        }
+        System.out.println("-----------");
+    }
+
 
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof HouseList)) {
+        if (!(testObject instanceof RoomList)) {
             return false;
         }
         RoomList list = (RoomList) testObject;
