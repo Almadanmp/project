@@ -12,10 +12,10 @@ public class US145Controller {
      * power and energy consumption is not included in that grid. The room’s
      * characteristics are not changed.
      */
-    private EnergyGrid mEnergyGrid;
-    private RoomList mRoomList;
-    private EnergyGridList mEnergyGridList;
+
+
     private Room mRoom;
+    private EnergyGrid mEnergyGrid;
 
 
     public US145Controller() {
@@ -34,36 +34,38 @@ public class US145Controller {
         }
     }
 
-    public void setRoomListByHouseName (String houseName, HouseList houseList){
-        this.mRoomList = houseList.getHouseByDesignation(houseName).getmRoomList();
+    public RoomList getRoomListByHouseName (String houseName, HouseList houseList){
+        return houseList.getHouseByDesignation(houseName).getmRoomList();
 }
-    public boolean seeIfRoomExistsInHouse(String roomName){
-        if (this.mRoomList.matchRoom(roomName)){
+    public boolean seeIfRoomExistsInHouse(String roomName, RoomList roomList){
+        if (roomList.matchRoom(roomName)){
             return true;
         } else {
             return false;
         }
     }
-    public void setmEnergyGridListByHouseName (String houseName, HouseList houseList){
-        this.mEnergyGridList = houseList.getHouseByDesignation(houseName).getmEGList();
+    public EnergyGridList getmEnergyGridListByHouseName (String houseName, HouseList houseList){
+        return houseList.getHouseByDesignation(houseName).getmEGList();
     }
 
-    public boolean seeIfEnergyGridExistsInEnergyGridList(String energyGridName){
-        if(this.mEnergyGridList.seeIfContainsEnergyGrid(energyGridName)) {
+    public boolean seeIfEnergyGridExistsInEnergyGridList(String energyGridName, EnergyGridList energyGridList){
+        if(energyGridList.seeIfContainsEnergyGrid(energyGridName)) {
             return true;
         }else {
             return false;
         }
     }
 
-
-
-    public void matchRoomByName(String roomName){
-        this.mRoom = mRoomList.getRoomByName(roomName);
+    public EnergyGrid getEnergyGrid (String energyGrid, EnergyGridList energyGridList){
+        return energyGridList.matchEnergyGrid(energyGrid);
     }
 
-    public boolean addRoomToEnergyGrid() {
-        if (this.mEnergyGrid.getmListOfRooms().addRoom(this.mRoom)){
+    public Room matchRoomByName(String roomName, RoomList roomList){
+        return roomList.getRoomByName(roomName);
+    }
+
+    public boolean addRoomToEnergyGrid(Room room, EnergyGrid energyGrid) {
+        if (energyGrid.getmListOfRooms().addRoom(room)){
             return true;
         } else{
             return false;

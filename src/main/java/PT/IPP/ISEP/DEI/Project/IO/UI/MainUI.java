@@ -18,9 +18,11 @@ public class MainUI {
         TypeAreaList mTypeAreaList = new TypeAreaList();
         HouseList mHouseList = new HouseList();
         House house = new House("casa", "coise", new Local(4, 4), "coise");
-        mHouseList.addHouseToHouseList(house);
         RoomList mRoomList = new RoomList();
         EnergyGridList mEnergyGridList = new EnergyGridList();
+        EnergyGrid mEnergyGrid = new EnergyGrid("Grid",5000);
+        mEnergyGridList.addEnergyGridToEnergyGridList(mEnergyGrid);
+        house.setmEGList(mEnergyGridList);
         ReadingList readingList = new ReadingList();
         Reading reading = new Reading(30, new GregorianCalendar(2018, 8, 6).getTime());
         Reading reading1 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
@@ -38,8 +40,20 @@ public class MainUI {
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
         house.setmMotherGA(geoa);
-        Room room = new Room("cozinha", 8, 2, sensorList);
-        mRoomList.addRoom(room);
+        mHouseList.addHouseToHouseList(house);
+
+
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("quarto1",19,23456789);
+        roomList1.addRoom(room1);
+        EnergyGridList energyGridList1 = new EnergyGridList();
+        EnergyGrid eg1 = new EnergyGrid("rede",56789);
+        energyGridList1.addEnergyGridToEnergyGridList(eg1);
+        House house1 = new House("casa1","dddddd",new Local(22,3),"4150-657",roomList1);
+        house1.setmEGList(energyGridList1);
+        HouseList houseList1 = new HouseList();
+        houseList1.addHouseToHouseList(house1);
+
 
 
         Scanner enterToReturnToConsole = new Scanner(System.in);
@@ -251,7 +265,7 @@ public class MainUI {
                     break;
                 case 19:
                     US145UI view145 = new US145UI();
-                    view145.run(mHouseList);
+                    view145.run(houseList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
