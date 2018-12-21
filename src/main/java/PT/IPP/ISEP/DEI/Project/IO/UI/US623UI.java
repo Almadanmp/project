@@ -221,7 +221,7 @@ public class US623UI {
 
     private void updateModelUS620() {
         this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
-        this.mResult620 = controller620.getTotalRainfallOnGivenDayHouseArea(mHouse, mStartDate);
+        this.mResult620 = controller620.getTotalRainfallOnGivenDayHouseArea(mGeoArea, mStartDate);
     }
 
     private void updateModelUS623() {

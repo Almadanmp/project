@@ -103,7 +103,7 @@ public class US620ControllerTest {
         US620Controller ctrl = new US620Controller();
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 23);
         Date dateToTest = cal.getTime();
-        double actualResult = ctrl.getTotalRainfallOnGivenDayHouseArea(casa1, dateToTest);
+        double actualResult = ctrl.getTotalRainfallOnGivenDayHouseArea(ga1, dateToTest);
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
@@ -146,7 +146,7 @@ public class US620ControllerTest {
     US620Controller ctrl = new US620Controller();
     GregorianCalendar cal = new GregorianCalendar(2018, 8, 6);
     Date dateToTest = cal.getTime();
-    double actualResult = ctrl.getTotalRainfallOnGivenDayHouseArea(house, dateToTest);
+    double actualResult = ctrl.getTotalRainfallOnGivenDayHouseArea(geoa, dateToTest);
 
     //Assert
     assertEquals(expectedResult, actualResult,0.001);
