@@ -20,13 +20,13 @@ public class US620Controller {
 
     public double getTotalRainfallOnGivenDayHouseArea(GeographicArea geoArea, Date day) {
         double sum = 0;
-        double counter = 0;
+        int counter = 0;
         List<Sensor> listRain = geoArea.getSensorList().getSensorListByType("Rain");
         for (Sensor sensor : listRain) {
             sum = sum + sensor.getReadingList().getTotalSumOfGivenDayValueReadings(day);
             counter++;
         }
-        if (counter !=0) return sum / counter;
+        if (counter != 0) return sum / counter;
         else return 0;
     }
 }
