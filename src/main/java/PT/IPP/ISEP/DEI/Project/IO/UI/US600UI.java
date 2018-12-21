@@ -4,7 +4,6 @@ import PT.IPP.ISEP.DEI.Project.Controller.US600Controller;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicArea;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
 import PT.IPP.ISEP.DEI.Project.Model.House;
-import PT.IPP.ISEP.DEI.Project.Model.Sensor;
 
 import java.util.Scanner;
 
