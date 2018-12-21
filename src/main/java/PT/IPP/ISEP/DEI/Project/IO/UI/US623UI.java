@@ -5,11 +5,8 @@ import PT.IPP.ISEP.DEI.Project.Controller.US623Controller;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicArea;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
 import PT.IPP.ISEP.DEI.Project.Model.House;
-import PT.IPP.ISEP.DEI.Project.Model.HouseList;
-
 import java.util.Date;
 import java.util.Scanner;
-
 import static java.lang.System.out;
 
 /**
@@ -18,12 +15,8 @@ import static java.lang.System.out;
  */
 public class US623UI {
     private Scanner mScanner;
-
     private House mHouse;
-    //private String mGeoAreaName;
     private GeographicArea mGeoArea;
-    //private GeographicAreaList mGeoAreaList;
-
     private double mResult620;
     private double mResult623;
     private Date mStartDate;
@@ -91,7 +84,7 @@ public class US623UI {
 
 
         while (!activeInput) {
-            printGaList(newGeoListUi);
+           controller623.printGAList(newGeoListUi);
 
             while (!mScanner.hasNextDouble()) {
                 System.out.println("Please enter a valid option");
@@ -115,7 +108,7 @@ public class US623UI {
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
 
         while (!activeInput) {
-            printHouseList(mGeoArea);
+            controller623.printHouseList(mGeoArea);
 
             while (!mScanner.hasNextDouble()) {
                 System.out.println("Please enter a valid option");
@@ -132,40 +125,6 @@ public class US623UI {
             }
         }
     }
-
-    private void printGaList(GeographicAreaList newGeoListUi) {
-        System.out.println("---------------");
-
-        for (int i = 0; i < newGeoListUi.getGeographicAreaList().size(); i++) {
-            GeographicArea aux = newGeoListUi.getGeographicAreaList().get(i);
-            System.out.print(i + ") Name: " + aux.getName() + " | ");
-            System.out.print("Type: " + aux.getTypeArea().getTypeOfGeographicArea() + " | ");
-            System.out.print("Latitude: " + aux.getLocal().getLatitude() + " | ");
-            System.out.print("Longitude: " + aux.getLocal().getLongitude());
-            System.out.println();
-        }
-        System.out.println("---------------");
-    }
-
-    private void printHouseList(GeographicArea geoArea) {
-        System.out.println("---------------");
-
-        for (int i = 0; i < geoArea.getHouseList().getHouseList().size(); i++) {
-            House aux = geoArea.getHouseList().getHouseList().get(i);
-            System.out.print(i + ") Designation: " + aux.getHouseDesignation() + " | ");
-            System.out.print("Address: " + aux.getmAddress() + " | ");
-            System.out.print("ZipCode: " + aux.getmZipCode());
-            System.out.println();
-        }
-        System.out.println("---------------");
-    }
-
- /*   private void getInputHouse(GeographicAreaList newGeoListUi) {
-        System.out.println("Please Select One Of The Existing Houses on " + mGeoAreaName + "\n" + newHouseListUi.printHouseList());
-        String house = mScanner.nextLine();
-        mHouse = newHouseListUi.getHouseByDesignation(house);
-    }
-*/
 
     private void getInputStartDate() {
         System.out.println("Enter the year:");
@@ -227,11 +186,11 @@ public class US623UI {
     private void updateModelUS623() {
         this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
         this.mEndDate = controller623.createDate(dataYear2, dataMonth2, dataDay2);
-        this.mResult623 = controller623.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
+        this.mResult623 = controller623.getAVGDailyRainfallOnGivenPeriod(mGeoArea, mStartDate, mEndDate);
     }
 
     private void displayState623() {
-        System.out.print("The Average Temperature is " + mResult623 + "%.");
+        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation()+ " is " + mResult623 + "%.");
     }
 
     private void displayState620() {

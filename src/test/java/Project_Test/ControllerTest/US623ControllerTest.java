@@ -19,7 +19,7 @@ public class US623ControllerTest {
     public void seeIfGetsAverageRainfallOfGA() {
 
         GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(21, 33));
-        House house = new House("1742", "Costa Cabral", new Local(21, 33), "4450-145", gA1);
+        House house = new House("1742", "Costa Cabral", new Local(21, 33), "4450-145");
         HouseList hL1 = new HouseList();
         hL1.addHouseToHouseList(house);
         gA1.setHouseList(hL1);
@@ -53,7 +53,7 @@ public class US623ControllerTest {
         Date dateToTest1 = dateMin.getTime();
         Date dateToTest2 = dateMax.getTime();
         double expectedResult = 23.5;
-        double actualResult = US623.getAVGDailyRainfallOnGivenPeriod(house, dateToTest1, dateToTest2);
+        double actualResult = US623.getAVGDailyRainfallOnGivenPeriod(gA1, dateToTest1, dateToTest2);
         //Assert
         assertEquals(expectedResult, actualResult);
     }

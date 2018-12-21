@@ -3,7 +3,6 @@ package PT.IPP.ISEP.DEI.Project.Controller;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicArea;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
 import PT.IPP.ISEP.DEI.Project.Model.House;
-
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -22,9 +21,8 @@ public class US623Controller {
         geoArea.getHouseList().printHouseList(geoArea);
     }
 
-    public double getAVGDailyRainfallOnGivenPeriod(House house, Date minDay, Date maxDay) {
-        GeographicArea geoAreaHouse = house.getmMotherGA();
-        return geoAreaHouse.getAvgReadingsFromSensorTypeInGA("Rain", minDay, maxDay);
+    public double getAVGDailyRainfallOnGivenPeriod(GeographicArea geoArea, Date minDay, Date maxDay) {
+        return geoArea.getAvgReadingsFromSensorTypeInGA("Rain", minDay, maxDay);
     }
 
     public Date createDate(int year, int month, int day) {

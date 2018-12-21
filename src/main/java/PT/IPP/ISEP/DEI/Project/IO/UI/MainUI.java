@@ -37,10 +37,22 @@ public class MainUI {
         GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4), sensorList, mHouseList);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
-        house.setmMotherGA(geoa);
         Room room = new Room("cozinha", 8, 2, sensorList);
         mRoomList.addRoom(room);
-        house.setmMotherGA(geoa);
+        mHouseList.addHouseToHouseList(house);
+
+
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("quarto1",19,23456789);
+        roomList1.addRoom(room1);
+        EnergyGridList energyGridList1 = new EnergyGridList();
+        EnergyGrid eg1 = new EnergyGrid("rede",56789);
+        energyGridList1.addEnergyGridToEnergyGridList(eg1);
+        House house1 = new House("casa1","dddddd",new Local(22,3),"4150-657",roomList1);
+        house1.setmEGList(energyGridList1);
+        HouseList houseList1 = new HouseList();
+        houseList1.addHouseToHouseList(house1);
+
 
 
         Scanner enterToReturnToConsole = new Scanner(System.in);

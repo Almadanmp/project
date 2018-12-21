@@ -27,7 +27,7 @@ public class HouseTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
-        House house = new House("casa de praia","rua coise e tal",new Local(4,5),"447-56",ga);
+        House house = new House("casa de praia","rua coise e tal",new Local(4,5),"447-56");
         double result = house.getTheMinorDistanceFromTheHouseToTheSensor(ga);
         assertEquals(110.91871788829754,result,0.01);
     }
@@ -39,7 +39,7 @@ public class HouseTest {
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
-        House house = new House("casa de rua","rua coise e tal",new Local(4,5),"447-56",ga);
+        House house = new House("casa de rua","rua coise e tal",new Local(4,5),"447-56");
         double result = house.getTheMinorDistanceFromTheHouseToTheSensor(ga);
         assertEquals(110.91871788829754,result,0.01);
     }
@@ -52,7 +52,7 @@ public class HouseTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
-        House house = new House("casa","rua coise",new Local(4,5),"440-4",ga);
+        House house = new House("casa","rua coise",new Local(4,5),"440-4");
         Sensor result= house.getSensorWithTheMinimumDistanceToHouse(ga,house);
         assertEquals(s1,result);
     }
@@ -64,7 +64,7 @@ public class HouseTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
-        House house = new House("casa","rua coise",new Local(4,5),"440-4",ga);
+        House house = new House("casa","rua coise",new Local(4,5),"440-4");
         Sensor result= house.getSensorWithTheMinimumDistanceToHouse(ga,house);
         assertEquals(s2,result);
     }

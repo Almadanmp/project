@@ -1,10 +1,13 @@
 package Project_Test.ControllerTest;
-import PT.IPP.ISEP.DEI.Project.Controller.US620Controller;
-import PT.IPP.ISEP.DEI.Project.Model.*;
-import org.junit.jupiter.api.Test;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+        import PT.IPP.ISEP.DEI.Project.Controller.US620Controller;
+        import PT.IPP.ISEP.DEI.Project.Model.*;
+        import org.junit.jupiter.api.Test;
+
+        import java.util.Date;
+        import java.util.GregorianCalendar;
+
+        import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class US620ControllerTest {
 
@@ -97,7 +100,7 @@ public class US620ControllerTest {
         slist1.addSensor(s6);
         ga1.setSensorList(slist1);
         House casa1 = new House();
-        casa1.setmMotherGA(ga1);
+
         //Act
         double expectedResult = 1;
         US620Controller ctrl = new US620Controller();
@@ -112,44 +115,43 @@ public class US620ControllerTest {
     @Test
     public void testeCenas() {
 
-    //Arrange
-    GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-    SensorList mSensorList = new SensorList();
-    TypeAreaList mTypeAreaList = new TypeAreaList();
-    HouseList mHouseList = new HouseList();
-    House house = new House("casa", "coise", new Local(4, 4), "coise");
+        //Arrange
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        SensorList mSensorList = new SensorList();
+        TypeAreaList mTypeAreaList = new TypeAreaList();
+        HouseList mHouseList = new HouseList();
+        House house = new House("casa", "coise", new Local(4, 4), "coise");
         mHouseList.addHouseToHouseList(house);
-    RoomList mRoomList = new RoomList();
-    EnergyGridList mEnergyGridList = new EnergyGridList();
-    ReadingList readingList = new ReadingList();
-    Reading reading = new Reading(30, new GregorianCalendar(2018, 8, 6).getTime());
-    Reading reading1 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
-    Reading reading3 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
+        RoomList mRoomList = new RoomList();
+        EnergyGridList mEnergyGridList = new EnergyGridList();
+        ReadingList readingList = new ReadingList();
+        Reading reading = new Reading(30, new GregorianCalendar(2018, 8, 6).getTime());
+        Reading reading1 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
+        Reading reading3 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
         readingList.addReading(reading);
         readingList.addReading(reading1);
         readingList.addReading(reading3);
-    Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
-    Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
-    SensorList sensorList = new SensorList();
+        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
+        SensorList sensorList = new SensorList();
         sensorList.addSensor(sensor1);
         sensorList.addSensor(sensor2);
-    GeographicArea geoa = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4), sensorList, mHouseList);
-    GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4), sensorList, mHouseList);
+        GeographicArea geoa = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4), sensorList, mHouseList);
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4), sensorList, mHouseList);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
-        house.setmMotherGA(geoa);
-    Room room = new Room("cozinha", 8, 2, sensorList);
+        Room room = new Room("cozinha", 8, 2, sensorList);
         mRoomList.addRoom(room);
-        house.setmMotherGA(geoa);
-    //Act
-    double expectedResult = 30;
-    US620Controller ctrl = new US620Controller();
-    GregorianCalendar cal = new GregorianCalendar(2018, 8, 6);
-    Date dateToTest = cal.getTime();
-    double actualResult = ctrl.getTotalRainfallOnGivenDayHouseArea(geoa, dateToTest);
 
-    //Assert
-    assertEquals(expectedResult, actualResult,0.001);
+        //Act
+        double expectedResult = 30;
+        US620Controller ctrl = new US620Controller();
+        GregorianCalendar cal = new GregorianCalendar(2018, 8, 6);
+        Date dateToTest = cal.getTime();
+        double actualResult = ctrl.getTotalRainfallOnGivenDayHouseArea(geoa, dateToTest);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
 
     }
 }

@@ -10,7 +10,6 @@ public class House {
     private String mAddress;
     private Local mGPS;
     private String mZipCode;
-    GeographicArea mMotherGA;
     private EnergyGridList mEGList;
     private RoomList mRoomList;
 
@@ -29,14 +28,6 @@ public class House {
         this.mGPS = mGPS;
         this.mZipCode = mZipCode;
 
-    }
-
-    public House(String designation, String mAddress, Local mGPS, String mZipCode, GeographicArea mMotherGA) {
-        this.mDesignation = designation;
-        this.mAddress = mAddress;
-        this.mGPS = mGPS;
-        this.mZipCode = mZipCode;
-        this.mMotherGA = mMotherGA;
     }
 
     public House(String designation, String mAddress, Local mGPS, String mZipCode, RoomList roomList) {
@@ -79,14 +70,6 @@ public class House {
 
     public void setmZipCode(String mZipCode) {
         this.mZipCode = mZipCode;
-    }
-
-    public GeographicArea getmMotherGA() {
-        return mMotherGA;
-    }
-
-    public void setmMotherGA(GeographicArea mMotherGA) {
-        this.mMotherGA = mMotherGA;
     }
 
     public void setmRoomList(RoomList roomList) {
