@@ -21,12 +21,12 @@ public class US600Controller {
         this.mGeographicAreaList = list;
     }
 
-    public String printGeoAreaList() {
-        return mGeographicAreaList.printGeoAreaList();
+    public void printGAList(GeographicAreaList geoAreaList){
+        geoAreaList.printGaList(geoAreaList);
     }
 
-    public String printHouseList(GeographicArea ga) {
-        return ga.printGAHouseList();
+    public void printHouseList(GeographicArea ga) {
+        ga.getHouseList().printHouseList(ga);
     }
 
     public boolean validateIfGeographicAreaToGeographicAreaList(String geographicArea) {
