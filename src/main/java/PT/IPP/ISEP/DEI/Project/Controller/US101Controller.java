@@ -12,6 +12,7 @@ public class US101Controller {
 
     private HouseList mHouseList;
     private GeographicAreaList mGeographicAreaList;
+    private GeographicArea mGeographicArea;
 
 
 
@@ -32,6 +33,7 @@ public class US101Controller {
     public void setHouseListToGeoArea(HouseList newHouseList, GeographicArea newGeoArea) {
         newGeoArea.setHouseList(newHouseList);
         this.mHouseList = newHouseList;
+        this.mGeographicArea = newGeoArea;
 
     }
 
@@ -39,16 +41,6 @@ public class US101Controller {
         return mGeographicAreaList;
     }
 
-    public String printGeographicAreaListNames() {
-        return mGeographicAreaList.printGeoAreaList();
-    }
 
-    public boolean validateGeoArea(String ga) {
-
-        return mGeographicAreaList.validateIfGeographicAreaToGeographicAreaList(ga);
-    }
-    public GeographicArea matchGeoArea(String nameArea){
-        return mGeographicAreaList.matchGeoArea(nameArea);
-    }
 
 }
