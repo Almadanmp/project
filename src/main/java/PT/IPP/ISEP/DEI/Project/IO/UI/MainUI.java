@@ -47,6 +47,8 @@ public class MainUI {
         roomList1.addRoom(room1);
         EnergyGridList energyGridList1 = new EnergyGridList();
         EnergyGrid eg1 = new EnergyGrid("rede",56789);
+        RoomList roomListGrid = new RoomList();
+        eg1.setmListOfRooms(roomListGrid);
         energyGridList1.addEnergyGridToEnergyGridList(eg1);
         House house1 = new House("casa1","dddddd",new Local(22,3),"4150-657",roomList1);
         house1.setmEGList(energyGridList1);

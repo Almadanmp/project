@@ -65,7 +65,7 @@ public class US145Controller {
     }
 
     public boolean addRoomToEnergyGrid(Room room, EnergyGrid energyGrid) {
-        if (energyGrid.getmListOfRooms().addRoom(room)){
+        if (energyGrid.addRoomToAEnergyGrid(room)){
             return true;
         } else{
             return false;

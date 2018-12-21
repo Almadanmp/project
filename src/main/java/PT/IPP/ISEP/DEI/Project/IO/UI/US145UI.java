@@ -44,6 +44,7 @@ public class US145UI {
             updateEnergyGridList();
             updateEnergyGrid();
             updateFinalState();
+            this.mActive = false;
         }
     }
 
