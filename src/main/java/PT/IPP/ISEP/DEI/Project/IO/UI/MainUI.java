@@ -40,6 +40,7 @@ public class MainUI {
         house.setmMotherGA(geoa);
         Room room = new Room("cozinha", 8, 2, sensorList);
         mRoomList.addRoom(room);
+        house.setmMotherGA(geoa);
 
 
         Scanner enterToReturnToConsole = new Scanner(System.in);
@@ -245,7 +246,7 @@ public class MainUI {
                     break;
                 case 623:
                     US623UI view623 = new US623UI();
-                    view623.run(mGeographicAreaList, mHouseList);
+                    view623.run(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

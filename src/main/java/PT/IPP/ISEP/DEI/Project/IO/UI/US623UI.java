@@ -44,7 +44,7 @@ public class US623UI {
         this.controller620 = new US620Controller();
     }
 
-    public void run(GeographicAreaList newGeoListUi, HouseList newHouseListUi) {
+    public void run(GeographicAreaList newGeoListUi) {
         boolean activeInput = false;
         String option;
 
@@ -55,7 +55,7 @@ public class US623UI {
             option = mScanner.next();
             switch (option) {
                 case "1":
-                    getInputSingularDate();
+                    getInputStartDate();
                     updateModelUS620();
                     displayState620();
                     activeInput = true;
@@ -166,32 +166,7 @@ public class US623UI {
         mHouse = newHouseListUi.getHouseByDesignation(house);
     }
 */
-    private void getInputSingularDate() {
-        System.out.println("Enter the year:");
-        while (!mScanner.hasNextInt()) {
-            mScanner.next();
-            out.println("Not a valid year. Try again");
-        }
-        this.dataYear1 = mScanner.nextInt();
-        mScanner.nextLine();
-        out.println("\nEnter the Month:\t");
-        while (!mScanner.hasNextInt()) {
-            mScanner.next();
-            out.println("Not a valid month. Try again");
-        }
-        this.dataMonth1 = mScanner.nextInt();
-        mScanner.nextLine();
-        out.println("\nEnter the Day:\t");
-        while (!mScanner.hasNextInt()) {
-            mScanner.next();
-            out.println("Not a valid day. Try again");
-        }
-        this.dataDay1 = mScanner.nextInt();
-        out.println("You entered the date successfully!");
-        mScanner.nextLine();
-    }
 
-    // TODO improve this method remove duplicated
     private void getInputStartDate() {
         System.out.println("Enter the year:");
         while (!mScanner.hasNextInt()) {
@@ -219,7 +194,6 @@ public class US623UI {
         mScanner.nextLine();
     }
 
-    // TODO improve this method remove duplicated
     private void getInputEndDate() {
         System.out.println("Enter the year:");
         while (!mScanner.hasNextInt()) {
@@ -246,7 +220,7 @@ public class US623UI {
     }
 
     private void updateModelUS620() {
-        this.mStartDate = controller623.createDate(dataDay1, dataMonth1, dataYear1);
+        this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
         this.mResult620 = controller620.getTotalRainfallOnGivenDayHouseArea(mHouse, mStartDate);
     }
 
@@ -261,8 +235,8 @@ public class US623UI {
     }
 
     private void displayState620() {
-        System.out.print("The Average Temperature on " + mHouse + "that is located on " + mGeoArea.getName() + "on the date" +
-                mStartDate + "is " + mResult620 + "%.");
+        System.out.print("The Average Temperature on " + mHouse.getHouseDesignation() + " that is located on " + mGeoArea.getName() + " on the date " +
+                mStartDate + " is " + mResult620 + "%.");
     }
 }
 
