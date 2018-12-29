@@ -10,6 +10,7 @@ public class GeographicAreaList {
     /**
      * GeographicAreaList constructor that receives a Geographic Area as a parameter and
      * adds the GA to the attribute mGeographicAreaList
+     *
      * @param geographicAreaToAdd geographic area to add to the attribute
      */
     public GeographicAreaList(GeographicArea geographicAreaToAdd) {
@@ -27,11 +28,12 @@ public class GeographicAreaList {
     /**
      * Method that receives a geographic area as a parameter and adds that
      * GA to the list in case it is not contained in that list already.
+     *
      * @param geographicAreaToAdd geographic area to be added
      * @return returns true in case the geographic area is added and false if not
-     * **/
+     **/
     public boolean addGeographicAreaToGeographicAreaList(GeographicArea geographicAreaToAdd) {
-        if(!(mGeographicAreaList.contains(geographicAreaToAdd))) {
+        if (!(mGeographicAreaList.contains(geographicAreaToAdd))) {
             mGeographicAreaList.add(geographicAreaToAdd);
             return true;
         }
@@ -41,11 +43,12 @@ public class GeographicAreaList {
     /**
      * Method that receives a string as a parameter, compares that string with every
      * Geographic Area name of every GA in the list.
+     *
      * @param areaToMatch string that corresponds to a geographic area name
      */
-    public GeographicArea matchGeoArea (String areaToMatch){
-        for (GeographicArea g: mGeographicAreaList){
-            if (g.getName().equals(areaToMatch)){
+    public GeographicArea matchGeoArea(String areaToMatch) {
+        for (GeographicArea g : mGeographicAreaList) {
+            if (g.getName().equals(areaToMatch)) {
                 return g;
             }
         }
@@ -67,39 +70,45 @@ public class GeographicAreaList {
      */
     public String printGeoAreaList() {
         StringBuilder finalString = new StringBuilder();
-        String emptyList= "The list is empty.";
-        if(mGeographicAreaList.isEmpty()) {
+        String emptyList = "The list is empty.";
+        if (mGeographicAreaList.isEmpty()) {
             return emptyList;
         }
         finalString.append("Geographic Area List:");
-        for(GeographicArea tipo: mGeographicAreaList) {
+        for (GeographicArea tipo : mGeographicAreaList) {
             finalString.append(" \n" + "-").append(tipo.getName()).append(";");
         }
         return finalString.toString();
     }
 
-   public void printGaList(GeographicAreaList newGeoListUi) {
-        System.out.println("---------------");
+    public String printGaList(GeographicAreaList newGeoListUi) {
+        String result = "---------------\n";
+
+        if (newGeoListUi.getGeographicAreaList().size() ==0){
+            return "Invalid List - List is Empty\n";
+        }
 
         for (int i = 0; i < newGeoListUi.getGeographicAreaList().size(); i++) {
             GeographicArea aux = newGeoListUi.getGeographicAreaList().get(i);
-            System.out.print(i + ") Name: " + aux.getName() + " | ");
-            System.out.print("Type: " + aux.getTypeArea().getTypeOfGeographicArea() + " | ");
-            System.out.print("Latitude: " + aux.getLocal().getLatitude() + " | ");
-            System.out.print("Longitude: " + aux.getLocal().getLongitude());
-            System.out.println();
+            result = result + i + ") Name: " + aux.getName() + " | ";
+            result = result + "Type: " + aux.getTypeArea().getTypeOfGeographicArea() + " | ";
+            result = result + "Latitude: " + aux.getLocal().getLatitude() + " | ";
+            result = result + "Longitude: " + aux.getLocal().getLongitude() + "\n";
         }
-        System.out.println("---------------");
+        result = result + "---------------\n";
+        System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
+        return result;
     }
 
     /**
      * Method that receives a string as a parameter, compares that string with every
      * Geographic Area name of every GA in the list and returns true in case of match.
+     *
      * @param geographicAreaToAdd string that corresponds to a geographic area name
      * @return returns true in case of match and false otherwise
      */
     public boolean validateIfGeographicAreaToGeographicAreaList(String geographicAreaToAdd) {
-        for(GeographicArea ga : mGeographicAreaList) {
+        for (GeographicArea ga : mGeographicAreaList) {
             if ((ga.getName().equals(geographicAreaToAdd))) {
                 return true;
             }
@@ -107,16 +116,17 @@ public class GeographicAreaList {
         return false;
     }
 
-    public String printListOfHousesInAGeographicAreaContainedInAList(){
-        String finalString= "";
-        for (GeographicArea ga: mGeographicAreaList){
-            finalString=ga.getHouseList().printHouseList();
+    public String printListOfHousesInAGeographicAreaContainedInAList() {
+        String finalString = "";
+        for (GeographicArea ga : mGeographicAreaList) {
+            finalString = ga.getHouseList().printHouseList();
         }
         return finalString;
     }
 
     /**
      * Checks if a the Geographic Area given as a parameter is inside the Geographic Area List
+     *
      * @param geoArea geographic area to test
      * @return returns true in case the GA is contained in the list and false otherwise
      */
@@ -126,6 +136,7 @@ public class GeographicAreaList {
 
     /**
      * Getter of the attribute mGeographicAreaList from this class
+     *
      * @return returns the geographic area list
      */
     public List<GeographicArea> getGeographicAreaList() {
@@ -136,7 +147,7 @@ public class GeographicAreaList {
         GeographicAreaList finalList = new GeographicAreaList();
         TypeArea typeAreaToTest = new TypeArea(typeOfGeographicArea);
         for (GeographicArea ga : mGeographicAreaList) {
-            if(ga.getTypeArea().equals(typeAreaToTest)) {
+            if (ga.getTypeArea().equals(typeAreaToTest)) {
                 finalList.addGeographicAreaToGeographicAreaList(ga);
             }
         }
@@ -158,6 +169,7 @@ public class GeographicAreaList {
 
     /**
      * This method checks if the list exists
+     *
      * @return
      */
     public boolean checkIfListIsValid() {

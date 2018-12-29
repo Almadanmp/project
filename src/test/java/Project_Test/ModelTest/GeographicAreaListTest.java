@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
 
 public class GeographicAreaListTest {
@@ -727,5 +728,31 @@ public class GeographicAreaListTest {
         boolean actualResult = list.checkIfListIsValid();
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfPrintsGeoAList() {
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3));
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        gAL1.addGeographicAreaToGeographicAreaList(gA1);
+        gAL1.addGeographicAreaToGeographicAreaList(gA2);
+        gAL1.addGeographicAreaToGeographicAreaList(gA3);
+        String expectedResult = "---------------\n" +
+                "0) Name: Portugal | Type: Country | Latitude: 21.0 | Longitude: 33.0\n" +
+                "1) Name: Oporto | Type: City | Latitude: 14.0 | Longitude: 14.0\n" +
+                "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
+                "---------------\n";
+        String result = gAL1.printGaList(gAL1);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintsGeoAListIfEmpty() {
+        GeographicAreaList gAL1 = new GeographicAreaList();
+         String expectedResult = "Invalid List - List is Empty\n";
+        String result = gAL1.printGaList(gAL1);
+        assertEquals(expectedResult, result);
     }
 }
