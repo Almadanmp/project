@@ -5,8 +5,10 @@ import PT.IPP.ISEP.DEI.Project.Controller.US623Controller;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicArea;
 import PT.IPP.ISEP.DEI.Project.Model.GeographicAreaList;
 import PT.IPP.ISEP.DEI.Project.Model.House;
+
 import java.util.Date;
 import java.util.Scanner;
+
 import static java.lang.System.out;
 
 /**
@@ -84,7 +86,7 @@ public class US623UI {
 
 
         while (!activeInput) {
-           controller623.printGAList(newGeoListUi);
+            controller623.printGAList(newGeoListUi);
 
             while (!mScanner.hasNextDouble()) {
                 System.out.println("Please enter a valid option");
@@ -94,7 +96,8 @@ public class US623UI {
             option = mScanner.nextDouble();
             int aux = option.intValue();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
-                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
+                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);{
+                }
                 activeInput = true;
             } else {
                 System.out.println("Please enter a valid option");
@@ -186,11 +189,11 @@ public class US623UI {
     private void updateModelUS623() {
         this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
         this.mEndDate = controller623.createDate(dataYear2, dataMonth2, dataDay2);
-        this.mResult623 = controller623.getAVGDailyRainfallOnGivenPeriod(mGeoArea, mStartDate, mEndDate);
+        this.mResult623 = controller623.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
     }
 
     private void displayState623() {
-        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation()+ " is " + mResult623 + "%.");
+        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " is " + mResult623 + "%.");
     }
 
     private void displayState620() {
