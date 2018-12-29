@@ -1,5 +1,6 @@
 package Project_Test.ModelTest;
 
+import PT.IPP.ISEP.DEI.Project.Model.GeographicArea;
 import PT.IPP.ISEP.DEI.Project.Model.House;
 import PT.IPP.ISEP.DEI.Project.Model.HouseList;
 import PT.IPP.ISEP.DEI.Project.Model.Local;
@@ -143,8 +144,6 @@ public class HouseListTest {
         HouseList houseList1 = new HouseList(house1);
         houseList1.addHouseToHouseList(house2);
 
-
-
         boolean expectedResult = false;
         boolean actualResult;
         //Act
@@ -153,4 +152,32 @@ public class HouseListTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    public void seeIfPrintsHouseList(){
+        House house1 = new House("vacationHouse","Flower Street", new Local (11,13), "4230-111");
+        House house2 = new House ("workHouse","Torrinha", new Local (12,12), "4345-000");
+        House house3 = new House ("dreamHouse","New York", new Local (122,122), "6666-000");
+        HouseList hL1 = new HouseList(house1);
+        hL1.addHouseToHouseList(house2);
+        hL1.addHouseToHouseList(house3);
+        GeographicArea gA1 = new GeographicArea();
+        gA1.setHouseList(hL1);
+        String expectedResult = "---------------\n" +
+                "0) Designation: vacationHouse | Address: Flower Street | ZipCode: 4230-111\n" +
+                "1) Designation: workHouse | Address: Torrinha | ZipCode: 4345-000\n" +
+                "2) Designation: dreamHouse | Address: New York | ZipCode: 6666-000\n" +
+                "---------------\n";
+        String result = hL1.printHouseList(gA1);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintsHouseListIfEmpty(){
+        HouseList hL1 = new HouseList();
+       GeographicArea gA1 = new GeographicArea();
+        gA1.setHouseList(hL1);
+        String expectedResult = "Invalid List - List is Empty\n";
+        String result = hL1.printHouseList(gA1);
+        assertEquals(expectedResult, result);
+    }
 }

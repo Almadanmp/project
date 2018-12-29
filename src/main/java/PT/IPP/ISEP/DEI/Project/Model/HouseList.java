@@ -36,9 +36,9 @@ public class HouseList {
     }
 
     public boolean checkIfHouseListContainsHouseWithGivenDesignation(String houseDesignation) {
-        for(House h : this.mHouseList) {
+        for (House h : this.mHouseList) {
             String houseDesignationToTest = h.getHouseDesignation();
-            if(houseDesignationToTest.equals(houseDesignation)) {
+            if (houseDesignationToTest.equals(houseDesignation)) {
                 return true;
             }
         }
@@ -46,13 +46,12 @@ public class HouseList {
     }
 
     public boolean addRoomToHouseInHouseList(String houseDesignation, Room roomToAdd) {
-        for(House h : this.mHouseList) {
+        for (House h : this.mHouseList) {
             String houseDesignationToTest = h.getHouseDesignation();
-            if(houseDesignationToTest.equals(houseDesignationToTest)) {
-                if(h.addRoomToRoomList(roomToAdd)) {
-                 return true;
-                }
-                else {
+            if (houseDesignationToTest.equals(houseDesignationToTest)) {
+                if (h.addRoomToRoomList(roomToAdd)) {
+                    return true;
+                } else {
                     return false;
                 }
             }
@@ -60,9 +59,9 @@ public class HouseList {
         return false;
     }
 
-    public boolean matchHouse (String houseToMatch){
-        for (House g: mHouseList){
-            if (g.getHouseDesignation().equals(houseToMatch)){
+    public boolean matchHouse(String houseToMatch) {
+        for (House g : mHouseList) {
+            if (g.getHouseDesignation().equals(houseToMatch)) {
                 return true;
             }
         }
@@ -80,29 +79,32 @@ public class HouseList {
 
     public String printHouseList() {
         StringBuilder finalString = new StringBuilder();
-        String emptyList= "The list is empty.";
-        if(mHouseList.isEmpty()) {
+        String emptyList = "The list is empty.";
+        if (mHouseList.isEmpty()) {
             return emptyList;
         }
         finalString.append("House List:");
-        for(House house: mHouseList) {
+        for (House house : mHouseList) {
             finalString.append(" \n" + "-").append(house.getHouseDesignation()).append(";");
         }
         return finalString.toString();
     }
 
 
-    public void printHouseList(GeographicArea geoArea) {
-        System.out.println("---------------");
-
+    public String printHouseList(GeographicArea geoArea) {
+        String result = "---------------\n";
+        if (geoArea.getHouseList().getHouseList().size() == 0) {
+            return "Invalid List - List is Empty\n";
+                    }
         for (int i = 0; i < geoArea.getHouseList().getHouseList().size(); i++) {
             House aux = geoArea.getHouseList().getHouseList().get(i);
-            System.out.print(i + ") Designation: " + aux.getHouseDesignation() + " | ");
-            System.out.print("Address: " + aux.getmAddress() + " | ");
-            System.out.print("ZipCode: " + aux.getmZipCode());
-            System.out.println();
+            result = result + i + ") Designation: " + aux.getHouseDesignation() + " | ";
+            result = result + "Address: " + aux.getmAddress() + " | ";
+            result = result + "ZipCode: " + aux.getmZipCode() + "\n";
         }
-        System.out.println("---------------");
+        result = result + "---------------\n";
+        System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
+        return result;
     }
 
     @Override
