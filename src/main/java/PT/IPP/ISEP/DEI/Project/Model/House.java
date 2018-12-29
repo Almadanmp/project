@@ -12,22 +12,24 @@ public class House {
     private String mZipCode;
     private EnergyGridList mEGList;
     private RoomList mRoomList;
+    private GeographicArea mMotherArea;
 
     //CONSTRUCTORS
-    public House(){}
+    public House() {
+    }
 
-    public House (String mAddress, Local mGPS, String mZipCode){
+    public House(String mAddress, Local mGPS, String mZipCode) {
         this.mAddress = mAddress;
         this.mGPS = mGPS;
         this.mZipCode = mZipCode;
 
     }
-    public House (String designation, String mAddress, Local mGPS, String mZipCode){
+
+    public House(String designation, String mAddress, Local mGPS, String mZipCode) {
         this.mDesignation = designation;
         this.mAddress = mAddress;
         this.mGPS = mGPS;
         this.mZipCode = mZipCode;
-
     }
 
     public House(String designation, String mAddress, Local mGPS, String mZipCode, RoomList roomList) {
@@ -76,23 +78,31 @@ public class House {
         this.mRoomList = roomList;
     }
 
+    public GeographicArea getmMotherArea() {
+        return mMotherArea;
+    }
 
-    public RoomList getmRoomList () {
+    public void setmMotherArea(GeographicArea mMotherArea) {
+        this.mMotherArea = mMotherArea;
+    }
+
+    public RoomList getmRoomList() {
         return this.mRoomList;
     }
 
-    public void setmEGList(EnergyGridList energyGridList){
+    public void setmEGList(EnergyGridList energyGridList) {
         this.mEGList = energyGridList;
     }
-    public EnergyGridList getmEGList (){
+
+    public EnergyGridList getmEGList() {
         return this.mEGList;
     }
 
     public boolean addRoomToRoomList(Room roomToAdd) {
         String roomToAddName = roomToAdd.getRoomName();
-        for(Room r : this.mRoomList.getListOfRooms()) {
+        for (Room r : this.mRoomList.getListOfRooms()) {
             String roomDesignationToTest = r.getRoomName();
-            if(roomDesignationToTest.equals(roomToAddName)) {
+            if (roomDesignationToTest.equals(roomToAddName)) {
                 return false;
             }
         }
@@ -105,21 +115,21 @@ public class House {
         return this.mGPS.getLinearDistanceBetweenLocalsInKm(l);
     }
 
-    public double getTheMinorDistanceFromTheHouseToTheSensor(GeographicArea ga){
+    public double getTheMinorDistanceFromTheHouseToTheSensor(GeographicArea ga) {
         Sensor firstSensor = ga.getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
-        for(int i =0; i<ga.getSensorList().getSensors().length;i++) {
+        for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
             Sensor copo = ga.getSensorList().getSensors()[i];
-            if (distance>calculateDistanceToSensor(copo)){
+            if (distance > calculateDistanceToSensor(copo)) {
                 distance = calculateDistanceToSensor(copo);
             }
         }
         return distance;
     }
 
-    public Sensor getSensorWithTheMinimumDistanceToHouse(GeographicArea ga, House house){
-        for (Sensor s: ga.getSensorList().getSensors()) {
-            if (house.getTheMinorDistanceFromTheHouseToTheSensor(ga) == s.getDistanceToHouse(house)){
+    public Sensor getSensorWithTheMinimumDistanceToHouse(GeographicArea ga, House house) {
+        for (Sensor s : ga.getSensorList().getSensors()) {
+            if (Double.compare(house.getTheMinorDistanceFromTheHouseToTheSensor(ga), s.getDistanceToHouse(house)) == 0) {
                 return s;
             }
         }
