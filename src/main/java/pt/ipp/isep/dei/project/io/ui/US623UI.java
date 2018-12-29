@@ -12,6 +12,8 @@ import java.util.Scanner;
 import static java.lang.System.out;
 
 /**
+ * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
+ *
  * US623UI: As a Regular User, I want to get the average daily rainfall in the house area for a
  * given period (days), as it is needed to assess the garden’s watering needs.
  */
@@ -41,11 +43,20 @@ public class US623UI {
     }
 
     public void run(GeographicAreaList newGeoListUi) {
+
+        if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
+            System.out.println("Invalid Geographic Area List - List Is Empty");
+            return;
+        }
         boolean activeInput = false;
         String option;
 
         getInputGeographicArea(newGeoListUi);
         getInputHouse();
+        if (mHouse == null) {
+            System.out.println("Unable to select a house. Returning to main menu.");
+            return;
+        }
         while (!activeInput) {
             printOptionMessage();
             option = mScanner.next();
@@ -81,8 +92,7 @@ public class US623UI {
             controller623.printGAList(newGeoListUi);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
-                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);{
-                }
+                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
@@ -91,6 +101,11 @@ public class US623UI {
     }
 
     private void getInputHouse() {
+        if (mGeoArea.getHouseList().getHouseList().size() == 0) {
+            System.out.print("Invalid House List - List Is Empty");
+            return;
+        }
+
         boolean activeInput = false;
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
 

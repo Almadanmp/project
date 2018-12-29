@@ -95,7 +95,7 @@ public class HouseList {
         String result = "---------------\n";
         if (geoArea.getHouseList().getHouseList().size() == 0) {
             return "Invalid List - List is Empty\n";
-                    }
+        }
         for (int i = 0; i < geoArea.getHouseList().getHouseList().size(); i++) {
             House aux = geoArea.getHouseList().getHouseList().get(i);
             result = result + i + ") Designation: " + aux.getHouseDesignation() + " | ";
