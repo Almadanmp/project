@@ -31,6 +31,7 @@ public class US623UI {
     private int dataDay2;
     private US623Controller controller623;
     private US620Controller controller620;
+    private static final String INVALID_OPTION = "Please enter a valid option";
 
 
     public US623UI() {
@@ -66,67 +67,53 @@ public class US623UI {
                     return;
 
                 default:
-                    System.out.println("Please enter a valid option");
+                    System.out.println(INVALID_OPTION);
                     break;
             }
         }
     }
 
-    private void printOptionMessage() {
-        System.out.println("\nDo you wish to know the average rainfall on:");
-        System.out.println("1) A specific day.");
-        System.out.println("2) A day interval.");
-        System.out.println("0) (Return to main menu)");
-    }
-
     private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
         boolean activeInput = false;
-        Double option;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
-
 
         while (!activeInput) {
             controller623.printGAList(newGeoListUi);
-
-            while (!mScanner.hasNextDouble()) {
-                System.out.println("Please enter a valid option");
-                mScanner.next();
-            }
-
-            option = mScanner.nextDouble();
-            int aux = option.intValue();
+            int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
                 mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);{
                 }
                 activeInput = true;
             } else {
-                System.out.println("Please enter a valid option");
+                System.out.println(INVALID_OPTION);
             }
         }
     }
 
     private void getInputHouse() {
         boolean activeInput = false;
-        Double option;
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
 
         while (!activeInput) {
             controller623.printHouseList(mGeoArea);
-
-            while (!mScanner.hasNextDouble()) {
-                System.out.println("Please enter a valid option");
-                mScanner.next();
-            }
-
-            option = mScanner.nextDouble();
-            int aux = option.intValue();
+            int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
                 mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
                 activeInput = true;
             } else {
-                System.out.println("Please enter a valid option");
+                System.out.println(INVALID_OPTION);
             }
         }
+    }
+
+    private int readInputNumberAsInt() {
+
+        while (!mScanner.hasNextDouble()) {
+            System.out.println(INVALID_OPTION);
+            mScanner.next();
+        }
+        Double option = mScanner.nextDouble();
+        return option.intValue();
     }
 
     private void getInputStartDate() {
@@ -192,13 +179,21 @@ public class US623UI {
         this.mResult623 = controller623.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
     }
 
-    private void displayState623() {
-        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " is " + mResult623 + "%.");
+    private void displayState620() {
+        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " that is located on " + mGeoArea.getName() + " on the date " +
+                mStartDate + " is " + mResult620 + "%.");
     }
 
-    private void displayState620() {
-        System.out.print("The Average Temperature on " + mHouse.getHouseDesignation() + " that is located on " + mGeoArea.getName() + " on the date " +
-                mStartDate + " is " + mResult620 + "%.");
+    private void displayState623() {
+        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " between " + mStartDate + " and " +
+                mEndDate + " is " + mResult623 + "%.");
+    }
+
+    private void printOptionMessage() {
+        System.out.println("\nDo you wish to know the average rainfall on:");
+        System.out.println("1) A specific day.");
+        System.out.println("2) A day interval.");
+        System.out.println("0) (Return to main menu)");
     }
 }
 
