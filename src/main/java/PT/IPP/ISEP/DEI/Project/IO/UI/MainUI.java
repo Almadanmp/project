@@ -13,50 +13,76 @@ public class MainUI {
         //Program Variables
 
         boolean activeProgram = true;
+
+        //TEST MAIN LISTS
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        SensorList mSensorList = new SensorList();
         TypeAreaList mTypeAreaList = new TypeAreaList();
-        HouseList mHouseList = new HouseList();
-        House house = new House("casa", "coise", new Local(4, 4), "coise");
-        mHouseList.addHouseToHouseList(house);
-        RoomList mRoomList = new RoomList();
-        EnergyGridList mEnergyGridList = new EnergyGridList();
+
+        //TEST READINGS
         ReadingList readingList = new ReadingList();
-        Reading reading = new Reading(30, new GregorianCalendar(2018, 8, 6).getTime());
-        Reading reading1 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
+        Reading reading1 = new Reading(30, new GregorianCalendar(2018, 8, 6).getTime());
+        Reading reading2 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
         Reading reading3 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
-        readingList.addReading(reading);
         readingList.addReading(reading1);
+        readingList.addReading(reading2);
         readingList.addReading(reading3);
+
+        //TEST ENERGYGRID
+        EnergyGridList energyGridList1 = new EnergyGridList();
+        EnergyGridList energyGridList2 = new EnergyGridList();
+        EnergyGrid eg1 = new EnergyGrid("rede", 56789);
+        energyGridList2.addEnergyGridToEnergyGridList(eg1);
+
+        //TEST SENSORS
+        SensorList sensorList1 = new SensorList();
+        SensorList sensorList2 = new SensorList();
         Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
         Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(sensor1);
-        sensorList.addSensor(sensor2);
-        GeographicArea geoa = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4), sensorList, mHouseList);
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4), sensorList, mHouseList);
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa);
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
-        Room room = new Room("cozinha", 8, 2, sensorList);
-        mRoomList.addRoom(room);
-        mHouseList.addHouseToHouseList(house);
+        sensorList2.addSensor(sensor1);
+        sensorList2.addSensor(sensor2);
 
-
+        //TEST ROOMS
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("quarto1",19,23456789);
-        roomList1.addRoom(room1);
-        EnergyGridList energyGridList1 = new EnergyGridList();
-        EnergyGrid eg1 = new EnergyGrid("rede",56789);
+        RoomList roomList2 = new RoomList();
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2, sensorList2);
+        roomList1.addRoom(room2);
+        roomList2.addRoom(room1);
         RoomList roomListGrid = new RoomList();
-        eg1.setmListOfRooms(roomListGrid);
-        energyGridList1.addEnergyGridToEnergyGridList(eg1);
-        House house1 = new House("casa1","dddddd",new Local(22,3),"4150-657",roomList1);
-        house1.setmEGList(energyGridList1);
+
+        //TEST GEOGRAPHIC AREAS
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+
+        //TEST HOUSES
         HouseList houseList1 = new HouseList();
-        houseList1.addHouseToHouseList(house1);
+        HouseList houseList2 = new HouseList();
+
+        House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657", roomList2);
+        House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
+        House house3 = new House("houseThree", "Address3", new Local(18, 10), "3555-555");
+
+        house2.setmMotherArea(geoa1);
+        house3.setmMotherArea(geoa1);
+        houseList1.addHouseToHouseList(house2);
+        houseList1.addHouseToHouseList(house3);
+        house1.setmMotherArea(geoa2);
+        houseList2.addHouseToHouseList(house1);
+
+        //TEST ORGANIZATION SETTERS
+        eg1.setmListOfRooms(roomListGrid);
+        house1.setmEGList(energyGridList2);
+
+        geoa1.setSensorList(sensorList2);
+        geoa1.setHouseList(houseList1);
+        geoa2.setSensorList(sensorList2);
+        geoa2.setHouseList(houseList2);
+
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
 
 
-
+        //MAIN CODE
         Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
 
@@ -164,12 +190,12 @@ public class MainUI {
                     break;
                 case 5:
                     US05UI view5 = new US05UI();
-                    view5.run(mSensorList);
+                    view5.run(sensorList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 6:
-                    US06UI view6 = new US06UI(mSensorList, mGeographicAreaList);
+                    US06UI view6 = new US06UI(sensorList1, mGeographicAreaList);
                     view6.run();
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
@@ -187,9 +213,9 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 9:
-                    if (mSensorList.checkIfListIsValid())
+                    if (sensorList1.checkIfListIsValid())
                         System.out.println("The list of sensors is empty!");
-                    for (Sensor sensor : mSensorList.getSensorList()) {
+                    for (Sensor sensor : sensorList1.getSensorList()) {
                         System.out.println(sensor.getName());
                     }
                     System.out.println(pressEnter);
@@ -207,7 +233,7 @@ public class MainUI {
                 case 11:
                     if (loginFlag == 1) {
                         US101UI view11 = new US101UI();
-                        view11.run(mHouseList, mGeographicAreaList);
+                        view11.run(houseList1, mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         break;
@@ -218,31 +244,31 @@ public class MainUI {
 
                 case 12:
                     US105UI view12 = new US105UI();
-                    view12.run(mHouseList);
+                    view12.run(houseList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 13:
                     US610UI view123 = new US610UI();
-                    view123.run(mRoomList);
+                    view123.run(roomList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 14:
                     US130UI view14 = new US130UI();
-                    view14.run(mRoomList);
+                    view14.run(roomList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 15:
                     US135UI view15 = new US135UI();
-                    view15.run(mEnergyGridList);
+                    view15.run(energyGridList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 16:
                     US108UI view16 = new US108UI();
-                    view16.run(mHouseList, mRoomList);
+                    view16.run(houseList1, roomList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
@@ -254,7 +280,7 @@ public class MainUI {
                     break;
                 case 18:
                     US108UI view18 = new US108UI();
-                    view18.run(mHouseList, mRoomList);
+                    view18.run(houseList1, roomList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
@@ -266,7 +292,7 @@ public class MainUI {
                     break;
                 case 19:
                     US145UI view145 = new US145UI();
-                    view145.run(mHouseList);
+                    view145.run(houseList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
