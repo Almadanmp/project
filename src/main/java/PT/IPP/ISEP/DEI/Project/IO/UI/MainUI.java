@@ -143,7 +143,7 @@ public class MainUI {
                     "16. See Room List.\n",
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
-                    "623. Add a power source to an energy grid.\n",
+                    "623. Get Average Rainfall in the House Area.\n",
                     "19. Add A Room to a Energy Grid\n",
                     "20. Menu for Admin only test.\n"};
 
