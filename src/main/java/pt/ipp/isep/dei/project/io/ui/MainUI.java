@@ -70,7 +70,7 @@ public class MainUI {
         houseList2.addHouseToHouseList(house1);
 
         //TEST ORGANIZATION SETTERS
-        eg1.setmListOfRooms(roomListGrid);
+        eg1.setListOfRooms(roomListGrid);
         house1.setmEGList(energyGridList2);
 
         geoa1.setSensorList(sensorList2);

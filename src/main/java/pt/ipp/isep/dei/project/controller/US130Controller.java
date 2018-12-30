@@ -20,7 +20,7 @@ public class US130Controller {
     }
 
     public boolean addExistingRoomToEnergyGrid(RoomList mainRoomList, String roomToAttach) {
-        return mEnergyGrid.getmListOfRooms().addRoom(mainRoomList.getRoomByName(roomToAttach));
+        return mEnergyGrid.getListOfRooms().addRoom(mainRoomList.getRoomByName(roomToAttach));
     }
 
 

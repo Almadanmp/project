@@ -115,7 +115,6 @@ public class GeographicAreaList {
         }
         return false;
     }
-
     public String printListOfHousesInAGeographicAreaContainedInAList() {
         String finalString = "";
         for (GeographicArea ga : mGeographicAreaList) {

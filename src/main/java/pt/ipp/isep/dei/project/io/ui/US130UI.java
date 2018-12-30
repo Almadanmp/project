@@ -64,6 +64,6 @@ public class US130UI {
     }
 
     private void displayState(){
-        System.out.println("This energy grid contains the following rooms: \n" + mEnergyGrid.getmListOfRooms().printRoomList() + "\n And its maximum potency is: " + mEnergyGrid.getmMaxPower());
+        System.out.println("This energy grid contains the following rooms: \n" + mEnergyGrid.getListOfRooms().printRoomList() + "\n And its maximum potency is: " + mEnergyGrid.getMaxPower());
     }
 }

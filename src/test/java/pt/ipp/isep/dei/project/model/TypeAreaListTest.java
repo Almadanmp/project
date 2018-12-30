@@ -32,7 +32,7 @@ class TypeAreaListTest {
     @Test
     public void seeIfPrintsWhenTypeAreaListIsNull(){
         TypeAreaList list =new TypeAreaList();
-        List<TypeArea> mTypeAreaList = list.getmTypeAreaList();   //sem esta linha o teste não passava
+        List<TypeArea> mTypeAreaList = list.getTypeAreaList();   //sem esta linha o teste não passava
         String result = list.printTypeAreaList();
         String expectedResult = "\nArea Types List:\n\n|||| List is Empty ||||\nAdd types to list first";
         assertEquals(result,expectedResult);

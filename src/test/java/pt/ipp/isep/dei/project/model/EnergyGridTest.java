@@ -19,17 +19,17 @@ public class EnergyGridTest {
         Room room = new Room("Master Room", 3, 9, sensorList);
         EnergyGrid eg = new EnergyGrid();
         RoomList roomList = new RoomList();
-        eg.setmListOfRooms(roomList);
+        eg.setListOfRooms(roomList);
         eg.addRoomToAEnergyGrid(room);
         Device device = new Device("Device 1", "Power", room, rl1, 500);
         DeviceList dl1 = new DeviceList();
         dl1.addDevices(device);
         room.setRoomDeviceList(dl1);
         dl1.addDevices(device);
-        eg.setmListDevices(dl1);
+        eg.setListDevices(dl1);
         double expectedResult = 500;
         //Act
-        double actualResult = eg.getmMaxPower();
+        double actualResult = eg.getMaxPower();
         //Assert
         assertEquals(expectedResult, actualResult);
     }

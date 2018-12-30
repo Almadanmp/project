@@ -12,7 +12,7 @@ public class US145ControllerTest {
         Room room1 = new Room("quarto1", 19, 23456789);
         EnergyGrid eg1 = new EnergyGrid("rede", 56789);
         RoomList rl = new RoomList();
-        eg1.setmListOfRooms(rl);
+        eg1.setListOfRooms(rl);
 
         boolean expectedResult = true;
 
