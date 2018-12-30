@@ -24,7 +24,7 @@ public class EnergyGridList {
     }
     public EnergyGrid matchEnergyGrid(String gridToMatch){
         for (EnergyGrid g: mEnergyGridList){
-            if (g.getmName().equals(gridToMatch)){
+            if (g.getName().equals(gridToMatch)){
                 return g;
             }
         }
@@ -42,7 +42,7 @@ public class EnergyGridList {
         }
         finalString.append("Room List:");
         for(EnergyGrid energyGrid: mEnergyGridList) {
-            finalString.append(" \n" + "-").append(energyGrid.getmName()).append(";");
+            finalString.append(" \n" + "-").append(energyGrid.getName()).append(";");
         }
         return finalString.toString();
     }
@@ -52,7 +52,7 @@ public class EnergyGridList {
     }
     public boolean seeIfContainsEnergyGrid (String energyGridName){
         for (EnergyGrid eg: mEnergyGridList){
-            if (eg.getmName().equals(energyGridName)){
+            if (eg.getName().equals(energyGridName)){
                 return true;
             }
         }

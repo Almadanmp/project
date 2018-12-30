@@ -23,7 +23,7 @@ public class DeviceList {
     }
 
     public boolean addDevices (Device device) {
-        if(!(mDeviceList.contains(device))){
+        if(!mDeviceList.contains(device)){
             mDeviceList.add(device);
             return true;
         }

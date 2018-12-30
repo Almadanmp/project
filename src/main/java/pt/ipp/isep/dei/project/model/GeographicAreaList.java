@@ -84,7 +84,7 @@ public class GeographicAreaList {
     public String printGaList(GeographicAreaList newGeoListUi) {
         String result = "---------------\n";
 
-        if (newGeoListUi.getGeographicAreaList().size() ==0){
+        if (newGeoListUi.getGeographicAreaList().isEmpty()){
             return "Invalid List - List is Empty\n";
         }
 

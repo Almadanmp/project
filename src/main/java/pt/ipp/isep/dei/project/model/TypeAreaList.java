@@ -56,7 +56,7 @@ public class TypeAreaList {
      * Getter of the Type Area List.
      * @return
      */
-    public List<TypeArea> getmTypeAreaList() {
+    public List<TypeArea> getTypeAreaList() {
         return this.mTypeAreaList;
     }
 }
