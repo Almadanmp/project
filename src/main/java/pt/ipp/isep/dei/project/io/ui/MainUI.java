@@ -256,7 +256,7 @@ public class MainUI {
                     break;
                 case 14:
                     US130UI view14 = new US130UI();
-                    view14.run(roomList1);
+                    view14.run(houseList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
