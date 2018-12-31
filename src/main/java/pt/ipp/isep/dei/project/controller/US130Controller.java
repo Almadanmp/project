@@ -16,10 +16,17 @@ public class US130Controller {
     private HouseList mHouseList;
     private String mHouseName;
 
+
+    /**
+     * The controller is initialized with the houseList given from the UI, which came from MainUI;
+     */
     public US130Controller(HouseList houseList) {
         this.mHouseList = houseList;
     }
 
+    /**
+     * This method checks the house list which came from MainUI through UI for the given house name;
+     */
     public boolean seeIfHouseExistsInHouseList(String houseName){
         if (mHouseList.checkIfHouseListContainsHouseWithGivenDesignation(houseName)){
             this.mHouseName = houseName;
@@ -29,10 +36,16 @@ public class US130Controller {
         }
     }
 
+    /**
+     * This method directly adds the desired energy grid to the energy grid list from a selected house;
+     */
     public boolean addEnergyGridToHouse(){
         return mHouseList.getHouseByDesignation(mHouseName).getmEGList().addEnergyGridToEnergyGridList(mEnergyGrid);
     }
 
+    /**
+     * This method creates an energy grid using a name and a max potency.
+     */
     public void createEnergyGrid(String designation, double maxPower) {
         this.mEnergyGrid = new EnergyGrid(designation, maxPower);
     }

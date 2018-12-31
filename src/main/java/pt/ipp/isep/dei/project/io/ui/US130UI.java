@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.model.HouseList;
 
 import java.util.Scanner;
 
-/** As an Administrator, I want to create a house grid,
+/** US130 As an Administrator, I want to create a house grid,
  * so that I can define the rooms that are attached to it and the contracted maximum power for that grid. **/
 
 
