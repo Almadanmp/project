@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.US135Controller;
 import pt.ipp.isep.dei.project.model.EnergyGridList;
+import pt.ipp.isep.dei.project.model.HouseList;
 
 import java.util.Scanner;
 
@@ -12,25 +13,45 @@ public class US135UI {
 
     private boolean mActive;
 
-    US135Controller ctrl = new US135Controller();
+    US135Controller ctrl135;
 
     public US135UI() {
         mActive = false;
     }
 
-    public void run(EnergyGridList energyGridList) {
+    public void run(HouseList houseList) {
+        this.ctrl135 = new US135Controller(houseList);
         this.mActive = true;
         while (this.mActive) {
-            getInputAndUpdate();
-            if(!displayEnergyGridList(energyGridList)){
-                return;
-            }
-            displayEnergyGridList(energyGridList);
-            updateModelAndDisplayState(energyGridList);
+            getInputAndUpdateHouseName();
+            getInputAndSelectEnergyGrid();
+            getInputAndCreatePowerSource();
+            updateModelAndDisplayState();
         }
     }
 
-    private void getInputAndUpdate() {
+    private void getInputAndUpdateHouseName() {
+        System.out.println("Please insert the house name you that want to add a power source to one of its energy grids: ");
+        Scanner scanner = new Scanner(System.in);
+        String houseName = scanner.nextLine();
+        if (ctrl135.seeIfHouseExistsInHouseList(houseName)) {
+            System.out.println("The house you have inserted is on the list.");
+        } else {
+            System.out.println("The house you have inserted is not on the list.");
+        }
+    }
+
+    private void getInputAndSelectEnergyGrid(){
+        System.out.println(ctrl135.seeIfEnergyGridListIsEmptyAndShowItsContent());
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type the designation of the energy grid you want to add a power source to: ");
+        String name = scanner.next();
+        if (ctrl135.selectEnergyGrid(name)){
+            System.out.println("The energy grid was selected with success.");
+        }
+    }
+
+    private void getInputAndCreatePowerSource() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the power source you want to add: ");
         String name = scanner.next();
@@ -38,25 +59,15 @@ public class US135UI {
         double maxPowerOutput = scanner.nextDouble();
         System.out.println("Type the maximum energy storage of the power source you want to add (type 0 if the power source can't storage energy.): ");
         double maxEnergyStorage = scanner.nextDouble();
-        ctrl.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
+        ctrl135.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
-    private boolean displayEnergyGridList(EnergyGridList energyGridList) {
-        if (energyGridList.getEnergyGridList().isEmpty()) {
-            System.out.println("The list of rooms is empty!");
-            return false;
-        } else {
-            System.out.println(energyGridList.printEnergyGridList());
-            return true;
+    private void updateModelAndDisplayState() {
+        if (ctrl135.addPowerSourceToEnergyGrid()) {
+            System.out.println("The power source was added with success!");
+        }else {
+            System.out.println("The power source was NOT added to the energy grid!");
         }
-    }
-
-    private void updateModelAndDisplayState(EnergyGridList energyGridList) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Type the designation of the energy grid that the power source should be added to: ");
-        String energyGridName = scanner.next();
-        ctrl.addPowerSourceToEnergyGrid(energyGridList.matchEnergyGrid(energyGridName));
-        System.out.println("The power source was added with success!");
     }
 
 }

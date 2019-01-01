@@ -262,7 +262,7 @@ public class MainUI {
                     break;
                 case 15:
                     US135UI view15 = new US135UI();
-                    view15.run(energyGridList1);
+                    view15.run(houseList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

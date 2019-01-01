@@ -40,7 +40,7 @@ public class EnergyGridList {
         if(mEnergyGridList.isEmpty()) {
             return emptyList;
         }
-        finalString.append("Room List:");
+        finalString.append("Energy grid list:");
         for(EnergyGrid energyGrid: mEnergyGridList) {
             finalString.append(" \n" + "-").append(energyGrid.getName()).append(";");
         }

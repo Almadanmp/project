@@ -78,8 +78,7 @@ public class EnergyGrid {
 
     public boolean addPowerSource(PowerSource powerSource) {
         if (!(mListPowerSources.getPowerSourceList().contains(powerSource))) {
-            mListPowerSources.getPowerSourceList().add(powerSource);
-            return true;
+            return mListPowerSources.getPowerSourceList().add(powerSource);
         }
         return false;
     }
@@ -99,6 +98,7 @@ public class EnergyGrid {
             return false;
         }
     }
+
 
     @Override
     public boolean equals(Object o) {

@@ -28,7 +28,7 @@ public class US130UI {
     }
 
     private void getInputAndUpdateHouseName() {
-        System.out.println("Please insert the House Name You Want To create an energy grid on: ");
+        System.out.println("Please insert the house name you want To create an energy grid on: ");
         Scanner scanner = new Scanner(System.in);
         String houseName = scanner.nextLine();
         if (ctrl130.seeIfHouseExistsInHouseList(houseName)) {
