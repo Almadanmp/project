@@ -81,7 +81,15 @@ public class GeographicAreaList {
         return finalString.toString();
     }
 
-    public String printGaList(GeographicAreaList newGeoListUi) {
+
+    /**
+     * Method to print a Whole Geographic Area List.
+     * It will print the attributes needed to check if a GA is different from another GA
+     * (name, type of GA and Localization)
+     * @param newGeoListUi
+     * @return
+     */
+    public String printGaWholeList(GeographicAreaList newGeoListUi) {
         String result = "---------------\n";
 
         if (newGeoListUi.getGeographicAreaList().isEmpty()){
@@ -99,6 +107,37 @@ public class GeographicAreaList {
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
         return result;
     }
+
+    /**
+     * Method to Match a GeographicArea By Name,
+     * @param input
+     * @return a list of GAs with the input name.
+     */
+    public List<Integer>  matchGeographicAreaIndexByString(String input){
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < mGeographicAreaList.size(); i++){
+            if (mGeographicAreaList.get(i).getName().equals(input)){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    /**
+     *Method to pring Geographic Area Elements by index
+     * @param indexes
+     * @return
+     */
+    public String printGeoGraphicAreaElementsByIndex (List<Integer> indexes){
+        String result = "---------------\n";
+        for (int i = 0 ; i<indexes.size() ; i++ ) {
+            int pos = indexes.get(i);
+            result = result + indexes.get(i) + ") " + mGeographicAreaList.get(pos).printGeographicArea();
+        }
+        result = result + "---------------";
+        return result;
+    }
+
 
     /**
      * Method that receives a string as a parameter, compares that string with every
