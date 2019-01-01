@@ -7,20 +7,22 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.out;
 
 /**
  * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
- *
- * US623UI: As a Regular User, I want to get the average daily rainfall in the house area for a
+ * <p>
+ * HouseMonitoringUI: As a Regular User, I want to get the average daily rainfall in the house area for a
  * given period (days), as it is needed to assess the garden’s watering needs.
  */
 public class US623UI {
     private Scanner mScanner;
     private House mHouse;
     private GeographicArea mGeoArea;
+    private String geoName;
     private double mResult620;
     private double mResult623;
     private Date mStartDate;
@@ -34,6 +36,8 @@ public class US623UI {
     private US623Controller controller623;
     private US620Controller controller620;
     private static final String INVALID_OPTION = "Please enter a valid option";
+    private List<Integer> listOfIndexesGeographicAreas;
+
 
 
     public US623UI() {
@@ -85,6 +89,68 @@ public class US623UI {
     }
 
     private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
+        System.out.println(
+                "We need to know where your house is located\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
+                        "0) Return;");
+        String option = mScanner.nextLine();
+        switch (option) {
+            case "1":
+                getInputGeographicAreaName();
+                if (!getGeographicAreaByName(newGeoListUi)) {
+                    System.out.println("Unable to select a Geographic Area. Returning to main menu.");
+                    return;
+                }
+                break;
+            case "2":
+                getInputGeographicAreaByList(newGeoListUi);
+                break;
+            case "0":
+                return;
+            default:
+                System.out.println(INVALID_OPTION);
+                break;
+        }
+    }
+
+    private boolean getInputGeographicAreaName() {
+        System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
+        this.geoName = mScanner.nextLine();
+        return (!(geoName.equals("exit")));
+    }
+
+    private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
+        US623Controller ctrl = new US623Controller();
+        listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
+
+        while (listOfIndexesGeographicAreas.isEmpty()) {
+            System.out.println("There is no Geographic Area with that name. Please insert the name of a Geographic Area" +
+                    " that exists or  Type 'exit' to cancel and create a new Geographic Area on the Main Menu.");
+            if (!getInputGeographicAreaName()) {
+                return false;
+            }
+            listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
+        }
+
+        if (listOfIndexesGeographicAreas.size() > 1) {
+            System.out.println("There are multiple Geographic Areas with that name. Please choose the right one.");
+            System.out.println(ctrl.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas, newGeoListUi));
+            int aux = readInputNumberAsInt();
+            if (listOfIndexesGeographicAreas.contains(aux)) {
+                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
+                System.out.println("You have chosen the following Geographic Area:");
+                System.out.println(ctrl.printGA(mGeoArea));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        } else {
+            System.out.println("You have chosen the following Geographic Area:");
+            mGeoArea = newGeoListUi.getGeographicAreaList().get(listOfIndexesGeographicAreas.get(0));
+            System.out.println(ctrl.printGA(mGeoArea));
+        }
+        return true;
+    }
+
+    private void getInputGeographicAreaByList(GeographicAreaList newGeoListUi) {
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
 
@@ -102,7 +168,7 @@ public class US623UI {
 
     private void getInputHouse() {
         if (mGeoArea.getHouseList().getHouseList().size() == 0) {
-            System.out.print("Invalid House List - List Is Empty");
+            System.out.print("Invalid House List - List Is Empty\n/**/");
             return;
         }
 
@@ -211,4 +277,3 @@ public class US623UI {
         System.out.println("0) (Return to main menu)");
     }
 }
-

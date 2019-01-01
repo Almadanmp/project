@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.model.House;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * US623UI: As a Regular User, I want to get the average daily rainfall in the house area for a
@@ -14,12 +15,24 @@ import java.util.GregorianCalendar;
 
 public class US623Controller {
 
+    public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList){
+        return geoAreaList.matchGeographicAreaIndexByString(input);
+    }
+
+    public String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
+        return geoAreaList.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas);
+    }
+
+    public String printGA (GeographicArea geoArea){
+        return geoArea.printGeographicArea();
+    }
+
     public String printGAList(GeographicAreaList geoAreaList) {
-        return geoAreaList.printGaList(geoAreaList);
+        return geoAreaList.printGaWholeList(geoAreaList);
     }
 
     public String printHouseList(GeographicArea geoArea) {
-       return geoArea.getHouseList().printHouseList(geoArea);
+        return geoArea.getHouseList().printHouseList(geoArea);
     }
 
     public double getAVGDailyRainfallOnGivenPeriod(House house, Date minDay, Date maxDay) {
