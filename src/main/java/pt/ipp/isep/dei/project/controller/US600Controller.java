@@ -22,7 +22,7 @@ public class US600Controller {
     }
 
     public void printGAList(GeographicAreaList geoAreaList){
-        geoAreaList.printGaList(geoAreaList);
+        geoAreaList.printGaWholeList(geoAreaList);
     }
 
     public void printHouseList(GeographicArea ga) {

@@ -25,6 +25,8 @@ public class GeographicArea {
      * empty constructor to use on UIs
      */
     public GeographicArea() {
+        mSensorList = new SensorList();
+        mHouseList = new HouseList();
 
     }
 
@@ -32,11 +34,15 @@ public class GeographicArea {
         setName(mName);
         setTypeArea(mTypeArea);
         setLocal(mLocal);
+        mSensorList = new SensorList();
+        mHouseList = new HouseList();
 
     }
 
     public GeographicArea(String mName) {
         setName(mName);
+        mSensorList = new SensorList();
+        mHouseList = new HouseList();
 
     }
 
@@ -50,6 +56,8 @@ public class GeographicArea {
     public GeographicArea(TypeArea typeArea, Local local) {
         setTypeArea(typeArea);
         setLocal(local);
+        mSensorList = new SensorList();
+        mHouseList = new HouseList();
     }
 
     /**
@@ -64,6 +72,7 @@ public class GeographicArea {
         setTypeArea(typeArea);
         setLocal(local);
         setSensorList(sensorList);
+        mHouseList = new HouseList();
     }
 
     public GeographicArea(String name, TypeArea typeArea, Local local, SensorList sensorList, HouseList houselist) {
@@ -86,6 +95,7 @@ public class GeographicArea {
         setTopLeftVertex(topLeftVertex);
         setBottomRightVertex(bottomRightVertex);
         setSensorList(sensorList);
+        mHouseList = new HouseList();
     }
 
     // Setters and Getters for all the parameters.
@@ -233,20 +243,18 @@ public class GeographicArea {
         return mGeographicAreaList;
     }
 
+
     /**
-     * This method prints all Houses  in  House List from a Specific Geographic Area.
-     *
+     * Method to print details that are required for a Geographic Area to be different from another GA (equals -
+     * name, type area and local).
      * @return
      */
-    public String printGAHouseList() {
-        String finalString = "\nHouses on this Geographic Area:\n";
-        if (mHouseList.getHouseList().isEmpty()) {
-            finalString = finalString + "\n|||| List is Empty ||||\nAdd Houses to list first";
-        } else {
-            for (House house : mHouseList.getHouseList())
-                finalString = finalString + "\n" + "-" + house.getHouseDesignation() + ";";
-        }
-        return finalString;
+
+    public String printGeographicArea() {
+        String result;
+        result = this.mName + ", " + this.mTypeArea.getTypeOfGeographicArea() + ", " +
+                this.mLocal.getLatitude() + "º lat, " + this.mLocal.getLongitude() + "º long\n";
+        return result;
     }
 
     /**
