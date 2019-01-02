@@ -31,6 +31,24 @@ public class HouseList {
         }
     }
 
+    public List<Integer> matchHouseIndexByString(String input){
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < mHouseList.size(); i++){
+            if (mHouseList.get(i).getHouseDesignation().equals(input)){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    public String printElementsByIndex (List<Integer> indexes){
+        String result = "";
+        for (int i = 0; i < indexes.size(); i++){
+            result += indexes.get(i) + ") " + mHouseList.get(i).getHouseDesignation() + ", " + mHouseList.get(i).getmAddress() + ", " + mHouseList.get(i).getmZipCode() + ".\n";
+        }
+        return result;
+    }
+
     public List<House> getHouseList() {
         return mHouseList;
     }
