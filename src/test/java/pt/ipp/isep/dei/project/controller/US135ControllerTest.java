@@ -120,4 +120,36 @@ class US135ControllerTest {
         boolean result = ctrl135.getEnergyGrid().getmListPowerSources().containsPowerSource(powerSource);
         assertTrue(!result);
     }
+
+    @Test
+    void seeIfEnergyGridListIsDisplayed(){
+        HouseList list = new HouseList();
+        House house = new House("Casa Oliveira", "Santa Maria de Lamas", new Local(42, 50), "4535");
+        EnergyGridList listEG = new EnergyGridList();
+        EnergyGrid energyGrid = new EnergyGrid("EG1",400);
+        PowerSourceList powerSourceList = new PowerSourceList();
+        energyGrid.setListPowerSources(powerSourceList);
+        listEG.addEnergyGridToEnergyGridList(energyGrid);
+        house.setmEGList(listEG);
+        list.addHouseToHouseList(house);
+        US135Controller ctrl135 = new US135Controller(list);
+        ctrl135.seeIfHouseExistsInHouseList("Casa Oliveira");
+        String result = ctrl135.seeIfEnergyGridListIsEmptyAndShowItsContent();
+        String expectedResult = "Energy grid list: \n" + "-EG1;";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void seeIfEnergyGridListIsEmpty(){
+        HouseList list = new HouseList();
+        House house = new House("Casa Oliveira", "Santa Maria de Lamas", new Local(42, 50), "4535");
+        EnergyGridList listEG = new EnergyGridList();
+        house.setmEGList(listEG);
+        list.addHouseToHouseList(house);
+        US135Controller ctrl135 = new US135Controller(list);
+        ctrl135.seeIfHouseExistsInHouseList("Casa Oliveira");
+        String result = ctrl135.seeIfEnergyGridListIsEmptyAndShowItsContent();
+        String expectedResult = "The list is empty.";
+        assertEquals(expectedResult,result);
+    }
 }

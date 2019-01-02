@@ -33,7 +33,7 @@ public class US135Controller {
 
     public void createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){this.mPowerSource = new PowerSource(name, maxPowerOutput, maxEnergyStorage);}
 
-    public PowerSource getPowerSource(){return this.mPowerSource;}
+    PowerSource getPowerSource(){return this.mPowerSource;}
 
     public String seeIfEnergyGridListIsEmptyAndShowItsContent(){
         return this.mEnergyGridList.printEnergyGridList();
@@ -41,12 +41,10 @@ public class US135Controller {
 
     public boolean selectEnergyGrid(String name){
         this.mEnergyGrid = mEnergyGridList.matchEnergyGrid(name);
-        if (this.mEnergyGrid == null){
-            return false;
-        }return true;
+        return this.mEnergyGrid != null;
     }
 
-    public EnergyGrid getEnergyGrid(){return this.mEnergyGrid;}
+    EnergyGrid getEnergyGrid(){return this.mEnergyGrid;}
 
     public boolean addPowerSourceToEnergyGrid(){
         return this.mEnergyGrid.addPowerSource(mPowerSource);
