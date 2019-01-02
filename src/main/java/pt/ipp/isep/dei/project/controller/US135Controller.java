@@ -46,6 +46,8 @@ public class US135Controller {
         }return true;
     }
 
+    public EnergyGrid getEnergyGrid(){return this.mEnergyGrid;}
+
     public boolean addPowerSourceToEnergyGrid(){
         return this.mEnergyGrid.addPowerSource(mPowerSource);
         }
