@@ -16,7 +16,6 @@ import java.util.Scanner;
  **/
 
 public class US101UI {
-    private String mHouseDesignation;
     private int indexOfHouse;
     private double mHouseLat;
     private double mHouseLon;
@@ -57,7 +56,7 @@ public class US101UI {
             getInputHouse();
             updateModelUS101(listOfHouses);
             displayStateUS101();
-            this.mActive = false;
+            return;
         }
     }
 
@@ -218,7 +217,7 @@ public class US101UI {
     }
 
     private void displayStateUS101() {
-        System.out.println("You have successfully changed the location of the house" + mHouseDesignation + ". \n" + "Address: " +
+        System.out.println("You have successfully changed the location of the house " + mHouse.getHouseDesignation() + ". \n" + "Address: " +
                 mHouseAddress + ". \n" + "ZipCode: " + mHouseZipCode + ". \n" + "Latitude: " + mHouseLat + ". \n" +
                 "Longitude: " + mHouseLon +". \n");
     }
