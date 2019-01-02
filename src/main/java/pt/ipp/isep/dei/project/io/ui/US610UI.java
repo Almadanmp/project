@@ -40,6 +40,7 @@ public class US610UI {
     }
 
     private boolean getInputRoom(RoomList list){
+        US610Controller ctrl = new US610Controller(list);
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please insert the name of the Room you want to get the Maximum Temperature from: ");
         while (!scanner.hasNext("[a-zA-Z_]+")) {
@@ -47,7 +48,6 @@ public class US610UI {
             scanner.next();
         }
         this.mNameRoom = scanner.next();
-        US610Controller ctrl = new US610Controller(list);
         if(ctrl.doesListContainRoomByName(this.mNameRoom)) {
             System.out.println("You chose the Room "+this.mNameRoom);
         }

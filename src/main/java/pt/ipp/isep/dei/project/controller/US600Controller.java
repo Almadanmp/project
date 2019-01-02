@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.List;
+
 /**
  * As a Regular User, I want to get the current temperature in the house area. If, in the
  * first element with temperature sensors of the hierarchy of geographical areas that
@@ -10,7 +12,6 @@ import pt.ipp.isep.dei.project.model.*;
  */
 public class US600Controller {
     private House mHouse;
-    private String mGeographicAreaName;
     private GeographicAreaList mGeographicAreaList;
 
     public US600Controller(House house) {
@@ -21,6 +22,14 @@ public class US600Controller {
         this.mGeographicAreaList = list;
     }
 
+    public String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
+        return geoAreaList.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas);
+    }
+
+    public String printGA (GeographicArea geoArea){
+        return geoArea.printGeographicArea();
+    }
+
     public void printGAList(GeographicAreaList geoAreaList){
         geoAreaList.printGaWholeList(geoAreaList);
     }
@@ -29,17 +38,8 @@ public class US600Controller {
         ga.getHouseList().printHouseList(ga);
     }
 
-    public boolean validateIfGeographicAreaToGeographicAreaList(String geographicArea) {
-        return mGeographicAreaList.validateIfGeographicAreaToGeographicAreaList(geographicArea);
-    }
-
-    public GeographicArea getGeographicAreaByName(String geographicAreaName) {
-        mGeographicAreaName = geographicAreaName;
-        return mGeographicAreaList.getGeographicAreaByName(geographicAreaName);
-    }
-
-    public House getHouseByName(GeographicArea ga, String houseName) {
-        return ga.getHouseList().getHouseByDesignation(houseName);
+    public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList){
+        return geoAreaList.matchGeographicAreaIndexByString(input);
     }
 
     public Sensor getSensorWithTheMinimumDistanceToHouse(House house, GeographicArea ga) {
@@ -50,8 +50,5 @@ public class US600Controller {
         return getSensorWithTheMinimumDistanceToHouse(house,ga).getReadingList().getMostRecentValueOfReading();
     }
 
-    public boolean matchHouseFromList(GeographicArea ga, String houseName) {
-        return ga.getHouseList().matchHouse(houseName);
-    }
 
 }
