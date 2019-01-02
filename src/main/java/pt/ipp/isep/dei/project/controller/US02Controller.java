@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.TypeAreaList;
 
 public class US02Controller {
 
-    private TypeAreaList mTypeAreaList = new TypeAreaList();
+    private TypeAreaList mTypeAreaList;
 
     public US02Controller(TypeAreaList tipo) {
         this.mTypeAreaList = tipo;

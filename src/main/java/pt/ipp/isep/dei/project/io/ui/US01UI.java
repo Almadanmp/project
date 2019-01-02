@@ -20,7 +20,7 @@ public class US01UI {
         active = false;
     }
 
-    public void run(TypeAreaList list) {
+    public void runUS01UI(TypeAreaList list) {
         this.active = true;
 
             getInput();

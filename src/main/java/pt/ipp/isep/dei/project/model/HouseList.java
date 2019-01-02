@@ -26,9 +26,7 @@ public class HouseList {
     }
 
     public boolean checkIfHouseListIsValid() {
-        {
-            return !mHouseList.isEmpty();
-        }
+        return !mHouseList.isEmpty();
     }
 
     public List<Integer> matchHouseIndexByString(String input){
@@ -111,7 +109,7 @@ public class HouseList {
 
     public String printHouseList(GeographicArea geoArea) {
         String result = "---------------\n";
-        if (geoArea.getHouseList().getHouseList().size() == 0) {
+        if (geoArea.getHouseList().getHouseList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < geoArea.getHouseList().getHouseList().size(); i++) {
@@ -124,6 +122,9 @@ public class HouseList {
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
         return result;
     }
+
+
+
 
     @Override
     public boolean equals(Object testObject) {

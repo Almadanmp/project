@@ -165,13 +165,13 @@ public class MainUI {
                     break;
                 case 1:
                     US01UI view1 = new US01UI();
-                    view1.run(mTypeAreaList);
+                    view1.runUS01UI(mTypeAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 2:
                     US02UI view2 = new US02UI();
-                    view2.run(mTypeAreaList);
+                    view2.runUS02UI(mTypeAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
@@ -189,7 +189,7 @@ public class MainUI {
                     break;
                 case 5:
                     US05UI view5 = new US05UI();
-                    view5.run(sensorList1);
+                    view5.runUS05UI(sensorList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
@@ -232,7 +232,7 @@ public class MainUI {
                 case 11:
                     if (loginFlag == 1) {
                         US101UI view11 = new US101UI();
-                        view11.run(houseList1, mGeographicAreaList);
+                        view11.runUS101(houseList1, mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         break;

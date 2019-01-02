@@ -23,7 +23,7 @@ public class US05UI {
         mActive = false;
     }
 
-    public void run(SensorList list) {
+    public void runUS05UI(SensorList list) {
         this.mActive = true;
         while (this.mActive) {
             getInputSensor();

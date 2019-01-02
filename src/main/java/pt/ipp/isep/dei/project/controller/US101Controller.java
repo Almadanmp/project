@@ -4,6 +4,8 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 
+import java.util.List;
+
 /**
  * US101: As an Administrator, I want to configure the location of the house.
  **/
@@ -11,15 +13,15 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 public class US101Controller {
 
     private HouseList mHouseList;
-    private GeographicAreaList mGeographicAreaList;
-    private GeographicArea mGeographicArea;
 
 
 
-    public US101Controller (){}
+    public US101Controller() {
+    }
 
-    public US101Controller (GeographicAreaList geographicAreaList){this.mGeographicAreaList =geographicAreaList;}
-
+    public US101Controller(HouseList list) {
+        this.mHouseList = list;
+    }
 
     public boolean addHouseToHouseList(HouseList newHouseList, String newHouseDesignation, String newHouseAddress, String newHouseZipCode, double latitude, double longitude) {
         if (newHouseList == null) {
@@ -27,20 +29,26 @@ public class US101Controller {
         }
         House houseToAdd = new House(newHouseDesignation, newHouseAddress, new Local(latitude, longitude), newHouseZipCode, new RoomList());
         return newHouseList.addHouseToHouseList(houseToAdd);
-    }
-
-
-    public void setHouseListToGeoArea(HouseList newHouseList, GeographicArea newGeoArea) {
-        newGeoArea.setHouseList(newHouseList);
-        this.mHouseList = newHouseList;
-        this.mGeographicArea = newGeoArea;
 
     }
-
-    public GeographicAreaList getGeographicAreaList() {
-        return mGeographicAreaList;
+    public void printHouseList() {
+        mHouseList.printHouseList();
     }
 
+    public void setHouseAddress(String address, int indexOfHouse) {
+        mHouseList.getHouseList().get(indexOfHouse).setmAddress(address);
+    }
 
+    public void setHouseZIPCode(String zipCode, int indexOfHouse) {
+        mHouseList.getHouseList().get(indexOfHouse).setmZipCode(zipCode);
+    }
+
+    public void setHouseLocal(double latitude, double longitude, int indexOfHouse) {
+        mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLatitude(latitude);
+        mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLongitude(longitude);
+    }
 
 }
+
+
+

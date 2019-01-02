@@ -150,7 +150,7 @@ public class House {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mAddress);
+        return Objects.hash(this.mAddress);
     }
 }
 

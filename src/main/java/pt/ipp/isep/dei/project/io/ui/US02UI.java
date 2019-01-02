@@ -21,7 +21,7 @@ public class US02UI {
         active = false;
     }
 
-    public void run(TypeAreaList list) {
+    public void runUS02UI(TypeAreaList list) {
         this.active = true;
         while (this.active) {
             updateModel(list);
