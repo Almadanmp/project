@@ -1,10 +1,10 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controller.US620Controller;
-import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
+import pt.ipp.isep.dei.project.controller.*;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.RoomList;
 
 import java.util.Date;
 import java.util.List;
@@ -32,6 +32,12 @@ public class HouseMonitoringUI {
     private US620Controller controller620;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private List<Integer> listOfIndexesGeographicAreas;
+    private double mCurrentHouseAreaTemperature;
+    private String mNameRoom;
+    private RoomList mRoomList;
+    private double mMaxTemperature;
+    private double mCurrentTemperature;
+    private String mNameSensor;
 
 
     public HouseMonitoringUI() {
@@ -40,7 +46,7 @@ public class HouseMonitoringUI {
         this.controller620 = new US620Controller();
     }
 
-    public void run(GeographicAreaList newGeoListUi) {
+    public void run(GeographicAreaList newGeoListUi, RoomList roomList) {
 
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
@@ -62,21 +68,30 @@ public class HouseMonitoringUI {
             option = mScanner.next();
             switch (option) {
                 case "1":
-                    //US600UI us600UI = new US600UI();
-                    //us600UI.updateModel();
-                    // us600UI.displayState();
-                    //activeInput = true;
+                    if (!getInputRoom(roomList)) {
+                        return;
+                    }
+                    if (!getInputSensorName(roomList)) {
+                        return;
+                    }
+                    getInputStartDate();
+                    updateModel610(roomList);
+                    displayState610();
                     break;
+
                 case "2":
-                    //   US600UI us600UI = new US600UI();
-                    // us600UI.updateModel();
-                    // us600UI.displayState();
-                    //activeInput = true;
-                    break;
+                    if (!getInputRoom(roomList)) {
+                        return;
+                    }
+                    if (!getInputSensorName(roomList)) {
+                        return;
+                    }
+                    updateModel605(roomList);
+                    displayState605();
+                    return;
                 case "3":
-                    US600UI us600UI = new US600UI();
-                    us600UI.updateModel();
-                    us600UI.displayState();
+                    updateModel600();
+                    displayState600();
                     activeInput = true;
                     break;
                 case "4":
@@ -100,6 +115,36 @@ public class HouseMonitoringUI {
                     break;
             }
         }
+    }
+
+
+    private boolean getInputRoom(RoomList list) {
+        US610Controller ctrl = new US610Controller(list);
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please insert the name of the Room you want to get the Maximum Temperature from: ");
+
+        this.mNameRoom = scanner.next();
+        if (ctrl.doesListContainRoomByName(this.mNameRoom)) {
+            System.out.println("You chose the Room " + this.mNameRoom);
+        } else {
+            System.out.println("This room does not exist in the list of rooms.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean getInputSensorName(RoomList list) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please insert the name of the Sensor you want to get the Maximum Temperature from: ");
+        this.mNameSensor = scanner.next();
+        US610Controller ctrl = new US610Controller(list);
+        if (ctrl.doesSensorListInARoomContainASensorByName(this.mNameSensor)) {
+            System.out.println("You chose the Sensor " + this.mNameSensor);
+        } else {
+            System.out.println("This sensor does not exist in the list of sensors.");
+            return false;
+        }
+        return true;
     }
 
     private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
@@ -274,8 +319,38 @@ public class HouseMonitoringUI {
         System.out.println("0) (Return to main menu)");
     }
 
+    /**
+     * US600
+     * As a Regular User, I want to get the current temperature in the house area. If, in the
+     * first element with temperature sensors of the hierarchy of geographical areas that
+     * includes the house, there is more than one temperature sensor, the nearest one
+     * should be used.
+     */
+    public void updateModel600() {
+        US600Controller ctrl = new US600Controller(mHouse);
+        mCurrentHouseAreaTemperature = ctrl.getCurrentTemperatureInTheHouseArea(mHouse, mGeoArea);
+    }
 
+    public void displayState600() {
+        System.out.println("The current temperature in the house area is: " + mCurrentHouseAreaTemperature + "°C.");
+    }
 
+    /**
+     * US605 As a Regular User, I want to get the current temperature in a room, in order to check
+     * if it meets my personal comfort requirements.
+     */
+
+    private void updateModel605(RoomList list) {
+        US605Controller ctrl = new US605Controller(list);
+        out.print("The room is " + this.mNameRoom + " and the Temperature Sensor is " + this.mNameSensor + "\n");
+        Date mDate = new Date();
+        this.mCurrentTemperature = ctrl.getCurrentRoomTemperature(mDate);
+    }
+
+    private void displayState605(){
+        out.println("The Current Temperature in the room " + this.mNameRoom  +
+                " is " + this.mCurrentTemperature+ "°C.");
+    }
     /**
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
@@ -287,6 +362,23 @@ public class HouseMonitoringUI {
     private void displayState620() {
         System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " that is located on " + mGeoArea.getName() + " on the date " +
                 mStartDate + " is " + mResult620 + "%.");
+    }
+
+    /**
+     * US610
+     */
+    private void updateModel610(RoomList list) {
+        US610Controller ctrl = new US610Controller(list);
+        out.print("The room is " + this.mNameRoom + " the Temperature Sensor is " + this.mNameSensor +
+                " and the date is " + this.dataDay1 +"-"+ this.dataMonth1 +"-"+ this.dataYear1 + "\n");
+        Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
+        this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate);
+    }
+
+    private void displayState610(){
+        out.println("The Maximum Temperature in the room " + this.mNameRoom  +
+                " on the day " + this.dataDay1 + "-" + this.dataMonth1 + "-" + this.dataYear1 +
+                " was " + this.mMaxTemperature + "°C.");
     }
 
     /**

@@ -44,10 +44,10 @@ public class MainUI {
         //TEST ROOMS
         RoomList roomList1 = new RoomList();
         RoomList roomList2 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789, sensorList2);
         Room room2 = new Room("kitchen", 8, 2, sensorList2);
         roomList1.addRoom(room2);
-        roomList2.addRoom(room1);
+        roomList1.addRoom(room1);
         RoomList roomListGrid = new RoomList();
 
         //TEST GEOGRAPHIC AREAS
@@ -58,7 +58,7 @@ public class MainUI {
         HouseList houseList1 = new HouseList();
         HouseList houseList2 = new HouseList();
 
-        House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657", roomList2);
+        House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657", roomList1);
         House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
         House house3 = new House("houseThree", "Address3", new Local(18, 10), "3555-555");
         house2.setmMotherArea(geoa1);
@@ -247,12 +247,6 @@ public class MainUI {
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
-                case 13:
-                    US610UI view123 = new US610UI();
-                    view123.run(roomList1);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
                 case 14:
                     US130UI view14 = new US130UI();
                     view14.run(houseList1);
@@ -271,12 +265,6 @@ public class MainUI {
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
-                case 17:
-                    US600UI view17 = new US600UI();
-                    view17.run(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
                 case 18:
                     US108UI view18 = new US108UI();
                     view18.run(houseList1);
@@ -285,7 +273,7 @@ public class MainUI {
                     break;
                 case 623:
                     HouseMonitoringUI view623 = new HouseMonitoringUI();
-                    view623.run(mGeographicAreaList);
+                    view623.run(mGeographicAreaList, roomList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
