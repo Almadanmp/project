@@ -16,98 +16,66 @@ public class US145UI {
      * power and energy consumption is not included in that grid. The room’s
      * characteristics are not changed.
      */
-    private String mHouseName;
-    private HouseList mHouseList;
-    private String mEnergyGridName;
+
+    private US145Controller ctrl145;
     private boolean mActive;
-    private String mRoomName;
-    private RoomList mRoomList;
-    private EnergyGridList mEnergyGridList;
-    private Room mRoom;
-    private EnergyGrid mEnergyGrid;
 
 
-    public US145UI() {
+
+    US145UI() {
         this.mActive = false;
     }
 
     public void run(HouseList houseList) {
+        this.ctrl145 = new US145Controller(houseList);
         this.mActive = true;
-        this.mHouseList = houseList;
         while (this.mActive) {
-            getInputHouseName();
-            updateHouseName();
-            updateRoomList();
-            getInputRoomName();
-            updateRoomName();
-            getInputEnergyGridName();
-            updateEnergyGridList();
-            updateEnergyGrid();
+            getInputAndUpdateHouseNameAndUpdateRoomList();
+            getInputAndUpdateRoomName();
+            getInputAndUpdateEnergyGridName();
             updateFinalState();
             this.mActive = false;
         }
     }
 
-    private void getInputHouseName() {
+    private void getInputAndUpdateHouseNameAndUpdateRoomList() {
         System.out.println("Please insert the House Name You Want To Add The Room To: ");
         Scanner input = new Scanner(System.in);
-        this.mHouseName = input.nextLine();
-    }
-
-    private void updateHouseName() {
-        US145Controller ctrl145 = new US145Controller();
-        if (ctrl145.seeIfHouseExistsInHouseList(this.mHouseName,this.mHouseList)) {
+        String houseName = input.nextLine();
+        if (this.ctrl145.seeIfHouseExistsInHouseList(houseName)) {
             System.out.println("The House you have inserted is on the List.");
         } else {
             System.out.println("The House you have inserted is not on the List.");
         }
+        this.ctrl145.getRoomListByHouseName(houseName);
     }
 
-    private void updateRoomList() {
-        US145Controller ctrl145 = new US145Controller();
-        this.mRoomList = ctrl145.getRoomListByHouseName(this.mHouseName, this.mHouseList);
-    }
-
-    private void getInputRoomName() {
+    private void getInputAndUpdateRoomName() {
         System.out.println("Please insert The Room You Want to Add To The Energy Grid: ");
         Scanner input = new Scanner(System.in);
-        this.mRoomName = input.nextLine();
-    }
-
-    private void updateRoomName() {
-        US145Controller ctrl145 = new US145Controller();
-        if (ctrl145.seeIfRoomExistsInHouse(this.mRoomName, this.mRoomList)) {
+        String roomName = input.nextLine();
+        if (this.ctrl145.seeIfRoomExistsInHouse(roomName)) {
             System.out.println("The Room you have inserted is on the List.");
         } else {
             System.out.println("The Room you have inserted is not on the List.");
         }
     }
 
-    private void getInputEnergyGridName() {
+    private void getInputAndUpdateEnergyGridName() {
         System.out.println("Please insert The Name of The Energy Grid you want to add the Room to: ");
         Scanner input = new Scanner(System.in);
-        this.mEnergyGridName = input.nextLine();
-    }
-
-    private void updateEnergyGridList() {
-        US145Controller ctrl145 = new US145Controller();
-        this.mEnergyGridList = ctrl145.getmEnergyGridListByHouseName(this.mHouseName, this.mHouseList);
-    }
-
-    private void updateEnergyGrid() {
-        US145Controller ctrl145 = new US145Controller();
-        if (ctrl145.seeIfEnergyGridExistsInEnergyGridList(this.mEnergyGridName, this.mEnergyGridList)) {
+        String energyGridName = input.nextLine();
+        this.ctrl145.getmEnergyGridListByHouseName();
+        if (this.ctrl145.seeIfEnergyGridExistsInEnergyGridList(energyGridName)) {
             System.out.println("The Energy Grid you have inserted exists on the house.");
-            this.mEnergyGrid = ctrl145.getEnergyGrid(this.mEnergyGridName,this.mEnergyGridList);
+            this.ctrl145.getEnergyGrid(energyGridName);
         } else {
             System.out.println("The Energy Grid you have inserted does not exist.");
         }
     }
 
     private void updateFinalState(){
-        US145Controller ctrl145 = new US145Controller();
-        this.mRoom = ctrl145.matchRoomByName(this.mRoomName, this.mRoomList);
-        if(ctrl145.addRoomToEnergyGrid(this.mRoom, this.mEnergyGrid)){
+        if(this.ctrl145.addRoomToEnergyGrid()){
             System.out.println("The room was successfully added to the Energy Grid.");
         }else {
             System.out.println("The room already exists in the Energy Grid.");

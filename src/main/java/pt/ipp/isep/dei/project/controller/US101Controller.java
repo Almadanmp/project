@@ -15,7 +15,6 @@ public class US101Controller {
     private HouseList mHouseList;
 
 
-
     public US101Controller() {
     }
 
@@ -23,14 +22,7 @@ public class US101Controller {
         this.mHouseList = list;
     }
 
-    public boolean addHouseToHouseList(HouseList newHouseList, String newHouseDesignation, String newHouseAddress, String newHouseZipCode, double latitude, double longitude) {
-        if (newHouseList == null) {
-            return false;
-        }
-        House houseToAdd = new House(newHouseDesignation, newHouseAddress, new Local(latitude, longitude), newHouseZipCode, new RoomList());
-        return newHouseList.addHouseToHouseList(houseToAdd);
 
-    }
     public void printHouseList() {
         mHouseList.printHouseList();
     }
@@ -47,6 +39,7 @@ public class US101Controller {
         mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLatitude(latitude);
         mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLongitude(longitude);
     }
+
 
 }
 
