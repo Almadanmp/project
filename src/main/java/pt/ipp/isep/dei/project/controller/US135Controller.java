@@ -33,6 +33,8 @@ public class US135Controller {
 
     public void createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){this.mPowerSource = new PowerSource(name, maxPowerOutput, maxEnergyStorage);}
 
+    public PowerSource getPowerSource(){return this.mPowerSource;}
+
     public String seeIfEnergyGridListIsEmptyAndShowItsContent(){
         return this.mEnergyGridList.printEnergyGridList();
     }

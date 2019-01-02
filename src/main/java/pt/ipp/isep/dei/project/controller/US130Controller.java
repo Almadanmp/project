@@ -48,7 +48,10 @@ public class US130Controller {
         this.mEnergyGrid = new EnergyGrid(designation, maxPower);
     }
 
-    public EnergyGrid getEnergyGrid (){
+    /**
+     * Method used only to test the createEnergyGrid method.
+     */
+    EnergyGrid getEnergyGrid(){
         return this.mEnergyGrid;
     }
 }
