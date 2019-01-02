@@ -5,11 +5,11 @@ import pt.ipp.isep.dei.project.model.*;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class US130ControllerTest {
+class US130ControllerTest {
 
 
     @Test
-    public void seeIfHouExistsInListWorks() {
+    void seeIfHouExistsInListWorks() {
         HouseList list = new HouseList();
         House house = new House("Casa Oliveira", "Santa Maria de Lamas", new Local(42, 50), "4535");
         list.addHouseToHouseList(house);

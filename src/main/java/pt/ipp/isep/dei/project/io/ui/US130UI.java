@@ -17,12 +17,12 @@ public class US130UI {
 
     public void run(HouseList houseList){
         this.ctrl130 = new US130Controller(houseList);
-            getInputAndUpdateHouseName();
+            getInputHouseName();
             getInputAndAddEnergyGrid();
             updateEnergyGridList();
     }
 
-    private void getInputAndUpdateHouseName() {
+    private void getInputHouseName() {
         System.out.println("Please insert the house name you want To create an energy grid on: ");
         Scanner scanner = new Scanner(System.in);
         String houseName = scanner.nextLine();
