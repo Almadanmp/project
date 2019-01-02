@@ -68,6 +68,10 @@ public class MainUI {
         house1.setmMotherArea(geoa2);
         houseList2.addHouseToHouseList(house1);
 
+
+
+
+
         //TEST ORGANIZATION SETTERS
         eg1.setListOfRooms(roomListGrid);
         house1.setmEGList(energyGridList2);
@@ -291,7 +295,7 @@ public class MainUI {
                     break;
                 case 19:
                     US145UI view145 = new US145UI();
-                    view145.run(houseList1);
+                    view145.run(houseList2);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
