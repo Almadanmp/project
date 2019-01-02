@@ -30,7 +30,7 @@ public class US135UI {
     }
 
     private void getInputAndUpdateHouseName() {
-        System.out.println("Please insert the house name you that want to add a power source to one of its energy grids: ");
+        System.out.println("Please insert the house name that you want to add a power source to one of its energy grids: ");
         Scanner scanner = new Scanner(System.in);
         String houseName = scanner.nextLine();
         if (ctrl135.seeIfHouseExistsInHouseList(houseName)) {

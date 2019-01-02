@@ -11,20 +11,15 @@ import java.util.Scanner;
 
 public class US130UI {
 
-    private boolean mActive;
     private US130Controller ctrl130;
 
-    US130UI(){mActive = false;}
+    US130UI(){}
 
     public void run(HouseList houseList){
         this.ctrl130 = new US130Controller(houseList);
-        this.mActive = true;
-        while (this.mActive){
             getInputAndUpdateHouseName();
             getInputAndAddEnergyGrid();
             updateEnergyGridList();
-            this.mActive = false;
-        }
     }
 
     private void getInputAndUpdateHouseName() {
