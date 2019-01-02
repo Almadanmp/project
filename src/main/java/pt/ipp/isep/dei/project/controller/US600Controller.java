@@ -50,5 +50,8 @@ public class US600Controller {
         return getSensorWithTheMinimumDistanceToHouse(house,ga).getReadingList().getMostRecentValueOfReading();
     }
 
+    public boolean matchHouseFromList(GeographicArea ga, String houseName) {
+        return ga.getHouseList().checkHouseExists(houseName);
+    }
 
 }

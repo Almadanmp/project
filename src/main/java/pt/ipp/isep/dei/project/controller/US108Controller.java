@@ -17,35 +17,44 @@ public class US108Controller {
     public US108Controller(HouseList houseList) {
         this.mHouseList = houseList;
     }
-    public US108Controller(RoomList roomList) {
-        this.mRoomList = roomList;
-    }
+
     public HouseList getHouseList() {
         return this.mHouseList;
-    }
-
-    public RoomList getRoomList() {
-        return this.mRoomList;
     }
 
     public String printHouseListNames() {
         return mHouseList.printHouseList();
     }
 
+    public boolean matchHouseByName(String houseDesignation) {
+       if(!(mHouseList.getHouseByDesignation(houseDesignation) == null)) {
+           this.mHouse = mHouseList.getHouseByDesignation(houseDesignation);
+           return true;
+       }
+       return false;
+    }
+
+    public RoomList getRoomList() {
+        this.mRoomList = this.mHouse.getmRoomList();
+        return this.mRoomList;
+    }
+
     public String printRoomListNames() {
         return mRoomList.printRoomList();
     }
 
-    public boolean matchHouse(String houseDesignation) {
-        return mHouseList.matchHouse(houseDesignation);
-    }
-
     public boolean matchRoom(String roomDesignation) {
-        return mRoomList.matchRoom(roomDesignation);
+        if(!(mRoomList.getRoomByName(roomDesignation) == null)) {
+            mRoom = mRoomList.getRoomByName(roomDesignation);
+            return true;
+        }
+        return false;
     }
 
     public void setRoom(String roomDesignation, int roomHouseFloor, double roomDimensions) {
-        this.mRoom = new Room(roomDesignation, roomHouseFloor ,roomDimensions);
+        this.mRoom.setRoomName(roomDesignation);
+        this.mRoom.setRoomHouseFloor(roomHouseFloor);
+        this.mRoom.setRoomDimensions(roomDimensions);
     }
 
 }

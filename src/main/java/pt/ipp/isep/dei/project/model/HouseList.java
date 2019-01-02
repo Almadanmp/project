@@ -59,7 +59,7 @@ public class HouseList {
         return false;
     }
 
-    public boolean matchHouse(String houseToMatch) {
+    public boolean checkHouseExists(String houseToMatch) {
         for (House g : mHouseList) {
             if (g.getHouseDesignation().equals(houseToMatch)) {
                 return true;

@@ -14,48 +14,37 @@ import java.util.Scanner;
  */
 
 public class US108UI {
-    private HouseList mHouseList;
-    private RoomList mRoomList;
-    private String mHouseDesignation;
-    private String mRoomDesignation;
-    private String mNewRoomDesignation;
-    private int mRoomHouseFloor;
-    private double mRoomDimensions;
+    private US108Controller ctrl108;
     private boolean active;
 
     public void US108UI() {
         this.active = false;
     }
 
-    public void run(HouseList newHouseList, RoomList newRoomList) {
+    public void run(HouseList houseList) {
         this.active = true;
-        this.mHouseList = newHouseList;
-        this.mRoomList = newRoomList;
+        this.ctrl108 = new US108Controller(houseList);
 
         while (this.active) {
             if (!displayHouseList()) {
                 return;
             } else {
                 getHouse();
-                displayRoomList(newRoomList);
+                displayRoomList();
                 getRoom();
                 setInputRoom();
-                updateState(newRoomList);
-                displayState();
                 return;
             }
         }
 
     }
 
-
     public boolean displayHouseList() {
-        US108Controller ctrl = new US108Controller(mHouseList);
-        if (ctrl.getHouseList().getHouseList().isEmpty()) {
-            System.out.println(ctrl.printHouseListNames());
+        if (this.ctrl108.getHouseList().getHouseList().isEmpty()) {
+            System.out.println(this.ctrl108.printHouseListNames());
             return false;
         } else {
-            System.out.println(ctrl.printHouseListNames());
+            System.out.println(this.ctrl108.printHouseListNames());
             return true;
         }
     }
@@ -67,10 +56,9 @@ public class US108UI {
             System.out.println("Please,try again:");
             scanner.next();
         }
-        this.mHouseDesignation = scanner.next();
-        US108Controller ctrl = new US108Controller(mHouseList);
-        if (ctrl.matchHouse(mHouseDesignation)) {
-            System.out.println("You chose the House " + this.mHouseDesignation);
+        String houseName = scanner.next();
+        if (this.ctrl108.matchHouseByName(houseName)) {
+            System.out.println("You chose the House " + houseName);
         } else {
             System.out.println("This house does not exist in the list of houses.");
             return false;
@@ -79,13 +67,12 @@ public class US108UI {
     }
 
 
-    private boolean displayRoomList(RoomList roomList) {
-        US108Controller ctrl = new US108Controller(roomList);
-        if (ctrl.getRoomList().getListOfRooms().isEmpty()) {
-            System.out.println(ctrl.printRoomListNames());
+    private boolean displayRoomList() {
+        if (this.ctrl108.getRoomList().getListOfRooms().isEmpty()) {
+            System.out.println(this.ctrl108.printRoomListNames());
             return false;
         } else {
-            System.out.println(ctrl.printRoomListNames());
+            System.out.println(this.ctrl108.printRoomListNames());
             return true;
         }
     }
@@ -97,10 +84,9 @@ public class US108UI {
             System.out.println("Please,try again:");
             scanner.next();
         }
-        this.mRoomDesignation = scanner.next();
-        US108Controller ctrl = new US108Controller(mRoomList);
-        if (ctrl.matchRoom(mRoomDesignation)) {
-            System.out.println("You chose the Room " + this.mRoomDesignation);
+        String roomName = scanner.next();
+        if (this.ctrl108.matchRoom(roomName)) {
+            System.out.println("You chose the Room " + roomName);
         } else {
             System.out.println("This room does not exist in the list of rooms.");
             return false;
@@ -114,7 +100,7 @@ public class US108UI {
 
         ////GET ROOM DESIGNATION
         System.out.println("Please insert the room name: ");
-        this.mNewRoomDesignation = input.nextLine();
+        String roomName = input.nextLine();
 
         //GET ROOM HOUSE FLOOR
         System.out.println("Please insert your room's house floor: ");
@@ -122,7 +108,7 @@ public class US108UI {
             input.next();
             System.out.println("Please insert a valid number.");
         }
-        this.mRoomHouseFloor = input.nextInt();
+        int roomHouseFloor = input.nextInt();
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's dimensions in square meters: ");
@@ -130,27 +116,18 @@ public class US108UI {
             input.next();
             System.out.println("Please insert a valid number.");
         }
-        this.mRoomDimensions = input.nextDouble();
-    }
-
-    private void updateState(RoomList newRoomList) {
-        US108Controller ctrl = new US108Controller(newRoomList);
-        ctrl.setRoom(this.mNewRoomDesignation, this.mRoomHouseFloor, this.mRoomDimensions);
-    }
-
-
-    private void displayState() {
-        if (mRoomHouseFloor == 1) {
-            System.out.println("Your room is now called " + mNewRoomDesignation + ", it is located on the " + mRoomHouseFloor + "st floor and has " + mRoomDimensions + " square meters.");
-        } else if (mRoomHouseFloor == 2) {
-            System.out.println("Your room is now called " + mNewRoomDesignation + ", it is located on the " + mRoomHouseFloor + "nd floor and has " + mRoomDimensions + " square meters.");
-        } else if (mRoomHouseFloor == 3) {
-            System.out.println("Your room is now called " + mNewRoomDesignation + ", it is located on the " + mRoomHouseFloor + "rd floor and has " + mRoomDimensions + " square meters.");
+        double roomDimensions = input.nextDouble();
+        this.ctrl108.setRoom(roomName,roomHouseFloor,roomDimensions);
+        if (roomHouseFloor == 1) {
+            System.out.println("Your room is now called " + roomName + ", it is located on the " + roomHouseFloor + "st floor and has " + roomDimensions + " square meters.");
+        } else if (roomHouseFloor == 2) {
+            System.out.println("Your room is now called " + roomName + ", it is located on the " + roomHouseFloor + "nd floor and has " + roomDimensions + " square meters.");
+        } else if (roomHouseFloor == 3) {
+            System.out.println("Your room is now called " + roomName + ", it is located on the " + roomHouseFloor + "rd floor and has " + roomDimensions + " square meters.");
         } else {
-            System.out.println("Your room is now called " + mNewRoomDesignation + ", it is located on the " + mRoomHouseFloor + "th floor and has " + mRoomDimensions + " square meters.");
+            System.out.println("Your room is now called " + roomName + ", it is located on the " + roomHouseFloor + "th floor and has " + roomDimensions + " square meters.");
         }
     }
-
 }
 
 
