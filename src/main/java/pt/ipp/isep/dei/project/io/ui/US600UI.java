@@ -167,7 +167,7 @@ public class US600UI {
     }
 
     public void displayState(){
-        System.out.println("The current temperature in the house area is: " + mCurrentHouseAreaTemperature);
+        System.out.println("The current temperature in the house area is: " + mCurrentHouseAreaTemperature + "°C.");
     }
 
 }

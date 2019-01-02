@@ -137,7 +137,7 @@ public class MainUI {
                     "10. Display all available Geographic Areas.\n",
                     "11. Configure a new house.\n",
                     "12. Add a new room to a house.\n",
-                    "13.get max temp.\n",
+                    "13. Get Maximum Temperature in a Room in a Given Day.\n",
                     "14. Create an energy grid.\n",
                     "15. Add a power source to an energy grid.\n",
                     "16. See Room List.\n",

@@ -113,6 +113,6 @@ public class US610UI {
     private void displayState(){
             out.println("The Maximum Temperature in the room " + this.mNameRoom  +
                     " on the day " + this.dataDay + "-" + this.dataMonth + "-" + this.dataYear +
-                    " was " + this.mMaxTemperature);
+                    " was " + this.mMaxTemperature + "°C.");
     }
 }
