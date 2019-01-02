@@ -1,24 +1,24 @@
 @startuml
 actor User
 User -> MainUI: Get Current Temperature in The House Area
-MainUI -> US600UI: Get Current Temperature in The House Area
-US600UI --> User: Request Geographic Area Name
+MainUI -> HouseMonitoringUI: Get Current Temperature in The House Area
+HouseMonitoringUI --> User: Request Geographic Area Name
 User -> MainUI: insert data (Geographic Area name)
-MainUI -> US600UI: set data (Geographic Area name)
-US600UI -> US600Controller: check if name is contained in list
+MainUI -> HouseMonitoringUI: set data (Geographic Area name)
+HouseMonitoringUI -> US600Controller: check if name is contained in list
 US600Controller -> GeographicAreaList: check if name is contained in list
 GeographicAreaList -> GeographicArea: match by name
 GeographicArea -> GeographicArea: validate data
-GeographicArea --> US600UI: set data (Geographic Area)
-US600UI --> User: Request House Name
+GeographicArea --> HouseMonitoringUI: set data (Geographic Area)
+HouseMonitoringUI --> User: Request House Name
 User -> MainUI: insert data (House name)
-MainUI -> US600UI: set data (House name)
-US600UI -> US600Controller: check if name is contained in list
+MainUI -> HouseMonitoringUI: set data (House name)
+HouseMonitoringUI -> US600Controller: check if name is contained in list
 US600Controller -> HouseList: check if name is contained in list
 HouseList -> House: match by name
 House -> House: validate data
-House --> US600UI: set data (House)
-US600UI -> US600Controller: getCurrentTemperatureInTheHouseArea
+House --> HouseMonitoringUI: set data (House)
+HouseMonitoringUI -> US600Controller: getCurrentTemperatureInTheHouseArea
 US600Controller->House: getSensorWithTheMinimumDistanceToHouse
 House->Sensor: getReadingList
 Sensor->ReadingList:getMostRecentValueOfReading

@@ -34,7 +34,6 @@ public class HouseMonitoringUI {
     private List<Integer> listOfIndexesGeographicAreas;
     private double mCurrentHouseAreaTemperature;
     private String mNameRoom;
-    private RoomList mRoomList;
     private double mMaxTemperature;
     private double mCurrentTemperature;
     private String mNameSensor;
