@@ -47,4 +47,8 @@ public class US130Controller {
     public void createEnergyGrid(String designation, double maxPower) {
         this.mEnergyGrid = new EnergyGrid(designation, maxPower);
     }
+
+    public EnergyGrid getEnergyGrid (){
+        return this.mEnergyGrid;
+    }
 }
