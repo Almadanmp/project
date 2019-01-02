@@ -15,7 +15,6 @@ public class US101Controller {
     private HouseList mHouseList;
 
 
-
     public US101Controller() {
     }
 
@@ -40,6 +39,7 @@ public class US101Controller {
         mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLatitude(latitude);
         mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLongitude(longitude);
     }
+
 
 }
 

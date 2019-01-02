@@ -24,7 +24,6 @@ public class US101UI {
     private boolean mActive;
     private House mHouse;
     US101Controller ctrl101;
-    private boolean active;
     private String geoName;
     private GeographicArea mGeoArea;
     private List<Integer> listOfIndexesGeographicAreas;
@@ -46,7 +45,7 @@ public class US101UI {
             if (!getInputGeographicArea(list)) {
                 return;
             }
-            if(!getInputHouse(list)){
+            if (!getInputHouse(list)) {
                 if (mHouse == null) {
                     System.out.println("Unable to select a house. Returning to main menu.");
                     return;
@@ -219,7 +218,7 @@ public class US101UI {
     private void displayStateUS101() {
         System.out.println("You have successfully changed the location of the house " + mHouse.getHouseDesignation() + ". \n" + "Address: " +
                 mHouseAddress + ". \n" + "ZipCode: " + mHouseZipCode + ". \n" + "Latitude: " + mHouseLat + ". \n" +
-                "Longitude: " + mHouseLon +". \n");
+                "Longitude: " + mHouseLon + ". \n");
     }
 }
 
