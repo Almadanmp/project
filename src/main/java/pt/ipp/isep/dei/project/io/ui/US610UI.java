@@ -76,7 +76,7 @@ public class US610UI {
 
     private void getInputDate(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the day:");
+        System.out.println("Date needed.");
         out.println("Enter the year:");
         while(!scanner.hasNextInt()) {
             scanner.next();
