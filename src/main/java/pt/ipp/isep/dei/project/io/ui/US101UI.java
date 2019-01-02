@@ -153,9 +153,9 @@ public class US101UI {
 
         while (!activeInput) {
             ctrl.printHouseList(mGeoArea);
-            int aux = readInputNumberAsInt();
-            if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
-                mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
+            this.indexOfHouse = readInputNumberAsInt();
+            if (indexOfHouse >= 0 && indexOfHouse< mGeoArea.getHouseList().getHouseList().size()) {
+                mHouse = mGeoArea.getHouseList().getHouseList().get(indexOfHouse);
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
