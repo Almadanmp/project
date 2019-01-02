@@ -28,8 +28,7 @@ public class HouseMonitoringUI {
     private int dataYear2;
     private int dataMonth2;
     private int dataDay2;
-    private HouseMonitoringController controller623;
-    private US620Controller controller620;
+    private HouseMonitoringController houseMonitoringcontroller;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private List<Integer> listOfIndexesGeographicAreas;
     private double mCurrentHouseAreaTemperature;
@@ -41,8 +40,8 @@ public class HouseMonitoringUI {
 
     public HouseMonitoringUI() {
         this.mScanner = new Scanner(System.in);
-        this.controller623 = new HouseMonitoringController();
-        this.controller620 = new US620Controller();
+        this.houseMonitoringcontroller = new HouseMonitoringController();
+
     }
 
     public void run(GeographicAreaList newGeoListUi, RoomList roomList) {
@@ -213,7 +212,7 @@ public class HouseMonitoringUI {
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
 
         while (!activeInput) {
-            controller623.printGAList(newGeoListUi);
+            houseMonitoringcontroller.printGAList(newGeoListUi);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
                 mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
@@ -234,7 +233,7 @@ public class HouseMonitoringUI {
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
 
         while (!activeInput) {
-            controller623.printHouseList(mGeoArea);
+            houseMonitoringcontroller.printHouseList(mGeoArea);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
                 mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
@@ -354,8 +353,8 @@ public class HouseMonitoringUI {
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
     private void updateModelUS620() {
-        this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
-        this.mResult620 = controller620.getTotalRainfallOnGivenDayHouseArea(mGeoArea, mStartDate);
+        this.mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
+        this.mResult620 = houseMonitoringcontroller.getTotalRainfallOnGivenDayHouseArea(mGeoArea, mStartDate);
     }
 
     private void displayState620() {
@@ -385,9 +384,9 @@ public class HouseMonitoringUI {
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
     private void updateModelUS623() {
-        this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
-        this.mEndDate = controller623.createDate(dataYear2, dataMonth2, dataDay2);
-        this.mResult623 = controller623.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
+        this.mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
+        this.mEndDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
+        this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
     }
 
     private void displayState623() {
