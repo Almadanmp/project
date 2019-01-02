@@ -16,6 +16,12 @@ public class US145Controller {
 
     private Room mRoom;
     private EnergyGrid mEnergyGrid;
+    private String mHouseName;
+    private HouseList mHouseList;
+    private RoomList mRoomList;
+    private String mRoomName;
+    private EnergyGridList mEnergyGridList;
+    private String mEnergyGridName;
 
 
     public US145Controller() {
@@ -26,46 +32,47 @@ public class US145Controller {
          * as it will only be used in ui to apply methods on given inputs
          */
     }
-    public boolean seeIfHouseExistsInHouseList(String houseName,HouseList houseList){
-        if (houseList.checkIfHouseListContainsHouseWithGivenDesignation(houseName)){
+    public US145Controller(HouseList houseList){this.mHouseList = houseList;}
+    public boolean seeIfHouseExistsInHouseList(String houseName){
+        if (this.mHouseList.checkIfHouseListContainsHouseWithGivenDesignation(houseName)){
+            this.mHouseName = houseName;
             return true;
         } else {
             return false;
         }
     }
 
-    public RoomList getRoomListByHouseName (String houseName, HouseList houseList){
-        return houseList.getHouseByDesignation(houseName).getmRoomList();
-}
-    public boolean seeIfRoomExistsInHouse(String roomName, RoomList roomList){
-        if (roomList.matchRoom(roomName)){
+    public RoomList getRoomListByHouseName (String houseName){
+        return this.mHouseList.getHouseByDesignation(houseName).getmRoomList();
+    }
+    public boolean seeIfRoomExistsInHouse(String roomName){
+        if (this.mHouseList.getHouseByDesignation(this.mHouseName).getmRoomList().matchRoom(roomName)){
+            this.mRoomName = roomName;
             return true;
         } else {
             return false;
         }
     }
-    public EnergyGridList getmEnergyGridListByHouseName (String houseName, HouseList houseList){
-        return houseList.getHouseByDesignation(houseName).getmEGList();
+    public EnergyGridList getmEnergyGridListByHouseName (){
+        return this.mHouseList.getHouseByDesignation(this.mHouseName).getmEGList();
     }
 
-    public boolean seeIfEnergyGridExistsInEnergyGridList(String energyGridName, EnergyGridList energyGridList){
-        if(energyGridList.seeIfContainsEnergyGrid(energyGridName)) {
+    public boolean seeIfEnergyGridExistsInEnergyGridList(String energyGridName){
+        if(this.mHouseList.getHouseByDesignation(this.mHouseName).getmEGList().seeIfContainsEnergyGrid(energyGridName)) {
+            this.mEnergyGridName = energyGridName;
             return true;
         }else {
             return false;
         }
     }
 
-    public EnergyGrid getEnergyGrid (String energyGrid, EnergyGridList energyGridList){
-        return energyGridList.matchEnergyGrid(energyGrid);
+    public EnergyGrid getEnergyGrid (String energyGrid){
+        return this.mHouseList.getHouseByDesignation(mHouseName).getmEGList().matchEnergyGrid(energyGrid);
     }
 
-    public Room matchRoomByName(String roomName, RoomList roomList){
-        return roomList.getRoomByName(roomName);
-    }
 
-    public boolean addRoomToEnergyGrid(Room room, EnergyGrid energyGrid) {
-        if (energyGrid.addRoomToAEnergyGrid(room)){
+    public boolean addRoomToEnergyGrid() {
+        if (this.mHouseList.getHouseByDesignation(mHouseName).getmEGList().matchEnergyGrid(mEnergyGridName).addRoomToAEnergyGrid(mRoom)){
             return true;
         } else{
             return false;
