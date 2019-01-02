@@ -14,19 +14,16 @@ public class US08Controller {
         this.mGeographicAreaList = list;
     }
 
-    public GeographicArea getmGeographicAreaContained() {
+    GeographicArea getmGeographicAreaContained() {
         return this.mGeographicAreaContained;
     }
 
-    public GeographicArea getmGeographicAreaContainer() {
+    GeographicArea getmGeographicAreaContainer() {
         return this.mGeographicAreaContainer;
     }
 
     /**
      * This method define the GeographicAreas Container and Contained
-     * @param nameOfAreaContained
-     * @param nameOfAreaContainer
-     * @return
      */
 
     public boolean matchGeographicAreas(String nameOfAreaContained, String nameOfAreaContainer) {
@@ -46,8 +43,6 @@ public class US08Controller {
 
     /**
      * This methods checks if one area (AreaContained) is contained in another area (AreaContainer)
-     *
-     * @return
      */
     public boolean seeIfItsContained() {
         return mGeographicAreaContained.checkIfAreaIsContained(mGeographicAreaContained, mGeographicAreaContainer);

@@ -12,7 +12,7 @@ public class US08UI {
 
     private boolean mActive;
 
-    public US08UI() {
+    US08UI() {
         mActive = false;
     }
 

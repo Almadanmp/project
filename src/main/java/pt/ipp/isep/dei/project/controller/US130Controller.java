@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.EnergyGridList;
 import pt.ipp.isep.dei.project.model.HouseList;
-import pt.ipp.isep.dei.project.model.RoomList;
 
 /**
  * As an Administrator, I want to create a energy grid,

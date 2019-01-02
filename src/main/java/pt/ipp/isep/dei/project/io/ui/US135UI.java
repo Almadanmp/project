@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.US135Controller;
-import pt.ipp.isep.dei.project.model.EnergyGridList;
 import pt.ipp.isep.dei.project.model.HouseList;
 
 import java.util.Scanner;
@@ -13,9 +12,9 @@ public class US135UI {
 
     private boolean mActive;
 
-    US135Controller ctrl135;
+    private US135Controller ctrl135;
 
-    public US135UI() {
+    US135UI() {
         mActive = false;
     }
 
