@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * User Story 623 - controller Tests
  */
 
-public class US623ControllerTest {
+public class HouseMonitoringControllerTest {
 
     @Test
     public void seeIfGetsAverageRainfallOfGA() {
@@ -47,7 +47,7 @@ public class US623ControllerTest {
         sensorList.addSensor(s3);
         gA1.setSensorList(sensorList);
 
-        US623Controller US623 = new US623Controller();
+        HouseMonitoringController US623 = new HouseMonitoringController();
         GregorianCalendar dateMin = new GregorianCalendar(2018, 11, 1);
         GregorianCalendar dateMax = new GregorianCalendar(2018, 11, 20);
         Date dateToTest1 = dateMin.getTime();
@@ -60,7 +60,7 @@ public class US623ControllerTest {
 
     @Test
     public void seeIfPrintsGeoAList() {
-        US623Controller US623 = new US623Controller();
+        HouseMonitoringController US623 = new HouseMonitoringController();
         GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33));
         GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14));
         GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3));
@@ -79,7 +79,7 @@ public class US623ControllerTest {
 
     @Test
     public void seeIfPrintsGeoAListIfEmpty() {
-        US623Controller US623 = new US623Controller();
+        HouseMonitoringController US623 = new HouseMonitoringController();
         GeographicAreaList gAL1 = new GeographicAreaList();
         String expectedResult = "Invalid List - List is Empty\n";
         String result = US623.printGAList(gAL1);
@@ -88,7 +88,7 @@ public class US623ControllerTest {
 
     @Test
     public void seeIfPrintsHouseList(){
-        US623Controller US623 = new US623Controller();
+        HouseMonitoringController US623 = new HouseMonitoringController();
         House house1 = new House("vacationHouse","Flower Street", new Local (11,13), "4230-111");
         House house2 = new House ("workHouse","Torrinha", new Local (12,12), "4345-000");
         House house3 = new House ("dreamHouse","New York", new Local (122,122), "6666-000");
@@ -108,7 +108,7 @@ public class US623ControllerTest {
 
     @Test
     public void seeIfPrintsHouseListIfEmpty(){
-        US623Controller US623 = new US623Controller();
+        HouseMonitoringController US623 = new HouseMonitoringController();
         HouseList hL1 = new HouseList();
         GeographicArea gA1 = new GeographicArea();
         gA1.setHouseList(hL1);
@@ -119,7 +119,7 @@ public class US623ControllerTest {
 
     @Test
     public void seeCreateDate() {
-        US623Controller US623 = new US623Controller();
+        HouseMonitoringController US623 = new HouseMonitoringController();
         int year = 2018;
         int month = 1;
         int day = 13;

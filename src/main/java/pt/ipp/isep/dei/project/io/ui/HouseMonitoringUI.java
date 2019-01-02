@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.US620Controller;
-import pt.ipp.isep.dei.project.controller.US623Controller;
+import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
@@ -12,13 +12,8 @@ import java.util.Scanner;
 
 import static java.lang.System.out;
 
-/**
- * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
- * <p>
- * HouseMonitoringUI: As a Regular User, I want to get the average daily rainfall in the house area for a
- * given period (days), as it is needed to assess the garden’s watering needs.
- */
-public class US623UI {
+
+public class HouseMonitoringUI {
     private Scanner mScanner;
     private House mHouse;
     private GeographicArea mGeoArea;
@@ -33,16 +28,15 @@ public class US623UI {
     private int dataYear2;
     private int dataMonth2;
     private int dataDay2;
-    private US623Controller controller623;
+    private HouseMonitoringController controller623;
     private US620Controller controller620;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private List<Integer> listOfIndexesGeographicAreas;
 
 
-
-    public US623UI() {
+    public HouseMonitoringUI() {
         this.mScanner = new Scanner(System.in);
-        this.controller623 = new US623Controller();
+        this.controller623 = new HouseMonitoringController();
         this.controller620 = new US620Controller();
     }
 
@@ -54,7 +48,9 @@ public class US623UI {
         }
         boolean activeInput = false;
         String option;
-
+        System.out.println("--------------\n");
+        System.out.println("House Monitoring\n");
+        System.out.println("--------------\n");
         getInputGeographicArea(newGeoListUi);
         getInputHouse();
         if (mHouse == null) {
@@ -66,12 +62,30 @@ public class US623UI {
             option = mScanner.next();
             switch (option) {
                 case "1":
+                    //US600UI us600UI = new US600UI();
+                    //us600UI.updateModel();
+                    // us600UI.displayState();
+                    //activeInput = true;
+                    break;
+                case "2":
+                    //   US600UI us600UI = new US600UI();
+                    // us600UI.updateModel();
+                    // us600UI.displayState();
+                    //activeInput = true;
+                    break;
+                case "3":
+                    US600UI us600UI = new US600UI();
+                    us600UI.updateModel();
+                    us600UI.displayState();
+                    activeInput = true;
+                    break;
+                case "4":
                     getInputStartDate();
                     updateModelUS620();
                     displayState620();
                     activeInput = true;
                     break;
-                case "2":
+                case "5":
                     getInputStartDate();
                     getInputEndDate();
                     updateModelUS623();
@@ -119,7 +133,7 @@ public class US623UI {
     }
 
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
-        US623Controller ctrl = new US623Controller();
+        HouseMonitoringController ctrl = new HouseMonitoringController();
         listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
 
         while (listOfIndexesGeographicAreas.isEmpty()) {
@@ -249,15 +263,25 @@ public class US623UI {
         mScanner.nextLine();
     }
 
+
+    private void printOptionMessage() {
+        System.out.println("House Monitoring Options:\n");
+        System.out.println("1) Get Max Temperature in a room in a specific day");
+        System.out.println("2) Get Current Temperature in a room");
+        System.out.println("3) Get Current Temperature in a House Area.");
+        System.out.println("4) Get The Average Rainfall on a specific day in a House Area .");
+        System.out.println("5) Get The Average Rainfall on a day interval in a House Area.");
+        System.out.println("0) (Return to main menu)");
+    }
+
+
+
+    /**
+     * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
+     */
     private void updateModelUS620() {
         this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
         this.mResult620 = controller620.getTotalRainfallOnGivenDayHouseArea(mGeoArea, mStartDate);
-    }
-
-    private void updateModelUS623() {
-        this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
-        this.mEndDate = controller623.createDate(dataYear2, dataMonth2, dataDay2);
-        this.mResult623 = controller623.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
     }
 
     private void displayState620() {
@@ -265,15 +289,21 @@ public class US623UI {
                 mStartDate + " is " + mResult620 + "%.");
     }
 
+    /**
+     * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
+     * given period (days), as it is needed to assess the garden’s watering needs.
+     */
+    private void updateModelUS623() {
+        this.mStartDate = controller623.createDate(dataYear1, dataMonth1, dataDay1);
+        this.mEndDate = controller623.createDate(dataYear2, dataMonth2, dataDay2);
+        this.mResult623 = controller623.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
+    }
+
     private void displayState623() {
         System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " between " + mStartDate + " and " +
                 mEndDate + " is " + mResult623 + "%.");
     }
-
-    private void printOptionMessage() {
-        System.out.println("\nDo you wish to know the average rainfall on:");
-        System.out.println("1) A specific day.");
-        System.out.println("2) A day interval.");
-        System.out.println("0) (Return to main menu)");
-    }
 }
+
+
+

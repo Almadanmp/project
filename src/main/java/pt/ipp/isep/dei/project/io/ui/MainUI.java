@@ -284,7 +284,7 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 623:
-                    US623UI view623 = new US623UI();
+                    HouseMonitoringUI view623 = new HouseMonitoringUI();
                     view623.run(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();

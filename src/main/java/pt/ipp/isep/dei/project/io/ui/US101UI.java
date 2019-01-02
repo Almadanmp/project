@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.US101Controller;
-import pt.ipp.isep.dei.project.controller.US623Controller;
+import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.HouseList;
@@ -23,7 +23,7 @@ public class US101UI {
     private boolean active;
     private GeographicArea mGeoArea;
     private String mNameGeoArea;
-    private US623Controller controller623;
+    private HouseMonitoringController controller623;
 
 
     public US101UI() {
@@ -83,7 +83,7 @@ public class US101UI {
     }
 
     private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
-        this.controller623 = new US623Controller();
+        this.controller623 = new HouseMonitoringController();
         boolean activeInput = false;
         Double option;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");

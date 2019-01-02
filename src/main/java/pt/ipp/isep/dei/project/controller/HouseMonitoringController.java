@@ -9,11 +9,11 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
- * US623UI: As a Regular User, I want to get the average daily rainfall in the house area for a
+ * HouseMonitoringUI: As a Regular User, I want to get the average daily rainfall in the house area for a
  * given period (days), as it is needed to assess the garden’s watering needs.
  **/
 
-public class US623Controller {
+public class HouseMonitoringController {
 
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList){
         return geoAreaList.matchGeographicAreaIndexByString(input);
