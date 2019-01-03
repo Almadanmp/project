@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.US101Controller;
+
 
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
@@ -93,7 +93,7 @@ public class US101UI {
     }
 
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
+        US101Controller ctrl = new US101Controller(newGeoListUi);
         listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
 
         while (listOfIndexesGeographicAreas.isEmpty()) {
@@ -125,7 +125,7 @@ public class US101UI {
     }
 
     private void getInputGeographicAreaByList(GeographicAreaList newGeoListUi) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
+        US101Controller ctrl = new US101Controller(newGeoListUi);
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
 
@@ -142,7 +142,7 @@ public class US101UI {
     }
 
     private boolean getInputHouse(GeographicAreaList newGeoListUi) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
+        US101Controller ctrl = new US101Controller(newGeoListUi);
         if (mGeoArea.getHouseList().getHouseList().size() == 0) {
             System.out.print("Invalid House List - List Is Empty\n/**/");
             return false;
