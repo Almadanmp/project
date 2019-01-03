@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Sensor;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -18,6 +15,35 @@ import java.util.List;
  **/
 
 public class HouseMonitoringController {
+
+
+    public HouseMonitoringController(){}
+
+
+    public double getCurrentRoomTemperature(Date day, RoomList room) {
+        double currentTemperature = 0;
+        for (Room r : room.getListOfRooms()) {
+            currentTemperature = r.getCurrentRoomTemperature(day);
+        }
+        return currentTemperature;
+    }
+
+    public double getMaxTemperatureInARoomOnAGivenDay(Date day, RoomList room){
+        double max=-275;
+        for(Room r: room.getListOfRooms()){
+            max=r.getMaxTemperatureInARoomOnAGivenDay(day);
+        } return max;
+    }
+
+    public boolean doesListContainRoomByName(String name, RoomList room){
+        return room.doesListOfRoomsContainRoomByName(name);
+    }
+    public boolean doesSensorListInARoomContainASensorByName(String name, RoomList room){
+        boolean result = true;
+        for (Room r: room.getRooms()){
+            result= r.getRoomSensorList().doesSensorListContainSensorByName(name);}
+        return result;
+    }
 
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
         return geoAreaList.matchGeographicAreaIndexByString(input);
