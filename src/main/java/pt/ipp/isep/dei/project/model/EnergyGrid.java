@@ -9,19 +9,10 @@ public class EnergyGrid {
     private double mMaxPower;
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
-    private EnergyGridList mEnergyGridList;
 
     public EnergyGrid() {
     }
 
-    public EnergyGrid(String name, RoomList listOfRooms, double totalPower, PowerSourceList listPowerSources, DeviceList deviceList, EnergyGridList energyGridList) {
-        setName(name);
-        setListOfRooms(listOfRooms);
-        setMaxPower(totalPower);
-        setListPowerSources(listPowerSources);
-        setListDevices(deviceList);
-        setEnergyGridList(energyGridList);
-    }
 
     public EnergyGrid(String houseGridDesignation, double maxContractedPower) {
         setName(houseGridDesignation);
@@ -48,9 +39,6 @@ public class EnergyGrid {
         return sum;
     }
 
-    public void setEnergyGridList(EnergyGridList energyGridList) {
-        this.mEnergyGridList = energyGridList;
-    }
 
     public PowerSourceList getmListPowerSources() {
         return mListPowerSources;

@@ -11,10 +11,7 @@ public class EnergyGridList {
     public EnergyGridList() {
         mEnergyGridList = new ArrayList<>();
     }
-    public EnergyGridList(EnergyGrid energyGridToAdd) {
-        mEnergyGridList = new ArrayList<>();
-        mEnergyGridList.add(energyGridToAdd);
-    }
+
     public boolean addEnergyGridToEnergyGridList(EnergyGrid energyGridToAdd) {
         if(!(mEnergyGridList.contains(energyGridToAdd))) {
             mEnergyGridList.add(energyGridToAdd);
@@ -29,9 +26,6 @@ public class EnergyGridList {
             }
         }
         return null;
-    }
-    public boolean checkIfListIsValid() {
-        return !mEnergyGridList.isEmpty();
     }
 
     public String printEnergyGridList() {
@@ -50,14 +44,7 @@ public class EnergyGridList {
     public List<EnergyGrid> getEnergyGridList() {
         return mEnergyGridList;
     }
-    public boolean seeIfContainsEnergyGrid (String energyGridName){
-        for (EnergyGrid eg: mEnergyGridList){
-            if (eg.getName().equals(energyGridName)){
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public List<Integer> matchGridListElementsByString(String name) {
 

@@ -15,42 +15,6 @@ public class PowerSourceList {
     }
 
     /**
-     * Constructor of an ArrayList of Arrays.
-     *
-     * @param powerSourceToAdd
-     */
-
-
-    public PowerSourceList(PowerSource[] powerSourceToAdd) {
-        mPowerSourceList = new ArrayList<>();
-        for (int i = 0; i < powerSourceToAdd.length; i++) {
-            mPowerSourceList.add(powerSourceToAdd[i]);
-        }
-    }
-
-    /**
-     * Constructor to always create an Array of PowerSources.
-     *
-     * @param powerSourceToAdd
-     */
-
-    public PowerSourceList(PowerSource powerSourceToAdd) {
-        mPowerSourceList = new ArrayList<>();
-        mPowerSourceList.add(powerSourceToAdd);
-    }
-
-    /**
-     * Method to Add a PowerSource only if it's not contained in the list already.
-     */
-
-    public boolean addPowerSource(PowerSource powerSourceToAdd) {
-        if(!(mPowerSourceList.contains(powerSourceToAdd))){
-            mPowerSourceList.add(powerSourceToAdd);
-        }
-        return false;
-    }
-
-    /**
      * Checks if a PowerSource is inside the PowerSource List
      *
      * @param powerSource
@@ -83,22 +47,6 @@ public class PowerSourceList {
         return this.mPowerSourceList;
     }
 
-    /**
-     * Removes a powerSources from the powerSource List
-     *
-     * @param powerSourceToRemove
-     */
-    public void removePowerSource(PowerSource powerSourceToRemove) {
-        mPowerSourceList.remove(powerSourceToRemove);
-    }
-
-    private boolean checkIfListInvalid() {
-        return (this.mPowerSourceList.isEmpty());
-    }
-
-    public boolean checkIfListIsValid() {
-        return !mPowerSourceList.isEmpty();
-    }
 
     @Override
     public boolean equals(Object testObject) {
