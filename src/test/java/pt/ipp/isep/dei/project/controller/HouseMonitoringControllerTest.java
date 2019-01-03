@@ -515,4 +515,32 @@ public class HouseMonitoringControllerTest {
         double expectedResult = -25.0;
         assertEquals(expectedResult, result, 0.01);
     }
+
+
+    @Test
+    public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks(){
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        Sensor s1 = new Sensor("sensor1",new TypeSensor("temperature"),new Local(4,6),new GregorianCalendar(4,4,4).getTime());
+        Sensor s2 = new Sensor("sensor2",new TypeSensor("temperature"),new Local(4,8),new GregorianCalendar(4,4,4).getTime());
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
+        House house = new House("casa","rua coise",new Local(4,5),"440-4");
+        Sensor result= ctrl.getSensorWithTheMinimumDistanceToHouse(house,ga);
+        assertEquals(s1,result);
+    }
+    @Test
+    public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks2(){
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        Sensor s1 = new Sensor("sensor1",new TypeSensor("temperature"),new Local(4,8),new GregorianCalendar(4,4,4).getTime());
+        Sensor s2 = new Sensor("sensor2",new TypeSensor("temperature"),new Local(4,6),new GregorianCalendar(4,4,4).getTime());
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
+        House house = new House("casa","rua coise",new Local(4,5),"440-4");
+        Sensor result= ctrl.getSensorWithTheMinimumDistanceToHouse(house,ga);
+        assertEquals(s2,result);
+    }
 }
