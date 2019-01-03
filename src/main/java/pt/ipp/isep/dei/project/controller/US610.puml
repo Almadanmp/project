@@ -5,24 +5,24 @@ MainUI -> HouseMonitoringUI: Get Max Temperature In A Room On A Given Day
 HouseMonitoringUI --> User: Request Room Name
 User -> MainUI: insert data (Room name)
 MainUI -> HouseMonitoringUI: set data (Room name)
-HouseMonitoringUI -> US610Controller: check if name is contained in list
-US610Controller -> RoomList: check if name is contained in list
+HouseMonitoringUI -> HouseMonitoringController: check if name is contained in list
+HouseMonitoringController -> RoomList: check if name is contained in list
 RoomList -> Room: match by name
 Room -> Room: validate data
 Room --> HouseMonitoringUI: set data (Room)
 HouseMonitoringUI --> User: Request Sensor Name
 User -> MainUI: insert data (Sensor name)
 MainUI -> HouseMonitoringUI: set data (Sensor name)
-HouseMonitoringUI -> US600Controller: check if name is contained in list
-US610Controller -> SensorList: check if name is contained in list
+HouseMonitoringUI -> HouseMonitoringController: check if name is contained in list
+HouseMonitoringController -> SensorList: check if name is contained in list
 SensorList -> Sensor: match by name
 Sensor -> Sensor: validate data
 Sensor --> HouseMonitoringUI: set data (Sensor)
 HouseMonitoringUI --> User: Request Date
 User -> MainUI: insert data (Date(y-m-d))
 MainUI -> HouseMonitoringUI: set data (Date(y-m-d))
-HouseMonitoringUI -> US610Controller: getMaxTemperatureInARoomOnAGivenDay(Date)
-US610Controller->Room: getMaxTemperatureOnAGivenDay(Date)
+HouseMonitoringUI -> HouseMonitoringController: getMaxTemperatureInARoomOnAGivenDay(Date)
+HouseMonitoringController->Room: getMaxTemperatureOnAGivenDay(Date)
 Room->Sensor: getReadingList
 Sensor->ReadingList:getMaximumOfGivenDayValueReadings(Date)
 ReadingList-->User: Display Maximum Temperature

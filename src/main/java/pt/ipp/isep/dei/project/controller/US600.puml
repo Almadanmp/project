@@ -5,21 +5,21 @@ MainUI -> HouseMonitoringUI: Get Current Temperature in The House Area
 HouseMonitoringUI --> User: Request Geographic Area Name
 User -> MainUI: insert data (Geographic Area name)
 MainUI -> HouseMonitoringUI: set data (Geographic Area name)
-HouseMonitoringUI -> US600Controller: check if name is contained in list
-US600Controller -> GeographicAreaList: check if name is contained in list
+HouseMonitoringUI ->HouseMonitoringController: check if name is contained in list
+HouseMonitoringController -> GeographicAreaList: check if name is contained in list
 GeographicAreaList -> GeographicArea: match by name
 GeographicArea -> GeographicArea: validate data
 GeographicArea --> HouseMonitoringUI: set data (Geographic Area)
 HouseMonitoringUI --> User: Request House Name
 User -> MainUI: insert data (House name)
 MainUI -> HouseMonitoringUI: set data (House name)
-HouseMonitoringUI -> US600Controller: check if name is contained in list
-US600Controller -> HouseList: check if name is contained in list
+HouseMonitoringUI -> HouseMonitoringController: check if name is contained in list
+HouseMonitoringController -> HouseList: check if name is contained in list
 HouseList -> House: match by name
 House -> House: validate data
 House --> HouseMonitoringUI: set data (House)
-HouseMonitoringUI -> US600Controller: getCurrentTemperatureInTheHouseArea
-US600Controller->House: getSensorWithTheMinimumDistanceToHouse
+HouseMonitoringUI -> HouseMonitoringController: getCurrentTemperatureInTheHouseArea
+HouseMonitoringController->House: getSensorWithTheMinimumDistanceToHouse
 House->Sensor: getReadingList
 Sensor->ReadingList:getMostRecentValueOfReading
 ReadingList-->User: Display Current Temperature

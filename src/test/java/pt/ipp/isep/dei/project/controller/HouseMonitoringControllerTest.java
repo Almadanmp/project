@@ -426,4 +426,23 @@ public class HouseMonitoringControllerTest {
         double expectedResult = 20;
         assertEquals(expectedResult, result, 0.01);
     }
+
+    @Test
+    public void SeeIfGetCurrentTemperatureInTheHouseAreaWorks(){
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        Reading r1 = new Reading(30,new GregorianCalendar(2018,8,9,17,0).getTime());
+        Reading r2 = new Reading(40,new GregorianCalendar(2018,8,9,22,0).getTime());
+        ReadingList readingList = new ReadingList();
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        Sensor s1 = new Sensor("sensor1",new TypeSensor("temperature"),new Local(4,8),new GregorianCalendar(4,4,4).getTime(),readingList);
+        Sensor s2 = new Sensor("sensor2",new TypeSensor("temperature"),new Local(4,6),new GregorianCalendar(4,4,4).getTime(),readingList);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
+        House house = new House("casa","rua coise",new Local(4,5),"440-4");
+        double result = ctrl.getCurrentTemperatureInTheHouseArea(house,ga);
+        assertEquals(40,result);
+    }
 }
