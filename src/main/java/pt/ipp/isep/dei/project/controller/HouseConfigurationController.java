@@ -146,6 +146,9 @@ public class HouseConfigurationController {
 
     private GeographicAreaList mGeoList;
 
+    public HouseConfigurationController() {
+    }
+
 
     public HouseConfigurationController(GeographicAreaList geoList) {
         this.mGeoList = geoList;
@@ -244,25 +247,30 @@ public class HouseConfigurationController {
     /**
      * US135
      * As an Administrator, I want to add a power source to an energy grid,
-     * so that the produced energy may be used by all devices on that grid. **/
+     * so that the produced energy may be used by all devices on that grid.
+     **/
 
     private PowerSource mPowerSource;
     private EnergyGridList mEnergyGridList;
 
-    public void createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){this.mPowerSource = new PowerSource(name, maxPowerOutput, maxEnergyStorage);}
+    public void createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
+        this.mPowerSource = new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+    }
 
-    PowerSource getPowerSource(){return this.mPowerSource;}
+    PowerSource getPowerSource() {
+        return this.mPowerSource;
+    }
 
-    public String seeIfEnergyGridListIsEmptyAndShowItsContent(){
+    public String seeIfEnergyGridListIsEmptyAndShowItsContent() {
         return this.mEnergyGridList.printEnergyGridList();
     }
 
-    public boolean selectEnergyGrid(String name){
+    public boolean selectEnergyGrid(String name) {
         this.mEnergyGrid = mEnergyGridList.matchEnergyGrid(name);
         return this.mEnergyGrid != null;
     }
 
-    public boolean addPowerSourceToEnergyGrid(){
+    public boolean addPowerSourceToEnergyGrid() {
         return this.mEnergyGrid.addPowerSource(mPowerSource);
     }
     

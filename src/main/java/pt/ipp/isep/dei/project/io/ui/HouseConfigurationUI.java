@@ -263,20 +263,21 @@ class HouseConfigurationUI {
     private String geoName;
     private GeographicArea mGeoArea;
     private static final String INVALID_OPTION = "Please enter a valid option";
+    private HouseList mHouseList;
 
 
-    public void runUS101(HouseList listOfHouses, GeographicAreaList list) {
-        this.controller = new HouseConfigurationController(listOfHouses);
+    public void runUS101(GeographicAreaList gaList) {
+        this.controller = new HouseConfigurationController();
 
-        if (list == null || list.getGeographicAreaList().isEmpty()) {
+        if (gaList == null || gaList.getGeographicAreaList().isEmpty()) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
         }
 
-        if (!getInputGeographicArea(list)) {
+        if (!getInputGeographicArea(gaList)) {
             return;
         }
-        if (!getInputHouse(list)) {
+        if (!getInputHouse(gaList)) {
             if (mHouse == null) {
                 System.out.println("Unable to select a house. Returning to main menu.");
                 return;
@@ -284,7 +285,7 @@ class HouseConfigurationUI {
             return;
         }
         getInputHouse();
-        updateModelUS101(listOfHouses);
+        updateModelUS101();
         displayStateUS101();
         return;
     }
@@ -372,8 +373,9 @@ class HouseConfigurationUI {
     }
 
     private boolean getInputHouse(GeographicAreaList newGeoListUi) {
-        HouseConfigurationController ctrl = new HouseConfigurationController(newGeoListUi);
-        if (mGeoArea.getHouseList().getHouseList().isEmpty()) {
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        mHouseList = mGeoArea.getHouseList();
+        if (mHouseList.getHouseList().isEmpty()) {
             System.out.print("Invalid House List - List Is Empty\n/**/");
             return false;
         }
@@ -381,11 +383,12 @@ class HouseConfigurationUI {
         boolean activeInput = false;
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
 
+
         while (!activeInput) {
             ctrl.printHouseList(mGeoArea);
             this.indexOfHouse = readInputNumberAsInt();
-            if (indexOfHouse >= 0 && indexOfHouse < mGeoArea.getHouseList().getHouseList().size()) {
-                mHouse = mGeoArea.getHouseList().getHouseList().get(indexOfHouse);
+            if (indexOfHouse >= 0 && indexOfHouse < mHouseList.getHouseList().size()) {
+                mHouse = mHouseList.getHouseList().get(indexOfHouse);
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
@@ -438,8 +441,8 @@ class HouseConfigurationUI {
 
     }
 
-    private void updateModelUS101(HouseList listOfHouses) {
-        HouseConfigurationController ctrl = new HouseConfigurationController(listOfHouses);
+    private void updateModelUS101() {
+        HouseConfigurationController ctrl = new HouseConfigurationController(mHouseList);
         ctrl.setHouseLocal(mHouseLat, mHouseLon, indexOfHouse);
         ctrl.setHouseZIPCode(mHouseZipCode, indexOfHouse);
         ctrl.setHouseAddress(mHouseAddress, indexOfHouse);
