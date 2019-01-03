@@ -131,7 +131,7 @@ public class HouseTest {
         RoomList rL1 = new RoomList();
         house.setmRoomList(rL1);
         Room room = new Room("quarto", 1, 80);
-        Room room2 = new Room("quarto", 1, 80);
+        Room room2 = new Room("quarto", 2, 80);
         Boolean expectedResult = false;
         house.addRoomToRoomList(room2);
         Boolean result = house.addRoomToRoomList(room);
