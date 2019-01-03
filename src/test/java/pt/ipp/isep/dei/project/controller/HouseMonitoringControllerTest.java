@@ -1015,7 +1015,7 @@ public class HouseMonitoringControllerTest {
         list.add(i);
         String result = ctrl.printSensorList(room1);
         String expectedResult = "---------------\n" +
-                "0) Designation: sensor | Sensor Type: temperatura | Start Date: Sat Sep 08 08:08:00 GMT 8\n" +
+                "0) Designation: sensor | Sensor Type: temperatura\n" +
                 "---------------\n";
         //Assert ---------------------------------
         Assert.assertEquals(expectedResult,result);
@@ -1041,5 +1041,13 @@ public class HouseMonitoringControllerTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    public void seeIfprintSensorWorks(){
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        Sensor s1 = new Sensor ("sensor",new TypeSensor("temperatura"),new Local(4,4),new GregorianCalendar(7,7,7).getTime());
+        String result = ctrl.printSensor(s1);
+        String expected = "sensor, temperatura, 4.0º lat, 4.0º long\n";
+        assertEquals(expected,result);
+    }
 
 }

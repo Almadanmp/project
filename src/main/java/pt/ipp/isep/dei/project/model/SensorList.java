@@ -167,8 +167,7 @@ public class SensorList {
         for (int i = 0; i < room.getmRoomSensorList().getSensorList().size(); i++) {
             Sensor aux = room.getmRoomSensorList().getSensorList().get(i);
             result = result + i + ") Designation: " + aux.getName() + " | ";
-            result = result + "Sensor Type: " + aux.getTypeSensor().getName() + " | ";
-            result = result + "Start Date: " + aux.getDateStartedFunctioning() + "\n";
+            result = result + "Sensor Type: " + aux.getTypeSensor().getName() +  "\n";
         }
         result = result + "---------------\n";
         System.out.print(result);
