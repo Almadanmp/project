@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class US253ControllerTest {
+public class RoomConfigurationControllerTest {
 
     @Test
     public void seeIfSensorIsAddedToRoom() {
@@ -26,7 +26,7 @@ public class US253ControllerTest {
 
         //Act
 
-        US253Controller crl = new US253Controller();
+        RoomConfigurationController crl = new RoomConfigurationController();
         crl.addSensorToRoom(Bathroom1,s2);
         crl.addSensorToRoom(Bathroom1,s1);
         SensorList actualResult = crl.getSensorsFromRoom();

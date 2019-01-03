@@ -8,13 +8,13 @@ import pt.ipp.isep.dei.project.model.SensorList;
  * in order to configure it.
  **/
 
-public class US253Controller {
+public class RoomConfigurationController {
 
     private Room mRoom;
 
-    public US253Controller() {
+    public RoomConfigurationController() {
         /*
-         * Builder US253Controller(), with no parameters,
+         * Builder RoomConfigurationController(), with no parameters,
          * as it will only be used in ui to apply methods on given inputs
          */
     }
