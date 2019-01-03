@@ -783,4 +783,25 @@ public class HouseMonitoringControllerTest {
         //Assert
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void seeIfPrintHouseWorks() {
+        //Arrange --------------------
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //MAIN LISTS
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        //GEOGRAPHIC AREAS
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Act
+        String result = ctrl.printHouse(geoa1.getHouseList().getHouseList().get(0));
+        String expectedResult = "a minha rica casinha, Address2, 3456-123.\n";
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
 }
