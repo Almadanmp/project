@@ -53,6 +53,8 @@ public class MainUI {
         //TEST GEOGRAPHIC AREAS
         GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
         GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        geoa1.setSensorList(sensorList2);
+
 
         //TEST HOUSES
         HouseList houseList1 = new HouseList();
