@@ -200,8 +200,8 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 6:
-                    US06UI view6 = new US06UI(sensorList1, mGeographicAreaList);
-                    view6.run();
+                    HouseConfigurationUI view6 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
+                    view6.run06();
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

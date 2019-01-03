@@ -3,11 +3,14 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 class HouseConfigurationUI {
     HouseConfigurationController controller;
+
+    HouseConfigurationUI(){}
 
      /**
       * US001UI
@@ -44,6 +47,208 @@ class HouseConfigurationUI {
              System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
          }
      }
+
+    /**
+     * US005
+     */
+
+    private String mTypeSensor;
+    private String mNameSensor;
+    private boolean mActive;
+    private boolean mTypeAdded;
+
+    public void runUS05(SensorList list) {
+        this.mActive = true;
+        while (this.mActive) {
+            getInput05Sensor05();
+            getInput05();
+            updateModel05(list);
+            displayState05();
+        }
+    }
+
+    private void getInput05Sensor05() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Type the name of the sensor to add the type to: ");
+        this.mNameSensor = scanner.next();
+    }
+
+    private void getInput05() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Type the type of sensor you want to assign to the sensor: ");
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid name of Type Area. Please insert only Alphabetic Characters");
+            scanner.next();
+        }
+        this.mTypeSensor = scanner.next();
+    }
+
+    private void updateModel05(SensorList list) {
+        HouseConfigurationController controller = new HouseConfigurationController(list);
+        this.mTypeAdded = controller.setTypeSensor(mNameSensor, mTypeSensor);
+    }
+
+    private void displayState05() {
+        if (mTypeAdded) {
+            System.out.print("The type has been successfully assigned.");
+        } else System.out.print("The type of sensor wasn't added. There's no sensor with that name.");
+        mActive = false;
+    }
+
+    /**
+     * US006
+     */
+
+    private boolean active;
+    private String sensorName;
+    private String sensorType;
+    private double sensorLat;
+    private double sensorLong;
+    private double sensorAlt;
+    private int dataYear;
+    private int dataMonth;
+    private int dataDay;
+    private Sensor mSensor;
+    private String mGeographicAreaName;
+    private SensorList mSensorList;
+    private GeographicAreaList mGeographicAreaList;
+
+    HouseConfigurationUI(SensorList s, GeographicAreaList a) {
+        this.mSensorList = s;
+        this.mGeographicAreaList = a;
+        active = false;
+        // placeholder
+    }
+
+    public void run06() {
+        this.active = true;
+        while (this.active) {
+            getInput06();
+            updateUS06();
+            displayUS06();
+            getInputPart206();
+            updateAndDisplayUS06Part206();
+            this.active = false;
+        }
+    }
+
+    private void getInput06() {
+        Scanner input = new Scanner(System.in);
+
+        //Console title
+        System.out.println("***************************************************\n" +
+                "************** Sensor Addition Menu ***************\n" +
+                "****************** sWitCh 2018 ********************\n" +
+                "***************************************************\n");
+
+        System.out.println("**********  New Sensor Input  ***********\n");
+
+        // Name Getter
+        System.out.println("\nEnter Sensor Name:\t");
+        this.sensorName = input.next();
+        System.out.println("You entered sensor " + sensorName);
+
+        // Type Getter
+        System.out.println("\nEnter Sensor type:\t");
+
+        while(!input.hasNext("[a-zA-Z]+")) {
+            input.next();
+            System.out.println("Not a valid type. Try again");
+        }
+
+        this.sensorType = input.next();
+        System.out.println("You entered type " + sensorType);
+        input.nextLine();
+        // Local Getter
+        System.out.println("\nEnter Sensor Localization:\t");
+        System.out.println("\nEnter Latitude:\t");
+        while(!input.hasNextDouble()) {
+            input.next();
+            System.out.println("Not a valid latitude. Try again");
+        }
+        this.sensorLat = input.nextDouble();
+        input.nextLine();
+        System.out.println("\nEnter Longitude:\t");
+        while(!input.hasNextDouble()) {
+            input.next();
+            System.out.println("Not a valid longitude. Try again");
+        }
+        this.sensorLong = input.nextDouble();
+        System.out.println("\nEnter Altitude:\t");
+        while(!input.hasNextDouble()) {
+            input.next();
+            System.out.println("Not a valid altitude. Try again");
+        }
+        this.sensorAlt = input.nextDouble();
+        input.nextLine();
+        System.out.println("You entered sensor on coordinates  " + sensorLat + "  ,  " + sensorLong + "  ,  " + sensorAlt);
+
+        // Date Getter
+        System.out.println("\nEnter Sensor starting date:\t");
+        System.out.println("\nEnter the year:\t");
+        while(!input.hasNextInt()) {
+            input.next();
+            System.out.println("Not a valid year. Try again");
+        }
+        this.dataYear = input.nextInt();
+        input.nextLine();
+        System.out.println("\nEnter the Month:\t");
+        while(!input.hasNextInt()) {
+            input.next();
+            System.out.println("Not a valid month. Try again");
+        }
+        this.dataMonth = input.nextInt();
+        input.nextLine();
+        System.out.println("\nEnter the Day:\t");
+        while(!input.hasNextInt()) {
+            input.next();
+            System.out.println("Not a valid day. Try again");
+        }
+        this.dataDay = input.nextInt();
+        System.out.println("You entered the date successfully!");
+        input.nextLine();
+    }
+
+    private void updateUS06() {
+        HouseConfigurationController ctrl06 = new HouseConfigurationController();
+        Local mLocal = ctrl06.createLocal(this.sensorLat, this.sensorLong, this.sensorAlt);
+        TypeSensor mType = ctrl06.createType(this.sensorType);
+        Date mDate = ctrl06.createDate(this.dataYear, this.dataMonth, this.dataDay);
+        this.mSensor = ctrl06.createSensor(this.sensorName, mType, mLocal, mDate);
+    }
+
+    private void displayUS06() {
+        this.active = true;
+        HouseConfigurationController ctrl06 = new HouseConfigurationController();
+        if (ctrl06.addSensor(mSensor, mSensorList)) {
+            System.out.println("\n \n Sensor has been successfully added to the list");
+        } else {
+            System.out.println("\n \nSensor could not be added to the list.");
+        }
+    }
+
+    private void getInputPart206() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("\n Add sensor to Geographic Area?\n");
+        System.out.println("Yes/No:\t");
+        if ("Yes".equals(input.nextLine()) || "yes".equals(input.nextLine()) || "Y".equals(input.nextLine()) || "y".equals(input.nextLine())) {
+            System.out.println("Type the name of the Geographic Area which the sensor will be added to");
+            System.out.println("\nEnter Geographic Area Name:\t");
+            this.mGeographicAreaName = input.nextLine();
+            System.out.println("You entered  " + this.mGeographicAreaName);
+        } else {
+            System.out.println("Exiting");
+        }
+    }
+    private void updateAndDisplayUS06Part206 () {
+
+        HouseConfigurationController ctrl06 = new HouseConfigurationController();
+        if (ctrl06.addSensorToGeographicArea(mGeographicAreaName, mGeographicAreaList, mSensorList)) {
+            System.out.println("\nSensor has been successfully added to the Geographic Area");
+        } else {
+            System.out.println("\nSensor could not be added to the Area.");
+        }
+    }
 
     /**
      * US101 UI
@@ -338,50 +543,4 @@ class HouseConfigurationUI {
         }
     }
 
-    /**
-     * US005
-     */
-
-    private String mTypeSensor;
-    private String mNameSensor;
-    private boolean mActive;
-    private boolean mTypeAdded;
-
-    public void runUS05(SensorList list) {
-        this.mActive = true;
-        while (this.mActive) {
-            getInput05Sensor05();
-            getInput05();
-            updateModel05(list);
-            displayState05();
-        }
-    }
-
-    private void getInput05Sensor05() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Type the name of the sensor to add the type to: ");
-        this.mNameSensor = scanner.next();
-    }
-
-    private void getInput05() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Type the type of sensor you want to assign to the sensor: ");
-        while (!scanner.hasNext("[a-zA-Z_]+")) {
-            System.out.println("That's not a valid name of Type Area. Please insert only Alphabetic Characters");
-            scanner.next();
-        }
-        this.mTypeSensor = scanner.next();
-    }
-
-    private void updateModel05(SensorList list) {
-        HouseConfigurationController controller = new HouseConfigurationController(list);
-        this.mTypeAdded = controller.setTypeSensor(mNameSensor, mTypeSensor);
-    }
-
-    private void displayState05() {
-        if (mTypeAdded) {
-            System.out.print("The type has been successfully assigned.");
-        } else System.out.print("The type of sensor wasn't added. There's no sensor with that name.");
-        mActive = false;
-    }
 }
