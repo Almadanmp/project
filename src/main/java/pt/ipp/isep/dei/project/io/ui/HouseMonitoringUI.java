@@ -19,14 +19,13 @@ public class HouseMonitoringUI {
     private String geoName;
     private double mResult620;
     private double mResult623;
-    private Date mStartDate;
-    private Date mEndDate;
     private int dataYear1;
     private int dataMonth1;
     private int dataDay1;
     private int dataYear2;
     private int dataMonth2;
     private int dataDay2;
+    private Date mStartDate;
     private HouseMonitoringController houseMonitoringcontroller;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private List<Integer> listOfIndexesGeographicAreas;
@@ -53,7 +52,7 @@ public class HouseMonitoringUI {
         System.out.println("House Monitoring\n");
         System.out.println("--------------\n");
         getInputGeographicArea(newGeoListUi);
-        if(mGeoArea == null){
+        if (mGeoArea == null) {
             System.out.println("Unable to select a Geographic Area. Returning to main menu.");
             return;
         }
@@ -102,13 +101,11 @@ public class HouseMonitoringUI {
                 case 5:
                     getInputStartDate();
                     getInputEndDate();
-                    updateModelUS623();
-                    displayState623();
+                    updateAndDispleyUS623();
                     activeInput = true;
                     break;
                 case 0:
                     return;
-
                 default:
                     System.out.println(INVALID_OPTION);
                     break;
@@ -356,7 +353,7 @@ public class HouseMonitoringUI {
             out.println("Not a valid year. Try again");
         }
         this.dataYear2 = scan.nextInt();
-       scan.nextLine();
+        scan.nextLine();
         out.println("\nEnter the Month:\t");
         while (!scan.hasNextInt()) {
             scan.next();
@@ -416,18 +413,7 @@ public class HouseMonitoringUI {
                 " is " + this.mCurrentTemperature + "°C.");
     }
 
-    /**
-     * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
-     */
-    private void updateModelUS620() {
-        this.mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
-        this.mResult620 = houseMonitoringcontroller.getTotalRainfallOnGivenDayHouseArea(mGeoArea, mStartDate);
-    }
 
-    private void displayState620() {
-        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " that is located on " + mGeoArea.getName() + " on the date " +
-                mStartDate + " is " + mResult620 + "%.");
-    }
 
     /**
      * US610
@@ -449,20 +435,27 @@ public class HouseMonitoringUI {
     }
 
     /**
+     * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
+     */
+    private void updateModelUS620() {
+        this.mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
+        this.mResult620 = houseMonitoringcontroller.getTotalRainfallOnGivenDayHouseArea(mGeoArea, mStartDate);
+    }
+
+    private void displayState620() {
+        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " that is located on " + mGeoArea.getName() + " on the date " +
+                mStartDate + " is " + mResult620 + "%.");
+    }
+
+    /**
      * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
-    private void updateModelUS623() {
+    private void updateAndDispleyUS623() {
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
         this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate);
-    }
-
-    private void displayState623() {
-        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " between " + mStartDate + " and " +
-                mEndDate + " is " + mResult623 + "%.");
+        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " between " + initialDate + " and " + endDate +
+                " is " + mResult623 + "%.");
     }
 }
-
-
-
