@@ -7,6 +7,51 @@ import java.util.List;
 public class HouseConfigurationController {
 
     /**
+     * User Story 01
+     * As a system administrator, I wish to define a new type of geographic area, so that later I can classify said geographic area.
+     */
+
+    private TypeAreaList mTypeAreaList;
+
+    /**
+     * The Builder recieves a List Of Types Of Geographic Areas and sets it.
+     */
+    public HouseConfigurationController(TypeAreaList list) {
+        this.mTypeAreaList = list;
+    }
+
+    /**
+     * This method creates a new Type of Geographic Area and adds it to a List.
+     *
+     * @param input - the String name of the Type of Geographic Area.
+     * @return true - the Type of Geographic Area was successfully created and added to a list;
+     * false - the name is null.
+     */
+    public boolean createAndAddTypeAreaToList(String input) {
+        return mTypeAreaList.newTAG(input);
+    }
+
+    /**
+     * User Story 05
+     * As a system administrator, I wish to specify the type of reading that a sensor is capable
+     * of registering.
+     */
+    private SensorList mSensorList;
+
+    public HouseConfigurationController(SensorList list) {
+        this.mSensorList = list;
+    }
+
+    public boolean setTypeSensor(String name, String typeToSet) {
+        return mSensorList.setTypeSensorByString(name,typeToSet);
+    }
+
+    public SensorList getSensorList() {
+        return this.mSensorList;
+    }
+
+
+    /**
      * US101
      */
 
@@ -130,25 +175,6 @@ public class HouseConfigurationController {
 
     public boolean addPowerSourceToEnergyGrid(){
         return this.mEnergyGrid.addPowerSource(mPowerSource);
-    }
-
-    /**
-     * User Story 05
-     * As a system administrator, I wish to specify the type of reading that a sensor is capable
-     * of registering.
-     */
-    private SensorList mSensorList;
-   
-    public HouseConfigurationController(SensorList list) {
-        this.mSensorList = list;
-    }
-
-    public boolean setTypeSensor(String name, String typeToSet) {
-        return mSensorList.setTypeSensorByString(name,typeToSet);
-    }
-
-    public SensorList getSensorList() {
-        return this.mSensorList;
     }
     
 }
