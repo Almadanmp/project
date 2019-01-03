@@ -212,23 +212,29 @@ public class HouseMonitoringUI {
                 "We need to know where your house is located\n" + "Would you like to:\n" +
                         "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
-        int option = readInputNumberAsInt();
-        switch (option) {
-            case 1:
-                getInputGeographicAreaName();
-                if (!getGeographicAreaByName(newGeoListUi)) {
-                    System.out.println("Unable to select a Geographic Area. Returning to main menu.");
+        boolean activeInput = false;
+
+        while (!activeInput) {
+            int option = readInputNumberAsInt();
+            switch (option) {
+                case 1:
+                    getInputGeographicAreaName();
+                    if (!getGeographicAreaByName(newGeoListUi)) {
+                        System.out.println("Unable to select a Geographic Area. Returning to main menu.");
+                        return;
+                    }
+                    activeInput = true;
+                    break;
+                case 2:
+                    getInputGeographicAreaByList(newGeoListUi);
+                    activeInput = true;
+                    break;
+                case 0:
                     return;
-                }
-                break;
-            case 2:
-                getInputGeographicAreaByList(newGeoListUi);
-                break;
-            case 0:
-                return;
-            default:
-                System.out.println(INVALID_OPTION);
-                break;
+                default:
+                    System.out.println(INVALID_OPTION);
+                    break;
+            }
         }
     }
 
@@ -293,23 +299,29 @@ public class HouseMonitoringUI {
         System.out.println(
                 "We need to know which one is your house.\n" + "Would you like to:\n" + "1) Type the name of your House;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
-        int option = readInputNumberAsInt();
-        switch (option) {
-            case 1:
-                getInputHouseName();
-                if (!getHouseByName(mGeoArea)) {
-                    System.out.println("Unable to select a House. Returning to main menu.");
+        boolean activeInput = false;
+
+        while (!activeInput) {
+            int option = readInputNumberAsInt();
+            switch (option) {
+                case 1:
+                    getInputHouseName();
+                    if (!getHouseByName(mGeoArea)) {
+                        System.out.println("Unable to select a House. Returning to main menu.");
+                        return;
+                    }
+                    activeInput = true;
+                    break;
+                case 2:
+                    getInputHousebyList(mGeoArea);
+                    activeInput = true;
+                    break;
+                case 0:
                     return;
-                }
-                break;
-            case 2:
-                getInputHousebyList(mGeoArea);
-                break;
-            case 0:
-                return;
-            default:
-                System.out.println(INVALID_OPTION);
-                break;
+                default:
+                    System.out.println(INVALID_OPTION);
+                    break;
+            }
         }
     }
 
@@ -375,7 +387,7 @@ public class HouseMonitoringUI {
         }
     }
 
-    private int readInputNumberAsInt() {
+    public int readInputNumberAsInt() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
@@ -480,7 +492,6 @@ public class HouseMonitoringUI {
         out.println("The Current Temperature in the room " + this.mNameRoom +
                 " is " + this.mCurrentTemperature + "°C.");
     }
-
 
 
     /**
