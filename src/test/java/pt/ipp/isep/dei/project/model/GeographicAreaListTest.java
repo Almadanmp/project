@@ -741,7 +741,7 @@ public class GeographicAreaListTest {
                 "0) Name: Portugal | Type: Country | Latitude: 21.0 | Longitude: 33.0\n" +
                 "1) Name: Oporto | Type: City | Latitude: 14.0 | Longitude: 14.0\n" +
                 "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
-                "---------------";
+                "---------------\n";
         String result = gAL1.printGaWholeList(gAL1);
         assertEquals(expectedResult, result);
     }
