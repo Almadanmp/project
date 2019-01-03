@@ -1,15 +1,12 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.HouseList;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class HouseConfigurationUI {
+class HouseConfigurationUI {
     HouseConfigurationController controller;
 
     /**
@@ -25,7 +22,10 @@ public class HouseConfigurationUI {
     private String geoName;
     private GeographicArea mGeoArea;
     private static final String INVALID_OPTION = "Please enter a valid option";
-
+    private String mTypeSensor;
+    private String mNameSensor;
+    private boolean mActive;
+    private boolean mTypeAdded;
 
     public void runUS101(HouseList listOfHouses, GeographicAreaList list) {
         this.controller = new HouseConfigurationController(listOfHouses);
@@ -35,23 +35,23 @@ public class HouseConfigurationUI {
             return;
         }
 
-        if (!getInputGeographicArea(list)) {
+        if (!getInput05GeographicArea(list)) {
             return;
         }
-        if (!getInputHouse(list)) {
+        if (!getInput05House(list)) {
             if (mHouse == null) {
                 System.out.println("Unable to select a house. Returning to main menu.");
                 return;
             }
             return;
         }
-        getInputHouse();
-        updateModelUS101(listOfHouses);
-        displayStateUS101();
+        getInput05House();
+        updateModel05US101(listOfHouses);
+        displayState05US101();
         return;
     }
 
-    private boolean getInputGeographicArea(GeographicAreaList newGeoListUi) {
+    private boolean getInput05GeographicArea(GeographicAreaList newGeoListUi) {
         System.out.println(
                 "We need to know where your house is located\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
@@ -59,14 +59,14 @@ public class HouseConfigurationUI {
         String option = scanner.nextLine();
         switch (option) {
             case "1":
-                getInputGeographicAreaName();
+                getInput05GeographicAreaName();
                 if (!getGeographicAreaByName(newGeoListUi)) {
                     System.out.println("Unable to select a Geographic Area. Returning to main menu.");
                     return false;
                 }
                 break;
             case "2":
-                getInputGeographicAreaByList(newGeoListUi);
+                getInput05GeographicAreaByList(newGeoListUi);
                 break;
             case "0":
                 return false;
@@ -77,7 +77,7 @@ public class HouseConfigurationUI {
         return true;
     }
 
-    private boolean getInputGeographicAreaName() {
+    private boolean getInput05GeographicAreaName() {
         System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
         Scanner scanner = new Scanner(System.in);
         this.geoName = scanner.nextLine();
@@ -91,7 +91,7 @@ public class HouseConfigurationUI {
         while (listOfIndexesGeographicAreas.isEmpty()) {
             System.out.println("There is no Geographic Area with that name. Please insert the name of a Geographic Area" +
                     " that exists or  Type 'exit' to cancel and create a new Geographic Area on the Main Menu.");
-            if (!getInputGeographicAreaName()) {
+            if (!getInput05GeographicAreaName()) {
                 return false;
             }
             listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
@@ -116,7 +116,7 @@ public class HouseConfigurationUI {
         return true;
     }
 
-    private void getInputGeographicAreaByList(GeographicAreaList newGeoListUi) {
+    private void getInput05GeographicAreaByList(GeographicAreaList newGeoListUi) {
         HouseConfigurationController ctrl = new HouseConfigurationController(newGeoListUi);
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
@@ -133,7 +133,7 @@ public class HouseConfigurationUI {
         }
     }
 
-    private boolean getInputHouse(GeographicAreaList newGeoListUi) {
+    private boolean getInput05House(GeographicAreaList newGeoListUi) {
         HouseConfigurationController ctrl = new HouseConfigurationController(newGeoListUi);
         if (mGeoArea.getHouseList().getHouseList().isEmpty()) {
             System.out.print("Invalid House List - List Is Empty\n/**/");
@@ -167,7 +167,7 @@ public class HouseConfigurationUI {
         return option.intValue();
     }
 
-    private void getInputHouse() {
+    private void getInput05House() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -200,14 +200,14 @@ public class HouseConfigurationUI {
 
     }
 
-    private void updateModelUS101(HouseList listOfHouses) {
+    private void updateModel05US101(HouseList listOfHouses) {
         HouseConfigurationController ctrl = new HouseConfigurationController(listOfHouses);
         ctrl.setHouseLocal(mHouseLat, mHouseLon, indexOfHouse);
         ctrl.setHouseZIPCode(mHouseZipCode, indexOfHouse);
         ctrl.setHouseAddress(mHouseAddress, indexOfHouse);
     }
 
-    private void displayStateUS101() {
+    private void displayState05US101() {
         System.out.println("You have successfully changed the location of the house " + mHouse.getHouseDesignation() + ". \n" + "Address: " +
                 mHouseAddress + ". \n" + "ZipCode: " + mHouseZipCode + ". \n" + "Latitude: " + mHouseLat + ". \n" +
                 "Longitude: " + mHouseLon + ". \n");
@@ -220,12 +220,12 @@ public class HouseConfigurationUI {
 
     void runUS130(HouseList houseList) {
         this.controller = new HouseConfigurationController(houseList);
-        getInputHouseName();
-        getInputAndAddEnergyGrid();
+        getInput05HouseName();
+        getInput05AndAddEnergyGrid();
         updateEnergyGridList();
     }
 
-    private void getInputHouseName() {
+    private void getInput05HouseName() {
         System.out.println("Please insert the house name you want To create an energy grid on: ");
         Scanner scanner = new Scanner(System.in);
         String houseName = scanner.nextLine();
@@ -236,7 +236,7 @@ public class HouseConfigurationUI {
         }
     }
 
-    private void getInputAndAddEnergyGrid() {
+    private void getInput05AndAddEnergyGrid() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
@@ -259,13 +259,13 @@ public class HouseConfigurationUI {
 
     void runUS135(HouseList houseList) {
         this.controller = new HouseConfigurationController(houseList);
-        getInputAndUpdateHouseName();
-        getInputAndSelectEnergyGrid();
-        getInputAndCreatePowerSource();
-        updateModelAndDisplayState();
+        getInput05AndUpdateHouseName();
+        getInput05AndSelectEnergyGrid();
+        getInput05AndCreatePowerSource();
+        updateModel05AnddisplayState05();
     }
 
-    private void getInputAndUpdateHouseName() {
+    private void getInput05AndUpdateHouseName() {
         System.out.println("Please insert the house name that you want to add a power source to one of its energy grids: ");
         Scanner scanner = new Scanner(System.in);
         String houseName = scanner.nextLine();
@@ -276,7 +276,7 @@ public class HouseConfigurationUI {
         }
     }
 
-    private void getInputAndSelectEnergyGrid() {
+    private void getInput05AndSelectEnergyGrid() {
         System.out.println(controller.seeIfEnergyGridListIsEmptyAndShowItsContent());
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the energy grid you want to add a power source to: ");
@@ -286,7 +286,7 @@ public class HouseConfigurationUI {
         }
     }
 
-    private void getInputAndCreatePowerSource() {
+    private void getInput05AndCreatePowerSource() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the power source you want to add: ");
         String name = scanner.next();
@@ -297,11 +297,49 @@ public class HouseConfigurationUI {
         controller.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
-    private void updateModelAndDisplayState() {
+    private void updateModel05AnddisplayState05() {
         if (controller.addPowerSourceToEnergyGrid()) {
             System.out.println("The power source was added with success!");
         } else {
             System.out.println("The power source was NOT added to the energy grid!");
         }
+    }
+
+    public void runUS05(SensorList list) {
+        this.mActive = true;
+        while (this.mActive) {
+            getInput05Sensor05();
+            getInput05();
+            updateModel05(list);
+            displayState05();
+        }
+    }
+
+    private void getInput05Sensor05() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Type the name of the sensor to add the type to: ");
+        this.mNameSensor = scanner.next();
+    }
+
+    private void getInput05() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Type the type of sensor you want to assign to the sensor: ");
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid name of Type Area. Please insert only Alphabetic Characters");
+            scanner.next();
+        }
+        this.mTypeSensor = scanner.next();
+    }
+
+    private void updateModel05(SensorList list) {
+        HouseConfigurationController controller = new HouseConfigurationController(list);
+        this.mTypeAdded = controller.setTypeSensor(mNameSensor, mTypeSensor);
+    }
+
+    private void displayState05() {
+        if (mTypeAdded) {
+            System.out.print("The type has been successfully assigned.");
+        } else System.out.print("The type of sensor wasn't added. There's no sensor with that name.");
+        mActive = false;
     }
 }

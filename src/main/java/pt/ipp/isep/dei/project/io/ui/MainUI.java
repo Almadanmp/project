@@ -193,8 +193,8 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 5:
-                    US05UI view5 = new US05UI();
-                    view5.runUS05UI(sensorList1);
+                    HouseConfigurationUI view5 = new HouseConfigurationUI();
+                    view5.runUS05(sensorList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

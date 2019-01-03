@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.GregorianCalendar;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HouseConfigurationControllerTest {
@@ -179,5 +181,72 @@ public class HouseConfigurationControllerTest {
         String result = ctrl135.seeIfEnergyGridListIsEmptyAndShowItsContent();
         String expectedResult = "The list is empty.";
         assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void seeIfConstructorWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList(new Sensor[]{s1, s2});
+        SensorList expectedResult = new SensorList();
+
+
+        //Act
+        expectedResult.addSensor(s1);
+        expectedResult.addSensor(s2);
+        HouseConfigurationController constructedList = new HouseConfigurationController(lc);
+        SensorList actualResult = constructedList.getSensorList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetTypeWorksFalse() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList();
+        lc.addSensor(s1);
+        lc.addSensor(s2);
+        boolean expectedResult = false;
+        HouseConfigurationController ctrl = new HouseConfigurationController(lc);
+
+        //Act
+        boolean actualResult = ctrl.setTypeSensor("Portugal", "Movement");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetTypeWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList();
+        lc.addSensor(s1);
+        lc.addSensor(s2);
+        boolean expectedResult = true;
+        HouseConfigurationController ctrl = new HouseConfigurationController(lc);
+
+        //Act
+        boolean actualResult = ctrl.setTypeSensor("Vento", "Movement");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
     }
 }
