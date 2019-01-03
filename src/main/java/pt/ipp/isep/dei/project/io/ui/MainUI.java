@@ -238,7 +238,7 @@ public class MainUI {
                 case 11:
                     if (loginFlag == 1) {
                         HouseConfigurationUI view11 = new HouseConfigurationUI();
-                        view11.runUS101(houseList1, mGeographicAreaList);
+                        view11.runUS101(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         break;

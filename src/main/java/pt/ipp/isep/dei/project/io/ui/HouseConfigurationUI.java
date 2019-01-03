@@ -263,10 +263,11 @@ class HouseConfigurationUI {
     private String geoName;
     private GeographicArea mGeoArea;
     private static final String INVALID_OPTION = "Please enter a valid option";
+    private HouseList mHouseList;
 
 
-    void runUS101(HouseList listOfHouses, GeographicAreaList list) {
-        this.controller = new HouseConfigurationController(listOfHouses);
+    void runUS101( GeographicAreaList list) {
+        this.controller = new HouseConfigurationController();
 
         if (list == null || list.getGeographicAreaList().isEmpty()) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
@@ -284,7 +285,7 @@ class HouseConfigurationUI {
             return;
         }
         getInputHouseCharacteristicsUS101();
-        updateModelUS101(listOfHouses);
+        updateModelUS101();
         displayStateUS101();
     }
 
@@ -372,7 +373,8 @@ class HouseConfigurationUI {
 
     private boolean getInputHouseUS101(GeographicAreaList newGeoListUi) {
         HouseConfigurationController ctrl = new HouseConfigurationController(newGeoListUi);
-        if (mGeoArea.getHouseList().getHouseList().isEmpty()) {
+        this.mHouseList = mGeoArea.getHouseList();
+        if (mHouseList.getHouseList().isEmpty()) {
             System.out.print("Invalid House List - List Is Empty\n/**/");
             return false;
         }
@@ -384,7 +386,7 @@ class HouseConfigurationUI {
             ctrl.printHouseList(mGeoArea);
             this.indexOfHouse = readInputNumberAsInt();
             if (indexOfHouse >= 0 && indexOfHouse < mGeoArea.getHouseList().getHouseList().size()) {
-                mHouse = mGeoArea.getHouseList().getHouseList().get(indexOfHouse);
+                mHouse = mHouseList.getHouseList().get(indexOfHouse);
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
@@ -437,8 +439,8 @@ class HouseConfigurationUI {
 
     }
 
-    private void updateModelUS101(HouseList listOfHouses) {
-        HouseConfigurationController ctrl = new HouseConfigurationController(listOfHouses);
+    private void updateModelUS101() {
+        HouseConfigurationController ctrl = new HouseConfigurationController(mHouseList);
         ctrl.setHouseLocal(mHouseLat, mHouseLon, indexOfHouse);
         ctrl.setHouseZIPCode(mHouseZipCode, indexOfHouse);
         ctrl.setHouseAddress(mHouseAddress, indexOfHouse);
