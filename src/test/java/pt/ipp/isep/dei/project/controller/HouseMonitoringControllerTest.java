@@ -779,7 +779,7 @@ public class HouseMonitoringControllerTest {
         houseList1.addHouseToHouseList(house3);
         //Act
         String result = ctrl.printHouseElementsByIndex(list, geoa1);
-        String expectedResult = "1) house2, Address2, 3456-123.\n";
+        String expectedResult = "1) house3, Address3, 3456-123.\n";
         //Assert
         assertEquals(expectedResult, result);
     }
