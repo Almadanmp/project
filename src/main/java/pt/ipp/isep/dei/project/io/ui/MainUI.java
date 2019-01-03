@@ -281,7 +281,6 @@ public class MainUI {
                         break;
                     default:
                         System.out.println("Please enter a valid option");
-                        enterToReturnToConsole.nextLine();
                         break;
                 }
             }
