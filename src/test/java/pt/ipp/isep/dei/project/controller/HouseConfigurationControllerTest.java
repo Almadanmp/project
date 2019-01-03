@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-public class HouseConfigurationControllerTest {
+class HouseConfigurationControllerTest {
     
     //USER STORY 001 TESTS
 
     @Test
-    public void seeIfnewTAGWorks() {
+    void seeIfnewTAGWorks() {
         TypeAreaList newList = new TypeAreaList();
         HouseConfigurationController ctrl = new HouseConfigurationController(newList);
         boolean result = ctrl.createAndAddTypeAreaToList("cidade");
@@ -27,7 +27,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfnewTAGWorksWithAnother() {
+    void seeIfnewTAGWorksWithAnother() {
         TypeArea tipo = new TypeArea("rua");
         TypeAreaList newList = new TypeAreaList();
         newList.addTypeArea(tipo);
@@ -37,7 +37,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfnewTAGDoesntWorkWhenDuplicatedISAdded() {
+    void seeIfnewTAGDoesntWorkWhenDuplicatedISAdded() {
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList expectedResult = new TypeAreaList();
         expectedResult.addTypeArea(tipo);
@@ -47,7 +47,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfNewTAGDoesntWorkWhenNullIsAdded(){
+    void seeIfNewTAGDoesntWorkWhenNullIsAdded(){
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
@@ -57,7 +57,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfNewTAGDoesntWorkWhenNameIsEmpty(){
+    void seeIfNewTAGDoesntWorkWhenNameIsEmpty(){
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
@@ -66,7 +66,7 @@ public class HouseConfigurationControllerTest {
         assertFalse(result);
     }
     @Test
-    public void seeIfNewTAGDoesntWorkWhenNumbersAreAdded(){
+    void seeIfNewTAGDoesntWorkWhenNumbersAreAdded(){
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
@@ -78,7 +78,7 @@ public class HouseConfigurationControllerTest {
     //USER STORY 002 TESTS
 
     @Test
-    public void seeIfPrintTypeAreaListWorks(){
+    void seeIfPrintTypeAreaListWorks(){
         TypeAreaList list =new TypeAreaList();
         TypeArea t1 = new TypeArea("Rua");
         list.addTypeArea(t1);
@@ -92,7 +92,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfPrintTypeAreaListWorksWithTwoTypes(){
+    void seeIfPrintTypeAreaListWorksWithTwoTypes(){
         TypeAreaList list =new TypeAreaList();
         TypeArea t1 = new TypeArea("Rua");
         TypeArea t2 = new TypeArea("Cidade");
@@ -109,7 +109,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfPrintTypeAreaListWorksWithThreeTypes(){
+    void seeIfPrintTypeAreaListWorksWithThreeTypes(){
         TypeAreaList list =new TypeAreaList();
         TypeArea t1 = new TypeArea("Rua");
         TypeArea t2 = new TypeArea("Cidade");
@@ -129,7 +129,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfPrintTypeAreaListWorksWithEmptyList(){
+    void seeIfPrintTypeAreaListWorksWithEmptyList(){
         TypeAreaList list =new TypeAreaList();
         HouseConfigurationController ctrl = new HouseConfigurationController(list);
         String actualResult = ctrl.getTypeAreaList();
@@ -144,7 +144,7 @@ public class HouseConfigurationControllerTest {
     //USER STORY 003 TESTS
 
     @Test
-    public void seeIfCreatesGeographicAreaAndAddsItToList() {
+    void seeIfCreatesGeographicAreaAndAddsItToList() {
         GeographicAreaList geoList = new GeographicAreaList();
         String name = "Porto";
         String typeArea = "Distrito";
@@ -158,7 +158,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfFailsCreatingSecondEqualGeographicArea() {
+    void seeIfFailsCreatingSecondEqualGeographicArea() {
         GeographicAreaList geoList = new GeographicAreaList();
         String name = "Porto";
         String typeArea = "Distrito";
@@ -175,7 +175,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfCreatesTwoDifferentGeographicAreas() {
+    void seeIfCreatesTwoDifferentGeographicAreas() {
         GeographicAreaList geoList = new GeographicAreaList();
         String name1 = "Porto";
         String typeArea = "Distrito";
@@ -193,7 +193,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfFailsWithNullInputGeoList() {
+    void seeIfFailsWithNullInputGeoList() {
         String name1 = "Porto";
         String typeArea = "Distrito";
         double latitude = 38;
@@ -800,7 +800,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfPrintsHouseList() {
+    void seeIfPrintsHouseList() {
         //Assert
         HouseConfigurationController ctrl = new HouseConfigurationController();
         House house1 = new House("vacationHouse", "Flower Street", new Local(11, 13), "4230-111");
@@ -825,7 +825,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfPrintsHouseListIfEmpty() {
+    void seeIfPrintsHouseListIfEmpty() {
         //Arrange
         HouseConfigurationController ctrl = new HouseConfigurationController();
         HouseList hL1 = new HouseList();
@@ -841,7 +841,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfPrintGeoGraphicAreaElementsByIndex() {
+    void seeIfPrintGeoGraphicAreaElementsByIndex() {
         //Arrange
         HouseConfigurationController ctrl = new HouseConfigurationController();
         List<Integer> list = new ArrayList<>();
@@ -1038,7 +1038,7 @@ public class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfPrintsGeoA() {
+    void seeIfPrintsGeoA() {
         HouseConfigurationController US101 = new HouseConfigurationController();
         GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33));
         GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14));
