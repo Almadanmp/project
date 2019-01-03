@@ -53,6 +53,8 @@ public class MainUI {
         //TEST GEOGRAPHIC AREAS
         GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
         GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        geoa1.setSensorList(sensorList2);
+
 
         //TEST HOUSES
         HouseList houseList1 = new HouseList();
@@ -176,14 +178,14 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 2:
-                    US02UI view2 = new US02UI();
-                    view2.runUS02UI(mTypeAreaList);
+                    HouseConfigurationUI view2 = new HouseConfigurationUI();
+                    view2.runUS02(mTypeAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 3:
-                    US03UI view3 = new US03UI();
-                    view3.run(mGeographicAreaList);
+                    HouseConfigurationUI view3 = new HouseConfigurationUI();
+                    view3.runUS03(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
@@ -267,13 +269,13 @@ public class MainUI {
                     break;
                 case 16:
                     US108UI view16 = new US108UI();
-                    view16.run(houseList1);
+                    view16.runUS108UI(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 18:
                     US108UI view18 = new US108UI();
-                    view18.run(houseList1);
+                    view18.runUS108UI(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

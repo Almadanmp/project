@@ -53,6 +53,41 @@ public class HouseConfigurationController {
     }
 
     /**
+     * User Story 02
+     * <p>
+     * As a System Administrator I want to receive a list of all the previously stated Types of area.
+     */
+
+    public String getTypeAreaList() {
+        return mTypeAreaList.printTypeAreaList();
+    }
+
+    /**
+     * User Story 3
+     * As a System Administrator I want to Create a new Geographic Area
+     * <p>
+     * US 03 controller class. Provides methods to create a new GA and add it to a given list.
+     */
+
+    /**
+     * Method to add a new geographic area to a list of geographic areas
+     *
+     * @param newGeoList geographic area list to add the new geographic area
+     * @param newName    input string for geographic area name
+     * @param typeArea   input string for type area
+     * @param latitude   input number for latitude
+     * @param longitude  input number for longitude
+     * @return success if a new GA is added, false otherwise
+     */
+    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, String typeArea, double latitude, double longitude) {
+        if (newGeoList == null) {
+            return false;
+        }
+        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea), new Local(latitude, longitude));
+        return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
+    }
+
+    /**
      * User Story 06
      * As a system administrator, I want to be able to manually input a new sensor and add it to a pre-input Geographic Area
      */
@@ -154,15 +189,14 @@ public class HouseConfigurationController {
         this.mGeoList = geoList;
     }
 
-
-    public void printGAList(GeographicAreaList geoAreaList) {
-        geoAreaList.printGaWholeList(geoAreaList);
+    public GeographicAreaList getGeoList() {
+        return mGeoList;
     }
 
-
-    public void printHouseList() {
-        mHouseList.printHouseList();
+    public String printGAList(GeographicAreaList geoAreaList) {
+        return geoAreaList.printGaWholeList(geoAreaList);
     }
+
 
     public void setHouseAddress(String address, int indexOfHouse) {
         mHouseList.getHouseList().get(indexOfHouse).setmAddress(address);
@@ -189,8 +223,8 @@ public class HouseConfigurationController {
         return geoArea.printGeographicArea();
     }
 
-    public void printHouseList(GeographicArea ga) {
-        ga.getHouseList().printHouseList(ga);
+    public String printHouseList(GeographicArea ga) {
+       return ga.getHouseList().printHouseList(ga);
     }
 
     /**

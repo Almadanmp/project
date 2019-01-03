@@ -98,7 +98,7 @@ public class RoomList {
         return finalString.toString();
     }
 
-    public void printRoomList(House house){
+    public void printRoomList1(House house){
         System.out.println("-----------");
 
         for (int i = 0; i < house.getmRoomList().getListOfRooms().size();i++){
@@ -109,6 +109,40 @@ public class RoomList {
             System.out.println();
         }
         System.out.println("-----------");
+    }
+
+    public List<Integer> matchRoomIndexByString(String input){
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < mRoomList.size(); i++){
+            if (mRoomList.get(i).getRoomName().equals(input)){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    public String printElementsByIndex (List<Integer> indexes){
+        String result = "";
+        for (int i = 0; i < indexes.size(); i++){
+            result += indexes.get(i) + ") " + mRoomList.get(i).getRoomName() + ", " + mRoomList.get(i).getHouseFloor() + ", " + mRoomList.get(i).getRoomDimensions() + ".\n";
+        }
+        return result;
+    }
+
+    public String printRoomList(House house) {
+        String result = "---------------\n";
+        if (house.getmRoomList().getListOfRooms().isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < house.getmRoomList().getListOfRooms().size(); i++) {
+            Room aux = house.getmRoomList().getListOfRooms().get(i);
+            result = result + i + ") Designation: " + aux.getRoomName() + " | ";
+            result = result + "House Floor: " + aux.getHouseFloor() + " | ";
+            result = result + "Dimensions: " + aux.getRoomDimensions() + "\n";
+        }
+        result = result + "---------------\n";
+        System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
+        return result;
     }
 
 

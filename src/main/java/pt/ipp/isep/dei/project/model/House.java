@@ -110,7 +110,7 @@ public class House {
         return true;
     }
 
-    public String printGeographicArea() {
+    public String printHouse() {
         String result;
         result = this.mDesignation+ ", " + this.mAddress + ", " +
                 this.mZipCode +".\n";
@@ -143,12 +143,7 @@ public class House {
         return null;
     }
 
-    public String printHouse() {
-        String result;
-        result = this.mDesignation + ", " + this.mAddress + ", " + this.mZipCode + ", " +
-                this.mGPS.getLatitude() + "º lat, " + this.mGPS.getLongitude() + "º long\n";
-        return result;
-    }
+
 
     @Override
     public boolean equals(Object o) {
