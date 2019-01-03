@@ -445,4 +445,92 @@ public class HouseMonitoringControllerTest {
         double result = ctrl.getCurrentTemperatureInTheHouseArea(house,ga);
         assertEquals(40,result);
     }
+
+    @Test
+    public void SeeIfPrintGAWorks(){
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"),new Local(4,4));
+        String result = ctrl.printGA(ga);
+        assertEquals("porto, cidade, 4.0º lat, 4.0º long\n",result);
+    }
+    @Test
+    public void seeIfDoesListOfRoomsContainRoomByName() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        RoomList roomList = new RoomList();
+        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        Room r2 = new Room("Jardim", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Rainfall"), new Local(21, 25), new Date(21 / 11 / 2018))));
+        Room r3 = new Room("Quarto", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        roomList.addRoom(r1);
+        roomList.addRoom(r2);
+        roomList.addRoom(r3);
+
+        boolean expectedResult = true;
+        boolean actualResult = ctrl.doesListContainRoomByName("Jardim",roomList);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfDoesListOfRoomsContainRoomByNameFalse() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        RoomList roomList = new RoomList();
+        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        Room r2 = new Room("Jardim", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Rainfall"), new Local(21, 25), new Date(21 / 11 / 2018))));
+        Room r3 = new Room("Quarto", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        roomList.addRoom(r1);
+        roomList.addRoom(r2);
+        roomList.addRoom(r3);
+
+        boolean expectedResult = false;
+        boolean actualResult = ctrl.doesListContainRoomByName("Sala",roomList);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfdoesSensorListInARoomContainASensorByName() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+
+        TypeSensor t1 = new TypeSensor("Humidade");
+        TypeSensor t2 = new TypeSensor("Vento");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        Room room = new Room("cozinha",1,2,sensorList1);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        boolean actualResult = ctrl.doesSensorListInARoomContainASensorByName("s1",roomList);
+        boolean expectedResult = true;
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfdoesSensorListInARoomContainASensorByNameFalse() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+
+        TypeSensor t1 = new TypeSensor("Humidade");
+        TypeSensor t2 = new TypeSensor("Vento");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        Room room = new Room("cozinha",1,2,sensorList1);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        boolean actualResult = ctrl.doesSensorListInARoomContainASensorByName("miau",roomList);
+        boolean expectedResult = false;
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
 }
