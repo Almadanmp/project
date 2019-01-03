@@ -195,8 +195,6 @@ public class HouseConfigurationController {
      it (name, house floor and dimensions).
      */
 
-    public HouseConfigurationController(){}
-
     private HouseList mHouseList;
     private Room mRoom;
 
