@@ -440,7 +440,8 @@ class HouseConfigurationUI {
         System.out.println("Please select one of the existing rooms on the selected House: ");
 
         while (!activeInput) {
-            this.controller.printRoomList(mHouse);
+            HouseConfigurationController controller = new HouseConfigurationController();
+            controller.printRoomList(mHouse);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mHouse.getmRoomList().getListOfRooms().size()) {
                 this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
@@ -1318,7 +1319,10 @@ class HouseConfigurationUI {
         getInputHouse(mGeoArea);
         getInputEnergyGrid();
         getInputRoom();
-        updateStateEnergyGrid(mEnergyGrid, mRoom);
+        if (updateStateEnergyGrid(mEnergyGrid, mRoom)){
+            System.out.println("Room successfully removed from grid!");
+        }
+        else System.out.println("It wasn't possible to remove the room. Please try again.");
     }
 
     private boolean updateStateEnergyGrid(EnergyGrid grid, Room room){
