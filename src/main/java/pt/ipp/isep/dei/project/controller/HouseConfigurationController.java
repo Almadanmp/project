@@ -248,6 +248,46 @@ public class HouseConfigurationController {
         return house.getHouseDesignation();
     }
 
+    /**
+     US108
+     **/
+
+
+    public List<Integer> matchHouseIndexByString(String input, GeographicArea geoArea){
+        return geoArea.getHouseList().matchHouseIndexByString(input);
+    }
+
+    public String printHouseElementsByIndex(List<Integer> listOfIndexesOfHouses, GeographicArea geoArea) {
+        return geoArea.getHouseList().printElementsByIndex(listOfIndexesOfHouses);
+    }
+
+    public String printHouse (House house){
+        return house.printHouse();
+    }
+
+    public List<Integer> matchRoomIndexByString(String input, House house){
+        return house.getmRoomList().matchRoomIndexByString(input);
+    }
+
+    public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
+        return house.getmRoomList().printElementsByIndex(listOfIndexesOfRoom);
+    }
+
+    public String printRoomList(House house) {
+        return house.getmRoomList().printRoomList(house);
+    }
+
+    public String printRoom (Room room){
+        return room.printRoom();
+    }
+
+    public void editRoom(Room room, String roomName, int roomFloor, double roomDimensions) {
+        room.setRoomName(roomName);
+        room.setRoomHouseFloor(roomFloor);
+        room.setRoomDimensions(roomDimensions);
+    }
+
+
     /** US130
      * As an Administrator, I want to create a energy grid,
      * so that I can define the rooms that are attached to it and the contracted maximum power for that grid.
