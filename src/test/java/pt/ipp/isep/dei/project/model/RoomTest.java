@@ -30,7 +30,6 @@ public class RoomTest {
         ReadingList rL1 = new ReadingList();
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        double tP1 = 50;
         DeviceList deviceL1 = new DeviceList();
         Room room = new Room("quarto", 1, 80, list, deviceL1, 23);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(d2);
@@ -236,4 +235,15 @@ public class RoomTest {
         assertEquals(false,result);
     }
 
+    @Test
+    public void seeIfEqualsWork(){
+        SensorList list = new SensorList();
+        TypeSensor type = new TypeSensor("temperature");
+        ReadingList listR = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1), new Date(), listR);
+        list.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, list);
+        boolean result = room.equals(null);
+        assertEquals(false,result);
+    }
 }

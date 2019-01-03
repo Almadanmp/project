@@ -97,14 +97,6 @@ public class Room {
         return false;
     }
 
-    public boolean doesSensorListInAGeoAreaContainASensorByName(String name) {
-        for (Sensor s : mRoomSensorList.getSensorList()) {
-            if (s.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public boolean addSensor(Sensor sensor) {
         if (!(mRoomSensorList.getSensorList().contains(sensor))) {
