@@ -876,7 +876,8 @@ public class HouseMonitoringControllerTest {
         geoa1.setHouseList(houseList1);
         houseList1.addHouseToHouseList(house1);
         //Room List
-        RoomList roomList1 = new RoomList();
+        RoomList roomList1;
+        roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
         Room room1 = new Room("room1", 19, 23456789);
         Room room2 = new Room("kitchen", 8, 2);
@@ -919,6 +920,33 @@ public class HouseMonitoringControllerTest {
                 "1) Designation: kitchen | House Floor: 8 | Dimensions: 2.0\n" +
                 "---------------\n";
         //Assert -------------------------
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintRoomWorks() {
+        //Arrange ---------------------
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act -------------------------
+        String result = ctrl.printRoom(room2);
+        String expectedResult = "kitchen, 8, 2.0.\n";
+        //Assert ----------------------
         assertEquals(expectedResult, result);
     }
 }
