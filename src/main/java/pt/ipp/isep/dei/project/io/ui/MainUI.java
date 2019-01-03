@@ -258,8 +258,8 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 19:
-                        US145UI view145 = new US145UI();
-                        view145.run(mGeographicAreaList);
+                        HouseConfigurationUI view145 = new HouseConfigurationUI();
+                        view145.runUS145(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;

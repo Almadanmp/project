@@ -455,5 +455,16 @@ public class HouseConfigurationController {
     public boolean addPowerSourceToEnergyGrid() {
         return this.mEnergyGrid.addPowerSource(mPowerSource);
     }
-    
+
+    /**
+     * US145
+     *
+     */
+
+    public HouseConfigurationController (Room room){
+        this.mRoom = room;
+    }
+
+
+
 }
