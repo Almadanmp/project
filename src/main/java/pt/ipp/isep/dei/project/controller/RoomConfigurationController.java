@@ -19,7 +19,6 @@ public class RoomConfigurationController {
          * as it will only be used in ui to apply methods on given inputs
          */
     }
-
     public void addSensorToRoom(Room room, Sensor sensorToAdd) {
         this.mRoom = room;
         this.mRoom.getRoomSensorList().getSensorList().add(sensorToAdd);
@@ -28,7 +27,6 @@ public class RoomConfigurationController {
     public SensorList getSensorsFromRoom() {
         return this.mRoom.getRoomSensorList();
     }
-
     public boolean doesSensorListInAGeoAreaContainASensorByName(String name, GeographicAreaList ga) {
         boolean result = true;
         for (GeographicArea g : ga.getGeographicAreaList()) {
@@ -36,14 +34,12 @@ public class RoomConfigurationController {
         }
         return result;
     }
-
     public Sensor getSensorFromName(String sensorName, GeographicArea ga) {
         for (Sensor s : ga.getSensorList().getSensorList()) {
             if (s.getName().equals(sensorName)) mSensor = s;
         }
         return mSensor;
     }
-
     public Room getRoomFromName(String roomName, House house) {
         for (Room r : house.getmRoomList().getListOfRooms()) {
             if (r.getRoomName().equals(roomName)) {
@@ -52,11 +48,9 @@ public class RoomConfigurationController {
         }
         return mRoom;
     }
-
     public String printRoomList(House house) {
         return house.getmRoomList().printRoomList(house);
     }
-
     public String printRoom (Room room){
         return room.printRoom();
     }

@@ -91,7 +91,6 @@ public class RoomConfigurationUI {
         System.out.println("1) Add a sensor to the room");
         System.out.println("0) (Return to main menu)");
     }
-
     private int readInputNumberAsInt() {
         while (!mScanner.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
@@ -116,7 +115,9 @@ public class RoomConfigurationUI {
 
     private void getInputRoom() {
         System.out.println(
-                "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
+                "We need to know which one is your room.\n" + "Would you like to:\n" +
+                        "1) Type the name of your Room;\n" +
+                        "2) Choose it from a list;\n" +
                         "0) Return;");
         int option = readInputNumberAsInt();
         switch (option) {
@@ -157,6 +158,7 @@ public class RoomConfigurationUI {
             System.out.println(mRoomConfigurationController.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
             int aux = readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
+                mRoom = mRoomList.getListOfRooms().get(aux);
                 mHouse.getmRoomList().getListOfRooms().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
@@ -164,6 +166,7 @@ public class RoomConfigurationUI {
                 System.out.println(INVALID_OPTION);
             }
         } else {
+            mRoom = mRoomList.getListOfRooms().get(listOfIndexesRoom.get(0));
             System.out.println("You have chosen the following Room:");
             mHouse.getmRoomList().getListOfRooms().get(0);
             System.out.println(mRoomConfigurationController.printRoom(mRoom));
@@ -177,7 +180,6 @@ public class RoomConfigurationUI {
         }
         boolean activeInput = false;
         System.out.println("Please select one of the existing rooms on the selected House: ");
-
         while (!activeInput) {
             mRoomConfigurationController.printRoomList(mHouse);
             int aux = readInputNumberAsInt();
@@ -281,14 +283,12 @@ public class RoomConfigurationUI {
     private void getInputGeographicAreaByList(GeographicAreaList newGeoListUi) {
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
-
         while (!activeInput) {
             mHouseMonitoringcontroller.printGAList(newGeoListUi);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
                 mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
                 activeInput = true;
-                //TODO fazer um print bonito
                 System.out.println("You have chosen the following Geographic Area:");
                 System.out.println((mGeoArea.printGeographicArea()));
             } else {
@@ -303,7 +303,9 @@ public class RoomConfigurationUI {
 
     private void getInputHouse(GeographicArea mGeoArea) {
         System.out.println(
-                "We need to know which one is your house.\n" + "Would you like to:\n" + "1) Type the name of your House;\n" + "2) Choose it from a list;\n" +
+                "We need to know which one is your house.\n" + "Would you like to:\n" +
+                        "1) Type the name of your House;\n" +
+                        "2) Choose it from a list;\n" +
                         "0) Return;");
         boolean activeInput = false;
         while (!activeInput) {
@@ -372,7 +374,6 @@ public class RoomConfigurationUI {
         }
         boolean activeInput = false;
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
-
         while (!activeInput) {
             mHouseMonitoringcontroller.printHouseList(mGeoArea);
             int aux = readInputNumberAsInt();
