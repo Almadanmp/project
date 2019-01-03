@@ -122,10 +122,10 @@ public class MainUI {
 
         while (activeProgram) {
 
-            System.out.println("\n***************************************************\n" +
-                    "***************** Main Menu Test ******************\n" +
-                    "****************** sWitCh 2018 ********************\n" +
-                    "***************************************************\n");
+            System.out.println("\n*******************\n" +
+                    "****** Main Menu Test *******\n" +
+                    "****** sWitCh 2018 ********\n" +
+                    "*****************\n");
 
             // Submenus Input selection
 
@@ -161,83 +161,6 @@ public class MainUI {
             System.out.print(formattedString);
             System.out.print("\nEnter option number:\n");
             String pressEnter = "\nPress ENTER to return.";
-<<<<<<< HEAD
-            option = scanner.nextInt();
-            switch (option) {
-                case 0:
-                    activeProgram = false;
-                    break;
-                case 1:
-                    HouseConfigurationUI view1 = new HouseConfigurationUI();
-                    view1.runUS01UI(mTypeAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 2:
-                    HouseConfigurationUI view2 = new HouseConfigurationUI();
-                    view2.runUS02(mTypeAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 3:
-                    HouseConfigurationUI view3 = new HouseConfigurationUI();
-                    view3.runUS03(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 4:
-                    HouseConfigurationUI view4 = new HouseConfigurationUI();
-                    view4.runUS04(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 5:
-                    HouseConfigurationUI view5 = new HouseConfigurationUI();
-                    view5.runUS05(sensorList1);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 6:
-                    HouseConfigurationUI view6 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                    view6.run06();
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 7:
-                    HouseConfigurationUI view7 = new HouseConfigurationUI();
-                    view7.runUS07(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 8:
-                    HouseConfigurationUI view8 = new HouseConfigurationUI();
-                    view8.runUS08(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 9:
-                    if (sensorList1.checkIfListIsValid())
-                        System.out.println("The list of sensors is empty!");
-                    for (Sensor sensor : sensorList1.getSensorList()) {
-                        System.out.println(sensor.getName());
-                    }
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 10:
-                    if (mGeographicAreaList.checkIfListIsValid())
-                        System.out.println("The list of geographic areas is empty!");
-                    for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
-                        System.out.println(ga.getName());
-                    }
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 11:
-                    if (loginFlag == 1) {
-                        HouseConfigurationUI view11 = new HouseConfigurationUI();
-                        view11.runUS101(mGeographicAreaList);
-=======
             while (!activeInput) {
                 HouseMonitoringUI hMUi = new HouseMonitoringUI();
                 option = hMUi.readInputNumberAsInt();
@@ -246,9 +169,8 @@ public class MainUI {
                         activeProgram = false;
                         break;
                     case 4:
-                        US04UI view4 = new US04UI();
-                        view4.run(mGeographicAreaList);
->>>>>>> origin/master
+                        HouseConfigurationUI view4 = new HouseConfigurationUI();
+                        view4.runUS04(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
@@ -268,15 +190,15 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 7:
-                        US07UI view7 = new US07UI();
-                        view7.run(mGeographicAreaList);
+                        HouseConfigurationUI view7 = new HouseConfigurationUI();
+                        view7.runUS07(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
                         break;
                     case 8:
-                        US08UI view8 = new US08UI();
-                        view8.run(mGeographicAreaList);
+                        HouseConfigurationUI view8 = new HouseConfigurationUI();
+                        view8.runUS08(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;

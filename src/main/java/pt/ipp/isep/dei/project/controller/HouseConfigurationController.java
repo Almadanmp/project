@@ -277,7 +277,7 @@ public class HouseConfigurationController {
     }
 
     public GeographicAreaList getGeoList() {
-        return mGeoList;
+        return mGeographicAreaList;
     }
 
     public String printGAList(GeographicAreaList geoAreaList) {
