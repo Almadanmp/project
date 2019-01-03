@@ -60,10 +60,11 @@ public class MainUI {
         HouseList houseList1 = new HouseList();
         HouseList houseList2 = new HouseList();
 
-        House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657", roomList1);
+        House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657");
         House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
         House house3 = new House("houseTwo", "Address3", new Local(18, 10), "3555-555");
         House house4 = new House("houseOne", "Address4", new Local(18, 10), "3555-555");
+        house1.setmRoomList(roomList1);
         house2.setmMotherArea(geoa1);
         house4.setmMotherArea(geoa1);
         house2.setmRoomList(roomList1);
