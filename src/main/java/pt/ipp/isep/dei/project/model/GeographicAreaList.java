@@ -204,6 +204,15 @@ public class GeographicAreaList {
         }
         return null;
     }
+    public boolean seeIfGeographicAreaByNameExists(String name) {
+        for (GeographicArea gA : mGeographicAreaList) {
+            if (gA.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * This method checks if the list exists
