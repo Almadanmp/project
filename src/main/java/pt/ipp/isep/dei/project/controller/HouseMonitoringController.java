@@ -60,5 +60,15 @@ public class HouseMonitoringController {
         else return 0;
     }
 
+
+
+    public Sensor getSensorWithTheMinimumDistanceToHouse(House house, GeographicArea ga) {
+        return house.getSensorWithTheMinimumDistanceToHouse(ga, house);
+    }
+
+    public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {
+        return getSensorWithTheMinimumDistanceToHouse(house,ga).getReadingList().getMostRecentValueOfReading();
+    }
+
 }
 

@@ -325,8 +325,7 @@ public class HouseMonitoringUI {
      * should be used.
      */
     public void updateModel600() {
-        US600Controller ctrl = new US600Controller(mHouse);
-        mCurrentHouseAreaTemperature = ctrl.getCurrentTemperatureInTheHouseArea(mHouse, mGeoArea);
+        mCurrentHouseAreaTemperature = houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(mHouse, mGeoArea);
     }
 
     public void displayState600() {
