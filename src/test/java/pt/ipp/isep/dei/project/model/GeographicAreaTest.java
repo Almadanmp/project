@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GeographicAreaTest {
 
@@ -801,6 +800,56 @@ public class GeographicAreaTest {
         String result = list.printHouseList();
         String expectedResult = "The list is empty.";
         assertEquals(result, expectedResult);
+    }
+
+    @Test
+    public void seeIfSensorListIsContainedInGAList() {
+        //Arrange
+
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 12, 4).getTime());
+
+        SensorList slist1 = new SensorList();
+        slist1.addSensor(s1);
+        slist1.addSensor(s2);
+        GeographicArea ga1 = new GeographicArea();
+        ga1.setSensorList(slist1);
+        GeographicAreaList glist1 = new GeographicAreaList();
+        glist1.addGeographicAreaToGeographicAreaList(ga1);
+        //Act
+
+        boolean actualResult = ga1.doesSensorListInAGeoAreaContainASensorByName("Vento");
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    public void seeIfSensorListIsNOTContainedInGAList() {
+        //Arrange
+
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 12, 4).getTime());
+
+        SensorList slist1 = new SensorList();
+        slist1.addSensor(s1);
+        slist1.addSensor(s2);
+        GeographicArea ga1 = new GeographicArea();
+        ga1.setSensorList(slist1);
+        GeographicAreaList glist1 = new GeographicAreaList();
+        glist1.addGeographicAreaToGeographicAreaList(ga1);
+        //Act
+
+        boolean actualResult = ga1.doesSensorListInAGeoAreaContainASensorByName("Humidade");
+        //Assert
+        assertFalse(actualResult);
     }
 }
 
