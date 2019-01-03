@@ -98,7 +98,7 @@ public class RoomList {
         return finalString.toString();
     }
 
-    public void printRoomList (House house){
+    public void printRoomList(House house){
         System.out.println("-----------");
 
         for (int i = 0; i < house.getmRoomList().getListOfRooms().size();i++){

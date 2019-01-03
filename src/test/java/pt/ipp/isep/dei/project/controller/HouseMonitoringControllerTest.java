@@ -688,7 +688,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfMatchGeographicAreaIndexByStringWorks() {
+    void seeIfMatchGeographicAreaIndexByStringWorks() {
         //Arrange
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //MAIN LISTS

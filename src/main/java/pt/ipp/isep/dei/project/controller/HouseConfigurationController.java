@@ -62,7 +62,7 @@ public class HouseConfigurationController {
     private TypeSensor mType;
     private Sensor mSensor;
 
-    public HouseConfigurationController(){}
+
 
     /**
      * Method to create a Local with given doubles
@@ -146,6 +146,9 @@ public class HouseConfigurationController {
 
     private GeographicAreaList mGeoList;
 
+    public HouseConfigurationController() {
+    }
+
 
     public HouseConfigurationController(GeographicAreaList geoList) {
         this.mGeoList = geoList;
@@ -190,15 +193,34 @@ public class HouseConfigurationController {
         ga.getHouseList().printHouseList(ga);
     }
 
+    /**
+     *   US105: As an Administrator, I want to add a new room to the house, in order to configure
+     it (name, house floor and dimensions).
+     */
 
-    private EnergyGrid mEnergyGrid;
     private HouseList mHouseList;
-    private String mHouseName;
+    private Room mRoom;
+
+
+    public void createNewRoom(String roomDesignation, int roomHouseFloor, double roomDimensions) {
+        this.mRoom = new Room(roomDesignation, roomHouseFloor ,roomDimensions);
+    }
+
+
+    public boolean addRoomToHouse(House house) {
+        return (house.addRoomToRoomList(this.mRoom));}
+
+    public String getHouseName(House house) {
+        return house.getHouseDesignation();
+    }
 
     /** US130
      * As an Administrator, I want to create a energy grid,
      * so that I can define the rooms that are attached to it and the contracted maximum power for that grid.
      **/
+
+    private EnergyGrid mEnergyGrid;
+    private String mHouseName;
 
     /**
      * The controller is initialized with the houseList given from the UI, which came from MainUI;
@@ -244,25 +266,30 @@ public class HouseConfigurationController {
     /**
      * US135
      * As an Administrator, I want to add a power source to an energy grid,
-     * so that the produced energy may be used by all devices on that grid. **/
+     * so that the produced energy may be used by all devices on that grid.
+     **/
 
     private PowerSource mPowerSource;
     private EnergyGridList mEnergyGridList;
 
-    public void createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){this.mPowerSource = new PowerSource(name, maxPowerOutput, maxEnergyStorage);}
+    public void createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
+        this.mPowerSource = new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+    }
 
-    PowerSource getPowerSource(){return this.mPowerSource;}
+    PowerSource getPowerSource() {
+        return this.mPowerSource;
+    }
 
-    public String seeIfEnergyGridListIsEmptyAndShowItsContent(){
+    public String seeIfEnergyGridListIsEmptyAndShowItsContent() {
         return this.mEnergyGridList.printEnergyGridList();
     }
 
-    public boolean selectEnergyGrid(String name){
+    public boolean selectEnergyGrid(String name) {
         this.mEnergyGrid = mEnergyGridList.matchEnergyGrid(name);
         return this.mEnergyGrid != null;
     }
 
-    public boolean addPowerSourceToEnergyGrid(){
+    public boolean addPowerSourceToEnergyGrid() {
         return this.mEnergyGrid.addPowerSource(mPowerSource);
     }
     

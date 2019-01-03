@@ -21,7 +21,7 @@ public class MainUI {
         //TEST READINGS
         ReadingList readingList = new ReadingList();
         Reading reading1 = new Reading(30, new GregorianCalendar(2018, 8, 6).getTime());
-        Reading reading2 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
+        Reading reading2 = new Reading(20, new GregorianCalendar(2018, 8, 5).getTime());
         Reading reading3 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
         readingList.addReading(reading1);
         readingList.addReading(reading2);
@@ -60,9 +60,11 @@ public class MainUI {
 
         House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657", roomList1);
         House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
-        House house3 = new House("houseThree", "Address3", new Local(18, 10), "3555-555");
+        House house3 = new House("houseTwo", "Address3", new Local(18, 10), "3555-555");
         house2.setmMotherArea(geoa1);
+        house2.setmRoomList(roomList1);
         house3.setmMotherArea(geoa1);
+        house3.setmRoomList(roomList1);
         houseList1.addHouseToHouseList(house2);
         houseList1.addHouseToHouseList(house3);
         house1.setmMotherArea(geoa2);
@@ -163,8 +165,6 @@ public class MainUI {
             System.out.print("\nEnter option number:\n");
             String pressEnter = "\nPress ENTER to return.";
             option = scanner.nextInt();
-
-
             switch (option) {
                 case 0:
                     activeProgram = false;
@@ -238,7 +238,7 @@ public class MainUI {
                 case 11:
                     if (loginFlag == 1) {
                         HouseConfigurationUI view11 = new HouseConfigurationUI();
-                        view11.runUS101(houseList1, mGeographicAreaList);
+                        view11.runUS101(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         break;
@@ -248,8 +248,8 @@ public class MainUI {
                     break;
 
                 case 12:
-                    US105UI view12 = new US105UI();
-                    view12.run(houseList1);
+                    HouseConfigurationUI view12 = new HouseConfigurationUI();
+                    view12.runUS105(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

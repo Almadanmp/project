@@ -1,21 +1,31 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.HouseList;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.Local;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class US101ControllerTest {
-//
+
 //    @Test
 //    public void seeIfCreatesHouseAndAddsItToList() {
-//        HouseList houseList = new HouseList();
 //        String address = "rua da rua 345";
-//        int index = 1;
+//        String zipCode = "4450";
+//        String nome = "casa";
+//        double latitude = 38;
+//        double longitude = 7;
+//        Local local = new Local(latitude, longitude);
 //        US101Controller us3 = new US101Controller();
-//        boolean result = us3.setHouseAddress(address,index);
+//        House house = new House(nome, address, local, zipCode);
+//        House house2 = new House(nome, address, local, zipCode);
+//        HouseList houseList = new HouseList(house);
+//        houseList.addHouseToHouseList(house2);
+//        int index = us3.printGeoGraphicAreaElementsByIndex();
+//        boolean result = us3.setHouseAddress(address,);
 //
 //        assertTrue(result);
 //        assertEquals(1, houseList.getHouseList().size());
@@ -68,7 +78,7 @@ public class US101ControllerTest {
 //        US101Controller us3 = new US101Controller();
 //        boolean result = us3.addHouseToHouseList(null, nome, address1, zipCode, latitude, longitude);
 //
-//        assertFalse(result);
+//       assertFalse(result);
 //    }
 
 }

@@ -14,7 +14,6 @@ import static java.lang.System.out;
 
 
 public class HouseMonitoringUI {
-    private Scanner mScanner;
     private House mHouse;
     private GeographicArea mGeoArea;
     private String geoName;
@@ -40,13 +39,10 @@ public class HouseMonitoringUI {
     private String mNameSensor;
 
     public HouseMonitoringUI() {
-        this.mScanner = new Scanner(System.in);
         this.houseMonitoringcontroller = new HouseMonitoringController();
-
     }
 
     public void run(GeographicAreaList newGeoListUi, RoomList roomList) {
-
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
@@ -57,6 +53,10 @@ public class HouseMonitoringUI {
         System.out.println("House Monitoring\n");
         System.out.println("--------------\n");
         getInputGeographicArea(newGeoListUi);
+        if(mGeoArea == null){
+            System.out.println("Unable to select a Geographic Area. Returning to main menu.");
+            return;
+        }
         getInputHouse(mGeoArea);
         if (mHouse == null) {
             System.out.println("Unable to select a house. Returning to main menu.");
@@ -147,7 +147,8 @@ public class HouseMonitoringUI {
 
     private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
         System.out.println(
-                "We need to know where your house is located\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
+                "We need to know where your house is located\n" + "Would you like to:\n" +
+                        "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
         int option = readInputNumberAsInt();
         switch (option) {
@@ -170,8 +171,9 @@ public class HouseMonitoringUI {
     }
 
     private boolean getInputGeographicAreaName() {
+        Scanner scan = new Scanner(System.in);
         System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
-        this.geoName = mScanner.nextLine();
+        this.geoName = scan.nextLine();
         return (!(geoName.equals("exit")));
     }
 
@@ -250,8 +252,9 @@ public class HouseMonitoringUI {
     }
 
     private boolean getInputHouseName() {
+        Scanner scan = new Scanner(System.in);
         System.out.println("Please type the name of the House you want to access.");
-        this.mHouseName = mScanner.nextLine();
+        this.mHouseName = scan.nextLine();
         return (!(mHouseName.equals("exit")));
     }
 
@@ -308,64 +311,67 @@ public class HouseMonitoringUI {
     }
 
     private int readInputNumberAsInt() {
-        while (!mScanner.hasNextDouble()) {
+        Scanner scan = new Scanner(System.in);
+        while (!scan.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
-            mScanner.next();
+            scan.next();
         }
-        Double option = mScanner.nextDouble();
+        Double option = scan.nextDouble();
         return option.intValue();
     }
 
     private void getInputStartDate() {
+        Scanner scan = new Scanner(System.in);
         System.out.println("Enter the year:");
-        while (!mScanner.hasNextInt()) {
-            mScanner.next();
+        while (!scan.hasNextInt()) {
+            scan.next();
             System.out.println("Not a valid year. Try again");
         }
-        this.dataYear1 = mScanner.nextInt();
+        this.dataYear1 = scan.nextInt();
 
-        mScanner.nextLine();
+        scan.nextLine();
         out.println("\nEnter the Month:\t");
-        while (!mScanner.hasNextInt()) {
-            mScanner.next();
+        while (!scan.hasNextInt()) {
+            scan.next();
             System.out.println("Not a valid month. Try again");
         }
-        this.dataMonth1 = mScanner.nextInt();
+        this.dataMonth1 = scan.nextInt() - 1;
 
-        mScanner.nextLine();
+        scan.nextLine();
         out.println("\nEnter the Day:\t");
-        while (!mScanner.hasNextInt()) {
-            mScanner.next();
+        while (!scan.hasNextInt()) {
+            scan.next();
             System.out.println("Not a valid day. Try again");
         }
-        this.dataDay1 = mScanner.nextInt();
+        this.dataDay1 = scan.nextInt();
         System.out.println("You entered the date successfully!");
-        mScanner.nextLine();
+        scan.nextLine();
     }
 
     private void getInputEndDate() {
+        Scanner scan = new Scanner(System.in);
         System.out.println("Enter the year:");
-        while (!mScanner.hasNextInt()) {
-            mScanner.next();
+        while (!scan.hasNextInt()) {
+            scan.next();
             out.println("Not a valid year. Try again");
         }
-        this.dataYear2 = mScanner.nextInt();
-        mScanner.nextLine();
+        this.dataYear2 = scan.nextInt();
+       scan.nextLine();
         out.println("\nEnter the Month:\t");
-        while (!mScanner.hasNextInt()) {
-            mScanner.next();
+        while (!scan.hasNextInt()) {
+            scan.next();
             out.println("Not a valid month. Try again");
         }
-        this.dataMonth2 = mScanner.nextInt();
-        mScanner.nextLine();
+        this.dataMonth2 = scan.nextInt() - 1;
+        scan.nextLine();
         out.println("\nEnter the Day:\t");
-        while (!mScanner.hasNextInt()) {
-            mScanner.next();
+        while (!scan.hasNextInt()) {
+            scan.next();
             out.println("Not a valid day. Try again");
         }
-        this.dataDay2 = mScanner.nextInt();
+        this.dataDay2 = scan.nextInt();
         out.println("You entered the date successfully!");
-        mScanner.nextLine();
+        scan.nextLine();
     }
 
 
@@ -428,15 +434,17 @@ public class HouseMonitoringUI {
      */
     private void updateModel610(RoomList list) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        out.print("The room is " + this.mNameRoom + " the Temperature Sensor is " + this.mNameSensor +
-                " and the date is " + this.dataDay1 + "-" + this.dataMonth1 + "-" + this.dataYear1 + "\n");
         Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
+        out.print("The room is " + this.mNameRoom + " the Temperature Sensor is " + this.mNameSensor +
+                " and the date is " + mDate + "\n");
         this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate, list);
     }
 
     private void displayState610() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
         out.println("The Maximum Temperature in the room " + this.mNameRoom +
-                " on the day " + this.dataDay1 + "-" + this.dataMonth1 + "-" + this.dataYear1 +
+                " on the day " + mDate +
                 " was " + this.mMaxTemperature + "°C.");
     }
 
@@ -445,9 +453,9 @@ public class HouseMonitoringUI {
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
     private void updateModelUS623() {
-        this.mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
-        this.mEndDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
-        this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, mStartDate, mEndDate);
+        Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
+        Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
+        this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate);
     }
 
     private void displayState623() {

@@ -22,10 +22,9 @@ public class US108UI {
     }
 
     public void run(HouseList houseList) {
-        this.active = true;
         this.ctrl108 = new US108Controller(houseList);
 
-        while (this.active) {
+        while (this.active = true) {
             if (!displayHouseList()) {
                 return;
             } else {
