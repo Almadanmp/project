@@ -272,7 +272,7 @@ public class HouseMonitoringUI {
             System.out.println(ctrl.printHouseElementsByIndex(listOfIndexesHouses, mGeoArea));
             int aux = readInputNumberAsInt();
             if (listOfIndexesHouses.contains(aux)) {
-                mGeoArea.getHouseList().getHouseList().get(aux);
+                this.mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
                 System.out.println("You have chosen the following House:");
                 System.out.println(ctrl.printHouse(mHouse));
             } else {
@@ -280,7 +280,7 @@ public class HouseMonitoringUI {
             }
         } else {
             System.out.println("You have chosen the following House:");
-            mGeoArea.getHouseList().getHouseList().get(0);
+            this.mHouse = mGeoArea.getHouseList().getHouseList().get(0);
             System.out.println(ctrl.printHouse(mHouse));
         }
         return true;
@@ -288,7 +288,8 @@ public class HouseMonitoringUI {
 
 
     private void getInputHousebyList(GeographicArea mGeoArea) {
-        if (mGeoArea.getHouseList().getHouseList().size() == 0) {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        if (mGeoArea.getHouseList().getHouseList().isEmpty()) {
             System.out.print("Invalid House List - List Is Empty\n");
             return;
         }
@@ -300,6 +301,8 @@ public class HouseMonitoringUI {
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
                 mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
+                System.out.println("You have chosen the following House:");
+                System.out.println(ctrl.printHouse(mHouse));
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
