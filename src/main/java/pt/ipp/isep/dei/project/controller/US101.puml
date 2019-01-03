@@ -26,4 +26,5 @@ HouseConfigurationController -> House: reconfigure house
 House -> House: validate data
 House --> User: display house
 
+
 @enduml

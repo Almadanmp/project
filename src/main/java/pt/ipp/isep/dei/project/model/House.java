@@ -32,14 +32,6 @@ public class House {
         this.mZipCode = mZipCode;
     }
 
-    public House(String designation, String mAddress, Local mGPS, String mZipCode, RoomList roomList) {
-        this.mDesignation = designation;
-        this.mAddress = mAddress;
-        this.mGPS = mGPS;
-        this.mZipCode = mZipCode;
-        this.mRoomList = roomList;
-    }
-
     //SETTERS AND GETTERS
 
     public String getHouseDesignation() {
@@ -104,8 +96,8 @@ public class House {
 
     public String printHouse() {
         String result;
-        result = this.mDesignation+ ", " + this.mAddress + ", " +
-                this.mZipCode +".\n";
+        result = this.mDesignation + ", " + this.mAddress + ", " +
+                this.mZipCode + ".\n";
         return result;
     }
 

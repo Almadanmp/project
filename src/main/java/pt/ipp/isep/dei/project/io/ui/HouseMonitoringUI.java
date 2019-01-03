@@ -212,7 +212,6 @@ public class HouseMonitoringUI {
                         "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
         boolean activeInput = false;
-
         while (!activeInput) {
             int option = readInputNumberAsInt();
             switch (option) {
