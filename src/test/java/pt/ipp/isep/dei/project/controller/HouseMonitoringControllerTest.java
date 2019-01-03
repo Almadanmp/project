@@ -1015,7 +1015,7 @@ public class HouseMonitoringControllerTest {
         list.add(i);
         String result = ctrl.printSensorList(room1);
         String expectedResult = "---------------\n" +
-                "0) Designation: sensor | Sensor Type: temperatura | Start Date: Sat Sep 08 08:08:00 WET 8\n" +
+                "0) Designation: sensor | Sensor Type: temperatura | Start Date: Sat Sep 08 08:08:00 GMT 8\n" +
                 "---------------\n";
         //Assert ---------------------------------
         Assert.assertEquals(expectedResult,result);

@@ -259,7 +259,7 @@ public class MainUI {
                         break;
                     case 20:
                         RoomConfigurationUI viewRC = new RoomConfigurationUI();
-                        viewRC.run(mGeographicAreaList, roomList1);
+                        viewRC.run(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
