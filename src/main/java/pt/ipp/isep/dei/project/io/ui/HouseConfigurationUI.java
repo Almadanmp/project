@@ -567,13 +567,13 @@ class HouseConfigurationUI {
      *
      * @param newGeoListUi the list where new GA shall be added to
      */
-    public void runUS03(GeographicAreaList newGeoListUi) {
+    public void runUS03(GeographicAreaList newGeoListUi, TypeAreaList typeAreaList) {
         this.mActive = true;
         while (this.mActive) {
             getInputNameNewAreaUS03();
             getInputTypeOfAreaUS03();
             getLocalGeoAreaUS03();
-            updateGeoAreaUS03();
+            updateGeoAreaUS03(typeAreaList);
             updateModelUS03(newGeoListUi);
             displayStateUS03();
         }
@@ -592,9 +592,10 @@ class HouseConfigurationUI {
         this.geoAreaLong = readInputNumber("Longitude");
     }
 
-    private void updateGeoAreaUS03() {
+    private void updateGeoAreaUS03(TypeAreaList typeAreaList) {
         System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + typeArea +
                 " and its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude.\n");
+        typeAreaList.newTAG(typeArea);
     }
 
     private void updateModelUS03(GeographicAreaList newGeoListUi) {
