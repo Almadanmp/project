@@ -109,7 +109,7 @@ class HouseConfigurationUI {
 
     private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
         System.out.println(
-                "We need to know where your house is located\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
+                "We need to know what Geographic Area you want to work with. This can be the Geographic Area your house is in, or any Geographic Area you want to change.\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
         boolean activeInput = false;
         while (!activeInput) {
@@ -179,8 +179,8 @@ class HouseConfigurationUI {
     private void getInputGeographicAreaByList(GeographicAreaList newGeoListUi) {
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
-
         while (!activeInput) {
+            HouseConfigurationController controller = new HouseConfigurationController();
             controller.printGAList(newGeoListUi);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
@@ -894,17 +894,19 @@ class HouseConfigurationUI {
     private String mNameGeographicAreaMother;
 
     void runUS07(GeographicAreaList newGeoListUi) {
-
         this.mActive = true;
         this.mGeoList = newGeoListUi;
         while (this.mActive) {
-            if (!displayGeoListUS07()) {
+            if (newGeoListUi.getGeographicAreaList().isEmpty()) {
+                System.out.println("The list is empty.");
                 return;
             } else {
-                getMotherGeographicAreaUS07();
-                displayStateMotherUS07(newGeoListUi);
-                getDaughterGeographicAreaUS07();
-                displayStateDaughterUS07(newGeoListUi);
+                getInputGeographicArea(newGeoListUi);
+                this.mNameGeographicAreaMother = mGeoArea.getName();
+                displayGeoArea(mNameGeographicAreaMother, newGeoListUi);
+                getInputGeographicArea(newGeoListUi);
+                this.mNameGeographicAreaDaughter = mGeoArea.getName();
+                displayGeoArea(mNameGeographicAreaDaughter, newGeoListUi);
                 updateStateUS07();
                 displayStateUS07();
             }
@@ -922,38 +924,9 @@ class HouseConfigurationUI {
         }
     }
 
-    private void getMotherGeographicAreaUS07() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Type the name of the GeographicArea that you want to say contains another: ");
-        while (!scanner.hasNext("[\\p{L}\\s]+")) {
-            System.out.println("Please,try again:");
-            scanner.next();
-        }
-        this.mNameGeographicAreaMother = scanner.next();
-    }
-
-    private void displayStateMotherUS07(GeographicAreaList list) {
+    private void displayGeoArea(String name, GeographicAreaList list) {
         HouseConfigurationController ctrl = new HouseConfigurationController(list);
-        if (ctrl.validateGeoArea(mNameGeographicAreaMother)) {
-            System.out.println("Success, you have inserted a valid Geographic Area.");
-        } else {
-            System.out.println("Unsuccess, you have inserted a non-existing Geographic Area.");
-        }
-    }
-
-    private void getDaughterGeographicAreaUS07() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Type the name of the GeographicArea that you want to say is contained in another: ");
-        while (!scanner.hasNext("[\\p{L}\\s]+")) {
-            System.out.println("Please,try again:");
-            scanner.next();
-        }
-        this.mNameGeographicAreaDaughter = scanner.next();
-    }
-
-    private void displayStateDaughterUS07(GeographicAreaList list) {
-        HouseConfigurationController ctrl = new HouseConfigurationController(list);
-        if (ctrl.validateGeoArea(mNameGeographicAreaDaughter)) {
+        if (ctrl.validateGeoArea(name)) {
             System.out.println("Success, you have inserted a valid Geographic Area.");
         } else {
             System.out.println("Unsuccess, you have inserted a non-existing Geographic Area.");
