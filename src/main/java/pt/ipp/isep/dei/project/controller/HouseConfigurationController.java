@@ -131,4 +131,24 @@ public class HouseConfigurationController {
     public boolean addPowerSourceToEnergyGrid(){
         return this.mEnergyGrid.addPowerSource(mPowerSource);
     }
+
+    /**
+     * User Story 05
+     * As a system administrator, I wish to specify the type of reading that a sensor is capable
+     * of registering.
+     */
+    private SensorList mSensorList;
+   
+    public HouseConfigurationController(SensorList list) {
+        this.mSensorList = list;
+    }
+
+    public boolean setTypeSensor(String name, String typeToSet) {
+        return mSensorList.setTypeSensorByString(name,typeToSet);
+    }
+
+    public SensorList getSensorList() {
+        return this.mSensorList;
+    }
+    
 }
