@@ -165,8 +165,6 @@ public class MainUI {
             System.out.print("\nEnter option number:\n");
             String pressEnter = "\nPress ENTER to return.";
             option = scanner.nextInt();
-
-
             switch (option) {
                 case 0:
                     activeProgram = false;
