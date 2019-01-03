@@ -235,4 +235,5 @@ public class RoomTest {
         boolean result = room.addSensor(s1);
         assertEquals(false,result);
     }
+
 }

@@ -17,7 +17,7 @@ public class Room {
         setRoomDimensions(dimensions);
     }
 
-    public Room(String name, int houseFloor, double dimensions,SensorList sensorList,DeviceList deviceList, double roomMaxPower) {
+    public Room(String name, int houseFloor, double dimensions, SensorList sensorList, DeviceList deviceList, double roomMaxPower) {
         setRoomName(name);
         setRoomHouseFloor(houseFloor);
         setRoomDimensions(dimensions);
@@ -33,7 +33,7 @@ public class Room {
         setRoomSensorList(listSensor);
     }
 
-    public SensorList getmRoomSensorList(){
+    public SensorList getmRoomSensorList() {
         return mRoomSensorList;
     }
 
@@ -77,42 +77,36 @@ public class Room {
         return mRoomSensorList;
     }
 
-    public double getMaxTemperatureInARoomOnAGivenDay(Date day){
-        SensorList list= getRoomSensorList();
-        House h =new House();
+    public double getMaxTemperatureInARoomOnAGivenDay(Date day) {
+        SensorList list = getRoomSensorList();
+        House h = new House();
         TypeSensor type = new TypeSensor("temperature");
-        Sensor s = new Sensor("sensor1",type,h.getmGPS(), new Date());
-        for (int i = 0; i<list.getSensors().length; i++){
+        Sensor s = new Sensor("sensor1", type, h.getmGPS(), new Date());
+        for (int i = 0; i < list.getSensors().length; i++) {
             s = list.getSensors()[i];
         }
         return s.getReadingList().getMaximumOfGivenDayValueReadings(day);
     }
-    public boolean addDevice(Device device) {
-        if (!(mRoomDeviceList.getDeviceList().contains(device))) {
-            mRoomDeviceList.getDeviceList().add(device);
-            return true;
-        } else {
-            return false;
+
+    public boolean doesSensorListInARoomContainASensorByName(String name) {
+        for (Sensor s : mRoomSensorList.getSensorList()) {
+            if (s.getName().equals(name)) {
+                return true;
+            }
         }
+        return false;
     }
 
-    public boolean doesSensorListInARoomContainASensorByName(String name){
-        for(Sensor s: mRoomSensorList.getSensorList()){
-            if(s.getName().equals(name)){
+    public boolean doesSensorListInAGeoAreaContainASensorByName(String name) {
+        for (Sensor s : mRoomSensorList.getSensorList()) {
+            if (s.getName().equals(name)) {
                 return true;
             }
-        } return false;
+        }
+        return false;
     }
 
-    public boolean doesSensorListInAGeoAreaContainASensorByName(String name){
-        for(Sensor s: mRoomSensorList.getSensorList()){
-            if(s.getName().equals(name)){
-                return true;
-            }
-        } return false;
-    }
-
-        public boolean addSensor(Sensor sensor) {
+    public boolean addSensor(Sensor sensor) {
         if (!(mRoomSensorList.getSensorList().contains(sensor))) {
             mRoomSensorList.getSensorList().add(sensor);
             return true;
@@ -120,17 +114,19 @@ public class Room {
             return false;
         }
     }
+
     /**
      * Gets most recent reading for current temperature.
+     *
      * @param day
      * @return
      */
 
-    public double getCurrentRoomTemperature (Date day) {
-        House h =new House();
+    public double getCurrentRoomTemperature(Date day) {
+        House h = new House();
         TypeSensor type = new TypeSensor("temperature");
-        Sensor s = new Sensor("sensor1",type,h.getmGPS(), new Date());
-        for (int i = 0; i<mRoomSensorList.getSensors().length; i++){
+        Sensor s = new Sensor("sensor1", type, h.getmGPS(), new Date());
+        for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
             s = mRoomSensorList.getSensors()[i];
         }
         return s.getReadingList().getMostRecentValueOfReading();
@@ -138,16 +134,20 @@ public class Room {
 
     public String printRoom() {
         String result;
-        result = this.mRoomName+ ", " + this.getHouseFloor() + ", " +
-                this.getRoomDimensions() +".\n";
+        result = this.mRoomName + ", " + this.getHouseFloor() + ", " +
+                this.getRoomDimensions() + ".\n";
         return result;
     }
 
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Room room = (Room) o;
         return Objects.equals(mRoomName, room.mRoomName);
     }
