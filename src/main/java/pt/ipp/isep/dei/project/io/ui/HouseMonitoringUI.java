@@ -24,7 +24,6 @@ public class HouseMonitoringUI {
     private int dataDay2;
     private Date mStartDate;
     private HouseMonitoringController houseMonitoringcontroller;
-    private static final String INVALID_OPTION = "Please enter a valid option";
     private List<Integer> listOfIndexesGeographicAreas;
     private List<Integer> listOfIndexesHouses;
     private List<Integer> listOfIndexesRoom;
@@ -64,7 +63,7 @@ public class HouseMonitoringUI {
         }
         while (!activeInput) {
             printOptionMessage();
-            option = readInputNumberAsInt();
+            option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInputRoom();
@@ -102,7 +101,7 @@ public class HouseMonitoringUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(INVALID_OPTION);
+                    System.out.println(UtilsUI.INVALID_OPTION);
                     break;
             }
         }
@@ -112,7 +111,7 @@ public class HouseMonitoringUI {
         System.out.println(
                 "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
-        int option = readInputNumberAsInt();
+        int option = UtilsUI.readInputNumberAsInt();
         switch (option) {
             case 1:
                 getInputRoomName();
@@ -127,7 +126,7 @@ public class HouseMonitoringUI {
             case 0:
                 return;
             default:
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
                 break;
         }
     }
@@ -153,13 +152,13 @@ public class HouseMonitoringUI {
         if (listOfIndexesRoom.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
             System.out.println(houseMonitoringcontroller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
                 mHouse.getmRoomList().getListOfRooms().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(houseMonitoringcontroller.printRoom(mRoom));
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following Room:");
@@ -180,12 +179,12 @@ public class HouseMonitoringUI {
 
         while (!activeInput) {
             houseMonitoringcontroller.printRoomList(mHouse);
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (aux >= 0 && aux < mHouse.getmRoomList().getListOfRooms().size()) {
                 this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
                 activeInput = true;
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
@@ -195,7 +194,7 @@ public class HouseMonitoringUI {
         System.out.println(
                 "We need to know which Sensor you wish to acess.\n" + "Would you like to:\n" + "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
-        int option = readInputNumberAsInt();
+        int option = UtilsUI.readInputNumberAsInt();
         switch (option) {
             case 1:
                 getInputSensorName();
@@ -210,7 +209,7 @@ public class HouseMonitoringUI {
             case 0:
                 return;
             default:
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
                 break;
         }
     }
@@ -236,13 +235,13 @@ public class HouseMonitoringUI {
         if (listOfIndexesSensor.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
             System.out.println(houseMonitoringcontroller.printSensorElementsByIndex(listOfIndexesSensor, mRoom));
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (listOfIndexesSensor.contains(aux)) {
                 mSensor=mRoom.getmRoomSensorList().getSensorList().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(houseMonitoringcontroller.printSensor(mSensor));
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following Sensor:");
@@ -263,12 +262,12 @@ public class HouseMonitoringUI {
 
         while (!activeInput) {
             houseMonitoringcontroller.printSensorList(mRoom);
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (aux >= 0 && aux < mRoom.getmRoomSensorList().getSensorList().size()) {
                 this.mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
                 activeInput = true;
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
@@ -279,7 +278,7 @@ public class HouseMonitoringUI {
                         "0) Return;");
         boolean activeInput = false;
         while (!activeInput) {
-            int option = readInputNumberAsInt();
+            int option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInputGeographicAreaName();
@@ -296,7 +295,7 @@ public class HouseMonitoringUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(INVALID_OPTION);
+                    System.out.println(UtilsUI.INVALID_OPTION);
                     break;
             }
         }
@@ -324,13 +323,13 @@ public class HouseMonitoringUI {
         if (listOfIndexesGeographicAreas.size() > 1) {
             System.out.println("There are multiple Geographic Areas with that name. Please choose the right one.");
             System.out.println(ctrl.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas, newGeoListUi));
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (listOfIndexesGeographicAreas.contains(aux)) {
                 mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
                 System.out.println("You have chosen the following Geographic Area:");
                 System.out.println(ctrl.printGA(mGeoArea));
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following Geographic Area:");
@@ -346,7 +345,7 @@ public class HouseMonitoringUI {
 
         while (!activeInput) {
             houseMonitoringcontroller.printGAList(newGeoListUi);
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
                 mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
                 activeInput = true;
@@ -354,7 +353,7 @@ public class HouseMonitoringUI {
                 System.out.println("You have chosen the following Geographic Area:");
                 System.out.println((mGeoArea.printGeographicArea()));
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
@@ -366,7 +365,7 @@ public class HouseMonitoringUI {
         boolean activeInput = false;
 
         while (!activeInput) {
-            int option = readInputNumberAsInt();
+            int option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInputHouseName();
@@ -383,7 +382,7 @@ public class HouseMonitoringUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(INVALID_OPTION);
+                    System.out.println(UtilsUI.INVALID_OPTION);
                     break;
             }
         }
@@ -411,13 +410,13 @@ public class HouseMonitoringUI {
         if (listOfIndexesHouses.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
             System.out.println(ctrl.printHouseElementsByIndex(listOfIndexesHouses, mGeoArea));
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (listOfIndexesHouses.contains(aux)) {
                 this.mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
                 System.out.println("You have chosen the following House:");
                 System.out.println(ctrl.printHouse(mHouse));
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following House:");
@@ -439,26 +438,16 @@ public class HouseMonitoringUI {
 
         while (!activeInput) {
             houseMonitoringcontroller.printHouseList(mGeoArea);
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
                 mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
                 System.out.println("You have chosen the following House:");
                 System.out.println(ctrl.printHouse(mHouse));
                 activeInput = true;
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
-    }
-
-    public int readInputNumberAsInt() {
-        Scanner scan = new Scanner(System.in);
-        while (!scan.hasNextDouble()) {
-            System.out.println(INVALID_OPTION);
-            scan.next();
-        }
-        Double option = scan.nextDouble();
-        return option.intValue();
     }
 
     private void getInputStartDate() {
