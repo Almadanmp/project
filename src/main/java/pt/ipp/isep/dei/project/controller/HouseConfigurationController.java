@@ -62,7 +62,7 @@ public class HouseConfigurationController {
     private TypeSensor mType;
     private Sensor mSensor;
 
-    public HouseConfigurationController(){}
+
 
     /**
      * Method to create a Local with given doubles

@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.util.GregorianCalendar;
@@ -312,4 +313,28 @@ public class HouseConfigurationControllerTest {
         String expectedResult = "The list is empty.";
         assertEquals(expectedResult,result);
     }
+
+    @Test
+    public void seeIfPrintsGeoA() {
+        HouseConfigurationController US101 = new HouseConfigurationController();
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3));
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        gAL1.addGeographicAreaToGeographicAreaList(gA1);
+        gAL1.addGeographicAreaToGeographicAreaList(gA2);
+        gAL1.addGeographicAreaToGeographicAreaList(gA3);
+        String expectedResult =
+                "Portugal, Country, 21.0º lat, 33.0º long\n";
+        String result = US101.printGA(gA1);
+        assertEquals(expectedResult, result);
+    }
+
+
+
+
+
+
+
+
 }
