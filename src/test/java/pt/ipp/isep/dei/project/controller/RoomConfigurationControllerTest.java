@@ -21,15 +21,22 @@ public class RoomConfigurationControllerTest {
                 new GregorianCalendar(118, 12, 4).getTime());
 
         SensorList slist1 = new SensorList();
-
+        slist1.addSensor(s1);
+        slist1.addSensor(s2);
         Room Bathroom1 = new Room("Bathroom",1,3);
-        Bathroom1.setRoomSensorList(slist1);
-
+        GeographicArea ga1 = new GeographicArea();
+        ga1.setSensorList(slist1);
+        House house1 = new House();
+        RoomList rlist1 = new RoomList();
+        rlist1.addRoom(Bathroom1);
+        HouseList hlist1 = new HouseList();
+        hlist1.addHouseToHouseList(house1);
+        ga1.setHouseList(hlist1);
         //Act
 
         RoomConfigurationController crl = new RoomConfigurationController();
-        crl.addSensorToRoom(Bathroom1,s2);
-        crl.addSensorToRoom(Bathroom1,s1);
+        crl.addSensorToRoom(Bathroom1,"Vento",ga1);
+        crl.addSensorToRoom(Bathroom1,"Pluviosidade",ga1);
         SensorList actualResult = crl.getSensorsFromRoom();
         SensorList expectedResult = slist1;
         //Assert

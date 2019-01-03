@@ -101,9 +101,9 @@ public class RoomConfigurationUI {
     }
     public void updateModelRoomConfiguration() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        this.mRoom = ctrl.getRoomFromName(mNameRoom,mHouse);
-        this.mSensor = ctrl.getSensorFromName(mNameSensor,mGeoArea);
-        ctrl.addSensorToRoom(mRoom,mSensor);
+        mRoom = ctrl.getRoomFromName(mNameRoom,mHouse);
+        mSensor = ctrl.getSensorFromName(mNameSensor,mGeoArea);
+        ctrl.addSensorToRoom(mRoom,mSensor.getName(),mGeoArea);
     }
     private void displayStateRoomConfiguration() {
         System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mNameRoom);

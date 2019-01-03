@@ -19,9 +19,9 @@ public class RoomConfigurationController {
          * as it will only be used in ui to apply methods on given inputs
          */
     }
-    public void addSensorToRoom(Room room, Sensor sensorToAdd) {
-        this.mRoom = room;
-        this.mRoom.getRoomSensorList().getSensorList().add(sensorToAdd);
+    public void addSensorToRoom(Room room, String sensorToAdd,GeographicArea ga) {
+        Sensor xSensor = getSensorFromName(sensorToAdd,ga);
+        room.getRoomSensorList().getSensorList().add(xSensor);
     }
 
     public SensorList getSensorsFromRoom() {
