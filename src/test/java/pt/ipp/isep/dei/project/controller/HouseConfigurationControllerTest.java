@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
@@ -69,6 +70,136 @@ public class HouseConfigurationControllerTest {
         HouseConfigurationController ctrl = new HouseConfigurationController(list);
         boolean result = ctrl.createAndAddTypeAreaToList("cidade1");
         assertFalse(result);
+    }
+
+    //USER STORY 002 TESTS
+
+    @Test
+    public void seeIfPrintTypeAreaListWorks(){
+        TypeAreaList list =new TypeAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        list.addTypeArea(t1);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        String actualResult = ctrl.getTypeAreaList();
+        String expectedResult = "\n" +
+                "Area Types List:\n" +
+                "\n" +
+                "-Rua;";
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfPrintTypeAreaListWorksWithTwoTypes(){
+        TypeAreaList list =new TypeAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        TypeArea t2 = new TypeArea("Cidade");
+        list.addTypeArea(t1);
+        list.addTypeArea(t2);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        String actualResult = ctrl.getTypeAreaList();
+        String expectedResult = "\n" +
+                "Area Types List:\n" +
+                "\n" +
+                "-Rua;\n" +
+                "-Cidade;";
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfPrintTypeAreaListWorksWithThreeTypes(){
+        TypeAreaList list =new TypeAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        TypeArea t2 = new TypeArea("Cidade");
+        TypeArea t3 = new TypeArea("Viela");
+        list.addTypeArea(t1);
+        list.addTypeArea(t2);
+        list.addTypeArea(t3);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        String actualResult = ctrl.getTypeAreaList();
+        String expectedResult = "\n" +
+                "Area Types List:\n" +
+                "\n" +
+                "-Rua;\n" +
+                "-Cidade;\n" +
+                "-Viela;";
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfPrintTypeAreaListWorksWithEmptyList(){
+        TypeAreaList list =new TypeAreaList();
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        String actualResult = ctrl.getTypeAreaList();
+        String expectedResult = "\n" +
+                "Area Types List:\n" +
+                "\n" +
+                "|||| List is Empty ||||\n" +
+                "Add types to list first";
+        assertEquals(expectedResult, actualResult);
+    }
+
+    //USER STORY 003 TESTS
+
+    @Test
+    public void seeIfCreatesGeographicAreaAndAddsItToList() {
+        GeographicAreaList geoList = new GeographicAreaList();
+        String name = "Porto";
+        String typeArea = "Distrito";
+        double latitude = 38;
+        double longitude = 7;
+        HouseConfigurationController us3 = new HouseConfigurationController();
+        boolean result = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
+
+        assertTrue(result);
+        assertEquals(1, geoList.getGeographicAreaList().size());
+    }
+
+    @Test
+    public void seeIfFailsCreatingSecondEqualGeographicArea() {
+        GeographicAreaList geoList = new GeographicAreaList();
+        String name = "Porto";
+        String typeArea = "Distrito";
+        double latitude = 38;
+        double longitude = 7;
+
+        HouseConfigurationController us3 = new HouseConfigurationController();
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
+        boolean result2 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
+
+        assertTrue(result1); //safety check (already covered on previous test)
+        Assertions.assertFalse(result2);
+        assertEquals(1, geoList.getGeographicAreaList().size());
+    }
+
+    @Test
+    public void seeIfCreatesTwoDifferentGeographicAreas() {
+        GeographicAreaList geoList = new GeographicAreaList();
+        String name1 = "Porto";
+        String typeArea = "Distrito";
+        double latitude = 38;
+        double longitude = 7;
+        String name2 = "Lisboa";
+
+        HouseConfigurationController us3 = new HouseConfigurationController();
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name1, typeArea, latitude, longitude);
+        boolean result2 = us3.addNewGeoAreaToList(geoList, name2, typeArea, latitude, longitude);
+
+        assertTrue(result1); //safety check (already covered on previous test)
+        assertTrue(result2);
+        assertEquals(2, geoList.getGeographicAreaList().size());
+    }
+
+    @Test
+    public void seeIfFailsWithNullInputGeoList() {
+        String name1 = "Porto";
+        String typeArea = "Distrito";
+        double latitude = 38;
+        double longitude = 7;
+
+        HouseConfigurationController us3 = new HouseConfigurationController();
+        boolean result = us3.addNewGeoAreaToList(null, name1, typeArea, latitude, longitude);
+
+        Assertions.assertFalse(result);
     }
 
     //USER STORY 005 TESTS

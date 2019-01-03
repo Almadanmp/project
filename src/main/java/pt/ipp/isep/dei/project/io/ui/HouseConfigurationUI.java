@@ -10,8 +10,6 @@ import java.util.Scanner;
 class HouseConfigurationUI {
     HouseConfigurationController controller;
 
-    HouseConfigurationUI(){}
-
      /**
       * US001UI
       */
@@ -47,6 +45,135 @@ class HouseConfigurationUI {
              System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
          }
      }
+
+    /**
+     * User Story 02
+     * <p>
+     * As a System Administrator I want to obtain a list of the types of Geographical Areas previously stated.
+     * <p>
+     * Class responsible for presenting the list.
+     */
+
+    public void runUS02(TypeAreaList list) {
+        this.mActive = true;
+        while (this.mActive) {
+            updateModelUS02(list);
+            displayStateUS02();
+        }
+    }
+
+    private void updateModelUS02(TypeAreaList list) {
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        System.out.println(ctrl.getTypeAreaList());
+    }
+
+    private void displayStateUS02() {
+        this.mActive = true;
+        System.out.println("\nList finished.");
+        mActive = false;
+    }
+
+    /**
+     * * User Story 03
+     * As a System Administrator I want to Create a new Geographic Area.
+     * This class is responsible for handling user input.
+     * It calls the respective US03 controller.
+     */
+
+    private String nameOfGeoArea;
+    private String typeArea;
+    private double geoAreaLat;
+    private double geoAreaLong;
+    private boolean areaAddedResult;
+    private Scanner scanner;
+
+    HouseConfigurationUI() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    /**
+     * US 03 view - runUS135 method.
+     * Reads necessary user inputs .
+     * Calls controller to create the GA and add it to the list (received as a parameter).
+     * Displays result information to the user.
+     *
+     * @param newGeoListUi the list where new GA shall be added to
+     */
+    public void runUS03(GeographicAreaList newGeoListUi) {
+        this.mActive = true;
+        while (this.mActive) {
+            getInputNameNewAreaUS03();
+            getInputTypeOfAreaUS03();
+            getLocalGeoAreaUS03();
+            updateGeoAreaUS03();
+            updateModelUS03(newGeoListUi);
+            displayStateUS03();
+        }
+    }
+
+    private void getInputNameNewAreaUS03() {
+        this.nameOfGeoArea = readInputString("name");
+    }
+
+    private void getInputTypeOfAreaUS03() {
+        this.typeArea = readInputString("Type Area");
+    }
+
+    private void getLocalGeoAreaUS03() {
+        this.geoAreaLat = readInputNumber("Latitude");
+        this.geoAreaLong = readInputNumber("Longitude");
+    }
+
+    private void updateGeoAreaUS03() {
+        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + typeArea +
+                " and its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude.\n");
+    }
+
+    private void updateModelUS03(GeographicAreaList newGeoListUi) {
+        HouseConfigurationController controller = new HouseConfigurationController();
+        this.areaAddedResult = controller.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, typeArea, geoAreaLat, geoAreaLong);
+    }
+
+    private void displayStateUS03() {
+        if (areaAddedResult) {
+            System.out.print("The Geographic Area has been successfully added.");
+        } else
+            System.out.print("The Geographic Area hasn't been added to the list. " +
+                    "There is already an area with those input values.");
+        this.mActive = false;
+    }
+
+    private String createInputMsg(String inputType) {
+        return "Please Insert " + inputType + " for the New Geographic Area: ";
+    }
+
+    private String createInvalidStringMsg(String inputType) {
+        return "That's not a valid " + inputType + ". Please insert only Alphabetic Characters";
+    }
+
+    private String createInvalidNumberMsg(String inputType) {
+        return "That's not a valid " + inputType + ". Please insert only Numbers";
+    }
+
+    private String readInputString(String inputType) {
+        System.out.print(createInputMsg(inputType));
+
+        while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
+            System.out.println(createInvalidStringMsg(inputType));
+            scanner.next();
+        }
+        return scanner.next();
+    }
+
+    private double readInputNumber(String inputType) {
+        System.out.print(createInputMsg(inputType));
+
+        while (!scanner.hasNextDouble()) {
+            System.out.println(createInvalidNumberMsg(inputType));
+            scanner.next();
+        }
+        return scanner.nextDouble();
+    }
 
     /**
      * US005

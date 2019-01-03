@@ -178,14 +178,14 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 2:
-                    US02UI view2 = new US02UI();
-                    view2.runUS02UI(mTypeAreaList);
+                    HouseConfigurationUI view2 = new HouseConfigurationUI();
+                    view2.runUS02(mTypeAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 3:
-                    US03UI view3 = new US03UI();
-                    view3.run(mGeographicAreaList);
+                    HouseConfigurationUI view3 = new HouseConfigurationUI();
+                    view3.runUS03(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
