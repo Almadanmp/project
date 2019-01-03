@@ -256,16 +256,9 @@ public class MainUI {
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
                         break;
-                    case 16:
+                    case 18:
                         US108UI view16 = new US108UI();
                         view16.runUS108UI(mGeographicAreaList);
-                        System.out.println(pressEnter);
-                        enterToReturnToConsole.nextLine();
-                        activeInput = true;
-                        break;
-                    case 18:
-                        US108UI view18 = new US108UI();
-                        view18.runUS108UI(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
