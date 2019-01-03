@@ -757,6 +757,50 @@ class HouseConfigurationControllerTest {
 
     }
 
+    @Test
+    void seeIfsetHouseAddress(){
+        //Arrange
+        String expectedResult = "rua da rua";
+        House house = new House("rua coise e tal", new Local(4, 5), "447-56");
+
+        //Act
+        house.setmAddress("rua da rua");
+        String actualResult = house.getmAddress();
+
+        //Assert
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfsetHouseZipCode(){
+        //Arrange
+        String expectedResult = "6327-09";
+        House house = new House("rua coise e tal", new Local(4, 5), "447-56");
+
+        //Act
+        house.setmZipCode("6327-09");
+        String actualResult = house.getmZipCode();
+
+        //Assert
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfsetHouseGPS(){
+        //Arrange
+        double latitude = 30;
+        double longitude = 31;
+        Local expectedResult = new Local (07, 78);
+
+        House house = new House("rua coise e tal", new Local(latitude, longitude), "447-56");
+
+        //Act
+        house.setGPS(07, 78);
+        Local actualResult = house.getmGPS();
+
+        //Assert
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfPrintGAList(){
