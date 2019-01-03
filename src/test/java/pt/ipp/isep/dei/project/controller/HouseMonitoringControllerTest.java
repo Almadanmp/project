@@ -4,10 +4,7 @@ import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -706,6 +703,28 @@ public class HouseMonitoringControllerTest {
         List<Integer> expectedResult = Collections.singletonList(mGeographicAreaList.getGeographicAreaList().indexOf(geoa2));
         //Assert
         assertEquals(expectedResult, result);
+    }
 
+    @Test
+    public void seeIfPrintGeoGraphicAreaElementsByIndex() {
+        //Arrange
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        //MAIN LISTS
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        //TEST GEOGRAPHIC AREAS
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
+        //Act
+        String result = ctrl.printGeoGraphicAreaElementsByIndex(list, mGeographicAreaList);
+        String expectedResult = "---------------\n" +
+                "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
+                "---------------";
+        //Assert
+        assertEquals(expectedResult, result);
     }
 }
