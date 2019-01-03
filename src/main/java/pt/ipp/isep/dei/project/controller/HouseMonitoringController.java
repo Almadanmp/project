@@ -17,9 +17,6 @@ import java.util.List;
 public class HouseMonitoringController {
 
 
-    public HouseMonitoringController(){}
-
-
     public double getCurrentRoomTemperature(Date day, RoomList room) {
         double currentTemperature = 0;
         for (Room r : room.getListOfRooms()) {
