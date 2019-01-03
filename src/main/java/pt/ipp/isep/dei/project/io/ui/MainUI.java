@@ -259,8 +259,8 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 15:
-                    US135UI view15 = new US135UI();
-                    view15.run(houseList1);
+                    HouseConfigurationUI view15 = new HouseConfigurationUI();
+                    view15.runUS135(houseList1);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

@@ -29,6 +29,7 @@ public class HouseConfigurationController {
     public boolean seeIfHouseExistsInHouseList(String houseName) {
         if (mHouseList.checkIfHouseListContainsHouseWithGivenDesignation(houseName)) {
             this.mHouseName = houseName;
+            this.mEnergyGridList = mHouseList.getHouseByDesignation(houseName).getmEGList();
             return true;
         } else {
             return false;
