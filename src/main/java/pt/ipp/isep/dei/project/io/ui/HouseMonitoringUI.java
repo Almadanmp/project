@@ -11,6 +11,7 @@ import static java.lang.System.out;
 
 
 public class HouseMonitoringUI {
+    private HouseMonitoringController houseMonitoringcontroller;
     private House mHouse;
     private GeographicArea mGeoArea;
     private String geoName;
@@ -23,11 +24,6 @@ public class HouseMonitoringUI {
     private int dataMonth2;
     private int dataDay2;
     private Date mStartDate;
-    private HouseMonitoringController houseMonitoringcontroller;
-    private List<Integer> listOfIndexesGeographicAreas;
-    private List<Integer> listOfIndexesHouses;
-    private List<Integer> listOfIndexesRoom;
-    private List<Integer> listOfIndexesSensor;
     private double mCurrentHouseAreaTemperature;
     private String mHouseName;
     private String mNameRoom;
@@ -67,7 +63,7 @@ public class HouseMonitoringUI {
             switch (option) {
                 case 1:
                     getInputRoom();
-                    getInpuSensor();
+                    getInputSensor();
                     getInputStartDate();
                     updateModel610(roomList);
                     displayState610();
@@ -76,7 +72,7 @@ public class HouseMonitoringUI {
 
                 case 2:
                     getInputRoom();
-                    getInpuSensor();
+                    getInputSensor();
                     updateModel605(roomList);
                     displayState605();
                     activeInput = true;
@@ -95,7 +91,7 @@ public class HouseMonitoringUI {
                 case 5:
                     getInputStartDate();
                     getInputEndDate();
-                    updateAndDispleyUS623();
+                    updateAndDisplayUS623();
                     activeInput = true;
                     break;
                 case 0:
@@ -139,7 +135,7 @@ public class HouseMonitoringUI {
     }
 
     private boolean getRoomByName() {
-        this.listOfIndexesRoom = houseMonitoringcontroller.matchRoomIndexByString(mNameRoom, mHouse);
+        List<Integer> listOfIndexesRoom = houseMonitoringcontroller.matchRoomIndexByString(mNameRoom, mHouse);
 
         while (listOfIndexesRoom.isEmpty()) {
             System.out.println("There is no Room with that name. Please insert the name of a Room" +
@@ -189,8 +185,7 @@ public class HouseMonitoringUI {
         }
     }
 
-
-    private void getInpuSensor() {
+    private void getInputSensor() {
         System.out.println(
                 "We need to know which Sensor you wish to acess.\n" + "Would you like to:\n" + "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
@@ -222,7 +217,7 @@ public class HouseMonitoringUI {
     }
 
     private boolean getSensorByName() {
-        this.listOfIndexesSensor = houseMonitoringcontroller.matchSensorIndexByString(mNameSensor, mRoom);
+        List<Integer> listOfIndexesSensor = houseMonitoringcontroller.matchSensorIndexByString(mNameSensor, mRoom);
 
         while (listOfIndexesSensor.isEmpty()) {
             System.out.println("There is no Room with that name. Please insert the name of a Room" +
@@ -250,7 +245,6 @@ public class HouseMonitoringUI {
         }
         return true;
     }
-
 
     private void getInputSensorByList() {
         if (mHouse.getmRoomList().getListOfRooms().size() == 0) {
@@ -310,7 +304,7 @@ public class HouseMonitoringUI {
 
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
+        List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
 
         while (listOfIndexesGeographicAreas.isEmpty()) {
             System.out.println("There is no Geographic Area with that name. Please insert the name of a Geographic Area" +
@@ -349,7 +343,6 @@ public class HouseMonitoringUI {
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
                 mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
                 activeInput = true;
-                //TODO fazer um print bonito
                 System.out.println("You have chosen the following Geographic Area:");
                 System.out.println((mGeoArea.printGeographicArea()));
             } else {
@@ -397,7 +390,7 @@ public class HouseMonitoringUI {
 
     private boolean getHouseByName(GeographicArea mGeoArea) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        listOfIndexesHouses = ctrl.matchHouseIndexByString(mHouseName, mGeoArea);
+        List<Integer> listOfIndexesHouses = ctrl.matchHouseIndexByString(mHouseName, mGeoArea);
 
         while (listOfIndexesHouses.isEmpty()) {
             System.out.println("There is no House Area with that name. Please insert the name of a House" +
@@ -449,61 +442,35 @@ public class HouseMonitoringUI {
             }
         }
     }
-
     private void getInputStartDate() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the year:");
-        while (!scan.hasNextInt()) {
-            scan.next();
-            System.out.println("Not a valid year. Try again");
-        }
-        this.dataYear1 = scan.nextInt();
 
+        this.dataYear1 = UtilsUI.getInputDateAsInt(scan, "year");
         scan.nextLine();
-        out.println("\nEnter the Month:\t");
-        while (!scan.hasNextInt()) {
-            scan.next();
-            System.out.println("Not a valid month. Try again");
-        }
-        this.dataMonth1 = scan.nextInt() - 1;
 
+        this.dataMonth1 = UtilsUI.getInputDateAsInt(scan, "month") - 1;
         scan.nextLine();
-        out.println("\nEnter the Day:\t");
-        while (!scan.hasNextInt()) {
-            scan.next();
-            System.out.println("Not a valid day. Try again");
-        }
-        this.dataDay1 = scan.nextInt();
+
+        this.dataDay1 = UtilsUI.getInputDateAsInt(scan, "day");
+
         System.out.println("You entered the date successfully!");
         scan.nextLine();
     }
 
     private void getInputEndDate() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the year:");
-        while (!scan.hasNextInt()) {
-            scan.next();
-            out.println("Not a valid year. Try again");
-        }
-        this.dataYear2 = scan.nextInt();
+
+        this.dataYear2 = UtilsUI.getInputDateAsInt(scan, "year");
         scan.nextLine();
-        out.println("\nEnter the Month:\t");
-        while (!scan.hasNextInt()) {
-            scan.next();
-            out.println("Not a valid month. Try again");
-        }
-        this.dataMonth2 = scan.nextInt() - 1;
+
+        this.dataMonth2 = UtilsUI.getInputDateAsInt(scan, "month") - 1;
         scan.nextLine();
-        out.println("\nEnter the Day:\t");
-        while (!scan.hasNextInt()) {
-            scan.next();
-            out.println("Not a valid day. Try again");
-        }
-        this.dataDay2 = scan.nextInt();
-        out.println("You entered the date successfully!");
+
+        this.dataDay2 = UtilsUI.getInputDateAsInt(scan, "day");
+
+        System.out.println("You entered the date successfully!");
         scan.nextLine();
     }
-
 
     private void printOptionMessage() {
         System.out.println("House Monitoring Options:\n");
@@ -512,7 +479,7 @@ public class HouseMonitoringUI {
         System.out.println("3) Get Current Temperature in a House Area.");
         System.out.println("4) Get The Average Rainfall on a specific day in a House Area .");
         System.out.println("5) Get The Average Rainfall on a day interval in a House Area.");
-        System.out.println("0) (Return to main menu)");
+        System.out.println("0) (Return to main menu)\n");
     }
 
     /**
@@ -583,7 +550,7 @@ public class HouseMonitoringUI {
      * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
-    private void updateAndDispleyUS623() {
+    private void updateAndDisplayUS623() {
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
         this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate);
