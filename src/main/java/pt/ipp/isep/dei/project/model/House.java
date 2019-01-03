@@ -46,10 +46,6 @@ public class House {
         return mDesignation;
     }
 
-    public void setHouseDesignation(String designation) {
-        mDesignation = designation;
-    }
-
     public String getmAddress() {
         return mAddress;
     }
@@ -60,10 +56,6 @@ public class House {
 
     public Local getmGPS() {
         return mGPS;
-    }
-
-    public void setmGPS(Local mGPS) {
-        this.mGPS = mGPS;
     }
 
     public String getmZipCode() {
@@ -142,8 +134,6 @@ public class House {
         }
         return null;
     }
-
-
 
     @Override
     public boolean equals(Object o) {
