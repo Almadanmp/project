@@ -74,9 +74,23 @@ public class HouseMonitoringController {
     }
 
     public String printHouse (House house){
-        return house.printGeographicArea();
+        return house.printHouse();
+    }
+    public List<Integer> matchRoomIndexByString(String input, House house){
+        return house.getmRoomList().matchRoomIndexByString(input);
     }
 
+    public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
+        return house.getmRoomList().printElementsByIndex(listOfIndexesOfRoom);
+    }
+
+    public String printRoomList(House house) {
+        return house.getmRoomList().printRoomList(house);
+    }
+
+    public String printRoom (Room room){
+        return room.printRoom();
+    }
     public Date createDate(int year, int month, int day) {
         return new GregorianCalendar(year, month, day).getTime();
     }

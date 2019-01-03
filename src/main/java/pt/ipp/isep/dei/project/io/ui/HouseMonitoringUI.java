@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
 import java.util.List;
@@ -30,9 +27,11 @@ public class HouseMonitoringUI {
     private static final String INVALID_OPTION = "Please enter a valid option";
     private List<Integer> listOfIndexesGeographicAreas;
     private List<Integer> listOfIndexesHouses;
+    private List<Integer> listOfIndexesRoom;
     private double mCurrentHouseAreaTemperature;
     private String mHouseName;
     private String mNameRoom;
+    private Room mRoom;
     private double mMaxTemperature;
     private double mCurrentTemperature;
     private String mNameSensor;
@@ -66,27 +65,25 @@ public class HouseMonitoringUI {
             option = readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if (!getInputRoom(roomList)) {
-                        return;
-                    }
+                    getInputRoom();
                     if (!getInputSensorName(roomList)) {
                         return;
                     }
                     getInputStartDate();
                     updateModel610(roomList);
                     displayState610();
+                    activeInput = true;
                     break;
 
                 case 2:
-                    if (!getInputRoom(roomList)) {
-                        return;
-                    }
+                    getInputRoom();
                     if (!getInputSensorName(roomList)) {
                         return;
                     }
                     updateModel605(roomList);
                     displayState605();
-                    return;
+                    activeInput = true;
+                    break;
                 case 3:
                     updateModel600();
                     displayState600();
@@ -113,19 +110,87 @@ public class HouseMonitoringUI {
         }
     }
 
-    private boolean getInputRoom(RoomList list) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please insert the name of the Room you want to get the Maximum Temperature from: ");
 
-        this.mNameRoom = scanner.next();
-        if (ctrl.doesListContainRoomByName(this.mNameRoom, list)) {
-            System.out.println("You chose the Room " + this.mNameRoom);
+    private void getInputRoom() {
+        System.out.println(
+                "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
+                        "0) Return;");
+        int option = readInputNumberAsInt();
+        switch (option) {
+            case 1:
+                getInputRoomName();
+                if (!getRoomByName()) {
+                    System.out.println("Unable to select a Room. Returning to main menu.");
+                    return;
+                }
+                break;
+            case 2:
+                getInputRoomByList();
+                break;
+            case 0:
+                return;
+            default:
+                System.out.println(INVALID_OPTION);
+                break;
+        }
+    }
+
+    private boolean getInputRoomName() {
+        System.out.println("Please type the name of the Room you want to access.");
+        Scanner scan = new Scanner(System.in);
+        this.mNameRoom = scan.nextLine();
+        return (!(this.mNameRoom.equals("exit")));
+    }
+
+    private boolean getRoomByName() {
+        this.listOfIndexesRoom = houseMonitoringcontroller.matchRoomIndexByString(mNameRoom, mHouse);
+
+        while (listOfIndexesRoom.isEmpty()) {
+            System.out.println("There is no Room with that name. Please insert the name of a Room" +
+                    " that exists or  Type 'exit' to cancel and create a new Room on the Main Menu.");
+            if (!getInputRoomName()) {
+                return false;
+            }
+            listOfIndexesRoom = houseMonitoringcontroller.matchRoomIndexByString(mNameRoom, mHouse);
+        }
+        if (listOfIndexesRoom.size() > 1) {
+            System.out.println("There are multiple Houses with that name. Please choose the right one.");
+            System.out.println(houseMonitoringcontroller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
+            int aux = readInputNumberAsInt();
+            if (listOfIndexesRoom.contains(aux)) {
+                mHouse.getmRoomList().getListOfRooms().get(aux);
+                System.out.println("You have chosen the following Room:");
+                System.out.println(houseMonitoringcontroller.printRoom(mRoom));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
         } else {
-            System.out.println("This room does not exist in the list of rooms.");
-            return false;
+            System.out.println("You have chosen the following Room:");
+            mHouse.getmRoomList().getListOfRooms().get(0);
+            System.out.println(houseMonitoringcontroller.printRoom(mRoom));
         }
         return true;
+    }
+
+
+    private void getInputRoomByList() {
+        if (mHouse.getmRoomList().getListOfRooms().size() == 0) {
+            System.out.print("Invalid Room List - List Is Empty\n");
+            return;
+        }
+        boolean activeInput = false;
+        System.out.println("Please select one of the existing rooms on the selected House: ");
+
+        while (!activeInput) {
+            houseMonitoringcontroller.printRoomList(mHouse);
+            int aux = readInputNumberAsInt();
+            if (aux >= 0 && aux < mHouse.getmRoomList().getListOfRooms().size()) {
+                this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
+                activeInput = true;
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        }
     }
 
     private boolean getInputSensorName(RoomList list) {

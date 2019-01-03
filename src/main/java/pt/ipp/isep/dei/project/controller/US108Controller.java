@@ -2,8 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -42,7 +40,7 @@ public class US108Controller {
     }
 
     public String printHouse (House house){
-        return house.printGeographicArea();
+        return house.printHouse();
     }
 
     public List<Integer> matchRoomIndexByString(String input, House house){
