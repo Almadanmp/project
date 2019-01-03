@@ -2,8 +2,10 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -335,6 +337,69 @@ public class HouseConfigurationControllerTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    public void seeIfPrintsHouseList() {
+        //Assert
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        House house1 = new House("vacationHouse", "Flower Street", new Local(11, 13), "4230-111");
+        House house2 = new House("workHouse", "Torrinha", new Local(12, 12), "4345-000");
+        House house3 = new House("dreamHouse", "New York", new Local(122, 122), "6666-000");
+        HouseList hL1 = new HouseList(house1);
+        hL1.addHouseToHouseList(house2);
+        hL1.addHouseToHouseList(house3);
+        GeographicArea gA1 = new GeographicArea();
+        gA1.setHouseList(hL1);
+
+        //Act
+        String expectedResult = "---------------\n" +
+                "0) Designation: vacationHouse | Address: Flower Street | ZipCode: 4230-111\n" +
+                "1) Designation: workHouse | Address: Torrinha | ZipCode: 4345-000\n" +
+                "2) Designation: dreamHouse | Address: New York | ZipCode: 6666-000\n" +
+                "---------------\n";
+        String result = ctrl.printHouseList(gA1);
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintsHouseListIfEmpty() {
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        HouseList hL1 = new HouseList();
+        GeographicArea gA1 = new GeographicArea();
+        gA1.setHouseList(hL1);
+
+        //Act
+        String expectedResult = "Invalid List - List is Empty\n";
+        String result = ctrl.printHouseList(gA1);
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintGeoGraphicAreaElementsByIndex() {
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
+
+        //Act
+        String result = ctrl.printGeoGraphicAreaElementsByIndex(list, mGeographicAreaList);
+        String expectedResult = "---------------\n" +
+                "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
+                "---------------";
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
     
     //USER STORY 130 TESTS
 
