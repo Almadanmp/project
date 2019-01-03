@@ -129,6 +129,24 @@ public class HouseMonitoringControllerTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    public void seeIfListContainRoomByName() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Arrange
+        //Room
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room2);
+        roomList1.addRoom(room1);
+
+        //Act
+        boolean result = ctrl.doesListContainRoomByName("room1", roomList1);
+
+        //Assert
+        assertTrue(result);
+    }
+
     //***************************************************************************************************************/
     //***************************************************************************************************************/
 
