@@ -38,8 +38,9 @@ public class HouseMonitoringController {
     }
     public boolean doesSensorListInARoomContainASensorByName(String name, RoomList room){
         boolean result = true;
-        for (Room r: room.getRooms()){
-            result= r.getRoomSensorList().doesSensorListContainSensorByName(name);}
+        for (Room r: room.getRooms()) {
+            result = r.getRoomSensorList().doesSensorListContainSensorByName(name);
+        }
         return result;
     }
 
