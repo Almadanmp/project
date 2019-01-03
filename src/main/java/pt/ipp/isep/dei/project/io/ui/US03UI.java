@@ -25,7 +25,7 @@ public class US03UI {
     }
 
     /**
-     * US 03 view - run method.
+     * US 03 view - runUS135 method.
      * Reads necessary user inputs .
      * Calls controller to create the GA and add it to the list (received as a parameter).
      * Displays result information to the user.

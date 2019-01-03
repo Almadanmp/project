@@ -20,7 +20,7 @@ public class US04UI {
     private GeographicAreaList filteredList; //Geographic Area List filtered with Type of Geographic Area
 
     /**
-     * Usual run() method for ui's. In this one with receive as a parameter the Geographic Area List from the MainUI.
+     * Usual runUS135() method for ui's. In this one with receive as a parameter the Geographic Area List from the MainUI.
      * @param geoArea
      */
     public void run(GeographicAreaList geoArea) {
