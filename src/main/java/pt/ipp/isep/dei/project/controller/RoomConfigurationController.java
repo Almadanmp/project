@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.List;
+
 /** US253: As an Administrator, I want to add a new sensor to a room from the list of available sensor types,
  * in order to configure it.
  **/
@@ -49,5 +51,19 @@ public class RoomConfigurationController {
             }
         }
         return mRoom;
+    }
+
+    public String printRoomList(House house) {
+        return house.getmRoomList().printRoomList(house);
+    }
+
+    public String printRoom (Room room){
+        return room.printRoom();
+    }
+    public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
+        return house.getmRoomList().printElementsByIndex(listOfIndexesOfRoom);
+    }
+    public List<Integer> matchRoomIndexByString(String input, House house){
+        return house.getmRoomList().matchRoomIndexByString(input);
     }
 }
