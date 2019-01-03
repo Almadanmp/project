@@ -4,8 +4,10 @@ import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -682,11 +684,28 @@ public class HouseMonitoringControllerTest {
         Room room = new Room("cozinha",1,2,sensorList1);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        boolean actualResult = ctrl.doesSensorListInARoomContainASensorByName("miau",roomList);
-        boolean expectedResult = false;
+        boolean result = ctrl.doesSensorListInARoomContainASensorByName("miau",roomList);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(result);
     }
 
+    @Test
+    public void seeIfMatchGeographicAreaIndexByStringWorks() {
+        //Arrange
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //MAIN LISTS
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        //TEST GEOGRAPHIC AREAS
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
+        //Act
+        List<Integer> result = ctrl.matchGeographicAreaIndexByString("lisboa", mGeographicAreaList);
+        List<Integer> expectedResult = Collections.singletonList(mGeographicAreaList.getGeographicAreaList().indexOf(geoa2));
+        //Assert
+        assertEquals(expectedResult, result);
+
+    }
 }

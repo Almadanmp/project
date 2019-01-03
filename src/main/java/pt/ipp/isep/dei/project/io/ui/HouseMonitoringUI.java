@@ -52,7 +52,7 @@ public class HouseMonitoringUI {
             return;
         }
         boolean activeInput = false;
-        String option;
+        int option;
         System.out.println("--------------\n");
         System.out.println("House Monitoring\n");
         System.out.println("--------------\n");
@@ -64,9 +64,9 @@ public class HouseMonitoringUI {
         }
         while (!activeInput) {
             printOptionMessage();
-            option = mScanner.next();
+            option = readInputNumberAsInt();
             switch (option) {
-                case "1":
+                case 1:
                     if (!getInputRoom(roomList)) {
                         return;
                     }
@@ -78,7 +78,7 @@ public class HouseMonitoringUI {
                     displayState610();
                     break;
 
-                case "2":
+                case 2:
                     if (!getInputRoom(roomList)) {
                         return;
                     }
@@ -88,25 +88,25 @@ public class HouseMonitoringUI {
                     updateModel605(roomList);
                     displayState605();
                     return;
-                case "3":
+                case 3:
                     updateModel600();
                     displayState600();
                     activeInput = true;
                     break;
-                case "4":
+                case 4:
                     getInputStartDate();
                     updateModelUS620();
                     displayState620();
                     activeInput = true;
                     break;
-                case "5":
+                case 5:
                     getInputStartDate();
                     getInputEndDate();
                     updateModelUS623();
                     displayState623();
                     activeInput = true;
                     break;
-                case "0":
+                case 0:
                     return;
 
                 default:
