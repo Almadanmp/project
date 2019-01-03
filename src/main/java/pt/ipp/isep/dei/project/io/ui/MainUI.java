@@ -136,6 +136,7 @@ public class MainUI {
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
                     "19. Add A Room to a Energy Grid\n",
+                    "20. Remove a Room from an Energy Grid\n",
                     "21. Room Configuration.\n",
                     "22. House Monitoring.\n"};
 
