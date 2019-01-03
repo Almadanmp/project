@@ -265,7 +265,8 @@ public class HouseConfigurationController {
     }
 
     /**
-     * US101
+     * US101: As an As an Administrator, I want to in order to configure a house (zipcode, local and address).
+     *
      */
 
     public HouseConfigurationController() {
