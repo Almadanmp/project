@@ -22,6 +22,7 @@ public class RoomConfigurationController {
     public void addSensorToRoom(Room room, String sensorToAdd,GeographicArea ga) {
         Sensor xSensor = getSensorFromName(sensorToAdd,ga);
         room.getRoomSensorList().getSensorList().add(xSensor);
+        this.mRoom = room;
     }
 
     public SensorList getSensorsFromRoom() {

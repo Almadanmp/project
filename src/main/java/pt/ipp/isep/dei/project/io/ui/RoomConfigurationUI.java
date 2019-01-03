@@ -15,14 +15,11 @@ public class RoomConfigurationUI {
     private RoomConfigurationController mRoomConfigurationController;
     private HouseMonitoringController mHouseMonitoringcontroller;
     private static final String INVALID_OPTION = "Please enter a valid option";
-    private String mNameRoom;
     private Room mRoom;
     private Sensor mSensor;
     private List<Integer> listOfIndexesGeographicAreas;
     private String mNameSensor;
-    private SensorList mSensorList;
     private GeographicAreaList mGeoList;
-    private RoomList mRoomList;
     private List<Integer> listOfIndexesHouses;
     private List<Integer> listOfIndexesRoom;
     private String mRoomName;
@@ -34,9 +31,8 @@ public class RoomConfigurationUI {
         this.mHouseMonitoringcontroller = new HouseMonitoringController();
     }
 
-    public void run(GeographicAreaList newGeoListUi, RoomList roomList) {
+    public void run(GeographicAreaList newGeoListUi) {
         this.mGeoList = newGeoListUi;
-        this.mRoomList = roomList;
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
@@ -51,7 +47,7 @@ public class RoomConfigurationUI {
             System.out.println("Unable to select a Geographic Area. Returning to main menu.");
             return;
         }
-        getInputHouse(mGeoArea);
+        getInputHouse();
         if (mHouse == null) {
             System.out.println("Unable to select a house. Returning to main menu.");
             return;
@@ -101,12 +97,12 @@ public class RoomConfigurationUI {
     }
     public void updateModelRoomConfiguration() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        mRoom = ctrl.getRoomFromName(mNameRoom,mHouse);
-        mSensor = ctrl.getSensorFromName(mNameSensor,mGeoArea);
+        this.mRoom = mRoomConfigurationController.getRoomFromName(mRoomName,mHouse);
+        this.mSensor = mRoomConfigurationController.getSensorFromName(mNameSensor,mGeoArea);
         ctrl.addSensorToRoom(mRoom,mSensor.getName(),mGeoArea);
     }
     private void displayStateRoomConfiguration() {
-        System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mNameRoom);
+        System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mRoomName);
     }
 
     /******************************************************************************
@@ -158,7 +154,8 @@ public class RoomConfigurationUI {
             System.out.println(mRoomConfigurationController.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
             int aux = readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
-                mRoom = mRoomList.getListOfRooms().get(aux);
+                this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
+                this.mRoomName = mRoom.getRoomName();
                 mHouse.getmRoomList().getListOfRooms().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
@@ -166,9 +163,10 @@ public class RoomConfigurationUI {
                 System.out.println(INVALID_OPTION);
             }
         } else {
-            mRoom = mRoomList.getListOfRooms().get(listOfIndexesRoom.get(0));
+            this.mRoom = mHouse.getmRoomList().getListOfRooms().get(listOfIndexesRoom.get(0));
+            this.mRoomName=mRoom.getRoomName();
             System.out.println("You have chosen the following Room:");
-            mHouse.getmRoomList().getListOfRooms().get(0);
+            this.mHouse.getmRoomList().getListOfRooms().get(0);
             System.out.println(mRoomConfigurationController.printRoom(mRoom));
         }
         return true;
@@ -185,6 +183,7 @@ public class RoomConfigurationUI {
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mHouse.getmRoomList().getListOfRooms().size()) {
                 this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
+                this.mRoomName = mRoom.getRoomName();
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
@@ -267,7 +266,7 @@ public class RoomConfigurationUI {
             System.out.println(ctrl.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas, newGeoListUi));
             int aux = readInputNumberAsInt();
             if (listOfIndexesGeographicAreas.contains(aux)) {
-                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
+                this.mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
                 System.out.println("You have chosen the following Geographic Area:");
                 System.out.println(ctrl.printGA(mGeoArea));
             } else {
@@ -275,7 +274,7 @@ public class RoomConfigurationUI {
             }
         } else {
             System.out.println("You have chosen the following Geographic Area:");
-            mGeoArea = newGeoListUi.getGeographicAreaList().get(listOfIndexesGeographicAreas.get(0));
+            this.mGeoArea = newGeoListUi.getGeographicAreaList().get(listOfIndexesGeographicAreas.get(0));
             System.out.println(ctrl.printGA(mGeoArea));
         }
         return true;
@@ -287,7 +286,7 @@ public class RoomConfigurationUI {
             mHouseMonitoringcontroller.printGAList(newGeoListUi);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
-                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
+                this.mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
                 activeInput = true;
                 System.out.println("You have chosen the following Geographic Area:");
                 System.out.println((mGeoArea.printGeographicArea()));
@@ -301,7 +300,7 @@ public class RoomConfigurationUI {
      ********************************* House Input ********************************
      ******************************************************************************/
 
-    private void getInputHouse(GeographicArea mGeoArea) {
+    private void getInputHouse() {
         System.out.println(
                 "We need to know which one is your house.\n" + "Would you like to:\n" +
                         "1) Type the name of your House;\n" +
@@ -313,14 +312,14 @@ public class RoomConfigurationUI {
             switch (option) {
                 case 1:
                     getInputHouseName();
-                    if (!getHouseByName(mGeoArea)) {
+                    if (!getHouseByName()) {
                         System.out.println("Unable to select a House. Returning to main menu.");
                         return;
                     }
                     activeInput = true;
                     break;
                 case 2:
-                    getInputHousebyList(mGeoArea);
+                    getInputHousebyList();
                     activeInput = true;
                     break;
                 case 0:
@@ -337,7 +336,7 @@ public class RoomConfigurationUI {
         this.mHouseName = scan.nextLine();
         return (!(mHouseName.equals("exit")));
     }
-    private boolean getHouseByName(GeographicArea mGeoArea) {
+    private boolean getHouseByName() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         listOfIndexesHouses = ctrl.matchHouseIndexByString(mHouseName, mGeoArea);
         while (listOfIndexesHouses.isEmpty()) {
@@ -366,7 +365,7 @@ public class RoomConfigurationUI {
         }
         return true;
     }
-    private void getInputHousebyList(GeographicArea mGeoArea) {
+    private void getInputHousebyList() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         if (mGeoArea.getHouseList().getHouseList().isEmpty()) {
             System.out.print("Invalid House List - List Is Empty\n");
@@ -378,7 +377,7 @@ public class RoomConfigurationUI {
             mHouseMonitoringcontroller.printHouseList(mGeoArea);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
-                mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
+                this.mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
                 System.out.println("You have chosen the following House:");
                 System.out.println(ctrl.printHouse(mHouse));
                 activeInput = true;
