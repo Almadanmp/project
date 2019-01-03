@@ -32,7 +32,15 @@ public class EnergyGrid {
         return mName;
     }
 
+    public RoomList getmListOfRooms() {
+        return mListOfRooms;
+    }
+
     public double getMaxPower() {
+        return mMaxPower;
+    }
+
+    public double getTotalPower() {
         double sum = 0;
         for (Device d : mListDevices.getDeviceList()) {
             sum = +d.getmTotalPowerDevice();
@@ -81,6 +89,10 @@ public class EnergyGrid {
         } else {
             return false;
         }
+    }
+
+    public String printGrid(){
+        return "Energy Grid: " + this.mName + ", Max Power: " + this.getTotalPower();
     }
 
 

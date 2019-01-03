@@ -15,6 +15,12 @@ public class TypeArea {
         return this.mTypeDesignation;
     }
 
+    public String printTypeGeographicArea() {
+        String result;
+        result = "Type Area: " + this.mTypeDesignation;
+        return result;
+    }
+
     /**
      * Method to restrain input name so they cant be null or empty
      * @param name name inserted by user

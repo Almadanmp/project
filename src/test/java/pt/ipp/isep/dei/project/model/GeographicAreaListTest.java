@@ -640,6 +640,7 @@ public class GeographicAreaListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfEqualsToSameObject() {
         //Arrange

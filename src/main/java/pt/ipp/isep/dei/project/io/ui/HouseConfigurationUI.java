@@ -10,8 +10,102 @@ import java.util.stream.Collectors;
 
 class HouseConfigurationUI {
     private HouseConfigurationController controller;
+    private String mTypeAreaName;
+    private TypeArea mTypeGA;
 
-    //SHARED METHODS!!
+    /** ------ SHARED METHODS -------- **/
+
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA - TYPE AREA -------- **/
+
+    private void getInputTypeArea(TypeAreaList typeAreaList) {
+        this.controller = new HouseConfigurationController(typeAreaList);
+        System.out.println(
+                "We need to know what is the type of Geographic Area\n" + "Would you like to:\n" + "1)Type the Geographic Area Type name;\n" + "2) Choose it from a list;\n" +
+                        "0) Return;");
+        boolean activeInput = false;
+        while (!activeInput) {
+            int option = readInputNumberAsInt();
+            switch (option) {
+                case 1:
+                    getInputTypeAreaName();
+                    if (!getTypeAreaByName(typeAreaList)) {
+                        System.out.println("Unable to select a Geographic Area. Returning to main menu.");
+                        return;
+                    }
+                    activeInput = true;
+                    break;
+                case 2:
+                    getInputTypeAreaByList(typeAreaList);
+                    activeInput = true;
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println(INVALID_OPTION);
+                    break;
+            }
+        }
+    }
+
+    private boolean getInputTypeAreaName() {
+        System.out.println("Please type the name of the Geographic Area Type Where: ");
+        this.mTypeAreaName = mScanner.nextLine();
+        return (!(mTypeAreaName.equals("exit")));
+    }
+
+    private boolean getTypeAreaByName(TypeAreaList typeAreaList) {
+        List<Integer> listOfIndexesTypeArea = this.controller.matchTypeAreaIndexByString(mTypeAreaName, typeAreaList);
+
+        while (listOfIndexesTypeArea.isEmpty()) {
+            System.out.println("There is no Geographic Area Type with that name. Please insert the name of a Geographic Area Type" +
+                    " that exists or type 'exit' to cancel and create a new Geographic Area Type on the Main Menu.");
+            if (!getInputTypeAreaName()) {
+                return false;
+            }
+            listOfIndexesTypeArea = this.controller.matchTypeAreaIndexByString(mTypeAreaName, typeAreaList);
+        }
+
+        if (listOfIndexesTypeArea.size() > 1) {
+            System.out.println("There are multiple Geographic Area Types with that name. Please choose the right one.");
+            System.out.println(this.controller.printTypeAreaElementsByIndex(listOfIndexesTypeArea, typeAreaList));
+            int aux = readInputNumberAsInt();
+            if (listOfIndexesTypeArea.contains(aux)) {
+                mTypeGA = typeAreaList.getTypeAreaList().get(aux);
+                System.out.println("You have chosen the following Geographic Area Type:");
+                System.out.println(this.controller.printTypeArea(mTypeGA));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        } else {
+            System.out.println("You have chosen the following Geographic Area Type:");
+            mTypeGA = typeAreaList.getTypeAreaList().get(listOfIndexesTypeArea.get(0));
+            System.out.println(this.controller.printTypeArea(mTypeGA));
+        }
+        return true;
+    }
+
+
+    private void getInputTypeAreaByList(TypeAreaList typeAreaList) {
+        boolean activeInput = false;
+        System.out.println("Please select the Geographic Area Type from the list: ");
+
+        while (!activeInput) {
+            this.controller.printGATypeList(typeAreaList);
+            int aux = readInputNumberAsInt();
+            if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
+                mTypeGA = typeAreaList.getTypeAreaList().get(aux);
+                activeInput = true;
+                //TODO fazer um print bonito
+                System.out.println("You have chosen the following Geographic Area Type:");
+                System.out.println(this.controller.printTypeArea(mTypeGA));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        }
+    }
+
+
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA -  GEOGRAPHIC AREAS -------- **/
 
     private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
         System.out.println(
@@ -42,12 +136,6 @@ class HouseConfigurationUI {
         }
     }
 
-    private boolean getInputGeographicAreaName() {
-        System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
-        this.geoName = mScanner.nextLine();
-        return (!(geoName.equals("exit")));
-    }
-
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
         HouseConfigurationController ctrl = new HouseConfigurationController(newGeoListUi);
         List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
@@ -55,7 +143,7 @@ class HouseConfigurationUI {
         while (listOfIndexesGeographicAreas.isEmpty()) {
             System.out.println("There is no Geographic Area with that name. Please insert the name of a Geographic Area" +
                     " that exists or  Type 'exit' to cancel and create a new Geographic Area on the Main Menu.");
-            if (!getInputGeographicAreaNameUS101()) {
+            if (!getInputGeographicAreaNameUS()) {
                 return false;
             }
             listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
@@ -80,6 +168,14 @@ class HouseConfigurationUI {
         return true;
     }
 
+    private boolean getInputGeographicAreaNameUS() {
+        System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
+        Scanner scanner = new Scanner(System.in);
+        this.geoName = scanner.nextLine();
+        return (!("exit".equals(geoName)));
+    }
+
+
     private void getInputGeographicAreaByList(GeographicAreaList newGeoListUi) {
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
@@ -99,6 +195,7 @@ class HouseConfigurationUI {
         }
     }
 
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA - HOUSES -------- **/
 
     private void getInputHouse(GeographicArea mGeoArea) {
         System.out.println(
@@ -114,7 +211,7 @@ class HouseConfigurationUI {
                 }
                 break;
             case 2:
-                getInputHouseByList(mGeoArea);
+                getInputHouseByList();
                 break;
             case 0:
                 return;
@@ -161,16 +258,16 @@ class HouseConfigurationUI {
     }
 
 
-    private void getInputHouseByList(GeographicArea mGeoArea) {
-        if (mGeoArea.getHouseList().getHouseList().size() == 0) {
+    private void getInputHouseByList() {
+        if (mGeoArea.getHouseList().getHouseList().isEmpty()) {
             System.out.print("Invalid House List - List Is Empty\n");
             return;
         }
         boolean activeInput = false;
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
-
         while (!activeInput) {
-            this.controller.printHouseList(mGeoArea);
+            HouseConfigurationController controller = new HouseConfigurationController();
+            controller.printHouseList(this.mGeoArea);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
                 mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
@@ -189,6 +286,89 @@ class HouseConfigurationUI {
         Double option = mScanner.nextDouble();
         return option.intValue();
     }
+
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA - ENERGY GRIDS -------- **/
+
+    private void getInputEnergyGrid(){
+        System.out.println(
+                "We need to know which one is your energy grid.\n" + "Would you like to:\n" + "1) Type the name of your grid;\n" + "2) Choose it from a list;\n" +
+                        "0) Return;");
+        int option = readInputNumberAsInt();
+        switch (option) {
+            case 1:
+                getInputGridName();
+                if (!getGridByName()) {
+                    System.out.println("Unable to select a Grid. Returning to main menu.");
+                    return;
+                }
+                break;
+            case 2:
+                getInputGridByList();
+                break;
+            case 0:
+                return;
+            default:
+                System.out.println(INVALID_OPTION);
+                break;
+        }
+    }
+
+    private boolean getGridByName(){
+        List<Integer> listOfIndexesGrids = this.controller.matchGridIndexByString(mGridName, mHouse);
+        while (listOfIndexesGrids.isEmpty()) {
+            System.out.println("There is no EnergyGrid with that name. Please insert the name of a Grid" +
+                    " that exists or  Type 'exit' to cancel and create a new Grid on the Main Menu.");
+            if (!getInputGridName()) {
+                return false;
+            }
+            listOfIndexesGrids = this.controller.matchGridIndexByString(mGridName, mHouse);
+        }
+        if (listOfIndexesGrids.size() > 1) {
+            System.out.println("There are multiple Energy Grids with that name. Please choose the right one.");
+            System.out.println(this.controller.printEnergyGridByIndex(listOfIndexesGrids));
+            int aux = readInputNumberAsInt();
+            if (listOfIndexesGrids.contains(aux)) {
+                this.mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(aux);
+                System.out.println("You have chosen the following grid:");
+                System.out.println(this.controller.printEnergyGrid(mEnergyGrid));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        } else {
+            System.out.println("You have chosen the following grid:");
+            this.mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(0);
+            System.out.println(this.controller.printEnergyGrid(mEnergyGrid));
+        }
+        return true;
+    }
+
+    private boolean getInputGridName() {
+        System.out.println("Please type the name of the Grid you want to access.");
+        this.mGridName = mScanner.nextLine();
+        return (!(mGridName.equals("exit")));
+    }
+
+    private void getInputGridByList(){
+        if (mHouse.getmEGList().getEnergyGridList().isEmpty()) {
+            System.out.print("Invalid House List - List Is Empty\n");
+            return;
+        }
+        boolean activeInput = false;
+        System.out.println("Please select one of the existing grids on the selected house: ");
+        while (!activeInput) {
+            HouseConfigurationController controller = new HouseConfigurationController();
+            System.out.println(controller.printGridList(this.mHouse));
+            int aux = readInputNumberAsInt();
+            if (aux >= 0 && aux < mHouse.getmEGList().getEnergyGridList().size()) {
+                mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(aux);
+                activeInput = true;
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        }
+    }
+
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA - ROOMS -------- **/
 
     private void getInputRoom() {
         System.out.println(
@@ -270,6 +450,33 @@ class HouseConfigurationUI {
             }
         }
     }
+
+    /** ------ GET ROOM CHARACTERISTICS -------- **/
+
+    private void getInputRoomCharacteristics() {
+        Scanner input = new Scanner(System.in);
+
+        //GET ROOM DESIGNATION
+        System.out.println("Please insert the room name: ");
+        this.mRoomName = input.nextLine();
+
+        //GET ROOM HOUSE FLOOR
+        System.out.println("Please insert your room's house floor: ");
+        while (!input.hasNextInt()) {
+            System.out.println("Please insert a valid number.");
+        }
+        this.mRoomHouseFloor = input.nextInt();
+
+        //GET ROOM DIMENSIONS
+        System.out.println("Please insert your room's dimensions in square meters: ");
+        while (!input.hasNextDouble()) {
+            System.out.println("Please insert a valid number.");
+        }
+        this.mRoomDimensions = input.nextDouble();
+    }
+
+
+    /** ------ USER STORIES -------- **/
 
      /**
       * US001UI
@@ -450,19 +657,12 @@ class HouseConfigurationUI {
     public void runUS04(TypeAreaList typeAreaList) {
         this.mTypeAreaList = typeAreaList;
         this.controller = new HouseConfigurationController();
-        //getInputTypeAreaUS04();
-        updateUS04();
-        displayUS04();
+        getInputTypeArea(typeAreaList);
+        //updateUS04();
+        //displayUS04();
     }
 
-
-    private void getInputUS04() {
-        System.out.println("Please insert Geographic Area type:");
-        Scanner input = new Scanner(System.in);
-        this.action = input.nextLine();
-        System.out.println(this.action + " was successfully entered.\n");
-    }
-
+/**
 
     private void updateUS04() {
         HouseConfigurationController ctrl04 = new HouseConfigurationController(mGeoAreaList);
@@ -693,7 +893,7 @@ class HouseConfigurationUI {
     private String mNameGeographicAreaDaughter;
     private String mNameGeographicAreaMother;
 
-    public void runUS07(GeographicAreaList newGeoListUi) {
+    void runUS07(GeographicAreaList newGeoListUi) {
 
         this.mActive = true;
         this.mGeoList = newGeoListUi;
@@ -834,7 +1034,6 @@ class HouseConfigurationUI {
      * US101 UI
      */
 
-    private int indexOfHouse;
     private double mHouseLat;
     private double mHouseLon;
     private String mHouseAddress;
@@ -843,91 +1042,29 @@ class HouseConfigurationUI {
     private String geoName;
     private GeographicArea mGeoArea;
     private static final String INVALID_OPTION = "Please enter a valid option";
-    private HouseList mHouseList;
 
 
     void runUS101(GeographicAreaList list) {
+        this.mScanner = new Scanner(System.in);
         this.controller = new HouseConfigurationController();
         if (list == null || list.getGeographicAreaList().isEmpty()) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
         }
-
-        if (!getInputGeographicAreaUS101(list)) {
+        getInputGeographicArea(list);
+        if (mGeoArea == null) {
+            System.out.println("Unable to select a Geographic Area. Returning to main menu.");
             return;
         }
-        if (!getInputHouseUS101(list)) {
-            if (mHouse == null) {
-                System.out.println("Unable to select a house. Returning to main menu.");
-                return;
-            }
+        getInputHouse(mGeoArea);
+        if (mHouse == null) {
+            System.out.println("Unable to select a house. Returning to main menu.");
             return;
         }
         getInputHouseCharacteristicsUS101();
         updateModelUS101();
         displayStateUS101();
     }
-
-    private boolean getInputGeographicAreaUS101(GeographicAreaList newGeoListUi) {
-        System.out.println(
-                "We need to know where your house is located\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
-                        "0) Return;");
-        Scanner scanner = new Scanner(System.in);
-        String option = scanner.nextLine();
-        switch (option) {
-            case "1":
-                getInputGeographicAreaNameUS101();
-                if (!getGeographicAreaByName(newGeoListUi)) {
-                    System.out.println("Unable to select a Geographic Area. Returning to main menu.");
-                    return false;
-                }
-                break;
-            case "2":
-                getInputGeographicAreaByList(newGeoListUi);
-                break;
-            case "0":
-                return false;
-            default:
-                System.out.println(INVALID_OPTION);
-                break;
-        }
-        return true;
-    }
-
-    private boolean getInputGeographicAreaNameUS101() {
-        System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
-        Scanner scanner = new Scanner(System.in);
-        this.geoName = scanner.nextLine();
-        return (!("exit".equals(geoName)));
-    }
-
-
-
-
-    private boolean getInputHouseUS101(GeographicAreaList newGeoListUi) {
-        HouseConfigurationController ctrl = new HouseConfigurationController(newGeoListUi);
-        this.mHouseList = mGeoArea.getHouseList();
-        if (mHouseList.getHouseList().isEmpty()) {
-            System.out.print("Invalid House List - List Is Empty\n/**/");
-            return false;
-        }
-
-        boolean activeInput = false;
-        System.out.println("Please select one of the existing houses on the selected geographic area: ");
-
-        while (!activeInput) {
-            ctrl.printHouseList(mGeoArea);
-            this.indexOfHouse = readInputNumberAsInt();
-            if (indexOfHouse >= 0 && indexOfHouse < mGeoArea.getHouseList().getHouseList().size()) {
-                mHouse = mHouseList.getHouseList().get(indexOfHouse);
-                activeInput = true;
-            } else {
-                System.out.println(INVALID_OPTION);
-            }
-        }
-        return true;
-    }
-
 
     private void getInputHouseCharacteristicsUS101() {
 
@@ -963,10 +1100,10 @@ class HouseConfigurationUI {
     }
 
     private void updateModelUS101() {
-        HouseConfigurationController ctrl = new HouseConfigurationController(mHouseList);
-        ctrl.setHouseLocal(mHouseLat, mHouseLon, indexOfHouse);
-        ctrl.setHouseZIPCode(mHouseZipCode, indexOfHouse);
-        ctrl.setHouseAddress(mHouseAddress, indexOfHouse);
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        ctrl.setHouseLocal(mHouseLat, mHouseLon, mHouse);
+        ctrl.setHouseZIPCode(mHouseZipCode, mHouse);
+        ctrl.setHouseAddress(mHouseAddress, mHouse);
     }
 
     private void displayStateUS101() {
@@ -979,7 +1116,7 @@ class HouseConfigurationUI {
      * US 105UI
      */
 
-    private Scanner mScanner;
+    private Scanner mScanner = new Scanner(System.in);
     private String mRoomName;
     private int mRoomHouseFloor;
     private double mRoomDimensions;
@@ -987,7 +1124,7 @@ class HouseConfigurationUI {
     public void runUS105(GeographicAreaList gaList) {
         this.mScanner = new Scanner(System.in);
         this.controller = new HouseConfigurationController();
-        getInputRoomUS105();
+        getInputRoomCharacteristics();
         updateInputRoom();
         displayStateRoom();
         if (gaList == null || gaList.getGeographicAreaList().size() == 0) {
@@ -995,34 +1132,17 @@ class HouseConfigurationUI {
             return;
         }
         getInputGeographicArea(gaList);
-        getInputHouse();
+        if (mGeoArea == null) {
+            System.out.println("Unable to select a Geographic Area. Returning to main menu.");
+            return;
+        }
+        getInputHouse(mGeoArea);
         if (mHouse == null) {
-            System.out.println("Unable to select a house. Returning to main menu.");return;
+            System.out.println("Unable to select a house. Returning to main menu.");
+            return;
         }
         updateRoomAndDisplayState();
 
-    }
-
-    private void getInputRoomUS105() {
-        Scanner input = new Scanner(System.in);
-
-        //GET ROOM DESIGNATION
-        System.out.println("Please insert the room name: ");
-        this.mRoomName = input.nextLine();
-
-        //GET ROOM HOUSE FLOOR
-        System.out.println("Please insert your room's house floor: ");
-        while (!input.hasNextInt()) {
-            System.out.println("Please insert a valid number.");
-        }
-        this.mRoomHouseFloor = input.nextInt();
-
-        //GET ROOM DIMENSIONS
-        System.out.println("Please insert your room's dimensions in square meters: ");
-        while (!input.hasNextDouble()) {
-            System.out.println("Please insert a valid number.");
-        }
-        this.mRoomDimensions = input.nextDouble();
     }
 
     private void updateInputRoom() {
@@ -1042,7 +1162,11 @@ class HouseConfigurationUI {
         }
     }
 
-
+    private boolean getInputGeographicAreaName() {
+        System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
+        this.geoName = mScanner.nextLine();
+        return (!(geoName.equals("exit")));
+    }
 
 
     private void getInputHouse() {
@@ -1080,12 +1204,10 @@ class HouseConfigurationUI {
      * US108
      **/
 
-    private String mGeoName;
     private String mHouseName;
     private Room mRoom;
 
     public void runUS108UI(GeographicAreaList newGeoListUi) {
-        this.mGeographicAreaList = newGeoListUi;
         this.mScanner = new Scanner(System.in);
         this.controller = new HouseConfigurationController();
 
@@ -1098,86 +1220,15 @@ class HouseConfigurationUI {
             System.out.println("Unable to select a Geographic Area. Returning to main menu.");
             return;
         }
-        getInputHouseUS108(mGeoArea);
+        getInputHouse(mGeoArea);
         if (mHouse == null) {
             System.out.println("Unable to select a house. Returning to main menu.");
             return;
         }
         getInputRoom();
-        getInputRoomUS105();
+        getInputRoomCharacteristics();
         updateInputRoom();
         editRoom();
-    }
-
-
-    private void getInputHouseUS108(GeographicArea mGeoArea) {
-        System.out.println(
-                "We need to know which one is your house.\n" + "Would you like to:\n" + "1) Type the name of your House;\n" + "2) Choose it from a list;\n" +
-                        "0) Return;");
-        int option = readInputNumberAsIntUS108();
-        switch (option) {
-            case 1:
-                getInputHouseName();
-                if (!getHouseByNameUS108(mGeoArea)) {
-                    System.out.println("Unable to select a House. Returning to main menu.");
-                    return;
-                }
-                break;
-            case 2:
-                getInputHouseByList(mGeoArea);
-                break;
-            case 0:
-                return;
-            default:
-                System.out.println(INVALID_OPTION);
-                break;
-        }
-    }
-
-    private boolean getInputHouseNameUS108() {
-        System.out.println("Please type the name of the House you want to access.");
-        this.mHouseName = mScanner.nextLine();
-        return (!(mHouseName.equals("exit")));
-    }
-
-    private boolean getHouseByNameUS108(GeographicArea mGeoArea) {
-        List<Integer> listOfIndexesHouses = this.controller.matchHouseIndexByString(mHouseName, mGeoArea);
-
-        while (listOfIndexesHouses.isEmpty()) {
-            System.out.println("There is no House Area with that name. Please insert the name of a House" +
-                    " that exists or  Type 'exit' to cancel and create a new House on the Main Menu.");
-            if (!getInputHouseNameUS108()) {
-                return false;
-            }
-            listOfIndexesHouses = this.controller.matchHouseIndexByString(mHouseName, mGeoArea);
-        }
-        if (listOfIndexesHouses.size() > 1) {
-            System.out.println("There are multiple Houses with that name. Please choose the right one.");
-            System.out.println(this.controller.printHouseElementsByIndex(listOfIndexesHouses, mGeoArea));
-            int aux = readInputNumberAsIntUS108();
-            if (listOfIndexesHouses.contains(aux)) {
-                mGeoArea.getHouseList().getHouseList().get(aux);
-                System.out.println("You have chosen the following House:");
-                System.out.println(this.controller.printHouse(mHouse));
-            } else {
-                System.out.println(INVALID_OPTION);
-            }
-        } else {
-            System.out.println("You have chosen the following House:");
-            mGeoArea.getHouseList().getHouseList().get(0);
-            System.out.println(this.controller.printHouse(mHouse));
-        }
-        return true;
-    }
-
-
-    private int readInputNumberAsIntUS108() {
-        while (!mScanner.hasNextDouble()) {
-            System.out.println(INVALID_OPTION);
-            mScanner.next();
-        }
-        Double option = mScanner.nextDouble();
-        return option.intValue();
     }
 
     private void editRoom() {
@@ -1268,12 +1319,19 @@ class HouseConfigurationUI {
      * US145
      */
 
+    private EnergyGrid mEnergyGrid;
+
+    private String mGridName;
+
     void runUS145(GeographicAreaList list) {
         getInputGeographicArea(list);
         getInputHouse(mGeoArea);
-        HouseConfigurationController controller = new HouseConfigurationController(mRoom);
+        getInputEnergyGrid();
+        displayRoomList(mEnergyGrid);
     }
 
-    private void getInputEnergyGrid(){}
-
+    private void displayRoomList(EnergyGrid energyGrid){
+        HouseConfigurationController controller = new HouseConfigurationController();
+        System.out.println(controller.printRooms(energyGrid.getmListOfRooms()));
+    }
 }

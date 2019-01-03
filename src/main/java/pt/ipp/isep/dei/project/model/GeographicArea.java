@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This is the central class.
@@ -247,6 +249,7 @@ public class GeographicArea {
     /**
      * Method to print details that are required for a Geographic Area to be different from another GA (equals -
      * name, type area and local).
+     *
      * @return
      */
 
@@ -334,13 +337,16 @@ public class GeographicArea {
         }
         return average / counter;
     }
-    public boolean doesSensorListInAGeoAreaContainASensorByName(String name){
-        for(Sensor s: mSensorList.getSensorList()){
-            if(s.getName().equals(name)){
+
+    public boolean doesSensorListInAGeoAreaContainASensorByName(String name) {
+        for (Sensor s : mSensorList.getSensorList()) {
+            if (s.getName().equals(name)) {
                 return true;
             }
-        } return false;
+        }
+        return false;
     }
+
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two

@@ -949,4 +949,93 @@ public class HouseMonitoringControllerTest {
         //Assert ----------------------
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void seeIfprintSensorElementsByIndexWorks() {
+        //Arrange --------------------------------
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("house2", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Sensors
+        Sensor s1 = new Sensor("sensor",new TypeSensor("temperatura"),new Local(4,4),new GregorianCalendar(8,8,8,8,8).getTime());
+        SensorList slist = new SensorList();
+        slist.addSensor(s1);
+        //Room List
+        RoomList roomList1;
+        roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789,slist);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act ------------------------------------
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        String result = ctrl.printSensorElementsByIndex(list, room1);
+        String expectedResult = "1) sensor which is a temperatura sensor.\n";
+        //Assert ---------------------------------
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void seeIfprintSensorListWorks() {
+        //Arrange --------------------------------
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("house2", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Sensors
+        Sensor s1 = new Sensor("sensor",new TypeSensor("temperatura"),new Local(4,4),new GregorianCalendar(8,8,8,8,8).getTime());
+        SensorList slist = new SensorList();
+        slist.addSensor(s1);
+        //Room List
+        RoomList roomList1;
+        roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789,slist);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act ------------------------------------
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        String result = ctrl.printSensorList(room1);
+        String expectedResult = "---------------\n" +
+                "0) Designation: sensor | Sensor Type: temperatura | Start Date: Sat Sep 08 08:08:00 WET 8\n" +
+                "---------------\n";
+        //Assert ---------------------------------
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfMatcSensorIndexByStringWorks() {
+        //Arrange -------------------------------------
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Geo Area List
+        SensorList sensorList = new SensorList();
+        Sensor s1 = new Sensor("sensor",new TypeSensor("temperatura"),new Local(4,4),new GregorianCalendar(8,8,8,8,8).getTime());
+        Sensor s2 = new Sensor("sensor2",new TypeSensor("temperatura"),new Local(4,4),new GregorianCalendar(8,8,8,8,8).getTime());
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        Room room = new Room("cozinha",1,1,sensorList);
+        //Act -----------------------------------------
+        List<Integer> result = ctrl.matchSensorIndexByString("sensor",room);
+        List<Integer> expectedResult = Collections.singletonList(sensorList.getSensorList().indexOf(s1));
+        //Assert --------------------------------------
+        assertEquals(expectedResult, result);
+    }
 }

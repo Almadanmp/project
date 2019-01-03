@@ -141,6 +141,40 @@ public class SensorList {
         }
         return null;
     }
+    public List<Integer> matchSensorIndexByString(String input){
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < mSensorList.size(); i++){
+            if (mSensorList.get(i).getName().equals(input)){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    public String printElementsByIndex (List<Integer> indexes){
+        String result = "";
+        for (int i = 0; i < indexes.size(); i++){
+            result += indexes.get(i) + ") " + mSensorList.get(i).getName() + " which is a " + mSensorList.get(i).getTypeSensor().getName() +  " sensor.\n";
+        }
+        return result;
+    }
+
+    public String printSensorList(Room room) {
+        String result = "---------------\n";
+        if (room.getmRoomSensorList().getSensorList().isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < room.getmRoomSensorList().getSensorList().size(); i++) {
+            Sensor aux = room.getmRoomSensorList().getSensorList().get(i);
+            result = result + i + ") Designation: " + aux.getName() + " | ";
+            result = result + "Sensor Type: " + aux.getTypeSensor().getName() + " | ";
+            result = result + "Start Date: " + aux.getDateStartedFunctioning() + "\n";
+        }
+        result = result + "---------------\n";
+        System.out.print(result);
+        return result;
+    }
+
     public List<Sensor> getSensorListByType(String name) {
         List<Sensor> containedTypeSensors = new ArrayList<>();
         for (Sensor sensor : this.mSensorList) {

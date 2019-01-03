@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class HouseListTest {
 
@@ -93,13 +96,13 @@ public class HouseListTest {
         HouseList houseList2 = new HouseList(house1);
         houseList2.addHouseToHouseList(house2);
 
-        boolean expectedResult = true;
         boolean actualResult;
         //Act
         actualResult = houseList1.equals(houseList2);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue( actualResult);
     }
+
 
     @Test
     public void seeIfEqualsToDifferentObject() {
@@ -118,13 +121,14 @@ public class HouseListTest {
         HouseList houseList2 = new HouseList(house2);
         houseList2.addHouseToHouseList(house3);
 
-        boolean expectedResult = false;
+
         boolean actualResult;
         //Act
         actualResult = houseList1.equals(houseList2);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse( actualResult);
     }
+
     @Test
     public void seeIfFalseWhenObjectsAreFromDifferentClass() {
         //Arrange
@@ -149,10 +153,10 @@ public class HouseListTest {
     }
 
     @Test
-    public void seeIfPrintsHouseList(){
-        House house1 = new House("vacationHouse","Flower Street", new Local (11,13), "4230-111");
-        House house2 = new House ("workHouse","Torrinha", new Local (12,12), "4345-000");
-        House house3 = new House ("dreamHouse","New York", new Local (122,122), "6666-000");
+    public void seeIfPrintsHouseList() {
+        House house1 = new House("vacationHouse", "Flower Street", new Local(11, 13), "4230-111");
+        House house2 = new House("workHouse", "Torrinha", new Local(12, 12), "4345-000");
+        House house3 = new House("dreamHouse", "New York", new Local(122, 122), "6666-000");
         HouseList hL1 = new HouseList(house1);
         hL1.addHouseToHouseList(house2);
         hL1.addHouseToHouseList(house3);
@@ -168,12 +172,42 @@ public class HouseListTest {
     }
 
     @Test
-    public void seeIfPrintsHouseListIfEmpty(){
+    public void seeIfPrintsHouseListIfEmpty() {
         HouseList hL1 = new HouseList();
-       GeographicArea gA1 = new GeographicArea();
+        GeographicArea gA1 = new GeographicArea();
         gA1.setHouseList(hL1);
         String expectedResult = "Invalid List - List is Empty\n";
         String result = hL1.printHouseList(gA1);
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfgetHouseByDesignation() {
+        HouseList list = new HouseList();
+        House house = new House("Casa Oliveira", "Santa Maria de Lamas", new Local(42, 50), "4535");
+        list.addHouseToHouseList(house);
+        House expectedResult = house;
+        House result = list.getHouseByDesignation("Casa Oliveira");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfgetHouseByDesignationNull() {
+        HouseList list = new HouseList();
+        House house = new House("Casa Oliveira", "Santa Maria de Lamas", new Local(42, 50), "4535");
+        list.addHouseToHouseList(house);
+        House expectedResult = null;
+        House result = list.getHouseByDesignation("Casa Meireles");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void hashCodeDummyTest(){
+        HouseList list = new HouseList();
+        House house = new House("Casa Oliveira", "Santa Maria de Lamas", new Local(42, 50), "4535");
+        list.addHouseToHouseList(house);
+        int expectedResult = 1;
+        int actualResult = list.hashCode();
+        Assertions.assertEquals(expectedResult,actualResult);
     }
 }

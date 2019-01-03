@@ -28,6 +28,9 @@ public class HouseMonitoringController {
         }
         return max;
     }
+    public String printSensor(Sensor sensor){
+        return sensor.printSensor();
+    }
 
     public boolean doesListContainRoomByName(String name, RoomList room) {
         return room.doesListOfRoomsContainRoomByName(name);
@@ -80,10 +83,19 @@ public class HouseMonitoringController {
         return house.getmRoomList().matchRoomIndexByString(input);
     }
 
+    public List<Integer> matchSensorIndexByString(String input, Room room){
+        return room.getmRoomSensorList().matchSensorIndexByString(input);
+    }
+
     public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
         return house.getmRoomList().printElementsByIndex(listOfIndexesOfRoom);
     }
 
+    public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, Room room){
+        return room.getmRoomSensorList().printElementsByIndex(listOfIndexesOfSensor);
+    }
+
+    public String printSensorList(Room room){return room.getmRoomSensorList().printSensorList(room);}
     public String printRoomList(House house) {
         return house.getmRoomList().printRoomList(house);
     }

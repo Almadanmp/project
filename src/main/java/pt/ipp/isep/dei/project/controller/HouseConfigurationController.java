@@ -2,11 +2,32 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 public class HouseConfigurationController {
+    /**
+     * SHARED METHODS**/
+
+    public List<Integer> matchTypeAreaIndexByString(String input, TypeAreaList typeAreaList) {
+        return typeAreaList.matchGeographicAreaTypeIndexByString(input);
+    }
+
+    public String printTypeAreaElementsByIndex(List<Integer> listOfIndexesTypeGeographicAreas, TypeAreaList typeAreaList) {
+        return typeAreaList.printGATypeElementsByIndex(listOfIndexesTypeGeographicAreas);
+    }
+
+    public String printTypeArea(TypeArea typeArea) {
+        return typeArea.printTypeGeographicArea();
+    }
+
+    public String printGATypeList(TypeAreaList typeAreaList) {
+        return typeAreaList.printGATypeWholeList(typeAreaList);
+    }
+
+
 
     /**
      * User Story 01
@@ -51,6 +72,7 @@ public class HouseConfigurationController {
     public SensorList getSensorList() {
         return this.mSensorList;
     }
+
 
     /**
      * User Story 02
@@ -288,21 +310,20 @@ public class HouseConfigurationController {
     public void setHouseList(HouseList houseList){this.mHouseList = houseList;}
 
 
-    public void setHouseAddress(String address, int indexOfHouse) {
-        mHouseList.getHouseList().get(indexOfHouse).setmAddress(address);
+    public void setHouseAddress(String address, House house) {
+        house.setmAddress(address);
     }
 
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
         return geoAreaList.matchGeographicAreaIndexByString(input);
     }
 
-    public void setHouseZIPCode(String zipCode, int indexOfHouse) {
-        mHouseList.getHouseList().get(indexOfHouse).setmZipCode(zipCode);
+    public void setHouseZIPCode(String zipCode, House house) {
+        house.setmZipCode(zipCode);
     }
 
-    public void setHouseLocal(double latitude, double longitude, int indexOfHouse) {
-        mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLatitude(latitude);
-        mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLongitude(longitude);
+    public void setHouseLocal(double latitude, double longitude, House house) {
+        house.setGPS(latitude,longitude);
     }
 
     public String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
@@ -466,6 +487,24 @@ public class HouseConfigurationController {
         this.mRoom = room;
     }
 
+    public List<Integer> matchGridIndexByString(String gridName, House house){
+        return house.getmEGList().matchGridListElementsByString(gridName);
+    }
 
+    public String printEnergyGridByIndex (List<Integer> list){
+        return this.mEnergyGridList.printElementsByIndex(list);
+    }
+
+    public String printEnergyGrid(EnergyGrid grid){
+        return grid.printGrid();
+    }
+
+    public String printGridList(House house){
+        return house.printWholeGridList();
+    }
+
+    public String printRooms (RoomList roomList){
+        return roomList.printRooms();
+    }
 
 }
