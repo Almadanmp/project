@@ -165,6 +165,58 @@ public class HouseMonitoringControllerTest {
         assertFalse(result);
     }
 
+    @Test
+    public void seeIfSensorListInARoomContainASensorByName() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Arrange
+
+        //Sensor
+        SensorList sensorList2 = new SensorList();
+        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
+        sensorList2.addSensor(sensor1);
+        sensorList2.addSensor(sensor2);
+
+        //Room
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 19, 23456789, sensorList2);
+        Room room2 = new Room("kitchen", 8, 2, sensorList2);
+        roomList1.addRoom(room2);
+        roomList1.addRoom(room1);
+
+        //Act
+        boolean result = ctrl.doesSensorListInARoomContainASensorByName("sensor2", roomList1);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    public void seeIfSensorListInARoomContainASensorByNameFalse() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Arrange
+
+        //Sensor
+        SensorList sensorList2 = new SensorList();
+        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
+        sensorList2.addSensor(sensor1);
+        sensorList2.addSensor(sensor2);
+
+        //Room
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 19, 23456789, sensorList2);
+        Room room2 = new Room("kitchen", 8, 2, sensorList2);
+        roomList1.addRoom(room2);
+        roomList1.addRoom(room1);
+
+        //Act
+        boolean result = ctrl.doesSensorListInARoomContainASensorByName("sensor3", roomList1);
+
+        //Assert
+        assertFalse(result);
+    }
+
     //***************************************************************************************************************/
     //***************************************************************************************************************/
 
