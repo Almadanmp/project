@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -465,6 +466,24 @@ public class HouseConfigurationController {
         this.mRoom = room;
     }
 
+    public List<Integer> matchGridIndexByString(String gridName, House house){
+        return house.getmEGList().matchGridListElementsByString(gridName);
+    }
 
+    public String printEnergyGridByIndex (List<Integer> list){
+        return this.mEnergyGridList.printElementsByIndex(list);
+    }
+
+    public String printEnergyGrid(EnergyGrid grid){
+        return grid.printGrid();
+    }
+
+    public String printGridList(House house){
+        return house.printWholeGridList();
+    }
+
+    public String printRooms (RoomList roomList){
+        return roomList.printRooms();
+    }
 
 }

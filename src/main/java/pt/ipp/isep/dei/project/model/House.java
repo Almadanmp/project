@@ -132,6 +132,20 @@ public class House {
         return null;
     }
 
+    public String printWholeGridList() {
+        String result = "---------------\n";
+        if (this.mEGList.getEnergyGridList().isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < this.mEGList.getEnergyGridList().size(); i++) {
+            EnergyGrid aux = this.mEGList.getEnergyGridList().get(i);
+            result = result + i + ") Designation: " + aux.getName() + " | ";
+            result = result + "Max Power: " + aux.getMaxPower() + "\n";
+        }
+        result = result + "---------------\n";
+        return result;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

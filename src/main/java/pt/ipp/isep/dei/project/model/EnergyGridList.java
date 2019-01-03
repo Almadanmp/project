@@ -59,6 +59,25 @@ public class EnergyGridList {
         return false;
     }
 
+    public List<Integer> matchGridListElementsByString(String name) {
+
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < mEnergyGridList.size(); i++) {
+            if (mEnergyGridList.get(i).equals(name)) {
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    public String printElementsByIndex (List<Integer> indexes){
+        String result = "";
+        for (int i = 0; i < indexes.size(); i++){
+            result += indexes.get(i) + ") " + mEnergyGridList.get(i).getName() + ", " + mEnergyGridList.get(i).getTotalPower() + ", " + mEnergyGridList.get(i).getmListPowerSources() + ".\n";
+        }
+        return result;
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {

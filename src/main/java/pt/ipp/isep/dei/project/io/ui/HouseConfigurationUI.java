@@ -42,12 +42,6 @@ class HouseConfigurationUI {
         }
     }
 
-    private boolean getInputGeographicAreaName() {
-        System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
-        this.geoName = mScanner.nextLine();
-        return (!(geoName.equals("exit")));
-    }
-
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
         HouseConfigurationController ctrl = new HouseConfigurationController(newGeoListUi);
         List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
@@ -122,7 +116,7 @@ class HouseConfigurationUI {
                 }
                 break;
             case 2:
-                getInputHouseByList(mGeoArea);
+                getInputHouseByList();
                 break;
             case 0:
                 return;
@@ -169,16 +163,16 @@ class HouseConfigurationUI {
     }
 
 
-    private void getInputHouseByList(GeographicArea mGeoArea) {
-        if (mGeoArea.getHouseList().getHouseList().size() == 0) {
+    private void getInputHouseByList() {
+        if (mGeoArea.getHouseList().getHouseList().isEmpty()) {
             System.out.print("Invalid House List - List Is Empty\n");
             return;
         }
         boolean activeInput = false;
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
-
         while (!activeInput) {
-            this.controller.printHouseList(mGeoArea);
+            HouseConfigurationController controller = new HouseConfigurationController();
+            controller.printHouseList(this.mGeoArea);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
                 mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
@@ -189,6 +183,7 @@ class HouseConfigurationUI {
         }
     }
 
+
     private int readInputNumberAsInt() {
         while (!mScanner.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
@@ -198,6 +193,92 @@ class HouseConfigurationUI {
         return option.intValue();
     }
 
+    private void getInputEnergyGrid(){
+        System.out.println(
+                "We need to know which one is your energy grid.\n" + "Would you like to:\n" + "1) Type the name of your grid;\n" + "2) Choose it from a list;\n" +
+                        "0) Return;");
+        int option = readInputNumberAsInt();
+        switch (option) {
+            case 1:
+                getInputGridName();
+                if (!getGridByName()) {
+                    System.out.println("Unable to select a Grid. Returning to main menu.");
+                    return;
+                }
+                break;
+            case 2:
+                getInputGridByList();
+                break;
+            case 0:
+                return;
+            default:
+                System.out.println(INVALID_OPTION);
+                break;
+        }
+    }
+
+    private boolean getGridByName(){
+        List<Integer> listOfIndexesGrids = this.controller.matchGridIndexByString(mGridName, mHouse);
+        while (listOfIndexesGrids.isEmpty()) {
+            System.out.println("There is no EnergyGrid with that name. Please insert the name of a Grid" +
+                    " that exists or  Type 'exit' to cancel and create a new Grid on the Main Menu.");
+            if (!getInputGridName()) {
+                return false;
+            }
+            listOfIndexesGrids = this.controller.matchGridIndexByString(mGridName, mHouse);
+        }
+        if (listOfIndexesGrids.size() > 1) {
+            System.out.println("There are multiple Energy Grids with that name. Please choose the right one.");
+            System.out.println(this.controller.printEnergyGridByIndex(listOfIndexesGrids));
+            int aux = readInputNumberAsInt();
+            if (listOfIndexesGrids.contains(aux)) {
+                this.mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(aux);
+                System.out.println("You have chosen the following grid:");
+                System.out.println(this.controller.printEnergyGrid(mEnergyGrid));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        } else {
+            System.out.println("You have chosen the following grid:");
+            this.mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(0);
+            System.out.println(this.controller.printEnergyGrid(mEnergyGrid));
+        }
+        return true;
+    }
+
+    private boolean getInputGridName() {
+        System.out.println("Please type the name of the Grid you want to access.");
+        this.mGridName = mScanner.nextLine();
+        return (!(mGridName.equals("exit")));
+    }
+
+    private void getInputGridByList(){
+        if (mHouse.getmEGList().getEnergyGridList().isEmpty()) {
+            System.out.print("Invalid House List - List Is Empty\n");
+            return;
+        }
+        boolean activeInput = false;
+        System.out.println("Please select one of the existing grids on the selected house: ");
+        while (!activeInput) {
+            HouseConfigurationController controller = new HouseConfigurationController();
+            System.out.println(controller.printGridList(this.mHouse));
+            int aux = readInputNumberAsInt();
+            if (aux >= 0 && aux < mHouse.getmEGList().getEnergyGridList().size()) {
+                mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(aux);
+                activeInput = true;
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        }
+    }
+
+
+
+    //USER STORIES
+
+    /**
+     * US001UI
+     */
     private void getInputRoom() {
         System.out.println(
                 "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
@@ -723,7 +804,7 @@ class HouseConfigurationUI {
     private String mNameGeographicAreaDaughter;
     private String mNameGeographicAreaMother;
 
-    public void runUS07(GeographicAreaList newGeoListUi) {
+    void runUS07(GeographicAreaList newGeoListUi) {
 
         this.mActive = true;
         this.mGeoList = newGeoListUi;
@@ -946,7 +1027,7 @@ class HouseConfigurationUI {
      * US 105UI
      */
 
-    private Scanner mScanner;
+    private Scanner mScanner = new Scanner(System.in);
     private String mRoomName;
     private int mRoomHouseFloor;
     private double mRoomDimensions;
@@ -989,6 +1070,34 @@ class HouseConfigurationUI {
             System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "rd floor and has " + mRoomDimensions + " square meters.");
         } else {
             System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "th floor and has " + mRoomDimensions + " square meters.");
+        }
+    }
+
+    private boolean getInputGeographicAreaName() {
+        System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
+        this.geoName = mScanner.nextLine();
+        return (!(geoName.equals("exit")));
+    }
+
+
+    private void getInputHouse() {
+        if (mGeoArea.getHouseList().getHouseList().size() == 0) {
+            System.out.print("Invalid House List - List Is Empty\n/**/");
+            return;
+        }
+
+        boolean activeInput = false;
+        System.out.println("Please select one of the existing houses on the selected geographic area: ");
+
+        while (!activeInput) {
+            this.controller.printHouseList(mGeoArea);
+            int aux = readInputNumberAsInt();
+            if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
+                mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
+                activeInput = true;
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
         }
     }
 
@@ -1121,12 +1230,19 @@ class HouseConfigurationUI {
      * US145
      */
 
+    private EnergyGrid mEnergyGrid;
+
+    private String mGridName;
+
     void runUS145(GeographicAreaList list) {
         getInputGeographicArea(list);
         getInputHouse(mGeoArea);
-        HouseConfigurationController controller = new HouseConfigurationController(mRoom);
+        getInputEnergyGrid();
+        displayRoomList(mEnergyGrid);
     }
 
-    private void getInputEnergyGrid(){}
-
+    private void displayRoomList(EnergyGrid energyGrid){
+        HouseConfigurationController controller = new HouseConfigurationController();
+        System.out.println(controller.printRooms(energyGrid.getmListOfRooms()));
+    }
 }

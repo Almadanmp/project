@@ -115,6 +115,21 @@ public class RoomList {
         return result;
     }
 
+    public String printRooms() {
+        String result = "---------------\n";
+        if (this.getListOfRooms().isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < this.getListOfRooms().size(); i++) {
+            Room aux = this.getListOfRooms().get(i);
+            result = result + i + ") Designation: " + aux.getRoomName() + " | ";
+            result = result + "House Floor: " + aux.getHouseFloor() + " | ";
+            result = result + "Dimensions: " + aux.getRoomDimensions() + "\n";
+        }
+        result = result + "---------------\n";
+        return result;
+    }
+
 
     @Override
     public boolean equals(Object testObject) {
@@ -132,6 +147,7 @@ public class RoomList {
     public int hashCode() {
         return 1;
     }
+
 
 }
 
