@@ -110,7 +110,6 @@ public class HouseMonitoringUI {
         }
     }
 
-
     private void getInputRoom() {
         System.out.println(
                 "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +

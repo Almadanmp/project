@@ -95,34 +95,6 @@ public class MainUI {
         Scanner scanner = new Scanner(System.in);
 
         int option;
-        int loginFlag = 0;
-        String loginAdmin;
-        String loginRegular;
-        boolean activeLogin = false;
-
-
-        // Login Input
-
-        while (!activeLogin) {
-
-            System.out.println("User Login");
-            System.out.println("Login:");
-            String login = scanner.nextLine();
-            System.out.println("\nPassword:");
-            String password = scanner.nextLine();
-
-            // Login Definition
-
-            if ("admin".equals(login) && "admin".equals(password)) {
-                loginFlag = 1;
-                activeLogin = true;
-            } else if ("user".equals(login) && "user".equals(password)) {
-                loginFlag = 2;
-                activeLogin = true;
-            } else System.out.println("Invalid user\n");
-        }
-        System.out.println("User Flag is:\n" + loginFlag);
-
 
         while (activeProgram) {
 
@@ -134,6 +106,9 @@ public class MainUI {
             // Submenus Input selection
 
             String[] menu = {" 0. Exit.\n",
+                    "1 Create a new Type of Geographic Areas\n",
+                    "2 List The Existing Types of Geographic Areas\n",
+                    "3 Create a new Geographic Area\n",
                     "4. List All Geographic Areas of a certain type.\n",
                     "5. Determine the type of a sensor.\n",
                     "6. Create a new Sensor and add it to a GA.\n",
@@ -149,11 +124,9 @@ public class MainUI {
                     "16. See Room List.\n",
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
-                    "623. House Monitoring.\n",
-                    "623. Get Average Rainfall in the House Area.\n",
-                    "420. Room Configuration.\n",
                     "19. Add A Room to a Energy Grid\n",
-                    "20. Menu for Admin only test.\n"};
+                    "20. Room Configuration.\n",
+                    "21. House Monitoring.\n"};
 
             System.out.println("Select the task you want to do:");
 
@@ -172,6 +145,27 @@ public class MainUI {
                 switch (option) {
                     case 0:
                         activeProgram = false;
+                        break;
+                    case 1:
+                        HouseConfigurationUI view1 = new HouseConfigurationUI();
+                        view1.runUS01UI(mTypeAreaList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 2:
+                        HouseConfigurationUI view2 = new HouseConfigurationUI();
+                        view2.runUS02(mTypeAreaList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 3:
+                        HouseConfigurationUI view3 = new HouseConfigurationUI();
+                        view3.runUS03(mGeographicAreaList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
                         break;
                     case 4:
                         HouseConfigurationUI view4 = new HouseConfigurationUI();
@@ -229,14 +223,9 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 11:
-                        if (loginFlag == 1) {
-                            HouseConfigurationUI view11 = new HouseConfigurationUI();
-                            view11.runUS101(mGeographicAreaList);
-                            System.out.println(pressEnter);
-                            enterToReturnToConsole.nextLine();
-                            break;
-
-                        } else System.out.println("No permissions\n");
+                        HouseConfigurationUI view11 = new HouseConfigurationUI();
+                        view11.runUS101(mGeographicAreaList);
+                        System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
                         break;
@@ -268,20 +257,6 @@ public class MainUI {
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
                         break;
-                    case 623:
-                        HouseMonitoringUI view623 = new HouseMonitoringUI();
-                        view623.run(mGeographicAreaList, roomList1);
-                        System.out.println(pressEnter);
-                        enterToReturnToConsole.nextLine();
-                        activeInput = true;
-                        break;
-                    case 420:
-                        RoomConfigurationUI viewRC = new RoomConfigurationUI();
-                        viewRC.run(mGeographicAreaList, roomList1);
-                        System.out.println(pressEnter);
-                        enterToReturnToConsole.nextLine();
-                        activeInput = true;
-                        break;
                     case 19:
                         US145UI view145 = new US145UI();
                         view145.run(mGeographicAreaList);
@@ -290,12 +265,17 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 20:
-                        if (loginFlag == 1) {
-                            System.out.println("Bravo!");
-                            System.out.println(pressEnter);
-                            enterToReturnToConsole.nextLine();
-                            break;
-                        } else System.out.println("No permissions");
+                        RoomConfigurationUI viewRC = new RoomConfigurationUI();
+                        viewRC.run(mGeographicAreaList, roomList1);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 21:
+                        HouseMonitoringUI view623 = new HouseMonitoringUI();
+                        view623.run(mGeographicAreaList, roomList1);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
                         activeInput = true;
                         break;
                     default:
