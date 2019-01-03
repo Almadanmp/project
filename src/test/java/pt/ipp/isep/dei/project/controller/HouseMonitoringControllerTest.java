@@ -583,31 +583,32 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void SeeIfGetCurrentTemperatureInTheHouseAreaWorks(){
+    public void SeeIfGetCurrentTemperatureInTheHouseAreaWorks() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Reading r1 = new Reading(30,new GregorianCalendar(2018,8,9,17,0).getTime());
-        Reading r2 = new Reading(40,new GregorianCalendar(2018,8,9,22,0).getTime());
+        Reading r1 = new Reading(30, new GregorianCalendar(2018, 8, 9, 17, 0).getTime());
+        Reading r2 = new Reading(40, new GregorianCalendar(2018, 8, 9, 22, 0).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
         readingList.addReading(r2);
-        Sensor s1 = new Sensor("sensor1",new TypeSensor("temperature"),new Local(4,8),new GregorianCalendar(4,4,4).getTime(),readingList);
-        Sensor s2 = new Sensor("sensor2",new TypeSensor("temperature"),new Local(4,6),new GregorianCalendar(4,4,4).getTime(),readingList);
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime(), readingList);
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime(), readingList);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea(new TypeArea("cidade"),new Local(4,5),sensorList);
-        House house = new House("casa","rua coise",new Local(4,5),"440-4");
-        double result = ctrl.getCurrentTemperatureInTheHouseArea(house,ga);
-        assertEquals(40,result);
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5), sensorList);
+        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
+        double result = ctrl.getCurrentTemperatureInTheHouseArea(house, ga);
+        assertEquals(40, result);
     }
 
     @Test
-    public void SeeIfPrintGAWorks(){
+    public void SeeIfPrintGAWorks() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"),new Local(4,4));
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
         String result = ctrl.printGA(ga);
-        assertEquals("porto, cidade, 4.0º lat, 4.0º long\n",result);
+        assertEquals("porto, cidade, 4.0º lat, 4.0º long\n", result);
     }
+
     @Test
     public void seeIfDoesListOfRoomsContainRoomByName() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
@@ -620,7 +621,7 @@ public class HouseMonitoringControllerTest {
         roomList.addRoom(r3);
 
         boolean expectedResult = true;
-        boolean actualResult = ctrl.doesListContainRoomByName("Jardim",roomList);
+        boolean actualResult = ctrl.doesListContainRoomByName("Jardim", roomList);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -637,13 +638,13 @@ public class HouseMonitoringControllerTest {
         roomList.addRoom(r3);
 
         boolean expectedResult = false;
-        boolean actualResult = ctrl.doesListContainRoomByName("Sala",roomList);
+        boolean actualResult = ctrl.doesListContainRoomByName("Sala", roomList);
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfdoesSensorListInARoomContainASensorByName() {
+    void seeIfDoesSensorListInARoomContainASensorByName() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
 
         TypeSensor t1 = new TypeSensor("Humidade");
@@ -655,10 +656,10 @@ public class HouseMonitoringControllerTest {
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
-        Room room = new Room("cozinha",1,2,sensorList1);
+        Room room = new Room("cozinha", 1, 2, sensorList1);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        boolean actualResult = ctrl.doesSensorListInARoomContainASensorByName("s1",roomList);
+        boolean actualResult = ctrl.doesSensorListInARoomContainASensorByName("s1", roomList);
         boolean expectedResult = true;
 
         //Assert
@@ -666,7 +667,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    void seeIfdoesSensorListInARoomContainASensorByNameFalse() {
+    void seeIfDoesSensorListInARoomContainASensorByNameFalse() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
 
         TypeSensor t1 = new TypeSensor("Humidade");
@@ -678,10 +679,10 @@ public class HouseMonitoringControllerTest {
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
-        Room room = new Room("cozinha",1,2,sensorList1);
+        Room room = new Room("cozinha", 1, 2, sensorList1);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        boolean result = ctrl.doesSensorListInARoomContainASensorByName("miau",roomList);
+        boolean result = ctrl.doesSensorListInARoomContainASensorByName("miau", roomList);
 
         //Assert
         assertFalse(result);
@@ -753,6 +754,32 @@ public class HouseMonitoringControllerTest {
         Integer i = 1;
         expectedResult.add(i);
 
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintHouseElementsByIndex() {
+        //Arrange
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        //MAIN LISTS
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        //TEST GEOGRAPHIC AREAS
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //TEST HOUSES
+        HouseList houseList1 = new HouseList();
+        House house2 = new House("house2", "Address2", new Local(4, 4), "3456-123");
+        House house3 = new House("house3", "Address3", new Local(18, 10), "3555-555");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house2);
+        houseList1.addHouseToHouseList(house3);
+        //Act
+        String result = ctrl.printHouseElementsByIndex(list, geoa1);
+        String expectedResult = "1) house2, Address2, 3456-123.\n";
         //Assert
         assertEquals(expectedResult, result);
     }
