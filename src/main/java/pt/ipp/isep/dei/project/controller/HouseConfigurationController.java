@@ -189,15 +189,14 @@ public class HouseConfigurationController {
         this.mGeoList = geoList;
     }
 
-
-    public void printGAList(GeographicAreaList geoAreaList) {
-        geoAreaList.printGaWholeList(geoAreaList);
+    public GeographicAreaList getGeoList() {
+        return mGeoList;
     }
 
-
-    public void printHouseList() {
-        mHouseList.printHouseList();
+    public String printGAList(GeographicAreaList geoAreaList) {
+        return geoAreaList.printGaWholeList(geoAreaList);
     }
+
 
     public void setHouseAddress(String address, int indexOfHouse) {
         mHouseList.getHouseList().get(indexOfHouse).setmAddress(address);
@@ -224,8 +223,8 @@ public class HouseConfigurationController {
         return geoArea.printGeographicArea();
     }
 
-    public void printHouseList(GeographicArea ga) {
-        ga.getHouseList().printHouseList(ga);
+    public String printHouseList(GeographicArea ga) {
+       return ga.getHouseList().printHouseList(ga);
     }
 
     /**
