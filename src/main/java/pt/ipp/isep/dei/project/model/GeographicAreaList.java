@@ -103,7 +103,7 @@ public class GeographicAreaList {
             result = result + "Latitude: " + aux.getLocal().getLatitude() + " | ";
             result = result + "Longitude: " + aux.getLocal().getLongitude() + "\n";
         }
-        result = result + "---------------\n";
+        result = result + "---------------";
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
         return result;
     }

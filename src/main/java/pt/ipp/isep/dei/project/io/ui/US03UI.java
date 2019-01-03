@@ -7,7 +7,6 @@ import java.util.Scanner;
 /**
  * * User Story 03
  * As a System Administrator I want to Create a new Geographic Area.
- * <p>
  * This class is responsible for handling user input.
  * It calls the respective US03 controller.
  */

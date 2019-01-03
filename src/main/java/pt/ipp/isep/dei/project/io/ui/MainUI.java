@@ -146,6 +146,7 @@ public class MainUI {
                     "16. See Room List.\n",
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
+                    "623. House Monitoring.\n",
                     "623. Get Average Rainfall in the House Area.\n",
                     "420. Room Configuration.\n",
                     "19. Add A Room to a Energy Grid\n",
@@ -199,8 +200,8 @@ public class MainUI {
                     enterToReturnToConsole.nextLine();
                     break;
                 case 6:
-                    US06UI view6 = new US06UI(sensorList1, mGeographicAreaList);
-                    view6.run();
+                    HouseConfigurationUI view6 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
+                    view6.run06();
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
