@@ -117,12 +117,12 @@ public class HouseMonitoringUI {
 
 
     private boolean getInputRoom(RoomList list) {
-        US610Controller ctrl = new US610Controller(list);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please insert the name of the Room you want to get the Maximum Temperature from: ");
 
         this.mNameRoom = scanner.next();
-        if (ctrl.doesListContainRoomByName(this.mNameRoom)) {
+        if (ctrl.doesListContainRoomByName(this.mNameRoom,list)) {
             System.out.println("You chose the Room " + this.mNameRoom);
         } else {
             System.out.println("This room does not exist in the list of rooms.");
@@ -135,8 +135,8 @@ public class HouseMonitoringUI {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please insert the name of the Sensor you want to get the Maximum Temperature from: ");
         this.mNameSensor = scanner.next();
-        US610Controller ctrl = new US610Controller(list);
-        if (ctrl.doesSensorListInARoomContainASensorByName(this.mNameSensor)) {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        if (ctrl.doesSensorListInARoomContainASensorByName(this.mNameSensor,list)) {
             System.out.println("You chose the Sensor " + this.mNameSensor);
         } else {
             System.out.println("This sensor does not exist in the list of sensors.");
@@ -338,10 +338,9 @@ public class HouseMonitoringUI {
      */
 
     private void updateModel605(RoomList list) {
-        US605Controller ctrl = new US605Controller(list);
         out.print("The room is " + this.mNameRoom + " and the Temperature Sensor is " + this.mNameSensor + "\n");
         Date mDate = new Date();
-        this.mCurrentTemperature = ctrl.getCurrentRoomTemperature(mDate);
+        this.mCurrentTemperature = houseMonitoringcontroller.getCurrentRoomTemperature(mDate, list);
     }
 
     private void displayState605(){
@@ -365,11 +364,11 @@ public class HouseMonitoringUI {
      * US610
      */
     private void updateModel610(RoomList list) {
-        US610Controller ctrl = new US610Controller(list);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
         out.print("The room is " + this.mNameRoom + " the Temperature Sensor is " + this.mNameSensor +
                 " and the date is " + this.dataDay1 +"-"+ this.dataMonth1 +"-"+ this.dataYear1 + "\n");
         Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
-        this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate);
+        this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate,list);
     }
 
     private void displayState610(){

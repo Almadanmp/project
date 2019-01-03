@@ -273,4 +273,137 @@ public class HouseMonitoringControllerTest {
         assertEquals(expectedResult, actualResult, 0.001);
 
     }
+
+    @Test
+    public void seeIfdoesListContainRoomByNameWorks(){
+        RoomList roomList = new RoomList();
+        Room room = new Room("cozinha",8,8);
+        roomList.addRoom(room);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        boolean result = ctrl.doesListContainRoomByName("cozinha",roomList);
+        boolean expectedResult = true;
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    public void seeIfdoesListContainRoomByNameWorks2(){
+        RoomList roomList = new RoomList();
+        Room room = new Room("cozinha",8,8);
+        Room room1 = new Room("cozinha2",8,8);
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        boolean result = ctrl.doesListContainRoomByName("cozinha2",roomList);
+        boolean expectedResult = true;
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    public void seeIfdoesListContainRoomByNameWorksFalse(){
+        RoomList roomList = new RoomList();
+        Room room = new Room("cozinha",8,8);
+        Room room1 = new Room("cozinha2",8,8);
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        boolean result = ctrl.doesListContainRoomByName("sala",roomList);
+        boolean expectedResult = false;
+        assertEquals(expectedResult,result);
+    }
+    @Test
+    public void seeIfdoesListContainSensorByNameWorks(){
+        RoomList mRoomList = new RoomList();
+        ReadingList readingList = new ReadingList();
+        Reading reading = new Reading(30,new GregorianCalendar(2018,8,5).getTime());
+        Reading reading1 = new Reading(40, new GregorianCalendar(2018,8,5).getTime());
+        readingList.addReading(reading);
+        readingList.addReading(reading1);
+        Sensor sensor1 = new Sensor("sensor",new TypeSensor("temperature"),new Local(4,4),new GregorianCalendar(8,8,8).getTime(),readingList);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(sensor1);
+        Room room = new Room("cozinha",8,2,sensorList);
+        mRoomList.addRoom(room);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        boolean result = ctrl.doesSensorListInARoomContainASensorByName("sensor",mRoomList);
+        boolean expectedResult = true;
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    public void seeIfGetMaxTemperatureInARoomInAGivenDayWorks(){
+        RoomList roomList = new RoomList();
+        SensorList list = new SensorList();
+        TypeSensor tipo = new TypeSensor("temperature");
+        ReadingList listR = new ReadingList();
+        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
+        Reading r1;
+        Reading r2;
+        r1 = new Reading(30, d2);
+        r2 = new Reading(20, d2);
+        listR.addReading(r1);
+        listR.addReading(r2);
+        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1), new Date(), listR);
+        list.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, list);
+        roomList.addRoom(room);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d2,roomList);
+        double expectedResult = 30.0;
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
+    public void seeIfGetMaxTemperatureInARoomInAGivenDayWorksTwoDays(){
+        RoomList roomList = new RoomList();
+        SensorList list = new SensorList();
+        TypeSensor tipo = new TypeSensor("temperature");
+        ReadingList listR = new ReadingList();
+        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
+        Date d3 = new GregorianCalendar(2018, 2, 3).getTime();
+        Reading r1 = new Reading(-30, d2);
+        Reading r2 = new Reading(20, d2);
+        Reading r3 = new Reading(25,d3);
+        listR.addReading(r1);
+        listR.addReading(r2);
+        listR.addReading(r3);
+        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1), new Date(), listR);
+        list.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, list);
+        roomList.addRoom(room);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d3,roomList);
+        double expectedResult = 25.0;
+        assertEquals(expectedResult, result, 0.01);
+    }
+    @Test
+    public void seeIfGetMaxTemperatureInARoomInAGivenDayWorksTwoDaysNeg(){
+        RoomList roomList = new RoomList();
+        SensorList list = new SensorList();
+        TypeSensor tipo = new TypeSensor("temperature");
+        ReadingList listR = new ReadingList();
+        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
+        Date d3 = new GregorianCalendar(2018, 2, 3).getTime();
+        Reading r1 = new Reading(-30, d2);
+        Reading r2 = new Reading(-20, d2);
+        Reading r3 = new Reading(-25, d3);
+        listR.addReading(r1);
+        listR.addReading(r2);
+        listR.addReading(r3);
+        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1), new Date(), listR);
+        list.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, list);
+        roomList.addRoom(room);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d2,roomList);
+        double expectedResult = -20.0;
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
+    public void SeeIfCreateDateWorks(){
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        Date result = ctrl.createDate(2018,6,11);
+        Date expectedResult = new GregorianCalendar(2018,6,11).getTime();
+        assertEquals(expectedResult,result);
+    }
 }
