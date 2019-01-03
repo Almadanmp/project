@@ -73,14 +73,6 @@ public class Room {
         return mRoomSensorList;
     }
 
-    public DeviceList getRoomDeviceList() {
-        return mRoomDeviceList;
-    }
-
-    public double getRoomMaxPower() {
-        return mRoomMaxPower;
-    }
-
     public double getMaxTemperatureInARoomOnAGivenDay(Date day){
         SensorList list= getRoomSensorList();
         House h =new House();

@@ -122,10 +122,10 @@ public class MainUI {
 
         while (activeProgram) {
 
-            System.out.println("\n***************************************************\n" +
-                    "***************** Main Menu Test ******************\n" +
-                    "****************** sWitCh 2018 ********************\n" +
-                    "***************************************************\n");
+            System.out.println("\n*******************\n" +
+                    "****** Main Menu Test *******\n" +
+                    "****** sWitCh 2018 ********\n" +
+                    "*****************\n");
 
             // Submenus Input selection
 
@@ -169,8 +169,8 @@ public class MainUI {
                         activeProgram = false;
                         break;
                     case 4:
-                        US04UI view4 = new US04UI();
-                        view4.run(mGeographicAreaList);
+                        HouseConfigurationUI view4 = new HouseConfigurationUI();
+                        view4.runUS04(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
@@ -190,15 +190,15 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 7:
-                        US07UI view7 = new US07UI();
-                        view7.run(mGeographicAreaList);
+                        HouseConfigurationUI view7 = new HouseConfigurationUI();
+                        view7.runUS07(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
                         break;
                     case 8:
-                        US08UI view8 = new US08UI();
-                        view8.run(mGeographicAreaList);
+                        HouseConfigurationUI view8 = new HouseConfigurationUI();
+                        view8.runUS08(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
@@ -256,16 +256,9 @@ public class MainUI {
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
                         break;
-                    case 16:
+                    case 18:
                         US108UI view16 = new US108UI();
                         view16.runUS108UI(mGeographicAreaList);
-                        System.out.println(pressEnter);
-                        enterToReturnToConsole.nextLine();
-                        activeInput = true;
-                        break;
-                    case 18:
-                        US108UI view18 = new US108UI();
-                        view18.runUS108UI(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
