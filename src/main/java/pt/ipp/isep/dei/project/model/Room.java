@@ -132,6 +132,13 @@ public class Room {
         return s.getReadingList().getMostRecentValueOfReading();
     }
 
+    public String printRoom() {
+        String result;
+        result = this.mRoomName+ ", " + this.getHouseFloor() + ", " +
+                this.getRoomDimensions() +".\n";
+        return result;
+    }
+
 
     @Override
     public boolean equals(Object o) {
