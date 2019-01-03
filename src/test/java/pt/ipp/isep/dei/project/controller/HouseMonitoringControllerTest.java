@@ -1050,4 +1050,36 @@ public class HouseMonitoringControllerTest {
         assertEquals(expected,result);
     }
 
+    @Test
+    public void seeIfprintSensorListWorksInvalid() {
+        //Arrange --------------------------------
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("house2", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Sensors
+        SensorList slist = new SensorList();
+        //Room List
+        RoomList roomList1;
+        roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789,slist);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act ------------------------------------
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        String result = ctrl.printSensorList(room1);
+        String expectedResult = "Invalid List - List is Empty\n";
+        //Assert ---------------------------------
+        Assert.assertEquals(expectedResult,result);
+    }
 }
