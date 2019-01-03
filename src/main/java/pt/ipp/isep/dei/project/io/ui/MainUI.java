@@ -88,7 +88,7 @@ public class MainUI {
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
 
-
+house2.setmEGList(energyGridList2);
         //MAIN CODE
         Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
@@ -293,7 +293,7 @@ public class MainUI {
                     break;
                 case 19:
                     US145UI view145 = new US145UI();
-                    view145.run(houseList2);
+                    view145.run(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

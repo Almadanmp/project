@@ -19,6 +19,7 @@ public class US145UI {
 
     private US145Controller ctrl145;
     private boolean mActive;
+    private String mGeographicAreaName;
     private String mHouseName;
     private String mRoomName;
     private String mEnergyGridName;
@@ -28,21 +29,45 @@ public class US145UI {
         this.mActive = false;
     }
 
-    public void run(HouseList houseList) {
-        this.ctrl145 = new US145Controller(houseList);
+    public void run(GeographicAreaList geographicAreaList) {
+        this.ctrl145 = new US145Controller(geographicAreaList);
         this.mActive = true;
         while (this.mActive) {
+            getInputGeographicAreaName();
+            updateGeographicAreaName();
+            updateGeographicArea();
             getInputHouseName();
             updateHouseName();
+            updateHouse();
             updateRoomList();
             getInputRoomName();
             updateRoomName();
+            updateRoom();
             getInputEnergyGridName();
             updateEnergyGridList();
             updateEnergyGrid();
             updateFinalState();
             this.mActive = false;
         }
+    }
+
+    private void getInputGeographicAreaName() {
+        System.out.println("Please insert the Geographic Area Name You Want To Add The Room To: ");
+        Scanner input = new Scanner(System.in);
+        String geographicAreaName = input.nextLine();
+        mGeographicAreaName = geographicAreaName;
+    }
+
+    private void updateGeographicAreaName(){
+        if (this.ctrl145.seeIfGeographicAreaExistsInGeographicAreaList(mGeographicAreaName)) {
+            System.out.println("The Geographic Area you have inserted is on the List.");
+        } else {
+            System.out.println("The Geographic Area you have inserted is not on the List.");
+        }
+    }
+
+    private void updateGeographicArea(){
+        this.ctrl145.getGeographicArea(this.mGeographicAreaName);
     }
 
     private void getInputHouseName() {
@@ -60,8 +85,12 @@ public class US145UI {
         }
     }
 
+    private void updateHouse() {
+        this.ctrl145.getHouseByHouseName(mHouseName);
+    }
+
     private void updateRoomList() {
-        this.ctrl145.getRoomListByHouseName(mHouseName);
+        this.ctrl145.getRoomListByHouseName();
     }
 
     private void getInputRoomName() {
@@ -79,12 +108,15 @@ public class US145UI {
         }
     }
 
+    private void updateRoom() {
+        this.ctrl145.getRoomByRoomName(mRoomName);
+    }
+
     private void getInputEnergyGridName() {
         System.out.println("Please insert The Name of The Energy Grid you want to add the Room to: ");
         Scanner input = new Scanner(System.in);
         String energyGridName = input.nextLine();
         mEnergyGridName = energyGridName;
-
 
     }
 
