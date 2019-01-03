@@ -360,7 +360,75 @@ public class HouseMonitoringControllerTest {
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
+    }
 
+    @Test
+    public void seeIfGetSumOfReadingInGivenDayReturn0() {
+        //In case sensor empty
+        //Arrange
+        ReadingList rList1 = new ReadingList();
+        GregorianCalendar g0 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        Reading r0 = new Reading(5, g0.getTime());
+        Reading r1 = new Reading(25, g1.getTime());
+        rList1.addReading(r0);
+        rList1.addReading(r1);
+
+        ReadingList rList2 = new ReadingList();
+        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        Reading r2 = new Reading(1, g2.getTime());
+        Reading r3 = new Reading(20, g3.getTime());
+        rList2.addReading(r2);
+        rList2.addReading(r3);
+
+        ReadingList rList3 = new ReadingList();
+        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        Reading r4 = new Reading(1, g4.getTime());
+        Reading r5 = new Reading(20, g5.getTime());
+        rList3.addReading(r4);
+        rList3.addReading(r5);
+
+        ReadingList rList4 = new ReadingList();
+        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        Reading r6 = new Reading(1, g6.getTime());
+        Reading r7 = new Reading(30, g7.getTime());
+        rList4.addReading(r6);
+        rList4.addReading(r7);
+
+        ReadingList rList5 = new ReadingList();
+        GregorianCalendar g8 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g9 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        Reading r8 = new Reading(1, g8.getTime());
+        Reading r9 = new Reading(15, g9.getTime());
+        rList5.addReading(r8);
+        rList5.addReading(r9);
+
+        ReadingList rList6 = new ReadingList();
+        GregorianCalendar g10 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g11 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        Reading r10 = new Reading(5, g10.getTime());
+        Reading r11 = new Reading(25, g11.getTime());
+        rList6.addReading(r10);
+        rList6.addReading(r11);
+
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+
+        SensorList slist1 = new SensorList();
+        ga1.setSensorList(slist1);
+
+        //Act
+        double expectedResult = 0;
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 23);
+        Date dateToTest = cal.getTime();
+        double actualResult = ctrl.getTotalRainfallOnGivenDayHouseArea(ga1, dateToTest);
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
     }
 
     @Test
