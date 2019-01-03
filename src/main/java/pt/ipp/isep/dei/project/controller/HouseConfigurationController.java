@@ -190,15 +190,36 @@ public class HouseConfigurationController {
         ga.getHouseList().printHouseList(ga);
     }
 
+    /**
+     *   US105: As an Administrator, I want to add a new room to the house, in order to configure
+     it (name, house floor and dimensions).
+     */
 
-    private EnergyGrid mEnergyGrid;
+    public HouseConfigurationController(){}
+
     private HouseList mHouseList;
-    private String mHouseName;
+    private Room mRoom;
+
+
+    public void createNewRoom(String roomDesignation, int roomHouseFloor, double roomDimensions) {
+        this.mRoom = new Room(roomDesignation, roomHouseFloor ,roomDimensions);
+    }
+
+
+    public boolean addRoomToHouse(House house) {
+        return (house.addRoomToRoomList(this.mRoom));}
+
+    public String getHouseName(House house) {
+        return house.getHouseDesignation();
+    }
 
     /** US130
      * As an Administrator, I want to create a energy grid,
      * so that I can define the rooms that are attached to it and the contracted maximum power for that grid.
      **/
+
+    private EnergyGrid mEnergyGrid;
+    private String mHouseName;
 
     /**
      * The controller is initialized with the houseList given from the UI, which came from MainUI;

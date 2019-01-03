@@ -60,9 +60,11 @@ public class MainUI {
 
         House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657", roomList1);
         House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
-        House house3 = new House("houseThree", "Address3", new Local(18, 10), "3555-555");
+        House house3 = new House("houseTwo", "Address3", new Local(18, 10), "3555-555");
         house2.setmMotherArea(geoa1);
+        house2.setmRoomList(roomList1);
         house3.setmMotherArea(geoa1);
+        house3.setmRoomList(roomList1);
         houseList1.addHouseToHouseList(house2);
         houseList1.addHouseToHouseList(house3);
         house1.setmMotherArea(geoa2);
@@ -248,8 +250,8 @@ public class MainUI {
                     break;
 
                 case 12:
-                    US105UI view12 = new US105UI();
-                    view12.run(houseList1);
+                    HouseConfigurationUI view12 = new HouseConfigurationUI();
+                    view12.runUS105(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

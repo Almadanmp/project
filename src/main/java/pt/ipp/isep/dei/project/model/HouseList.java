@@ -61,29 +61,6 @@ public class HouseList {
         return false;
     }
 
-    public boolean addRoomToHouseInHouseList(String houseDesignation, Room roomToAdd) {
-        for (House h : this.mHouseList) {
-            String houseDesignationToTest = h.getHouseDesignation();
-            if (houseDesignationToTest.equals(houseDesignationToTest)) {
-                if (h.addRoomToRoomList(roomToAdd)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean checkHouseExists(String houseToMatch) {
-        for (House g : mHouseList) {
-            if (g.getHouseDesignation().equals(houseToMatch)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public House getHouseByDesignation(String name) {
         for (House g : mHouseList) {
             if (g.getHouseDesignation().equals(name)) {

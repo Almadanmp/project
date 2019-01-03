@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class US145UI {
     /**
      * /**
-     * US145Controller As an Administrator, I want to have a list of existing rooms attached to a house grid,
+     * US145 As an Administrator, I want to have a list of existing rooms attached to a house grid,
      * so that I can attach/detach rooms from it.
      * US147 As an Administrator, I want to attach a room to a house grid, so that the room’s
      * power and energy consumption is included in that grid.
