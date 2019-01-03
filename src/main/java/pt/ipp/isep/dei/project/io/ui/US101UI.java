@@ -26,7 +26,6 @@ public class US101UI {
     US101Controller ctrl101;
     private String geoName;
     private GeographicArea mGeoArea;
-    private List<Integer> listOfIndexesGeographicAreas;
     private static final String INVALID_OPTION = "Please enter a valid option";
 
 
@@ -37,7 +36,7 @@ public class US101UI {
     public void runUS101(HouseList listOfHouses, GeographicAreaList list) {
         this.ctrl101 = new US101Controller(listOfHouses);
         while (this.mActive = true) {
-            if (list == null || list.getGeographicAreaList().size() == 0) {
+            if (list == null || list.getGeographicAreaList().isEmpty()) {
                 System.out.println("Invalid Geographic Area List - List Is Empty");
                 return;
             }
@@ -89,12 +88,12 @@ public class US101UI {
         System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
         Scanner scanner = new Scanner(System.in);
         this.geoName = scanner.nextLine();
-        return (!(geoName.equals("exit")));
+        return (!("exit".equals(geoName)));
     }
 
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
         US101Controller ctrl = new US101Controller(newGeoListUi);
-        listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
+        List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
 
         while (listOfIndexesGeographicAreas.isEmpty()) {
             System.out.println("There is no Geographic Area with that name. Please insert the name of a Geographic Area" +
@@ -143,7 +142,7 @@ public class US101UI {
 
     private boolean getInputHouse(GeographicAreaList newGeoListUi) {
         US101Controller ctrl = new US101Controller(newGeoListUi);
-        if (mGeoArea.getHouseList().getHouseList().size() == 0) {
+        if (mGeoArea.getHouseList().getHouseList().isEmpty()) {
             System.out.print("Invalid House List - List Is Empty\n/**/");
             return false;
         }
