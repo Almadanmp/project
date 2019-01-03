@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
-import pt.ipp.isep.dei.project.controller.US610Controller;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.RoomList;
 
@@ -28,11 +28,11 @@ public class RoomConfigurationUI {
         }
     }
         private boolean getInputRoom(RoomList list){
-            US610Controller ctrl = new US610Controller(list);
+            HouseMonitoringController ctrl = new HouseMonitoringController();
             System.out.print("Please insert the name of the Room you want to add sensor to: ");
 
             this.mNameRoom = mScanner.next();
-            if (ctrl.doesListContainRoomByName(this.mNameRoom)) {
+            if (ctrl.doesListContainRoomByName(this.mNameRoom,list)) {
                 System.out.println("You chose the Room " + this.mNameRoom);
             } else {
                 System.out.println("This room does not exist in the list of rooms.");
