@@ -24,7 +24,15 @@ public class RoomTest {
         listR.addReading(r2);
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1), new Date(), listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, list);
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 19, 23456789);
+        roomList1.addRoom(room1);
+        ReadingList rL1 = new ReadingList();
+        r1 = new Reading(30, d2);
+        rL1.addReading(r1);
+        double tP1 = 50;
+        DeviceList deviceL1 = new DeviceList();
+        Room room = new Room("quarto", 1, 80, list, deviceL1, 23);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(d2);
         double expectedResult = 30.0;
         assertEquals(expectedResult, result, 0.01);
