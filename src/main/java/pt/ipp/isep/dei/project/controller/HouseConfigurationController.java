@@ -88,6 +88,27 @@ public class HouseConfigurationController {
     }
 
     /**
+     * User Story 04
+     */
+
+    private GeographicAreaList mGeographicAreaList;
+
+    /**
+     * Void Method to Set/Match a Geographic Area List with a Certain Type Area Given(String input).
+     */
+    public void matchGeoAreaTypeWithInput(String input) {
+        mGeographicAreaList = this.mGeographicAreaList.matchGeographicAreaWithInputType(input);
+    }
+
+    /**
+     * Geographic Area List getter.
+     */
+    public GeographicAreaList getGeographicAreaList() {
+        return this.mGeographicAreaList;
+    }
+
+
+    /**
      * User Story 06
      * As a system administrator, I want to be able to manually input a new sensor and add it to a pre-input Geographic Area
      */
@@ -173,24 +194,90 @@ public class HouseConfigurationController {
         return this.mSensor;
     }
 
+    /**
+     * US07
+     */
 
+    private GeographicArea mMotherArea;
+
+    public GeographicArea matchGeoArea(String nameArea){
+        return mGeographicAreaList.matchGeoArea(nameArea);
+    }
+
+    public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea){
+        daughterArea.setMotherArea(motherArea);
+        this.mMotherArea = motherArea;
+    }
+
+    GeographicArea getMotherArea (){
+        return this.mMotherArea;
+
+    }
+
+    public String printGeographicAreaListNames() {
+        return mGeographicAreaList.printGeoAreaList();
+    }
+
+    public boolean validateGeoArea(String ga) {
+
+        return mGeographicAreaList.validateIfGeographicAreaToGeographicAreaList(ga);
+    }
+
+    /**
+     * US08
+     */
+
+    private GeographicArea mGeographicAreaContained;
+    private GeographicArea mGeographicAreaContainer;
+
+    GeographicArea getmGeographicAreaContained() {
+        return this.mGeographicAreaContained;
+    }
+
+    GeographicArea getmGeographicAreaContainer() {
+        return this.mGeographicAreaContainer;
+    }
+
+    /**
+     * This method define the GeographicAreas Container and Contained
+     */
+
+    public boolean matchGeographicAreas(String nameOfAreaContained, String nameOfAreaContainer) {
+        if (mGeographicAreaList.checkIfListIsValid()) {
+            for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
+                if (ga.getName().equals(nameOfAreaContained)) {
+                    mGeographicAreaContained = ga;
+                }
+                if (ga.getName().equals(nameOfAreaContainer)) {
+                    mGeographicAreaContainer = ga;
+                }
+            }
+            return mGeographicAreaContained != null && mGeographicAreaContainer != null;
+        }
+        return false;
+    }
+
+    /**
+     * This methods checks if one area (AreaContained) is contained in another area (AreaContainer)
+     */
+    public boolean seeIfItsContained() {
+        return mGeographicAreaContained.checkIfAreaIsContained(mGeographicAreaContained, mGeographicAreaContainer);
+    }
 
     /**
      * US101
      */
-
-    private GeographicAreaList mGeoList;
 
     public HouseConfigurationController() {
     }
 
 
     public HouseConfigurationController(GeographicAreaList geoList) {
-        this.mGeoList = geoList;
+        this.mGeographicAreaList = geoList;
     }
 
     public GeographicAreaList getGeoList() {
-        return mGeoList;
+        return mGeographicAreaList;
     }
 
     public String printGAList(GeographicAreaList geoAreaList) {

@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 class HouseConfigurationUI {
     HouseConfigurationController controller;
@@ -174,6 +175,58 @@ class HouseConfigurationUI {
             scanner.next();
         }
         return scanner.nextDouble();
+    }
+
+    /**
+     * US004
+     */
+
+    private String action;
+    private GeographicAreaList mGeoAreaList;
+    private GeographicAreaList filteredList; //Geographic Area List filtered with Type of Geographic Area
+
+    /**
+     * Usual runUS135() method for ui's. In this one with receive as a parameter the Geographic Area List from the MainUI.
+     */
+    public void runUS04(GeographicAreaList geoArea) {
+        this.mGeoAreaList = geoArea;
+        getInputUS04();
+        updateUS04();
+        displayUS04();
+    }
+
+    /**
+     * Usual getInputRoom() method for ui's. This method stores the input to use in the update() method later.
+     */
+    private void getInputUS04() {
+        System.out.println("Please insert Geographic Area type:");
+        Scanner input = new Scanner(System.in);
+        this.action = input.nextLine();
+        System.out.println(this.action + " was successfully entered.\n");
+    }
+
+    /**
+     * Usual update() method for ui's. This method is like a setter because he updates the information using the input given before.
+     */
+    private void updateUS04() {
+        HouseConfigurationController ctrl04 = new HouseConfigurationController(mGeoAreaList);
+        ctrl04.matchGeoAreaTypeWithInput(this.action);
+        filteredList = ctrl04.getGeographicAreaList();
+    }
+
+    /**
+     * Usual display() method for ui's. This method displays the answer we want to get from the US given and with the input we received.
+     */
+    private void displayUS04() {
+        if (mGeoAreaList.getGeographicAreaList().isEmpty()) {
+            System.out.println("The Geographic Area list is currently empty.");
+        } else if (filteredList.getGeographicAreaList().isEmpty()) {
+            System.out.println("There are no Geographic Areas with this Area Type.");
+        } else {
+            List<GeographicArea> list = filteredList.getGeographicAreaList();
+            String result = ("List Of Geographic Areas with the Area Type Given:\n"+list.stream().map(GeographicArea::getName).collect(Collectors.joining(", ")));
+            System.out.print(result);
+        }
     }
 
     /**
@@ -377,6 +430,155 @@ class HouseConfigurationUI {
             System.out.println("\nSensor could not be added to the Area.");
         }
     }
+
+    /**
+     * US07 UI
+     */
+
+    private GeographicAreaList mGeoList;
+    private String mNameGeographicAreaDaughter;
+    private String mNameGeographicAreaMother;
+
+    public void runUS07(GeographicAreaList newGeoListUi) {
+
+        this.mActive = true;
+        this.mGeoList = newGeoListUi;
+        while (this.mActive) {
+            if(!displayGeoListUS07()) {
+                return;
+            }
+            else {
+                getMotherGeographicAreaUS07();
+                displayStateMotherUS07(newGeoListUi);
+                getDaughterGeographicAreaUS07();
+                displayStateDaughterUS07(newGeoListUi);
+                updateStateUS07();
+                displayStateUS07();
+            }
+        }
+    }
+
+    private boolean displayGeoListUS07() {
+        HouseConfigurationController ctrl = new HouseConfigurationController(mGeoList);
+        if(ctrl.getGeographicAreaList().getGeographicAreaList().isEmpty()) {
+            System.out.println(ctrl.printGeographicAreaListNames());
+            return false;
+        }
+        else {
+            System.out.println(ctrl.printGeographicAreaListNames());
+            return true;
+        }
+    }
+
+    private void getMotherGeographicAreaUS07() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Type the name of the GeographicArea that you want to say contains another: ");
+        while (!scanner.hasNext("[\\p{L}\\s]+")) {
+            System.out.println("Please,try again:");
+            scanner.next();
+        }
+        this.mNameGeographicAreaMother = scanner.next();
+    }
+
+    private void displayStateMotherUS07(GeographicAreaList list) {
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        if (ctrl.validateGeoArea(mNameGeographicAreaMother)) {
+            System.out.println("Success, you have inserted a valid Geographic Area.");
+        } else {
+            System.out.println("Unsuccess, you have inserted a non-existing Geographic Area.");
+        }
+    }
+
+    private void getDaughterGeographicAreaUS07() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Type the name of the GeographicArea that you want to say is contained in another: ");
+        while (!scanner.hasNext("[\\p{L}\\s]+")) {
+            System.out.println("Please,try again:");
+            scanner.next();
+        }
+        this.mNameGeographicAreaDaughter = scanner.next();
+    }
+
+    private void displayStateDaughterUS07(GeographicAreaList list) {
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        if (ctrl.validateGeoArea(mNameGeographicAreaDaughter)) {
+            System.out.println("Success, you have inserted a valid Geographic Area.");
+        } else {
+            System.out.println("Unsuccess, you have inserted a non-existing Geographic Area.");
+        }
+    }
+
+    private void updateStateUS07() {
+        HouseConfigurationController ctrl = new HouseConfigurationController(mGeoList);
+        GeographicArea daughterArea = ctrl.matchGeoArea(mNameGeographicAreaDaughter);
+        GeographicArea motherArea = ctrl.matchGeoArea(mNameGeographicAreaMother);
+        ctrl.setMotherArea(daughterArea, motherArea);
+    }
+
+    private void displayStateUS07() {
+        System.out.print("The Geographic Area " + mNameGeographicAreaDaughter + " is contained in " + mNameGeographicAreaMother + "\n");
+        active = false;
+    }
+
+    /**
+     * US08 UI
+     */
+
+    private String mNameGeographicAreaContained;
+    private String mNameGeographicAreaContainer;
+
+    public void runUS08(GeographicAreaList list) {
+        this.mActive = true;
+        while (this.mActive) {
+            getInputGeographicContainerUS08();
+            getInputGeographicContainedUS08();
+            verifyAndDisplayStateUS08(list);
+        }
+    }
+
+    /**
+     * getInputGeographicContainer()
+     * this method makes the user define the NAME of the GeographicArea CONTAINER
+     */
+    private void getInputGeographicContainerUS08() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type the name of the area you want to check if it CONTAINS another area: ");
+        this.mNameGeographicAreaContainer = scanner.next();
+    }
+
+    /**
+     * getInputGeographicContainer()
+     * this method makes the user define the NAME of the GeographicArea CONTAINED
+     */
+    private void getInputGeographicContainedUS08() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type the name of the area you want to check if its CONTAINED IN another area: ");
+        this.mNameGeographicAreaContained = scanner.next();
+    }
+
+    /**
+     * @param list is the MainUI List
+     * First we check if the Geographic Areas that we are testing exist in the MainUI list.
+     * Then we check the GeographicAreaContained for its flag
+     * And finally it tests the flag (Geographic Area) is equal to the testing GeographicArea Container
+     */
+
+    private void verifyAndDisplayStateUS08(GeographicAreaList list) {
+        HouseConfigurationController controller = new HouseConfigurationController(list);
+        if (!(controller.matchGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer))) {
+            System.out.println("The given areas are invalid!");
+            return;
+        }
+        if (!(controller.seeIfItsContained())) {
+            System.out.println(mNameGeographicAreaContained + " is NOT contained in " + mNameGeographicAreaContainer);
+            this.mActive = false;
+            return;
+        }
+        System.out.println(mNameGeographicAreaContained + " is contained in " + mNameGeographicAreaContainer);
+        this.mActive = false;
+        return;
+    }
+
 
     /**
      * US101 UI
