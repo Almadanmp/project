@@ -18,6 +18,12 @@ public class MainUI {
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
         TypeAreaList mTypeAreaList = new TypeAreaList();
 
+        //TYPE AREA
+        TypeArea typeArea1 = new TypeArea("cidade");
+        TypeArea typeArea2 = new TypeArea("aldeia");
+        mTypeAreaList.addTypeArea(typeArea1);
+        mTypeAreaList.addTypeArea(typeArea2);
+
         //TEST READINGS
         ReadingList readingList = new ReadingList();
         Reading reading1 = new Reading(30, new GregorianCalendar(2018, 8, 6).getTime());

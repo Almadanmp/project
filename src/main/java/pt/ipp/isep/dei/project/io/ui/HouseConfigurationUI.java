@@ -10,8 +10,102 @@ import java.util.stream.Collectors;
 
 class HouseConfigurationUI {
     private HouseConfigurationController controller;
+    private String mTypeAreaName;
+    private TypeArea mTypeGA;
 
-    //SHARED METHODS!!
+    /** ------ SHARED METHODS -------- **/
+
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA - TYPE AREA -------- **/
+
+    private void getInputTypeArea(TypeAreaList typeAreaList) {
+        this.controller = new HouseConfigurationController(typeAreaList);
+        System.out.println(
+                "We need to know what is the type of Geographic Area\n" + "Would you like to:\n" + "1)Type the Geographic Area Type name;\n" + "2) Choose it from a list;\n" +
+                        "0) Return;");
+        boolean activeInput = false;
+        while (!activeInput) {
+            int option = readInputNumberAsInt();
+            switch (option) {
+                case 1:
+                    getInputTypeAreaName();
+                    if (!getTypeAreaByName(typeAreaList)) {
+                        System.out.println("Unable to select a Geographic Area. Returning to main menu.");
+                        return;
+                    }
+                    activeInput = true;
+                    break;
+                case 2:
+                    getInputTypeAreaByList(typeAreaList);
+                    activeInput = true;
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println(INVALID_OPTION);
+                    break;
+            }
+        }
+    }
+
+    private boolean getInputTypeAreaName() {
+        System.out.println("Please type the name of the Geographic Area Type Where: ");
+        this.mTypeAreaName = mScanner.nextLine();
+        return (!(mTypeAreaName.equals("exit")));
+    }
+
+    private boolean getTypeAreaByName(TypeAreaList typeAreaList) {
+        List<Integer> listOfIndexesTypeArea = this.controller.matchTypeAreaIndexByString(mTypeAreaName, typeAreaList);
+
+        while (listOfIndexesTypeArea.isEmpty()) {
+            System.out.println("There is no Geographic Area Type with that name. Please insert the name of a Geographic Area Type" +
+                    " that exists or type 'exit' to cancel and create a new Geographic Area Type on the Main Menu.");
+            if (!getInputTypeAreaName()) {
+                return false;
+            }
+            listOfIndexesTypeArea = this.controller.matchTypeAreaIndexByString(mTypeAreaName, typeAreaList);
+        }
+
+        if (listOfIndexesTypeArea.size() > 1) {
+            System.out.println("There are multiple Geographic Area Types with that name. Please choose the right one.");
+            System.out.println(this.controller.printTypeAreaElementsByIndex(listOfIndexesTypeArea, typeAreaList));
+            int aux = readInputNumberAsInt();
+            if (listOfIndexesTypeArea.contains(aux)) {
+                mTypeGA = typeAreaList.getTypeAreaList().get(aux);
+                System.out.println("You have chosen the following Geographic Area Type:");
+                System.out.println(this.controller.printTypeArea(mTypeGA));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        } else {
+            System.out.println("You have chosen the following Geographic Area Type:");
+            mTypeGA = typeAreaList.getTypeAreaList().get(listOfIndexesTypeArea.get(0));
+            System.out.println(this.controller.printTypeArea(mTypeGA));
+        }
+        return true;
+    }
+
+
+    private void getInputTypeAreaByList(TypeAreaList typeAreaList) {
+        boolean activeInput = false;
+        System.out.println("Please select the Geographic Area Type from the list: ");
+
+        while (!activeInput) {
+            this.controller.printGATypeList(typeAreaList);
+            int aux = readInputNumberAsInt();
+            if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
+                mTypeGA = typeAreaList.getTypeAreaList().get(aux);
+                activeInput = true;
+                //TODO fazer um print bonito
+                System.out.println("You have chosen the following Geographic Area Type:");
+                System.out.println(this.controller.printTypeArea(mTypeGA));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        }
+    }
+
+
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA -  GEOGRAPHIC AREAS -------- **/
 
     private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
         System.out.println(
@@ -101,6 +195,7 @@ class HouseConfigurationUI {
         }
     }
 
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA - HOUSES -------- **/
 
     private void getInputHouse(GeographicArea mGeoArea) {
         System.out.println(
@@ -183,7 +278,6 @@ class HouseConfigurationUI {
         }
     }
 
-
     private int readInputNumberAsInt() {
         while (!mScanner.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
@@ -192,6 +286,8 @@ class HouseConfigurationUI {
         Double option = mScanner.nextDouble();
         return option.intValue();
     }
+
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA - ENERGY GRIDS -------- **/
 
     private void getInputEnergyGrid(){
         System.out.println(
@@ -272,13 +368,8 @@ class HouseConfigurationUI {
         }
     }
 
+    /** ------ OPÇÃO LISTAR POR NOMES/POR LISTA - ROOMS -------- **/
 
-
-    //USER STORIES
-
-    /**
-     * US001UI
-     */
     private void getInputRoom() {
         System.out.println(
                 "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
@@ -360,6 +451,8 @@ class HouseConfigurationUI {
         }
     }
 
+    /** ------ GET ROOM CHARACTERISTICS -------- **/
+
     private void getInputRoomCharacteristics() {
         Scanner input = new Scanner(System.in);
 
@@ -381,6 +474,9 @@ class HouseConfigurationUI {
         }
         this.mRoomDimensions = input.nextDouble();
     }
+
+
+    /** ------ USER STORIES -------- **/
 
      /**
       * US001UI
@@ -561,19 +657,12 @@ class HouseConfigurationUI {
     public void runUS04(TypeAreaList typeAreaList) {
         this.mTypeAreaList = typeAreaList;
         this.controller = new HouseConfigurationController();
-        //getInputTypeAreaUS04();
-        updateUS04();
-        displayUS04();
+        getInputTypeArea(typeAreaList);
+        //updateUS04();
+        //displayUS04();
     }
 
-
-    private void getInputUS04() {
-        System.out.println("Please insert Geographic Area type:");
-        Scanner input = new Scanner(System.in);
-        this.action = input.nextLine();
-        System.out.println(this.action + " was successfully entered.\n");
-    }
-
+/**
 
     private void updateUS04() {
         HouseConfigurationController ctrl04 = new HouseConfigurationController(mGeoAreaList);

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +51,42 @@ public class TypeAreaList {
         else{
             return false;
         }
+    }
+
+    public List<Integer>  matchGeographicAreaTypeIndexByString(String input){
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < mTypeAreaList.size(); i++){
+            if (mTypeAreaList.get(i).getTypeOfGeographicArea().equals(input)){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    public String printGATypeElementsByIndex (List<Integer> indexes){
+        String result = "---------------\n";
+        for (int i = 0 ; i<indexes.size() ; i++ ) {
+            int pos = indexes.get(i);
+            result = result + indexes.get(i) + ") " + mTypeAreaList.get(pos).printTypeGeographicArea();
+        }
+        result = result + "---------------\n";
+        return result;
+    }
+
+    public String printGATypeWholeList(TypeAreaList typeAreaList) {
+        String result = "---------------\n";
+
+        if (typeAreaList.getTypeAreaList().isEmpty()){
+            return "Invalid List - List is Empty\n";
+        }
+
+        for (int i = 0; i < typeAreaList.getTypeAreaList().size(); i++) {
+            TypeArea aux = typeAreaList.getTypeAreaList().get(i);
+            result = result + i + ") Name: " + aux.getTypeOfGeographicArea() + " | \n";
+        }
+        result = result + "---------------\n";
+        System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
+        return result;
     }
 
     /**

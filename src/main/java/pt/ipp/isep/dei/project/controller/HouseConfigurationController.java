@@ -8,6 +8,26 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class HouseConfigurationController {
+    /**
+     * SHARED METHODS**/
+
+    public List<Integer> matchTypeAreaIndexByString(String input, TypeAreaList typeAreaList) {
+        return typeAreaList.matchGeographicAreaTypeIndexByString(input);
+    }
+
+    public String printTypeAreaElementsByIndex(List<Integer> listOfIndexesTypeGeographicAreas, TypeAreaList typeAreaList) {
+        return typeAreaList.printGATypeElementsByIndex(listOfIndexesTypeGeographicAreas);
+    }
+
+    public String printTypeArea(TypeArea typeArea) {
+        return typeArea.printTypeGeographicArea();
+    }
+
+    public String printGATypeList(TypeAreaList typeAreaList) {
+        return typeAreaList.printGATypeWholeList(typeAreaList);
+    }
+
+
 
     /**
      * User Story 01
@@ -52,6 +72,7 @@ public class HouseConfigurationController {
     public SensorList getSensorList() {
         return this.mSensorList;
     }
+
 
     /**
      * User Story 02
