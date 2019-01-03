@@ -32,10 +32,6 @@ public class EnergyGrid {
         return mName;
     }
 
-    public double getTotalPower() {
-        return this.mMaxPower;
-    }
-
     public double getMaxPower() {
         double sum = 0;
         for (Device d : mListDevices.getDeviceList()) {
@@ -48,14 +44,6 @@ public class EnergyGrid {
         this.mEnergyGridList = energyGridList;
     }
 
-    public EnergyGridList getmEnergyGridList() {
-        return this.mEnergyGridList;
-    }
-
-    public DeviceList getmListDevices() {
-        return mListDevices;
-    }
-
     public PowerSourceList getmListPowerSources() {
         return mListPowerSources;
     }
@@ -66,10 +54,6 @@ public class EnergyGrid {
 
     public void setListOfRooms(RoomList mListOfRooms) {
         this.mListOfRooms = mListOfRooms;
-    }
-
-    public RoomList getListOfRooms() {
-        return this.mListOfRooms;
     }
 
     public void setListPowerSources(PowerSourceList mListPowerSources) {

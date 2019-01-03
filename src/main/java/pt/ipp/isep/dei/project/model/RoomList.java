@@ -81,36 +81,6 @@ public class RoomList {
         return false;
     }
 
-    public boolean checkIfListIsValid() {
-        return !mRoomList.isEmpty();
-    }
-
-    public String printRoomList() {
-        StringBuilder finalString = new StringBuilder();
-        String emptyList = "The list is empty.";
-        if (mRoomList.isEmpty()) {
-            return emptyList;
-        }
-        finalString.append("Room List:");
-        for (Room room : mRoomList) {
-            finalString.append(" \n" + "-").append(room.getRoomName()).append(";");
-        }
-        return finalString.toString();
-    }
-
-    public void printRoomList1(House house){
-        System.out.println("-----------");
-
-        for (int i = 0; i < house.getmRoomList().getListOfRooms().size();i++){
-            Room aux = house.getmRoomList().getListOfRooms().get(i);
-            System.out.println(i+") Designation: " + aux.getRoomName() + " | ");
-            System.out.println("Floor: " + aux.getHouseFloor() + " | ");
-            System.out.println("Dimensions: " + aux.getRoomDimensions());
-            System.out.println();
-        }
-        System.out.println("-----------");
-    }
-
     public List<Integer> matchRoomIndexByString(String input){
         List<Integer> result = new ArrayList<>();
         for(int i = 0; i < mRoomList.size(); i++){
