@@ -684,11 +684,10 @@ public class HouseMonitoringControllerTest {
         Room room = new Room("cozinha",1,2,sensorList1);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        boolean actualResult = ctrl.doesSensorListInARoomContainASensorByName("miau",roomList);
-        boolean expectedResult = false;
+        boolean result = ctrl.doesSensorListInARoomContainASensorByName("miau",roomList);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(result);
     }
 
     @Test
