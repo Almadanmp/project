@@ -8,10 +8,6 @@ import java.util.List;
 
 /**
  * HouseMonitoringUI:
- * <p>
- * 1) As a Regular User, I want to get the total rainfall in the house area for a given day.
- * 2) As a Regular User, I want to get the average daily rainfall in the house area for a
- * given period (days), as it is needed to assess the garden’s watering needs.
  **/
 
 public class HouseMonitoringController {
@@ -45,6 +41,10 @@ public class HouseMonitoringController {
         return result;
     }
 
+     /**
+      * Common Methods to House Monitoring UI
+      */
+
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
         return geoAreaList.matchGeographicAreaIndexByString(input);
     }
@@ -61,17 +61,34 @@ public class HouseMonitoringController {
         return geoAreaList.printGaWholeList(geoAreaList);
     }
 
+    public List<Integer> matchHouseIndexByString(String input, GeographicArea geoArea){
+        return geoArea.getHouseList().matchHouseIndexByString(input);
+    }
+
+    public String printHouseElementsByIndex(List<Integer> listOfIndexesOfHouses, GeographicArea geoArea) {
+        return geoArea.getHouseList().printElementsByIndex(listOfIndexesOfHouses);
+    }
+
     public String printHouseList(GeographicArea geoArea) {
         return geoArea.getHouseList().printHouseList(geoArea);
     }
 
-    public double getAVGDailyRainfallOnGivenPeriod(House house, Date minDay, Date maxDay) {
-        GeographicArea geoArea = house.getmMotherArea();
-        return geoArea.getAvgReadingsFromSensorTypeInGA("Rain", minDay, maxDay);
+    public String printHouse (House house){
+        return house.printGeographicArea();
     }
 
     public Date createDate(int year, int month, int day) {
         return new GregorianCalendar(year, month, day).getTime();
+    }
+
+    /**
+     * US623 Controller Methods
+     * As a Regular User, I want to get the average daily rainfall in the house area for a given period (days),
+     * as it is needed to assess the garden’s watering needs.
+     */
+    public double getAVGDailyRainfallOnGivenPeriod(House house, Date minDay, Date maxDay) {
+        GeographicArea geoArea = house.getmMotherArea();
+        return geoArea.getAvgReadingsFromSensorTypeInGA("Rain", minDay, maxDay);
     }
 
     public double getTotalRainfallOnGivenDayHouseArea(GeographicArea geoArea, Date day) {

@@ -110,6 +110,13 @@ public class House {
         return true;
     }
 
+    public String printGeographicArea() {
+        String result;
+        result = this.mDesignation+ ", " + this.mAddress + ", " +
+                this.mZipCode +".\n";
+        return result;
+    }
+
     public double calculateDistanceToSensor(Sensor sensor) {
         Local l = sensor.getLocal();
         return this.mGPS.getLinearDistanceBetweenLocalsInKm(l);
