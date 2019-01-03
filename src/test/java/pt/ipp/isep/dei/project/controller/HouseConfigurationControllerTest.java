@@ -11,6 +11,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -861,6 +862,70 @@ class HouseConfigurationControllerTest {
 
         //Assert
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfSetHouseAddress() {
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String address = "rua da rua 345";
+        String zipCode = "4450";
+        double latitude = 38;
+        double longitude = 7;
+        Local local = new Local(latitude, longitude);
+        House house = new House(address, local, zipCode);
+        HouseList houseList = new HouseList(house);
+        houseList.getHouseList().get(0);
+
+        //Act
+        houseList.addHouseToHouseList(house);
+        ctrl.setHouseList(houseList);
+        ctrl.setHouseAddress("rua da rua", 0);
+        String result = houseList.getHouseList().get(0).getmAddress();
+        //Assert
+        assertEquals("rua da rua", result);
+    }
+
+    @Test
+    public void seeIfSetHouseZipCode() {
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String address = "rua da rua 345";
+        String zipCode = "4450";
+        double latitude = 38;
+        double longitude = 7;
+        Local local = new Local(latitude, longitude);
+        House house = new House(address, local, zipCode);
+        HouseList houseList = new HouseList(house);
+        houseList.getHouseList().get(0);
+
+        //Act
+        houseList.addHouseToHouseList(house);
+        ctrl.setHouseList(houseList);
+        ctrl.setHouseZIPCode("6789", 0);
+        String result = houseList.getHouseList().get(0).getmZipCode();
+        //Assert
+        assertEquals("6789", result);
+    }
+
+    @Test
+    public void seeIfSetHouseLocal() {
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String address = "rua da rua 345";
+        String zipCode = "4450";
+        double latitude = 38;
+        double longitude = 7;
+        Local local = new Local(latitude, longitude);
+        House house = new House(address, local, zipCode);
+        HouseList houseList = new HouseList(house);
+        houseList.getHouseList().get(0);
+
+        //Act
+        houseList.addHouseToHouseList(house);
+        ctrl.setHouseList(houseList);
+        ctrl.setHouseLocal(39,8, 0);
+        Local result = houseList.getHouseList().get(0).getmGPS();
+        Local localExpected = new Local(39,8);
+        //Assert
+        assertEquals(localExpected, result);
     }
 
     //USER STORY 130 TESTS
