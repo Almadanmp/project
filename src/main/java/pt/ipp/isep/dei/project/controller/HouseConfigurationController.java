@@ -288,21 +288,20 @@ public class HouseConfigurationController {
     public void setHouseList(HouseList houseList){this.mHouseList = houseList;}
 
 
-    public void setHouseAddress(String address, int indexOfHouse) {
-        mHouseList.getHouseList().get(indexOfHouse).setmAddress(address);
+    public void setHouseAddress(String address, House house) {
+        house.setmAddress(address);
     }
 
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
         return geoAreaList.matchGeographicAreaIndexByString(input);
     }
 
-    public void setHouseZIPCode(String zipCode, int indexOfHouse) {
-        mHouseList.getHouseList().get(indexOfHouse).setmZipCode(zipCode);
+    public void setHouseZIPCode(String zipCode, House house) {
+        house.setmZipCode(zipCode);
     }
 
-    public void setHouseLocal(double latitude, double longitude, int indexOfHouse) {
-        mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLatitude(latitude);
-        mHouseList.getHouseList().get(indexOfHouse).getmGPS().setLongitude(longitude);
+    public void setHouseLocal(double latitude, double longitude, House house) {
+        house.setGPS(latitude,longitude);
     }
 
     public String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {

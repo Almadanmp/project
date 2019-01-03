@@ -82,6 +82,11 @@ public class House {
         return this.mEGList;
     }
 
+    public void setGPS(double latitude, double longitude) {
+        mGPS.setLatitude(latitude);
+        mGPS.setLongitude(longitude);
+    }
+
     public boolean addRoomToRoomList(Room roomToAdd) {
         String roomToAddName = roomToAdd.getRoomName();
         for (Room r : this.mRoomList.getListOfRooms()) {
