@@ -1,9 +1,29 @@
 @startuml
-actor USER
-USER -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+actor User
+User -> MainUI: Configure a house.
+MainUI -> HouseConfigurationUI: Configure a house.
+HouseConfigurationUI --> User: Request Geographic Area Name
+User -> MainUI: insert data (Geographic Area name)
+MainUI -> HouseConfigurationUI: set data (Geographic Area name)
+HouseConfigurationUI ->HouseConfigurationController: check if name is contained in list
+HouseConfigurationController -> GeographicAreaList: check if name is contained in list
+GeographicAreaList -> GeographicArea: match by name
+GeographicArea -> GeographicArea: validate data
+GeographicArea --> HouseConfigurationUI: set data (Geographic Area)
+HouseConfigurationUI --> User: Request House Name
+User -> MainUI: insert data (House name)
+MainUI -> HouseConfigurationUI: set data (House name)
+HouseConfigurationUI -> HouseConfigurationController: check if name is contained in list
+HouseConfigurationController -> HouseList: check if name is contained in list
+HouseList -> House: match by name
+House -> House: validate data
+House --> HouseConfigurationUI: set data (House)
+HouseConfigurationUI --> User: request data (latitude, longitude, zipcode, address)
+User -> MainUI: insert data (latitude, longitude, zipcode, address)
+MainUI -> HouseConfigurationUI: set data
+HouseConfigurationUI -> HouseConfigurationController: reconfigure house
+HouseConfigurationController -> House: reconfigure house
+House -> House: validate data
+House --> User: display house
 
 @enduml

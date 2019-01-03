@@ -42,8 +42,7 @@ public class HouseList {
     public String printElementsByIndex (List<Integer> indexes){
         String result = "";
         for (int i = 0; i < indexes.size(); i++){
-            int pos = indexes.get(i);
-            result += indexes.get(i) + ") " + mHouseList.get(pos).getHouseDesignation() + ", " + mHouseList.get(pos).getmAddress() + ", " + mHouseList.get(i).getmZipCode() + ".\n";
+            result += indexes.get(i) + ") " + mHouseList.get(i).getHouseDesignation() + ", " + mHouseList.get(i).getmAddress() + ", " + mHouseList.get(i).getmZipCode() + ".\n";
         }
         return result;
     }
@@ -84,7 +83,6 @@ public class HouseList {
         return finalString.toString();
     }
 
-
     public String printHouseList(GeographicArea geoArea) {
         String result = "---------------\n";
         if (geoArea.getHouseList().getHouseList().isEmpty()) {
@@ -100,9 +98,6 @@ public class HouseList {
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
         return result;
     }
-
-
-
 
     @Override
     public boolean equals(Object testObject) {

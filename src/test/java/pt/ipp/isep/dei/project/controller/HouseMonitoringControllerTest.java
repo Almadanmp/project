@@ -808,8 +808,8 @@ public class HouseMonitoringControllerTest {
         Integer i = 1;
         list.add(i);
         String result = ctrl.printHouseElementsByIndex(list, geoa1);
-        String expectedResult = "1) house3, Address3, 3456-123.\n";
         //Assert ---------------------------------
+        String expectedResult = "1) house2, Address2, 3456-123.\n";
         assertEquals(expectedResult, result);
     }
 

@@ -63,12 +63,16 @@ public class MainUI {
         House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657", roomList1);
         House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
         House house3 = new House("houseTwo", "Address3", new Local(18, 10), "3555-555");
+        House house4 = new House("houseOne", "Address4", new Local(18, 10), "3555-555");
         house2.setmMotherArea(geoa1);
+        house4.setmMotherArea(geoa1);
         house2.setmRoomList(roomList1);
         house3.setmMotherArea(geoa1);
         house3.setmRoomList(roomList1);
         houseList1.addHouseToHouseList(house2);
         houseList1.addHouseToHouseList(house3);
+        houseList1.addHouseToHouseList(house4);
+        houseList1.addHouseToHouseList(house1);
         house1.setmMotherArea(geoa2);
         houseList2.addHouseToHouseList(house1);
 
@@ -95,7 +99,7 @@ public class MainUI {
         String loginAdmin;
         String loginRegular;
         boolean activeLogin = false;
-        boolean activeInput = false;
+
 
         // Login Input
 
@@ -161,6 +165,7 @@ public class MainUI {
             System.out.print(formattedString);
             System.out.print("\nEnter option number:\n");
             String pressEnter = "\nPress ENTER to return.";
+            boolean activeInput = false;
             while (!activeInput) {
                 HouseMonitoringUI hMUi = new HouseMonitoringUI();
                 option = hMUi.readInputNumberAsInt();
@@ -295,6 +300,7 @@ public class MainUI {
                         break;
                     default:
                         System.out.println("Please enter a valid option");
+                        enterToReturnToConsole.nextLine();
                         break;
                 }
             }
