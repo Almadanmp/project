@@ -170,7 +170,7 @@ public class MainUI {
                         break;
                     case 3:
                         HouseConfigurationUI view3 = new HouseConfigurationUI();
-                        view3.runUS03(mGeographicAreaList);
+                        view3.runUS03(mGeographicAreaList, mTypeAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;

@@ -112,9 +112,9 @@ public class HouseMonitoringController {
      * As a Regular User, I want to get the average daily rainfall in the house area for a given period (days),
      * as it is needed to assess the garden’s watering needs.
      */
-    public double getAVGDailyRainfallOnGivenPeriod(House house, Date minDay, Date maxDay) {
+    public double getAVGDailyRainfallOnGivenPeriod(House house, Date initialDate, Date endDate) {
         GeographicArea geoArea = house.getmMotherArea();
-        return geoArea.getAvgReadingsFromSensorTypeInGA("Rain", minDay, maxDay);
+        return geoArea.getAvgReadingsFromSensorTypeInGA("Rain", initialDate, endDate);
     }
 
     public double getTotalRainfallOnGivenDayHouseArea(GeographicArea geoArea, Date day) {
