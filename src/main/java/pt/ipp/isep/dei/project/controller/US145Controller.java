@@ -19,9 +19,7 @@ public class US145Controller {
     private String mHouseName;
     private HouseList mHouseList;
     private RoomList mRoomList;
-    private String mRoomName;
     private EnergyGridList mEnergyGridList;
-    private String mEnergyGridName;
 
 
     public US145Controller() {
@@ -33,6 +31,7 @@ public class US145Controller {
          */
     }
     public US145Controller(HouseList houseList){this.mHouseList = houseList;}
+
     public boolean seeIfHouseExistsInHouseList(String houseName){
         if (this.mHouseList.checkIfHouseListContainsHouseWithGivenDesignation(houseName)){
             this.mHouseName = houseName;
@@ -43,23 +42,24 @@ public class US145Controller {
     }
 
     public RoomList getRoomListByHouseName (String houseName){
-        return this.mHouseList.getHouseByDesignation(houseName).getmRoomList();
+        this.mRoomList = this.mHouseList.getHouseByDesignation(houseName).getmRoomList();
+        return this.mRoomList;
     }
+
     public boolean seeIfRoomExistsInHouse(String roomName){
-        if (this.mHouseList.getHouseByDesignation(this.mHouseName).getmRoomList().matchRoom(roomName)){
-            this.mRoomName = roomName;
+        if (this.mRoomList.matchRoom(roomName)){
             return true;
         } else {
             return false;
         }
     }
     public EnergyGridList getmEnergyGridListByHouseName (){
-        return this.mHouseList.getHouseByDesignation(this.mHouseName).getmEGList();
+        this.mEnergyGridList = this.mHouseList.getHouseByDesignation(this.mHouseName).getmEGList();
+        return this.mEnergyGridList;
     }
 
     public boolean seeIfEnergyGridExistsInEnergyGridList(String energyGridName){
-        if(this.mHouseList.getHouseByDesignation(this.mHouseName).getmEGList().seeIfContainsEnergyGrid(energyGridName)) {
-            this.mEnergyGridName = energyGridName;
+        if(this.mEnergyGridList.seeIfContainsEnergyGrid(energyGridName)) {
             return true;
         }else {
             return false;
@@ -67,12 +67,13 @@ public class US145Controller {
     }
 
     public EnergyGrid getEnergyGrid (String energyGrid){
-        return this.mHouseList.getHouseByDesignation(mHouseName).getmEGList().matchEnergyGrid(energyGrid);
+        this.mEnergyGrid = this.mHouseList.getHouseByDesignation(this.mHouseName).getmEGList().matchEnergyGrid(energyGrid);
+        return this.mEnergyGrid;
     }
 
 
     public boolean addRoomToEnergyGrid() {
-        if (this.mHouseList.getHouseByDesignation(mHouseName).getmEGList().matchEnergyGrid(mEnergyGridName).addRoomToAEnergyGrid(mRoom)){
+        if (this.mEnergyGrid.addRoomToAEnergyGrid(this.mRoom)){
             return true;
         } else{
             return false;
