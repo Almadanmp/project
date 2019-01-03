@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class HouseListTest {
@@ -94,13 +96,13 @@ public class HouseListTest {
         HouseList houseList2 = new HouseList(house1);
         houseList2.addHouseToHouseList(house2);
 
-        boolean expectedResult = true;
         boolean actualResult;
         //Act
         actualResult = houseList1.equals(houseList2);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue( actualResult);
     }
+
 
     @Test
     public void seeIfEqualsToDifferentObject() {
@@ -119,12 +121,12 @@ public class HouseListTest {
         HouseList houseList2 = new HouseList(house2);
         houseList2.addHouseToHouseList(house3);
 
-        boolean expectedResult = false;
+
         boolean actualResult;
         //Act
         actualResult = houseList1.equals(houseList2);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse( actualResult);
     }
 
     @Test
@@ -197,5 +199,15 @@ public class HouseListTest {
         House expectedResult = null;
         House result = list.getHouseByDesignation("Casa Meireles");
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void hashCodeDummyTest(){
+        HouseList list = new HouseList();
+        House house = new House("Casa Oliveira", "Santa Maria de Lamas", new Local(42, 50), "4535");
+        list.addHouseToHouseList(house);
+        int expectedResult = 1;
+        int actualResult = list.hashCode();
+        Assertions.assertEquals(expectedResult,actualResult);
     }
 }
