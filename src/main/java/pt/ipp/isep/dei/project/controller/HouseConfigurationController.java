@@ -284,6 +284,8 @@ public class HouseConfigurationController {
         return geoAreaList.printGaWholeList(geoAreaList);
     }
 
+    public void setHouseList(HouseList houseList){this.mHouseList = houseList;}
+
 
     public void setHouseAddress(String address, int indexOfHouse) {
         mHouseList.getHouseList().get(indexOfHouse).setmAddress(address);

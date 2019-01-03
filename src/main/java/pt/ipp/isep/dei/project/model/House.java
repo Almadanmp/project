@@ -47,7 +47,7 @@ public class House {
     }
 
     public String getmAddress() {
-        return mAddress;
+        return this.mAddress;
     }
 
     public void setmAddress(String mAddress) {
