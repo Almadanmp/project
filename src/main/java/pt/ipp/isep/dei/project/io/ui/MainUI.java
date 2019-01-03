@@ -21,7 +21,7 @@ public class MainUI {
         //TEST READINGS
         ReadingList readingList = new ReadingList();
         Reading reading1 = new Reading(30, new GregorianCalendar(2018, 8, 6).getTime());
-        Reading reading2 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
+        Reading reading2 = new Reading(20, new GregorianCalendar(2018, 8, 5).getTime());
         Reading reading3 = new Reading(40, new GregorianCalendar(2018, 8, 5).getTime());
         readingList.addReading(reading1);
         readingList.addReading(reading2);

@@ -434,15 +434,17 @@ public class HouseMonitoringUI {
      */
     private void updateModel610(RoomList list) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        out.print("The room is " + this.mNameRoom + " the Temperature Sensor is " + this.mNameSensor +
-                " and the date is " + this.dataDay1 + "-" + this.dataMonth1 + "-" + this.dataYear1 + "\n");
         Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
+        out.print("The room is " + this.mNameRoom + " the Temperature Sensor is " + this.mNameSensor +
+                " and the date is " + mDate + "\n");
         this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate, list);
     }
 
     private void displayState610() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
         out.println("The Maximum Temperature in the room " + this.mNameRoom +
-                " on the day " + this.dataDay1 + "-" + this.dataMonth1 + "-" + this.dataYear1 +
+                " on the day " + mDate +
                 " was " + this.mMaxTemperature + "°C.");
     }
 
