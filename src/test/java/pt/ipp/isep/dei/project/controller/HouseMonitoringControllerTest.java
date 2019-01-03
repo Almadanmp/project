@@ -1018,8 +1018,10 @@ public class HouseMonitoringControllerTest {
                 "0) Designation: sensor | Sensor Type: temperatura | Start Date: Sat Sep 08 08:08:00 WET 8\n" +
                 "---------------\n";
         //Assert ---------------------------------
-        assertEquals(expectedResult, result);
+        Assert.assertEquals(expectedResult,result);
     }
+
+
 
     @Test
     void seeIfMatcSensorIndexByStringWorks() {
@@ -1038,4 +1040,6 @@ public class HouseMonitoringControllerTest {
         //Assert --------------------------------------
         assertEquals(expectedResult, result);
     }
+
+
 }
