@@ -727,4 +727,33 @@ public class HouseMonitoringControllerTest {
         //Assert
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void seeIfmMatchHouseIndexByString() {
+        //Arrange
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+
+        //MAIN LISTS
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        //TEST GEOGRAPHIC AREAS
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+
+        //TEST HOUSES
+        HouseList houseList1 = new HouseList();
+        House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
+        House house3 = new House("house3", "Address3", new Local(18, 10), "3555-555");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house2);
+        houseList1.addHouseToHouseList(house3);
+
+        //Act
+        List<Integer> result = ctrl.matchHouseIndexByString("house3", geoa1);
+        List<Integer> expectedResult = new ArrayList<>();
+        Integer i = 1;
+        expectedResult.add(i);
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
 }
