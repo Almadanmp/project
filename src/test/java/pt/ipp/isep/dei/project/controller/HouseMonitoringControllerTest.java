@@ -396,4 +396,32 @@ public class HouseMonitoringControllerTest {
         Sensor result= ctrl.getSensorWithTheMinimumDistanceToHouse(house,ga);
         assertEquals(s2,result);
     }
+    @Test
+    public void seeIfGetCurrentRoomTemperatureWorks() {
+        RoomList roomList = new RoomList();
+        SensorList list = new SensorList();
+        TypeSensor tipo = new TypeSensor("Temperature");
+        ReadingList listR = new ReadingList();
+        Date d = new GregorianCalendar(2018, 3, 1).getTime();
+        Date d1 = new GregorianCalendar(2018, 3, 1,15,0,0).getTime();
+        Date d2 = new GregorianCalendar(2018,3,1,17,0,0).getTime();
+        Date d3 = new GregorianCalendar(2018,3,1,16,0,0).getTime();
+        Reading r1;
+        Reading r2;
+        Reading r3;
+        r1 = new Reading(15, d1);
+        r2 = new Reading(20, d2);
+        r3 = new Reading(30, d3);
+        listR.addReading(r1);
+        listR.addReading(r2);
+        listR.addReading(r3);
+        Sensor s1 = new Sensor("Temp Sensor 1", tipo, new Local(1, 1), new Date(), listR);
+        list.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, list);
+        roomList.addRoom(room);
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        double result = ctrl.getCurrentRoomTemperature(d, roomList);
+        double expectedResult = 20;
+        assertEquals(expectedResult, result, 0.01);
+    }
 }

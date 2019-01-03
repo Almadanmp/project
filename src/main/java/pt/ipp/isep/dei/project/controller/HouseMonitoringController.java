@@ -29,7 +29,8 @@ public class HouseMonitoringController {
         double max=-275;
         for(Room r: room.getListOfRooms()){
             max=r.getMaxTemperatureInARoomOnAGivenDay(day);
-        } return max;
+        }
+        return max;
     }
 
     public boolean doesListContainRoomByName(String name, RoomList room){
