@@ -19,6 +19,19 @@ public class EnergyGrid {
         setMaxPower(maxContractedPower);
     }
 
+    public EnergyGrid(String houseGridDesignation, double maxContractedPower, DeviceList deviceList) {
+        setName(houseGridDesignation);
+        setMaxPower(maxContractedPower);
+        this.mListDevices = deviceList;
+    }
+
+    public EnergyGrid(String houseGridDesignation, double maxContractedPower, DeviceList deviceList, RoomList roomList) {
+        setName(houseGridDesignation);
+        setMaxPower(maxContractedPower);
+        this.mListDevices = deviceList;
+        this.mListOfRooms = roomList;
+    }
+
     public String getName() {
         return mName;
     }
