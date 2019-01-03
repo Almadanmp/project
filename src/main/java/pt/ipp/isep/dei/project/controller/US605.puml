@@ -1,8 +1,8 @@
 @startuml
 actor User
 
-User -> MainUI: Get Max Temperature In A Room On A Given Day
-MainUI -> HouseMonitoringUI: Get Max Temperature In A Room On A Given Day
+User -> MainUI: Get Current Temperature In A Room
+MainUI -> HouseMonitoringUI: Get Current Temperature In A Room
 HouseMonitoringUI --> User: Request Room Name or Index from List
 User -> MainUI: insert data (Room name) or select Room from List
 MainUI -> HouseMonitoringUI: set data (Room name or Index)
@@ -19,12 +19,9 @@ HouseMonitoringController -> SensorList: check if name is contained in list
 SensorList -> Sensor: match by name
 Sensor -> Sensor: validate data
 Sensor --> HouseMonitoringUI: set data (Sensor)
-HouseMonitoringUI --> User: Request Date
-User -> MainUI: insert data (Date(y-m-d))
-MainUI -> HouseMonitoringUI: set data (Date(y-m-d))
-HouseMonitoringUI -> Room: getMaxTemperatureInARoomOnAGivenDay(Date)
+HouseMonitoringUI -> Room: getCurrentRoomTemperature
 Room->Sensor: getSensor
 Sensor->ReadingList: getReadingList
-ReadingList->Reading:getMaximumOfGivenDayValueReadings(Date)
-Reading-->User: Display Maximum Temperature In Date
+ReadingList->Reading: getMostRecentValueOfReading
+Reading-->User: Display Current Room Temperature
 @enduml

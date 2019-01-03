@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class RoomTest {
 
@@ -179,4 +180,51 @@ public class RoomTest {
         assertEquals(expectedResult, result, 0.01);
     }
 
+    @Test
+    public void seeIfDoesSensorListInARoomContainASensorByNameWorks(){
+        SensorList list = new SensorList();
+        TypeSensor type = new TypeSensor("temperature");
+        ReadingList listR = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1), new Date(), listR);
+        list.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, list);
+        boolean result = room.doesSensorListInARoomContainASensorByName("sensor1");
+        assertTrue(result);
+    }
+
+    @Test
+    public void seeIfDoesSensorListInARoomContainASensorByNameWorksFalse(){
+        SensorList list = new SensorList();
+        TypeSensor type = new TypeSensor("temperature");
+        ReadingList listR = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1), new Date(), listR);
+        list.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, list);
+        boolean result = room.doesSensorListInARoomContainASensorByName("sensor89");
+        assertEquals(false,result);
+    }
+
+    @Test
+    public void seeIfAddSensorWorks(){
+        SensorList list = new SensorList();
+        TypeSensor type = new TypeSensor("temperature");
+        ReadingList listR = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1), new Date(), listR);
+        list.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, list);
+        Sensor s2 = new Sensor("sensor2", type, new Local(1, 1), new Date(), listR);
+        boolean result = room.addSensor(s2);
+        assertTrue(result);
+    }
+    @Test
+    public void seeIfAddSensorWorksFalse(){
+        SensorList list = new SensorList();
+        TypeSensor type = new TypeSensor("temperature");
+        ReadingList listR = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1), new Date(), listR);
+        list.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, list);
+        boolean result = room.addSensor(s1);
+        assertEquals(false,result);
+    }
 }
