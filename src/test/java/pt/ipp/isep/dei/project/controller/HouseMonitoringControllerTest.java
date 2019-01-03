@@ -72,7 +72,7 @@ public class HouseMonitoringControllerTest {
                 "0) Name: Portugal | Type: Country | Latitude: 21.0 | Longitude: 33.0\n" +
                 "1) Name: Oporto | Type: City | Latitude: 14.0 | Longitude: 14.0\n" +
                 "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
-                "---------------";
+                "---------------\n";
         String result = US623.printGAList(gAL1);
         assertEquals(expectedResult, result);
     }
@@ -724,7 +724,7 @@ public class HouseMonitoringControllerTest {
         String result = ctrl.printGeoGraphicAreaElementsByIndex(list, mGeographicAreaList);
         String expectedResult = "---------------\n" +
                 "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
-                "---------------";
+                "---------------\n";
         //Assert
         assertEquals(expectedResult, result);
     }
