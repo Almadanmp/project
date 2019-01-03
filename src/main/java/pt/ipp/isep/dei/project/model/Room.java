@@ -33,6 +33,10 @@ public class Room {
         setRoomSensorList(listSensor);
     }
 
+    public SensorList getmRoomSensorList(){
+        return mRoomSensorList;
+    }
+
     public void setRoomName(String name) {
         mRoomName = name;
     }

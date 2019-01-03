@@ -61,6 +61,12 @@ public class Sensor {
         }
     }
 
+    public String printSensor(){
+        String result;
+        result = this.mName + ", " + this.mTypeSensor.getName() + ", " +
+                this.mLocal.getLatitude() + "º lat, " + this.mLocal.getLongitude() + "º long\n";
+        return result;
+    }
     /**
      * Setter: local
      *
