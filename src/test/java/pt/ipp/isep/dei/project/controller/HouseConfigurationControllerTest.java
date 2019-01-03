@@ -6,10 +6,140 @@ import pt.ipp.isep.dei.project.model.*;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class HouseConfigurationControllerTest {
-    //USER STORY 130 TESTS
+    
+    //USER STORY 001 TESTS
 
+    @Test
+    public void seeIfnewTAGWorks() {
+        TypeAreaList newList = new TypeAreaList();
+        HouseConfigurationController ctrl = new HouseConfigurationController(newList);
+        boolean result = ctrl.createAndAddTypeAreaToList("cidade");
+        assertTrue(result);
+    }
+
+    @Test
+    public void seeIfnewTAGWorksWithAnother() {
+        TypeArea tipo = new TypeArea("rua");
+        TypeAreaList newList = new TypeAreaList();
+        newList.addTypeArea(tipo);
+        HouseConfigurationController ctrl = new HouseConfigurationController(newList);
+        boolean result = ctrl.createAndAddTypeAreaToList("cidade");
+        assertTrue(result);
+    }
+
+    @Test
+    public void seeIfnewTAGDoesntWorkWhenDuplicatedISAdded() {
+        TypeArea tipo = new TypeArea("cidade");
+        TypeAreaList expectedResult = new TypeAreaList();
+        expectedResult.addTypeArea(tipo);
+        HouseConfigurationController ctrl = new HouseConfigurationController(expectedResult);
+        boolean result = ctrl.createAndAddTypeAreaToList("cidade");
+        assertFalse(result);
+    }
+
+    @Test
+    public void seeIfNewTAGDoesntWorkWhenNullIsAdded(){
+        TypeArea tipo = new TypeArea("cidade");
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(tipo);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        boolean result = ctrl.createAndAddTypeAreaToList(null);
+        assertFalse(result);
+    }
+
+    @Test
+    public void seeIfNewTAGDoesntWorkWhenNameIsEmpty(){
+        TypeArea tipo = new TypeArea("cidade");
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(tipo);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        boolean result = ctrl.createAndAddTypeAreaToList("");
+        assertFalse(result);
+    }
+    @Test
+    public void seeIfNewTAGDoesntWorkWhenNumbersAreAdded(){
+        TypeArea tipo = new TypeArea("cidade");
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(tipo);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        boolean result = ctrl.createAndAddTypeAreaToList("cidade1");
+        assertFalse(result);
+    }
+
+    //USER STORY 005 TESTS
+
+    @Test
+    void seeIfConstructorWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList(new Sensor[]{s1, s2});
+        SensorList expectedResult = new SensorList();
+
+
+        //Act
+        expectedResult.addSensor(s1);
+        expectedResult.addSensor(s2);
+        HouseConfigurationController constructedList = new HouseConfigurationController(lc);
+        SensorList actualResult = constructedList.getSensorList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetTypeWorksFalse() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList();
+        lc.addSensor(s1);
+        lc.addSensor(s2);
+        boolean expectedResult = false;
+        HouseConfigurationController ctrl = new HouseConfigurationController(lc);
+
+        //Act
+        boolean actualResult = ctrl.setTypeSensor("Portugal", "Movement");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetTypeWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList();
+        lc.addSensor(s1);
+        lc.addSensor(s2);
+        boolean expectedResult = true;
+        HouseConfigurationController ctrl = new HouseConfigurationController(lc);
+
+        //Act
+        boolean actualResult = ctrl.setTypeSensor("Vento", "Movement");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    
+    //USER STORY 130 TESTS
 
     @Test
     void seeIfHouExistsInListWorks() {
@@ -181,72 +311,5 @@ public class HouseConfigurationControllerTest {
         String result = ctrl135.seeIfEnergyGridListIsEmptyAndShowItsContent();
         String expectedResult = "The list is empty.";
         assertEquals(expectedResult,result);
-    }
-
-    @Test
-    void seeIfConstructorWorks() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
-        SensorList lc = new SensorList(new Sensor[]{s1, s2});
-        SensorList expectedResult = new SensorList();
-
-
-        //Act
-        expectedResult.addSensor(s1);
-        expectedResult.addSensor(s2);
-        HouseConfigurationController constructedList = new HouseConfigurationController(lc);
-        SensorList actualResult = constructedList.getSensorList();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfSetTypeWorksFalse() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
-        SensorList lc = new SensorList();
-        lc.addSensor(s1);
-        lc.addSensor(s2);
-        boolean expectedResult = false;
-        HouseConfigurationController ctrl = new HouseConfigurationController(lc);
-
-        //Act
-        boolean actualResult = ctrl.setTypeSensor("Portugal", "Movement");
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfSetTypeWorks() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
-        SensorList lc = new SensorList();
-        lc.addSensor(s1);
-        lc.addSensor(s2);
-        boolean expectedResult = true;
-        HouseConfigurationController ctrl = new HouseConfigurationController(lc);
-
-        //Act
-        boolean actualResult = ctrl.setTypeSensor("Vento", "Movement");
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
     }
 }

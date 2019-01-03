@@ -169,7 +169,7 @@ public class MainUI {
                     activeProgram = false;
                     break;
                 case 1:
-                    US01UI view1 = new US01UI();
+                    HouseConfigurationUI view1 = new HouseConfigurationUI();
                     view1.runUS01UI(mTypeAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
