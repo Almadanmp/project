@@ -190,8 +190,8 @@ house2.setmEGList(energyGridList2);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 4:
-                    US04UI view4 = new US04UI();
-                    view4.run(mGeographicAreaList);
+                    HouseConfigurationUI view4 = new HouseConfigurationUI();
+                    view4.runUS04(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
@@ -208,14 +208,14 @@ house2.setmEGList(energyGridList2);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 7:
-                    US07UI view7 = new US07UI();
-                    view7.run(mGeographicAreaList);
+                    HouseConfigurationUI view7 = new HouseConfigurationUI();
+                    view7.runUS07(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 8:
-                    US08UI view8 = new US08UI();
-                    view8.run(mGeographicAreaList);
+                    HouseConfigurationUI view8 = new HouseConfigurationUI();
+                    view8.runUS08(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;

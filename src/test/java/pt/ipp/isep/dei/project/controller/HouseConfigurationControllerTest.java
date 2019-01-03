@@ -205,6 +205,241 @@ public class HouseConfigurationControllerTest {
         Assertions.assertFalse(result);
     }
 
+    //USER STORY 004 TESTS
+
+    @Test
+    void seeIfConstructorAddsGeographicAreas() {
+
+        //Arrange
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l2 = new Local(40, 7);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
+        TypeArea t3 = new TypeArea("Rua");
+        Local l3 = new Local(38, 59);
+        GeographicArea ga3 = new GeographicArea(t3, l3);
+        TypeArea t4 = new TypeArea("Montanha");
+        Local l4 = new Local(38, 32);
+        GeographicArea ga4 = new GeographicArea(t4, l4);
+
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga4);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicAreaToGeographicAreaList(ga1);
+        expectedResult.addGeographicAreaToGeographicAreaList(ga2);
+        expectedResult.addGeographicAreaToGeographicAreaList(ga3);
+        expectedResult.addGeographicAreaToGeographicAreaList(ga4);
+
+        //Act
+        GeographicAreaList actualResult = ctrl.getGeographicAreaList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfConstructorDoesNotAddGeographicArea() {
+
+        //Arrange
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l2 = new Local(40, 7);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
+        TypeArea t3 = new TypeArea("Rua");
+        Local l3 = new Local(38, 59);
+        GeographicArea ga3 = new GeographicArea(t3, l3);
+        TypeArea t4 = new TypeArea("Montanha");
+        Local l4 = new Local(38, 32);
+        GeographicArea ga4 = new GeographicArea(t4, l4);
+
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga4);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicAreaToGeographicAreaList(ga1);
+        expectedResult.addGeographicAreaToGeographicAreaList(ga2);
+        expectedResult.addGeographicAreaToGeographicAreaList(ga4);
+
+        //Act
+        GeographicAreaList actualResult = ctrl.getGeographicAreaList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeThatWeMatchGeographicAreaListWithGeographicAreasFromTypeGivenInTheBeginning() {
+
+        //Arrange
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l2 = new Local(40, 7);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
+        TypeArea t4 = new TypeArea("Montanha");
+        Local l4 = new Local(38, 32);
+        GeographicArea ga4 = new GeographicArea(t4, l4);
+
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga4);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicAreaToGeographicAreaList(ga1);
+
+
+        //Act
+        GeographicAreaList actualResult;
+        ctrl.matchGeoAreaTypeWithInput("Rua");
+        actualResult = ctrl.getGeographicAreaList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void seeThatWeMatchGeographicAreaListWithGeographicAreasFromTypeGivenInTheMiddle() {
+
+        //Arrange
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l2 = new Local(40, 7);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
+        TypeArea t4 = new TypeArea("Montanha");
+        Local l4 = new Local(38, 32);
+        GeographicArea ga4 = new GeographicArea(t4, l4);
+
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga4);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicAreaToGeographicAreaList(ga2);
+
+
+        //Act
+        GeographicAreaList actualResult;
+        ctrl.matchGeoAreaTypeWithInput("Cidade");
+        actualResult = ctrl.getGeographicAreaList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void seeThatWeMatchGeographicAreaListWithGeographicAreasFromTypeGivenInTheEnd() {
+
+        //Arrange
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l2 = new Local(40, 7);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
+        TypeArea t4 = new TypeArea("Montanha");
+        Local l4 = new Local(38, 32);
+        GeographicArea ga4 = new GeographicArea(t4, l4);
+
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga4);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicAreaToGeographicAreaList(ga4);
+
+
+        //Act
+        GeographicAreaList actualResult;
+        ctrl.matchGeoAreaTypeWithInput("Montanha");
+        actualResult = ctrl.getGeographicAreaList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void seeThatWeDontMatchGeographicAreaListWithGeographicAreasFromTypeGivenBecauseOfUpperCaseDifference() {
+
+        //Arrange
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l2 = new Local(40, 7);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
+        TypeArea t3 = new TypeArea("Rua");
+        Local l3 = new Local(38, 59);
+        GeographicArea ga3 = new GeographicArea(t3, l3);
+        TypeArea t4 = new TypeArea("Montanha");
+        Local l4 = new Local(38, 32);
+        GeographicArea ga4 = new GeographicArea(t4, l4);
+
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga4);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicAreaToGeographicAreaList(ga1);
+        expectedResult.addGeographicAreaToGeographicAreaList(ga3);
+
+        //Act
+        GeographicAreaList actualResult;
+        ctrl.matchGeoAreaTypeWithInput("rua");
+        actualResult = ctrl.getGeographicAreaList();
+
+        //Assert
+        assertNotEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeThatWeDontMatchGeographicAreaListWithGeographicAreasFromTypeGiven() {
+
+        //Arrange
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l2 = new Local(40, 7);
+        GeographicArea ga2 = new GeographicArea(t2, l2);
+        TypeArea t3 = new TypeArea("Rua");
+        Local l3 = new Local(38, 59);
+        GeographicArea ga3 = new GeographicArea(t3, l3);
+        TypeArea t4 = new TypeArea("Montanha");
+        Local l4 = new Local(38, 32);
+        GeographicArea ga4 = new GeographicArea(t4, l4);
+
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga4);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+
+        //Act
+        GeographicAreaList actualResult;
+        ctrl.matchGeoAreaTypeWithInput("Pais");
+        actualResult = ctrl.getGeographicAreaList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
     //USER STORY 005 TESTS
 
     @Test
@@ -272,6 +507,233 @@ public class HouseConfigurationControllerTest {
 
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    //USER STORY 007 TESTS
+
+    @Test
+    void seeIfMatchGeoArea() {
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicArea ga1 = new GeographicArea("Porto");
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+
+        GeographicArea actualResult = ctrl.matchGeoArea("Porto");
+
+        assertEquals(ga1, actualResult);
+    }
+
+    @Test
+    void seeIfMatchGeoAreaNull() {
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicArea ga1 = new GeographicArea("Gaia");
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+
+        GeographicArea actualResult = ctrl.matchGeoArea("Porto");
+
+        assertNull(actualResult);
+    }
+
+    @Test
+    void seeIfSetMotherArea() {
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea ga1 = new GeographicArea("Cedofeita", t1, l1);
+        GeographicArea ga2 = new GeographicArea("Porto", t1, l1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+
+        ctrl.setMotherArea(ga1, ga2);
+
+        GeographicArea result = ctrl.getMotherArea();
+
+        assertEquals(ga2, result);
+
+    }
+
+    @Test
+    void seeIfPrintGeographicAreaList (){
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicArea ga1 = new GeographicArea("Porto");
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+
+        String actualResult = ctrl.printGeographicAreaListNames();
+
+        assertEquals("Geographic Area List: \n" +
+                "-Porto;", actualResult);
+    }
+    @Test
+    void seeIfValidateGeoAreaTrue (){
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicArea ga1 = new GeographicArea("Porto");
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        boolean actualResult = ctrl.validateGeoArea("Porto");
+
+        assertTrue( actualResult);
+
+
+    }
+    @Test
+    void seeIfValidateGeoAreaFalse (){
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicArea ga1 = new GeographicArea("Porto");
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        boolean actualResult = ctrl.validateGeoArea("Gaia");
+
+        assertFalse(actualResult);
+
+
+    }
+
+    @Test
+    void seeIfGetGeographicAreaList (){
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+
+        TypeArea t1 = new TypeArea("Cidade");
+        Local l1 = new Local(38, 7);
+        String n1 = "Porto";
+        GeographicArea ga1 = new GeographicArea(t1, l1);
+        ga1.setName(n1);
+
+        Local l2 = new Local(39, 67);
+        String n2 = "Braga";
+        GeographicArea ga2 = new GeographicArea(t1, l2);
+        ga2.setName(n2);
+
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        HouseConfigurationController ctrl = new HouseConfigurationController(geographicAreaList);
+        GeographicAreaList actualResult = ctrl.getGeographicAreaList();
+        assertEquals(geographicAreaList, actualResult);
+    }
+
+    //USER STORY 008 TESTS
+
+    @Test
+    void seeIfAreaContainedMatchToAreasOfList(){
+        GeographicAreaList list = new GeographicAreaList();
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45,45));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45,45));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45,45));
+        list.addGeographicAreaToGeographicAreaList(area1);
+        list.addGeographicAreaToGeographicAreaList(area2);
+        list.addGeographicAreaToGeographicAreaList(area3);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+
+        ctrl.matchGeographicAreas("Porto","Europa");
+        GeographicArea expectedResult = area1;
+        GeographicArea actualResult = ctrl.getmGeographicAreaContained();
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAreaContainerMatchToAreasOfList(){
+        GeographicAreaList list = new GeographicAreaList();
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45,45));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45,45));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45,45));
+        list.addGeographicAreaToGeographicAreaList(area1);
+        list.addGeographicAreaToGeographicAreaList(area2);
+        list.addGeographicAreaToGeographicAreaList(area3);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+
+        ctrl.matchGeographicAreas("Porto","Europa");
+        GeographicArea expectedResult = area3;
+        GeographicArea actualResult = ctrl.getmGeographicAreaContainer();
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAreaContainedMatchToAreasOfListFails(){
+        GeographicAreaList list = new GeographicAreaList();
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45,45));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45,45));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45,45));
+        list.addGeographicAreaToGeographicAreaList(area1);
+        list.addGeographicAreaToGeographicAreaList(area2);
+        list.addGeographicAreaToGeographicAreaList(area3);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+
+        boolean expectedResult = false;
+        boolean actualResult = ctrl.matchGeographicAreas("Lisboa", "Europa");
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAreaContainedInAnotherAreaWorks(){
+        GeographicAreaList list = new GeographicAreaList();
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45,45));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45,45));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45,45));
+        list.addGeographicAreaToGeographicAreaList(area1);
+        list.addGeographicAreaToGeographicAreaList(area2);
+        list.addGeographicAreaToGeographicAreaList(area3);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+
+        area1.setMotherArea(area2);
+        area2.setMotherArea(area3);
+        ctrl.matchGeographicAreas("Porto","Europa");
+        boolean actualResult = ctrl.seeIfItsContained();
+        boolean expectedResult = true;
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAreaContainedInAnotherAreaFailsWithContainerNotFilled(){
+        GeographicAreaList list = new GeographicAreaList();
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45,45));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45,45));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45,45));
+        list.addGeographicAreaToGeographicAreaList(area1);
+        list.addGeographicAreaToGeographicAreaList(area2);
+        list.addGeographicAreaToGeographicAreaList(area3);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+
+        area1.setMotherArea(area2);
+        area2.setMotherArea(area3);
+        ctrl.matchGeographicAreas("Porto","Polonia");
+        boolean actualResult = ctrl.seeIfItsContained();
+        boolean expectedResult = false;
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAreaContainedInAnotherAreaFails(){
+        GeographicAreaList list = new GeographicAreaList();
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45,45));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45,45));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45,45));
+        list.addGeographicAreaToGeographicAreaList(area1);
+        list.addGeographicAreaToGeographicAreaList(area2);
+        list.addGeographicAreaToGeographicAreaList(area3);
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+
+        area1.setMotherArea(area2);
+        ctrl.matchGeographicAreas("Porto","Europa");
+        boolean actualResult = ctrl.seeIfItsContained();
+        boolean expectedResult = false;
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfListIsInvalid(){
+        GeographicAreaList list = new GeographicAreaList();
+        HouseConfigurationController ctrl = new HouseConfigurationController(list);
+        boolean actualResult = ctrl.matchGeographicAreas("Porto","Europa");
+        boolean expectedResult = false;
+        Assertions.assertEquals(expectedResult, actualResult);
     }
 
     //USER STORY 101 TESTS
@@ -400,7 +862,7 @@ public class HouseConfigurationControllerTest {
         //Assert
         assertEquals(expectedResult, result);
     }
-    
+
     //USER STORY 130 TESTS
 
     @Test
@@ -590,13 +1052,4 @@ public class HouseConfigurationControllerTest {
         String result = US101.printGA(gA1);
         assertEquals(expectedResult, result);
     }
-
-
-
-
-
-
-
-
-
 }
