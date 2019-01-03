@@ -73,9 +73,6 @@ public class MainUI {
         houseList2.addHouseToHouseList(house1);
 
 
-
-
-
         //TEST ORGANIZATION SETTERS
         eg1.setListOfRooms(roomListGrid);
         house1.setmEGList(energyGridList2);
@@ -88,7 +85,7 @@ public class MainUI {
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
 
-house2.setmEGList(energyGridList2);
+        house2.setmEGList(energyGridList2);
         //MAIN CODE
         Scanner enterToReturnToConsole = new Scanner(System.in);
         Scanner scanner = new Scanner(System.in);
@@ -98,6 +95,7 @@ house2.setmEGList(energyGridList2);
         String loginAdmin;
         String loginRegular;
         boolean activeLogin = false;
+        boolean activeInput = false;
 
         // Login Input
 
@@ -132,9 +130,6 @@ house2.setmEGList(energyGridList2);
             // Submenus Input selection
 
             String[] menu = {" 0. Exit.\n",
-                    "1. Create a new Type of Geographic Area.\n",
-                    "2. List all area Types.\n",
-                    "3. Create a new Geographic Area.\n",
                     "4. List All Geographic Areas of a certain type.\n",
                     "5. Determine the type of a sensor.\n",
                     "6. Create a new Sensor and add it to a GA.\n",
@@ -166,149 +161,149 @@ house2.setmEGList(energyGridList2);
             System.out.print(formattedString);
             System.out.print("\nEnter option number:\n");
             String pressEnter = "\nPress ENTER to return.";
-            option = scanner.nextInt();
-            switch (option) {
-                case 0:
-                    activeProgram = false;
-                    break;
-                case 1:
-                    HouseConfigurationUI view1 = new HouseConfigurationUI();
-                    view1.runUS01UI(mTypeAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 2:
-                    HouseConfigurationUI view2 = new HouseConfigurationUI();
-                    view2.runUS02(mTypeAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 3:
-                    HouseConfigurationUI view3 = new HouseConfigurationUI();
-                    view3.runUS03(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 4:
-                    US04UI view4 = new US04UI();
-                    view4.run(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 5:
-                    HouseConfigurationUI view5 = new HouseConfigurationUI();
-                    view5.runUS05(sensorList1);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 6:
-                    HouseConfigurationUI view6 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                    view6.run06();
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 7:
-                    US07UI view7 = new US07UI();
-                    view7.run(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 8:
-                    US08UI view8 = new US08UI();
-                    view8.run(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 9:
-                    if (sensorList1.checkIfListIsValid())
-                        System.out.println("The list of sensors is empty!");
-                    for (Sensor sensor : sensorList1.getSensorList()) {
-                        System.out.println(sensor.getName());
-                    }
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 10:
-                    if (mGeographicAreaList.checkIfListIsValid())
-                        System.out.println("The list of geographic areas is empty!");
-                    for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
-                        System.out.println(ga.getName());
-                    }
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 11:
-                    if (loginFlag == 1) {
-                        HouseConfigurationUI view11 = new HouseConfigurationUI();
-                        view11.runUS101(mGeographicAreaList);
+            while (!activeInput) {
+                HouseMonitoringUI hMUi = new HouseMonitoringUI();
+                option = hMUi.readInputNumberAsInt();
+                switch (option) {
+                    case 0:
+                        activeProgram = false;
+                        break;
+                    case 4:
+                        US04UI view4 = new US04UI();
+                        view4.run(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
+                        activeInput = true;
                         break;
-
-                    } else System.out.println("No permissions\n");
-                    enterToReturnToConsole.nextLine();
-                    break;
-
-                case 12:
-                    HouseConfigurationUI view12 = new HouseConfigurationUI();
-                    view12.runUS105(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 14:
-                    HouseConfigurationUI view14 = new HouseConfigurationUI();
-                    view14.runUS130(houseList1);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 15:
-                    HouseConfigurationUI view15 = new HouseConfigurationUI();
-                    view15.runUS135(houseList1);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 16:
-                    US108UI view16 = new US108UI();
-                    view16.runUS108UI(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 18:
-                    US108UI view18 = new US108UI();
-                    view18.runUS108UI(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 623:
-                    HouseMonitoringUI view623 = new HouseMonitoringUI();
-                    view623.run(mGeographicAreaList, roomList1);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 420:
-                    RoomConfigurationUI viewRC = new RoomConfigurationUI();
-                    viewRC.run(mGeographicAreaList, roomList1);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 19:
-                    US145UI view145 = new US145UI();
-                    view145.run(mGeographicAreaList);
-                    System.out.println(pressEnter);
-                    enterToReturnToConsole.nextLine();
-                    break;
-                case 20:
-                    if (loginFlag == 1) {
-                        System.out.println("Bravo!");
+                    case 5:
+                        HouseConfigurationUI view5 = new HouseConfigurationUI();
+                        view5.runUS05(sensorList1);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
+                        activeInput = true;
                         break;
-                    } else System.out.println("No permissions");
-                    break;
-                default:
-                    System.out.println("Invalid option. Try again");
-                    enterToReturnToConsole.nextLine();
-                    break;
+                    case 6:
+                        HouseConfigurationUI view6 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
+                        view6.run06();
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 7:
+                        US07UI view7 = new US07UI();
+                        view7.run(mGeographicAreaList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 8:
+                        US08UI view8 = new US08UI();
+                        view8.run(mGeographicAreaList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 9:
+                        if (sensorList1.checkIfListIsValid())
+                            System.out.println("The list of sensors is empty!");
+                        for (Sensor sensor : sensorList1.getSensorList()) {
+                            System.out.println(sensor.getName());
+                        }
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 10:
+                        if (mGeographicAreaList.checkIfListIsValid())
+                            System.out.println("The list of geographic areas is empty!");
+                        for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
+                            System.out.println(ga.getName());
+                        }
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 11:
+                        if (loginFlag == 1) {
+                            HouseConfigurationUI view11 = new HouseConfigurationUI();
+                            view11.runUS101(mGeographicAreaList);
+                            System.out.println(pressEnter);
+                            enterToReturnToConsole.nextLine();
+                            break;
+
+                        } else System.out.println("No permissions\n");
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 12:
+                        HouseConfigurationUI view12 = new HouseConfigurationUI();
+                        view12.runUS105(mGeographicAreaList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 14:
+                        HouseConfigurationUI view14 = new HouseConfigurationUI();
+                        view14.runUS130(houseList1);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 15:
+                        HouseConfigurationUI view15 = new HouseConfigurationUI();
+                        view15.runUS135(houseList1);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 16:
+                        US108UI view16 = new US108UI();
+                        view16.runUS108UI(mGeographicAreaList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 18:
+                        US108UI view18 = new US108UI();
+                        view18.runUS108UI(mGeographicAreaList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 623:
+                        HouseMonitoringUI view623 = new HouseMonitoringUI();
+                        view623.run(mGeographicAreaList, roomList1);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 420:
+                        RoomConfigurationUI viewRC = new RoomConfigurationUI();
+                        viewRC.run(mGeographicAreaList, roomList1);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 19:
+                        US145UI view145 = new US145UI();
+                        view145.run(mGeographicAreaList);
+                        System.out.println(pressEnter);
+                        enterToReturnToConsole.nextLine();
+                        activeInput = true;
+                        break;
+                    case 20:
+                        if (loginFlag == 1) {
+                            System.out.println("Bravo!");
+                            System.out.println(pressEnter);
+                            enterToReturnToConsole.nextLine();
+                            break;
+                        } else System.out.println("No permissions");
+                        activeInput = true;
+                        break;
+                    default:
+                        System.out.println("Please enter a valid option");
+                        break;
+                }
             }
         }
     }
