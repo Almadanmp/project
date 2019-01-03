@@ -267,13 +267,13 @@ public class MainUI {
                     break;
                 case 16:
                     US108UI view16 = new US108UI();
-                    view16.run(houseList1);
+                    view16.runUS108UI(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
                 case 18:
                     US108UI view18 = new US108UI();
-                    view18.run(houseList1);
+                    view18.runUS108UI(mGeographicAreaList);
                     System.out.println(pressEnter);
                     enterToReturnToConsole.nextLine();
                     break;
