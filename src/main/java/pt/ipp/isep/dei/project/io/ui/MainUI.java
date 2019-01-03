@@ -170,7 +170,7 @@ public class MainUI {
                         break;
                     case 4:
                         HouseConfigurationUI view4 = new HouseConfigurationUI();
-                        view4.runUS04(mGeographicAreaList);
+                        view4.runUS04(mTypeAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
                         activeInput = true;
@@ -252,7 +252,7 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 18:
-                        US108UI view16 = new US108UI();
+                        HouseConfigurationUI view16 = new HouseConfigurationUI();
                         view16.runUS108UI(mGeographicAreaList);
                         System.out.println(pressEnter);
                         enterToReturnToConsole.nextLine();
