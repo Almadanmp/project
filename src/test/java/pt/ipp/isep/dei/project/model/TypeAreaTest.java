@@ -169,4 +169,11 @@ public class TypeAreaTest {
             a1.isNameValid(null);
         });
     }
+
+    @Test
+    public void seeIfPrintTypeGA(){
+        TypeArea a1 = new TypeArea("Humidade");
+        String result = a1.printTypeGeographicArea();
+        Assertions.assertEquals("Type Area: Humidade", result);
+    }
 }
