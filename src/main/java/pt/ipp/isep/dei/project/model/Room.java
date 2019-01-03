@@ -37,6 +37,10 @@ public class Room {
         return mRoomSensorList;
     }
 
+    public DeviceList getmRoomDeviceList() {
+        return mRoomDeviceList;
+    }
+
     public void setRoomName(String name) {
         mRoomName = name;
     }

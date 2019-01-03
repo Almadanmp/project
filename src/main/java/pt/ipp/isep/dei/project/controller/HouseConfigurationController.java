@@ -507,4 +507,7 @@ public class HouseConfigurationController {
         return roomList.printRooms();
     }
 
+    public boolean removeRoomFromGrid(EnergyGrid grid, Room room) {
+        return grid.removeRoom(room);
+    }
 }

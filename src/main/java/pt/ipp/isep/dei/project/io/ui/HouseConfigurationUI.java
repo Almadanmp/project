@@ -691,7 +691,7 @@ class HouseConfigurationUI {
     private boolean mActive;
     private boolean mTypeAdded;
 
-    public void runUS05(SensorList list) {
+    void runUS05(SensorList list) {
         this.mActive = true;
         while (this.mActive) {
             getInput05Sensor05();
@@ -754,7 +754,7 @@ class HouseConfigurationUI {
         // placeholder
     }
 
-    public void run06() {
+    void run06() {
         this.active = true;
         while (this.active) {
             getInput06();
@@ -952,7 +952,7 @@ class HouseConfigurationUI {
     private String mNameGeographicAreaContained;
     private String mNameGeographicAreaContainer;
 
-    public void runUS08(GeographicAreaList list) {
+    void runUS08(GeographicAreaList list) {
         this.mActive = true;
         while (this.mActive) {
             getInputGeographicContainerUS08(list);
@@ -1094,7 +1094,7 @@ class HouseConfigurationUI {
     private int mRoomHouseFloor;
     private double mRoomDimensions;
 
-    public void runUS105(GeographicAreaList gaList) {
+    void runUS105(GeographicAreaList gaList) {
         this.mScanner = new Scanner(System.in);
         this.controller = new HouseConfigurationController();
         getInputRoomCharacteristics();
@@ -1180,7 +1180,7 @@ class HouseConfigurationUI {
     private String mHouseName;
     private Room mRoom;
 
-    public void runUS108UI(GeographicAreaList newGeoListUi) {
+    void runUS108UI(GeographicAreaList newGeoListUi) {
         this.mScanner = new Scanner(System.in);
         this.controller = new HouseConfigurationController();
 
@@ -1306,5 +1306,22 @@ class HouseConfigurationUI {
     private void displayRoomList(EnergyGrid energyGrid){
         HouseConfigurationController controller = new HouseConfigurationController();
         System.out.println(controller.printRooms(energyGrid.getmListOfRooms()));
+    }
+
+    /**
+     * US149
+     */
+
+    void runUS149(GeographicAreaList list) {
+        getInputGeographicArea(list);
+        getInputHouse(mGeoArea);
+        getInputEnergyGrid();
+        getInputRoom();
+        updateStateEnergyGrid(mEnergyGrid, mRoom);
+    }
+
+    private boolean updateStateEnergyGrid(EnergyGrid grid, Room room){
+        HouseConfigurationController controller = new HouseConfigurationController();
+        return controller.removeRoomFromGrid(grid, room);
     }
 }

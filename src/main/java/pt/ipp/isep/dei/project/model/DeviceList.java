@@ -9,20 +9,20 @@ public class DeviceList {
     private List<Device> mDeviceList;
 
 
-    public DeviceList() {
+    DeviceList() {
         this.mDeviceList = new ArrayList<>();
     }
 
 
-    public List<Device> getDeviceList() {
+    List<Device> getDeviceList() {
         return this.mDeviceList;
     }
 
-    public boolean containsDevice(Device device) {
+    boolean containsDevice(Device device) {
         return mDeviceList.contains(device);
     }
 
-    public boolean addDevices (Device device) {
+    boolean addDevices (Device device) {
         if(!mDeviceList.contains(device)){
             mDeviceList.add(device);
             return true;
@@ -30,11 +30,20 @@ public class DeviceList {
         return false;
     }
 
-    public void removeDevice(Device deviceToRemove) {
+    double getSumDevicesConsumption(){
+        double result = 0;
+        for (Device d: this.mDeviceList){
+            result =+ d.getmTotalPowerDevice();
+        }
+        return result;
+    }
+
+
+    void removeDevice(Device deviceToRemove) {
         mDeviceList.remove(deviceToRemove);
     }
 
-    public boolean checkIfListIsValid() {
+    boolean checkIfListIsValid() {
         return !mDeviceList.isEmpty();
     }
 

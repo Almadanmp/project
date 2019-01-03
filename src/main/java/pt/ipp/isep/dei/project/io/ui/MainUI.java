@@ -136,8 +136,8 @@ public class MainUI {
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
                     "19. Add A Room to a Energy Grid\n",
-                    "20. Room Configuration.\n",
-                    "21. House Monitoring.\n"};
+                    "21. Room Configuration.\n",
+                    "22. House Monitoring.\n"};
 
             System.out.println("Select the task you want to do:");
 
@@ -258,12 +258,18 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 20:
+                        HouseConfigurationUI view149 = new HouseConfigurationUI();
+                        view149.runUS149(mGeographicAreaList);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = true;
+                        break;
+                    case 21:
                         RoomConfigurationUI viewRC = new RoomConfigurationUI();
                         viewRC.run(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                    case 21:
+                    case 22:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
                         houseM.run(mGeographicAreaList, roomList1);
                         returnToMenu(enterToReturnToConsole);

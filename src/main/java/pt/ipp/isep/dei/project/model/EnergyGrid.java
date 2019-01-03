@@ -10,7 +10,7 @@ public class EnergyGrid {
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
 
-    public EnergyGrid() {
+    EnergyGrid() {
     }
 
 
@@ -19,13 +19,13 @@ public class EnergyGrid {
         setMaxPower(maxContractedPower);
     }
 
-    public EnergyGrid(String houseGridDesignation, double maxContractedPower, DeviceList deviceList) {
+    EnergyGrid(String houseGridDesignation, double maxContractedPower, DeviceList deviceList) {
         setName(houseGridDesignation);
         setMaxPower(maxContractedPower);
         this.mListDevices = deviceList;
     }
 
-    public EnergyGrid(String houseGridDesignation, double maxContractedPower, DeviceList deviceList, RoomList roomList) {
+    EnergyGrid(String houseGridDesignation, double maxContractedPower, DeviceList deviceList, RoomList roomList) {
         setName(houseGridDesignation);
         setMaxPower(maxContractedPower);
         this.mListDevices = deviceList;
@@ -40,11 +40,11 @@ public class EnergyGrid {
         return mListOfRooms;
     }
 
-    public double getMaxPower() {
+    double getMaxPower() {
         return mMaxPower;
     }
 
-    public double getTotalPower() {
+    double getTotalPower() {
         double sum = 0;
         for (Device d : mListDevices.getDeviceList()) {
             sum = +d.getmTotalPowerDevice();
@@ -57,7 +57,7 @@ public class EnergyGrid {
         return mListPowerSources;
     }
 
-    public void setListDevices(DeviceList mListDevices) {
+    void setListDevices(DeviceList mListDevices) {
         this.mListDevices = mListDevices;
     }
 
@@ -76,7 +76,7 @@ public class EnergyGrid {
         return false;
     }
 
-    public void setMaxPower(double mMaxPower) {
+    void setMaxPower(double mMaxPower) {
         this.mMaxPower = mMaxPower;
     }
 
@@ -84,7 +84,7 @@ public class EnergyGrid {
         this.mName = mName;
     }
 
-    public boolean addRoomToAEnergyGrid(Room room) {
+    boolean addRoomToAEnergyGrid(Room room) {
         if (this.mListOfRooms.addRoom(room)) {
             return true;
         } else {
@@ -94,6 +94,15 @@ public class EnergyGrid {
 
     public String printGrid(){
         return "Energy Grid: " + this.mName + ", Max Power: " + this.getTotalPower();
+    }
+
+    public boolean removeRoom(Room room){
+        if(this.mListOfRooms.getListOfRooms().contains(room)){
+            this.mListOfRooms.getListOfRooms().remove(room);
+            this.mMaxPower = this.mMaxPower - room.getmRoomDeviceList().getSumDevicesConsumption();
+            return true;
+        }
+        return false;
     }
 
 
