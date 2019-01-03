@@ -1,23 +1,21 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * This is the central class.
  */
 
 public class GeographicArea {
+
     private String mName;
     private TypeArea mTypeArea;
+    private GeographicArea mMotherArea;
     private Local mLocal;
-    private SensorList mSensorList;
     private Local mTopLeftVertex;
     private Local mBottomRightVertex;
-    private GeographicAreaList mGeographicAreaList;
-    private GeographicArea mMotherArea;
     private HouseList mHouseList;
+    private SensorList mSensorList;
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -29,7 +27,6 @@ public class GeographicArea {
     public GeographicArea() {
         mSensorList = new SensorList();
         mHouseList = new HouseList();
-
     }
 
     public GeographicArea(String mName, TypeArea mTypeArea, Local mLocal) {
@@ -38,14 +35,12 @@ public class GeographicArea {
         setLocal(mLocal);
         mSensorList = new SensorList();
         mHouseList = new HouseList();
-
     }
 
     public GeographicArea(String mName) {
         setName(mName);
         mSensorList = new SensorList();
         mHouseList = new HouseList();
-
     }
 
     /**
@@ -161,10 +156,6 @@ public class GeographicArea {
         this.mSensorList = listToSet;
     }
 
-    public void setGeoAreaList(GeographicAreaList listToSet) {
-        this.mGeographicAreaList = listToSet;
-    }
-
     public void setMotherArea(GeographicArea geoArea) {
         this.mMotherArea = geoArea;
     }
@@ -235,16 +226,6 @@ public class GeographicArea {
     public SensorList getSensorList() {
         return this.mSensorList;
     }
-
-    /**
-     * Getter for Geographic Area list.
-     *
-     * @return returns the attribute geographicAreaList from an object of the class Geographic Area
-     */
-    public GeographicAreaList getmGeographicAreaList() {
-        return mGeographicAreaList;
-    }
-
 
     /**
      * Method to print details that are required for a Geographic Area to be different from another GA (equals -

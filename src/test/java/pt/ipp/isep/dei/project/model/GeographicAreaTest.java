@@ -514,25 +514,6 @@ public class GeographicAreaTest {
         assertEquals(expectedResult, result, 0.01);
     }
 
-    @Test
-    public void seeIfGetSetGeographicAreaListSameAsConstructorWorks() {
-        //Arrange
-
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(21, 38, 40);
-        GeographicArea gArea1 = new GeographicArea(t1, l1);
-        GeographicAreaList GAl = new GeographicAreaList(gArea1);
-
-        GeographicAreaList expectedResult = GAl;
-        GeographicAreaList actualResult;
-
-        //Act
-        gArea1.setGeoAreaList(GAl);
-        actualResult = gArea1.getmGeographicAreaList();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     public void seeIfAreaIsContainedInArea() {
