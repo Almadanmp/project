@@ -25,20 +25,21 @@ public class HouseMonitoringController {
         return currentTemperature;
     }
 
-    public double getMaxTemperatureInARoomOnAGivenDay(Date day, RoomList room){
-        double max=-275;
-        for(Room r: room.getListOfRooms()){
-            max=r.getMaxTemperatureInARoomOnAGivenDay(day);
+    public double getMaxTemperatureInARoomOnAGivenDay(Date day, RoomList room) {
+        double max = -275;
+        for (Room r : room.getListOfRooms()) {
+            max = r.getMaxTemperatureInARoomOnAGivenDay(day);
         }
         return max;
     }
 
-    public boolean doesListContainRoomByName(String name, RoomList room){
+    public boolean doesListContainRoomByName(String name, RoomList room) {
         return room.doesListOfRoomsContainRoomByName(name);
     }
-    public boolean doesSensorListInARoomContainASensorByName(String name, RoomList room){
+
+    public boolean doesSensorListInARoomContainASensorByName(String name, RoomList room) {
         boolean result = true;
-        for (Room r: room.getRooms()) {
+        for (Room r : room.getRooms()) {
             result = r.getRoomSensorList().doesSensorListContainSensorByName(name);
         }
         return result;
@@ -81,10 +82,10 @@ public class HouseMonitoringController {
             sum = sum + sensor.getReadingList().getTotalSumOfGivenDayValueReadings(day);
             counter++;
         }
-        if (counter != 0) return sum / counter;
+        if (counter != 0)
+            return sum / counter;
         else return 0;
     }
-
 
 
     public Sensor getSensorWithTheMinimumDistanceToHouse(House house, GeographicArea ga) {
@@ -92,7 +93,7 @@ public class HouseMonitoringController {
     }
 
     public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {
-        return getSensorWithTheMinimumDistanceToHouse(house,ga).getReadingList().getMostRecentValueOfReading();
+        return getSensorWithTheMinimumDistanceToHouse(house, ga).getReadingList().getMostRecentValueOfReading();
     }
 
 }
