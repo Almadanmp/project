@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 
 import java.util.GregorianCalendar;
 
@@ -10,11 +11,9 @@ public class PowerSourceTest {
 
     @Test
     public void seeHashCodeDummyTest() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
+        PowerSource pS1 = new PowerSource("Energia", 1, 1);
         int expectedResult = 1;
-        int actualResult = pSList1.hashCode();
+        int actualResult = pS1.hashCode();
         assertEquals(expectedResult, actualResult);
     }
 
@@ -22,9 +21,7 @@ public class PowerSourceTest {
     public void seeIfEqualsPowerSourceWithDifferentObject() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         int teste = 3;
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
-        boolean actualResult = pSList1.equals(teste);
+        boolean actualResult = pS1.equals(teste);
         boolean expectedResult = false;
         assertEquals(expectedResult, actualResult);
     }
@@ -63,6 +60,17 @@ public class PowerSourceTest {
         Boolean expectedResult = false;
 
         Boolean actualResult = pS1.equals(null);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEqualsNotAInstanceOfGetClass() {
+        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+
+        Boolean expectedResult = false;
+
+        Boolean actualResult = pS1.getClass().equals(getClass());
 
         assertEquals(expectedResult, actualResult);
     }

@@ -32,7 +32,7 @@ public class PowerSource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mPowerSourceName);
+        return 1;
     }
 
 }
