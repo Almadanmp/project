@@ -11,11 +11,6 @@ public class RoomList {
         this.mRoomList = new ArrayList<>();
     }
 
-    public RoomList(Room roomToAdd) {
-        mRoomList = new ArrayList<>();
-        mRoomList.add(roomToAdd);
-    }
-
     public boolean doesListOfRoomsContainRoomByName(String name) {
         for (Room room : getListOfRooms()) {
             if ((room.getRoomName().equals(name))) {
