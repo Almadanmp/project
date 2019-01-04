@@ -5,8 +5,37 @@ import org.testng.annotations.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PowerSourceListTest {
+
+    @Test
+    public void seeIfAddPowerSourceWorks() {
+        //Arrange
+        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        PowerSourceList pSList1 = new PowerSourceList();
+        //Act
+        boolean actualResult = pSList1.addPowerSource(pS1);
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    public void seeIfAddPowerSourceWorksForFalse() {
+        //Arrange
+        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        PowerSource pS2 = new PowerSource("Energia", 50, 50);
+        PowerSourceList pSList1 = new PowerSourceList();
+        pSList1.addPowerSource(pS1);
+        //Act
+        boolean actualResult = pSList1.addPowerSource(pS2);
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    
 
     @Test
     public void seeIfContainsPowerSource() {
