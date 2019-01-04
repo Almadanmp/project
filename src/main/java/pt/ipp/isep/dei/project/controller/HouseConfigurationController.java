@@ -518,7 +518,13 @@ private RoomList mRoomList;
     public String printRooms (RoomList roomList){
         return roomList.printRooms();
     }
+    /**
+     * US147
+     */
 
+    public boolean addRoomToTheGrid(EnergyGrid grid, Room room) {
+        return grid.addRoomToAEnergyGrid(room);
+    }
     /**
      * US149
      */

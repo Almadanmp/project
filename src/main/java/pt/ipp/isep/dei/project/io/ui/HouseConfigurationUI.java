@@ -1309,7 +1309,25 @@ class HouseConfigurationUI {
         HouseConfigurationController controller = new HouseConfigurationController();
         System.out.println(controller.printRooms(energyGrid.getmListOfRooms()));
     }
+    /**
+     * US147
+     */
 
+    void runUS147(GeographicAreaList list) {
+        getInputGeographicArea(list);
+        getInputHouse(mGeoArea);
+        getInputEnergyGrid();
+        getInputRoom();
+        if (updateStateEnergyGridUS147(mEnergyGrid, mRoom)){
+            System.out.println("Room successfully added to the grid!");
+        }
+        else System.out.println("It wasn't possible to add the room. Please try again.");
+    }
+
+    private boolean updateStateEnergyGridUS147(EnergyGrid grid, Room room){
+        HouseConfigurationController controller = new HouseConfigurationController();
+        return controller.addRoomToTheGrid(grid, room);
+    }
     /**
      * US149
      */

@@ -258,9 +258,10 @@ public class MainUI {
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
                     "19. List the rooms on Energy Grid\n",
-                    "20. Remove a Room from an Energy Grid\n",
-                    "21. Room Configuration.\n",
-                    "22. House Monitoring.\n"};
+                    "20. Add a Room to the Energy Grid\n",
+                    "21. Remove a Room from an Energy Grid\n",
+                    "22. Room Configuration.\n",
+                    "23. House Monitoring.\n"};
 
             System.out.println("Select the task you want to do:");
 
@@ -381,18 +382,24 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 20:
+                        HouseConfigurationUI view147 = new HouseConfigurationUI();
+                        view147.runUS147(mGeographicAreaList);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = true;
+                        break;
+                    case 21:
                         HouseConfigurationUI view149 = new HouseConfigurationUI();
                         view149.runUS149(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                    case 21:
+                    case 22:
                         RoomConfigurationUI viewRC = new RoomConfigurationUI();
                         viewRC.run(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                    case 22:
+                    case 23:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
                         houseM.run(geographical_area_list, roomList);
                         returnToMenu(enterToReturnToConsole);
