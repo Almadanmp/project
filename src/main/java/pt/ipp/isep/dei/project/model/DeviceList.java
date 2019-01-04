@@ -9,7 +9,7 @@ public class DeviceList {
     private List<Device> mDeviceList;
 
 
-    DeviceList() {
+    public DeviceList() {
         this.mDeviceList = new ArrayList<>();
     }
 
@@ -22,7 +22,7 @@ public class DeviceList {
         return mDeviceList.contains(device);
     }
 
-    boolean addDevices (Device device) {
+    public boolean addDevices (Device device) {
         if(!mDeviceList.contains(device)){
             mDeviceList.add(device);
             return true;

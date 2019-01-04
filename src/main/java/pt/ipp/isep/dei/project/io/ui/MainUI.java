@@ -52,9 +52,14 @@ public class MainUI {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, sensorList2);
         Room room2 = new Room("kitchen", 8, 2, sensorList2);
+        Device d1 = new Device("aspirador", "eletrodomestico", room2, new ReadingList(),20 );
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevices(d1);
+        room2.setRoomDeviceList(deviceList);
         roomList1.addRoom(room2);
         roomList1.addRoom(room1);
         RoomList roomListGrid = new RoomList();
+        eg1.setListOfRooms(roomList1);
 
         //TEST GEOGRAPHIC AREAS
         GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
@@ -88,7 +93,6 @@ public class MainUI {
 
 
         //TEST ORGANIZATION SETTERS
-        eg1.setListOfRooms(roomListGrid);
         house1.setmEGList(energyGridList2);
 
         geoa1.setSensorList(sensorList2);

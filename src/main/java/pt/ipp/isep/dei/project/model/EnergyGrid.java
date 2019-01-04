@@ -6,7 +6,7 @@ import java.util.Objects;
 public class EnergyGrid {
     private String mName;
     private RoomList mListOfRooms;
-    private double mMaxPower;
+    private double mMaxPower = 0;
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
 

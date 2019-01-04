@@ -350,7 +350,7 @@ class HouseConfigurationUI {
 
     private void getInputGridByList(){
         if (mHouse.getmEGList().getEnergyGridList().isEmpty()) {
-            System.out.print("Invalid House List - List Is Empty\n");
+            System.out.print("Invalid Grid List - List Is Empty\n");
             return;
         }
         boolean activeInput = false;
@@ -360,7 +360,7 @@ class HouseConfigurationUI {
             System.out.println(controller.printGridList(this.mHouse));
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mHouse.getmEGList().getEnergyGridList().size()) {
-                mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(aux);
+                this.mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(aux);
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
