@@ -1,7 +1,7 @@
 @startuml
 actor Admin
-Admin -> MainUI: Display list rooms of an EnergyGrid
-MainUI -> HouseConfigurationUI:Display list rooms of an EnergyGrid
+Admin -> MainUI: Display rooms list of an EnergyGrid
+MainUI -> HouseConfigurationUI:Display rooms list of an EnergyGrid
 HouseConfigurationUI --> Admin: Request Geographic Area Name
 Admin -> MainUI: insert data (Geographic Area name)
 MainUI -> HouseConfigurationUI: set data (Geographic Area name)
