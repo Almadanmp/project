@@ -30,15 +30,6 @@ public class DeviceList {
         return false;
     }
 
-    double getSumDevicesConsumption(){
-        double result = 0;
-        for (Device d: this.mDeviceList){
-            result =+ d.getmTotalPowerDevice();
-        }
-        return result;
-    }
-
-
     void removeDevice(Device deviceToRemove) {
         mDeviceList.remove(deviceToRemove);
     }
