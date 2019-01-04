@@ -236,23 +236,23 @@ class HouseConfigurationUI {
             if (!getInputHouseName()) {
                 return false;
             }
-            listOfIndexesHouses = this.controller.matchHouseIndexByString(mHouseName, mGeoArea);
+            listOfIndexesHouses = controller.matchHouseIndexByString(mHouseName, mGeoArea);
         }
         if (listOfIndexesHouses.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
-            System.out.println(this.controller.printHouseElementsByIndex(listOfIndexesHouses, mGeoArea));
+            System.out.println(controller.printHouseElementsByIndex(listOfIndexesHouses, mGeoArea));
             int aux = readInputNumberAsInt();
             if (listOfIndexesHouses.contains(aux)) {
-                mGeoArea.getHouseList().getHouseList().get(aux);
+                this.mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
                 System.out.println("You have chosen the following House:");
-                System.out.println(this.controller.printHouse(mHouse));
+              System.out.println(controller.printHouse(mHouse));
             } else {
                 System.out.println(INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following House:");
-            mGeoArea.getHouseList().getHouseList().get(0);
-            System.out.println(this.controller.printHouse(mHouse));
+            this.mHouse = mGeoArea.getHouseList().getHouseList().get(0);
+            System.out.println(controller.printHouse(mHouse));
         }
         return true;
     }
@@ -425,7 +425,8 @@ class HouseConfigurationUI {
     }
 
     private boolean getRoomByName() {
-        List<Integer> listOfIndexesRoom = this.controller.matchRoomIndexByString(mRoomName, mHouse);
+        HouseConfigurationController controller = new HouseConfigurationController();
+        List<Integer> listOfIndexesRoom = controller.matchRoomIndexByString(mRoomName, mHouse);
 
         while (listOfIndexesRoom.isEmpty()) {
             System.out.println("There is no Room with that name. Please insert the name of a Room" +
@@ -433,23 +434,23 @@ class HouseConfigurationUI {
             if (!getInputRoomName()) {
                 return false;
             }
-            listOfIndexesRoom = this.controller.matchRoomIndexByString(mRoomName, mHouse);
+            listOfIndexesRoom = controller.matchRoomIndexByString(mRoomName, mHouse);
         }
         if (listOfIndexesRoom.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
-            System.out.println(this.controller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
+            System.out.println(controller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
             int aux = readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
                 this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
                 System.out.println("You have chosen the following Room:");
-                System.out.println(this.controller.printRoom(mRoom));
+                System.out.println(controller.printRoom(mRoom));
             } else {
                 System.out.println(INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following Room:");
             this.mRoom = mHouse.getmRoomList().getListOfRooms().get(0);
-            System.out.println(this.controller.printRoom(mRoom));
+            System.out.println(controller.printRoom(mRoom));
         }
         return true;
     }

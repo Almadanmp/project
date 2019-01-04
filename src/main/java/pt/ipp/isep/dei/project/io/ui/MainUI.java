@@ -392,7 +392,7 @@ public class MainUI {
                         break;
                     case 19:
                         HouseConfigurationUI view145 = new HouseConfigurationUI();
-                        view145.runUS145(mGeographicAreaList);
+                        view145.runUS145(geographical_area_list);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
@@ -404,7 +404,7 @@ public class MainUI {
                         break;
                     case 21:
                         HouseConfigurationUI view149 = new HouseConfigurationUI();
-                        view149.runUS149(mGeographicAreaList);
+                        view149.runUS149(geographical_area_list);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
