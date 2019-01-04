@@ -42,7 +42,8 @@ public class HouseList {
     public String printElementsByIndex(List<Integer> indexes) {
         String result = "";
         for (int i = 0; i < indexes.size(); i++) {
-            result += indexes.get(i) + ") " + mHouseList.get(i).getHouseDesignation() + ", " + mHouseList.get(i).getmAddress() + ", " + mHouseList.get(i).getmZipCode() + ".\n";
+            int pos = indexes.get(i);
+            result += indexes.get(i) + ") " + mHouseList.get(pos).getHouseDesignation() + ", " + mHouseList.get(pos).getmAddress() + ", " + mHouseList.get(pos).getmZipCode() + ".\n";
         }
         return result;
     }
