@@ -33,11 +33,7 @@ public class PowerSourceTest {
     public void seeIfEqualsPowerSourceWithDifferentContent() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        PowerSourceList pSList2 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
-        pSList2.addPowerSource(pS2);
-        boolean actualResult = pSList1.equals(pSList2);
+        boolean actualResult = pS1.equals(pS2);
         boolean expectedResult = false;
         assertEquals(expectedResult, actualResult);
     }
@@ -46,23 +42,28 @@ public class PowerSourceTest {
     public void seeIfEqualsPowerSourceWithSameContent() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        PowerSourceList pSList2 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
-        pSList2.addPowerSource(pS2);
-        boolean actualResult = pSList1.equals(pSList2);
+        boolean actualResult = pS1.equals(pS2);
         boolean expectedResult = true;
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void seeIfequalsSameObject() {
+    public void seeIfEqualsSameObject() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
-        boolean actualResult = pSList1.equals(pSList1);
+        boolean actualResult = pS1.equals(pS1);
         boolean expectedResult = true;
         assertEquals(expectedResult, actualResult);
 
+    }
+
+    @Test
+    public void seeIfEqualsNotAInstanceOfNull() {
+        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+
+        Boolean expectedResult = false;
+
+        Boolean actualResult = pS1.equals(null);
+
+        assertEquals(expectedResult, actualResult);
     }
 }
