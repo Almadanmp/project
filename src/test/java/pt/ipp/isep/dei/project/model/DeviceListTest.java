@@ -209,10 +209,9 @@ public class DeviceListTest {
         //Arrange ---------------------------------------
         DeviceList deviceL1 = new DeviceList();
         //Act -------------------------------------------
-        Boolean expectedResult = false;
         Boolean actualResult = deviceL1.equals(null);
         //Assert ----------------------------------------
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
 }
