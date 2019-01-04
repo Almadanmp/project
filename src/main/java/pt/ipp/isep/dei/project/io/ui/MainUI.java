@@ -52,7 +52,6 @@ public class MainUI {
         sensorList1.addSensor(sensor2);
         sensorList1.addSensor(sensor3);
 
-
         //TEST ROOMS
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, sensorList2);
@@ -71,8 +70,6 @@ public class MainUI {
         GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
         geoa1.setSensorList(sensorList1);
         geoa2.setSensorList(sensorList2);
-
-
 
         //TEST HOUSES
         HouseList houseList1 = new HouseList();
@@ -95,7 +92,6 @@ public class MainUI {
         house1.setmMotherArea(geoa2);
         houseList2.addHouseToHouseList(house1);
 
-
         //TEST ORGANIZATION SETTERS
         house1.setmEGList(energyGridList2);
 
@@ -109,41 +105,139 @@ public class MainUI {
 
         house2.setmEGList(energyGridList2);
 
+        //SPRINT 1 DATA
+
+        GeographicAreaList geographical_area_list = new GeographicAreaList();
+        GeographicArea ISEP = new GeographicArea("Campus do ISEP", new TypeArea("urban area"), new Local(41.178553, -8.608035, 111));
+        House house = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", new Local(41.177748, -8.607745,112), "4200-072");
+        Room room_a = new Room("B107", 1, 24.5);
+        Room room_b = new Room("B109", 1, 24.5);
+
+        ReadingList readingList_a = new ReadingList();
+        Reading reading10 = new Reading(14, new GregorianCalendar(2018, 12, 30).getTime());
+        Reading reading11 = new Reading(13.7, new GregorianCalendar(2018, 12, 30).getTime());
+        Reading reading12 = new Reading(16.5, new GregorianCalendar(2018, 12, 30).getTime());
+        Reading reading13 = new Reading(15.1, new GregorianCalendar(2018, 12, 30).getTime());
+        Reading reading14 = new Reading(13.8, new GregorianCalendar(2018, 12, 31).getTime());
+        Reading reading15 = new Reading(13.3, new GregorianCalendar(2018, 12, 31).getTime());
+        Reading reading16 = new Reading(15.5, new GregorianCalendar(2018, 12, 31).getTime());
+        Reading reading17 = new Reading(14.2, new GregorianCalendar(2018, 12, 31).getTime());
+        Reading reading18 = new Reading(12.5, new GregorianCalendar(2019, 1, 1).getTime());
+        Reading reading19 = new Reading(12.4, new GregorianCalendar(2019, 1, 1).getTime());
+        Reading reading20 = new Reading(13.8, new GregorianCalendar(2019, 1, 1).getTime());
+        Reading reading21 = new Reading(12.9, new GregorianCalendar(2019, 1, 1).getTime());
+        Reading reading22 = new Reading(11.5, new GregorianCalendar(2019, 1, 2).getTime());
+        Reading reading23 = new Reading(11.2, new GregorianCalendar(2019, 1, 2).getTime());
+        Reading reading24 = new Reading(13.5, new GregorianCalendar(2019, 1, 2).getTime());
+        Reading reading25 = new Reading(12.8, new GregorianCalendar(2019, 1, 2).getTime());
+        readingList_a.addReading(reading10);
+        readingList_a.addReading(reading11);
+        readingList_a.addReading(reading12);
+        readingList_a.addReading(reading13);
+        readingList_a.addReading(reading14);
+        readingList_a.addReading(reading15);
+        readingList_a.addReading(reading16);
+        readingList_a.addReading(reading17);
+        readingList_a.addReading(reading18);
+        readingList_a.addReading(reading19);
+        readingList_a.addReading(reading20);
+        readingList_a.addReading(reading21);
+        readingList_a.addReading(reading22);
+        readingList_a.addReading(reading23);
+        readingList_a.addReading(reading24);
+        readingList_a.addReading(reading25);
+
+        Sensor sensor_a = new Sensor("Temperature B109", new TypeSensor("temperature"), new Local(0, 0), new GregorianCalendar(0, 0, 0).getTime(), readingList_a);
+        Room room_c = new Room("B106", 1, 318.5);
+
+        ReadingList readingList_b = new ReadingList();
+        Reading reading26 = new Reading(0.5, new GregorianCalendar(2018, 12, 29).getTime());
+        Reading reading27 = new Reading(1.2, new GregorianCalendar(2018, 12, 30).getTime());
+        Reading reading28 = new Reading(1.5, new GregorianCalendar(2018, 12, 31).getTime());
+        Reading reading29 = new Reading(0.3, new GregorianCalendar(2019, 1, 1).getTime());
+        Reading reading30 = new Reading(0.0, new GregorianCalendar(2019, 1, 2).getTime());
+        Reading reading31 = new Reading(0.0, new GregorianCalendar(2019, 1, 2).getTime());
+        Reading reading32 = new Reading(0.0, new GregorianCalendar(2019, 1, 3).getTime());
+        readingList_b.addReading(reading26);
+        readingList_b.addReading(reading27);
+        readingList_b.addReading(reading28);
+        readingList_b.addReading(reading29);
+        readingList_b.addReading(reading30);
+        readingList_b.addReading(reading31);
+        readingList_b.addReading(reading32);
+
+        Sensor sensor_b = new Sensor("Meteo station ISEP - rainfall", new TypeSensor("rainfall"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime(), readingList_b);
+
+        ReadingList readingList_c = new ReadingList();
+        Reading reading33 = new Reading(8, new GregorianCalendar(2018, 12, 30).getTime());
+        Reading reading34 = new Reading(6.9, new GregorianCalendar(2018, 12, 30).getTime());
+        Reading reading35 = new Reading(16.5, new GregorianCalendar(2018, 12, 30).getTime());
+        Reading reading36 = new Reading(11.2, new GregorianCalendar(2018, 12, 30).getTime());
+        Reading reading37 = new Reading(7.2, new GregorianCalendar(2018, 12, 31).getTime());
+        Reading reading38 = new Reading(5.3, new GregorianCalendar(2018, 12, 31).getTime());
+        Reading reading39 = new Reading(15.1, new GregorianCalendar(2018, 12, 31).getTime());
+        Reading reading40 = new Reading(9.2, new GregorianCalendar(2018, 1, 31).getTime());
+        Reading reading41 = new Reading(6.5, new GregorianCalendar(2019, 1, 1).getTime());
+        Reading reading42 = new Reading(4.3, new GregorianCalendar(2019, 1, 1).getTime());
+        Reading reading43 = new Reading(14.8, new GregorianCalendar(2019, 1, 1).getTime());
+        Reading reading44 = new Reading(8.9, new GregorianCalendar(2019, 1, 1).getTime());
+        Reading reading45 = new Reading(6.1, new GregorianCalendar(2019, 1, 2).getTime());
+        Reading reading46 = new Reading(3.2, new GregorianCalendar(2019, 1, 2).getTime());
+        Reading reading47 = new Reading(14.1, new GregorianCalendar(2019, 1, 2).getTime());
+        Reading reading48 = new Reading(8.3, new GregorianCalendar(2019, 1, 2).getTime());
+        readingList_c.addReading(reading33);
+        readingList_c.addReading(reading34);
+        readingList_c.addReading(reading35);
+        readingList_c.addReading(reading36);
+        readingList_c.addReading(reading37);
+        readingList_c.addReading(reading38);
+        readingList_c.addReading(reading39);
+        readingList_c.addReading(reading40);
+        readingList_c.addReading(reading41);
+        readingList_c.addReading(reading42);
+        readingList_c.addReading(reading43);
+        readingList_c.addReading(reading44);
+        readingList_c.addReading(reading45);
+        readingList_c.addReading(reading46);
+        readingList_c.addReading(reading47);
+        readingList_c.addReading(reading48);
+
+        Sensor sensor_c = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime(), readingList_c);
+
+        GeographicArea Porto = new GeographicArea("City of Porto", new TypeArea("city"), new Local(41.164077, -8.620802, 118));
 
         //MAIN CODE
+
         Scanner enterToReturnToConsole = new Scanner(System.in);
-
         int option;
-
         while (activeProgram) {
 
-            System.out.println("\n*******************\n" +
-                    "****** Main Menu Test *******\n" +
-                    "****** sWitCh 2018 ********\n" +
-                    "*****************\n");
+            System.out.println("\n**********************************\n" +
+                               "******** Smart Grid Menu *********\n" +
+                               "*********** sWitCh 2018 **********\n" +
+                               "**********************************\n");
 
             // Submenus Input selection
 
-            String[] menu = {" 0. Exit.\n",
+            String[] menu = {" 0. Exit Application\n",
                     "1 Create a new Type of Geographic Areas\n",
-                    "2 List The Existing Types of Geographic Areas\n",
+                    "2 List the existing types of Geographic Areas\n",
                     "3 Create a new Geographic Area\n",
-                    "4. List All Geographic Areas of a certain type.\n",
+                    "4. List all Geographic Areas of a certain type.\n",
                     "5. Determine the type of a sensor.\n",
                     "6. Create a new Sensor and add it to a GA.\n",
-                    "7. Say that an area is contained in another area.\n",
-                    "8. See if an area is contained in another area.\n",
+                    "7. Define that an area is contained in another area.\n",
+                    "8. Check if an area is contained in another area.\n",
                     "9. Display all available sensors.\n",
                     "10. Display all available Geographic Areas.\n",
-                    "11. Configure the location of a house.\n",
+                    "11. Set the location of a house.\n",
                     "12. Add a new room to a house.\n",
-                    "13. Get Maximum Temperature in a Room in a Given Day.\n",
                     "14. Create an energy grid.\n",
                     "15. Add a power source to an energy grid.\n",
                     "16. See Room List.\n",
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
-                    "19. Add A Room to a Energy Grid\n",
+                    "19. List the rooms on Energy Grid\n",
                     "20. Remove a Room from an Energy Grid\n",
                     "21. Room Configuration.\n",
                     "22. House Monitoring.\n"};
