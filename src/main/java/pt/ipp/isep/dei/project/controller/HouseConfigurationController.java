@@ -307,11 +307,15 @@ public class HouseConfigurationController {
         return geoAreaList.printGaWholeList(geoAreaList);
     }
 
-    public void setHouseList(HouseList houseList){this.mHouseList = houseList;}
+
 
 
     public void setHouseAddress(String address, House house) {
         house.setmAddress(address);
+    }
+
+    public void setHouseList(HouseList houseList) {
+        this.mHouseList = houseList;
     }
 
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
@@ -362,7 +366,7 @@ public class HouseConfigurationController {
     /**
      US108
      **/
-
+private RoomList mRoomList;
 
     public List<Integer> matchHouseIndexByString(String input, GeographicArea geoArea){
         return geoArea.getHouseList().matchHouseIndexByString(input);
@@ -390,6 +394,10 @@ public class HouseConfigurationController {
 
     public String printRoom (Room room){
         return room.printRoom();
+    }
+
+    public void setRoomList(RoomList roomList) {
+        this.mRoomList = roomList;
     }
 
     public void editRoom(Room room, String roomName, int roomFloor, double roomDimensions) {
@@ -480,6 +488,7 @@ public class HouseConfigurationController {
 
     /**
      * US145
+     *
      */
 
     public HouseConfigurationController (Room room){

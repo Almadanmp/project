@@ -514,6 +514,8 @@ class HouseConfigurationControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    //USER STORY 006 TESTS
+
     //USER STORY 007 TESTS
 
     @Test
@@ -933,14 +935,264 @@ class HouseConfigurationControllerTest {
         //Assert
         assertEquals(expectedResult, result);
     }
+
 //USER STORY 105
 
 
     // USER STORY 108
     @Test
-    void seeIfmatchHouseIndexByString (){
+    void seeIfMatchGeographicAreaIndexByStringWorks() {
+        //Arrange -------------------------------------
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
+        //Act -----------------------------------------
+        List<Integer> result = ctrl.matchGeographicAreaIndexByString("lisboa", mGeographicAreaList);
+        List<Integer> expectedResult = Collections.singletonList(mGeographicAreaList.getGeographicAreaList().indexOf(geoa2));
+        //Assert --------------------------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
 
+    @Test
+    public void seeIfPrintGeoGraphicAreaElementsByIndex2() {
+        //Arrange -----------------------------------------
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
+        //Act ---------------------------------------------
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        String result = ctrl.printGeoGraphicAreaElementsByIndex(list, mGeographicAreaList);
+        String expectedResult = "---------------\n" +
+                "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
+                "---------------\n";
+        //Assert ------------------------------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
 
+    @Test
+    void seeIfmatchHouseIndexByString() {
+        //Arrange -------------------------------
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
+        House house3 = new House("house3", "Address3", new Local(18, 10), "3555-555");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house2);
+        houseList1.addHouseToHouseList(house3);
+        //Act -----------------------------------
+        List<Integer> result = ctrl.matchHouseIndexByString("house3", geoa1);
+        List<Integer> expectedResult = new ArrayList<>();
+        Integer i = 1;
+        expectedResult.add(i);
+        //Assert --------------------------------
+        Assertions.assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    public void seeIfPrintHouseWorks() {
+        //Arrange ----------------------
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Act --------------------------
+        String result = ctrl.printHouse(geoa1.getHouseList().getHouseList().get(0));
+        String expectedResult = "a minha rica casinha, Address2, 3456-123.\n";
+        //Assert -----------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfMatchRoomIndexByString() {
+        //Arrange -----------------------------
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("house2", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act ---------------------------------
+        List<Integer> result = ctrl.matchRoomIndexByString("kitchen", house1);
+        List<Integer> expectedResult = new ArrayList<>();
+        Integer i = 1;
+        expectedResult.add(i);
+        //Assert ------------------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintRoomElementsByIndex() {
+        //Arrange --------------------------------
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("house2", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1;
+        roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act ------------------------------------
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        String result = ctrl.printRoomElementsByIndex(list, house1);
+        String expectedResult = "1) room1, 19, 2.3456789E7.\n";
+        //Assert ---------------------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintRoomListWork() {
+        //Arrange ------------------------
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act ----------------------------
+        String result = ctrl.printRoomList(house1);
+        String expectedResult = "---------------\n" +
+                "0) Designation: room1 | House Floor: 19 | Dimensions: 2.3456789E7\n" +
+                "1) Designation: kitchen | House Floor: 8 | Dimensions: 2.0\n" +
+                "---------------\n";
+        //Assert -------------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintRoomWorks() {
+        //Arrange ---------------------
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act -------------------------
+        String result = ctrl.printRoom(room2);
+        String expectedResult = "kitchen, 8, 2.0.\n";
+        //Assert ----------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfSetRoomName() {
+
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String name = "rua da rua 345";
+        int roomFloor = 3;
+        double roomDimensions = 12;
+        Room room = new Room(name, roomFloor, roomDimensions);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.getListOfRooms().get(0);
+        ctrl.setRoomList(roomList);
+        ctrl.editRoom(room, "nome", 2, 34);
+        String result = roomList.getListOfRooms().get(0).getRoomName();
+
+        assertEquals("nome", result);
+    }
+
+    @Test
+    void seeIfSetRoomHouseFloor() {
+
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String name = "rua da rua 345";
+        int roomFloor = 3;
+        double roomDimensions = 12;
+        Room room = new Room(name, roomFloor, roomDimensions);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.getListOfRooms().get(0);
+        ctrl.setRoomList(roomList);
+        ctrl.editRoom(room, "nome", 2, 34);
+        int result = roomList.getListOfRooms().get(0).getHouseFloor();
+
+        assertEquals(2, result);
+    }
+
+    @Test
+    void seeIfSetRoomDimensions() {
+
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String name = "rua da rua 345";
+        int roomFloor = 3;
+        double roomDimensions = 12;
+        Room room = new Room(name, roomFloor, roomDimensions);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.getListOfRooms().get(0);
+        ctrl.setRoomList(roomList);
+        ctrl.editRoom(room, "nome", 2, 34);
+        double result = roomList.getListOfRooms().get(0).getRoomDimensions();
+
+        assertEquals(34, result);
     }
 
     //USER STORY 130 TESTS
@@ -1134,11 +1386,11 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    void seeIfIndexIsMatchedByString(){
-        House house = new House("Casa",new Local(45,50),"4535");
+    void seeIfIndexIsMatchedByString() {
+        House house = new House("Casa", new Local(45, 50), "4535");
         Room room = new Room("Quarto", 1, 20);
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
-        EnergyGrid energyGrid2 = new EnergyGrid("EG2",200);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
@@ -1147,18 +1399,18 @@ class HouseConfigurationControllerTest {
         house.setmRoomList(roomList);
         house.setmEGList(energyGridList);
         HouseConfigurationController ctrlUS145 = new HouseConfigurationController(room);
-        List<Integer> result = ctrlUS145.matchGridIndexByString("EG2",house);
+        List<Integer> result = ctrlUS145.matchGridIndexByString("EG2", house);
         List<Integer> expectedResult = new ArrayList<>();
         expectedResult.add(1);
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfEnergyGridIsPrintedByIndex(){
-        House house = new House("Casa",new Local(45,50),"4535");
+    void seeIfEnergyGridIsPrintedByIndex() {
+        House house = new House("Casa", new Local(45, 50), "4535");
         Room room = new Room("Quarto", 1, 20);
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
-        EnergyGrid energyGrid2 = new EnergyGrid("EG2",200);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
@@ -1170,15 +1422,15 @@ class HouseConfigurationControllerTest {
         List<Integer> list = ctrlUS145.matchGridIndexByString("EG1", house);
         String actualResult = ctrlUS145.printEnergyGridByIndex(list);
         String expectedResult = "0) EG1, 400.0, null.\n";
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
 
     }
 
     @Test
-    void seeIfEnergyGridPrints(){
-        House house = new House("Casa",new Local(45,50),"4535");
+    void seeIfEnergyGridPrints() {
+        House house = new House("Casa", new Local(45, 50), "4535");
         Room room = new Room("Quarto", 1, 20);
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
@@ -1188,14 +1440,14 @@ class HouseConfigurationControllerTest {
         HouseConfigurationController ctrlUS145 = new HouseConfigurationController(room);
         String result = ctrlUS145.printEnergyGrid(energyGrid1);
         String expectedResult = "Energy Grid: EG1, Max Power: 400.0";
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGridListPrints(){
-        House house = new House("Casa",new Local(45,50),"4535");
+    void seeIfGridListPrints() {
+        House house = new House("Casa", new Local(45, 50), "4535");
         Room room = new Room("Quarto", 1, 20);
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
@@ -1211,10 +1463,10 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    void seeIfRoomsPrint(){
-        House house = new House("Casa",new Local(45,50),"4535");
+    void seeIfRoomsPrint() {
+        House house = new House("Casa", new Local(45, 50), "4535");
         Room room = new Room("Quarto", 1, 20);
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
@@ -1230,11 +1482,11 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    void seeIfRoomIsRemovedFromGrid(){
-        House house = new House("Casa",new Local(45,50),"4535");
+    void seeIfRoomIsRemovedFromGrid() {
+        House house = new House("Casa", new Local(45, 50), "4535");
         Room room = new Room("Quarto", 1, 20);
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
-        EnergyGrid energyGrid2 = new EnergyGrid("EG2",200);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
@@ -1243,7 +1495,7 @@ class HouseConfigurationControllerTest {
         energyGrid1.setListOfRooms(roomList);
         house.setmEGList(energyGridList);
         HouseConfigurationController ctrlUS145 = new HouseConfigurationController(room);
-        boolean result = ctrlUS145.removeRoomFromGrid(energyGrid1,room);
+        boolean result = ctrlUS145.removeRoomFromGrid(energyGrid1, room);
         assertTrue(result);
     }
 }
