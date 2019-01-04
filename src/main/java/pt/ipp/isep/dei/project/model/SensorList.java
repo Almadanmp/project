@@ -154,7 +154,8 @@ public class SensorList {
     public String printElementsByIndex (List<Integer> indexes){
         String result = "";
         for (int i = 0; i < indexes.size(); i++){
-            result += indexes.get(i) + ") " + mSensorList.get(i).getName() + " which is a " + mSensorList.get(i).getTypeSensor().getName() +  " sensor.\n";
+            int pos = indexes.get(i);
+            result += indexes.get(i) + ") " + mSensorList.get(pos).getName() + " which is a " + mSensorList.get(pos).getTypeSensor().getName() +  " sensor.\n";
         }
         return result;
     }

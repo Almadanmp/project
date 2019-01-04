@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -245,5 +246,13 @@ public class RoomTest {
         Room room = new Room("quarto", 1, 80, list);
         boolean result = room.equals(null);
         assertEquals(false,result);
+    }
+
+    @Test
+    public void hashCodeDummyTest(){
+        Room room1 = new Room("room1", 19, 23456789);
+        int expectedResult = 1;
+        int actualResult = room1.hashCode();
+        Assertions.assertEquals(expectedResult,actualResult);
     }
 }
