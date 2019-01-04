@@ -228,7 +228,8 @@ class HouseConfigurationUI {
     }
 
     private boolean getHouseByName(GeographicArea mGeoArea) {
-        List<Integer> listOfIndexesHouses = this.controller.matchHouseIndexByString(mHouseName, mGeoArea);
+        HouseConfigurationController controller = new HouseConfigurationController();
+        List<Integer> listOfIndexesHouses = controller.matchHouseIndexByString(mHouseName, mGeoArea);
 
         while (listOfIndexesHouses.isEmpty()) {
             System.out.println("There is no House Area with that name. Please insert the name of a House" +
