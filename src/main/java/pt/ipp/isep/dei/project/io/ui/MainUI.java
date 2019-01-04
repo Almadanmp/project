@@ -108,6 +108,7 @@ public class MainUI {
         //SPRINT 1 DATA
 
         GeographicAreaList geographical_area_list = new GeographicAreaList();
+
         GeographicArea ISEP = new GeographicArea("Campus do ISEP", new TypeArea("urban area"), new Local(41.178553, -8.608035, 111));
         House house = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", new Local(41.177748, -8.607745,112), "4200-072");
         Room room_a = new Room("B107", 1, 24.5);
@@ -149,6 +150,15 @@ public class MainUI {
 
         Sensor sensor_a = new Sensor("Temperature B109", new TypeSensor("temperature"), new Local(0, 0), new GregorianCalendar(0, 0, 0).getTime(), readingList_a);
         Room room_c = new Room("B106", 1, 318.5);
+        house.addRoomToRoomList(room_a);
+        house.addRoomToRoomList(room_b);
+        house.addRoomToRoomList(room_c);
+        HouseList Rooms = new HouseList();
+        Rooms.addHouseToHouseList(house);
+        ISEP.setHouseList(Rooms);
+        SensorList roomASList = new SensorList();
+        roomASList.addSensor(sensor_a);
+        room_a.setRoomSensorList(roomASList);
 
         ReadingList readingList_b = new ReadingList();
         Reading reading26 = new Reading(0.5, new GregorianCalendar(2018, 12, 29).getTime());
@@ -204,7 +214,15 @@ public class MainUI {
 
         Sensor sensor_c = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime(), readingList_c);
 
+        SensorList areaSList = new SensorList();
+        areaSList.addSensor(sensor_b);
+        areaSList.addSensor(sensor_c);
+        ISEP.setSensorList(areaSList);
+
         GeographicArea Porto = new GeographicArea("City of Porto", new TypeArea("city"), new Local(41.164077, -8.620802, 118));
+
+        geographical_area_list.addGeographicAreaToGeographicAreaList(ISEP);
+        geographical_area_list.addGeographicAreaToGeographicAreaList(Porto);
 
         //MAIN CODE
 
