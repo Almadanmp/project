@@ -1,26 +1,31 @@
 @startuml
 actor User
-User -> MainUI: Get Current Temperature in The House Area
-MainUI -> HouseMonitoringUI: Get Current Temperature in The House Area
+User -> MainUI: Get Current Temperature on House Area
+MainUI -> HouseMonitoringUI: Get Current Temperature on House Area
 HouseMonitoringUI --> User: Request Geographic Area Name or Index from List
-User -> MainUI: insert data (Geographic Area name)
-MainUI -> HouseMonitoringUI: set data (Geographic Area name) or Select GeoArea from List
+User -> MainUI: insert data (Geographic Area name) or Select GA
+MainUI -> HouseMonitoringUI: select Geographic Area by name or from list
 HouseMonitoringUI ->HouseMonitoringController: check if name/index is contained in list
 HouseMonitoringController -> GeographicAreaList: check if name/index is contained in list
 GeographicAreaList -> GeographicArea: match by name or by index
 GeographicArea -> GeographicArea: validate data
-GeographicArea --> HouseMonitoringUI: set data (Geographic Area)
+GeographicArea --> HouseMonitoringUI: return Geographic Area
+HouseMonitoringUI -> HouseMonitoringUI: set mGeoArea
 HouseMonitoringUI --> User: Request House Name or Index from List
 User -> MainUI: insert data (House name) or Select House
-MainUI -> HouseMonitoringUI: set data (House name)
+MainUI -> HouseMonitoringUI: select House by name or from list
 HouseMonitoringUI -> HouseMonitoringController: check if name/index is contained in list
 HouseMonitoringController -> HouseList: check if name/index is contained in list
 HouseList -> House: match by name or by index
 House -> House: validate data
-House --> HouseMonitoringUI: set data (House)
+House --> HouseMonitoringUI: return House
+HouseMonitoringUI -> HouseMonitoringUI: set mHouse
 HouseMonitoringUI -> HouseMonitoringController: getCurrentTemperatureInTheHouseArea
 HouseMonitoringController->Sensor: getSensorWithTheMinimumDistanceToHouse
 Sensor->ReadingList: getReadingList
 ReadingList->Reading:getMostRecentValueOfReading
-Reading-->User: Display Current Temperature
+Reading-->HouseMonitoringUI: return Current Temperature In the House Area
+HouseMonitoringUI -> HouseMonitoringUI: Build result string
+HouseMonitoringUI -->User: Display result string
+
 @enduml

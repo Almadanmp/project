@@ -138,5 +138,32 @@ public class HouseTest {
 
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void seeIfRecognizesEmptyGridList () {
+        House house = new House("casa", "rua coise", new Local(4, 5),"5150-657");
+        EnergyGridList energyGridList = new EnergyGridList();
+        house.setmEGList(energyGridList);
+        String expectedResult = "Invalid List - List is Empty\n";
+        String actualResult = house.printWholeGridList();
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void checkIfWeReceivePrintedGridList (){
+        House house = new House("casa", "rua coise", new Local(4, 5),"5150-657");
+        EnergyGrid eg1 = new EnergyGrid("Rede",444);
+        EnergyGrid eg2 = new EnergyGrid("Rede 2",555);
+        EnergyGridList energyGridList = new EnergyGridList();
+        energyGridList.addEnergyGridToEnergyGridList(eg1);
+        energyGridList.addEnergyGridToEnergyGridList(eg2);
+        house.setmEGList(energyGridList);
+        String expectedResult = "---------------\n" +
+                "0) Designation: Rede | Max Power: 444.0\n" +
+                "1) Designation: Rede 2 | Max Power: 555.0\n" +
+                "---------------\n";
+        String actualResult = house.printWholeGridList();
+        assertEquals(expectedResult,actualResult);
+    }
 }
 

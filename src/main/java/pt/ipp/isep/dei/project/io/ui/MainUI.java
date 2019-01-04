@@ -41,12 +41,17 @@ public class MainUI {
         //TEST SENSORS
         SensorList sensorList1 = new SensorList();
         SensorList sensorList2 = new SensorList();
+        SensorList sensorList3 = new SensorList();
         Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
         Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
+        Sensor sensor3 = new Sensor("teste", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
         sensorList2.addSensor(sensor1);
         sensorList2.addSensor(sensor2);
+        sensorList2.addSensor(sensor3);
         sensorList1.addSensor(sensor1);
         sensorList1.addSensor(sensor2);
+        sensorList1.addSensor(sensor3);
+
 
         //TEST ROOMS
         RoomList roomList1 = new RoomList();
@@ -65,9 +70,8 @@ public class MainUI {
         GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
         GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
         geoa1.setSensorList(sensorList1);
-        geoa1.setSensorList(sensorList2);
-        geoa2.setSensorList(sensorList1);
         geoa2.setSensorList(sensorList2);
+
 
 
         //TEST HOUSES
