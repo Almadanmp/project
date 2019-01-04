@@ -193,10 +193,10 @@ public class MainUI {
         Reading reading42 = new Reading(4.3, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 1).getTime());
         Reading reading43 = new Reading(14.8, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 1).getTime());
         Reading reading44 = new Reading(8.9, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 1).getTime());
-        Reading reading45 = new Reading(6.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2).getTime());
-        Reading reading46 = new Reading(3.2, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2).getTime());
-        Reading reading47 = new Reading(14.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2).getTime());
-        Reading reading48 = new Reading(8.3, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2).getTime());
+        Reading reading45 = new Reading(6.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,2,0).getTime());
+        Reading reading46 = new Reading(3.2, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,8,0).getTime());
+        Reading reading47 = new Reading(14.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,14,0).getTime());
+        Reading reading48 = new Reading(8.3, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,20,0).getTime());
         readingList_c.addReading(reading33);
         readingList_c.addReading(reading34);
         readingList_c.addReading(reading35);
@@ -217,8 +217,8 @@ public class MainUI {
         Sensor sensor_c = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime(), readingList_c);
 
         SensorList areaSList = new SensorList();
-        areaSList.addSensor(sensor_b);
         areaSList.addSensor(sensor_c);
+        areaSList.addSensor(sensor_b);
         ISEP.setSensorList(areaSList);
 
         GeographicArea Porto = new GeographicArea("City of Porto", new TypeArea("city"), new Local(41.164077, -8.620802, 118));
@@ -394,7 +394,7 @@ public class MainUI {
                         break;
                     case 22:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
-                        houseM.run(mGeographicAreaList, roomList1);
+                        houseM.run(geographical_area_list, roomList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
