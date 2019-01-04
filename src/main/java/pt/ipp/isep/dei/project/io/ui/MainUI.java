@@ -54,16 +54,20 @@ public class MainUI {
 
         //TEST ROOMS
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, sensorList2);
+        RoomList roomList2 = new RoomList();
+        Room room1 = new Room("wc", 19, 23456789, sensorList2);
         Room room2 = new Room("kitchen", 8, 2, sensorList2);
+        Room room3 = new Room("room1", 19, 23456789, sensorList2);
+        Room room4 = new Room("room2", 8, 2, sensorList2);
         Device d1 = new Device("aspirador", "eletrodomestico", room2, new ReadingList(),20 );
         DeviceList deviceList = new DeviceList();
         deviceList.addDevices(d1);
         room2.setRoomDeviceList(deviceList);
-        roomList1.addRoom(room2);
         roomList1.addRoom(room1);
-        RoomList roomListGrid = new RoomList();
-        eg1.setListOfRooms(roomList1);
+        roomList1.addRoom(room2);
+        roomList2.addRoom(room3);
+        roomList2.addRoom(room4);
+        eg1.setListOfRooms(roomList2);
 
         //TEST GEOGRAPHIC AREAS
         GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
@@ -269,9 +273,10 @@ public class MainUI {
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
                     "19. List the rooms on Energy Grid\n",
-                    "20. Remove a Room from an Energy Grid\n",
-                    "21. Room Configuration.\n",
-                    "22. House Monitoring.\n"};
+                    "20. Add a Room to the Energy Grid\n",
+                    "21. Remove a Room from an Energy Grid\n",
+                    "22. Room Configuration.\n",
+                    "23. House Monitoring.\n"};
 
             System.out.println("Select the task you want to do:");
 
@@ -392,18 +397,24 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 20:
+                        HouseConfigurationUI view147 = new HouseConfigurationUI();
+                        view147.runUS147(mGeographicAreaList);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = true;
+                        break;
+                    case 21:
                         HouseConfigurationUI view149 = new HouseConfigurationUI();
                         view149.runUS149(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                    case 21:
+                    case 22:
                         RoomConfigurationUI viewRC = new RoomConfigurationUI();
                         viewRC.run(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                    case 22:
+                    case 23:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
                         houseM.run(geographical_area_list, roomList);
                         returnToMenu(enterToReturnToConsole);
