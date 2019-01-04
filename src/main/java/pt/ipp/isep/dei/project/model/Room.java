@@ -150,7 +150,7 @@ public class Room {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mRoomName);
+        return 1;
     }
 }
 
