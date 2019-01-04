@@ -47,6 +47,7 @@ class HouseConfigurationUI {
     }
 
     private boolean getInputTypeAreaName() {
+        Scanner mScanner = new Scanner(System.in);
         System.out.println("Please type the name of the Geographic Area Type Where: ");
         this.mTypeAreaName = mScanner.nextLine();
         return (!(this.mTypeAreaName.equals("exit")));
@@ -221,6 +222,7 @@ class HouseConfigurationUI {
     }
 
     private boolean getInputHouseName() {
+        Scanner mScanner = new Scanner(System.in);
         System.out.println("Please type the name of the House you want to access.");
         this.mHouseName = mScanner.nextLine();
         return (!(mHouseName.equals("exit")));
@@ -279,6 +281,7 @@ class HouseConfigurationUI {
     }
 
     private int readInputNumberAsInt() {
+        Scanner mScanner = new Scanner(System.in);
         while (!mScanner.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
             mScanner.next();
@@ -344,6 +347,7 @@ class HouseConfigurationUI {
     }
 
     private boolean getInputGridName() {
+        Scanner mScanner = new Scanner(System.in);
         System.out.println("Please type the name of the Grid you want to access.");
         this.mGridName = mScanner.nextLine();
         return (!(mGridName.equals("exit")));
@@ -419,6 +423,7 @@ class HouseConfigurationUI {
     }
 
     private boolean getInputRoomName() {
+        Scanner mScanner = new Scanner(System.in);
         System.out.println("Please type the name of the Room you want to access.");
         this.mRoomName = mScanner.nextLine();
         return (!(this.mRoomName.equals("exit")));
@@ -1068,7 +1073,7 @@ class HouseConfigurationUI {
 
 
     void runUS101(GeographicAreaList list) {
-        this.mScanner = new Scanner(System.in);
+        Scanner mScanner = new Scanner(System.in);
         this.controller = new HouseConfigurationController();
         if (list == null || list.getGeographicAreaList().isEmpty()) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
@@ -1139,13 +1144,12 @@ class HouseConfigurationUI {
      * US 105UI
      */
 
-    private Scanner mScanner = new Scanner(System.in);
     private String mRoomName;
     private int mRoomHouseFloor;
     private double mRoomDimensions;
 
     void runUS105(GeographicAreaList gaList) {
-        this.mScanner = new Scanner(System.in);
+        Scanner mScanner = new Scanner(System.in);
         this.controller = new HouseConfigurationController();
         getInputRoomCharacteristics();
         updateInputRoom();
@@ -1186,6 +1190,7 @@ class HouseConfigurationUI {
     }
 
     private boolean getInputGeographicAreaName() {
+        Scanner mScanner = new Scanner(System.in);
         System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
         this.geoName = mScanner.nextLine();
         return (!(geoName.equals("exit")));
@@ -1231,7 +1236,7 @@ class HouseConfigurationUI {
     private Room mRoom;
 
     void runUS108UI(GeographicAreaList newGeoListUi) {
-        this.mScanner = new Scanner(System.in);
+        Scanner mScanner = new Scanner(System.in);
         this.controller = new HouseConfigurationController();
 
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
