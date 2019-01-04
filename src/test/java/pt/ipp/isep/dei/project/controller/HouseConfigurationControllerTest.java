@@ -1380,7 +1380,7 @@ class HouseConfigurationControllerTest {
         Integer i = 1;
         list.add(i);
         String result = ctrl.printRoomElementsByIndex(list, house1);
-        String expectedResult = "1) room1, 19, 2.3456789E7.\n";
+        String expectedResult = "1) kitchen, 8, 2.0.\n";
         //Assert ---------------------------------
         Assertions.assertEquals(expectedResult, result);
     }

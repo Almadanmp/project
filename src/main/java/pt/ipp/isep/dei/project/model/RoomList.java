@@ -89,7 +89,8 @@ public class RoomList {
     public String printElementsByIndex (List<Integer> indexes){
         String result = "";
         for (int i = 0; i < indexes.size(); i++){
-            result += indexes.get(i) + ") " + mRoomList.get(i).getRoomName() + ", " + mRoomList.get(i).getHouseFloor() + ", " + mRoomList.get(i).getRoomDimensions() + ".\n";
+            int pos = indexes.get(i);
+            result += indexes.get(i) + ") " + mRoomList.get(pos).getRoomName() + ", " + mRoomList.get(pos).getHouseFloor() + ", " + mRoomList.get(pos).getRoomDimensions() + ".\n";
         }
         return result;
     }
