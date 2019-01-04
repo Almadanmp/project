@@ -31,8 +31,12 @@ public class EnergyGridListTest {
 
     @Test
     public void ensureThatAObjectIsAInstanceOf() {
-        PowerSourceList pList1 = new PowerSourceList();
-        PowerSourceList pList2 = new PowerSourceList();
+        EnergyGridList pList1 = new EnergyGridList();
+        EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
+        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        EnergyGridList pList2 = new EnergyGridList();
+        EnergyGrid energyGrid2 = new EnergyGrid("Grid", 0);
+        pList2.addEnergyGridToEnergyGridList(energyGrid2);
         Boolean expectedResult = true;
 
         Boolean actualResult = pList1.equals(pList2);

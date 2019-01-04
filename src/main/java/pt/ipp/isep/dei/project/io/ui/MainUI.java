@@ -158,9 +158,9 @@ public class MainUI {
         HouseList Rooms = new HouseList();
         Rooms.addHouseToHouseList(house);
         ISEP.setHouseList(Rooms);
-        SensorList roomASList = new SensorList();
-        roomASList.addSensor(sensor_a);
-        room_a.setRoomSensorList(roomASList);
+        SensorList roomBSList = new SensorList();
+        roomBSList.addSensor(sensor_a);
+        room_b.setRoomSensorList(roomBSList);
 
         ReadingList readingList_b = new ReadingList();
         Reading reading26 = new Reading(0.5, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 29).getTime());
@@ -226,6 +226,14 @@ public class MainUI {
         geographical_area_list.addGeographicAreaToGeographicAreaList(ISEP);
         geographical_area_list.addGeographicAreaToGeographicAreaList(Porto);
 
+        EnergyGrid mainGrid = new EnergyGrid("main grid",0);
+        EnergyGridList grid_list = new EnergyGridList();
+        mainGrid.addRoomToAEnergyGrid(room_a);
+        mainGrid.addRoomToAEnergyGrid(room_b);
+        mainGrid.addRoomToAEnergyGrid(room_c);
+        grid_list.addEnergyGridToEnergyGridList(mainGrid);
+        house.setmEGList(grid_list);
+
         //MAIN CODE
 
         Scanner enterToReturnToConsole = new Scanner(System.in);
@@ -258,10 +266,9 @@ public class MainUI {
                     "17. Get Current Temperature in a House Area.\n",
                     "18. Change Room Settings.\n",
                     "19. List the rooms on Energy Grid\n",
-                    "20. Add a Room to the Energy Grid\n",
-                    "21. Remove a Room from an Energy Grid\n",
-                    "22. Room Configuration.\n",
-                    "23. House Monitoring.\n"};
+                    "20. Remove a Room from an Energy Grid\n",
+                    "21. Room Configuration.\n",
+                    "22. House Monitoring.\n"};
 
             System.out.println("Select the task you want to do:");
 
@@ -382,24 +389,18 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 20:
-                        HouseConfigurationUI view147 = new HouseConfigurationUI();
-                        view147.runUS147(mGeographicAreaList);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 21:
                         HouseConfigurationUI view149 = new HouseConfigurationUI();
                         view149.runUS149(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                    case 22:
+                    case 21:
                         RoomConfigurationUI viewRC = new RoomConfigurationUI();
                         viewRC.run(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                    case 23:
+                    case 22:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
                         houseM.run(geographical_area_list, roomList);
                         returnToMenu(enterToReturnToConsole);
