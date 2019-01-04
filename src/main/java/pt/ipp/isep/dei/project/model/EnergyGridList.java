@@ -19,6 +19,7 @@ public class EnergyGridList {
         }
         return false;
     }
+
     public EnergyGrid matchEnergyGrid(String gridToMatch){
         for (EnergyGrid g: mEnergyGridList){
             if (g.getName().equals(gridToMatch)){
