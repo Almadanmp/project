@@ -84,7 +84,7 @@ public class EnergyGrid {
         this.mName = mName;
     }
 
-    boolean addRoomToAEnergyGrid(Room room) {
+    public boolean addRoomToAEnergyGrid(Room room) {
         if (this.mListOfRooms.addRoom(room)) {
             return true;
         } else {
