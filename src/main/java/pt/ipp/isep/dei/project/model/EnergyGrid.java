@@ -1,12 +1,11 @@
 package pt.ipp.isep.dei.project.model;
 
-
 import java.util.Objects;
 
 public class EnergyGrid {
     private String mName;
-    private RoomList mListOfRooms;
     private double mMaxPower = 0;
+    private RoomList mListOfRooms;
     private PowerSourceList mListPowerSources;
     private DeviceList mListDevices;
 
@@ -52,9 +51,12 @@ public class EnergyGrid {
         return sum;
     }
 
-
     public PowerSourceList getmListPowerSources() {
         return mListPowerSources;
+    }
+
+    public void setListPowerSources(PowerSourceList mListPowerSources) {
+        this.mListPowerSources = mListPowerSources;
     }
 
     void setListDevices(DeviceList mListDevices) {
@@ -63,10 +65,6 @@ public class EnergyGrid {
 
     public void setListOfRooms(RoomList mListOfRooms) {
         this.mListOfRooms = mListOfRooms;
-    }
-
-    public void setListPowerSources(PowerSourceList mListPowerSources) {
-        this.mListPowerSources = mListPowerSources;
     }
 
     public boolean addPowerSource(PowerSource powerSource) {
@@ -92,12 +90,12 @@ public class EnergyGrid {
         }
     }
 
-    public String printGrid(){
+    public String printGrid() {
         return "Energy Grid: " + this.mName + ", Max Power: " + this.getMaxPower();
     }
 
-    public boolean removeRoom(Room room){
-        if(this.mListOfRooms.getListOfRooms().contains(room)){
+    public boolean removeRoom(Room room) {
+        if (this.mListOfRooms.getListOfRooms().contains(room)) {
             this.mListOfRooms.getListOfRooms().remove(room);
             return true;
         }
