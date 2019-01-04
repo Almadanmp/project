@@ -314,30 +314,31 @@ class HouseConfigurationUI {
     }
 
     private boolean getGridByName(){
-        List<Integer> listOfIndexesGrids = this.controller.matchGridIndexByString(mGridName, mHouse);
+        HouseConfigurationController controller = new HouseConfigurationController();
+        List<Integer> listOfIndexesGrids = controller.matchGridIndexByString(mGridName, mHouse);
         while (listOfIndexesGrids.isEmpty()) {
             System.out.println("There is no EnergyGrid with that name. Please insert the name of a Grid" +
                     " that exists or  Type 'exit' to cancel and create a new Grid on the Main Menu.");
             if (!getInputGridName()) {
                 return false;
             }
-            listOfIndexesGrids = this.controller.matchGridIndexByString(mGridName, mHouse);
+            listOfIndexesGrids = controller.matchGridIndexByString(mGridName, mHouse);
         }
         if (listOfIndexesGrids.size() > 1) {
             System.out.println("There are multiple Energy Grids with that name. Please choose the right one.");
-            System.out.println(this.controller.printEnergyGridByIndex(listOfIndexesGrids));
+            System.out.println(controller.printEnergyGridByIndex(listOfIndexesGrids));
             int aux = readInputNumberAsInt();
             if (listOfIndexesGrids.contains(aux)) {
                 this.mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(aux);
                 System.out.println("You have chosen the following grid:");
-                System.out.println(this.controller.printEnergyGrid(mEnergyGrid));
+                System.out.println(controller.printEnergyGrid(mEnergyGrid));
             } else {
                 System.out.println(INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following grid:");
             this.mEnergyGrid = mHouse.getmEGList().getEnergyGridList().get(0);
-            System.out.println(this.controller.printEnergyGrid(mEnergyGrid));
+            System.out.println(controller.printEnergyGrid(mEnergyGrid));
         }
         return true;
     }
