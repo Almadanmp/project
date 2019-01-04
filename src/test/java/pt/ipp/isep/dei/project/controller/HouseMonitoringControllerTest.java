@@ -809,7 +809,7 @@ public class HouseMonitoringControllerTest {
         list.add(i);
         String result = ctrl.printHouseElementsByIndex(list, geoa1);
         //Assert ---------------------------------
-        String expectedResult = "1) house2, Address2, 3456-123.\n";
+        String expectedResult = "1) house3, Address3, 3555-555.\n";
         assertEquals(expectedResult, result);
     }
 
@@ -881,8 +881,10 @@ public class HouseMonitoringControllerTest {
         house1.setmRoomList(roomList1);
         Room room1 = new Room("room1", 19, 23456789);
         Room room2 = new Room("kitchen", 8, 2);
+        Room room3 = new Room("room1", 8, 2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
+        roomList1.addRoom(room3);
         //Act ------------------------------------
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
