@@ -480,11 +480,14 @@ public class HouseConfigurationController {
 
     /**
      * US145
-     *
      */
 
     public HouseConfigurationController (Room room){
         this.mRoom = room;
+    }
+
+    public HouseConfigurationController (EnergyGridList energyGridList){
+        this.mEnergyGridList = energyGridList;
     }
 
     public List<Integer> matchGridIndexByString(String gridName, House house){
@@ -506,6 +509,10 @@ public class HouseConfigurationController {
     public String printRooms (RoomList roomList){
         return roomList.printRooms();
     }
+
+    /**
+     * US149
+     */
 
     public boolean removeRoomFromGrid(EnergyGrid grid, Room room) {
         return grid.removeRoom(room);

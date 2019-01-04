@@ -1132,4 +1132,118 @@ class HouseConfigurationControllerTest {
         String result = US101.printGA(gA1);
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void seeIfIndexIsMatchedByString(){
+        House house = new House("Casa",new Local(45,50),"4535");
+        Room room = new Room("Quarto", 1, 20);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
+        EnergyGrid energyGrid2 = new EnergyGrid("EG2",200);
+        RoomList roomList = new RoomList();
+        EnergyGridList energyGridList = new EnergyGridList();
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
+        roomList.addRoom(room);
+        house.setmRoomList(roomList);
+        house.setmEGList(energyGridList);
+        HouseConfigurationController ctrlUS145 = new HouseConfigurationController(room);
+        List<Integer> result = ctrlUS145.matchGridIndexByString("EG2",house);
+        List<Integer> expectedResult = new ArrayList<>();
+        expectedResult.add(1);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfEnergyGridIsPrintedByIndex(){
+        House house = new House("Casa",new Local(45,50),"4535");
+        Room room = new Room("Quarto", 1, 20);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
+        EnergyGrid energyGrid2 = new EnergyGrid("EG2",200);
+        RoomList roomList = new RoomList();
+        EnergyGridList energyGridList = new EnergyGridList();
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
+        roomList.addRoom(room);
+        house.setmRoomList(roomList);
+        house.setmEGList(energyGridList);
+        HouseConfigurationController ctrlUS145 = new HouseConfigurationController(energyGridList);
+        List<Integer> list = ctrlUS145.matchGridIndexByString("EG1", house);
+        String actualResult = ctrlUS145.printEnergyGridByIndex(list);
+        String expectedResult = "0) EG1, 400.0, null.\n";
+        assertEquals(expectedResult,actualResult);
+
+    }
+
+    @Test
+    void seeIfEnergyGridPrints(){
+        House house = new House("Casa",new Local(45,50),"4535");
+        Room room = new Room("Quarto", 1, 20);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
+        RoomList roomList = new RoomList();
+        EnergyGridList energyGridList = new EnergyGridList();
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        roomList.addRoom(room);
+        house.setmRoomList(roomList);
+        house.setmEGList(energyGridList);
+        HouseConfigurationController ctrlUS145 = new HouseConfigurationController(room);
+        String result = ctrlUS145.printEnergyGrid(energyGrid1);
+        String expectedResult = "Energy Grid: EG1, Max Power: 400.0";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void seeIfGridListPrints(){
+        House house = new House("Casa",new Local(45,50),"4535");
+        Room room = new Room("Quarto", 1, 20);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
+        RoomList roomList = new RoomList();
+        EnergyGridList energyGridList = new EnergyGridList();
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        roomList.addRoom(room);
+        house.setmRoomList(roomList);
+        house.setmEGList(energyGridList);
+        HouseConfigurationController ctrlUS145 = new HouseConfigurationController(room);
+        String result = ctrlUS145.printGridList(house);
+        String expectedResult = "---------------\n" +
+                "0) Designation: EG1 | Max Power: 400.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfRoomsPrint(){
+        House house = new House("Casa",new Local(45,50),"4535");
+        Room room = new Room("Quarto", 1, 20);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
+        RoomList roomList = new RoomList();
+        EnergyGridList energyGridList = new EnergyGridList();
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        roomList.addRoom(room);
+        house.setmRoomList(roomList);
+        house.setmEGList(energyGridList);
+        HouseConfigurationController ctrlUS145 = new HouseConfigurationController(room);
+        String result = ctrlUS145.printRooms(roomList);
+        String expectedResult = "---------------\n" +
+                "0) Designation: Quarto | House Floor: 1 | Dimensions: 20.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfRoomIsRemovedFromGrid(){
+        House house = new House("Casa",new Local(45,50),"4535");
+        Room room = new Room("Quarto", 1, 20);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1",400);
+        EnergyGrid energyGrid2 = new EnergyGrid("EG2",200);
+        RoomList roomList = new RoomList();
+        EnergyGridList energyGridList = new EnergyGridList();
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
+        roomList.addRoom(room);
+        energyGrid1.setListOfRooms(roomList);
+        house.setmEGList(energyGridList);
+        HouseConfigurationController ctrlUS145 = new HouseConfigurationController(room);
+        boolean result = ctrlUS145.removeRoomFromGrid(energyGrid1,room);
+        assertTrue(result);
+    }
 }

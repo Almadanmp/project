@@ -93,13 +93,12 @@ public class EnergyGrid {
     }
 
     public String printGrid(){
-        return "Energy Grid: " + this.mName + ", Max Power: " + this.getTotalPower();
+        return "Energy Grid: " + this.mName + ", Max Power: " + this.getMaxPower();
     }
 
     public boolean removeRoom(Room room){
         if(this.mListOfRooms.getListOfRooms().contains(room)){
             this.mListOfRooms.getListOfRooms().remove(room);
-            this.mMaxPower = this.mMaxPower - room.getmRoomDeviceList().getSumDevicesConsumption();
             return true;
         }
         return false;

@@ -60,7 +60,7 @@ public class EnergyGridList {
     public String printElementsByIndex (List<Integer> indexes){
         String result = "";
         for (int i = 0; i < indexes.size(); i++){
-            result += indexes.get(i) + ") " + mEnergyGridList.get(i).getName() + ", " + mEnergyGridList.get(i).getTotalPower() + ", " + mEnergyGridList.get(i).getmListPowerSources() + ".\n";
+            result += indexes.get(i) + ") " + mEnergyGridList.get(i).getName() + ", " + mEnergyGridList.get(i).getMaxPower() + ", " + mEnergyGridList.get(i).getmListPowerSources() + ".\n";
         }
         return result;
     }
