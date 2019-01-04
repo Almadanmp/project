@@ -1,0 +1,8 @@
+@startuml
+actor Admin
+participant "eg1:EnergyGrid"
+
+Admin -> MainUI: Create an Energy Grid
+MainUI -> HouseConfigurationUI: Create an Energy Grid
+HouseConfigurationUI --> Admin: Request House (by name or index)
+@enduml

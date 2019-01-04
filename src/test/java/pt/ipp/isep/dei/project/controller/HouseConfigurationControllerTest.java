@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
@@ -516,6 +513,321 @@ class HouseConfigurationControllerTest {
 
     //USER STORY 006 TESTS
 
+    @Test
+     void seeIfLocalIsCreated() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        double lat = 50.0;
+        double lon = 50.0;
+        double alt = 50.0;
+        ctrl.createLocal(lat, lon, alt);
+        Local expectedResult = new Local(50, 50, 50);
+
+        //Act
+        Local actualResult = ctrl.getLocal();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfLocalIsCreated2() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        double lat = 500.0;
+        double lon = 500.0;
+        double alt = 500.0;
+        ctrl.createLocal(lat, lon, alt);
+        Local expectedResult = new Local(500, 500, 500);
+
+        //Act
+        Local actualResult = ctrl.getLocal();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfLocalIsCreated3() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        double lat = -50.0;
+        double lon = -50.0;
+        double alt = -50.0;
+        ctrl.createLocal(lat, lon, alt);
+        Local expectedResult = new Local(-50, -50, -50);
+
+        //Act
+        Local actualResult = ctrl.getLocal();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfTypeIsCreated() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String typeString = "Humedade";
+        ctrl.createType(typeString);
+        TypeSensor expectedResult = new TypeSensor("Humedade");
+
+        //Act
+        TypeSensor actualResult = ctrl.getType();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfTypeIsCreated2() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String typeString = "Humedade";
+        ctrl.createType(typeString);
+        TypeSensor expectedResult = new TypeSensor(typeString);
+
+        //Act
+        TypeSensor actualResult = ctrl.getType();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfDateIsCreated() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        int year = 1989;
+        int month = 7;
+        int day = 12;
+        ctrl.createDate(year, month, day);
+        Date expectedResult = new GregorianCalendar(1989, 7, 12).getTime();
+
+        //Act
+        Date actualResult = ctrl.getDate();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSensorIsCreated() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String nameString = "XV-56D";
+        double lat = 50.0;
+        double lon = 50.0;
+        double alt = 50.0;
+        Local loc1 = ctrl.createLocal(lat, lon, alt);
+        String typeStr = "Humedade";
+        TypeSensor type1 = ctrl.createType(typeStr);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year, month, day);
+        ctrl.createSensor(nameString, type1, loc1, date1);
+        TypeSensor t1 = new TypeSensor("Humedade");
+        Sensor expectedResult = new Sensor("XV-56D", t1, loc1, new GregorianCalendar(2018, 8, 9).getTime());
+
+        //Act
+        Sensor actualResult = ctrl.createSensor(nameString, type1, loc1, date1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSensorIsCreatedAndGetSensor() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String nameString = "XV-56D";
+        double lat = 50.0;
+        double lon = 50.0;
+        double alt = 50.0;
+        Local loc1 = ctrl.createLocal(lat, lon, alt);
+        String typeStr = "Humedade";
+        TypeSensor type1 = ctrl.createType(typeStr);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year, month, day);
+        ctrl.createSensor(nameString, type1, loc1, date1);
+        TypeSensor t1 = new TypeSensor("Humedade");
+        Sensor expectedResult = new Sensor("XV-56D", t1, loc1, new GregorianCalendar(2018, 8, 9).getTime());
+
+        //Act
+        Sensor actualResult = ctrl.getSensor();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSensorIsAddedToSensorList() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String nameString = "XV-56D";
+        double lat = 50.0;
+        double lon = 50.0;
+        double alt = 50.0;
+        Local loc1 = ctrl.createLocal(lat, lon, alt);
+        String typeStr = "Humedade";
+        TypeSensor type1 = ctrl.createType(typeStr);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year, month, day);
+        Sensor sens1 = ctrl.createSensor(nameString, type1, loc1, date1);
+        SensorList xSensorList = new SensorList();
+
+        //Act
+        boolean actualResult = ctrl.addSensor(sens1, xSensorList);
+
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfSensorIsNotAddedToSensorList() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String nameString = "XV-56D";
+        double lat = 50.0;
+        double lon = 50.0;
+        double alt = 50.0;
+        Local loc1 = ctrl.createLocal(lat, lon, alt);
+        String typeStr = "Humedade";
+        TypeSensor type1 = ctrl.createType(typeStr);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year, month, day);
+        Sensor sens1 = ctrl.createSensor(nameString, type1, loc1, date1);
+        SensorList xSensorList = new SensorList();
+        xSensorList.addSensor(sens1);
+
+        //Act
+        boolean actualResult = ctrl.addSensor(sens1, xSensorList);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfSensorListIsAddedToGeographicArea() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String nameString = "XV-56D";
+        double lat = 50.0;
+        double lon = 50.0;
+        double alt = 50.0;
+        Local loc1 = ctrl.createLocal(lat, lon, alt);
+        String typeStr = "Humedade";
+        TypeSensor type1 = ctrl.createType(typeStr);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year, month, day);
+        Sensor sens1 = ctrl.createSensor(nameString, type1, loc1, date1);
+        SensorList xSensorList = new SensorList();
+        xSensorList.addSensor(sens1);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea areaG = new GeographicArea(t1, l1);
+        areaG.setName("Alegria");
+
+        String areaNameInput = "Alegria";
+        GeographicAreaList xgaList = new GeographicAreaList();
+        xgaList.addGeographicAreaToGeographicAreaList(areaG);
+
+        //Act
+        boolean actualResult = ctrl.addSensorToGeographicArea(areaNameInput, xgaList, xSensorList);
+
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfSensorListIsAddedToGeographicAreaFalse() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String nameString = "XV-56D";
+        double lat = 50.0;
+        double lon = 50.0;
+        double alt = 50.0;
+        Local loc1 = ctrl.createLocal(lat, lon, alt);
+        String typeStr = "Humedade";
+        TypeSensor type1 = ctrl.createType(typeStr);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year, month, day);
+        Sensor sens1 = ctrl.createSensor(nameString, type1, loc1, date1);
+        SensorList xSensorList = new SensorList();
+        xSensorList.addSensor(sens1);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea areaG = new GeographicArea(t1, l1);
+        areaG.setName("Alegria");
+
+        String areaNameInput = "Direita";
+        GeographicAreaList xgaList = new GeographicAreaList();
+        xgaList.addGeographicAreaToGeographicAreaList(areaG);
+
+        //Act
+        boolean actualResult = ctrl.addSensorToGeographicArea(areaNameInput, xgaList, xSensorList);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfSensorListIsAddedToGeographicAreaEmptyList() {
+
+        //Arrange
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        String nameString = "XV-56D";
+        double lat = 50.0;
+        double lon = 50.0;
+        double alt = 50.0;
+        Local loc1 = ctrl.createLocal(lat, lon, alt);
+        String typeStr = "Humedade";
+        TypeSensor type1 = ctrl.createType(typeStr);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year, month, day);
+        Sensor sens1 = ctrl.createSensor(nameString, type1, loc1, date1);
+        SensorList xSensorList = new SensorList();
+        xSensorList.addSensor(sens1);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7);
+        GeographicArea areaG = new GeographicArea(t1, l1);
+        areaG.setName("Alegria");
+
+        String areaNameInput = "Alegria";
+        GeographicAreaList xgaList = new GeographicAreaList();
+
+        //Act
+        boolean actualResult = ctrl.addSensorToGeographicArea(areaNameInput, xgaList, xSensorList);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
     //USER STORY 007 TESTS
 
     @Test
@@ -766,7 +1078,7 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    void seeIfsetHouseAddress() {
+    void seeIfSetHouseAddress() {
 
         HouseConfigurationController ctrl = new HouseConfigurationController();
         String address = "rua da rua 345";
@@ -776,19 +1088,16 @@ class HouseConfigurationControllerTest {
         Local local = new Local(latitude, longitude);
         House house = new House(address, local, zipCode);
         HouseList houseList = new HouseList(house);
-        houseList.getHouseList().get(0);
-
         houseList.addHouseToHouseList(house);
         ctrl.setHouseList(houseList);
         ctrl.setHouseAddress("rua da rua", house);
         String result = houseList.getHouseList().get(0).getmAddress();
-
         assertEquals("rua da rua", result);
     }
 
 
     @Test
-    void seeIfsetHouseZipCode() {
+    void seeIfSetHouseZipCode() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         String address = "rua da rua 345";
         String zipCode = "4450";
@@ -797,20 +1106,17 @@ class HouseConfigurationControllerTest {
         Local local = new Local(latitude, longitude);
         House house = new House(address, local, zipCode);
         HouseList houseList = new HouseList(house);
-        houseList.getHouseList().get(0);
-
         houseList.addHouseToHouseList(house);
         ctrl.setHouseList(houseList);
         ctrl.setHouseZIPCode("6789", house);
         String result = houseList.getHouseList().get(0).getmZipCode();
-
         assertEquals("6789", result);
 
 
     }
 
     @Test
-    void seeIfsetHouseGPS() {
+    void seeIfSetHouseGPS() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         String address = "rua da rua 345";
         String zipCode = "4450";
@@ -819,14 +1125,11 @@ class HouseConfigurationControllerTest {
         Local local = new Local(latitude, longitude);
         House house = new House(address, local, zipCode);
         HouseList houseList = new HouseList(house);
-        houseList.getHouseList().get(0);
-
         houseList.addHouseToHouseList(house);
         ctrl.setHouseList(houseList);
         ctrl.setHouseLocal(39, 8, house);
         Local result = houseList.getHouseList().get(0).getmGPS();
         Local localExpected = new Local(39, 8);
-
         assertEquals(localExpected, result);
     }
 
@@ -863,11 +1166,9 @@ class HouseConfigurationControllerTest {
         GeographicArea gA2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(gA1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(gA2);
-
         //Act
         List<Integer> result = ctrl.matchGeographicAreaIndexByString("lisboa", mGeographicAreaList);
         List<Integer> expectedResult = Collections.singletonList(mGeographicAreaList.getGeographicAreaList().indexOf(gA2));
-
         //Assert
         assertEquals(expectedResult, result);
     }
@@ -1385,6 +1686,8 @@ class HouseConfigurationControllerTest {
         assertEquals(expectedResult, result);
     }
 
+    //USER STORY 145
+
     @Test
     void seeIfIndexIsMatchedByString() {
         House house = new House("Casa", new Local(45, 50), "4535");
@@ -1480,6 +1783,8 @@ class HouseConfigurationControllerTest {
                 "---------------\n";
         assertEquals(expectedResult, result);
     }
+
+    //USER STORY 149
 
     @Test
     void seeIfRoomIsRemovedFromGrid() {
