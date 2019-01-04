@@ -256,4 +256,6 @@ public class RoomListTest {
         int actualResult = roomList1.hashCode();
         Assertions.assertEquals(expectedResult,actualResult);
     }
+
+
 }
