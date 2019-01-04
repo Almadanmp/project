@@ -1,9 +1,13 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.junit.jupiter.api.Assertions;
 import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -115,5 +119,118 @@ public class RoomConfigurationControllerTest {
         boolean actualResult = crl.doesSensorListInAGeoAreaContainASensorByName("Vento",glist1);
         //Assert
         assertTrue(actualResult);
+    }
+    @Test
+    public void seeIfPrintRoomElementsByIndex() {
+        //Arrange --------------------------------
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("house2", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1;
+        roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act ------------------------------------
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        String result = ctrl.printRoomElementsByIndex(list, house1);
+        String expectedResult = "1) room1, 19, 2.3456789E7.\n";
+        //Assert ---------------------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
+    @Test
+    public void seeIfMatchRoomIndexByString() {
+        //Arrange -----------------------------
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("house2", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act ---------------------------------
+        List<Integer> result = ctrl.matchRoomIndexByString("kitchen", house1);
+        List<Integer> expectedResult = new ArrayList<>();
+        Integer i = 1;
+        expectedResult.add(i);
+        //Assert ------------------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
+    @Test
+    public void seeIfPrintRoomWorks() {
+        //Arrange ---------------------
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act -------------------------
+        String result = ctrl.printRoom(room2);
+        String expectedResult = "kitchen, 8, 2.0.\n";
+        //Assert ----------------------
+        Assertions.assertEquals(expectedResult, result);
+    }
+    @Test
+    public void seeIfPrintRoomListWork() {
+        //Arrange ------------------------
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        roomList1.addRoom(room1);
+        roomList1.addRoom(room2);
+        //Act ----------------------------
+        String result = ctrl.printRoomList(house1);
+        String expectedResult = "---------------\n" +
+                "0) Designation: room1 | House Floor: 19 | Dimensions: 2.3456789E7\n" +
+                "1) Designation: kitchen | House Floor: 8 | Dimensions: 2.0\n" +
+                "---------------\n";
+        //Assert -------------------------
+        Assertions.assertEquals(expectedResult, result);
     }
 }
