@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class TypeAreaList {
 
         for (int i = 0; i < typeAreaList.getTypeAreaList().size(); i++) {
             TypeArea aux = typeAreaList.getTypeAreaList().get(i);
-            result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" | \n");
+            result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" \n");
         }
         result.append("---------------\n");
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method

@@ -174,6 +174,6 @@ public class TypeAreaTest {
     public void seeIfPrintTypeGA(){
         TypeArea a1 = new TypeArea("Humidade");
         String result = a1.printTypeGeographicArea();
-        Assertions.assertEquals("Type Area: Humidade", result);
+        Assertions.assertEquals("Type Area: Humidade\n", result);
     }
 }

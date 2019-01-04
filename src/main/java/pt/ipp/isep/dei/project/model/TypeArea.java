@@ -17,7 +17,7 @@ public class TypeArea {
 
     public String printTypeGeographicArea() {
         String result;
-        result = "Type Area: " + this.mTypeDesignation;
+        result = "Type Area: " + this.mTypeDesignation + "\n";
         return result;
     }
 
