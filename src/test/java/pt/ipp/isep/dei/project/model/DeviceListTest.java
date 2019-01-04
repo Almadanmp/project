@@ -167,7 +167,7 @@ public class DeviceListTest {
     }
 
     @Test
-    public void ensureThatAObjectIsAInstanceOf() {
+    public void ensureTha1tAObjectIsAInstanceOf() {
         //Arrange --------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
