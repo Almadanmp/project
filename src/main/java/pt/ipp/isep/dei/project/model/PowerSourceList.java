@@ -24,6 +24,16 @@ public class PowerSourceList {
         return mPowerSourceList.contains(powerSource);
     }
 
+    public boolean addPowerSource(PowerSource powerSource) {
+        if (!(mPowerSourceList.contains(powerSource))) {
+            mPowerSourceList.add(powerSource);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     /**
      * Getter (array of PowerSources)
      *
