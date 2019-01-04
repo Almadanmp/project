@@ -13,7 +13,7 @@ public class RoomConfigurationUI {
     private GeographicArea mGeoArea;
     private String geoName;
     private RoomConfigurationController mRoomConfigurationController;
-    private HouseMonitoringController mHouseMonitoringcontroller;
+    private HouseMonitoringController mHouseMonitoringController;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private Room mRoom;
     private Sensor mSensor;
@@ -28,7 +28,7 @@ public class RoomConfigurationUI {
     public RoomConfigurationUI() {
         this.mScanner = new Scanner(System.in);
         this.mRoomConfigurationController = new RoomConfigurationController();
-        this.mHouseMonitoringcontroller = new HouseMonitoringController();
+        this.mHouseMonitoringController = new HouseMonitoringController();
     }
 
     public void run(GeographicAreaList newGeoListUi) {
@@ -106,7 +106,7 @@ public class RoomConfigurationUI {
     }
 
     /******************************************************************************
-     ********************************** Room Input ********************************
+     ************************** Room Input Segment ********************************
      ******************************************************************************/
 
     private void getInputRoom() {
@@ -192,7 +192,7 @@ public class RoomConfigurationUI {
     }
 
     /******************************************************************************
-     ********************************** Sensor Input ******************************
+     ************************** Sensor Input Segment ******************************
      ******************************************************************************/
 
     private boolean getInputSensorName(GeographicAreaList newGeoListUi) {
@@ -210,7 +210,7 @@ public class RoomConfigurationUI {
     }
 
     /******************************************************************************
-     ******************************** Geo Area Input ******************************
+     ************************* Geo Area Input Segment******************************
      ******************************************************************************/
 
     private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
@@ -283,7 +283,7 @@ public class RoomConfigurationUI {
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
         while (!activeInput) {
-            mHouseMonitoringcontroller.printGAList(newGeoListUi);
+            mHouseMonitoringController.printGAList(newGeoListUi);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
                 this.mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
@@ -297,7 +297,7 @@ public class RoomConfigurationUI {
     }
 
     /******************************************************************************
-     ********************************* House Input ********************************
+     ************************* House Input Segment ********************************
      ******************************************************************************/
 
     private void getInputHouse() {
@@ -374,7 +374,7 @@ public class RoomConfigurationUI {
         boolean activeInput = false;
         System.out.println("Please select one of the existing houses on the selected geographic area: ");
         while (!activeInput) {
-            mHouseMonitoringcontroller.printHouseList(mGeoArea);
+            mHouseMonitoringController.printHouseList(mGeoArea);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
                 this.mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
