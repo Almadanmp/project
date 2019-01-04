@@ -177,28 +177,6 @@ public class GeographicAreaList {
     }
 
     /**
-     * @param name name of the GeographicArea to find in the list.
-     * @return return the GeographicArea whose name matches the name introduced.
-     */
-    public GeographicArea getGeographicAreaByName(String name) {
-        for (GeographicArea gA : mGeographicAreaList) {
-            if (gA.getName().equals(name)) {
-                return gA;
-            }
-        }
-        return null;
-    }
-    public boolean seeIfGeographicAreaByNameExists(String name) {
-        for (GeographicArea gA : mGeographicAreaList) {
-            if (gA.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
      * This method checks if the list exists
      *
      * @return
