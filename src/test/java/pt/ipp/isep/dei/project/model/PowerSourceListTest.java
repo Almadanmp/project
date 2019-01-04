@@ -35,20 +35,6 @@ public class PowerSourceListTest {
         assertFalse(actualResult);
     }
 
-    
-
-    @Test
-    public void seeIfContainsPowerSource() {
-    }
-
-    @Test
-    public void seeIfGetPowerSources() {
-
-    }
-
-    @Test
-    public void seeIfGetPowerSourceList() {
-    }
 
     @Test
     public void seeHashCodeDummyTest() {
@@ -98,7 +84,7 @@ public class PowerSourceListTest {
     }
 
     @Test
-    public void seeIfequalsSameObject() {
+    public void seeIfEqualsSameObject() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
         pSList1.addPowerSource(pS1);
