@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +15,13 @@ public class TypeAreaList {
      * @return
      */
     public String printTypeAreaList() {
-        String finalString = "\nArea Types List:\n";
+        StringBuilder finalString = new StringBuilder("\nArea Types List:\n");
         if(mTypeAreaList.isEmpty()) {
-            finalString = finalString + "\n|||| List is Empty ||||\nAdd types to list first";
+            finalString.append("\n|||| List is Empty ||||\nAdd types to list first");
         }
         else { for (TypeArea tipo : mTypeAreaList)
-            finalString = finalString + "\n" + "-" + tipo.getTypeOfGeographicArea() + ";";}
-        return finalString;
+            finalString.append("\n").append("-").append(tipo.getTypeOfGeographicArea()).append(";");}
+        return finalString.toString();
     }
 
     /**
@@ -64,17 +63,17 @@ public class TypeAreaList {
     }
 
     public String printGATypeElementsByIndex (List<Integer> indexes){
-        String result = "---------------\n";
+        StringBuilder result = new StringBuilder("---------------\n");
         for (int i = 0 ; i<indexes.size() ; i++ ) {
             int pos = indexes.get(i);
-            result = result + indexes.get(i) + ") " + mTypeAreaList.get(pos).printTypeGeographicArea();
+            result.append(indexes.get(i)).append(") ").append(mTypeAreaList.get(pos).printTypeGeographicArea());
         }
-        result = result + "---------------\n";
-        return result;
+        result.append("---------------\n");
+        return result.toString();
     }
 
     public String printGATypeWholeList(TypeAreaList typeAreaList) {
-        String result = "---------------\n";
+        StringBuilder result = new StringBuilder("---------------\n");
 
         if (typeAreaList.getTypeAreaList().isEmpty()){
             return "Invalid List - List is Empty\n";
@@ -82,11 +81,11 @@ public class TypeAreaList {
 
         for (int i = 0; i < typeAreaList.getTypeAreaList().size(); i++) {
             TypeArea aux = typeAreaList.getTypeAreaList().get(i);
-            result = result + i + ") Name: " + aux.getTypeOfGeographicArea() + " | \n";
+            result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" | \n");
         }
-        result = result + "---------------\n";
+        result.append("---------------\n");
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
-        return result;
+        return result.toString();
     }
 
     /**
