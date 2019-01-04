@@ -220,6 +220,9 @@ public class MainUI {
         areaSList.addSensor(sensor_c);
         areaSList.addSensor(sensor_b);
         ISEP.setSensorList(areaSList);
+        roomList.addRoom(room_a);
+        roomList.addRoom(room_b);
+        roomList.addRoom(room_c);
 
         GeographicArea Porto = new GeographicArea("City of Porto", new TypeArea("city"), new Local(41.164077, -8.620802, 118));
 
@@ -228,7 +231,7 @@ public class MainUI {
 
         EnergyGrid mainGrid = new EnergyGrid("main grid",0);
         EnergyGridList grid_list = new EnergyGridList();
-        mainGrid.addRoomToAEnergyGrid(room_a);
+        mainGrid.setListOfRooms(roomList);
         mainGrid.addRoomToAEnergyGrid(room_b);
         mainGrid.addRoomToAEnergyGrid(room_c);
         grid_list.addEnergyGridToEnergyGridList(mainGrid);
