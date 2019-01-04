@@ -111,6 +111,8 @@ public class MainUI {
 
         GeographicArea ISEP = new GeographicArea("Campus do ISEP", new TypeArea("urban area"), new Local(41.178553, -8.608035, 111));
         House house = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", new Local(41.177748, -8.607745,112), "4200-072");
+        RoomList roomList = new RoomList();
+        house.setmRoomList(roomList);
         Room room_a = new Room("B107", 1, 24.5);
         Room room_b = new Room("B109", 1, 24.5);
 
