@@ -121,6 +121,30 @@ public class RoomListTest {
     }
 
     @Test
+    public void seeIfPrintRoomListWorksForInvalid() {
+        //Arrange -----------------------------------
+        //Geo Area List
+        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
+        //House List
+        HouseList houseList1 = new HouseList();
+        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
+        geoa1.setHouseList(houseList1);
+        houseList1.addHouseToHouseList(house1);
+        //Room List
+        RoomList roomList1 = new RoomList();
+        house1.setmRoomList(roomList1);
+        Room room1 = new Room("room1", 19, 23456789);
+        Room room2 = new Room("kitchen", 8, 2);
+        //Act ---------------------------------------
+        String result = roomList1.printRoomList(house1);
+        String expectedResult = "Invalid List - List is Empty\n";
+        //Assert ------------------------------------
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     public void seeifmatchRoomWorks(){
         Room room = new Room("kitchen",1,1);
         Room room1 = new Room("sala",1,1);
@@ -202,11 +226,10 @@ public class RoomListTest {
         RoomList roomList2 = new RoomList();
         roomList2.addRoom(room1);
         roomList2.addRoom(room2);
-        Boolean expectedResult = true;
 
         Boolean actualResult = roomList1.equals(roomList2);
 
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -218,11 +241,10 @@ public class RoomListTest {
         roomList1.addRoom(room2);
         RoomList roomList2 = new RoomList();
         roomList2.addRoom(room1);
-        Boolean expectedResult = false;
 
         Boolean actualResult = roomList1.equals(roomList2);
 
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
