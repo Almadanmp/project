@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.model.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 class HouseConfigurationUI {
     private HouseConfigurationController controller;
