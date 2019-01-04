@@ -109,6 +109,22 @@ public class RoomList {
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
         return result;
     }
+    public String printRoomListOfEG(EnergyGrid energyGrid) {
+        String result = "---------------\n";
+        if (energyGrid.getmListOfRooms().getListOfRooms().isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < energyGrid.getmListOfRooms().getListOfRooms().size(); i++) {
+            Room aux = energyGrid.getmListOfRooms().getListOfRooms().get(i);
+            result = result + i + ") Designation: " + aux.getRoomName() + " | ";
+            result = result + "House Floor: " + aux.getHouseFloor() + " | ";
+            result = result + "Dimensions: " + aux.getRoomDimensions() + "\n";
+        }
+        result = result + "---------------\n";
+        System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
+        return result;
+    }
+
 
     public String printRooms() {
         String result = "---------------\n";

@@ -396,6 +396,9 @@ private RoomList mRoomList;
     public String printRoomList(House house) {
         return house.getmRoomList().printRoomList(house);
     }
+    public String printRoomListOfEG (EnergyGrid energyGrid){
+        return energyGrid.getmListOfRooms().printRoomListOfEG(energyGrid);
+    }
 
     public String printRoom (Room room){
         return room.printRoom();

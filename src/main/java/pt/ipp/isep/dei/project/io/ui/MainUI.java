@@ -392,7 +392,7 @@ public class MainUI {
                         break;
                     case 19:
                         HouseConfigurationUI view145 = new HouseConfigurationUI();
-                        view145.runUS145(geographical_area_list);
+                        view145.runUS145(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;

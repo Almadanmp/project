@@ -394,6 +394,29 @@ class HouseConfigurationUI {
                 break;
         }
     }
+    private void getInputRoomUS149() {
+        System.out.println(
+                "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
+                        "0) Return;");
+        int option = readInputNumberAsInt();
+        switch (option) {
+            case 1:
+                getInputRoomName();
+                if (!getRoomByName()) {
+                    System.out.println("Unable to select a Room. Returning to main menu.");
+                    return;
+                }
+                break;
+            case 2:
+                getInputRoomByListInEG();
+                break;
+            case 0:
+                return;
+            default:
+                System.out.println(INVALID_OPTION);
+                break;
+        }
+    }
 
     private boolean getInputRoomName() {
         System.out.println("Please type the name of the Room you want to access.");
@@ -446,6 +469,27 @@ class HouseConfigurationUI {
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mHouse.getmRoomList().getListOfRooms().size()) {
                 this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
+                activeInput = true;
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        }
+    }
+
+    private void getInputRoomByListInEG() {
+        if (mEnergyGrid.getmListOfRooms().getListOfRooms().size() == 0) {
+            System.out.print("Invalid Room List - List Is Empty\n");
+            return;
+        }
+        boolean activeInput = false;
+        System.out.println("Please select one of the existing rooms on the selected House: ");
+
+        while (!activeInput) {
+            HouseConfigurationController controller = new HouseConfigurationController();
+            controller.printRoomListOfEG(mEnergyGrid);
+            int aux = readInputNumberAsInt();
+            if (aux >= 0 && aux < mEnergyGrid.getmListOfRooms().getListOfRooms().size()) {
+                this.mRoom = mEnergyGrid.getmListOfRooms().getListOfRooms().get(aux);
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
@@ -1339,7 +1383,7 @@ class HouseConfigurationUI {
         getInputGeographicArea(list);
         getInputHouse(mGeoArea);
         getInputEnergyGrid();
-        getInputRoom();
+        getInputRoomUS149();
         if (updateStateEnergyGrid(mEnergyGrid, mRoom)){
             System.out.println("Room successfully removed from grid!");
         }
