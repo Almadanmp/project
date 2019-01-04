@@ -309,7 +309,7 @@ public class MainUI {
                         break;
                     case 4:
                         HouseConfigurationUI view4 = new HouseConfigurationUI();
-                        view4.runUS04(mTypeAreaList);
+                        view4.runUS04(mTypeAreaList, mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;

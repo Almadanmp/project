@@ -118,8 +118,13 @@ public class HouseConfigurationController {
     /**
      * Void Method to Set/Match a Geographic Area List with a Certain Type Area Given(String input).
      */
-    public void matchGeoAreaTypeWithInput(String input) {
-        mGeographicAreaList = this.mGeographicAreaList.matchGeographicAreaWithInputType(input);
+    public GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeArea typeArea) {
+        String typeAreaName = typeArea.getTypeOfGeographicArea();
+        return geographicAreaList.matchGeographicAreaWithInputType(typeAreaName);
+    }
+
+    public String getTypeAreaName(TypeArea typeArea) {
+        return typeArea.getTypeOfGeographicArea();
     }
 
     /**

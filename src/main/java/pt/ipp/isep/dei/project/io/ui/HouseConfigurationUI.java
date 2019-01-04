@@ -19,7 +19,7 @@ class HouseConfigurationUI {
     private void getInputTypeArea(TypeAreaList typeAreaList) {
         this.controller = new HouseConfigurationController(typeAreaList);
         System.out.println(
-                "We need to know what is the type of Geographic Area\n" + "Would you like to:\n" + "1)Type the Geographic Area Type name;\n" + "2) Choose it from a list;\n" +
+                "We need to know what is the type of Geographic Area you want.\n" + "Would you like to:\n" + "1)Type the Geographic Area Type name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
         boolean activeInput = false;
         while (!activeInput) {
@@ -49,11 +49,11 @@ class HouseConfigurationUI {
     private boolean getInputTypeAreaName() {
         System.out.println("Please type the name of the Geographic Area Type Where: ");
         this.mTypeAreaName = mScanner.nextLine();
-        return (!(mTypeAreaName.equals("exit")));
+        return (!(this.mTypeAreaName.equals("exit")));
     }
 
     private boolean getTypeAreaByName(TypeAreaList typeAreaList) {
-        List<Integer> listOfIndexesTypeArea = this.controller.matchTypeAreaIndexByString(mTypeAreaName, typeAreaList);
+        List<Integer> listOfIndexesTypeArea = this.controller.matchTypeAreaIndexByString(this.mTypeAreaName, typeAreaList);
 
         while (listOfIndexesTypeArea.isEmpty()) {
             System.out.println("There is no Geographic Area Type with that name. Please insert the name of a Geographic Area Type" +
@@ -61,7 +61,7 @@ class HouseConfigurationUI {
             if (!getInputTypeAreaName()) {
                 return false;
             }
-            listOfIndexesTypeArea = this.controller.matchTypeAreaIndexByString(mTypeAreaName, typeAreaList);
+            listOfIndexesTypeArea = this.controller.matchTypeAreaIndexByString(this.mTypeAreaName, typeAreaList);
         }
 
         if (listOfIndexesTypeArea.size() > 1) {
@@ -69,16 +69,16 @@ class HouseConfigurationUI {
             System.out.println(this.controller.printTypeAreaElementsByIndex(listOfIndexesTypeArea, typeAreaList));
             int aux = readInputNumberAsInt();
             if (listOfIndexesTypeArea.contains(aux)) {
-                mTypeGA = typeAreaList.getTypeAreaList().get(aux);
+                this.mTypeGA = typeAreaList.getTypeAreaList().get(aux);
                 System.out.println("You have chosen the following Geographic Area Type:");
-                System.out.println(this.controller.printTypeArea(mTypeGA));
+                System.out.println(this.controller.printTypeArea(this.mTypeGA));
             } else {
                 System.out.println(INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following Geographic Area Type:");
-            mTypeGA = typeAreaList.getTypeAreaList().get(listOfIndexesTypeArea.get(0));
-            System.out.println(this.controller.printTypeArea(mTypeGA));
+            this.mTypeGA = typeAreaList.getTypeAreaList().get(listOfIndexesTypeArea.get(0));
+            System.out.println(this.controller.printTypeArea(this.mTypeGA));
         }
         return true;
     }
@@ -92,11 +92,11 @@ class HouseConfigurationUI {
             this.controller.printGATypeList(typeAreaList);
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
-                mTypeGA = typeAreaList.getTypeAreaList().get(aux);
+                this.mTypeGA = typeAreaList.getTypeAreaList().get(aux);
                 activeInput = true;
                 //TODO fazer um print bonito
                 System.out.println("You have chosen the following Geographic Area Type:");
-                System.out.println(this.controller.printTypeArea(mTypeGA));
+                System.out.println(this.controller.printTypeArea(this.mTypeGA));
             } else {
                 System.out.println(INVALID_OPTION);
             }
@@ -484,7 +484,6 @@ class HouseConfigurationUI {
       */
 
      private boolean mTypeAreaListCreated;
-     private String mTypeArea;
 
      void runUS01UI(TypeAreaList list) {
          getInputUS01();
@@ -499,12 +498,12 @@ class HouseConfigurationUI {
              System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
              scanner.next();
          }
-         this.mTypeArea = scanner.next();
+         this.mTypeAreaName = scanner.next();
      }
 
      private void updateModelUS01(TypeAreaList list) {
          HouseConfigurationController ctrl = new HouseConfigurationController(list);
-         this.mTypeAreaListCreated = ctrl.createAndAddTypeAreaToList(mTypeArea);
+         this.mTypeAreaListCreated = ctrl.createAndAddTypeAreaToList(mTypeAreaName);
      }
 
      private void displayStateUS01() {
@@ -550,7 +549,6 @@ class HouseConfigurationUI {
      */
 
     private String nameOfGeoArea;
-    private String typeArea;
     private double geoAreaLat;
     private double geoAreaLong;
     private boolean areaAddedResult;
@@ -585,7 +583,7 @@ class HouseConfigurationUI {
     }
 
     private void getInputTypeOfAreaUS03() {
-        this.typeArea = readInputString("Type Area");
+        this.mTypeAreaName = readInputString("Type Area");
     }
 
     private void getLocalGeoAreaUS03() {
@@ -594,14 +592,14 @@ class HouseConfigurationUI {
     }
 
     private void updateGeoAreaUS03(TypeAreaList typeAreaList) {
-        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + typeArea +
+        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + mTypeAreaName +
                 " and its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude.\n");
-        typeAreaList.newTAG(typeArea);
+        typeAreaList.newTAG(mTypeAreaName);
     }
 
     private void updateModelUS03(GeographicAreaList newGeoListUi) {
         HouseConfigurationController controller = new HouseConfigurationController();
-        this.areaAddedResult = controller.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, typeArea, geoAreaLat, geoAreaLong);
+        this.areaAddedResult = controller.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeAreaName, geoAreaLat, geoAreaLong);
     }
 
     private void displayStateUS03() {
@@ -650,37 +648,41 @@ class HouseConfigurationUI {
      * type.
      */
 
-    private String action;
-    private TypeAreaList mTypeAreaList;
-    private GeographicAreaList mGeoAreaList;
-    private GeographicAreaList filteredList; //Geographic Area List filtered with Type of Geographic Area
 
-
-    public void runUS04(TypeAreaList typeAreaList) {
-        this.mTypeAreaList = typeAreaList;
+    public void runUS04(TypeAreaList typeAreaList, GeographicAreaList geographicAreaList) {
         this.controller = new HouseConfigurationController();
-        getInputTypeArea(typeAreaList);
-        //updateUS04();
-        //displayUS04();
+        this.mGeographicAreaList = geographicAreaList;
+        this.active = true;
+        while(this.active) {
+            getInputTypeArea(typeAreaList);
+            if (!matchGAByTypeArea()) {
+                this.active = false;
+                return;
+            } else {
+                displayGAListByTypeArea();
+                this.active = false;
+            }
+        }
     }
 
-/**
-
-    private void updateUS04() {
-        HouseConfigurationController ctrl04 = new HouseConfigurationController(mGeoAreaList);
-        ctrl04.matchGeoAreaTypeWithInput(this.action);
-        filteredList = ctrl04.getGeographicAreaList();
+    private boolean matchGAByTypeArea() {
+        if((this.mGeographicAreaList.getGeographicAreaList().isEmpty()) || (this.mGeographicAreaList == null)) {
+            System.out.print("The list of Geographic Areas is currently empty.\n Please return to main menu and add a Geographic Area to the list first.");
+            return false;
+        }
+        else {
+            this.mGeographicAreaList = this.controller.matchGAByTypeArea(this.mGeographicAreaList, this.mTypeGA);
+            this.mTypeAreaName = this.controller.getTypeAreaName(this.mTypeGA);
+            return true;
+        }
     }
 
-    private void displayUS04() {
-        if (mGeoAreaList.getGeographicAreaList().isEmpty()) {
-            System.out.println("The Geographic Area list is currently empty.");
-        } else if (filteredList.getGeographicAreaList().isEmpty()) {
-            System.out.println("There are no Geographic Areas with this Area Type.");
+    private void displayGAListByTypeArea() {
+        if (this.mGeographicAreaList.getGeographicAreaList().isEmpty()) {
+            System.out.println("There are no Geographic Areas of that Area Type.");
         } else {
-            List<GeographicArea> list = filteredList.getGeographicAreaList();
-            String result = ("List Of Geographic Areas with the Area Type Given:\n" + list.stream().map(GeographicArea::getName).collect(Collectors.joining(", ")));
-            System.out.print(result);
+            System.out.println("Geographic Areas of the type " + this.mTypeAreaName + ":\n");
+            this.controller.printGAList(this.mGeographicAreaList);
         }
     }
 

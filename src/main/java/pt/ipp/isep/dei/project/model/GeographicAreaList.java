@@ -165,9 +165,9 @@ public class GeographicAreaList {
         return mGeographicAreaList;
     }
 
-    public GeographicAreaList matchGeographicAreaWithInputType(String typeOfGeographicArea) {
+    public GeographicAreaList matchGeographicAreaWithInputType(String typeAreaName) {
         GeographicAreaList finalList = new GeographicAreaList();
-        TypeArea typeAreaToTest = new TypeArea(typeOfGeographicArea);
+        TypeArea typeAreaToTest = new TypeArea(typeAreaName);
         for (GeographicArea ga : mGeographicAreaList) {
             if (ga.getTypeArea().equals(typeAreaToTest)) {
                 finalList.addGeographicAreaToGeographicAreaList(ga);

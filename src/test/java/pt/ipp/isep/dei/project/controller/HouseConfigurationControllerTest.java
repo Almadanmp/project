@@ -205,7 +205,7 @@ class HouseConfigurationControllerTest {
     }
 
     //USER STORY 004 TESTS
-
+/**
     @Test
     void seeIfConstructorAddsGeographicAreas() {
 
@@ -301,7 +301,7 @@ class HouseConfigurationControllerTest {
 
         //Act
         GeographicAreaList actualResult;
-        ctrl.matchGeoAreaTypeWithInput("Rua");
+        ctrl.matchGAByTypeArea("Rua");
         actualResult = ctrl.getGeographicAreaList();
 
         //Assert
@@ -333,7 +333,7 @@ class HouseConfigurationControllerTest {
 
         //Act
         GeographicAreaList actualResult;
-        ctrl.matchGeoAreaTypeWithInput("Cidade");
+        ctrl.matchGAByTypeArea("Cidade");
         actualResult = ctrl.getGeographicAreaList();
 
         //Assert
@@ -365,7 +365,7 @@ class HouseConfigurationControllerTest {
 
         //Act
         GeographicAreaList actualResult;
-        ctrl.matchGeoAreaTypeWithInput("Montanha");
+        ctrl.matchGAByTypeArea("Montanha");
         actualResult = ctrl.getGeographicAreaList();
 
         //Assert
@@ -401,7 +401,7 @@ class HouseConfigurationControllerTest {
 
         //Act
         GeographicAreaList actualResult;
-        ctrl.matchGeoAreaTypeWithInput("rua");
+        ctrl.matchGAByTypeArea("rua");
         actualResult = ctrl.getGeographicAreaList();
 
         //Assert
@@ -435,13 +435,13 @@ class HouseConfigurationControllerTest {
 
         //Act
         GeographicAreaList actualResult;
-        ctrl.matchGeoAreaTypeWithInput("Pais");
+        ctrl.matchGAByTypeArea("Pais");
         actualResult = ctrl.getGeographicAreaList();
 
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
+**/
     //USER STORY 005 TESTS
 
     @Test
