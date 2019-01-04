@@ -55,7 +55,7 @@ public class GeographicAreaList {
         return null;
     }
 
-     /**
+    /**
      * Method that goes through every geographic area from the attribute mGeographicAreaList
      * and returns a string with every GA name
      */
@@ -77,13 +77,14 @@ public class GeographicAreaList {
      * Method to print a Whole Geographic Area List.
      * It will print the attributes needed to check if a GA is different from another GA
      * (name, type of GA and Localization)
+     *
      * @param newGeoListUi
      * @return
      */
     public String printGaWholeList(GeographicAreaList newGeoListUi) {
         String result = "---------------\n";
 
-        if (newGeoListUi.getGeographicAreaList().isEmpty()){
+        if (newGeoListUi.getGeographicAreaList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
 
@@ -101,13 +102,14 @@ public class GeographicAreaList {
 
     /**
      * Method to Match a GeographicArea By Name,
+     *
      * @param input
      * @return a list of GAs with the input name.
      */
-    public List<Integer>  matchGeographicAreaIndexByString(String input){
+    public List<Integer> matchGeographicAreaIndexByString(String input) {
         List<Integer> result = new ArrayList<>();
-        for(int i = 0; i < mGeographicAreaList.size(); i++){
-            if (mGeographicAreaList.get(i).getName().equals(input)){
+        for (int i = 0; i < mGeographicAreaList.size(); i++) {
+            if (mGeographicAreaList.get(i).getName().equals(input)) {
                 result.add(i);
             }
         }
@@ -115,13 +117,14 @@ public class GeographicAreaList {
     }
 
     /**
-     *Method to pring Geographic Area Elements by index
+     * Method to pring Geographic Area Elements by index
+     *
      * @param indexes
      * @return
      */
-    public String printGeoGraphicAreaElementsByIndex (List<Integer> indexes){
+    public String printGeoGraphicAreaElementsByIndex(List<Integer> indexes) {
         String result = "---------------\n";
-        for (int i = 0 ; i<indexes.size() ; i++ ) {
+        for (int i = 0; i < indexes.size(); i++) {
             int pos = indexes.get(i);
             result = result + indexes.get(i) + ") " + mGeographicAreaList.get(pos).printGeographicArea();
         }

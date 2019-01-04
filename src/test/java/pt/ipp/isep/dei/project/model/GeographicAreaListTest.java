@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -753,5 +754,13 @@ public class GeographicAreaListTest {
          String expectedResult = "Invalid List - List is Empty\n";
         String result = gAL1.printGaWholeList(gAL1);
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void hashCodeDummyTest(){
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        int expectedResult = 1;
+        int actualResult = gAL1.hashCode();
+        Assertions.assertEquals(expectedResult,actualResult);
     }
 }
