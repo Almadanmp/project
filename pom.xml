@@ -144,7 +144,8 @@
                         <param>pt.ipp.isep.dei.project.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>pt.ipp.isep.dei.project.*</param>
+                        <param>pt.ipp.isep.dei.project.controller.*</param>
+                        <param>pt.ipp.isep.dei.project.model.*</param>
                     </targetTests>
 
                     <outputFormats>
