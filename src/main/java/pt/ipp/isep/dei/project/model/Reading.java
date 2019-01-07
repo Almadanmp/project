@@ -35,11 +35,11 @@ public class Reading {
      *
      * @param value of reading made
      */
-    public void setmValue(double value) {
+    void setmValue(double value) {
         this.mValue = value;
     }
 
-    public double getmValue() {
+    double getmValue() {
         return this.mValue;
     }
 
@@ -51,7 +51,7 @@ public class Reading {
         this.mDate = date;
     }
 
-    public Date getmDate() {
+    Date getmDate() {
         return this.mDate;
     }
 

@@ -106,12 +106,12 @@ public class House {
         return result;
     }
 
-    public double calculateDistanceToSensor(Sensor sensor) {
+    double calculateDistanceToSensor(Sensor sensor) {
         Local l = sensor.getLocal();
         return this.mGPS.getLinearDistanceBetweenLocalsInKm(l);
     }
 
-    public double getTheMinorDistanceFromTheHouseToTheSensor(GeographicArea ga) {
+    double getTheMinorDistanceFromTheHouseToTheSensor(GeographicArea ga) {
         Sensor firstSensor = ga.getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {

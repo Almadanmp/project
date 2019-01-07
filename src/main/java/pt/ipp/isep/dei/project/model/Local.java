@@ -32,7 +32,7 @@ public class Local {
      * Setter Altitude
      * @param altitude of the local
      */
-    public void setAltitude(double altitude) {
+    void setAltitude(double altitude) {
         this.mAltitude = altitude;
     }
 
@@ -72,7 +72,7 @@ public class Local {
      * Getter Altitude
      * @return Altitude value
      */
-    public double getAltitude() {
+    double getAltitude() {
         return this.mAltitude;
     }
 
@@ -94,7 +94,7 @@ public class Local {
      * @param local1 Localization 1
      * @return linear distance from Localization 1 to Localization 2
      */
-    public double getLinearDistanceBetweenLocalsInKm(Local local1) {
+    double getLinearDistanceBetweenLocalsInKm(Local local1) {
         double latitude1 = local1.getLatitude();
         double latitude2 = getLatitude();
         double longitude1 = local1.getLongitude();

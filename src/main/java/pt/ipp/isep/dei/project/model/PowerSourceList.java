@@ -53,7 +53,7 @@ public class PowerSourceList {
      *
      * @return list of powerSources
      */
-    public List<PowerSource> getPowerSourceList() {
+    List<PowerSource> getPowerSourceList() {
         return this.mPowerSourceList;
     }
 

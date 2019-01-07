@@ -40,12 +40,12 @@ public class HouseList {
     }
 
     public String printElementsByIndex(List<Integer> indexes) {
-        String result = "";
-        for (int i = 0; i < indexes.size(); i++) {
-            int pos = indexes.get(i);
-            result += indexes.get(i) + ") " + mHouseList.get(pos).getHouseDesignation() + ", " + mHouseList.get(pos).getmAddress() + ", " + mHouseList.get(pos).getmZipCode() + ".\n";
+        StringBuilder result = new StringBuilder();
+        for (Integer indexe : indexes) {
+            int pos = indexe;
+            result.append(indexe).append(") ").append(mHouseList.get(pos).getHouseDesignation()).append(", ").append(mHouseList.get(pos).getmAddress()).append(", ").append(mHouseList.get(pos).getmZipCode()).append(".\n");
         }
-        return result;
+        return result.toString();
     }
 
     public List<House> getHouseList() {

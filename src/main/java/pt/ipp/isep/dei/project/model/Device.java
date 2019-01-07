@@ -15,27 +15,27 @@ public class Device {
         setmTotalPowerDevice(totalPower);
     }
 
-    public void setmName(String name){
+    void setmName(String name){
         this.mName=name;
     }
 
-    public void setmDeviceType(String type){
+    void setmDeviceType(String type){
         this.mDeviceType=type;
     }
 
-    public void setmParentRoom(Room parentRoom){
+    void setmParentRoom(Room parentRoom){
         this.mParentRoom=parentRoom;
     }
 
-    public void setmEnergyConsumptionList(ReadingList list){
+    void setmEnergyConsumptionList(ReadingList list){
         this.mEnergyConsumptionList =list;
     }
 
-    public double getmTotalPowerDevice(){
+    double getmTotalPowerDevice(){
         return this.mTotalPowerDevice;
     }
 
-    public void setmTotalPowerDevice(double totalPower){
+    void setmTotalPowerDevice(double totalPower){
         this.mTotalPowerDevice =totalPower;
     }
 }

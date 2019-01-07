@@ -115,13 +115,13 @@ public class GeographicArea {
      */
 
 
-    public void setTopLeftVertex(Local localv1) {
+    void setTopLeftVertex(Local localv1) {
         if (localv1.getLatitude() <= mLocal.getLatitude() && localv1.getLongitude() >= mLocal.getLongitude()) {
             this.mTopLeftVertex = localv1;
         }
     }
 
-    public void setBottomRightVertex(Local localv2) {
+    void setBottomRightVertex(Local localv2) {
         if (localv2.getLatitude() >= mLocal.getLatitude() && localv2.getLongitude() <= mLocal.getLongitude()) {
             this.mBottomRightVertex = localv2;
         }
@@ -132,7 +132,7 @@ public class GeographicArea {
      *
      * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
      */
-    public void setTypeArea(TypeArea typeArea) {
+    void setTypeArea(TypeArea typeArea) {
         this.mTypeArea = typeArea;
     }
 
@@ -168,7 +168,7 @@ public class GeographicArea {
         this.mHouseList = mHouseList;
     }
 
-    public GeographicArea getMotherArea() {
+    GeographicArea getMotherArea() {
         return this.mMotherArea;
     }
 
@@ -188,7 +188,7 @@ public class GeographicArea {
     /**
      * @return returns a Local object containing the top left Vertex.
      */
-    public Local getTopLeftVertex() {
+    Local getTopLeftVertex() {
         return mTopLeftVertex;
     }
 
@@ -196,7 +196,7 @@ public class GeographicArea {
      * @return returns a Local object containing the bottom right Vertex.
      */
 
-    public Local getBottomRightVertex() {
+    Local getBottomRightVertex() {
         return mBottomRightVertex;
     }
 
@@ -205,7 +205,7 @@ public class GeographicArea {
      *
      * @return returns the attribute TypeArea from an object of the class Geographic Area
      */
-    public TypeArea getTypeArea() {
+    TypeArea getTypeArea() {
         return this.mTypeArea;
     }
 
@@ -247,7 +247,7 @@ public class GeographicArea {
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
-    public boolean isGeographicNameValid(String name) {
+    boolean isGeographicNameValid(String name) {
         return (name != null && !name.isEmpty());
     }
 
@@ -259,7 +259,7 @@ public class GeographicArea {
      * @param typeOfSensor Type sensor is determined by a string - e.g. "Temperature", "Rain", etc.
      * @return returns a double of the most recent value recorded in every type sensor given
      */
-    public double getMostRecentReadingValue(String typeOfSensor) {
+    double getMostRecentReadingValue(String typeOfSensor) {
         SensorList listToTest = this.mSensorList;
         for (int i = 0; i < listToTest.getSensorList().size(); i++) {
             if (!(listToTest.getSensorList().get(i).getTypeSensor().getName().equals(typeOfSensor))) {
@@ -269,7 +269,7 @@ public class GeographicArea {
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
     }
 
-    public boolean isAreaContainedInAnotherArea(GeographicArea area1, GeographicArea area2) {
+    boolean isAreaContainedInAnotherArea(GeographicArea area1, GeographicArea area2) {
         double latTopVert1 = area1.getTopLeftVertex().getLatitude();
         double longTopVert1 = area1.getTopLeftVertex().getLongitude();
         double latBotVert1 = area1.getBottomRightVertex().getLatitude();
@@ -287,7 +287,7 @@ public class GeographicArea {
      * @param ga object of the class GeographicAreaController
      * @return returns a double of the distance between Geographic Areas.
      */
-    public double calculateDistanceToGA(GeographicArea ga) {
+    double calculateDistanceToGA(GeographicArea ga) {
         Local l = ga.getLocal();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
     }

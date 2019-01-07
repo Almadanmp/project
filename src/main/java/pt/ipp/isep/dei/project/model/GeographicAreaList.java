@@ -155,7 +155,7 @@ public class GeographicAreaList {
      * @param geoArea geographic area to test
      * @return returns true in case the GA is contained in the list and false otherwise
      */
-    public boolean containsGA(GeographicArea geoArea) {
+    boolean containsGA(GeographicArea geoArea) {
         return mGeographicAreaList.contains(geoArea);
     }
 
