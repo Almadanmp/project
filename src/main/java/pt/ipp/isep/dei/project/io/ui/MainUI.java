@@ -221,8 +221,8 @@ public class MainUI {
         Sensor sensor_c = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime(), readingList_c);
 
         SensorList areaSList = new SensorList();
-        areaSList.addSensor(sensor_c);
         areaSList.addSensor(sensor_b);
+        areaSList.addSensor(sensor_c);
         ISEP.setSensorList(areaSList);
         roomList.addRoom(room_a);
         roomList.addRoom(room_b);
