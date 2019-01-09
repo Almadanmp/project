@@ -64,9 +64,10 @@ public class House {
         return mLocation;
     }
 
-    public void setmLocation(double latitude, double longitude) {
+    public void setmLocation(double latitude, double longitude, double altitude) {
         mLocation.setLatitude(latitude);
         mLocation.setLongitude(longitude);
+        mLocation.setAltitude(altitude);
     }
 
     public void setmRoomList(RoomList roomList) {

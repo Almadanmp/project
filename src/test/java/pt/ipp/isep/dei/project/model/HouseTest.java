@@ -13,8 +13,8 @@ class HouseTest {
     void seeDistanceToSensor() {
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6),ga, roomList);
-        Sensor s = new Sensor("sensor1", new TypeSensor("temperatura","Celsius"), new Local(4, 5), new GregorianCalendar(2018, 10, 1).getTime());
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5),ga, roomList);
+        Sensor s = new Sensor("sensor1", new TypeSensor("temperatura","Celsius"), new Local(4, 5, 5), new GregorianCalendar(2018, 10, 1).getTime());
         double result = house.calculateDistanceToSensor(s);
         assertEquals(110.91871788829754, result, 0.01);
     }
@@ -22,8 +22,8 @@ class HouseTest {
     @Test
     void seeMinDistanceToSensor() {
         RoomList roomList = new RoomList();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura","Celsius"), new Local(4, 6), new GregorianCalendar(2018, 10, 1).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura","Celsius"), new Local(4, 8), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura","Celsius"), new Local(4, 6, 5), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura","Celsius"), new Local(4, 8, 5), new GregorianCalendar(2018, 10, 1).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -43,7 +43,7 @@ class HouseTest {
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5,50));
         ga.setSensorList(sensorList);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house);
         assertEquals(s1, result);
     }
@@ -163,7 +163,7 @@ class HouseTest {
         RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "Casa do Porto";
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
         //Act
         house.setmId("Casa do Porto");
@@ -231,7 +231,7 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
         //Act
-        house.setmLocation(7, 78);
+        house.setmLocation(7, 78, 50);
         Local actualResult = house.getmLocation();
 
         //Assert
@@ -252,7 +252,7 @@ class HouseTest {
         expectedResult.addRoom(room1);
         expectedResult.addRoom(room2);
         RoomList roomList1 = new RoomList();
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList1);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList1);
 
         //Act
         house.setmRoomList(roomList);
@@ -277,7 +277,7 @@ class HouseTest {
 
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
 
         //Act
         house.setmMotherArea(ga1);
@@ -298,7 +298,7 @@ class HouseTest {
         //Arrange
         EnergyGridList expectedResult = new EnergyGridList();
         expectedResult.addEnergyGridToEnergyGridList(eg);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
         //Act
         house.setmEGList(energyGridList);
         EnergyGridList actualResult = house.getmEGList();
@@ -312,7 +312,7 @@ class HouseTest {
         //ARRANGE
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
         String expectedResult = "casa de praia, Rua das Flores, 4512, Porto.\n";
         //ACT
         String actualResult = house.printHouse();
