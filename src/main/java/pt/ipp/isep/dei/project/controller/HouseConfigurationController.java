@@ -489,7 +489,7 @@ public class HouseConfigurationController {
      */
 
     public boolean addRoomToTheGrid(EnergyGrid grid, Room room) {
-        return grid.addRoomToAEnergyGrid(room);
+        return grid.addRoomToAnEnergyGrid(room);
     }
 
     /**

@@ -114,11 +114,11 @@ public class RoomList {
     }
     public String printRoomListOfEG(EnergyGrid energyGrid) {
         String result = "---------------\n";
-        if (energyGrid.getmListOfRooms().getListOfRooms().isEmpty()) {
+        if (energyGrid.getListOfRooms().getListOfRooms().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < energyGrid.getmListOfRooms().getListOfRooms().size(); i++) {
-            Room aux = energyGrid.getmListOfRooms().getListOfRooms().get(i);
+        for (int i = 0; i < energyGrid.getListOfRooms().getListOfRooms().size(); i++) {
+            Room aux = energyGrid.getListOfRooms().getListOfRooms().get(i);
             result = result + i + ") Designation: " + aux.getRoomName() + " | ";
             result = result + "House Floor: " + aux.getHouseFloor() + " | ";
 
