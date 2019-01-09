@@ -14,7 +14,7 @@ public class GeographicAreaListTest {
     public void seeIfConstructorGeographicAreaListWorks() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea(t1, l1);
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga);
         List<GeographicArea> expectedResult = new ArrayList<>();
@@ -30,7 +30,7 @@ public class GeographicAreaListTest {
     public void seeIfAddsGeographicAreaToGeographicAreaListIfSameAsConstructor() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea("porto",t1, l1);
         GeographicArea ga2 = new GeographicArea("porto",t1,l1);
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
@@ -45,8 +45,8 @@ public class GeographicAreaListTest {
     public void seeIfAddsGeographicAreaToGeographicAreaListIfDifferentFromConstructor() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
-        Local l2 = new Local(87, 67);
+        Local l1 = new Local(38, 7, 100);
+        Local l2 = new Local(87, 67, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
         GeographicArea ga2 = new GeographicArea(t1,l2);
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
@@ -65,17 +65,17 @@ public class GeographicAreaListTest {
         String stringToTest = "Porto";
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -98,17 +98,17 @@ public class GeographicAreaListTest {
         String stringToTest = "Braga";
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -131,17 +131,17 @@ public class GeographicAreaListTest {
         String stringToTest = "Lisboa";
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -176,17 +176,17 @@ public class GeographicAreaListTest {
     public void seeIfPrintsNamesOfGeoAreaList() {
         //Arrange
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -224,17 +224,17 @@ public class GeographicAreaListTest {
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -256,17 +256,17 @@ public class GeographicAreaListTest {
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -288,17 +288,17 @@ public class GeographicAreaListTest {
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -320,17 +320,17 @@ public class GeographicAreaListTest {
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -352,17 +352,17 @@ public class GeographicAreaListTest {
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -385,17 +385,17 @@ public class GeographicAreaListTest {
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -418,17 +418,17 @@ public class GeographicAreaListTest {
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1,l3);
         ga3.setName(n3);
@@ -451,22 +451,22 @@ public class GeographicAreaListTest {
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 100);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
 
-        Local l3 = new Local(87, 67);
+        Local l3 = new Local(87, 67, 100);
         String n3 = "Lisboa";
         GeographicArea ga3 = new GeographicArea(t1, l3);
         ga3.setName(n3);
 
-        Local localTest = new Local(98, 54);
+        Local localTest = new Local(98, 54, 100);
         GeographicArea gaToTest = new GeographicArea(t1,localTest);
         gaToTest.setName("Madrid");
 
@@ -484,7 +484,7 @@ public class GeographicAreaListTest {
     public void seeIfGetGeographicAreaList() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea(t1, l1);
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga);
         List<GeographicArea> expectedResult = new ArrayList<>();
@@ -501,15 +501,15 @@ public class GeographicAreaListTest {
         //Arrange
         String typeToTest = "Freguesia";
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         TypeArea t2 = new TypeArea("País");
-        Local l2 = new Local(43, 71);
+        Local l2 = new Local(43, 71, 100);
         GeographicArea ga2 = new GeographicArea(t2, l2);
 
         TypeArea t3 = new TypeArea("Freguesia");
-        Local l3 = new Local(43, 74);
+        Local l3 = new Local(43, 74, 100);
         GeographicArea ga3 = new GeographicArea(t3, l3);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
@@ -529,15 +529,15 @@ public class GeographicAreaListTest {
         //Arrange
         String typeToTest = "Rua";
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         TypeArea t2 = new TypeArea("País");
-        Local l2 = new Local(43, 71);
+        Local l2 = new Local(43, 71, 100);
         GeographicArea ga2 = new GeographicArea(t2, l2);
 
         TypeArea t3 = new TypeArea("Freguesia");
-        Local l3 = new Local(43, 74);
+        Local l3 = new Local(43, 74, 100);
         GeographicArea ga3 = new GeographicArea(t3, l3);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
@@ -557,15 +557,15 @@ public class GeographicAreaListTest {
         //Arrange
         String typeToTest = "País";
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         TypeArea t2 = new TypeArea("País");
-        Local l2 = new Local(43, 71);
+        Local l2 = new Local(43, 71, 100);
         GeographicArea ga2 = new GeographicArea(t2, l2);
 
         TypeArea t3 = new TypeArea("Freguesia");
-        Local l3 = new Local(43, 74);
+        Local l3 = new Local(43, 74, 100);
         GeographicArea ga3 = new GeographicArea(t3, l3);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
@@ -585,11 +585,11 @@ public class GeographicAreaListTest {
         //Arrange
         String typeToTest = "Cidade";
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         TypeArea t2 = new TypeArea("Freguesia");
-        Local l2 = new Local(43, 71);
+        Local l2 = new Local(43, 71, 100);
         GeographicArea ga2 = new GeographicArea(t2, l2);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
@@ -621,11 +621,11 @@ public class GeographicAreaListTest {
     public void seeIfEqualsWhenObjectsAreDifferentButWithSameContent() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         TypeArea t2 = new TypeArea("Freguesia");
-        Local l2 = new Local(43, 71);
+        Local l2 = new Local(43, 71, 100);
         GeographicArea ga2 = new GeographicArea(t2, l2);
 
         GeographicAreaList geographicAreaList1 = new GeographicAreaList(ga1);
@@ -646,11 +646,11 @@ public class GeographicAreaListTest {
     public void seeIfEqualsToSameObject() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         TypeArea t2 = new TypeArea("Freguesia");
-        Local l2 = new Local(43, 71);
+        Local l2 = new Local(43, 71, 100);
         GeographicArea ga2 = new GeographicArea(t2, l2);
 
         GeographicAreaList geographicAreaList1 = new GeographicAreaList(ga1);
@@ -670,19 +670,19 @@ public class GeographicAreaListTest {
     public void seeIfFalseWhenObjectsAreDifferentWithDifferentContent() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         TypeArea t2 = new TypeArea("Freguesia");
-        Local l2 = new Local(43, 71);
+        Local l2 = new Local(43, 71, 100);
         GeographicArea ga2 = new GeographicArea(t2, l2);
 
         TypeArea t3 = new TypeArea("Rua");
-        Local l3 = new Local(54, 98);
+        Local l3 = new Local(54, 98, 100);
         GeographicArea ga3 = new GeographicArea(t3, l3);
 
         TypeArea t4 = new TypeArea("Freguesia");
-        Local l4 = new Local(73, 74);
+        Local l4 = new Local(73, 74, 100);
         GeographicArea ga4 = new GeographicArea(t4, l4);
 
         GeographicAreaList geographicAreaList1 = new GeographicAreaList(ga1);
@@ -702,11 +702,11 @@ public class GeographicAreaListTest {
     public void seeIfFalseWhenObjectsAreFromDifferentClass() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         TypeArea t2 = new TypeArea("Freguesia");
-        Local l2 = new Local(43, 71);
+        Local l2 = new Local(43, 71, 100);
         GeographicArea ga2 = new GeographicArea(t2, l2);
 
         GeographicAreaList geographicAreaList1 = new GeographicAreaList(ga1);
@@ -732,9 +732,9 @@ public class GeographicAreaListTest {
 
     @Test
     public void seeIfPrintsGeoAList() {
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3));
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33, 100));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14, 100));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3, 100));
         GeographicAreaList gAL1 = new GeographicAreaList();
         gAL1.addGeographicAreaToGeographicAreaList(gA1);
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
