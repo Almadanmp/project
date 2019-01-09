@@ -16,7 +16,6 @@ public class HouseMonitoringUI {
     private GeographicArea mGeoArea;
     private String geoName;
     private double mResult620;
-    private double mResult623;
     private int dataYear1;
     private int dataMonth1;
     private int dataDay1;
@@ -25,7 +24,6 @@ public class HouseMonitoringUI {
     private int dataDay2;
     private Date mStartDate;
     private double mCurrentHouseAreaTemperature;
-    private String mHouseName;
     private String mNameRoom;
     private Sensor mSensor;
     private Room mRoom;
@@ -37,7 +35,8 @@ public class HouseMonitoringUI {
         this.houseMonitoringcontroller = new HouseMonitoringController();
     }
 
-    public void run(GeographicAreaList newGeoListUi, RoomList roomList) {
+    void run(GeographicAreaList newGeoListUi, House programHouse) {
+        RoomList roomList = programHouse.getmRoomList();
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
@@ -52,7 +51,6 @@ public class HouseMonitoringUI {
             System.out.println("Unable to select a Geographic Area. Returning to main menu.");
             return;
         }
-        getInputHouse(mGeoArea);
         if (mHouse == null) {
             System.out.println("Unable to select a house. Returning to main menu.");
             return;
@@ -351,97 +349,6 @@ public class HouseMonitoringUI {
         }
     }
 
-    private void getInputHouse(GeographicArea mGeoArea) {
-        System.out.println(
-                "We need to know which one is your house.\n" + "Would you like to:\n" + "1) Type the name of your House;\n" + "2) Choose it from a list;\n" +
-                        "0) Return;");
-        boolean activeInput = false;
-
-        while (!activeInput) {
-            int option = UtilsUI.readInputNumberAsInt();
-            switch (option) {
-                case 1:
-                    getInputHouseName();
-                    if (!getHouseByName(mGeoArea)) {
-                        System.out.println("Unable to select a House. Returning to main menu.");
-                        return;
-                    }
-                    activeInput = true;
-                    break;
-                case 2:
-                    getInputHousebyList(mGeoArea);
-                    activeInput = true;
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println(UtilsUI.INVALID_OPTION);
-                    break;
-            }
-        }
-    }
-
-    private boolean getInputHouseName() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Please type the name of the House you want to access.");
-        this.mHouseName = scan.nextLine();
-        return (!(mHouseName.equals("exit")));
-    }
-
-    private boolean getHouseByName(GeographicArea mGeoArea) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        List<Integer> listOfIndexesHouses = ctrl.matchHouseIndexByString(mHouseName, mGeoArea);
-
-        while (listOfIndexesHouses.isEmpty()) {
-            System.out.println("There is no House Area with that name. Please insert the name of a House" +
-                    " that exists or  Type 'exit' to cancel and create a new House on the Main Menu.");
-            if (!getInputHouseName()) {
-                return false;
-            }
-            listOfIndexesHouses = ctrl.matchHouseIndexByString(mHouseName, mGeoArea);
-        }
-        if (listOfIndexesHouses.size() > 1) {
-            System.out.println("There are multiple Houses with that name. Please choose the right one.");
-            System.out.println(ctrl.printHouseElementsByIndex(listOfIndexesHouses, mGeoArea));
-            int aux = UtilsUI.readInputNumberAsInt();
-            if (listOfIndexesHouses.contains(aux)) {
-                this.mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
-                System.out.println("You have chosen the following House:");
-                System.out.println(ctrl.printHouse(mHouse));
-            } else {
-                System.out.println(UtilsUI.INVALID_OPTION);
-            }
-        } else {
-            System.out.println("You have chosen the following House:");
-            this.mHouse = mGeoArea.getHouseList().getHouseList().get(0);
-            System.out.println(ctrl.printHouse(mHouse));
-        }
-        return true;
-    }
-
-
-    private void getInputHousebyList(GeographicArea mGeoArea) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        if (mGeoArea.getHouseList().getHouseList().isEmpty()) {
-            System.out.print("Invalid House List - List Is Empty\n");
-            return;
-        }
-        boolean activeInput = false;
-        System.out.println("Please select one of the existing houses on the selected geographic area: ");
-
-        while (!activeInput) {
-            houseMonitoringcontroller.printHouseList(mGeoArea);
-            int aux = UtilsUI.readInputNumberAsInt();
-            if (aux >= 0 && aux < mGeoArea.getHouseList().getHouseList().size()) {
-                mHouse = mGeoArea.getHouseList().getHouseList().get(aux);
-                System.out.println("You have chosen the following House:");
-                System.out.println(ctrl.printHouse(mHouse));
-                activeInput = true;
-            } else {
-                System.out.println(UtilsUI.INVALID_OPTION);
-            }
-        }
-    }
     private void getInputStartDate() {
         Scanner scan = new Scanner(System.in);
 
@@ -553,7 +460,7 @@ public class HouseMonitoringUI {
     private void updateAndDisplayUS623() {
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
-        this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate);
+        double mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate);
         System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " between " + initialDate + " and " + endDate +
                 " is " + mResult623 + "%.");
     }

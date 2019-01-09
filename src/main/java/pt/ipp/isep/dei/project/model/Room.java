@@ -10,8 +10,6 @@ public class Room {
     private double mRoomLength;
     private double mRoomHeight;
     private SensorList mRoomSensorList;
-    private DeviceList mRoomDeviceList;
-    private double mRoomMaxPower;
 
 
     public Room(String name, int houseFloor, double width, double length, double height) {
@@ -24,12 +22,6 @@ public class Room {
 
     public SensorList getmRoomSensorList() {
         return mRoomSensorList;
-    }
-
-
-
-    public DeviceList getmRoomDeviceList() {
-        return mRoomDeviceList;
     }
 
     public void setRoomName(String name) {
@@ -63,14 +55,6 @@ public class Room {
 
     public void setRoomSensorList(SensorList sensorList) {
         mRoomSensorList = sensorList;
-    }
-
-    public void setRoomDeviceList(DeviceList deviceList) {
-        mRoomDeviceList = deviceList;
-    }
-
-     void setRoomMaxPower(double totalPower) {
-        mRoomMaxPower = totalPower;
     }
 
     public String getRoomName() {

@@ -112,60 +112,6 @@ public class RoomListTest {
         assertEquals(expectedResult, actualResult);
     }
 
-
-    @Test
-    public void seeIfPrintRoomListWork() {
-        //Arrange ------------------------
-        //Geo Area List
-        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
-        //House List
-        HouseList houseList1 = new HouseList();
-        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
-        geoa1.setHouseList(houseList1);
-        houseList1.addHouseToHouseList(house1);
-        //Room List
-        RoomList roomList1 = new RoomList();
-        house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789,2,2);
-        Room room2 = new Room("kitchen", 8, 2,2,2);
-        roomList1.addRoom(room1);
-        roomList1.addRoom(room2);
-        //Act ----------------------------
-        String result = roomList1.printRoomList(house1);
-        String expectedResult = "---------------\n" +
-                "0) Designation: room1 | House Floor: 19 | Width: 2.3456789E7 | Length: 2.0 | Height: 2.0\n" +
-                "1) Designation: kitchen | House Floor: 8 | Width: 2.0 | Length: 2.0 | Height: 2.0\n" +
-                "---------------\n";
-        //Assert -------------------------
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void seeIfPrintRoomListWorksForInvalid() {
-        //Arrange -----------------------------------
-        //Geo Area List
-        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
-        //House List
-        HouseList houseList1 = new HouseList();
-        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
-        geoa1.setHouseList(houseList1);
-        houseList1.addHouseToHouseList(house1);
-        //Room List
-        RoomList roomList1 = new RoomList();
-        house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789,2,2);
-        Room room2 = new Room("kitchen", 8, 2,2,2);
-        //Act ---------------------------------------
-        String result = roomList1.printRoomList(house1);
-        String expectedResult = "Invalid List - List is Empty\n";
-        //Assert ------------------------------------
-        assertEquals(expectedResult, result);
-    }
-
     @Test
     public void seeifmatchRoomWorks(){
         Room room = new Room("kitchen",1,1,2,2);
@@ -186,56 +132,6 @@ public class RoomListTest {
         roomList.addRoom(room1);
         boolean result = roomList.matchRoom("cozinha");
         assertFalse(result);
-    }
-    @Test
-    public void seeIfPrintRoomstWork() {
-        //Arrange ------------------------
-        //Geo Area List
-        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
-        //House List
-        HouseList houseList1 = new HouseList();
-        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
-        geoa1.setHouseList(houseList1);
-        houseList1.addHouseToHouseList(house1);
-        //Room List
-        RoomList roomList1 = new RoomList();
-        house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789,2,2);
-        Room room2 = new Room("kitchen", 8, 2,2,2);
-        roomList1.addRoom(room1);
-        roomList1.addRoom(room2);
-        //Act ----------------------------
-        String result = roomList1.printRooms();
-        String expectedResult = "---------------\n" +
-                "0) Designation: room1 | House Floor: 19 | Width: 2.3456789E7 | Length: 2.0 | Height: 2.0\n" +
-                "1) Designation: kitchen | House Floor: 8 | Width: 2.0 | Length: 2.0 | Height: 2.0\n" +
-                "---------------\n";
-        //Assert -------------------------
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void seeIfPrintRoomsPrintsInvalidList() {
-        //Arrange ------------------------
-        //Geo Area List
-        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
-        //House List
-        HouseList houseList1 = new HouseList();
-        House house1 = new House("a minha rica casinha", "Address2", new Local(4, 4), "3456-123");
-        geoa1.setHouseList(houseList1);
-        houseList1.addHouseToHouseList(house1);
-        //Room List
-        RoomList roomList1 = new RoomList();
-        house1.setmRoomList(roomList1);
-             //Act ----------------------------
-        String result = roomList1.printRooms();
-        String expectedResult = "Invalid List - List is Empty\n";
-        //Assert -------------------------
-        assertEquals(expectedResult, result);
     }
 
     @Test

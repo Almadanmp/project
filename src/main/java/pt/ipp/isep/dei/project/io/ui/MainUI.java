@@ -13,6 +13,7 @@ public class MainUI {
         //Program Variables
 
         boolean activeProgram = true;
+        House programHouse = new House();
 
         //TEST MAIN LISTS
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
@@ -66,7 +67,6 @@ public class MainUI {
         Device d1 = new Device("aspirador", "eletrodomestico", room2, new ReadingList(),20 );
         DeviceList deviceList = new DeviceList();
         deviceList.addDevices(d1);
-        room2.setRoomDeviceList(deviceList);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         roomList2.addRoom(room3);
@@ -80,8 +80,6 @@ public class MainUI {
         geoa2.setSensorList(sensorList2);
 
         //TEST HOUSES
-        HouseList houseList1 = new HouseList();
-        HouseList houseList2 = new HouseList();
 
         House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657");
         House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
@@ -93,20 +91,13 @@ public class MainUI {
         house2.setmRoomList(roomList1);
         house3.setmMotherArea(geoa1);
         house3.setmRoomList(roomList1);
-        houseList1.addHouseToHouseList(house2);
-        houseList1.addHouseToHouseList(house3);
-        houseList1.addHouseToHouseList(house4);
-        houseList1.addHouseToHouseList(house1);
         house1.setmMotherArea(geoa2);
-        houseList2.addHouseToHouseList(house1);
 
         //TEST ORGANIZATION SETTERS
         house1.setmEGList(energyGridList2);
 
         geoa1.setSensorList(sensorList2);
-        geoa1.setHouseList(houseList1);
         geoa2.setSensorList(sensorList2);
-        geoa2.setHouseList(houseList2);
 
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
@@ -163,9 +154,6 @@ public class MainUI {
         house.addRoomToRoomList(room_a);
         house.addRoomToRoomList(room_b);
         house.addRoomToRoomList(room_c);
-        HouseList Rooms = new HouseList();
-        Rooms.addHouseToHouseList(house);
-        ISEP.setHouseList(Rooms);
         SensorList roomBSList = new SensorList();
         roomBSList.addSensor(sensor_a);
         room_b.setRoomSensorList(roomBSList);
@@ -366,61 +354,61 @@ public class MainUI {
                         break;
                     case 11:
                         HouseConfigurationUI view11 = new HouseConfigurationUI();
-                        view11.runUS101(mGeographicAreaList);
+                        view11.runUS101(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 12:
                         HouseConfigurationUI view12 = new HouseConfigurationUI();
-                        view12.runUS105(mGeographicAreaList);
+                        view12.runUS105(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 14:
                         HouseConfigurationUI view14 = new HouseConfigurationUI();
-                        view14.runUS130(houseList1);
+                        view14.runUS130(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 15:
                         HouseConfigurationUI view15 = new HouseConfigurationUI();
-                        view15.runUS135(houseList1);
+                        view15.runUS135(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 18:
                         HouseConfigurationUI view16 = new HouseConfigurationUI();
-                        view16.runUS108UI(mGeographicAreaList);
+                        view16.runUS108UI(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 19:
                         HouseConfigurationUI view145 = new HouseConfigurationUI();
-                        view145.runUS145(geographical_area_list);
+                        view145.runUS145(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 20:
                         HouseConfigurationUI view147 = new HouseConfigurationUI();
-                        view147.runUS147(mGeographicAreaList);
+                        view147.runUS147(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 21:
                         HouseConfigurationUI view149 = new HouseConfigurationUI();
-                        view149.runUS149(geographical_area_list);
+                        view149.runUS149(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 22:
                         RoomConfigurationUI viewRC = new RoomConfigurationUI();
-                        viewRC.run(mGeographicAreaList);
+                        viewRC.run(mGeographicAreaList, programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 23:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
-                        houseM.run(geographical_area_list, roomList);
+                        houseM.run(geographical_area_list, programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;

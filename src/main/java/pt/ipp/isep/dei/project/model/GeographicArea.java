@@ -12,7 +12,6 @@ public class GeographicArea {
     private TypeArea mTypeArea;
     private GeographicArea mMotherArea;
     private Local mLocal;
-    private HouseList mHouseList;
     private SensorList mSensorList;
     private double mLength;
     private double mWidth;
@@ -26,7 +25,6 @@ public class GeographicArea {
      */
     public GeographicArea() {
         mSensorList = new SensorList();
-        mHouseList = new HouseList();
     }
 
     public GeographicArea(String mName, TypeArea mTypeArea, Local mLocal) {
@@ -34,13 +32,11 @@ public class GeographicArea {
         setTypeArea(mTypeArea);
         setLocal(mLocal);
         mSensorList = new SensorList();
-        mHouseList = new HouseList();
     }
 
     public GeographicArea(String mName) {
         setName(mName);
         mSensorList = new SensorList();
-        mHouseList = new HouseList();
     }
 
     /**
@@ -54,7 +50,6 @@ public class GeographicArea {
         setTypeArea(typeArea);
         setLocal(local);
         mSensorList = new SensorList();
-        mHouseList = new HouseList();
     }
 
     /**
@@ -69,11 +64,9 @@ public class GeographicArea {
         setTypeArea(typeArea);
         setLocal(local);
         setSensorList(sensorList);
-        mHouseList = new HouseList();
     }
 
-    public GeographicArea(String name, TypeArea typeArea, Local local, SensorList sensorList, HouseList houselist) {
-        setHouseList(houselist);
+    public GeographicArea(String name, TypeArea typeArea, Local local, SensorList sensorList) {
         setName(name);
         setTypeArea(typeArea);
         setLocal(local);
@@ -92,7 +85,6 @@ public class GeographicArea {
         setWidth(width);
         setLength(length);
         setSensorList(sensorList);
-        mHouseList = new HouseList();
     }
 
     // Setters and Getters for all the parameters.
@@ -154,14 +146,6 @@ public class GeographicArea {
 
     public void setMotherArea(GeographicArea geoArea) {
         this.mMotherArea = geoArea;
-    }
-
-    public HouseList getHouseList() {
-        return mHouseList;
-    }
-
-    public void setHouseList(HouseList mHouseList) {
-        this.mHouseList = mHouseList;
     }
 
     GeographicArea getMotherArea() {

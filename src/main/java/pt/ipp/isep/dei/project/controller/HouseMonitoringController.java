@@ -64,18 +64,6 @@ public class HouseMonitoringController {
         return geoAreaList.printGaWholeList(geoAreaList);
     }
 
-    public List<Integer> matchHouseIndexByString(String input, GeographicArea geoArea){
-        return geoArea.getHouseList().matchHouseIndexByString(input);
-    }
-
-    public String printHouseElementsByIndex(List<Integer> listOfIndexesOfHouses, GeographicArea geoArea) {
-        return geoArea.getHouseList().printElementsByIndex(listOfIndexesOfHouses);
-    }
-
-    public String printHouseList(GeographicArea geoArea) {
-        return geoArea.getHouseList().printHouseList(geoArea);
-    }
-
     public String printHouse (House house){
         return house.printHouse();
     }

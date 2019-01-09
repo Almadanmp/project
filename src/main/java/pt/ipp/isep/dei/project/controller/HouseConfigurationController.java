@@ -9,7 +9,8 @@ import java.util.List;
 
 public class HouseConfigurationController {
     /**
-     * SHARED METHODS**/
+     * SHARED METHODS
+     **/
 
     public List<Integer> matchTypeAreaIndexByString(String input, TypeAreaList typeAreaList) {
         return typeAreaList.matchGeographicAreaTypeIndexByString(input);
@@ -28,7 +29,6 @@ public class HouseConfigurationController {
     }
 
 
-
     /**
      * User Story 01
      * As a system administrator, I wish to define a new type of geographic area, so that later I can classify said geographic area.
@@ -36,9 +36,11 @@ public class HouseConfigurationController {
 
     private TypeAreaList mTypeAreaList;
 
+
     /**
-     * The Builder recieves a List Of Types Of Geographic Areas and sets it.
+     * The Builder receives a List Of Types Of Geographic Areas and sets it.
      */
+
     public HouseConfigurationController(TypeAreaList list) {
         this.mTypeAreaList = list;
     }
@@ -66,7 +68,7 @@ public class HouseConfigurationController {
     }
 
     public boolean setTypeSensor(String name, String typeToSet) {
-        return mSensorList.setTypeSensorByString(name,typeToSet);
+        return mSensorList.setTypeSensorByString(name, typeToSet);
     }
 
     public SensorList getSensorList() {
@@ -146,10 +148,10 @@ public class HouseConfigurationController {
     private Sensor mSensor;
 
 
-
     /**
      * Method to create a Local with given doubles
      * Calls the original method from model
+     *
      * @param latitude Latitude
      * @param latitude Longitude
      * @param latitude Altitude
@@ -160,37 +162,42 @@ public class HouseConfigurationController {
         this.mLocal = local;
         return this.mLocal;
     }
+
     public Date createDate(int year, int month, int day) {
         Date date = new GregorianCalendar(year, month, day).getTime();
         this.mDate = date;
         return this.mDate;
     }
-    public TypeSensor createType(String sensorType){
+
+    public TypeSensor createType(String sensorType) {
         this.mType = new TypeSensor(sensorType);
         return this.mType;
     }
-    public Sensor createSensor (String name, TypeSensor type, Local local, Date date){
-        this.mSensor = new Sensor(name,type,local,date);
+
+    public Sensor createSensor(String name, TypeSensor type, Local local, Date date) {
+        this.mSensor = new Sensor(name, type, local, date);
         return mSensor;
     }
+
     /**
      * Method to add a Sensor to a SensorList
      * Calls the original method from model
      */
-    public boolean addSensor(Sensor sensor, SensorList sensorList){
-        if(sensorList.containsSensor(sensor)) {
+    public boolean addSensor(Sensor sensor, SensorList sensorList) {
+        if (sensorList.containsSensor(sensor)) {
             sensorList.getSensorList().add(sensor);
             return false;
         }
         return true;
     }
+
     /**
      * Method to check if a list is either composed by null values or is empty
-     *
      */
     private boolean checkIfListValid(List<GeographicArea> values) {
         return values != null && !values.isEmpty();
     }
+
     /**
      * Method to add a SensorList to a GeographicArea given that both the name of the Geographis Area and the name given
      * as parameter match
@@ -211,12 +218,15 @@ public class HouseConfigurationController {
     public Local getLocal() {
         return this.mLocal;
     }
+
     public TypeSensor getType() {
         return this.mType;
     }
+
     public Date getDate() {
         return this.mDate;
     }
+
     public Sensor getSensor() {
         return this.mSensor;
     }
@@ -227,16 +237,16 @@ public class HouseConfigurationController {
 
     private GeographicArea mMotherArea;
 
-    public GeographicArea matchGeoArea(String nameArea){
+    public GeographicArea matchGeoArea(String nameArea) {
         return mGeographicAreaList.matchGeoArea(nameArea);
     }
 
-    public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea){
+    public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
         daughterArea.setMotherArea(motherArea);
         this.mMotherArea = motherArea;
     }
 
-    GeographicArea getMotherArea (){
+    GeographicArea getMotherArea() {
         return this.mMotherArea;
 
     }
@@ -293,7 +303,6 @@ public class HouseConfigurationController {
 
     /**
      * US101: As an As an Administrator, I want to in order to configure a house (zipcode, local and address).
-     *
      */
 
     public HouseConfigurationController() {
@@ -313,14 +322,8 @@ public class HouseConfigurationController {
     }
 
 
-
-
     public void setHouseAddress(String address, House house) {
         house.setmAddress(address);
-    }
-
-    public void setHouseList(HouseList houseList) {
-        this.mHouseList = houseList;
     }
 
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
@@ -332,7 +335,7 @@ public class HouseConfigurationController {
     }
 
     public void setHouseLocal(double latitude, double longitude, House house) {
-        house.setGPS(latitude,longitude);
+        house.setGPS(latitude, longitude);
     }
 
     public String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
@@ -343,16 +346,11 @@ public class HouseConfigurationController {
         return geoArea.printGeographicArea();
     }
 
-    public String printHouseList(GeographicArea ga) {
-       return ga.getHouseList().printHouseList(ga);
-    }
-
     /**
-     *   US105: As an Administrator, I want to add a new room to the house, in order to configure
-     it (name, house floor and dimensions).
+     * US105: As an Administrator, I want to add a new room to the house, in order to configure
+     * it (name, house floor and dimensions).
      */
 
-    private HouseList mHouseList;
     private Room mRoom;
 
 
@@ -362,30 +360,18 @@ public class HouseConfigurationController {
 
 
     public boolean addRoomToHouse(House house) {
-        return (house.addRoomToRoomList(this.mRoom));}
+        return (house.addRoomToRoomList(this.mRoom));
+    }
 
     public String getHouseName(House house) {
         return house.getHouseDesignation();
     }
 
     /**
-     US108
+     * US108
      **/
-private RoomList mRoomList;
 
-    public List<Integer> matchHouseIndexByString(String input, GeographicArea geoArea){
-        return geoArea.getHouseList().matchHouseIndexByString(input);
-    }
-
-    public String printHouseElementsByIndex(List<Integer> listOfIndexesOfHouses, GeographicArea geoArea) {
-        return geoArea.getHouseList().printElementsByIndex(listOfIndexesOfHouses);
-    }
-
-    public String printHouse (House house){
-        return house.printHouse();
-    }
-
-    public List<Integer> matchRoomIndexByString(String input, House house){
+    public List<Integer> matchRoomIndexByString(String input, House house) {
         return house.getmRoomList().matchRoomIndexByString(input);
     }
 
@@ -396,16 +382,9 @@ private RoomList mRoomList;
     public String printRoomList(House house) {
         return house.getmRoomList().printRoomList(house);
     }
-    public String printRoomListOfEG (EnergyGrid energyGrid){
-        return energyGrid.getmListOfRooms().printRoomListOfEG(energyGrid);
-    }
 
-    public String printRoom (Room room){
+    public String printRoom(Room room) {
         return room.printRoom();
-    }
-
-    public void setRoomList(RoomList roomList) {
-        this.mRoomList = roomList;
     }
 
     public void editRoom(Room room, String roomName, int roomFloor, double width, double length, double height) {
@@ -416,45 +395,27 @@ private RoomList mRoomList;
         room.setRoomHeight(height);
     }
 
-
-    /** US130
+    /**
+     * US130
      * As an Administrator, I want to create a energy grid,
      * so that I can define the rooms that are attached to it and the contracted maximum power for that grid.
      **/
 
     private EnergyGrid mEnergyGrid;
-    private String mHouseName;
 
-    /**
-     * The controller is initialized with the houseList given from the UI, which came from MainUI;
-     */
-    public HouseConfigurationController(HouseList houseList) {
-        this.mHouseList = houseList;
-    }
-
-    /**
-     * This method checks the house list which came from MainUI through UI for the given house name;
-     */
-    public boolean seeIfHouseExistsInHouseList(String houseName) {
-        if (mHouseList.checkIfHouseListContainsHouseWithGivenDesignation(houseName)) {
-            this.mHouseName = houseName;
-            this.mEnergyGridList = mHouseList.getHouseByDesignation(houseName).getmEGList();
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     /**
      * This method directly adds the desired energy grid to the energy grid list from a selected house;
      */
-    public boolean addEnergyGridToHouse() {
-        return mHouseList.getHouseByDesignation(mHouseName).getmEGList().addEnergyGridToEnergyGridList(mEnergyGrid);
+
+    public boolean addEnergyGridToHouse(House programHouse) {
+        return programHouse.getmEGList().addEnergyGridToEnergyGridList(mEnergyGrid);
     }
 
     /**
      * This method creates an energy grid using a name and a max potency.
      */
+
     public void createEnergyGrid(String designation, double maxPower) {
         this.mEnergyGrid = new EnergyGrid(designation, maxPower);
     }
@@ -462,6 +423,7 @@ private RoomList mRoomList;
     /**
      * Method used only to test the createEnergyGrid method.
      */
+
     EnergyGrid getEnergyGrid() {
         return this.mEnergyGrid;
     }
@@ -483,51 +445,46 @@ private RoomList mRoomList;
         return this.mPowerSource;
     }
 
-    public String seeIfEnergyGridListIsEmptyAndShowItsContent() {
+    String printEGList() {
         return this.mEnergyGridList.printEnergyGridList();
     }
 
-    public boolean selectEnergyGrid(String name) {
-        this.mEnergyGrid = mEnergyGridList.matchEnergyGrid(name);
-        return this.mEnergyGrid != null;
-    }
-
-    public boolean addPowerSourceToEnergyGrid() {
-        return this.mEnergyGrid.addPowerSource(mPowerSource);
+    public boolean addPowerSourceToEnergyGrid(EnergyGrid grid) {
+        return grid.addPowerSource(mPowerSource);
     }
 
     /**
      * US145
-     *
      */
 
-    public HouseConfigurationController (Room room){
+    public HouseConfigurationController(Room room) {
         this.mRoom = room;
     }
 
-    public HouseConfigurationController (EnergyGridList energyGridList){
+    public HouseConfigurationController(EnergyGridList energyGridList) {
         this.mEnergyGridList = energyGridList;
     }
 
-    public List<Integer> matchGridIndexByString(String gridName, House house){
+    public List<Integer> matchGridIndexByString(String gridName, House house) {
         return house.getmEGList().matchGridListElementsByString(gridName);
     }
 
-    public String printEnergyGridByIndex (List<Integer> list){
+    public String printEnergyGridByIndex(List<Integer> list) {
         return this.mEnergyGridList.printElementsByIndex(list);
     }
 
-    public String printEnergyGrid(EnergyGrid grid){
+    public String printEnergyGrid(EnergyGrid grid) {
         return grid.printGrid();
     }
 
-    public String printGridList(House house){
+    public String printGridList(House house) {
         return house.printWholeGridList();
     }
 
-    public String printRooms (RoomList roomList){
+    public String printRooms(RoomList roomList) {
         return roomList.printRooms();
     }
+
     /**
      * US147
      */
@@ -535,6 +492,7 @@ private RoomList mRoomList;
     public boolean addRoomToTheGrid(EnergyGrid grid, Room room) {
         return grid.addRoomToAEnergyGrid(room);
     }
+
     /**
      * US149
      */
