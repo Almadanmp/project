@@ -6,10 +6,11 @@ import java.util.Objects;
  * House Class. Defines de House
  */
 public class House {
-    private String mDesignation;
-    private String mAddress;
-    private Local mGPS;
-    private String mZipCode;
+    private String mId;
+    private String mStreet;
+    private String mZip;
+    private String mTown;
+    private Local mLocation;
     private EnergyGridList mEGList;
     private RoomList mRoomList;
     private GeographicArea mMotherArea;
@@ -18,48 +19,61 @@ public class House {
     public House() {
     }
 
-    public House(String mAddress, Local mGPS, String mZipCode) {
-        this.mAddress = mAddress;
-        this.mGPS = mGPS;
-        this.mZipCode = mZipCode;
-
-    }
-
-    public House(String designation, String mAddress, Local mGPS, String mZipCode) {
-        this.mDesignation = designation;
-        this.mAddress = mAddress;
-        this.mGPS = mGPS;
-        this.mZipCode = mZipCode;
+    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea, RoomList mRoomList) {
+        this.mId = mId;
+        this.mStreet = mStreet;
+        this.mZip = mZip;
+        this.mTown = mTown;
+        this.mLocation = mLocation;
+        this.mMotherArea = mMotherArea;
+        this.mRoomList = mRoomList;
     }
 
     //SETTERS AND GETTERS
 
-    public String getHouseDesignation() {
-        return mDesignation;
+    public String getmHouseId() {
+        return mId;
     }
 
-    public String getmAddress() {
-        return this.mAddress;
+    public String getmStreet() {
+        return this.mStreet;
     }
 
-    public void setmAddress(String mAddress) {
-        this.mAddress = mAddress;
+    public void setmStreet(String mStreet) {
+        this.mStreet = mStreet;
     }
 
-    public Local getmGPS() {
-        return mGPS;
+    public String getmZip() {
+        return mZip;
     }
 
-    public String getmZipCode() {
-        return mZipCode;
+    public void setmZip(String mZip) {
+        this.mZip = mZip;
     }
 
-    public void setmZipCode(String mZipCode) {
-        this.mZipCode = mZipCode;
+    public String getmTown() {
+        return mTown;
+    }
+
+    public void setmTown(String town) {
+        this.mTown = town;
+    }
+
+    public Local getmLocation() {
+        return mLocation;
+    }
+
+    public void setmLocation(double latitude, double longitude) {
+        mLocation.setLatitude(latitude);
+        mLocation.setLongitude(longitude);
     }
 
     public void setmRoomList(RoomList roomList) {
         this.mRoomList = roomList;
+    }
+
+    public RoomList getmRoomList() {
+        return this.mRoomList;
     }
 
     public GeographicArea getmMotherArea() {
@@ -70,48 +84,40 @@ public class House {
         this.mMotherArea = mMotherArea;
     }
 
-    public RoomList getmRoomList() {
-        return this.mRoomList;
+    public EnergyGridList getmEGList() {
+        return this.mEGList;
     }
 
     public void setmEGList(EnergyGridList energyGridList) {
         this.mEGList = energyGridList;
     }
 
-    public EnergyGridList getmEGList() {
-        return this.mEGList;
-    }
 
-    public void setGPS(double latitude, double longitude) {
-        mGPS.setLatitude(latitude);
-        mGPS.setLongitude(longitude);
-    }
-
-    public boolean addRoomToRoomList(Room roomToAdd) {
-        String roomToAddName = roomToAdd.getRoomName();
+    public boolean addRoomToRoomList(Room room) {
+        String roomToAddName = room.getRoomName();
         for (Room r : this.mRoomList.getListOfRooms()) {
             String roomDesignationToTest = r.getRoomName();
             if (roomDesignationToTest.equals(roomToAddName)) {
                 return false;
             }
         }
-        this.mRoomList.addRoom(roomToAdd);
+        this.mRoomList.addRoom(room);
         return true;
     }
 
     public String printHouse() {
         String result;
-        result = this.mDesignation + ", " + this.mAddress + ", " +
-                this.mZipCode + ".\n";
+        result = this.mId + ", " + this.mStreet + ", " +
+                this.mZip + ".\n";
         return result;
     }
 
     double calculateDistanceToSensor(Sensor sensor) {
         Local l = sensor.getLocal();
-        return this.mGPS.getLinearDistanceBetweenLocalsInKm(l);
+        return this.mLocation.getLinearDistanceBetweenLocalsInKm(l);
     }
 
-    double getTheMinorDistanceFromTheHouseToTheSensor(GeographicArea ga) {
+    double getMinDistanceFromHouseToSensor(GeographicArea ga) {
         Sensor firstSensor = ga.getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
@@ -123,16 +129,16 @@ public class House {
         return distance;
     }
 
-    public Sensor getSensorWithTheMinimumDistanceToHouse(GeographicArea ga, House house) {
+    public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house) {
         for (Sensor s : ga.getSensorList().getSensorListByType("temperature")) {
-            if (Double.compare(house.getTheMinorDistanceFromTheHouseToTheSensor(ga), s.getDistanceToHouse(house)) == 0) {
+            if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
                 return s;
             }
         }
         return null;
     }
 
-    public String printWholeGridList() {
+    public String printGridList() {
         String result = "---------------\n";
         if (this.mEGList.getEnergyGridList().isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -155,12 +161,12 @@ public class House {
             return false;
         }
         House house = (House) o;
-        return Objects.equals(mAddress, house.mAddress);
+        return Objects.equals(mStreet, house.mStreet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.mAddress);
+        return Objects.hash(this.mStreet);
     }
 }
 

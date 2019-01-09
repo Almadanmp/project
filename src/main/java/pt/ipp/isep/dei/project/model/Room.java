@@ -74,7 +74,7 @@ public class Room {
         SensorList list = getRoomSensorList();
         House h = new House();
         TypeSensor type = new TypeSensor("temperature");
-        Sensor s = new Sensor("sensor1", type, h.getmGPS(), new Date());
+        Sensor s = new Sensor("sensor1", type, h.getmLocation(), new Date());
         for (int i = 0; i < list.getSensors().length; i++) {
             s = list.getSensors()[i];
         }
@@ -112,7 +112,7 @@ public class Room {
     public double getCurrentRoomTemperature(Date day) {
         House h = new House();
         TypeSensor type = new TypeSensor("temperature");
-        Sensor s = new Sensor("sensor1", type, h.getmGPS(), new Date());
+        Sensor s = new Sensor("sensor1", type, h.getmLocation(), new Date());
         for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
             s = mRoomSensorList.getSensors()[i];
         }

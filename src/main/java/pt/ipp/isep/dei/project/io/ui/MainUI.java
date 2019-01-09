@@ -80,11 +80,10 @@ public class MainUI {
         geoa2.setSensorList(sensorList2);
 
         //TEST HOUSES
-
-        House house1 = new House("houseOne", "Address1", new Local(22, 3), "4150-657");
-        House house2 = new House("houseTwo", "Address2", new Local(4, 4), "3456-123");
-        House house3 = new House("houseTwo", "Address3", new Local(18, 10), "3555-555");
-        House house4 = new House("houseOne", "Address4", new Local(18, 10), "3555-555");
+        House house1 = new House("HouseOne", "Rua das Flores", "4643-221", "Porto", new Local(23, 32),geoa2, roomList1);
+        House house2 = new House("HouseOne", "Rua do Sol", "7645-765", "Lisboa", new Local(13, 76),geoa1, roomList1);
+        House house3 = new House("HouseTwo", "Rua da Praia", "7923-223", "Braga", new Local(24, 54),geoa1, roomList1);
+        House house4 = new House("HouseTwo", "Rua do Mar", "4512-231", "Coimbra", new Local(12, 76),geoa1, roomList1);
         house1.setmRoomList(roomList1);
         house2.setmMotherArea(geoa1);
         house4.setmMotherArea(geoa1);
@@ -109,7 +108,8 @@ public class MainUI {
         GeographicAreaList geographical_area_list = new GeographicAreaList();
 
         GeographicArea ISEP = new GeographicArea("Campus do ISEP", new TypeArea("urban area"), new Local(41.178553, -8.608035, 111));
-        House house = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", new Local(41.177748, -8.607745,112), "4200-072");
+        House house = new House("Edificio B", "Rua Dr António Bernardino de Almeida", "4311-221", "Porto", new Local(41.177748, -8.607745,112),geoa1, roomList1);
+
         RoomList roomList = new RoomList();
         house.setmRoomList(roomList);
         Room room_a = new Room("B107", 1, 7,11,3.5);
@@ -346,8 +346,8 @@ public class MainUI {
                     case 10:
                         if (mGeographicAreaList.checkIfListIsValid())
                             System.out.println("The list of geographic areas is empty!");
-                        for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
-                            System.out.println(ga.getName());
+                        for (GeographicArea ga1 : mGeographicAreaList.getGeographicAreaList()) {
+                            System.out.println(ga1.getName());
                         }
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;

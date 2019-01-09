@@ -112,9 +112,9 @@ public class HouseMonitoringControllerTest {
     @Test
      void seeIfPrintsGeoAList() {
         HouseMonitoringController US623 = new HouseMonitoringController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3));
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33, 100));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14, 100));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3, 100));
         GeographicAreaList gAL1 = new GeographicAreaList();
         gAL1.addGeographicAreaToGeographicAreaList(gA1);
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
@@ -222,8 +222,8 @@ public class HouseMonitoringControllerTest {
 
         //Sensor
         SensorList sensorList2 = new SensorList();
-        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
+        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8).getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8).getTime());
         sensorList2.addSensor(sensor1);
         sensorList2.addSensor(sensor2);
 
@@ -250,8 +250,8 @@ public class HouseMonitoringControllerTest {
 
         //Sensor
         SensorList sensorList2 = new SensorList();
-        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
+        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8).getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8).getTime());
         sensorList2.addSensor(sensor1);
         sensorList2.addSensor(sensor2);
 
@@ -323,7 +323,7 @@ public class HouseMonitoringControllerTest {
         rList6.addReading(r11);
 
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         Sensor s1 = new Sensor("XV1", new TypeSensor("Atmosphere"),
@@ -466,7 +466,7 @@ public class HouseMonitoringControllerTest {
         rList6.addReading(r11);
 
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea(t1, l1);
 
         SensorList sList1 = new SensorList();
@@ -495,7 +495,7 @@ public class HouseMonitoringControllerTest {
         r2 = new Reading(20, d2);
         listR.addReading(r1);
         listR.addReading(r2);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 100), new Date(), listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -522,7 +522,7 @@ public class HouseMonitoringControllerTest {
         r2 = new Reading(20, d2);
         listR.addReading(r1);
         listR.addReading(r2);
-        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date(), listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -550,7 +550,7 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
-        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date(), listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -578,7 +578,7 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
-        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date(), listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -595,14 +595,16 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks() {
         //Arrange --------------------------------------------------
+        RoomList roomList = new RoomList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5), sensorList);
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5, 100), sensorList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
+
         //Act ------------------------------------------------------
         Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga);
         //Assert ---------------------------------------------------
@@ -612,14 +614,15 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks2() {
         //Arrange ---------------------------------------------------
+        RoomList roomList = new RoomList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5), sensorList);
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5, 100), sensorList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
         //Act -------------------------------------------------------
         Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga);
         //Assert ----------------------------------------------------
@@ -629,6 +632,7 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetCurrentRoomTemperatureWorks() {
         //Arrange -------------------------------------
+        //RoomList
         RoomList roomList = new RoomList();
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("Temperature");
@@ -646,7 +650,7 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
-        Sensor s1 = new Sensor("Temp Sensor 1", tipo, new Local(1, 1), new Date(), listR);
+        Sensor s1 = new Sensor("Temp Sensor 1", tipo, new Local(1, 1, 100), new Date(), listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -663,6 +667,8 @@ public class HouseMonitoringControllerTest {
     public void SeeIfGetCurrentTemperatureInTheHouseAreaWorks() {
         //Arrange -----------------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        //RoomList
+        RoomList roomList = new RoomList();
         //Reading List
         Reading r1 = new Reading(30, new GregorianCalendar(2018, 8, 9, 17, 0).getTime());
         Reading r2 = new Reading(40, new GregorianCalendar(2018, 8, 9, 22, 0).getTime());
@@ -670,15 +676,16 @@ public class HouseMonitoringControllerTest {
         readingList.addReading(r1);
         readingList.addReading(r2);
         //Sensor List
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime(), readingList);
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime(), readingList);
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime(), readingList);
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime(), readingList);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         //Geo Area List
-        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5), sensorList);
+        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5, 100), sensorList);
         //House List
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
+
         //Act ---------------------------------------------------
         double result = ctrl.getCurrentTemperatureInTheHouseArea(house, ga);
         double expectedResult = 40;
@@ -691,7 +698,7 @@ public class HouseMonitoringControllerTest {
         //Arrange -------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 100));
         //Act -----------------------
         String result = ctrl.printGA(ga);
         String expectedResult = "porto, cidade, 4.0º lat, 4.0º long\n";
@@ -706,7 +713,7 @@ public class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Room List
         RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018)));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23, 100), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123,2,2);
         r1.setRoomSensorList(sensorList);
         Room r2 = new Room("Jardim", 1, 123, 2,2);
@@ -728,7 +735,7 @@ public class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Room List
         RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018)));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23, 100), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123,2,2);
         r1.setRoomSensorList(sensorList);
         Room r2 = new Room("Jardim", 1, 123, 2,2);
@@ -751,9 +758,9 @@ public class HouseMonitoringControllerTest {
         //Sensor List
         TypeSensor t1 = new TypeSensor("Humidade");
         TypeSensor t2 = new TypeSensor("Vento");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 100), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 100), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 100), new GregorianCalendar(2000, 11, 1).getTime());
         SensorList sensorList1 = new SensorList(s1);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
@@ -776,9 +783,9 @@ public class HouseMonitoringControllerTest {
         //Sensor List
         TypeSensor t1 = new TypeSensor("Humidade");
         TypeSensor t2 = new TypeSensor("Vento");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 100), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 100), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 100), new GregorianCalendar(2000, 11, 1).getTime());
         SensorList sensorList1 = new SensorList(s1);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
@@ -800,8 +807,8 @@ public class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 100));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4, 100));
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
         //Act -----------------------------------------
@@ -817,8 +824,8 @@ public class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 100));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4, 100));
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
         //Act ---------------------------------------------
@@ -1103,8 +1110,8 @@ public class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
         SensorList sensorList = new SensorList();
-        Sensor s1 = new Sensor("sensor", new TypeSensor("temperatura"), new Local(4, 4), new GregorianCalendar(8, 8, 8, 8, 8).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura"), new Local(4, 4), new GregorianCalendar(8, 8, 8, 8, 8).getTime());
+        Sensor s1 = new Sensor("sensor", new TypeSensor("temperatura"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8, 8, 8).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8, 8, 8).getTime());
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         Room room = new Room("cozinha", 1, 1,2,2);
@@ -1119,7 +1126,7 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfprintSensorWorks() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Sensor s1 = new Sensor("sensor", new TypeSensor("temperatura"), new Local(4, 4), new GregorianCalendar(7, 7, 7).getTime());
+        Sensor s1 = new Sensor("sensor", new TypeSensor("temperatura"), new Local(4, 4, 100), new GregorianCalendar(7, 7, 7).getTime());
         String result = ctrl.printSensor(s1);
         String expected = "sensor, temperatura, 4.0º lat, 4.0º long\n";
         assertEquals(expected, result);

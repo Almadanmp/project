@@ -431,6 +431,7 @@ class HouseConfigurationControllerTest {
      * }
      **/
     //USER STORY 005 TESTS
+
     @Test
     void seeIfConstructorWorks() {
         //Arrange
@@ -731,7 +732,7 @@ class HouseConfigurationControllerTest {
         SensorList xSensorList = new SensorList();
         xSensorList.addSensor(sens1);
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea areaG = new GeographicArea(t1, l1);
         areaG.setName("Alegria");
 
@@ -766,7 +767,7 @@ class HouseConfigurationControllerTest {
         SensorList xSensorList = new SensorList();
         xSensorList.addSensor(sens1);
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea areaG = new GeographicArea(t1, l1);
         areaG.setName("Alegria");
 
@@ -801,7 +802,7 @@ class HouseConfigurationControllerTest {
         SensorList xSensorList = new SensorList();
         xSensorList.addSensor(sens1);
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea areaG = new GeographicArea(t1, l1);
         areaG.setName("Alegria");
 
@@ -845,7 +846,7 @@ class HouseConfigurationControllerTest {
     void seeIfSetMotherArea() {
         GeographicAreaList geographicAreaList = new GeographicAreaList();
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea ga1 = new GeographicArea("Cedofeita", t1, l1);
         GeographicArea ga2 = new GeographicArea("Porto", t1, l1);
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
@@ -904,12 +905,12 @@ class HouseConfigurationControllerTest {
         GeographicAreaList geographicAreaList = new GeographicAreaList();
 
         TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
         GeographicArea ga1 = new GeographicArea(t1, l1);
         ga1.setName(n1);
 
-        Local l2 = new Local(39, 67);
+        Local l2 = new Local(39, 67, 50);
         String n2 = "Braga";
         GeographicArea ga2 = new GeographicArea(t1, l2);
         ga2.setName(n2);
@@ -926,9 +927,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAreaContainedMatchToAreasOfList() {
         GeographicAreaList list = new GeographicAreaList();
-        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45));
-        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45));
-        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45));
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45, 50));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45, 50));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45, 50));
         list.addGeographicAreaToGeographicAreaList(area1);
         list.addGeographicAreaToGeographicAreaList(area2);
         list.addGeographicAreaToGeographicAreaList(area3);
@@ -944,9 +945,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAreaContainerMatchToAreasOfList() {
         GeographicAreaList list = new GeographicAreaList();
-        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45));
-        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45));
-        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45));
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45, 100));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45, 100));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45, 100));
         list.addGeographicAreaToGeographicAreaList(area1);
         list.addGeographicAreaToGeographicAreaList(area2);
         list.addGeographicAreaToGeographicAreaList(area3);
@@ -962,9 +963,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAreaContainedMatchToAreasOfListFails() {
         GeographicAreaList list = new GeographicAreaList();
-        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45));
-        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45));
-        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45));
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45, 100));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45, 100));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45, 100));
         list.addGeographicAreaToGeographicAreaList(area1);
         list.addGeographicAreaToGeographicAreaList(area2);
         list.addGeographicAreaToGeographicAreaList(area3);
@@ -979,9 +980,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAreaContainedInAnotherAreaWorks() {
         GeographicAreaList list = new GeographicAreaList();
-        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45));
-        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45));
-        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45));
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45, 100));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45, 100));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45, 100));
         list.addGeographicAreaToGeographicAreaList(area1);
         list.addGeographicAreaToGeographicAreaList(area2);
         list.addGeographicAreaToGeographicAreaList(area3);
@@ -999,9 +1000,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAreaContainedInAnotherAreaFailsWithContainerNotFilled() {
         GeographicAreaList list = new GeographicAreaList();
-        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45));
-        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45));
-        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45));
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45, 50));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45, 50));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45, 50));
         list.addGeographicAreaToGeographicAreaList(area1);
         list.addGeographicAreaToGeographicAreaList(area2);
         list.addGeographicAreaToGeographicAreaList(area3);
@@ -1019,9 +1020,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAreaContainedInAnotherAreaFails() {
         GeographicAreaList list = new GeographicAreaList();
-        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45));
-        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45));
-        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45));
+        GeographicArea area1 = new GeographicArea("Porto", new TypeArea("Cidade"), new Local(45, 45, 100));
+        GeographicArea area2 = new GeographicArea("Portugal", new TypeArea("Pais"), new Local(45, 45, 100));
+        GeographicArea area3 = new GeographicArea("Europa", new TypeArea("Continente"), new Local(45, 45, 100));
         list.addGeographicAreaToGeographicAreaList(area1);
         list.addGeographicAreaToGeographicAreaList(area2);
         list.addGeographicAreaToGeographicAreaList(area3);
@@ -1067,9 +1068,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfPrintGAList() {
         //Arrange
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3));
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33, 100));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14, 100));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3, 100));
         GeographicAreaList gAL1 = new GeographicAreaList();
         gAL1.addGeographicAreaToGeographicAreaList(gA1);
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
@@ -1093,8 +1094,8 @@ class HouseConfigurationControllerTest {
         //Arrange
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        GeographicArea gA2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 100));
+        GeographicArea gA2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4, 100));
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(gA1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(gA2);
         //Act
@@ -1112,8 +1113,8 @@ class HouseConfigurationControllerTest {
         Integer i = 1;
         list.add(i);
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 100));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4, 100));
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
 
@@ -1138,8 +1139,8 @@ class HouseConfigurationControllerTest {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         //Geo Area List
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 100));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4, 100));
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
         //Act -----------------------------------------
@@ -1155,8 +1156,8 @@ class HouseConfigurationControllerTest {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         //Geo Area List
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4));
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 50));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4, 50));
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
         //Act ---------------------------------------------
@@ -1174,9 +1175,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfPrintsGeoA() {
         HouseConfigurationController US101 = new HouseConfigurationController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3));
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33, 50));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14, 50));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3, 50));
         GeographicAreaList gAL1 = new GeographicAreaList();
         gAL1.addGeographicAreaToGeographicAreaList(gA1);
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
@@ -1191,11 +1192,12 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfIndexIsMatchedByString() {
-        House house = new House("Casa", new Local(45, 50), "4535");
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         Room room = new Room("Quarto", 1, 20,2,2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
-        RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
@@ -1211,11 +1213,12 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfEnergyGridIsPrintedByIndex() {
-        House house = new House("Casa", new Local(45, 50), "4535");
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         Room room = new Room("Quarto", 1, 20,2,2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
-        RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
@@ -1232,10 +1235,11 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfEnergyGridPrints() {
-        House house = new House("Casa", new Local(45, 50), "4535");
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         Room room = new Room("Quarto", 1, 20,2,2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
-        RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         roomList.addRoom(room);
@@ -1249,10 +1253,11 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfGridListPrints() {
-        House house = new House("Casa", new Local(45, 50), "4535");
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         Room room = new Room("Quarto", 1, 20,2,2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
-        RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         roomList.addRoom(room);
@@ -1268,10 +1273,11 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfRoomsPrint() {
-        House house = new House("Casa", new Local(45, 50), "4535");
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         Room room = new Room("Quarto", 1, 20,2,2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
-        RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         roomList.addRoom(room);
@@ -1289,11 +1295,12 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfRoomIsRemovedFromGrid() {
-        House house = new House("Casa", new Local(45, 50), "4535");
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         Room room = new Room("Quarto", 1, 20,2,2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
-        RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
@@ -1304,4 +1311,4 @@ class HouseConfigurationControllerTest {
         boolean result = ctrlUS145.removeRoomFromGrid(energyGrid1, room);
         assertTrue(result);
     }
-}
+    }
