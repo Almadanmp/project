@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -8,6 +9,55 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeviceListTest {
+
+    @Test
+    public void seeIfAddDeviceWorksWithSameDevice() {
+        //Room List
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 9, 23456789,2,2);
+        roomList1.addRoom(room1);
+        //Reading List
+        ReadingList rL1 = new ReadingList();
+        Date d2 = new GregorianCalendar(2008, 2, 2).getTime();
+        Reading r1;
+        r1 = new Reading(30, d2);
+        rL1.addReading(r1);
+        //Total Power
+        double tP1 = 50;
+        //Device List
+        DeviceList deviceL1 = new DeviceList();
+        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        deviceL1.addDevices(d1);
+
+        Boolean actualResult = deviceL1.addDevices(d1);
+
+        Assertions.assertEquals(false, actualResult);
+    }
+
+    @Test
+    public void seeIfAddDeviceWorksWithDifferentDevice() {
+        //Room List
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 9, 23456789,2,2);
+        roomList1.addRoom(room1);
+        //Reading List
+        ReadingList rL1 = new ReadingList();
+        Date d2 = new GregorianCalendar(2008, 2, 2).getTime();
+        Reading r1;
+        r1 = new Reading(30, d2);
+        rL1.addReading(r1);
+        //Total Power
+        double tP1 = 50;
+        //Device List
+        DeviceList deviceL1 = new DeviceList();
+        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device device2 = new Device("WM", "House Apliance", room1, rL1, tP1);
+        deviceL1.addDevices(d1);
+
+        Boolean actualResult = deviceL1.addDevices(device2);
+
+        Assertions.assertEquals(true, actualResult);
+    }
 
     @Test
     public void seeIfContainsDeviceWorks() {
