@@ -23,7 +23,8 @@ public class RoomTest {
         r2 = new Reading(20, d2);
         listR.addReading(r1);
         listR.addReading(r2);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789,5,3);
@@ -52,7 +53,8 @@ public class RoomTest {
         r2 = new Reading(20, d2);
         listR.addReading(r1);
         listR.addReading(r2);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
@@ -74,7 +76,8 @@ public class RoomTest {
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
@@ -96,7 +99,8 @@ public class RoomTest {
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
@@ -126,7 +130,8 @@ public class RoomTest {
         listR.addReading(r2);
         listR.addReading(r3);
         listR.addReading(r4);
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
@@ -156,7 +161,8 @@ public class RoomTest {
         listR.addReading(r2);
         listR.addReading(r3);
         listR.addReading(r4);
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
@@ -187,7 +193,8 @@ public class RoomTest {
         listR.addReading(r2);
         listR.addReading(r3);
         listR.addReading(r4);
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
@@ -201,7 +208,8 @@ public class RoomTest {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
@@ -214,7 +222,8 @@ public class RoomTest {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 8, 5,2);
         room.setRoomSensorList(list);
@@ -227,11 +236,13 @@ public class RoomTest {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 8, 5,3);
         room.setRoomSensorList(list);
-        Sensor s2 = new Sensor("sensor2", type, new Local(1, 1, 50), new Date(), listR);
+        Sensor s2 = new Sensor("sensor2", type, new Local(1, 1, 50), new Date());
+        s2.setReadingList(listR);
         boolean result = room.addSensor(s2);
         assertTrue(result);
     }
@@ -241,7 +252,8 @@ public class RoomTest {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
@@ -254,7 +266,8 @@ public class RoomTest {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         boolean result = room.equals(null);

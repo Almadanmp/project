@@ -383,7 +383,8 @@ public class HouseMonitoringControllerTest {
         r2 = new Reading(20, d2);
         listR.addReading(r1);
         listR.addReading(r2);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 100), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 100), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -410,7 +411,8 @@ public class HouseMonitoringControllerTest {
         r2 = new Reading(20, d2);
         listR.addReading(r1);
         listR.addReading(r2);
-        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -438,7 +440,8 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
-        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -466,7 +469,8 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
-        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date(), listR);
+        Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -538,7 +542,8 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
-        Sensor s1 = new Sensor("Temp Sensor 1", tipo, new Local(1, 1, 100), new Date(), listR);
+        Sensor s1 = new Sensor("Temp Sensor 1", tipo, new Local(1, 1, 100), new Date());
+        s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80,2,2);
         room.setRoomSensorList(list);
@@ -564,8 +569,10 @@ public class HouseMonitoringControllerTest {
         readingList.addReading(r1);
         readingList.addReading(r2);
         //Sensor List
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature","Celsius"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime(), readingList);
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature","Celsius"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime(), readingList);
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature","Celsius"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime());
+        s1.setReadingList(readingList);
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature","Celsius"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
+        s2.setReadingList(readingList);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);

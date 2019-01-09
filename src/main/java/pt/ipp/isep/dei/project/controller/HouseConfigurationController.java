@@ -331,8 +331,8 @@ public class HouseConfigurationController {
         house.setmZip(zipCode);
     }
 
-    public void setHouseLocal(double latitude, double longitude, House house) {
-        house.setmLocation(latitude,longitude);
+    public void setHouseLocal(double latitude, double longitude, double altitude, House house) {
+        house.setmLocation(latitude,longitude, altitude);
     }
 
     public String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {

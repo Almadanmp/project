@@ -220,14 +220,17 @@ public class SensorListTest {
         l2.addReading(reading4);
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime(), l1);
+                new GregorianCalendar(118, 12, 4).getTime());
+        s1.setReadingList(l1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
-                new GregorianCalendar(118, 10, 4).getTime(), l2);
+                new GregorianCalendar(118, 10, 4).getTime());
+        s2.setReadingList(l2);
         SensorList list1 = new SensorList(new Sensor[]{s1, s2});
         Sensor expectedResult = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime(), l1);
+                new GregorianCalendar(118, 12, 4).getTime());
+        expectedResult.setReadingList(l1);
         Sensor actualResult;
 
         //Act
@@ -253,14 +256,17 @@ public class SensorListTest {
         l2.addReading(reading4);
         Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime(), l1);
+                new GregorianCalendar(118, 12, 4).getTime());
+        s2.setReadingList(l1);
         Sensor s1 = new Sensor("Movimento", new TypeSensor("Atmosphere", "m/s"),
                 new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime(), l2);
+                new GregorianCalendar(118, 12, 4).getTime());
+        s1.setReadingList(l2);
         SensorList list1 = new SensorList(new Sensor[]{s1, s2});
         Sensor expectedResult = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime(), l1);
+                new GregorianCalendar(118, 12, 4).getTime());
+        expectedResult.setReadingList(l1);
         Sensor actualResult;
 
         //Act

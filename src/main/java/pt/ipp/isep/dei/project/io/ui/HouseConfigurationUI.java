@@ -939,6 +939,7 @@ class HouseConfigurationUI {
 
     private double mHouseLat;
     private double mHouseLon;
+    private double mHouseAlt;
     private String mHouseAddress;
     private String mHouseZipCode;
     private House mHouse;
@@ -990,7 +991,7 @@ class HouseConfigurationUI {
 
     private void updateModelUS101() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
-        ctrl.setHouseLocal(mHouseLat, mHouseLon, mHouse);
+        ctrl.setHouseLocal(mHouseLat, mHouseLon, mHouseAlt, mHouse);
         ctrl.setHouseZIPCode(mHouseZipCode, mHouse);
         ctrl.setHouseAddress(mHouseAddress, mHouse);
     }
