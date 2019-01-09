@@ -15,7 +15,7 @@ public class GeographicArea {
     private GeographicArea mMotherArea;
     private Local mLocation;
     private SensorList mAreaSensors;
-
+    private String mDescription;
 
 
 
@@ -65,6 +65,14 @@ public class GeographicArea {
 
     public void setLength(double length){this.mLength = length;}
 
+    /**
+     * Sets the description attribute
+     * @param description String is a short description of the Geographical Area.
+     */
+
+    public void setDescription(String description){
+        this.mDescription = description;
+    }
     /**
      * Setter for Geographic Area type.
      *

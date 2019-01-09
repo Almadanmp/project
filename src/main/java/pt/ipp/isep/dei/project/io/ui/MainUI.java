@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
 
+import javax.sound.sampled.Port;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -107,9 +108,9 @@ public class MainUI {
         house2.setmEGList(energyGridList2);
 
 
-        /******************************************************************************
-         ************************ < MOCK DATA FOR TESTING PUPOSES >********************
-         ******************************************************************************/
+        // ***************************************************************************
+        // ********************* < MOCK DATA FOR TESTING PURPOSES >*******************
+        // ***************************************************************************
 
         // Geo List (1)
         GeographicAreaList geographicalAreaList = new GeographicAreaList();
@@ -119,25 +120,30 @@ public class MainUI {
         GeographicArea ISEP = new GeographicArea("ISEP", new TypeArea("urban area"), 52,5,new Local(41.178553, -8.608035, 111));
         ISEP.setWidth(0.261);
         ISEP.setLength(0.249);
+        ISEP.setDescription("Campus do ISEP");
 
         GeographicArea Porto = new GeographicArea("Porto", new TypeArea("city"), 31,6,new Local(41.164077, -8.620802, 118));
         Porto.setWidth(10.09);
         Porto.setLength(10.09);
+        Porto.setDescription("City of Porto");
 
         GeographicArea Portugal = new GeographicArea("Portugal", new TypeArea("pais"), 22,9,new Local(60, 0, 110));
         Portugal.setWidth(100);
         Portugal.setLength(800);
+        Portugal.setDescription("Country of Portugal");
 
         GeographicArea PortoSanto = new GeographicArea("Porto Santo", new TypeArea("city"), 42,12,new Local(-45, 67, 67));
         PortoSanto.setWidth(156);
         PortoSanto.setLength(235);
+        PortoSanto.setDescription("City of Porto Santo");
 
         geographicalAreaList.addGeographicAreaToGeographicAreaList(ISEP);
         geographicalAreaList.addGeographicAreaToGeographicAreaList(Porto);
         geographicalAreaList.addGeographicAreaToGeographicAreaList(Portugal);
         geographicalAreaList.addGeographicAreaToGeographicAreaList(PortoSanto);
 
-        /** FALTA DESCRICAO NA GEO AREA **/
+        //fixme : setDescription() tests missing **/
+
 
         //Rooms
 
@@ -270,9 +276,9 @@ public class MainUI {
         mainGrid.setListOfRooms(roomListEdifB);
 
 
-        /******************************************************************************
-         ********************** < / MOCK DATA FOR TESTING PUPOSES > *******************
-         ******************************************************************************/
+        // **************************************************************************
+        // ******************* < / MOCK DATA FOR TESTING PUPOSES > ******************
+        // **************************************************************************
 
         //MAIN CODE
 

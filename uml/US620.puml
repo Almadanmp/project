@@ -1,0 +1,6 @@
+@startuml
+actor User
+User -> MainUI: Get Total Rainfall on House Area
+MainUI -> HouseMonitoringUI: Get Total Rainfall on House Area
+HouseMonitoringUI --> User: Request Geographic Area Name User: Request Geographic Area Index from List
+@enduml
