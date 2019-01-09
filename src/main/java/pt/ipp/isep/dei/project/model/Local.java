@@ -11,6 +11,8 @@ public class Local {
      * @param latitude of the local
      * @param longitude of the local
      */
+
+    //Não usar mais este construtor, vai ser apagado mal estejam todos modificados.
     public Local(double latitude, double longitude) {
         setLatitude(latitude);
         setLongitude(longitude);
