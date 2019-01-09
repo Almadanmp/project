@@ -207,10 +207,6 @@ public class MainUI {
         readingListISEPRainfall.addReading(reading31);
         readingListISEPRainfall.addReading(reading32);
 
-        Sensor sensor_b = new Sensor("Meteo station ISEP - rainfall", new TypeSensor("rainfall", "l/m2"), new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
-
-
-        ReadingList readingList_c = new ReadingList();
         ReadingList readingListISEPtemperature = new ReadingList();
         Reading reading33 = new Reading(8, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         Reading reading34 = new Reading(6.9, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
@@ -247,8 +243,6 @@ public class MainUI {
 
         // Sensors
 
-        Sensor sensor_c = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature", "Celsius"), new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
-        sensor_c.setReadingList(readingList_c);
         Sensor sensorRoom109 = new Sensor("Temperature B109", new TypeSensor("temperature", "ºC"), new Local(0, 0), new GregorianCalendar(2018, 10, 16).getTime());
         sensorRoom109.setReadingList(readingListSensorRoom109);
         Sensor sensorRainfallISEP = new Sensor("Meteo station ISEP - rainfall", new TypeSensor("rainfall","mm"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime());
