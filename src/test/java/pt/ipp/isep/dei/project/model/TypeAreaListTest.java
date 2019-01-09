@@ -12,7 +12,7 @@ import static org.testng.Assert.assertTrue;
 class TypeAreaListTest {
 
     @Test
-    public void seeIfPrintTypeAreaListWorks() {
+    void seeIfPrintTypeAreaListWorks() {
         TypeAreaList list = new TypeAreaList();
         TypeArea t1 = new TypeArea("Rua");
         list.addTypeArea(t1);
@@ -25,7 +25,7 @@ class TypeAreaListTest {
     }
 
     @Test
-    public void seeIfPrintsWhenTypeAreaListIsEmpty() {
+    void seeIfPrintsWhenTypeAreaListIsEmpty() {
         TypeAreaList list = new TypeAreaList();
         String result = list.printTypeAreaList();
         String expectedResult = "\nArea Types List:\n\n|||| List is Empty ||||\nAdd types to list first";
@@ -33,9 +33,8 @@ class TypeAreaListTest {
     }
 
     @Test
-    public void seeIfPrintsWhenTypeAreaListIsNull() {
+    void seeIfPrintsWhenTypeAreaListIsNull() {
         TypeAreaList list = new TypeAreaList();
-        List<TypeArea> mTypeAreaList = list.getTypeAreaList();   //sem esta linha o teste não passava
         String result = list.printTypeAreaList();
         String expectedResult = "\nArea Types List:\n\n|||| List is Empty ||||\nAdd types to list first";
         assertEquals(result, expectedResult);
@@ -49,16 +48,16 @@ class TypeAreaListTest {
     }
 
     @Test
-    public void seeIfnewTAGWorksWithAnother() {
-        TypeArea tipo = new TypeArea("rua");
+    void seeIfNewTAGWorksWithAnother() {
+        TypeArea type = new TypeArea("rua");
         TypeAreaList newList = new TypeAreaList();
-        newList.addTypeArea(tipo);
+        newList.addTypeArea(type);
         boolean result = newList.newTAG("cidade");
         assertTrue(result);
     }
 
     @Test
-    public void seeIfnewTAGDoesntWorkWhenDuplicatedISAdded() {
+    void seeIfNewTAGDoesNotWorkWhenDuplicatedISAdded() {
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList expectedResult = new TypeAreaList();
         expectedResult.addTypeArea(tipo);
@@ -67,7 +66,7 @@ class TypeAreaListTest {
     }
 
     @Test
-    public void seeIfNewTAGDoesntWorkWhenNullIsAdded() {
+    void seeIfNewTAGDoesNotWorkWhenNullIsAdded() {
         TypeArea tipo = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(tipo);
@@ -76,25 +75,25 @@ class TypeAreaListTest {
     }
 
     @Test
-    public void seeIfNewTAGDoesntWorkWhenNameIsEmpty() {
-        TypeArea tipo = new TypeArea("cidade");
+    void seeIfNewTAGDoesNotWorkWhenNameIsEmpty() {
+        TypeArea type = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(tipo);
+        list.addTypeArea(type);
         boolean result = list.newTAG("");
         assertFalse(result);
     }
 
     @Test
-    public void seeIfNewTAGDoesntWorkWhenNumbersAreAdded() {
-        TypeArea tipo = new TypeArea("cidade");
+    void seeIfNewTAGDoesNotWorkWhenNumbersAreAdded() {
+        TypeArea type = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(tipo);
+        list.addTypeArea(type);
         boolean result = list.newTAG("cidade1");
         assertFalse(result);
     }
 
     @Test
-    public void seeIfMatchGeographicAreaTypeIndexByString() {
+    void seeIfMatchGeographicAreaTypeIndexByString() {
         TypeArea type = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         String input = "cidade";
@@ -107,7 +106,7 @@ class TypeAreaListTest {
     }
 
     @Test
-    public void seeIfMatchGeographicAreaTypeIndexByStringNotMatch() {
+    void seeIfMatchGeographicAreaTypeIndexByStringNotMatch() {
         TypeArea type = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         String input = "distrito";
@@ -119,7 +118,7 @@ class TypeAreaListTest {
     }
 
     @Test
-    public void seeIfPrintGATypeElementsByIndex() {
+    void seeIfPrintGATypeElementsByIndex() {
         TypeArea type1 = new TypeArea("cidade");
         TypeArea type2 = new TypeArea("distrito");
         TypeArea type3 = new TypeArea("aldeia");
@@ -141,7 +140,7 @@ class TypeAreaListTest {
     }
 
     @Test
-    public void seeIfPrintGAWholeList() {
+    void seeIfPrintGAWholeList() {
         TypeArea type1 = new TypeArea("cidade");
         TypeArea type2 = new TypeArea("distrito");
         TypeArea type3 = new TypeArea("aldeia");
@@ -161,7 +160,7 @@ class TypeAreaListTest {
     }
 
     @Test
-    public void seeIfPrintGAWholeListFails() {
+    void seeIfPrintGAWholeListFails() {
             TypeAreaList list = new TypeAreaList();
              String expectedResult = "Invalid List - List is Empty\n";
         String result;

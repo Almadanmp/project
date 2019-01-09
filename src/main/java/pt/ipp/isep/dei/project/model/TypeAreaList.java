@@ -1,11 +1,11 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TypeAreaList {
     private List<TypeArea> mTypeAreaList;
+    private String mResultLookEnhancer = "---------------\n";
 
     public TypeAreaList() {
         mTypeAreaList = new ArrayList<>();
@@ -64,17 +64,17 @@ public class TypeAreaList {
     }
 
     public String printGATypeElementsByIndex (List<Integer> indexes){
-        StringBuilder result = new StringBuilder("---------------\n");
-        for (int i = 0 ; i<indexes.size() ; i++ ) {
-            int pos = indexes.get(i);
-            result.append(indexes.get(i)).append(") ").append(mTypeAreaList.get(pos).printTypeGeographicArea());
+        StringBuilder result = new StringBuilder(mResultLookEnhancer);
+        for (Integer indexe : indexes) {
+            int pos = indexe;
+            result.append(indexe).append(") ").append(mTypeAreaList.get(pos).printTypeGeographicArea());
         }
-        result.append("---------------\n");
+        result.append(mResultLookEnhancer);
         return result.toString();
     }
 
     public String printGATypeWholeList(TypeAreaList typeAreaList) {
-        StringBuilder result = new StringBuilder("---------------\n");
+        StringBuilder result = new StringBuilder(mResultLookEnhancer);
 
         if (typeAreaList.getTypeAreaList().isEmpty()){
             return "Invalid List - List is Empty\n";
@@ -84,8 +84,8 @@ public class TypeAreaList {
             TypeArea aux = typeAreaList.getTypeAreaList().get(i);
             result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" \n");
         }
-        result.append("---------------\n");
-        System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
+        result.append(mResultLookEnhancer);
+        System.out.print(result);
         return result.toString();
     }
 
