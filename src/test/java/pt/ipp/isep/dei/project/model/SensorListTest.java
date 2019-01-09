@@ -7,9 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class SensorListTest {
@@ -97,7 +95,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfRemoveSensor_true() {
+    void seeIfRemoveSensor_true() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -113,7 +111,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfRemoveSensor_false() {
+    void seeIfRemoveSensor_false() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -129,7 +127,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfArrayGetSensors() {
+    void seeIfArrayGetSensors() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -145,7 +143,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfGetSensorsList() {
+    void seeIfGetSensorsList() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -163,7 +161,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfequalsSameObject() {
+    void seeIfequalsSameObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -175,7 +173,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfequalsSensorListWithSameContent() {
+    void seeIfequalsSensorListWithSameContent() {
         Sensor s1 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -191,7 +189,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfequalsSensorListWithDifferentContent() {
+    void seeIfequalsSensorListWithDifferentContent() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -207,7 +205,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfGetMostRecentlyUsedSensorWorks() {
+    void seeIfGetMostRecentlyUsedSensorWorks() {
 
         //Arrange
 
@@ -241,7 +239,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfGetMostRecentlyUsedSensorWorksSwitchedSensors() {
+    void seeIfGetMostRecentlyUsedSensorWorksSwitchedSensors() {
 
         //Arrange
         Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25).getTime());
@@ -274,7 +272,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfequalsSensorListWithDifferentObject() {
+    void seeIfequalsSensorListWithDifferentObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -287,7 +285,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeHashCodeDummyTest() {
+    void seeHashCodeDummyTest() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -306,7 +304,7 @@ public class SensorListTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
-        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList, new Local(0, 30), new Local(30, 0));
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList, 10, 20);
         GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
@@ -324,7 +322,7 @@ public class SensorListTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
-        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList, new Local(0, 30), new Local(30, 0));
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList, 10, 20);
         GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
@@ -340,7 +338,7 @@ public class SensorListTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
-        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList, new Local(0, 30), new Local(30, 0));
+        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList, 10, 20);
         GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
@@ -360,12 +358,10 @@ public class SensorListTest {
         Local l1 = new Local(20, 20);
         TypeArea ta1 = new TypeArea("Pantano");
         GeographicArea ga1 = new GeographicArea(ta1, l1);
-        Local l2 = new Local(10, 30);
-        Local l3 = new Local(30, 10);
 
         //Act
-        ga1.setBottomRightVertex(l3);
-        ga1.setTopLeftVertex(l2);
+        ga1.setWidth(15);
+        ga1.setLength(15);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
@@ -389,12 +385,10 @@ public class SensorListTest {
         Local l1 = new Local(20, 20);
         TypeArea ta1 = new TypeArea("Pantano");
         GeographicArea ga1 = new GeographicArea(ta1, l1);
-        Local l2 = new Local(10, 30);
-        Local l3 = new Local(30, 10);
 
         //Act
-        ga1.setBottomRightVertex(l3);
-        ga1.setTopLeftVertex(l2);
+        ga1.setWidth(21);
+        ga1.setLength(22);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
@@ -424,8 +418,8 @@ public class SensorListTest {
         Local l3 = new Local(30, 10);
 
         //Act
-        ga1.setBottomRightVertex(l3);
-        ga1.setTopLeftVertex(l2);
+        ga1.setWidth(20);
+        ga1.setLength(30);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
@@ -453,10 +447,9 @@ public class SensorListTest {
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
         Sensor actualResult = sensorList1.getSensorByName("s1");
-        Sensor expectedResult = s1;
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(s1, actualResult);
     }
 
     @Test
@@ -477,11 +470,11 @@ public class SensorListTest {
         Sensor actualResult = sensorList1.getSensorByName("t1");
 
         //Assert
-        assertEquals(null, actualResult);
+        assertNull(actualResult);
     }
 
     @Test
-    public void ensureThatWeTestEmptyConstructor() {
+    void ensureThatWeTestEmptyConstructor() {
         SensorList sl = new SensorList();
         TypeSensor t1 = new TypeSensor("Humidade");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
@@ -494,7 +487,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfSetTypeWorks() {
+    void seeIfSetTypeWorks() {
         //Arrange
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
@@ -515,7 +508,7 @@ public class SensorListTest {
 
 
     @Test
-    public void seeIfSetTypeWorksFalse() {
+    void seeIfSetTypeWorksFalse() {
         //Arrange
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
@@ -535,7 +528,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfSetTypeWorksEmptyList() {
+    void seeIfSetTypeWorksEmptyList() {
         //Arrange
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21),
@@ -554,7 +547,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfAnInvalidListIsAdded() {
+    void seeIfAnInvalidListIsAdded() {
         SensorList list = new SensorList();
         boolean expectedResult = false;
         boolean actualResult = list.checkIfListIsValid();
@@ -563,7 +556,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfAnValidListIsAdded() {
+    void seeIfAnValidListIsAdded() {
         SensorList list = new SensorList();
         Sensor sensor = new Sensor("Termometro", new TypeSensor(), new Local(1,1), new Date());
         list.addSensor(sensor);
@@ -588,10 +581,9 @@ public class SensorListTest {
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
         Sensor actualResult = sensorList1.getSensorByType("Humidade");
-        Sensor expectedResult = s1;
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(s1, actualResult);
     }
 
     @Test
@@ -627,10 +619,9 @@ public class SensorListTest {
         //Act
         sensorList1.addSensor(s1);
         Sensor actualResult = sensorList1.getSensorByType("Vento");
-        Sensor expectedResult = s1;
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(s1, actualResult);
     }
 
     @Test

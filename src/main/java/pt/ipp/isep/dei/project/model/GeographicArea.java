@@ -12,10 +12,10 @@ public class GeographicArea {
     private TypeArea mTypeArea;
     private GeographicArea mMotherArea;
     private Local mLocal;
-    private Local mTopLeftVertex;
-    private Local mBottomRightVertex;
     private HouseList mHouseList;
     private SensorList mSensorList;
+    private double mLength;
+    private double mWidth;
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -86,11 +86,11 @@ public class GeographicArea {
      * area that matches an approximation of the physical area covered by the Geographic Area.
      */
 
-    public GeographicArea(TypeArea typeArea, Local local, SensorList sensorList, Local topLeftVertex, Local bottomRightVertex) {
+    public GeographicArea(TypeArea typeArea, Local local, SensorList sensorList, double width, double length) {
         setTypeArea(typeArea);
         setLocal(local);
-        setTopLeftVertex(topLeftVertex);
-        setBottomRightVertex(bottomRightVertex);
+        setWidth(width);
+        setLength(length);
         setSensorList(sensorList);
         mHouseList = new HouseList();
     }
@@ -110,22 +110,18 @@ public class GeographicArea {
     }
 
     /**
-     * Setters for the Vertexes of the geographic area. For the purposes of the area they define, the area
-     * is assumed to be a rectangle.
+     * Sets the width attribute
+     * @param width related to longitude
      */
 
+    public void setWidth(double width){this.mWidth = width;}
 
-    void setTopLeftVertex(Local localv1) {
-        if (localv1.getLatitude() <= mLocal.getLatitude() && localv1.getLongitude() >= mLocal.getLongitude()) {
-            this.mTopLeftVertex = localv1;
-        }
-    }
+    /**
+     * Sets the length attribute
+     * @param length related to latitude
+     */
 
-    void setBottomRightVertex(Local localv2) {
-        if (localv2.getLatitude() >= mLocal.getLatitude() && localv2.getLongitude() <= mLocal.getLongitude()) {
-            this.mBottomRightVertex = localv2;
-        }
-    }
+    public void setLength(double length){this.mLength = length;}
 
     /**
      * Setter for Geographic Area type.
@@ -182,22 +178,6 @@ public class GeographicArea {
             }
         }
         return false;
-    }
-
-
-    /**
-     * @return returns a Local object containing the top left Vertex.
-     */
-    Local getTopLeftVertex() {
-        return mTopLeftVertex;
-    }
-
-    /**
-     * @return returns a Local object containing the bottom right Vertex.
-     */
-
-    Local getBottomRightVertex() {
-        return mBottomRightVertex;
     }
 
     /**
@@ -269,15 +249,19 @@ public class GeographicArea {
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
     }
 
+    public double getWidth(){return this.mWidth;}
+
+    public double getLength(){return this.mLength;}
+
     boolean isAreaContainedInAnotherArea(GeographicArea area1, GeographicArea area2) {
-        double latTopVert1 = area1.getTopLeftVertex().getLatitude();
-        double longTopVert1 = area1.getTopLeftVertex().getLongitude();
-        double latBotVert1 = area1.getBottomRightVertex().getLatitude();
-        double longBotVert1 = area1.getBottomRightVertex().getLongitude();
-        double latTopVert2 = area2.getTopLeftVertex().getLatitude();
-        double longTopVert2 = area2.getTopLeftVertex().getLongitude();
-        double latBotVert2 = area2.getBottomRightVertex().getLatitude();
-        double longBotVert2 = area2.getBottomRightVertex().getLongitude();
+        double latTopVert1 = area1.getLocal().getLatitude() + (area1.getWidth()/2);
+        double longTopVert1 = area1.getLocal().getLongitude() - (area1.getLength()/2);
+        double latBotVert1 = area1.getLocal().getLatitude() - (area1.getWidth()/2);
+        double longBotVert1 = area1.getLocal().getLongitude() + (area1.getLength()/2);
+        double latTopVert2 = area2.getLocal().getLatitude() + (area2.getWidth()/2);
+        double longTopVert2 = area2.getLocal().getLongitude() - (area2.getLength()/2);
+        double latBotVert2 = area2.getLocal().getLatitude() - (area2.getWidth()/2);
+        double longBotVert2 = area2.getLocal().getLongitude() + (area2.getLength()/2);
         return (latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1);
     }
 

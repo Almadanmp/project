@@ -183,11 +183,11 @@ public class Sensor {
     public boolean isSensorContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
-        double latTopVert = area.getTopLeftVertex().getLatitude();
-        double longTopVert = area.getTopLeftVertex().getLongitude();
-        double latBotVert = area.getBottomRightVertex().getLatitude();
-        double longBotVert = area.getBottomRightVertex().getLongitude();
-        return (latS >= latTopVert && latS <= latBotVert && longS >= longBotVert && longS <= longTopVert);
+        double latTopVert = area.getLocal().getLatitude() + (area.getWidth()/2);
+        double longTopVert = area.getLocal().getLongitude() - (area.getLength()/2);
+        double latBotVert = area.getLocal().getLatitude() - (area.getWidth()/2);
+        double longBotVert = area.getLocal().getLongitude() + (area.getLength()/2);
+        return (latS <= latTopVert && latS >= latBotVert && longS <= longBotVert && longS >= longTopVert);
     }
 
     public boolean isSensorActiveOnGivenDate(GregorianCalendar date1) {
