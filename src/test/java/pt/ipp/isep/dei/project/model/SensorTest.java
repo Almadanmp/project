@@ -649,7 +649,7 @@ public class SensorTest {
     }
 
     @Test
-     void seeIfPrintSensor() {
+    void seeIfPrintSensor() {
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -658,6 +658,95 @@ public class SensorTest {
         Assertions.assertEquals("XV56-LD1, Temperatura, -5.0º lat, -5.0º long\n", result);
     }
 
+    @Test
+    public void seeIf2ndConstructorSetsTypeArea() {
+        //Arrange
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        TypeSensor expectedResult = t1;
+        TypeSensor actualResult;
+        Sensor c = new Sensor(name, t1, d1);
+        //Act
+        actualResult = c.getTypeSensor();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEmptyConstructorSetsTypeArea() {
+        //Arrange
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        TypeSensor expectedResult = t1;
+        TypeSensor actualResult;
+        Sensor c = new Sensor();
+        c.setTypeSensor(t1);
+        c.setName(name);
+        c.setDateStartedFunctioning(d1);
+        //Act
+        actualResult = c.getTypeSensor();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void ensureThatSensorIsActive() {
+        //Arrange
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        boolean expectedResult = true;
+        Sensor c = new Sensor(name, t1, d1);
+        //Act
+        boolean actualResult = c.isSensorActiveOnGivenDate(new GregorianCalendar(2018, 8, 10));
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void ensureThatSensorIsNotActive() {
+        //Arrange
+        String name = "Chuva";
+        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        boolean expectedResult = false;
+        Sensor c = new Sensor(name, t1, d1);
+        //Act
+        boolean actualResult = c.isSensorActiveOnGivenDate(new GregorianCalendar(2018, 8, 7));
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetDistanceToHouse() {
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6,6),new GeographicArea(),new RoomList());
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(-5, -5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        double expectedResult = 1579.28;
+
+        double actualResult = s1.getDistanceToHouse(house);
+        assertEquals(expectedResult, actualResult,0.01);
+    }
+
+    @Test
+    void ensureThatEqualsRecognizesSameObject() {
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(100, 100);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        boolean expectedResult = true;
+        boolean actualResult = s1.equals(s1);
+
+        assertEquals(expectedResult,actualResult);
+    }
 
 }
 

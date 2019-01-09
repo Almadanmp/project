@@ -15,9 +15,7 @@ public class Sensor {
     private Date mDateStartedFunctioning;
     private ReadingList mReadingList;
 
-    public Sensor() {
-
-    }
+    public Sensor(){}
 
     /**
      * Constructor with:name, typesensor, local, DateStartedFunctioning
@@ -36,6 +34,7 @@ public class Sensor {
 
     /**
      * Constructor with:name, typesensor, DateStartedFunctioning (Used When A Sensor is in a Room already. So the Location is the same as the room/house).
+     *
      * @param name
      * @param typeSensor
      * @param DateStartedFunctioning
