@@ -48,7 +48,7 @@ public class GeographicAreaList {
      */
     public GeographicArea matchGeoArea(String areaToMatch) {
         for (GeographicArea g : mGeographicAreaList) {
-            if (g.getName().equals(areaToMatch)) {
+            if (g.getmId().equals(areaToMatch)) {
                 return g;
             }
         }
@@ -67,7 +67,7 @@ public class GeographicAreaList {
         }
         finalString.append("Geographic Area List:");
         for (GeographicArea tipo : mGeographicAreaList) {
-            finalString.append(" \n" + "-").append(tipo.getName()).append(";");
+            finalString.append(" \n" + "-").append(tipo.getmId()).append(";");
         }
         return finalString.toString();
     }
@@ -90,7 +90,7 @@ public class GeographicAreaList {
 
         for (int i = 0; i < newGeoListUi.getGeographicAreaList().size(); i++) {
             GeographicArea aux = newGeoListUi.getGeographicAreaList().get(i);
-            result = result + i + ") Name: " + aux.getName() + " | ";
+            result = result + i + ") Name: " + aux.getmId() + " | ";
             result = result + "Type: " + aux.getTypeArea().getTypeOfGeographicArea() + " | ";
             result = result + "Latitude: " + aux.getLocal().getLatitude() + " | ";
             result = result + "Longitude: " + aux.getLocal().getLongitude() + "\n";
@@ -109,7 +109,7 @@ public class GeographicAreaList {
     public List<Integer> matchGeographicAreaIndexByString(String input) {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < mGeographicAreaList.size(); i++) {
-            if (mGeographicAreaList.get(i).getName().equals(input)) {
+            if (mGeographicAreaList.get(i).getmId().equals(input)) {
                 result.add(i);
             }
         }
@@ -142,7 +142,7 @@ public class GeographicAreaList {
      */
     public boolean validateIfGeographicAreaToGeographicAreaList(String geographicAreaToAdd) {
         for (GeographicArea ga : mGeographicAreaList) {
-            if ((ga.getName().equals(geographicAreaToAdd))) {
+            if ((ga.getmId().equals(geographicAreaToAdd))) {
                 return true;
             }
         }

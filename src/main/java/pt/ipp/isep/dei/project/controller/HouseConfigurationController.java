@@ -123,8 +123,8 @@ public class HouseConfigurationController {
     public boolean addSensorToGeographicArea(String name, GeographicAreaList gaList, SensorList sensorList) {
         if (checkIfListValid(gaList.getGeographicAreaList())) {
             for (GeographicArea ga : gaList.getGeographicAreaList())
-                if ((ga.getName().equals(name))) {
-                    ga.setSensorList(sensorList);
+                if ((ga.getmId().equals(name))) {
+                    ga.setmSensorList(sensorList);
                     return true;
                 }
         }
@@ -153,6 +153,14 @@ public class HouseConfigurationController {
 
     private GeographicArea mMotherArea;
 
+    public GeographicArea matchGeoArea(String nameArea) {
+        return mGeographicAreaList.matchGeoArea(nameArea);
+    }
+
+    public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
+        daughterArea.setmMotherArea(motherArea);
+        this.mMotherArea = motherArea;
+    }
 
 
     /**

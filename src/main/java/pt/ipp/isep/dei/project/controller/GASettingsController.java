@@ -66,11 +66,11 @@ public class GASettingsController {
      * @param longitude  input number for longitude
      * @return success if a new GA is added, false otherwise
      */
-    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, String typeArea, double latitude, double longitude) {
+    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, String typeArea, double latitude, double longitude, double length, double width) {
         if (newGeoList == null) {
             return false;
         }
-        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea), new Local(latitude, longitude));
+        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea), length, width, new Local(latitude, longitude));
         return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
     }
 
@@ -97,7 +97,7 @@ public class GASettingsController {
     }
 
     public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
-        daughterArea.setMotherArea(motherArea);
+        daughterArea.setmMotherArea(motherArea);
         this.mMotherArea = motherArea;
     }
 
@@ -127,10 +127,10 @@ or indirectly, in another one. */
     public boolean matchGeographicAreas(String nameOfAreaContained, String nameOfAreaContainer, GeographicAreaList geographicAreaList) {
         if (geographicAreaList.checkIfListIsValid()) {
             for (GeographicArea ga : geographicAreaList.getGeographicAreaList()) {
-                if (ga.getName().equals(nameOfAreaContained)) {
+                if (ga.getmId().equals(nameOfAreaContained)) {
                     mGeographicAreaContained = ga;
                 }
-                if (ga.getName().equals(nameOfAreaContainer)) {
+                if (ga.getmId().equals(nameOfAreaContainer)) {
                     mGeographicAreaContainer = ga;
                 }
             }

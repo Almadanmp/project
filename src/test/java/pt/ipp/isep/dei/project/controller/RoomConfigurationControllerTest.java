@@ -1,12 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.junit.jupiter.api.Assertions;
 import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,7 +25,7 @@ public class RoomConfigurationControllerTest {
         slist1.addSensor(s1);
         slist1.addSensor(s2);
         GeographicArea ga1 = new GeographicArea();
-        ga1.setSensorList(slist1);
+        ga1.setmSensorList(slist1);
 
 
         //Act
@@ -77,7 +74,7 @@ public class RoomConfigurationControllerTest {
         slist1.addSensor(s1);
         slist1.addSensor(s2);
         GeographicArea ga1 = new GeographicArea();
-        ga1.setSensorList(slist1);
+        ga1.setmSensorList(slist1);
         GeographicAreaList glist1 = new GeographicAreaList();
         glist1.addGeographicAreaToGeographicAreaList(ga1);
         //Act

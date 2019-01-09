@@ -26,6 +26,8 @@ public class GASettingsUI {
     private String nameOfGeoArea;
     private double geoAreaLat;
     private double geoAreaLong;
+    private double geoAreaLength;
+    private double geoAreaWidth;
     private boolean areaAddedResult;
     private GeographicAreaList mGeoList;
     private String mNameGeographicAreaDaughter;
@@ -85,10 +87,10 @@ public class GASettingsUI {
                     break;
                 case 5:
                         getInputGeographicArea(newGeoListUi);
-                        this.mNameGeographicAreaMother = mGeoArea.getName();
+                        this.mNameGeographicAreaMother = mGeoArea.getmId();
                         displayGeoArea(mNameGeographicAreaMother, newGeoListUi);
                         getInputGeographicArea(newGeoListUi);
-                        this.mNameGeographicAreaDaughter = mGeoArea.getName();
+                        this.mNameGeographicAreaDaughter = mGeoArea.getmId();
                         displayGeoArea(mNameGeographicAreaDaughter, newGeoListUi);
                         updateStateUS07(newGeoListUi);
                         displayStateUS07();
@@ -341,16 +343,20 @@ private void getInputUS01() {
     private void getLocalGeoAreaUS03() {
         this.geoAreaLat = readInputNumber("Latitude");
         this.geoAreaLong = readInputNumber("Longitude");
+        this.geoAreaLength = readInputNumber("Comprimento");
+        this.geoAreaWidth = readInputNumber("Largura");
+
     }
 
     private void updateGeoAreaUS03(TypeAreaList typeAreaList) {
         System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + mTypeAreaName +
-                " and its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude.\n");
+                " and its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The size is " + this.geoAreaLength
+                + " by " + this.geoAreaWidth + " kms\n");
         typeAreaList.newTAG(mTypeAreaName);
     }
 
     private void updateModelUS03(GeographicAreaList newGeoListUi) {
-        this.areaAddedResult = mController.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeAreaName, geoAreaLat, geoAreaLong);
+        this.areaAddedResult = mController.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeAreaName, geoAreaLat, geoAreaLong, geoAreaLength, geoAreaWidth);
     }
 
     private void displayStateUS03() {
@@ -445,7 +451,7 @@ or indirectly, in another one. */
      */
     private void getInputGeographicContainerUS08(GeographicAreaList newGeoListUi) {
         getInputGeographicArea(newGeoListUi);
-        this.mNameGeographicAreaContainer = mGeoArea.getName();
+        this.mNameGeographicAreaContainer = mGeoArea.getmId();
     }
 
     /**
@@ -454,7 +460,7 @@ or indirectly, in another one. */
      */
     private void getInputGeographicContainedUS08(GeographicAreaList newGeoListUi) {
         getInputGeographicArea(newGeoListUi);
-        this.mNameGeographicAreaContained = mGeoArea.getName();
+        this.mNameGeographicAreaContained = mGeoArea.getmId();
     }
 
     /**

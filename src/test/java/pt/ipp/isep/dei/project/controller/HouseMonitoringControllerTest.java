@@ -70,9 +70,10 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfPrintsGeoAList() {
         HouseMonitoringController US623 = new HouseMonitoringController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33, 100));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14, 100));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3, 100));
+        GeographicArea gA1 = new GeographicArea("Portugal",new TypeArea("Country"),2,3,new Local(21, 33, 100));
+        GeographicArea gA2 = new GeographicArea("Oporto",new TypeArea("City"),2,3,new Local(14, 14, 100));
+        GeographicArea gA3 = new GeographicArea("Lisbon",new TypeArea("Village"),2,3,new Local(3, 3, 100));
+
         GeographicAreaList gAL1 = new GeographicAreaList();
         gAL1.addGeographicAreaToGeographicAreaList(gA1);
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
@@ -251,7 +252,7 @@ public class HouseMonitoringControllerTest {
 
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
-        GeographicArea ga1 = new GeographicArea(t1, l1);
+        GeographicArea ga1 = new GeographicArea("Portugal",t1,2,3,l1);
 
         Sensor s1 = new Sensor("XV1", new TypeSensor("Atmosphere", "multiple units"),
                 new Local(12, 31, 21),
@@ -285,7 +286,7 @@ public class HouseMonitoringControllerTest {
         slist1.addSensor(s4);
         slist1.addSensor(s5);
         slist1.addSensor(s6);
-        ga1.setSensorList(slist1);
+        ga1.setmSensorList(slist1);
         House casa1 = new House();
 
         //Act
@@ -355,10 +356,10 @@ public class HouseMonitoringControllerTest {
 
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
-        GeographicArea ga1 = new GeographicArea(t1, l1);
+        GeographicArea ga1 = new GeographicArea("Portugal",t1,2,3,l1);
 
         SensorList sList1 = new SensorList();
-        ga1.setSensorList(sList1);
+        ga1.setmSensorList(sList1);
         //Act -------------------------------------------
         double expectedResult = 0;
         HouseMonitoringController ctrl = new HouseMonitoringController();
@@ -494,7 +495,8 @@ public class HouseMonitoringControllerTest {
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5, 100), sensorList);
+        GeographicArea ga = new GeographicArea("Portugal",new TypeArea("cidade"), 2,3, new Local(4, 5, 100));
+        ga.setmSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
 
         //Act ------------------------------------------------------
@@ -513,7 +515,8 @@ public class HouseMonitoringControllerTest {
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5, 100), sensorList);
+        GeographicArea ga = new GeographicArea("Portugal",new TypeArea("cidade"), 2,3, new Local(4, 5, 100));
+        ga.setmSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
         //Act -------------------------------------------------------
         Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga);
@@ -577,7 +580,8 @@ public class HouseMonitoringControllerTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         //Geo Area List
-        GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5, 100), sensorList);
+        GeographicArea ga = new GeographicArea("Portugal",new TypeArea("cidade"), 2,3, new Local(4, 5, 100));
+        ga.setmSensorList(sensorList);
         //House List
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
 
@@ -593,7 +597,7 @@ public class HouseMonitoringControllerTest {
         //Arrange -------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 100));
+        GeographicArea ga = new GeographicArea("porto",new TypeArea("cidade"), 2,3, new Local(4, 4, 100));
         //Act -----------------------
         String result = ctrl.printGA(ga);
         String expectedResult = "porto, cidade, 4.0º lat, 4.0º long\n";
@@ -702,8 +706,9 @@ public class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 100));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4, 100));
+        GeographicArea geoa1 = new GeographicArea("porto",new TypeArea("cidade"), 2,3, new Local(4, 4, 100));
+        GeographicArea geoa2 = new GeographicArea("lisboa",new TypeArea("aldeia"), 2,3, new Local(4, 4, 100));
+
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
         //Act -----------------------------------------
@@ -719,8 +724,8 @@ public class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
         GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4, 100));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4, 100));
+        GeographicArea geoa1 = new GeographicArea("porto",new TypeArea("cidade"), 2,3, new Local(4, 4, 100));
+        GeographicArea geoa2 = new GeographicArea("lisboa",new TypeArea("aldeia"), 2,3, new Local(4, 4, 100));
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
         //Act ---------------------------------------------

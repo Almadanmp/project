@@ -431,7 +431,7 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         Local l2 = new Local(10, 30);
         Local l3 = new Local(30, 10);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
@@ -440,8 +440,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(20);
-        a1.setLength(30);
+        a1.setmWidth(20);
+        a1.setmLength(30);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -453,15 +453,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(20);
-        a1.setLength(30);
+        a1.setmWidth(20);
+        a1.setmLength(30);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -473,15 +473,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(30, 30);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(20);
-        a1.setLength(30);
+        a1.setmWidth(20);
+        a1.setmLength(30);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -493,15 +493,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(21);
-        a1.setLength(30);
+        a1.setmWidth(21);
+        a1.setmLength(30);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -513,15 +513,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 10);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(25);
-        a1.setLength(35);
+        a1.setmWidth(25);
+        a1.setmLength(35);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -533,15 +533,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(30, 10);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(23);
-        a1.setLength(32);
+        a1.setmWidth(23);
+        a1.setmLength(32);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -553,15 +553,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(35, 20);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(21);
-        a1.setLength(32);
+        a1.setmWidth(21);
+        a1.setmLength(32);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -573,15 +573,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-35, 20);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setLength(20);
-        a1.setWidth(25);
+        a1.setmLength(20);
+        a1.setmWidth(25);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -593,15 +593,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(100, 100);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(10);
-        a1.setLength(10);
+        a1.setmWidth(10);
+        a1.setmLength(10);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -613,15 +613,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(20, -35);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(100);
-        a1.setLength(100);
+        a1.setmWidth(100);
+        a1.setmLength(100);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -633,15 +633,15 @@ public class SensorTest {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20);
-        GeographicArea a1 = new GeographicArea(t1, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setWidth(50);
-        a1.setLength(50);
+        a1.setmWidth(50);
+        a1.setmLength(50);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert

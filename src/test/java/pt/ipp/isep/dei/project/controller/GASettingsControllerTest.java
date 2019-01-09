@@ -203,8 +203,10 @@ class GASettingsControllerTest {
         String typeArea = "Distrito";
         double latitude = 38;
         double longitude = 7;
+        double length = 2;
+        double width = 4;
         GASettingsController ctrl = new GASettingsController();
-        boolean result = ctrl.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
+        boolean result = ctrl.addNewGeoAreaToList(geoList, name, typeArea, length, width, latitude, longitude);
 
         assertTrue(result);
         assertEquals(1, geoList.getGeographicAreaList().size());
@@ -217,10 +219,13 @@ class GASettingsControllerTest {
         String typeArea = "Distrito";
         double latitude = 38;
         double longitude = 7;
+        double length = 2;
+        double width = 4;
 
         GASettingsController us3 = new GASettingsController();
-        boolean result1 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
-        boolean result2 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
+
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name, typeArea,length,width, latitude, longitude);
+        boolean result2 = us3.addNewGeoAreaToList(geoList, name, typeArea, length, width, latitude, longitude);
 
         assertTrue(result1); //safety check (already covered on previous test)
         Assertions.assertFalse(result2);
@@ -234,11 +239,13 @@ class GASettingsControllerTest {
         String typeArea = "Distrito";
         double latitude = 38;
         double longitude = 7;
+        double length = 2;
+        double width = 4;
         String name2 = "Lisboa";
 
         GASettingsController us3 = new GASettingsController();
-        boolean result1 = us3.addNewGeoAreaToList(geoList, name1, typeArea, latitude, longitude);
-        boolean result2 = us3.addNewGeoAreaToList(geoList, name2, typeArea, latitude, longitude);
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name1, typeArea, length,width,latitude, longitude);
+        boolean result2 = us3.addNewGeoAreaToList(geoList, name2, typeArea, length,width,latitude, longitude);
 
         assertTrue(result1); //safety check (already covered on previous test)
         assertTrue(result2);
@@ -251,9 +258,10 @@ class GASettingsControllerTest {
         String typeArea = "Distrito";
         double latitude = 38;
         double longitude = 7;
-
+        double length = 2;
+        double width = 4;
         GASettingsController us3 = new GASettingsController();
-        boolean result = us3.addNewGeoAreaToList(null, name1, typeArea, latitude, longitude);
+        boolean result = us3.addNewGeoAreaToList(null, name1, typeArea, length,width,latitude, longitude);
 
         Assertions.assertFalse(result);
     }
@@ -487,9 +495,9 @@ class GASettingsControllerTest {
     @Test
     void seeIfPrintGAList() {
         //Arrange
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), new Local(21, 33));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), new Local(14, 14));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), new Local(3, 3));
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"),2,5, new Local(21, 33));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2,4,new Local(14, 14));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2,4,new Local(3, 3));
         GeographicAreaList gAL1 = new GeographicAreaList();
         gAL1.addGeographicAreaToGeographicAreaList(gA1);
         gAL1.addGeographicAreaToGeographicAreaList(gA2);

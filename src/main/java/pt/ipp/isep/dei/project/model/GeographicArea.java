@@ -8,13 +8,17 @@ import java.util.Date;
 
 public class GeographicArea {
 
-    private String mName;
+    private String mId;
+    private String mDescription;
     private TypeArea mTypeArea;
-    private GeographicArea mMotherArea;
-    private Local mLocal;
-    private SensorList mSensorList;
     private double mLength;
     private double mWidth;
+    private GeographicArea mMotherArea;
+    private Local mLocation;
+    private SensorList mAreaSensors;
+    private House mHouse;
+
+
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -24,78 +28,26 @@ public class GeographicArea {
      * empty constructor to use on UIs
      */
     public GeographicArea() {
-        mSensorList = new SensorList();
+        mAreaSensors = new SensorList();
     }
 
-    public GeographicArea(String mName, TypeArea mTypeArea, Local mLocal) {
-        setName(mName);
-        setTypeArea(mTypeArea);
-        setLocal(mLocal);
-        mSensorList = new SensorList();
-    }
-
-    public GeographicArea(String mName) {
-        setName(mName);
-        mSensorList = new SensorList();
-    }
-
-    /**
-     * Constructor of the class GeographicAreaController that receives the type of Geographic Area and its localization
-     * as parameters.
-     *
-     * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
-     * @param local    Localization is defined by longitude, latitude and altitude.
-     */
-    public GeographicArea(TypeArea typeArea, Local local) {
-        setTypeArea(typeArea);
-        setLocal(local);
-        mSensorList = new SensorList();
-    }
-
-    /**
-     * Constructor of the class GeographicAreaController that receives the type of Geographic Area, its location
-     * and a list of sensors as parameters.
-     *
-     * @param typeArea   Type area is determined by a string - e.g. "Street", "City", etc.
-     * @param local      Localization is defined by three doubles (longitude, latitude and altitude).
-     * @param sensorList Defined by a List<Sensor>.
-     */
-    public GeographicArea(TypeArea typeArea, Local local, SensorList sensorList) {
-        setTypeArea(typeArea);
-        setLocal(local);
-        setSensorList(sensorList);
-    }
-
-    public GeographicArea(String name, TypeArea typeArea, Local local, SensorList sensorList) {
-        setName(name);
-        setTypeArea(typeArea);
-        setLocal(local);
-        setSensorList(sensorList);
-    }
-
-    /**
-     * Constructor of the class GeographicAreaController that receives the type of Geographic Area, its location, a
-     * list of sensors contained in it, and two vertices. The two vertices define a rectangular physical
-     * area that matches an approximation of the physical area covered by the Geographic Area.
-     */
-
-    public GeographicArea(TypeArea typeArea, Local local, SensorList sensorList, double width, double length) {
-        setTypeArea(typeArea);
-        setLocal(local);
-        setWidth(width);
-        setLength(length);
-        setSensorList(sensorList);
+    public GeographicArea(String mId, TypeArea mTypeArea, double mLength, double mWidth, Local mLocation) {
+        setmId(mId);
+        setmTypeArea(mTypeArea);
+        setmLength(mLength);
+        setmWidth(mWidth);
+        setmLocal(mLocation);
     }
 
     // Setters and Getters for all the parameters.
 
-    public String getName() {
-        return this.mName;
+    public String getmId() {
+        return this.mId;
     }
 
-    public void setName(String name) {
+    public void setmId(String name) {
         if (isGeographicNameValid(name)) {
-            this.mName = name;
+            this.mId = name;
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
@@ -106,21 +58,21 @@ public class GeographicArea {
      * @param width related to longitude
      */
 
-    public void setWidth(double width){this.mWidth = width;}
+    public void setmWidth(double width){this.mWidth = width;}
 
     /**
      * Sets the length attribute
      * @param length related to latitude
      */
 
-    public void setLength(double length){this.mLength = length;}
+    public void setmLength(double length){this.mLength = length;}
 
     /**
      * Setter for Geographic Area type.
      *
      * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
      */
-    void setTypeArea(TypeArea typeArea) {
+    void setmTypeArea(TypeArea typeArea) {
         this.mTypeArea = typeArea;
     }
 
@@ -129,8 +81,8 @@ public class GeographicArea {
      *
      * @param local Localization is defined by three doubles (longitude, latitude and altitude).
      */
-    public void setLocal(Local local) {
-        this.mLocal = local;
+    public void setmLocal(Local local) {
+        this.mLocation = local;
     }
 
 
@@ -140,11 +92,11 @@ public class GeographicArea {
      * @param listToSet
      */
 
-    public void setSensorList(SensorList listToSet) {
-        this.mSensorList = listToSet;
+    public void setmSensorList(SensorList listToSet) {
+        this.mAreaSensors = listToSet;
     }
 
-    public void setMotherArea(GeographicArea geoArea) {
+    public void setmMotherArea(GeographicArea geoArea) {
         this.mMotherArea = geoArea;
     }
 
@@ -179,7 +131,7 @@ public class GeographicArea {
      * @return returns the attribute local from an object of the class Geographic Area
      */
     public Local getLocal() {
-        return this.mLocal;
+        return this.mLocation;
     }
 
     /**
@@ -188,7 +140,7 @@ public class GeographicArea {
      * @return returns the attribute sensorList from an object of the class Geographic Area
      */
     public SensorList getSensorList() {
-        return this.mSensorList;
+        return this.mAreaSensors;
     }
 
     /**
@@ -200,8 +152,8 @@ public class GeographicArea {
 
     public String printGeographicArea() {
         String result;
-        result = this.mName + ", " + this.mTypeArea.getTypeOfGeographicArea() + ", " +
-                this.mLocal.getLatitude() + "º lat, " + this.mLocal.getLongitude() + "º long\n";
+        result = this.mId + ", " + this.mTypeArea.getTypeOfGeographicArea() + ", " +
+                this.mLocation.getLatitude() + "º lat, " + this.mLocation.getLongitude() + "º long\n";
         return result;
     }
 
@@ -224,7 +176,7 @@ public class GeographicArea {
      * @return returns a double of the most recent value recorded in every type sensor given
      */
     double getMostRecentReadingValue(String typeOfSensor) {
-        SensorList listToTest = this.mSensorList;
+        SensorList listToTest = this.mAreaSensors;
         for (int i = 0; i < listToTest.getSensorList().size(); i++) {
             if (!(listToTest.getSensorList().get(i).getTypeSensor().getName().equals(typeOfSensor))) {
                 listToTest.removeSensor(listToTest.getSensorList().get(i));
@@ -257,7 +209,7 @@ public class GeographicArea {
      */
     double calculateDistanceToGA(GeographicArea ga) {
         Local l = ga.getLocal();
-        return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
+        return this.mLocation.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     /**
@@ -271,11 +223,11 @@ public class GeographicArea {
     public double getAvgReadingsFromSensorTypeInGA(String typeSensor, Date dateMin, Date dateMax) {
         double average = 0;
         int counter = 0;
-        if (mSensorList.getSensorList().isEmpty()) {
+        if (mAreaSensors.getSensorList().isEmpty()) {
             return -1;
         }
-        for (int i = 0; i < mSensorList.getSensorList().size(); i++) {
-            Sensor sensorToGetAVG = mSensorList.getSensorList().get(i);
+        for (int i = 0; i < mAreaSensors.getSensorList().size(); i++) {
+            Sensor sensorToGetAVG = mAreaSensors.getSensorList().get(i);
             if (sensorToGetAVG.getTypeSensor().getName().equals(typeSensor)) {
                 average += sensorToGetAVG.getReadingList().getAverageReadingsBetweenTwoDays(dateMin, dateMax);
                 counter++;
@@ -288,7 +240,7 @@ public class GeographicArea {
     }
 
     public boolean doesSensorListInAGeoAreaContainASensorByName(String name) {
-        for (Sensor s : mSensorList.getSensorList()) {
+        for (Sensor s : mAreaSensors.getSensorList()) {
             if (s.getName().equals(name)) {
                 return true;
             }
@@ -313,7 +265,7 @@ public class GeographicArea {
             return false;
         }
         GeographicArea gA = (GeographicArea) testObject;
-        return (this.getLocal().equals(gA.getLocal()) && (this.getName().equals(gA.getName()) && (this.getTypeArea().getTypeOfGeographicArea().equals(gA.getTypeArea().getTypeOfGeographicArea()))));
+        return (this.getLocal().equals(gA.getLocal()) && (this.getmId().equals(gA.getmId()) && (this.getTypeArea().getTypeOfGeographicArea().equals(gA.getTypeArea().getTypeOfGeographicArea()))));
     }
 
     @Override

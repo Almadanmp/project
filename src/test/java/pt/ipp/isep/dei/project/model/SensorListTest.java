@@ -309,7 +309,8 @@ public class SensorListTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
-        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList, 10, 20);
+        GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"),10,20,new Local(16, 17, 18));
+        ga1.setmSensorList(sensorList);
         GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
@@ -327,7 +328,8 @@ public class SensorListTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
-        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList, 10, 20);
+        GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"),10,20,new Local(16, 17, 18));
+        ga1.setmSensorList(sensorList);
         GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
@@ -343,7 +345,8 @@ public class SensorListTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
-        GeographicArea ga1 = new GeographicArea(new TypeArea("Rua"), new Local(16, 17, 18), sensorList, 10, 20);
+        GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"),10,20,new Local(16, 17, 18));
+        ga1.setmSensorList(sensorList);
         GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
@@ -362,11 +365,11 @@ public class SensorListTest {
         SensorList sensorList1 = new SensorList(s1);
         Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
-        GeographicArea ga1 = new GeographicArea(ta1, l1);
+        GeographicArea ga1 = new GeographicArea("Portugal", ta1,10,20,l1);
 
         //Act
-        ga1.setWidth(15);
-        ga1.setLength(15);
+        ga1.setmWidth(15);
+        ga1.setmLength(15);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
@@ -389,11 +392,11 @@ public class SensorListTest {
         SensorList sensorList1 = new SensorList(s1);
         Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
-        GeographicArea ga1 = new GeographicArea(ta1, l1);
+        GeographicArea ga1 = new GeographicArea("Portugal", ta1,10,20,l1);
 
         //Act
-        ga1.setWidth(21);
-        ga1.setLength(22);
+        ga1.setmWidth(21);
+        ga1.setmLength(22);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
@@ -418,13 +421,13 @@ public class SensorListTest {
         SensorList sensorList1 = new SensorList(s1);
         Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
-        GeographicArea ga1 = new GeographicArea(ta1, l1);
+        GeographicArea ga1 = new GeographicArea("Portugal", ta1,10,20,l1);
         Local l2 = new Local(10, 30, 50);
         Local l3 = new Local(30, 10, 50);
 
         //Act
-        ga1.setWidth(20);
-        ga1.setLength(30);
+        ga1.setmWidth(20);
+        ga1.setmLength(30);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
