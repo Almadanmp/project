@@ -486,6 +486,7 @@ class HouseConfigurationUI {
     private String nameOfGeoArea;
     private double geoAreaLat;
     private double geoAreaLong;
+    private double geoAreaAlt;
     private boolean areaAddedResult;
     private Scanner scanner;
 
@@ -524,6 +525,7 @@ class HouseConfigurationUI {
     private void getLocalGeoAreaUS03() {
         this.geoAreaLat = readInputNumber("Latitude");
         this.geoAreaLong = readInputNumber("Longitude");
+        this.geoAreaAlt = readInputNumber("Altitude");
     }
 
     private void updateGeoAreaUS03(TypeAreaList typeAreaList) {
@@ -534,7 +536,7 @@ class HouseConfigurationUI {
 
     private void updateModelUS03(GeographicAreaList newGeoListUi) {
         HouseConfigurationController controller = new HouseConfigurationController();
-        this.areaAddedResult = controller.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeAreaName, geoAreaLat, geoAreaLong);
+        this.areaAddedResult = controller.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeAreaName, geoAreaLat, geoAreaLong, geoAreaAlt);
     }
 
     private void displayStateUS03() {
