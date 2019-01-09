@@ -7,7 +7,6 @@ public class EnergyGrid {
     private double mMaxPower = 0;
     private RoomList mListOfRooms;
     private PowerSourceList mListPowerSources;
-    private DeviceList mListDevices;
 
     EnergyGrid() {
     }
@@ -18,16 +17,9 @@ public class EnergyGrid {
         setMaxPower(maxContractedPower);
     }
 
-    EnergyGrid(String houseGridDesignation, double maxContractedPower, DeviceList deviceList) {
+    EnergyGrid(String houseGridDesignation, double maxContractedPower, RoomList roomList) {
         setName(houseGridDesignation);
         setMaxPower(maxContractedPower);
-        this.mListDevices = deviceList;
-    }
-
-    EnergyGrid(String houseGridDesignation, double maxContractedPower, DeviceList deviceList, RoomList roomList) {
-        setName(houseGridDesignation);
-        setMaxPower(maxContractedPower);
-        this.mListDevices = deviceList;
         this.mListOfRooms = roomList;
     }
 
@@ -35,7 +27,7 @@ public class EnergyGrid {
         return mName;
     }
 
-    public RoomList getmListOfRooms() {
+    public RoomList getListOfRooms() {
         return mListOfRooms;
     }
 
@@ -43,24 +35,12 @@ public class EnergyGrid {
         return mMaxPower;
     }
 
-    double getTotalPower() {
-        double sum = 0;
-        for (Device d : mListDevices.getDeviceList()) {
-            sum = +d.getmTotalPowerDevice();
-        }
-        return sum;
-    }
-
-    public PowerSourceList getmListPowerSources() {
+    PowerSourceList getListPowerSources() {
         return mListPowerSources;
     }
 
-    public void setListPowerSources(PowerSourceList mListPowerSources) {
+    void setListPowerSources(PowerSourceList mListPowerSources) {
         this.mListPowerSources = mListPowerSources;
-    }
-
-    void setListDevices(DeviceList mListDevices) {
-        this.mListDevices = mListDevices;
     }
 
     public void setListOfRooms(RoomList mListOfRooms) {
@@ -82,12 +62,8 @@ public class EnergyGrid {
         this.mName = mName;
     }
 
-    public boolean addRoomToAEnergyGrid(Room room) {
-        if (this.mListOfRooms.addRoom(room)) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean addRoomToAnEnergyGrid(Room room) {
+        return this.mListOfRooms.addRoom(room);
     }
 
     public String printGrid() {
@@ -119,6 +95,6 @@ public class EnergyGrid {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mName);
+        return 1;
     }
 }

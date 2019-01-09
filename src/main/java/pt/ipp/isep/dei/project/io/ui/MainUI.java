@@ -228,8 +228,8 @@ public class MainUI {
         EnergyGrid mainGrid = new EnergyGrid("main grid",0);
         EnergyGridList grid_list = new EnergyGridList();
         mainGrid.setListOfRooms(roomList);
-        mainGrid.addRoomToAEnergyGrid(room_b);
-        mainGrid.addRoomToAEnergyGrid(room_c);
+        mainGrid.addRoomToAnEnergyGrid(room_b);
+        mainGrid.addRoomToAnEnergyGrid(room_c);
         grid_list.addEnergyGridToEnergyGridList(mainGrid);
         house.setmEGList(grid_list);
 

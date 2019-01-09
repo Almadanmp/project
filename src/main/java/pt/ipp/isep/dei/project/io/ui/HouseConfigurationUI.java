@@ -1136,7 +1136,7 @@ class HouseConfigurationUI {
 
     private void displayRoomList(EnergyGrid energyGrid) {
         HouseConfigurationController controller = new HouseConfigurationController();
-        System.out.println(controller.printRooms(energyGrid.getmListOfRooms()));
+        System.out.println(controller.printRooms(energyGrid.getListOfRooms()));
     }
 
     /**
