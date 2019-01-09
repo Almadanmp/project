@@ -26,6 +26,7 @@ public class GASettingsUI {
     private String nameOfGeoArea;
     private double geoAreaLat;
     private double geoAreaLong;
+    private double geoAreaAlt;
     private double geoAreaLength;
     private double geoAreaWidth;
     private boolean areaAddedResult;
@@ -343,6 +344,7 @@ private void getInputUS01() {
     private void getLocalGeoAreaUS03() {
         this.geoAreaLat = readInputNumber("Latitude");
         this.geoAreaLong = readInputNumber("Longitude");
+        this.geoAreaAlt = readInputNumber("Altitude");
         this.geoAreaLength = readInputNumber("Comprimento");
         this.geoAreaWidth = readInputNumber("Largura");
 
@@ -356,7 +358,7 @@ private void getInputUS01() {
     }
 
     private void updateModelUS03(GeographicAreaList newGeoListUi) {
-        this.areaAddedResult = mController.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeAreaName, geoAreaLat, geoAreaLong, geoAreaLength, geoAreaWidth);
+        this.areaAddedResult = mController.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeAreaName, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
     }
 
     private void displayStateUS03() {
