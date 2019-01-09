@@ -13,10 +13,10 @@ import java.util.List;
 public class HouseMonitoringController {
 
 
-    public double getCurrentRoomTemperature(Date day, RoomList room) {
+    public double getCurrentRoomTemperature(RoomList room) {
         double currentTemperature = 0;
         for (Room r : room.getListOfRooms()) {
-            currentTemperature = r.getCurrentRoomTemperature(day);
+            currentTemperature = r.getCurrentRoomTemperature();
         }
         return currentTemperature;
     }

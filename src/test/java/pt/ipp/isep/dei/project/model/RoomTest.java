@@ -130,7 +130,7 @@ public class RoomTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
-        double result = room.getCurrentRoomTemperature(d1);
+        double result = room.getCurrentRoomTemperature();
         double expectedResult = 20.0;
         assertEquals(expectedResult, result, 0.01);
     }
@@ -160,7 +160,7 @@ public class RoomTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
-        double result = room.getCurrentRoomTemperature(d1);
+        double result = room.getCurrentRoomTemperature();
         double expectedResult = -20.0;
         assertEquals(expectedResult, result, 0.01);
     }
@@ -191,7 +191,7 @@ public class RoomTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
-        double result = room.getCurrentRoomTemperature(d1);
+        double result = room.getCurrentRoomTemperature();
         double expectedResult = 30.0;
         assertEquals(expectedResult, result, 0.01);
     }
@@ -262,10 +262,17 @@ public class RoomTest {
     }
 
     @Test
-    public void hashCodeDummyTest(){
+     void hashCodeDummyTest(){
         Room room1 = new Room("room1", 19, 5,3,3);
         int expectedResult = 1;
         int actualResult = room1.hashCode();
         Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+     void seeIfPrintRoomWorks() {
+        Room room = new Room("room1", 1, 1,2,2);
+        String result = room.printRoom();
+        assertEquals("room1, 1, 1.0, 2.0, 2.0.\n", result);
     }
 }

@@ -34,6 +34,8 @@ public class RoomListTest {
     @Test
     public void seeIfGetRoomByNameIfNull() {
         RoomList roomList = new RoomList();
+        Room r3 = new Room("Quarto", 1, 123, 2,2);
+        roomList.addRoom(r3);
         Room expectedResult = null;
         Room actualResult = roomList.getRoomByName("Cozinha");
 

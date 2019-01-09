@@ -105,11 +105,11 @@ public class Room {
     /**
      * Gets most recent reading for current temperature.
      *
-     * @param day
+     * @param
      * @return
      */
 
-    public double getCurrentRoomTemperature(Date day) {
+    public double getCurrentRoomTemperature() {
         House h = new House();
         TypeSensor type = new TypeSensor("temperature","Celsius");
         Sensor s = new Sensor("sensor1", type, h.getmLocation(), new Date());

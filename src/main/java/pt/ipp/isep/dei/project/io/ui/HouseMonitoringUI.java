@@ -413,7 +413,7 @@ public class HouseMonitoringUI {
     private void updateModel605(RoomList list) {
         out.print("The room is " + this.mRoom.getRoomName() + " and the Temperature Sensor is " + this.mSensor.getName() + "\n");
         Date mDate = new Date();
-        this.mCurrentTemperature = houseMonitoringcontroller.getCurrentRoomTemperature(mDate, list);
+        this.mCurrentTemperature = houseMonitoringcontroller.getCurrentRoomTemperature(list);
     }
 
     private void displayState605() {

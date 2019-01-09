@@ -6,6 +6,14 @@ import java.util.List;
 
 public class RoomList {
     private List<Room> mRoomList;
+    private String mStringResult = "---------------\n";
+    private String mStringInvalidList = "Invalid List - List is Empty\n";
+    private String mStringDesignation =") Designation: ";
+    private String mStringHouseFloor = "House Floor: ";
+    private String mStringWidth = "Width: ";
+    private String mStringLength ="Length: ";
+    private String mStringHeight ="Height: ";
+
 
     public RoomList() {
         this.mRoomList = new ArrayList<>();
@@ -57,96 +65,76 @@ public class RoomList {
      * if no Room with the name of found, it will return null.
      */
     public Room getRoomByName(String roomName) {
-        for (int i = 0; i < mRoomList.size(); i++) {
-            Room aux = mRoomList.get(i);
+        for (Room aux : mRoomList) {
             if (roomName.equals(aux.getRoomName())) {
+                return aux;
             }
-            return aux;
-
         }
         return null;
     }
 
-    public boolean matchRoom (String roomToMatch){
-        for (Room r: mRoomList){
-            if (r.getRoomName().equals(roomToMatch)){
+    public boolean matchRoom(String roomToMatch) {
+        for (Room r : mRoomList) {
+            if (r.getRoomName().equals(roomToMatch)) {
                 return true;
             }
         }
         return false;
     }
 
-    public List<Integer> matchRoomIndexByString(String input){
+    public List<Integer> matchRoomIndexByString(String input) {
         List<Integer> result = new ArrayList<>();
-        for(int i = 0; i < mRoomList.size(); i++){
-            if (mRoomList.get(i).getRoomName().equals(input)){
+        for (int i = 0; i < mRoomList.size(); i++) {
+            if (mRoomList.get(i).getRoomName().equals(input)) {
                 result.add(i);
             }
         }
         return result;
     }
 
-    public String printElementsByIndex (List<Integer> indexes){
-        String result = "";
-        for (int i = 0; i < indexes.size(); i++){
-            int pos = indexes.get(i);
-            result += indexes.get(i) + ") " + mRoomList.get(pos).getRoomName() + ", " + mRoomList.get(pos).getHouseFloor() + ", " + mRoomList.get(pos).getRoomWidth() + ", " + mRoomList.get(pos).getRoomLength() + ", " + this.mRoomList.get(pos).getRoomHeight() + ".\n";
+    public String printElementsByIndex(List<Integer> indexes) {
+        StringBuilder result = new StringBuilder();
+        for (Integer indexe : indexes) {
+            int pos = indexe;
+            result.append(indexe).append(") ").append(mRoomList.get(pos).getRoomName()).append(", ").append(mRoomList.get(pos).getHouseFloor()).append(", ").append(mRoomList.get(pos).getRoomWidth()).append(", ").append(mRoomList.get(pos).getRoomLength()).append(", ").append(this.mRoomList.get(pos).getRoomHeight()).append(".\n");
         }
-        return result;
+        return result.toString();
     }
 
     public String printRoomList(House house) {
-        String result = "---------------\n";
+        StringBuilder result = new StringBuilder(this.mStringResult);
         if (house.getmRoomList().getListOfRooms().isEmpty()) {
-            return "Invalid List - List is Empty\n";
+            return this.mStringInvalidList;
         }
         for (int i = 0; i < house.getmRoomList().getListOfRooms().size(); i++) {
             Room aux = house.getmRoomList().getListOfRooms().get(i);
-            result = result + i + ") Designation: " + aux.getRoomName() + " | ";
-            result = result + "House Floor: " + aux.getHouseFloor() + " | ";
-
-            result = result + "Width: " + aux.getRoomWidth() + " | ";
-            result = result + "Length: " + aux.getRoomLength() + " | ";
-            result = result + "Height: " + aux.getRoomHeight() + "\n";        }
-        result = result + "---------------\n";
-        System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
-        return result;
-    }
-    public String printRoomListOfEG(EnergyGrid energyGrid) {
-        String result = "---------------\n";
-        if (energyGrid.getListOfRooms().getListOfRooms().isEmpty()) {
-            return "Invalid List - List is Empty\n";
+            result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
+            result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
+            result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
+            result.append(this.mStringLength).append(aux.getRoomLength()).append(" | ");
+            result.append(this.mStringHeight).append(aux.getRoomHeight()).append("\n");
         }
-        for (int i = 0; i < energyGrid.getListOfRooms().getListOfRooms().size(); i++) {
-            Room aux = energyGrid.getListOfRooms().getListOfRooms().get(i);
-            result = result + i + ") Designation: " + aux.getRoomName() + " | ";
-            result = result + "House Floor: " + aux.getHouseFloor() + " | ";
-
-            result = result + "Width: " + aux.getRoomWidth() + " | ";
-            result = result + "Length: " + aux.getRoomLength() + " | ";
-            result = result + "Height: " + aux.getRoomHeight() + "\n";        }
-        result = result + "---------------\n";
+        result.append(this.mStringResult);
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
-        return result;
+        return result.toString();
     }
-
 
     public String printRooms() {
-        String result = "---------------\n";
+        StringBuilder result = new StringBuilder(this.mStringResult);
         if (this.getListOfRooms().isEmpty()) {
-            return "Invalid List - List is Empty\n";
+            return  this.mStringInvalidList;
         }
         for (int i = 0; i < this.getListOfRooms().size(); i++) {
             Room aux = this.getListOfRooms().get(i);
-            result = result + i + ") Designation: " + aux.getRoomName() + " | ";
-            result = result + "House Floor: " + aux.getHouseFloor() + " | ";
-            result = result + "Width: " + aux.getRoomWidth() + " | ";
-            result = result + "Length: " + aux.getRoomLength() + " | ";
-            result = result + "Height: " + aux.getRoomHeight() + "\n";
+            result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
+            result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
+            result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
+            result.append(this.mStringLength).append(aux.getRoomLength()).append(" | ");
+            result.append(this.mStringHeight).append(aux.getRoomHeight()).append("\n");
 
         }
-        result = result + "---------------\n";
-        return result;
+        result.append(this.mStringResult);
+        return result.toString();
     }
 
 
