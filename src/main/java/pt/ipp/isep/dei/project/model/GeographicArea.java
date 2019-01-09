@@ -252,45 +252,6 @@ public class GeographicArea {
     }
 
 
-    /**
-     * Method will go through Geographic Area's sensor list, create a second list with the type
-     * of sensors defined by the parameter and finally return the most recent value recorded in that list.
-     *
-     * @param typeOfSensor Type sensor is determined by a string - e.g. "Temperature", "Rain", etc.
-     * @return returns a double of the most recent value recorded in every type sensor given
-     */
-    double getMostRecentReadingValue(String typeOfSensor) {
-        SensorList listToTest = this.mSensorList;
-        for (int i = 0; i < listToTest.getSensorList().size(); i++) {
-            if (!(listToTest.getSensorList().get(i).getTypeSensor().getName().equals(typeOfSensor))) {
-                listToTest.removeSensor(listToTest.getSensorList().get(i));
-            }
-        }
-        return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
-    }
-
-    boolean isAreaContainedInAnotherArea(GeographicArea area1, GeographicArea area2) {
-        double latTopVert1 = area1.getTopLeftVertex().getLatitude();
-        double longTopVert1 = area1.getTopLeftVertex().getLongitude();
-        double latBotVert1 = area1.getBottomRightVertex().getLatitude();
-        double longBotVert1 = area1.getBottomRightVertex().getLongitude();
-        double latTopVert2 = area2.getTopLeftVertex().getLatitude();
-        double longTopVert2 = area2.getTopLeftVertex().getLongitude();
-        double latBotVert2 = area2.getBottomRightVertex().getLatitude();
-        double longBotVert2 = area2.getBottomRightVertex().getLongitude();
-        return (latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1);
-    }
-
-    /**
-     * Method will calculate the distance between two different Geographic Areas.
-     *
-     * @param ga object of the class GeographicAreaController
-     * @return returns a double of the distance between Geographic Areas.
-     */
-    double calculateDistanceToGA(GeographicArea ga) {
-        Local l = ga.getLocal();
-        return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
-    }
 
     /**
      * Method to get the Average of Readings on a certain typeofSensor on a GeographicArea.

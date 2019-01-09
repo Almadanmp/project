@@ -22,8 +22,8 @@ public class DeviceList {
         return mDeviceList.contains(device);
     }
 
-    public boolean addDevices (Device device) {
-        if(!mDeviceList.contains(device)){
+    public boolean addDevices(Device device) {
+        if (!mDeviceList.contains(device)) {
             mDeviceList.add(device);
             return true;
         }
@@ -34,9 +34,6 @@ public class DeviceList {
         mDeviceList.remove(deviceToRemove);
     }
 
-    boolean checkIfListIsValid() {
-        return !mDeviceList.isEmpty();
-    }
 
     @Override
     public boolean equals(Object testObject) {

@@ -179,93 +179,6 @@ public class HouseMonitoringControllerTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    public void seeIfListContainRoomByName() {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        //Arrange
-        //Room
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
-        roomList1.addRoom(room2);
-        roomList1.addRoom(room1);
-
-        //Act
-        boolean result = ctrl.doesListContainRoomByName("room1", roomList1);
-
-        //Assert
-        assertTrue(result);
-    }
-
-    @Test
-    public void seeIfListContainRoomByNameFalse() {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        //Arrange
-        //Room
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
-        roomList1.addRoom(room2);
-        roomList1.addRoom(room1);
-
-        //Act
-        boolean result = ctrl.doesListContainRoomByName("room2", roomList1);
-
-        //Assert
-        assertFalse(result);
-    }
-
-    @Test
-    public void seeIfSensorListInARoomContainASensorByName() {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        //Arrange
-
-        //Sensor
-        SensorList sensorList2 = new SensorList();
-        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
-        sensorList2.addSensor(sensor1);
-        sensorList2.addSensor(sensor2);
-
-        //Room
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, sensorList2);
-        Room room2 = new Room("kitchen", 8, 2, sensorList2);
-        roomList1.addRoom(room2);
-        roomList1.addRoom(room1);
-
-        //Act
-        boolean result = ctrl.doesSensorListInARoomContainASensorByName("sensor2", roomList1);
-
-        //Assert
-        assertTrue(result);
-    }
-
-    @Test
-    public void seeIfSensorListInARoomContainASensorByNameFalse() {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        //Arrange
-
-        //Sensor
-        SensorList sensorList2 = new SensorList();
-        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
-        sensorList2.addSensor(sensor1);
-        sensorList2.addSensor(sensor2);
-
-        //Room
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, sensorList2);
-        Room room2 = new Room("kitchen", 8, 2, sensorList2);
-        roomList1.addRoom(room2);
-        roomList1.addRoom(room1);
-
-        //Act
-        boolean result = ctrl.doesSensorListInARoomContainASensorByName("sensor3", roomList1);
-
-        //Assert
-        assertFalse(result);
-    }
 
     //***************************************************************************************************************/
     //***************************************************************************************************************/
@@ -692,89 +605,6 @@ public class HouseMonitoringControllerTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    public void seeIfDoesListOfRoomsContainRoomByName() {
-        //Arrange ---------------------------------------
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        //Room List
-        RoomList roomList = new RoomList();
-        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        Room r2 = new Room("Jardim", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Rainfall"), new Local(21, 25), new Date(21 / 11 / 2018))));
-        Room r3 = new Room("Quarto", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        roomList.addRoom(r1);
-        roomList.addRoom(r2);
-        roomList.addRoom(r3);
-        //Act -------------------------------------------
-        boolean result = ctrl.doesListContainRoomByName("Jardim", roomList);
-        //Assert ----------------------------------------
-        assertTrue(result);
-    }
-
-    @Test
-    public void seeIfDoesListOfRoomsContainRoomByNameFalse() {
-        //Arrange --------------------------------------------
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        //Room List
-        RoomList roomList = new RoomList();
-        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        Room r2 = new Room("Jardim", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Rainfall"), new Local(21, 25), new Date(21 / 11 / 2018))));
-        Room r3 = new Room("Quarto", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        roomList.addRoom(r1);
-        roomList.addRoom(r2);
-        roomList.addRoom(r3);
-        //Act ------------------------------------------------
-        boolean result = ctrl.doesListContainRoomByName("Sala", roomList);
-        //Assert ---------------------------------------------
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfDoesSensorListInARoomContainASensorByName() {
-        //Arrange -----------------------------------------
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        //Sensor List
-        TypeSensor t1 = new TypeSensor("Humidade");
-        TypeSensor t2 = new TypeSensor("Vento");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
-        SensorList sensorList1 = new SensorList(s1);
-        sensorList1.addSensor(s1);
-        sensorList1.addSensor(s2);
-        sensorList1.addSensor(s3);
-        //Room List
-        Room room = new Room("cozinha", 1, 2, sensorList1);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room);
-        //Act ---------------------------------------------
-        boolean result = ctrl.doesSensorListInARoomContainASensorByName("s1", roomList);
-        //Assert ------------------------------------------
-        assertTrue(result);
-    }
-
-    @Test
-    void seeIfDoesSensorListInARoomContainASensorByNameFalse() {
-        //Arrange ----------------------------------------------
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        //Sensor List
-        TypeSensor t1 = new TypeSensor("Humidade");
-        TypeSensor t2 = new TypeSensor("Vento");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
-        SensorList sensorList1 = new SensorList(s1);
-        sensorList1.addSensor(s1);
-        sensorList1.addSensor(s2);
-        sensorList1.addSensor(s3);
-        //Room List
-        Room room = new Room("cozinha", 1, 2, sensorList1);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room);
-        //Act --------------------------------------------------
-        boolean result = ctrl.doesSensorListInARoomContainASensorByName("miau", roomList);
-        //Assert -----------------------------------------------
-        assertFalse(result);
-    }
 
     @Test
     void seeIfMatchGeographicAreaIndexByStringWorks() {
@@ -1136,4 +966,5 @@ public class HouseMonitoringControllerTest {
         //Assert ---------------------------------
         Assert.assertEquals(expectedResult, result);
     }
+
 }

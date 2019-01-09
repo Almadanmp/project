@@ -32,17 +32,6 @@ public class HouseMonitoringController {
         return sensor.printSensor();
     }
 
-    public boolean doesListContainRoomByName(String name, RoomList room) {
-        return room.doesListOfRoomsContainRoomByName(name);
-    }
-
-    public boolean doesSensorListInARoomContainASensorByName(String name, RoomList room) {
-        boolean result = true;
-        for (Room r : room.getRooms()) {
-            result = r.getRoomSensorList().doesSensorListContainSensorByName(name);
-        }
-        return result;
-    }
 
      /**
       * Common Methods to House Monitoring UI
