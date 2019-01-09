@@ -109,7 +109,51 @@ public class DeviceListTest {
         assertTrue(result);
     }
 
+    @Test
+    public void seeIfCheckIfListIsValidWorks() {
+        //Arrange ------------------------------
+        //Room List
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 19, 23456789);
+        roomList1.addRoom(room1);
+        //Reading List
+        ReadingList rL1 = new ReadingList();
+        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
+        Reading r1;
+        r1 = new Reading(30, d2);
+        rL1.addReading(r1);
+        //Total Power
+        double tP1 = 50;
+        //Device List
+        DeviceList deviceL1 = new DeviceList();
+        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        deviceL1.addDevices(d1);
+        //Act ----------------------------------
+        boolean result = deviceL1.checkIfListIsValid();
+        //Assert -------------------------------
+        assertTrue(result);
+    }
 
+    @Test
+    public void seeIfCheckIfListIsValidWorksForFalse() {
+        //Arrange ------------------------------
+        //Room List
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 19, 23456789);
+        roomList1.addRoom(room1);
+        //Reading List
+        ReadingList rL1 = new ReadingList();
+        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
+        Reading r1;
+        r1 = new Reading(30, d2);
+        rL1.addReading(r1);
+        //Device List
+        DeviceList deviceL1 = new DeviceList();
+        //Act ----------------------------------
+        boolean result = deviceL1.checkIfListIsValid();
+        //Assert -------------------------------
+        assertFalse(result);
+    }
 
     @Test
     public void hashCodeDummyTest() {

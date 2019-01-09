@@ -14,7 +14,6 @@ import static org.testng.Assert.assertTrue;
 
 class HouseConfigurationControllerTest {
 
-
     //USER STORY 001 TESTS
 
     @Test
@@ -1242,31 +1241,6 @@ class HouseConfigurationControllerTest {
 
 
     // USER STORY 108
-
-    @Test
-    public void seeIfPrintHouseElementsByIndex() {
-        //Arrange --------------------------------
-        HouseConfigurationController ctrl = new HouseConfigurationController();
-        //Geo Area List
-        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), new Local(4, 4));
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
-        //House List
-        HouseList houseList1 = new HouseList();
-        House house2 = new House("house2", "Address2", new Local(4, 4), "3456-123");
-        House house3 = new House("house3", "Address3", new Local(18, 10), "3555-555");
-        geoa1.setHouseList(houseList1);
-        houseList1.addHouseToHouseList(house2);
-        houseList1.addHouseToHouseList(house3);
-        //Act ------------------------------------
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        String result = ctrl.printHouseElementsByIndex(list, geoa1);
-        //Assert ---------------------------------
-        String expectedResult = "1) house3, Address3, 3555-555.\n";
-        Assertions.assertEquals(expectedResult, result);
-    }
     @Test
     void seeIfMatchGeographicAreaIndexByStringWorks() {
         //Arrange -------------------------------------
