@@ -44,9 +44,9 @@ public class MainUI {
         SensorList sensorList1 = new SensorList();
         SensorList sensorList2 = new SensorList();
         SensorList sensorList3 = new SensorList();
-        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature", "Celsius"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain", "l/m2"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
-        Sensor sensor3 = new Sensor("teste", new TypeSensor("Rain", "l/m2"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime());
+        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature", "Celsius"), new Local(4, 4, 5), new GregorianCalendar(8, 8, 8).getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain", "l/m2"), new Local(4, 4, 5), new GregorianCalendar(8, 8, 8).getTime());
+        Sensor sensor3 = new Sensor("teste", new TypeSensor("Rain", "l/m2"), new Local(4, 4, 5), new GregorianCalendar(8, 8, 8).getTime());
         sensor1.setReadingList(readingList);
         sensor2.setReadingList(readingList);
         sensor3.setReadingList(readingList);
@@ -78,16 +78,16 @@ public class MainUI {
         eg1.setListOfRooms(roomList2);
 
         //TEST GEOGRAPHIC AREAS
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), 2,3,new Local(4, 4));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), 2,5,new Local(4, 4));
+        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), 2,3,new Local(4, 4, 5));
+        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), 2,5,new Local(4, 4, 5));
         geoa1.setSensorList(sensorList1);
         geoa2.setSensorList(sensorList2);
 
         //TEST HOUSES
-        House house1 = new House("HouseOne", "Rua das Flores", "4643-221", "Porto", new Local(23, 32),geoa2, roomList1);
-        House house2 = new House("HouseOne", "Rua do Sol", "7645-765", "Lisboa", new Local(13, 76),geoa1, roomList1);
-        House house3 = new House("HouseTwo", "Rua da Praia", "7923-223", "Braga", new Local(24, 54),geoa1, roomList1);
-        House house4 = new House("HouseTwo", "Rua do Mar", "4512-231", "Coimbra", new Local(12, 76),geoa1, roomList1);
+        House house1 = new House("HouseOne", "Rua das Flores", "4643-221", "Porto", new Local(23, 32, 5),geoa2, roomList1);
+        House house2 = new House("HouseOne", "Rua do Sol", "7645-765", "Lisboa", new Local(13, 76, 5),geoa1, roomList1);
+        House house3 = new House("HouseTwo", "Rua da Praia", "7923-223", "Braga", new Local(24, 54, 5),geoa1, roomList1);
+        House house4 = new House("HouseTwo", "Rua do Mar", "4512-231", "Coimbra", new Local(12, 76, 5),geoa1, roomList1);
         house1.setmRoomList(roomList1);
         house2.setmMotherArea(geoa1);
         house4.setmMotherArea(geoa1);
@@ -249,7 +249,7 @@ public class MainUI {
 
         // Sensors
 
-        Sensor sensorRoom109 = new Sensor("Temperature B109", new TypeSensor("temperature", "ºC"), new Local(0, 0), new GregorianCalendar(2018, 10, 16).getTime());
+        Sensor sensorRoom109 = new Sensor("Temperature B109", new TypeSensor("temperature", "ºC"), new Local(0, 0, 0), new GregorianCalendar(2018, 10, 16).getTime());
         sensorRoom109.setReadingList(readingListSensorRoom109);
         Sensor sensorRainfallISEP = new Sensor("Meteo station ISEP - rainfall", new TypeSensor("rainfall","mm"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime());
         sensorRainfallISEP.setReadingList(readingListISEPRainfall);
