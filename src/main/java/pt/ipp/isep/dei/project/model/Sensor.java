@@ -20,35 +20,30 @@ public class Sensor {
     }
 
     /**
-     * Constructor with:name, typesensor, local, date
+     * Constructor with:name, typesensor, local, DateStartedFunctioning
      *
      * @param name
      * @param typeSensor
      * @param local
-     * @param date
+     * @param DateStartedFunctioning
      */
-    public Sensor(String name, TypeSensor typeSensor, Local local, Date date) {
+    public Sensor(String name, TypeSensor typeSensor, Local local, Date DateStartedFunctioning) {
         setName(name);
         setTypeSensor(typeSensor);
         setLocal(local);
-        setDateStartedFunctioning(date);
+        setDateStartedFunctioning(DateStartedFunctioning);
     }
 
     /**
-     * Constructor with name, type sensor, local, date, reading list
-     *
+     * Constructor with:name, typesensor, DateStartedFunctioning (Used When A Sensor is in a Room already. So the Location is the same as the room/house).
      * @param name
      * @param typeSensor
-     * @param local
-     * @param date
-     * @param readingList
+     * @param DateStartedFunctioning
      */
-    public Sensor(String name, TypeSensor typeSensor, Local local, Date date, ReadingList readingList) {
+    public Sensor(String name, TypeSensor typeSensor, Date DateStartedFunctioning) {
         setName(name);
         setTypeSensor(typeSensor);
-        setLocal(local);
-        setDateStartedFunctioning(date);
-        setReadingList(readingList);
+        setDateStartedFunctioning(DateStartedFunctioning);
     }
 
     /**
@@ -64,12 +59,13 @@ public class Sensor {
         }
     }
 
-    public String printSensor(){
+    public String printSensor() {
         String result;
         result = this.mName + ", " + this.mTypeSensor.getName() + ", " +
                 this.mLocal.getLatitude() + "º lat, " + this.mLocal.getLongitude() + "º long\n";
         return result;
     }
+
     /**
      * Setter: local
      *
@@ -186,10 +182,10 @@ public class Sensor {
     public boolean isSensorContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
-        double latTopVert = area.getLocal().getLatitude() + (area.getWidth()/2);
-        double longTopVert = area.getLocal().getLongitude() - (area.getLength()/2);
-        double latBotVert = area.getLocal().getLatitude() - (area.getWidth()/2);
-        double longBotVert = area.getLocal().getLongitude() + (area.getLength()/2);
+        double latTopVert = area.getLocal().getLatitude() + (area.getWidth() / 2);
+        double longTopVert = area.getLocal().getLongitude() - (area.getLength() / 2);
+        double latBotVert = area.getLocal().getLatitude() - (area.getWidth() / 2);
+        double longBotVert = area.getLocal().getLongitude() + (area.getLength() / 2);
         return (latS <= latTopVert && latS >= latBotVert && longS <= longBotVert && longS >= longTopVert);
     }
 
@@ -197,13 +193,12 @@ public class Sensor {
         return this.getDateStartedFunctioning().before(date1.getTime());
     }
 
-    public double getDistanceToHouse(House house){
+    public double getDistanceToHouse(House house) {
         Local l = house.getmLocation();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
     }
 
 
-    
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {

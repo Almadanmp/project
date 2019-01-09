@@ -55,7 +55,8 @@ public class SensorTest {
         ReadingList rl1 = new ReadingList();
         TypeSensor expectedResult = t1;
         TypeSensor actualResult;
-        Sensor c = new Sensor(name, t1, l1, d1, rl1);
+        Sensor c = new Sensor(name, t1, l1, d1);
+        c.setReadingList(rl1);
         //Act
         actualResult = c.getTypeSensor();
 
@@ -72,7 +73,8 @@ public class SensorTest {
         ReadingList rl1 = new ReadingList();
         Date expectedResult = d1;
         Date actualResult;
-        Sensor c = new Sensor(name, t1, l1, d1, rl1);
+        Sensor c = new Sensor(name, t1, l1, d1);
+        c.setReadingList(rl1);
         //Act
         actualResult = c.getDateStartedFunctioning();
 
@@ -89,7 +91,8 @@ public class SensorTest {
         ReadingList rl1 = new ReadingList();
         Local expectedResult = l1;
         Local actualResult;
-        Sensor c = new Sensor(name, t1, l1, d1, rl1);
+        Sensor c = new Sensor(name, t1, l1, d1);
+        c.setReadingList(rl1);
         //Act
         actualResult = c.getLocal();
 
@@ -386,7 +389,8 @@ public class SensorTest {
     @Test
     void seeGetMeanOfMonthThroughSensor() {
         ReadingList rList = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(15, 23), new Date(), rList);
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(15, 23), new Date());
+        s1.setReadingList(rList);
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
         GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
