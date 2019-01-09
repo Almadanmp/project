@@ -12,7 +12,7 @@ public class LocalTest {
         //Arrange
         double expectedResult = 21;
         double actualResult;
-        Local c = new Local(21, 3);
+        Local c = new Local(21, 3, 50);
 
         //Act
         actualResult = c.getLatitude();
@@ -26,7 +26,7 @@ public class LocalTest {
         //Arrange
         double expectedResult = 3;
         double actualResult;
-        Local c = new Local(21, 3);
+        Local c = new Local(21, 3, 50);
 
         //Act
         actualResult = c.getLongitude();
@@ -164,8 +164,8 @@ public class LocalTest {
     @Test
     public void seeIfWeGetLinearDistanceInKmBetweenTwoLocations() {
         //Arrange
-        Local porto = new Local(41.1496100,-8.6109900);
-        Local sidney = new Local(-33.865143,151.209900);
+        Local porto = new Local(41.1496100,-8.6109900, 50);
+        Local sidney = new Local(-33.865143,151.209900, 50);
         double expectedResult = 18064.77;
 
         //Act
@@ -177,7 +177,7 @@ public class LocalTest {
     @Test
     public void seeIfWeDoNotGetLinearDistanceInKmBetweenTwoLocations() {
         //Arrange
-        Local porto = new Local(41.1496100,-8.6109900);
+        Local porto = new Local(41.1496100,-8.6109900, 45);
         Local lisboa = new Local(38.7166700,-9.1333300,45);
         double expectedResult = 300;
 
