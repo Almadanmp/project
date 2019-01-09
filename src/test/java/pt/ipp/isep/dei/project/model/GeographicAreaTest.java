@@ -15,7 +15,7 @@ class GeographicAreaTest {
     void seeIfGetSetTypeWorksIfSameAsGivenConstructor() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         TypeArea expectedResult = t1;
         TypeArea actualResult;
         GeographicArea c = new GeographicArea(t1, l1);
@@ -30,7 +30,7 @@ class GeographicAreaTest {
     @Test
     void seeIfFirstConstructorSetsTypeArea() {
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         TypeArea expectedResult = t1;
         TypeArea actualResult;
         GeographicArea c = new GeographicArea(t1, l1);
@@ -136,7 +136,7 @@ class GeographicAreaTest {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         TypeArea t2 = new TypeArea("Freguesia");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         TypeArea actualResult;
         GeographicArea c = new GeographicArea(t1, l1);
 
@@ -151,13 +151,13 @@ class GeographicAreaTest {
     void seeIfGetSetLocalIfSameAsConstructorWorks() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea(t1, l1);
         boolean expectedResult = true;
 
         //Act
         c.setLocal(l1);
-        boolean actualResult = c.getLocal().equals(new Local(38, 7));
+        boolean actualResult = c.getLocal().equals(new Local(38, 7, 100));
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -167,8 +167,8 @@ class GeographicAreaTest {
     void seeIfGetSetLocalIfDifferentOfConstructorWorks() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7);
-        Local l2 = new Local(65, 56);
+        Local l1 = new Local(38, 7, 100);
+        Local l2 = new Local(65, 56, 100);
         GeographicArea c = new GeographicArea(t1, l1);
         Local actualResult;
         //Act
@@ -251,8 +251,8 @@ class GeographicAreaTest {
     @Test
     void seeIfCalculateDistanceToDifferentGAWorks() {
         //Arrange
-        Local l1 = new Local(23, 46);
-        Local l2 = new Local(25, 47);
+        Local l1 = new Local(23, 46, 100);
+        Local l2 = new Local(25, 47, 100);
         TypeArea t1 = new TypeArea("Porto");
         TypeArea t2 = new TypeArea("Braga");
         GeographicArea ga1 = new GeographicArea(t1, l1);
@@ -267,8 +267,8 @@ class GeographicAreaTest {
     @Test
     void seeIfCalculateDistanceToDifferentGAWithSameLocalizationWorks() {
         //Arrange
-        Local l1 = new Local(23, 46);
-        Local l2 = new Local(23, 46);
+        Local l1 = new Local(23, 46, 100);
+        Local l2 = new Local(23, 46, 100);
         TypeArea t1 = new TypeArea("Porto");
         TypeArea t2 = new TypeArea("Braga");
         GeographicArea ga1 = new GeographicArea(t1, l1);
@@ -283,8 +283,8 @@ class GeographicAreaTest {
     @Test
     void seeIfCalculateDistanceToSameGAWorks() {
         //Arrange
-        Local l1 = new Local(23, 46);
-        Local l2 = new Local(23, 46);
+        Local l1 = new Local(23, 46, 100);
+        Local l2 = new Local(23, 46, 100);
         TypeArea t1 = new TypeArea("Porto");
         TypeArea t2 = new TypeArea("Porto");
         GeographicArea ga1 = new GeographicArea(t1, l1);
