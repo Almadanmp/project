@@ -149,8 +149,9 @@ class HouseConfigurationControllerTest {
         String typeArea = "Distrito";
         double latitude = 38;
         double longitude = 7;
+        double altitude = 50;
         HouseConfigurationController us3 = new HouseConfigurationController();
-        boolean result = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
+        boolean result = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude, altitude);
 
         assertTrue(result);
         assertEquals(1, geoList.getGeographicAreaList().size());
@@ -163,10 +164,11 @@ class HouseConfigurationControllerTest {
         String typeArea = "Distrito";
         double latitude = 38;
         double longitude = 7;
+        double altitude = 50;
 
         HouseConfigurationController us3 = new HouseConfigurationController();
-        boolean result1 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
-        boolean result2 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude);
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude, altitude);
+        boolean result2 = us3.addNewGeoAreaToList(geoList, name, typeArea, latitude, longitude, altitude);
 
         assertTrue(result1); //safety check (already covered on previous test)
         Assertions.assertFalse(result2);
@@ -180,11 +182,12 @@ class HouseConfigurationControllerTest {
         String typeArea = "Distrito";
         double latitude = 38;
         double longitude = 7;
+        double altitude = 50;
         String name2 = "Lisboa";
 
         HouseConfigurationController us3 = new HouseConfigurationController();
-        boolean result1 = us3.addNewGeoAreaToList(geoList, name1, typeArea, latitude, longitude);
-        boolean result2 = us3.addNewGeoAreaToList(geoList, name2, typeArea, latitude, longitude);
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name1, typeArea, latitude, longitude, altitude);
+        boolean result2 = us3.addNewGeoAreaToList(geoList, name2, typeArea, latitude, longitude, altitude);
 
         assertTrue(result1); //safety check (already covered on previous test)
         assertTrue(result2);
@@ -197,9 +200,10 @@ class HouseConfigurationControllerTest {
         String typeArea = "Distrito";
         double latitude = 38;
         double longitude = 7;
+        double altitude = 50;
 
         HouseConfigurationController us3 = new HouseConfigurationController();
-        boolean result = us3.addNewGeoAreaToList(null, name1, typeArea, latitude, longitude);
+        boolean result = us3.addNewGeoAreaToList(null, name1, typeArea, latitude, longitude, altitude);
 
         Assertions.assertFalse(result);
     }

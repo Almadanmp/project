@@ -102,11 +102,11 @@ public class HouseConfigurationController {
      * @param longitude  input number for longitude
      * @return success if a new GA is added, false otherwise
      */
-    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, String typeArea, double latitude, double longitude) {
+    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, String typeArea, double latitude, double longitude, double altitude) {
         if (newGeoList == null) {
             return false;
         }
-        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea), new Local(latitude, longitude));
+        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea), new Local(latitude, longitude, altitude));
         return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
     }
 
