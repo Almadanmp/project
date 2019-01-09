@@ -294,14 +294,9 @@ public class MainUI {
             // Submenus Input selection
 
             String[] menu = {" 0. Exit Application\n",
-                    "1 Create a new Type of Geographic Areas\n",
-                    "2 List the existing types of Geographic Areas\n",
-                    "3 Create a new Geographic Area\n",
-                    "4. List all Geographic Areas of a certain type.\n",
+                    "1 Geographic Area Settings\n",
                     "5. Determine the type of a sensor.\n",
                     "6. Create a new Sensor and add it to a GA.\n",
-                    "7. Define that an area is contained in another area.\n",
-                    "8. Check if an area is contained in another area.\n",
                     "9. Display all available sensors.\n",
                     "10. Display all available Geographic Areas.\n",
                     "11. Set the location of a house.\n",
@@ -334,31 +329,13 @@ public class MainUI {
                     case 0:
                         return;
                     case 1:
-                        HouseConfigurationUI view1 = new HouseConfigurationUI();
-                        view1.runUS01UI(mTypeAreaList);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 2:
-                        HouseConfigurationUI view2 = new HouseConfigurationUI();
-                        view2.runUS02(mTypeAreaList);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 3:
-                        HouseConfigurationUI view3 = new HouseConfigurationUI();
-                        view3.runUS03(mGeographicAreaList, mTypeAreaList);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 4:
-                        HouseConfigurationUI view4 = new HouseConfigurationUI();
-                        view4.runUS04(mTypeAreaList, mGeographicAreaList);
+                        GASettingsUI view1 = new GASettingsUI ();
+                        view1.run(mGeographicAreaList, mTypeAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 5:
-                        HouseConfigurationUI view5 = new HouseConfigurationUI();
+                        HouseConfigurationUI view5 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view5.runUS05(sensorList1);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
@@ -366,18 +343,6 @@ public class MainUI {
                     case 6:
                         HouseConfigurationUI view6 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view6.run06();
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 7:
-                        HouseConfigurationUI view7 = new HouseConfigurationUI();
-                        view7.runUS07(mGeographicAreaList);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 8:
-                        HouseConfigurationUI view8 = new HouseConfigurationUI();
-                        view8.runUS08(mGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
@@ -400,49 +365,49 @@ public class MainUI {
                         activeInput = true;
                         break;
                     case 11:
-                        HouseConfigurationUI view11 = new HouseConfigurationUI();
+                        HouseConfigurationUI view11 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view11.runUS101(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 12:
-                        HouseConfigurationUI view12 = new HouseConfigurationUI();
+                        HouseConfigurationUI view12 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view12.runUS105(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 14:
-                        HouseConfigurationUI view14 = new HouseConfigurationUI();
+                        HouseConfigurationUI view14 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view14.runUS130(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 15:
-                        HouseConfigurationUI view15 = new HouseConfigurationUI();
+                        HouseConfigurationUI view15 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view15.runUS135(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 18:
-                        HouseConfigurationUI view16 = new HouseConfigurationUI();
+                        HouseConfigurationUI view16 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view16.runUS108UI(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 19:
-                        HouseConfigurationUI view145 = new HouseConfigurationUI();
+                        HouseConfigurationUI view145 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view145.runUS145(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 20:
-                        HouseConfigurationUI view147 = new HouseConfigurationUI();
+                        HouseConfigurationUI view147 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view147.runUS147(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
                     case 21:
-                        HouseConfigurationUI view149 = new HouseConfigurationUI();
+                        HouseConfigurationUI view149 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
                         view149.runUS149(programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;

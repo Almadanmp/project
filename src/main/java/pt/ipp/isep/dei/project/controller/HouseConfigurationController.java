@@ -28,34 +28,10 @@ public class HouseConfigurationController {
     }
 
 
-    /**
-     * User Story 01
-     * As a system administrator, I wish to define a new type of geographic area, so that later I can classify said geographic area.
-     */
-
-    private TypeAreaList mTypeAreaList;
+      private TypeAreaList mTypeAreaList;
 
 
-    /**
-     * The Builder receives a List Of Types Of Geographic Areas and sets it.
-     */
-
-    public HouseConfigurationController(TypeAreaList list) {
-        this.mTypeAreaList = list;
-    }
-
-    /**
-     * This method creates a new Type of Geographic Area and adds it to a List.
-     *
-     * @param input - the String name of the Type of Geographic Area.
-     * @return true - the Type of Geographic Area was successfully created and added to a list;
-     * false - the name is null.
-     */
-    public boolean createAndAddTypeAreaToList(String input) {
-        return mTypeAreaList.newTAG(input);
-    }
-
-    /**
+      /**
      * User Story 05
      * As a system administrator, I wish to specify the type of reading that a sensor is capable
      * of registering.
@@ -75,65 +51,8 @@ public class HouseConfigurationController {
     }
 
 
-    /**
-     * User Story 02
-     * <p>
-     * As a System Administrator I want to receive a list of all the previously stated Types of area.
-     */
-
-    public String getTypeAreaList() {
-        return mTypeAreaList.printTypeAreaList();
-    }
-
-    /**
-     * User Story 3
-     * As a System Administrator I want to Create a new Geographic Area
-     * <p>
-     * US 03 controller class. Provides methods to create a new GA and add it to a given list.
-     */
-
-    /**
-     * Method to add a new geographic area to a list of geographic areas
-     *
-     * @param newGeoList geographic area list to add the new geographic area
-     * @param newName    input string for geographic area name
-     * @param typeArea   input string for type area
-     * @param latitude   input number for latitude
-     * @param longitude  input number for longitude
-     * @return success if a new GA is added, false otherwise
-     */
-    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, String typeArea, double latitude, double longitude, double altitude) {
-        if (newGeoList == null) {
-            return false;
-        }
-        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea), new Local(latitude, longitude, altitude));
-        return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
-    }
-
-    /**
-     * User Story 04
-     */
 
     private GeographicAreaList mGeographicAreaList;
-
-    /**
-     * Void Method to Set/Match a Geographic Area List with a Certain Type Area Given(String input).
-     */
-    public GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeArea typeArea) {
-        String typeAreaName = typeArea.getTypeOfGeographicArea();
-        return geographicAreaList.matchGeographicAreaWithInputType(typeAreaName);
-    }
-
-    public String getTypeAreaName(TypeArea typeArea) {
-        return typeArea.getTypeOfGeographicArea();
-    }
-
-    /**
-     * Geographic Area List getter.
-     */
-    public GeographicAreaList getGeographicAreaList() {
-        return this.mGeographicAreaList;
-    }
 
 
     /**
@@ -234,28 +153,7 @@ public class HouseConfigurationController {
 
     private GeographicArea mMotherArea;
 
-    public GeographicArea matchGeoArea(String nameArea) {
-        return mGeographicAreaList.matchGeoArea(nameArea);
-    }
 
-    public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
-        daughterArea.setMotherArea(motherArea);
-        this.mMotherArea = motherArea;
-    }
-
-    GeographicArea getMotherArea() {
-        return this.mMotherArea;
-
-    }
-
-    public String printGeographicAreaListNames() {
-        return mGeographicAreaList.printGeoAreaList();
-    }
-
-    public boolean validateGeoArea(String ga) {
-
-        return mGeographicAreaList.validateIfGeographicAreaToGeographicAreaList(ga);
-    }
 
     /**
      * US08
@@ -264,39 +162,6 @@ public class HouseConfigurationController {
     private GeographicArea mGeographicAreaContained;
     private GeographicArea mGeographicAreaContainer;
 
-    GeographicArea getmGeographicAreaContained() {
-        return this.mGeographicAreaContained;
-    }
-
-    GeographicArea getmGeographicAreaContainer() {
-        return this.mGeographicAreaContainer;
-    }
-
-    /**
-     * This method define the GeographicAreas Container and Contained
-     */
-
-    public boolean matchGeographicAreas(String nameOfAreaContained, String nameOfAreaContainer) {
-        if (mGeographicAreaList.checkIfListIsValid()) {
-            for (GeographicArea ga : mGeographicAreaList.getGeographicAreaList()) {
-                if (ga.getName().equals(nameOfAreaContained)) {
-                    mGeographicAreaContained = ga;
-                }
-                if (ga.getName().equals(nameOfAreaContainer)) {
-                    mGeographicAreaContainer = ga;
-                }
-            }
-            return mGeographicAreaContained != null && mGeographicAreaContainer != null;
-        }
-        return false;
-    }
-
-    /**
-     * This methods checks if one area (AreaContained) is contained in another area (AreaContainer)
-     */
-    public boolean seeIfItsContained() {
-        return mGeographicAreaContained.checkIfAreaIsContained(mGeographicAreaContained, mGeographicAreaContainer);
-    }
 
     /**
      * US101: As an As an Administrator, I want to in order to configure a house (zipcode, local and address).
