@@ -566,7 +566,7 @@ class HouseConfigurationControllerTest {
         String expectedResult = "Humedade";
 
         //Act
-        String actualResult = ctrl.getType();
+        String actualResult = ctrl.getType().getName();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -583,7 +583,7 @@ class HouseConfigurationControllerTest {
         String expectedResult = "Humedade";
 
         //Act
-        String actualResult = ctrl.getType();
+        String actualResult = ctrl.getType().getName();
 
         //Assert
         assertEquals(expectedResult, actualResult);

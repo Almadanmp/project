@@ -363,8 +363,6 @@ public class SensorTest {
     @Test
     public void hashCodeDummyTest() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-    void hashCodeDummyTest() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
                 new Local(12, 31, 21), new Date());
         int expectedResult = 1;
         int actualResult = s1.hashCode();

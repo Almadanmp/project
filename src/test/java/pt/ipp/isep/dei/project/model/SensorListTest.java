@@ -176,7 +176,7 @@ public class SensorListTest {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
+        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
         SensorList sl1 = new SensorList(s1);
