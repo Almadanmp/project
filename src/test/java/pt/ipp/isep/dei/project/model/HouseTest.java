@@ -44,7 +44,7 @@ class HouseTest {
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"),2,3,new Local(4, 5, 50));
         ga.setSensorList(sensorList);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house);
         assertEquals(s1, result);
     }
