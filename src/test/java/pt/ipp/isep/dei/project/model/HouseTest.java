@@ -236,7 +236,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
         //Arrange
-        Local expectedResult = new Local (7, 78);
+        Local expectedResult = new Local (7, 78, 50);
 
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
