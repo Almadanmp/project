@@ -7,151 +7,168 @@ import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class HouseTest {
+class HouseTest {
 
     @Test
-    public void seeIfCalculateDistanceToSensorWorks() {
-        House house = new House("rua coise e tal", new Local(4, 5), "447-56");
-        Sensor s = new Sensor("sensr1", new TypeSensor("temperatura"), new Local(4, 6), new GregorianCalendar(2018, 10, 1).getTime());
+    void seeIfCalculateDistanceToSensorWorks() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6),ga, roomList);
+        Sensor s = new Sensor("sensor1", new TypeSensor("temperatura"), new Local(4, 5), new GregorianCalendar(2018, 10, 1).getTime());
         double result = house.calculateDistanceToSensor(s);
         assertEquals(110.91871788829754, result, 0.01);
     }
 
     @Test
-    public void seeIfgetTheMinorDistanceFromTheHouseToTheSensorWorks() {
-        Sensor s1 = new Sensor("sensr1", new TypeSensor("temperatura"), new Local(4, 6), new GregorianCalendar(2018, 10, 1).getTime());
-        Sensor s2 = new Sensor("sensr2", new TypeSensor("temperatura"), new Local(4, 8), new GregorianCalendar(2018, 10, 1).getTime());
+    void seeIfgetTheMinDistanceFromTheHouseToTheSensorWorks() {
+        RoomList roomList = new RoomList();
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura"), new Local(4, 6), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura"), new Local(4, 8), new GregorianCalendar(2018, 10, 1).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5), sensorList);
-        House house = new House("casa de praia", "rua coise e tal", new Local(4, 5), "447-56");
-        double result = house.getTheMinorDistanceFromTheHouseToTheSensor(ga);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        double result = house.getMinDistanceFromHouseToSensor(ga);
         assertEquals(110.91871788829754, result, 0.01);
     }
 
     @Test
-    public void seeIfgetTheMinorDistanceFromTheHouseToTheSensorWorks2() {
-        Sensor s1 = new Sensor("sensr1", new TypeSensor("temperatura"), new Local(4, 8), new GregorianCalendar(2018, 10, 1).getTime());
-        Sensor s2 = new Sensor("sensr5", new TypeSensor("temperatura"), new Local(4, 6), new GregorianCalendar(2018, 10, 1).getTime());
+    void seeIfgetTheMinDistanceFromTheHouseToTheSensorWorks2() {
+        RoomList roomList = new RoomList();
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura"), new Local(4, 8), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura"), new Local(4, 6), new GregorianCalendar(2018, 10, 1).getTime());
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5), sensorList);
-        House house = new House("casa de rua", "rua coise e tal", new Local(4, 5), "447-56");
-        double result = house.getTheMinorDistanceFromTheHouseToTheSensor(ga);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        double result = house.getMinDistanceFromHouseToSensor(ga);
         assertEquals(110.91871788829754, result, 0.01);
     }
 
     @Test
-    public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks() {
+    void seeIfGetSensorWithTheMinDistanceToHouseWorks() {
+        RoomList roomList = new RoomList();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5), sensorList);
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
-        Sensor result = house.getSensorWithTheMinimumDistanceToHouse(ga, house);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        Sensor result = house.getSensorWithMinDistanceToHouse(ga, house);
         assertEquals(s1, result);
     }
 
     @Test
-    public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks2() {
+    void seeIfGetSensorWithTheMinDistanceToHouseWorks2() {
+        RoomList roomList = new RoomList();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5), sensorList);
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
-        Sensor result = house.getSensorWithTheMinimumDistanceToHouse(ga, house);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        Sensor result = house.getSensorWithMinDistanceToHouse(ga, house);
         assertEquals(s2, result);
     }
 
     @Test
-    public void seeIfGetSensorWithTheMinimumDistanceToHouseNull() {
+    void seeIfGetSensorWithTheMinDistanceToHouseNull() {
+        RoomList roomList = new RoomList();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5));
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
-        Sensor result = house.getSensorWithTheMinimumDistanceToHouse(ga, house);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        Sensor result = house.getSensorWithMinDistanceToHouse(ga, house);
         assertEquals(null, result);
     }
 
     @Test
-    public void ensureThatAObjectIsAInstanceOf() {
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
-        House house2 = new House("casa", "rua coise", new Local(4, 5), "440-4");
-        Boolean expectedResult = true;
+    void ensureThatAObjectIsAInstanceOf() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        House house2 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
 
         Boolean actualResult = house.equals(house2);
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(true, actualResult);
     }
 
     @Test
-    public void ensureThatAObjectIsNotAInstanceOf() {
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
-        House house2 = new House("casa", "rua coisa", new Local(4, 5), "440-4");
-        Boolean expectedResult = false;
+    void ensureThatAObjectIsNotAInstanceOf() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        House house2 = new House("casa de campo", "Rua do Sol", "4516", "Porto", new Local(4, 5),ga, roomList);
 
         Boolean actualResult = house.equals(house2);
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(false, actualResult);
     }
 
     @Test
-    public void ensureThatAObjectIsNotAInstanceOfNull() {
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
-        Boolean expectedResult = false;
+    void ensureThatAObjectIsNotAInstanceOfNull() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+        House house2 = new House();
 
-        Boolean actualResult = house.equals(null);
+        Boolean actualResult = house.equals(house2);
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(false, actualResult);
     }
 
     @Test
-    public void seeIfAddRoomToRoomList() {
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
+    void seeIfAddRoomToRoomList() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
         RoomList rL1 = new RoomList();
         house.setmRoomList(rL1);
         Room room = new Room("quarto", 1, 80,2,2);
-        Boolean expectedResult = true;
         Boolean result = house.addRoomToRoomList(room);
 
-        assertEquals(expectedResult, result);
+        assertEquals(true, result);
     }
 
     @Test
-    public void seeIfFailsAddRoomToRoomList() {
-        House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
+    void seeIfFailsAddRoomToRoomList() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
         RoomList rL1 = new RoomList();
         house.setmRoomList(rL1);
         Room room = new Room("quarto", 1, 80,2,2);
         Room room2 = new Room("quarto", 2, 80,2,2);
-        Boolean expectedResult = false;
         house.addRoomToRoomList(room2);
         Boolean result = house.addRoomToRoomList(room);
 
-        assertEquals(expectedResult, result);
+        assertEquals(false, result);
     }
 
     @Test
-    public void seeIfRecognizesEmptyGridList () {
-        House house = new House("casa", "rua coise", new Local(4, 5),"5150-657");
+    void seeIfRecognizesEmptyGridList () {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
         EnergyGridList energyGridList = new EnergyGridList();
         house.setmEGList(energyGridList);
         String expectedResult = "Invalid List - List is Empty\n";
-        String actualResult = house.printWholeGridList();
+        String actualResult = house.printGridList();
         assertEquals(expectedResult,actualResult);
     }
 
     @Test
-    public void checkIfWeReceivePrintedGridList (){
-        House house = new House("casa", "rua coise", new Local(4, 5),"5150-657");
+    void checkIfWeReceivePrintedGridList (){
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
         EnergyGrid eg1 = new EnergyGrid("Rede",444);
         EnergyGrid eg2 = new EnergyGrid("Rede 2",555);
         EnergyGridList energyGridList = new EnergyGridList();
@@ -162,19 +179,21 @@ public class HouseTest {
                 "0) Designation: Rede | Max Power: 444.0\n" +
                 "1) Designation: Rede 2 | Max Power: 555.0\n" +
                 "---------------\n";
-        String actualResult = house.printWholeGridList();
+        String actualResult = house.printGridList();
         assertEquals(expectedResult,actualResult);
     }
 
     @Test
-    void seeIfsetHouseAddress(){
+    void seeIfsetHouseStreet(){
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
         //Arrange
-        String expectedResult = "rua da rua";
-        House house = new House("rua coise e tal", new Local(4, 5), "447-56");
+        String expectedResult = "Rua da Praia";
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
 
         //Act
-        house.setmAddress("rua da rua");
-        String actualResult = house.getmAddress();
+        house.setmStreet("Rua da Praia");
+        String actualResult = house.getmStreet();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -182,13 +201,31 @@ public class HouseTest {
 
     @Test
     void seeIfsetHouseZipCode(){
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "6327-09";
-        House house = new House("rua coise e tal", new Local(4, 5), "447-56");
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
 
         //Act
-        house.setmZipCode("6327-09");
-        String actualResult = house.getmZipCode();
+        house.setmZip("6327-09");
+        String actualResult = house.getmZip();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetTown() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        //Arrange
+        String expectedResult = "Lisboa";
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
+
+        //Act
+        house.setmTown("Lisboa");
+        String actualResult = house.getmTown();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -196,16 +233,16 @@ public class HouseTest {
 
     @Test
     void seeIfsetHouseGPS(){
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
         //Arrange
-        double latitude = 30;
-        double longitude = 31;
-        Local expectedResult = new Local (07, 78);
+        Local expectedResult = new Local (7, 78);
 
-        House house = new House("rua coise e tal", new Local(latitude, longitude), "447-56");
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
 
         //Act
-        house.setGPS(07, 78);
-        Local actualResult = house.getmGPS();
+        house.setmLocation(7, 78);
+        Local actualResult = house.getmLocation();
 
         //Assert
         assertEquals(expectedResult, actualResult);

@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -323,7 +322,7 @@ public class HouseConfigurationController {
 
 
     public void setHouseAddress(String address, House house) {
-        house.setmAddress(address);
+        house.setmStreet(address);
     }
 
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
@@ -331,11 +330,11 @@ public class HouseConfigurationController {
     }
 
     public void setHouseZIPCode(String zipCode, House house) {
-        house.setmZipCode(zipCode);
+        house.setmZip(zipCode);
     }
 
     public void setHouseLocal(double latitude, double longitude, House house) {
-        house.setGPS(latitude, longitude);
+        house.setmLocation(latitude,longitude);
     }
 
     public String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
@@ -364,7 +363,7 @@ public class HouseConfigurationController {
     }
 
     public String getHouseName(House house) {
-        return house.getHouseDesignation();
+        return house.getmHouseId();
     }
 
     /**
@@ -477,8 +476,8 @@ public class HouseConfigurationController {
         return grid.printGrid();
     }
 
-    public String printGridList(House house) {
-        return house.printWholeGridList();
+    public String printGridList(House house){
+        return house.printGridList();
     }
 
     public String printRooms(RoomList roomList) {
