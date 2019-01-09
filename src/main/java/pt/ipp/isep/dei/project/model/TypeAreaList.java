@@ -65,9 +65,9 @@ public class TypeAreaList {
 
     public String printGATypeElementsByIndex (List<Integer> indexes){
         StringBuilder result = new StringBuilder(mResultLookEnhancer);
-        for (Integer indexe : indexes) {
-            int pos = indexe;
-            result.append(indexe).append(") ").append(mTypeAreaList.get(pos).printTypeGeographicArea());
+        for (Integer index : indexes) {
+            int pos = index;
+            result.append(index).append(") ").append(mTypeAreaList.get(pos).printTypeGeographicArea());
         }
         result.append(mResultLookEnhancer);
         return result.toString();
@@ -85,7 +85,6 @@ public class TypeAreaList {
             result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" \n");
         }
         result.append(mResultLookEnhancer);
-        System.out.print(result);
         return result.toString();
     }
 

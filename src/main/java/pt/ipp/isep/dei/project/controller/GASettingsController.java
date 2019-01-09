@@ -97,7 +97,7 @@ public class GASettingsController {
     }
 
     public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
-        daughterArea.setmMotherArea(motherArea);
+        daughterArea.setMotherArea(motherArea);
         this.mMotherArea = motherArea;
     }
 
@@ -127,10 +127,10 @@ or indirectly, in another one. */
     public boolean matchGeographicAreas(String nameOfAreaContained, String nameOfAreaContainer, GeographicAreaList geographicAreaList) {
         if (geographicAreaList.checkIfListIsValid()) {
             for (GeographicArea ga : geographicAreaList.getGeographicAreaList()) {
-                if (ga.getmId().equals(nameOfAreaContained)) {
+                if (ga.getId().equals(nameOfAreaContained)) {
                     mGeographicAreaContained = ga;
                 }
-                if (ga.getmId().equals(nameOfAreaContainer)) {
+                if (ga.getId().equals(nameOfAreaContainer)) {
                     mGeographicAreaContainer = ga;
                 }
             }

@@ -79,8 +79,8 @@ public class MainUI {
         //TEST GEOGRAPHIC AREAS
         GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), 2,3,new Local(4, 4));
         GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), 2,5,new Local(4, 4));
-        geoa1.setmSensorList(sensorList1);
-        geoa2.setmSensorList(sensorList2);
+        geoa1.setSensorList(sensorList1);
+        geoa2.setSensorList(sensorList2);
 
         //TEST HOUSES
         House house1 = new House("HouseOne", "Rua das Flores", "4643-221", "Porto", new Local(23, 32),geoa2, roomList1);
@@ -98,8 +98,8 @@ public class MainUI {
         //TEST ORGANIZATION SETTERS
         house1.setmEGList(energyGridList2);
 
-        geoa1.setmSensorList(sensorList2);
-        geoa2.setmSensorList(sensorList2);
+        geoa1.setSensorList(sensorList2);
+        geoa2.setSensorList(sensorList2);
 
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
@@ -117,20 +117,20 @@ public class MainUI {
         // Geo Areas (4)
 
         GeographicArea ISEP = new GeographicArea("ISEP", new TypeArea("urban area"), 52,5,new Local(41.178553, -8.608035, 111));
-        ISEP.setmWidth(0.261);
-        ISEP.setmLength(0.249);
+        ISEP.setWidth(0.261);
+        ISEP.setLength(0.249);
 
         GeographicArea Porto = new GeographicArea("Porto", new TypeArea("city"), 31,6,new Local(41.164077, -8.620802, 118));
-        Porto.setmWidth(10.09);
-        Porto.setmLength(10.09);
+        Porto.setWidth(10.09);
+        Porto.setLength(10.09);
 
         GeographicArea Portugal = new GeographicArea("Portugal", new TypeArea("pais"), 22,9,new Local(60, 0, 110));
-        Portugal.setmWidth(100);
-        Portugal.setmLength(800);
+        Portugal.setWidth(100);
+        Portugal.setLength(800);
 
         GeographicArea PortoSanto = new GeographicArea("Porto Santo", new TypeArea("city"), 42,12,new Local(-45, 67, 67));
-        PortoSanto.setmWidth(156);
-        PortoSanto.setmLength(235);
+        PortoSanto.setWidth(156);
+        PortoSanto.setLength(235);
 
         geographicalAreaList.addGeographicAreaToGeographicAreaList(ISEP);
         geographicalAreaList.addGeographicAreaToGeographicAreaList(Porto);
@@ -259,7 +259,7 @@ public class MainUI {
         SensorList ISEPSensorList = new SensorList();
         ISEPSensorList.addSensor(sensorRainfallISEP);
         ISEPSensorList.addSensor(sensorTemperatureISEP);
-        ISEP.setmSensorList(ISEPSensorList);
+        ISEP.setSensorList(ISEPSensorList);
 
 
         // Energy Grid
@@ -353,7 +353,7 @@ public class MainUI {
                         if (mGeographicAreaList.checkIfListIsValid())
                             System.out.println("The list of geographic areas is empty!");
                         for (GeographicArea ga1 : mGeographicAreaList.getGeographicAreaList()) {
-                            System.out.println(ga1.getmId());
+                            System.out.println(ga1.getId());
                         }
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;

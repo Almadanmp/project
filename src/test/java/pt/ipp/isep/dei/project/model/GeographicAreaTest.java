@@ -20,7 +20,7 @@ class GeographicAreaTest {
         TypeArea actualResult;
         GeographicArea c = new GeographicArea("Porto",t1,2,3,l1);
         //Act
-        c.setmTypeArea(t1);
+        c.setTypeArea(t1);
         actualResult = c.getTypeArea();
 
         //Assert
@@ -48,7 +48,7 @@ class GeographicAreaTest {
         GeographicArea c = new GeographicArea("Porto",t1,2,3,l1);
 
         //Act
-        c.setmTypeArea(t2);
+        c.setTypeArea(t2);
         actualResult = c.getTypeArea();
         //Assert
         assertEquals(t2, actualResult);
@@ -63,7 +63,7 @@ class GeographicAreaTest {
         boolean expectedResult = true;
 
         //Act
-        c.setmLocal(l1);
+        c.setLocal(l1);
         boolean actualResult = c.getLocal().equals(new Local(38, 7, 100));
 
         //Assert
@@ -79,7 +79,7 @@ class GeographicAreaTest {
         GeographicArea c = new GeographicArea("Porto",t1,2,3,l1);
         Local actualResult;
         //Act
-        c.setmLocal(l2);
+        c.setLocal(l2);
         actualResult = c.getLocal();
 
         //Assert
@@ -96,7 +96,7 @@ class GeographicAreaTest {
         SensorList actualResult;
         GeographicArea c = new GeographicArea("Porto",t1,2,3,l1);
         //Act
-        c.setmSensorList(list1);
+        c.setSensorList(list1);
         actualResult = c.getSensorList();
         //Assert
         assertEquals(list1, actualResult);
@@ -165,7 +165,7 @@ class GeographicAreaTest {
         s1.setReadingList(readingList);
         SensorList sensorList = new SensorList(s1);
         GeographicArea ga1 = new GeographicArea("Porto",new TypeArea("Rua"),2,3,new Local(16, 17, 18));
-        ga1.setmSensorList(new SensorList(s1));        double expectedResult = 19;
+        ga1.setSensorList(new SensorList(s1));        double expectedResult = 19;
         //Act
         double result = ga1.getMostRecentReadingValue("Temperatura");
         //Assert
@@ -197,7 +197,7 @@ class GeographicAreaTest {
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         GeographicArea ga1 = new GeographicArea("Porto",new TypeArea("Rua"),2,3,new Local(16, 17, 18));
-        ga1.setmSensorList(sensorList);
+        ga1.setSensorList(sensorList);
         double expectedResult = 20;
         //Act
         double result = ga1.getMostRecentReadingValue("Temperatura");
@@ -229,7 +229,7 @@ class GeographicAreaTest {
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         GeographicArea ga1 = new GeographicArea("Porto",new TypeArea("Rua"),2,3,new Local(16, 17, 18));
-        ga1.setmSensorList(sensorList);
+        ga1.setSensorList(sensorList);
         double expectedResult = 19;
         //Act
         double result = ga1.getMostRecentReadingValue("Temperatura");
@@ -262,7 +262,7 @@ class GeographicAreaTest {
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         GeographicArea ga1 = new GeographicArea("Porto",new TypeArea("Rua"),2,3,new Local(16, 17, 18));
-        ga1.setmSensorList(sensorList);
+        ga1.setSensorList(sensorList);
         double expectedResult = 19;
         //Act
         double result = ga1.getMostRecentReadingValue("Temperatura");
@@ -281,10 +281,10 @@ class GeographicAreaTest {
         GeographicArea ga1 = new GeographicArea("Porto",t1,2,3,l1);
         GeographicArea ga2 = new GeographicArea("Porto",t2,2,3,l2);
         //Act
-        ga1.setmWidth(10);
-        ga1.setmLength(20);
-        ga2.setmWidth(5);
-        ga2.setmLength(10);
+        ga1.setWidth(10);
+        ga1.setLength(20);
+        ga2.setWidth(5);
+        ga2.setLength(10);
         boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
 
         //Assert
@@ -301,7 +301,7 @@ class GeographicAreaTest {
 
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            ga1.setmId(null);
+            ga1.setId(null);
         });
 
         //Assert
@@ -317,7 +317,7 @@ class GeographicAreaTest {
         GeographicArea ga1 = new GeographicArea(name,t1,2,3,l1);
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            ga1.setmId("");
+            ga1.setId("");
         });
         //Assert
         assertEquals("Please Insert Valid Name", exception.getMessage());
@@ -329,7 +329,7 @@ class GeographicAreaTest {
         //Arrange
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2,5, new Local(22, 23, 100));
         GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("País"), 6,7, new Local(22, 17, 100));
-        ga1.setmMotherArea(ga2);
+        ga1.setMotherArea(ga2);
 
         //Act
         GeographicArea actualResult = ga1.getMotherArea();
@@ -354,8 +354,8 @@ class GeographicAreaTest {
         Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22), new GregorianCalendar(2018, 11, 25).getTime());
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 10,20, new Local(22, 23, 100));
         GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("Cidade"), 200,521, new Local(22, 23, 100));
-        ga1.setmMotherArea(ga2);
-        ga1.setmMotherArea(ga2);
+        ga1.setMotherArea(ga2);
+        ga1.setMotherArea(ga2);
         Boolean expectedResult = true;
         Boolean actualResult = ga1.checkIfAreaIsContained(ga1, ga2);
 
@@ -367,8 +367,8 @@ class GeographicAreaTest {
         Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), new GregorianCalendar(2018, 11, 25).getTime());
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 10,20, new Local(22, 23, 100));
         GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("Cidade"), 200,521, new Local(22, 23, 100));
-        ga1.setmMotherArea(ga2);
-        ga1.setmMotherArea(ga2);
+        ga1.setMotherArea(ga2);
+        ga1.setMotherArea(ga2);
         Boolean expectedResult = false;
         Boolean actualResult = ga1.checkIfAreaIsContained(ga2, ga1);
 
@@ -380,8 +380,8 @@ class GeographicAreaTest {
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2,4,new Local(22, 22, 100));
         GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("Cidade"), 20,40,new Local(22, 22, 100));
         GeographicArea ga3 = new GeographicArea("Europa", new TypeArea("Cidade"), 200,400,new Local(22, 22, 100));
-        ga1.setmMotherArea(ga2);
-        ga2.setmMotherArea(ga3);
+        ga1.setMotherArea(ga2);
+        ga2.setMotherArea(ga3);
         Boolean expectedResult = true;
         Boolean actualResult = ga1.checkIfAreaIsContained(ga1, ga3);
 
@@ -417,7 +417,7 @@ class GeographicAreaTest {
         sensorList.addSensor(s3);
 
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 2,5, new Local(16, 17, 18));
-        ga1.setmSensorList(sensorList);
+        ga1.setSensorList(sensorList);
         GregorianCalendar dateMin = new GregorianCalendar(2018, 11, 1);
         GregorianCalendar dateMax = new GregorianCalendar(2018, 11, 20);
         Date dateToTest1 = dateMin.getTime();
@@ -448,7 +448,7 @@ class GeographicAreaTest {
         readingList2.addReading(r6);
         SensorList sensorList = new SensorList();
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 16,17, new Local(16, 17, 18));
-        ga1.setmSensorList(sensorList);
+        ga1.setSensorList(sensorList);
         GregorianCalendar dateMin = new GregorianCalendar(2018, 11, 1);
         GregorianCalendar dateMax = new GregorianCalendar(2018, 11, 20);
         Date dateToTest1 = dateMin.getTime();
@@ -489,7 +489,7 @@ class GeographicAreaTest {
         sensorList.addSensor(s3);
 
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 16,17, new Local(16, 17, 18));
-        ga1.setmSensorList(sensorList);
+        ga1.setSensorList(sensorList);
         GregorianCalendar dateMin = new GregorianCalendar(2018, 11, 1);
         GregorianCalendar dateMax = new GregorianCalendar(2018, 11, 20);
         Date dateToTest1 = dateMin.getTime();
@@ -516,7 +516,7 @@ class GeographicAreaTest {
         slist1.addSensor(s1);
         slist1.addSensor(s2);
         GeographicArea ga1 = new GeographicArea();
-        ga1.setmSensorList(slist1);
+        ga1.setSensorList(slist1);
         GeographicAreaList glist1 = new GeographicAreaList();
         glist1.addGeographicAreaToGeographicAreaList(ga1);
         //Act
@@ -541,7 +541,7 @@ class GeographicAreaTest {
         slist1.addSensor(s1);
         slist1.addSensor(s2);
         GeographicArea ga1 = new GeographicArea();
-        ga1.setmSensorList(slist1);
+        ga1.setSensorList(slist1);
         GeographicAreaList glist1 = new GeographicAreaList();
         glist1.addGeographicAreaToGeographicAreaList(ga1);
         //Act

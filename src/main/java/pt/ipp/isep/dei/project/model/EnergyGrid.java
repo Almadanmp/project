@@ -8,8 +8,7 @@ public class EnergyGrid {
     private RoomList mListOfRooms;
     private PowerSourceList mListPowerSources;
 
-    EnergyGrid() {
-    }
+    EnergyGrid() { }
 
 
     public EnergyGrid(String houseGridDesignation, double maxContractedPower) {
@@ -17,9 +16,9 @@ public class EnergyGrid {
         setMaxPower(maxContractedPower);
     }
 
-    EnergyGrid(String houseGridDesignation, double maxContractedPower, RoomList roomList) {
-        setName(houseGridDesignation);
-        setMaxPower(maxContractedPower);
+    EnergyGrid(String gridName, double maxContractedPower, RoomList roomList) {
+        this.mName = gridName;
+        this.mMaxPower = maxContractedPower;
         this.mListOfRooms = roomList;
     }
 

@@ -25,7 +25,7 @@ public class RoomConfigurationControllerTest {
         slist1.addSensor(s1);
         slist1.addSensor(s2);
         GeographicArea ga1 = new GeographicArea();
-        ga1.setmSensorList(slist1);
+        ga1.setSensorList(slist1);
 
 
         //Act
@@ -74,7 +74,7 @@ public class RoomConfigurationControllerTest {
         slist1.addSensor(s1);
         slist1.addSensor(s2);
         GeographicArea ga1 = new GeographicArea();
-        ga1.setmSensorList(slist1);
+        ga1.setSensorList(slist1);
         GeographicAreaList glist1 = new GeographicAreaList();
         glist1.addGeographicAreaToGeographicAreaList(ga1);
         //Act

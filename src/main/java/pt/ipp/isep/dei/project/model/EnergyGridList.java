@@ -20,15 +20,6 @@ public class EnergyGridList {
         return false;
     }
 
-    public EnergyGrid matchEnergyGrid(String gridToMatch) {
-        for (EnergyGrid g : mEnergyGridList) {
-            if (g.getName().equals(gridToMatch)) {
-                return g;
-            }
-        }
-        return null;
-    }
-
     public String printEnergyGridList() {
         StringBuilder finalString = new StringBuilder();
         String emptyList = "The list is empty.";
@@ -59,11 +50,11 @@ public class EnergyGridList {
     }
 
     public String printElementsByIndex(List<Integer> indexes) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < indexes.size(); i++) {
-            result += indexes.get(i) + ") " + mEnergyGridList.get(i).getName() + ", " + mEnergyGridList.get(i).getMaxPower() + ", " + mEnergyGridList.get(i).getListPowerSources() + ".\n";
+            result.append(indexes.get(i)).append(") ").append(mEnergyGridList.get(i).getName()).append(", ").append(mEnergyGridList.get(i).getMaxPower()).append(", ").append(mEnergyGridList.get(i).getListPowerSources()).append(".\n");
         }
-        return result;
+        return result.toString();
     }
 
     @Override

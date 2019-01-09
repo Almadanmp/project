@@ -324,7 +324,7 @@ class HouseConfigurationControllerTest {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
         GeographicArea areaG = new GeographicArea("Porto",t1,2,3,l1);
-        areaG.setmId("Alegria");
+        areaG.setId("Alegria");
 
         String areaNameInput = "Alegria";
         GeographicAreaList xgaList = new GeographicAreaList();
@@ -360,7 +360,7 @@ class HouseConfigurationControllerTest {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
         GeographicArea areaG = new GeographicArea("Porto",t1,2,3,l1);
-        areaG.setmId("Alegria");
+        areaG.setId("Alegria");
 
         String areaNameInput = "Direita";
         GeographicAreaList xgaList = new GeographicAreaList();
@@ -396,7 +396,7 @@ class HouseConfigurationControllerTest {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
         GeographicArea areaG = new GeographicArea("Porto",t1,2,3,l1);
-        areaG.setmId("Alegria");
+        areaG.setId("Alegria");
 
         String areaNameInput = "Alegria";
         GeographicAreaList xgaList = new GeographicAreaList();

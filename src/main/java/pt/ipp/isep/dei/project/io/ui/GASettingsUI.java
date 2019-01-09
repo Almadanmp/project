@@ -87,10 +87,10 @@ public class GASettingsUI {
                     break;
                 case 5:
                         getInputGeographicArea(newGeoListUi);
-                        this.mNameGeographicAreaMother = mGeoArea.getmId();
+                        this.mNameGeographicAreaMother = mGeoArea.getId();
                         displayGeoArea(mNameGeographicAreaMother, newGeoListUi);
                         getInputGeographicArea(newGeoListUi);
-                        this.mNameGeographicAreaDaughter = mGeoArea.getmId();
+                        this.mNameGeographicAreaDaughter = mGeoArea.getId();
                         displayGeoArea(mNameGeographicAreaDaughter, newGeoListUi);
                         updateStateUS07(newGeoListUi);
                         displayStateUS07();
@@ -451,7 +451,7 @@ or indirectly, in another one. */
      */
     private void getInputGeographicContainerUS08(GeographicAreaList newGeoListUi) {
         getInputGeographicArea(newGeoListUi);
-        this.mNameGeographicAreaContainer = mGeoArea.getmId();
+        this.mNameGeographicAreaContainer = mGeoArea.getId();
     }
 
     /**
@@ -460,7 +460,7 @@ or indirectly, in another one. */
      */
     private void getInputGeographicContainedUS08(GeographicAreaList newGeoListUi) {
         getInputGeographicArea(newGeoListUi);
-        this.mNameGeographicAreaContained = mGeoArea.getmId();
+        this.mNameGeographicAreaContained = mGeoArea.getId();
     }
 
     /**

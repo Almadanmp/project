@@ -28,7 +28,7 @@ class HouseTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"),2,3,new Local(4, 5, 50));
-        ga.setmSensorList(sensorList);
+        ga.setSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         double result = house.getMinDistanceFromHouseToSensor(ga);
         assertEquals(110.91871788829754, result, 0.01);
@@ -43,7 +43,7 @@ class HouseTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"),2,3,new Local(4, 5, 50));
-        ga.setmSensorList(sensorList);
+        ga.setSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5),ga, roomList);
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house);
         assertEquals(s1, result);
@@ -54,7 +54,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"),2,3,new Local(4, 5, 50));
         RoomList roomList = new RoomList();
         SensorList sensorList1 = new SensorList();
-        ga.setmSensorList(sensorList1);
+        ga.setSensorList(sensorList1);
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature","Celsius"), new Local(4, 8,50), new GregorianCalendar(4, 4, 4).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature","Celsius"), new Local(4, 6,50), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
@@ -270,13 +270,13 @@ class HouseTest {
         //Arrange
 
         GeographicArea expectedResult = new GeographicArea();
-        expectedResult.setmId("Porto");
-        expectedResult.setmLocal(new Local (2,3,4));
-        expectedResult.setmTypeArea(new TypeArea("Cidade"));
+        expectedResult.setId("Porto");
+        expectedResult.setLocal(new Local (2,3,4));
+        expectedResult.setTypeArea(new TypeArea("Cidade"));
         GeographicArea ga1 = new GeographicArea();
-        ga1.setmId("Porto");
-        ga1.setmLocal(new Local(2,3,4));
-        ga1.setmTypeArea(new TypeArea("Cidade"));
+        ga1.setId("Porto");
+        ga1.setLocal(new Local(2,3,4));
+        ga1.setTypeArea(new TypeArea("Cidade"));
 
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();

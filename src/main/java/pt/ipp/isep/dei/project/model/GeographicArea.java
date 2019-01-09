@@ -9,14 +9,12 @@ import java.util.Date;
 public class GeographicArea {
 
     private String mId;
-    private String mDescription;
     private TypeArea mTypeArea;
     private double mLength;
     private double mWidth;
     private GeographicArea mMotherArea;
     private Local mLocation;
     private SensorList mAreaSensors;
-    private House mHouse;
 
 
 
@@ -31,21 +29,21 @@ public class GeographicArea {
         mAreaSensors = new SensorList();
     }
 
-    public GeographicArea(String mId, TypeArea mTypeArea, double mLength, double mWidth, Local mLocation) {
-        setmId(mId);
-        setmTypeArea(mTypeArea);
-        setmLength(mLength);
-        setmWidth(mWidth);
-        setmLocal(mLocation);
+    public GeographicArea(String id, TypeArea typeArea, double length, double width, Local location) {
+        setId(id);
+        setTypeArea(typeArea);
+        setLength(length);
+        setWidth(width);
+        setLocal(location);
     }
 
     // Setters and Getters for all the parameters.
 
-    public String getmId() {
+    public String getId() {
         return this.mId;
     }
 
-    public void setmId(String name) {
+     public void setId(String name) {
         if (isGeographicNameValid(name)) {
             this.mId = name;
         } else {
@@ -58,21 +56,21 @@ public class GeographicArea {
      * @param width related to longitude
      */
 
-    public void setmWidth(double width){this.mWidth = width;}
+    public void setWidth(double width){this.mWidth = width;}
 
     /**
      * Sets the length attribute
      * @param length related to latitude
      */
 
-    public void setmLength(double length){this.mLength = length;}
+    public void setLength(double length){this.mLength = length;}
 
     /**
      * Setter for Geographic Area type.
      *
      * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
      */
-    void setmTypeArea(TypeArea typeArea) {
+    void setTypeArea(TypeArea typeArea) {
         this.mTypeArea = typeArea;
     }
 
@@ -81,7 +79,7 @@ public class GeographicArea {
      *
      * @param local Localization is defined by three doubles (longitude, latitude and altitude).
      */
-    public void setmLocal(Local local) {
+     void setLocal(Local local) {
         this.mLocation = local;
     }
 
@@ -92,11 +90,11 @@ public class GeographicArea {
      * @param listToSet
      */
 
-    public void setmSensorList(SensorList listToSet) {
+    public void setSensorList(SensorList listToSet) {
         this.mAreaSensors = listToSet;
     }
 
-    public void setmMotherArea(GeographicArea geoArea) {
+    public void setMotherArea(GeographicArea geoArea) {
         this.mMotherArea = geoArea;
     }
 
@@ -185,7 +183,7 @@ public class GeographicArea {
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
     }
 
-    public double getWidth(){return this.mWidth;}
+    double getWidth(){return this.mWidth;}
 
     public double getLength(){return this.mLength;}
 
@@ -252,9 +250,6 @@ public class GeographicArea {
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two
      * Geographic Areas cannot have the same Localization, name and TypeArea
-     *
-     * @param testObject
-     * @return boolean
      */
     @Override
     public boolean equals(Object testObject) {
@@ -265,7 +260,7 @@ public class GeographicArea {
             return false;
         }
         GeographicArea gA = (GeographicArea) testObject;
-        return (this.getLocal().equals(gA.getLocal()) && (this.getmId().equals(gA.getmId()) && (this.getTypeArea().getTypeOfGeographicArea().equals(gA.getTypeArea().getTypeOfGeographicArea()))));
+        return (this.getLocal().equals(gA.getLocal()) && (this.getId().equals(gA.getId()) && (this.getTypeArea().getTypeOfGeographicArea().equals(gA.getTypeArea().getTypeOfGeographicArea()))));
     }
 
     @Override

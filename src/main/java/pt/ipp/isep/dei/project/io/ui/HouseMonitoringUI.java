@@ -450,7 +450,7 @@ public class HouseMonitoringUI {
     }
 
     private void displayState620() {
-        System.out.print("The Average Rainfall on " + mHouse.getmHouseId() + " that is located on " + mGeoArea.getmId() + " on the date " +
+        System.out.print("The Average Rainfall on " + mHouse.getmHouseId() + " that is located on " + mGeoArea.getId() + " on the date " +
                 mStartDate + " is " + mResult620 + "%.");
     }
 

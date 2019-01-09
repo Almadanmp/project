@@ -306,7 +306,7 @@ public class ReadingList {
         double minValue = valueList.get(0);
 
         for (double value : valueList) {
-            if (value < minValue) {
+            if (minValue > value) {
                 minValue = value;
             }
         }

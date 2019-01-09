@@ -286,7 +286,7 @@ public class HouseMonitoringControllerTest {
         slist1.addSensor(s4);
         slist1.addSensor(s5);
         slist1.addSensor(s6);
-        ga1.setmSensorList(slist1);
+        ga1.setSensorList(slist1);
         House casa1 = new House();
 
         //Act
@@ -359,7 +359,7 @@ public class HouseMonitoringControllerTest {
         GeographicArea ga1 = new GeographicArea("Portugal",t1,2,3,l1);
 
         SensorList sList1 = new SensorList();
-        ga1.setmSensorList(sList1);
+        ga1.setSensorList(sList1);
         //Act -------------------------------------------
         double expectedResult = 0;
         HouseMonitoringController ctrl = new HouseMonitoringController();
@@ -496,7 +496,7 @@ public class HouseMonitoringControllerTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal",new TypeArea("cidade"), 2,3, new Local(4, 5, 100));
-        ga.setmSensorList(sensorList);
+        ga.setSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
 
         //Act ------------------------------------------------------
@@ -516,7 +516,7 @@ public class HouseMonitoringControllerTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal",new TypeArea("cidade"), 2,3, new Local(4, 5, 100));
-        ga.setmSensorList(sensorList);
+        ga.setSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
         //Act -------------------------------------------------------
         Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga);
@@ -581,7 +581,7 @@ public class HouseMonitoringControllerTest {
         sensorList.addSensor(s2);
         //Geo Area List
         GeographicArea ga = new GeographicArea("Portugal",new TypeArea("cidade"), 2,3, new Local(4, 5, 100));
-        ga.setmSensorList(sensorList);
+        ga.setSensorList(sensorList);
         //House List
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
 

@@ -440,8 +440,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(20);
-        a1.setmLength(30);
+        a1.setWidth(20);
+        a1.setLength(30);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -460,8 +460,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(20);
-        a1.setmLength(30);
+        a1.setWidth(20);
+        a1.setLength(30);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -480,8 +480,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(20);
-        a1.setmLength(30);
+        a1.setWidth(20);
+        a1.setLength(30);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -500,8 +500,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(21);
-        a1.setmLength(30);
+        a1.setWidth(21);
+        a1.setLength(30);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -520,8 +520,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(25);
-        a1.setmLength(35);
+        a1.setWidth(25);
+        a1.setLength(35);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -540,8 +540,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(23);
-        a1.setmLength(32);
+        a1.setWidth(23);
+        a1.setLength(32);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -560,8 +560,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(21);
-        a1.setmLength(32);
+        a1.setWidth(21);
+        a1.setLength(32);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -580,8 +580,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmLength(20);
-        a1.setmWidth(25);
+        a1.setLength(20);
+        a1.setWidth(25);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -600,8 +600,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(10);
-        a1.setmLength(10);
+        a1.setWidth(10);
+        a1.setLength(10);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -620,8 +620,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(100);
-        a1.setmLength(100);
+        a1.setWidth(100);
+        a1.setLength(100);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
@@ -640,8 +640,8 @@ public class SensorTest {
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
-        a1.setmWidth(50);
-        a1.setmLength(50);
+        a1.setWidth(50);
+        a1.setLength(50);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
