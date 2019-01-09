@@ -33,9 +33,11 @@ public class House {
 
     public String getmHouseId() {
         return mId;
-    }
 
-    public String getmStreet() {
+    }
+    void setmId(String id){ this.mId = id;}
+
+    String getmStreet() {
         return this.mStreet;
     }
 
@@ -43,7 +45,7 @@ public class House {
         this.mStreet = mStreet;
     }
 
-    public String getmZip() {
+    String getmZip() {
         return mZip;
     }
 
@@ -51,15 +53,14 @@ public class House {
         this.mZip = mZip;
     }
 
-    public String getmTown() {
+    String getmTown() {
         return mTown;
     }
-
-    public void setmTown(String town) {
+    void setmTown(String town) {
         this.mTown = town;
     }
 
-    public Local getmLocation() {
+    Local getmLocation() {
         return mLocation;
     }
 
@@ -98,17 +99,15 @@ public class House {
         for (Room r : this.mRoomList.getListOfRooms()) {
             String roomDesignationToTest = r.getRoomName();
             if (roomDesignationToTest.equals(roomToAddName)) {
-                return false;
-            }
-        }
+                return false; } }
         this.mRoomList.addRoom(room);
         return true;
     }
 
     public String printHouse() {
         String result;
-        result = this.mId + ", " + this.mStreet + ", " +
-                this.mZip + ".\n";
+        result = this.mId + ", " + this.mStreet + ", " + this.mZip + ", " +
+                this.mTown + ".\n";
         return result;
     }
 
@@ -122,10 +121,7 @@ public class House {
         double distance = calculateDistanceToSensor(firstSensor);
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
             Sensor copo = ga.getSensorList().getSensors()[i];
-            if (distance > calculateDistanceToSensor(copo)) {
-                distance = calculateDistanceToSensor(copo);
-            }
-        }
+            if (distance > calculateDistanceToSensor(copo)) { distance = calculateDistanceToSensor(copo);} }
         return distance;
     }
 
@@ -133,8 +129,7 @@ public class House {
         for (Sensor s : ga.getSensorList().getSensorListByType("temperature")) {
             if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
                 return s;
-            }
-        }
+            } }
         return null;
     }
 
@@ -154,12 +149,8 @@ public class House {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
         House house = (House) o;
         return Objects.equals(mStreet, house.mStreet);
     }
