@@ -475,7 +475,7 @@ class GeographicAreaTest {
 
     @Test
     public void ensureThatAreaIsContained() {
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22), new GregorianCalendar(2018, 11, 25).getTime(), new ReadingList());
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), new GregorianCalendar(2018, 11, 25).getTime(), new ReadingList());
        GeographicArea ga1 = new GeographicArea(new TypeArea("Cidade"), new Local(22, 22, 100), new SensorList(s1), 10, 20);
         GeographicArea ga2 = new GeographicArea(new TypeArea("Cidade"), new Local(22, 22, 100), new SensorList(s1), 10, 20);
         ga1.setMotherArea(ga2);
