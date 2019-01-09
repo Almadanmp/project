@@ -435,10 +435,10 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfConstructorWorks() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "Km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 1, 4).getTime());
         SensorList lc = new SensorList(new Sensor[]{s1, s2});
@@ -458,10 +458,10 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfSetTypeWorksFalse() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "Km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 1, 4).getTime());
         SensorList lc = new SensorList();
@@ -480,10 +480,10 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfSetTypeWorks() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "Km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 1, 4).getTime());
         SensorList lc = new SensorList();
@@ -561,11 +561,12 @@ class HouseConfigurationControllerTest {
         //Arrange
         HouseConfigurationController ctrl = new HouseConfigurationController();
         String typeString = "Humedade";
-        ctrl.createType(typeString);
-        TypeSensor expectedResult = new TypeSensor("Humedade");
+        String units = "kg/m³";
+        ctrl.createType(typeString, units);
+        String expectedResult = "Humedade";
 
         //Act
-        TypeSensor actualResult = ctrl.getType();
+        String actualResult = ctrl.getType().getName();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -577,11 +578,12 @@ class HouseConfigurationControllerTest {
         //Arrange
         HouseConfigurationController ctrl = new HouseConfigurationController();
         String typeString = "Humedade";
-        ctrl.createType(typeString);
-        TypeSensor expectedResult = new TypeSensor(typeString);
+        String units = "kg/m³";
+        ctrl.createType(typeString, units);
+        String expectedResult = "Humedade";
 
         //Act
-        TypeSensor actualResult = ctrl.getType();
+        String actualResult = ctrl.getType().getName();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -616,13 +618,14 @@ class HouseConfigurationControllerTest {
         double alt = 50.0;
         Local loc1 = ctrl.createLocal(lat, lon, alt);
         String typeStr = "Humedade";
-        TypeSensor type1 = ctrl.createType(typeStr);
+        String unit = "kg/m³";
+        TypeSensor type1 = ctrl.createType(typeStr, unit);
         int year = 2018;
         int month = 8;
         int day = 9;
         Date date1 = ctrl.createDate(year, month, day);
         ctrl.createSensor(nameString, type1, loc1, date1);
-        TypeSensor t1 = new TypeSensor("Humedade");
+        TypeSensor t1 = new TypeSensor("Humedade", "kg/m³");
         Sensor expectedResult = new Sensor("XV-56D", t1, loc1, new GregorianCalendar(2018, 8, 9).getTime());
 
         //Act
@@ -643,13 +646,14 @@ class HouseConfigurationControllerTest {
         double alt = 50.0;
         Local loc1 = ctrl.createLocal(lat, lon, alt);
         String typeStr = "Humedade";
-        TypeSensor type1 = ctrl.createType(typeStr);
+        String unit = "kg/m³";
+        TypeSensor type1 = ctrl.createType(typeStr, unit);
         int year = 2018;
         int month = 8;
         int day = 9;
         Date date1 = ctrl.createDate(year, month, day);
         ctrl.createSensor(nameString, type1, loc1, date1);
-        TypeSensor t1 = new TypeSensor("Humedade");
+        TypeSensor t1 = new TypeSensor("Humedade", "kg/m³");
         Sensor expectedResult = new Sensor("XV-56D", t1, loc1, new GregorianCalendar(2018, 8, 9).getTime());
 
         //Act
@@ -670,7 +674,8 @@ class HouseConfigurationControllerTest {
         double alt = 50.0;
         Local loc1 = ctrl.createLocal(lat, lon, alt);
         String typeStr = "Humedade";
-        TypeSensor type1 = ctrl.createType(typeStr);
+        String unit = "kg/m³";
+        TypeSensor type1 = ctrl.createType(typeStr, unit);
         int year = 2018;
         int month = 8;
         int day = 9;
@@ -696,7 +701,8 @@ class HouseConfigurationControllerTest {
         double alt = 50.0;
         Local loc1 = ctrl.createLocal(lat, lon, alt);
         String typeStr = "Humedade";
-        TypeSensor type1 = ctrl.createType(typeStr);
+        String unit = "kg/m³";
+        TypeSensor type1 = ctrl.createType(typeStr, unit);
         int year = 2018;
         int month = 8;
         int day = 9;
@@ -723,7 +729,8 @@ class HouseConfigurationControllerTest {
         double alt = 50.0;
         Local loc1 = ctrl.createLocal(lat, lon, alt);
         String typeStr = "Humedade";
-        TypeSensor type1 = ctrl.createType(typeStr);
+        String unit = "kg/m³";
+        TypeSensor type1 = ctrl.createType(typeStr, unit);
         int year = 2018;
         int month = 8;
         int day = 9;
@@ -758,7 +765,8 @@ class HouseConfigurationControllerTest {
         double alt = 50.0;
         Local loc1 = ctrl.createLocal(lat, lon, alt);
         String typeStr = "Humedade";
-        TypeSensor type1 = ctrl.createType(typeStr);
+        String unit = "kg/m³";
+        TypeSensor type1 = ctrl.createType(typeStr, unit);
         int year = 2018;
         int month = 8;
         int day = 9;
@@ -793,7 +801,8 @@ class HouseConfigurationControllerTest {
         double alt = 50.0;
         Local loc1 = ctrl.createLocal(lat, lon, alt);
         String typeStr = "Humedade";
-        TypeSensor type1 = ctrl.createType(typeStr);
+        String unit = "kg/m³";
+        TypeSensor type1 = ctrl.createType(typeStr, unit);
         int year = 2018;
         int month = 8;
         int day = 9;

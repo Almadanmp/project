@@ -6,6 +6,7 @@ package pt.ipp.isep.dei.project.model;
 
 public class TypeSensor {
     private String mName;
+    private String mUnits;
 
 
     /**
@@ -16,11 +17,12 @@ public class TypeSensor {
     }
 
     /**
-     * Constructor to always create an object that names the Type of the Sensor.
+     * Constructor to always create an object that names the Type of the Sensor and the Units of the Sensor.
      */
 
-    public TypeSensor(String name) {
+    public TypeSensor(String name, String units) {
         setName(name);
+        setUnits(units);
     }
 
 
@@ -30,11 +32,33 @@ public class TypeSensor {
      * @param name of type of sensor
      */
     public void setName(String name) {
-        if (isTypeSensorNameValid(name)) {
+        if (isNameValid(name)) {
             this.mName = name;
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
+    }
+
+    /**
+     * Setter Units of the Sensor.
+     *
+     * @param units
+     */
+    public void setUnits(String units) {
+        if (isNameValid(units)) {
+            this.mUnits = units;
+        } else {
+            throw new IllegalArgumentException("Please Insert Valid String for Units of The Sensor");
+        }
+    }
+
+    /**
+     * Getter Units of the Sensor.
+     *
+     * @return
+     */
+    public String getUnits() {
+        return this.mUnits;
     }
 
     /**
@@ -45,13 +69,13 @@ public class TypeSensor {
     }
 
     /**
-     * Method to restrain input name so they cant be null or empty
+     * Method to restrain input name/unit so they can't be null or empty
      *
-     * @param name name inserted by user
-     * @return will return true if the name is valid or it will throw an exception if Invalid
+     * @param name name or units inserted by user
+     * @return will return true if the String is valid or it will throw an exception if Invalid
      */
 
-    private boolean isTypeSensorNameValid(String name) {
+    private boolean isNameValid(String name) {
         return (name != null && !name.isEmpty());
     }
 
@@ -71,7 +95,7 @@ public class TypeSensor {
             return false;
         }
         TypeSensor typeSensor = (TypeSensor) testSensor;
-        return this.getName().equals(typeSensor.getName());
+        return this.getName().equals(typeSensor.getName()) && this.getUnits().equals(typeSensor.getUnits());
     }
 
     /**

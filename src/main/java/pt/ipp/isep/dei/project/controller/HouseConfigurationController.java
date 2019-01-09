@@ -143,8 +143,8 @@ public class HouseConfigurationController {
 
     private Local mLocal;
     private Date mDate;
-    private TypeSensor mType;
     private Sensor mSensor;
+    private TypeSensor mSensorType;
 
 
     /**
@@ -157,21 +157,19 @@ public class HouseConfigurationController {
      * @return Local created
      */
     public Local createLocal(Double latitude, Double longitude, Double altitude) {
-        Local local = new Local(latitude, longitude, altitude);
-        this.mLocal = local;
+        this.mLocal = new Local(latitude, longitude, altitude);
         return this.mLocal;
     }
 
     public Date createDate(int year, int month, int day) {
-        Date date = new GregorianCalendar(year, month, day).getTime();
-        this.mDate = date;
+        this.mDate = new GregorianCalendar(year, month, day).getTime();
         return this.mDate;
     }
 
-    public TypeSensor createType(String sensorType) {
-        this.mType = new TypeSensor(sensorType);
-        return this.mType;
-    }
+    public TypeSensor createType(String sensorType, String sensorUnits) {
+        this.mSensorType = new TypeSensor(sensorType, sensorUnits);
+        return mSensorType;}
+
 
     public Sensor createSensor(String name, TypeSensor type, Local local, Date date) {
         this.mSensor = new Sensor(name, type, local, date);
@@ -219,7 +217,7 @@ public class HouseConfigurationController {
     }
 
     public TypeSensor getType() {
-        return this.mType;
+        return this.mSensorType;
     }
 
     public Date getDate() {
@@ -489,7 +487,7 @@ public class HouseConfigurationController {
      */
 
     public boolean addRoomToTheGrid(EnergyGrid grid, Room room) {
-        return grid.addRoomToAEnergyGrid(room);
+        return grid.addRoomToAnEnergyGrid(room);
     }
 
     /**

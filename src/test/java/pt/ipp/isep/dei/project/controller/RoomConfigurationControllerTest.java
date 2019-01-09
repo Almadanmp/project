@@ -17,10 +17,10 @@ public class RoomConfigurationControllerTest {
     public void seeIfSensorIsContainedInGA() {
         //Arrange
 
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade"),
+        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
 
@@ -34,11 +34,12 @@ public class RoomConfigurationControllerTest {
         //Act
 
         RoomConfigurationController crl = new RoomConfigurationController();
-        Sensor actualResult = crl.getSensorFromName("Vento",ga1);
+        Sensor actualResult = crl.getSensorFromName("Vento", ga1);
         Sensor expectedResult = s1;
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfRoomIsContainedInRoomList() {
         //Arrange
@@ -55,19 +56,20 @@ public class RoomConfigurationControllerTest {
         //Act
 
         RoomConfigurationController crl = new RoomConfigurationController();
-        Room actualResult = crl.getRoomFromName("Quarto",house1);
+        Room actualResult = crl.getRoomFromName("Quarto", house1);
         Room expectedResult = room1;
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfSensorListIsContainedInGAList() {
         //Arrange
 
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade"),
+        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
 
@@ -81,7 +83,7 @@ public class RoomConfigurationControllerTest {
         //Act
 
         RoomConfigurationController crl = new RoomConfigurationController();
-        boolean actualResult = crl.doesSensorListInAGeoAreaContainASensorByName("Vento",glist1);
+        boolean actualResult = crl.doesSensorListInAGeoAreaContainASensorByName("Vento", glist1);
         //Assert
         assertTrue(actualResult);
     }

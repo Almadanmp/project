@@ -14,10 +14,10 @@ public class SensorListTest {
 
     @Test
     public void seeIfConstructorWorks() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 1, 4).getTime());
         Sensor[] expectedResult = new Sensor[]{s1, s2};
@@ -29,10 +29,10 @@ public class SensorListTest {
 
     @Test
     public void seeIfConstructorWorksNoSensor() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 1, 4).getTime());
         Sensor[] expectedResult = new Sensor[]{};
@@ -44,10 +44,10 @@ public class SensorListTest {
 
     @Test
     public void seeIfAddSensorsWorks_true() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 9, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 10, 4).getTime());
         SensorList sl = new SensorList(s1);
@@ -61,10 +61,10 @@ public class SensorListTest {
 
     @Test
     public void seeIfAddSensorWorks_false() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 9, 4).getTime());
         SensorList sl = new SensorList(s1);
@@ -76,13 +76,13 @@ public class SensorListTest {
 
     @Test
     public void seeIfAddSensorThatExistsWorks_false() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s3 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s3 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 8, 4).getTime());
         SensorList sl = new SensorList(s1);
@@ -95,11 +95,11 @@ public class SensorListTest {
     }
 
     @Test
-    void seeIfRemoveSensor_true() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+    public void seeIfRemoveSensor_true() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 10, 4).getTime());
         SensorList lc = new SensorList(s1);
@@ -111,11 +111,11 @@ public class SensorListTest {
     }
 
     @Test
-    void seeIfRemoveSensor_false() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+    public void seeIfRemoveSensor_false() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 10, 4).getTime());
         SensorList lc = new SensorList(s1);
@@ -127,11 +127,11 @@ public class SensorListTest {
     }
 
     @Test
-    void seeIfArrayGetSensors() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+    public void seeIfArrayGetSensors() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 10, 4).getTime());
         Sensor[] expectedResult = new Sensor[]{s1, s2};
@@ -143,11 +143,11 @@ public class SensorListTest {
     }
 
     @Test
-    void seeIfGetSensorsList() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+    public void seeIfGetSensorsList() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 10, 4).getTime());
         List<Sensor> expectedResult = new ArrayList<>();
@@ -161,8 +161,8 @@ public class SensorListTest {
     }
 
     @Test
-    void seeIfequalsSameObject() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+    public void seeIfequalsSameObject() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
         SensorList sl = new SensorList(s1);
@@ -172,12 +172,11 @@ public class SensorListTest {
 
     }
 
-    @Test
-    void seeIfequalsSensorListWithSameContent() {
-        Sensor s1 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
-                new Local(10, 30, 20),
+    @Test void seeIfequalsSensorListWithSameContent() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
+                new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
         SensorList sl1 = new SensorList(s1);
@@ -189,11 +188,11 @@ public class SensorListTest {
     }
 
     @Test
-    void seeIfequalsSensorListWithDifferentContent() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+    public void seeIfequalsSensorListWithDifferentContent() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
         SensorList sl1 = new SensorList(s1);
@@ -219,14 +218,14 @@ public class SensorListTest {
         l1.addReading(reading2);
         l2.addReading(reading3);
         l2.addReading(reading4);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime(), l1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 10, 4).getTime(), l2);
         SensorList list1 = new SensorList(new Sensor[]{s1, s2});
-        Sensor expectedResult = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor expectedResult = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime(), l1);
         Sensor actualResult;
@@ -252,14 +251,14 @@ public class SensorListTest {
         l1.addReading(reading2);
         l2.addReading(reading3);
         l2.addReading(reading4);
-        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime(), l1);
-        Sensor s1 = new Sensor("Movimento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Movimento", new TypeSensor("Atmosphere", "m/s"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime(), l2);
         SensorList list1 = new SensorList(new Sensor[]{s1, s2});
-        Sensor expectedResult = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor expectedResult = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime(), l1);
         Sensor actualResult;
@@ -272,8 +271,8 @@ public class SensorListTest {
     }
 
     @Test
-    void seeIfequalsSensorListWithDifferentObject() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+    public void seeIfequalsSensorListWithDifferentObject() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
         int teste = 3;
@@ -285,8 +284,8 @@ public class SensorListTest {
     }
 
     @Test
-    void seeHashCodeDummyTest() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+    public void seeHashCodeDummyTest() {
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
         SensorList l1 = new SensorList(s1);
@@ -297,9 +296,9 @@ public class SensorListTest {
 
     @Test
     void getSensorsInGAInACertainTimePeriod() {
-        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura"), new Local(20, 14, 15), new GregorianCalendar(2000, 5, 1).getTime());
-        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura"), new Local(15, 19, 15), new GregorianCalendar(2000, 7, 1).getTime());
-        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 1).getTime());
+        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15), new GregorianCalendar(2000, 5, 1).getTime());
+        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 7, 1).getTime());
+        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 1).getTime());
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -315,9 +314,9 @@ public class SensorListTest {
 
     @Test
     void getSensorsInGAInACertainTimePeriodFalse() {
-        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura"), new Local(20, 14, 15), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 1).getTime());
+        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 1).getTime());
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -331,9 +330,9 @@ public class SensorListTest {
 
     @Test
     void getSensorsInGAInACertainTimePeriodWrongArea() {
-        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura"), new Local(20, 14, 15), new GregorianCalendar(2000, 5, 1).getTime());
-        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura"), new Local(50, 19, 15), new GregorianCalendar(2000, 7, 1).getTime());
-        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 1).getTime());
+        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15), new GregorianCalendar(2000, 5, 1).getTime());
+        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(50, 19, 15), new GregorianCalendar(2000, 7, 1).getTime());
+        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 1).getTime());
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -350,12 +349,12 @@ public class SensorListTest {
     @Test
     void getListOfSensorsContainedInGA() {
         //Arrange
-        TypeSensor t1 = new TypeSensor("Humidade");
+        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         Sensor s2 = new Sensor("s2", t1, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
         Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
         SensorList sensorList1 = new SensorList(s1);
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
         GeographicArea ga1 = new GeographicArea(ta1, l1);
 
@@ -377,12 +376,12 @@ public class SensorListTest {
     @Test
     void getListOfSensorsContainedInGAAllThreeContained() {
         //Arrange
-        TypeSensor t1 = new TypeSensor("Humidade");
+        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         Sensor s2 = new Sensor("s2", t1, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
         Sensor s3 = new Sensor("s3", t1, new Local(15, 15), new GregorianCalendar(2000, 11, 1).getTime());
         SensorList sensorList1 = new SensorList(s1);
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
         GeographicArea ga1 = new GeographicArea(ta1, l1);
 
@@ -405,17 +404,17 @@ public class SensorListTest {
     @Test
     void getListOfSensorsContainedInGADifferentTypeSensor() {
         //Arrange
-        TypeSensor t1 = new TypeSensor("Humidade");
-        TypeSensor t2 = new TypeSensor("Vento");
+        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
         Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
         SensorList sensorList1 = new SensorList(s1);
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
         GeographicArea ga1 = new GeographicArea(ta1, l1);
-        Local l2 = new Local(10, 30);
-        Local l3 = new Local(30, 10);
+        Local l2 = new Local(10, 30, 50);
+        Local l3 = new Local(30, 10, 50);
 
         //Act
         ga1.setWidth(20);
@@ -435,8 +434,8 @@ public class SensorListTest {
     void seeItGetSensorByName() {
         //Arrange
 
-        TypeSensor t1 = new TypeSensor("Humidade");
-        TypeSensor t2 = new TypeSensor("Vento");
+        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
         Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
@@ -456,8 +455,8 @@ public class SensorListTest {
     void seeItGetSensorByNameIfNameDoestExist() {
         //Arrange
 
-        TypeSensor t1 = new TypeSensor("Humidade");
-        TypeSensor t2 = new TypeSensor("Vento");
+        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
         Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
@@ -476,7 +475,7 @@ public class SensorListTest {
     @Test
     void ensureThatWeTestEmptyConstructor() {
         SensorList sl = new SensorList();
-        TypeSensor t1 = new TypeSensor("Humidade");
+        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         sl.addSensor(s1);
         Sensor expectedResult = s1;
@@ -489,10 +488,10 @@ public class SensorListTest {
     @Test
     void seeIfSetTypeWorks() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 1, 4).getTime());
         SensorList lc = new SensorList(new Sensor[]{s1, s2});
@@ -510,10 +509,10 @@ public class SensorListTest {
     @Test
     void seeIfSetTypeWorksFalse() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 1, 4).getTime());
         SensorList lc = new SensorList(new Sensor[]{s1, s2});
@@ -530,10 +529,10 @@ public class SensorListTest {
     @Test
     void seeIfSetTypeWorksEmptyList() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere"),
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere"),
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 1, 4).getTime());
         SensorList lc = new SensorList();
@@ -558,19 +557,20 @@ public class SensorListTest {
     @Test
     void seeIfAnValidListIsAdded() {
         SensorList list = new SensorList();
-        Sensor sensor = new Sensor("Termometro", new TypeSensor(), new Local(1,1), new Date());
+        Sensor sensor = new Sensor("Termometro", new TypeSensor(), new Local(1,1, 50), new Date());
         list.addSensor(sensor);
         boolean expectedResult = true;
         boolean actualResult = list.checkIfListIsValid();
 
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void seeItGetSensorByType() {
         //Arrange
 
-        TypeSensor t1 = new TypeSensor("Humidade");
-        TypeSensor t2 = new TypeSensor("Vento");
+        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
         Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
@@ -590,8 +590,8 @@ public class SensorListTest {
     void seeItGetSensorByTypeNull() {
         //Arrange
 
-        TypeSensor t1 = new TypeSensor("Vento");
-        TypeSensor t2 = new TypeSensor("Vento");
+        TypeSensor t1 = new TypeSensor("Vento", "km/h");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
         Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
@@ -612,7 +612,7 @@ public class SensorListTest {
     void seeItGetSensorByTypeList() {
         //Arrange
 
-        TypeSensor t1 = new TypeSensor("Vento");
+        TypeSensor t1 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         SensorList sensorList1 = new SensorList(s1);
 
@@ -628,8 +628,8 @@ public class SensorListTest {
     void seeItGetSensorListByType() {
         //Arrange
 
-        TypeSensor t1 = new TypeSensor("Rain");
-        TypeSensor t2 = new TypeSensor("Vento");
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16), new GregorianCalendar(2000, 10, 8).getTime());
         Sensor s2 = new Sensor("s2", t2, new Local(16, 17), new GregorianCalendar(2000, 11, 2).getTime());
         Sensor s3 = new Sensor("s3", t1, new Local(0, 0), new GregorianCalendar(2000, 11, 1).getTime());
@@ -645,6 +645,6 @@ public class SensorListTest {
         expectedResult.add(s3);
 
         //Assert
-        expectedResult.equals( actualResult);
+        expectedResult.equals(actualResult);
     }
 }
