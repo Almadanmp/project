@@ -30,6 +30,7 @@ public class HouseMonitoringUI {
     private double mMaxTemperature;
     private double mCurrentTemperature;
     private String mNameSensor;
+    private double mResult623;
 
     public HouseMonitoringUI() {
         this.houseMonitoringcontroller = new HouseMonitoringController();
@@ -449,7 +450,7 @@ public class HouseMonitoringUI {
     }
 
     private void displayState620() {
-        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " that is located on " + mGeoArea.getName() + " on the date " +
+        System.out.print("The Average Rainfall on " + mHouse.getmHouseId() + " that is located on " + mGeoArea.getName() + " on the date " +
                 mStartDate + " is " + mResult620 + "%.");
     }
 
@@ -460,8 +461,8 @@ public class HouseMonitoringUI {
     private void updateAndDisplayUS623() {
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
-        double mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate);
-        System.out.print("The Average Rainfall on " + mHouse.getHouseDesignation() + " between " + initialDate + " and " + endDate +
+        this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate);
+        System.out.print("The Average Rainfall on " + mHouse.getmHouseId() + " between " + initialDate + " and " + endDate +
                 " is " + mResult623 + "%.");
     }
 }

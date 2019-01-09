@@ -120,7 +120,7 @@ public class HouseMonitoringController {
 
 
     public Sensor getSensorWithTheMinimumDistanceToHouse(House house, GeographicArea ga) {
-        return house.getSensorWithTheMinimumDistanceToHouse(ga, house);
+        return house.getSensorWithMinDistanceToHouse(ga, house);
     }
 
     public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {

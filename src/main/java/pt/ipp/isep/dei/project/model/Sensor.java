@@ -15,6 +15,9 @@ public class Sensor {
     private Date mDateStartedFunctioning;
     private ReadingList mReadingList;
 
+    public Sensor() {
+
+    }
 
     /**
      * Constructor with:name, typesensor, local, date
@@ -195,7 +198,7 @@ public class Sensor {
     }
 
     public double getDistanceToHouse(House house){
-        Local l = house.getmGPS();
+        Local l = house.getmLocation();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
     }
 
