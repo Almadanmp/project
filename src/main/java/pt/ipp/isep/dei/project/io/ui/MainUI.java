@@ -43,9 +43,9 @@ public class MainUI {
         SensorList sensorList1 = new SensorList();
         SensorList sensorList2 = new SensorList();
         SensorList sensorList3 = new SensorList();
-        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
-        Sensor sensor3 = new Sensor("teste", new TypeSensor("Rain"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
+        Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature", "Celsius"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("Rain", "l/m2"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
+        Sensor sensor3 = new Sensor("teste", new TypeSensor("Rain", "l/m2"), new Local(4, 4), new GregorianCalendar(8, 8, 8).getTime(), readingList);
         sensorList2.addSensor(sensor1);
         sensorList2.addSensor(sensor2);
         sensorList2.addSensor(sensor3);
@@ -148,8 +148,7 @@ public class MainUI {
         readingList_a.addReading(reading23);
         readingList_a.addReading(reading24);
         readingList_a.addReading(reading25);
-
-        Sensor sensor_a = new Sensor("Temperature B109", new TypeSensor("temperature"), new Local(0, 0), new GregorianCalendar(0, 0, 0).getTime(), readingList_a);
+        Sensor sensor_a = new Sensor("Temperature B109", new TypeSensor("temperature","Celsius"), new Local(0, 0), new GregorianCalendar(0, 0, 0).getTime(), readingList_a);
         Room room_c = new Room("B106", 1, 7,13,3.5);
         house.addRoomToRoomList(room_a);
         house.addRoomToRoomList(room_b);
@@ -174,7 +173,7 @@ public class MainUI {
         readingList_b.addReading(reading31);
         readingList_b.addReading(reading32);
 
-        Sensor sensor_b = new Sensor("Meteo station ISEP - rainfall", new TypeSensor("rainfall"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime(), readingList_b);
+        Sensor sensor_b = new Sensor("Meteo station ISEP - rainfall", new TypeSensor("rainfall", "l/m2"), new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime(), readingList_b);
 
         ReadingList readingList_c = new ReadingList();
         Reading reading33 = new Reading(8, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
@@ -189,10 +188,10 @@ public class MainUI {
         Reading reading42 = new Reading(4.3, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 1).getTime());
         Reading reading43 = new Reading(14.8, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 1).getTime());
         Reading reading44 = new Reading(8.9, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 1).getTime());
-        Reading reading45 = new Reading(6.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,2,0).getTime());
-        Reading reading46 = new Reading(3.2, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,8,0).getTime());
-        Reading reading47 = new Reading(14.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,14,0).getTime());
-        Reading reading48 = new Reading(8.3, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,20,0).getTime());
+        Reading reading45 = new Reading(6.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2, 2, 0).getTime());
+        Reading reading46 = new Reading(3.2, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2, 8, 0).getTime());
+        Reading reading47 = new Reading(14.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2, 14, 0).getTime());
+        Reading reading48 = new Reading(8.3, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2, 20, 0).getTime());
         readingList_c.addReading(reading33);
         readingList_c.addReading(reading34);
         readingList_c.addReading(reading35);
@@ -210,7 +209,7 @@ public class MainUI {
         readingList_c.addReading(reading47);
         readingList_c.addReading(reading48);
 
-        Sensor sensor_c = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime(), readingList_c);
+        Sensor sensor_c = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature", "Celsius"), new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime(), readingList_c);
 
         SensorList areaSList = new SensorList();
         areaSList.addSensor(sensor_b);
@@ -225,7 +224,7 @@ public class MainUI {
         geographical_area_list.addGeographicAreaToGeographicAreaList(ISEP);
         geographical_area_list.addGeographicAreaToGeographicAreaList(Porto);
 
-        EnergyGrid mainGrid = new EnergyGrid("main grid",0);
+        EnergyGrid mainGrid = new EnergyGrid("main grid", 0);
         EnergyGridList grid_list = new EnergyGridList();
         mainGrid.setListOfRooms(roomList);
         mainGrid.addRoomToAnEnergyGrid(room_b);
@@ -240,9 +239,9 @@ public class MainUI {
         while (activeProgram) {
 
             System.out.println("\n**********************************\n" +
-                               "******** Smart Grid Menu *********\n" +
-                               "*********** sWitCh 2018 **********\n" +
-                               "**********************************\n");
+                    "******** Smart Grid Menu *********\n" +
+                    "*********** sWitCh 2018 **********\n" +
+                    "**********************************\n");
 
             // Submenus Input selection
 
@@ -420,7 +419,7 @@ public class MainUI {
         }
     }
 
-    private static void returnToMenu(Scanner scanner){
+    private static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();

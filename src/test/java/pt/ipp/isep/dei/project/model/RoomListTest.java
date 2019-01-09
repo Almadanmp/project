@@ -14,7 +14,7 @@ public class RoomListTest {
     @Test
     public void seeIfGetRoomByNameFromList() {
         RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2,2);
         r1.setRoomSensorList(sensorList);
         Room r2 = new Room("Jardim", 1, 123, 2,2);
@@ -43,7 +43,7 @@ public class RoomListTest {
     @Test
     public void seeIfDoesListOfRoomsContainRoomByName() {
         RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2,2);
         r1.setRoomSensorList(sensorList);
         Room r2 = new Room("Jardim", 1, 123, 2,2);
@@ -63,7 +63,7 @@ public class RoomListTest {
     @Test
     public void seeIfDoesListOfRoomsContainRoomByNameFalse() {
         RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura","Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2,2);
         r1.setRoomSensorList(sensorList);
         Room r2 = new Room("Jardim", 1, 123, 2,2);
@@ -81,9 +81,9 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeIfAddRoomFails(){
+    public void seeIfAddRoomFails() {
         RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2,2);
         r1.setRoomSensorList(sensorList);
         Room r2 = new Room("Cozinha", 1, 123, 2,2);
@@ -97,9 +97,9 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeIfAddRoomPasses(){
+    public void seeIfAddRoomPasses() {
         RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura","Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2,2);
         r1.setRoomSensorList(sensorList);
         Room r2 = new Room("Jardim", 1, 123, 2,2);
@@ -166,13 +166,13 @@ public class RoomListTest {
     }
 
     @Test
-    public void hashCodeDummyTest(){
+    public void hashCodeDummyTest() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         int expectedResult = 1;
         int actualResult = roomList1.hashCode();
-        Assertions.assertEquals(expectedResult,actualResult);
+        Assertions.assertEquals(expectedResult, actualResult);
     }
 
 

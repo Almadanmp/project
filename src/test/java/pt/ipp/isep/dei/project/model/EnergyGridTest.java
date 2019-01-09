@@ -49,7 +49,7 @@ class EnergyGridTest {
         pWL1.addPowerSource(pS1);
         boolean expectedResult = true;
         boolean result = energyGrid.addPowerSource(pS2);
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -62,7 +62,7 @@ class EnergyGridTest {
         pWL1.addPowerSource(pS1);
         boolean expectedResult = false;
         boolean result = energyGrid.addPowerSource(pS2);
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -78,7 +78,7 @@ class EnergyGridTest {
         pWL1.addPowerSource(pS1);
         boolean expectedResult = true;
         boolean result = energyGrid.removeRoom(room);
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -95,7 +95,7 @@ class EnergyGridTest {
         pWL1.addPowerSource(pS1);
         boolean expectedResult = false;
         boolean result = energyGrid.removeRoom(room2);
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -107,7 +107,7 @@ class EnergyGridTest {
         Boolean expectedResult = true;
         Boolean actualResult = energyGrid.equals(energyGrid2);
 
-       assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -119,7 +119,7 @@ class EnergyGridTest {
         Boolean expectedResult = false;
         Boolean actualResult = energyGrid.equals(energyGrid2);
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test

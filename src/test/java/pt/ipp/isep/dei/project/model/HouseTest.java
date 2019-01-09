@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class HouseTest {
 
     @Test
-    void seeIfCalculateDistanceToSensorWorks() {
+        void seeIfCalculateDistanceToSensorWorks() {
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 50),ga, roomList);
-        Sensor s = new Sensor("sensor1", new TypeSensor("temperatura"), new Local(4, 5, 50), new GregorianCalendar(2018, 10, 1).getTime());
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6),ga, roomList);
+        Sensor s = new Sensor("sensor1", new TypeSensor("temperatura","Celsius"), new Local(4, 5), new GregorianCalendar(2018, 10, 1).getTime());
         double result = house.calculateDistanceToSensor(s);
         assertEquals(110.91871788829754, result, 0.01);
     }
@@ -22,8 +22,8 @@ class HouseTest {
     @Test
     void seeIfgetTheMinDistanceFromTheHouseToTheSensorWorks() {
         RoomList roomList = new RoomList();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura"), new Local(4, 6, 50), new GregorianCalendar(2018, 10, 1).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura"), new Local(4, 8, 50), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura","Celsius"), new Local(4, 6), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura","Celsius"), new Local(4, 8), new GregorianCalendar(2018, 10, 1).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -36,8 +36,8 @@ class HouseTest {
     @Test
     void seeIfgetTheMinDistanceFromTheHouseToTheSensorWorks2() {
         RoomList roomList = new RoomList();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura"), new Local(4, 8, 50), new GregorianCalendar(2018, 10, 1).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura"), new Local(4, 6, 50), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura","Celsius"), new Local(4, 8), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura","Celsius"), new Local(4, 6), new GregorianCalendar(2018, 10, 1).getTime());
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea(new TypeArea("cidade"), new Local(4, 5, 50), sensorList);
@@ -49,8 +49,8 @@ class HouseTest {
     @Test
     void seeIfGetSensorWithTheMinDistanceToHouseWorks() {
         RoomList roomList = new RoomList();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature","Celsius"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature","Celsius"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -63,8 +63,8 @@ class HouseTest {
     @Test
     void seeIfGetSensorWithTheMinDistanceToHouseWorks2() {
         RoomList roomList = new RoomList();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature","Celsius"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature","Celsius"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -77,8 +77,8 @@ class HouseTest {
     @Test
     void seeIfGetSensorWithTheMinDistanceToHouseNull() {
         RoomList roomList = new RoomList();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature","Celsius"), new Local(4, 8), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature","Celsius"), new Local(4, 6), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);

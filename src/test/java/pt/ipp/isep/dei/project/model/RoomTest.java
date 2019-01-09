@@ -14,7 +14,7 @@ public class RoomTest {
     @Test
     public void seeIfgetMaxTemperatureInARoomOnAGivenDayWorks() {
         SensorList list = new SensorList();
-        TypeSensor tipo = new TypeSensor("temperature");
+        TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
         Reading r1;
@@ -43,7 +43,7 @@ public class RoomTest {
     @Test
     public void seeIfgetMaxTemperatureInARoomOnAGivenDayWorksNegatives() {
         SensorList list = new SensorList();
-        TypeSensor tipo = new TypeSensor("temperature");
+        TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
         Reading r1;
@@ -64,13 +64,13 @@ public class RoomTest {
     @Test
     public void seeIfgetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
         SensorList list = new SensorList();
-        TypeSensor tipo = new TypeSensor("temperature");
+        TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
         Date d3 = new GregorianCalendar(2018, 2, 3).getTime();
         Reading r1 = new Reading(-30, d2);
         Reading r2 = new Reading(20, d2);
-        Reading r3 = new Reading(25,d3);
+        Reading r3 = new Reading(25, d3);
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
@@ -86,7 +86,7 @@ public class RoomTest {
     @Test
     public void seeIfgetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
         SensorList list = new SensorList();
-        TypeSensor tipo = new TypeSensor("temperature");
+        TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
         Date d3 = new GregorianCalendar(2018, 2, 3).getTime();
@@ -108,7 +108,7 @@ public class RoomTest {
     @Test
     public void seeIfGetCurrentRoomTemperatureWorks() {
         SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d1 = new GregorianCalendar(2018, 2, 1, 16, 30).getTime();
         Date d2 = new GregorianCalendar(2018, 2, 1, 20, 30).getTime();
@@ -138,7 +138,7 @@ public class RoomTest {
     @Test
     public void seeIfGetCurrentRoomTemperatureWorksNegative() {
         SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d1 = new GregorianCalendar(2018, 2, 1, 16, 30).getTime();
         Date d2 = new GregorianCalendar(2018, 2, 1, 20, 30).getTime();
@@ -168,7 +168,7 @@ public class RoomTest {
     @Test
     public void seeIfGetCurrentRoomTemperatureWorksMinute() {
         SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d1 = new GregorianCalendar(2018, 2, 1, 20, 31).getTime();
         Date d2 = new GregorianCalendar(2018, 2, 1, 20, 30).getTime();
@@ -197,9 +197,9 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfDoesSensorListInARoomContainASensorByNameWorks(){
+    public void seeIfDoesSensorListInARoomContainASensorByNameWorks() {
         SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
         list.addSensor(s1);
@@ -210,22 +210,22 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfDoesSensorListInARoomContainASensorByNameWorksFalse(){
+    public void seeIfDoesSensorListInARoomContainASensorByNameWorksFalse() {
         SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 8, 5,2);
         room.setRoomSensorList(list);
         boolean result = room.doesSensorListInARoomContainASensorByName("sensor89");
-        assertEquals(false,result);
+        assertEquals(false, result);
     }
 
     @Test
-    public void seeIfAddSensorWorks(){
+    public void seeIfAddSensorWorks() {
         SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
         list.addSensor(s1);
@@ -235,29 +235,30 @@ public class RoomTest {
         boolean result = room.addSensor(s2);
         assertTrue(result);
     }
+
     @Test
-    public void seeIfAddSensorWorksFalse(){
+    public void seeIfAddSensorWorksFalse() {
         SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         room.setRoomSensorList(list);
         boolean result = room.addSensor(s1);
-        assertEquals(false,result);
+        assertEquals(false, result);
     }
 
     @Test
-    public void seeIfEqualsWork(){
+    public void seeIfEqualsWork() {
         SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date(), listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5,3);
         boolean result = room.equals(null);
-        assertEquals(false,result);
+        assertEquals(false, result);
     }
 
     @Test
@@ -265,6 +266,6 @@ public class RoomTest {
         Room room1 = new Room("room1", 19, 5,3,3);
         int expectedResult = 1;
         int actualResult = room1.hashCode();
-        Assertions.assertEquals(expectedResult,actualResult);
+        Assertions.assertEquals(expectedResult, actualResult);
     }
 }

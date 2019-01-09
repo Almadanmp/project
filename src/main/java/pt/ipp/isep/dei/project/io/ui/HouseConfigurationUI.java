@@ -674,6 +674,7 @@ class HouseConfigurationUI {
     private boolean active;
     private String sensorName;
     private String sensorType;
+    private String sensorUnits;
     private double sensorLat;
     private double sensorLong;
     private double sensorAlt;
@@ -784,7 +785,7 @@ class HouseConfigurationUI {
     private void updateUS06() {
         HouseConfigurationController ctrl06 = new HouseConfigurationController();
         Local mLocal = ctrl06.createLocal(this.sensorLat, this.sensorLong, this.sensorAlt);
-        TypeSensor mType = ctrl06.createType(this.sensorType);
+        TypeSensor mType = ctrl06.createType(this.sensorType, this.sensorUnits);
         Date mDate = ctrl06.createDate(this.dataYear, this.dataMonth, this.dataDay);
         this.mSensor = ctrl06.createSensor(this.sensorName, mType, mLocal, mDate);
     }
@@ -1062,6 +1063,7 @@ class HouseConfigurationUI {
         this.controller.editRoom(this.mRoom, this.mRoomName, this.mRoomHouseFloor, this.mRoomWidth, this.mRoomLength, this.mRoomHeight);
         System.out.println("The room is now called " + this.mRoomName + ", it is located on the " + this.mRoomHouseFloor + " floor and has " + mRoomWidth + " meters in width, "+ mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
     }
+
     /**
      * US 130 UI
      */

@@ -83,7 +83,7 @@ public class LocalTest {
     public void seeIfEqualsWorksNotInstance() {
         //Arrange
         Local l1 = new Local(23, 42, 2);
-        TypeSensor t1 = new TypeSensor("Rua");
+        TypeSensor t1 = new TypeSensor("temperature", "celsius");
         boolean expectedResult = false;
         boolean actualResult;
 
@@ -95,10 +95,10 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfEqualsWorksDifferentObject(){
+    public void seeIfEqualsWorksDifferentObject() {
         //Arrange
         Local l1 = new Local(23, 42, 2);
-        Local l2 = new Local(21,21,5);
+        Local l2 = new Local(21, 21, 5);
         boolean expectedResult = false;
         boolean actualResult;
 
@@ -110,10 +110,10 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfEqualsWorksDifferentLatitude(){
+    public void seeIfEqualsWorksDifferentLatitude() {
         //Arrange
         Local l1 = new Local(23, 21, 5);
-        Local l2 = new Local(21,21,5);
+        Local l2 = new Local(21, 21, 5);
         boolean expectedResult = false;
         boolean actualResult;
 
@@ -125,10 +125,10 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfEqualsWorksDifferentLongitude(){
+    public void seeIfEqualsWorksDifferentLongitude() {
         //Arrange
         Local l1 = new Local(21, 23, 5);
-        Local l2 = new Local(21,21,5);
+        Local l2 = new Local(21, 21, 5);
         boolean expectedResult = false;
         boolean actualResult;
 
@@ -140,10 +140,10 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfEqualsWorksDifferentAltitude(){
+    public void seeIfEqualsWorksDifferentAltitude() {
         //Arrange
         Local l1 = new Local(21, 21, 6);
-        Local l2 = new Local(21,21,5);
+        Local l2 = new Local(21, 21, 5);
         boolean expectedResult = true;
         boolean actualResult;
 
@@ -155,12 +155,13 @@ public class LocalTest {
     }
 
     @Test
-    public void hashCodeDummyTest(){
-        Local l1 = new Local(21,21,5);
+    public void hashCodeDummyTest() {
+        Local l1 = new Local(21, 21, 5);
         int expectedResult = 1;
         int actualResult = l1.hashCode();
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void seeIfWeGetLinearDistanceInKmBetweenTwoLocations() {
         //Arrange
@@ -172,8 +173,9 @@ public class LocalTest {
         double result = porto.getLinearDistanceBetweenLocalsInKm(sidney);
 
         //Assert
-        assertEquals(expectedResult,result,0.01);
+        assertEquals(expectedResult, result, 0.01);
     }
+
     @Test
     public void seeIfWeDoNotGetLinearDistanceInKmBetweenTwoLocations() {
         //Arrange
@@ -185,27 +187,28 @@ public class LocalTest {
         double result = porto.getLinearDistanceBetweenLocalsInKm(lisboa);
 
         //Assert
-        assertNotSame(expectedResult,result);
+        assertNotSame(expectedResult, result);
     }
 
     @Test
     public void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsWithConstructorWith3Parameters() {
         //Arrange
-        Local porto = new Local(41.1496100,-8.6109900,97);
-        Local lisboa = new Local(38.7166700,-9.1333300,45);
+        Local porto = new Local(41.1496100, -8.6109900, 97);
+        Local lisboa = new Local(38.7166700, -9.1333300, 45);
         double expectedResult = 274.15;
 
         //Act
         double result = lisboa.getLinearDistanceBetweenLocalsInKm(porto);
 
         //Assert
-        assertEquals(expectedResult,result,0.01);
+        assertEquals(expectedResult, result, 0.01);
     }
+
     @Test
     public void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsChangingTheLatitude() {
         //Arrange
-        Local porto = new Local(30,-8.6109900,97);
-        Local lisboa = new Local(38.7166700,-9.1333300,45);
+        Local porto = new Local(30, -8.6109900, 97);
+        Local lisboa = new Local(38.7166700, -9.1333300, 45);
         porto.setLatitude(41.1496100);
         double expectedResult = 274.15;
 
@@ -213,7 +216,7 @@ public class LocalTest {
         double result = lisboa.getLinearDistanceBetweenLocalsInKm(porto);
 
         //Assert
-        assertEquals(expectedResult,result,0.01);
+        assertEquals(expectedResult, result, 0.01);
     }
 
 }
