@@ -16,7 +16,7 @@ public class SensorTest {
         //Arrange
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         TypeSensor expectedResult = t1;
         TypeSensor actualResult;
@@ -33,7 +33,7 @@ public class SensorTest {
         //Arrange
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Date expectedResult = d1;
         Date actualResult;
@@ -50,7 +50,7 @@ public class SensorTest {
         //Arrange
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         ReadingList rl1 = new ReadingList();
         TypeSensor expectedResult = t1;
@@ -67,7 +67,7 @@ public class SensorTest {
     public void seeIfSecondConstructorSetsDate() {
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         ReadingList rl1 = new ReadingList();
         Date expectedResult = d1;
@@ -84,7 +84,7 @@ public class SensorTest {
     public void seeIfSecondConstructorSetsLocal() {
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura");
-        Local l1 = new Local(38, 7);
+        Local l1 = new Local(38, 7, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         ReadingList rl1 = new ReadingList();
         Local expectedResult = l1;
@@ -372,8 +372,8 @@ public class SensorTest {
 
     @Test
     void seeIfcalculateDistanceToSensorWorks() {
-        Local l1 = new Local(23, 46);
-        Local l2 = new Local(25, 47);
+        Local l1 = new Local(23, 46,50);
+        Local l2 = new Local(25, 47,50);
         TypeSensor t1 = new TypeSensor("Termometro");
         TypeSensor t2 = new TypeSensor("Lololometro");
         Sensor s1 = new Sensor("Sensor1", t1, l1, new Date());
@@ -386,7 +386,7 @@ public class SensorTest {
     @Test
     void seeGetMeanOfMonthThroughSensor() {
         ReadingList rList = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(15, 23), new Date(), rList);
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature"), new Local(15, 23, 50), new Date(), rList);
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
         GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
@@ -426,10 +426,10 @@ public class SensorTest {
     void seeIfSensorIsContainedInArea() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(20, 20);
+        Local loc1 = new Local(20, 20, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -446,10 +446,10 @@ public class SensorTest {
     void seeIfSensorIsContainedOnTheEdge() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(10, 30);
+        Local loc1 = new Local(10, 30, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -466,10 +466,10 @@ public class SensorTest {
     void seeIfSensorIsContainedOnUpperRightVertex() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(30, 30);
+        Local loc1 = new Local(30, 30, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -486,10 +486,10 @@ public class SensorTest {
     void seeIfSensorIsContainedOnUpperLeftVertex() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(10, 30);
+        Local loc1 = new Local(10, 30, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -506,10 +506,10 @@ public class SensorTest {
     void seeIfSensorIsContainedOnBottomLeftVertex() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20,50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(10, 10);
+        Local loc1 = new Local(10, 10, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -526,10 +526,10 @@ public class SensorTest {
     void seeIfSensorIsContainedOnBottomRightVertex() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(30, 10);
+        Local loc1 = new Local(30, 10,50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -546,10 +546,10 @@ public class SensorTest {
     void seeIfSensorIsNotContainedInAreaWrongLatitude() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20,50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(35, 20);
+        Local loc1 = new Local(35, 20, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -566,10 +566,10 @@ public class SensorTest {
     void seeIfSensorIsNotContainedInAreaWrongLatitude2() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(-35, 20);
+        Local loc1 = new Local(-35, 20, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -586,10 +586,10 @@ public class SensorTest {
     void seeIfSensorIsNotContainedInAreaWrongLongitude() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(100, 100);
+        Local loc1 = new Local(100, 100, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -606,10 +606,10 @@ public class SensorTest {
     void seeIfSensorIsNotContainedInAreaWrongLongitude2() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(20, -35);
+        Local loc1 = new Local(20, -35, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -626,10 +626,10 @@ public class SensorTest {
     void seeIfSensorIsContainedInAreaNegativeCoords() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20);
+        Local l1 = new Local(20, 20, 50);
         GeographicArea a1 = new GeographicArea(t1, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(-5, -5);
+        Local loc1 = new Local(-5, -5,50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -645,7 +645,7 @@ public class SensorTest {
     @Test
     void seeIfPrintSensor() {
         TypeSensor ty1 = new TypeSensor("Temperatura");
-        Local loc1 = new Local(-5, -5);
+        Local loc1 = new Local(-5, -5, 50);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
         String result = s1.printSensor();
