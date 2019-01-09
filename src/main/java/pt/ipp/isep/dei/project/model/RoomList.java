@@ -90,7 +90,7 @@ public class RoomList {
         String result = "";
         for (int i = 0; i < indexes.size(); i++){
             int pos = indexes.get(i);
-            result += indexes.get(i) + ") " + mRoomList.get(pos).getRoomName() + ", " + mRoomList.get(pos).getHouseFloor() + ", " + mRoomList.get(pos).getRoomDimensions() + ".\n";
+            result += indexes.get(i) + ") " + mRoomList.get(pos).getRoomName() + ", " + mRoomList.get(pos).getHouseFloor() + ", " + mRoomList.get(pos).getRoomWidth() + ", " + mRoomList.get(pos).getRoomLength() + ", " + this.mRoomList.get(pos).getRoomHeight() + ".\n";
         }
         return result;
     }
@@ -104,8 +104,10 @@ public class RoomList {
             Room aux = house.getmRoomList().getListOfRooms().get(i);
             result = result + i + ") Designation: " + aux.getRoomName() + " | ";
             result = result + "House Floor: " + aux.getHouseFloor() + " | ";
-            result = result + "Dimensions: " + aux.getRoomDimensions() + "\n";
-        }
+
+            result = result + "Width: " + aux.getRoomWidth() + " | ";
+            result = result + "Length: " + aux.getRoomLength() + " | ";
+            result = result + "Height: " + aux.getRoomHeight() + "\n";        }
         result = result + "---------------\n";
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
         return result;
@@ -119,8 +121,10 @@ public class RoomList {
             Room aux = energyGrid.getmListOfRooms().getListOfRooms().get(i);
             result = result + i + ") Designation: " + aux.getRoomName() + " | ";
             result = result + "House Floor: " + aux.getHouseFloor() + " | ";
-            result = result + "Dimensions: " + aux.getRoomDimensions() + "\n";
-        }
+
+            result = result + "Width: " + aux.getRoomWidth() + " | ";
+            result = result + "Length: " + aux.getRoomLength() + " | ";
+            result = result + "Height: " + aux.getRoomHeight() + "\n";        }
         result = result + "---------------\n";
         System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
         return result;
@@ -136,7 +140,10 @@ public class RoomList {
             Room aux = this.getListOfRooms().get(i);
             result = result + i + ") Designation: " + aux.getRoomName() + " | ";
             result = result + "House Floor: " + aux.getHouseFloor() + " | ";
-            result = result + "Dimensions: " + aux.getRoomDimensions() + "\n";
+            result = result + "Width: " + aux.getRoomWidth() + " | ";
+            result = result + "Length: " + aux.getRoomLength() + " | ";
+            result = result + "Height: " + aux.getRoomHeight() + "\n";
+
         }
         result = result + "---------------\n";
         return result;

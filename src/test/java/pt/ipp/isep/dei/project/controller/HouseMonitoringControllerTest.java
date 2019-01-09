@@ -185,8 +185,8 @@ public class HouseMonitoringControllerTest {
         //Arrange
         //Room
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room2);
         roomList1.addRoom(room1);
 
@@ -203,8 +203,8 @@ public class HouseMonitoringControllerTest {
         //Arrange
         //Room
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room2);
         roomList1.addRoom(room1);
 
@@ -229,8 +229,10 @@ public class HouseMonitoringControllerTest {
 
         //Room
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, sensorList2);
-        Room room2 = new Room("kitchen", 8, 2, sensorList2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        room1.setRoomSensorList(sensorList2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
+        room2.setRoomSensorList(sensorList2);
         roomList1.addRoom(room2);
         roomList1.addRoom(room1);
 
@@ -255,8 +257,10 @@ public class HouseMonitoringControllerTest {
 
         //Room
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, sensorList2);
-        Room room2 = new Room("kitchen", 8, 2, sensorList2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        room1.setRoomSensorList(sensorList2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
+        room2.setRoomSensorList(sensorList2);
         roomList1.addRoom(room2);
         roomList1.addRoom(room1);
 
@@ -266,9 +270,6 @@ public class HouseMonitoringControllerTest {
         //Assert
         assertFalse(result);
     }
-
-    //***************************************************************************************************************/
-    //***************************************************************************************************************/
 
     @Test
     public void seeIfGetSumOfReadingInGivenDay() {
@@ -397,7 +398,8 @@ public class HouseMonitoringControllerTest {
         GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), new Local(4, 4), sensorList, mHouseList);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa);
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
-        Room room = new Room("cozinha", 8, 2, sensorList);
+        Room room = new Room("cozinha", 8, 2,2,2);
+        room.setRoomSensorList(sensorList);
         mRoomList.addRoom(room);
 
         //Act
@@ -495,7 +497,8 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r2);
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1), new Date(), listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, list);
+        Room room = new Room("quarto", 1, 80,2,2);
+        room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         //Act
@@ -521,7 +524,8 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r2);
         Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1), new Date(), listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, list);
+        Room room = new Room("quarto", 1, 80,2,2);
+        room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         //Act
@@ -548,7 +552,8 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r3);
         Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1), new Date(), listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, list);
+        Room room = new Room("quarto", 1, 80,2,2);
+        room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         //Act ---------------------------------------------------------------
@@ -575,7 +580,8 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r3);
         Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1), new Date(), listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, list);
+        Room room = new Room("quarto", 1, 80,2,2);
+        room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         //Act ---------------------------------------------------------------------
@@ -642,7 +648,8 @@ public class HouseMonitoringControllerTest {
         listR.addReading(r3);
         Sensor s1 = new Sensor("Temp Sensor 1", tipo, new Local(1, 1), new Date(), listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, list);
+        Room room = new Room("quarto", 1, 80,2,2);
+        room.setRoomSensorList(list);
         roomList.addRoom(room);
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Act -----------------------------------------
@@ -692,15 +699,20 @@ public class HouseMonitoringControllerTest {
         assertEquals(expectedResult, result);
     }
 
+
     @Test
     public void seeIfDoesListOfRoomsContainRoomByName() {
         //Arrange ---------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Room List
         RoomList roomList = new RoomList();
-        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        Room r2 = new Room("Jardim", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Rainfall"), new Local(21, 25), new Date(21 / 11 / 2018))));
-        Room r3 = new Room("Quarto", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018)));
+        Room r1 = new Room("Cozinha", 1, 123,2,2);
+        r1.setRoomSensorList(sensorList);
+        Room r2 = new Room("Jardim", 1, 123, 2,2);
+        r2.setRoomSensorList(sensorList);
+        Room r3 = new Room("Quarto", 1, 123,  2,2);
+        r3.setRoomSensorList(sensorList);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
         roomList.addRoom(r3);
@@ -716,9 +728,13 @@ public class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Room List
         RoomList roomList = new RoomList();
-        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        Room r2 = new Room("Jardim", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Rainfall"), new Local(21, 25), new Date(21 / 11 / 2018))));
-        Room r3 = new Room("Quarto", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018)));
+        Room r1 = new Room("Cozinha", 1, 123,2,2);
+        r1.setRoomSensorList(sensorList);
+        Room r2 = new Room("Jardim", 1, 123, 2,2);
+        r2.setRoomSensorList(sensorList);
+        Room r3 = new Room("Quarto", 1, 123,  2,2);
+        r3.setRoomSensorList(sensorList);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
         roomList.addRoom(r3);
@@ -743,7 +759,8 @@ public class HouseMonitoringControllerTest {
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
         //Room List
-        Room room = new Room("cozinha", 1, 2, sensorList1);
+        Room room = new Room("cozinha", 1, 2,2,2);
+        room.setRoomSensorList(sensorList1);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         //Act ---------------------------------------------
@@ -767,7 +784,8 @@ public class HouseMonitoringControllerTest {
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
         //Room List
-        Room room = new Room("cozinha", 1, 2, sensorList1);
+        Room room = new Room("cozinha", 1, 2,2,2);
+        room.setRoomSensorList(sensorList1);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         //Act --------------------------------------------------
@@ -900,8 +918,8 @@ public class HouseMonitoringControllerTest {
         //Room List
         RoomList roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act ---------------------------------
@@ -930,9 +948,9 @@ public class HouseMonitoringControllerTest {
         RoomList roomList1;
         roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
-        Room room3 = new Room("room1", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
+        Room room3 = new Room("room1", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         roomList1.addRoom(room3);
@@ -941,7 +959,7 @@ public class HouseMonitoringControllerTest {
         Integer i = 1;
         list.add(i);
         String result = ctrl.printRoomElementsByIndex(list, house1);
-        String expectedResult = "1) kitchen, 8, 2.0.\n";
+        String expectedResult = "1) kitchen, 8, 2.0, 2.0, 2.0.\n";
         //Assert ---------------------------------
         assertEquals(expectedResult, result);
     }
@@ -962,15 +980,15 @@ public class HouseMonitoringControllerTest {
         //Room List
         RoomList roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act ----------------------------
         String result = ctrl.printRoomList(house1);
         String expectedResult = "---------------\n" +
-                "0) Designation: room1 | House Floor: 19 | Dimensions: 2.3456789E7\n" +
-                "1) Designation: kitchen | House Floor: 8 | Dimensions: 2.0\n" +
+                "0) Designation: room1 | House Floor: 19 | Width: 2.3456789E7 | Length: 2.0 | Height: 2.0\n" +
+                "1) Designation: kitchen | House Floor: 8 | Width: 2.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
         //Assert -------------------------
         assertEquals(expectedResult, result);
@@ -992,13 +1010,13 @@ public class HouseMonitoringControllerTest {
         //Room List
         RoomList roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act -------------------------
         String result = ctrl.printRoom(room2);
-        String expectedResult = "kitchen, 8, 2.0.\n";
+        String expectedResult = "kitchen, 8, 2.0, 2.0, 2.0.\n";
         //Assert ----------------------
         assertEquals(expectedResult, result);
     }
@@ -1024,8 +1042,9 @@ public class HouseMonitoringControllerTest {
         RoomList roomList1;
         roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789, slist);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789, 2,2);
+        room1.setRoomSensorList(slist);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         house1.setmRoomList(roomList1);
@@ -1060,8 +1079,9 @@ public class HouseMonitoringControllerTest {
         RoomList roomList1;
         roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789, slist);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789, 2,2);
+        room1.setRoomSensorList(slist);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act ------------------------------------
@@ -1087,7 +1107,8 @@ public class HouseMonitoringControllerTest {
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura"), new Local(4, 4), new GregorianCalendar(8, 8, 8, 8, 8).getTime());
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        Room room = new Room("cozinha", 1, 1, sensorList);
+        Room room = new Room("cozinha", 1, 1,2,2);
+        room.setRoomSensorList(sensorList);
         //Act -----------------------------------------
         List<Integer> result = ctrl.matchSensorIndexByString("sensor", room);
         List<Integer> expectedResult = Collections.singletonList(sensorList.getSensorList().indexOf(s1));
@@ -1123,8 +1144,9 @@ public class HouseMonitoringControllerTest {
         RoomList roomList1;
         roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789, slist);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        room1.setRoomSensorList(slist);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act ------------------------------------
@@ -1136,4 +1158,5 @@ public class HouseMonitoringControllerTest {
         //Assert ---------------------------------
         Assert.assertEquals(expectedResult, result);
     }
+
 }

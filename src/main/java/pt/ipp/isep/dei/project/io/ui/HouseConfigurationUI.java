@@ -520,11 +520,23 @@ class HouseConfigurationUI {
         this.mRoomHouseFloor = input.nextInt();
 
         //GET ROOM DIMENSIONS
-        System.out.println("Please insert your room's dimensions in square meters: ");
+        System.out.println("Please insert your room's width in meters: ");
         while (!input.hasNextDouble()) {
             System.out.println("Please insert a valid number.");
         }
-        this.mRoomDimensions = input.nextDouble();
+        this.mRoomWidth = input.nextDouble();
+
+        System.out.println("Please insert your room's length in meters: ");
+        while (!input.hasNextDouble()) {
+            System.out.println("Please insert a valid number.");
+        }
+        this.mRoomLength = input.nextDouble();
+
+        System.out.println("Please insert your room's height in meters: ");
+        while (!input.hasNextDouble()) {
+            System.out.println("Please insert a valid number.");
+        }
+        this.mRoomHeight = input.nextDouble();
     }
 
 
@@ -1146,7 +1158,9 @@ class HouseConfigurationUI {
 
     private String mRoomName;
     private int mRoomHouseFloor;
-    private double mRoomDimensions;
+    private double mRoomWidth;
+    private double mRoomLength;
+    private double mRoomHeight;
 
     void runUS105(GeographicAreaList gaList) {
         Scanner mScanner = new Scanner(System.in);
@@ -1173,19 +1187,19 @@ class HouseConfigurationUI {
     }
 
     private void updateInputRoom() {
-        this.controller.createNewRoom(mRoomName, mRoomHouseFloor, mRoomDimensions);
+        this.controller.createNewRoom(mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight);
     }
 
     private void displayStateRoom() {
         //SHOW ROOM ENTERED BY USER
         if (mRoomHouseFloor == 1) {
-            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "st floor and has " + mRoomDimensions + " square meters.");
+            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "st floor and has " + mRoomWidth + " meters in width, "+ mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
         } else if (mRoomHouseFloor == 2) {
-            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "nd floor and has " + mRoomDimensions + " square meters.");
+            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "nd floor and has " + mRoomWidth + " meters in width, "+ mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
         } else if (mRoomHouseFloor == 3) {
-            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "rd floor and has " + mRoomDimensions + " square meters.");
+            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "rd floor and has " + mRoomWidth + " meters in width, "+ mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
         } else {
-            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "th floor and has " + mRoomDimensions + " square meters.");
+            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "th floor and has " + mRoomWidth + " meters in width, "+ mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
         }
     }
 
@@ -1260,8 +1274,8 @@ class HouseConfigurationUI {
     }
 
     private void editRoom() {
-        this.controller.editRoom(this.mRoom, this.mRoomName, this.mRoomHouseFloor, this.mRoomDimensions);
-        System.out.println("The room is now called " + this.mRoomName + ", it is located on the " + this.mRoomHouseFloor + " floor and has " + this.mRoomDimensions + " square meters.");
+        this.controller.editRoom(this.mRoom, this.mRoomName, this.mRoomHouseFloor, this.mRoomWidth, this.mRoomLength, this.mRoomHeight);
+        System.out.println("The room is now called " + this.mRoomName + ", it is located on the " + this.mRoomHouseFloor + " floor and has " + mRoomWidth + " meters in width, "+ mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
     }
     /**
      * US 130 UI

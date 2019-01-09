@@ -118,7 +118,7 @@ public class HouseTest {
         House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
         RoomList rL1 = new RoomList();
         house.setmRoomList(rL1);
-        Room room = new Room("quarto", 1, 80);
+        Room room = new Room("quarto", 1, 80,2,2);
         Boolean expectedResult = true;
         Boolean result = house.addRoomToRoomList(room);
 
@@ -130,8 +130,8 @@ public class HouseTest {
         House house = new House("casa", "rua coise", new Local(4, 5), "440-4");
         RoomList rL1 = new RoomList();
         house.setmRoomList(rL1);
-        Room room = new Room("quarto", 1, 80);
-        Room room2 = new Room("quarto", 2, 80);
+        Room room = new Room("quarto", 1, 80,2,2);
+        Room room2 = new Room("quarto", 2, 80,2,2);
         Boolean expectedResult = false;
         house.addRoomToRoomList(room2);
         Boolean result = house.addRoomToRoomList(room);

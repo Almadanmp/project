@@ -14,7 +14,7 @@ public class DeviceListTest {
         //Arrange --------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -39,7 +39,7 @@ public class DeviceListTest {
         //Arrange --------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -63,7 +63,7 @@ public class DeviceListTest {
         //Arrange ------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -89,7 +89,7 @@ public class DeviceListTest {
         //Arrange ------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -114,7 +114,7 @@ public class DeviceListTest {
         //Arrange ------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -139,7 +139,7 @@ public class DeviceListTest {
         //Arrange ------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -154,6 +154,7 @@ public class DeviceListTest {
         //Assert -------------------------------
         assertFalse(result);
     }
+
 
     @Test
     public void hashCodeDummyTest() {
@@ -171,7 +172,7 @@ public class DeviceListTest {
         //Arrange --------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -198,7 +199,7 @@ public class DeviceListTest {
         DeviceList deviceL1 = new DeviceList();
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();

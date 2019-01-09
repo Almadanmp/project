@@ -356,8 +356,8 @@ public class HouseConfigurationController {
     private Room mRoom;
 
 
-    public void createNewRoom(String roomDesignation, int roomHouseFloor, double roomDimensions) {
-        this.mRoom = new Room(roomDesignation, roomHouseFloor ,roomDimensions);
+    public void createNewRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+        this.mRoom = new Room(roomDesignation, roomHouseFloor ,width,length,height);
     }
 
 
@@ -408,10 +408,12 @@ private RoomList mRoomList;
         this.mRoomList = roomList;
     }
 
-    public void editRoom(Room room, String roomName, int roomFloor, double roomDimensions) {
+    public void editRoom(Room room, String roomName, int roomFloor, double width, double length, double height) {
         room.setRoomName(roomName);
         room.setRoomHouseFloor(roomFloor);
-        room.setRoomDimensions(roomDimensions);
+        room.setRoomWidth(width);
+        room.setRoomLength(length);
+        room.setRoomHeight(height);
     }
 
 

@@ -14,9 +14,13 @@ public class RoomListTest {
     @Test
     public void seeIfGetRoomByNameFromList() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        Room r2 = new Room("Jardim", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Rainfall"), new Local(21, 25), new Date(21 / 11 / 2018))));
-        Room r3 = new Room("Quarto", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018)));
+        Room r1 = new Room("Cozinha", 1, 123, 2,2);
+        r1.setRoomSensorList(sensorList);
+        Room r2 = new Room("Jardim", 1, 123, 2,2);
+        r2.setRoomSensorList(sensorList);
+        Room r3 = new Room("Quarto", 1, 123, 2,2);
+        r3.setRoomSensorList(sensorList);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
         roomList.addRoom(r3);
@@ -39,9 +43,13 @@ public class RoomListTest {
     @Test
     public void seeIfDoesListOfRoomsContainRoomByName() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        Room r2 = new Room("Jardim", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Rainfall"), new Local(21, 25), new Date(21 / 11 / 2018))));
-        Room r3 = new Room("Quarto", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018)));
+        Room r1 = new Room("Cozinha", 1, 123, 2,2);
+        r1.setRoomSensorList(sensorList);
+        Room r2 = new Room("Jardim", 1, 123, 2,2);
+        r2.setRoomSensorList(sensorList);
+        Room r3 = new Room("Quarto", 1, 123, 2,2);
+        r3.setRoomSensorList(sensorList);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
         roomList.addRoom(r3);
@@ -55,9 +63,13 @@ public class RoomListTest {
     @Test
     public void seeIfDoesListOfRoomsContainRoomByNameFalse() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        Room r2 = new Room("Jardim", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Rainfall"), new Local(21, 25), new Date(21 / 11 / 2018))));
-        Room r3 = new Room("Quarto", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018)));
+        Room r1 = new Room("Cozinha", 1, 123, 2,2);
+        r1.setRoomSensorList(sensorList);
+        Room r2 = new Room("Jardim", 1, 123, 2,2);
+        r2.setRoomSensorList(sensorList);
+        Room r3 = new Room("Quarto", 1, 123, 2,2);
+        r3.setRoomSensorList(sensorList);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
         roomList.addRoom(r3);
@@ -70,9 +82,14 @@ public class RoomListTest {
 
     @Test
     public void seeIfAddRoomFails(){
-            RoomList roomList = new RoomList();
-        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        Room r2 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        RoomList roomList = new RoomList();
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018)));
+        Room r1 = new Room("Cozinha", 1, 123, 2,2);
+        r1.setRoomSensorList(sensorList);
+        Room r2 = new Room("Cozinha", 1, 123, 2,2);
+        r2.setRoomSensorList(sensorList);
+        Room r3 = new Room("Quarto", 1, 123, 2,2);
+        r3.setRoomSensorList(sensorList);
         roomList.addRoom(r1);
         boolean expectedResult = false;
         boolean actualResult = roomList.addRoom(r2);
@@ -82,8 +99,13 @@ public class RoomListTest {
     @Test
     public void seeIfAddRoomPasses(){
         RoomList roomList = new RoomList();
-        Room r1 = new Room("Cozinha", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
-        Room r2 = new Room("Varanda", 1, 123, new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018))));
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura"), new Local(21, 23), new Date(21 / 11 / 2018)));
+        Room r1 = new Room("Cozinha", 1, 123, 2,2);
+        r1.setRoomSensorList(sensorList);
+        Room r2 = new Room("Jardim", 1, 123, 2,2);
+        r2.setRoomSensorList(sensorList);
+        Room r3 = new Room("Quarto", 1, 123, 2,2);
+        r3.setRoomSensorList(sensorList);
         roomList.addRoom(r1);
         boolean expectedResult = true;
         boolean actualResult = roomList.addRoom(r2);
@@ -106,15 +128,15 @@ public class RoomListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act ----------------------------
         String result = roomList1.printRoomList(house1);
         String expectedResult = "---------------\n" +
-                "0) Designation: room1 | House Floor: 19 | Dimensions: 2.3456789E7\n" +
-                "1) Designation: kitchen | House Floor: 8 | Dimensions: 2.0\n" +
+                "0) Designation: room1 | House Floor: 19 | Width: 2.3456789E7 | Length: 2.0 | Height: 2.0\n" +
+                "1) Designation: kitchen | House Floor: 8 | Width: 2.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
         //Assert -------------------------
         assertEquals(expectedResult, result);
@@ -135,8 +157,8 @@ public class RoomListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         //Act ---------------------------------------
         String result = roomList1.printRoomList(house1);
         String expectedResult = "Invalid List - List is Empty\n";
@@ -146,8 +168,8 @@ public class RoomListTest {
 
     @Test
     public void seeifmatchRoomWorks(){
-        Room room = new Room("kitchen",1,1);
-        Room room1 = new Room("sala",1,1);
+        Room room = new Room("kitchen",1,1,2,2);
+        Room room1 = new Room("sala",1,1,2,2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -157,8 +179,8 @@ public class RoomListTest {
 
     @Test
     public void seeifmatchRoomWorksFalse(){
-        Room room = new Room("kitchen",1,1);
-        Room room1 = new Room("sala",1,1);
+        Room room = new Room("kitchen",1,1,2,2);
+        Room room1 = new Room("sala",1,1,2,2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -180,15 +202,15 @@ public class RoomListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act ----------------------------
         String result = roomList1.printRooms();
         String expectedResult = "---------------\n" +
-                "0) Designation: room1 | House Floor: 19 | Dimensions: 2.3456789E7\n" +
-                "1) Designation: kitchen | House Floor: 8 | Dimensions: 2.0\n" +
+                "0) Designation: room1 | House Floor: 19 | Width: 2.3456789E7 | Length: 2.0 | Height: 2.0\n" +
+                "1) Designation: kitchen | House Floor: 8 | Width: 2.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
         //Assert -------------------------
         assertEquals(expectedResult, result);
@@ -219,8 +241,8 @@ public class RoomListTest {
     @Test
     public void ensureThatAObjectIsAInstanceOf() {
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         RoomList roomList2 = new RoomList();
@@ -235,8 +257,8 @@ public class RoomListTest {
     @Test
     public void ensureThatAObjectIsNotAInstanceOf() {
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("room2", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("room2", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         RoomList roomList2 = new RoomList();
@@ -250,7 +272,7 @@ public class RoomListTest {
     @Test
     public void hashCodeDummyTest(){
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
         roomList1.addRoom(room1);
         int expectedResult = 1;
         int actualResult = roomList1.hashCode();

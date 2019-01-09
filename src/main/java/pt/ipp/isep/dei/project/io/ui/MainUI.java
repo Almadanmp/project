@@ -55,10 +55,14 @@ public class MainUI {
         //TEST ROOMS
         RoomList roomList1 = new RoomList();
         RoomList roomList2 = new RoomList();
-        Room room1 = new Room("wc", 19, 23456789, sensorList2);
-        Room room2 = new Room("kitchen", 8, 2, sensorList2);
-        Room room3 = new Room("room1", 19, 23456789, sensorList2);
-        Room room4 = new Room("room2", 8, 2, sensorList2);
+        Room room1 = new Room("wc", 19, 23456789, 2,2);
+        room1.setRoomSensorList(sensorList2);
+        Room room2 = new Room("kitchen", 8, 2, 2,2);
+        room2.setRoomSensorList(sensorList2);
+        Room room3 = new Room("room1", 19, 23456789, 2,2);
+        room3.setRoomSensorList(sensorList2);
+        Room room4 = new Room("room2", 8, 2, 2,2);
+        room4.setRoomSensorList(sensorList2);
         Device d1 = new Device("aspirador", "eletrodomestico", room2, new ReadingList(),20 );
         DeviceList deviceList = new DeviceList();
         deviceList.addDevices(d1);
@@ -117,8 +121,8 @@ public class MainUI {
         House house = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", new Local(41.177748, -8.607745,112), "4200-072");
         RoomList roomList = new RoomList();
         house.setmRoomList(roomList);
-        Room room_a = new Room("B107", 1, 24.5);
-        Room room_b = new Room("B109", 1, 24.5);
+        Room room_a = new Room("B107", 1, 7,11,3.5);
+        Room room_b = new Room("B109", 1, 7,11,3.5);
 
         ReadingList readingList_a = new ReadingList();
         Reading reading10 = new Reading(14, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
@@ -155,7 +159,7 @@ public class MainUI {
         readingList_a.addReading(reading25);
 
         Sensor sensor_a = new Sensor("Temperature B109", new TypeSensor("temperature"), new Local(0, 0), new GregorianCalendar(0, 0, 0).getTime(), readingList_a);
-        Room room_c = new Room("B106", 1, 318.5);
+        Room room_c = new Room("B106", 1, 7,13,3.5);
         house.addRoomToRoomList(room_a);
         house.addRoomToRoomList(room_b);
         house.addRoomToRoomList(room_c);

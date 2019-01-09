@@ -6,36 +6,27 @@ import java.util.Objects;
 public class Room {
     private String mRoomName;
     private int mHouseFloor;
-    private double mRoomDimensions;
+    private double mRoomWidth;
+    private double mRoomLength;
+    private double mRoomHeight;
     private SensorList mRoomSensorList;
     private DeviceList mRoomDeviceList;
     private double mRoomMaxPower;
 
-    public Room(String name, int houseFloor, double dimensions) {
-        setRoomName(name);
-        setRoomHouseFloor(houseFloor);
-        setRoomDimensions(dimensions);
-    }
 
-    public Room(String name, int houseFloor, double dimensions, SensorList sensorList, DeviceList deviceList, double roomMaxPower) {
+    public Room(String name, int houseFloor, double width, double length, double height) {
         setRoomName(name);
         setRoomHouseFloor(houseFloor);
-        setRoomDimensions(dimensions);
-        setRoomSensorList(sensorList);
-        setRoomDeviceList(deviceList);
-        setRoomMaxPower(roomMaxPower);
-    }
-
-    public Room(String name, int houseFloor, double dimensions, SensorList listSensor) {
-        setRoomName(name);
-        setRoomHouseFloor(houseFloor);
-        setRoomDimensions(dimensions);
-        setRoomSensorList(listSensor);
+        setRoomWidth(width);
+        setRoomLength(length);
+        setRoomHeight(height);
     }
 
     public SensorList getmRoomSensorList() {
         return mRoomSensorList;
     }
+
+
 
     public DeviceList getmRoomDeviceList() {
         return mRoomDeviceList;
@@ -49,9 +40,26 @@ public class Room {
         mHouseFloor = houseFloor;
     }
 
-    public void setRoomDimensions(double dimensions) {
-        mRoomDimensions = dimensions;
+    public void setRoomHeight(double height) {
+        mRoomHeight = height;
     }
+
+    public void setRoomLength(double length) {
+        mRoomLength = length;
+    }
+
+    public void setRoomWidth(double width){mRoomWidth=width;}
+
+    public double getRoomHeight() {
+        return mRoomHeight;
+    }
+
+    public double getRoomLength() {
+        return mRoomLength;
+    }
+
+    public double getRoomWidth(){ return mRoomWidth;}
+
 
     public void setRoomSensorList(SensorList sensorList) {
         mRoomSensorList = sensorList;
@@ -61,7 +69,7 @@ public class Room {
         mRoomDeviceList = deviceList;
     }
 
-    public void setRoomMaxPower(double totalPower) {
+     void setRoomMaxPower(double totalPower) {
         mRoomMaxPower = totalPower;
     }
 
@@ -73,9 +81,6 @@ public class Room {
         return mHouseFloor;
     }
 
-    public double getRoomDimensions() {
-        return mRoomDimensions;
-    }
 
     public SensorList getRoomSensorList() {
         return mRoomSensorList;
@@ -111,6 +116,8 @@ public class Room {
         }
     }
 
+
+
     /**
      * Gets most recent reading for current temperature.
      *
@@ -131,7 +138,7 @@ public class Room {
     public String printRoom() {
         String result;
         result = this.mRoomName + ", " + this.getHouseFloor() + ", " +
-                this.getRoomDimensions() + ".\n";
+                this.getRoomWidth() + ", "+ this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";
         return result;
     }
 

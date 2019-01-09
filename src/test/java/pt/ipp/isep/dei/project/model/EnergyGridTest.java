@@ -19,7 +19,8 @@ public class EnergyGridTest {
         SensorList sensorList = new SensorList();
         Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Energia"), new Local(22, 2), new GregorianCalendar(2018, 11, 25).getTime());
         sensorList.addSensor(s1);
-        Room room = new Room("Master Room", 3, 9, sensorList);
+        Room room = new Room("Master Room", 3, 9,2,2);
+        room.setRoomSensorList(sensorList);
         EnergyGrid eg = new EnergyGrid();
         RoomList roomList = new RoomList();
         eg.setListOfRooms(roomList);
@@ -39,7 +40,7 @@ public class EnergyGridTest {
 
     @Test
     public void seeIfprintGridWorks() {
-        Room room = new Room("room1", 1, 1);
+        Room room = new Room("room1", 1, 1,2,2);
         Reading r1 = new Reading(20);
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
@@ -53,7 +54,7 @@ public class EnergyGridTest {
 
     @Test
     public void seeIfgetListOfRoomsWorks() {
-        Room room = new Room("room1", 1, 1);
+        Room room = new Room("room1", 1, 1,2,2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         Reading r1 = new Reading(20);
@@ -65,7 +66,7 @@ public class EnergyGridTest {
         EnergyGrid energyGrid = new EnergyGrid("grid", 0, deviceList, roomList);
         String result = energyGrid.getmListOfRooms().printRooms();
         assertEquals("---------------\n" +
-                "0) Designation: room1 | House Floor: 1 | Dimensions: 1.0\n" +
+                "0) Designation: room1 | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n", result);
     }
 
@@ -97,7 +98,7 @@ public class EnergyGridTest {
 
     @Test
     public void seeIfRemovesRoom() {
-        Room room = new Room("room1", 1, 1);
+        Room room = new Room("room1", 1, 1,2,2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         PowerSourceList pWL1 = new PowerSourceList();
@@ -113,8 +114,8 @@ public class EnergyGridTest {
 
     @Test
     public void seeIfRemovesRoomFails() {
-        Room room = new Room("room1", 1, 1);
-        Room room2 = new Room("room2", 1, 1);
+        Room room = new Room("room1", 1, 1,2,2);
+        Room room2 = new Room("room2", 1, 1,2,2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         PowerSourceList pWL1 = new PowerSourceList();

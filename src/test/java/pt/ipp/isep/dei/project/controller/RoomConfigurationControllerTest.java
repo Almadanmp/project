@@ -23,7 +23,7 @@ public class RoomConfigurationControllerTest {
         SensorList sl1 = new SensorList();
         sl1.addSensor(s1);
         sl1.addSensor(s2);
-        Room Bathroom1 = new Room("Bathroom",1,3);
+        Room Bathroom1 = new Room("Bathroom",1,3,2,2);
         GeographicArea ga1 = new GeographicArea();
         HouseList hlist1 = new HouseList();
         House house1 = new House();
@@ -78,8 +78,8 @@ public class RoomConfigurationControllerTest {
     public void seeIfRoomIsContainedInRoomList() {
         //Arrange
 
-        Room room1 = new Room("Quarto",1,5);
-        Room room2 = new Room("Cozinha",1,9);
+        Room room1 = new Room("Quarto",1,5,2,2);
+        Room room2 = new Room("Cozinha",1,9,2,2);
         GeographicArea ga1 = new GeographicArea();
         RoomList rlist1 = new RoomList();
         House house1 = new House();
@@ -137,8 +137,8 @@ public class RoomConfigurationControllerTest {
         RoomList roomList1;
         roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act ------------------------------------
@@ -146,7 +146,7 @@ public class RoomConfigurationControllerTest {
         Integer i = 1;
         list.add(i);
         String result = ctrl.printRoomElementsByIndex(list, house1);
-        String expectedResult = "1) kitchen, 8, 2.0.\n";
+        String expectedResult = "1) kitchen, 8, 2.0, 2.0, 2.0.\n";
         //Assert ---------------------------------
         Assertions.assertEquals(expectedResult, result);
     }
@@ -167,8 +167,8 @@ public class RoomConfigurationControllerTest {
         //Room List
         RoomList roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act ---------------------------------
@@ -195,13 +195,13 @@ public class RoomConfigurationControllerTest {
         //Room List
         RoomList roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act -------------------------
         String result = ctrl.printRoom(room2);
-        String expectedResult = "kitchen, 8, 2.0.\n";
+        String expectedResult = "kitchen, 8, 2.0, 2.0, 2.0.\n";
         //Assert ----------------------
         Assertions.assertEquals(expectedResult, result);
     }
@@ -221,15 +221,15 @@ public class RoomConfigurationControllerTest {
         //Room List
         RoomList roomList1 = new RoomList();
         house1.setmRoomList(roomList1);
-        Room room1 = new Room("room1", 19, 23456789);
-        Room room2 = new Room("kitchen", 8, 2);
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("kitchen", 8, 2,2,2);
         roomList1.addRoom(room1);
         roomList1.addRoom(room2);
         //Act ----------------------------
         String result = ctrl.printRoomList(house1);
         String expectedResult = "---------------\n" +
-                "0) Designation: room1 | House Floor: 19 | Dimensions: 2.3456789E7\n" +
-                "1) Designation: kitchen | House Floor: 8 | Dimensions: 2.0\n" +
+                "0) Designation: room1 | House Floor: 19 | Width: 2.3456789E7 | Length: 2.0 | Height: 2.0\n" +
+                "1) Designation: kitchen | House Floor: 8 | Width: 2.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
         //Assert -------------------------
         Assertions.assertEquals(expectedResult, result);
