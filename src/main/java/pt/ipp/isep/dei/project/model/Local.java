@@ -6,19 +6,6 @@ public class Local {
     private double mAltitude;
 
     /**
-     * Builder Local(), with two parameters: double latitude and longitude.
-     * Build to be use in method -> getLinearDistanceBetweenLocalsInKm(Local local1)
-     * @param latitude of the local
-     * @param longitude of the local
-     */
-
-    //Não usar mais este construtor, vai ser apagado mal estejam todos modificados.
-    public Local(double latitude, double longitude) {
-        setLatitude(latitude);
-        setLongitude(longitude);
-    }
-
-    /**
      * Builder Local(), with all the parameters to define a local.
      * @param latitude of the local
      * @param longitude of the local
