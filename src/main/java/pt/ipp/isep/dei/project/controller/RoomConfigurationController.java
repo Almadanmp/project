@@ -4,7 +4,8 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.List;
 
-/** US253: As an Administrator, I want to add a new sensor to a room from the list of available sensor types,
+/**
+ * US253: As an Administrator, I want to add a new sensor to a room from the list of available sensor types,
  * in order to configure it.
  **/
 
@@ -20,8 +21,8 @@ public class RoomConfigurationController {
          */
     }
 
-    public void addSensorToRoom(Room room, String sensorToAdd,GeographicArea ga) {
-        Sensor xSensor = getSensorFromName(sensorToAdd,ga);
+    public void addSensorToRoom(Room room, String sensorToAdd, GeographicArea ga) {
+        Sensor xSensor = getSensorFromName(sensorToAdd, ga);
         room.getRoomSensorList().getSensorList().add(xSensor);
         this.mRoom = room;
     }
@@ -40,7 +41,8 @@ public class RoomConfigurationController {
 
     public Sensor getSensorFromName(String sensorName, GeographicArea ga) {
         for (Sensor s : ga.getSensorList().getSensorList()) {
-            if (s.getName().equals(sensorName)) mSensor = s;
+            if (s.getName().equals(sensorName))
+                mSensor = s;
         }
         return mSensor;
     }
@@ -58,7 +60,7 @@ public class RoomConfigurationController {
         return house.getmRoomList().printRoomList(house);
     }
 
-    public String printRoom (Room room){
+    public String printRoom(Room room) {
         return room.printRoom();
     }
 
@@ -66,7 +68,7 @@ public class RoomConfigurationController {
         return house.getmRoomList().printElementsByIndex(listOfIndexesOfRoom);
     }
 
-    public List<Integer> matchRoomIndexByString(String input, House house){
+    public List<Integer> matchRoomIndexByString(String input, House house) {
         return house.getmRoomList().matchRoomIndexByString(input);
     }
 }
