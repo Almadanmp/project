@@ -37,8 +37,8 @@ class GASettingsUI {
         this.mController = new GASettingsController();
     }
 
-    void run(GeographicAreaList programGAList, TypeAreaList programTypeAreaList) {
-        if (programGAList == null || programGAList.getGeographicAreaList().size() == 0) {
+    void runGASettings(GeographicAreaList programGAList, TypeAreaList programTypeAreaList) {
+        if (programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
         }
@@ -50,10 +50,11 @@ class GASettingsUI {
         while (!activeInput) {
             printOptionMessage();
             option = UtilsUI.readInputNumberAsInt();
+            String mStringMessageAskingToCreateGeographicAreaType = "There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.";
             switch (option) {
                 case 1:
                     if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
-                        System.out.println("There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.");
+                        System.out.println(mStringMessageAskingToCreateGeographicAreaType);
                         return;
                     }
                     getInputUS01();
@@ -64,7 +65,7 @@ class GASettingsUI {
 
                 case 2:
                     if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
-                        System.out.println("There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.");
+                        System.out.println(mStringMessageAskingToCreateGeographicAreaType);
                         return;
                     }
                     updateModelUS02(programTypeAreaList);
@@ -73,20 +74,20 @@ class GASettingsUI {
                     break;
                 case 3:
                     if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
-                        System.out.println("There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.");
+                        System.out.println(mStringMessageAskingToCreateGeographicAreaType);
                         return;
                     }
                     getAreaInputUS03();
                     getTypeAreaInputUS03(programTypeAreaList);
                     getLocalInputUS03();
-                    updateGeoAreaUS03(programTypeAreaList);
+                    updateGeoAreaUS03();
                     updateModelUS03(programGAList);
                     displayStateUS03();
                     activeInput = true;
                     break;
                 case 4:
                     if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
-                        System.out.println("There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.");
+                        System.out.println(mStringMessageAskingToCreateGeographicAreaType);
                         return;
                     }
                     getInputTypeArea(programTypeAreaList);
@@ -374,7 +375,7 @@ class GASettingsUI {
 
     }
 
-    private void updateGeoAreaUS03(TypeAreaList typeAreaList) {
+    private void updateGeoAreaUS03() {
         System.out.print("The Geographic Area you want to create is " + nameOfGeoArea  + " and its " +
                 "localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The size is " +
                 this.mGeoAreaLength + " by " + this.mGeoAreaWidth + " kms\n");

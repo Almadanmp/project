@@ -235,7 +235,7 @@ public class MainUI {
                         return;
                     case 1:
                         GASettingsUI view1 = new GASettingsUI();
-                        view1.run(geographicalAreaList, mTypeAreaList1);
+                        view1.runGASettings(geographicalAreaList, mTypeAreaList1);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
