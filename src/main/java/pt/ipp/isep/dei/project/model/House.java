@@ -107,8 +107,7 @@ public class House {
         for (Room r : this.mRoomList.getRoomList()) {
             String roomDesignationToTest = r.getRoomName();
             if (roomDesignationToTest.equals(roomToAddName))
-                return false;
-        }
+                return false; }
         this.mRoomList.addRoom(room);
         return true;
     }
@@ -131,9 +130,7 @@ public class House {
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
             Sensor copo = ga.getSensorList().getSensors()[i];
             if (distance > calculateDistanceToSensor(copo)) {
-                distance = calculateDistanceToSensor(copo);
-            }
-        }
+                distance = calculateDistanceToSensor(copo); } }
         return distance;
     }
 
@@ -141,8 +138,7 @@ public class House {
         for (Sensor s : ga.getSensorList().getSensorListByType("temperature")) {
             if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
                 return s;
-            }
-        }
+            } }
         return null;
     }
 
@@ -166,8 +162,7 @@ public class House {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+            return false; }
         House house = (House) o;
         return Objects.equals(mStreet, house.mStreet);
     }

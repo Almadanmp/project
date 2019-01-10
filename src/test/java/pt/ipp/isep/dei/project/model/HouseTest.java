@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.GregorianCalendar;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -73,9 +74,20 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         House house2 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
-        Boolean actualResult = house.equals(house2);
+        boolean actualResult = house.equals(house2);
 
-        assertEquals(true, actualResult);
+        assertTrue( actualResult);
+    }
+
+    @Test
+    void seeEqualToSameObject2() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
+
+        boolean actualResult = house.equals(house);
+
+        assertTrue( actualResult);
     }
 
     @Test
@@ -85,9 +97,8 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         House house2 = new House("casa de campo", "Rua do Sol", "4516", "Porto", new Local(4, 5, 50),ga, roomList);
 
-        Boolean actualResult = house.equals(house2);
-
-        assertEquals(false, actualResult);
+        boolean actualResult = house.equals(house2);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -97,9 +108,9 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         House house2 = new House();
 
-        Boolean actualResult = house.equals(house2);
+        boolean actualResult = house.equals(house2);
 
-        assertEquals(false, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -110,9 +121,9 @@ class HouseTest {
         RoomList rL1 = new RoomList();
         house.setRoomList(rL1);
         Room room = new Room("quarto", 1, 80,2,2);
-        Boolean result = house.addRoomToRoomList(room);
+        boolean result = house.addRoomToRoomList(room);
 
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     @Test
@@ -125,9 +136,9 @@ class HouseTest {
         Room room = new Room("quarto", 1, 80,2,2);
         Room room2 = new Room("quarto", 2, 80,2,2);
         house.addRoomToRoomList(room2);
-        Boolean result = house.addRoomToRoomList(room);
+        boolean result = house.addRoomToRoomList(room);
 
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test
