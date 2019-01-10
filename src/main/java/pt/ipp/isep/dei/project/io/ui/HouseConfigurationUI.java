@@ -207,13 +207,13 @@ class HouseConfigurationUI {
     }
 
 
-    /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it. */
+    // USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it. */
 
     private void printRoomList(House house) {
         System.out.println(controller.printRooms(house.getRoomList()));
     }
 
-    /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
+    // UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
         System.out.println("1) Configure the location of the house. (US101)");
