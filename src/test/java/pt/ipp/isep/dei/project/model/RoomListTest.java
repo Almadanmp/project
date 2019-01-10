@@ -179,7 +179,7 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeIfPrintsRoomAList() {
+    public void seeIfPrintsRoomList() {
         GeographicArea ga = new GeographicArea();
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
@@ -196,6 +196,25 @@ public class RoomListTest {
     }
 
     @Test
+    public void seeIfPrintsInvalidList() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5),ga, roomList);
+        String expectedResult = "Invalid List - List is Empty\n";;
+        String result = roomList.printRoomList(house);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfPrintInvalidRoomsWorks() {
+        RoomList roomList = new RoomList();
+        String result = roomList.printRooms();
+        Assert.assertEquals("Invalid List - List is Empty\n", result);
+    }
+
+
+    @Test
     public void ensureThatAObjectIsAInstanceOf() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789,2,2);
@@ -208,6 +227,28 @@ public class RoomListTest {
 
         Boolean actualResult = roomList1.equals(roomList2);
 
+        assertTrue(actualResult);
+    }
+
+    @Test
+    public void ensureThatAObjectIsAInstanceOf2() {
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room2 = new Room("room1", 19, 23456789,2,2);
+        roomList1.addRoom(room1);;
+        RoomList roomList2 = new RoomList();
+        roomList2.addRoom(room2);
+
+        Boolean actualResult = roomList1.equals(roomList2);
+
+        assertTrue(actualResult);
+    }
+    @Test
+    public void ensureThatAObjectIsAInstanceOf3() {
+        RoomList roomList1 = new RoomList();
+        Room room1 = new Room("room1", 19, 23456789,2,2);
+        roomList1.addRoom(room1);
+        Boolean actualResult = roomList1.equals(roomList1);
         assertTrue(actualResult);
     }
 
