@@ -24,11 +24,7 @@ class HouseConfigurationUI {
         this.controller = new HouseConfigurationController();
     }
 
-    void run(GeographicAreaList programList, House house) {
-        if (programList == null || programList.getGeographicAreaList().size() == 0) {
-            System.out.println("Invalid Geographic Area List - List Is Empty");
-            return;
-        }
+    void run(House house) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
