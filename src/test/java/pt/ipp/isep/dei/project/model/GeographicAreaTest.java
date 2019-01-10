@@ -17,7 +17,7 @@ class GeographicAreaTest {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
-        TypeArea expectedResult = t1;
+        TypeArea expectedResult = new TypeArea("Rua");
         TypeArea actualResult;
         GeographicArea c = new GeographicArea("Porto",t1,2,3,l1);
         //Act
@@ -32,7 +32,7 @@ class GeographicAreaTest {
     void seeIfConstructorSetsTypeArea() {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
-        TypeArea expectedResult = t1;
+        TypeArea expectedResult = new TypeArea("Rua");
         TypeArea actualResult;
         GeographicArea c = new GeographicArea("Porto",t1,2,3,l1);
         actualResult = c.getTypeArea();
@@ -40,7 +40,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    public void seeIfGetSetTypeWorksIfDifferentOfGivenConstructor() {
+    void seeIfGetSetTypeWorksIfDifferentOfGivenConstructor() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         TypeArea t2 = new TypeArea("Freguesia");
@@ -61,14 +61,12 @@ class GeographicAreaTest {
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea("Porto",t1,2,3,l1);
-        boolean expectedResult = true;
-
         //Act
         c.setLocal(l1);
         boolean actualResult = c.getLocal().equals(new Local(38, 7, 100));
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -164,7 +162,6 @@ class GeographicAreaTest {
         readingList.addReading(r3);
         Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime());
         s1.setReadingList(readingList);
-        SensorList sensorList = new SensorList(s1);
         GeographicArea ga1 = new GeographicArea("Porto",new TypeArea("Rua"),2,3,new Local(16, 17, 18));
         ga1.setSensorList(new SensorList(s1));        double expectedResult = 19;
         //Act
@@ -289,7 +286,7 @@ class GeographicAreaTest {
         boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
 
         //Assert
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     @Test
@@ -309,7 +306,7 @@ class GeographicAreaTest {
         boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
 
         //Assert
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test
@@ -329,7 +326,7 @@ class GeographicAreaTest {
         boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
 
         //Assert
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     @Test
@@ -393,51 +390,45 @@ class GeographicAreaTest {
     void ensureThatAObjectIsNotAInstanceOf() {
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2,5, new Local(22, 23, 100));
         Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), new GregorianCalendar(2018, 11, 25).getTime());
-        Boolean expectedResult = false;
 
-        Boolean actualResult = ga1.equals(s1);
+        boolean actualResult = ga1.equals(s1);
 
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
 
     @Test
-    public void ensureThatAreaIsContained() {
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), new GregorianCalendar(2018, 11, 25).getTime());
+    void ensureThatAreaIsContained() {
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 10,20, new Local(22, 23, 100));
         GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("Cidade"), 200,521, new Local(22, 23, 100));
         ga1.setMotherArea(ga2);
         ga1.setMotherArea(ga2);
-        Boolean expectedResult = true;
-        Boolean actualResult = ga1.checkIfAreaIsContained(ga1, ga2);
+        boolean actualResult = ga1.checkIfAreaIsContained(ga1, ga2);
 
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
-    public void ensureThatAreaIsNotContained() {
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), new GregorianCalendar(2018, 11, 25).getTime());
+    void ensureThatAreaIsNotContained() {
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 10,20, new Local(22, 23, 100));
         GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("Cidade"), 200,521, new Local(22, 23, 100));
         ga1.setMotherArea(ga2);
         ga1.setMotherArea(ga2);
-        Boolean expectedResult = false;
-        Boolean actualResult = ga1.checkIfAreaIsContained(ga2, ga1);
+        boolean actualResult = ga1.checkIfAreaIsContained(ga2, ga1);
 
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void ensureThatGrandsonAreaIsContainedInGrandmotherArea() {
+    void ensureThatGrandsonAreaIsContainedInGrandmotherArea() {
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2,4,new Local(22, 22, 100));
         GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("Cidade"), 20,40,new Local(22, 22, 100));
         GeographicArea ga3 = new GeographicArea("Europa", new TypeArea("Cidade"), 200,400,new Local(22, 22, 100));
         ga1.setMotherArea(ga2);
         ga2.setMotherArea(ga3);
-        Boolean expectedResult = true;
-        Boolean actualResult = ga1.checkIfAreaIsContained(ga1, ga3);
+        boolean actualResult = ga1.checkIfAreaIsContained(ga1, ga3);
 
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test

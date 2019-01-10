@@ -16,6 +16,7 @@ import static pt.ipp.isep.dei.project.io.ui.UtilsUI.readInputNumberAsInt;
 class GASettingsUI {
     private GASettingsController mController;
     private GeographicArea mGeoArea;
+    private GeographicAreaList mGeoAreaList;
     private String mTypeAreaString;
     private TypeArea mTypeArea;
     private boolean mListWasCreated;
@@ -76,7 +77,7 @@ class GASettingsUI {
                     if (!matchGAByTypeArea(programGAList)) {
                         return;
                     } else {
-                        displayGAListByTypeArea(programGAList);
+                        displayGAListByTypeArea();
                     }
                     activeInput = true;
                     break;
@@ -398,22 +399,22 @@ class GASettingsUI {
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
     private boolean matchGAByTypeArea(GeographicAreaList newGeoListUi) {
-        if ((newGeoListUi.getGeographicAreaList().isEmpty()) || (newGeoListUi == null)) {
+        if ((newGeoListUi.getGeographicAreaList().isEmpty())) {
             System.out.print("The list of Geographic Areas is currently empty.\n Please return to main menu and add a Geographic Area to the list first.");
             return false;
         } else {
-            newGeoListUi = mController.matchGAByTypeArea(newGeoListUi, this.mTypeArea);
+            this.mGeoAreaList = mController.matchGAByTypeArea(newGeoListUi, this.mTypeArea);
             this.mTypeAreaString = mController.getTypeAreaName(this.mTypeArea);
             return true;
         }
     }
 
-    private void displayGAListByTypeArea(GeographicAreaList newGeoListUi) {
-        if (newGeoListUi.getGeographicAreaList().isEmpty()) {
+    private void displayGAListByTypeArea() {
+        if (this.mGeoAreaList.getGeographicAreaList().isEmpty()) {
             System.out.println("There are no Geographic Areas of that Area Type.");
         } else {
             System.out.println("Geographic Areas of the type " + this.mTypeAreaString + ":\n");
-            mController.printGAList(newGeoListUi);
+            System.out.println(mController.printGAList(this.mGeoAreaList));
         }
     }
 

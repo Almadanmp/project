@@ -74,7 +74,7 @@ public class GeographicArea {
         this.mDescription = description;
     }
 
-    public String getDescription() {return this.mDescription;}
+    String getDescription() {return this.mDescription;}
     /**
      * Setter for Geographic Area type.
      *
@@ -97,7 +97,7 @@ public class GeographicArea {
     /**
      * Setter for Sensor List.
      *
-     * @param listToSet
+     * @param listToSet list to set
      */
 
     public void setSensorList(SensorList listToSet) {
@@ -155,7 +155,7 @@ public class GeographicArea {
      * Method to print details that are required for a Geographic Area to be different from another GA (equals -
      * name, type area and local).
      *
-     * @return
+     * @return returns a string with Geographic Area Parameters
      */
 
     public String printGeographicArea() {
@@ -171,7 +171,7 @@ public class GeographicArea {
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
-    boolean isGeographicNameValid(String name) {
+    private boolean isGeographicNameValid(String name) {
         return (name != null && !name.isEmpty());
     }
 

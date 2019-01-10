@@ -35,7 +35,7 @@ public class MainUI {
         Porto.setLength(10.09);
         Porto.setDescription("City of Porto");
 
-        GeographicArea Portugal = new GeographicArea("Portugal", new TypeArea("pais"), 22,9,new Local(60, 0, 110));
+        GeographicArea Portugal = new GeographicArea("Portugal", new TypeArea("country"), 22,9,new Local(60, 0, 110));
         Portugal.setWidth(100);
         Portugal.setLength(800);
         Portugal.setDescription("Country of Portugal");

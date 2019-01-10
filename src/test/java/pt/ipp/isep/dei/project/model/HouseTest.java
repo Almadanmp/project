@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class HouseTest {
 
@@ -62,7 +63,7 @@ class HouseTest {
         sensorList.addSensor(s2);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5,50),ga, roomList);
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house);
-        assertEquals(null, result);
+        assertNull(result);
     }
 
     @Test
