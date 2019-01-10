@@ -8,8 +8,6 @@ import java.util.List;
 
 public class SensorSettingsController {
     private SensorList mSensorList;
-    private Room mRoom;
-    private GeographicAreaList mGeographicAreaList;
     private Local mLocal;
     private Date mDate;
     private Sensor mSensor;
@@ -33,20 +31,7 @@ public class SensorSettingsController {
     }
 
 
-    public void createNewRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        this.mRoom = new Room(roomDesignation, roomHouseFloor, width, length, height);
-    }
-
-    public String getHouseName(House house) {
-        return house.getmHouseId();
-    }
-
-    public boolean addRoomToHouse(House house) {
-        return (house.addRoomToRoomList(this.mRoom));
-    }
-
-
-    /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
+       /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
 
     /**
@@ -99,7 +84,7 @@ public class SensorSettingsController {
     }
 
     /**
-     * Method to add a SensorList to a GeographicArea given that both the name of the Geographis Area and the name given
+     * Method to add a SensorList to a GeographicArea given that both the name of the Geographic Area and the name given
      * as parameter match
      * Calls the original method from model
      */

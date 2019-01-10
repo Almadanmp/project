@@ -11,19 +11,9 @@ import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
 
 public class SensorSettingsUI {
     private SensorSettingsController mController;
-    private EnergyGrid mEnergyGrid;
-    private String mGridName;
-    private Room mRoom;
-    private String mRoomName;
-    private int mRoomHouseFloor;
-    private double mRoomWidth;
-    private double mRoomLength;
-    private double mRoomHeight;
-    private boolean mActive;
-    private boolean active;
     private String sensorName;
     private String sensorType;
-    private String sensorUnits;
+    private String sensorUnits; //TODO this is used but never assigned
     boolean mTypeAdded;
     private double sensorLat;
     private double sensorLong;
@@ -33,15 +23,15 @@ public class SensorSettingsUI {
     private int dataDay;
     private Sensor mSensor;
     private String mGeographicAreaName;
-    private SensorList mSensorList;
-    private GeographicAreaList mGeographicAreaList;
+    private SensorList mSensorList; //TODO this is used but never assigned
+    private GeographicAreaList mGeographicAreaList;  //TODO this is used but never assigned
 
 
     public SensorSettingsUI() {
         this.mController = new SensorSettingsController();
     }
 
-    public void run(GeographicAreaList newGeoListUi, TypeAreaList typeAreaList, House house) {
+    public void run(GeographicAreaList newGeoListUi) {
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
@@ -49,7 +39,7 @@ public class SensorSettingsUI {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
-        System.out.println("Energy Grid Settings\n");
+        System.out.println("Sensor Settings\n");
         System.out.println("--------------\n");
         while (!activeInput) {
             printOptionMessage();
@@ -109,7 +99,6 @@ public class SensorSettingsUI {
         if (mTypeAdded) {
             System.out.print("The type has been successfully assigned.");
         } else System.out.print("The type of sensor wasn't added. There is no sensor with that name.");
-        mActive = false;
     }
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
@@ -199,7 +188,6 @@ public class SensorSettingsUI {
     }
 
     private void displayUS06() {
-        this.active = true;
         if (mController.addSensor(mSensor, mSensorList)) {
             System.out.println("\n \n Sensor has been successfully added to the list");
         } else {

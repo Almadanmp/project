@@ -296,9 +296,10 @@ public class MainUI {
             String[] menu = {" 0. Exit Application\n",
                     "1. Geographic Area Settings\n",
                     "2. House Settings.\n",
-                    "3. Sensor Settings.\n",
-                    "4. Energy Grid Settings.\n",
-                    "5. House Monitoring.\n",};
+                    "3. Room Settings.\n",
+                    "4. Sensor Settings.\n",
+                    "5. Energy Grid Settings.\n",
+                    "6. House Monitoring.\n",};
 
             System.out.println("Select the task you want to do:");
 
@@ -329,18 +330,24 @@ public class MainUI {
                        activeInput = true;
                        break;
                     case 3:
-                        SensorSettingsUI sensorSettings = new  SensorSettingsUI();
-                        sensorSettings.run(mGeographicAreaList, mTypeAreaList, programHouse);
+                        RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
+                        roomConfiguration.run(mGeographicAreaList, programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                      case 4:
+                    case 4:
+                        SensorSettingsUI sensorSettings = new  SensorSettingsUI();
+                        sensorSettings.run(mGeographicAreaList);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = true;
+                        break;
+                      case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
                         energyGridSettings.run(mGeographicAreaList,mTypeAreaList, programHouse);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                    case 5:
+                    case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
                         houseM.run(geographicalAreaList, programHouse);
                         returnToMenu(enterToReturnToConsole);
