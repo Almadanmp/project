@@ -188,7 +188,7 @@ class HouseConfigurationUI {
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it. */
 
     private void showListRooms(House house) {
-        controller.printRooms(house.getmRoomList());
+        System.out.println(controller.printRooms(house.getmRoomList()));
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
