@@ -115,7 +115,6 @@ public class RoomList {
             result.append(this.mStringHeight).append(aux.getRoomHeight()).append("\n");
         }
         result.append(this.mStringResult);
-        System.out.print(result); //TODO remove this and print on UIS, this allows us to test method
         return result.toString();
     }
 
