@@ -3,10 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -693,6 +690,29 @@ public class SensorListTest {
     }
 
     @Test
+    void seeIfMatchSensorIndexByString() {
+        //Arrange
+        List<Integer> list = new ArrayList<>();
+        Integer i = 2;
+        list.add(i);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        room.setRoomSensorList(sensorList1);
+        List<Integer> result = sensorList1.matchSensorIndexByString("s3");
+        List<Integer> expectedResult = Collections.singletonList(2);
+        assertEquals(expectedResult,result);
+
+    }
+
+    @Test
     void seeIfPrintElementsByIndex() {
         //Arrange
         List<Integer> list = new ArrayList<>();
@@ -716,5 +736,39 @@ public class SensorListTest {
 
         //Assert
         Assert.assertEquals(expectedResult, result);
+    }
+    @Test
+    void ensureThatSensorIsInSensorListByString(){
+        Room room = new Room("Quarto Miki",1,3,3,3);
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        room.setRoomSensorList(sensorList1);
+        boolean expectedResult = true;
+        boolean actualResult = sensorList1.doesSensorListContainSensorByName("s1");
+        assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    void ensureThatSensorIsNotInSensorListByString(){
+        Room room = new Room("Quarto Miki",1,3,3,3);
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        room.setRoomSensorList(sensorList1);
+        boolean expectedResult = false;
+        boolean actualResult = sensorList1.doesSensorListContainSensorByName("s4");
+        assertEquals(expectedResult,actualResult);
     }
 }
