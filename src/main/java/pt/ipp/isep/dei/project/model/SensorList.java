@@ -66,7 +66,7 @@ public class SensorList {
      *
      * @return array of sensors
      */
-    public Sensor[] getSensors() {
+    Sensor[] getSensors() {
         int sizeOfResultArray = mSensorList.size();
         Sensor[] result = new Sensor[sizeOfResultArray];
         for (int i = 0; i < mSensorList.size(); i++) {
@@ -89,7 +89,7 @@ public class SensorList {
      *
      * @param sensorToRemove
      */
-    public void removeSensor(Sensor sensorToRemove) {
+    void removeSensor(Sensor sensorToRemove) {
         mSensorList.remove(sensorToRemove);
     }
 
@@ -98,7 +98,7 @@ public class SensorList {
      *
      * @return the most recently used sensor
      */
-    public Sensor getMostRecentlyUsedSensor() {
+    Sensor getMostRecentlyUsedSensor() {
         List<Sensor> listToTest = this.mSensorList;
         int indexMostRecentlyUsedSensor = 0;
         for (int i = 0; i < listToTest.size() - 1; i++) {
@@ -115,7 +115,7 @@ public class SensorList {
      * @param name name of the sensor to find in the list.
      * @return return the sensor whose name matches the name introduced.
      */
-    public Sensor getSensorByName(String name) {
+    Sensor getSensorByName(String name) {
         for (Sensor s : mSensorList) {
             if (s.getName().equals(name)) {
                 return s;
@@ -133,7 +133,7 @@ public class SensorList {
         return false;
     }
 
-    public Sensor getSensorByType(String name) {
+    Sensor getSensorByType(String name) {
         for (Sensor s : mSensorList) {
             if (s.getTypeSensor().getName().equals(name)) {
                 return s;
@@ -152,27 +152,26 @@ public class SensorList {
     }
 
     public String printElementsByIndex (List<Integer> indexes){
-        String result = "";
-        for (int i = 0; i < indexes.size(); i++){
-            int pos = indexes.get(i);
-            result += indexes.get(i) + ") " + mSensorList.get(pos).getName() + " which is a " + mSensorList.get(pos).getTypeSensor().getName() +  " sensor.\n";
+        StringBuilder result = new StringBuilder();
+        for (int pos : indexes) {
+            result.append(pos).append(") ").append(mSensorList.get(pos).getName()).append(" which is a ").append(mSensorList.get(pos).getTypeSensor().getName()).append(" sensor.\n");
         }
-        return result;
+        return result.toString();
     }
 
     public String printSensorList(Room room) {
-        String result = "---------------\n";
+        StringBuilder result = new StringBuilder("---------------\n");
         if (room.getmRoomSensorList().getSensorList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < room.getmRoomSensorList().getSensorList().size(); i++) {
             Sensor aux = room.getmRoomSensorList().getSensorList().get(i);
-            result = result + i + ") Designation: " + aux.getName() + " | ";
-            result = result + "Sensor Type: " + aux.getTypeSensor().getName() +  "\n";
+            result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
+            result.append("Sensor Type: ").append(aux.getTypeSensor().getName()).append("\n");
         }
-        result = result + "---------------\n";
+        result.append("---------------\n");
         System.out.print(result);
-        return result;
+        return result.toString();
     }
 
     public List<Sensor> getSensorListByType(String name) {
@@ -185,7 +184,7 @@ public class SensorList {
         return containedTypeSensors;
     }
 
-    public List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area, TypeSensor type) {
+    List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area, TypeSensor type) {
         List<Sensor> containedSensors = new ArrayList<>();
         for (Sensor sensor : mSensorList) {
             if (sensor.isSensorContainedInArea(area) && sensor.getTypeSensor().equals(type)) {
@@ -195,7 +194,7 @@ public class SensorList {
         return containedSensors;
     }
 
-    public List<Sensor> getSensorsInGAAtACertainTimePeriod(GregorianCalendar date1, GeographicArea ga) {
+    List<Sensor> getSensorsInGAAtACertainTimePeriod(GregorianCalendar date1, GeographicArea ga) {
         List<Sensor> finalList = new ArrayList<>();
         for (Sensor s : mSensorList) {
             if (s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)) {
@@ -220,7 +219,7 @@ public class SensorList {
         return (this.mSensorList.isEmpty());
     }
 
-    public boolean checkIfListIsValid() {
+    boolean checkIfListIsValid() {
         return !mSensorList.isEmpty();
     }
 

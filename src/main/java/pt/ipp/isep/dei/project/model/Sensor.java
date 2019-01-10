@@ -79,7 +79,7 @@ public class Sensor {
      *
      * @param sensor
      */
-    public void setTypeSensor(TypeSensor sensor) {
+    void setTypeSensor(TypeSensor sensor) {
         this.mTypeSensor = sensor;
     }
 
@@ -88,7 +88,7 @@ public class Sensor {
      *
      * @param dateStartedFunctioning
      */
-    public void setDateStartedFunctioning(Date dateStartedFunctioning) {
+    void setDateStartedFunctioning(Date dateStartedFunctioning) {
         this.mDateStartedFunctioning = dateStartedFunctioning;
     }
 
@@ -106,7 +106,7 @@ public class Sensor {
      *
      * @return
      */
-    public TypeSensor getTypeSensor() {
+    TypeSensor getTypeSensor() {
         return (this.mTypeSensor);
     }
 
@@ -124,7 +124,7 @@ public class Sensor {
      *
      * @return
      */
-    public Date getDateStartedFunctioning() {
+    Date getDateStartedFunctioning() {
         return (this.mDateStartedFunctioning);
     }
 
@@ -152,7 +152,7 @@ public class Sensor {
      * @param s1 - sensor
      * @return the distance from a local to sensor in km (doubles)
      */
-    public double calculateDistanceToSensor(Sensor s1) {
+    double calculateDistanceToSensor(Sensor s1) {
         Local l = s1.getLocal();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
     }
@@ -163,7 +163,7 @@ public class Sensor {
      * @param s1 - sensor
      * @return average of readings on a month on a sensor
      */
-    public double calculateMonthMeanOnSensor(Sensor s1, Date dateGiven) {
+    double calculateMonthMeanOnSensor(Sensor s1, Date dateGiven) {
         return s1.getReadingList().getAverageOfAllRecordedValueReadingsFromGivenMonth(dateGiven);
     }
 
@@ -174,11 +174,11 @@ public class Sensor {
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
-    public boolean isSensorNameValid(String name) {
+    boolean isSensorNameValid(String name) {
         return (name != null && !name.isEmpty());
     }
 
-    public boolean isSensorContainedInArea(GeographicArea area) {
+    boolean isSensorContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
         double latTopVert = area.getLocal().getLatitude() + (area.getWidth() / 2);
@@ -188,11 +188,11 @@ public class Sensor {
         return (latS <= latTopVert && latS >= latBotVert && longS <= longBotVert && longS >= longTopVert);
     }
 
-    public boolean isSensorActiveOnGivenDate(GregorianCalendar date1) {
+    boolean isSensorActiveOnGivenDate(GregorianCalendar date1) {
         return this.getDateStartedFunctioning().before(date1.getTime());
     }
 
-    public double getDistanceToHouse(House house) {
+    double getDistanceToHouse(House house) {
         Local l = house.getLocation();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
     }
