@@ -37,7 +37,11 @@ public class HouseMonitoringUI {
     }
 
     void run(House programHouse) {
-        RoomList roomList = programHouse.getRoomList();
+        if (programHouse == null || programHouse.getMotherArea() == null || programHouse.getRoomList()==null) {
+            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure your" +
+                    "house first through the main menu");
+            return;
+        }
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
