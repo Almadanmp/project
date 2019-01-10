@@ -257,7 +257,7 @@ public class MainUI {
                         break;
                       case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                        energyGridSettings.run(geographicalAreaList,mTypeAreaList, EdificioB);
+                        energyGridSettings.run(EdificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;

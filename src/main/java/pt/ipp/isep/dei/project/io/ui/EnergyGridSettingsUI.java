@@ -22,11 +22,7 @@ public class EnergyGridSettingsUI {
         this.mController = new EnergyGridSettingsController();
     }
 
-    public void run(GeographicAreaList newGeoListUi, TypeAreaList typeAreaList, House house) {
-        if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
-            System.out.println("Invalid Geographic Area List - List Is Empty");
-            return;
-        }
+    public void run(House house) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
