@@ -92,7 +92,10 @@ public class EnergyGridSettingsController {
     energy consumption is included in that grid.*/
 
     public boolean addRoomToTheGrid(EnergyGrid grid, Room room) {
-        return grid.addRoomToAnEnergyGrid(room);
+        if(grid != null || room != null) {
+            return grid.addRoomToAnEnergyGrid(room);
+        }
+        return false;
     }
 
     /*USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and

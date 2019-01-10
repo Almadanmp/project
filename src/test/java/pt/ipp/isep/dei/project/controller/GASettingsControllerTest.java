@@ -98,9 +98,9 @@ class GASettingsControllerTest {
     public void seeIfMatchGAByTypeAreaWorks() {
         //Arrange
         GASettingsController ctrl = new GASettingsController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"),2,5, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2,4,new Local(14, 14, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2,4,new Local(3, 3, 5));
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
         GeographicAreaList gAL1 = new GeographicAreaList();
         TypeArea type = new TypeArea("City");
         gAL1.addGeographicAreaToGeographicAreaList(gA1);
@@ -110,7 +110,7 @@ class GASettingsControllerTest {
         GeographicAreaList gAL2 = new GeographicAreaList();
         gAL2.addGeographicAreaToGeographicAreaList(gA2);
         //Act
-        GeographicAreaList actualResult = ctrl.matchGAByTypeArea(gAL1,type);
+        GeographicAreaList actualResult = ctrl.matchGAByTypeArea(gAL1, type);
         GeographicAreaList expectedResult = gAL2;
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -126,24 +126,6 @@ class GASettingsControllerTest {
         String expectedResult = "Bairro";
         //Assert
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void seeIfMatchGeoAreaWorks() {
-        //Arrange
-        GASettingsController ctrl = new GASettingsController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"),2,5, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2,4,new Local(14, 14, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2,4,new Local(3, 3, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
-        //Act
-        GeographicArea actualResult = ctrl.matchGeoArea("Portugal", gAL1);
-        GeographicArea expectedResult = gA1;
-        //Assert
-        assertEquals(expectedResult,actualResult);
     }
 
     //USER STORY 001 TESTS
@@ -298,7 +280,7 @@ class GASettingsControllerTest {
 
         GASettingsController us3 = new GASettingsController();
 
-        boolean result1 = us3.addNewGeoAreaToList(geoList, name, typeArea,length,width, latitude, longitude, altitude);
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name, typeArea, length, width, latitude, longitude, altitude);
         boolean result2 = us3.addNewGeoAreaToList(geoList, name, typeArea, length, width, latitude, longitude, altitude);
 
         assertTrue(result1); //safety check (already covered on previous test)
@@ -319,8 +301,8 @@ class GASettingsControllerTest {
         String name2 = "Lisboa";
 
         GASettingsController us3 = new GASettingsController();
-        boolean result1 = us3.addNewGeoAreaToList(geoList, name1, typeArea, length,width,latitude, longitude, altitude);
-        boolean result2 = us3.addNewGeoAreaToList(geoList, name2, typeArea, length,width,latitude, longitude, altitude);
+        boolean result1 = us3.addNewGeoAreaToList(geoList, name1, typeArea, length, width, latitude, longitude, altitude);
+        boolean result2 = us3.addNewGeoAreaToList(geoList, name2, typeArea, length, width, latitude, longitude, altitude);
 
         assertTrue(result1); //safety check (already covered on previous test)
         assertTrue(result2);
@@ -337,12 +319,13 @@ class GASettingsControllerTest {
         double length = 2;
         double width = 4;
         GASettingsController us3 = new GASettingsController();
-        boolean result = us3.addNewGeoAreaToList(null, name1, typeArea, length,width,latitude, longitude, altitude);
+        boolean result = us3.addNewGeoAreaToList(null, name1, typeArea, length, width, latitude, longitude, altitude);
 
         Assertions.assertFalse(result);
     }
 
     //USER STORY 004 TESTS
+
     /**
      * @Test void seeIfConstructorAddsGeographicAreas() {
      * <p>
@@ -571,9 +554,9 @@ class GASettingsControllerTest {
     @Test
     void seeIfPrintGAList() {
         //Arrange
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"),2,5, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2,4,new Local(14, 14, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2,4,new Local(3, 3, 5));
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
         GeographicAreaList gAL1 = new GeographicAreaList();
         gAL1.addGeographicAreaToGeographicAreaList(gA1);
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
@@ -635,38 +618,38 @@ class GASettingsControllerTest {
         assertEquals(ga2, result);
     }
 
+//USER STORY 007 Tests
+
     @Test
-    void seeIfPrintGeographicAreaList() {
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        GeographicArea ga1 = new GeographicArea("Oporto", new TypeArea("City"), 2,4,new Local(14, 14, 5));
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+    public void seeIfMatchGeoAreaWorks() {
+        //Arrange
         GASettingsController ctrl = new GASettingsController();
-
-        String actualResult = ctrl.printGeographicAreaListNames(geographicAreaList);
-
-        assertEquals("Geographic Area List: \n" +
-                "-Oporto;", actualResult);
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        gAL1.addGeographicAreaToGeographicAreaList(gA1);
+        gAL1.addGeographicAreaToGeographicAreaList(gA2);
+        gAL1.addGeographicAreaToGeographicAreaList(gA3);
+        //Act
+        GeographicArea actualResult = ctrl.matchGeoArea("Portugal", gAL1);
+        GeographicArea expectedResult = gA1;
+        //Assert
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfValidateGeoAreaTrue() {
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        GeographicArea ga1 = new GeographicArea("Oporto", new TypeArea("City"), 2,4,new Local(14, 14, 5));
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
+    public void seeIfSetAndGetMotherAreaWorks() {
+        //Arrange
         GASettingsController ctrl = new GASettingsController();
-        boolean actualResult = ctrl.validateGeoArea("Oporto", geographicAreaList);
-
-        assertTrue(actualResult);
+        GeographicArea motherA = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
+        GeographicArea daughterA = new GeographicArea("Valongo", new TypeArea("City"), 1, 1, new Local(15, 13, 5));
+        //Act
+        ctrl.setMotherArea(daughterA, motherA);
+        GeographicArea actualResult = ctrl.getMotherArea();
+        GeographicArea expectedResult = motherA;
+        //Assert
+        assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfValidateGeoAreaFalse() {
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        GeographicArea ga1 = new GeographicArea("Oporto", new TypeArea("City"), 2,4,new Local(14, 14, 5));
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
-        GASettingsController ctrl = new GASettingsController();
-        boolean actualResult = ctrl.validateGeoArea("Gaia", geographicAreaList);
-
-        assertFalse(actualResult);
-    }
 }
