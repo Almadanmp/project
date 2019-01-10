@@ -137,4 +137,72 @@ class EnergyGridSettingsControllerTest {
                 "---------------\n";
         Assert.assertEquals(expectedResult, result);
     }
+    @Test
+    void ensureThatWeRemoveRoomFromGrid(){
+        EnergyGridSettingsController egsc = new EnergyGridSettingsController();
+        Room room1EdC = new Room("B107", 1, 7,11,3.5);
+        Room room2EdC = new Room("B109", 1, 7,11,3.5);
+        Room room3EdC = new Room("B106", 1, 7,13,3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C",333);
+        EnergyGridList egl = new EnergyGridList();
+        egl.addEnergyGridToEnergyGridList(eg);
+        RoomList rl = new RoomList();
+        eg.setListOfRooms(rl);
+        rl.addRoom(room1EdC);
+        rl.addRoom(room2EdC);
+        rl.addRoom(room3EdC);
+        boolean expectedResult = true;
+        boolean actualResult = egsc.removeRoomFromGrid(eg,room1EdC);
+        assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    void ensureThatWeDoNotRemoveRoomFromGrid(){
+            EnergyGridSettingsController egsc = new EnergyGridSettingsController();
+            Room room1EdC = new Room("B107", 1, 7,11,3.5);
+            Room room2EdC = new Room("B109", 1, 7,11,3.5);
+            Room room3EdC = new Room("B106", 1, 7,13,3.5);
+            EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C",333);
+            EnergyGridList egl = new EnergyGridList();
+            egl.addEnergyGridToEnergyGridList(eg);
+            RoomList rl = new RoomList();
+            eg.setListOfRooms(rl);
+            rl.addRoom(room2EdC);
+            rl.addRoom(room3EdC);
+            boolean expectedResult = false;
+            boolean actualResult = egsc.removeRoomFromGrid(eg,room1EdC);
+            assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    void ensureThatWeAddRoomToTheGrid(){
+            EnergyGridSettingsController egsc = new EnergyGridSettingsController();
+            Room room1EdC = new Room("B107", 1, 7,11,3.5);
+            Room room2EdC = new Room("B109", 1, 7,11,3.5);
+            Room room3EdC = new Room("B106", 1, 7,13,3.5);
+            EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C",333);
+            EnergyGridList egl = new EnergyGridList();
+            egl.addEnergyGridToEnergyGridList(eg);
+            RoomList rl = new RoomList();
+            eg.setListOfRooms(rl);
+            boolean expectedResult = true;
+            boolean actualResult = egsc.addRoomToTheGrid(eg,room1EdC);
+            assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    void ensureThatWeDoNotAddRoomToTheGrid(){
+        EnergyGridSettingsController egsc = new EnergyGridSettingsController();
+        Room room1EdC = new Room("B107", 1, 7,11,3.5);
+        Room room2EdC = new Room("B109", 1, 7,11,3.5);
+        Room room3EdC = new Room("B106", 1, 7,13,3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C",333);
+        EnergyGridList egl = new EnergyGridList();
+        egl.addEnergyGridToEnergyGridList(eg);
+        RoomList rl = new RoomList();
+        eg.setListOfRooms(rl);
+        rl.addRoom(room1EdC);
+        rl.addRoom(room2EdC);
+        rl.addRoom(room3EdC);
+        boolean expectedResult = false;
+        boolean actualResult = egsc.addRoomToTheGrid(eg,room1EdC);
+        assertEquals(expectedResult,actualResult);
+    }
 }
