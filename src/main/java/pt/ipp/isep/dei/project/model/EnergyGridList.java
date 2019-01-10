@@ -20,7 +20,7 @@ public class EnergyGridList {
         return false;
     }
 
-    public String printEnergyGridList() {
+    String printEnergyGridList() {
         StringBuilder finalString = new StringBuilder();
         String emptyList = "The list is empty.";
         if (mEnergyGridList.isEmpty()) {
@@ -50,12 +50,11 @@ public class EnergyGridList {
     }
 
     public String printElementsByIndex(List<Integer> indexes) {
-        String result = "";
-        for (int i = 0; i < indexes.size(); i++) {
-            int pos = indexes.get(i);
-            result += indexes.get(i) + ") " + mEnergyGridList.get(pos).getName() + ", " + mEnergyGridList.get(pos).getMaxPower() + ", " + mEnergyGridList.get(pos).getListPowerSources() + ".\n";
+        StringBuilder result = new StringBuilder();
+        for (int pos : indexes) {
+            result.append(pos).append(") ").append(mEnergyGridList.get(pos).getName()).append(", ").append(mEnergyGridList.get(pos).getMaxPower()).append(", ").append(mEnergyGridList.get(pos).getListPowerSources()).append(".\n");
         }
-        return result;
+        return result.toString();
     }
 
     @Override
