@@ -57,8 +57,8 @@ class EnergyGridSettingsUI {
                             System.out.println("Room successfully added to the grid!");
                         } else System.out.println("It wasn't possible to add the room. Please try again.");
                         activeInput = false;
-                        break;
                     }
+                    break;
                 case 5:
                     getInputEnergyGrid(house);
                     getInputRoom(house);
