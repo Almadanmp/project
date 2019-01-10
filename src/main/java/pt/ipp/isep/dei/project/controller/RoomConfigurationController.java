@@ -27,11 +27,7 @@ public class RoomConfigurationController {
         this.mRoom = room;
     }
 
-    public SensorList getSensorsFromRoom() {
-        return this.mRoom.getRoomSensorList();
-    }
-
-    public boolean doesSensorListInAGeoAreaContainASensorByName(String name, GeographicAreaList ga) {
+       public boolean doesSensorListInAGeoAreaContainASensorByName(String name, GeographicAreaList ga) {
         boolean result = true;
         for (GeographicArea g : ga.getGeographicAreaList()) {
             result = g.doesSensorListInAGeoAreaContainASensorByName(name);

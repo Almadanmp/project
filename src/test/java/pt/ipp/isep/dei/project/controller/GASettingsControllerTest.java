@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.util.*;
@@ -519,6 +520,8 @@ class GASettingsControllerTest {
         //Assert
         assertEquals(expectedResult, result);
     }
+
+
 
 
 }

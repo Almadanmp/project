@@ -50,11 +50,12 @@ public class EnergyGridList {
     }
 
     public String printElementsByIndex(List<Integer> indexes) {
-        StringBuilder result = new StringBuilder();
+        String result = "";
         for (int i = 0; i < indexes.size(); i++) {
-            result.append(indexes.get(i)).append(") ").append(mEnergyGridList.get(i).getName()).append(", ").append(mEnergyGridList.get(i).getMaxPower()).append(", ").append(mEnergyGridList.get(i).getListPowerSources()).append(".\n");
+            int pos = indexes.get(i);
+            result += indexes.get(i) + ") " + mEnergyGridList.get(pos).getName() + ", " + mEnergyGridList.get(pos).getMaxPower() + ", " + mEnergyGridList.get(pos).getListPowerSources() + ".\n";
         }
-        return result.toString();
+        return result;
     }
 
     @Override

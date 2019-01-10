@@ -60,15 +60,15 @@ public class MainUI {
         //TEST ROOMS
         RoomList roomList1 = new RoomList();
         RoomList roomList2 = new RoomList();
-        Room room1 = new Room("wc", 19, 23456789, 2,2);
+        Room room1 = new Room("wc", 19, 23456789, 2, 2);
         room1.setRoomSensorList(sensorList2);
-        Room room2 = new Room("kitchen", 8, 2, 2,2);
+        Room room2 = new Room("kitchen", 8, 2, 2, 2);
         room2.setRoomSensorList(sensorList2);
-        Room room3 = new Room("room1", 19, 23456789, 2,2);
+        Room room3 = new Room("room1", 19, 23456789, 2, 2);
         room3.setRoomSensorList(sensorList2);
-        Room room4 = new Room("room2", 8, 2, 2,2);
+        Room room4 = new Room("room2", 8, 2, 2, 2);
         room4.setRoomSensorList(sensorList2);
-        Device d1 = new Device("aspirador", "eletrodomestico", room2, new ReadingList(),20 );
+        Device d1 = new Device("aspirador", "eletrodomestico", room2, new ReadingList(), 20);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevices(d1);
         roomList1.addRoom(room1);
@@ -148,9 +148,9 @@ public class MainUI {
         //Rooms
 
         //Edificio B Rooms
-        Room roomISEP1 = new Room("B107", 1, 7,11,3.5);
-        Room roomISEP2 = new Room("B109", 1, 7,11,3.5);
-        Room roomISEP3 = new Room("B106", 1, 7,13,3.5);
+        Room roomISEP1 = new Room("B107", 1, 7, 11, 3.5);
+        Room roomISEP2 = new Room("B109", 1, 7, 11, 3.5);
+        Room roomISEP3 = new Room("B106", 1, 7, 13, 3.5);
         RoomList roomListEdifB = new RoomList();
         roomListEdifB.addRoom(roomISEP1);
         roomListEdifB.addRoom(roomISEP2);
@@ -158,7 +158,7 @@ public class MainUI {
 
         // Houses (1 per Geographical Area!)
 
-        House EdificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto", new Local(41.177748, -8.607745,112),ISEP, roomListEdifB);
+        House EdificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto", new Local(41.177748, -8.607745, 112), ISEP, roomListEdifB);
 
 
         // Sensor Readings
@@ -226,10 +226,10 @@ public class MainUI {
         Reading reading42 = new Reading(4.3, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 1).getTime());
         Reading reading43 = new Reading(14.8, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 1).getTime());
         Reading reading44 = new Reading(8.9, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 1).getTime());
-        Reading reading45 = new Reading(6.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,2,0).getTime());
-        Reading reading46 = new Reading(3.2, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,8,0).getTime());
-        Reading reading47 = new Reading(14.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,14,0).getTime());
-        Reading reading48 = new Reading(8.3, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2,20,0).getTime());
+        Reading reading45 = new Reading(6.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2, 2, 0).getTime());
+        Reading reading46 = new Reading(3.2, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2, 8, 0).getTime());
+        Reading reading47 = new Reading(14.1, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2, 14, 0).getTime());
+        Reading reading48 = new Reading(8.3, new GregorianCalendar(2019, GregorianCalendar.JANUARY, 2, 20, 0).getTime());
         readingListISEPtemperature.addReading(reading33);
         readingListISEPtemperature.addReading(reading34);
         readingListISEPtemperature.addReading(reading35);
@@ -251,9 +251,9 @@ public class MainUI {
 
         Sensor sensorRoom109 = new Sensor("Temperature B109", new TypeSensor("temperature", "ºC"), new Local(0, 0, 0), new GregorianCalendar(2018, 10, 16).getTime());
         sensorRoom109.setReadingList(readingListSensorRoom109);
-        Sensor sensorRainfallISEP = new Sensor("Meteo station ISEP - rainfall", new TypeSensor("rainfall","mm"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime());
+        Sensor sensorRainfallISEP = new Sensor("Meteo station ISEP - rainfall", new TypeSensor("rainfall", "mm"), new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
         sensorRainfallISEP.setReadingList(readingListISEPRainfall);
-        Sensor sensorTemperatureISEP = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature","ºC"), new Local(41.179230, -8.606409,125), new GregorianCalendar(2016, 11, 15).getTime());
+        Sensor sensorTemperatureISEP = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature", "ºC"), new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
         sensorTemperatureISEP.setReadingList(readingListISEPtemperature);
 
         // Sensor Lists
@@ -270,7 +270,7 @@ public class MainUI {
 
         // Energy Grid
 
-        EnergyGrid mainGrid = new EnergyGrid("main grid",0);
+        EnergyGrid mainGrid = new EnergyGrid("main grid", 0);
         EnergyGridList EnergyGridListISEP = new EnergyGridList();
         EnergyGridListISEP.addEnergyGridToEnergyGridList(mainGrid);
         mainGrid.setListOfRooms(roomListEdifB);
@@ -287,30 +287,18 @@ public class MainUI {
         while (activeProgram) {
 
             System.out.println("\n**********************************\n" +
-                               "******** Smart Grid Menu *********\n" +
-                               "*********** sWitCh 2018 **********\n" +
-                               "**********************************\n");
+                    "******** Smart Grid Menu *********\n" +
+                    "*********** sWitCh 2018 **********\n" +
+                    "**********************************\n");
 
             // Submenus Input selection
 
             String[] menu = {" 0. Exit Application\n",
-                    "1 Geographic Area Settings\n",
-                    "5. Determine the type of a sensor.\n",
-                    "6. Create a new Sensor and add it to a GA.\n",
-                    "9. Display all available sensors.\n",
-                    "10. Display all available Geographic Areas.\n",
-                    "11. Set the location of a house.\n",
-                    "12. Add a new room to a house.\n",
-                    "14. Create an energy grid.\n",
-                    "15. Add a power source to an energy grid.\n",
-                    "16. See Room List.\n",
-                    "17. Get Current Temperature in a House Area.\n",
-                    "18. Change Room Settings.\n",
-                    "19. List the rooms on Energy Grid\n",
-                    "20. Add a Room to the Energy Grid\n",
-                    "21. Remove a Room from an Energy Grid\n",
-                    "22. Room Configuration.\n",
-                    "23. House Monitoring.\n"};
+                    "1. Geographic Area Settings\n",
+                    "2. House Settings.\n",
+                    "3. Sensor Settings.\n",
+                    "4. Energy Grid Settings.\n",
+                    "5. House Monitoring.\n",};
 
             System.out.println("Select the task you want to do:");
 
@@ -329,96 +317,30 @@ public class MainUI {
                     case 0:
                         return;
                     case 1:
-                        GASettingsUI view1 = new GASettingsUI ();
+                        GASettingsUI view1 = new GASettingsUI();
                         view1.run(mGeographicAreaList, mTypeAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
+                   case 2:
+                       HouseConfigurationUI houseC = new HouseConfigurationUI();
+                       houseC.run(mGeographicAreaList, mTypeAreaList, programHouse);
+                       returnToMenu(enterToReturnToConsole);
+                       activeInput = true;
+                       break;
+                    case 3:
+                        SensorSettingsUI sensorSettings = new  SensorSettingsUI();
+                        sensorSettings.run(mGeographicAreaList, mTypeAreaList, programHouse);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = true;
+                        break;
+                      case 4:
+                        EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
+                        energyGridSettings.run(mGeographicAreaList,mTypeAreaList, programHouse);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = true;
+                        break;
                     case 5:
-                        HouseConfigurationUI view5 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view5.runUS05(sensorList1);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 6:
-                        HouseConfigurationUI view6 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view6.run06();
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 9:
-                        if (sensorList1.checkIfListIsValid())
-                            System.out.println("The list of sensors is empty!");
-                        for (Sensor sensor : sensorList1.getSensorList()) {
-                            System.out.println(sensor.getName());
-                        }
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 10:
-                        if (mGeographicAreaList.checkIfListIsValid())
-                            System.out.println("The list of geographic areas is empty!");
-                        for (GeographicArea ga1 : mGeographicAreaList.getGeographicAreaList()) {
-                            System.out.println(ga1.getId());
-                        }
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 11:
-                        HouseConfigurationUI view11 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view11.runUS101(programHouse);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 12:
-                        HouseConfigurationUI view12 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view12.runUS105(programHouse);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 14:
-                        HouseConfigurationUI view14 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view14.runUS130(programHouse);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 15:
-                        HouseConfigurationUI view15 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view15.runUS135(programHouse);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 18:
-                        HouseConfigurationUI view16 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view16.runUS108UI(programHouse);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 19:
-                        HouseConfigurationUI view145 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view145.runUS145(programHouse);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 20:
-                        HouseConfigurationUI view147 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view147.runUS147(programHouse);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 21:
-                        HouseConfigurationUI view149 = new HouseConfigurationUI(sensorList1, mGeographicAreaList);
-                        view149.runUS149(programHouse);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 22:
-                        RoomConfigurationUI viewRC = new RoomConfigurationUI();
-                        viewRC.run(mGeographicAreaList, programHouse);
-                        returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
-                        break;
-                    case 23:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
                         houseM.run(geographicalAreaList, programHouse);
                         returnToMenu(enterToReturnToConsole);
@@ -432,7 +354,7 @@ public class MainUI {
         }
     }
 
-    private static void returnToMenu(Scanner scanner){
+    private static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();

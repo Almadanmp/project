@@ -33,7 +33,7 @@ public class RoomConfigurationUI {
             return;
         }
         boolean activeInput = false;
-        String option;
+        int option;
         System.out.println("--------------\n");
         System.out.println("Room Configuration\n");
         System.out.println("--------------\n");
@@ -53,9 +53,9 @@ public class RoomConfigurationUI {
         }
         while (!activeInput) {
             printOptionMessage();
-            option = mScanner.next();
+            option = UtilsUI.readInputNumberAsInt();
             switch (option) {
-                case "1":
+                case 1:
                     if (!getInputSensorName(newGeoListUi)) {
                         return;
                     }
@@ -63,13 +63,13 @@ public class RoomConfigurationUI {
                     displayStateRoomConfiguration();
                     activeInput = true;
                     break;
-                case "0":
+                case 0:
                     return;
                 default:
                     System.out.println(INVALID_OPTION);
                     break;
             }
-            }
+        }
     }
 
     /******************************************************************************
@@ -81,6 +81,7 @@ public class RoomConfigurationUI {
         System.out.println("1) Add a sensor to the room");
         System.out.println("0) (Return to main menu)");
     }
+
     private int readInputNumberAsInt() {
         while (!mScanner.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
@@ -89,12 +90,14 @@ public class RoomConfigurationUI {
         Double option = mScanner.nextDouble();
         return option.intValue();
     }
+
     public void updateModelRoomConfiguration() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        this.mRoom = mRoomConfigurationController.getRoomFromName(mRoomName,mHouse);
-        this.mSensor = mRoomConfigurationController.getSensorFromName(mNameSensor,mGeoArea);
-        ctrl.addSensorToRoom(mRoom,mSensor.getName(),mGeoArea);
+        this.mRoom = mRoomConfigurationController.getRoomFromName(mRoomName, mHouse);
+        this.mSensor = mRoomConfigurationController.getSensorFromName(mNameSensor, mGeoArea);
+        ctrl.addSensorToRoom(mRoom, mSensor.getName(), mGeoArea);
     }
+
     private void displayStateRoomConfiguration() {
         System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mRoomName);
     }
@@ -128,11 +131,13 @@ public class RoomConfigurationUI {
                 break;
         }
     }
+
     private boolean getInputRoomName() {
         System.out.println("Please type the name of the Room you want to access.");
         this.mRoomName = mScanner.nextLine();
         return (!(this.mRoomName.equals("exit")));
     }
+
     private boolean getRoomByName() {
         List<Integer> listOfIndexesRoom = mRoomConfigurationController.matchRoomIndexByString(mRoomName, mHouse);
         while (listOfIndexesRoom.isEmpty()) {
@@ -158,13 +163,14 @@ public class RoomConfigurationUI {
             }
         } else {
             this.mRoom = mHouse.getmRoomList().getListOfRooms().get(listOfIndexesRoom.get(0));
-            this.mRoomName=mRoom.getRoomName();
+            this.mRoomName = mRoom.getRoomName();
             System.out.println("You have chosen the following Room:");
             this.mHouse.getmRoomList().getListOfRooms().get(0);
             System.out.println(mRoomConfigurationController.printRoom(mRoom));
         }
         return true;
     }
+
     private void getInputRoomByList() {
         if (mHouse.getmRoomList().getListOfRooms().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
@@ -191,10 +197,10 @@ public class RoomConfigurationUI {
 
     private boolean getInputSensorName(GeographicAreaList newGeoListUi) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please insert the name of the Sensor you want to add to " +mRoom.getRoomName() + " : ");
+        System.out.print("Please insert the name of the Sensor you want to add to " + mRoom.getRoomName() + " : ");
         this.mNameSensor = scanner.next();
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        if (ctrl.doesSensorListInAGeoAreaContainASensorByName(this.mNameSensor,newGeoListUi)) {
+        if (ctrl.doesSensorListInAGeoAreaContainASensorByName(this.mNameSensor, newGeoListUi)) {
             System.out.println("You chose the Sensor " + this.mNameSensor);
         } else {
             System.out.println("This sensor does not exist in the list of sensors.");
@@ -238,12 +244,14 @@ public class RoomConfigurationUI {
             }
         }
     }
+
     private boolean getInputGeographicAreaName() {
-            Scanner scan = new Scanner(System.in);
-            System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
-            this.geoName = scan.nextLine();
-            return (!(geoName.equals("exit")));
-        }
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
+        this.geoName = scan.nextLine();
+        return (!(geoName.equals("exit")));
+    }
+
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
@@ -273,6 +281,7 @@ public class RoomConfigurationUI {
         }
         return true;
     }
+
     private void getInputGeographicAreaByList(GeographicAreaList newGeoListUi) {
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");

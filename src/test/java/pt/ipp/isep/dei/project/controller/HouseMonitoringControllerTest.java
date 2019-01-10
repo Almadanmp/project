@@ -12,60 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 public class HouseMonitoringControllerTest {
-//SHARED METHODS
-
-    @Test
-    public void seeIfMatchGeographicAreaTypeIndexByString() {
-        HouseConfigurationController ctrl = new HouseConfigurationController();
-        TypeArea type = new TypeArea("cidade");
-        TypeAreaList list = new TypeAreaList();
-        String input = "cidade";
-        list.addTypeArea(type);
-        List<Integer> expectedResult = new ArrayList<>();
-        expectedResult.add(0);
-        List<Integer> result;
-        result = ctrl.matchTypeAreaIndexByString(input, list);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void seeIfMatchGeographicAreaTypeIndexByStringNotMatch() {
-        HouseConfigurationController ctrl = new HouseConfigurationController();
-        TypeArea type = new TypeArea("cidade");
-        TypeAreaList list = new TypeAreaList();
-        String input = "distrito";
-        list.addTypeArea(type);
-        List<Integer> expectedResult = new ArrayList<>();
-        List<Integer> result;
-        result = ctrl.matchTypeAreaIndexByString(input, list);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfPrintGAWholeList() {
-        HouseConfigurationController ctrl = new HouseConfigurationController();
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
-        list.addTypeArea(type1);
-        List<Integer> listIndex = new ArrayList<>();
-        listIndex.add(0);
-        listIndex.add(1);
-        listIndex.add(2);
-        String expectedResult = "---------------\n" +
-                "0) Type Area: cidade\n" +
-                "1) Type Area: distrito\n" +
-                "2) Type Area: aldeia\n" +
-                "---------------\n";
-        String result = ctrl.printTypeAreaElementsByIndex(listIndex, list);
-        assertEquals(expectedResult, result);
-    }
-
-
 
     @Test
     public void seeIfPrintsGeoAList() {

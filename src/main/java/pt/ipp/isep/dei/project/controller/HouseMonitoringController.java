@@ -67,6 +67,7 @@ public class HouseMonitoringController {
     public String printHouse (House house){
         return house.printHouse();
     }
+
     public List<Integer> matchRoomIndexByString(String input, House house){
         return house.getmRoomList().matchRoomIndexByString(input);
     }

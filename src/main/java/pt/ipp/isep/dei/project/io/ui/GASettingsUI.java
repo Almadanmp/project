@@ -237,7 +237,7 @@ public class GASettingsUI {
     }
 
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
-        HouseConfigurationController ctrl = new HouseConfigurationController(newGeoListUi);
+        HouseConfigurationController ctrl = new HouseConfigurationController();
         List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
 
         while (listOfIndexesGeographicAreas.isEmpty()) {
