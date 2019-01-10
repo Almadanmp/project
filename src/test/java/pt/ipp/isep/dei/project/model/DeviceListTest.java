@@ -8,10 +8,10 @@ import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DeviceListTest {
+class DeviceListTest {
 
     @Test
-    public void seeIfAddDeviceWorksWithSameDevice() {
+    void seeIfAddDeviceWorksWithSameDevice() {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 9, 23456789,2,2);
@@ -26,7 +26,7 @@ public class DeviceListTest {
         double tP1 = 50;
         //Device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
         deviceL1.addDevices(d1);
 
         Boolean actualResult = deviceL1.addDevices(d1);
@@ -35,7 +35,7 @@ public class DeviceListTest {
     }
 
     @Test
-    public void seeIfAddDeviceWorksWithDifferentDevice() {
+    void seeIfAddDeviceWorksWithDifferentDevice() {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 9, 23456789,2,2);
@@ -46,12 +46,10 @@ public class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Total Power
-        double tP1 = 50;
         //Device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
-        Device device2 = new Device("WM", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
+        Device device2 = new Device();
         deviceL1.addDevices(d1);
 
         Boolean actualResult = deviceL1.addDevices(device2);
@@ -60,7 +58,7 @@ public class DeviceListTest {
     }
 
     @Test
-    public void seeIfContainsDeviceWorks() {
+    void seeIfContainsDeviceWorks() {
         //Arrange --------------------------
         //Room List
         RoomList roomList1 = new RoomList();
@@ -72,11 +70,9 @@ public class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Total Power
-        double tP1 = 50;
         //Device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
         deviceL1.addDevices(d1);
         //Act ------------------------------
         boolean result = deviceL1.containsDevice(d1);
@@ -85,7 +81,7 @@ public class DeviceListTest {
     }
 
     @Test
-    public void seeIfContainsDeviceWorksForFalse() {
+    void seeIfContainsDeviceWorksForFalse() {
         //Arrange --------------------------
         //Room List
         RoomList roomList1 = new RoomList();
@@ -97,11 +93,9 @@ public class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Total Power
-        double tP1 = 50;
         //Device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
         //Act ------------------------------
         boolean result = deviceL1.containsDevice(d1);
         //Assert ---------------------------
@@ -109,7 +103,7 @@ public class DeviceListTest {
     }
 
     @Test
-    public void seeIfRemoveDeviceWorks() {
+    void seeIfRemoveDeviceWorks() {
         //Arrange ------------------------
         //Room List
         RoomList roomList1 = new RoomList();
@@ -121,11 +115,9 @@ public class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Total Power
-        double tP1 = 50;
         //Device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
         deviceL1.addDevices(d1);
         //Act ----------------------------
         deviceL1.removeDevice(d1);
@@ -135,7 +127,7 @@ public class DeviceListTest {
     }
 
     @Test
-    public void seeIfRemoveDeviceWorksForFalse() {
+    void seeIfRemoveDeviceWorksForFalse() {
         //Arrange ------------------------
         //Room List
         RoomList roomList1 = new RoomList();
@@ -147,11 +139,9 @@ public class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Total Power
-        double tP1 = 50;
         //Device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
         deviceL1.addDevices(d1);
         //Act ----------------------------
         boolean result = deviceL1.containsDevice(d1);
@@ -160,7 +150,7 @@ public class DeviceListTest {
     }
 
     @Test
-    public void seeIfCheckIfListIsValidWorks() {
+    void seeIfCheckIfListIsValidWorks() {
         //Arrange ------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
@@ -172,11 +162,9 @@ public class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Total Power
-        double tP1 = 50;
         //Device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
         deviceL1.addDevices(d1);
         //Act ----------------------------------
         boolean result = deviceL1.checkIfListIsValid();
@@ -185,7 +173,7 @@ public class DeviceListTest {
     }
 
     @Test
-    public void seeIfCheckIfListIsValidWorksForFalse() {
+    void seeIfCheckIfListIsValidWorksForFalse() {
         //Arrange ------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
@@ -207,7 +195,7 @@ public class DeviceListTest {
 
 
     @Test
-    public void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         //Arrange -------------------
         DeviceList deviceL1 = new DeviceList();
         //Act -----------------------
@@ -218,7 +206,7 @@ public class DeviceListTest {
     }
 
     @Test
-    public void ensureTha1tAObjectIsAInstanceOf() {
+    void ensureTha1tAObjectIsAInstanceOf() {
         //Arrange --------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
@@ -230,21 +218,19 @@ public class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Total Power
-        double tP1 = 50;
         DeviceList deviceL1 = new DeviceList();
         DeviceList deviceL2 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
         deviceL2.addDevices(d1);
         deviceL1.addDevices(d1);
         //Act ------------------------------------
-        Boolean actualResult = deviceL1.equals(deviceL2);
+        boolean actualResult = deviceL1.equals(deviceL2);
         //Assert ---------------------------------
         assertTrue(actualResult);
     }
 
     @Test
-    public void ensureThatAObjectIsNotAInstanceOf() {
+    void ensureThatAObjectIsNotAInstanceOf() {
         //Arrange -----------------------------------
         DeviceList deviceL1 = new DeviceList();
         //Room List
@@ -257,20 +243,18 @@ public class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Total Power
-        double tP1 = 50;
         //Device List
         DeviceList deviceL2 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
         deviceL2.addDevices(d1);
         //Act ---------------------------------------
-        Boolean actualResult = deviceL1.equals(deviceL2);
+        boolean actualResult = deviceL1.equals(deviceL2);
         //Assert ------------------------------------
         assertFalse(actualResult);
     }
 
     @Test
-    public void ensureThatAObject() {
+    void ensureThatAObject() {
         //Arrange -----------------------------------
         DeviceList deviceL1 = new DeviceList();
         //Room List
@@ -283,25 +267,23 @@ public class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Total Power
-        double tP1 = 50;
         //Device List
         DeviceList deviceL2 = new DeviceList();
-        Device d1 = new Device("Television", "House Apliance", room1, rL1, tP1);
+        Device d1 = new Device();
         deviceL2.addDevices(d1);
         deviceL1.addDevices(d1);
         //Act ---------------------------------------
-        Boolean actualResult = deviceL1.equals(deviceL2);
+        boolean actualResult = deviceL1.equals(deviceL2);
         //Assert ------------------------------------
         assertTrue(actualResult);
     }
 
     @Test
-    public void ensureThatAObjectIsNotAInstanceOfNull() {
+    void ensureThatAObjectIsNotAInstanceOfNull() {
         //Arrange ---------------------------------------
         DeviceList deviceL1 = new DeviceList();
         //Act -------------------------------------------
-        Boolean actualResult = deviceL1.equals(null);
+        boolean actualResult = deviceL1.equals(null);
         //Assert ----------------------------------------
         assertFalse(actualResult);
     }

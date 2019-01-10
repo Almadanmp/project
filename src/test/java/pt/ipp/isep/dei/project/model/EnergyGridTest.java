@@ -9,11 +9,10 @@ class EnergyGridTest {
 
     @Test
     void seeIfPrintGridWorks() {
-        Room room = new Room("room1", 1, 1,2,2);
         Reading r1 = new Reading(20);
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("frigo", "frio", room, readingList, 0);
+        Device device = new Device();
         DeviceList deviceList = new DeviceList();
         deviceList.addDevices(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
@@ -29,7 +28,7 @@ class EnergyGridTest {
         Reading r1 = new Reading(20);
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("frigo", "frio", room, readingList, 0);
+        Device device = new Device();
         DeviceList deviceList = new DeviceList();
         deviceList.addDevices(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0, roomList);
