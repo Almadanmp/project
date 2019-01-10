@@ -202,7 +202,6 @@ public class RoomListTest {
 
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
         String expectedResult = "Invalid List - List is Empty\n";
-        ;
         String result = roomList.printRoomList(house);
         assertEquals(expectedResult, result);
     }

@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class EnergyGridListTest {
 
     @Test
@@ -30,6 +32,28 @@ public class EnergyGridListTest {
     }
 
     @Test
+    public void seeIfPrintsEnergyGridList() {
+        EnergyGridList pList1 = new EnergyGridList();
+        EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
+        EnergyGrid energyGrid2 = new EnergyGrid("Secundary Grid", 0);
+        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        pList1.addEnergyGridToEnergyGridList(energyGrid2);
+        String expectedResult = "Energy grid list: \n" +
+                "-Secundary Grid;";
+        String result = pList1.printEnergyGridList();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintsInvalidList() {
+        EnergyGridList pList1 = new EnergyGridList();
+
+        String expectedResult = "The list is empty.";
+        String result = pList1.printEnergyGridList();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     public void ensureThatAObjectIsAInstanceOf() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
@@ -43,6 +67,32 @@ public class EnergyGridListTest {
 
         Assertions.assertEquals(expectedResult, actualResult);
     }
+
+
+    @Test
+    public void ensureThatAObjectIsAInstanceOf2() {
+        EnergyGridList pList1 = new EnergyGridList();
+        EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
+        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        EnergyGridList pList2 = new EnergyGridList();
+        pList2.addEnergyGridToEnergyGridList(energyGrid1);
+        Boolean expectedResult = true;
+
+        Boolean actualResult = pList1.equals(pList2);
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void ensureThatAObjectIsAInstanceOf3() {
+        EnergyGridList pList1 = new EnergyGridList();
+        EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
+        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        Boolean expectedResult = false;
+        Boolean actualResult = pList1.equals(energyGrid1);
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
 
     @Test
     public void ensureThatAObjectIsNotAInstanceOf() {

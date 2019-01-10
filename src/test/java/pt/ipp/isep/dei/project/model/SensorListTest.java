@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -657,6 +658,7 @@ public class SensorListTest {
         //Assert
         expectedResult.equals(actualResult);
     }
+
     @Test
     void ensureThatSensorListIsPrintCorrectly() {
         Room room = new Room("Quarto Miki",1,3,3,3);
@@ -683,13 +685,36 @@ public class SensorListTest {
         Room room = new Room("Quarto Miki",1,3,3,3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
         SensorList sensorList1 = new SensorList();
         room.setRoomSensorList(sensorList1);
         String expectedResult = "Invalid List - List is Empty\n";
         String actualResult = sensorList1.printSensorList(room);
         assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfPrintElementsByIndex() {
+        //Arrange
+        List<Integer> list = new ArrayList<>();
+        Integer i = 2;
+        list.add(i);
+        Room room = new Room("Quarto Miki",1,3,3,3);
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        room.setRoomSensorList(sensorList1);
+
+        //Act
+        String result = sensorList1.printElementsByIndex(list);
+        String expectedResult = "2) s3 which is a Rain sensor.\n";
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
     }
 }

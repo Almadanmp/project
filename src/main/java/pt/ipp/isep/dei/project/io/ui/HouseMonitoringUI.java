@@ -160,7 +160,7 @@ public class HouseMonitoringUI {
         System.out.println("Please select one of the existing rooms on the selected House: ");
 
         while (!activeInput) {
-            houseMonitoringcontroller.printRoomList(house);
+            System.out.println(houseMonitoringcontroller.printRoomList(house));
             int aux = UtilsUI.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getmRoomList().getListOfRooms().size()) {
                 this.mRoom = house.getmRoomList().getListOfRooms().get(aux);

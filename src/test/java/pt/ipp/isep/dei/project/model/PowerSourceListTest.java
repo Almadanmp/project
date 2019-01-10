@@ -1,15 +1,38 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.junit.jupiter.api.Assertions;
+
 import org.testng.annotations.Test;
+
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class PowerSourceListTest {
+
+    @Test
+    public void seeIfContainsPowerWorksTrue() {
+        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
+        PowerSourceList pSList1 = new PowerSourceList();
+        pSList1.addPowerSource(pS1);
+        pSList1.addPowerSource(pS2);
+        boolean actualResult = pSList1.containsPowerSource(pS2);
+        boolean expectedResult = true;
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfContainsPowerWorksFalse() {
+        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
+        PowerSourceList pSList1 = new PowerSourceList();
+        pSList1.addPowerSource(pS1);
+        boolean actualResult = pSList1.containsPowerSource(pS2);
+        boolean expectedResult = false;
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     public void seeIfAddPowerSourceWorks() {
@@ -23,6 +46,19 @@ public class PowerSourceListTest {
     }
 
     @Test
+    public void seeIfAddPowerSourceWorks2() {
+        //Arrange
+        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
+        PowerSourceList pSList1 = new PowerSourceList();
+        pSList1.addPowerSource(pS1);
+        //Act
+        boolean actualResult = pSList1.addPowerSource(pS2);
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
     public void seeIfAddPowerSourceWorksForFalse() {
         //Arrange
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
@@ -31,6 +67,19 @@ public class PowerSourceListTest {
         pSList1.addPowerSource(pS1);
         //Act
         boolean actualResult = pSList1.addPowerSource(pS2);
+        //Assert
+        assertFalse(actualResult);
+    }
+
+
+    @Test
+    public void seeIfAddPowerSourceWorksForFalse2() {
+        //Arrange
+        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        PowerSourceList pSList1 = new PowerSourceList();
+        pSList1.addPowerSource(pS1);
+        //Act
+        boolean actualResult = pSList1.addPowerSource(pS1);
         //Assert
         assertFalse(actualResult);
     }
@@ -71,6 +120,17 @@ public class PowerSourceListTest {
     }
 
     @Test
+    public void seeIfEqualsPowerSourceWithDifferentContent2() {
+        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
+        PowerSourceList pSList1 = new PowerSourceList();
+        pSList1.addPowerSource(pS1);
+        boolean actualResult = pSList1.equals(pS2);
+        boolean expectedResult = false;
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void seeIfEqualsPowerSourceWithSameContent() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Energia", 50, 50);
@@ -92,4 +152,5 @@ public class PowerSourceListTest {
         boolean expectedResult = true;
         assertEquals(expectedResult, actualResult);
     }
+
 }
