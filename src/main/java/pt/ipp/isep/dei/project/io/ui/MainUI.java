@@ -305,7 +305,7 @@ public class MainUI {
                         break;
                     case 4:
                         SensorSettingsUI sensorSettings = new  SensorSettingsUI();
-                        sensorSettings.run(ISEP, geographicalAreaList);
+                        sensorSettings.run(geographicalAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

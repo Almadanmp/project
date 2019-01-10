@@ -246,16 +246,15 @@ public class GeographicArea {
         }
         return average / counter;
     }
-
-    public boolean doesSensorListInAGeoAreaContainASensorByName(String name) {
-        for (Sensor s : mAreaSensors.getSensorList()) {
-            if (s.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean addSensorToSensorList(Sensor sensor) {
+        String sensorToAddName = sensor.getName();
+        for (Sensor s : this.mAreaSensors.getSensorList()) {
+            String sensorNameTest = s.getName();
+            if (sensorNameTest.equals(sensorToAddName))
+                return false; }
+        this.mAreaSensors.addSensor(sensor);
+        return true;
     }
-
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two

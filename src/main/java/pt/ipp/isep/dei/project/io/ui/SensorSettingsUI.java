@@ -3,20 +3,19 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.Arrays;
+
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
 
 
-class SensorSettingsUI {
+public class SensorSettingsUI {
     private SensorSettingsController mController;
     private String sensorName;
     private String sensorType;
     private String sensorUnits; //TODO this is used but never assigned
-    private boolean mTypeAdded;
+    boolean mTypeAdded;
     private double sensorLat;
     private double sensorLong;
     private double sensorAlt;
@@ -25,21 +24,24 @@ class SensorSettingsUI {
     private int dataDay;
     private Sensor mSensor;
     private GeographicArea mGeographicArea;
+    private String mGeographicAreaName;
     private SensorList mSensorList;
     private GeographicAreaList mGeographicAreaList;  //TODO this is used but never assigned
 
 
-    SensorSettingsUI() {
+    public SensorSettingsUI() {
         this.mController = new SensorSettingsController();
     }
 
-    void run(GeographicArea geo,GeographicAreaList newGeoListUi) {
-        this.mGeographicArea = geo;
+    public void run(GeographicAreaList newGeoListUi) {
+
         this.mGeographicAreaList = newGeoListUi;
+
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
         }
+
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -179,6 +181,7 @@ class SensorSettingsUI {
         System.out.println("You entered sensor on coordinates  " + sensorLat + "  ,  " + sensorLong + "  ,  " + sensorAlt);
 
         // Date Getter
+
         System.out.println("\nEnter Sensor starting date:\t");
         System.out.println("\nEnter the year:\t");
         while (!input.hasNextInt()) {
@@ -209,7 +212,6 @@ class SensorSettingsUI {
         TypeSensor mType = mController.createType(this.sensorType, this.sensorUnits);
         Date mDate = mController.createDate(this.dataYear, this.dataMonth, this.dataDay);
         this.mSensor = mController.createSensor(this.sensorName, mType, mLocal, mDate);
-
     }
 
     private void displayUS06() {
@@ -221,23 +223,18 @@ class SensorSettingsUI {
     }
 
     private void getInputPart206() {
+        UtilsUI utils = new UtilsUI();
         Scanner input = new Scanner(System.in);
         System.out.println("\n Add sensor to Geographic Area?\n");
         System.out.println("Yes/No:\t");
-        List<String> valid = Arrays.asList("Yes", "YES", "yes", "Y", "y");
-        if (input.nextLine().equals(valid) ) {
-            System.out.println("Type the name of the Geographic Area which the sensor will be added to");
-            System.out.println("\nEnter Geographic Area Name:\t");
-            String mGeographicAreaName = input.nextLine();
-            System.out.println("You entered  " + mGeographicAreaName);
-        } else {
-            System.out.println("Exiting");
+        if ("yes".equals(input.nextLine())) {
+            this.mGeographicArea = utils.getInputGeographicArea(mGeographicAreaList);
         }
     }
 
     private void updateAndDisplayUS06Part206() {
-
-        if (mController.addSensorToGeographicArea(mGeographicArea,mGeographicAreaList,mSensor)) {
+        this.mGeographicArea = mController.getGeoAreaFromName(this.mGeographicAreaName,mGeographicAreaList);
+        if (mController.addSensorToGeographicalArea(mGeographicArea)) {
             System.out.println("\nSensor has been successfully added to the Geographic Area");
         } else {
             System.out.println("\nSensor could not be added to the Area.");
@@ -252,4 +249,5 @@ class SensorSettingsUI {
         System.out.println("2) Add a new sensor and associate it to a geographical area. (US006)");
         System.out.println("0) (Return to main menu)\n");
     }
+
 }

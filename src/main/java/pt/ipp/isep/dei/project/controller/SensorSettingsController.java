@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class SensorSettingsController {
     private SensorList mSensorList;
@@ -77,30 +76,14 @@ public class SensorSettingsController {
         return true;
     }
 
-    /**
-     * Method to check if a list is either composed by null values or is empty
-     */
-    private boolean checkIfListValid(List<GeographicArea> values) {
-        return values != null && !values.isEmpty();
+    public boolean addSensorToGeographicalArea(GeographicArea geoArea) {
+        return (geoArea.addSensorToSensorList(this.mSensor));
     }
 
-    /**
-     * Method to add a SensorList to a GeographicArea given that both the name of the Geographic Area and the name given
-     * as parameter match
-     * Calls the original method from model
-     */
 
-    public boolean addSensorToGeographicArea(GeographicArea ga, GeographicAreaList gaList, Sensor sensor) {
-        if (checkIfListValid(gaList.getGeographicAreaList())) {
-            ga.getSensorList().addSensor(sensor);
-                    return true;
-                }
-        return false;
-    }
-
-    public GeographicArea getGeoAreaFromName(String sensorName, GeographicAreaList galist) {
+    public GeographicArea getGeoAreaFromName(String geoName, GeographicAreaList galist) {
         for (GeographicArea ga : galist.getGeographicAreaList()) {
-            if (ga.getId().equals(sensorName))
+            if (ga.getId().equals(geoName))
                 mGeoArea = ga;
         }
         return mGeoArea;
