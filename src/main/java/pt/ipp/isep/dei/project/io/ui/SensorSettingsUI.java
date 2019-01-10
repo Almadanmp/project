@@ -29,6 +29,7 @@ public class SensorSettingsUI {
 
     public SensorSettingsUI() {
         this.mController = new SensorSettingsController();
+        mSensorList = new SensorList();
     }
 
     public void run(GeographicAreaList newGeoListUi) {
@@ -193,6 +194,7 @@ public class SensorSettingsUI {
     }
 
     private void displayUS06() {
+
         if (mController.addSensor(mSensor, mSensorList)) {
             System.out.println("\n \n Sensor has been successfully added to the list");
         } else {

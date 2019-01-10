@@ -95,7 +95,7 @@ public class HouseMonitoringController {
      */
     public double getAVGDailyRainfallOnGivenPeriod(House house, Date initialDate, Date endDate) {
         GeographicArea geoArea = house.getMotherArea();
-        return geoArea.getAvgReadingsFromSensorTypeInGA("Rain", initialDate, endDate);
+        return geoArea.getAvgReadingsFromSensorTypeInGA("rainfall", initialDate, endDate);
     }
 
     public double getTotalRainfallOnGivenDayHouseArea(GeographicArea geoArea, Date day) {

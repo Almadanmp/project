@@ -64,7 +64,7 @@ public class GASettingsUI {
                     break;
                 case 3:
                     getInputNameNewAreaUS03();
-                    getInputTypeOfAreaUS03();
+                    getInputTypeOfAreaUS03(typeAreaList);
                     getLocalGeoAreaUS03();
                     updateGeoAreaUS03(typeAreaList);
                     updateModelUS03(newGeoListUi);
@@ -330,17 +330,17 @@ public class GASettingsUI {
         this.nameOfGeoArea = readInputString("name");
     }
 
-    private void getInputTypeOfAreaUS03() {
-        this.mTypeAreaName = readInputString("Type Area");
+    private void getInputTypeOfAreaUS03(TypeAreaList typeAreaList) {
+        getInputTypeAreaByList(typeAreaList);
+       // this.mTypeAreaName = readInputString("Type Area");
     }
 
     private void getLocalGeoAreaUS03() {
         this.geoAreaLat = readInputNumber("Latitude");
         this.geoAreaLong = readInputNumber("Longitude");
         this.geoAreaAlt = readInputNumber("Altitude");
-        this.geoAreaLength = readInputNumber("Comprimento");
-        this.geoAreaWidth = readInputNumber("Largura");
-
+        this.geoAreaLength = readInputNumber("Length");
+        this.geoAreaWidth = readInputNumber("Width");
     }
 
     private void updateGeoAreaUS03(TypeAreaList typeAreaList) {

@@ -74,6 +74,10 @@ public class House {
         mLocation.setAltitude(altitude);
     }
 
+    public void setmMotherArea(GeographicArea mMotherArea) {
+        this.mMotherArea = mMotherArea;
+    }
+
     public void setRoomList(RoomList roomList) {
         this.mRoomList = roomList;
     }

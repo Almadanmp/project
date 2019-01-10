@@ -77,7 +77,7 @@ public class HouseMonitoringUI {
                 case 5:
                     getInputStartDate();
                     getInputEndDate();
-                    updateAndDisplayUS623();
+                    updateAndDisplayUS623(programHouse);
                     activeInput = true;
                     break;
                 case 0:
@@ -444,11 +444,11 @@ public class HouseMonitoringUI {
      * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
-    private void updateAndDisplayUS623() {
+    private void updateAndDisplayUS623(House house) {
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
-        this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate);
-        System.out.print("The Average Rainfall on " + mHouse.getHouseId() + " between " + initialDate + " and " + endDate +
+        this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, initialDate, endDate);
+        System.out.print("The Average Rainfall on " + house.getHouseId() + " between " + initialDate + " and " + endDate +
                 " is " + mResult623 + "%.");
     }
 }

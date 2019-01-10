@@ -29,6 +29,7 @@ public class MainUI {
         ISEP.setLength(0.249);
         ISEP.setDescription("Campus do ISEP");
 
+
         GeographicArea Porto = new GeographicArea("Porto", new TypeArea("city"), 31,6,new Local(41.164077, -8.620802, 118));
         Porto.setWidth(10.09);
         Porto.setLength(10.09);
@@ -66,7 +67,7 @@ public class MainUI {
         // Houses (1 per Geographical Area!)
 
         House EdificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto", new Local(41.177748, -8.607745, 112), ISEP, roomListEdifB);
-
+        EdificioB.setmMotherArea(ISEP);
 
         // Sensor Readings
 
@@ -164,7 +165,6 @@ public class MainUI {
         sensorTemperatureISEP.setReadingList(readingListISEPtemperature);
 
         // Sensor Lists
-
         SensorList room109SensorList = new SensorList();
         room109SensorList.addSensor(sensorRoom109);
         roomISEP2.setRoomSensorList(room109SensorList);
@@ -237,12 +237,12 @@ public class MainUI {
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                   case 2:
-                       HouseConfigurationUI houseC = new HouseConfigurationUI();
-                       houseC.run(geographicalAreaList, mTypeAreaList, EdificioB);
-                       returnToMenu(enterToReturnToConsole);
-                       activeInput = true;
-                       break;
+                    case 2:
+                        HouseConfigurationUI houseC = new HouseConfigurationUI();
+                        houseC.run(geographicalAreaList, mTypeAreaList, EdificioB);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = true;
+                        break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
                         roomConfiguration.run(geographicalAreaList, EdificioB);
@@ -255,7 +255,7 @@ public class MainUI {
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
-                      case 5:
+                    case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
                         energyGridSettings.run(EdificioB);
                         returnToMenu(enterToReturnToConsole);
