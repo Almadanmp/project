@@ -5,10 +5,10 @@ import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 class EnergyGridSettingsControllerTest {
@@ -204,5 +204,48 @@ class EnergyGridSettingsControllerTest {
         boolean expectedResult = false;
         boolean actualResult = egsc.addRoomToTheGrid(eg,room1EdC);
         assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfRoomListIsPrintedByHouse(){
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),new GeographicArea(),new RoomList());
+        RoomList roomList = new RoomList();
+        Room room = new Room("Quarto", 1, 20,2,2);
+        roomList.addRoom(room);
+        house.setRoomList(roomList);
+        EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
+        String result = ctrlUS145.printRoomList(house);
+        String expectedResult = "---------------\n" +
+                "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfRoomIndexIsMatchedByString(){
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),new GeographicArea(),new RoomList());
+        RoomList roomList = new RoomList();
+        Room room = new Room("Quarto", 1, 20,2,2);
+        roomList.addRoom(room);
+        house.setRoomList(roomList);
+        EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
+        List<Integer> result = ctrlUS145.getIndexRoomsByString("Quarto", house);
+        List<Integer> expectedResult = Collections.singletonList(0);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfRoomIsPrinted(){
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),new GeographicArea(),new RoomList());
+        RoomList roomList = new RoomList();
+        Room room = new Room("Quarto", 1, 20,2,2);
+        roomList.addRoom(room);
+        house.setRoomList(roomList);
+        EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
+        String result = ctrlUS145.printRoomList(house);
+        String expectedResult = "---------------\n" +
+                "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult, result);
     }
 }

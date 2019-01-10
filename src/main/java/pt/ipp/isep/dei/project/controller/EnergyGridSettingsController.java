@@ -8,8 +8,7 @@ public class EnergyGridSettingsController {
     private EnergyGrid mEnergyGrid;
     private PowerSource mPowerSource;
 
-    public EnergyGridSettingsController() {
-
+    public EnergyGridSettingsController() { // Class controller doesn't need attributes to be initialized.
     }
 
     //SHARED METHODS THROUGH DIFFERENT UIS
