@@ -181,6 +181,7 @@ public class MainUI {
         EnergyGridList EnergyGridListISEP = new EnergyGridList();
         EnergyGridListISEP.addEnergyGridToEnergyGridList(mainGrid);
         mainGrid.setListOfRooms(roomListEdifB);
+        EdificioB.setEGList(EnergyGridListISEP);
 
         // Type  Area List
 
