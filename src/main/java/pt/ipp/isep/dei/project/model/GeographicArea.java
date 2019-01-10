@@ -73,6 +73,8 @@ public class GeographicArea {
     public void setDescription(String description){
         this.mDescription = description;
     }
+
+    public String getDescription() {return this.mDescription;}
     /**
      * Setter for Geographic Area type.
      *

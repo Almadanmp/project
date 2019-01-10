@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -292,6 +293,46 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfAreaIsContainedInArea2() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Terriola");
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l1 = new Local(20, 15, 100);
+        Local l2 = new Local(20, 20, 100);
+        GeographicArea ga1 = new GeographicArea("Porto",t1,2,3,l1);
+        GeographicArea ga2 = new GeographicArea("Porto",t2,2,3,l2);
+        //Act
+        ga1.setWidth(20);
+        ga1.setLength(10);
+        ga2.setWidth(10);
+        ga2.setLength(5);
+        boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
+
+        //Assert
+        assertEquals(false, result);
+    }
+
+    @Test
+    void seeIfAreaIsContainedInArea3() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Terriola");
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l1 = new Local(20, 15, 100);
+        Local l2 = new Local(20, 20, 100);
+        GeographicArea ga1 = new GeographicArea("Porto",t1,2,3,l1);
+        GeographicArea ga2 = new GeographicArea("Porto",t2,2,3,l2);
+        //Act
+        ga1.setWidth(20);
+        ga1.setLength(20);
+        ga2.setWidth(10);
+        ga2.setLength(10);
+        boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
+
+        //Assert
+        assertEquals(true, result);
+    }
+
+    @Test
     void seeIfSetNameWorksNullAndThrowsStringMessage() {
         //Arrange
         String name = "Porto";
@@ -339,6 +380,16 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfSetDescription(){
+        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2,5, new Local(22, 23, 100));
+        ga1.setDescription("cidade do Porto");
+
+       String actualResult = ga1.getDescription();
+
+        assertEquals("cidade do Porto",actualResult);
+    }
+
+    @Test
     void ensureThatAObjectIsNotAInstanceOf() {
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2,5, new Local(22, 23, 100));
         Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), new GregorianCalendar(2018, 11, 25).getTime());
@@ -348,6 +399,7 @@ class GeographicAreaTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
 
     @Test
     public void ensureThatAreaIsContained() {
@@ -549,6 +601,14 @@ class GeographicAreaTest {
         boolean actualResult = ga1.doesSensorListInAGeoAreaContainASensorByName("Humidade");
         //Assert
         assertFalse(actualResult);
+    }
+
+    @Test
+    void hashCodeDummyTest(){
+        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 16,17, new Local(16, 17, 18));
+        int expectedResult = 1;
+        int actualResult = ga1.hashCode();
+        Assertions.assertEquals(expectedResult, actualResult);
     }
 }
 
