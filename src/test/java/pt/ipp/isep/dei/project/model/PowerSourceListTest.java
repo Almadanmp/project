@@ -1,9 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
-import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
