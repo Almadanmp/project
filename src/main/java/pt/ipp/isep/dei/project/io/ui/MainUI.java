@@ -59,6 +59,7 @@ public class MainUI {
         Room roomISEP2 = new Room("B109", 1, 7, 11, 3.5);
         Room roomISEP3 = new Room("B106", 1, 7, 13, 3.5);
         RoomList roomListEdifB = new RoomList();
+
         roomListEdifB.addRoom(roomISEP1);
         roomListEdifB.addRoom(roomISEP2);
         roomListEdifB.addRoom(roomISEP3);

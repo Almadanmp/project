@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 
 import java.util.Scanner;
@@ -25,6 +24,10 @@ class HouseConfigurationUI {
     }
 
     void run(House house) {
+        if (house == null) {
+            System.out.println("Please create a House before you continue.");
+            return;
+        }
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -135,6 +138,14 @@ class HouseConfigurationUI {
         }
         this.mHouseLon = scanner.nextDouble();
 
+        // get longitude
+        System.out.print("Please, type the altitude: ");
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Please,try again. Only numbers this time:");
+            scanner.next();
+        }
+        this.mHouseAlt = scanner.nextDouble();
+
     }
 
     /**
@@ -156,7 +167,7 @@ class HouseConfigurationUI {
     private void displayHouseUS101(House house) {
         System.out.println("You have successfully changed the location of the house " + house.getHouseId() + ". \n" + "Address: " +
                 mHouseAddress + ". \n" + "ZipCode: " + mHouseZipCode + ". \n" + "Latitude: " + mHouseLat + ". \n" +
-                "Longitude: " + mHouseLon + ". \n");
+                "Longitude: " + mHouseLon + ". \n" + "Altitude: " + mHouseAlt +  ". \n");
     }
 
 
@@ -178,13 +189,13 @@ class HouseConfigurationUI {
     private void displayStateRoom() {
         //SHOW ROOM ENTERED BY USER
         if (mRoomHouseFloor == 1) {
-            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "st floor and has " + mRoomWidth + " meters in width, " + mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
+            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "st floor and has " + mRoomWidth + " meters of width, " + mRoomLength + " meters of length and " + mRoomHeight + " meters of height.");
         } else if (mRoomHouseFloor == 2) {
-            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "nd floor and has " + mRoomWidth + " meters in width, " + mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
+            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "nd floor and has " + mRoomWidth + " meters of width, " + mRoomLength + " meters of length and " + mRoomHeight + " meters of height.");
         } else if (mRoomHouseFloor == 3) {
-            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "rd floor and has " + mRoomWidth + " meters in width, " + mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
+            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "rd floor and has " + mRoomWidth + " meters of width, " + mRoomLength + " meters of length and " + mRoomHeight + " meters of height.");
         } else {
-            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "th floor and has " + mRoomWidth + " meters in width, " + mRoomLength + " meters in length and " + mRoomHeight + " meters in height.");
+            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "th floor and has " + mRoomWidth + " meters of width, " + mRoomLength + " meters of length and " + mRoomHeight + " meters of height.");
         }
     }
 
@@ -198,7 +209,7 @@ class HouseConfigurationUI {
         if (controller.addRoomToHouse(house)) {
             System.out.println("The room " + this.mRoomName + " has been added to house " + mHouseName + ".");
         } else {
-            System.out.println("The room you entered already exists in house " + mHouseName + ".");
+            System.out.println("The room you entered already exists in house " + mHouseName + ". Please try again.");
         }
     }
 
