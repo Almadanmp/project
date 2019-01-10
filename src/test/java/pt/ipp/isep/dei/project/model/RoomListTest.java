@@ -2,8 +2,12 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -134,6 +138,61 @@ public class RoomListTest {
         roomList.addRoom(room1);
         boolean result = roomList.matchRoom("cozinha");
         assertFalse(result);
+    }
+
+
+    @Test
+    void seeIfRoomAreaIndexMatchByString() {
+        //Arrange
+
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+        //Act
+        List<Integer> result = roomList.matchRoomIndexByString("sala");
+        List<Integer> expectedResult = Collections.singletonList(roomList.getListOfRooms().indexOf(room1));
+        //Assert
+        Assert.assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    void seeIfPrintRoomElementsByIndex() {
+        //Arrange
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+
+        //Act
+        String result = roomList.printElementsByIndex(list);
+        String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintsRoomAList() {
+        GeographicArea ga = new GeographicArea();
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5),ga, roomList);
+        String expectedResult = "---------------\n" +
+                "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
+        "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
+                "---------------\n";
+        String result = roomList.printRoomList(house);
+        assertEquals(expectedResult, result);
     }
 
     @Test
