@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * Utility class that aggregates common methods used by the UI classes.
  */
-public class UtilsUI {
+class UtilsUI {
 
     public static final String INVALID_OPTION = "Please enter a valid option";
 
@@ -51,7 +51,7 @@ public class UtilsUI {
     private GeographicArea mGeoArea;
     private String mGeoAreaName;
 
-    public GeographicArea getInputGeographicArea(GeographicAreaList geographicAreaList) {
+    GeographicArea getInputGeographicArea(GeographicAreaList geographicAreaList) {
         System.out.println(
                 "We need to know what Geographic Area you want to work with.\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");

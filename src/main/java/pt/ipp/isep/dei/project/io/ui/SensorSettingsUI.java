@@ -11,12 +11,12 @@ import java.util.Scanner;
 import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
 
 
-public class SensorSettingsUI {
+class SensorSettingsUI {
     private SensorSettingsController mController;
     private String sensorName;
     private String sensorType;
     private String sensorUnits; //TODO this is used but never assigned
-    boolean mTypeAdded;
+    private boolean mTypeAdded;
     private double sensorLat;
     private double sensorLong;
     private double sensorAlt;
@@ -25,16 +25,15 @@ public class SensorSettingsUI {
     private int dataDay;
     private Sensor mSensor;
     private GeographicArea mGeographicArea;
-    private String mGeographicAreaName;
     private SensorList mSensorList;
     private GeographicAreaList mGeographicAreaList;  //TODO this is used but never assigned
 
 
-    public SensorSettingsUI() {
+    SensorSettingsUI() {
         this.mController = new SensorSettingsController();
     }
 
-    public void run(GeographicArea geo,GeographicAreaList newGeoListUi) {
+    void run(GeographicArea geo,GeographicAreaList newGeoListUi) {
         this.mGeographicArea = geo;
         this.mGeographicAreaList = newGeoListUi;
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
@@ -229,8 +228,8 @@ public class SensorSettingsUI {
         if (input.nextLine().equals(valid) ) {
             System.out.println("Type the name of the Geographic Area which the sensor will be added to");
             System.out.println("\nEnter Geographic Area Name:\t");
-            this.mGeographicAreaName = input.nextLine();
-            System.out.println("You entered  " + this.mGeographicAreaName);
+            String mGeographicAreaName = input.nextLine();
+            System.out.println("You entered  " + mGeographicAreaName);
         } else {
             System.out.println("Exiting");
         }
