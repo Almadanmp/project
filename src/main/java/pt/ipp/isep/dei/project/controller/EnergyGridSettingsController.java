@@ -58,7 +58,13 @@ public class EnergyGridSettingsController {
      * This method directly adds the desired energy grid to the energy grid list from a selected house;
      */
     public boolean addEnergyGridToHouse(House programHouse) {
-        return programHouse.getEGList().addEnergyGridToEnergyGridList(mEnergyGrid);
+        if (mEnergyGrid != null) {
+            programHouse.getEGList().addEnergyGridToEnergyGridList(mEnergyGrid);
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -76,9 +82,12 @@ public class EnergyGridSettingsController {
     }
 
     public boolean addPowerSourceToEnergyGrid(EnergyGrid grid) {
-        return grid.addPowerSource(mPowerSource);
-    }
+        if (mPowerSource != null){
+            grid.addPowerSource(mPowerSource);
+            return true;
 
+        }else {return false;}
+    }
     /* USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     energy consumption is included in that grid.*/
 
