@@ -10,12 +10,13 @@ import java.util.Scanner;
 
 import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
 
-public class SensorSettingsUI {
+
+class SensorSettingsUI {
     private SensorSettingsController mController;
     private String sensorName;
     private String sensorType;
     private String sensorUnits; //TODO this is used but never assigned
-    boolean mTypeAdded;
+    private boolean mTypeAdded;
     private double sensorLat;
     private double sensorLong;
     private double sensorAlt;
@@ -24,37 +25,39 @@ public class SensorSettingsUI {
     private int dataDay;
     private Sensor mSensor;
     private GeographicArea mGeographicArea;
-    private String mGeographicAreaName;
     private SensorList mSensorList;
     private GeographicAreaList mGeographicAreaList;  //TODO this is used but never assigned
 
 
-    public SensorSettingsUI() {
+    SensorSettingsUI() {
         this.mController = new SensorSettingsController();
     }
 
-    public void run(GeographicArea geo,GeographicAreaList newGeoListUi) {
+    void run(GeographicArea geo,GeographicAreaList newGeoListUi) {
         this.mGeographicArea = geo;
         this.mGeographicAreaList = newGeoListUi;
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
         }
-        boolean activeInput = false;
+        boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
         System.out.println("Sensor Settings\n");
         System.out.println("--------------\n");
-        while (!activeInput) {
+        while (activeInput) {
             printOptionMessage();
             option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
+                    if(!getInputGeographicArea05(newGeoListUi)){
+                        return;
+                    }
                     getInput05Sensor05();
                     getInput05();
                     updateModel05();
                     displayState05();
-                    activeInput = true;
+                    activeInput = false;
                     break;
 
                 case 2:
@@ -63,7 +66,7 @@ public class SensorSettingsUI {
                     displayUS06();
                     getInputPart206();
                     updateAndDisplayUS06Part206();
-                    activeInput = true;
+                    activeInput = false;
                     break;
 
                 case 0:
@@ -78,6 +81,17 @@ public class SensorSettingsUI {
 
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
+
+    private boolean getInputGeographicArea05(GeographicAreaList newGeoListUi){
+        UtilsUI utils = new UtilsUI();
+        this.mGeographicArea = utils.getInputGeographicArea(newGeoListUi);
+        this.mSensorList = this.mGeographicArea.getSensorList();
+        if (this.mSensorList == null || this.mSensorList.getSensorList().isEmpty()) {
+            System.out.println("This Geographic Area doesn't have any sensors. Please add a sensor to this Geographic Area to continue.");
+            return false;
+        }
+        return true;
+    }
 
     private void getInput05Sensor05() {
         Scanner scanner = new Scanner(System.in);
@@ -96,14 +110,15 @@ public class SensorSettingsUI {
     }
 
     private void updateModel05() {
-       this.mTypeAdded = mController.setTypeSensor(sensorName, sensorType);
+        this.mTypeAdded = mController.setTypeSensor(this.mSensorList, this.sensorName, this.sensorType);
     }
 
     private void displayState05() {
-        if (mTypeAdded) {
+        if (this.mTypeAdded) {
             System.out.print("The type has been successfully assigned.");
         } else System.out.print("The type of sensor wasn't added. There is no sensor with that name.");
     }
+
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
 
@@ -213,8 +228,8 @@ public class SensorSettingsUI {
         if (input.nextLine().equals(valid) ) {
             System.out.println("Type the name of the Geographic Area which the sensor will be added to");
             System.out.println("\nEnter Geographic Area Name:\t");
-            this.mGeographicAreaName = input.nextLine();
-            System.out.println("You entered  " + this.mGeographicAreaName);
+            String mGeographicAreaName = input.nextLine();
+            System.out.println("You entered  " + mGeographicAreaName);
         } else {
             System.out.println("Exiting");
         }
@@ -233,7 +248,7 @@ public class SensorSettingsUI {
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printOptionMessage() {
         System.out.println("Sensor Settings Options:\n");
-        System.out.println("1) Define the sensor types. (US105)");
+        System.out.println("1) Define the sensor type. (US05)");
         System.out.println("2) Add a new sensor and associate it to a geographical area. (US006)");
         System.out.println("0) (Return to main menu)\n");
     }

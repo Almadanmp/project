@@ -108,12 +108,12 @@ public class HouseMonitoringController {
     }
 
 
-    public Sensor getSensorWithTheMinimumDistanceToHouse(House house, GeographicArea ga) {
-        return house.getSensorWithMinDistanceToHouse(ga, house);
+    public Sensor getSensorWithTheMinimumDistanceToHouse(House house, GeographicArea ga, String sensorType) {
+        return house.getSensorWithMinDistanceToHouse(ga, house, sensorType);
     }
 
     public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {
-        return getSensorWithTheMinimumDistanceToHouse(house, ga).getReadingList().getMostRecentValueOfReading();
+        return getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature").getReadingList().getMostRecentValueOfReading();
     }
 
     public String getHouseInfoForOutPutMessage (House house){

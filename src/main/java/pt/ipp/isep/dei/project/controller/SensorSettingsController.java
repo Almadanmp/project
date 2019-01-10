@@ -23,8 +23,8 @@ public class SensorSettingsController {
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    public boolean setTypeSensor(String name, String typeToSet) {
-        return mSensorList.setTypeSensorByString(name, typeToSet);
+    public boolean setTypeSensor(SensorList sensorList, String name, String typeToSet) {
+        return sensorList.setTypeSensorByString(name, typeToSet);
     }
 
     public SensorList getSensorList() {

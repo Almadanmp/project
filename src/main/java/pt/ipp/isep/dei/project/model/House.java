@@ -139,8 +139,8 @@ public class House {
         return distance;
     }
 
-    public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house) {
-        for (Sensor s : ga.getSensorList().getSensorListByType("temperature")) {
+    public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house, String sensorType) {
+        for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
             if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
                 return s;
             }

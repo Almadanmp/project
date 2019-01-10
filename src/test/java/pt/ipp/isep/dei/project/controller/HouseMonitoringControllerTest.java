@@ -451,7 +451,7 @@ public class HouseMonitoringControllerTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
 
         //Act ------------------------------------------------------
-        Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga);
+        Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature");
         //Assert ---------------------------------------------------
         assertEquals(s1, result);
     }
@@ -470,7 +470,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100),ga, roomList);
         //Act -------------------------------------------------------
-        Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga);
+        Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature");
         //Assert ----------------------------------------------------
         assertEquals(s2, result);
     }
