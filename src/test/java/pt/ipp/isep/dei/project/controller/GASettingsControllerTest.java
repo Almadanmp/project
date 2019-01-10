@@ -689,4 +689,21 @@ class GASettingsControllerTest {
         //Assert
         assertTrue(actualResult);
     }
+
+    @Test
+    void seeIfMatchGeographicAreasWorks() {
+        //Arrange
+        GASettingsController ctrl = new GASettingsController();
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 40, 20, new Local(21, 33, 5));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(21, 33, 5));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        gAL1.addGeographicAreaToGeographicAreaList(gA1);
+        gAL1.addGeographicAreaToGeographicAreaList(gA2);
+        gAL1.addGeographicAreaToGeographicAreaList(gA3);
+        //Act
+        boolean actualResult = ctrl.matchGeographicAreas("Oporto", "Portugal", gAL1);
+        //Assert
+        assertTrue(actualResult);
+    }
 }
