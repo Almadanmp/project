@@ -207,13 +207,14 @@ public class MainUI {
 
             // Submenus Input selection
 
-            String[] menu = {" 0. Exit Application\n",
-                    "1. Geographic Area Settings\n",
+            String[] menu = {
+                    " 1. Geographic Area Settings\n",
                     "2. House Settings.\n",
                     "3. Room Settings.\n",
                     "4. Sensor Settings.\n",
                     "5. Energy Grid Settings.\n",
-                    "6. House Monitoring.\n",};
+                    "6. House Monitoring.\n" +
+                   " 0. Exit Application\n" };
 
             System.out.println("Select the task you want to do:");
 

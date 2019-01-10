@@ -286,17 +286,7 @@ public class HouseMonitoringUI {
         scan.nextLine();
     }
 
-    private void printOptionMessage() {
-        System.out.println("House Monitoring Options:\n");
-        System.out.println("1) Get Max Temperature in a room in a specific day");
-        System.out.println("2) Get Current Temperature in a room");
-        System.out.println("3) Get Current Temperature in a House Area.");
-        System.out.println("4) Get The Average Rainfall on a specific day in a House Area .");
-        System.out.println("5) Get The Average Rainfall on a day interval in a House Area.");
-        System.out.println("0) (Return to main menu)\n");
-    }
-
-    /**
+       /**
      * US600
      * As a Regular User, I want to get the current temperature in the house area. If, in the
      * first element with temperature sensors of the hierarchy of geographical areas that
@@ -369,5 +359,15 @@ public class HouseMonitoringUI {
         this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, initialDate, endDate);
         System.out.print(houseMonitoringcontroller.getHouseInfoForOutPutMessage(house) + " between " + initialDate + " and " + endDate +
                 " is " + mResult623 + "%.");
+    }
+
+    private void printOptionMessage() {
+        System.out.println("House Monitoring Options:\n");
+        System.out.println("1) Get Max Temperature in a room in a specific day (US600).");
+        System.out.println("2) Get Current Temperature in a room. (US605).");
+        System.out.println("3) Get Current Temperature in a House Area. (US610)");
+        System.out.println("4) Get The Average Rainfall on a specific day in a House Area. (US620)");
+        System.out.println("5) Get The Average Rainfall on a day interval in a House Area. (US623)");
+        System.out.println("0) (Return to main menu)\n");
     }
 }

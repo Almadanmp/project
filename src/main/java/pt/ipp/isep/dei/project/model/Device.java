@@ -31,10 +31,6 @@ public class Device {
         this.mEnergyConsumptionList =list;
     }
 
-    double getmTotalPowerDevice(){
-        return this.mTotalPowerDevice;
-    }
-
     void setmTotalPowerDevice(double totalPower){
         this.mTotalPowerDevice =totalPower;
     }
