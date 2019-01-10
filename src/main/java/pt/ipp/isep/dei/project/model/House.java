@@ -18,7 +18,6 @@ public class House {
     //CONSTRUCTORS
     public House() {
         this.mRoomList = new RoomList();
-        this.mEGList = new EnergyGridList();
         }
 
     public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea, RoomList mRoomList) {
@@ -29,6 +28,7 @@ public class House {
         this.mLocation = mLocation;
         this.mMotherArea = mMotherArea;
         this.mRoomList = mRoomList;
+        this.mEGList = new EnergyGridList();
     }
 
     //SETTERS AND GETTERS

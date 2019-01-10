@@ -17,12 +17,15 @@ public class EnergyGrid {
     public EnergyGrid(String houseGridDesignation, double maxContractedPower) {
         setName(houseGridDesignation);
         setMaxPower(maxContractedPower);
+        this.mListOfRooms = new RoomList();
+        this.mListPowerSources = new PowerSourceList();
     }
 
     EnergyGrid(String gridName, double maxContractedPower, RoomList roomList) {
         this.mName = gridName;
         this.mMaxPower = maxContractedPower;
         this.mListOfRooms = roomList;
+        this.mListPowerSources = new PowerSourceList();
     }
 
     public String getName() {

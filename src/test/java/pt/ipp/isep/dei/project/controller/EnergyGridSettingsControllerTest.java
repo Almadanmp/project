@@ -55,7 +55,7 @@ class EnergyGridSettingsControllerTest {
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         List<Integer> list = ctrlUS145.matchGridIndexByString("EG1", house);
         String actualResult = ctrlUS145.printEnergyGridByIndex(list, energyGridList);
-        String expectedResult = "0) EG1, 400.0, null.\n";
+        String expectedResult = "0) EG1, 400.0, pt.ipp.isep.dei.project.model.PowerSourceList@1.\n";
         Assert.assertEquals(expectedResult, actualResult);
     }
 
