@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.util.*;
@@ -718,4 +719,131 @@ public class HouseMonitoringControllerTest {
         String expected = "sensor, temperatura, 4.0º lat, 4.0º long\n";
         assertEquals(expected, result);
     }
+
+    @Test
+    void seeIfRoomAreaIndexMatchByString() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Arrange
+        GeographicArea ga = new GeographicArea();
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        //Act
+        List<Integer> result = ctrl.matchRoomIndexByString("sala",house);
+        List<Integer> expectedResult = Collections.singletonList(roomList.getRoomList().indexOf(room1));
+        //Assert
+        Assert.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfPrintRoomElementsByIndex() {
+        //Arrange
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        GeographicArea ga = new GeographicArea();
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+
+        //Act
+        String result = ctrl.printRoomElementsByIndex(list, house);
+        String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
+    }
+    @Test
+    void seeIfPrintSensorElementsByIndex() {
+        //Arrange
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        List<Integer> list = new ArrayList<>();
+        Integer i = 2;
+        list.add(i);
+        GeographicArea ga = new GeographicArea();
+        Room room = new Room("Quarto Miki",1,3,3,3);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        room.setRoomSensorList(sensorList1);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        //Act
+        String result = ctrl.printSensorElementsByIndex(list,room);
+        String expectedResult = "2) s3 which is a Rain sensor.\n";
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void ensureThatSensorListIsPrintCorrectly() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        Room room = new Room("Quarto Miki",1,3,3,3);
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        room.setRoomSensorList(sensorList1);
+        String expectedResult = "---------------\n" +
+                "0) Designation: s1 | Sensor Type: Rain\n" +
+                "1) Designation: s2 | Sensor Type: Vento\n" +
+                "2) Designation: s3 | Sensor Type: Rain\n" +
+                "---------------\n";
+        String actualResult = ctrl.printSensorList(room);
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void seeIfPrintsRoom() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        GeographicArea ga = new GeographicArea();
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        String expectedResult = "kitchen, 1, 1.0, 2.0, 2.0.\n";
+        String result = ctrl.printRoom(room);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintsRoomList() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        GeographicArea ga = new GeographicArea();
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
+        String expectedResult = "---------------\n" +
+                "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
+                "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
+                "---------------\n";
+        String result = ctrl.printRoomList(house);
+        assertEquals(expectedResult, result);
+    }
+
+
+
+
 }
