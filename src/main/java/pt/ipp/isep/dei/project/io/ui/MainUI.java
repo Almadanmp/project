@@ -239,7 +239,7 @@ public class MainUI {
                         break;
                     case 2:
                         HouseConfigurationUI houseC = new HouseConfigurationUI();
-                        houseC.run(geographicalAreaList, mTypeAreaList, EdificioB);
+                        houseC.run(geographicalAreaList, EdificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;
