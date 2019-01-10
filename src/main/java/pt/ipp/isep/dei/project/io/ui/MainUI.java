@@ -185,6 +185,7 @@ public class MainUI {
         // Type  Area List
 
         TypeAreaList mTypeAreaList = new TypeAreaList();
+        TypeAreaList mTypeAreaList1 = new TypeAreaList();
         TypeArea typeAreaA = new TypeArea("city");
         TypeArea typeAreaB = new TypeArea("country");
         mTypeAreaList.addTypeArea(typeAreaA);
@@ -234,7 +235,7 @@ public class MainUI {
                         return;
                     case 1:
                         GASettingsUI view1 = new GASettingsUI();
-                        view1.run(geographicalAreaList, mTypeAreaList);
+                        view1.run(geographicalAreaList, mTypeAreaList1);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

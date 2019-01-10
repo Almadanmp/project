@@ -52,6 +52,10 @@ class GASettingsUI {
             option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
+                    if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
+                        System.out.println("There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.");
+                        return;
+                    }
                     getInputUS01();
                     updateModelUS01(programTypeAreaList);
                     displayStateUS01();
@@ -59,11 +63,19 @@ class GASettingsUI {
                     break;
 
                 case 2:
+                    if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
+                        System.out.println("There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.");
+                        return;
+                    }
                     updateModelUS02(programTypeAreaList);
                     displayStateUS02();
                     activeInput = true;
                     break;
                 case 3:
+                    if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
+                        System.out.println("There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.");
+                        return;
+                    }
                     getAreaInputUS03();
                     getTypeAreaInputUS03(programTypeAreaList);
                     getLocalInputUS03();
@@ -73,6 +85,10 @@ class GASettingsUI {
                     activeInput = true;
                     break;
                 case 4:
+                    if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
+                        System.out.println("There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.");
+                        return;
+                    }
                     getInputTypeArea(programTypeAreaList);
                     if (!matchGAByTypeArea(programGAList)) {
                         return;

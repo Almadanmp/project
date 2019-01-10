@@ -106,7 +106,7 @@ public class GASettingsController {
 
     }
 
-    public String printGeographicAreaListNames(GeographicAreaList geographicAreaList) {
+    String printGeographicAreaListNames(GeographicAreaList geographicAreaList) {
         return geographicAreaList.printGeoAreaList();
     }
 
