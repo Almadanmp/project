@@ -37,7 +37,11 @@ public class HouseMonitoringUI {
     }
 
     void run(House programHouse) {
-        RoomList roomList = programHouse.getRoomList();
+        if (programHouse == null || programHouse.getMotherArea() == null || programHouse.getRoomList()==null) {
+            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure your" +
+                    "house first through the main menu");
+            return;
+        }
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -357,6 +361,7 @@ public class HouseMonitoringUI {
     /**
      * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
+     *
      */
     private void updateAndDisplayUS623(House house) {
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);

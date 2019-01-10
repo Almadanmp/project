@@ -55,6 +55,7 @@ class EnergyGridSettingsUI {
                     if (updateGridUS147(mEnergyGrid, mRoom)) {
                         System.out.println("Room successfully added to the grid!");
                     } else System.out.println("It wasn't possible to add the room. Please try again.");
+
                     activeInput = false;
                     break;
                 case 5:
