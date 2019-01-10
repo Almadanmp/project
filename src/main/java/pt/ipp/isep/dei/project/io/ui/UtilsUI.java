@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 class UtilsUI {
 
-    public static final String INVALID_OPTION = "Please enter a valid option";
+    static final String INVALID_OPTION = "Please enter a valid option";
 
     /**
      * Method to read the user input as an Int
@@ -21,7 +21,7 @@ class UtilsUI {
      * If its a double it will convert it to an int
      * @return value read from the user
      */
-    public static int readInputNumberAsInt() {
+    static int readInputNumberAsInt() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
@@ -37,7 +37,7 @@ class UtilsUI {
      * @param dataType the type of date to read (year, month or day)
      * @return value read from the user
      */
-    public static int getInputDateAsInt(Scanner scan, String dataType){
+     static int getInputDateAsInt(Scanner scan, String dataType){
         System.out.println("Enter the " + dataType + ":");
         while (!scan.hasNextInt()) {
             scan.next();
@@ -48,48 +48,46 @@ class UtilsUI {
 
     // OPÇÃO LISTAR POR NOMES / POR LISTA - GEOGRAPHIC AREA
 
-    private GeographicArea mGeoArea;
-    private String mGeoAreaName;
+    private GeographicArea mGeographicArea;
+    private String mGeographicAreaName;
+    private String mStringChosenGeographicArea = "You have chosen the following Geographic Area:";
 
     GeographicArea getInputGeographicArea(GeographicAreaList geographicAreaList) {
         System.out.println(
                 "We need to know what Geographic Area you want to work with.\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
-        boolean activeInput = true;
-        while (activeInput) {
             int option = readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInputGeographicAreaName();
                     if (!getGeographicAreaByName(geographicAreaList)) {
-                        System.out.println("Unable to select a Geographic Area. Returning to main menu.");
-                        return this.mGeoArea;
+                        return this.mGeographicArea;
                     }
                     break;
                 case 2:
                     getInputGeographicAreaByList(geographicAreaList);
-                    return this.mGeoArea;
+                    return this.mGeographicArea;
                 case 0:
                     break;
                 default:
                     System.out.println(INVALID_OPTION);
                     break;
             }
-        }
-        return this.mGeoArea;
+        return this.mGeographicArea;
     }
 
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
         HouseConfigurationController ctrl = new HouseConfigurationController();
-        List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeoAreaName, newGeoListUi);
+        List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeographicAreaName, newGeoListUi);
 
         while (listOfIndexesGeographicAreas.isEmpty()) {
             System.out.println("There is no Geographic Area with that name. Please insert the name of a Geographic Area" +
                     " that exists or  Type 'exit' to cancel and create a new Geographic Area on the Main Menu.");
             if (!getInputGeographicAreaName()) {
+                System.out.println("Unable to select a Geographic Area. Returning to main menu.");
                 return false;
             }
-            listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeoAreaName, newGeoListUi);
+            listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeographicAreaName, newGeoListUi);
         }
 
         if (listOfIndexesGeographicAreas.size() > 1) {
@@ -97,16 +95,16 @@ class UtilsUI {
             System.out.println(ctrl.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas, newGeoListUi));
             int aux = readInputNumberAsInt();
             if (listOfIndexesGeographicAreas.contains(aux)) {
-                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
-                System.out.println("You have chosen the following Geographic Area:");
-                System.out.println(ctrl.printGA(mGeoArea));
+                mGeographicArea = newGeoListUi.getGeographicAreaList().get(aux);
+                System.out.println(mStringChosenGeographicArea);
+                System.out.println(ctrl.printGA(mGeographicArea));
             } else {
                 System.out.println(INVALID_OPTION);
             }
         } else {
-            System.out.println("You have chosen the following Geographic Area:");
-            mGeoArea = newGeoListUi.getGeographicAreaList().get(listOfIndexesGeographicAreas.get(0));
-            System.out.println(ctrl.printGA(mGeoArea));
+            System.out.println(mStringChosenGeographicArea);
+            mGeographicArea = newGeoListUi.getGeographicAreaList().get(listOfIndexesGeographicAreas.get(0));
+            System.out.println(ctrl.printGA(mGeographicArea));
         }
         return true;
     }
@@ -114,8 +112,8 @@ class UtilsUI {
     private boolean getInputGeographicAreaName() {
         System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
         Scanner scanner = new Scanner(System.in);
-        this.mGeoAreaName = scanner.nextLine();
-        return (!("exit".equals(mGeoAreaName)));
+        this.mGeographicAreaName = scanner.nextLine();
+        return (!("exit".equals(mGeographicAreaName)));
     }
 
 
@@ -127,10 +125,10 @@ class UtilsUI {
             System.out.println(controller.printGAList(newGeoListUi));
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
-                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
+                mGeographicArea = newGeoListUi.getGeographicAreaList().get(aux);
                 activeInput = true;
-                System.out.println("You have chosen the following Geographic Area:");
-                System.out.println((mGeoArea.printGeographicArea()));
+                System.out.println(mStringChosenGeographicArea);
+                System.out.println((mGeographicArea.printGeographicArea()));
             } else {
                 System.out.println(INVALID_OPTION);
             }
