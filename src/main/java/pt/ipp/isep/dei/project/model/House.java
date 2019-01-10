@@ -43,7 +43,10 @@ public class House {
         this.mId = id;
     }
 
-    String getStreet() {
+    public String getId() {
+        return this.mId;
+    }
+    public String getStreet() {
         return this.mStreet;
     }
 
@@ -51,7 +54,7 @@ public class House {
         this.mStreet = mStreet;
     }
 
-    String getZip() {
+    public String getZip() {
         return mZip;
     }
 
@@ -67,7 +70,7 @@ public class House {
         this.mTown = town;
     }
 
-    Local getLocation() {
+   public Local getLocation() {
         return mLocation;
     }
 
