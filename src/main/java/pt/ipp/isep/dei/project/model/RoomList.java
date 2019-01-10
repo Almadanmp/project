@@ -136,6 +136,14 @@ public class RoomList {
         return result.toString();
     }
 
+    public boolean contains(Room room){
+        return (this.mRoomList.contains(room));
+    }
+
+    public void removeRoom(Room room){
+        this.mRoomList.remove(room);
+    }
+
 
     @Override
     public boolean equals(Object testObject) {

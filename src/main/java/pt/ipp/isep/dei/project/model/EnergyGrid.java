@@ -76,13 +76,12 @@ public class EnergyGrid {
     }
 
     public boolean removeRoom(Room room) {
-        if (this.mListOfRooms.getRoomList().contains(room)) {
-            this.mListOfRooms.getRoomList().remove(room);
+        if (this.mListOfRooms.contains(room)) {
+            this.mListOfRooms.removeRoom(room);
             return true;
         }
         return false;
     }
-
 
     @Override
     public boolean equals(Object o) {
