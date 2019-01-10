@@ -65,7 +65,7 @@ class GASettingsUI {
                     break;
                 case 3:
                     getAreaInputUS03();
-                    getTypeAreaInputUS03();
+                    getTypeAreaInputUS03(programTypeAreaList);
                     getLocalInputUS03();
                     updateGeoAreaUS03(programTypeAreaList);
                     updateModelUS03(programGAList);
@@ -331,24 +331,37 @@ class GASettingsUI {
         this.nameOfGeoArea = readInputString("name");
     }
 
-    private void getTypeAreaInputUS03() {
-        this.mTypeAreaString = readInputString("Type Area");
+    private void getTypeAreaInputUS03(TypeAreaList typeAreaList) {
+        boolean activeInput = false;
+        System.out.println("Please select one of the following types for the new Geographic Area: ");
+
+        while (!activeInput) {
+            System.out.println(mController.getTypeAreaList(typeAreaList));
+            int aux = UtilsUI.readInputNumberAsInt();
+            if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
+                TypeArea auxType = typeAreaList.getTypeAreaList().get(aux);
+                activeInput = true;
+                System.out.println("You have chosen the following type for the new Geographic Area:");
+                System.out.println((auxType.printTypeGeographicArea()));
+            } else {
+                System.out.println(UtilsUI.INVALID_OPTION);
+            }
+        }
     }
 
     private void getLocalInputUS03() {
         this.mGeoAreaLat = readInputNumber("Latitude");
         this.mGeoAreaLong = readInputNumber("Longitude");
         this.mGeoAreaAlt = readInputNumber("Altitude");
-        this.mGeoAreaLength = readInputNumber("Comprimento");
-        this.mGeoAreaWidth = readInputNumber("Largura");
+        this.mGeoAreaLength = readInputNumber("Length");
+        this.mGeoAreaWidth = readInputNumber("Width");
 
     }
 
     private void updateGeoAreaUS03(TypeAreaList typeAreaList) {
-        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + mTypeAreaString +
-                " and its localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The size is " + this.mGeoAreaLength
-                + " by " + this.mGeoAreaWidth + " kms\n");
-        typeAreaList.newTAG(mTypeAreaString);
+        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea  + " and its " +
+                "localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The size is " +
+                this.mGeoAreaLength + " by " + this.mGeoAreaWidth + " kms\n");
     }
 
     private void updateModelUS03(GeographicAreaList newGeoListUi) {
