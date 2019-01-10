@@ -12,7 +12,7 @@ import static org.testng.Assert.assertTrue;
 public class RoomTest {
 
     @Test
-    public void seeIfgetMaxTemperatureInARoomOnAGivenDayWorks() {
+    public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorks() {
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();

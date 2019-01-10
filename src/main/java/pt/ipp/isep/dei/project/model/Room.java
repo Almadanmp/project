@@ -18,6 +18,7 @@ public class Room {
         setRoomWidth(width);
         setRoomLength(length);
         setRoomHeight(height);
+        this.mRoomSensorList=new SensorList();
     }
 
     public SensorList getmRoomSensorList() {

@@ -173,7 +173,7 @@ public class HouseMonitoringUI {
 
     private void getInputSensor(House house) {
         System.out.println(
-                "We need to know which Sensor you wish to acess.\n" + "Would you like to:\n" + "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" +
+                "We need to know which Sensor you wish to access.\n" + "Would you like to:\n" + "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
         int option = UtilsUI.readInputNumberAsInt();
         switch (option) {
