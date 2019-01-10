@@ -68,14 +68,30 @@ class GASettingsControllerTest {
     }
 
     @Test
-    public void seeIfPrintTypeArea() {
+    public void seeIfPrintTypeAreaWorks() {
         GASettingsController ctrl = new GASettingsController();
         TypeArea type1 = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(type1);
-        String result = ctrl.printTypeArea(type1);
+        String actualResult = ctrl.printTypeArea(type1);
         String expectedResult = "Type Area: cidade\n";
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfPrintGATypeListWorks() {
+        GASettingsController ctrl = new GASettingsController();
+        TypeArea type1 = new TypeArea("cidade");
+        TypeArea type2 = new TypeArea("bairro");
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(type1);
+        list.addTypeArea(type2);
+        String actualResult = ctrl.printGATypeList(list);
+        String expectedResult = "---------------\n" +
+                "0) Name: cidade \n" +
+                "1) Name: bairro \n" +
+                "---------------\n";
+        assertEquals(expectedResult, actualResult);
     }
 
     //USER STORY 001 TESTS
