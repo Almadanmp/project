@@ -18,7 +18,7 @@ public class HouseMonitoringController {
     }
 
     public double getMaxTemperatureInARoomOnAGivenDay(Date day, House house, Room room) {
-     return room.getMaxTemperatureInARoomOnAGivenDay(house,day);
+        return room.getMaxTemperatureInARoomOnAGivenDay(house,day);
     }
     public String printSensor(Sensor sensor){
         return sensor.printSensor();
@@ -36,9 +36,9 @@ public class HouseMonitoringController {
         return result;
     }
 
-     /**
-      * Common Methods to House Monitoring UI
-      */
+    /**
+     * Common Methods to House Monitoring UI
+     */
 
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
         return geoAreaList.matchGeographicAreaIndexByString(input);
@@ -54,10 +54,6 @@ public class HouseMonitoringController {
 
     public String printGAList(GeographicAreaList geoAreaList) {
         return geoAreaList.printGaWholeList(geoAreaList);
-    }
-
-    public String printHouse (House house){
-        return house.printHouse();
     }
 
     public List<Integer> matchRoomIndexByString(String input, House house){
@@ -118,6 +114,10 @@ public class HouseMonitoringController {
 
     public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {
         return getSensorWithTheMinimumDistanceToHouse(house, ga).getReadingList().getMostRecentValueOfReading();
+    }
+
+    public String getHouseInfoForOutPutMessage (House house){
+      return "The Average Rainfall on the house area of" + house.getHouseId();
     }
 
 }
