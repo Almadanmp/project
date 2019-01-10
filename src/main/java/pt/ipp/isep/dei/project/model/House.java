@@ -19,7 +19,7 @@ public class House {
     //CONSTRUCTORS
     public House() {
         this.mRoomList = new RoomList();
-        }
+    }
 
     public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea, RoomList mRoomList) {
         this.mId = mId;
@@ -38,7 +38,10 @@ public class House {
         return mId;
 
     }
-    void setId(String id){ this.mId = id;}
+
+    void setId(String id) {
+        this.mId = id;
+    }
 
     String getStreet() {
         return this.mStreet;
@@ -90,10 +93,6 @@ public class House {
         return mMotherArea;
     }
 
-    void setMotherArea(GeographicArea mMotherArea) {
-        this.mMotherArea = mMotherArea;
-    }
-
     public EnergyGridList getEGList() {
         return this.mEGList;
     }
@@ -107,7 +106,8 @@ public class House {
         String roomToAddName = room.getRoomName();
         for (Room r : this.mRoomList.getRoomList()) {
             String roomDesignationToTest = r.getRoomName();
-            if (roomDesignationToTest.equals(roomToAddName)) return false;
+            if (roomDesignationToTest.equals(roomToAddName))
+                return false;
         }
         this.mRoomList.addRoom(room);
         return true;
@@ -130,7 +130,10 @@ public class House {
         double distance = calculateDistanceToSensor(firstSensor);
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
             Sensor copo = ga.getSensorList().getSensors()[i];
-            if (distance > calculateDistanceToSensor(copo)) { distance = calculateDistanceToSensor(copo);} }
+            if (distance > calculateDistanceToSensor(copo)) {
+                distance = calculateDistanceToSensor(copo);
+            }
+        }
         return distance;
     }
 
@@ -138,7 +141,8 @@ public class House {
         for (Sensor s : ga.getSensorList().getSensorListByType("temperature")) {
             if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
                 return s;
-            } }
+            }
+        }
         return null;
     }
 
@@ -158,8 +162,12 @@ public class House {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) { return true; }
-        if (o == null || getClass() != o.getClass()) { return false; }
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         House house = (House) o;
         return Objects.equals(mStreet, house.mStreet);
     }

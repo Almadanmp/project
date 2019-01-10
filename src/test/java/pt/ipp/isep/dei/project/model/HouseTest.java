@@ -242,6 +242,27 @@ class HouseTest {
     }
 
     @Test
+    void seeSetHouseLocation2(){
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        //Arrange
+        Local expectedResult = new Local (5, 35, 34);
+        Local localHouse = new Local (8,9,1);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", localHouse,ga, roomList);
+
+        //Act
+        localHouse.setAltitude(34);
+        localHouse.setLatitude(5);
+        localHouse.setLongitude(35);
+        Local actualResult = house.getLocation();
+
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
     void seeSetRoomList(){
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
@@ -283,7 +304,7 @@ class HouseTest {
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
 
         //Act
-        house.setMotherArea(ga1);
+        house.setmMotherArea(ga1);
         GeographicArea actualResult = house.getMotherArea();
 
         //Assert
