@@ -61,7 +61,7 @@ public class HouseMonitoringController {
     }
 
     public List<Integer> matchRoomIndexByString(String input, House house){
-        return house.getmRoomList().matchRoomIndexByString(input);
+        return house.getRoomList().matchRoomIndexByString(input);
     }
 
     public List<Integer> matchSensorIndexByString(String input, Room room){
@@ -69,7 +69,7 @@ public class HouseMonitoringController {
     }
 
     public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.getmRoomList().printElementsByIndex(listOfIndexesOfRoom);
+        return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
     }
 
     public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, Room room){
@@ -78,7 +78,7 @@ public class HouseMonitoringController {
 
     public String printSensorList(Room room){return room.getmRoomSensorList().printSensorList(room);}
     public String printRoomList(House house) {
-        return house.getmRoomList().printRoomList(house);
+        return house.getRoomList().printRoomList(house);
     }
 
     public String printRoom (Room room){
@@ -94,7 +94,7 @@ public class HouseMonitoringController {
      * as it is needed to assess the garden’s watering needs.
      */
     public double getAVGDailyRainfallOnGivenPeriod(House house, Date initialDate, Date endDate) {
-        GeographicArea geoArea = house.getmMotherArea();
+        GeographicArea geoArea = house.getMotherArea();
         return geoArea.getAvgReadingsFromSensorTypeInGA("Rain", initialDate, endDate);
     }
 

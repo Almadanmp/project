@@ -72,7 +72,7 @@ public class Room {
 
     public double getMaxTemperatureInARoomOnAGivenDay(House house, Date day) {
         TypeSensor type = new TypeSensor("temperature","Celsius");
-        Sensor s = new Sensor("sensor1", type, house.getmLocation(), new Date());
+        Sensor s = new Sensor("sensor1", type, house.getLocation(), new Date());
         for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
             s = mRoomSensorList.getSensors()[i];
         }
@@ -110,7 +110,7 @@ public class Room {
     public double getCurrentRoomTemperature() {
         House h = new House();
         TypeSensor type = new TypeSensor("temperature","Celsius");
-        Sensor s = new Sensor("sensor1", type, h.getmLocation(), new Date());
+        Sensor s = new Sensor("sensor1", type, h.getLocation(), new Date());
         for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
             s = mRoomSensorList.getSensors()[i];
         }

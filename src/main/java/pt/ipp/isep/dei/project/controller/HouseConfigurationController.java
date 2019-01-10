@@ -14,7 +14,7 @@ public class HouseConfigurationController {
     }
 
     public void setHouseAddress(String address, House house) {
-        house.setmStreet(address);
+        house.setStreet(address);
     }
 
     public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
@@ -22,11 +22,11 @@ public class HouseConfigurationController {
     }
 
     public void setHouseZIPCode(String zipCode, House house) {
-        house.setmZip(zipCode);
+        house.setZip(zipCode);
     }
 
     public void setHouseLocal(double latitude, double longitude, double altitude, House house) {
-        house.setmLocation(latitude, longitude, altitude);
+        house.setLocation(latitude, longitude, altitude);
     }
 
     public String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
@@ -50,7 +50,7 @@ public class HouseConfigurationController {
     }
 
     public String getHouseName(House house) {
-        return house.getmHouseId();
+        return house.getHouseId();
     }
 
 

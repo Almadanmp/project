@@ -15,7 +15,7 @@ public class EnergyGridSettingsController {
     //SHARED METHODS THROUGH DIFFERENT UIS
 
     public List<Integer> matchGridIndexByString(String gridName, House house) {
-        return house.getmEGList().matchGridListElementsByString(gridName);
+        return house.getEGList().matchGridListElementsByString(gridName);
     }
 
     public String printEnergyGridByIndex(List<Integer> indexList, EnergyGridList egList) {
@@ -31,7 +31,7 @@ public class EnergyGridSettingsController {
     }
 
     public String printRoomList(House house) {
-        return house.getmRoomList().printRoomList(house);
+        return house.getRoomList().printRoomList(house);
     }
 
     public String printGridList(House house) {
@@ -39,11 +39,11 @@ public class EnergyGridSettingsController {
     }
 
     public List<Integer> matchRoomIndexByString(String input, House house) {
-        return house.getmRoomList().matchRoomIndexByString(input);
+        return house.getRoomList().matchRoomIndexByString(input);
     }
 
     public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.getmRoomList().printElementsByIndex(listOfIndexesOfRoom);
+        return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
     }
 
     public String printRoom(Room room) {
@@ -59,7 +59,7 @@ public class EnergyGridSettingsController {
      * This method directly adds the desired energy grid to the energy grid list from a selected house;
      */
     public boolean addEnergyGridToHouse(House programHouse) {
-        return programHouse.getmEGList().addEnergyGridToEnergyGridList(mEnergyGrid);
+        return programHouse.getEGList().addEnergyGridToEnergyGridList(mEnergyGrid);
     }
 
     /**

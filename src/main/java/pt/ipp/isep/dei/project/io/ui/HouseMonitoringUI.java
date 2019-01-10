@@ -37,7 +37,7 @@ public class HouseMonitoringUI {
     }
 
     void run(House programHouse) {
-        RoomList roomList = programHouse.getmRoomList();
+        RoomList roomList = programHouse.getRoomList();
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -136,7 +136,7 @@ public class HouseMonitoringUI {
             System.out.println(houseMonitoringcontroller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
             int aux = UtilsUI.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
-                house.getmRoomList().getListOfRooms().get(aux);
+                house.getRoomList().getListOfRooms().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(houseMonitoringcontroller.printRoom(mRoom));
             } else {
@@ -144,7 +144,7 @@ public class HouseMonitoringUI {
             }
         } else {
             System.out.println("You have chosen the following Room:");
-            house.getmRoomList().getListOfRooms().get(0);
+            house.getRoomList().getListOfRooms().get(0);
             System.out.println(houseMonitoringcontroller.printRoom(mRoom));
         }
         return true;
@@ -152,7 +152,7 @@ public class HouseMonitoringUI {
 
 
     private void getInputRoomByList(House house) {
-        if (house.getmRoomList().getListOfRooms().size() == 0) {
+        if (house.getRoomList().getListOfRooms().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -162,8 +162,8 @@ public class HouseMonitoringUI {
         while (!activeInput) {
             System.out.println(houseMonitoringcontroller.printRoomList(house));
             int aux = UtilsUI.readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getmRoomList().getListOfRooms().size()) {
-                this.mRoom = house.getmRoomList().getListOfRooms().get(aux);
+            if (aux >= 0 && aux < house.getRoomList().getListOfRooms().size()) {
+                this.mRoom = house.getRoomList().getListOfRooms().get(aux);
                 activeInput = true;
             } else {
                 System.out.println(UtilsUI.INVALID_OPTION);
@@ -233,7 +233,7 @@ public class HouseMonitoringUI {
     }
 
     private void getInputSensorByList(House house) {
-        if (house.getmRoomList().getListOfRooms().size() == 0) {
+        if (house.getRoomList().getListOfRooms().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -385,7 +385,7 @@ public class HouseMonitoringUI {
      * should be used.
      */
     public void updateModel600(House house) {
-        mCurrentHouseAreaTemperature = houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, house.getmMotherArea());
+        mCurrentHouseAreaTemperature = houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, house.getMotherArea());
     }
 
     public void displayState600() {
@@ -436,7 +436,7 @@ public class HouseMonitoringUI {
     }
 
     private void displayState620() {
-        System.out.print("The Average Rainfall on " + mHouse.getmHouseId() + " that is located on " + mGeoArea.getId() + " on the date " +
+        System.out.print("The Average Rainfall on " + mHouse.getHouseId() + " that is located on " + mGeoArea.getId() + " on the date " +
                 mStartDate + " is " + mResult620 + "%.");
     }
 
@@ -448,7 +448,7 @@ public class HouseMonitoringUI {
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
         this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate);
-        System.out.print("The Average Rainfall on " + mHouse.getmHouseId() + " between " + initialDate + " and " + endDate +
+        System.out.print("The Average Rainfall on " + mHouse.getHouseId() + " between " + initialDate + " and " + endDate +
                 " is " + mResult623 + "%.");
     }
 }

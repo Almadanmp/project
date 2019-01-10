@@ -193,7 +193,7 @@ public class Sensor {
     }
 
     public double getDistanceToHouse(House house) {
-        Local l = house.getmLocation();
+        Local l = house.getLocation();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
     }
 

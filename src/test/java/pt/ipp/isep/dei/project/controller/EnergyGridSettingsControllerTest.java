@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
@@ -29,8 +28,8 @@ class EnergyGridSettingsControllerTest {
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
         roomList.addRoom(room);
-        house.setmRoomList(roomList);
-        house.setmEGList(energyGridList);
+        house.setRoomList(roomList);
+        house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         List<Integer> result = ctrlUS145.matchGridIndexByString("EG2", house);
         List<Integer> expectedResult = new ArrayList<>();
@@ -50,8 +49,8 @@ class EnergyGridSettingsControllerTest {
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
         roomList.addRoom(room);
-        house.setmRoomList(roomList);
-        house.setmEGList(energyGridList);
+        house.setRoomList(roomList);
+        house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         List<Integer> list = ctrlUS145.matchGridIndexByString("EG1", house);
         String actualResult = ctrlUS145.printEnergyGridByIndex(list, energyGridList);
@@ -70,8 +69,8 @@ class EnergyGridSettingsControllerTest {
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         roomList.addRoom(room);
-        house.setmRoomList(roomList);
-        house.setmEGList(energyGridList);
+        house.setRoomList(roomList);
+        house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         String result = ctrlUS145.printRooms(roomList);
         String expectedResult = "---------------\n" +
@@ -95,7 +94,7 @@ class EnergyGridSettingsControllerTest {
         energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
         roomList.addRoom(room);
         energyGrid1.setListOfRooms(roomList);
-        house.setmEGList(energyGridList);
+        house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         boolean result = ctrlUS145.removeRoomFromGrid(energyGrid1, room);
         assertTrue(result);
@@ -111,8 +110,8 @@ class EnergyGridSettingsControllerTest {
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         roomList.addRoom(room);
-        house.setmRoomList(roomList);
-        house.setmEGList(energyGridList);
+        house.setRoomList(roomList);
+        house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         String result = ctrlUS145.printEnergyGrid(energyGrid1);
         String expectedResult = "Energy Grid: EG1, Max Power: 400.0";
@@ -129,8 +128,8 @@ class EnergyGridSettingsControllerTest {
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
         roomList.addRoom(room);
-        house.setmRoomList(roomList);
-        house.setmEGList(energyGridList);
+        house.setRoomList(roomList);
+        house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         String result = ctrlUS145.printGridList(house);
         String expectedResult = "---------------\n" +

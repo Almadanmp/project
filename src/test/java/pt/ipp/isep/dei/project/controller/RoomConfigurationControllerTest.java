@@ -47,7 +47,7 @@ public class RoomConfigurationControllerTest {
         RoomList rlist1 = new RoomList();
         House house1 = new House();
 
-        house1.setmRoomList(rlist1);
+        house1.setRoomList(rlist1);
         rlist1.addRoom(room1);
         rlist1.addRoom(room2);
         //Act

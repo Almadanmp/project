@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
-import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.Scanner;
 import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
 import static pt.ipp.isep.dei.project.io.ui.UtilsUI.readInputNumberAsInt;
 
-public class EnergyGridSettingsUI {
+class EnergyGridSettingsUI {
     private EnergyGridSettingsController mController;
     private EnergyGrid mEnergyGrid;
     private String mGridName;
@@ -18,11 +17,11 @@ public class EnergyGridSettingsUI {
     private String mRoomName;
 
 
-    public EnergyGridSettingsUI() {
+    EnergyGridSettingsUI() {
         this.mController = new EnergyGridSettingsController();
     }
 
-    public void run(House house) {
+    void run(House house) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -114,10 +113,10 @@ public class EnergyGridSettingsUI {
         }
         if (listOfIndexesGrids.size() > 1) {
             System.out.println("There are multiple Energy Grids with that name. Please choose the right one.");
-            System.out.println(mController.printEnergyGridByIndex(listOfIndexesGrids, house.getmEGList()));
+            System.out.println(mController.printEnergyGridByIndex(listOfIndexesGrids, house.getEGList()));
             int aux = readInputNumberAsInt();
             if (listOfIndexesGrids.contains(aux)) {
-                mEnergyGrid = house.getmEGList().getEnergyGridList().get(aux);
+                mEnergyGrid = house.getEGList().getEnergyGridList().get(aux);
                 System.out.println("You have chosen the following grid:");
                 System.out.println(mController.printEnergyGrid(mEnergyGrid));
             } else {
@@ -125,7 +124,7 @@ public class EnergyGridSettingsUI {
             }
         } else {
             System.out.println("You have chosen the following grid:");
-            mEnergyGrid = house.getmEGList().getEnergyGridList().get(0);
+            mEnergyGrid = house.getEGList().getEnergyGridList().get(0);
             System.out.println(mController.printEnergyGrid(mEnergyGrid));
         }
         return true;
@@ -139,7 +138,7 @@ public class EnergyGridSettingsUI {
     }
 
     private void getInputGridByList(House house) {
-        if (house.getmEGList().getEnergyGridList().isEmpty()) {
+        if (house.getEGList().getEnergyGridList().isEmpty()) {
             System.out.print("Invalid Grid List - List Is Empty\n");
             return;
         }
@@ -148,8 +147,8 @@ public class EnergyGridSettingsUI {
         while (!activeInput) {
             System.out.println(mController.printGridList(house));
             int aux = readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getmEGList().getEnergyGridList().size()) {
-                mEnergyGrid = house.getmEGList().getEnergyGridList().get(aux);
+            if (aux >= 0 && aux < house.getEGList().getEnergyGridList().size()) {
+                mEnergyGrid = house.getEGList().getEnergyGridList().get(aux);
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
@@ -208,7 +207,7 @@ public class EnergyGridSettingsUI {
             System.out.println(mController.printRoomElementsByIndex(listOfIndexesRoom, house));
             int aux = readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
-                this.mRoom = house.getmRoomList().getListOfRooms().get(aux);
+                this.mRoom = house.getRoomList().getListOfRooms().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(mController.printRoom(mRoom));
             } else {
@@ -216,7 +215,7 @@ public class EnergyGridSettingsUI {
             }
         } else {
             System.out.println("You have chosen the following Room:");
-            this.mRoom = house.getmRoomList().getListOfRooms().get(0);
+            this.mRoom = house.getRoomList().getListOfRooms().get(0);
             System.out.println(mController.printRoom(mRoom));
         }
         return true;
@@ -224,7 +223,7 @@ public class EnergyGridSettingsUI {
 
 
     private void getInputRoomByList(House house) {
-        if (house.getmRoomList().getListOfRooms().size() == 0) {
+        if (house.getRoomList().getListOfRooms().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -234,8 +233,8 @@ public class EnergyGridSettingsUI {
         while (!activeInput) {
                        System.out.println(mController.printRoomList(house));
             int aux = readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getmRoomList().getListOfRooms().size()) {
-                this.mRoom = house.getmRoomList().getListOfRooms().get(aux);
+            if (aux >= 0 && aux < house.getRoomList().getListOfRooms().size()) {
+                this.mRoom = house.getRoomList().getListOfRooms().get(aux);
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);

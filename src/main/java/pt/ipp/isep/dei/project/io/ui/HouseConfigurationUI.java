@@ -149,7 +149,7 @@ class HouseConfigurationUI {
     }
 
     private void displayStateUS101(House house) {
-        System.out.println("You have successfully changed the location of the house " + house.getmHouseId() + ". \n" + "Address: " +
+        System.out.println("You have successfully changed the location of the house " + house.getHouseId() + ". \n" + "Address: " +
                 mHouseAddress + ". \n" + "ZipCode: " + mHouseZipCode + ". \n" + "Latitude: " + mHouseLat + ". \n" +
                 "Longitude: " + mHouseLon + ". \n");
     }
@@ -188,7 +188,7 @@ class HouseConfigurationUI {
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it. */
 
     private void showListRooms(House house) {
-        System.out.println(controller.printRooms(house.getmRoomList()));
+        System.out.println(controller.printRooms(house.getRoomList()));
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */

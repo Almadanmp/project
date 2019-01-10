@@ -103,11 +103,11 @@ public class RoomList {
 
     public String printRoomList(House house) {
         StringBuilder result = new StringBuilder(this.mStringResult);
-        if (house.getmRoomList().getListOfRooms().isEmpty()) {
+        if (house.getRoomList().getListOfRooms().isEmpty()) {
             return this.mStringInvalidList;
         }
-        for (int i = 0; i < house.getmRoomList().getListOfRooms().size(); i++) {
-            Room aux = house.getmRoomList().getListOfRooms().get(i);
+        for (int i = 0; i < house.getRoomList().getListOfRooms().size(); i++) {
+            Room aux = house.getRoomList().getListOfRooms().get(i);
             result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
             result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
             result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");

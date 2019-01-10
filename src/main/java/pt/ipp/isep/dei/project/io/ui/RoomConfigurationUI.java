@@ -144,26 +144,26 @@ public class RoomConfigurationUI {
             System.out.println(mRoomConfigurationController.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
             int aux = readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
-                this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
+                this.mRoom = mHouse.getRoomList().getListOfRooms().get(aux);
                 this.mRoomName = mRoom.getRoomName();
-                mHouse.getmRoomList().getListOfRooms().get(aux);
+                mHouse.getRoomList().getListOfRooms().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
             } else {
                 System.out.println(INVALID_OPTION);
             }
         } else {
-            this.mRoom = mHouse.getmRoomList().getListOfRooms().get(listOfIndexesRoom.get(0));
+            this.mRoom = mHouse.getRoomList().getListOfRooms().get(listOfIndexesRoom.get(0));
             this.mRoomName = mRoom.getRoomName();
             System.out.println("You have chosen the following Room:");
-            this.mHouse.getmRoomList().getListOfRooms().get(0);
+            this.mHouse.getRoomList().getListOfRooms().get(0);
             System.out.println(mRoomConfigurationController.printRoom(mRoom));
         }
         return true;
     }
 
     private void getInputRoomByList() {
-        if (mHouse.getmRoomList().getListOfRooms().size() == 0) {
+        if (mHouse.getRoomList().getListOfRooms().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -172,8 +172,8 @@ public class RoomConfigurationUI {
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
             int aux = readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getmRoomList().getListOfRooms().size()) {
-                this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
+            if (aux >= 0 && aux < mHouse.getRoomList().getListOfRooms().size()) {
+                this.mRoom = mHouse.getRoomList().getListOfRooms().get(aux);
                 this.mRoomName = mRoom.getRoomName();
                 activeInput = true;
             } else {

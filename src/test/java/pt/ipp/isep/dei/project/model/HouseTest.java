@@ -107,7 +107,7 @@ class HouseTest {
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         RoomList rL1 = new RoomList();
-        house.setmRoomList(rL1);
+        house.setRoomList(rL1);
         Room room = new Room("quarto", 1, 80,2,2);
         Boolean result = house.addRoomToRoomList(room);
 
@@ -120,7 +120,7 @@ class HouseTest {
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         RoomList rL1 = new RoomList();
-        house.setmRoomList(rL1);
+        house.setRoomList(rL1);
         Room room = new Room("quarto", 1, 80,2,2);
         Room room2 = new Room("quarto", 2, 80,2,2);
         house.addRoomToRoomList(room2);
@@ -135,7 +135,7 @@ class HouseTest {
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         EnergyGridList energyGridList = new EnergyGridList();
-        house.setmEGList(energyGridList);
+        house.setEGList(energyGridList);
         String expectedResult = "Invalid List - List is Empty\n";
         String actualResult = house.printGridList();
         assertEquals(expectedResult,actualResult);
@@ -151,7 +151,7 @@ class HouseTest {
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addEnergyGridToEnergyGridList(eg1);
         energyGridList.addEnergyGridToEnergyGridList(eg2);
-        house.setmEGList(energyGridList);
+        house.setEGList(energyGridList);
         String expectedResult = "---------------\n" +
                 "0) Designation: Rede | Max Power: 444.0\n" +
                 "1) Designation: Rede 2 | Max Power: 555.0\n" +
@@ -169,8 +169,8 @@ class HouseTest {
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
         //Act
-        house.setmId("Casa do Porto");
-        String actualResult = house.getmHouseId();
+        house.setId("Casa do Porto");
+        String actualResult = house.getHouseId();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -185,8 +185,8 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
         //Act
-        house.setmStreet("Rua da Praia");
-        String actualResult = house.getmStreet();
+        house.setStreet("Rua da Praia");
+        String actualResult = house.getStreet();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -201,8 +201,8 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
         //Act
-        house.setmZip("6327-09");
-        String actualResult = house.getmZip();
+        house.setZip("6327-09");
+        String actualResult = house.getZip();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -217,8 +217,8 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
         //Act
-        house.setmTown("Lisboa");
-        String actualResult = house.getmTown();
+        house.setTown("Lisboa");
+        String actualResult = house.getTown();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -234,8 +234,8 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
         //Act
-        house.setmLocation(7, 78, 50);
-        Local actualResult = house.getmLocation();
+        house.setLocation(7, 78, 50);
+        Local actualResult = house.getLocation();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -258,8 +258,8 @@ class HouseTest {
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList1);
 
         //Act
-        house.setmRoomList(roomList);
-        RoomList actualResult = house.getmRoomList();
+        house.setRoomList(roomList);
+        RoomList actualResult = house.getRoomList();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -283,8 +283,8 @@ class HouseTest {
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
 
         //Act
-        house.setmMotherArea(ga1);
-        GeographicArea actualResult = house.getmMotherArea();
+        house.setMotherArea(ga1);
+        GeographicArea actualResult = house.getMotherArea();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -303,8 +303,8 @@ class HouseTest {
         expectedResult.addEnergyGridToEnergyGridList(eg);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
         //Act
-        house.setmEGList(energyGridList);
-        EnergyGridList actualResult = house.getmEGList();
+        house.setEGList(energyGridList);
+        EnergyGridList actualResult = house.getEGList();
 
         //Assert
         assertEquals(expectedResult, actualResult);

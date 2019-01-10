@@ -14,6 +14,7 @@ public class House {
     private EnergyGridList mEGList;
     private RoomList mRoomList;
     private GeographicArea mMotherArea;
+    private String mStringEnhancer = "---------------\n";
 
     //CONSTRUCTORS
     public House() {
@@ -33,66 +34,67 @@ public class House {
 
     //SETTERS AND GETTERS
 
-    public String getmHouseId() {
+    public String getHouseId() {
         return mId;
 
     }
-    void setmId(String id){ this.mId = id;}
+    void setId(String id){ this.mId = id;}
 
-    String getmStreet() {
+    String getStreet() {
         return this.mStreet;
     }
 
-    public void setmStreet(String mStreet) {
+    public void setStreet(String mStreet) {
         this.mStreet = mStreet;
     }
 
-    String getmZip() {
+    String getZip() {
         return mZip;
     }
 
-    public void setmZip(String mZip) {
+    public void setZip(String mZip) {
         this.mZip = mZip;
     }
 
-    String getmTown() {
+    String getTown() {
         return mTown;
     }
-    void setmTown(String town) {
+
+    void setTown(String town) {
         this.mTown = town;
     }
 
-    Local getmLocation() {
+    Local getLocation() {
         return mLocation;
     }
 
-    public void setmLocation(double latitude, double longitude, double altitude) {
+    public void setLocation(double latitude, double longitude, double altitude) {
         mLocation.setLatitude(latitude);
         mLocation.setLongitude(longitude);
         mLocation.setAltitude(altitude);
     }
 
-    public void setmRoomList(RoomList roomList) {
+    public void setRoomList(RoomList roomList) {
         this.mRoomList = roomList;
     }
 
-    public RoomList getmRoomList() {
+    public RoomList getRoomList() {
         return this.mRoomList;
     }
 
-    public GeographicArea getmMotherArea() {
+    public GeographicArea getMotherArea() {
         return mMotherArea;
     }
 
-    public void setmMotherArea(GeographicArea mMotherArea) {
+    void setMotherArea(GeographicArea mMotherArea) {
         this.mMotherArea = mMotherArea;
     }
 
-    public EnergyGridList getmEGList() {
+    public EnergyGridList getEGList() {
         return this.mEGList;
     }
 
-    public void setmEGList(EnergyGridList energyGridList) {
+    public void setEGList(EnergyGridList energyGridList) {
         this.mEGList = energyGridList;
     }
 
@@ -101,8 +103,8 @@ public class House {
         String roomToAddName = room.getRoomName();
         for (Room r : this.mRoomList.getListOfRooms()) {
             String roomDesignationToTest = r.getRoomName();
-            if (roomDesignationToTest.equals(roomToAddName)) {
-                return false; } }
+            if (roomDesignationToTest.equals(roomToAddName)) return false;
+        }
         this.mRoomList.addRoom(room);
         return true;
     }
@@ -137,17 +139,17 @@ public class House {
     }
 
     public String printGridList() {
-        String result = "---------------\n";
+        StringBuilder result = new StringBuilder(mStringEnhancer);
         if (this.mEGList.getEnergyGridList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < this.mEGList.getEnergyGridList().size(); i++) {
             EnergyGrid aux = this.mEGList.getEnergyGridList().get(i);
-            result = result + i + ") Designation: " + aux.getName() + " | ";
-            result = result + "Max Power: " + aux.getMaxPower() + "\n";
+            result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
+            result.append("Max Power: ").append(aux.getMaxPower()).append("\n");
         }
-        result = result + "---------------\n";
-        return result;
+        result.append(mStringEnhancer);
+        return result.toString();
     }
 
     @Override
