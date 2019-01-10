@@ -36,48 +36,35 @@ public class HouseMonitoringUI {
         this.houseMonitoringcontroller = new HouseMonitoringController();
     }
 
-    void run(GeographicAreaList newGeoListUi, House programHouse) {
+    void run(House programHouse) {
         RoomList roomList = programHouse.getmRoomList();
-        if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
-            System.out.println("Invalid Geographic Area List - List Is Empty");
-            return;
-        }
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
         System.out.println("House Monitoring\n");
         System.out.println("--------------\n");
-        getInputGeographicArea(newGeoListUi);
-        if (mGeoArea == null) {
-            System.out.println("Unable to select a Geographic Area. Returning to main menu.");
-            return;
-        }
-        if (mHouse == null) {
-            System.out.println("Unable to select a house. Returning to main menu.");
-            return;
-        }
         while (!activeInput) {
             printOptionMessage();
             option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    getInputRoom();
-                    getInputSensor();
+                    getInputRoom(programHouse);
+                    getInputSensor(programHouse);
                     getInputStartDate();
-                    updateModel610(roomList);
+                    updateModel610(programHouse);
                     displayState610();
                     activeInput = true;
                     break;
 
                 case 2:
-                    getInputRoom();
-                    getInputSensor();
-                    updateModel605(roomList);
+                    getInputRoom(programHouse);
+                    getInputSensor(programHouse);
+                    updateModel605();
                     displayState605();
                     activeInput = true;
                     break;
                 case 3:
-                    updateModel600();
+                    updateModel600(programHouse);
                     displayState600();
                     activeInput = true;
                     break;
@@ -102,7 +89,7 @@ public class HouseMonitoringUI {
         }
     }
 
-    private void getInputRoom() {
+    private void getInputRoom(House house) {
         System.out.println(
                 "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
@@ -110,13 +97,13 @@ public class HouseMonitoringUI {
         switch (option) {
             case 1:
                 getInputRoomName();
-                if (!getRoomByName()) {
+                if (!getRoomByName(house)) {
                     System.out.println("Unable to select a Room. Returning to main menu.");
                     return;
                 }
                 break;
             case 2:
-                getInputRoomByList();
+                getInputRoomByList(house);
                 break;
             case 0:
                 return;
@@ -133,7 +120,7 @@ public class HouseMonitoringUI {
         return (!(this.mNameRoom.equals("exit")));
     }
 
-    private boolean getRoomByName() {
+    private boolean getRoomByName(House house) {
         List<Integer> listOfIndexesRoom = houseMonitoringcontroller.matchRoomIndexByString(mNameRoom, mHouse);
 
         while (listOfIndexesRoom.isEmpty()) {
@@ -149,7 +136,7 @@ public class HouseMonitoringUI {
             System.out.println(houseMonitoringcontroller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
             int aux = UtilsUI.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
-                mHouse.getmRoomList().getListOfRooms().get(aux);
+                house.getmRoomList().getListOfRooms().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(houseMonitoringcontroller.printRoom(mRoom));
             } else {
@@ -157,15 +144,15 @@ public class HouseMonitoringUI {
             }
         } else {
             System.out.println("You have chosen the following Room:");
-            mHouse.getmRoomList().getListOfRooms().get(0);
+            house.getmRoomList().getListOfRooms().get(0);
             System.out.println(houseMonitoringcontroller.printRoom(mRoom));
         }
         return true;
     }
 
 
-    private void getInputRoomByList() {
-        if (mHouse.getmRoomList().getListOfRooms().size() == 0) {
+    private void getInputRoomByList(House house) {
+        if (house.getmRoomList().getListOfRooms().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -173,10 +160,10 @@ public class HouseMonitoringUI {
         System.out.println("Please select one of the existing rooms on the selected House: ");
 
         while (!activeInput) {
-            houseMonitoringcontroller.printRoomList(mHouse);
+            houseMonitoringcontroller.printRoomList(house);
             int aux = UtilsUI.readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getmRoomList().getListOfRooms().size()) {
-                this.mRoom = mHouse.getmRoomList().getListOfRooms().get(aux);
+            if (aux >= 0 && aux < house.getmRoomList().getListOfRooms().size()) {
+                this.mRoom = house.getmRoomList().getListOfRooms().get(aux);
                 activeInput = true;
             } else {
                 System.out.println(UtilsUI.INVALID_OPTION);
@@ -184,7 +171,7 @@ public class HouseMonitoringUI {
         }
     }
 
-    private void getInputSensor() {
+    private void getInputSensor(House house) {
         System.out.println(
                 "We need to know which Sensor you wish to acess.\n" + "Would you like to:\n" + "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
@@ -198,7 +185,7 @@ public class HouseMonitoringUI {
                 }
                 break;
             case 2:
-                getInputSensorByList();
+                getInputSensorByList(house);
                 break;
             case 0:
                 return;
@@ -245,8 +232,8 @@ public class HouseMonitoringUI {
         return true;
     }
 
-    private void getInputSensorByList() {
-        if (mHouse.getmRoomList().getListOfRooms().size() == 0) {
+    private void getInputSensorByList(House house) {
+        if (house.getmRoomList().getListOfRooms().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -397,8 +384,8 @@ public class HouseMonitoringUI {
      * includes the house, there is more than one temperature sensor, the nearest one
      * should be used.
      */
-    public void updateModel600() {
-        mCurrentHouseAreaTemperature = houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(mHouse, mGeoArea);
+    public void updateModel600(House house) {
+        mCurrentHouseAreaTemperature = houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, house.getmMotherArea());
     }
 
     public void displayState600() {
@@ -410,10 +397,9 @@ public class HouseMonitoringUI {
      * if it meets my personal comfort requirements.
      */
 
-    private void updateModel605(RoomList list) {
+    private void updateModel605() {
         out.print("The room is " + this.mRoom.getRoomName() + " and the Temperature Sensor is " + this.mSensor.getName() + "\n");
-        Date mDate = new Date();
-        this.mCurrentTemperature = houseMonitoringcontroller.getCurrentRoomTemperature(list);
+        this.mCurrentTemperature = houseMonitoringcontroller.getCurrentRoomTemperature(mRoom);
     }
 
     private void displayState605() {
@@ -425,12 +411,12 @@ public class HouseMonitoringUI {
     /**
      * US610
      */
-    private void updateModel610(RoomList list) {
+    private void updateModel610(House house) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
         out.print("The room is " + this.mRoom.getRoomName() + " the Temperature Sensor is " + this.mSensor.getName() +
                 " and the date is " + mDate + "\n");
-        this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate, list);
+        this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate, house, this.mRoom);
     }
 
     private void displayState610() {

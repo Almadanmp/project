@@ -337,8 +337,9 @@ public class HouseMonitoringControllerTest {
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
+        House house = new House("casa","rua","123","coisa",new Local(1,1,1),new GeographicArea("porto",new TypeArea("cidade"),12,12,new Local(1,1,1)),roomList);
         //Act
-        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d2, roomList);
+        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d2, house, room);
         double expectedResult = 30.0;
         //Assert
         assertEquals(expectedResult, result, 0.01);
@@ -365,8 +366,9 @@ public class HouseMonitoringControllerTest {
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
+        House house = new House("casa","rua","123","coisa",new Local(1,1,1),new GeographicArea("porto",new TypeArea("cidade"),12,12,new Local(1,1,1)),roomList);
         //Act
-        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d2, roomList);
+        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d2, house, room);
         double expectedResult = 20.0;
         //Assert
         assertEquals(expectedResult, result, 0.01);
@@ -394,8 +396,9 @@ public class HouseMonitoringControllerTest {
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
+        House house = new House("casa","rua","123","coisa",new Local(1,1,1),new GeographicArea("porto",new TypeArea("cidade"),12,12,new Local(1,1,1)),roomList);
         //Act ---------------------------------------------------------------
-        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d3, roomList);
+        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d3, house, room);
         double expectedResult = 25.0;
         //Assert ------------------------------------------------------------
         assertEquals(expectedResult, result, 0.01);
@@ -423,8 +426,9 @@ public class HouseMonitoringControllerTest {
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
+        House house = new House("casa","rua","123","coisa",new Local(1,1,1),new GeographicArea("porto",new TypeArea("cidade"),12,12,new Local(1,1,1)),roomList);
         //Act ---------------------------------------------------------------------
-        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d3, roomList);
+        double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d3, house, room);
         double expectedResult = -25.0;
         //Assert ------------------------------------------------------------------
         assertEquals(expectedResult, result, 0.01);
@@ -499,7 +503,7 @@ public class HouseMonitoringControllerTest {
         roomList.addRoom(room);
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Act -----------------------------------------
-        double result = ctrl.getCurrentRoomTemperature(roomList);
+        double result = ctrl.getCurrentRoomTemperature(room);
         double expectedResult = 20;
         //Assert --------------------------------------
         assertEquals(expectedResult, result, 0.01);

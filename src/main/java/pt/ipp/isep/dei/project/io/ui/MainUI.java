@@ -263,7 +263,7 @@ public class MainUI {
                         break;
                     case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
-                        houseM.run(geographicalAreaList, EdificioB);
+                        houseM.run(EdificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = true;
                         break;

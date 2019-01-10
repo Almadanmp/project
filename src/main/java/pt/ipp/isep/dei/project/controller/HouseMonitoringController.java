@@ -13,20 +13,12 @@ import java.util.List;
 public class HouseMonitoringController {
 
 
-    public double getCurrentRoomTemperature(RoomList room) {
-        double currentTemperature = 0;
-        for (Room r : room.getListOfRooms()) {
-            currentTemperature = r.getCurrentRoomTemperature();
-        }
-        return currentTemperature;
+    public double getCurrentRoomTemperature(Room room) {
+        return room.getCurrentRoomTemperature();
     }
 
-    public double getMaxTemperatureInARoomOnAGivenDay(Date day, RoomList room) {
-        double max = -275;
-        for (Room r : room.getListOfRooms()) {
-            max = r.getMaxTemperatureInARoomOnAGivenDay(day);
-        }
-        return max;
+    public double getMaxTemperatureInARoomOnAGivenDay(Date day, House house, Room room) {
+     return room.getMaxTemperatureInARoomOnAGivenDay(house,day);
     }
     public String printSensor(Sensor sensor){
         return sensor.printSensor();
