@@ -1,23 +1,23 @@
 package pt.ipp.isep.dei.project.model;
 
 public class TypeArea {
-    private String mTypeDesignation;
+    private String mName;
 
     public TypeArea(String nameGiven) {
         setTypeOfGeographicArea(nameGiven);
     }
 
     public void setTypeOfGeographicArea(String nameGiven) {
-        this.mTypeDesignation = nameGiven;
+        this.mName = nameGiven;
     }
 
     public String getTypeOfGeographicArea() {
-        return this.mTypeDesignation;
+        return this.mName;
     }
 
     public String printTypeGeographicArea() {
         String result;
-        result = "Type Area: " + this.mTypeDesignation + "\n";
+        result = "Type Area: " + this.mName + "\n";
         return result;
     }
 
@@ -42,7 +42,7 @@ public class TypeArea {
             return false;
         }
         TypeArea localVariable = (TypeArea) objectToTest;
-        return localVariable.getTypeOfGeographicArea().equals(this.mTypeDesignation);
+        return localVariable.getTypeOfGeographicArea().equals(this.mName);
     }
 
     @Override

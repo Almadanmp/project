@@ -2,8 +2,8 @@
 actor User
 User -> MainUI: Add a new room to a house.
 MainUI -> HouseConfigurationUI: Add a new room to a house.
-HouseConfigurationUI --> User: request data (room name, house floor, dimensions)
-User -> MainUI: insert data (room name, house floor, dimensions)
+HouseConfigurationUI --> User: request house specs (room name, house floor, dimensions)
+User -> MainUI: insert specs (room name, house floor, dimensions)
 MainUI -> HouseConfigurationUI: set data
 HouseConfigurationUI -> HouseConfigurationController: create Room
 HouseConfigurationController -> Room: create Room

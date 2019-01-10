@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 

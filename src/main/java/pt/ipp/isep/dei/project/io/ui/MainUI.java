@@ -13,7 +13,6 @@ public class MainUI {
         //Program Variables
 
         boolean activeProgram = true;
-        House programHouse = new House();
 
         // ***************************************************************************
         // ********************* < MOCK DATA FOR TESTING PURPOSES >*******************
@@ -208,13 +207,14 @@ public class MainUI {
 
             // Submenus Input selection
 
-            String[] menu = {" 0. Exit Application\n",
-                    "1. Geographic Area Settings\n",
+            String[] menu = {
+                    " 1. Geographic Area Settings\n",
                     "2. House Settings.\n",
                     "3. Room Settings.\n",
                     "4. Sensor Settings.\n",
                     "5. Energy Grid Settings.\n",
-                    "6. House Monitoring.\n",};
+                    "6. House Monitoring.\n" +
+                   " 0. Exit Application\n" };
 
             System.out.println("Select the task you want to do:");
 
@@ -225,9 +225,9 @@ public class MainUI {
 
             System.out.print(formattedString);
             System.out.print("\nEnter option number:\n");
-            boolean activeInput = false;
+            boolean activeInput = true;
 
-            while (!activeInput) {
+            while (activeInput) {
                 option = UtilsUI.readInputNumberAsInt();
                 switch (option) {
                     case 0:
@@ -236,37 +236,37 @@ public class MainUI {
                         GASettingsUI view1 = new GASettingsUI();
                         view1.run(geographicalAreaList, mTypeAreaList);
                         returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
+                        activeInput = false;
                         break;
                     case 2:
                         HouseConfigurationUI houseC = new HouseConfigurationUI();
-                        houseC.run(geographicalAreaList, EdificioB);
+                        houseC.run(EdificioB);
                         returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
+                        activeInput = false;
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
                         roomConfiguration.run(geographicalAreaList, EdificioB);
                         returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
+                        activeInput = false;
                         break;
                     case 4:
                         SensorSettingsUI sensorSettings = new  SensorSettingsUI();
                         sensorSettings.run(geographicalAreaList);
                         returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
+                        activeInput = false;
                         break;
                     case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
                         energyGridSettings.run(EdificioB);
                         returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
+                        activeInput = false;
                         break;
                     case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
                         houseM.run(EdificioB);
                         returnToMenu(enterToReturnToConsole);
-                        activeInput = true;
+                        activeInput = false;
                         break;
                     default:
                         System.out.println(UtilsUI.INVALID_OPTION);

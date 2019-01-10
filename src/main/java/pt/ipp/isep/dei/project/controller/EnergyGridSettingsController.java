@@ -30,7 +30,7 @@ public class EnergyGridSettingsController {
     }
 
     public String printRoomList(House house) {
-        return house.getRoomList().printRoomList(house);
+            return house.getRoomList().printRoomList(house);
     }
 
     public String printGridList(House house) {
