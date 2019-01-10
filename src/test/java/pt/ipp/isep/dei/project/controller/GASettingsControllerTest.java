@@ -116,6 +116,18 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    public void seeIfGetTypeAreaName() {
+        //Arrange
+        GASettingsController ctrl = new GASettingsController();
+        TypeArea type = new TypeArea("Bairro");
+        //Act
+        String actualResult = ctrl.getTypeAreaName(type);
+        String expectedResult = "Bairro";
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
     //USER STORY 001 TESTS
 
     @Test
