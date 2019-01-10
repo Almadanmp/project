@@ -173,7 +173,10 @@ public class MainUI {
         ISEPSensorList.addSensor(sensorRainfallISEP);
         ISEPSensorList.addSensor(sensorTemperatureISEP);
         ISEP.setSensorList(ISEPSensorList);
-
+        SensorList teste = new SensorList();
+        roomISEP1.setRoomSensorList(teste);
+        roomISEP3.setRoomSensorList(teste);
+        Porto.setSensorList(teste);
 
         // Energy Grid
 
@@ -193,7 +196,7 @@ public class MainUI {
         mTypeAreaList.addTypeArea(typeAreaB);
 
         // **************************************************************************
-        // ******************* < / MOCK DATA FOR TESTING PUPOSES > ******************
+        // ******************* < / MOCK DATA FOR TESTING PURPOSES > ******************
         // **************************************************************************
 
         //MAIN CODE
@@ -248,13 +251,13 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(geographicalAreaList, EdificioB);
+                        roomConfiguration.run(ISEP, EdificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
                     case 4:
                         SensorSettingsUI sensorSettings = new  SensorSettingsUI();
-                        sensorSettings.run(geographicalAreaList);
+                        sensorSettings.run(ISEP, geographicalAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

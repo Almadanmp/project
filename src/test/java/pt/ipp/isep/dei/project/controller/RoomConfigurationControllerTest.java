@@ -80,7 +80,7 @@ public class RoomConfigurationControllerTest {
         //Act
 
         RoomConfigurationController crl = new RoomConfigurationController();
-        boolean actualResult = crl.doesSensorListInAGeoAreaContainASensorByName("Vento", glist1);
+        boolean actualResult = crl.doesSensorListInAGeoAreaContainASensorByName("Vento", ga1);
         //Assert
         assertTrue(actualResult);
     }

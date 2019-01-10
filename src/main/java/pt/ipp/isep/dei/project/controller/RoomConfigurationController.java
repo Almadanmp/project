@@ -21,18 +21,18 @@ public class RoomConfigurationController {
          */
     }
 
-    public void addSensorToRoom(Room room, String sensorToAdd, GeographicArea ga) {
-        Sensor xSensor = getSensorFromName(sensorToAdd, ga);
-        room.getRoomSensorList().getSensorList().add(xSensor);
+    public void addSensorToRoom(Room room, Sensor sensorToAdd) {
+        room.getRoomSensorList().getSensorList().add(sensorToAdd);
         this.mRoom = room;
     }
 
-       public boolean doesSensorListInAGeoAreaContainASensorByName(String name, GeographicAreaList ga) {
-        boolean result = true;
-        for (GeographicArea g : ga.getGeographicAreaList()) {
-            result = g.doesSensorListInAGeoAreaContainASensorByName(name);
+    public boolean doesSensorListInAGeoAreaContainASensorByName(String name, GeographicArea ga) {
+        for (Sensor s : ga.getSensorList().getSensorList()) {
+            if (s.getName().equals(name)) {
+                return true;
+            }
         }
-        return result;
+        return false;
     }
 
     public Sensor getSensorFromName(String sensorName, GeographicArea ga) {

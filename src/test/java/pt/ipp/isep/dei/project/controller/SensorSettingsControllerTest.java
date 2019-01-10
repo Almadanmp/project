@@ -228,7 +228,7 @@ class SensorSettingsControllerTest {
         //Assert
         assertFalse(actualResult);
     }
-
+/*
     @Test
     void seeIfSensorListIsAddedToGeographicArea() {
 
@@ -336,7 +336,9 @@ class SensorSettingsControllerTest {
         assertFalse(actualResult);
     }
 
+
     //TODO REVIEW TEST AND METHOD - Sensor List is not being used and test is still working even without sensors
+   /*
     @Test
     void seeIfSetTypeWorksFalse() {
         //Arrange
@@ -356,6 +358,7 @@ class SensorSettingsControllerTest {
         boolean actualResult = ctrl.setTypeSensor("Portugal", "Movement");
 
         //Assert
+    /*
         assertEquals(expectedResult, actualResult);
     }
 

@@ -12,6 +12,7 @@ public class SensorSettingsController {
     private Date mDate;
     private Sensor mSensor;
     private TypeSensor mSensorType;
+    private GeographicArea mGeoArea;
 
 
     public SensorSettingsController(){
@@ -89,15 +90,20 @@ public class SensorSettingsController {
      * Calls the original method from model
      */
 
-    public boolean addSensorToGeographicArea(String name, GeographicAreaList gaList, SensorList sensorList) {
+    public boolean addSensorToGeographicArea(GeographicArea ga, GeographicAreaList gaList, Sensor sensor) {
         if (checkIfListValid(gaList.getGeographicAreaList())) {
-            for (GeographicArea ga : gaList.getGeographicAreaList())
-                if ((ga.getId().equals(name))) {
-                    ga.setSensorList(sensorList);
+            ga.getSensorList().addSensor(sensor);
                     return true;
                 }
-        }
         return false;
+    }
+
+    public GeographicArea getGeoAreaFromName(String sensorName, GeographicAreaList galist) {
+        for (GeographicArea ga : galist.getGeographicAreaList()) {
+            if (ga.getId().equals(sensorName))
+                mGeoArea = ga;
+        }
+        return mGeoArea;
     }
 
     public Local getLocal() {

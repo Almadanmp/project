@@ -3,7 +3,9 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
@@ -21,17 +23,19 @@ public class SensorSettingsUI {
     private int dataMonth;
     private int dataDay;
     private Sensor mSensor;
+    private GeographicArea mGeographicArea;
     private String mGeographicAreaName;
-    private SensorList mSensorList; //TODO this is used but never assigned
+    private SensorList mSensorList;
     private GeographicAreaList mGeographicAreaList;  //TODO this is used but never assigned
 
 
     public SensorSettingsUI() {
         this.mController = new SensorSettingsController();
-        mSensorList = new SensorList();
     }
 
-    public void run(GeographicAreaList newGeoListUi) {
+    public void run(GeographicArea geo,GeographicAreaList newGeoListUi) {
+        this.mGeographicArea = geo;
+        this.mGeographicAreaList = newGeoListUi;
         if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
@@ -190,14 +194,14 @@ public class SensorSettingsUI {
         TypeSensor mType = mController.createType(this.sensorType, this.sensorUnits);
         Date mDate = mController.createDate(this.dataYear, this.dataMonth, this.dataDay);
         this.mSensor = mController.createSensor(this.sensorName, mType, mLocal, mDate);
+
     }
 
     private void displayUS06() {
-
-        if (mController.addSensor(mSensor, mSensorList)) {
-            System.out.println("\n \n Sensor has been successfully added to the list");
+        if (mSensor != null) {
+            System.out.println("\n \n Sensor has been successfully created.");
         } else {
-            System.out.println("\n \nSensor could not be added to the list.");
+            System.out.println("\n \nSensor could not be created.");
         }
     }
 
@@ -205,7 +209,8 @@ public class SensorSettingsUI {
         Scanner input = new Scanner(System.in);
         System.out.println("\n Add sensor to Geographic Area?\n");
         System.out.println("Yes/No:\t");
-        if ("Yes".equals(input.nextLine()) || "yes".equals(input.nextLine()) || "Y".equals(input.nextLine()) || "y".equals(input.nextLine())) {
+        List<String> valid = Arrays.asList("Yes", "YES", "yes", "Y", "y");
+        if (input.nextLine().equals(valid) ) {
             System.out.println("Type the name of the Geographic Area which the sensor will be added to");
             System.out.println("\nEnter Geographic Area Name:\t");
             this.mGeographicAreaName = input.nextLine();
@@ -216,7 +221,8 @@ public class SensorSettingsUI {
     }
 
     private void updateAndDisplayUS06Part206() {
-        if (mController.addSensorToGeographicArea(mGeographicAreaName, mGeographicAreaList, mSensorList)) {
+
+        if (mController.addSensorToGeographicArea(mGeographicArea,mGeographicAreaList,mSensor)) {
             System.out.println("\nSensor has been successfully added to the Geographic Area");
         } else {
             System.out.println("\nSensor could not be added to the Area.");
