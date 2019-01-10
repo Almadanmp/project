@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.TypeAreaList;
 
 import java.util.Scanner;
 
@@ -21,29 +20,29 @@ class HouseConfigurationUI {
     private String mHouseZipCode;
     private static final String INVALID_OPTION = "Please enter a valid option";
 
-    public HouseConfigurationUI() {
+    HouseConfigurationUI() {
         this.controller = new HouseConfigurationController();
     }
 
-    public void run(GeographicAreaList newGeoListUi, TypeAreaList typeAreaList, House house) {
-        if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
+    void run(GeographicAreaList programList, House house) {
+        if (programList == null || programList.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
         }
-        boolean activeInput = false;
+        boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
         System.out.println("House Configuration\n");
         System.out.println("--------------\n");
-        while (!activeInput) {
-            printOptionMessage();
+        while (activeInput) {
+            printHouseConfigMenu();
             option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInputHouseCharacteristicsUS101();
-                    updateModelUS101(house);
-                    displayStateUS101(house);
-                    activeInput = true;
+                    updateHouseUS101(house);
+                    displayHouseUS101(house);
+                    activeInput = false;
                     break;
 
                 case 2:
@@ -51,11 +50,11 @@ class HouseConfigurationUI {
                     updateInputRoom();
                     displayStateRoom();
                     updateRoomAndDisplayState(house);
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 3:
-                    showListRooms(house);
-                    activeInput = true;
+                    printRoomList(house);
+                    activeInput = false;
                     break;
                 case 0:
                     return;
@@ -70,8 +69,8 @@ class HouseConfigurationUI {
 
 
     /**
-     * ------ GET ROOM CHARACTERISTICS --------
-     **/
+     * Method gets input from user to save as the characteristics of a room.
+     */
 
     private void getInputRoomCharacteristics() {
         Scanner input = new Scanner(System.in);
@@ -142,25 +141,43 @@ class HouseConfigurationUI {
 
     }
 
-    private void updateModelUS101(House house) {
+    /**
+     * Method updates the house using the input previously stored.
+     * @param house receives the house the program is managing, so its parameters get changed.
+     */
+
+    private void updateHouseUS101(House house) {
         controller.setHouseLocal(mHouseLat, mHouseLon, mHouseAlt, house);
         controller.setHouseZIPCode(mHouseZipCode, house);
         controller.setHouseAddress(mHouseAddress, house);
     }
 
-    private void displayStateUS101(House house) {
+    /**
+     * Method displays the house after all the changes have happened.
+     * @param house receives the house the program is managing, so its new parameters get displayed.
+     */
+
+    private void displayHouseUS101(House house) {
         System.out.println("You have successfully changed the location of the house " + house.getHouseId() + ". \n" + "Address: " +
                 mHouseAddress + ". \n" + "ZipCode: " + mHouseZipCode + ". \n" + "Latitude: " + mHouseLat + ". \n" +
                 "Longitude: " + mHouseLon + ". \n");
     }
 
 
-    /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
-    house floor and dimensions) */
+    // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
+    // house floor and dimensions).
+
+    /**
+     *  Method creates a new room with the parameters previously provided by the user.
+     */
 
     private void updateInputRoom() {
         this.controller.createNewRoom(mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight);
     }
+
+    /**
+     * Method displays the Room and its characteristics.
+     */
 
     private void displayStateRoom() {
         //SHOW ROOM ENTERED BY USER
@@ -175,6 +192,11 @@ class HouseConfigurationUI {
         }
     }
 
+    /**
+     * Method calls on controller to add the created room to the house the program manages.
+     * @param house receives the house the program manages so the room can be added to it.
+     */
+
     private void updateRoomAndDisplayState(House house) {
         String mHouseName = controller.getHouseName(house);
         if (controller.addRoomToHouse(house)) {
@@ -187,12 +209,12 @@ class HouseConfigurationUI {
 
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it. */
 
-    private void showListRooms(House house) {
+    private void printRoomList(House house) {
         System.out.println(controller.printRooms(house.getRoomList()));
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
-    private void printOptionMessage() {
+    private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
         System.out.println("1) Configure the location of the house. (US101)");
         System.out.println("2) Add a new room to the house. (US105)");
