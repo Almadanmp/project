@@ -105,7 +105,7 @@ public class House {
 
     public boolean addRoomToRoomList(Room room) {
         String roomToAddName = room.getRoomName();
-        for (Room r : this.mRoomList.getListOfRooms()) {
+        for (Room r : this.mRoomList.getRoomList()) {
             String roomDesignationToTest = r.getRoomName();
             if (roomDesignationToTest.equals(roomToAddName)) return false;
         }

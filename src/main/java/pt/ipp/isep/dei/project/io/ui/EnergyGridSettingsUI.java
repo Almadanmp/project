@@ -22,49 +22,49 @@ class EnergyGridSettingsUI {
     }
 
     void run(House house) {
-        boolean activeInput = false;
+        boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
         System.out.println("Energy Grid Settings\n");
         System.out.println("--------------\n");
-        while (!activeInput) {
-            printOptionMessage();
+        while (activeInput) {
+            printEnergyGridMenu();
             option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInputUS130();
                     updateHouse(house);
-                    activeInput = true;
+                    activeInput = false;
                     break;
 
                 case 2:
                     getInputEnergyGrid(house);
                     getInputAndCreatePowerSource();
-                    updateModelAndDisplayState();
-                    activeInput = true;
+                    updateGridAndDisplayState();
+                    activeInput = false;
                     break;
                 case 3:
                     getInputEnergyGrid(house);
                     //TODO check if energy grid was selected
                     displayRoomList(mEnergyGrid);
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 4:
                     getInputRoom(house);
                     getInputEnergyGrid(house);
-                    if (updateStateEnergyGridUS147(mEnergyGrid, mRoom)) {
+                    if (updateGridUS147(mEnergyGrid, mRoom)) {
                         System.out.println("Room successfully added to the grid!");
                     } else System.out.println("It wasn't possible to add the room. Please try again.");
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 5:
                     getInputEnergyGrid(house);
                     getInputRoom(house);
-                    if (updateStateEnergyGrid(mEnergyGrid, mRoom)) {
+                    if (updateGridUS149(mEnergyGrid, mRoom)) {
                         System.out.println("Room successfully removed from grid!");
                     } else System.out.println("It wasn't possible to remove the room. Please try again.");
 
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 0:
                     return;
@@ -156,10 +156,8 @@ class EnergyGridSettingsUI {
         }
     }
 
-    /**
-     * Get Input Room
-     * ------ Methods to get Rooms By Name / by List --------
-     **/
+    // Get Input Room
+    // Methods to get Rooms By Name / by List
 
     private void getInputRoom(House house) {
         System.out.println(
@@ -193,21 +191,21 @@ class EnergyGridSettingsUI {
     }
 
     private boolean getRoomByName(House house) {
-        List<Integer> listOfIndexesRoom = mController.matchRoomIndexByString(mRoomName, house);
-        while (listOfIndexesRoom.isEmpty()) {
+        List<Integer> roomIndexes = mController.getIndexRoomsByString(mRoomName, house);
+        while (roomIndexes.isEmpty()) {
             System.out.println("There is no Room with that name. Please insert the name of a Room" +
                     " that exists or  Type 'exit' to cancel and create a new Room on the Main Menu.");
             if (!getInputRoomName()) {
                 return false;
             }
-            listOfIndexesRoom = mController.matchRoomIndexByString(mRoomName, house);
+            roomIndexes = mController.getIndexRoomsByString(mRoomName, house);
         }
-        if (listOfIndexesRoom.size() > 1) {
+        if (roomIndexes.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
-            System.out.println(mController.printRoomElementsByIndex(listOfIndexesRoom, house));
+            System.out.println(mController.printRoomElementsByIndex(roomIndexes, house));
             int aux = readInputNumberAsInt();
-            if (listOfIndexesRoom.contains(aux)) {
-                this.mRoom = house.getRoomList().getListOfRooms().get(aux);
+            if (roomIndexes.contains(aux)) {
+                this.mRoom = house.getRoomList().getRoomList().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(mController.printRoom(mRoom));
             } else {
@@ -215,7 +213,7 @@ class EnergyGridSettingsUI {
             }
         } else {
             System.out.println("You have chosen the following Room:");
-            this.mRoom = house.getRoomList().getListOfRooms().get(0);
+            this.mRoom = house.getRoomList().getRoomList().get(0);
             System.out.println(mController.printRoom(mRoom));
         }
         return true;
@@ -223,7 +221,7 @@ class EnergyGridSettingsUI {
 
 
     private void getInputRoomByList(House house) {
-        if (house.getRoomList().getListOfRooms().size() == 0) {
+        if (house.getRoomList().getRoomList().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -231,10 +229,10 @@ class EnergyGridSettingsUI {
         System.out.println("Please select one of the existing rooms on the selected House: ");
 
         while (!activeInput) {
-                       System.out.println(mController.printRoomList(house));
+            System.out.println(mController.printRoomList(house));
             int aux = readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getRoomList().getListOfRooms().size()) {
-                this.mRoom = house.getRoomList().getListOfRooms().get(aux);
+            if (aux >= 0 && aux < house.getRoomList().getRoomList().size()) {
+                this.mRoom = house.getRoomList().getRoomList().get(aux);
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
@@ -243,9 +241,8 @@ class EnergyGridSettingsUI {
     }
 
 
-    /*
-      USER STORY 130 UI -  As an Administrator, I want to create a house grid, so that I can define the rooms that are
-      attached to it and the contracted maximum power for that grid. */
+    // USER STORY 130 UI -  As an Administrator, I want to create a house grid, so that I can define the rooms that are
+    // attached to it and the contracted maximum power for that grid.
 
     private void getInputUS130() {
         Scanner scanner = new Scanner(System.in);
@@ -279,7 +276,7 @@ class EnergyGridSettingsUI {
         mController.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
-    private void updateModelAndDisplayState() {
+    private void updateGridAndDisplayState() {
         if (mController.addPowerSourceToEnergyGrid(mEnergyGrid)) {
             System.out.println("The power source was added with success!");
         } else {
@@ -287,29 +284,30 @@ class EnergyGridSettingsUI {
         }
     }
 
-    /*USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
-    can attach/detach rooms from it.*/
+    // USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
+    // can attach/detach rooms from it.
 
     private void displayRoomList(EnergyGrid energyGrid) {
         System.out.println(mController.printRooms(energyGrid.getListOfRooms()));
     }
 
-    /*USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
-    energy consumption is included in that grid.*/
+    // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
+    // energy consumption is included in that grid.
 
-    private boolean updateStateEnergyGridUS147(EnergyGrid grid, Room room) {
+    private boolean updateGridUS147(EnergyGrid grid, Room room) {
         return mController.addRoomToTheGrid(grid, room);
     }
 
-    /*USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
-    energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed. */
+    // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
+    // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
 
-    private boolean updateStateEnergyGrid(EnergyGrid grid, Room room) {
+    private boolean updateGridUS149(EnergyGrid grid, Room room) {
         return mController.removeRoomFromGrid(grid, room);
     }
 
-    /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
-    private void printOptionMessage() {
+    // UI SPECIFIC METHODS - Not Used on User Stories.
+
+    private void printEnergyGridMenu() {
         System.out.println("Energy Grid Settings Options:\n");
         System.out.println("1) Create a energy grid. (US130)");
         System.out.println("2) Add a power source to a house grid. (US135)");

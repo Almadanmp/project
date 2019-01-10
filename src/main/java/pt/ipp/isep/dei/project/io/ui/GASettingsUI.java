@@ -13,31 +13,31 @@ import java.util.Scanner;
 import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
 import static pt.ipp.isep.dei.project.io.ui.UtilsUI.readInputNumberAsInt;
 
-public class GASettingsUI {
+class GASettingsUI {
     private GASettingsController mController;
     private GeographicArea mGeoArea;
-    private String mTypeAreaName;
-    private TypeArea mTypeGA;
-    private boolean mTypeAreaListCreated;
-    private double geoAreaLat;
-    private double geoAreaLong;
-    private double geoAreaAlt;
-    private double geoAreaLength;
-    private double geoAreaWidth;
-    private boolean areaAddedResult;
+    private String mTypeAreaString;
+    private TypeArea mTypeArea;
+    private boolean mListWasCreated;
+    private double mGeoAreaLat;
+    private double mGeoAreaLong;
+    private double mGeoAreaAlt;
+    private double mGeoAreaLength;
+    private double mGeoAreaWidth;
+    private boolean mAreaAddedToList;
     private String nameOfGeoArea;
-    private String mNameGeographicAreaDaughter;
-    private String mNameGeographicAreaMother;
-    private String geoName;
-    private String mNameGeographicAreaContained;
-    private String mNameGeographicAreaContainer;
+    private String mDaughterAreaName;
+    private String mMotherAreaName;
+    private String mGeoAreaName;
+    private String mContainedAreaName;
+    private String mContainerAreaName;
 
-    public GASettingsUI() {
+    GASettingsUI() {
         this.mController = new GASettingsController();
     }
 
-    public void run(GeographicAreaList newGeoListUi, TypeAreaList typeAreaList) {
-        if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
+    void run(GeographicAreaList programGAList, TypeAreaList programTypeAreaList) {
+        if (programGAList == null || programGAList.getGeographicAreaList().size() == 0) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
         }
@@ -52,49 +52,49 @@ public class GASettingsUI {
             switch (option) {
                 case 1:
                     getInputUS01();
-                    updateModelUS01(typeAreaList);
+                    updateModelUS01(programTypeAreaList);
                     displayStateUS01();
                     activeInput = true;
                     break;
 
                 case 2:
-                    updateModelUS02(typeAreaList);
+                    updateModelUS02(programTypeAreaList);
                     displayStateUS02();
                     activeInput = true;
                     break;
                 case 3:
-                    getInputNameNewAreaUS03();
-                    getInputTypeOfAreaUS03(typeAreaList);
-                    getLocalGeoAreaUS03();
-                    updateGeoAreaUS03(typeAreaList);
-                    updateModelUS03(newGeoListUi);
+                    getAreaInputUS03();
+                    getTypeAreaInputUS03();
+                    getLocalInputUS03();
+                    updateGeoAreaUS03(programTypeAreaList);
+                    updateModelUS03(programGAList);
                     displayStateUS03();
                     activeInput = true;
                     break;
                 case 4:
-                    getInputTypeArea(typeAreaList);
-                    if (!matchGAByTypeArea(newGeoListUi)) {
+                    getInputTypeArea(programTypeAreaList);
+                    if (!matchGAByTypeArea(programGAList)) {
                         return;
                     } else {
-                        displayGAListByTypeArea(newGeoListUi);
+                        displayGAListByTypeArea(programGAList);
                     }
                     activeInput = true;
                     break;
                 case 5:
-                    getInputGeographicArea(newGeoListUi);
-                    this.mNameGeographicAreaMother = mGeoArea.getId();
-                    displayGeoArea(mNameGeographicAreaMother, newGeoListUi);
-                    getInputGeographicArea(newGeoListUi);
-                    this.mNameGeographicAreaDaughter = mGeoArea.getId();
-                    displayGeoArea(mNameGeographicAreaDaughter, newGeoListUi);
-                    updateStateUS07(newGeoListUi);
+                    getInputGeographicArea(programGAList);
+                    this.mMotherAreaName = mGeoArea.getId();
+                    printAreaByName(mMotherAreaName, programGAList); //TODO Method in UI. Print by name is the responsibility of GAList class. Controller should call that method.
+                    getInputGeographicArea(programGAList);
+                    this.mDaughterAreaName = mGeoArea.getId();
+                    printAreaByName(mDaughterAreaName, programGAList); //TODO Method in UI. Print by name is the responsibility of GAList class. Controller should call that method
+                    updateStateUS07(programGAList);
                     displayStateUS07();
                     activeInput = true;
                     break;
                 case 6:
-                    getInputGeographicContainerUS08(newGeoListUi);
-                    getInputGeographicContainedUS08(newGeoListUi);
-                    verifyAndDisplayStateUS08(newGeoListUi);
+                    getContainerArea(programGAList);
+                    getContainedArea(programGAList);
+                    checkIfContained(programGAList);
                     activeInput = true;
                     break;
                 case 0:
@@ -143,12 +143,12 @@ public class GASettingsUI {
     private boolean getInputTypeAreaName() {
         Scanner mScanner = new Scanner(System.in);
         System.out.println("Please type the name of the Geographic Area Type Where: ");
-        this.mTypeAreaName = mScanner.nextLine();
-        return (!(this.mTypeAreaName.equals("exit")));
+        this.mTypeAreaString = mScanner.nextLine();
+        return (!(this.mTypeAreaString.equals("exit")));
     }
 
     private boolean getTypeAreaByName(TypeAreaList typeAreaList) {
-        List<Integer> listOfIndexesTypeArea = mController.matchTypeAreaIndexByString(this.mTypeAreaName, typeAreaList);
+        List<Integer> listOfIndexesTypeArea = mController.matchTypeAreaIndexByString(this.mTypeAreaString, typeAreaList);
 
         while (listOfIndexesTypeArea.isEmpty()) {
             System.out.println("There is no Geographic Area Type with that name. Please insert the name of a Geographic Area Type" +
@@ -156,7 +156,7 @@ public class GASettingsUI {
             if (!getInputTypeAreaName()) {
                 return false;
             }
-            listOfIndexesTypeArea = mController.matchTypeAreaIndexByString(this.mTypeAreaName, typeAreaList);
+            listOfIndexesTypeArea = mController.matchTypeAreaIndexByString(this.mTypeAreaString, typeAreaList);
         }
 
         if (listOfIndexesTypeArea.size() > 1) {
@@ -164,16 +164,16 @@ public class GASettingsUI {
             System.out.println(mController.printTypeAreaElementsByIndex(listOfIndexesTypeArea, typeAreaList));
             int aux = readInputNumberAsInt();
             if (listOfIndexesTypeArea.contains(aux)) {
-                this.mTypeGA = typeAreaList.getTypeAreaList().get(aux);
+                this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
                 System.out.println("You have chosen the following Geographic Area Type:");
-                System.out.println(mController.printTypeArea(this.mTypeGA));
+                System.out.println(mController.printTypeArea(this.mTypeArea));
             } else {
                 System.out.println(INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following Geographic Area Type:");
-            this.mTypeGA = typeAreaList.getTypeAreaList().get(listOfIndexesTypeArea.get(0));
-            System.out.println(mController.printTypeArea(this.mTypeGA));
+            this.mTypeArea = typeAreaList.getTypeAreaList().get(listOfIndexesTypeArea.get(0));
+            System.out.println(mController.printTypeArea(this.mTypeArea));
         }
         return true;
     }
@@ -187,11 +187,11 @@ public class GASettingsUI {
             System.out.print(mController.printGATypeList(typeAreaList));
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
-                this.mTypeGA = typeAreaList.getTypeAreaList().get(aux);
+                this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
                 activeInput = true;
                 //TODO fazer um print bonito
                 System.out.println("You have chosen the following Geographic Area Type:");
-                System.out.println(mController.printTypeArea(this.mTypeGA));
+                System.out.println(mController.printTypeArea(this.mTypeArea));
             } else {
                 System.out.println(INVALID_OPTION);
             }
@@ -232,7 +232,7 @@ public class GASettingsUI {
 
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
         HouseConfigurationController ctrl = new HouseConfigurationController();
-        List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
+        List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeoAreaName, newGeoListUi);
 
         while (listOfIndexesGeographicAreas.isEmpty()) {
             System.out.println("There is no Geographic Area with that name. Please insert the name of a Geographic Area" +
@@ -240,7 +240,7 @@ public class GASettingsUI {
             if (!getInputGeographicAreaName()) {
                 return false;
             }
-            listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(geoName, newGeoListUi);
+            listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeoAreaName, newGeoListUi);
         }
 
         if (listOfIndexesGeographicAreas.size() > 1) {
@@ -265,8 +265,8 @@ public class GASettingsUI {
     private boolean getInputGeographicAreaName() {
         System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
         Scanner scanner = new Scanner(System.in);
-        this.geoName = scanner.nextLine();
-        return (!("exit".equals(geoName)));
+        this.mGeoAreaName = scanner.nextLine();
+        return (!("exit".equals(mGeoAreaName)));
     }
 
 
@@ -300,15 +300,15 @@ public class GASettingsUI {
             System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
             scanner.next();
         }
-        this.mTypeAreaName = scanner.next();
+        this.mTypeAreaString = scanner.next();
     }
 
     private void updateModelUS01(TypeAreaList typeAreaList) {
-        this.mTypeAreaListCreated = mController.createAndAddTypeAreaToList(mTypeAreaName, typeAreaList);
+        this.mListWasCreated = mController.createAndAddTypeAreaToList(mTypeAreaString, typeAreaList);
     }
 
     private void displayStateUS01() {
-        if (mTypeAreaListCreated) {
+        if (mListWasCreated) {
             System.out.println("Success, you have inserted a new Type of Geographic Area.");
         } else {
             System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
@@ -326,36 +326,36 @@ public class GASettingsUI {
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
-    private void getInputNameNewAreaUS03() {
+    private void getAreaInputUS03() {
         this.nameOfGeoArea = readInputString("name");
     }
 
-    private void getInputTypeOfAreaUS03(TypeAreaList typeAreaList) {
-        getInputTypeAreaByList(typeAreaList);
-       // this.mTypeAreaName = readInputString("Type Area");
+    private void getTypeAreaInputUS03() {
+        this.mTypeAreaString = readInputString("Type Area");
     }
 
-    private void getLocalGeoAreaUS03() {
-        this.geoAreaLat = readInputNumber("Latitude");
-        this.geoAreaLong = readInputNumber("Longitude");
-        this.geoAreaAlt = readInputNumber("Altitude");
-        this.geoAreaLength = readInputNumber("Length");
-        this.geoAreaWidth = readInputNumber("Width");
+    private void getLocalInputUS03() {
+        this.mGeoAreaLat = readInputNumber("Latitude");
+        this.mGeoAreaLong = readInputNumber("Longitude");
+        this.mGeoAreaAlt = readInputNumber("Altitude");
+        this.mGeoAreaLength = readInputNumber("Comprimento");
+        this.mGeoAreaWidth = readInputNumber("Largura");
+
     }
 
     private void updateGeoAreaUS03(TypeAreaList typeAreaList) {
-        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + mTypeAreaName +
-                " and its localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The size is " + this.geoAreaLength
-                + " by " + this.geoAreaWidth + " kms\n");
-        typeAreaList.newTAG(mTypeAreaName);
+        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " with the type " + mTypeAreaString +
+                " and its localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The size is " + this.mGeoAreaLength
+                + " by " + this.mGeoAreaWidth + " kms\n");
+        typeAreaList.newTAG(mTypeAreaString);
     }
 
     private void updateModelUS03(GeographicAreaList newGeoListUi) {
-        this.areaAddedResult = mController.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeAreaName, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
+        this.mAreaAddedToList = mController.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeAreaString, mGeoAreaLat, mGeoAreaLong, mGeoAreaAlt, mGeoAreaLength, mGeoAreaWidth);
     }
 
     private void displayStateUS03() {
-        if (areaAddedResult) {
+        if (mAreaAddedToList) {
             System.out.print("The Geographic Area has been successfully added.");
         } else
             System.out.print("The Geographic Area hasn't been added to the list. " +
@@ -402,8 +402,8 @@ public class GASettingsUI {
             System.out.print("The list of Geographic Areas is currently empty.\n Please return to main menu and add a Geographic Area to the list first.");
             return false;
         } else {
-            newGeoListUi = mController.matchGAByTypeArea(newGeoListUi, this.mTypeGA);
-            this.mTypeAreaName = mController.getTypeAreaName(this.mTypeGA);
+            newGeoListUi = mController.matchGAByTypeArea(newGeoListUi, this.mTypeArea);
+            this.mTypeAreaString = mController.getTypeAreaName(this.mTypeArea);
             return true;
         }
     }
@@ -412,14 +412,14 @@ public class GASettingsUI {
         if (newGeoListUi.getGeographicAreaList().isEmpty()) {
             System.out.println("There are no Geographic Areas of that Area Type.");
         } else {
-            System.out.println("Geographic Areas of the type " + this.mTypeAreaName + ":\n");
+            System.out.println("Geographic Areas of the type " + this.mTypeAreaString + ":\n");
             mController.printGAList(newGeoListUi);
         }
     }
 
     /* USER STORY 07 - */
 
-    private void displayGeoArea(String name, GeographicAreaList newGeoListUi) {
+    private void printAreaByName(String name, GeographicAreaList newGeoListUi) {
         if (mController.validateGeoArea(name, newGeoListUi)) {
             System.out.println("Success, you have inserted a valid Geographic Area.");
         } else {
@@ -428,13 +428,13 @@ public class GASettingsUI {
     }
 
     private void updateStateUS07(GeographicAreaList newGeoListUi) {
-        GeographicArea daughterArea = mController.matchGeoArea(mNameGeographicAreaDaughter, newGeoListUi);
-        GeographicArea motherArea = mController.matchGeoArea(mNameGeographicAreaMother, newGeoListUi);
+        GeographicArea daughterArea = mController.matchGeoArea(mDaughterAreaName, newGeoListUi);
+        GeographicArea motherArea = mController.matchGeoArea(mMotherAreaName, newGeoListUi);
         mController.setMotherArea(daughterArea, motherArea);
     }
 
     private void displayStateUS07() {
-        System.out.print("The Geographic Area " + mNameGeographicAreaDaughter + " is contained in " + mNameGeographicAreaMother + "\n");
+        System.out.print("The Geographic Area " + mDaughterAreaName + " is contained in " + mMotherAreaName + "\n");
     }
 
 /* US08 - As an Administrator, I want to find out if a geographical area is included, directly
@@ -444,18 +444,18 @@ or indirectly, in another one. */
      * getInputGeographicContainer()
      * this method makes the user define the NAME of the GeographicArea CONTAINER
      */
-    private void getInputGeographicContainerUS08(GeographicAreaList newGeoListUi) {
+    private void getContainerArea(GeographicAreaList newGeoListUi) {
         getInputGeographicArea(newGeoListUi);
-        this.mNameGeographicAreaContainer = mGeoArea.getId();
+        this.mContainerAreaName = mGeoArea.getId();
     }
 
     /**
      * getInputGeographicContainer()
      * this method makes the user define the NAME of the GeographicArea CONTAINED
      */
-    private void getInputGeographicContainedUS08(GeographicAreaList newGeoListUi) {
+    private void getContainedArea(GeographicAreaList newGeoListUi) {
         getInputGeographicArea(newGeoListUi);
-        this.mNameGeographicAreaContained = mGeoArea.getId();
+        this.mContainedAreaName = mGeoArea.getId();
     }
 
     /**
@@ -465,17 +465,16 @@ or indirectly, in another one. */
      *                     And finally it tests the flag (Geographic Area) is equal to the testing GeographicArea Container
      */
 
-    private void verifyAndDisplayStateUS08(GeographicAreaList newGeoListUi) {
-        if (!(mController.matchGeographicAreas(mNameGeographicAreaContained, mNameGeographicAreaContainer, newGeoListUi))) {
+    private void checkIfContained (GeographicAreaList newGeoListUi) {
+        if (!(mController.matchGeographicAreas(mContainedAreaName, mContainerAreaName, newGeoListUi))) {
             System.out.println("The given areas are invalid!");
             return;
         }
         if (!(mController.seeIfItsContained())) {
-            System.out.println(mNameGeographicAreaContained + " is NOT contained in " + mNameGeographicAreaContainer);
+            System.out.println(mContainedAreaName + " is NOT contained in " + mContainerAreaName);
             return;
         }
-        System.out.println(mNameGeographicAreaContained + " is contained in " + mNameGeographicAreaContainer);
-        return;
+        System.out.println(mContainedAreaName + " is contained in " + mContainerAreaName);
     }
 
 

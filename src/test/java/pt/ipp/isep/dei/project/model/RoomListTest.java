@@ -152,7 +152,7 @@ public class RoomListTest {
         roomList.addRoom(room1);
         //Act
         List<Integer> result = roomList.matchRoomIndexByString("sala");
-        List<Integer> expectedResult = Collections.singletonList(roomList.getListOfRooms().indexOf(room1));
+        List<Integer> expectedResult = Collections.singletonList(roomList.getRoomList().indexOf(room1));
         //Assert
         Assert.assertEquals(expectedResult, result);
 

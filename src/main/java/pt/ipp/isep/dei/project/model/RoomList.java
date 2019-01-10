@@ -20,7 +20,7 @@ public class RoomList {
     }
 
     public boolean doesListOfRoomsContainRoomByName(String name) {
-        for (Room room : getListOfRooms()) {
+        for (Room room : getRoomList()) {
             if ((room.getRoomName().equals(name))) {
                 return true;
             }
@@ -28,7 +28,7 @@ public class RoomList {
         return false;
     }
 
-    public List<Room> getListOfRooms() {
+    public List<Room> getRoomList() {
         return this.mRoomList;
     }
 
@@ -103,11 +103,11 @@ public class RoomList {
 
     public String printRoomList(House house) {
         StringBuilder result = new StringBuilder(this.mStringResult);
-        if (house.getRoomList().getListOfRooms().isEmpty()) {
+        if (house.getRoomList().getRoomList().isEmpty()) {
             return this.mStringInvalidList;
         }
-        for (int i = 0; i < house.getRoomList().getListOfRooms().size(); i++) {
-            Room aux = house.getRoomList().getListOfRooms().get(i);
+        for (int i = 0; i < house.getRoomList().getRoomList().size(); i++) {
+            Room aux = house.getRoomList().getRoomList().get(i);
             result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
             result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
             result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
@@ -120,11 +120,11 @@ public class RoomList {
 
     public String printRooms() {
         StringBuilder result = new StringBuilder(this.mStringResult);
-        if (this.getListOfRooms().isEmpty()) {
+        if (this.getRoomList().isEmpty()) {
             return  this.mStringInvalidList;
         }
-        for (int i = 0; i < this.getListOfRooms().size(); i++) {
-            Room aux = this.getListOfRooms().get(i);
+        for (int i = 0; i < this.getRoomList().size(); i++) {
+            Room aux = this.getRoomList().get(i);
             result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
             result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
             result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
@@ -146,7 +146,7 @@ public class RoomList {
             return false;
         }
         RoomList list = (RoomList) testObject;
-        return Arrays.equals(this.getListOfRooms().toArray(), list.getListOfRooms().toArray());
+        return Arrays.equals(this.getRoomList().toArray(), list.getRoomList().toArray());
     }
 
     @Override

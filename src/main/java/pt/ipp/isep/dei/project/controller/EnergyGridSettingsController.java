@@ -38,7 +38,7 @@ public class EnergyGridSettingsController {
         return house.printGridList();
     }
 
-    public List<Integer> matchRoomIndexByString(String input, House house) {
+    public List<Integer> getIndexRoomsByString(String input, House house) {
         return house.getRoomList().matchRoomIndexByString(input);
     }
 

@@ -136,7 +136,7 @@ public class HouseMonitoringUI {
             System.out.println(houseMonitoringcontroller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
             int aux = UtilsUI.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
-                house.getRoomList().getListOfRooms().get(aux);
+                house.getRoomList().getRoomList().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(houseMonitoringcontroller.printRoom(mRoom));
             } else {
@@ -144,7 +144,7 @@ public class HouseMonitoringUI {
             }
         } else {
             System.out.println("You have chosen the following Room:");
-            house.getRoomList().getListOfRooms().get(0);
+            house.getRoomList().getRoomList().get(0);
             System.out.println(houseMonitoringcontroller.printRoom(mRoom));
         }
         return true;
@@ -152,7 +152,7 @@ public class HouseMonitoringUI {
 
 
     private void getInputRoomByList(House house) {
-        if (house.getRoomList().getListOfRooms().size() == 0) {
+        if (house.getRoomList().getRoomList().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -162,8 +162,8 @@ public class HouseMonitoringUI {
         while (!activeInput) {
             System.out.println(houseMonitoringcontroller.printRoomList(house));
             int aux = UtilsUI.readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getRoomList().getListOfRooms().size()) {
-                this.mRoom = house.getRoomList().getListOfRooms().get(aux);
+            if (aux >= 0 && aux < house.getRoomList().getRoomList().size()) {
+                this.mRoom = house.getRoomList().getRoomList().get(aux);
                 activeInput = true;
             } else {
                 System.out.println(UtilsUI.INVALID_OPTION);
@@ -233,7 +233,7 @@ public class HouseMonitoringUI {
     }
 
     private void getInputSensorByList(House house) {
-        if (house.getRoomList().getListOfRooms().size() == 0) {
+        if (house.getRoomList().getRoomList().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }

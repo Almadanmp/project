@@ -44,7 +44,7 @@ public class RoomConfigurationController {
     }
 
     public Room getRoomFromName(String roomName, House house) {
-        for (Room r : house.getRoomList().getListOfRooms()) {
+        for (Room r : house.getRoomList().getRoomList()) {
             if (r.getRoomName().equals(roomName)) {
                 mRoom = r;
             }
