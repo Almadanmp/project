@@ -116,7 +116,7 @@ public class SensorSettingsUI {
 
         // Name Getter
         System.out.println("\nEnter Sensor Name:\t");
-        this.sensorName = input.next();
+        this.sensorName = input.nextLine();
         System.out.println("You entered sensor " + sensorName);
 
         // Type Getter
@@ -127,27 +127,32 @@ public class SensorSettingsUI {
             System.out.println("Not a valid type. Try again");
         }
 
-        this.sensorType = input.next();
+        this.sensorType = input.nextLine();
         System.out.println("You entered type " + sensorType);
-        input.nextLine();
+
+        System.out.println("\nEnter Sensor units:\t");
+        this.sensorUnits = input.nextLine();
+        System.out.println("You entered units "+ sensorUnits);
+
+
         // Local Getter
         System.out.println("\nEnter Sensor Localization:\t");
         System.out.println("\nEnter Latitude:\t");
         while (!input.hasNextDouble()) {
-            input.next();
+            input.nextLine();
             System.out.println("Not a valid latitude. Try again");
         }
         this.sensorLat = input.nextDouble();
         input.nextLine();
         System.out.println("\nEnter Longitude:\t");
         while (!input.hasNextDouble()) {
-            input.next();
+            input.nextLine();
             System.out.println("Not a valid longitude. Try again");
         }
         this.sensorLong = input.nextDouble();
         System.out.println("\nEnter Altitude:\t");
         while (!input.hasNextDouble()) {
-            input.next();
+            input.nextLine();
             System.out.println("Not a valid altitude. Try again");
         }
         this.sensorAlt = input.nextDouble();
@@ -158,21 +163,21 @@ public class SensorSettingsUI {
         System.out.println("\nEnter Sensor starting date:\t");
         System.out.println("\nEnter the year:\t");
         while (!input.hasNextInt()) {
-            input.next();
+            input.nextLine();
             System.out.println("Not a valid year. Try again");
         }
         this.dataYear = input.nextInt();
         input.nextLine();
         System.out.println("\nEnter the Month:\t");
         while (!input.hasNextInt()) {
-            input.next();
+            input.nextLine();
             System.out.println("Not a valid month. Try again");
         }
         this.dataMonth = input.nextInt();
         input.nextLine();
         System.out.println("\nEnter the Day:\t");
         while (!input.hasNextInt()) {
-            input.next();
+            input.nextLine();
             System.out.println("Not a valid day. Try again");
         }
         this.dataDay = input.nextInt();
