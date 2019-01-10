@@ -341,8 +341,8 @@ class SensorSettingsControllerTest {
    /*
     @Test
     void seeIfSetTypeWorksFalse() {
-        //Arrange
-       /* Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "Km/h"),
+
+       Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "Km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
@@ -350,12 +350,12 @@ class SensorSettingsControllerTest {
                 new GregorianCalendar(118, 1, 4).getTime());
         SensorList lc = new SensorList();
         lc.addSensor(s1);
-        lc.addSensor(s2);*/
+        lc.addSensor(s2);
         boolean expectedResult = false;
         SensorSettingsController ctrl = new SensorSettingsController();
 
         //Act
-        boolean actualResult = ctrl.setTypeSensor("Portugal", "Movement");
+        boolean actualResult = ctrl.setTypeSensor(lc,"Portugal", "Movement");
 
         //Assert
     /*

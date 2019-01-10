@@ -18,7 +18,10 @@ public class MainUI {
         // ********************* < MOCK DATA FOR TESTING PURPOSES >*******************
         // ***************************************************************************
 
+        // ******* MAIN MOCK *******************************************************
+
         // Geo List (1)
+
         GeographicAreaList geographicalAreaList = new GeographicAreaList();
 
         // Geo Areas (4)
@@ -194,6 +197,51 @@ public class MainUI {
         TypeArea typeAreaB = new TypeArea("country");
         mTypeAreaList.addTypeArea(typeAreaA);
         mTypeAreaList.addTypeArea(typeAreaB);
+
+
+
+        // ********* MOCKS EXTRA **********************************************
+
+        //Empty TypeAreaList
+
+        TypeAreaList emptyTypeAreaList = new TypeAreaList();
+
+        // Empty Geo Area List
+
+        GeographicAreaList emptyGeographicalAreaList = new GeographicAreaList();
+
+        // Geo Area List -  Geo Area without Sensor List
+
+        GeographicAreaList geographicalAreaList1 = new GeographicAreaList();
+        GeographicArea geographicArea1 = new GeographicArea("GeoAreaNoSensor", new TypeArea("City"),23,34, new Local(23,23,12));
+
+        geographicalAreaList1.addGeographicAreaToGeographicAreaList(geographicArea1);
+
+        // Geo Area List -  Geo Area with Empty Sensor List
+
+        GeographicAreaList geographicalAreaList2 = new GeographicAreaList();
+        GeographicArea geographicArea2 = new GeographicArea("GeoAreaEmptySensor", new TypeArea("City"),23,34, new Local(23,23,12));
+        SensorList sensorList2 = new SensorList();
+
+        geographicArea2.setSensorList(sensorList2);
+        geographicalAreaList2.addGeographicAreaToGeographicAreaList(geographicArea2);
+
+        // Geo Area List -  Geo Area with Sensor List
+
+        GeographicAreaList geographicalAreaList3 = new GeographicAreaList();
+        GeographicArea geographicArea3 = new GeographicArea("GeoAreaWithSensor", new TypeArea("City"),23,34, new Local(23,23,12));
+        Sensor s3 = new Sensor("sensor", new TypeSensor("Temperatura", "Celsius"), new Local(2,3,4),new GregorianCalendar(2016, 11, 15).getTime());
+        SensorList sensorList3 = new SensorList();
+        sensorList3.addSensor(s3);
+
+        geographicArea3.setSensorList(sensorList3);
+        geographicalAreaList3.addGeographicAreaToGeographicAreaList(geographicArea3);
+
+        // House - Empty RoomList
+        GeographicArea geographicArea4 = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("houseEmptyRoomList", "Street", "4230", "Porto",new Local(23,23,21), geographicArea4,roomList);
+
 
         // **************************************************************************
         // ******************* < / MOCK DATA FOR TESTING PURPOSES > ******************
