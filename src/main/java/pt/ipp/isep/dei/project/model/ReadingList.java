@@ -509,7 +509,7 @@ public class ReadingList {
         double maxValue = mReadings.get(0).getmValue();
         for (Reading mReading : mReadings) {
             Date currentReadingDate = mReading.getmDate();
-            if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue < mReading.getmValue()) {
+            if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue <= mReading.getmValue()) {
                 maxValue = mReading.getmValue();
             }
         }
