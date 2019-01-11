@@ -237,10 +237,26 @@ public class MainUI {
         geographicArea3.setSensorList(sensorList3);
         geographicalAreaList3.addGeographicAreaToGeographicAreaList(geographicArea3);
 
-        // House - Empty RoomList
+        // House - Empty RoomList - Without EnergyGrid
         GeographicArea geographicArea4 = new GeographicArea();
         RoomList roomList = new RoomList();
-        House house = new House("houseEmptyRoomList", "Street", "4230", "Porto",new Local(23,23,21), geographicArea4,roomList);
+        House house = new House("houseNoRooms", "Street", "4230", "Porto",new Local(23,23,21), geographicArea4,roomList);
+
+        // House - Empty RoomList - Empty EnergyGrid
+        RoomList roomList1 = new RoomList();
+        House house1 = new House("houseNoRoomsNoEG", "Street", "4230", "Porto",new Local(23,23,21), geographicArea4,roomList1);
+
+        // House - With RoomList - Without EnergyGrid
+        Room room2 = new Room("houseNoEG",1,23,23,23);
+        RoomList roomList2 = new RoomList();
+        roomList2.addRoom(room2);
+        House house2 = new House("h", "Street", "4230", "Porto",new Local(23,23,21), geographicArea4,roomList2);
+
+        // House - With RoomList - Empty EnergyGrid
+        Room room3 = new Room("room3",1,23,23,23);
+        RoomList roomList3 = new RoomList();
+        roomList3.addRoom(room3);
+        House house3 = new House("houseEmptyEG", "Street", "4230", "Porto",new Local(23,23,21), geographicArea4,roomList3);
 
 
         // **************************************************************************
@@ -311,7 +327,7 @@ public class MainUI {
                         break;
                     case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                        energyGridSettings.run(EdificioB);
+                        energyGridSettings.run(house1);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
