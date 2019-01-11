@@ -287,6 +287,14 @@ public class RoomTest {
     }
 
     @Test
+    public void seeIfEqualsWorkDifClass() {
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
+        Room room = new Room("quarto", 1, 80, 5,3);
+        boolean result = room.equals(type);
+        assertEquals(false, result);
+    }
+
+    @Test
      void hashCodeDummyTest(){
         Room room1 = new Room("room1", 19, 5,3,3);
         int expectedResult = 1;

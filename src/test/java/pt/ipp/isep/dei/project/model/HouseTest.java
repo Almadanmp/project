@@ -96,15 +96,26 @@ class HouseTest {
     }
 
     @Test
-    void seeEqualToSameObject() {
+    void seeEqualToEqualObject() {
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         House house2 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
-        Boolean actualResult = house.equals(house2);
+        boolean actualResult = house.equals(house2);
 
-        assertEquals(true, actualResult);
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeEqualToSameObject() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
+
+        boolean actualResult = house.equals(house);
+
+        assertTrue(actualResult);
     }
 
     @Test
@@ -118,14 +129,24 @@ class HouseTest {
         assertFalse(actualResult);
     }
 
+
+    @Test
+    void seeEqualsToDifTypeObject() {
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea(), roomList);
+        Room room = new Room("quarto", 1, 80,2,2);
+
+        boolean actualResult = house.equals(room);
+        assertFalse(actualResult);
+    }
+
     @Test
     void seeEqualsToNullObject() {
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
-        House house2 = new House();
 
-        boolean actualResult = house.equals(house2);
+        boolean actualResult = house.equals(null);
 
         assertFalse(actualResult);
     }
