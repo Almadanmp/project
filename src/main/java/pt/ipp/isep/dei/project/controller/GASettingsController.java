@@ -187,9 +187,9 @@ public class GASettingsController {
 
     public void printAreaByName(String name, GeographicAreaList newGeoListUi) {
         if (checkIfListContainsGeoArea(name, newGeoListUi)) {
-            System.out.println("Success, you have inserted a valid Geographic Area.");
+            System.err.println("Success, you have inserted a valid Geographic Area.");
         } else {
-            System.out.println("Error! You have inserted a non-existent Geographic Area.");
+            System.err.println("Error! You have inserted a non-existent Geographic Area.");
         }
     }
 
