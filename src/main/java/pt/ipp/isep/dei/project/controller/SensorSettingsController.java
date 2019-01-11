@@ -34,6 +34,9 @@ public class SensorSettingsController {
         return this.mSensorList;
     }
 
+    public void setSensorList(SensorList sensorList){
+        this.mSensorList=sensorList;
+    }
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
     one can get measurements of that type in that area */
@@ -108,6 +111,9 @@ public class SensorSettingsController {
         return true;
     }
 
+    public void setSensor(Sensor sensor){
+        this.mSensor=sensor;
+    }
     /**
      *
      * @param geoArea is the area we want to add the sensor to.

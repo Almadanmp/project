@@ -17,6 +17,8 @@ class EnergyGridSettingsUI {
     private Room mRoom;
     private String mRoomName;
     private House mHouse;
+    private EnergyGridList mEnergyGridList;
+    private RoomList mRoomList;
     private String mStringRequest = "Would you like to:\n";
     private String mStringRequestChoseFromList = "2) Choose it from a list:\n";
     private String s1 = "return";
@@ -26,12 +28,12 @@ class EnergyGridSettingsUI {
     }
 
     void run(House house) {
-        if (house == null || house.getEGList() == null || house.getRoomList() == null) {
-            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
-                    " your house first through the main menu");
+        if (house == null) {
+            System.out.println("Invalid House - You need to create a house to continue.");
             return;
         }
         this.mHouse = house;
+        this.mRoomList = this.mHouse.getRoomList();
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -53,17 +55,41 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 3:
+                    if(this.mHouse.getEGList() == null) {
+                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
+                        return;
+                    }
+                    else if((this.mHouse.getEGList().getEnergyGridList().size() == 0)) {
+                        System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
+                        return;
+                    }
                     getInputEnergyGrid(mHouse);
                     displayRoomList(mEnergyGrid);
                     activeInput = false;
                     break;
                 case 4:
+                    if(this.mHouse.getEGList() == null) {
+                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
+                        return;
+                    }
+                    else if((this.mHouse.getRoomList().getRoomList().size() == 0)) {
+                        System.out.println("Your house doesn't have any rooms. Please create a room to continue.");
+                        return;
+                    }
                     getInputRoom();
                     getInputEnergyGrid(mHouse);
                     updateGridUS147(mEnergyGrid, mRoom);
                     activeInput = false;
                     break;
                 case 5:
+                    if(this.mHouse.getEGList() == null) {
+                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
+                        return;
+                    }
+                    else if((this.mHouse.getEGList().getEnergyGridList().size() == 0)) {
+                        System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
+                        return;
+                    }
                     getInputEnergyGrid(mHouse);
                     getInputRoomUS149();
                     updateGridUS149(mEnergyGrid, mRoom);
@@ -190,6 +216,7 @@ class EnergyGridSettingsUI {
             case 2:
                 getInputRoomByList(mHouse);
                 break;
+
             case 0:
                 return;
             default:
@@ -347,7 +374,8 @@ class EnergyGridSettingsUI {
                 getInputRoomName();
                 if (!getRoomByName()) {
                     System.out.println("Unable to select a Room. Returning to main menu.");
-                    return;}
+                    return;
+                }
                 break;
             case 2:
                 getInputRoomByListInEG();
