@@ -128,7 +128,7 @@ public class HouseMonitoringUI {
         System.out.println("Please type the name of the Room you want to access.");
         Scanner scan = new Scanner(System.in);
         this.mNameRoom = scan.nextLine();
-        return (!(this.mNameRoom.equals("exit")));
+        return (!("exit".equals(this.mNameRoom)));
     }
 
     private boolean getRoomByName(House house) {
