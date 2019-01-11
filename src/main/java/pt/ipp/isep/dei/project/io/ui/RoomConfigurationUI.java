@@ -20,12 +20,11 @@ class RoomConfigurationUI {
 
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
-
     }
 
-    void run(House house, GeographicArea ga) {
-        this.mGeoArea = ga;
-        this.mSensorList = ga.getSensorList();
+    void run(House house) {
+        this.mGeoArea = house.getMotherArea();
+        this.mSensorList = mGeoArea.getSensorList();
         this.mHouse = house;
         System.out.println("--------------\n");
         System.out.println("Room Configuration\n");
@@ -41,7 +40,7 @@ class RoomConfigurationUI {
             return;
         }
         getInputSensor();
-        System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mRoomName);
+
     }
 
     /* *****************************************************************************
@@ -127,6 +126,8 @@ class RoomConfigurationUI {
             if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
                 this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
+                System.out.println("You have chosen the following Room:");
+                System.out.println(mRoomConfigurationController.printRoom(mRoom));
                 activeInput = true;
             } else {
                 System.out.println(INVALID_OPTION);
@@ -141,25 +142,31 @@ class RoomConfigurationUI {
     Sensor getInputSensor() {
 
         System.out.println(
-                "We need to know which sensor you want to work with.\n" + "Would you like to:\n" + "1) Type the Sensor name;\n" + "2) Choose it from a list;\n" +
+                "We need to know which sensor you want to add the room.\n" + "Would you like to:\n" +
+                        "1) Type the Sensor name;\n" +
+                        "2) Choose it from a list;\n" +
                         "0) Return;");
         int option = UtilsUI.readInputNumberAsInt();
         switch (option) {
             case 1:
                 getInputSensorName();
                 if (!getSensorByName(mSensorList)) {
-                    return mSensor;
+                    System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mRoomName);
+                    return this.mSensor;
                 }
                 break;
             case 2:
                 getInputSensorByList(mSensorList);
+                System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mRoomName);
                 return this.mSensor;
+
             case 0:
                 break;
             default:
                 System.out.println(INVALID_OPTION);
                 break;
         }
+
         return this.mSensor;
 
     }
@@ -219,8 +226,8 @@ class RoomConfigurationUI {
                 this.mSensor = mSensorList.getSensorList().get(aux);
                 this.mSensorName = mSensor.getName();
                 activeInput = true;
-                System.out.println(mStringChosenSensor);
-                System.out.println((mSensor.printSensor()));
+                System.out.println("You have chosen the following Sensor:");
+                System.out.println(mRoomConfigurationController.printSensor(mSensor));
             } else {
                 System.out.println(INVALID_OPTION);
             }
