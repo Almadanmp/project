@@ -180,16 +180,18 @@ public class GASettingsController {
      * @return is true if the list contains a geoArea with given name, false if it doesn't.
      */
 
-    public boolean checkIfListContainsGeoArea(String ga, GeographicAreaList geographicAreaList) {
+     boolean checkIfListContainsGeoArea(String ga, GeographicAreaList geographicAreaList) {
 
         return geographicAreaList.checkIfContainsGAByString(ga);
     }
 
-    public void printAreaByName(String name, GeographicAreaList newGeoListUi) {
+    public boolean printAreaByName(String name, GeographicAreaList newGeoListUi) {
         if (checkIfListContainsGeoArea(name, newGeoListUi)) {
             System.err.println("Success, you have inserted a valid Geographic Area.");
+            return true;
         } else {
             System.err.println("Error! You have inserted a non-existent Geographic Area.");
+            return false;
         }
     }
 
