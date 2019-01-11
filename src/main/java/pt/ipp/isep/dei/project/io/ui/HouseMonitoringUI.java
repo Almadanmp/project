@@ -34,7 +34,7 @@ public class HouseMonitoringUI {
     void run(House programHouse) {
         this.mHouse = programHouse;
         UtilsUI utils = new UtilsUI();
-        if (programHouse == null || programHouse.getMotherArea() == null || programHouse.getRoomList() == null) {
+        if (programHouse == null || programHouse.getMotherArea() == null) {
             System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
                     " your house first through the main menu");
             return;
