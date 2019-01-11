@@ -206,7 +206,7 @@ class DeviceListTest {
     }
 
     //This test can only work after Devices is re-worked.
-    /*
+
     @Test
     void ensureThatAObjectIsAInstanceOf() {
         //Arrange
@@ -217,11 +217,11 @@ class DeviceListTest {
         Device device2 = new Device();
         dList2.addDevices(device2);
         //Act
-        Boolean actualResult = dList1.equals(dList2);
+        Boolean actualResult = dList1.equals(dList1);
         //Assert
         assertTrue(actualResult);
     }
-    */
+
 
     @Test
     void ensureThatAObjectIsAInstanceOf2() {
@@ -232,7 +232,7 @@ class DeviceListTest {
         DeviceList dList2 = new DeviceList();
         dList2.addDevices(device1);
         //Act
-        Boolean actualResult = dList1.equals(dList2);
+        boolean actualResult = dList1.equals(dList2);
         //Assert
         assertTrue(actualResult);
     }
@@ -244,7 +244,7 @@ class DeviceListTest {
         Device device1 = new Device();
         dList1.addDevices(device1);
         //Act
-        Boolean actualResult = dList1.equals(device1);
+        boolean actualResult = dList1.equals(device1);
         //Assert
         assertFalse(actualResult);
     }
@@ -259,7 +259,7 @@ class DeviceListTest {
         dList1.addDevices(device1);
         dList2.addDevices(device2);
         //Act
-        Boolean actualResult = dList1.equals(dList2);
+        boolean actualResult = dList1.equals(dList2);
         assertFalse(actualResult);
     }
 }

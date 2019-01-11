@@ -56,7 +56,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetSetLocalIfSameAsConstructorWorks() {
+    void seeIfGetSetLocalIfSameAsConstructorWorksLocal() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
@@ -64,6 +64,35 @@ class GeographicAreaTest {
         //Act
         c.setLocal(l1);
         boolean actualResult = c.getLocal().equals(new Local(38, 7, 100));
+
+        //Assert
+        assertTrue(actualResult);
+    }
+    @Test
+
+    void seeIfGetSetLocalIfSameAsConstructorWorksTypeArea() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+        //Act
+        c.setLocal(l1);
+        boolean actualResult = c.getTypeArea().getTypeOfGeographicArea().equals("Rua");
+
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+
+    void seeIfGetSetLocalIfSameAsConstructorWorksID() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+        //Act
+        c.setLocal(l1);
+        boolean actualResult = c.getId().equals("Porto");
 
         //Assert
         assertTrue(actualResult);

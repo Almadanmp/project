@@ -654,6 +654,7 @@ public class SensorListTest {
 
         //Assert
         expectedResult.equals(actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -678,6 +679,7 @@ public class SensorListTest {
 
         //Assert
         expectedResult.contains(actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
