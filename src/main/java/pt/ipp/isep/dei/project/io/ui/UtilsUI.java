@@ -92,19 +92,19 @@ class UtilsUI {
 
         if (listOfIndexesGeographicAreas.size() > 1) {
             System.out.println("There are multiple Geographic Areas with that name. Please choose the right one.");
-            System.out.println(ctrl.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas, newGeoListUi));
+            System.out.println(ctrl.printGeoAreasByIndex(listOfIndexesGeographicAreas, newGeoListUi));
             int aux = readInputNumberAsInt();
             if (listOfIndexesGeographicAreas.contains(aux)) {
                 mGeographicArea = newGeoListUi.getGeographicAreaList().get(aux);
                 System.out.println(mStringChosenGeographicArea);
-                System.out.println(ctrl.printGA(mGeographicArea));
+                System.out.println(ctrl.printGeoArea(mGeographicArea));
             } else {
                 System.out.println(INVALID_OPTION);
             }
         } else {
             System.out.println(mStringChosenGeographicArea);
             mGeographicArea = newGeoListUi.getGeographicAreaList().get(listOfIndexesGeographicAreas.get(0));
-            System.out.println(ctrl.printGA(mGeographicArea));
+            System.out.println(ctrl.printGeoArea(mGeographicArea));
         }
         return true;
     }

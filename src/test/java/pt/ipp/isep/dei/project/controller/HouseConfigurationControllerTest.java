@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -70,7 +69,7 @@ class HouseConfigurationControllerTest {
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
 
         //Act
-        String result = ctrl.printGeoGraphicAreaElementsByIndex(list, mGeographicAreaList);
+        String result = ctrl.printGeoAreasByIndex(list, mGeographicAreaList);
         String expectedResult = "---------------\n" +
                 "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
                 "---------------\n";
@@ -180,7 +179,7 @@ class HouseConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        String result = ctrl.printGeoGraphicAreaElementsByIndex(list, mGeographicAreaList);
+        String result = ctrl.printGeoAreasByIndex(list, mGeographicAreaList);
         String expectedResult = "---------------\n" +
                 "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
                 "---------------\n";
@@ -201,7 +200,7 @@ class HouseConfigurationControllerTest {
         gAL1.addGeographicAreaToGeographicAreaList(gA3);
         String expectedResult =
                 "Portugal, Country, 21.0º lat, 33.0º long\n";
-        String result = US101.printGA(gA1);
+        String result = US101.printGeoArea(gA1);
         assertEquals(expectedResult, result);
     }
 
