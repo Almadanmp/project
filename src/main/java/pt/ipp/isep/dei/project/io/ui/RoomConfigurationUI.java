@@ -1,5 +1,4 @@
 package pt.ipp.isep.dei.project.io.ui;
-import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 
