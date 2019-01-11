@@ -35,6 +35,17 @@ class HouseTest {
     }
 
     @Test
+    void ensureThatWeGetAltitude(){
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"),2,3,new Local(4, 5, 50));
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5),ga, roomList);
+        house.setLocation(23,43,4);
+        double expectedResult = 4;
+        double actualResult = house.getLocation().getAltitude();
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
     void seeSensorWithMinDistance() {
         RoomList roomList = new RoomList();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature","Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
