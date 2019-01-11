@@ -383,7 +383,6 @@ public class ReadingList {
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
         cal.set(Calendar.SECOND, 59);
-        cal.set(Calendar.MILLISECOND, 999);
         Date beginDay = cal.getTime();
 
         cal.setTime(dateGiven);
@@ -391,7 +390,6 @@ public class ReadingList {
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
         Date endDay = cal.getTime();
 
         double sum = 0;
@@ -464,7 +462,6 @@ public class ReadingList {
         firstDateOfWeek.set(Calendar.HOUR_OF_DAY, 0);
         firstDateOfWeek.set(Calendar.MINUTE, 0);
         firstDateOfWeek.set(Calendar.SECOND, 0);
-        firstDateOfWeek.set(Calendar.MILLISECOND, 0);
         return firstDateOfWeek.getTime();
     }
 
@@ -516,7 +513,6 @@ public class ReadingList {
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
         Date endDay = cal.getTime();
 
         double maxValue = mReadings.get(0).getmValue();
@@ -550,7 +546,6 @@ public class ReadingList {
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
         cal.set(Calendar.SECOND, 59);
-        cal.set(Calendar.MILLISECOND, 999);
         Date beginDay = cal.getTime();
 
         cal.setTime(dateGiven);
@@ -558,7 +553,6 @@ public class ReadingList {
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
         Date endDay = cal.getTime();
 
         double sum = 0;
@@ -579,14 +573,14 @@ public class ReadingList {
      */
     double getAverageReadingsBetweenTwoDays(Date minDate, Date maxDate) {
         List<Integer> daysWithReadings = getListOfDaysWithReadingsBetweenTwoGivenDates(minDate, maxDate);
-        List<Double> AVGValuesFromDaysWithReadings = new ArrayList<>();
+        List<Double> avgValuesFromDaysWithReadings = new ArrayList<>();
             for (int day : daysWithReadings) {
             List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(day);
-            double AVGDay;
-            AVGDay = getAverageFromGivenList(valueReadingsThatMatchDay);
-            AVGValuesFromDaysWithReadings.add(AVGDay);
+            double avgDay;
+            avgDay = getAverageFromGivenList(valueReadingsThatMatchDay);
+            avgValuesFromDaysWithReadings.add(avgDay);
         }
-        return getAverageFromGivenList(AVGValuesFromDaysWithReadings );
+        return getAverageFromGivenList(avgValuesFromDaysWithReadings );
     }
 }
 

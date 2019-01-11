@@ -14,7 +14,6 @@ public class HouseMonitoringUI {
     private HouseMonitoringController houseMonitoringcontroller;
     private House mHouse;
     private GeographicArea mGeoArea;
-    private String geoName;
     private double mResult620;
     private int dataYear1;
     private int dataMonth1;
@@ -30,7 +29,6 @@ public class HouseMonitoringUI {
     private double mMaxTemperature;
     private double mCurrentTemperature;
     private String mNameSensor;
-    private double mResult623;
 
     public HouseMonitoringUI() {
         this.houseMonitoringcontroller = new HouseMonitoringController();
@@ -55,7 +53,7 @@ public class HouseMonitoringUI {
                     if(!getInputRoom(programHouse)){
                         return;
                     }
-                    if(!getInputSensor(programHouse)){
+                    if(!getInputSensor()){
                         return;
                     }
                     getInputStartDate();
@@ -68,7 +66,7 @@ public class HouseMonitoringUI {
                     if(!getInputRoom(programHouse)){
                         return;
                     }
-                    if(!getInputSensor(programHouse)){
+                    if(!getInputSensor()){
                         return;
                     }
                     updateModel605();
@@ -165,7 +163,7 @@ public class HouseMonitoringUI {
 
 
     private void getInputRoomByList(House house) {
-        if (house.getRoomList().getRoomList().size() == 0) {
+        if (house.getRoomList().getRoomList().isEmpty()) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -184,7 +182,7 @@ public class HouseMonitoringUI {
         }
     }
 
-    private boolean getInputSensor(House house) {
+    private boolean getInputSensor() {
         System.out.println(
                 "We need to know which Sensor you wish to access.\n" + "Would you like to:\n" + "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
@@ -216,27 +214,27 @@ public class HouseMonitoringUI {
         System.out.println("Please type the name of the Sensor you want to access.");
         Scanner scan = new Scanner(System.in);
         this.mNameSensor = scan.nextLine();
-        return (!(this.mNameSensor.equals("exit")));
+        return (!("exit".equals(this.mNameSensor)));
     }
 
     private boolean getSensorByName() {
         List<Integer> listOfIndexesSensor = houseMonitoringcontroller.matchSensorIndexByString(mNameSensor, mRoom);
 
         while (listOfIndexesSensor.isEmpty()) {
-            System.out.println("There is no Room with that name. Please insert the name of a Room" +
-                    " that exists or  Type 'exit' to cancel and create a new Room on the Main Menu.");
+            System.out.println("There is no Sensor with that name. Please insert the name of a Sensor" +
+                    " that exists or  Type 'exit' to cancel and create a new Sensor on the Main Menu.");
             if (!getInputRoomName()) {
                 return false;
             }
             listOfIndexesSensor = houseMonitoringcontroller.matchSensorIndexByString(mNameSensor, mRoom);
         }
         if (listOfIndexesSensor.size() > 1) {
-            System.out.println("There are multiple Houses with that name. Please choose the right one.");
+            System.out.println("There are multiple Sensors with that name. Please choose the right one.");
             System.out.println(houseMonitoringcontroller.printSensorElementsByIndex(listOfIndexesSensor, mRoom));
             int aux = UtilsUI.readInputNumberAsInt();
             if (listOfIndexesSensor.contains(aux)) {
                 mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
-                System.out.println("You have chosen the following Room:");
+                System.out.println("You have chosen the following Sensor:");
                 System.out.println(houseMonitoringcontroller.printSensor(mSensor));
             } else {
                 System.out.println(UtilsUI.INVALID_OPTION);
@@ -250,12 +248,12 @@ public class HouseMonitoringUI {
     }
 
     private boolean getInputSensorByList() {
-        if (mRoom.getmRoomSensorList().getSensorList().size() == 0) {
+        if (mRoom.getmRoomSensorList().getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty, or there are no Temperature Sensors in the selected Room.\n");
             return false;
         }
         boolean activeInput = false;
-        System.out.println("Please select one of the existing rooms on the selected House: ");
+        System.out.println("Please select one of the existing Sensors on the selected Room: ");
 
         while (!activeInput) {
             houseMonitoringcontroller.printSensorList(mRoom);
@@ -371,16 +369,16 @@ public class HouseMonitoringUI {
     private void updateAndDisplayUS623(House house) {
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
-        this.mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, initialDate, endDate);
+        double mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, initialDate, endDate);
         System.out.print(houseMonitoringcontroller.getHouseInfoForOutPutMessage(house) + " between " + initialDate + " and " + endDate +
                 " is " + mResult623 + "%.");
     }
 
     private void printOptionMessage() {
         System.out.println("House Monitoring Options:\n");
-        System.out.println("1) Get Max Temperature in a room in a specific day (US600).");
+        System.out.println("1) Get Max Temperature in a room in a specific day (US610).");
         System.out.println("2) Get Current Temperature in a room. (US605).");
-        System.out.println("3) Get Current Temperature in a House Area. (US610)");
+        System.out.println("3) Get Current Temperature in a House Area. (US600)");
         System.out.println("4) Get The Average Rainfall on a specific day in a House Area. (US620)");
         System.out.println("5) Get The Average Rainfall on a day interval in a House Area. (US623)");
         System.out.println("0) (Return to main menu)\n");
