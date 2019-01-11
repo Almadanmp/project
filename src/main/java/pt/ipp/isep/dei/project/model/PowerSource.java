@@ -5,9 +5,21 @@ import java.util.Objects;
 public class PowerSource {
 
     private String mPowerSourceName;
+    private double mMaxPowerOutput;
+    private double mMaxEnergyStorage;
 
     public PowerSource(String powerSourceName, double maxPowerOutput, double maxEnergyStorage){
         this.mPowerSourceName = powerSourceName;
+        this.mMaxPowerOutput = maxPowerOutput;
+        this.mMaxEnergyStorage = maxEnergyStorage;
+    }
+
+    public double getMaxEnergyStorage() {
+        return mMaxEnergyStorage;
+    }
+
+    public double getMaxPowerOutput() {
+        return mMaxPowerOutput;
     }
 
     private String getPowerSourceName(){return this.mPowerSourceName;}

@@ -78,13 +78,13 @@ class RoomConfigurationUI {
         Scanner mScanner = new Scanner(System.in);
         System.out.println("Please type the name of the Room you want to access.");
         this.mRoomName = mScanner.nextLine();
-        return (!(this.mRoomName.equals("exit")));
+        return (!("exit".equals(this.mRoomName)));
     }
 
     private boolean getRoomByName() {
         List<Integer> listOfIndexesRoom = mRoomConfigurationController.matchRoomIndexByString(mRoomName, mHouse);
         while (listOfIndexesRoom.isEmpty()) {
-            System.out.println("There is no Room with that name. Please insert the name of a Room" +
+            System.out.print("There is no Room with that name. Please insert the name of a Room" +
                     " that exists or  Type 'exit' to cancel and create a new Room on the Main Menu.");
             if (!getInputRoomName()) {
                 return false;
@@ -115,8 +115,8 @@ class RoomConfigurationUI {
     }
 
     private void getInputRoomByList() {
-        if (mHouse.getRoomList().getRoomList().size() == 0) {
-            System.out.print("Invalid Room List - List Is Empty\n");
+        if (mHouse.getRoomList().getRoomList().isEmpty()) {
+            System.out.println("Invalid Room List - List Is Empty\n");
             return;
         }
         boolean activeInput = false;

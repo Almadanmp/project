@@ -72,6 +72,7 @@ class HouseConfigurationUI {
      */
 
     private void getInputRoomCharacteristics() {
+        String insertValidNumber = "Please insert a valid number.";
         Scanner input = new Scanner(System.in);
 
         //GET ROOM DESIGNATION
@@ -81,26 +82,26 @@ class HouseConfigurationUI {
         //GET ROOM HOUSE FLOOR
         System.out.println("Please insert your room's house floor: ");
         while (!input.hasNextInt()) {
-            System.out.println("Please insert a valid number.");
+            System.out.println(insertValidNumber);
         }
         this.mRoomHouseFloor = input.nextInt();
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's width in meters: ");
         while (!input.hasNextDouble()) {
-            System.out.println("Please insert a valid number.");
+            System.out.println(insertValidNumber);
         }
         this.mRoomWidth = input.nextDouble();
 
         System.out.println("Please insert your room's length in meters: ");
         while (!input.hasNextDouble()) {
-            System.out.println("Please insert a valid number.");
+            System.out.println(insertValidNumber);
         }
         this.mRoomLength = input.nextDouble();
 
         System.out.println("Please insert your room's height in meters: ");
         while (!input.hasNextDouble()) {
-            System.out.println("Please insert a valid number.");
+            System.out.println(insertValidNumber);
         }
         this.mRoomHeight = input.nextDouble();
     }
@@ -122,9 +123,10 @@ class HouseConfigurationUI {
 
 
         //get latitude
+        String onlyNumbers = "Please,try again. Only numbers this time:";
         System.out.print("Please, type the latitude: ");
         while (!scanner.hasNextDouble()) {
-            System.out.println("Please,try again. Only numbers this time:");
+            System.out.println(onlyNumbers);
             scanner.next();
         }
         this.mHouseLat = scanner.nextDouble();
@@ -133,7 +135,7 @@ class HouseConfigurationUI {
         // get longitude
         System.out.print("Please, type the longitude: ");
         while (!scanner.hasNextDouble()) {
-            System.out.println("Please,try again. Only numbers this time:");
+            System.out.println(onlyNumbers);
             scanner.next();
         }
         this.mHouseLon = scanner.nextDouble();
@@ -141,7 +143,7 @@ class HouseConfigurationUI {
         // get longitude
         System.out.print("Please, type the altitude: ");
         while (!scanner.hasNextDouble()) {
-            System.out.println("Please,try again. Only numbers this time:");
+            System.out.println(onlyNumbers);
             scanner.next();
         }
         this.mHouseAlt = scanner.nextDouble();

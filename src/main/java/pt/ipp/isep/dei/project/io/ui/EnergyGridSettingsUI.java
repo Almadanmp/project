@@ -84,7 +84,7 @@ class EnergyGridSettingsUI {
             case 1:
                 getInputGridName();
                 if (!getGridByName(house)) {
-                    return;}
+                    System.out.println("Unable to select a Grid. Returning to main menu."); return;}
                 break;
             case 2:
                 getInputGridByList(house);
@@ -103,7 +103,6 @@ class EnergyGridSettingsUI {
             System.out.println("There is no EnergyGrid with that name. Please insert the name of a Grid" +
                     " that exists or  Type 'exit' to cancel and create a new Grid on the Main Menu.");
             if (!getInputGridName()) {
-                System.out.println("Unable to select a Grid. Returning to main menu.");
                 return false;
             }
             listOfIndexesGrids = mController.matchGridIndexByString(mGridName, house);
@@ -355,7 +354,7 @@ class EnergyGridSettingsUI {
     }
 
     private void getInputRoomByListInEG() {
-        if (mEnergyGrid.getListOfRooms().getRoomList().isEmpty()) {
+        if (mEnergyGrid.getListOfRooms().getRoomList().size() == 0) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }

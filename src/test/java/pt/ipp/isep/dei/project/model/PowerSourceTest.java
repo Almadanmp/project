@@ -74,4 +74,20 @@ public class PowerSourceTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfGetMaxPowerOutputWorks(){
+        PowerSource ps1 = new PowerSource("Energia", 50, 50);
+        double expectedResult = 50;
+        double actualResult = ps1.getMaxPowerOutput();
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfMaxEnergyStorageWorks(){
+        PowerSource ps1 = new PowerSource("Energia", 50, 50);
+        double expectedResult = 50;
+        double actualResult = ps1.getMaxEnergyStorage();
+        assertEquals(expectedResult,actualResult);
+    }
 }

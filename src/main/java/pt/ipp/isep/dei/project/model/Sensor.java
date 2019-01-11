@@ -40,12 +40,12 @@ public class Sensor {
      *
      * @param name
      * @param typeSensor
-     * @param DateStartedFunctioning
+     * @param dateStartedFunctioning
      */
-    public Sensor(String name, TypeSensor typeSensor, Date DateStartedFunctioning) {
+    public Sensor(String name, TypeSensor typeSensor, Date dateStartedFunctioning) {
         setName(name);
         setTypeSensor(typeSensor);
-        setDateStartedFunctioning(DateStartedFunctioning);
+        setDateStartedFunctioning(dateStartedFunctioning);
         mReadingList = new ReadingList();
     }
 
