@@ -647,4 +647,55 @@ class GASettingsControllerTest {
         //Assert
         assertFalse(actualResult);
     }
+
+    @Test
+    void seeIfMatchGeographicAreasWorksBreakThirdIf() {
+        //Arrange
+        GASettingsController ctrl = new GASettingsController();
+         GeographicAreaList gAL1 = new GeographicAreaList();
+
+        //Act
+        boolean actualResult = ctrl.seeIfGAListContainsAreasByName("Oporto", "Londres", gAL1);
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    public void seeIfItsNotContained() {
+        //Arrange
+        GASettingsController ctrl = new GASettingsController();
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        gAL1.addGeographicAreaToGeographicAreaList(gA1);
+        gAL1.addGeographicAreaToGeographicAreaList(gA2);
+        ctrl.setMotherArea(gA1,gA2);
+        gA1.checkIfAreaIsContained(gA1,gA2);
+        ctrl.getMotherArea();
+        ctrl.seeIfGAListContainsAreasByName("Oporto", "Portugal",gAL1);
+        //Act
+        boolean actualResult = ctrl.seeIfItsContained();
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    public void seeIfItsContained() {
+        //Arrange
+        GASettingsController ctrl = new GASettingsController();
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        gAL1.addGeographicAreaToGeographicAreaList(gA1);
+        gAL1.addGeographicAreaToGeographicAreaList(gA2);
+        ctrl.setMotherArea(gA1,gA2);
+        gA1.checkIfAreaIsContained(gA1,gA2);
+        ctrl.getMotherArea();
+        ctrl.seeIfGAListContainsAreasByName("Portugal", "Oporto",gAL1);
+        //Act
+        boolean actualResult = ctrl.seeIfItsContained();
+        //Assert
+        assertTrue(actualResult);
+    }
+
 }

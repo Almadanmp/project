@@ -84,6 +84,18 @@ public class EnergyGridListTest {
     }
 
     @Test
+    public void ensureThatAObjectIsAInstanceOf4() {
+        EnergyGridList pList1 = new EnergyGridList();
+        EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
+        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        Boolean expectedResult = true;
+
+        Boolean actualResult = pList1.equals(pList1);
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void ensureThatAObjectIsAInstanceOf3() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
