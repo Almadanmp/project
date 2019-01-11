@@ -167,9 +167,8 @@ public class ReadingList {
                 GregorianCalendar temporaryCalend = new GregorianCalendar();
                 temporaryCalend.setTime(currentReadingDate);
                 int dayToAdd = temporaryCalend.get(Calendar.DAY_OF_MONTH);
-                if (!(daysWithReadings.contains(dayToAdd))) {
                     daysWithReadings.add(dayToAdd);
-                }
+
             }
         }
         return daysWithReadings;
