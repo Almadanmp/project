@@ -16,6 +16,7 @@ class UtilsUI {
     private GeographicArea mGeographicArea;
     private String mGeographicAreaName;
     private String mStringChosenGeographicArea = "You have chosen the following Geographic Area:";
+    private String mReturnString = "0) Return;";
 
     String invalidOption = "Please enter a valid option";
 
@@ -57,7 +58,7 @@ class UtilsUI {
     GeographicArea getInputGeographicArea(GeographicAreaList geographicAreaList) {
         System.out.println(
                 "We need to know what Geographic Area you want to work with.\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
-                        "0) Return;");
+                        mReturnString);
         int option = readInputNumberAsInt();
         switch (option) {
             case 1:
@@ -81,7 +82,7 @@ class UtilsUI {
     GeographicArea setGeographicAreaContainer(GeographicAreaList geographicAreaList) {
         System.out.println(
                 "1 )Do you want to select container from a list.\n" + "Or\n" +
-                        "0) Return;");
+                        mReturnString);
         return selectGeographicAreaByList(geographicAreaList);
     }
 
@@ -103,7 +104,7 @@ class UtilsUI {
     GeographicArea setGeographicAreaContained(GeographicAreaList geographicAreaList) {
         System.out.println(
                 "1 )Do you want to select contained from a list.\n" + "Or\n" +
-                        "0) Return;");
+                        mReturnString);
         return selectGeographicAreaByList(geographicAreaList);
     }
 

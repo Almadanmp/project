@@ -99,6 +99,7 @@ public class GeographicAreaList {
 
     /**
      * Method to Match a GeographicArea By Name,
+     *
      * @return a list of GAs with the input name.
      */
     public List<Integer> matchGeographicAreaIndexByString(String input) {
@@ -138,7 +139,8 @@ public class GeographicAreaList {
             if ((ga.getId().equals(geographicAreaToAdd))) {
                 return true;
             }
-        }return false;
+        }
+        return false;
     }
 
     /**
