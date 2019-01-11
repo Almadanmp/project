@@ -56,20 +56,84 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetSetLocalIfSameAsConstructorWorksLocal() {
+    void seeIfEqualsSameObject() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         //Act
         c.setLocal(l1);
-        boolean actualResult = c.getLocal().equals(new Local(38, 7, 100));
+        boolean actualResult = c.equals(c);
 
         //Assert
         assertTrue(actualResult);
     }
+
+    @Test
+    void seeIfEqualsDifferentObject() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+        GeographicArea d = new GeographicArea("Porto", t1, 2, 3, l1);
+        //Act
+        c.setLocal(l1);
+        boolean actualResult = c.equals(d);
+
+        //Assert
+        assertTrue(actualResult);
+    }
+
     @Test
 
+    void seeIfGetSetLocalIfSameAsConstructorWorksTypeAreaFALSE() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Rua");
+        TypeArea t2 = new TypeArea("Freguesia");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+        GeographicArea d = new GeographicArea("Porto", t2, 2, 3, l1);
+        //Act
+        c.setLocal(l1);
+        boolean actualResult = c.equals(d);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+
+    void seeIfGetSetLocalIfSameAsConstructorWorksIDFALSE() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+        GeographicArea d = new GeographicArea("Lisboa", t1, 2, 3, l1);
+        //Act
+        c.setLocal(l1);
+        boolean actualResult = c.equals(d);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfGetSetLocalIfSameAsConstructorWorksLocalFALSE() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        Local l2 = new Local(30, 7, 100);
+        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+        GeographicArea d = new GeographicArea("Porto", t1, 2, 3, l2);
+        //Act
+        c.setLocal(l1);
+        boolean actualResult = c.equals(d);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfGetSetLocalIfSameAsConstructorWorksTypeArea() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
