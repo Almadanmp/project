@@ -314,6 +314,20 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfAreaIsContainedInAreaBeta() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Terriola");
+        TypeArea t2 = new TypeArea("Cidade");
+        Local l1 = new Local(20, 15, 100);
+        GeographicArea ga1 = new GeographicArea("Porto", t1, 19, 20, l1);
+        GeographicArea ga2 = new GeographicArea("Porto", t2, 20, 20, l1);
+        boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
     void seeIfAreaIsContainedInAreaEnhanced3() {
         //Arrange
         TypeArea t1 = new TypeArea("Terriola");
