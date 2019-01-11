@@ -241,7 +241,7 @@ class EnergyGridSettingsUI {
         System.out.println("Please select one of the existing rooms on the selected House: ");
 
         while (!activeInput) {
-            System.out.println(mController.printRoomList(house));
+            System.out.println(mController.printHouseRoomList(house));
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < house.getRoomList().getRoomList().size()) {
                 this.mRoom = house.getRoomList().getRoomList().get(aux);

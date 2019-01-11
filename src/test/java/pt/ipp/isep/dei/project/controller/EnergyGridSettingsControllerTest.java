@@ -214,7 +214,7 @@ class EnergyGridSettingsControllerTest {
         roomList.addRoom(room);
         house.setRoomList(roomList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
-        String result = ctrlUS145.printRoomList(house);
+        String result = ctrlUS145.printHouseRoomList(house);
         String expectedResult = "---------------\n" +
                 "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
@@ -242,7 +242,7 @@ class EnergyGridSettingsControllerTest {
         roomList.addRoom(room);
         house.setRoomList(roomList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
-        String result = ctrlUS145.printRoomList(house);
+        String result = ctrlUS145.printHouseRoomList(house);
         String expectedResult = "---------------\n" +
                 "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
