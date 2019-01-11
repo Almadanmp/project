@@ -38,6 +38,8 @@ public class HouseMonitoringUI {
     }
 
     void run(House programHouse) {
+        this.mHouse = programHouse;
+        this.mGeoArea = programHouse.getMotherArea();
         UtilsUI utils = new UtilsUI();
         if (programHouse == null || programHouse.getMotherArea() == null || programHouse.getRoomList() == null) {
             System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
@@ -81,8 +83,7 @@ public class HouseMonitoringUI {
                     break;
                 case 4:
                     getInputStartDate();
-                    updateModelUS620();
-                    displayState620();
+                    updateAndDisplayModelUS620();
                     activeInput = true;
                     break;
                 case 5:
@@ -369,14 +370,19 @@ public class HouseMonitoringUI {
     /**
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
-    private void updateModelUS620() {
+    private void updateAndDisplayModelUS620() {
         this.mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
-        this.mResult620 = houseMonitoringcontroller.getTotalRainfallOnGivenDayHouseArea(mGeoArea, mStartDate);
+        this.mResult620 = houseMonitoringcontroller.getTotalRainfallOnGivenDay(mHouse, mStartDate);
+        printResultMessageUS620(mHouse, mStartDate, mResult620);
     }
 
-    private void displayState620() {
-        System.out.print("The Average Rainfall on " + mHouse.getHouseId() + " that is located on " + mGeoArea.getId() +
-                " on the date " + mStartDate + " is " + mResult620 + "%.");
+    private void printResultMessageUS620(House houseGiven, Date givenDate, double result) {
+        if (Double.isNaN(result)) {
+            System.out.println("Warning: average value not calculated - no readings available.");
+        } else {
+            System.out.println(houseMonitoringcontroller.getHouseInfoForOutputMessage(houseGiven) + " on " + givenDate
+                    + " is " + result + "%.");
+        }
     }
 
     /**
