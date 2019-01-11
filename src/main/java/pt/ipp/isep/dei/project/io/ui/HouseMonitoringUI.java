@@ -53,10 +53,7 @@ public class HouseMonitoringUI {
             option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if (!getInputRoom(programHouse)) {
-                        return;
-                    }
-                    if (!getInputSensor()) {
+                    if (!getInputRoom(programHouse) || !getInputSensor()) {
                         return;
                     }
                     getInputStartDate();

@@ -15,7 +15,7 @@ public class SensorSettingsUI {
     private String sensorName;
     private String sensorType;
     private String sensorUnits;
-    boolean mTypeAdded;
+    private boolean mTypeAdded;
     private double sensorLat;
     private double sensorLong;
     private double sensorAlt;
@@ -24,7 +24,6 @@ public class SensorSettingsUI {
     private int dataDay;
     private Sensor mSensor;
     private GeographicArea mGeographicArea;
-    private String mGeographicAreaName;
     private SensorList mSensorList;
     private GeographicAreaList mGeographicAreaList;
 

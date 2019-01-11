@@ -24,7 +24,6 @@ class RoomConfigurationUI {
     }
 
     void run(House house, GeographicArea ga) {
-        Scanner mScanner = new Scanner(System.in);
         this.mGeoArea = ga;
         this.mSensorList = ga.getSensorList();
         this.mHouse = house;

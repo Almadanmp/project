@@ -256,7 +256,8 @@ public class GeographicArea {
         for (Sensor s : this.mAreaSensors.getSensorList()) {
             String sensorNameTest = s.getName();
             if (sensorNameTest.equals(sensorToAddName))
-                return false; }
+                return false;
+        }
         this.mAreaSensors.addSensor(sensor);
         return true;
     }

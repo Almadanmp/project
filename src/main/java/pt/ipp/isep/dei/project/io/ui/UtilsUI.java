@@ -13,6 +13,10 @@ import java.util.Scanner;
  */
 class UtilsUI {
 
+    private GeographicArea mGeographicArea;
+    private String mGeographicAreaName;
+    private String mStringChosenGeographicArea = "You have chosen the following Geographic Area:";
+
     static final String INVALID_OPTION = "Please enter a valid option";
 
     /**
@@ -47,10 +51,6 @@ class UtilsUI {
     }
 
     // OPÇÃO LISTAR POR NOMES / POR LISTA - GEOGRAPHIC AREA
-
-    private GeographicArea mGeographicArea;
-    private String mGeographicAreaName;
-    private String mStringChosenGeographicArea = "You have chosen the following Geographic Area:";
 
     GeographicArea getInputGeographicArea(GeographicAreaList geographicAreaList) {
         System.out.println(
