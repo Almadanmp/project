@@ -13,15 +13,12 @@ import static java.lang.System.out;
 public class HouseMonitoringUI {
     private HouseMonitoringController houseMonitoringcontroller;
     private House mHouse;
-    private GeographicArea mGeoArea;
-    private double mResult620;
     private int dataYear1;
     private int dataMonth1;
     private int dataDay1;
     private int dataYear2;
     private int dataMonth2;
     private int dataDay2;
-    private Date mStartDate;
     private double mCurrentHouseAreaTemperature;
     private String mNameRoom;
     private Sensor mSensor;
@@ -36,15 +33,13 @@ public class HouseMonitoringUI {
 
     void run(House programHouse) {
         this.mHouse = programHouse;
-        this.mGeoArea = programHouse.getMotherArea();
         UtilsUI utils = new UtilsUI();
         if (programHouse == null || programHouse.getMotherArea() == null || programHouse.getRoomList() == null) {
             System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
                     " your house first through the main menu");
             return;
         }
-        RoomList roomList = new RoomList();
-        roomList = programHouse.getRoomList();
+        RoomList roomList = programHouse.getRoomList();
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -278,10 +273,7 @@ public class HouseMonitoringUI {
                     "selected Room.\n");
             return false;
         }
-        boolean activeInput = false;
         System.out.println("Please select one of the existing Sensors on the selected Room: ");
-
-        while (!activeInput) {
             houseMonitoringcontroller.printRoomSensorList(mRoom);
             int aux = utils.readInputNumberAsInt();
             if (aux >= 0 && aux < mRoom.getmRoomSensorList().getSensorList().size()) {
@@ -292,8 +284,6 @@ public class HouseMonitoringUI {
                 return false;
             }
         }
-        return true;
-    }
 
     private void getInputStartDate() {
         Scanner scan = new Scanner(System.in);
@@ -379,9 +369,9 @@ public class HouseMonitoringUI {
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
     private void updateAndDisplayModelUS620() {
-        this.mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
-        this.mResult620 = houseMonitoringcontroller.getTotalRainfallOnGivenDay(mHouse, mStartDate);
-        printResultMessageUS620(mHouse, mStartDate, mResult620);
+        Date mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
+        double result620 = houseMonitoringcontroller.getTotalRainfallOnGivenDay(mHouse, mStartDate);
+        printResultMessageUS620(mHouse, mStartDate, result620);
     }
 
     private void printResultMessageUS620(House houseGiven, Date givenDate, double result) {
