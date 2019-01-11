@@ -277,8 +277,8 @@ class GeographicAreaTest {
         TypeArea t2 = new TypeArea("Cidade");
         Local l1 = new Local(20, 15, 100);
         Local l2 = new Local(20, 20, 100);
-        GeographicArea ga1 = new GeographicArea("Porto",t1,2,3,l1);
-        GeographicArea ga2 = new GeographicArea("Porto",t2,2,3,l2);
+        GeographicArea ga1 = new GeographicArea("Porto",t1,19,20,l1);
+        GeographicArea ga2 = new GeographicArea("Porto",t2,19,20,l2);
         boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
 
         //Assert
@@ -291,8 +291,8 @@ class GeographicAreaTest {
         TypeArea t1 = new TypeArea("Terriola");
         TypeArea t2 = new TypeArea("Cidade");
         Local l1 = new Local(20, 15, 100);
-        GeographicArea ga1 = new GeographicArea("Porto", t1, 3, 3, l1);
-        GeographicArea ga2 = new GeographicArea("Porto", t2, 2, 3, l1);
+        GeographicArea ga1 = new GeographicArea("Porto", t1, 20, 20, l1);
+        GeographicArea ga2 = new GeographicArea("Porto", t2, 19, 20, l1);
         boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
 
         //Assert
@@ -305,8 +305,8 @@ class GeographicAreaTest {
         TypeArea t1 = new TypeArea("Terriola");
         TypeArea t2 = new TypeArea("Cidade");
         Local l1 = new Local(20, 15, 100);
-        GeographicArea ga1 = new GeographicArea("Porto", t1, 2, 3, l1);
-        GeographicArea ga2 = new GeographicArea("Porto", t2, 3, 3, l1);
+        GeographicArea ga1 = new GeographicArea("Porto", t1, 19, 20, l1);
+        GeographicArea ga2 = new GeographicArea("Porto", t2, 20, 20, l1);
         boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
 
         //Assert
@@ -320,8 +320,8 @@ class GeographicAreaTest {
         TypeArea t2 = new TypeArea("Cidade");
         Local l1 = new Local(20, 15, 100);
         Local l2 = new Local(20, 20, 100);
-        GeographicArea ga1 = new GeographicArea("Porto",t1,2,4,l1);
-        GeographicArea ga2 = new GeographicArea("Porto",t2,2,3,l2);
+        GeographicArea ga1 = new GeographicArea("Porto",t1,19,21,l1);
+        GeographicArea ga2 = new GeographicArea("Porto",t2,19,20,l2);
         boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
 
         //Assert
@@ -335,8 +335,8 @@ class GeographicAreaTest {
         TypeArea t2 = new TypeArea("Cidade");
         Local l1 = new Local(20, 15, 100);
         Local l2 = new Local(20, 20, 100);
-        GeographicArea ga1 = new GeographicArea("Porto",t1,2,3,l1);
-        GeographicArea ga2 = new GeographicArea("Porto",t2,2,4,l2);
+        GeographicArea ga1 = new GeographicArea("Porto",t1,19,20,l1);
+        GeographicArea ga2 = new GeographicArea("Porto",t2,19,21,l2);
         boolean result = ga1.isAreaContainedInAnotherArea(ga1, ga2);
 
         //Assert
