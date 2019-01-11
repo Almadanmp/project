@@ -13,15 +13,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RoomConfigurationControllerTest {
+class RoomConfigurationControllerTest {
 
     @Test
-    public void seeIfSensorIsContainedInGA() {
+    void seeIfSensorIsContainedInGA() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
+        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
+        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
         SensorList sList = new SensorList();
@@ -31,17 +31,17 @@ public class RoomConfigurationControllerTest {
         gA1.setSensorList(sList);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Sensor actualactualResult = ctrl.getSensorFromGAByName("Vento", gA1);
-        Sensor expectedactualResult = s1;
+        Sensor actualResult = ctrl.getSensorFromGAByName("Vento1", gA1);
+        Sensor expectedResult = s1;
         //Assert
-        assertEquals(expectedactualResult, actualactualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void seeIfRoomIsContainedInRoomList() {
+    void seeIfRoomIsContainedInRoomList() {
         //Arrange
-        Room room1 = new Room("Quarto",1,5, 1, 21);
-        Room room2 = new Room("Cozinha",1,9, 3, 5);
+        Room room1 = new Room("Quarto", 1, 5, 1, 21);
+        Room room2 = new Room("Cozinha", 1, 9, 3, 5);
         RoomList rList = new RoomList();
         House house1 = new House();
         house1.setRoomList(rList);
@@ -49,14 +49,14 @@ public class RoomConfigurationControllerTest {
         rList.addRoom(room2);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Room actualactualResult = ctrl.getRoomFromHouseByName("Quarto", house1);
-        Room expectedactualResult = room1;
+        Room actualResult = ctrl.getRoomFromHouseByName("Quarto", house1);
+        Room expectedResult = room1;
         //Assert
-        assertEquals(expectedactualResult, actualactualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void seeIfSensorListIsContainedInGAList() {
+    void seeIfSensorListIsContainedInGAList() {
         //Arrange
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
@@ -73,13 +73,13 @@ public class RoomConfigurationControllerTest {
         gList.addGeographicAreaToGeographicAreaList(ga1);
         //Act
         RoomConfigurationController crl = new RoomConfigurationController();
-        boolean actualactualResult = crl.checkIfGAContainsSensorByString("Vento", ga1);
+        boolean actualResult = crl.checkIfGAContainsSensorByString("Vento", ga1);
         //Assert
-        assertTrue(actualactualResult);
+        assertTrue(actualResult);
     }
 
     @Test
-    public void seeIfSensorListIsNotContainedInGAList() {
+    void seeIfSensorListIsNotContainedInGAList() {
         //Arrange
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
@@ -96,13 +96,13 @@ public class RoomConfigurationControllerTest {
         gAList.addGeographicAreaToGeographicAreaList(ga1);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        boolean actualactualResult = ctrl.checkIfGAContainsSensorByString("Chuva", ga1);
+        boolean actualResult = ctrl.checkIfGAContainsSensorByString("Chuva", ga1);
         //Assert
-        assertFalse(actualactualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void seeIfPrintsRoomList() {
+    void seeIfPrintsRoomList() {
         //Arrange
         GeographicArea gA = new GeographicArea();
         Room room = new Room("kitchen", 1, 1, 2, 2);
@@ -112,7 +112,7 @@ public class RoomConfigurationControllerTest {
         roomList.addRoom(room1);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA, roomList);
         //Act
-        RoomConfigurationController ctrl= new RoomConfigurationController();
+        RoomConfigurationController ctrl = new RoomConfigurationController();
         String expectedactualResult = "---------------\n" +
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
@@ -125,11 +125,11 @@ public class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintRoomWorks() {
         //Arrange
-        Room room = new Room("room1", 1, 1,2,2);
+        Room room = new Room("room1", 1, 1, 2, 2);
         //Act
-        RoomConfigurationController ctrl= new RoomConfigurationController();
+        RoomConfigurationController ctrl = new RoomConfigurationController();
         String actualResult = ctrl.printRoom(room);
-        String expectedResult = "room1, 1, 1.0, 2.0, 2.0.\n"; 
+        String expectedResult = "room1, 1, 1.0, 2.0, 2.0.\n";
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -148,8 +148,8 @@ public class RoomConfigurationControllerTest {
         roomList.addRoom(room1);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA, roomList);
         //Act
-        RoomConfigurationController ctrl= new RoomConfigurationController();
-        String actualResult = ctrl.printRoomElementsByIndex(list,house);
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        String actualResult = ctrl.printRoomElementsByIndex(list, house);
         String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -169,8 +169,8 @@ public class RoomConfigurationControllerTest {
         roomList.addRoom(room1);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA, roomList);
         //Act
-        RoomConfigurationController ctrl= new RoomConfigurationController();
-        List<Integer> actualResult = ctrl.matchRoomIndexByString("sala",house);
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        List<Integer> actualResult = ctrl.matchRoomIndexByString("sala", house);
         List<Integer> expectedResult = Collections.singletonList(roomList.getRoomList().indexOf(room1));
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -204,10 +204,10 @@ public class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintSensorListWorks() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
+        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
+        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
         SensorList sList = new SensorList();
@@ -217,9 +217,51 @@ public class RoomConfigurationControllerTest {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         String actualResult = ctrl.printSensorList(sList);
         String expectedResult = "---------------\n" +
-                "0) Name: Vento | Type: Atmosphere\n" +
-                "1) Name: Pluviosidade | Type: Pluviosidade\n" +
+                "0) Name: Vento1 | Type: Atmosphere\n" +
+                "1) Name: Pluviosidade1 | Type: Pluviosidade\n" +
                 "---------------\n";
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfPrintSensorWorks() {
+    //String printSensor(Sensor sensor) {
+    //Assert
+        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 12, 4).getTime());
+    //Act
+    RoomConfigurationController ctrl = new RoomConfigurationController();
+    String actualResult = ctrl.printSensor(s2);
+    String expectedResult = "Pluviosidade1, Pluviosidade, 10.0º lat, 30.0º long\n";
+    //Assert
+    assertEquals(expectedResult, actualResult);
+    }
+    
+    @Test
+    void seeIfPrintSensorElementsByIndexWorks() {
+        //public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
+        //Assert
+        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 12, 4).getTime());
+        SensorList sList = new SensorList();
+        sList.addSensor(s1);
+        sList.addSensor(s2);
+        //Act
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        String actualResult = ctrl.printSensorElementsByIndex(list, sList);
+        String expectedResult = "1) Pluviosidade1 which is a Pluviosidade sensor.\n";
         //Assert
         assertEquals(expectedResult, actualResult);
     }

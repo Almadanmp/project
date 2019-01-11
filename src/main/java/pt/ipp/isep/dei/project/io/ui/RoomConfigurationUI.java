@@ -15,8 +15,8 @@ class RoomConfigurationUI {
     private Sensor mSensor;
     private String mRoomName;
     private SensorList mSensorList;
-    private String mStringChosenSensor = "You have chosen the following Sensor:";
     private String mSensorName;
+    private String mStringRequestRoom = "You have chosen the following Room:";
 
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
@@ -29,11 +29,6 @@ class RoomConfigurationUI {
         System.out.println("--------------\n");
         System.out.println("Room Configuration\n");
         System.out.println("--------------\n");
-
-        if (mHouse == null) {
-            System.out.println("Unable to select a house. Returning to main menu.");
-            return;
-        }
         getInputRoom();
         if (mRoom == null) {
             System.out.println("Unable to select a room. Returning to main menu.");
@@ -98,7 +93,7 @@ class RoomConfigurationUI {
                 this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
                 mHouse.getRoomList().getRoomList().get(aux);
-                System.out.println("You have chosen the following Room:");
+                System.out.println(mStringRequestRoom);
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
             } else {
                 System.out.println(INVALID_OPTION);
@@ -106,7 +101,7 @@ class RoomConfigurationUI {
         } else {
             this.mRoom = mHouse.getRoomList().getRoomList().get(listOfIndexesRoom.get(0));
             this.mRoomName = mRoom.getRoomName();
-            System.out.println("You have chosen the following Room:");
+            System.out.println(mStringRequestRoom);
             this.mHouse.getRoomList().getRoomList().get(0);
             System.out.println(mRoomConfigurationController.printRoom(mRoom));
         }
@@ -126,7 +121,7 @@ class RoomConfigurationUI {
             if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
                 this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
-                System.out.println("You have chosen the following Room:");
+                System.out.println(mStringRequestRoom);
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
                 activeInput = true;
             } else {
@@ -151,13 +146,12 @@ class RoomConfigurationUI {
             case 1:
                 getInputSensorName();
                 if (!getSensorByName(mSensorList)) {
-                    System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mRoomName);
                     return this.mSensor;
                 }
                 break;
             case 2:
                 getInputSensorByList(mSensorList);
-                System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mRoomName);
+                System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
                 return this.mSensor;
 
             case 0:
@@ -183,6 +177,7 @@ class RoomConfigurationUI {
             }
             listOfIndexesSensors = ctrl.matchSensorIndexByString(mSensorName, mSensorList);
         }
+        String mStringChosenSensor = "You have chosen the following Sensor:";
         if (listOfIndexesSensors.size() > 1) {
             System.out.println("There are multiple Sensors with that name. Please choose the right one.");
             System.out.println(ctrl.printSensorElementsByIndex(listOfIndexesSensors, mSensorList));
@@ -201,6 +196,7 @@ class RoomConfigurationUI {
             this.mSensorName = mSensor.getName();
             System.out.println(ctrl.printSensor(mSensor));
         }
+        System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
         return true;
     }
 
