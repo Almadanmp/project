@@ -20,18 +20,18 @@ public class Sensor {
     }
 
     /**
-     * Constructor with:name, typesensor, local, DateStartedFunctioning
+     * Constructor with:name, typesensor, local, dateStartedFunctioning
      *
      * @param name
      * @param typeSensor
      * @param local
-     * @param DateStartedFunctioning
+     * @param dateStartedFunctioning
      */
-    public Sensor(String name, TypeSensor typeSensor, Local local, Date DateStartedFunctioning) {
+    public Sensor(String name, TypeSensor typeSensor, Local local, Date dateStartedFunctioning) {
         setName(name);
         setTypeSensor(typeSensor);
         setLocal(local);
-        setDateStartedFunctioning(DateStartedFunctioning);
+        setDateStartedFunctioning(dateStartedFunctioning);
         mReadingList = new ReadingList();
     }
 

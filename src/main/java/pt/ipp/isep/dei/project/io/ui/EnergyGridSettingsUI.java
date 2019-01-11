@@ -84,7 +84,9 @@ class EnergyGridSettingsUI {
             case 1:
                 getInputGridName();
                 if (!getGridByName(house)) {
-                    System.out.println("Unable to select a Grid. Returning to main menu."); return;}
+                    System.out.println("Unable to select a Grid. Returning to main menu.");
+                    return;
+                }
                 break;
             case 2:
                 getInputGridByList(house);
@@ -354,7 +356,7 @@ class EnergyGridSettingsUI {
     }
 
     private void getInputRoomByListInEG() {
-        if (mEnergyGrid.getListOfRooms().getRoomList().size() == 0) {
+        if (mEnergyGrid.getListOfRooms().getRoomList().isEmpty()) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }

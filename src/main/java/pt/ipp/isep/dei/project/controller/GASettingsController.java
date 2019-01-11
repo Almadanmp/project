@@ -205,9 +205,8 @@ public class GASettingsController {
                     mGeoAreaContainer = ga;
                 }
             }
-            return mGeoAreaContained != null && mGeoAreaContainer != null;
         }
-        return false;
+        return mGeoAreaContained != null && mGeoAreaContainer != null;
     }
 
     /**
