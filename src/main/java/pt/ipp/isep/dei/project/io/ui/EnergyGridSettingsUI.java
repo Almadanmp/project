@@ -199,18 +199,18 @@ class EnergyGridSettingsUI {
     }
 
     private boolean getRoomByName() {
-        List<Integer> roomIndexes = mController.getIndexRoomsByString(mRoomName, mHouse);
+        List<Integer> roomIndexes = mController.getIndexHouseRoomsByString(mRoomName, mHouse);
         while (roomIndexes.isEmpty()) {
             System.out.println("There is no Room with that name. Please insert the name of a Room" +
                     " that exists or  Type 'exit' to cancel and create a new Room on the Main Menu.");
             if (!getInputRoomName()) {
                 return false;
             }
-            roomIndexes = mController.getIndexRoomsByString(mRoomName, mHouse);
+            roomIndexes = mController.getIndexHouseRoomsByString(mRoomName, mHouse);
         }
         if (roomIndexes.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
-            System.out.println(mController.printRoomElementsByIndex(roomIndexes, mHouse));
+            System.out.println(mController.printHouseRoomsByIndex(roomIndexes, mHouse));
             int aux = readInputNumberAsInt();
             if (roomIndexes.contains(aux)) {
                 this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
@@ -290,7 +290,7 @@ class EnergyGridSettingsUI {
 
     private void updateGridAndDisplayState() {
         if (mEnergyGrid != null) {
-            if (mController.addPowerSourceToEnergyGrid(mEnergyGrid)) {
+            if (mController.addPowerSourceToGrid(mEnergyGrid)) {
                 System.out.println("The power source was added with success!");
             } else {
                 System.out.println("The power source was NOT added to the energy grid!");
@@ -311,7 +311,7 @@ class EnergyGridSettingsUI {
     // energy consumption is included in that grid.
 
     private void updateGridUS147(EnergyGrid grid, Room room) {
-        if(mController.addRoomToTheGrid(grid, room)){
+        if(mController.addRoomToGrid(grid, room)){
             System.out.println("Room successfully added to the grid!");
         }else {
             System.out.println("It wasn't possible to add the room. Please try again.");
@@ -362,7 +362,7 @@ class EnergyGridSettingsUI {
         System.out.println("Please select one of the existing rooms on the selected House: ");
 
         while (!activeInput) {
-            System.out.println(mController.printRoomListOfEG(mEnergyGrid));
+            System.out.println(mController.printGridRooms(mEnergyGrid));
             int aux = readInputNumberAsInt();
             if (aux >= 0 && aux < mEnergyGrid.getListOfRooms().getRoomList().size()) {
                 this.mRoom = mEnergyGrid.getListOfRooms().getRoomList().get(aux);

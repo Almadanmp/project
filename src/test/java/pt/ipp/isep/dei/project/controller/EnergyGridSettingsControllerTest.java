@@ -184,7 +184,7 @@ class EnergyGridSettingsControllerTest {
             RoomList rl = new RoomList();
             eg.setListOfRooms(rl);
             boolean expectedResult = true;
-            boolean actualResult = egsc.addRoomToTheGrid(eg,room1EdC);
+            boolean actualResult = egsc.addRoomToGrid(eg,room1EdC);
             assertEquals(expectedResult,actualResult);
     }
     @Test
@@ -202,7 +202,7 @@ class EnergyGridSettingsControllerTest {
         rl.addRoom(room2EdC);
         rl.addRoom(room3EdC);
         boolean expectedResult = false;
-        boolean actualResult = egsc.addRoomToTheGrid(eg,room1EdC);
+        boolean actualResult = egsc.addRoomToGrid(eg,room1EdC);
         assertEquals(expectedResult,actualResult);
     }
 
@@ -229,7 +229,7 @@ class EnergyGridSettingsControllerTest {
         roomList.addRoom(room);
         house.setRoomList(roomList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
-        List<Integer> result = ctrlUS145.getIndexRoomsByString("Quarto", house);
+        List<Integer> result = ctrlUS145.getIndexHouseRoomsByString("Quarto", house);
         List<Integer> expectedResult = Collections.singletonList(0);
         assertEquals(expectedResult, result);
     }
@@ -254,7 +254,7 @@ class EnergyGridSettingsControllerTest {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         EnergyGrid grid = new EnergyGrid("grid", 400);
         ctrl.createPowerSource("pw",10,10);
-        boolean result = ctrl.addPowerSourceToEnergyGrid(grid);
+        boolean result = ctrl.addPowerSourceToGrid(grid);
         boolean expectedResult = true;
         assertEquals(expectedResult,result);
     }
@@ -263,7 +263,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddPowerSourceToEnergyGridWorksFalse(){
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         EnergyGrid grid = new EnergyGrid("grid", 400);
-        boolean result = ctrl.addPowerSourceToEnergyGrid(grid);
+        boolean result = ctrl.addPowerSourceToGrid(grid);
         boolean expectedResult = false;
         assertEquals(expectedResult,result);
     }

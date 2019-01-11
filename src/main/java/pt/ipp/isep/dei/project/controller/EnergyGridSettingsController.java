@@ -84,7 +84,7 @@ public class EnergyGridSettingsController {
      * the input.
      */
 
-    public List<Integer> getIndexRoomsByString(String input, House house) {
+    public List<Integer> getIndexHouseRoomsByString(String input, House house) {
         return house.getRoomList().matchRoomIndexByString(input);
     }
 
@@ -95,7 +95,7 @@ public class EnergyGridSettingsController {
      * @return builds a string of the rooms in the House's RoomList that are contained in the indexes provided by the first parameter.
      */
 
-    public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
+    public String printHouseRoomsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
         return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
     }
 
@@ -115,7 +115,7 @@ public class EnergyGridSettingsController {
      * @return builds a string of all the rooms contained in the EnergyGrid's RoomList.
      */
 
-    public String printRoomListOfEG(EnergyGrid energyGrid) {
+    public String printGridRooms(EnergyGrid energyGrid) {
         StringBuilder result = new StringBuilder("---------------\n");
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -175,7 +175,7 @@ public class EnergyGridSettingsController {
      * @return is true if the power source is added successfully, false if it isn't.
      */
 
-    public boolean addPowerSourceToEnergyGrid(EnergyGrid grid) {
+    public boolean addPowerSourceToGrid(EnergyGrid grid) {
         if (mPowerSource != null){
             grid.addPowerSource(mPowerSource);
             return true;
@@ -192,7 +192,7 @@ public class EnergyGridSettingsController {
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */
 
-    public boolean addRoomToTheGrid(EnergyGrid grid, Room room) {
+    public boolean addRoomToGrid(EnergyGrid grid, Room room) {
             return grid.addRoomToAnEnergyGrid(room);
     }
 
