@@ -20,7 +20,6 @@ public class SensorList {
      * @param sensorsToAdd
      */
 
-
     public SensorList(Sensor[] sensorsToAdd) {
         mSensorList = new ArrayList<>();
         for (int i = 0; i < sensorsToAdd.length; i++) {
@@ -124,6 +123,10 @@ public class SensorList {
         }
         return null;
     }
+    /**
+     * @param name name of the sensor to find in the list.
+     * @return returns true if a Sensor with the same name as @param name exists in the Sensor List
+     */
 
     public boolean doesSensorListContainSensorByName(String name) {
         for (Sensor s : mSensorList) {
@@ -134,6 +137,11 @@ public class SensorList {
         return false;
     }
 
+    /**
+     * @param name name of the sensor to find in the list.
+     * @return return the sensor whose type name matches the name introduced.
+     */
+
     Sensor getSensorByType(String name) {
         for (Sensor s : mSensorList) {
             if (s.getTypeSensor().getName().equals(name)) {
@@ -142,6 +150,14 @@ public class SensorList {
         }
         return null;
     }
+
+    /**
+     *
+     * @param input is the string we're going to look for in the list of Sensors.
+     * @return is a list of integers that contains the indexes of all the Sensors in the given list whose name
+     * matches the given string.
+     */
+
     public List<Integer> matchSensorIndexByString(String input){
         List<Integer> result = new ArrayList<>();
         for(int i = 0; i < mSensorList.size(); i++){
@@ -152,6 +168,12 @@ public class SensorList {
         return result;
     }
 
+    /**
+     *
+     * @param indexes is a list of all the indexes in a list where relevant objects are.
+     * @return builds a string of all the individual members of the Sensor list.
+     */
+
     public String printElementsByIndex (List<Integer> indexes){
         StringBuilder result = new StringBuilder();
         for (int pos : indexes) {
@@ -159,6 +181,12 @@ public class SensorList {
         }
         return result.toString();
     }
+
+    /**
+     *
+     * @param room is the Room from which we want to get a list of the sensors of.
+     * @return builds a string of all the individual members of the list of sensors of the Room.
+     */
 
     public String printSensorList(Room room) {
         StringBuilder result = new StringBuilder("---------------\n");
@@ -175,6 +203,12 @@ public class SensorList {
         return result.toString();
     }
 
+    /**
+     *
+     * @param name String of the sensor we wish to compare with the existent sensors on the sensor list.
+     * @return builds a list of sensors with the same type as the one introduced as parameter.
+     */
+
     public List<Sensor> getSensorListByType(String name) {
         List<Sensor> containedTypeSensors = new ArrayList<>();
         for (Sensor sensor : this.mSensorList) {
@@ -184,6 +218,11 @@ public class SensorList {
         }
         return containedTypeSensors;
     }
+    /**
+     * @param type Type of sensor we wish to get a list of.
+     * @param area Geographical Area where we wish to get the sensors from.
+     * @return builds a list of sensors with the same type as the one introduced as parameter.
+     */
 
     List<Sensor> getListOfSensorsContainedInGeographicArea(GeographicArea area, TypeSensor type) {
         List<Sensor> containedSensors = new ArrayList<>();
@@ -194,6 +233,11 @@ public class SensorList {
         }
         return containedSensors;
     }
+    /**
+     * @param date1 Date when we wish to check which sensors from the list are active at.
+     * @param ga Geographical Area where we wish to get the sensors from.
+     * @return builds a list of sensors with the sensors that are active at the precise date the one introduced as parameter.
+     */
 
     List<Sensor> getSensorsInGAAtACertainTimePeriod(GregorianCalendar date1, GeographicArea ga) {
         List<Sensor> finalList = new ArrayList<>();
@@ -204,6 +248,11 @@ public class SensorList {
         }
         return finalList;
     }
+    /**
+     * @param nameOfSensor name of the sensor we want to see if exists in a list of sensors.
+     * @param typeToSet name of of the type of sensor we want to alter on a sensor.
+     * @return finds sensors with the same name as nameOfSensor and changes said sensors type to typeToSet.
+     */
 
     public boolean setTypeSensorByString(String nameOfSensor, String typeToSet) {
         if (!checkIfListInvalid()) {
@@ -250,21 +299,24 @@ public class SensorList {
         return result.toString();
     }
 
+    /**
+     * @return true if the list is empty.
+     */
     private boolean checkIfListInvalid() {
         return (this.mSensorList.isEmpty());
     }
-
+    /**
+     * @return false if the list is empty.
+     */
     boolean checkIfListIsValid() {
         return !mSensorList.isEmpty();
     }
 
     /**
-     * Specific Methods.
-     *
+     * Method 'equals' for comparisson between objects of the same class
      * @param testObject
-     * @return
+     * @return boolean
      */
-
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
