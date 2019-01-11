@@ -81,14 +81,6 @@ public class SensorSettingsController {
     }
 
 
-    public GeographicArea getGeoAreaFromName(String geoName, GeographicAreaList galist) {
-        for (GeographicArea ga : galist.getGeographicAreaList()) {
-            if (ga.getId().equals(geoName))
-                mGeoArea = ga;
-        }
-        return mGeoArea;
-    }
-
     public Local getLocal() {
         return this.mLocal;
     }

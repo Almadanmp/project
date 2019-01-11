@@ -31,6 +31,17 @@ class SensorSettingsControllerTest {
     }
 
     @Test
+    void ensureThatWeSetTypeSensor () {
+        SensorSettingsController ssc = new SensorSettingsController();
+        SensorList sl = new SensorList();
+        Sensor s1 = new Sensor("Sensor 1",new TypeSensor("Temperatura","Celsius"),new GregorianCalendar(2018,11,25).getTime());
+        sl.addSensor(s1);
+        boolean expectedResult = true;
+        boolean actualResult = ssc.setTypeSensor(sl,"Sensor 1","Temperature");
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
     void seeIfLocalIsCreated2() {
 
         //Arrange
