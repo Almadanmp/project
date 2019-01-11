@@ -6,6 +6,10 @@ import java.util.List;
 
 public class GASettingsController {
 
+    private GeographicArea mMotherArea;
+    private GeographicArea mGeoAreaContained;
+    private GeographicArea mGeoAreaContainer;
+
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
     /**
@@ -130,8 +134,6 @@ public class GASettingsController {
     /*USER STORY 07 - As an Administrator, I want to add an existing geographical area to another one (e.g. add city of
     Porto to the district of Porto). */
 
-    private GeographicArea mMotherArea;
-
     /**
      * @param nameArea           is the name of the area we want to look for in the list.
      * @param geographicAreaList is the list where we're going to search for objects of a given name.
@@ -185,9 +187,6 @@ public class GASettingsController {
 
     /*USER STORY 08 - As an Administrator, I want to find out if a geographical area is included, directly
     or indirectly, in another one. */
-
-    private GeographicArea mGeoAreaContained;
-    private GeographicArea mGeoAreaContainer;
 
     /**
      * @param nameOfAreaContained is the name of the area contained in another area.

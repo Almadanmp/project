@@ -187,15 +187,20 @@ class HouseConfigurationUI {
      */
 
     private void displayStateRoom() {
+        String yourNewRoom = "Your new room is called ";
+        String located = ", it is located on the ";
+        String width = " meters of width, ";
+        String length = " meters of length and ";
+        String height = " meters of height.";
         //SHOW ROOM ENTERED BY USER
         if (mRoomHouseFloor == 1) {
-            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "st floor and has " + mRoomWidth + " meters of width, " + mRoomLength + " meters of length and " + mRoomHeight + " meters of height.");
+            System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "st floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
         } else if (mRoomHouseFloor == 2) {
-            System.out.println("Your new room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "nd floor and has " + mRoomWidth + " meters of width, " + mRoomLength + " meters of length and " + mRoomHeight + " meters of height.");
+            System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "nd floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
         } else if (mRoomHouseFloor == 3) {
-            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "rd floor and has " + mRoomWidth + " meters of width, " + mRoomLength + " meters of length and " + mRoomHeight + " meters of height.");
+            System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "rd floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
         } else {
-            System.out.println("Your new a room is called " + mRoomName + ", it is located on the " + mRoomHouseFloor + "th floor and has " + mRoomWidth + " meters of width, " + mRoomLength + " meters of length and " + mRoomHeight + " meters of height.");
+            System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "th floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
         }
     }
 

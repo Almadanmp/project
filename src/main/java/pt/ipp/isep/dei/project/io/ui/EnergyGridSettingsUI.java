@@ -84,7 +84,7 @@ class EnergyGridSettingsUI {
             case 1:
                 getInputGridName();
                 if (!getGridByName(house)) {
-                    System.out.println("Unable to select a Grid. Returning to main menu."); return;}
+                    return;}
                 break;
             case 2:
                 getInputGridByList(house);
@@ -103,6 +103,7 @@ class EnergyGridSettingsUI {
             System.out.println("There is no EnergyGrid with that name. Please insert the name of a Grid" +
                     " that exists or  Type 'exit' to cancel and create a new Grid on the Main Menu.");
             if (!getInputGridName()) {
+                System.out.println("Unable to select a Grid. Returning to main menu.");
                 return false;
             }
             listOfIndexesGrids = mController.matchGridIndexByString(mGridName, house);

@@ -9,8 +9,7 @@ import java.util.Scanner;
 
 import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
 
-
-public class SensorSettingsUI {
+ class SensorSettingsUI {
     private SensorSettingsController mController;
     private String sensorName;
     private String sensorType;
@@ -28,15 +27,15 @@ public class SensorSettingsUI {
     private GeographicAreaList mGeographicAreaList;
 
 
-    public SensorSettingsUI() {
+    SensorSettingsUI() {
         this.mController = new SensorSettingsController();
     }
 
-    public void run(GeographicAreaList newGeoListUi) {
+    void run(GeographicAreaList newGeoListUi) {
 
         this.mGeographicAreaList = newGeoListUi;
 
-        if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().size() == 0) {
+        if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().isEmpty()) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
         }
