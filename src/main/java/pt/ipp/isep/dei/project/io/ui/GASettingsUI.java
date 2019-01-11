@@ -95,12 +95,10 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 5:
-                    this.mGeoArea = utils.getInputGeographicArea(programGAList);
-                    this.mMotherAreaName = mGeoArea.getId();
-                    printAreaByName(mMotherAreaName, programGAList); //TODO Method in UI. Print by name is the responsibility of GAList class. Controller should call that method.
-                    this.mGeoArea = utils.getInputGeographicArea(programGAList);
-                    this.mDaughterAreaName = mGeoArea.getId();
-                    printAreaByName(mDaughterAreaName, programGAList); //TODO Method in UI. Print by name is the responsibility of GAList class. Controller should call that method
+                    this.mMotherAreaName = utils.setGeographicAreaContainer(programGAList).getId();
+                    mController.printAreaByName(mMotherAreaName, programGAList);
+                    this.mDaughterAreaName = utils.setGeographicAreaContained(programGAList).getId();
+                    mController.printAreaByName(mDaughterAreaName, programGAList);
                     updateStateUS07(programGAList);
                     displayStateUS07();
                     activeInput = false;
@@ -357,14 +355,6 @@ class GASettingsUI {
     }
 
     /* USER STORY 07 - */
-
-    private void printAreaByName(String name, GeographicAreaList newGeoListUi) {
-        if (mController.checkIfListContainsGeoArea(name, newGeoListUi)) {
-            System.out.println("Success, you have inserted a valid Geographic Area.");
-        } else {
-            System.out.println("Error! You have inserted a non-existant Geographic Area.");
-        }
-    }
 
     private void updateStateUS07(GeographicAreaList newGeoListUi) {
         GeographicArea daughterArea = mController.matchGeoAreaByName(mDaughterAreaName, newGeoListUi);

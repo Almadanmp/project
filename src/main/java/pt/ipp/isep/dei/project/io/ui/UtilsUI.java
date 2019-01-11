@@ -78,6 +78,35 @@ class UtilsUI {
         return this.mGeographicArea;
     }
 
+    GeographicArea setGeographicAreaContainer(GeographicAreaList geographicAreaList) {
+        System.out.println(
+                "1 )Do you want to select container from a list.\n" + "Or\n" +
+                        "0) Return;");
+        return selectGeographicAreaByList(geographicAreaList);
+    }
+
+    GeographicArea selectGeographicAreaByList(GeographicAreaList geographicAreaList){
+        int option = readInputNumberAsInt();
+        switch (option) {
+            case 1:
+                getInputGeographicAreaByList(geographicAreaList);
+                return this.mGeographicArea;
+            case 0:
+                break;
+            default:
+                System.out.println(invalidOption);
+                break;
+        }
+        return this.mGeographicArea;
+    }
+
+    GeographicArea setGeographicAreaContained(GeographicAreaList geographicAreaList) {
+        System.out.println(
+                "1 )Do you want to select contained from a list.\n" + "Or\n" +
+                        "0) Return;");
+        return selectGeographicAreaByList(geographicAreaList);
+    }
+
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeographicAreaName, newGeoListUi);

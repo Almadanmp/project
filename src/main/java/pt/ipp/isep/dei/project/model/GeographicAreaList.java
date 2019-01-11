@@ -138,8 +138,7 @@ public class GeographicAreaList {
             if ((ga.getId().equals(geographicAreaToAdd))) {
                 return true;
             }
-        }
-        return false;
+        }return false;
     }
 
     /**
