@@ -220,7 +220,7 @@ public class HouseMonitoringController {
         if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
             return Double.NaN;
         }
-        return closestSensor.getReadingList().getAverageReadingsBetweenTwoDays(initialDate, endDate);
+        return closestSensor.getReadingList().getAverageReadingsBetweenTwoDates(initialDate, endDate);
     }
 
     /**

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ReadingListTest {
@@ -667,7 +668,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2018, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
@@ -709,7 +710,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 10, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
@@ -751,7 +752,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
@@ -765,7 +766,7 @@ public class ReadingListTest {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2015, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
@@ -1310,7 +1311,7 @@ public class ReadingListTest {
         //Arrange
         List<Double> doubleList = new ArrayList<>();
         ReadingList rList = new ReadingList();
-        double expectedResult = -1;
+        double expectedResult = NaN;
         double actualResult;
         //Act
         actualResult = rList.getAverageFromGivenList(doubleList);
@@ -1366,7 +1367,7 @@ public class ReadingListTest {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
@@ -1408,7 +1409,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2018, 2, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
@@ -1450,7 +1451,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 10, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
@@ -1492,7 +1493,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
@@ -2266,7 +2267,7 @@ public class ReadingListTest {
         GregorianCalendar dateMax = new GregorianCalendar(2018, 10, 13);
         Date dateToTest1 = dateMin.getTime();
         Date dateToTest2 = dateMax.getTime();
-        double actualResult = rList.getAverageReadingsBetweenTwoDays(dateToTest1, dateToTest2);
+        double actualResult = rList.getAverageReadingsBetweenTwoDates(dateToTest1, dateToTest2);
         //Assert
         assertEquals(expectedResult, actualResult);
     }

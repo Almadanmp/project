@@ -242,7 +242,7 @@ public class GeographicArea {
         for (int i = 0; i < mAreaSensors.getSensorList().size(); i++) {
             Sensor sensorToGetAVG = mAreaSensors.getSensorList().get(i);
             if (sensorToGetAVG.getTypeSensor().getName().equals(typeSensor)) {
-                average += sensorToGetAVG.getReadingList().getAverageReadingsBetweenTwoDays(dateMin, dateMax);
+                average += sensorToGetAVG.getReadingList().getAverageReadingsBetweenTwoDates(dateMin, dateMax);
                 counter++;
             }
         }

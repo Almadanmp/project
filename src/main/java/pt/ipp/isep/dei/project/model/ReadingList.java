@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.model;
 
 import java.util.*;
 
+import static java.lang.Double.NaN;
+
 /**
  * This is the ReadingList Class, a List of Readings that the Sensor receives.
  */
@@ -322,7 +324,7 @@ public class ReadingList {
     double getAverageFromGivenList(List<Double> valueList) {
         double sum = 0;
         if (valueList.isEmpty()) {
-            return -1;
+            return NaN;
         }
 
         for (Double aValueList : valueList) {
@@ -569,7 +571,7 @@ public class ReadingList {
      * @param maxDate
      * @return average
      */
-    public double getAverageReadingsBetweenTwoDays(Date minDate, Date maxDate) {
+    public double getAverageReadingsBetweenTwoDates(Date minDate, Date maxDate) {
         List<Integer> daysWithReadings = getListOfDaysWithReadingsBetweenTwoGivenDates(minDate, maxDate);
         List<Double> avgValuesFromDaysWithReadings = new ArrayList<>();
         for (int day : daysWithReadings) {
