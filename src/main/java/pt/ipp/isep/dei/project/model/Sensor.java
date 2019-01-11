@@ -164,7 +164,6 @@ public class Sensor {
         return s1.getReadingList().getAverageOfAllRecordedValueReadingsFromGivenMonth(dateGiven);
     }
 
-
     /**
      * Method to restrain input name so they cant be null or empty.
      *
@@ -174,6 +173,8 @@ public class Sensor {
     private boolean isSensorNameValid(String name) {
         return (name != null && !name.isEmpty());
     }
+
+
 
     boolean isSensorContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
@@ -189,6 +190,7 @@ public class Sensor {
         return this.getDateStartedFunctioning().before(date1.getTime());
     }
 
+
     double getDistanceToHouse(House house) {
         Local l = house.getLocation();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
@@ -200,14 +202,12 @@ public class Sensor {
      *
      * @return returns a string with Sensor Parameters
      */
-
     public String printSensor() {
         String result;
         result = this.mName + ", " + this.mTypeSensor.getName() + ", " +
                 this.mLocal.getLatitude() + "º lat, " + this.mLocal.getLongitude() + "º long\n";
         return result;
     }
-
 
     @Override
     public boolean equals(Object testObject) {
