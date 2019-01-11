@@ -96,7 +96,10 @@ class GASettingsUI {
                     break;
                 case 5:
                     this.mMotherAreaName = utils.setGeographicAreaContainer(programGAList).getId();
-                    mController.printAreaByName(mMotherAreaName, programGAList);
+                    if (mController.printAreaByName(mMotherAreaName, programGAList)){
+                        System.out.println("Success, you have inserted a valid Geographic Area.");
+                    }
+                    else System.out.println("Error! You have inserted a non-existent Geographic Area.");
                     this.mDaughterAreaName = utils.setGeographicAreaContained(programGAList).getId();
                     mController.printAreaByName(mDaughterAreaName, programGAList);
                     updateStateUS07(programGAList);

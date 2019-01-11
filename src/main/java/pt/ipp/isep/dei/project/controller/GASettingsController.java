@@ -186,13 +186,7 @@ public class GASettingsController {
     }
 
     public boolean printAreaByName(String name, GeographicAreaList newGeoListUi) {
-        if (checkIfListContainsGeoArea(name, newGeoListUi)) {
-            System.out.println("Success, you have inserted a valid Geographic Area.");
-            return true;
-        } else {
-            System.out.println("Error! You have inserted a non-existent Geographic Area.");
-        }
-        return false;
+        return checkIfListContainsGeoArea(name, newGeoListUi);
     }
 
     /*USER STORY 08 - As an Administrator, I want to find out if a geographical area is included, directly
