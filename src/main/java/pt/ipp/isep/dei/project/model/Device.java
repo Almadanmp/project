@@ -1,12 +1,17 @@
 package pt.ipp.isep.dei.project.model;
 
-class Device {
+class Device implements Metered {
     //private String mName;
     //private String mDeviceType;
     //private Room mParentRoom;
     //private ReadingList mEnergyConsumptionList;
-    //private double mTotalPowerDevice;
+    private double mNominalPower;
 
     Device(){
     }
+
+    public double getNominalPower(){
+        return this.mNominalPower;
+    }
+
 }

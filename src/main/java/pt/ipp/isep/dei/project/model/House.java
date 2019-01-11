@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * House Class. Defines de House
  */
-public class House {
+public class House implements Metered {
     private String mId;
     private String mStreet;
     private String mZip;
@@ -14,7 +14,6 @@ public class House {
     private EnergyGridList mEGList;
     private RoomList mRoomList;
     private GeographicArea mMotherArea;
-    private String mStringEnhancer = "---------------\n";
 
     //CONSTRUCTORS
     public House() {
@@ -65,6 +64,14 @@ public class House {
 
     void setTown(String town) {
         this.mTown = town;
+    }
+
+    public double getNominalPower(){
+        double result = 0;
+        for (Room r1 : mRoomList.getRoomList()){
+            result+= r1.getNominalPower();
+        }
+        return result;
     }
 
    public Local getLocation() {
@@ -147,6 +154,7 @@ public class House {
     }
 
     public String printGridList() {
+        String mStringEnhancer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringEnhancer);
         if (this.mEGList.getEnergyGridList().isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -154,7 +162,7 @@ public class House {
         for (int i = 0; i < this.mEGList.getEnergyGridList().size(); i++) {
             EnergyGrid aux = this.mEGList.getEnergyGridList().get(i);
             result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
-            result.append("Max Power: ").append(aux.getMaxPower()).append("\n");
+            result.append("Max Power: ").append(aux.getNominalPower()).append("\n");
         }
         result.append(mStringEnhancer);
         return result.toString();

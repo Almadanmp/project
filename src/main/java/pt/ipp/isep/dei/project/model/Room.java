@@ -1,15 +1,17 @@
 package pt.ipp.isep.dei.project.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-public class Room {
+public class Room implements Metered {
     private String mRoomName;
     private int mHouseFloor;
     private double mRoomWidth;
     private double mRoomLength;
     private double mRoomHeight;
     private SensorList mRoomSensorList;
+    private DeviceList mDeviceList;
 
 
     public Room(String name, int houseFloor, double width, double length, double height) {
@@ -19,39 +21,40 @@ public class Room {
         setRoomLength(length);
         setRoomHeight(height);
         this.mRoomSensorList=new SensorList();
+        this.mDeviceList = new DeviceList();
     }
 
     public SensorList getmRoomSensorList() {
         return mRoomSensorList;
     }
 
-    public void setRoomName(String name) {
+    private void setRoomName(String name) {
         mRoomName = name;
     }
 
-    public void setRoomHouseFloor(int houseFloor) {
+    private void setRoomHouseFloor(int houseFloor) {
         mHouseFloor = houseFloor;
     }
 
-    public void setRoomHeight(double height) {
+    private void setRoomHeight(double height) {
         mRoomHeight = height;
     }
 
-    public void setRoomLength(double length) {
+    private void setRoomLength(double length) {
         mRoomLength = length;
     }
 
-    public void setRoomWidth(double width){mRoomWidth=width;}
+    private void setRoomWidth(double width){mRoomWidth=width;}
 
-    public double getRoomHeight() {
+    double getRoomHeight() {
         return mRoomHeight;
     }
 
-    public double getRoomLength() {
+    double getRoomLength() {
         return mRoomLength;
     }
 
-    public double getRoomWidth(){ return mRoomWidth;}
+    double getRoomWidth(){ return mRoomWidth;}
 
 
     public void setRoomSensorList(SensorList sensorList) {
@@ -64,6 +67,18 @@ public class Room {
 
     public int getHouseFloor() {
         return mHouseFloor;
+    }
+
+    List<Device> getDeviceList(){
+        return this.getDeviceList();
+    }
+
+    public double getNominalPower(){
+        double result = 0;
+        for (Device d : this.getDeviceList()){
+            result += d.getNominalPower();
+        }
+        return result;
     }
 
 
@@ -80,7 +95,7 @@ public class Room {
         return s.getReadingList().getMaximumOfGivenDayValueReadings(day);
     }
 
-    public boolean doesSensorListInARoomContainASensorByName(String name) {
+    boolean doesSensorListInARoomContainASensorByName(String name) {
         for (Sensor s : mRoomSensorList.getSensorList()) {
             if (s.getName().equals(name)) {
                 return true;

@@ -2,22 +2,23 @@ package pt.ipp.isep.dei.project.model;
 
 import java.util.Objects;
 
-public class EnergyGrid {
+public class EnergyGrid implements Metered {
     private String mName;
-    private double mMaxPower = 0;
-    private RoomList mListOfRooms;
+    private double mNominalPower;
+    private RoomList mRoomList;
     private PowerSourceList mListPowerSources;
 
     EnergyGrid() {
-        this.mListOfRooms = new RoomList();
+        this.mRoomList = new RoomList();
         this.mListPowerSources = new PowerSourceList();
+        mNominalPower = 0;
     }
 
 
     public EnergyGrid(String houseGridDesignation, double maxContractedPower) {
         setName(houseGridDesignation);
-        setMaxPower(maxContractedPower);
-        this.mListOfRooms = new RoomList();
+        setNominalPower(maxContractedPower);
+        this.mRoomList = new RoomList();
         this.mListPowerSources = new PowerSourceList();
     }
 
@@ -27,11 +28,16 @@ public class EnergyGrid {
     }
 
     public RoomList getListOfRooms() {
-        return mListOfRooms;
+        return mRoomList;
     }
 
-    double getMaxPower() {
-        return mMaxPower;
+    public double getNominalPower() {
+        double result = 0;
+        for (Room r: mRoomList.getRoomList()){
+            result += r.getNominalPower();
+            mNominalPower = result;
+        }
+        return mNominalPower;
     }
 
     PowerSourceList getListPowerSources() {
@@ -43,7 +49,7 @@ public class EnergyGrid {
     }
 
     public void setListOfRooms(RoomList mListOfRooms) {
-        this.mListOfRooms = mListOfRooms;
+        this.mRoomList = mListOfRooms;
     }
 
     public boolean addPowerSource(PowerSource powerSource) {
@@ -53,8 +59,8 @@ public class EnergyGrid {
         return false;
     }
 
-    void setMaxPower(double mMaxPower) {
-        this.mMaxPower = mMaxPower;
+    void setNominalPower(double nominalPower) {
+        this.mNominalPower = nominalPower;
     }
 
     public void setName(String mName) {
@@ -62,16 +68,16 @@ public class EnergyGrid {
     }
 
     public boolean addRoomToAnEnergyGrid(Room room) {
-        return this.mListOfRooms.addRoom(room);
+        return this.mRoomList.addRoom(room);
     }
 
     public String printGrid() {
-        return "Energy Grid: " + this.mName + ", Max Power: " + this.getMaxPower();
+        return "Energy Grid: " + this.mName + ", Max Power: " + this.getNominalPower();
     }
 
     public boolean removeRoom(Room room) {
-        if (this.mListOfRooms.contains(room)) {
-            this.mListOfRooms.removeRoom(room);
+        if (this.mRoomList.contains(room)) {
+            this.mRoomList.removeRoom(room);
             return true;
         }
         return false;
