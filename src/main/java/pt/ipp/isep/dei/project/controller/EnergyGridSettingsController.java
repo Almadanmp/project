@@ -49,6 +49,20 @@ public class EnergyGridSettingsController {
         return room.printRoom();
     }
 
+    public String printRoomListOfEG(EnergyGrid energyGrid) {
+        String result = "---------------\n";
+        if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
+            Room aux = energyGrid.getListOfRooms().getRoomList().get(i);
+            result = result + i + ") Designation: " + aux.getRoomName() + " | ";
+            result = result + "House Floor: " + aux.getHouseFloor() + " | \n";
+        }
+        result = result + "---------------\n";
+        return result;
+    }
+
     /*
      * USER STORY 130 - As an Administrator, I want to create a energy grid, so that I can define the rooms that are
      * attached to it and the contracted maximum power for that grid.

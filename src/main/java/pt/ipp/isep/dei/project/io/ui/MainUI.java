@@ -67,6 +67,10 @@ public class MainUI {
         roomListEdifB.addRoom(roomISEP2);
         roomListEdifB.addRoom(roomISEP3);
 
+        RoomList gridRoomList = new RoomList();
+        gridRoomList.addRoom(roomISEP2);
+        gridRoomList.addRoom(roomISEP3);
+
         // Houses (1 per Geographical Area!)
 
         House EdificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto", new Local(41.177748, -8.607745, 112), ISEP, roomListEdifB);
@@ -186,7 +190,7 @@ public class MainUI {
         EnergyGrid mainGrid = new EnergyGrid("main grid", 0);
         EnergyGridList EnergyGridListISEP = new EnergyGridList();
         EnergyGridListISEP.addEnergyGridToEnergyGridList(mainGrid);
-        mainGrid.setListOfRooms(roomListEdifB);
+        mainGrid.setListOfRooms(gridRoomList);
         EdificioB.setEGList(EnergyGridListISEP);
 
         // Type  Area List
@@ -327,7 +331,7 @@ public class MainUI {
                         break;
                     case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                        energyGridSettings.run(house1);
+                        energyGridSettings.run(EdificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
