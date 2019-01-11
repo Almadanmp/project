@@ -24,7 +24,6 @@ class RoomConfigurationUI {
     }
 
     void run(House house) {
-        UtilsUI utils = new UtilsUI();
         this.mGeoArea = house.getMotherArea();
         this.mSensorList = mGeoArea.getSensorList();
         this.mHouse = house;

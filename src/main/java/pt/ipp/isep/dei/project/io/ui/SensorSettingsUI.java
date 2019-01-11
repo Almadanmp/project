@@ -69,7 +69,7 @@ class SensorSettingsUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utils.INVALID_OPTION);
+                    System.out.println(utils.invalidOption);
                     break;
             }
         }

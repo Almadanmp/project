@@ -95,7 +95,7 @@ public class HouseMonitoringUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utils.INVALID_OPTION);
+                    System.out.println(utils.invalidOption);
                     break;
             }
         }
@@ -125,7 +125,7 @@ public class HouseMonitoringUI {
                 case 0:
                     return false;
                 default:
-                    System.out.println(utils.INVALID_OPTION);
+                    System.out.println(utils.invalidOption);
                     break;
             }
         }
@@ -160,7 +160,7 @@ public class HouseMonitoringUI {
                 System.out.println("You have chosen the following Room:");
                 System.out.println(houseMonitoringcontroller.printRoom(mRoom));
             } else {
-                System.out.println(utils.INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         } else {
             System.out.println("You have chosen the following Room:");
@@ -187,7 +187,7 @@ public class HouseMonitoringUI {
                 this.mRoom = house.getRoomList().getRoomList().get(aux);
                 activeInput = true;
             } else {
-                System.out.println(utils.INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         }
     }
@@ -219,7 +219,7 @@ public class HouseMonitoringUI {
                 case 0:
                     return false;
                 default:
-                    System.out.println(utils.INVALID_OPTION);
+                    System.out.println(utils.invalidOption);
                     break;
             }
         }
@@ -254,7 +254,7 @@ public class HouseMonitoringUI {
                 System.out.println("You have chosen the following Sensor:");
                 System.out.println(houseMonitoringcontroller.printSensor(mSensor));
             } else {
-                System.out.println(utils.INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         } else {
             System.out.println("You have chosen the following Sensor:");
@@ -281,7 +281,7 @@ public class HouseMonitoringUI {
                 this.mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
                 return true;
             } else {
-                System.out.println(utils.INVALID_OPTION);
+                System.out.println(utils.invalidOption);
                 return false;
             }
         }

@@ -92,7 +92,7 @@ class EnergyGridSettingsUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utilsUI.INVALID_OPTION);
+                    System.out.println(utilsUI.invalidOption);
                     break;
             }
         }
@@ -120,7 +120,7 @@ class EnergyGridSettingsUI {
             case 0:
                 return;
             default:
-                System.out.println(utilsUI.INVALID_OPTION);
+                System.out.println(utilsUI.invalidOption);
                 break;
         }
     }
@@ -145,7 +145,7 @@ class EnergyGridSettingsUI {
                 System.out.println("You have chosen the following grid:");
                 System.out.println(mController.printEnergyGrid(mEnergyGrid));
             } else {
-                System.out.println(utilsUI.INVALID_OPTION);
+                System.out.println(utilsUI.invalidOption);
             }
         } else {
             System.out.println("You have chosen the following grid:");
@@ -189,7 +189,7 @@ class EnergyGridSettingsUI {
                 mEnergyGrid = house.getEGList().getEnergyGridList().get(aux);
                 activeInput = true;
             } else {
-                System.out.println(utilsUI.INVALID_OPTION);
+                System.out.println(utilsUI.invalidOption);
             }
         }
     }
@@ -218,7 +218,7 @@ class EnergyGridSettingsUI {
             case 0:
                 return;
             default:
-                System.out.println(utilsUI.INVALID_OPTION);
+                System.out.println(utilsUI.invalidOption);
                 break;
         }
     }
@@ -250,7 +250,7 @@ class EnergyGridSettingsUI {
                 System.out.println("You have chosen the following Room:");
                 System.out.println(mController.printRoom(mRoom));
             } else {
-                System.out.println(utilsUI.INVALID_OPTION);
+                System.out.println(utilsUI.invalidOption);
             }
         } else {
             System.out.println("You have chosen the following Room:");
@@ -276,7 +276,7 @@ class EnergyGridSettingsUI {
                 this.mRoom = house.getRoomList().getRoomList().get(aux);
                 activeInput = true;
             } else {
-                System.out.println(utilsUI.INVALID_OPTION);
+                System.out.println(utilsUI.invalidOption);
             }
         }
     }
@@ -384,7 +384,7 @@ class EnergyGridSettingsUI {
             case 0:
                 return;
             default:
-                System.out.println(utilsUI.INVALID_OPTION);
+                System.out.println(utilsUI.invalidOption);
                 break;
         }
     }
@@ -405,7 +405,7 @@ class EnergyGridSettingsUI {
                 this.mRoom = mEnergyGrid.getListOfRooms().getRoomList().get(aux);
                 activeInput = true;
             } else {
-                System.out.println(utilsUI.INVALID_OPTION);
+                System.out.println(utilsUI.invalidOption);
             }
         }
     }

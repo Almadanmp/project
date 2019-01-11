@@ -358,7 +358,7 @@ public class MainUI {
                         activeInput = false;
                         break;
                     default:
-                        System.out.println(utilsUI.INVALID_OPTION);
+                        System.out.println(utilsUI.invalidOption);
                         break;
                 }
             }

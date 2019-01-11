@@ -114,7 +114,7 @@ class GASettingsUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utils.INVALID_OPTION);
+                    System.out.println(utils.invalidOption);
                     break;
             }
         }
@@ -146,7 +146,7 @@ class GASettingsUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utils.INVALID_OPTION);
+                    System.out.println(utils.invalidOption);
                     break;
             }
         }
@@ -183,7 +183,7 @@ class GASettingsUI {
                 System.out.println(youHaveChosen);
                 System.out.println(mController.printTypeArea(this.mTypeArea));
             } else {
-                System.out.println(utils.INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         } else {
             System.out.println(youHaveChosen);
@@ -209,7 +209,7 @@ class GASettingsUI {
                 System.out.println("You have chosen the following Geographic Area Type:");
                 System.out.println(mController.printTypeArea(this.mTypeArea));
             } else {
-                System.out.println(utils.INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         }
     }
@@ -269,7 +269,7 @@ class GASettingsUI {
                 System.out.println("You have chosen the following type for the new Geographic Area:");
                 System.out.println((auxType.printTypeGeographicArea()));
             } else {
-                System.out.println(utils.INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         }
     }

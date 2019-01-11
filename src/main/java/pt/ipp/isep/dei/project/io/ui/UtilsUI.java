@@ -17,7 +17,7 @@ class UtilsUI {
     private String mGeographicAreaName;
     private String mStringChosenGeographicArea = "You have chosen the following Geographic Area:";
 
-    String INVALID_OPTION = "Please enter a valid option";
+    String invalidOption = "Please enter a valid option";
 
     /**
      * Method to read the user input as an Int
@@ -29,7 +29,7 @@ class UtilsUI {
     int readInputNumberAsInt() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
-            System.out.println(INVALID_OPTION);
+            System.out.println(invalidOption);
             scan.next();
         }
         Double option = scan.nextDouble();
@@ -72,7 +72,7 @@ class UtilsUI {
             case 0:
                 break;
             default:
-                System.out.println(INVALID_OPTION);
+                System.out.println(invalidOption);
                 break;
         }
         return this.mGeographicArea;
@@ -101,7 +101,7 @@ class UtilsUI {
                 System.out.println(mStringChosenGeographicArea);
                 System.out.println(ctrl.printGeoArea(mGeographicArea));
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(invalidOption);
             }
         } else {
             System.out.println(mStringChosenGeographicArea);
@@ -132,7 +132,7 @@ class UtilsUI {
                 System.out.println(mStringChosenGeographicArea);
                 System.out.println((mGeographicArea.printGeographicArea()));
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(invalidOption);
             }
         }
     }
