@@ -26,6 +26,11 @@ class EnergyGridSettingsUI {
     }
 
     void run(House house) {
+        if (house == null || house.getEGList() == null || house.getRoomList() == null) {
+            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
+                    " your house first through the main menu");
+            return;
+        }
         this.mHouse = house;
         boolean activeInput = true;
         int option;
