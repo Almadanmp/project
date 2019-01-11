@@ -14,7 +14,7 @@ public class SensorSettingsUI {
     private SensorSettingsController mController;
     private String sensorName;
     private String sensorType;
-    private String sensorUnits; //TODO this is used but never assigned
+    private String sensorUnits; 
     boolean mTypeAdded;
     private double sensorLat;
     private double sensorLong;
@@ -26,7 +26,7 @@ public class SensorSettingsUI {
     private GeographicArea mGeographicArea;
     private String mGeographicAreaName;
     private SensorList mSensorList;
-    private GeographicAreaList mGeographicAreaList;  //TODO this is used but never assigned
+    private GeographicAreaList mGeographicAreaList;
 
 
     public SensorSettingsUI() {
@@ -67,7 +67,6 @@ public class SensorSettingsUI {
                     updateUS06();
                     displayUS06();
                     getInputPart206();
-                    updateAndDisplayUS06Part206();
                     activeInput = false;
                     break;
 
@@ -223,17 +222,21 @@ public class SensorSettingsUI {
     }
 
     private void getInputPart206() {
-        UtilsUI utils = new UtilsUI();
         Scanner input = new Scanner(System.in);
         System.out.println("\n Add sensor to Geographic Area?\n");
         System.out.println("Yes/No:\t");
         if ("yes".equals(input.nextLine())) {
-            this.mGeographicArea = utils.getInputGeographicArea(mGeographicAreaList);
+            getInputPart306();
         }
     }
 
+    private void getInputPart306() {
+        UtilsUI utils = new UtilsUI();
+        this.mGeographicArea = utils.getInputGeographicArea(mGeographicAreaList);
+        updateAndDisplayUS06Part206();
+    }
+
     private void updateAndDisplayUS06Part206() {
-        this.mGeographicArea = mController.getGeoAreaFromName(this.mGeographicAreaName,mGeographicAreaList);
         if (mController.addSensorToGeographicalArea(mGeographicArea)) {
             System.out.println("\nSensor has been successfully added to the Geographic Area");
         } else {
