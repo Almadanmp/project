@@ -200,6 +200,7 @@ public class MainUI {
         mTypeAreaList.addTypeArea(typeAreaB);
 
 
+/**
 
         // ********* MOCKS EXTRA **********************************************
 
@@ -277,6 +278,8 @@ public class MainUI {
         energyGridList1.addEnergyGridToEnergyGridList(energyGrid1);
         house4.setEGList(energyGridList1);
 
+ */
+
 
         // **************************************************************************
         // ******************* < / MOCK DATA FOR TESTING PURPOSES > ******************
@@ -346,13 +349,13 @@ public class MainUI {
                         break;
                     case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                        energyGridSettings.run(house);
+                        energyGridSettings.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
                     case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
-                        houseM.run(house);
+                        houseM.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
