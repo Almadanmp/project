@@ -36,7 +36,7 @@ public class RoomConfigurationControllerTest {
         //Act
 
         RoomConfigurationController crl = new RoomConfigurationController();
-        Sensor actualResult = crl.getSensorFromName("Vento", ga1);
+        Sensor actualResult = crl.getSensorFromGAByName("Vento", ga1);
         Sensor expectedResult = s1;
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -58,7 +58,7 @@ public class RoomConfigurationControllerTest {
         //Act
 
         RoomConfigurationController crl = new RoomConfigurationController();
-        Room actualResult = crl.getRoomFromName("Quarto", house1);
+        Room actualResult = crl.getRoomFromHouseByName("Quarto", house1);
         Room expectedResult = room1;
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -85,7 +85,7 @@ public class RoomConfigurationControllerTest {
         //Act
 
         RoomConfigurationController crl = new RoomConfigurationController();
-        boolean actualResult = crl.doesSensorListInAGeoAreaContainASensorByName("Vento", ga1);
+        boolean actualResult = crl.checkIfGAContainsSensorByString("Vento", ga1);
         //Assert
         assertTrue(actualResult);
     }
@@ -111,7 +111,7 @@ public class RoomConfigurationControllerTest {
         //Act
 
         RoomConfigurationController crl = new RoomConfigurationController();
-        boolean actualResult = crl.doesSensorListInAGeoAreaContainASensorByName("Chuva", ga1);
+        boolean actualResult = crl.checkIfGAContainsSensorByString("Chuva", ga1);
         //Assert
         assertFalse(actualResult);
     }
