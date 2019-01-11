@@ -23,9 +23,10 @@ class UtilsUI {
      * Method to read the user input as an Int
      * If its not an int it will print an invalid option message
      * If its a double it will convert it to an int
+     *
      * @return value read from the user
      */
-     int readInputNumberAsInt() {
+    int readInputNumberAsInt() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
@@ -37,11 +38,12 @@ class UtilsUI {
 
     /**
      * Method to get a date as an int.
-     * @param scan the scanner to read input
+     *
+     * @param scan     the scanner to read input
      * @param dataType the type of date to read (year, month or day)
      * @return value read from the user
      */
-     static int getInputDateAsInt(Scanner scan, String dataType){
+    static int getInputDateAsInt(Scanner scan, String dataType) {
         System.out.println("Enter the " + dataType + ":");
         while (!scan.hasNextInt()) {
             scan.next();
@@ -56,23 +58,23 @@ class UtilsUI {
         System.out.println(
                 "We need to know what Geographic Area you want to work with.\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
-            int option = readInputNumberAsInt();
-            switch (option) {
-                case 1:
-                    getInputGeographicAreaName();
-                    if (!getGeographicAreaByName(geographicAreaList)) {
-                        return this.mGeographicArea;
-                    }
-                    break;
-                case 2:
-                    getInputGeographicAreaByList(geographicAreaList);
+        int option = readInputNumberAsInt();
+        switch (option) {
+            case 1:
+                getInputGeographicAreaName();
+                if (!getGeographicAreaByName(geographicAreaList)) {
                     return this.mGeographicArea;
-                case 0:
-                    break;
-                default:
-                    System.out.println(INVALID_OPTION);
-                    break;
-            }
+                }
+                break;
+            case 2:
+                getInputGeographicAreaByList(geographicAreaList);
+                return this.mGeographicArea;
+            case 0:
+                break;
+            default:
+                System.out.println(INVALID_OPTION);
+                break;
+        }
         return this.mGeographicArea;
     }
 

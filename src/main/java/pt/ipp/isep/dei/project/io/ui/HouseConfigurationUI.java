@@ -153,6 +153,7 @@ class HouseConfigurationUI {
 
     /**
      * Method updates the house using the input previously stored.
+     *
      * @param house receives the house the program is managing, so its parameters get changed.
      */
 
@@ -164,13 +165,14 @@ class HouseConfigurationUI {
 
     /**
      * Method displays the house after all the changes have happened.
+     *
      * @param house receives the house the program is managing, so its new parameters get displayed.
      */
 
     private void displayHouseUS101(House house) {
         System.out.println("You have successfully changed the location of the house " + house.getHouseId() + ". \n" + "Address: " +
                 mHouseAddress + ". \n" + "ZipCode: " + mHouseZipCode + ". \n" + "Latitude: " + mHouseLat + ". \n" +
-                "Longitude: " + mHouseLon + ". \n" + "Altitude: " + mHouseAlt +  ". \n");
+                "Longitude: " + mHouseLon + ". \n" + "Altitude: " + mHouseAlt + ". \n");
     }
 
 
@@ -178,7 +180,7 @@ class HouseConfigurationUI {
     // house floor and dimensions).
 
     /**
-     *  Method creates a new room with the parameters previously provided by the user.
+     * Method creates a new room with the parameters previously provided by the user.
      */
 
     private void updateInputRoom() {
@@ -209,6 +211,7 @@ class HouseConfigurationUI {
 
     /**
      * Method calls on controller to add the created room to the house the program manages.
+     *
      * @param house receives the house the program manages so the room can be added to it.
      */
 

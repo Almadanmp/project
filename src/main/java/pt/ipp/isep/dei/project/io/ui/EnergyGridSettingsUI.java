@@ -14,7 +14,6 @@ class EnergyGridSettingsUI {
     private Room mRoom;
     private String mRoomName;
     private House mHouse;
-    private EnergyGridList mEnergyGridList;
     private RoomList mRoomList;
     private String mStringRequest = "Would you like to:\n";
     private String mStringRequestChoseFromList = "2) Choose it from a list:\n";
@@ -53,11 +52,10 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 3:
-                    if(this.mHouse.getEGList() == null) {
+                    if (this.mHouse.getEGList() == null) {
                         System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
                         return;
-                    }
-                    else if((this.mHouse.getEGList().getEnergyGridList().size() == 0)) {
+                    } else if ((this.mHouse.getEGList().getEnergyGridList().size() == 0)) {
                         System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
                         return;
                     }
@@ -66,11 +64,10 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 4:
-                    if(this.mHouse.getEGList() == null) {
+                    if (this.mHouse.getEGList() == null) {
                         System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
                         return;
-                    }
-                    else if((this.mHouse.getRoomList().getRoomList().size() == 0)) {
+                    } else if ((this.mHouse.getRoomList().getRoomList().size() == 0)) {
                         System.out.println("Your house doesn't have any rooms. Please create a room to continue.");
                         return;
                     }
@@ -80,11 +77,10 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 5:
-                    if(this.mHouse.getEGList() == null) {
+                    if (this.mHouse.getEGList() == null) {
                         System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
                         return;
-                    }
-                    else if((this.mHouse.getEGList().getEnergyGridList().size() == 0)) {
+                    } else if ((this.mHouse.getEGList().getEnergyGridList().size() == 0)) {
                         System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
                         return;
                     }

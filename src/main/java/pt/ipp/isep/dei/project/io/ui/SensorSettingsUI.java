@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 
-
 import java.util.Date;
 import java.util.Scanner;
 
@@ -49,7 +48,7 @@ class SensorSettingsUI {
             option = utils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if(!getInputGeographicArea05(newGeoListUi)){
+                    if (!getInputGeographicArea05(newGeoListUi)) {
                         return;
                     }
                     getInput05Sensor05();
@@ -80,7 +79,7 @@ class SensorSettingsUI {
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    private boolean getInputGeographicArea05(GeographicAreaList newGeoListUi){
+    private boolean getInputGeographicArea05(GeographicAreaList newGeoListUi) {
         UtilsUI utils = new UtilsUI();
         this.mGeographicArea = utils.getInputGeographicArea(newGeoListUi);
         this.mSensorList = this.mGeographicArea.getSensorList();
@@ -149,7 +148,7 @@ class SensorSettingsUI {
 
         System.out.println("\nEnter Sensor units:\t");
         this.sensorUnits = input.nextLine();
-        System.out.println("You entered units "+ sensorUnits);
+        System.out.println("You entered units " + sensorUnits);
 
 
         // Local Getter

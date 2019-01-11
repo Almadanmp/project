@@ -155,7 +155,6 @@ class GASettingsUI {
 
     //GET INPUT TYPE AREA NAME BY NAME OR BY LIST//
     private boolean getInputTypeAreaName() {
-        UtilsUI utils = new UtilsUI();
         Scanner mScanner = new Scanner(System.in);
         System.out.println("Please type the name of the Geographic Area Type Where: ");
         this.mTypeAreaString = mScanner.nextLine();
@@ -285,7 +284,7 @@ class GASettingsUI {
     }
 
     private void updateGeoAreaUS03() {
-        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea  + " and its " +
+        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " and its " +
                 "localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The size is " +
                 this.mGeoAreaLength + " by " + this.mGeoAreaWidth + " kms\n");
     }
@@ -407,7 +406,7 @@ or indirectly, in another one. */
      *                     And finally it tests the flag (Geographic Area) is equal to the testing GeographicArea Container
      */
 
-    private void checkIfContained (GeographicAreaList newGeoListUi) {
+    private void checkIfContained(GeographicAreaList newGeoListUi) {
         if (!(mController.seeIfGAListContainsAreasByName(mContainedAreaName, mContainerAreaName, newGeoListUi))) {
             System.out.println("The given areas are invalid!");
             return;

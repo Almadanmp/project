@@ -213,7 +213,8 @@ public class HouseMonitoringUI {
                     if (!getInputSensorByList()) {
                         System.out.println("Unable to select a Sensor. Returning to main menu.");
                         return false;
-                    }activeInput = true;
+                    }
+                    activeInput = true;
                     break;
                 case 0:
                     return false;
