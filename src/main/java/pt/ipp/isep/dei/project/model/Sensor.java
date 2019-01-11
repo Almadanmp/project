@@ -62,13 +62,6 @@ public class Sensor {
         }
     }
 
-    public String printSensor() {
-        String result;
-        result = this.mName + ", " + this.mTypeSensor.getName() + ", " +
-                this.mLocal.getLatitude() + "º lat, " + this.mLocal.getLongitude() + "º long\n";
-        return result;
-    }
-
     /**
      * Setter: local
      *
@@ -199,6 +192,20 @@ public class Sensor {
     double getDistanceToHouse(House house) {
         Local l = house.getLocation();
         return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
+    }
+
+    /**
+     * Method to print details that are required for a Sensor to be different from another Sensor (equals -
+     * name, type area and local).
+     *
+     * @return returns a string with Sensor Parameters
+     */
+
+    public String printSensor() {
+        String result;
+        result = this.mName + ", " + this.mTypeSensor.getName() + ", " +
+                this.mLocal.getLatitude() + "º lat, " + this.mLocal.getLongitude() + "º long\n";
+        return result;
     }
 
 

@@ -21,10 +21,6 @@ public class RoomConfigurationController {
          */
     }
 
-    public void addSensorToRoom(Room room, Sensor sensorToAdd) {
-        room.getRoomSensorList().getSensorList().add(sensorToAdd);
-        this.mRoom = room;
-    }
 
     public boolean doesSensorListInAGeoAreaContainASensorByName(String name, GeographicArea ga) {
         for (Sensor s : ga.getSensorList().getSensorList()) {
@@ -66,5 +62,20 @@ public class RoomConfigurationController {
 
     public List<Integer> matchRoomIndexByString(String input, House house) {
         return house.getRoomList().matchRoomIndexByString(input);
+    }
+
+    public List<Integer> matchSensorIndexByString(String input,SensorList slist) {
+        return slist.matchSensorListIndexByString(input);
+    }
+
+    public String printSensorList(SensorList sensorList) {
+        return sensorList.printSensorWholeList(sensorList);
+    }
+
+    public String printSensor(Sensor sensor) {
+        return sensor.printSensor();
+    }
+    public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, SensorList sensorList){
+        return sensorList.printElementsByIndex(listOfIndexesOfSensor);
     }
 }

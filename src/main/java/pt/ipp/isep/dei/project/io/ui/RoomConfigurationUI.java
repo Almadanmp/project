@@ -1,5 +1,4 @@
 package pt.ipp.isep.dei.project.io.ui;
-
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
@@ -19,21 +18,26 @@ public class RoomConfigurationUI {
     private Sensor mSensor;
     private String mNameSensor;
     private String mRoomName;
+    private SensorList mSensorList;
+    private String mStringChosenSensor = "You have chosen the following Sensor:";
+    private String mSensorName;
 
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
-        this.mHouseMonitoringController = new HouseMonitoringController();
+
     }
 
-    public void run(GeographicArea mGeo, House programHouse) {
+    public void run(House house,GeographicArea ga) {
         Scanner mScanner = new Scanner(System.in);
-        this.mGeoArea=mGeo;
-        this.mHouse = programHouse;
+        this.mGeoArea = ga;
+        this.mSensorList = ga.getSensorList();
+        this.mHouse = house;
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
         System.out.println("Room Configuration\n");
         System.out.println("--------------\n");
+
         if (mHouse == null) {
             System.out.println("Unable to select a house. Returning to main menu.");
             return;
@@ -43,59 +47,11 @@ public class RoomConfigurationUI {
             System.out.println("Unable to select a room. Returning to main menu.");
             return;
         }
-        while (!activeInput) {
-            printOptionMessage();
-            option = UtilsUI.readInputNumberAsInt();
-            switch (option) {
-                case 1:
-                    if (!getInputSensorName()) {
-                        return;
-                    }
-                    updateModelRoomConfiguration();
-                    displayStateRoomConfiguration();
-                    activeInput = true;
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println(INVALID_OPTION);
-                    break;
-            }
-        }
-    }
-
-    /******************************************************************************
-     ***************************** Auxiliary Methods ******************************
-     ******************************************************************************/
-
-    private void printOptionMessage() {
-        System.out.println("Room Configuration Options:\n");
-        System.out.println("1) Add a sensor to the room");
-        System.out.println("0) (Return to main menu)");
-    }
-
-    private int readInputNumberAsInt() {
-        Scanner mScanner = new Scanner(System.in);
-        while (!mScanner.hasNextDouble()) {
-            System.out.println(INVALID_OPTION);
-            mScanner.next();
-        }
-        Double option = mScanner.nextDouble();
-        return option.intValue();
-    }
-
-    public void updateModelRoomConfiguration() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        this.mRoom = mRoomConfigurationController.getRoomFromName(mRoomName, mHouse);
-        this.mSensor = mRoomConfigurationController.getSensorFromName(mNameSensor, mGeoArea);
-        ctrl.addSensorToRoom(mRoom, mSensor);
-    }
-
-    private void displayStateRoomConfiguration() {
+        getInputSensor();
         System.out.print("Sensor " + mSensor.getName() + " was successefully added to " + this.mRoomName);
     }
 
-    /******************************************************************************
+    /* *****************************************************************************
      ************************** Room Input Segment ********************************
      ******************************************************************************/
 
@@ -105,7 +61,7 @@ public class RoomConfigurationUI {
                         "1) Type the name of your Room;\n" +
                         "2) Choose it from a list;\n" +
                         "0) Return;");
-        int option = readInputNumberAsInt();
+        int option = UtilsUI.readInputNumberAsInt();
         switch (option) {
             case 1:
                 getInputRoomName();
@@ -145,7 +101,7 @@ public class RoomConfigurationUI {
         if (listOfIndexesRoom.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
             System.out.println(mRoomConfigurationController.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
                 this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
@@ -174,7 +130,7 @@ public class RoomConfigurationUI {
         System.out.println("Please select one of the existing rooms on the selected House: ");
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
-            int aux = readInputNumberAsInt();
+            int aux = UtilsUI.readInputNumberAsInt();
             if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
                 this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
@@ -185,21 +141,100 @@ public class RoomConfigurationUI {
         }
     }
 
-    /******************************************************************************
+    /* * ****************************************************************************
      ************************** Sensor Input Segment ******************************
      ******************************************************************************/
 
-    private boolean getInputSensorName() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please insert the name of the Sensor you want to add to " + mRoom.getRoomName() + " : ");
-        this.mNameSensor = scanner.nextLine();
+    Sensor getInputSensor() {
+
+        System.out.println(
+                "We need to know which sensor you want to work with.\n" + "Would you like to:\n" + "1) Type the Sensor name;\n" + "2) Choose it from a list;\n" +
+                        "0) Return;");
+        int option = UtilsUI.readInputNumberAsInt();
+        switch (option) {
+            case 1:
+                getInputSensorName();
+                if (!getSensorByName(mSensorList)) {
+                    return mSensor;
+                }
+                break;
+            case 2:
+                getInputSensorByList(mSensorList);
+                return this.mSensor;
+            case 0:
+                break;
+            default:
+                System.out.println(INVALID_OPTION);
+                break;
+        }
+        return this.mSensor;
+
+    }
+
+    private boolean getSensorByName(SensorList mSensorList) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        if (ctrl.doesSensorListInAGeoAreaContainASensorByName(this.mNameSensor, mGeoArea)) {
-            System.out.println("You chose the Sensor " + this.mNameSensor);
+        List<Integer> listOfIndexesSensors = ctrl.matchSensorIndexByString(mSensorName, mSensorList);
+        while (listOfIndexesSensors.isEmpty()) {
+            System.out.println("There is no Sensor with that name. Please insert the name of a Geographic Area" +
+                    " that exists or  Type 'exit' to cancel and create a new Geographic Area on the Main Menu.");
+            if (!getInputSensorName()) {
+                System.out.println("Unable to select a Sensor. Returning to main menu.");
+                return false;
+            }
+            listOfIndexesSensors = ctrl.matchSensorIndexByString(mSensorName, mSensorList);
+        }
+        if (listOfIndexesSensors.size() > 1) {
+            System.out.println("There are multiple Sensors with that name. Please choose the right one.");
+            System.out.println(ctrl.printSensorElementsByIndex(listOfIndexesSensors, mSensorList));
+            int aux = UtilsUI.readInputNumberAsInt();
+            if (listOfIndexesSensors.contains(aux)) {
+                this.mSensor = mSensorList.getSensorList().get(aux);
+                this.mSensorName = mSensor.getName();
+                System.out.println(mStringChosenSensor);
+                System.out.println(ctrl.printSensor(mSensor));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
         } else {
-            System.out.println("This sensor does not exist in the list of sensors.");
-            return false;
+            System.out.println(mStringChosenSensor);
+            this.mSensor = mSensorList.getSensorList().get(listOfIndexesSensors.get(0));
+            this.mSensorName = mSensor.getName();
+            System.out.println(ctrl.printSensor(mSensor));
         }
         return true;
     }
+
+    private boolean getInputSensorName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please type the name of the Sensor located in your houses' Geographical Area.");
+        this.mSensorName = scanner.nextLine();
+        return (!("exit".equals(mSensorName)));
+    }
+
+    private void getInputSensorByList(SensorList mSensorList) {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        if (mGeoArea.getSensorList().getSensorList().size() == 0) {
+            System.out.print("Invalid Sensor List - List Is Empty\n");
+            return;
+        }
+        boolean activeInput = false;
+        System.out.println("Please select a Sensor from the Houses' Geographical Area from the list: ");
+        while (!activeInput) {
+            System.out.println(ctrl.printSensorList(mSensorList));
+            int aux = UtilsUI.readInputNumberAsInt();
+            if (aux >= 0 && aux < mSensorList.getSensorList().size()) {
+                this.mSensor = mSensorList.getSensorList().get(aux);
+                this.mSensorName = mSensor.getName();
+                activeInput = true;
+                System.out.println(mStringChosenSensor);
+                System.out.println((mSensor.printSensor()));
+            } else {
+                System.out.println(INVALID_OPTION);
+            }
+        }
+    }
 }
+
+
+
+

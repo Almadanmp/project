@@ -14,7 +14,7 @@ public class SensorSettingsUI {
     private SensorSettingsController mController;
     private String sensorName;
     private String sensorType;
-    private String sensorUnits; 
+    private String sensorUnits;
     boolean mTypeAdded;
     private double sensorLat;
     private double sensorLong;

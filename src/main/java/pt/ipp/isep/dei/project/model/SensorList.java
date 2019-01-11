@@ -8,6 +8,7 @@ import java.util.*;
 public class SensorList {
 
     private List<Sensor> mSensorList;
+    private String mStringEnhancer = "---------------\n";
 
     public SensorList() {
         this.mSensorList = new ArrayList<>();
@@ -213,6 +214,40 @@ public class SensorList {
                 }
         }
         return false;
+    }
+
+    /**
+     * Method to Match a Sensor By Name,
+     * @return a list of Sensors with the input name.
+     */
+    public List<Integer> matchSensorListIndexByString(String input) {
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < mSensorList.size(); i++) {
+            if (mSensorList.get(i).getName().equals(input)) {
+                result.add(i);
+            }
+        }
+        return result;
+    }
+    /**
+     * Method to print a Whole Sensor List.
+     * It will print the attributes needed to check if a Sensor is different from another Sensor
+     * (name, type of Sensor and Units)
+     */
+    public String printSensorWholeList(SensorList sensorList) {
+        StringBuilder result = new StringBuilder(new StringBuilder(mStringEnhancer));
+
+        if (sensorList.getSensorList().isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+
+        for (int i = 0; i < sensorList.getSensorList().size(); i++) {
+            Sensor aux = sensorList.getSensorList().get(i);
+            result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
+            result.append("Type: ").append(aux.getTypeSensor().getName()).append("\n");
+        }
+        result.append(mStringEnhancer);
+        return result.toString();
     }
 
     private boolean checkIfListInvalid() {
