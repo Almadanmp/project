@@ -54,7 +54,7 @@ class EnergyGridSettingsUI {
                         return;
                     }
                     //fixme criar um método IsEmpty para não aparecer get.get.size (falar com Daniela)
-                    else if((this.mHouse.getEGList().getEnergyGridList().size() == 0)) {
+                    else if((this.mHouse.getEGList().getEnergyGridList().isEmpty())) {
                         System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
                         return;
                     }
@@ -171,6 +171,10 @@ class EnergyGridSettingsUI {
 
     private void getInputGridByList(House house) {
         UtilsUI utilsUI = new UtilsUI();
+        if (house.getEGList().getEnergyGridList().isEmpty()) {
+            System.out.print("Invalid Grid List - List Is Empty\n" + "Returning to main menu\n");
+            return;
+        }
         boolean activeInput = false;
         System.out.println("Please select one of the existing grids on the selected house: ");
         while (!activeInput) {
