@@ -993,4 +993,31 @@ public class HouseMonitoringControllerTest {
         assertEquals(expectedResult,result);
     }
 
+    @Test
+    public void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNulo(){
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
+        Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
+        ReadingList rList = null;
+        TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
+        Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        s1.setReadingList(rList);
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1);
+        ga.setSensorList(sensorList1);
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,roomList);
+        house.setmMotherArea(ga);
+        double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house,d1,d2);
+        double expectedResult = Double.NaN;
+        assertEquals(expectedResult,result);
+    }
+
 }
