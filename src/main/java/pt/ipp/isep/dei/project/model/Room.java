@@ -70,7 +70,7 @@ public class Room implements Metered {
     }
 
     List<Device> getDeviceList(){
-        return this.getDeviceList();
+        return this.mDeviceList.getDeviceList();
     }
 
     public double getNominalPower(){
