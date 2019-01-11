@@ -269,7 +269,7 @@ class GeographicAreaTest {
         assertEquals(expectedResult, result, 0.01);
     }
 
-
+    //Centro - Exactamente o mesmo ponto
     @Test
     void seeIfAreaIsContainedInArea() {
         //Arrange
@@ -285,6 +285,7 @@ class GeographicAreaTest {
         assertTrue(result);
     }
 
+    //Centro - Exactamente o mesmo ponto mas - ga2 menor length
     @Test
     void seeIfAreaIsContainedInAreaEnhanced() {
         //Arrange
@@ -299,6 +300,7 @@ class GeographicAreaTest {
         assertTrue(result);
     }
 
+    //Centro - Exactamente o mesmo ponto mas - ga2 maior length
     @Test
     void seeIfAreaIsContainedInAreaEnhanced2() {
         //Arrange
@@ -313,6 +315,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro - Na linha mais abaixo
     @Test
     void seeIfAreaIsContainedInAreaBeta() {
         //Arrange
@@ -342,6 +345,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro - Igual anterior mas ao contrario
     @Test
     void seeIfAreaIsContainedInAreaEnhanced4() {
         //Arrange
@@ -357,6 +361,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro - Só muda longitude
     @Test
     void seeIfAreaIsContainedInAreaEnhanced5() {
         //Arrange
@@ -372,6 +377,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro, so muda longitude
     @Test
     void seeIfAreaIsContainedInAreaEnhanced6() {
         //Arrange
@@ -387,6 +393,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro, so muda longitude
     @Test
     void seeIfAreaIsContainedInAreaEnhanced7() {
         //Arrange
@@ -402,6 +409,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro só muda longitude e length
     @Test
     void seeIfAreaIsContainedInAreaEnhanced8() {
         //Arrange
@@ -417,6 +425,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro
     @Test
     void seeIfAreaIsContainedInAreaFails() {
         //Arrange
@@ -436,6 +445,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro, muda longitude e length
     @Test
     void seeIfAreaIsContainedInAreaEnhanced9() {
         //Arrange
@@ -451,6 +461,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro, só muda tamanho
     @Test
     void seeIfAreaIsContainedInAreaFails2() {
         //Arrange
@@ -465,6 +476,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro, muda longitude
     @Test
     void seeIfAreaIsContainedInArea2() {
         //Arrange
@@ -485,6 +497,7 @@ class GeographicAreaTest {
         assertFalse(result);
     }
 
+    //Centro, muda longitude
     @Test
     void seeIfAreaIsContainedInArea3() {
         //Arrange
@@ -504,6 +517,7 @@ class GeographicAreaTest {
         //Assert
         assertTrue(result);
     }
+
 
     @Test
     void seeIfSetNameWorksNullAndThrowsStringMessage() {
