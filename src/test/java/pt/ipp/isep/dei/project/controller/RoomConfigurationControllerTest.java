@@ -18,10 +18,10 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfSensorIsContainedInGA() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
+        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
+        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
         SensorList sList = new SensorList();
@@ -31,10 +31,10 @@ class RoomConfigurationControllerTest {
         gA1.setSensorList(sList);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Sensor actualactualResult = ctrl.getSensorFromGAByName("Vento", gA1);
-        Sensor expectedactualResult = s1;
+        Sensor actualResult = ctrl.getSensorFromGAByName("Vento1", gA1);
+        Sensor expectedResult = s1;
         //Assert
-        assertEquals(expectedactualResult, actualactualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -49,10 +49,10 @@ class RoomConfigurationControllerTest {
         rList.addRoom(room2);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Room actualactualResult = ctrl.getRoomFromHouseByName("Quarto", house1);
-        Room expectedactualResult = room1;
+        Room actualResult = ctrl.getRoomFromHouseByName("Quarto", house1);
+        Room expectedResult = room1;
         //Assert
-        assertEquals(expectedactualResult, actualactualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -73,9 +73,9 @@ class RoomConfigurationControllerTest {
         gList.addGeographicAreaToGeographicAreaList(ga1);
         //Act
         RoomConfigurationController crl = new RoomConfigurationController();
-        boolean actualactualResult = crl.checkIfGAContainsSensorByString("Vento", ga1);
+        boolean actualResult = crl.checkIfGAContainsSensorByString("Vento", ga1);
         //Assert
-        assertTrue(actualactualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -96,9 +96,9 @@ class RoomConfigurationControllerTest {
         gAList.addGeographicAreaToGeographicAreaList(ga1);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        boolean actualactualResult = ctrl.checkIfGAContainsSensorByString("Chuva", ga1);
+        boolean actualResult = ctrl.checkIfGAContainsSensorByString("Chuva", ga1);
         //Assert
-        assertFalse(actualactualResult);
+        assertFalse(actualResult);
     }
 
     @Test
