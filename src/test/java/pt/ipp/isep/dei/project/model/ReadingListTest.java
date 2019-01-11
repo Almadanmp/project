@@ -2105,6 +2105,34 @@ public class ReadingListTest {
     }
 
     @Test
+    public void seeIfGetMaximumValueOnGivenDateWorksTestCalendarLowerLimit() {
+        ReadingList list = new ReadingList();
+        Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 1,23,59,59).getTime();
+        Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2,23,59,59).getTime();
+        Reading r1 = new Reading(31, d1);
+        Reading r2 = new Reading(30, d2);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMaximumOfGivenDayValueReadings(d2);
+        double expectedResult = 31.0;
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
+    public void seeIfGetMaximumValueOnGivenDateWorksTestCalendarHigherLimit() {
+        ReadingList list = new ReadingList();
+        Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 3, 0, 0, 0).getTime();
+        Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2,23,59,59).getTime();
+        Reading r1 = new Reading(33, d1);
+        Reading r2 = new Reading(30, d2);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMaximumOfGivenDayValueReadings(d2);
+        double expectedResult = 33.0;
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
     public void seeIfGetMaximumValueOnGivenDateWorksWithNegatives() {
         ReadingList list = new ReadingList();
         Date d1 = new GregorianCalendar(2015, 11, 2).getTime();
