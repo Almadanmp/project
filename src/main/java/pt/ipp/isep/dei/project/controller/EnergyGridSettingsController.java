@@ -61,7 +61,6 @@ public class EnergyGridSettingsController {
         if (mEnergyGrid != null) {
             programHouse.getEGList().addEnergyGridToEnergyGridList(mEnergyGrid);
             return true;
-
         } else {
             return false;
         }

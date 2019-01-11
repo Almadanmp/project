@@ -255,8 +255,10 @@ class EnergyGridSettingsUI {
     }
 
     private void updateHouse(House house) {
-        if (mController.addEnergyGridToHouse(house)) {
-            System.out.println("The energy grid was successfully created and added to the house.");
+        if (house != null) {
+            if (mController.addEnergyGridToHouse(house)) {
+                System.out.println("The energy grid was successfully created and added to the house.");
+            }
         } else {
             System.out.println("The energy grid was NOT successfully created and added to the selected house.");
         }
