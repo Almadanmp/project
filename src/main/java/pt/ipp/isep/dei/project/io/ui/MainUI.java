@@ -145,7 +145,6 @@ public class MainUI {
         readingListISEPtemperature.addReading(reading34);
         readingListISEPtemperature.addReading(reading35);
         readingListISEPtemperature.addReading(reading36);
-        readingListISEPtemperature.addReading(reading37);
         readingListISEPtemperature.addReading(reading38);
         readingListISEPtemperature.addReading(reading39);
         readingListISEPtemperature.addReading(reading40);
@@ -154,6 +153,7 @@ public class MainUI {
         readingListISEPtemperature.addReading(reading43);
         readingListISEPtemperature.addReading(reading44);
         readingListISEPtemperature.addReading(reading45);
+        readingListISEPtemperature.addReading(reading37);
         readingListISEPtemperature.addReading(reading46);
         readingListISEPtemperature.addReading(reading47);
         readingListISEPtemperature.addReading(reading48);

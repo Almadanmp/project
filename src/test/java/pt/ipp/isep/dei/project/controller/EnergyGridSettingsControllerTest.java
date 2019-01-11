@@ -96,6 +96,27 @@ class EnergyGridSettingsControllerTest {
         energyGrid1.setListOfRooms(roomList);
         house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
+        ctrlUS145.removeRoomFromGrid(energyGrid1, room);
+        Room expectedResult = null;
+        Room result = energyGrid1.getListOfRooms().getRoomByName("Quarto");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfRoomIsRemovedFromGridBreaks() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
+        Room room = new Room("Quarto", 1, 20,2,2);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
+        EnergyGridList energyGridList = new EnergyGridList();
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
+        roomList.addRoom(room);
+        energyGrid1.setListOfRooms(roomList);
+        house.setEGList(energyGridList);
+        EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         boolean result = ctrlUS145.removeRoomFromGrid(energyGrid1, room);
         assertTrue(result);
     }
