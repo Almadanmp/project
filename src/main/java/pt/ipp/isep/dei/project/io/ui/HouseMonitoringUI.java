@@ -174,7 +174,7 @@ public class HouseMonitoringUI {
         System.out.println("Please select one of the existing rooms on the selected House: ");
 
         while (!activeInput) {
-            System.out.println(houseMonitoringcontroller.printRoomList(house));
+            System.out.println(houseMonitoringcontroller.printHouseRoomList(house));
             int aux = UtilsUI.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getRoomList().getRoomList().size()) {
                 this.mRoom = house.getRoomList().getRoomList().get(aux);
@@ -260,7 +260,7 @@ public class HouseMonitoringUI {
         System.out.println("Please select one of the existing Sensors on the selected Room: ");
 
         while (!activeInput) {
-            houseMonitoringcontroller.printSensorList(mRoom);
+            houseMonitoringcontroller.printRoomSensorList(mRoom);
             int aux = UtilsUI.readInputNumberAsInt();
             if (aux >= 0 && aux < mRoom.getmRoomSensorList().getSensorList().size()) {
                 this.mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
