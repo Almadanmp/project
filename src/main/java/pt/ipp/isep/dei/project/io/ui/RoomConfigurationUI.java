@@ -36,6 +36,10 @@ class RoomConfigurationUI {
             System.out.println("There's no available rooms in the house");
             return;
         }
+        if (mGeoArea.getSensorList().getSensorList().isEmpty() ||mGeoArea.getSensorList() == null) {
+            System.out.println("There's no available sensors in the Geographical Area");
+            return;
+        }
         getInputRoom();
 
         getInputSensor();
@@ -160,7 +164,6 @@ class RoomConfigurationUI {
                 break;
             case 2:
                 getInputSensorByList(mSensorList);
-                System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
                 return this.mSensor;
 
             case 0:
@@ -235,6 +238,7 @@ class RoomConfigurationUI {
                 activeInput = true;
                 System.out.println("You have chosen the following Sensor:");
                 System.out.println(mRoomConfigurationController.printSensor(mSensor));
+                System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
             } else {
                 System.out.println(INVALID_OPTION);
             }
