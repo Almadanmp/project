@@ -18,7 +18,6 @@ public class GeographicArea {
     private String mDescription;
 
 
-
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
     // They can be made with or without a sensor list.
 
@@ -43,7 +42,7 @@ public class GeographicArea {
         return this.mId;
     }
 
-     public void setId(String name) {
+    public void setId(String name) {
         if (isGeographicNameValid(name)) {
             this.mId = name;
         } else {
@@ -53,28 +52,38 @@ public class GeographicArea {
 
     /**
      * Sets the width attribute
+     *
      * @param width related to longitude
      */
 
-    public void setWidth(double width){this.mWidth = width;}
+    public void setWidth(double width) {
+        this.mWidth = width;
+    }
 
     /**
      * Sets the length attribute
+     *
      * @param length related to latitude
      */
 
-    public void setLength(double length){this.mLength = length;}
+    public void setLength(double length) {
+        this.mLength = length;
+    }
 
     /**
      * Sets the description attribute
+     *
      * @param description String is a short description of the Geographical Area.
      */
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.mDescription = description;
     }
 
-    String getDescription() {return this.mDescription;}
+    String getDescription() {
+        return this.mDescription;
+    }
+
     /**
      * Setter for Geographic Area type.
      *
@@ -89,7 +98,7 @@ public class GeographicArea {
      *
      * @param local Localization is defined by three doubles (longitude, latitude and altitude).
      */
-     void setLocal(Local local) {
+    void setLocal(Local local) {
         this.mLocation = local;
     }
 
@@ -198,19 +207,23 @@ public class GeographicArea {
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
     }
 
-    double getWidth(){return this.mWidth;}
+    double getWidth() {
+        return this.mWidth;
+    }
 
-    public double getLength(){return this.mLength;}
+    public double getLength() {
+        return this.mLength;
+    }
 
     boolean isAreaContainedInAnotherArea(GeographicArea area1, GeographicArea area2) {
-        double latTopVert1 = area1.getLocal().getLatitude() + (area1.getWidth()/2);
-        double longTopVert1 = area1.getLocal().getLongitude() - (area1.getLength()/2);
-        double latBotVert1 = area1.getLocal().getLatitude() - (area1.getWidth()/2);
-        double longBotVert1 = area1.getLocal().getLongitude() + (area1.getLength()/2);
-        double latTopVert2 = area2.getLocal().getLatitude() + (area2.getWidth()/2);
-        double longTopVert2 = area2.getLocal().getLongitude() - (area2.getLength()/2);
-        double latBotVert2 = area2.getLocal().getLatitude() - (area2.getWidth()/2);
-        double longBotVert2 = area2.getLocal().getLongitude() + (area2.getLength()/2);
+        double latTopVert1 = area1.getLocal().getLatitude() + (area1.getWidth() / 2);
+        double longTopVert1 = area1.getLocal().getLongitude() - (area1.getLength() / 2);
+        double latBotVert1 = area1.getLocal().getLatitude() - (area1.getWidth() / 2);
+        double longBotVert1 = area1.getLocal().getLongitude() + (area1.getLength() / 2);
+        double latTopVert2 = area2.getLocal().getLatitude() + (area2.getWidth() / 2);
+        double longTopVert2 = area2.getLocal().getLongitude() - (area2.getLength() / 2);
+        double latBotVert2 = area2.getLocal().getLatitude() - (area2.getWidth() / 2);
+        double longBotVert2 = area2.getLocal().getLongitude() + (area2.getLength() / 2);
         return (latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1);
     }
 
@@ -251,6 +264,7 @@ public class GeographicArea {
         }
         return average / counter;
     }
+
     public boolean addSensorToSensorList(Sensor sensor) {
         String sensorToAddName = sensor.getName();
         for (Sensor s : this.mAreaSensors.getSensorList()) {

@@ -307,7 +307,7 @@ public class ReadingList {
         checkIfListValid(valueList);
         double minValue = valueList.get(0);
         for (double value : valueList) {
-            if (minValue > value) {
+            if (minValue >= value) {
                 minValue = value;
             }
         }

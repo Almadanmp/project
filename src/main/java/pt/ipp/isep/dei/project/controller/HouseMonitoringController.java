@@ -240,7 +240,7 @@ public class HouseMonitoringController {
         }
         if (counter != 0)
             return sum / counter;
-        else return 0; //TODO check if javadoc is correct. Clarify name.
+        else return 0;
     }
 
     /**
