@@ -38,6 +38,7 @@ public class HouseMonitoringUI {
     }
 
     void run(House programHouse) {
+        UtilsUI utils = new UtilsUI();
         if (programHouse == null || programHouse.getMotherArea() == null || programHouse.getRoomList() == null) {
             System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
                     " your house first through the main menu");
@@ -50,7 +51,7 @@ public class HouseMonitoringUI {
         System.out.println("--------------\n");
         while (!activeInput) {
             printOptionMessage();
-            option = UtilsUI.readInputNumberAsInt();
+            option = utils.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     if (!getInputRoom(programHouse) || !getInputSensor()) {
@@ -93,33 +94,39 @@ public class HouseMonitoringUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(UtilsUI.INVALID_OPTION);
+                    System.out.println(utils.INVALID_OPTION);
                     break;
             }
         }
     }
 
     private boolean getInputRoom(House house) {
+        UtilsUI utils = new UtilsUI();
         System.out.println(
                 "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" +
                         "2) Choose it from a list;\n" + "0) Return;");
-        int option = UtilsUI.readInputNumberAsInt();
-        switch (option) {
-            case 1:
-                getInputRoomName();
-                if (!getRoomByName(house)) {
-                    System.out.println("Unable to select a Room. Returning to main menu.");
+        int option = utils.readInputNumberAsInt();
+        boolean activeInput = false;
+        while (!activeInput) {
+            switch (option) {
+                case 1:
+                    getInputRoomName();
+                    if (!getRoomByName(house)) {
+                        System.out.println("Unable to select a Room. Returning to main menu.");
+                        return false;
+                    }
+                    activeInput = true;
+                    break;
+                case 2:
+                    getInputRoomByList(house);
+                    activeInput = true;
+                    break;
+                case 0:
                     return false;
-                }
-                break;
-            case 2:
-                getInputRoomByList(house);
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println(UtilsUI.INVALID_OPTION);
-                break;
+                default:
+                    System.out.println(utils.INVALID_OPTION);
+                    break;
+            }
         }
         return true;
     }
@@ -132,6 +139,7 @@ public class HouseMonitoringUI {
     }
 
     private boolean getRoomByName(House house) {
+        UtilsUI utils = new UtilsUI();
         List<Integer> listOfIndexesRoom = houseMonitoringcontroller.matchRoomIndexByString(mNameRoom, mHouse);
 
         while (listOfIndexesRoom.isEmpty()) {
@@ -145,13 +153,13 @@ public class HouseMonitoringUI {
         if (listOfIndexesRoom.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
             System.out.println(houseMonitoringcontroller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
-            int aux = UtilsUI.readInputNumberAsInt();
+            int aux = utils.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
                 house.getRoomList().getRoomList().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(houseMonitoringcontroller.printRoom(mRoom));
             } else {
-                System.out.println(UtilsUI.INVALID_OPTION);
+                System.out.println(utils.INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following Room:");
@@ -163,6 +171,7 @@ public class HouseMonitoringUI {
 
 
     private void getInputRoomByList(House house) {
+        UtilsUI utils = new UtilsUI();
         if (house.getRoomList().getRoomList().isEmpty()) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
@@ -172,40 +181,45 @@ public class HouseMonitoringUI {
 
         while (!activeInput) {
             System.out.println(houseMonitoringcontroller.printHouseRoomList(house));
-            int aux = UtilsUI.readInputNumberAsInt();
+            int aux = utils.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getRoomList().getRoomList().size()) {
                 this.mRoom = house.getRoomList().getRoomList().get(aux);
                 activeInput = true;
             } else {
-                System.out.println(UtilsUI.INVALID_OPTION);
+                System.out.println(utils.INVALID_OPTION);
             }
         }
     }
 
     private boolean getInputSensor() {
+        UtilsUI utils = new UtilsUI();
         System.out.println(
                 "We need to know which Sensor you wish to access.\n" + "Would you like to:\n" +
                         "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" + "0) Return;");
-        int option = UtilsUI.readInputNumberAsInt();
-        switch (option) {
-            case 1:
-                getInputSensorName();
-                if (!getSensorByName()) {
-                    System.out.println("Unable to select a Sensor. Returning to main menu.");
+        boolean activeInput = false;
+        while (!activeInput) {
+            int option = utils.readInputNumberAsInt();
+            switch (option) {
+                case 1:
+                    getInputSensorName();
+                    if (!getSensorByName()) {
+                        System.out.println("Unable to select a Sensor. Returning to main menu.");
+                        return false;
+                    }
+                    activeInput = true;
+                    break;
+                case 2:
+                    if (!getInputSensorByList()) {
+                        System.out.println("Unable to select a Sensor. Returning to main menu.");
+                        return false;
+                    }activeInput = true;
+                    break;
+                case 0:
                     return false;
-                }
-                break;
-            case 2:
-                if (!getInputSensorByList()) {
-                    System.out.println("Unable to select a Sensor. Returning to main menu.");
-                    return false;
-                }
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println(UtilsUI.INVALID_OPTION);
-                break;
+                default:
+                    System.out.println(utils.INVALID_OPTION);
+                    break;
+            }
         }
         return true;
     }
@@ -218,6 +232,7 @@ public class HouseMonitoringUI {
     }
 
     private boolean getSensorByName() {
+        UtilsUI utils = new UtilsUI();
         List<Integer> listOfIndexesSensor = houseMonitoringcontroller.matchSensorIndexByString(mNameSensor, mRoom);
 
         while (listOfIndexesSensor.isEmpty()) {
@@ -231,13 +246,13 @@ public class HouseMonitoringUI {
         if (listOfIndexesSensor.size() > 1) {
             System.out.println("There are multiple Sensors with that name. Please choose the right one.");
             System.out.println(houseMonitoringcontroller.printSensorElementsByIndex(listOfIndexesSensor, mRoom));
-            int aux = UtilsUI.readInputNumberAsInt();
+            int aux = utils.readInputNumberAsInt();
             if (listOfIndexesSensor.contains(aux)) {
                 mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
                 System.out.println("You have chosen the following Sensor:");
                 System.out.println(houseMonitoringcontroller.printSensor(mSensor));
             } else {
-                System.out.println(UtilsUI.INVALID_OPTION);
+                System.out.println(utils.INVALID_OPTION);
             }
         } else {
             System.out.println("You have chosen the following Sensor:");
@@ -248,6 +263,7 @@ public class HouseMonitoringUI {
     }
 
     private boolean getInputSensorByList() {
+        UtilsUI utils = new UtilsUI();
         if (mRoom.getmRoomSensorList().getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty, or there are no Temperature Sensors in the " +
                     "selected Room.\n");
@@ -258,12 +274,12 @@ public class HouseMonitoringUI {
 
         while (!activeInput) {
             houseMonitoringcontroller.printRoomSensorList(mRoom);
-            int aux = UtilsUI.readInputNumberAsInt();
+            int aux = utils.readInputNumberAsInt();
             if (aux >= 0 && aux < mRoom.getmRoomSensorList().getSensorList().size()) {
                 this.mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
                 return true;
             } else {
-                System.out.println(UtilsUI.INVALID_OPTION);
+                System.out.println(utils.INVALID_OPTION);
                 return false;
             }
         }

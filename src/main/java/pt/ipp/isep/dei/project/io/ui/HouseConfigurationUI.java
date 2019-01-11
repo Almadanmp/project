@@ -24,6 +24,7 @@ class HouseConfigurationUI {
     }
 
     void run(House house) {
+        UtilsUI utils = new UtilsUI();
         if (house == null) {
             System.out.println("Please create a House before you continue.");
             return;
@@ -35,7 +36,7 @@ class HouseConfigurationUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printHouseConfigMenu();
-            option = UtilsUI.readInputNumberAsInt();
+            option = utils.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInputHouseCharacteristicsUS101();

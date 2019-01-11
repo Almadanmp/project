@@ -7,9 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 import java.util.Date;
 import java.util.Scanner;
 
-import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
-
- class SensorSettingsUI {
+class SensorSettingsUI {
     private SensorSettingsController mController;
     private String sensorName;
     private String sensorType;
@@ -47,7 +45,8 @@ import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
         System.out.println("--------------\n");
         while (activeInput) {
             printOptionMessage();
-            option = UtilsUI.readInputNumberAsInt();
+            UtilsUI utils = new UtilsUI();
+            option = utils.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     if(!getInputGeographicArea05(newGeoListUi)){
@@ -71,7 +70,7 @@ import static pt.ipp.isep.dei.project.io.ui.UtilsUI.INVALID_OPTION;
                 case 0:
                     return;
                 default:
-                    System.out.println(INVALID_OPTION);
+                    System.out.println(utils.INVALID_OPTION);
                     break;
             }
         }

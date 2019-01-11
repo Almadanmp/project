@@ -316,7 +316,8 @@ public class MainUI {
             boolean activeInput = true;
 
             while (activeInput) {
-                option = UtilsUI.readInputNumberAsInt();
+                UtilsUI utilsUI = new UtilsUI();
+                option = utilsUI.readInputNumberAsInt();
                 switch (option) {
                     case 0:
                         return;
@@ -357,7 +358,7 @@ public class MainUI {
                         activeInput = false;
                         break;
                     default:
-                        System.out.println(UtilsUI.INVALID_OPTION);
+                        System.out.println(utilsUI.INVALID_OPTION);
                         break;
                 }
             }

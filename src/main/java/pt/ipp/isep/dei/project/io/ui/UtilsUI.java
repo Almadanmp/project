@@ -17,7 +17,7 @@ class UtilsUI {
     private String mGeographicAreaName;
     private String mStringChosenGeographicArea = "You have chosen the following Geographic Area:";
 
-    static final String INVALID_OPTION = "Please enter a valid option";
+    String INVALID_OPTION = "Please enter a valid option";
 
     /**
      * Method to read the user input as an Int
@@ -25,7 +25,7 @@ class UtilsUI {
      * If its a double it will convert it to an int
      * @return value read from the user
      */
-    static int readInputNumberAsInt() {
+     int readInputNumberAsInt() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
             System.out.println(INVALID_OPTION);
