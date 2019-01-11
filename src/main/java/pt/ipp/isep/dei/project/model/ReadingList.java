@@ -9,14 +9,14 @@ import static java.lang.Double.NaN;
  */
 
 public class ReadingList {
-    List<Reading> mReadings;
+    List<Reading> mReadings = new ArrayList<>();
 
     /**
      * Empty Constructor to always allow the creation of an ArrayList of Readings.
      */
 
     public ReadingList() {
-        mReadings = new ArrayList<>();
+
     }
 
     /**
@@ -28,12 +28,11 @@ public class ReadingList {
      */
 
     public boolean addReading(Reading reading) {
+        boolean result = false;
         if (!(mReadings.contains(reading))) {
-            mReadings.add(reading);
-            return true;
-        } else {
-            return false;
+            result = mReadings.add(reading);
         }
+        return result;
     }
 
     /**
@@ -65,15 +64,8 @@ public class ReadingList {
      * @return
      */
     public double getMostRecentValueOfReading() {
-        int mostRecentReadingIndex = 0;
-        for (int i = 0; i < mReadings.size() - 1; i++) {
-            Date secondDate = mReadings.get(i + 1).getmDate();
-            Date firstDate = mReadings.get(i).getmDate();
-            if (firstDate.before(secondDate)) {
-                mostRecentReadingIndex = i + 1;
-            }
-        }
-        return mReadings.get(mostRecentReadingIndex).getmValue();
+
+        return getMostRecentReading().getmValue();
     }
 
     /**
@@ -375,7 +367,7 @@ public class ReadingList {
      *
      * @return average value of all reading from given date's day
      */
-    double getAverageOfGivenDayValueReadings(Date dateGiven) {
+    public double getAverageOfGivenDayValueReadings(Date dateGiven) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(dateGiven);
         cal.set(Calendar.HOUR_OF_DAY, 23);
@@ -594,6 +586,42 @@ public class ReadingList {
             return mReadings.isEmpty();
         }
     }
+    /**
+     * Method that gives the Total of Readings on a given day (Date).
+     *
+     * @param givenDate
+     * @param
+     * @return sum
+     */
+    public double getTotalReadingOnGivenDay(Date givenDate) {
+        List<Integer> daysWithReadings = getListOfDaysWithReadingsBetweenTwoGivenDates(givenDate, givenDate);
+        List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
+        for (int day : daysWithReadings) {
+            List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(day);
+            double givenD;
+            givenD = gettotalFromGivenList(valueReadingsThatMatchDay);
+            totalValuesFromDaysWithReadings.add(givenD);
+        }
+        return gettotalFromGivenList(totalValuesFromDaysWithReadings);
+    }
+    /**
+     * This method receives a list of doubles that correspond to value readings and
+     * will return the average value on that list.
+     *
+     * @return returns the average of all values contained within that ArrayList
+     */
+    double gettotalFromGivenList(List<Double> valueList) {
+        double sum = 0;
+        if (valueList.isEmpty()) {
+            return NaN;
+        }
+
+        for (Double aValueList : valueList) {
+            sum = sum + aValueList;
+        }
+        return sum;
+    }
+
 }
 
 

@@ -225,23 +225,20 @@ public class HouseMonitoringController {
 
     /**
      *
-     * @param geoArea is the area we want to get rainfall from.
-     * @param day is the day where we want to measure rainfall.
-     * @return is the average of all sensors with rainfall's readings on the given day.
+     * @param house is the house we want to get the total rainfall from.
+     * @param day is the date where we want to  measure total rainfall.
+     * @return is the total rainfall of the house, as measured by the closest sensor to the house.
      */
 
-    public double getTotalRainfallOnGivenDayHouseArea(GeographicArea geoArea, Date day) {
-        double sum = 0;
-        int counter = 0;
-        List<Sensor> listRain = geoArea.getSensorList().getSensorListByType("Rain");
-        for (Sensor sensor : listRain) {
-            sum = sum + sensor.getReadingList().getTotalSumOfGivenDayValueReadings(day);
-            counter++;
+    public double getTotalRainfallOnGivenDay(House house, Date day) {
+        GeographicArea geoArea = house.getMotherArea();
+        Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, "rainfall");
+        if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
+            return Double.NaN;
         }
-        if (counter != 0)
-            return sum / counter;
-        else return 0;
+        return closestSensor.getReadingList().getTotalReadingOnGivenDay(day);
     }
+
 
     /**
      *
