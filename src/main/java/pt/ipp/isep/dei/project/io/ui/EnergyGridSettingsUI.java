@@ -17,6 +17,8 @@ class EnergyGridSettingsUI {
     private Room mRoom;
     private String mRoomName;
     private House mHouse;
+    private String mStringRequest = "Would you like to:\n";
+    private String mStringRequestChoseFromList = "2) Choose it from a list:\n";
 
     EnergyGridSettingsUI() {
         this.mController = new EnergyGridSettingsController();
@@ -53,19 +55,13 @@ class EnergyGridSettingsUI {
                 case 4:
                     getInputRoom();
                     getInputEnergyGrid(mHouse);
-                    if (updateGridUS147(mEnergyGrid, mRoom)) {
-                        System.out.println("Room successfully added to the grid!");
-                    } else System.out.println("It wasn't possible to add the room. Please try again.");
-
+                    updateGridUS147(mEnergyGrid, mRoom);
                     activeInput = false;
                     break;
                 case 5:
                     getInputEnergyGrid(mHouse);
                     getInputRoomUS149();
-                    if (updateGridUS149(mEnergyGrid, mRoom)) {
-                        System.out.println("Room successfully removed from grid!");
-                    } else System.out.println("It wasn't possible to remove the room. Please try again.");
-
+                    updateGridUS149(mEnergyGrid, mRoom);
                     activeInput = false;
                     break;
                 case 0:
@@ -81,7 +77,7 @@ class EnergyGridSettingsUI {
 
     private void getInputEnergyGrid(House house) {
         System.out.println(
-                "We need to know which one is your energy grid.\n" + "Would you like to:\n" + "1) Type the name of your grid;\n" + "2) Choose it from a list;\n" +
+                "We need to know which one is your energy grid.\n" + mStringRequest + "1) Type the name of your grid;\n" + mStringRequestChoseFromList +
                         "0) Return;");
         int option = readInputNumberAsInt();
         switch (option) {
@@ -173,7 +169,7 @@ class EnergyGridSettingsUI {
 
     private void getInputRoom() {
         System.out.println(
-                "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
+                "We need to know which one is your room.\n" + mStringRequest + "1) Type the name of your Room;\n" + mStringRequestChoseFromList +
                         "0) Return;");
         int option = readInputNumberAsInt();
         switch (option) {
@@ -314,20 +310,28 @@ class EnergyGridSettingsUI {
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid.
 
-    private boolean updateGridUS147(EnergyGrid grid, Room room) {
-        return mController.addRoomToTheGrid(grid, room);
+    private void updateGridUS147(EnergyGrid grid, Room room) {
+        if(mController.addRoomToTheGrid(grid, room)){
+            System.out.println("Room successfully added to the grid!");
+        }else {
+            System.out.println("It wasn't possible to add the room. Please try again.");
+        }
     }
 
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
 
-    private boolean updateGridUS149(EnergyGrid grid, Room room) {
-        return mController.removeRoomFromGrid(grid, room);
+    private void updateGridUS149(EnergyGrid grid, Room room) {
+        if(mController.removeRoomFromGrid(grid, room)){
+            System.out.println("Room successfully removed from grid!");
+        }else {
+            System.out.println("It wasn't possible to remove the room. Please try again.");
+        }
     }
 
     private void getInputRoomUS149() {
         System.out.println(
-                "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
+                "We need to know which one is your room.\n" + mStringRequest + "1) Type the name of your Room;\n" + mStringRequestChoseFromList +
                         "0) Return;");
         int option = readInputNumberAsInt();
         switch (option) {

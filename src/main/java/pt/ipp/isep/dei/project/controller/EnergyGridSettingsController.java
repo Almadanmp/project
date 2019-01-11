@@ -116,17 +116,17 @@ public class EnergyGridSettingsController {
      */
 
     public String printRoomListOfEG(EnergyGrid energyGrid) {
-        String result = "---------------\n";
+        StringBuilder result = new StringBuilder("---------------\n");
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
             Room aux = energyGrid.getListOfRooms().getRoomList().get(i);
-            result = result + i + ") Designation: " + aux.getRoomName() + " | ";
-            result = result + "House Floor: " + aux.getHouseFloor() + " | \n";
+            result.append(i).append(") Designation: ").append(aux.getRoomName()).append(" | ");
+            result.append("House Floor: ").append(aux.getHouseFloor()).append(" | \n");
         }
-        result = result + "---------------\n";
-        return result;
+        result.append("---------------\n");
+        return result.toString();
     }
 
     /*
