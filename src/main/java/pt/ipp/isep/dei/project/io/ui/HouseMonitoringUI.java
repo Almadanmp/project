@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.Sensor;
 
 import java.util.Date;
 import java.util.List;
@@ -35,9 +38,9 @@ public class HouseMonitoringUI {
     }
 
     void run(House programHouse) {
-        if (programHouse == null || programHouse.getMotherArea() == null || programHouse.getRoomList()==null) {
-            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure your" +
-                    "house first through the main menu");
+        if (programHouse == null || programHouse.getMotherArea() == null || programHouse.getRoomList() == null) {
+            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
+                    " your house first through the main menu");
             return;
         }
         boolean activeInput = false;
@@ -50,10 +53,10 @@ public class HouseMonitoringUI {
             option = UtilsUI.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if(!getInputRoom(programHouse)){
+                    if (!getInputRoom(programHouse)) {
                         return;
                     }
-                    if(!getInputSensor()){
+                    if (!getInputSensor()) {
                         return;
                     }
                     getInputStartDate();
@@ -63,10 +66,10 @@ public class HouseMonitoringUI {
                     break;
 
                 case 2:
-                    if(!getInputRoom(programHouse)){
+                    if (!getInputRoom(programHouse)) {
                         return;
                     }
-                    if(!getInputSensor()){
+                    if (!getInputSensor()) {
                         return;
                     }
                     updateModel605();
@@ -101,8 +104,8 @@ public class HouseMonitoringUI {
 
     private boolean getInputRoom(House house) {
         System.out.println(
-                "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" + "2) Choose it from a list;\n" +
-                        "0) Return;");
+                "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" +
+                        "2) Choose it from a list;\n" + "0) Return;");
         int option = UtilsUI.readInputNumberAsInt();
         switch (option) {
             case 1:
@@ -184,8 +187,8 @@ public class HouseMonitoringUI {
 
     private boolean getInputSensor() {
         System.out.println(
-                "We need to know which Sensor you wish to access.\n" + "Would you like to:\n" + "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" +
-                        "0) Return;");
+                "We need to know which Sensor you wish to access.\n" + "Would you like to:\n" +
+                        "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" + "0) Return;");
         int option = UtilsUI.readInputNumberAsInt();
         switch (option) {
             case 1:
@@ -196,7 +199,7 @@ public class HouseMonitoringUI {
                 }
                 break;
             case 2:
-                if(!getInputSensorByList()){
+                if (!getInputSensorByList()) {
                     System.out.println("Unable to select a Sensor. Returning to main menu.");
                     return false;
                 }
@@ -249,7 +252,8 @@ public class HouseMonitoringUI {
 
     private boolean getInputSensorByList() {
         if (mRoom.getmRoomSensorList().getSensorList().isEmpty()) {
-            System.out.print("Invalid Sensor List - List Is Empty, or there are no Temperature Sensors in the selected Room.\n");
+            System.out.print("Invalid Sensor List - List Is Empty, or there are no Temperature Sensors in the " +
+                    "selected Room.\n");
             return false;
         }
         boolean activeInput = false;
@@ -299,7 +303,7 @@ public class HouseMonitoringUI {
         scan.nextLine();
     }
 
-       /**
+    /**
      * US600
      * As a Regular User, I want to get the current temperature in the house area. If, in the
      * first element with temperature sensors of the hierarchy of geographical areas that
@@ -320,7 +324,8 @@ public class HouseMonitoringUI {
      */
 
     private void updateModel605() {
-        out.print("The room is " + this.mRoom.getRoomName() + " and the Temperature Sensor is " + this.mSensor.getName() + "\n");
+        out.print("The room is " + this.mRoom.getRoomName() + " and the Temperature Sensor is " +
+                this.mSensor.getName() + "\n");
         this.mCurrentTemperature = houseMonitoringcontroller.getCurrentRoomTemperature(mRoom);
     }
 
@@ -357,21 +362,28 @@ public class HouseMonitoringUI {
     }
 
     private void displayState620() {
-        System.out.print("The Average Rainfall on " + mHouse.getHouseId() + " that is located on " + mGeoArea.getId() + " on the date " +
-                mStartDate + " is " + mResult620 + "%.");
+        System.out.print("The Average Rainfall on " + mHouse.getHouseId() + " that is located on " + mGeoArea.getId() +
+                " on the date " + mStartDate + " is " + mResult620 + "%.");
     }
 
     /**
      * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
-     *
      */
     private void updateAndDisplayUS623(House house) {
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
-        double mResult623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, initialDate, endDate);
-        System.out.print(houseMonitoringcontroller.getHouseInfoForOutPutMessage(house) + " between " + initialDate + " and " + endDate +
-                " is " + mResult623 + "%.");
+        double result623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, initialDate, endDate);
+        printResultMessageUS623(house, initialDate, endDate, result623);
+    }
+
+    private void printResultMessageUS623(House house, Date initialDate, Date endDate, double result623) {
+        if (Double.isNaN(result623)) {
+            System.out.println("Warning: average value not calculated - no readings available.");
+        } else {
+            System.out.println(houseMonitoringcontroller.getHouseInfoForOutputMessage(house) + " between " + initialDate
+                    + " and " + endDate + " is " + result623 + "%.");
+        }
     }
 
     private void printOptionMessage() {

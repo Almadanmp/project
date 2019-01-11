@@ -15,7 +15,9 @@ public class Sensor {
     private Date mDateStartedFunctioning;
     private ReadingList mReadingList;
 
-    public Sensor(){}
+    public Sensor() {
+        mReadingList = new ReadingList();
+    }
 
     /**
      * Constructor with:name, typesensor, local, DateStartedFunctioning
@@ -30,6 +32,7 @@ public class Sensor {
         setTypeSensor(typeSensor);
         setLocal(local);
         setDateStartedFunctioning(DateStartedFunctioning);
+        mReadingList = new ReadingList();
     }
 
     /**
@@ -43,6 +46,7 @@ public class Sensor {
         setName(name);
         setTypeSensor(typeSensor);
         setDateStartedFunctioning(DateStartedFunctioning);
+        mReadingList = new ReadingList();
     }
 
     /**

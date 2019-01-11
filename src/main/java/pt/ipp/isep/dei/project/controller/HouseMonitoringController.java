@@ -18,9 +18,10 @@ public class HouseMonitoringController {
     }
 
     public double getMaxTemperatureInARoomOnAGivenDay(Date day, House house, Room room) {
-        return room.getMaxTemperatureInARoomOnAGivenDay(house,day);
+        return room.getMaxTemperatureInARoomOnAGivenDay(house, day);
     }
-    public String printSensor(Sensor sensor){
+
+    public String printSensor(Sensor sensor) {
         return sensor.printSensor();
     }
 
@@ -56,11 +57,11 @@ public class HouseMonitoringController {
         return geoAreaList.printGaWholeList(geoAreaList);
     }
 
-    public List<Integer> matchRoomIndexByString(String input, House house){
+    public List<Integer> matchRoomIndexByString(String input, House house) {
         return house.getRoomList().matchRoomIndexByString(input);
     }
 
-    public List<Integer> matchSensorIndexByString(String input, Room room){
+    public List<Integer> matchSensorIndexByString(String input, Room room) {
         return room.getmRoomSensorList().matchSensorIndexByString(input);
     }
 
@@ -68,18 +69,22 @@ public class HouseMonitoringController {
         return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
     }
 
-    public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, Room room){
+    public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, Room room) {
         return room.getmRoomSensorList().printElementsByIndex(listOfIndexesOfSensor);
     }
 
-    public String printSensorList(Room room){return room.getmRoomSensorList().printSensorList(room);}
+    public String printSensorList(Room room) {
+        return room.getmRoomSensorList().printSensorList(room);
+    }
+
     public String printRoomList(House house) {
         return house.getRoomList().printRoomList(house);
     }
 
-    public String printRoom (Room room){
+    public String printRoom(Room room) {
         return room.printRoom();
     }
+
     public Date createDate(int year, int month, int day) {
         return new GregorianCalendar(year, month, day).getTime();
     }
@@ -91,7 +96,11 @@ public class HouseMonitoringController {
      */
     public double getAVGDailyRainfallOnGivenPeriod(House house, Date initialDate, Date endDate) {
         GeographicArea geoArea = house.getMotherArea();
-        return geoArea.getAvgReadingsFromSensorTypeInGA("rainfall", initialDate, endDate);
+        Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, "rainfall");
+        if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
+            return Double.NaN;
+        }
+        return closestSensor.getReadingList().getAverageReadingsBetweenTwoDays(initialDate, endDate);
     }
 
     public double getTotalRainfallOnGivenDayHouseArea(GeographicArea geoArea, Date day) {
@@ -116,8 +125,8 @@ public class HouseMonitoringController {
         return getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature").getReadingList().getMostRecentValueOfReading();
     }
 
-    public String getHouseInfoForOutPutMessage (House house){
-      return "The Average Rainfall on the house area of" + house.getHouseId();
+    public String getHouseInfoForOutputMessage(House house) {
+        return "The Average Rainfall on the house area of " + house.getHouseId();
     }
 
 }
