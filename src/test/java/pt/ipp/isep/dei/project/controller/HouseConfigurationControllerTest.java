@@ -134,6 +134,40 @@ class HouseConfigurationControllerTest {
         assertEquals("Casa de praia", result);
     }
 
+    @Test
+    void seeIfAddRoomToHouseWorks() {
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        GeographicArea ga = new GeographicArea();
+        Room room1 = new Room("quarto", 1, 1, 2, 2);
+        Room room2 = new Room("sala", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room1);
+        roomList.addRoom(room2);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        boolean expectedResult = true;
+        //ACT
+        ctrl.createNewRoom("kitchen", 1, 1, 2, 2);
+        boolean result = ctrl.addRoomToHouse(house);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfAddPowerToListSourceFails() {
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        GeographicArea ga = new GeographicArea();
+        Room room1 = new Room("kitchen", 1, 1, 2, 2);
+        Room room2 = new Room("kitchen", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room1);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        house.setRoomList(roomList);
+        house.addRoomToRoomList(room2);
+        ctrl.createNewRoom("kitchen", 1, 1, 2, 2);
+        boolean expectedResult = false;
+        boolean result = ctrl.addRoomToHouse(house);
+        assertEquals(expectedResult, result);
+    }
+
 //    @Test
 //    void seeAddRoomToHouse() {
 //        HouseConfigurationController ctrl = new HouseConfigurationController();

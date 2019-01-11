@@ -131,13 +131,23 @@ class HouseTest {
     }
 
     @Test
+    void seeAddRoomToEmptyRoomList() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
+        Room room = new Room("quarto", 1, 80,2,2);
+        boolean result = house.addRoomToRoomList(room);
+
+        assertTrue(result);
+    }
+    @Test
     void seeAddRoomToRoomList() {
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
-        RoomList rL1 = new RoomList();
-        house.setRoomList(rL1);
         Room room = new Room("quarto", 1, 80,2,2);
+        Room room2 = new Room("sala", 1, 80,2,2);
+        house.addRoomToRoomList(room2);
         boolean result = house.addRoomToRoomList(room);
 
         assertTrue(result);
