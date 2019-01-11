@@ -1170,6 +1170,25 @@ public class ReadingListTest {
         assertEquals(expectedResult, actualResult, 0.001);
     }
 
+    @Test
+    public void seeIfGetLowestValueFromEndOfListOutOfOrder() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 2;
+        double value2 = 1;
+        double expectedResult = 1;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        actualResult = rl1.getLowestValueFromGivenList(valuesOfDay);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
 
     @Test
     public void seeIfGetLowestValueFromListIfValuesEqual() {
@@ -2061,9 +2080,23 @@ public class ReadingListTest {
     @Test
     public void seeIfGetMaximumValueOnGivenDateWorks() {
         ReadingList list = new ReadingList();
-        Date d1 = new GregorianCalendar(2015, 11, 2,1,1,1).getTime();
+        Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2,1,1,1).getTime();
         Reading r1 = new Reading(15, d1);
         Reading r2 = new Reading(30, d1);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMaximumOfGivenDayValueReadings(d1);
+        double expectedResult = 30.0;
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
+    public void seeIfGetMaximumValueOnGivenDateWorksTestCalendar() {
+        ReadingList list = new ReadingList();
+        Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2,4,20,1).getTime();
+        Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2,23,59,59).getTime();
+        Reading r1 = new Reading(15, d1);
+        Reading r2 = new Reading(30, d2);
         list.addReading(r1);
         list.addReading(r2);
         double result = list.getMaximumOfGivenDayValueReadings(d1);

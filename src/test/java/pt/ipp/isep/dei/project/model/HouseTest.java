@@ -35,6 +35,25 @@ class HouseTest {
     }
 
     @Test
+    void seeMinDistanceToSensorInsideIf() {
+        RoomList roomList = new RoomList();
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura","Celsius"), new Local(4, 6, 5), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura","Celsius"), new Local(4, 8, 5), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s3 = new Sensor("sensor2", new TypeSensor("temperatura","Celsius"), new Local(4, 5, 5), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s4 = new Sensor("sensor2", new TypeSensor("temperatura","Celsius"), new Local(4, 9, 5), new GregorianCalendar(2018, 10, 1).getTime());
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        sensorList.addSensor(s3);
+        sensorList.addSensor(s4);
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"),2,3,new Local(4, 5, 50));
+        ga.setSensorList(sensorList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
+        double result = house.getMinDistanceFromHouseToSensor(ga);
+        assertEquals(110.91871788829754, result, 0.01);
+    }
+
+    @Test
     void ensureThatWeGetAltitude(){
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"),2,3,new Local(4, 5, 50));
         RoomList roomList = new RoomList();

@@ -304,7 +304,6 @@ public class ReadingList {
     double getLowestValueFromGivenList(List<Double> valueList) {
         checkIfListValid(valueList);
         double minValue = valueList.get(0);
-
         for (double value : valueList) {
             if (minValue > value) {
                 minValue = value;
@@ -359,14 +358,13 @@ public class ReadingList {
      */
     double getHighestValueInList(List<Double> valueList) {
         checkIfListValid(valueList);
-
-        double maxValue = valueList.get(0);
+        double highestValue = valueList.get(0);
         for (double value : valueList) {
-            if (value >= maxValue) {
-                maxValue = value;
+            if (value > highestValue) {
+                highestValue = value;
             }
         }
-        return maxValue;
+        return highestValue;
     }
 
 

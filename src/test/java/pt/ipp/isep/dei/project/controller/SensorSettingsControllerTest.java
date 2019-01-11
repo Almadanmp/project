@@ -44,11 +44,10 @@ class SensorSettingsControllerTest {
         double lat = 50.0;
         double lon = 50.0;
         double alt = 50.0;
-        ctrl.createLocal(lat, lon, alt);
         Local expectedResult = new Local(50, 50, 50);
 
         //Act
-        Local actualResult = ctrl.getLocal();
+        Local actualResult = ctrl.createLocal(lat, lon, alt);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -106,13 +105,12 @@ class SensorSettingsControllerTest {
 
         //Arrange
         SensorSettingsController ctrl = new SensorSettingsController();
-        String typeString = "Humedade";
+        String typeString = "Humidade";
         String units = "kg/m³";
-        ctrl.createType(typeString, units);
-        String expectedResult = "Humedade";
+        String expectedResult = "Humidade";
 
         //Act
-        String actualResult = ctrl.getType().getName();
+        String actualResult = ctrl.createType(typeString, units).getName();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -127,11 +125,10 @@ class SensorSettingsControllerTest {
         int year = 1989;
         int month = 7;
         int day = 12;
-        ctrl.createDate(year, month, day);
         Date expectedResult = new GregorianCalendar(1989, 7, 12).getTime();
 
         //Act
-        Date actualResult = ctrl.getDate();
+        Date actualResult = ctrl.createDate(year, month, day);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -155,7 +152,7 @@ class SensorSettingsControllerTest {
         int day = 9;
         Date date1 = ctrl.createDate(year, month, day);
         ctrl.createSensor(nameString, type1, loc1, date1);
-        TypeSensor t1 = new TypeSensor("Humedade", "kg/m³");
+        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         Sensor expectedResult = new Sensor("XV-56D", t1, loc1, new GregorianCalendar(2018, 8, 9).getTime());
 
         //Act
