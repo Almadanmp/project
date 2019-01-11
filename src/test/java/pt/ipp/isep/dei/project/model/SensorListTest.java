@@ -647,10 +647,12 @@ public class SensorListTest {
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
+        sensorList1.addSensor(s1);
         List<Sensor> actualResult = sensorList1.getSensorListByType("Rain");
         List<Sensor> expectedResult = new ArrayList<>();
         expectedResult.add(s1);
         expectedResult.add(s3);
+
 
         //Assert
         expectedResult.equals(actualResult);
