@@ -256,18 +256,26 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    void seeIfRoomIsPrinted(){
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),new GeographicArea(),new RoomList());
+    void seeIfPrintRoomElementsByIndex() {
+        //Arrange
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        GeographicArea ga = new GeographicArea();
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
-        Room room = new Room("Quarto", 1, 20,2,2);
         roomList.addRoom(room);
-        house.setRoomList(roomList);
-        EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
-        String result = ctrlUS145.printHouseRoomList(house);
-        String expectedResult = "---------------\n" +
-                "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
-                "---------------\n";
-        assertEquals(expectedResult, result);
+        roomList.addRoom(room1);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
+
+        //Act
+        String result = ctrl.printHouseRoomsByIndex(list,house);
+        String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -317,6 +325,39 @@ class EnergyGridSettingsControllerTest {
         String expectedResult = "quarto1, 1, 2.0, 2.0, 2.0.\n";
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void seeIfPrintsInvalidList() {
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        EnergyGrid grid = new EnergyGrid("grid", 400);
+        String expectedResult = "Invalid List - List is Empty\n";
+        String result = ctrl.printGridRooms(grid);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintsRoomList() {
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        Room room1EdC = new Room("B107", 1, 7,11,3.5);
+        Room room2EdC = new Room("B109", 1, 7,11,3.5);
+        Room room3EdC = new Room("B106", 1, 7,13,3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C",333);
+        EnergyGridList egl = new EnergyGridList();
+        egl.addEnergyGridToEnergyGridList(eg);
+        RoomList rl = new RoomList();
+        eg.setListOfRooms(rl);
+        rl.addRoom(room1EdC);
+        rl.addRoom(room2EdC);
+        rl.addRoom(room3EdC);
+        String expectedResult = "---------------\n" +
+                "0) Designation: B107 | House Floor: 1 | \n"+
+                "1) Designation: B109 | House Floor: 1 | \n"+
+                "2) Designation: B106 | House Floor: 1 | \n" +
+                "---------------\n";
+        String result = ctrl.printGridRooms(eg);
+        assertEquals(expectedResult, result);
+    }
+
 
 
 
