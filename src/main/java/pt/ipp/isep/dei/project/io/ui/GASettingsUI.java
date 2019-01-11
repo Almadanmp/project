@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.GASettingsController;
-import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.TypeArea;
@@ -29,7 +28,6 @@ class GASettingsUI {
     private String nameOfGeoArea;
     private String mDaughterAreaName;
     private String mMotherAreaName;
-    private String mGeoAreaName;
     private String mContainedAreaName;
     private String mContainerAreaName;
 
@@ -38,16 +36,17 @@ class GASettingsUI {
     }
 
     void runGASettings(GeographicAreaList programGAList, TypeAreaList programTypeAreaList) {
+        UtilsUI utils = new UtilsUI();
+        boolean activeInput = true;
+        int option;
         if (programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
             System.out.println("Invalid Geographic Area List - List Is Empty");
             return;
         }
-        boolean activeInput = false;
-        int option;
         System.out.println("--------------\n");
         System.out.println("Geographic Area Settings\n");
         System.out.println("--------------\n");
-        while (!activeInput) {
+        while (activeInput) {
             printOptionMessage();
             option = UtilsUI.readInputNumberAsInt();
             String mStringMessageAskingToCreateGeographicAreaType = "There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.";
@@ -60,7 +59,7 @@ class GASettingsUI {
                     getInputUS01();
                     updateModelUS01(programTypeAreaList);
                     displayStateUS01();
-                    activeInput = true;
+                    activeInput = false;
                     break;
 
                 case 2:
@@ -70,7 +69,7 @@ class GASettingsUI {
                     }
                     updateModelUS02(programTypeAreaList);
                     displayStateUS02();
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 3:
                     if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
@@ -83,7 +82,7 @@ class GASettingsUI {
                     updateGeoAreaUS03();
                     updateModelUS03(programGAList);
                     displayStateUS03();
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 4:
                     if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().size() == 0) {
@@ -96,24 +95,24 @@ class GASettingsUI {
                     } else {
                         displayGAListByTypeArea();
                     }
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 5:
-                    getInputGeographicArea(programGAList);
+                    this.mGeoArea = utils.getInputGeographicArea(programGAList);
                     this.mMotherAreaName = mGeoArea.getId();
                     printAreaByName(mMotherAreaName, programGAList); //TODO Method in UI. Print by name is the responsibility of GAList class. Controller should call that method.
-                    getInputGeographicArea(programGAList);
+                    this.mGeoArea = utils.getInputGeographicArea(programGAList);
                     this.mDaughterAreaName = mGeoArea.getId();
                     printAreaByName(mDaughterAreaName, programGAList); //TODO Method in UI. Print by name is the responsibility of GAList class. Controller should call that method
                     updateStateUS07(programGAList);
                     displayStateUS07();
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 6:
                     getContainerArea(programGAList);
                     getContainedArea(programGAList);
                     checkIfContained(programGAList);
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 0:
                     return;
@@ -215,97 +214,6 @@ class GASettingsUI {
             }
         }
     }
-
-
-    // OPÇÃO LISTAR POR NOMES / POR LISTA - GEOGRAPHIC AREA
-
-    private void getInputGeographicArea(GeographicAreaList newGeoListUi) {
-        System.out.println(
-                "We need to know what Geographic Area you want to work with. This can be the Geographic Area your house is in, or any Geographic Area you want to edit.\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
-                        "0) Return;");
-        boolean activeInput = false;
-        while (!activeInput) {
-            int option = readInputNumberAsInt();
-            switch (option) {
-                case 1:
-                    getInputGeographicAreaName();
-                    if (!getGeographicAreaByName(newGeoListUi)) {
-                        System.out.println("Unable to select a Geographic Area. Returning to main menu.");
-                        return;
-                    }
-                    activeInput = true;
-                    break;
-                case 2:
-                    getInputGeographicAreaByList(newGeoListUi);
-                    activeInput = true;
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println(INVALID_OPTION);
-                    break;
-            }
-        }
-    }
-
-    private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
-        HouseConfigurationController ctrl = new HouseConfigurationController();
-        List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeoAreaName, newGeoListUi);
-
-        while (listOfIndexesGeographicAreas.isEmpty()) {
-            System.out.println("There is no Geographic Area with that name. Please insert the name of a Geographic Area" +
-                    " that exists or  Type 'exit' to cancel and create a new Geographic Area on the Main Menu.");
-            if (!getInputGeographicAreaName()) {
-                return false;
-            }
-            listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeoAreaName, newGeoListUi);
-        }
-
-        if (listOfIndexesGeographicAreas.size() > 1) {
-            System.out.println("There are multiple Geographic Areas with that name. Please choose the right one.");
-            System.out.println(ctrl.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas, newGeoListUi));
-            int aux = readInputNumberAsInt();
-            if (listOfIndexesGeographicAreas.contains(aux)) {
-                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
-                System.out.println("You have chosen the following Geographic Area:");
-                System.out.println(ctrl.printGA(mGeoArea));
-            } else {
-                System.out.println(INVALID_OPTION);
-            }
-        } else {
-            System.out.println("You have chosen the following Geographic Area:");
-            mGeoArea = newGeoListUi.getGeographicAreaList().get(listOfIndexesGeographicAreas.get(0));
-            System.out.println(ctrl.printGA(mGeoArea));
-        }
-        return true;
-    }
-
-    private boolean getInputGeographicAreaName() {
-        System.out.println("Please type the name of the Geographic Area Where Your House Is Located.");
-        Scanner scanner = new Scanner(System.in);
-        this.mGeoAreaName = scanner.nextLine();
-        return (!("exit".equals(mGeoAreaName)));
-    }
-
-
-    private void getInputGeographicAreaByList(GeographicAreaList newGeoListUi) {
-        boolean activeInput = false;
-        System.out.println("Please select the Geographic Area in which your House is in from the list: ");
-        while (!activeInput) {
-            GASettingsController controller = new GASettingsController();
-            System.out.println(controller.printGAList(newGeoListUi));
-            int aux = readInputNumberAsInt();
-            if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
-                mGeoArea = newGeoListUi.getGeographicAreaList().get(aux);
-                activeInput = true;
-                System.out.println("You have chosen the following Geographic Area:");
-                System.out.println((mGeoArea.printGeographicArea()));
-            } else {
-                System.out.println(INVALID_OPTION);
-            }
-        }
-    }
-
 
 
 /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
@@ -476,7 +384,8 @@ or indirectly, in another one. */
      * this method makes the user define the NAME of the GeographicArea CONTAINER
      */
     private void getContainerArea(GeographicAreaList newGeoListUi) {
-        getInputGeographicArea(newGeoListUi);
+        UtilsUI utils = new UtilsUI();
+        this.mGeoArea = utils.getInputGeographicArea(newGeoListUi);
         this.mContainerAreaName = mGeoArea.getId();
     }
 
@@ -485,7 +394,8 @@ or indirectly, in another one. */
      * this method makes the user define the NAME of the GeographicArea CONTAINED
      */
     private void getContainedArea(GeographicAreaList newGeoListUi) {
-        getInputGeographicArea(newGeoListUi);
+        UtilsUI utils = new UtilsUI();
+        this.mGeoArea = utils.getInputGeographicArea(newGeoListUi);
         this.mContainedAreaName = mGeoArea.getId();
     }
 
