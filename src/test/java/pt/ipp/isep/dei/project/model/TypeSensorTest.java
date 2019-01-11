@@ -108,11 +108,56 @@ public class TypeSensorTest {
     }
 
     @Test
-    public void seeIfEqualsWorksSameObject() {
+    public void seeIfEqualsWorksObject() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Movimento", "m/s");
         TypeSensor t2 = t1;
         boolean expectedResult = true;
+        boolean actualResult;
+
+        //Act
+        actualResult = t1.equals(t2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEqualsWorksSameObject() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Movimento", "m/s");
+        TypeSensor t2 = new TypeSensor("Movimento", "m/s");
+        boolean expectedResult = true;
+        boolean actualResult;
+
+        //Act
+        actualResult = t1.equals(t2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEqualsFalseWorksSameODifUnits() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Movimento", "m");
+        TypeSensor t2 = new TypeSensor("Movimento", "m/s");
+        boolean expectedResult = false;
+        boolean actualResult;
+
+        //Act
+        actualResult = t1.equals(t2);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfEqualsFalseWorksSameObjectDifName() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Coisa", "m/s");
+        TypeSensor t2 = new TypeSensor("Movimento", "m/s");
+        boolean expectedResult = false;
         boolean actualResult;
 
         //Act
