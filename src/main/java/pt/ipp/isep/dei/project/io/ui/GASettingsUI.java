@@ -359,7 +359,7 @@ class GASettingsUI {
     /* USER STORY 07 - */
 
     private void printAreaByName(String name, GeographicAreaList newGeoListUi) {
-        if (mController.validateGeoArea(name, newGeoListUi)) {
+        if (mController.checkIfListContainsGeoArea(name, newGeoListUi)) {
             System.out.println("Success, you have inserted a valid Geographic Area.");
         } else {
             System.out.println("Error! You have inserted a non-existant Geographic Area.");
@@ -367,8 +367,8 @@ class GASettingsUI {
     }
 
     private void updateStateUS07(GeographicAreaList newGeoListUi) {
-        GeographicArea daughterArea = mController.matchGeoArea(mDaughterAreaName, newGeoListUi);
-        GeographicArea motherArea = mController.matchGeoArea(mMotherAreaName, newGeoListUi);
+        GeographicArea daughterArea = mController.matchGeoAreaByName(mDaughterAreaName, newGeoListUi);
+        GeographicArea motherArea = mController.matchGeoAreaByName(mMotherAreaName, newGeoListUi);
         mController.setMotherArea(daughterArea, motherArea);
     }
 
@@ -407,7 +407,7 @@ or indirectly, in another one. */
      */
 
     private void checkIfContained (GeographicAreaList newGeoListUi) {
-        if (!(mController.matchGeographicAreas(mContainedAreaName, mContainerAreaName, newGeoListUi))) {
+        if (!(mController.seeIfGAListContainsAreasByName(mContainedAreaName, mContainerAreaName, newGeoListUi))) {
             System.out.println("The given areas are invalid!");
             return;
         }

@@ -459,7 +459,7 @@ class GASettingsControllerTest {
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
         GASettingsController ctrl = new GASettingsController();
 
-        GeographicArea actualResult = ctrl.matchGeoArea("Oporto",geographicAreaList);
+        GeographicArea actualResult = ctrl.matchGeoAreaByName("Oporto",geographicAreaList);
 
         assertEquals(ga1, actualResult);
     }
@@ -471,7 +471,7 @@ class GASettingsControllerTest {
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
         GASettingsController ctrl = new GASettingsController();
 
-        GeographicArea actualResult = ctrl.matchGeoArea("Gaia", geographicAreaList);
+        GeographicArea actualResult = ctrl.matchGeoAreaByName("Gaia", geographicAreaList);
 
         assertNull(actualResult);
     }
@@ -507,7 +507,7 @@ class GASettingsControllerTest {
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
         gAL1.addGeographicAreaToGeographicAreaList(gA3);
         //Act
-        GeographicArea actualResult = ctrl.matchGeoArea("Portugal", gAL1);
+        GeographicArea actualResult = ctrl.matchGeoAreaByName("Portugal", gAL1);
         //Assert
         assertEquals(gA1, actualResult);
     }
@@ -537,7 +537,7 @@ class GASettingsControllerTest {
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
         gAL1.addGeographicAreaToGeographicAreaList(gA3);
         //Act
-        String actualResult = ctrl.printGeographicAreaListNames(gAL1);
+        String actualResult = ctrl.printGeoAreaNamesFromList(gAL1);
         String expectedResult = "Geographic Area List: \n" +
                 "-Portugal; \n" +
                 "-Oporto; \n" +
@@ -558,7 +558,7 @@ class GASettingsControllerTest {
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
         gAL1.addGeographicAreaToGeographicAreaList(gA3);
         //Act
-        boolean actualResult = ctrl.validateGeoArea("Oporto", gAL1);
+        boolean actualResult = ctrl.checkIfListContainsGeoArea("Oporto", gAL1);
         //Assert
         assertTrue(actualResult);
     }
@@ -575,7 +575,7 @@ class GASettingsControllerTest {
         gAL1.addGeographicAreaToGeographicAreaList(gA2);
         gAL1.addGeographicAreaToGeographicAreaList(gA3);
         //Act
-        boolean actualResult = ctrl.matchGeographicAreas("Oporto", "Portugal", gAL1);
+        boolean actualResult = ctrl.seeIfGAListContainsAreasByName("Oporto", "Portugal", gAL1);
         //Assert
         assertTrue(actualResult);
     }
