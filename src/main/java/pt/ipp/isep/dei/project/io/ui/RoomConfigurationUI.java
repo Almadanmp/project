@@ -13,6 +13,7 @@ class RoomConfigurationUI {
     private RoomConfigurationController mRoomConfigurationController;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private Room mRoom;
+    private RoomList mRoomList;
     private Sensor mSensor;
     private String mRoomName;
     private SensorList mSensorList;
@@ -27,15 +28,18 @@ class RoomConfigurationUI {
         this.mGeoArea = house.getMotherArea();
         this.mSensorList = mGeoArea.getSensorList();
         this.mHouse = house;
+        this.mRoomList = mHouse.getRoomList();
         System.out.println("--------------\n");
         System.out.println("Room Configuration\n");
         System.out.println("--------------\n");
-        getInputRoom();
-        if (mRoom == null) {
-            System.out.println("Unable to select a room. Returning to main menu.");
+        if (mRoomList.getRoomList().isEmpty() ||mRoomList == null) {
+            System.out.println("There's no available rooms in the house");
             return;
         }
+        getInputRoom();
+
         getInputSensor();
+
 
     }
 
