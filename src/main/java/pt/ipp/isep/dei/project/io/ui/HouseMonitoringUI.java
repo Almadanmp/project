@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.Sensor;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
 import java.util.List;
@@ -46,6 +43,8 @@ public class HouseMonitoringUI {
                     " your house first through the main menu");
             return;
         }
+        RoomList roomList = new RoomList();
+        roomList = programHouse.getRoomList();
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -56,7 +55,11 @@ public class HouseMonitoringUI {
             option = utils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if (!getInputRoom(programHouse) || !getInputSensor()) {
+                    if (roomList == null || roomList.getRoomList().isEmpty()) {
+                        System.out.println("Your house doesn't have any rooms. Please add rooms to house to continue.");
+                        return;
+                    }
+                    else if (!getInputRoom(programHouse) || !getInputSensor()) {
                         return;
                     }
                     getInputStartDate();
@@ -66,6 +69,10 @@ public class HouseMonitoringUI {
                     break;
 
                 case 2:
+                    if (roomList == null || roomList.getRoomList().isEmpty()) {
+                        System.out.println("Your house doesn't have any rooms. Please add rooms to house to continue.");
+                        return;
+                    }
                     if (!getInputRoom(programHouse)) {
                         return;
                     }
