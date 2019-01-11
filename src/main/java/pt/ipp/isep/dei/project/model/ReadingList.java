@@ -113,7 +113,7 @@ public class ReadingList {
         return cal.getTime();
     }
 
-     private Date getDateAfterEndMonth(Date dateGiven) {
+    private Date getDateAfterEndMonth(Date dateGiven) {
         ReadingList rl1 = new ReadingList();
         Date endOfMonth = rl1.getLastDateOfMonthFromGivenDate(dateGiven);
 
@@ -567,20 +567,34 @@ public class ReadingList {
 
     /**
      * Method that gives the Average of Readings between two dates (given days)
+     *
      * @param minDate
      * @param maxDate
      * @return average
      */
-    double getAverageReadingsBetweenTwoDays(Date minDate, Date maxDate) {
+    public double getAverageReadingsBetweenTwoDays(Date minDate, Date maxDate) {
         List<Integer> daysWithReadings = getListOfDaysWithReadingsBetweenTwoGivenDates(minDate, maxDate);
         List<Double> avgValuesFromDaysWithReadings = new ArrayList<>();
-            for (int day : daysWithReadings) {
+        for (int day : daysWithReadings) {
             List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(day);
             double avgDay;
             avgDay = getAverageFromGivenList(valueReadingsThatMatchDay);
             avgValuesFromDaysWithReadings.add(avgDay);
         }
-        return getAverageFromGivenList(avgValuesFromDaysWithReadings );
+        return getAverageFromGivenList(avgValuesFromDaysWithReadings);
+    }
+
+    /**
+     * Simple method to indicate if this reading list is empty i.e. has no registered readings.
+     *
+     * @return whether the list is empty or not.
+     */
+    public boolean isEmpty() {
+        if (mReadings == null) {
+            return true;
+        } else {
+            return mReadings.isEmpty();
+        }
     }
 }
 

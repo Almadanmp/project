@@ -1,31 +1,12 @@
 @startuml
 actor User
 User -> MainUI: Get Average Rainfall on House Area
-MainUI -> HouseMonitoringUI: Get Average Rainfall on House Area
-HouseMonitoringUI --> User: Request Geographic Area Name or Index from List
-User -> MainUI: insert data (Geographic Area name) or Select GA
-MainUI -> HouseMonitoringUI: select Geographic Area by name or from list
-HouseMonitoringUI ->HouseMonitoringController: check if name/index is contained in list
-HouseMonitoringController -> GeographicAreaList: check if name/index is contained in list
-GeographicAreaList -> GeographicArea: match by name or by index
-GeographicArea -> GeographicArea: validate data
-GeographicArea --> HouseMonitoringUI: return Geographic Area
-HouseMonitoringUI -> HouseMonitoringUI: set mGeoArea
-HouseMonitoringUI --> User: Request House Name or Index from List
-User -> MainUI: insert data (House name) or Select House
-MainUI -> HouseMonitoringUI: select House by name or from list
-HouseMonitoringUI -> HouseMonitoringController: check if name/index is contained in list
-HouseMonitoringController -> HouseList: check if name/index is contained in list
-HouseList -> House: match by name or by index
-House -> House: validate data
-House --> HouseMonitoringUI: return House
-HouseMonitoringUI -> HouseMonitoringUI: set mHouse
 HouseMonitoringUI --> User: Request Date
-User -> MainUI: insert startDate (Date(y-m-d))
-MainUI -> HouseMonitoringUI: set data (Date(y-m-d))
+User -> HouseMonitoringUI: insert startDate (Date(y-m-d))
+MainUI -> HouseMonitoringUI: create data (Date(y-m-d))
 HouseMonitoringUI -> HouseMonitoringUI: set data (year1, month1, day1)
-User -> MainUI: insert endDate (Date(y-m-d))
-MainUI -> HouseMonitoringUI: set data (Date(y-m-d))
+User -> HouseMonitoringUI: insert endDate (Date(y-m-d))
+MainUI -> HouseMonitoringUI: create data (Date(y-m-d))
 HouseMonitoringUI -> HouseMonitoringUI: set data (year2, month2, day2)
 HouseMonitoringUI -> HouseMonitoringController: createDate (year1, month1, day1)
 HouseMonitoringController --> HouseMonitoringUI: return initialDate
