@@ -300,7 +300,7 @@ public class ReadingList {
         checkIfListValid(valueList);
         double minValue = valueList.get(0);
         for (double value : valueList) {
-            if (minValue >= value) {
+            if (minValue > value) {
                 minValue = value;
             }
         }
@@ -355,7 +355,7 @@ public class ReadingList {
         checkIfListValid(valueList);
         double highestValue = valueList.get(0);
         for (double value : valueList) {
-            if (value >= highestValue) {
+            if (value > highestValue) {
                 highestValue = value;
             }
         }
@@ -369,7 +369,7 @@ public class ReadingList {
      *
      * @return average value of all reading from given date's day
      */
-    public double getAverageOfGivenDayValueReadings(Date dateGiven) {
+    double getAverageOfGivenDayValueReadings(Date dateGiven) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(dateGiven);
         cal.set(Calendar.HOUR_OF_DAY, 23);
@@ -509,7 +509,7 @@ public class ReadingList {
         double maxValue = mReadings.get(0).getmValue();
         for (Reading mReading : mReadings) {
             Date currentReadingDate = mReading.getmDate();
-            if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue <= mReading.getmValue()) {
+            if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue < mReading.getmValue()) {
                 maxValue = mReading.getmValue();
             }
         }
@@ -530,7 +530,7 @@ public class ReadingList {
      *
      * @return sum of all reading from given date's day
      */
-    public double getTotalSumOfGivenDayValueReadings(Date dateGiven) {
+    double getTotalSumOfGivenDayValueReadings(Date dateGiven) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(dateGiven);
         cal.add(Calendar.DAY_OF_MONTH, -1);
@@ -611,7 +611,7 @@ public class ReadingList {
      *
      * @return returns the average of all values contained within that ArrayList
      */
-    double gettotalFromGivenList(List<Double> valueList) {
+    private double gettotalFromGivenList(List<Double> valueList) {
         double sum = 0;
         if (valueList.isEmpty()) {
             return NaN;

@@ -203,7 +203,6 @@ class GASettingsUI {
             if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
                 this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
                 activeInput = true;
-                //TODO fazer um print bonito
                 System.out.println("You have chosen the following Geographic Area Type:");
                 System.out.println(mController.printTypeArea(this.mTypeArea));
             } else {

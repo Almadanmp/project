@@ -199,7 +199,6 @@ public class SensorList {
             result.append("Sensor Type: ").append(aux.getTypeSensor().getName()).append("\n");
         }
         result.append(mStringEnhancer);
-        System.out.println(result.toString());
         return result.toString();
     }
 
