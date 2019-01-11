@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 class HouseTest {
 
@@ -74,20 +72,9 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
         House house2 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
 
-        boolean actualResult = house.equals(house2);
+        Boolean actualResult = house.equals(house2);
 
-        assertTrue( actualResult);
-    }
-
-    @Test
-    void seeEqualToSameObject2() {
-        GeographicArea ga = new GeographicArea();
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50),ga, roomList);
-
-        boolean actualResult = house.equals(house);
-
-        assertTrue( actualResult);
+        assertEquals(true, actualResult);
     }
 
     @Test
@@ -134,7 +121,7 @@ class HouseTest {
         RoomList rL1 = new RoomList();
         house.setRoomList(rL1);
         Room room = new Room("quarto", 1, 80,2,2);
-        Room room2 = new Room("quarto", 2, 80,2,2);
+        Room room2 = new Room("quarto", 1, 80,2,2);
         house.addRoomToRoomList(room2);
         boolean result = house.addRoomToRoomList(room);
 
@@ -356,7 +343,15 @@ class HouseTest {
         assertEquals(expectedResult,actualResult);
     }
 
-
+    @Test
+    public void hashCodeDummyTest() {
+        GeographicArea ga = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        int expectedResult = 1;
+        int actualResult = house.hashCode();
+        assertEquals(expectedResult, actualResult);
+    }
 
 }
 

@@ -43,9 +43,6 @@ public class House {
         this.mId = id;
     }
 
-    public String getId() {
-        return this.mId;
-    }
     public String getStreet() {
         return this.mStreet;
     }
@@ -110,7 +107,8 @@ public class House {
         for (Room r : this.mRoomList.getRoomList()) {
             String roomNameTest = r.getRoomName();
             if (roomNameTest.equals(roomToAddName))
-                return false; }
+                return false;
+        }
         this.mRoomList.addRoom(room);
         return true;
     }
@@ -176,7 +174,7 @@ public class House {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.mStreet);
+        return 1;
     }
 }
 
