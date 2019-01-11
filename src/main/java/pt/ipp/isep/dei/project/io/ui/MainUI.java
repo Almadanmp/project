@@ -349,7 +349,7 @@ public class MainUI {
                         break;
                     case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                        energyGridSettings.run(EdificioB);
+                        energyGridSettings.run(house);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

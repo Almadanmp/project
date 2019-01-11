@@ -47,7 +47,6 @@ class EnergyGridSettingsUI {
                     break;
                 case 3:
                     getInputEnergyGrid(mHouse);
-                    //TODO check if energy grid was selected
                     displayRoomList(mEnergyGrid);
                     activeInput = false;
                     break;
@@ -134,10 +133,12 @@ class EnergyGridSettingsUI {
     }
 
     private boolean getInputGridName() {
-        Scanner mScanner = new Scanner(System.in);
-        System.out.println("Please type the name of the Grid you want to access.");
-        this.mGridName = mScanner.nextLine();
-        return (!(mGridName.equals("exit")));
+        if (!this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
+            Scanner mScanner = new Scanner(System.in);
+            System.out.println("Please type the name of the Grid you want to access.");
+            this.mGridName = mScanner.nextLine();
+            return (!(mGridName.equals("exit")));
+        } else {return false;}
     }
 
     private void getInputGridByList(House house) {
@@ -305,7 +306,9 @@ class EnergyGridSettingsUI {
     // can attach/detach rooms from it.
 
     private void displayRoomList(EnergyGrid energyGrid) {
-        System.out.println(mController.printRooms(energyGrid.getListOfRooms()));
+        if (!(mEnergyGrid == null)) {
+            System.out.println(mController.printRooms(energyGrid.getListOfRooms()));
+        }else {System.out.println("The energy grid you've selected has no rooms attached to it.");}
     }
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
