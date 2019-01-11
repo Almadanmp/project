@@ -9,14 +9,16 @@ import static java.lang.Double.NaN;
  */
 
 public class ReadingList {
-    List<Reading> mReadings = new ArrayList<>();
+    private List<Reading> mReadings = new ArrayList<>();
 
     /**
      * Empty Constructor to always allow the creation of an ArrayList of Readings.
      */
 
     public ReadingList() {
-
+        /* This empty constructor is kept empty so it can be used to instantiate lists even when they have no elements.
+           This is especially useful to avoid NullPointer exceptions in other methods.
+         */
     }
 
     /**
