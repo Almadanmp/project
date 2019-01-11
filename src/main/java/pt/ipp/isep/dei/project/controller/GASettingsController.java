@@ -147,9 +147,11 @@ public class GASettingsController {
      * @param motherArea   is the area that contains another.
      */
 
-    public void setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
-        daughterArea.setMotherArea(motherArea);
-        this.mMotherArea = motherArea;
+    public boolean setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
+        if(daughterArea.setMotherArea(motherArea)) {
+            this.mMotherArea = motherArea;
+            return true;
+        }else return false;
     }
 
     /**
@@ -184,8 +186,8 @@ public class GASettingsController {
     /*USER STORY 08 - As an Administrator, I want to find out if a geographical area is included, directly
     or indirectly, in another one. */
 
-    private GeographicArea mGeographicAreaContained;
-    private GeographicArea mGeographicAreaContainer;
+    private GeographicArea mGeoAreaContained;
+    private GeographicArea mGeoAreaContainer;
 
     /**
      * @param nameOfAreaContained is the name of the area contained in another area.
@@ -198,13 +200,13 @@ public class GASettingsController {
         if (geographicAreaList.checkIfListIsValid()) {
             for (GeographicArea ga : geographicAreaList.getGeographicAreaList()) {
                 if (ga.getId().equals(nameOfAreaContained)) {
-                    mGeographicAreaContained = ga;
+                    mGeoAreaContained = ga;
                 }
                 if (ga.getId().equals(nameOfAreaContainer)) {
-                    mGeographicAreaContainer = ga;
+                    mGeoAreaContainer = ga;
                 }
             }
-            return mGeographicAreaContained != null && mGeographicAreaContainer != null;
+            return mGeoAreaContained != null && mGeoAreaContainer != null;
         }
         return false;
     }
@@ -214,7 +216,7 @@ public class GASettingsController {
      */
 
     public boolean seeIfItsContained() {
-        return mGeographicAreaContained.checkIfAreaIsContained(mGeographicAreaContained, mGeographicAreaContainer);
+        return mGeoAreaContained.checkIfAreaIsContained(mGeoAreaContained, mGeoAreaContainer);
     }
 
 }

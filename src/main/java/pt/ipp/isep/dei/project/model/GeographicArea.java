@@ -104,8 +104,13 @@ public class GeographicArea {
         this.mAreaSensors = listToSet;
     }
 
-    public void setMotherArea(GeographicArea geoArea) {
-        this.mMotherArea = geoArea;
+    public boolean setMotherArea(GeographicArea geoArea) {
+        if (geoArea != null) {
+            this.mMotherArea = geoArea;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     GeographicArea getMotherArea() {
