@@ -6,9 +6,33 @@ import pt.ipp.isep.dei.project.model.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
 
 class SensorSettingsControllerTest {
+
+    //user 005
+    @Test
+    void seeIfSetTypeWorksFalse() {
+        //Arrange
+        SensorSettingsController ctrl = new SensorSettingsController();
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList(new Sensor[]{s1, s2});
+        boolean expectedResult = false;
+
+        //Act
+
+        boolean actualResult = ctrl.setTypeSensor(lc,"Portugal", "Movement");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
 
     //USER STORY 006 TESTS
 
@@ -94,22 +118,6 @@ class SensorSettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfTypeIsCreated2() {
-
-        //Arrange
-        SensorSettingsController ctrl = new SensorSettingsController();
-        String typeString = "Humedade";
-        String units = "kg/m³";
-        ctrl.createType(typeString, units);
-        String expectedResult = "Humedade";
-
-        //Act
-        String actualResult = ctrl.getType().getName();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void seeIfDateIsCreated() {
@@ -239,8 +247,44 @@ class SensorSettingsControllerTest {
         //Assert
         assertFalse(actualResult);
     }
-/*
+
+//    @Test
+//    void seeIfAddSensorToSensorList() {
+//        SensorSettingsController ctrl = new SensorSettingsController();
+//        GeographicArea ga = new GeographicArea();
+//        Sensor sensor = new Sensor();
+//        ga.addSensorToSensorList(sensor);
+//        boolean result = ctrl.addSensorToGeographicalArea(ga);
+//        boolean expectedResult = true;
+//        assertEquals(expectedResult, result);
+//    }
+
     @Test
+    void seeIfAddSensorToSensorListFalse() {
+        GeographicArea ga = new GeographicArea("porto",new TypeArea("cidade"),1,1,new Local(1,1,1));
+        Sensor sensor = new Sensor("coise",new TypeSensor("temp","celsius"),new Local(1,1,1),new GregorianCalendar(1,1,1,1,1).getTime());
+        Sensor sensor1 = new Sensor("coise1",new TypeSensor("temp","celsius"),new Local(1,1,1),new GregorianCalendar(1,1,1,1,1).getTime());
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(sensor);
+        ga.setSensorList(sensorList);
+        boolean result = ga.addSensorToSensorList(sensor1);
+        boolean expectedResult = true;
+        assertEquals(expectedResult, result);
+    }
+
+//    @Test
+//    void seeIfAddSensorToSensorListFalsen() {
+//        GeographicArea ga = new GeographicArea();
+//        Sensor sensor = new Sensor();
+//        SensorList sensorList = new SensorList();
+//        sensorList.addSensor(sensor);
+//        ga.setSensorList(sensorList);
+//        boolean result = ga.addSensorToSensorList(sensor);
+//        boolean expectedResult = false;
+//        assertEquals(expectedResult, result);
+//    }
+
+/*    @Test
     void seeIfSensorListIsAddedToGeographicArea() {
 
         //Arrange
@@ -265,13 +309,11 @@ class SensorSettingsControllerTest {
         GeographicArea areaG = new GeographicArea("Porto", t1, 2, 3, l1);
         areaG.setId("Alegria");
 
-        String areaNameInput = "Alegria";
         GeographicAreaList xgaList = new GeographicAreaList();
         xgaList.addGeographicAreaToGeographicAreaList(areaG);
 
         //Act
-        boolean actualResult = ctrl.addSensorToGeographicArea(areaNameInput, xgaList, xSensorList);
-
+        boolean actualResult = ctrl.addSensorToGeographicalArea(areaG);
         //Assert
         assertTrue(actualResult);
     }
@@ -300,13 +342,11 @@ class SensorSettingsControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea areaG = new GeographicArea("Porto", t1, 2, 3, l1);
         areaG.setId("Alegria");
-
-        String areaNameInput = "Direita";
         GeographicAreaList xgaList = new GeographicAreaList();
         xgaList.addGeographicAreaToGeographicAreaList(areaG);
 
         //Act
-        boolean actualResult = ctrl.addSensorToGeographicArea(areaNameInput, xgaList, xSensorList);
+        boolean actualResult = ctrl.addSensorToGeographicalArea(areaG);
 
         //Assert
         assertFalse(actualResult);
@@ -317,35 +357,16 @@ class SensorSettingsControllerTest {
 
         //Arrange
         SensorSettingsController ctrl = new SensorSettingsController();
-        String nameString = "XV-56D";
-        double lat = 50.0;
-        double lon = 50.0;
-        double alt = 50.0;
-        Local loc1 = ctrl.createLocal(lat, lon, alt);
-        String typeStr = "Humedade";
-        String unit = "kg/m³";
-        TypeSensor type1 = ctrl.createType(typeStr, unit);
-        int year = 2018;
-        int month = 8;
-        int day = 9;
-        Date date1 = ctrl.createDate(year, month, day);
-        Sensor sens1 = ctrl.createSensor(nameString, type1, loc1, date1);
-        SensorList xSensorList = new SensorList();
-        xSensorList.addSensor(sens1);
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
         GeographicArea areaG = new GeographicArea("Porto", t1, 2, 3, l1);
-        areaG.setId("Alegria");
-
-        String areaNameInput = "Alegria";
-        GeographicAreaList xgaList = new GeographicAreaList();
 
         //Act
-        boolean actualResult = ctrl.addSensorToGeographicArea(areaNameInput, xgaList, xSensorList);
+        boolean actualResult = ctrl.addSensorToGeographicalArea(areaG);
 
         //Assert
         assertFalse(actualResult);
-    }
+    }*/
 
 
     //TODO REVIEW TEST AND METHOD - Sensor List is not being used and test is still working even without sensors
