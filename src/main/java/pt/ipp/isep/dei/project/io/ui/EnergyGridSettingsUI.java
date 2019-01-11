@@ -62,8 +62,7 @@ class EnergyGridSettingsUI {
                     } else if ((this.mHouse.getRoomList().getRoomList().isEmpty())) {
                         System.out.println("Your house doesn't have any rooms. Please create a room to continue.");
                         return;
-                    }
-                    else if(this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
+                    } else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
                         System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
                         return;
                     }
@@ -355,10 +354,7 @@ class EnergyGridSettingsUI {
         switch (option) {
             case 1:
                 getInputRoomName();
-                if (!getRoomByName()) {
-                    System.out.println("Unable to select a Room. Returning to main menu.");
-                    return;
-                }
+                printRoomValidation();
                 break;
             case 2:
                 getInputRoomByListInEG();
@@ -405,12 +401,20 @@ class EnergyGridSettingsUI {
         System.out.println("0) (Return to main menu)\n");
     }
 
-    public void printGridValidation(){
+    void printGridValidation() {
         if (this.mHouse.getEGList() == null) {
-        System.out.println(noGrid);
-        return;
-    } else if ((this.mHouse.getEGList().getEnergyGridList().isEmpty())) {
-        System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
-        return;
+            System.out.println(noGrid);
+            return;
+        } else if ((this.mHouse.getEGList().getEnergyGridList().isEmpty())) {
+            System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
+            return;
+        }
     }
-}}
+
+    void printRoomValidation() {
+        if (!getRoomByName()) {
+            System.out.println("Unable to select a Room. Returning to main menu.");
+            return;
+        }
+    }
+}
