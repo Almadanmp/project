@@ -161,7 +161,7 @@ public class SensorList {
     }
 
     public String printSensorList(Room room) {
-        StringBuilder result = new StringBuilder("---------------\n");
+        StringBuilder result = new StringBuilder(mStringEnhancer);
         if (room.getmRoomSensorList().getSensorList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -170,7 +170,7 @@ public class SensorList {
             result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
             result.append("Sensor Type: ").append(aux.getTypeSensor().getName()).append("\n");
         }
-        result.append("---------------\n");
+        result.append(mStringEnhancer);
         System.out.print(result);
         return result.toString();
     }

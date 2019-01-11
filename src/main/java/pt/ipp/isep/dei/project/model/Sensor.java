@@ -171,7 +171,7 @@ public class Sensor {
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
-    boolean isSensorNameValid(String name) {
+    private boolean isSensorNameValid(String name) {
         return (name != null && !name.isEmpty());
     }
 

@@ -6,17 +6,14 @@ import pt.ipp.isep.dei.project.model.*;
 import java.util.List;
 import java.util.Scanner;
 
-public class RoomConfigurationUI {
+class RoomConfigurationUI {
 
     private House mHouse;
     private GeographicArea mGeoArea;
-    private String geoName;
     private RoomConfigurationController mRoomConfigurationController;
-    private HouseMonitoringController mHouseMonitoringController;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private Room mRoom;
     private Sensor mSensor;
-    private String mNameSensor;
     private String mRoomName;
     private SensorList mSensorList;
     private String mStringChosenSensor = "You have chosen the following Sensor:";
@@ -27,13 +24,11 @@ public class RoomConfigurationUI {
 
     }
 
-    public void run(House house,GeographicArea ga) {
+    void run(House house, GeographicArea ga) {
         Scanner mScanner = new Scanner(System.in);
         this.mGeoArea = ga;
         this.mSensorList = ga.getSensorList();
         this.mHouse = house;
-        boolean activeInput = false;
-        int option;
         System.out.println("--------------\n");
         System.out.println("Room Configuration\n");
         System.out.println("--------------\n");
@@ -213,7 +208,7 @@ public class RoomConfigurationUI {
 
     private void getInputSensorByList(SensorList mSensorList) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        if (mGeoArea.getSensorList().getSensorList().size() == 0) {
+        if (mGeoArea.getSensorList().getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty\n");
             return;
         }
