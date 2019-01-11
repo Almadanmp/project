@@ -197,7 +197,6 @@ public class MainUI {
         mTypeAreaList.addTypeArea(typeAreaA);
         mTypeAreaList.addTypeArea(typeAreaB);
 
-
 /**
 
  // ********* MOCKS EXTRA **********************************************
