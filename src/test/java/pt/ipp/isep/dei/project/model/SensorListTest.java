@@ -633,7 +633,7 @@ public class SensorListTest {
     }
 
     @Test
-    void seeItGetSensorListByType() {
+    void seeItGetSensorListByTypeEquals() {
         //Arrange
 
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
@@ -654,6 +654,30 @@ public class SensorListTest {
 
         //Assert
         expectedResult.equals(actualResult);
+    }
+
+    @Test
+    void seeItGetSensorListByTypeContains() {
+        //Arrange
+
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+
+        //Act
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        List<Sensor> actualResult = sensorList1.getSensorListByType("Rain");
+        List<Sensor> expectedResult = new ArrayList<>();
+        expectedResult.add(s1);
+        expectedResult.add(s3);
+
+        //Assert
+        expectedResult.contains(actualResult);
     }
 
     @Test
