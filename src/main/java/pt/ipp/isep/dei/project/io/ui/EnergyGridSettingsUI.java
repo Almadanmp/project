@@ -15,7 +15,8 @@ class EnergyGridSettingsUI {
     private House mHouse;
     private String mStringRequest = "Would you like to:\n";
     private String mStringRequestChoseFromList = "2) Choose it from a list:\n";
-    private String s1 = "return";
+    private String returnString = "return";
+    private String noGrid = "You don't have a energy grid in your house. Please add a energy grid to continue.";
 
     EnergyGridSettingsUI() {
         this.mController = new EnergyGridSettingsController();
@@ -49,28 +50,20 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 3:
-                    if (this.mHouse.getEGList() == null) {
-                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
-                        return;
-                    }
-                    //fixme criar um método IsEmpty para não aparecer get.get.size (falar com Daniela)
-                    else if((this.mHouse.getEGList().getEnergyGridList().isEmpty())) {
-                        System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
-                        return;
-                    }
+                    printGridValidation();
                     getInputEnergyGrid(mHouse);
                     displayRoomList(mEnergyGrid);
                     activeInput = false;
                     break;
                 case 4:
                     if (this.mHouse.getEGList() == null) {
-                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
+                        System.out.println(noGrid);
                         return;
-                    } else if ((this.mHouse.getRoomList().getRoomList().size() == 0)) {
+                    } else if ((this.mHouse.getRoomList().getRoomList().isEmpty())) {
                         System.out.println("Your house doesn't have any rooms. Please create a room to continue.");
                         return;
                     }
-                    else if(this.mHouse.getEGList().getEnergyGridList().size() == 0) {
+                    else if(this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
                         System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
                         return;
                     }
@@ -80,13 +73,7 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 5:
-                    if (this.mHouse.getEGList() == null) {
-                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
-                        return;
-                    } else if ((this.mHouse.getEGList().getEnergyGridList().size() == 0)) {
-                        System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
-                        return;
-                    }
+                    printGridValidation();
                     getInputEnergyGrid(mHouse);
                     getInputRoomUS149();
                     updateGridUS149(mEnergyGrid, mRoom);
@@ -107,7 +94,7 @@ class EnergyGridSettingsUI {
         UtilsUI utilsUI = new UtilsUI();
         System.out.println(
                 "We need to know which one is your energy grid.\n" + mStringRequest + "1) Type the name of your grid;\n" + mStringRequestChoseFromList +
-                        s1);
+                        returnString);
         int option = utilsUI.readInputNumberAsInt();
         switch (option) {
             case 1:
@@ -196,7 +183,7 @@ class EnergyGridSettingsUI {
         UtilsUI utilsUI = new UtilsUI();
         System.out.println(
                 "We need to know which one is your room.\n" + mStringRequest + "1) Type the name of your Room;\n" + mStringRequestChoseFromList +
-                        s1);
+                        returnString);
         int option = utilsUI.readInputNumberAsInt();
         switch (option) {
             case 1:
@@ -267,9 +254,9 @@ class EnergyGridSettingsUI {
         while (!activeInput) {
             System.out.println(mController.printHouseRoomList(house));
             int aux = utilsUI.readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getRoomList().getRoomList().size()) {
-                this.mRoom = house.getRoomList().getRoomList().get(aux);
+            if (aux < house.getRoomList().getRoomList().size() && aux >= 0) {
                 activeInput = true;
+                this.mRoom = house.getRoomList().getRoomList().get(aux);
             } else {
                 System.out.println(utilsUI.invalidOption);
             }
@@ -363,7 +350,7 @@ class EnergyGridSettingsUI {
         UtilsUI utilsUI = new UtilsUI();
         System.out.println(
                 "We need to know which one is your room.\n" + mStringRequest + "1) Type the name of your Room;\n" + mStringRequestChoseFromList +
-                        s1);
+                        returnString);
         int option = utilsUI.readInputNumberAsInt();
         switch (option) {
             case 1:
@@ -417,4 +404,13 @@ class EnergyGridSettingsUI {
         System.out.println("5) Detach a room from a house grid. (US149)");
         System.out.println("0) (Return to main menu)\n");
     }
-}
+
+    public void printGridValidation(){
+        if (this.mHouse.getEGList() == null) {
+        System.out.println(noGrid);
+        return;
+    } else if ((this.mHouse.getEGList().getEnergyGridList().isEmpty())) {
+        System.out.println("Your energy grid doesn't have any rooms. Please add a room to continue.");
+        return;
+    }
+}}
