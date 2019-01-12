@@ -108,7 +108,7 @@ class HouseConfigurationUI {
     }
 
 
-    /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
+    /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
     private void getInputHouseCharacteristicsUS101() {
 
         Scanner scanner = new Scanner(System.in);
@@ -177,7 +177,7 @@ class HouseConfigurationUI {
 
 
     // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
-    // house floor and dimensions).
+    // house floor and dimensions) - TERESA VARELA.
 
     /**
      * Method creates a new room with the parameters previously provided by the user.
@@ -225,7 +225,8 @@ class HouseConfigurationUI {
     }
 
 
-    /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it. */
+    /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
+    * - MARIA MEIRELES, TERESA VARELA */
 
     private void printRoomList(House house) {
         System.out.println(controller.printRooms(house.getRoomList()));

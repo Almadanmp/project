@@ -241,7 +241,7 @@ class GASettingsUI {
     }
 
     /* USER STORY 002 - As a System Administrator I want to obtain a list of the types of Geographical Areas previously stated.
-     * Class responsible for presenting the list.  */
+     * Class responsible for presenting the list. - NUNO AZEVEDO */
     private void updateModelUS02(TypeAreaList typeAreaList) {
         System.out.println(mController.getTypeAreaList(typeAreaList));
     }

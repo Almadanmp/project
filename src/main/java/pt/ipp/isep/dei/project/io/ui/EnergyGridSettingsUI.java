@@ -264,7 +264,7 @@ class EnergyGridSettingsUI {
 
 
     // USER STORY 130 UI -  As an Administrator, I want to create a house grid, so that I can define the rooms that are
-    // attached to it and the contracted maximum power for that grid.
+    // attached to it and the contracted maximum power for that grid - DANIEL OLIVEIRA .
 
     private void getInputUS130() {
         Scanner scanner = new Scanner(System.in);
@@ -286,7 +286,7 @@ class EnergyGridSettingsUI {
     }
 
     /* USER STORY 135 UI - As an Administrator, I want to add a power source to an energy grid, so that the produced
-    energy may be used by all devices on that grid.
+    energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
 
     private void getInputAndCreatePowerSource() {
@@ -313,7 +313,7 @@ class EnergyGridSettingsUI {
     }
 
     // USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
-    // can attach/detach rooms from it.
+    // can attach/detach rooms from it - JOAO CACHADA.
 
     private void displayRoomList(EnergyGrid energyGrid) {
         if (mEnergyGrid != null) {

@@ -47,22 +47,22 @@ class RoomConfigurationUI {
             printHouseConfigMenu();
             option = utils.readInputNumberAsInt();
             switch (option) {
-                case 1:
+                case 1: //US201
                     activeInput = false;
                     break;
-                case 2:
+                case 2: //US210
                     activeInput = false;
                     break;
-                case 3:
+                case 3: //215
                     activeInput = false;
                     break;
-                case 4:
+                case 4: //US230
                     activeInput = false;
                     break;
-                case 5:
+                case 5: //US250
                     activeInput = false;
                     break;
-                case 6:
+                case 6: //US253
                     if (mGeoArea.getSensorList().getSensorList().isEmpty() || mGeoArea.getSensorList() == null) {
                         System.out.println("There's no available sensors in the Geographical Area");
                         return;

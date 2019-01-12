@@ -347,7 +347,7 @@ public class HouseMonitoringUI {
     }
 
     /**
-     * US610
+     * US610 - CARINA ALAS
      */
     private void updateModel610(House house) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
