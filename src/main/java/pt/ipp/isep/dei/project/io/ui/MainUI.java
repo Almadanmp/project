@@ -2,9 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainUI {
 
@@ -197,8 +195,9 @@ public class MainUI {
         mTypeAreaList.addTypeArea(typeAreaA);
         mTypeAreaList.addTypeArea(typeAreaB);
 
+        // Sensor Type List
 
-/**
+        List<TypeSensor> typeSensorList = new ArrayList<>();
 
  // ********* MOCKS EXTRA **********************************************
 
@@ -276,7 +275,7 @@ public class MainUI {
  energyGridList1.addEnergyGridToEnergyGridList(energyGrid1);
  house4.setEGList(energyGridList1);
 
- */
+
 
 
         // **************************************************************************
@@ -335,6 +334,7 @@ public class MainUI {
                         activeInput = false;
                         break;
                     case 3:
+
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
                         roomConfiguration.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
@@ -342,7 +342,7 @@ public class MainUI {
                         break;
                     case 4:
                         SensorSettingsUI sensorSettings = new SensorSettingsUI();
-                        sensorSettings.run(geographicalAreaList);
+                        sensorSettings.run(geographicalAreaList, typeSensorList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

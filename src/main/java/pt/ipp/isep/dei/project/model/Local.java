@@ -79,7 +79,7 @@ public class Local {
 
     /**
      * Method to obtain the linear distance between two locals in Km.
-     * We only need the builder with two parameters - Latitude & Longitude
+     * We only need the builder with two parameters - Latitude & Longitude.
      * @param local1 Localization 1
      * @return linear distance from Localization 1 to Localization 2
      */
