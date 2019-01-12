@@ -209,5 +209,9 @@ public class EnergyGridSettingsController {
     public boolean removeRoomFromGrid(EnergyGrid grid, Room room) {
         return grid.removeRoom(room);
     }
+
+    public double getTotalPowerFromGrid(EnergyGrid grid) {
+        return grid.getNominalPower();
+    }
 }
 
