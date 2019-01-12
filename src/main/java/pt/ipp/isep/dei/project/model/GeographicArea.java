@@ -34,8 +34,7 @@ public class GeographicArea {
         setLength(length);
         setWidth(width);
         setLocal(location);
-        mAreaSensors = new SensorList();
-
+        this.mAreaSensors = new SensorList();
     }
 
     // Setters and Getters for all the parameters.

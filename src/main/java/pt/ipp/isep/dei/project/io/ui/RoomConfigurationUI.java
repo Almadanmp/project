@@ -24,31 +24,64 @@ class RoomConfigurationUI {
     }
 
     void run(House house) {
-        this.mGeoArea = house.getMotherArea();
-        this.mSensorList = mGeoArea.getSensorList();
+        if (house == null) {
+            System.out.println("Please create a House before you continue.");
+            return;
+        }
         this.mHouse = house;
         RoomList roomList = mHouse.getRoomList();
+        if (roomList == null|| roomList.getRoomList().isEmpty()) {
+            System.out.println("There are no available rooms in the house. Please add a room to continue.");
+            return;
+        }
+        this.mGeoArea = house.getMotherArea();
+        this.mSensorList = mGeoArea.getSensorList();
+        UtilsUI utils = new UtilsUI();
+        boolean activeInput = true;
+        int option;
+
         System.out.println("--------------\n");
         System.out.println("Room Configuration\n");
         System.out.println("--------------\n");
-        if (roomList == null|| roomList.getRoomList().isEmpty()) {
-            System.out.println("There's no available rooms in the house");
-            return;
+        while (activeInput) {
+            printHouseConfigMenu();
+            option = utils.readInputNumberAsInt();
+            switch (option) {
+                case 1:
+                    activeInput = false;
+                    break;
+                case 2:
+                    activeInput = false;
+                    break;
+                case 3:
+                    activeInput = false;
+                    break;
+                case 4:
+                    activeInput = false;
+                    break;
+                case 5:
+                    activeInput = false;
+                    break;
+                case 6:
+                    if (mGeoArea.getSensorList().getSensorList().isEmpty() || mGeoArea.getSensorList() == null) {
+                        System.out.println("There's no available sensors in the Geographical Area");
+                        return;
+                    }
+                    getInputRoom();
+                    getInputSensor();
+                    activeInput = false;
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println(INVALID_OPTION);
+                    break;
+            }
         }
-        if (mGeoArea.getSensorList().getSensorList().isEmpty() ||mGeoArea.getSensorList() == null) {
-            System.out.println("There's no available sensors in the Geographical Area");
-            return;
-        }
-        getInputRoom();
-
-        getInputSensor();
-
-
     }
 
-    /* *****************************************************************************
-     ************************** Room Input Segment ********************************
-     ******************************************************************************/
+
+    //  SHARED METHODS
 
     private void getInputRoom() {
         UtilsUI utils = new UtilsUI();
@@ -141,13 +174,11 @@ class RoomConfigurationUI {
         }
     }
 
-    /* * ****************************************************************************
-     ************************** Sensor Input Segment ******************************
-     ******************************************************************************/
+    /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
+    sensor types, in order to configure it. - ANDRÉ RUA */
 
-    Sensor getInputSensor() {
+    private Sensor getInputSensor() {
         UtilsUI utils = new UtilsUI();
-
         System.out.println(
                 "We need to know which sensor you want to add the room.\n" + "Would you like to:\n" +
                         "1) Type the Sensor name;\n" +
@@ -242,6 +273,19 @@ class RoomConfigurationUI {
                 System.out.println(INVALID_OPTION);
             }
         }
+    }
+
+    /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
+
+    private void printHouseConfigMenu() {
+        System.out.println("House Controller Options:\n");
+        System.out.println("1) Get a list of all devices in a room. (US201)");
+        System.out.println("2) Add a new device to the room from the list of device types (US210)");
+        System.out.println("3) Edit the configuration of an existing device (US215)");
+        System.out.println("4) Get the total nominal power of a room (US230)");
+        System.out.println("5) Get a list of all sensors in a room (US250)");
+        System.out.println("6) Add a sensor to a room from the list of sensor types (US253)");
+        System.out.println("0) (Return to main menu)\n");
     }
 }
 
