@@ -303,7 +303,7 @@ public class MainUI {
                     "4. Sensor Settings.\n",
                     "5. Energy Grid Settings.\n",
                     "6. House Monitoring.\n" +
-                            " 0. Exit Application\n"};
+                    " 0. Exit Application\n"};
 
             System.out.println("Select the task you want to do:");
 
