@@ -4,8 +4,10 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
@@ -13,26 +15,7 @@ import static org.testng.Assert.*;
 class SensorSettingsControllerTest {
 
     //user 005
-    @Test
-    void seeIfSetTypeWorksFalse() {
-        //Arrange
-        SensorSettingsController ctrl = new SensorSettingsController();
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
-        SensorList lc = new SensorList(new Sensor[]{s1, s2});
-        boolean expectedResult = false;
 
-        //Act
-
-        boolean actualResult = ctrl.setTypeSensor(lc, "Portugal", "Movement");
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
 
     //USER STORY 006 TESTS
@@ -51,17 +34,6 @@ class SensorSettingsControllerTest {
         Local actualResult = ctrl.createLocal(lat, lon, alt);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void ensureThatWeSetTypeSensor() {
-        SensorSettingsController ssc = new SensorSettingsController();
-        SensorList sl = new SensorList();
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new GregorianCalendar(2018, 11, 25).getTime());
-        sl.addSensor(s1);
-        boolean expectedResult = true;
-        boolean actualResult = ssc.setTypeSensor(sl, "Sensor 1", "Temperature");
         assertEquals(expectedResult, actualResult);
     }
 
@@ -325,6 +297,7 @@ class SensorSettingsControllerTest {
         Date expectedResult = new GregorianCalendar(2018,12,1).getTime();
         assertEquals(expectedResult,result);
     }
+
 
 
 //    @Test
