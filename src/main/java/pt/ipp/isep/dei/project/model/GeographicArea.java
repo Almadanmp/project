@@ -43,7 +43,7 @@ public class GeographicArea {
         return this.mId;
     }
 
-    public void setId(String name) {
+    void setId(String name) {
         if (isGeographicNameValid(name)) {
             this.mId = name;
         } else {
@@ -247,7 +247,7 @@ public class GeographicArea {
      * @param dateMax    the end date of readings (end of interval)
      * @return average of the readings off all sensors of the GA SensorList with the input typeSensor
      */
-    public double getAvgReadingsFromSensorTypeInGA(String typeSensor, Date dateMin, Date dateMax) {
+    double getAvgReadingsFromSensorTypeInGA(String typeSensor, Date dateMin, Date dateMax) {
         double average = 0;
         int counter = 0;
         if (mAreaSensors.getSensorList().isEmpty()) {
