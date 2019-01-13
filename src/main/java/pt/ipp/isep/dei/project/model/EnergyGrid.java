@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class EnergyGrid implements Metered {
@@ -29,6 +33,15 @@ public class EnergyGrid implements Metered {
 
     public RoomList getListOfRooms() {
         return mRoomList;
+    }
+
+    public DeviceList getDeviceListFromAllRooms(){
+        DeviceList devices = new DeviceList();
+        for (Room r: mRoomList.getRoomList()){
+            for( int i = 0; i<r.getDeviceList().size();i++) {
+                devices.addDevices(r.getDeviceList().get(i));
+            }
+        }return devices;
     }
 
     public double getNominalPower() {

@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -358,7 +359,60 @@ class EnergyGridSettingsControllerTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void seeIfDeviceListPrintsByType(){
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        Room room1EdC = new Room("B107", 1, 7,11,3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C",333);
+        RoomList rl = new RoomList();
+        Device d1 = new Device();
+        Device d2 = new Device();
+        Device d3 = new Device();
+        d1.setDeviceType(DeviceType.FRIDGE);
+        d1.setName("uno");
+        d2.setDeviceType(DeviceType.DISHWASHER);
+        d2.setName("dos");
+        d3.setDeviceType(DeviceType.FRIDGE);
+        d3.setName("tres");
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevices(d1);
+        deviceList.addDevices(d2);
+        deviceList.addDevices(d3);
+        room1EdC.setDeviceList(deviceList);
+        eg.setListOfRooms(rl);
+        rl.addRoom(room1EdC);
+        String expectedResult = "---------------\n" +
+                "0) Device type: FRIDGE | uno | Room: B107 | \n" +
+                "0) Device type: DISHWASHER | dos | Room: B107 | \n" +
+                "0) Device type: FRIDGE | tres | Room: B107 | \n" +
+                "---------------\n";
+        String result = ctrl.printListOfDevicesByType(eg);
+        assertEquals(expectedResult,result);
+    }
 
+    @Test
+    void seeIfDeviceListPrintsByTypeWithEmptyRoomList(){
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C",333);
+        RoomList rl = new RoomList();
+        eg.setListOfRooms(rl);
+        String expectedResult = "This energy grid has no rooms attached\n";
+        String result = ctrl.printListOfDevicesByType(eg);
+        assertEquals(expectedResult,result);
+    }
 
-
+    @Test
+    void seeIfDeviceListPrintsByTypeWithNoDevices(){
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        Room room1EdC = new Room("B107", 1, 7,11,3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C",333);
+        RoomList rl = new RoomList();
+        DeviceList deviceList = new DeviceList();
+        room1EdC.setDeviceList(deviceList);
+        eg.setListOfRooms(rl);
+        rl.addRoom(room1EdC);
+        String expectedResult = "This energy grid has no devices on it\n";
+        String result = ctrl.printListOfDevicesByType(eg);
+        assertEquals(expectedResult,result);
+    }
 }

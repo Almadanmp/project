@@ -14,7 +14,7 @@ public class DeviceList {
     }
 
 
-    List<Device> getDeviceList() {
+    public List<Device> getDeviceList() {
         return this.mDeviceList;
     }
 

@@ -68,7 +68,9 @@ public class Room implements Metered {
         return mHouseFloor;
     }
 
-    private List<Device> getDeviceList(){
+    public void setDeviceList(DeviceList deviceList){this.mDeviceList = deviceList;}
+
+    public List<Device> getDeviceList(){
         return this.mDeviceList.getDeviceList();
     }
 
@@ -83,9 +85,6 @@ public class Room implements Metered {
             result += d.getNominalPower();
         }
         return result;
-    }
-    public void setDeviceList(DeviceList dlist) {
-        this.mDeviceList = dlist;
     }
 
     public SensorList getRoomSensorList() {

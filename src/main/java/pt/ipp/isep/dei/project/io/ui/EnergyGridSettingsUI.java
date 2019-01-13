@@ -83,6 +83,11 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 6:
+                    getInputGridByList(mHouse);
+                    displayUS160(mEnergyGrid);
+                    activeInput = false;
+                    break;
+                case 7:
                     getInputEnergyGrid(mHouse);
                     updateUS172(mEnergyGrid);
                     displayUS172();
@@ -170,6 +175,10 @@ class EnergyGridSettingsUI {
     }
 
     private void getInputGridByList(House house) {
+        if (house == null){
+            System.out.println("The selected house is NOT a valid one\n" + "Returning to main menu\n");
+            return;
+        }
         UtilsUI utilsUI = new UtilsUI();
         if (house.getEGList().getEnergyGridList().isEmpty()) {
             System.out.print("Invalid Grid List - List Is Empty\n" + "Returning to main menu\n");
@@ -408,6 +417,15 @@ class EnergyGridSettingsUI {
         }
     }
 
+    /*USER STORY 160 - As a Power User (or Administrator),
+    I want to get a list of all devices in a grid, grouped by device type.
+    It must include device location
+    DANIEL OLIVEIRA*/
+
+    private void displayUS160(EnergyGrid energyGrid){
+        System.out.println(mController.printListOfDevicesByType(energyGrid));
+    }
+
     // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
     //connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
     //in the grid.  - ANDRE RUA.
@@ -430,7 +448,8 @@ class EnergyGridSettingsUI {
         System.out.println("3) List of existing rooms attached to a house grid. (US145)");
         System.out.println("4) Attach a room to a house grid. (US147)");
         System.out.println("5) Detach a room from a house grid. (US149)");
-        System.out.println("6) Display total nominal power of one of the Energy Grids. (US172)");
+        System.out.println("6) Display all available devices on an energy grid (US160)");
+        System.out.println("7) Display total nominal power of one of the Energy Grids. (US172)");
         System.out.println("0) (Return to main menu)\n");
     }
 
