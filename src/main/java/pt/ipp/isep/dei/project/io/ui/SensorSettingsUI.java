@@ -21,7 +21,6 @@ class SensorSettingsUI {
     private int dataDay;
     private Sensor mSensor;
     private GeographicArea mGeographicArea;
-    private SensorList mSensorList;
     private GeographicAreaList mGeographicAreaList;
     private List<TypeSensor> mTypeSensorList;
 
@@ -79,14 +78,13 @@ class SensorSettingsUI {
 
     /* LIST DISPLAY */
 
-      private void displayList(List<TypeSensor> list) {
-          if (mTypeSensorList.isEmpty()) {
-              System.out.println("There are no Types of Sensor defined.");
-          }
-          else {
-              mController.printTypes(list);
-          }
-      }
+    private void displayList(List<TypeSensor> list) {
+        if (mTypeSensorList.isEmpty()) {
+            System.out.println("There are no Types of Sensor defined.");
+        } else {
+            mController.printTypes(list);
+        }
+    }
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
@@ -107,7 +105,7 @@ class SensorSettingsUI {
     }
 
     private void updateModel05() {
-        this.mTypeAdded = mController.createType(mSensorTypeName,mSensorUnits);
+        this.mTypeAdded = mController.createType(mSensorTypeName, mSensorUnits);
         this.mTypeSensorList.add(mTypeAdded);
     }
 

@@ -1,14 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EGConsumptionController;
-import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomList;
-import pt.ipp.isep.dei.project.model.Sensor;
-
-import java.util.Date;
-import java.util.Scanner;
 
 
 public class EGConsumptionUI {
@@ -31,7 +24,7 @@ public class EGConsumptionUI {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
-        System.out.println("House Monitoring\n");
+        System.out.println("Energy Consumption Monitoring\n");
         System.out.println("--------------\n");
         while (!activeInput) {
             printOptionMessage();
@@ -42,6 +35,7 @@ public class EGConsumptionUI {
                     break;
 
                 case 2:
+                    inputUtils.getInputStartDate();
                     activeInput = true;
                     break;
                 case 0:
@@ -53,23 +47,9 @@ public class EGConsumptionUI {
         }
     }
 
-    private void getInputStartDate() {
-        InputUtils inputUtils = new InputUtils();
-        Scanner scan = new Scanner(System.in);
-
-        int year = inputUtils.getInputDateAsInt(scan, "year");
-        scan.nextLine();
-
-        int month = inputUtils.getInputDateAsInt(scan, "month") - 1;
-        scan.nextLine();
-
-        int day = inputUtils.getInputDateAsInt(scan, "day");
-
-        System.out.println("You entered the date successfully!");
-        scan.nextLine();
-    }
 
     /**
+     * /**
      * US752
      * As a Regular User [or Power User], I want to estimate the total energy used in heating water in a given day,
      * given the cold-water temperature and the volume of water produced in each water heater.
@@ -80,8 +60,7 @@ public class EGConsumptionUI {
         System.out.println("Energy Consumption Management Options:\n");
         System.out.println("1) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
                 " (US705)");
-        System.out.println("2) Estimate the total energy used in heating water in a given day, given the cold-water " +
-                "temperature and the volume of water produced in each water heater. (US752)");
+        System.out.println("2) Estimate the total energy used in heating water in a given day. (US752)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

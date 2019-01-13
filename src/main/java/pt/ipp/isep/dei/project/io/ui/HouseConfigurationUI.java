@@ -24,7 +24,6 @@ class HouseConfigurationUI {
     }
 
     void run(House house) {
-        UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         if (house == null) {
             System.out.println("Please create a House before you continue.");
