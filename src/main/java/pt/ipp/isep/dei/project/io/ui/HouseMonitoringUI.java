@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.Sensor;
 
 import java.util.Date;
 import java.util.List;
@@ -33,7 +36,8 @@ public class HouseMonitoringUI {
 
     void run(House programHouse) {
         this.mHouse = programHouse;
-        UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
         if (programHouse == null || programHouse.getMotherArea() == null) {
             System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
                     " your house first through the main menu");
@@ -47,14 +51,13 @@ public class HouseMonitoringUI {
         System.out.println("--------------\n");
         while (!activeInput) {
             printOptionMessage();
-            option = utils.readInputNumberAsInt();
+            option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     if (roomList == null || roomList.getRoomList().isEmpty()) {
                         System.out.println("Your house doesn't have any rooms. Please add rooms to house to continue.");
                         return;
-                    }
-                    else if (!getInputRoom(programHouse) || !getInputSensor()) {
+                    } else if (!getInputRoom(programHouse) || !getInputSensor()) {
                         return;
                     }
                     getInputStartDate();
@@ -97,7 +100,7 @@ public class HouseMonitoringUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utils.invalidOption);
+                    System.out.println(utilsUI.invalidOption);
                     break;
             }
         }
@@ -105,10 +108,11 @@ public class HouseMonitoringUI {
 
     private boolean getInputRoom(House house) {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         System.out.println(
                 "We need to know which one is your room.\n" + "Would you like to:\n" + "1) Type the name of your Room;\n" +
                         "2) Choose it from a list;\n" + "0) Return;");
-        int option = utils.readInputNumberAsInt();
+        int option = inputUtils.readInputNumberAsInt();
         boolean activeInput = false;
         while (!activeInput) {
             switch (option) {
@@ -143,6 +147,7 @@ public class HouseMonitoringUI {
 
     private boolean getRoomByName(House house) {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         List<Integer> listOfIndexesRoom = houseMonitoringcontroller.matchRoomIndexByString(mNameRoom, mHouse);
 
         while (listOfIndexesRoom.isEmpty()) {
@@ -156,7 +161,7 @@ public class HouseMonitoringUI {
         if (listOfIndexesRoom.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
             System.out.println(houseMonitoringcontroller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
                 house.getRoomList().getRoomList().get(aux);
                 System.out.println("You have chosen the following Room:");
@@ -175,6 +180,7 @@ public class HouseMonitoringUI {
 
     private void getInputRoomByList(House house) {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         if (house.getRoomList().getRoomList().isEmpty()) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
@@ -184,7 +190,7 @@ public class HouseMonitoringUI {
 
         while (!activeInput) {
             System.out.println(houseMonitoringcontroller.printHouseRoomList(house));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getRoomList().getRoomList().size()) {
                 this.mRoom = house.getRoomList().getRoomList().get(aux);
                 activeInput = true;
@@ -196,12 +202,13 @@ public class HouseMonitoringUI {
 
     private boolean getInputSensor() {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         System.out.println(
                 "We need to know which Sensor you wish to access.\n" + "Would you like to:\n" +
                         "1) Type the name of your Sensor;\n" + "2) Choose it from a list;\n" + "0) Return;");
         boolean activeInput = false;
         while (!activeInput) {
-            int option = utils.readInputNumberAsInt();
+            int option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInputSensorName();
@@ -237,6 +244,7 @@ public class HouseMonitoringUI {
 
     private boolean getSensorByName() {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         List<Integer> listOfIndexesSensor = houseMonitoringcontroller.matchSensorIndexByString(mNameSensor, mRoom);
 
         while (listOfIndexesSensor.isEmpty()) {
@@ -250,7 +258,7 @@ public class HouseMonitoringUI {
         if (listOfIndexesSensor.size() > 1) {
             System.out.println("There are multiple Sensors with that name. Please choose the right one.");
             System.out.println(houseMonitoringcontroller.printSensorElementsByIndex(listOfIndexesSensor, mRoom));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (listOfIndexesSensor.contains(aux)) {
                 mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
                 System.out.println("You have chosen the following Sensor:");
@@ -268,48 +276,51 @@ public class HouseMonitoringUI {
 
     private boolean getInputSensorByList() {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         if (mRoom.getmRoomSensorList().getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty, or there are no Temperature Sensors in the " +
                     "selected Room.\n");
             return false;
         }
         System.out.println("Please select one of the existing Sensors on the selected Room: ");
-            houseMonitoringcontroller.printRoomSensorList(mRoom);
-            int aux = utils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mRoom.getmRoomSensorList().getSensorList().size()) {
-                this.mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
-                return true;
-            } else {
-                System.out.println(utils.invalidOption);
-                return false;
-            }
+        houseMonitoringcontroller.printRoomSensorList(mRoom);
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < mRoom.getmRoomSensorList().getSensorList().size()) {
+            this.mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
+            return true;
+        } else {
+            System.out.println(utils.invalidOption);
+            return false;
         }
+    }
 
     private void getInputStartDate() {
+        InputUtils inputUtils = new InputUtils();
         Scanner scan = new Scanner(System.in);
 
-        this.dataYear1 = UtilsUI.getInputDateAsInt(scan, "year");
+        this.dataYear1 = inputUtils.getInputDateAsInt(scan, "year");
         scan.nextLine();
 
-        this.dataMonth1 = UtilsUI.getInputDateAsInt(scan, "month") - 1;
+        this.dataMonth1 = inputUtils.getInputDateAsInt(scan, "month") - 1;
         scan.nextLine();
 
-        this.dataDay1 = UtilsUI.getInputDateAsInt(scan, "day");
+        this.dataDay1 = inputUtils.getInputDateAsInt(scan, "day");
 
         System.out.println("You entered the date successfully!");
         scan.nextLine();
     }
 
     private void getInputEndDate() {
+        InputUtils inputUtils = new InputUtils();
         Scanner scan = new Scanner(System.in);
 
-        this.dataYear2 = UtilsUI.getInputDateAsInt(scan, "year");
+        this.dataYear2 = inputUtils.getInputDateAsInt(scan, "year");
         scan.nextLine();
 
-        this.dataMonth2 = UtilsUI.getInputDateAsInt(scan, "month") - 1;
+        this.dataMonth2 = inputUtils.getInputDateAsInt(scan, "month") - 1;
         scan.nextLine();
 
-        this.dataDay2 = UtilsUI.getInputDateAsInt(scan, "day");
+        this.dataDay2 = inputUtils.getInputDateAsInt(scan, "day");
 
         System.out.println("You entered the date successfully!");
         scan.nextLine();

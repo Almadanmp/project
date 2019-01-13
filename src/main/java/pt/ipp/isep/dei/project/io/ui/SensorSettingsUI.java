@@ -47,8 +47,9 @@ class SensorSettingsUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printOptionMessage();
+            InputUtils inputUtils = new InputUtils();
             UtilsUI utils = new UtilsUI();
-            option = utils.readInputNumberAsInt();
+            option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInput05();

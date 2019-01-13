@@ -199,83 +199,81 @@ public class MainUI {
 
         List<TypeSensor> typeSensorList = new ArrayList<>();
 
- // ********* MOCKS EXTRA **********************************************
+        // ********* MOCKS EXTRA **********************************************
 
- //Empty TypeAreaList
+        //Empty TypeAreaList
 
- TypeAreaList emptyTypeAreaList = new TypeAreaList();
+        TypeAreaList emptyTypeAreaList = new TypeAreaList();
 
- // Empty Geo Area List
+        // Empty Geo Area List
 
- GeographicAreaList emptyGeographicalAreaList = new GeographicAreaList();
+        GeographicAreaList emptyGeographicalAreaList = new GeographicAreaList();
 
- // Geo Area List -  Geo Area without Sensor List
+        // Geo Area List -  Geo Area without Sensor List
 
- GeographicAreaList geographicalAreaList1 = new GeographicAreaList();
- GeographicArea geographicArea1 = new GeographicArea("GeoAreaNoSensor", new TypeArea("City"),23,34, new Local(23,23,12));
+        GeographicAreaList geographicalAreaList1 = new GeographicAreaList();
+        GeographicArea geographicArea1 = new GeographicArea("GeoAreaNoSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
 
- geographicalAreaList1.addGeographicAreaToGeographicAreaList(geographicArea1);
+        geographicalAreaList1.addGeographicAreaToGeographicAreaList(geographicArea1);
 
- // Geo Area List -  Geo Area with Empty Sensor List
+        // Geo Area List -  Geo Area with Empty Sensor List
 
- GeographicAreaList geographicalAreaList2 = new GeographicAreaList();
- GeographicArea geographicArea2 = new GeographicArea("GeoAreaEmptySensor", new TypeArea("City"),23,34, new Local(23,23,12));
- SensorList sensorList2 = new SensorList();
+        GeographicAreaList geographicalAreaList2 = new GeographicAreaList();
+        GeographicArea geographicArea2 = new GeographicArea("GeoAreaEmptySensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
+        SensorList sensorList2 = new SensorList();
 
- geographicArea2.setSensorList(sensorList2);
- geographicalAreaList2.addGeographicAreaToGeographicAreaList(geographicArea2);
+        geographicArea2.setSensorList(sensorList2);
+        geographicalAreaList2.addGeographicAreaToGeographicAreaList(geographicArea2);
 
- // Geo Area List -  Geo Area with Sensor List
+        // Geo Area List -  Geo Area with Sensor List
 
- GeographicAreaList geographicalAreaList3 = new GeographicAreaList();
- GeographicArea geographicArea3 = new GeographicArea("GeoAreaWithSensor", new TypeArea("City"),23,34, new Local(23,23,12));
- Sensor s3 = new Sensor("sensor", new TypeSensor("Temperatura", "Celsius"), new Local(2,3,4),new GregorianCalendar(2016, 11, 15).getTime());
- SensorList sensorList3 = new SensorList();
- sensorList3.addSensor(s3);
+        GeographicAreaList geographicalAreaList3 = new GeographicAreaList();
+        GeographicArea geographicArea3 = new GeographicArea("GeoAreaWithSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
+        Sensor s3 = new Sensor("sensor", new TypeSensor("Temperatura", "Celsius"), new Local(2, 3, 4), new GregorianCalendar(2016, 11, 15).getTime());
+        SensorList sensorList3 = new SensorList();
+        sensorList3.addSensor(s3);
 
- geographicArea3.setSensorList(sensorList3);
- geographicalAreaList3.addGeographicAreaToGeographicAreaList(geographicArea3);
+        geographicArea3.setSensorList(sensorList3);
+        geographicalAreaList3.addGeographicAreaToGeographicAreaList(geographicArea3);
 
- // House - Empty RoomList - Without EnergyGrid
- GeographicArea geographicArea4 = new GeographicArea();
- RoomList roomList = new RoomList();
- House house = new House("houseNoRooms", "Street", "4230", msPorto,new Local(23,23,21), geographicArea4,roomList);
+        // House - Empty RoomList - Without EnergyGrid
+        GeographicArea geographicArea4 = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
 
- // House - Empty RoomList - Empty EnergyGrid
- RoomList roomList1 = new RoomList();
- House house1 = new House("houseNoRoomsNoEG", "Street", "4230", msPorto,new Local(23,23,21), geographicArea4,roomList1);
+        // House - Empty RoomList - Empty EnergyGrid
+        RoomList roomList1 = new RoomList();
+        House house1 = new House("houseNoRoomsNoEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList1);
 
- // House - With RoomList - Without EnergyGrid
- Room room2 = new Room("houseNoEG",1,23,23,23);
- RoomList roomList2 = new RoomList();
- roomList2.addRoom(room2);
- House house2 = new House("h", "Street", "4230", msPorto,new Local(23,23,21), geographicArea4,roomList2);
+        // House - With RoomList - Without EnergyGrid
+        Room room2 = new Room("houseNoEG", 1, 23, 23, 23);
+        RoomList roomList2 = new RoomList();
+        roomList2.addRoom(room2);
+        House house2 = new House("h", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList2);
 
- // House - With RoomList - Empty EnergyGrid
- Room room3 = new Room("room3",1,23,23,23);
- RoomList roomList3 = new RoomList();
- roomList3.addRoom(room3);
- House house3 = new House("houseEmptyEG", "Street", "4230", msPorto,new Local(23,23,21), geographicArea4,roomList3);
+        // House - With RoomList - Empty EnergyGrid
+        Room room3 = new Room("room3", 1, 23, 23, 23);
+        RoomList roomList3 = new RoomList();
+        roomList3.addRoom(room3);
+        House house3 = new House("houseEmptyEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList3);
 
- // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
- Room room4 = new Room("room1",1,33,13,23);
- Room room5 = new Room("room2",2,13,93,23);
- Room room6 = new Room("room3",2,73,43,23);
- Room room7 = new Room("room4",5,63,23,23);
- RoomList roomList4 = new RoomList();
- roomList4.addRoom(room4);
- roomList4.addRoom(room5);
- House house4 = new House("houseRoomDifEG", "Street", "4230", msPorto,new Local(23,23,21), geographicArea4,roomList4);
+        // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
+        Room room4 = new Room("room1", 1, 33, 13, 23);
+        Room room5 = new Room("room2", 2, 13, 93, 23);
+        Room room6 = new Room("room3", 2, 73, 43, 23);
+        Room room7 = new Room("room4", 5, 63, 23, 23);
+        RoomList roomList4 = new RoomList();
+        roomList4.addRoom(room4);
+        roomList4.addRoom(room5);
+        House house4 = new House("houseRoomDifEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList4);
 
- EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1",1233);
- energyGrid1.addRoomToAnEnergyGrid(room6);
- energyGrid1.addRoomToAnEnergyGrid(room7);
+        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
+        energyGrid1.addRoomToAnEnergyGrid(room6);
+        energyGrid1.addRoomToAnEnergyGrid(room7);
 
- EnergyGridList energyGridList1 = new EnergyGridList();
- energyGridList1.addEnergyGridToEnergyGridList(energyGrid1);
- house4.setEGList(energyGridList1);
-
-
+        EnergyGridList energyGridList1 = new EnergyGridList();
+        energyGridList1.addEnergyGridToEnergyGridList(energyGrid1);
+        house4.setEGList(energyGridList1);
 
 
         // **************************************************************************
@@ -301,8 +299,9 @@ public class MainUI {
                     "3. Room Settings.\n",
                     "4. Sensor Settings.\n",
                     "5. Energy Grid Settings.\n",
-                    "6. House Monitoring.\n" +
-                    " 0. Exit Application\n"};
+                    "6. House Monitoring.\n",
+                    "7. Energy Consumption Management.\n" +
+                            " 0. Exit Application\n"};
 
             System.out.println("Select the task you want to do:");
 
@@ -316,8 +315,9 @@ public class MainUI {
             boolean activeInput = true;
 
             while (activeInput) {
+                InputUtils inputUtils = new InputUtils();
                 UtilsUI utilsUI = new UtilsUI();
-                option = utilsUI.readInputNumberAsInt();
+                option = inputUtils.readInputNumberAsInt();
                 switch (option) {
                     case 0:
                         return;
@@ -355,6 +355,12 @@ public class MainUI {
                     case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
                         houseM.run(edificioB);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = false;
+                        break;
+                    case 7:
+                        EGConsumptionUI egConsumptionUI = new EGConsumptionUI();
+                        egConsumptionUI.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

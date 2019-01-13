@@ -20,46 +20,14 @@ class UtilsUI {
 
     String invalidOption = "Please enter a valid option";
 
-    /**
-     * Method to read the user input as an Int
-     * If its not an int it will print an invalid option message
-     * If its a double it will convert it to an int
-     *
-     * @return value read from the user
-     */
-    int readInputNumberAsInt() {
-        Scanner scan = new Scanner(System.in);
-        while (!scan.hasNextDouble()) {
-            System.out.println(invalidOption);
-            scan.next();
-        }
-        Double option = scan.nextDouble();
-        return option.intValue();
-    }
-
-    /**
-     * Method to get a date as an int.
-     *
-     * @param scan     the scanner to read input
-     * @param dataType the type of date to read (year, month or day)
-     * @return value read from the user
-     */
-    static int getInputDateAsInt(Scanner scan, String dataType) {
-        System.out.println("Enter the " + dataType + ":");
-        while (!scan.hasNextInt()) {
-            scan.next();
-            System.out.println("Not a valid " + dataType + ". Try again");
-        }
-        return scan.nextInt();
-    }
-
-    // OPÇÃO LISTAR POR NOMES / POR LISTA - GEOGRAPHIC AREA
+       // OPÇÃO LISTAR POR NOMES / POR LISTA - GEOGRAPHIC AREA
 
     GeographicArea getInputGeographicArea(GeographicAreaList geographicAreaList) {
         System.out.println(
                 "We need to know what Geographic Area you want to work with.\n" + "Would you like to:\n" + "1) Type the Geographic Area name;\n" + "2) Choose it from a list;\n" +
                         mReturnString);
-        int option = readInputNumberAsInt();
+        InputUtils inputUtils = new InputUtils();
+        int option = inputUtils.readInputNumberAsInt();
         switch (option) {
             case 1:
                 getInputGeographicAreaName();
@@ -87,7 +55,8 @@ class UtilsUI {
     }
 
     GeographicArea selectGeographicAreaByList(GeographicAreaList geographicAreaList){
-        int option = readInputNumberAsInt();
+        InputUtils inputUtils = new InputUtils();
+        int option = inputUtils.readInputNumberAsInt();
         switch (option) {
             case 1:
                 getInputGeographicAreaByList(geographicAreaList);
@@ -109,6 +78,7 @@ class UtilsUI {
     }
 
     private boolean getGeographicAreaByName(GeographicAreaList newGeoListUi) {
+        InputUtils inputUtils = new InputUtils();
         HouseConfigurationController ctrl = new HouseConfigurationController();
         List<Integer> listOfIndexesGeographicAreas = ctrl.matchGeographicAreaIndexByString(mGeographicAreaName, newGeoListUi);
 
@@ -125,7 +95,7 @@ class UtilsUI {
         if (listOfIndexesGeographicAreas.size() > 1) {
             System.out.println("There are multiple Geographic Areas with that name. Please choose the right one.");
             System.out.println(ctrl.printGeoAreasByIndex(listOfIndexesGeographicAreas, newGeoListUi));
-            int aux = readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (listOfIndexesGeographicAreas.contains(aux)) {
                 mGeographicArea = newGeoListUi.getGeographicAreaList().get(aux);
                 System.out.println(mStringChosenGeographicArea);
@@ -150,12 +120,13 @@ class UtilsUI {
 
 
     private void getInputGeographicAreaByList(GeographicAreaList newGeoListUi) {
+        InputUtils inputUtils = new InputUtils();
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
         while (!activeInput) {
             GASettingsController controller = new GASettingsController();
             System.out.println(controller.printGAList(newGeoListUi));
-            int aux = readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < newGeoListUi.getGeographicAreaList().size()) {
                 mGeographicArea = newGeoListUi.getGeographicAreaList().get(aux);
                 activeInput = true;

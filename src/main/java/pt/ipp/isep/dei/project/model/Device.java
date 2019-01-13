@@ -4,7 +4,7 @@ class Device implements Metered {
     //private String mName;
     //private Room mParentRoom;
     private double mNominalPower;
-    private DeviceSpecs deviceSpecs;
+   // private DeviceSpecs deviceSpecs;
 
     Device(){
     }

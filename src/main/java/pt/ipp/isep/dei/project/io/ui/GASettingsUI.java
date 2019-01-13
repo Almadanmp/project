@@ -34,6 +34,7 @@ class GASettingsUI {
 
     void runGASettings(GeographicAreaList programGAList, TypeAreaList programTypeAreaList) {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
         if (programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
@@ -45,7 +46,7 @@ class GASettingsUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printOptionMessage();
-            option = utils.readInputNumberAsInt();
+            option = inputUtils.readInputNumberAsInt();
             String mStringMessageAskingToCreateGeographicAreaType = "There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.";
             switch (option) {
                 case 1:
@@ -125,12 +126,13 @@ class GASettingsUI {
 
     private void getInputTypeArea(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         System.out.println(
                 "We need to know what is the type of Geographic Area you want.\n" + "Would you like to:\n" + "1)Type the Geographic Area Type name;\n" + "2) Choose it from a list;\n" +
                         "0) Return;");
         boolean activeInput = false;
         while (!activeInput) {
-            int option = utils.readInputNumberAsInt();
+            int option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
                     getInputTypeAreaName();
@@ -164,6 +166,7 @@ class GASettingsUI {
 
     private boolean getTypeAreaByName(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         List<Integer> listOfIndexesTypeArea = mController.matchTypeAreaIndexByString(this.mTypeAreaString, typeAreaList);
         String youHaveChosen = "You have chosen the following Geographic Area Type:";
         while (listOfIndexesTypeArea.isEmpty()) {
@@ -178,7 +181,7 @@ class GASettingsUI {
         if (listOfIndexesTypeArea.size() > 1) {
             System.out.println("There are multiple Geographic Area Types with that name. Please choose the right one.");
             System.out.println(mController.printTypeAreaElementsByIndex(listOfIndexesTypeArea, typeAreaList));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (listOfIndexesTypeArea.contains(aux)) {
                 this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
                 System.out.println(youHaveChosen);
@@ -197,12 +200,13 @@ class GASettingsUI {
 
     private void getInputTypeAreaByList(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         boolean activeInput = false;
         System.out.println("Please select the Geographic Area Type from the list: ");
 
         while (!activeInput) {
             System.out.print(mController.printGATypeList(typeAreaList));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
                 this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
                 activeInput = true;
@@ -257,12 +261,13 @@ class GASettingsUI {
 
     private void getTypeAreaInputUS03(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         boolean activeInput = false;
         System.out.println("Please select one of the following types for the new Geographic Area: ");
 
         while (!activeInput) {
             System.out.println(mController.getTypeAreaList(typeAreaList));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
                 TypeArea auxType = typeAreaList.getTypeAreaList().get(aux);
                 activeInput = true;

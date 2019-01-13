@@ -11,7 +11,6 @@ class RoomConfigurationUI {
     private House mHouse;
     private GeographicArea mGeoArea;
     private RoomConfigurationController mRoomConfigurationController;
-    private static final String INVALID_OPTION = "Please enter a valid option";
     private Room mRoom;
     private Sensor mSensor;
     private String mRoomName;
@@ -37,6 +36,7 @@ class RoomConfigurationUI {
         this.mGeoArea = house.getMotherArea();
         this.mSensorList = mGeoArea.getSensorList();
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
 
@@ -45,7 +45,7 @@ class RoomConfigurationUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printHouseConfigMenu();
-            option = utils.readInputNumberAsInt();
+            option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1: //US201
                     activeInput = false;
@@ -74,7 +74,7 @@ class RoomConfigurationUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(INVALID_OPTION);
+                    System.out.println(utils.invalidOption);
                     break;
             }
         }
@@ -85,12 +85,13 @@ class RoomConfigurationUI {
 
     private void getInputRoom() {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         System.out.println(
                 "We need to know which one is your room.\n" + "Would you like to:\n" +
                         "1) Type the name of your Room;\n" +
                         "2) Choose it from a list;\n" +
                         "0) Return;");
-        int option = utils.readInputNumberAsInt();
+        int option = inputUtils.readInputNumberAsInt();
         switch (option) {
             case 1:
                 getInputRoomName();
@@ -105,7 +106,7 @@ class RoomConfigurationUI {
             case 0:
                 return;
             default:
-                System.out.println(INVALID_OPTION);
+                System.out.println(utils.invalidOption);
                 break;
         }
     }
@@ -118,6 +119,7 @@ class RoomConfigurationUI {
     }
 
     private boolean getRoomByName() {
+        InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         List<Integer> listOfIndexesRoom = mRoomConfigurationController.matchRoomIndexByString(mRoomName, mHouse);
         while (listOfIndexesRoom.isEmpty()) {
@@ -131,7 +133,7 @@ class RoomConfigurationUI {
         if (listOfIndexesRoom.size() > 1) {
             System.out.println("There are multiple Houses with that name. Please choose the right one.");
             System.out.println(mRoomConfigurationController.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
                 this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
@@ -139,7 +141,7 @@ class RoomConfigurationUI {
                 System.out.println(mStringRequestRoom);
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         } else {
             this.mRoom = mHouse.getRoomList().getRoomList().get(listOfIndexesRoom.get(0));
@@ -152,6 +154,7 @@ class RoomConfigurationUI {
     }
 
     private void getInputRoomByList() {
+        InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (mHouse.getRoomList().getRoomList().isEmpty()) {
             System.out.println("Invalid Room List - List Is Empty\n");
@@ -161,7 +164,7 @@ class RoomConfigurationUI {
         System.out.println("Please select one of the existing rooms on the selected House: ");
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
                 this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
@@ -169,7 +172,7 @@ class RoomConfigurationUI {
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
                 activeInput = true;
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         }
     }
@@ -178,13 +181,14 @@ class RoomConfigurationUI {
     sensor types, in order to configure it. - ANDRÉ RUA */
 
     private Sensor getInputSensor() {
+        InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         System.out.println(
                 "We need to know which sensor you want to add the room.\n" + "Would you like to:\n" +
                         "1) Type the Sensor name;\n" +
                         "2) Choose it from a list;\n" +
                         "0) Return;");
-        int option = utils.readInputNumberAsInt();
+        int option = inputUtils.readInputNumberAsInt();
         switch (option) {
             case 1:
                 getInputSensorName();
@@ -199,7 +203,7 @@ class RoomConfigurationUI {
             case 0:
                 break;
             default:
-                System.out.println(INVALID_OPTION);
+                System.out.println(utils.invalidOption);
                 break;
         }
 
@@ -208,6 +212,7 @@ class RoomConfigurationUI {
     }
 
     private boolean getSensorByName(SensorList mSensorList) {
+        InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         RoomConfigurationController ctrl = new RoomConfigurationController();
         List<Integer> listOfIndexesSensors = ctrl.matchSensorIndexByString(mSensorName, mSensorList);
@@ -224,14 +229,14 @@ class RoomConfigurationUI {
         if (listOfIndexesSensors.size() > 1) {
             System.out.println("There are multiple Sensors with that name. Please choose the right one.");
             System.out.println(ctrl.printSensorElementsByIndex(listOfIndexesSensors, mSensorList));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (listOfIndexesSensors.contains(aux)) {
                 this.mSensor = mSensorList.getSensorList().get(aux);
                 this.mSensorName = mSensor.getName();
                 System.out.println(mStringChosenSensor);
                 System.out.println(ctrl.printSensor(mSensor));
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         } else {
             System.out.println(mStringChosenSensor);
@@ -252,6 +257,7 @@ class RoomConfigurationUI {
 
     private void getInputSensorByList(SensorList mSensorList) {
         UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
         if (mGeoArea.getSensorList().getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty\n");
@@ -261,7 +267,7 @@ class RoomConfigurationUI {
         System.out.println("Please select a Sensor from the Houses' Geographical Area from the list: ");
         while (!activeInput) {
             System.out.println(ctrl.printSensorList(mSensorList));
-            int aux = utils.readInputNumberAsInt();
+            int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < mSensorList.getSensorList().size()) {
                 this.mSensor = mSensorList.getSensorList().get(aux);
                 this.mSensorName = mSensor.getName();
@@ -270,7 +276,7 @@ class RoomConfigurationUI {
                 System.out.println(mRoomConfigurationController.printSensor(mSensor));
                 System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
             } else {
-                System.out.println(INVALID_OPTION);
+                System.out.println(utils.invalidOption);
             }
         }
     }
