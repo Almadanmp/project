@@ -385,8 +385,8 @@ class EnergyGridSettingsControllerTest {
         eg.setListOfRooms(rl);
         rl.addRoom(room1EdC);
         String expectedResult = "---------------\n" +
-                "0) Device type: FRIDGE | uno | Room: B107 | \n" +
                 "0) Device type: DISHWASHER | dos | Room: B107 | \n" +
+                "0) Device type: FRIDGE | uno | Room: B107 | \n" +
                 "0) Device type: FRIDGE | tres | Room: B107 | \n" +
                 "---------------\n";
         String result = ctrl.printListOfDevicesByType(eg);

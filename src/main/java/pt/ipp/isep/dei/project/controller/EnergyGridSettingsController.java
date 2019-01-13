@@ -217,10 +217,10 @@ public class EnergyGridSettingsController {
         if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty()) {
             return "This energy grid has no devices on it\n";
         }
+        for (DeviceType d : DeviceType.values()) {
         for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
             Room r = energyGrid.getListOfRooms().getRoomList().get(i);
             for (int x = 0; x < r.getDeviceList().size(); x++) {
-                for (DeviceType d : DeviceType.values()) {
                     if (d == r.getDeviceList().get(x).getDeviceType()) {
                         Device device = r.getDeviceList().get(x);
                         result.append(i).append(") Device type: ").append(d).append(" | ");
