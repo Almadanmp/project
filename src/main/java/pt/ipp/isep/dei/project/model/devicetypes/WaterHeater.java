@@ -3,20 +3,23 @@ package pt.ipp.isep.dei.project.model.devicetypes;
 import pt.ipp.isep.dei.project.model.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.Metered;
 
+
 public class WaterHeater implements DeviceSpecs, Metered {
-
-    private double mNominalPower;
-
-    void setNominalPower(double nominalPower) { this.mNominalPower = nominalPower;}
+    double mNominalPower;
+    double volumeOfWater = 1.163;
+    double hotWaterTemperature;
+    double coldWaterTemperature;
+    double performanceRatio = 0.9;
 
     public DeviceType getType() {
         return DeviceType.WATER_HEATER;
     }
 
-    public double getConsumption() {
-        return 0; //To be implemented by US752
+    public double getNominalPower() {
+        return this.mNominalPower;
     }
 
-    public double getNominalPower() { return this.mNominalPower;}
-
+    public double getConsumption() {
+        return 1; //To be implemented by US752
+    }
 }

@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.model.devicetypes;
 
-        import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 
-        import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WaterHeaterTest {
 
@@ -17,7 +17,7 @@ public class WaterHeaterTest {
     @Test
     public void getConsumptionTest() {
         WaterHeater waterHeater = new WaterHeater();
-        double expectedResult = 0;
+        double expectedResult = 1;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }

@@ -20,7 +20,7 @@ public class Room implements Metered {
         setRoomWidth(width);
         setRoomLength(length);
         setRoomHeight(height);
-        this.mRoomSensorList=new SensorList();
+        this.mRoomSensorList = new SensorList();
         this.mDeviceList = new DeviceList();
     }
 
@@ -44,7 +44,9 @@ public class Room implements Metered {
         mRoomLength = length;
     }
 
-    private void setRoomWidth(double width){mRoomWidth=width;}
+    private void setRoomWidth(double width) {
+        mRoomWidth = width;
+    }
 
     double getRoomHeight() {
         return mRoomHeight;
@@ -54,7 +56,9 @@ public class Room implements Metered {
         return mRoomLength;
     }
 
-    double getRoomWidth(){ return mRoomWidth;}
+    double getRoomWidth() {
+        return mRoomWidth;
+    }
 
     public void setRoomSensorList(SensorList sensorList) {
         mRoomSensorList = sensorList;
@@ -68,20 +72,24 @@ public class Room implements Metered {
         return mHouseFloor;
     }
 
-    public void setDeviceList(DeviceList deviceList){this.mDeviceList = deviceList;}
+    public void setDeviceList(DeviceList deviceList) {
+        this.mDeviceList = deviceList;
+    }
 
-    public List<Device> getDeviceList(){
+    public List<Device> getDeviceList() {
         return this.mDeviceList.getDeviceList();
     }
 
-    /** This method will go through the room's device list and add all the devices'
+    /**
+     * This method will go through the room's device list and add all the devices'
      * nominal power.
      * The result is the room's total nominal power and will be returned as a double
+     *
      * @return room's total nominal power (double)
      */
-    public double getNominalPower(){
+    public double getNominalPower() {
         double result = 0;
-        for (Device d : this.getDeviceList()){
+        for (Device d : this.getDeviceList()) {
             result += d.getNominalPower();
         }
         return result;
@@ -92,7 +100,7 @@ public class Room implements Metered {
     }
 
     public double getMaxTemperatureInARoomOnAGivenDay(House house, Date day) {
-        TypeSensor type = new TypeSensor("temperature","Celsius");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         Sensor s = new Sensor("sensor1", type, house.getLocation(), new Date());
         for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
             s = mRoomSensorList.getSensors()[i];
@@ -120,15 +128,13 @@ public class Room implements Metered {
     }
 
 
-
     /**
      * Gets most recent reading for current temperature.
-     *
      */
 
     public double getCurrentRoomTemperature() {
         House h = new House();
-        TypeSensor type = new TypeSensor("temperature","Celsius");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         Sensor s = new Sensor("sensor1", type, h.getLocation(), new Date());
         for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
             s = mRoomSensorList.getSensors()[i];
@@ -139,9 +145,16 @@ public class Room implements Metered {
     public String printRoom() {
         String result;
         result = this.mRoomName + ", " + this.getHouseFloor() + ", " +
-                this.getRoomWidth() + ", "+ this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";
+                this.getRoomWidth() + ", " + this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";
         return result;
     }
+
+   /* double getRoomConsumption(){
+        for (Device d:getDeviceList()) {
+            if (d.getDeviceType() )
+
+        }*/
+
 
     @Override
     public boolean equals(Object o) {

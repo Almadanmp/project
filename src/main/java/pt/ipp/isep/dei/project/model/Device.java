@@ -6,27 +6,40 @@ public class Device implements Metered {
     private String mName;
     //private Room mParentRoom;
     private double mNominalPower;
-    private DeviceSpecs deviceSpecs;
-    private DeviceType mDeviceType;
+    private DeviceSpecs mDeviceSpecs;
 
-    public Device(){
+    //Empty constructor for test purposes
+    public Device() {
+    }
+
+    public Device(String name, double nominalPower, DeviceSpecs deviceSpecs) {
+        this.mName = name;
+        this.mNominalPower = nominalPower;
+        this.mDeviceSpecs = deviceSpecs;
     }
 
     //temporary before is gets moved to DeviceSpecs
-    public void setmNominalPower(Double nompower) {
-        this.mNominalPower = nompower;
+    public void setNominalPower(Double nomPower) {
+        this.mNominalPower = nomPower;
     }
 
-    public String getName(){return this.mName;}
+    public String getName() {
+        return this.mName;
+    }
 
-    public void setName(String name){this.mName = name;}
+    public void setName(String name) {
+        this.mName = name;
+    }
 
-    public void setDeviceType (DeviceType deviceType){this.mDeviceType = deviceType;}
-
-    public DeviceType getDeviceType(){return this.mDeviceType;}
-
-    public double getNominalPower(){
+    public double getNominalPower() {
         return this.mNominalPower;
     }
 
+    public double getConsumption() {
+        return mDeviceSpecs.getConsumption();
+    }
+
+    public DeviceType getDeviceType() {
+        return mDeviceSpecs.getType();
+    }
 }
