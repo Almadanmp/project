@@ -320,4 +320,18 @@ class RoomConfigurationControllerTest {
         //Assert
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void seeIfPrintDevice(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        d1.setmParentRoom(room);
+        DeviceList dlist = new DeviceList();
+        dlist.addDevices(d1);
+        room.setDeviceList(dlist);
+        String result = ctrl.printDevice(d1);
+        String expectedResult = "The Device Name is frigorifico, which is in the Room kitchen, and its NominalPower is 200.0\n";
+        assertEquals(expectedResult,result);
+    }
 }

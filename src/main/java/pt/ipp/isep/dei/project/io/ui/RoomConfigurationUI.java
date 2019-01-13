@@ -58,8 +58,12 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //215
-                    getInputRoom();
-                    getInputDevice();
+                    if(!getInputRoom()){
+                        return;
+                    }
+                    if(!getInputDevice()){
+                        return;
+                    }
                     getInputDeviceCharacteristicsUS215();
                     updateDeviceUS215();
                     displayDeviceUS215();
@@ -94,7 +98,7 @@ class RoomConfigurationUI {
 
     //  SHARED METHODS
 
-    private void getInputRoom() {
+    private boolean getInputRoom() {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         System.out.println(
@@ -108,18 +112,19 @@ class RoomConfigurationUI {
                 getInputRoomName();
                 if (!getRoomByName()) {
                     System.out.println("Unable to select a Room. Returning to main menu.");
-                    return;
+                    return false;
                 }
                 break;
             case 2:
                 getInputRoomByList();
                 break;
             case 0:
-                return;
+                return false;
             default:
                 System.out.println(utils.invalidOption);
                 break;
         }
+        return true;
     }
 
     private boolean getInputRoomName() {
@@ -189,7 +194,7 @@ class RoomConfigurationUI {
     }
 
 
-    private void getInputDevice() {
+    private boolean getInputDevice() {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         System.out.println(
@@ -203,18 +208,19 @@ class RoomConfigurationUI {
                 getInputDeviceName();
                 if (!getDeviceByName()) {
                     System.out.println("Unable to select a Device. Returning to main menu.");
-                    return;
+                    return false;
                 }
                 break;
             case 2:
                 getInputDeviceByList();
                 break;
             case 0:
-                return;
+                return false;
             default:
                 System.out.println(utils.invalidOption);
                 break;
         }
+        return true;
     }
 
     private boolean getInputDeviceName() {
@@ -246,8 +252,10 @@ class RoomConfigurationUI {
                 mRoom.getDeviceList().get(aux);
                 System.out.println(mStringRequestDevice);
                 System.out.println(mRoomConfigurationController.printDevice(mDevice));
+                return true;
             } else {
                 System.out.println(utils.invalidOption);
+                return false;
             }
         } else {
             this.mDevice = mRoom.getDeviceList().get(listOfIndexesDevice.get(0));
@@ -255,18 +263,18 @@ class RoomConfigurationUI {
             System.out.println(mStringRequestDevice);
             this.mRoom.getDeviceList().get(0);
             System.out.println(mRoomConfigurationController.printDevice(mDevice));
+            return true;
         }
-        return true;
     }
 
-    private void getInputDeviceByList() {
+    private boolean getInputDeviceByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
+        boolean activeInput = false;
         if (mRoom.getDeviceList().isEmpty()) {
             System.out.println("Invalid Device List - List Is Empty\n");
-            return;
+            return false;
         }
-        boolean activeInput = false;
         System.out.println("Please select one of the existing Devices in the selected Room: ");
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
@@ -277,10 +285,14 @@ class RoomConfigurationUI {
                 System.out.println(mStringRequestDevice);
                 System.out.println(mRoomConfigurationController.printDevice(mDevice));
                 activeInput = true;
+                return true;
             } else {
                 System.out.println(utils.invalidOption);
+                return false;
             }
+
         }
+        return true;
     }
 
     /*US215 As an Administrator, I want to edit the configuration of an existing device, so that I
@@ -294,7 +306,31 @@ can reconfigure it.*/
         System.out.print("Please, type the new name of the Device: ");
         this.mDeviceName = scanner.nextLine();
 
-        //get latitude
+        //get room
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        if (mHouse.getRoomList().getRoomList().isEmpty()) {
+            System.out.println("Invalid Room List - List Is Empty\n");
+            return;
+        }
+        boolean activeInput = false;
+        System.out.println("Please select one of the existing rooms on the selected House to which you want to add your Device: ");
+        while (!activeInput) {
+            System.out.println(mRoomConfigurationController.printRoomList(mHouse));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
+                this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
+                this.mRoomName = mRoom.getRoomName();
+                System.out.println(mStringRequestRoom);
+                System.out.println(mRoomConfigurationController.printRoom(mRoom));
+                activeInput = true;
+                mRoom.addDevice(mDevice);
+                mDevice.setmParentRoom(mRoom);
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+        //get nominal power
         String onlyNumbers = "Please,try again. Only numbers this time:";
         System.out.print("Please, type the new Nominal Power: ");
         while (!scanner.hasNextDouble()) {
@@ -318,7 +354,7 @@ can reconfigure it.*/
         can reconfigure it.*/
     private void displayDeviceUS215() {
         System.out.println("You have successfully changed the Device name to " + mDeviceName + ". \n"
-                + "And the Nominal Power is: " + mNominalPower + ". \n");
+                + "And the Nominal Power is: " + mNominalPower + ". \n" + "And the room is " + mRoom.getRoomName() + "\n");
     }
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
