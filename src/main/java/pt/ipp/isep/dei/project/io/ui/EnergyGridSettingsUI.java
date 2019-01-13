@@ -88,6 +88,13 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 7:
+                    if (this.mHouse.getEGList() == null) {
+                        System.out.println(noGrid);
+                        return;}
+                    else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
+                        System.out.println(noGrid);
+                        return;
+                    }
                     getInputEnergyGrid(mHouse);
                     updateUS172(mEnergyGrid);
                     displayUS172();
@@ -111,7 +118,8 @@ class EnergyGridSettingsUI {
         UtilsUI utilsUI = new UtilsUI();
         System.out.println(
                 "We need to know which one is your energy grid.\n" + mStringRequest + "1) Type the name of your grid;\n" + mStringRequestChoseFromList +
-                        returnString);
+                        "0) Return;");
+
         int option = inputUtils.readInputNumberAsInt();
         switch (option) {
             case 1:
@@ -125,7 +133,7 @@ class EnergyGridSettingsUI {
                 getInputGridByList(house);
                 break;
             case 0:
-                return;
+                break;
             default:
                 System.out.println(utilsUI.invalidOption);
                 break;
@@ -431,13 +439,16 @@ class EnergyGridSettingsUI {
     //in the grid.  - ANDRE RUA.
 
     private void updateUS172(EnergyGrid grid) {
-        this.mEGridNPower = mController.getTotalPowerFromGrid(grid);
+        if (mEnergyGrid != null) {
+            this.mEGridNPower = mController.getTotalPowerFromGrid(grid);
+        }
     }
 
     private void displayUS172() {
-        System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + mEGridNPower + " kW.");
+        if (mEnergyGrid != null) {
+            System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + mEGridNPower + " kW.");
+        }
     }
-
 
     // UI SPECIFIC METHODS - Not Used on User Stories.
 
