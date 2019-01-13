@@ -9,6 +9,11 @@ public class Device implements Metered {
     public Device(){
     }
 
+    //temporary before is gets moved to DeviceSpecs
+    public void setmNominalPower(Double nompower) {
+        this.mNominalPower = nompower;
+    }
+
     public double getNominalPower(){
         return this.mNominalPower;
     }

@@ -181,7 +181,7 @@ public class MainUI {
 
         // Energy Grid
 
-        EnergyGrid mainGrid = new EnergyGrid("main grid", 0);
+        EnergyGrid mainGrid = new EnergyGrid("main grid", 50);
         EnergyGridList energyGridListIsep = new EnergyGridList();
         energyGridListIsep.addEnergyGridToEnergyGridList(mainGrid);
         mainGrid.setListOfRooms(gridRoomList);
@@ -198,6 +198,15 @@ public class MainUI {
         // Sensor Type List
 
         List<TypeSensor> typeSensorList = new ArrayList<>();
+
+        //Devices
+
+        Device device1 = new Device();
+        device1.setmNominalPower(23.0);
+        DeviceList listDevices = new DeviceList();
+        listDevices.addDevices(device1);
+        roomISEP2.setDeviceList(listDevices);
+
 
         // ********* MOCKS EXTRA **********************************************
 

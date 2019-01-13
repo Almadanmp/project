@@ -56,7 +56,6 @@ public class Room implements Metered {
 
     double getRoomWidth(){ return mRoomWidth;}
 
-
     public void setRoomSensorList(SensorList sensorList) {
         mRoomSensorList = sensorList;
     }
@@ -80,7 +79,9 @@ public class Room implements Metered {
         }
         return result;
     }
-
+    public void setDeviceList(DeviceList dlist) {
+        this.mDeviceList = dlist;
+    }
 
     public SensorList getRoomSensorList() {
         return mRoomSensorList;
