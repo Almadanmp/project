@@ -72,6 +72,11 @@ public class Room implements Metered {
         return this.mDeviceList.getDeviceList();
     }
 
+    /** This method will go through the room's device list and add all the devices'
+     * nominal power.
+     * The result is the room's total nominal power and will be returned as a double
+     * @return room's total nominal power (double)
+     */
     public double getNominalPower(){
         double result = 0;
         for (Device d : this.getDeviceList()){

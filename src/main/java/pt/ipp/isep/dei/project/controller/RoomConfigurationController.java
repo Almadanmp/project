@@ -20,47 +20,7 @@ public class RoomConfigurationController {
          */
     }
 
-    /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
-    nominal power of a room, i.e. the sum of the nominal power of all devices in the
-    room. - TERESA VARELA */
-
-    public double getRoomNominalPower(Room room) {
-        return room.getNominalPower();
-    }
-
-
-    /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
-    sensor types, in order to configure it. - ANDRÉ RUA */
-
-    /**
-     * @param name is the name of the sensor we want to look for.
-     * @param ga   is the ga where we want to see if the sensor exists.
-     * @return is true if the geoArea contains a sensor with given name, false if it doesn't.
-     */
-
-    boolean checkIfGAContainsSensorByString(String name, GeographicArea ga) {
-        for (Sensor s : ga.getSensorList().getSensorList()) {
-            if (s.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     *
-     * @param sensorName is the name of the sensor we want to look for
-     * @param ga is the ga we want to look for the sensor in.
-     * @return is the sensor in the Geo Area with the name that matches given string. Is null if no sensor matches.
-     */
-
-    Sensor getSensorFromGAByName(String sensorName, GeographicArea ga) {
-        for (Sensor s : ga.getSensorList().getSensorList()) {
-            if (s.getName().equals(sensorName))
-                mSensor = s;
-        }
-        return mSensor;
-    }
+    //  SHARED METHODS
 
     /**
      *
@@ -120,6 +80,53 @@ public class RoomConfigurationController {
 
     public List<Integer> matchRoomIndexByString(String input, House house) {
         return house.getRoomList().matchRoomIndexByString(input);
+    }
+
+
+    /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
+    nominal power of a room, i.e. the sum of the nominal power of all devices in the
+    room. - TERESA VARELA */
+
+    /** This method receives a room and returns that room's total nominal power as a double
+     * @param room is the room to be tested
+     * @return room's total nominal power (double)
+     */
+    public double getRoomNominalPower(Room room) {
+        return room.getNominalPower();
+    }
+
+
+    /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
+    sensor types, in order to configure it. - ANDRÉ RUA */
+
+    /**
+     * @param name is the name of the sensor we want to look for.
+     * @param ga   is the ga where we want to see if the sensor exists.
+     * @return is true if the geoArea contains a sensor with given name, false if it doesn't.
+     */
+
+    boolean checkIfGAContainsSensorByString(String name, GeographicArea ga) {
+        for (Sensor s : ga.getSensorList().getSensorList()) {
+            if (s.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param sensorName is the name of the sensor we want to look for
+     * @param ga is the ga we want to look for the sensor in.
+     * @return is the sensor in the Geo Area with the name that matches given string. Is null if no sensor matches.
+     */
+
+    Sensor getSensorFromGAByName(String sensorName, GeographicArea ga) {
+        for (Sensor s : ga.getSensorList().getSensorList()) {
+            if (s.getName().equals(sensorName))
+                mSensor = s;
+        }
+        return mSensor;
     }
 
     /**

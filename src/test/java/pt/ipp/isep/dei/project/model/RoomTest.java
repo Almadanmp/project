@@ -308,4 +308,30 @@ public class RoomTest {
         String result = room.printRoom();
         assertEquals("room1, 1, 1.0, 2.0, 2.0.\n", result);
     }
+
+
+    @Test
+    void seeNominalPowerOfRoomWithoutDevices(){
+        //ARRANGE
+        Room room1 = new Room("room1", 19, 5,3,3);
+        double expectedResult = 0;
+        //ACT
+        double actualResult = room1.getNominalPower();
+        //ASSERT
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void seeNominalPowerOfRoom(){
+        //ARRANGE
+        Room room1 = new Room("room1", 19, 5,3,3);
+        Device d1 = new Device();
+        d1.getNominalPower();
+        double expectedResult = 0;
+        //ACT
+        double actualResult = room1.getNominalPower();
+        //ASSERT
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+
 }

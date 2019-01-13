@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
 
@@ -15,28 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RoomConfigurationControllerTest {
 
-    @Test
-    void seeIfSensorIsContainedInGA() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        SensorList sList = new SensorList();
-        sList.addSensor(s1);
-        sList.addSensor(s2);
-        GeographicArea gA1 = new GeographicArea();
-        gA1.setSensorList(sList);
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        Sensor actualResult = ctrl.getSensorFromGAByName("Vento1", gA1);
-        Sensor expectedResult = s1;
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
+    //  SHARED METHODS
     @Test
     void seeIfRoomIsContainedInRoomList() {
         //Arrange
@@ -50,55 +28,8 @@ class RoomConfigurationControllerTest {
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room actualResult = ctrl.getRoomFromHouseByName("Quarto", house1);
-        Room expectedResult = room1;
         //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfSensorListIsContainedInGAList() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        SensorList sList = new SensorList();
-        sList.addSensor(s1);
-        sList.addSensor(s2);
-        GeographicArea ga1 = new GeographicArea();
-        ga1.setSensorList(sList);
-        GeographicAreaList gList = new GeographicAreaList();
-        gList.addGeographicAreaToGeographicAreaList(ga1);
-        //Act
-        RoomConfigurationController crl = new RoomConfigurationController();
-        boolean actualResult = crl.checkIfGAContainsSensorByString("Vento", ga1);
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfSensorListIsNotContainedInGAList() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        SensorList sList = new SensorList();
-        sList.addSensor(s1);
-        sList.addSensor(s2);
-        GeographicArea ga1 = new GeographicArea();
-        ga1.setSensorList(sList);
-        GeographicAreaList gAList = new GeographicAreaList();
-        gAList.addGeographicAreaToGeographicAreaList(ga1);
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        boolean actualResult = ctrl.checkIfGAContainsSensorByString("Chuva", ga1);
-        //Assert
-        assertFalse(actualResult);
+        assertEquals(room1, actualResult);
     }
 
     @Test
@@ -174,6 +105,87 @@ class RoomConfigurationControllerTest {
         List<Integer> expectedResult = Collections.singletonList(roomList.getRoomList().indexOf(room1));
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
+    nominal power of a room, i.e. the sum of the nominal power of all devices in the
+    room. - TERESA VARELA */
+
+    @Test
+    void seeGetRoomNominalPower() {
+
+    }
+
+
+    /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
+    sensor types, in order to configure it. - ANDRÉ RUA */
+
+    @Test
+    void seeIfSensorIsContainedInGA() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 12, 4).getTime());
+        SensorList sList = new SensorList();
+        sList.addSensor(s1);
+        sList.addSensor(s2);
+        GeographicArea gA1 = new GeographicArea();
+        gA1.setSensorList(sList);
+        //Act
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Sensor actualResult = ctrl.getSensorFromGAByName("Vento1", gA1);
+        Sensor expectedResult = s1;
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSensorListIsContainedInGAList() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 12, 4).getTime());
+        SensorList sList = new SensorList();
+        sList.addSensor(s1);
+        sList.addSensor(s2);
+        GeographicArea ga1 = new GeographicArea();
+        ga1.setSensorList(sList);
+        GeographicAreaList gList = new GeographicAreaList();
+        gList.addGeographicAreaToGeographicAreaList(ga1);
+        //Act
+        RoomConfigurationController crl = new RoomConfigurationController();
+        boolean actualResult = crl.checkIfGAContainsSensorByString("Vento", ga1);
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfSensorListIsNotContainedInGAList() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 12, 4).getTime());
+        SensorList sList = new SensorList();
+        sList.addSensor(s1);
+        sList.addSensor(s2);
+        GeographicArea ga1 = new GeographicArea();
+        ga1.setSensorList(sList);
+        GeographicAreaList gAList = new GeographicAreaList();
+        gAList.addGeographicAreaToGeographicAreaList(ga1);
+        //Act
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        boolean actualResult = ctrl.checkIfGAContainsSensorByString("Chuva", ga1);
+        //Assert
+        assertFalse(actualResult);
     }
 
     @Test
