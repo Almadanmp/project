@@ -212,7 +212,10 @@ class RoomConfigurationUI {
                 }
                 break;
             case 2:
-                getInputDeviceByList();
+                if(!getInputDeviceByList()){
+                    System.out.println("Unable to select a Device. Returning to main menu.");
+                    return false;
+                }
                 break;
             case 0:
                 return false;
@@ -307,6 +310,7 @@ can reconfigure it.*/
         this.mDeviceName = scanner.nextLine();
 
         //get room
+        mRoom.removeDevice(mDevice);
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (mHouse.getRoomList().getRoomList().isEmpty()) {
@@ -354,7 +358,7 @@ can reconfigure it.*/
         can reconfigure it.*/
     private void displayDeviceUS215() {
         System.out.println("You have successfully changed the Device name to " + mDeviceName + ". \n"
-                + "And the Nominal Power is: " + mNominalPower + ". \n" + "And the room is " + mRoom.getRoomName() + "\n");
+                + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
     }
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total

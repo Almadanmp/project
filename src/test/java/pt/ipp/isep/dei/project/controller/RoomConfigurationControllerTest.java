@@ -331,7 +331,7 @@ class RoomConfigurationControllerTest {
         dlist.addDevices(d1);
         room.setDeviceList(dlist);
         String result = ctrl.printDevice(d1);
-        String expectedResult = "The Device Name is frigorifico, which is in the Room kitchen, and its NominalPower is 200.0\n";
+        String expectedResult = "The Device Name is frigorifico, which is in the Room kitchen, and its NominalPower is 200.0 kW.\n";
         assertEquals(expectedResult,result);
     }
 }

@@ -122,6 +122,14 @@ public class Room implements Metered {
         return false;
     }
 
+    public boolean removeDevice(Device device) {
+        if ((mDeviceList.getDeviceList().contains(device))) {
+            mDeviceList.getDeviceList().remove(device);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public boolean addSensor(Sensor sensor) {
         if (!(mRoomSensorList.getSensorList().contains(sensor))) {
