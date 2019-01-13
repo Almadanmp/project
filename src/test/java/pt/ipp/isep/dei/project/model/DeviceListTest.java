@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -192,6 +193,31 @@ class DeviceListTest {
         boolean result = deviceL1.checkIfListIsValid();
         //Assert -------------------------------
         assertFalse(result);
+    }
+
+
+    @Test
+    void SeeIfPrintListOfDevicesFromRoomWorksNone(){
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("cozinha",0,1,1,1);
+        String result = deviceList.printListOfDevicesFromRoom(room);
+        String expectedResult = "This room has no devices on it\n";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void SeeIfPrintListOfDevicesFromRoomWorks(){
+        DeviceList deviceList = new DeviceList();
+        Device d1 = new Device("frigorifico",230,new Fridge());
+        deviceList.addDevices(d1);
+        Room room = new Room("cozinha",0,1,1,1);
+        room.setDeviceList(deviceList);
+        String result = deviceList.printListOfDevicesFromRoom(room);
+        String expectedResult ="---------------\n" +
+                "\n" +
+                "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 230.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult,result);
     }
 
     @Test

@@ -38,6 +38,7 @@ public class Room implements Metered {
         mHouseFloor = houseFloor;
     }
 
+
     private void setRoomHeight(double height) {
         mRoomHeight = height;
     }
@@ -82,9 +83,11 @@ public class Room implements Metered {
         return this.mDeviceList.getDeviceList();
     }
 
-    /**
-     * This method will go through the room's device list and add all the devices'
-     * nominal power.
+    public DeviceList getObjectDeviceList(){
+        return this.mDeviceList;
+    }
+
+    /** This method will go through the room's device list and add all the devices'
      * The result is the room's total nominal power and will be returned as a double
      *
      * @return room's total nominal power (double)

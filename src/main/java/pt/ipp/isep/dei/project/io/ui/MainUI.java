@@ -203,10 +203,12 @@ public class MainUI {
 
         //Devices
 
-        Device device1 = new Device("WHOne", 2, new WaterHeater());
+        Device device1 = new Device("aquecedor",23.0, new WaterHeater());
         Device device2 = new Device("FridgeOne", 4, new Fridge());
         Device device3 = new Device("WHTwo", 3, new WaterHeater());
-        device1.setNominalPower(23.0);
+        device1.setmParentRoom(roomISEP2);
+        device2.setmParentRoom(roomISEP2);
+        device3.setmParentRoom(roomISEP2);
         DeviceList listDevices = new DeviceList();
         listDevices.addDevices(device1);
         listDevices.addDevices(device2);

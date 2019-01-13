@@ -13,10 +13,14 @@ class RoomConfigurationUI {
     private RoomConfigurationController mRoomConfigurationController;
     private Room mRoom;
     private Sensor mSensor;
+    private Device mDevice;
+    private double mNominalPower;
+    private String mDeviceName;
     private String mRoomName;
     private SensorList mSensorList;
     private String mSensorName;
     private String mStringRequestRoom = "You have chosen the following Room:";
+    private String mStringRequestDevice = "You have chosen the following Device:";
 
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
@@ -54,6 +58,11 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //215
+                    getInputRoom();
+                    getInputDevice();
+                    getInputDeviceCharacteristicsUS215();
+                    updateDeviceUS215();
+                    displayDeviceUS215();
                     activeInput = false;
                     break;
                 case 4: //US230
@@ -133,7 +142,7 @@ class RoomConfigurationUI {
             listOfIndexesRoom = mRoomConfigurationController.matchRoomIndexByString(mRoomName, mHouse);
         }
         if (listOfIndexesRoom.size() > 1) {
-            System.out.println("There are multiple Houses with that name. Please choose the right one.");
+            System.out.println("There are multiple Rooms with that name. Please choose the right one.");
             System.out.println(mRoomConfigurationController.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
             int aux = inputUtils.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
@@ -177,6 +186,133 @@ class RoomConfigurationUI {
                 System.out.println(utils.invalidOption);
             }
         }
+    }
+
+
+    private void getInputDevice() {
+        UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
+        System.out.println(
+                "We need to know which Device you wish to reconfigure.\n" + "Would you like to:\n" +
+                        "1) Type the name of your Device;\n" +
+                        "2) Choose it from a list;\n" +
+                        "0) Return;");
+        int option = inputUtils.readInputNumberAsInt();
+        switch (option) {
+            case 1:
+                getInputDeviceName();
+                if (!getDeviceByName()) {
+                    System.out.println("Unable to select a Device. Returning to main menu.");
+                    return;
+                }
+                break;
+            case 2:
+                getInputDeviceByList();
+                break;
+            case 0:
+                return;
+            default:
+                System.out.println(utils.invalidOption);
+                break;
+        }
+    }
+
+    private boolean getInputDeviceName() {
+        Scanner mScanner = new Scanner(System.in);
+        System.out.println("Please type the name of the Device you want to reconfigure.");
+        this.mRoomName = mScanner.nextLine();
+        return (!("exit".equals(this.mRoomName)));
+    }
+
+    private boolean getDeviceByName() {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        List<Integer> listOfIndexesDevice = mRoomConfigurationController.matchDeviceIndexByString(mDeviceName, mRoom);
+        while (listOfIndexesDevice.isEmpty()) {
+            System.out.print("There is no Device with that name. Please insert the name of a Device" +
+                    " that exists or  Type 'exit' to cancel and add a new Device on the Main Menu.");
+            if (!getInputDeviceName()) {
+                return false;
+            }
+            listOfIndexesDevice = mRoomConfigurationController.matchDeviceIndexByString(mDeviceName, mRoom);
+        }
+        if (listOfIndexesDevice.size() > 1) {
+            System.out.println("There are multiple Houses with that name. Please choose the right one.");
+            System.out.println(mRoomConfigurationController.printDeviceElementsByIndex(listOfIndexesDevice, mRoom));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (listOfIndexesDevice.contains(aux)) {
+                this.mDevice = mRoom.getDeviceList().get(aux);
+                this.mDeviceName = mDevice.getName();
+                mRoom.getDeviceList().get(aux);
+                System.out.println(mStringRequestDevice);
+                System.out.println(mRoomConfigurationController.printDevice(mDevice));
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        } else {
+            this.mDevice = mRoom.getDeviceList().get(listOfIndexesDevice.get(0));
+            this.mDeviceName = mDevice.getName();
+            System.out.println(mStringRequestDevice);
+            this.mRoom.getDeviceList().get(0);
+            System.out.println(mRoomConfigurationController.printDevice(mDevice));
+        }
+        return true;
+    }
+
+    private void getInputDeviceByList() {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        if (mRoom.getDeviceList().isEmpty()) {
+            System.out.println("Invalid Device List - List Is Empty\n");
+            return;
+        }
+        boolean activeInput = false;
+        System.out.println("Please select one of the existing Devices in the selected Room: ");
+        while (!activeInput) {
+            System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < mRoom.getDeviceList().size()) {
+                this.mDevice = mRoom.getDeviceList().get(aux);
+                this.mDeviceName = mDevice.getName();
+                System.out.println(mStringRequestDevice);
+                System.out.println(mRoomConfigurationController.printDevice(mDevice));
+                activeInput = true;
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
+
+    private void getInputDeviceCharacteristicsUS215() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        // get device name
+        System.out.print("Please, type the new name of the Device: ");
+        this.mDeviceName = scanner.nextLine();
+
+        //get latitude
+        String onlyNumbers = "Please,try again. Only numbers this time:";
+        System.out.print("Please, type the new Nominal Power: ");
+        while (!scanner.hasNextDouble()) {
+            System.out.println(onlyNumbers);
+            scanner.next();
+        }
+        this.mNominalPower = scanner.nextDouble();
+
+    }
+
+
+    private void updateDeviceUS215() {
+        mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
+        mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
+    }
+
+
+
+    private void displayDeviceUS215() {
+        System.out.println("You have successfully changed the Device name to " + mDeviceName + ". \n"
+                + "And the Nominal Power is: " + mNominalPower + ". \n");
     }
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total

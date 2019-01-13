@@ -70,6 +70,10 @@ public class RoomConfigurationController {
         return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
     }
 
+    public String printDeviceElementsByIndex(List<Integer> listOfIndexesOfDevice, Room room) {
+        return room.getObjectDeviceList().printElementsByIndex(listOfIndexesOfDevice);
+    }
+
     /**
      *
      * @param input is the name of room we want to look for.
@@ -141,6 +145,9 @@ public class RoomConfigurationController {
         return slist.matchSensorListIndexByString(input);
     }
 
+    public List<Integer> matchDeviceIndexByString(String input, Room room ){
+        return room.getObjectDeviceList().matchDeviceIndexByString(input);
+    }
     /**
      *
      * @param sensorList is the sensor list to print.
@@ -161,6 +168,20 @@ public class RoomConfigurationController {
         return sensor.printSensor();
     }
 
+    public String printDevice(Device device){return device.printDevice();}
+
+    public String printDeviceList(Room room){
+        return room.getObjectDeviceList().printListOfDevicesFromRoom(room);
+    }
+
+    public void setDeviceName(String input, Device device) {
+        device.setmName(input);
+    }
+
+
+    public void setNominalPower(Double input, Device device){
+        device.setNominalPower(input);
+    }
     /**
      *
      * @param listOfIndexesOfSensor is a list of integers that represent positions in a list.

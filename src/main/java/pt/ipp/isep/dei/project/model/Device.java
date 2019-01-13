@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 public class Device implements Metered {
     private String mName;
     //private Room mParentRoom;
+    private Room mParentRoom;
     private double mNominalPower;
     private DeviceSpecs mDeviceSpecs;
 
@@ -23,18 +24,30 @@ public class Device implements Metered {
         this.mNominalPower = nomPower;
     }
 
-    public String getName() {
-        return this.mName;
-    }
+    public void setName(String name){this.mName = name;}
 
-    public void setName(String name) {
-        this.mName = name;
-    }
 
-    public double getNominalPower() {
+    public double getNominalPower(){
         return this.mNominalPower;
     }
 
+    public void setmName(String name){
+        this.mName = name;
+    }
+
+    public String getName(){return this.mName;}
+
+    public void setmParentRoom(Room room){this.mParentRoom=room;}
+
+    public Room getmParentRoom(){return this.mParentRoom;}
+
+
+    public String printDevice(){
+        String result;
+        result = "The Device Name is " + this.mName + ", which is in the Room " + this.mParentRoom.getRoomName() + ", and its NominalPower is " +
+                getNominalPower() + "\n";
+        return result;
+    }
     public double getConsumption() {
         return mDeviceSpecs.getConsumption();
     }
@@ -43,3 +56,7 @@ public class Device implements Metered {
         return mDeviceSpecs.getType();
     }
 }
+
+
+
+
