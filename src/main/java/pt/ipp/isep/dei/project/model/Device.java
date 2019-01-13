@@ -50,8 +50,17 @@ public class Device implements Metered {
                 getNominalPower() + "\n";
         return result;
     }
+
     public double getConsumption() {
         return mDeviceSpecs.getConsumption();
+    }
+
+    /**
+     * get daily estimate consumption on a day (24hours)
+     * @return the estimateConsumption/24 hours
+     */
+    public double getDailyEstimateConsumption(){
+        return mDeviceSpecs.getConsumption()*24;
     }
 
     public DeviceType getDeviceType() {

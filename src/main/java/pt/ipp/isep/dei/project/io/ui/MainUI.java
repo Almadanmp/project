@@ -203,9 +203,9 @@ public class MainUI {
 
         //Devices
 
-        Device device1 = new Device("aquecedor",23.0, new WaterHeater());
+        Device device1 = new Device("aquecedor",23.0, new WaterHeater(100,30,2));
         Device device2 = new Device("FridgeOne", 4, new Fridge());
-        Device device3 = new Device("WHTwo", 3, new WaterHeater());
+        Device device3 = new Device("WHTwo", 3, new WaterHeater(500,25,10));
         device1.setmParentRoom(roomISEP2);
         device2.setmParentRoom(roomISEP2);
         device3.setmParentRoom(roomISEP2);

@@ -172,16 +172,15 @@ public class House implements Metered {
     }
 
     /**
-     * Returns the sum of the consumption of all devices of a given type, in a given day, in all rooms of this house.
+     * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
      *
      * @param deviceType the device type
-     * @param date       the day
-     * @return the sum of all daily consumptions of that type
+     * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyHouseConsumptionPerType(DeviceType deviceType, Date date) {
+    public double getDailyHouseConsumptionPerType(DeviceType deviceType) {
         double result = 0;
         for (Room r : mRoomList.getRoomList()) {
-            result += r.getDailyRoomConsumptionPerType(deviceType, date);
+            result += r.getDailyRoomConsumptionPerType(deviceType);
         }
         return result;
     }

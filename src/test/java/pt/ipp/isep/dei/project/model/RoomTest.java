@@ -341,22 +341,21 @@ public class RoomTest {
     void getDailyRoomConsumptionPerTypeTest() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge());
-        Device d2 = new Device("wHeater1", 12, new WaterHeater());
-        Device d3 = new Device("wHeater2", 11, new WaterHeater());
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500,30,1));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        Date d = new GregorianCalendar(2018, 10, 1).getTime();
-        double expectedResult = 2;
-        double result = r1.getDailyRoomConsumptionPerType(DeviceType.WATER_HEATER, d);
+        double expectedResult = 414493.19999999995;
+        double result = r1.getDailyRoomConsumptionPerType(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }
 
     @Test
     void addDeviceFails() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater());
-        Device d3 = new Device("wHeater1", 11, new WaterHeater());
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
+        Device d3 = new Device("wHeater1", 11, new WaterHeater(500,30,1));
         r1.addDevice(d2);
         boolean expectedResult = false;
         boolean result = r1.addDevice(d3);
@@ -366,8 +365,8 @@ public class RoomTest {
     @Test
     void addDeviceSucceeds() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater());
-        Device d3 = new Device("wHeater2", 11, new WaterHeater());
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500,30,1));
         r1.addDevice(d2);
         boolean expectedResult = true;
         boolean result = r1.addDevice(d3);

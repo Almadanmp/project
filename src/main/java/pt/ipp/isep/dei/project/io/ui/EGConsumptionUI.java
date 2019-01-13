@@ -35,7 +35,7 @@ public class EGConsumptionUI {
                     break;
 
                 case 2:
-                    inputUtils.getInputStartDate();
+                    runUS752(programHouse);
                     activeInput = true;
                     break;
                 case 0:
@@ -55,12 +55,16 @@ public class EGConsumptionUI {
      * given the cold-water temperature and the volume of water produced in each water heater.
      */
 
+    private void runUS752(House house) {
+        double result = controller.getDailyHouseConsumptionWaterHeater(house);
+        System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
+    }
 
     private void printOptionMessage() {
         System.out.println("Energy Consumption Management Options:\n");
         System.out.println("1) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
                 " (US705)");
-        System.out.println("2) Estimate the total energy used in heating water in a given day. (US752)");
+        System.out.println("2) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

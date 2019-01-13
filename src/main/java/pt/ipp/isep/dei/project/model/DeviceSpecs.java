@@ -11,9 +11,9 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 public interface DeviceSpecs {
 
     /**
-     * This method will return the total amount of energy produced/consumed during a certain period.
+     * This method will return the energy consumption in kW/h.
      *
-     * @return Energy consumption - measured in KWh te basic trade unit of energy.
+     * @return Energy consumption - measured in kW/h te basic trade unit of energy.
      */
     double getConsumption(); // To be added: time/period argument (once spec is closed)
 
