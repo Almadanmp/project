@@ -73,7 +73,7 @@ public class RoomList {
         return null;
     }
 
-    public boolean matchRoom(String roomToMatch) {
+    boolean matchRoom(String roomToMatch) {
         for (Room r : mRoomList) {
             if (r.getRoomName().equals(roomToMatch)) {
                 return true;
@@ -140,9 +140,11 @@ public class RoomList {
         return (this.mRoomList.contains(room));
     }
 
-    public void removeRoom(Room room){
+    void removeRoom(Room room){
         this.mRoomList.remove(room);
     }
+
+
 
 
     @Override

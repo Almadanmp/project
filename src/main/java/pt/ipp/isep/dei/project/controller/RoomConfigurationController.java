@@ -20,6 +20,17 @@ public class RoomConfigurationController {
          */
     }
 
+    /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
+    nominal power of a room, i.e. the sum of the nominal power of all devices in the
+    room. - TERESA VARELA */
+
+    public double getRoomNominalPower(Room room) {
+        return room.getNominalPower();
+    }
+
+
+    /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
+    sensor types, in order to configure it. - ANDRÉ RUA */
 
     /**
      * @param name is the name of the sensor we want to look for.

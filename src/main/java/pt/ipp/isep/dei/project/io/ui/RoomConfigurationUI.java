@@ -57,6 +57,8 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 4: //US230
+                    getInputRoom();
+                    getRoomNominalPower();
                     activeInput = false;
                     break;
                 case 5: //US250
@@ -176,6 +178,18 @@ class RoomConfigurationUI {
             }
         }
     }
+
+    /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
+    nominal power of a room, i.e. the sum of the nominal power of all devices in the
+    room. - TERESA VARELA */
+
+    private void getRoomNominalPower() {
+        double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(this.mRoom);
+        System.out.println("The room you chose has a total nominal power of "+ roomNominalPower + " kW.\nThis results" +
+                "from the sum of the nominal power of all devices in the room.");
+    }
+
+
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */

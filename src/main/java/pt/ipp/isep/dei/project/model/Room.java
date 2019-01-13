@@ -69,7 +69,7 @@ public class Room implements Metered {
         return mHouseFloor;
     }
 
-    List<Device> getDeviceList(){
+    private List<Device> getDeviceList(){
         return this.mDeviceList.getDeviceList();
     }
 
@@ -119,8 +119,6 @@ public class Room implements Metered {
     /**
      * Gets most recent reading for current temperature.
      *
-     * @param
-     * @return
      */
 
     public double getCurrentRoomTemperature() {
@@ -139,7 +137,6 @@ public class Room implements Metered {
                 this.getRoomWidth() + ", "+ this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";
         return result;
     }
-
 
     @Override
     public boolean equals(Object o) {
