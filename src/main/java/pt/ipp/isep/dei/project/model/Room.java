@@ -132,6 +132,20 @@ public class Room implements Metered {
         }
     }
 
+    /**
+     * Adds a device to a room
+     *
+     * @param device to be added
+     * @return the result of the operation (true if successful, false otherwise)
+     */
+    public boolean addDevice(Device device) {
+        if (!(mDeviceList.getDeviceList().contains(device))) {
+            mDeviceList.getDeviceList().add(device);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Gets most recent reading for current temperature.
@@ -156,11 +170,12 @@ public class Room implements Metered {
 
     /**
      * Returns the sum of the consumption of all devices of a given type, in a given day, in this room.
+     *
      * @param deviceType the device type
-     * @param date the day
+     * @param date       the day
      * @return the sum of all daily consumptions of that type
      */
-   public double getDailyRoomConsumptionPerType(DeviceType deviceType, Date date) {
+    public double getDailyRoomConsumptionPerType(DeviceType deviceType, Date date) {
         //TODO use date
         double result = 0;
         for (Device d : getDeviceList()) {

@@ -15,7 +15,7 @@ class DeviceListTest {
         //Arrange
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 9, 23456789,2,2);
+        Room room1 = new Room("room1", 9, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -40,7 +40,7 @@ class DeviceListTest {
         //Arrange
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 9, 23456789,2,2);
+        Room room1 = new Room("room1", 9, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -50,8 +50,8 @@ class DeviceListTest {
         rL1.addReading(r1);
         //Device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device();
-        Device device2 = new Device();
+        Device d1 = new Device("FridgeTwo", 12, new Fridge());
+        Device device2 = new Device("FridgeOne", 12, new Fridge());
         deviceL1.addDevices(d1);
         //Act
         Boolean actualResult = deviceL1.addDevices(device2);
@@ -64,7 +64,7 @@ class DeviceListTest {
         //Arrange --------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -87,7 +87,7 @@ class DeviceListTest {
         //Arrange --------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -109,7 +109,7 @@ class DeviceListTest {
         //Arrange ------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -133,7 +133,7 @@ class DeviceListTest {
         //Arrange ------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -156,7 +156,7 @@ class DeviceListTest {
         //Arrange ------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -179,7 +179,7 @@ class DeviceListTest {
         //Arrange ------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789,2,2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -286,6 +286,6 @@ class DeviceListTest {
         dList2.addDevices(device2);
         //Act
         boolean actualResult = dList1.equals(dList2);
-        assertFalse(actualResult);
+        assertTrue(actualResult);
     }
 }

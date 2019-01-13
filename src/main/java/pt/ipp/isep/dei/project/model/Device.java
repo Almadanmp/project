@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
+import java.util.Objects;
+
 public class Device implements Metered {
     private String mName;
     //private Room mParentRoom;
@@ -54,6 +56,24 @@ public class Device implements Metered {
 
     public DeviceType getDeviceType() {
         return mDeviceSpecs.getType();
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Device device = (Device) o;
+        return Objects.equals(mName, device.mName);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }
 
