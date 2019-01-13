@@ -33,7 +33,7 @@ class RoomConfigurationUI {
         }
         this.mHouse = house;
         RoomList roomList = mHouse.getRoomList();
-        if (roomList == null|| roomList.getRoomList().isEmpty()) {
+        if (roomList == null || roomList.getRoomList().isEmpty()) {
             System.out.println("There are no available rooms in the house. Please add a room to continue.");
             return;
         }
@@ -283,6 +283,9 @@ class RoomConfigurationUI {
         }
     }
 
+    /*US215 As an Administrator, I want to edit the configuration of an existing device, so that I
+can reconfigure it.*/
+
     private void getInputDeviceCharacteristicsUS215() {
 
         Scanner scanner = new Scanner(System.in);
@@ -302,14 +305,17 @@ class RoomConfigurationUI {
 
     }
 
-
+    /*
+    US215 As an Administrator, I want to edit the configuration of an existing device, so that I
+    can reconfigure it.*/
     private void updateDeviceUS215() {
         mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
         mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
     }
 
-
-
+    /*
+        US215 As an Administrator, I want to edit the configuration of an existing device, so that I
+        can reconfigure it.*/
     private void displayDeviceUS215() {
         System.out.println("You have successfully changed the Device name to " + mDeviceName + ". \n"
                 + "And the Nominal Power is: " + mNominalPower + ". \n");
@@ -321,7 +327,7 @@ class RoomConfigurationUI {
 
     private void getRoomNominalPower() {
         double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(this.mRoom);
-        System.out.println("The room you chose has a total nominal power of "+ roomNominalPower + " kW.\nThis results" +
+        System.out.println("The room you chose has a total nominal power of " + roomNominalPower + " kW.\nThis results" +
                 "from the sum of the nominal power of all devices in the room.");
     }
 

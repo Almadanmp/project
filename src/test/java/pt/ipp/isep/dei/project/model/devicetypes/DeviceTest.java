@@ -53,6 +53,34 @@ public class DeviceTest {
     }
 
     @Test
+    void seeIfPrintDeviceWorks(){
+        Device d1 = new Device("frigo", 150, new Fridge());
+        Room room = new Room("kitchen",1,1,1,1);
+        d1.setmParentRoom(room);
+        String result = d1.printDevice();
+        String expectedResult = "The Device Name is frigo, which is in the Room kitchen, and its NominalPower is 150.0\n";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void seeIfGetParentRoomWorks(){
+        Device d1 = new Device("frigo", 150, new Fridge());
+        Room room = new Room("kitchen",1,1,1,1);
+        d1.setmParentRoom(room);
+        Room result = d1.getmParentRoom();
+        assertEquals(room,result);
+    }
+
+    @Test
+    void seeIfSetNameWorks(){
+        Device d1 = new Device("frigo", 150, new Fridge());
+        d1.setmName("frigorifico");
+        String result = d1.getName();
+        String expectedResult = "frigorifico";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
     public void hashCodeDummyTest() {
         Device d1 = new Device();
         int expectedResult = 1;

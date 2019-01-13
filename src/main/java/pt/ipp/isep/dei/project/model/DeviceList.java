@@ -23,7 +23,7 @@ public class DeviceList {
     }
 
     public boolean addDevices(Device device) {
-        if(!mDeviceList.contains(device)){
+        if (!mDeviceList.contains(device)) {
             mDeviceList.add(device);
             return true;
         }
@@ -38,11 +38,12 @@ public class DeviceList {
         return !mDeviceList.isEmpty();
     }
 
-    public String printListOfDevicesFromRoom(Room room){
+    public String printListOfDevicesFromRoom(Room room) {
         StringBuilder result = new StringBuilder("---------------\n");
-        if (room.getDeviceList().isEmpty()){
+        if (room.getDeviceList().isEmpty()) {
             return "This room has no devices on it\n";
-        }for (int i = 0; i < room.getDeviceList().size(); i++) {
+        }
+        for (int i = 0; i < room.getDeviceList().size(); i++) {
             Device device = room.getDeviceList().get(i);
             result.append("\n" + i).append(") Device Name: ").append(device.getName());
             result.append(", Device Type: ").append(device.getDeviceType());
@@ -66,7 +67,7 @@ public class DeviceList {
         StringBuilder result = new StringBuilder();
         for (Integer indexe : indexes) {
             int pos = indexe;
-            result.append(indexe).append(") ").append(mDeviceList.get(pos).getName()).append(", ").append(mDeviceList.get(pos).getmParentRoom().toString()).append(", ").append(mDeviceList.get(pos).getNominalPower()).append(".\n");
+            result.append(indexe).append(") ").append(mDeviceList.get(pos).getName()).append(", ").append(mDeviceList.get(pos).getmParentRoom().getRoomName()).append(", ").append(mDeviceList.get(pos).getNominalPower()).append(".\n");
         }
         return result.toString();
     }

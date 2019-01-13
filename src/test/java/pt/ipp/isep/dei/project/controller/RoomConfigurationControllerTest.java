@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -276,5 +279,45 @@ class RoomConfigurationControllerTest {
         String expectedResult = "1) Pluviosidade1 which is a Pluviosidade sensor.\n";
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfPrintDeviceElementsByIndex(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Device d2 = new Device("maquina de lavar", 150, new WashingMachine());
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        d1.setmParentRoom(room);
+        d2.setmParentRoom(room);
+        DeviceList dlist = new DeviceList();
+        dlist.addDevices(d1);
+        dlist.addDevices(d2);
+        room.setDeviceList(dlist);
+
+        //Act
+        String result = ctrl.printDeviceElementsByIndex(list, room);
+        String expectedResult = "1) maquina de lavar, kitchen, 150.0.\n";
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
+    }
+    @Test
+    void SeeIfMatchDeviceIndexByStringWorks(){
+        //Arrange
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        d1.setmParentRoom(room);
+        DeviceList dlist = new DeviceList();
+        dlist.addDevices(d1);
+        room.setDeviceList(dlist);
+        //Act
+        List<Integer> result = ctrl.matchDeviceIndexByString("frigorifico", room);
+        List<Integer> expectedResult = Collections.singletonList(dlist.getDeviceList().indexOf(d1));
+        //Assert
+        assertEquals(expectedResult, result);
     }
 }

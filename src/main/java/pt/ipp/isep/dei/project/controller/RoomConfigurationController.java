@@ -70,6 +70,14 @@ public class RoomConfigurationController {
         return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
     }
 
+    /**
+     *
+     * @param listOfIndexesOfDevice is a list of integers that represent positions in a list.
+     * @param room is the room where we want to get the device list from.
+     * @return builds a string from the individual elements in the DeviceList that are contained in the positions
+     * given by the list of indexes.
+     */
+
     public String printDeviceElementsByIndex(List<Integer> listOfIndexesOfDevice, Room room) {
         return room.getObjectDeviceList().printElementsByIndex(listOfIndexesOfDevice);
     }
@@ -168,17 +176,37 @@ public class RoomConfigurationController {
         return sensor.printSensor();
     }
 
+    /**
+     *
+     * @param device the device we want to print.
+     * @return string with the given device.
+     */
     public String printDevice(Device device){return device.printDevice();}
 
+    /**
+     *
+     * @param room the room we want to print the list of devices from.
+     * @return string with all the devices in the given room.
+     */
     public String printDeviceList(Room room){
         return room.getObjectDeviceList().printListOfDevicesFromRoom(room);
     }
 
+    /**
+     *
+     * @param input the new name we want to give to the device.
+     * @param device the device we want to change the name from.
+     */
     public void setDeviceName(String input, Device device) {
         device.setmName(input);
     }
 
 
+    /**
+     *
+     * @param input the new nominal power we want to give to the device.
+     * @param device the device we want to change the nominal power from.
+     */
     public void setNominalPower(Double input, Device device){
         device.setNominalPower(input);
     }

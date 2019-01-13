@@ -1,10 +1,11 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -218,6 +219,41 @@ class DeviceListTest {
                 "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 230.0\n" +
                 "---------------\n";
         assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void SeeIfMatchDeviceIndexByStringWorks(){
+        //Arrange
+        Device device = new Device("frigorifico", 200, new Fridge());
+        DeviceList dlist = new DeviceList();
+        dlist.addDevices(device);
+        //Act
+        List<Integer> result = dlist.matchDeviceIndexByString("frigorifico");
+        List<Integer> expectedResult = Collections.singletonList(dlist.getDeviceList().indexOf(device));
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void SeeIfPrintElementsByIndexWorks(){
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Device d2 = new Device("maquina de lavar", 150, new WashingMachine());
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        d1.setmParentRoom(room);
+        d2.setmParentRoom(room);
+        DeviceList dlist = new DeviceList();
+        dlist.addDevices(d1);
+        dlist.addDevices(d2);
+
+        //Act
+        String result = dlist.printElementsByIndex(list);
+        String expectedResult = "1) maquina de lavar, kitchen, 150.0.\n";
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
     }
 
     @Test
