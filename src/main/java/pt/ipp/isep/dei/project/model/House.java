@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -66,15 +69,15 @@ public class House implements Metered {
         this.mTown = town;
     }
 
-    public double getNominalPower(){
+    public double getNominalPower() {
         double result = 0;
-        for (Room r1 : mRoomList.getRoomList()){
-            result+= r1.getNominalPower();
+        for (Room r1 : mRoomList.getRoomList()) {
+            result += r1.getNominalPower();
         }
         return result;
     }
 
-   public Local getLocation() {
+    public Local getLocation() {
         return mLocation;
     }
 
@@ -167,6 +170,22 @@ public class House implements Metered {
         result.append(mStringEnhancer);
         return result.toString();
     }
+
+    /**
+     * Returns the sum of the consumption of all devices of a given type, in a given day, in all rooms of this house.
+     *
+     * @param deviceType the device type
+     * @param date       the day
+     * @return the sum of all daily consumptions of that type
+     */
+    public double getDailyHouseConsumptionPerType(DeviceType deviceType, Date date) {
+        double result = 0;
+        for (Room r : mRoomList.getRoomList()) {
+            result += r.getDailyRoomConsumptionPerType(deviceType, date);
+        }
+        return result;
+    }
+
 
     @Override
     public boolean equals(Object o) {

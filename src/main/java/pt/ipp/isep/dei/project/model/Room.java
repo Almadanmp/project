@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -149,11 +151,22 @@ public class Room implements Metered {
         return result;
     }
 
-   /* double getRoomConsumption(){
-        for (Device d:getDeviceList()) {
-            if (d.getDeviceType() )
-
-        }*/
+    /**
+     * Returns the sum of the consumption of all devices of a given type, in a given day, in this room.
+     * @param deviceType the device type
+     * @param date the day
+     * @return the sum of all daily consumptions of that type
+     */
+   public double getDailyRoomConsumptionPerType(DeviceType deviceType, Date date) {
+        //TODO use date
+        double result = 0;
+        for (Device d : getDeviceList()) {
+            if (d.getDeviceType() == deviceType) {
+                result += d.getConsumption();
+            }
+        }
+        return result;
+    }
 
 
     @Override
