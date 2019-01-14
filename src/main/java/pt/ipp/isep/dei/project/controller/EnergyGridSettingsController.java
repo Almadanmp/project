@@ -210,6 +210,7 @@ public class EnergyGridSettingsController {
     /**
      * This method validates the list of rooms and the list of devices in all rooms.
      * If all the attributes are valid, this method will print the devices, according to their type
+     *
      * @param energyGrid - This will be the parameter in which we want to search all the devices
      */
 
@@ -219,6 +220,7 @@ public class EnergyGridSettingsController {
         }
         if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty()) {
             return "This energy grid has no devices on it\n";
-        }return energyGrid.printDeviceListByType(energyGrid);
+        }
+        return energyGrid.printDeviceListByType(energyGrid);
     }
 }

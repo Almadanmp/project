@@ -81,8 +81,8 @@ class EnergyGridSettingsUI {
                 case 7:
                     if (this.mHouse.getEGList() == null) {
                         System.out.println(noGrid);
-                        return;}
-                    else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
+                        return;
+                    } else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
                         System.out.println(noGrid);
                         return;
                     }
@@ -174,7 +174,7 @@ class EnergyGridSettingsUI {
     }
 
     private void getInputGridByList(House house) {
-        if (house == null){
+        if (house == null) {
             System.out.println("The selected house is NOT a valid one\n" + "Returning to main menu\n");
             return;
         }
@@ -421,8 +421,10 @@ class EnergyGridSettingsUI {
     It must include device location
     DANIEL OLIVEIRA*/
 
-    private void displayUS160(EnergyGrid energyGrid){
-        if (mHouse == null){return;}
+    private void displayUS160(EnergyGrid energyGrid) {
+        if (mHouse == null) {
+            return;
+        }
         mController.printListOfDevicesByType(energyGrid);
     }
 
@@ -488,5 +490,6 @@ class EnergyGridSettingsUI {
         } else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
             System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
             return;
-        }}
+        }
+    }
 }
