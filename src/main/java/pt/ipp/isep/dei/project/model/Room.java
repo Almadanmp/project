@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class that represents a Room of a House.
+ */
+
 public class Room implements Metered {
     private String mRoomName;
     private int mHouseFloor;
@@ -153,6 +157,7 @@ public class Room implements Metered {
 
     /**
      * Gets most recent reading for current temperature.
+     * @return 1
      */
 
     public double getCurrentRoomTemperature() {

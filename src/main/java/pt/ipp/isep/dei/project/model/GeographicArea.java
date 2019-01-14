@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import java.util.Date;
 
 /**
- * This is the central class.
+ * Class that represents a Geographical Area.
  */
 
 public class GeographicArea {

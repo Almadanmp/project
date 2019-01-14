@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
+/**
+ * Class that represents the Local of an Object .
+ */
+
 public class Local {
     private double mLatitude;
     private double mLongitude;

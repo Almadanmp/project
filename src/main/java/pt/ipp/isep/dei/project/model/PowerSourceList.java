@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import java.util.*;
 
 /**
- * Represents a List of PowerSources.
+ * Class that groups a number of Power Sources.
  */
 
 public class PowerSourceList {
