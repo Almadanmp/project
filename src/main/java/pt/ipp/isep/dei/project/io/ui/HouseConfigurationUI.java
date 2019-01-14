@@ -229,7 +229,7 @@ class HouseConfigurationUI {
     * - MARIA MEIRELES, TERESA VARELA */
 
     private void printRoomList(House house) {
-        System.out.println(controller.printRooms(house.getRoomList()));
+        System.out.println(controller.printRooms(house));
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */

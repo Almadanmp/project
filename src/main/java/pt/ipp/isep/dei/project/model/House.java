@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -81,22 +81,25 @@ public class House implements Metered {
         return mLocation;
     }
 
+    public List<Device> getDeviceList(){
+         return this.mRoomList.getDeviceList();
+    }
+
     public void setLocation(double latitude, double longitude, double altitude) {
         mLocation.setLatitude(latitude);
         mLocation.setLongitude(longitude);
         mLocation.setAltitude(altitude);
     }
-
-    public void setmMotherArea(GeographicArea mMotherArea) {
-        this.mMotherArea = mMotherArea;
-    }
-
     public void setRoomList(RoomList roomList) {
         this.mRoomList = roomList;
     }
 
-    public RoomList getRoomList() {
-        return this.mRoomList;
+    public void setMotherArea(GeographicArea motherArea){
+        this.mMotherArea = motherArea;
+    }
+
+    public List<Room> getRoomList() {
+        return this.mRoomList.getRoomList();
     }
 
     public GeographicArea getMotherArea() {
@@ -170,6 +173,37 @@ public class House implements Metered {
         result.append(mStringEnhancer);
         return result.toString();
     }
+
+    /**
+     * @return builds a string from the House's room list.
+     */
+
+
+    public String printRoomList(){
+        return this.mRoomList.printRooms();
+    }
+
+    /**
+     *
+     * @param indexList is a list of integers that represent positions in a list.
+     * @return builds a string from the individual elements in the RoomList that are contained in the positions
+     * given by the list of indexes.
+     */
+
+    public String printRoomsByIndex(List<Integer> indexList){
+        return this.mRoomList.printElementsByIndex(indexList);
+    }
+
+    /**
+     * @param input is the name of room we want to look for.
+     * @return is a list of integers, representing positions in the roomList, of rooms whose name matches
+     * input string.
+     */
+
+    public List<Integer> matchRoomIndexByString(String input){
+        return this.mRoomList.matchRoomIndexByString(input);
+    }
+
 
     /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.

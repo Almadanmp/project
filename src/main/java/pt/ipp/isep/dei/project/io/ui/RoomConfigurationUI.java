@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
+import java.util.List;
 import java.util.Scanner;
 
 class RoomConfigurationUI {
@@ -38,8 +39,8 @@ class RoomConfigurationUI {
             return;
         }
         this.mHouse = house;
-        RoomList roomList = mHouse.getRoomList();
-        if (roomList == null || roomList.getRoomList().isEmpty()) {
+        List<Room> roomList = mHouse.getRoomList();
+        if (roomList == null || roomList.isEmpty()) {
             System.out.println("There are no available rooms in the house. Please add a room to continue.");
             return;
         }
@@ -107,7 +108,7 @@ class RoomConfigurationUI {
     private void getInputRoomByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        if (mHouse.getRoomList().getRoomList().isEmpty()) {
+        if (mHouse.getRoomList().isEmpty()) {
             System.out.println("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -116,8 +117,8 @@ class RoomConfigurationUI {
         while (activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
-                this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
+            if (aux >= 0 && aux < mHouse.getRoomList().size()) {
+                this.mRoom = mHouse.getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
                 System.out.println(mStringRequestRoom);
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
@@ -174,7 +175,7 @@ class RoomConfigurationUI {
         mRoom.removeDevice(mDevice);
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        if (mHouse.getRoomList().getRoomList().isEmpty()) {
+        if (mHouse.getRoomList().isEmpty()) {
             System.out.println("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -183,8 +184,8 @@ class RoomConfigurationUI {
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
-                this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
+            if (aux >= 0 && aux < mHouse.getRoomList().size()) {
+                this.mRoom = mHouse.getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
                 System.out.println(mStringRequestRoom);
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));

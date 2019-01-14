@@ -58,7 +58,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printHouseRoomList(House house) {
-        return house.getRoomList().printRoomList(house);
+        return house.printRoomList();
     }
 
     /**
@@ -78,7 +78,7 @@ public class EnergyGridSettingsController {
      */
 
     public List<Integer> getIndexHouseRoomsByString(String input, House house) {
-        return house.getRoomList().matchRoomIndexByString(input);
+        return house.matchRoomIndexByString(input);
     }
 
     /**
@@ -88,7 +88,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printHouseRoomsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
+        return house.printRoomsByIndex(listOfIndexesOfRoom);
     }
 
     /**

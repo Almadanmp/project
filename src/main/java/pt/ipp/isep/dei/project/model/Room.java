@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 
 public class Room implements Metered {
+
     private String mRoomName;
     private int mHouseFloor;
     private double mRoomWidth;

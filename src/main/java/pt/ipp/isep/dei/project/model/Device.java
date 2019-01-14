@@ -31,7 +31,6 @@ public class Device implements Metered {
 
     public void setName(String name){this.mName = name;}
 
-
     public double getNominalPower(){
         return this.mNominalPower;
     }
@@ -69,7 +68,6 @@ public class Device implements Metered {
     public DeviceType getDeviceType() {
         return mDeviceSpecs.getType();
     }
-
 
     @Override
     public boolean equals(Object o) {

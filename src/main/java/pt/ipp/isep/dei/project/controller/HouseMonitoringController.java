@@ -60,7 +60,7 @@ public class HouseMonitoringController {
 
     boolean doesSensorListInARoomContainASensorByName(String name, RoomList roomList) {
         boolean result = true;
-        for (Room r : roomList.getRooms()) {
+        for (Room r : roomList.getRoomList()) {
             result = r.getmRoomSensorList().doesSensorListContainSensorByName(name);
         }
         return result;
@@ -121,7 +121,7 @@ public class HouseMonitoringController {
      */
 
     public List<Integer> matchRoomIndexByString(String input, House house) {
-        return house.getRoomList().matchRoomIndexByString(input);
+        return house.matchRoomIndexByString(input);
     }
 
     /**
@@ -144,7 +144,7 @@ public class HouseMonitoringController {
      */
 
     public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
+        return house.printRoomsByIndex(listOfIndexesOfRoom);
     }
 
     /**
@@ -175,7 +175,7 @@ public class HouseMonitoringController {
      */
 
     public String printHouseRoomList(House house) {
-        return house.getRoomList().printRoomList(house);
+        return house.printRoomList();
     }
 
     /**

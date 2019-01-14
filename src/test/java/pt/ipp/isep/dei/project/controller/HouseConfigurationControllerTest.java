@@ -249,11 +249,13 @@ class HouseConfigurationControllerTest {
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
+        House house = new House();
+        house.setRoomList(roomList);
         String expectedResult = "---------------\n" +
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
-        String result = ctrl.printRooms(roomList);
+        String result = ctrl.printRooms(house);
         Assertions.assertEquals(expectedResult, result);
     }
 

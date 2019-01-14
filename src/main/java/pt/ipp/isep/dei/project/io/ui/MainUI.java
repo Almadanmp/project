@@ -70,7 +70,7 @@ public class MainUI {
         // Houses (1 per Geographical Area!)
 
         House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", msPorto, new Local(41.177748, -8.607745, 112), isep, roomListEdifB);
-        edificioB.setmMotherArea(isep);
+        edificioB.setMotherArea(isep);
 
         // Sensor Readings
 

@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -326,31 +327,6 @@ class HouseTest {
         assertEquals(expectedResult, actualResult);
     }
 
-
-    @Test
-    void seeSetRoomList() {
-        GeographicArea ga = new GeographicArea();
-        RoomList roomList = new RoomList();
-        Room room1 = new Room("Quarto", 1, 12, 32, 2);
-        Room room2 = new Room("Cozinha", 1, 42, 42, 2);
-        roomList.addRoom(room1);
-        roomList.addRoom(room2);
-
-        //Arrange
-        RoomList expectedResult = new RoomList();
-        expectedResult.addRoom(room1);
-        expectedResult.addRoom(room2);
-        RoomList roomList1 = new RoomList();
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList1);
-
-        //Act
-        house.setRoomList(roomList);
-        RoomList actualResult = house.getRoomList();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
     @Test
     void seeSetMotherArea() {
         //Arrange
@@ -369,7 +345,7 @@ class HouseTest {
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
 
         //Act
-        house.setmMotherArea(ga1);
+        house.setMotherArea(ga1);
         GeographicArea actualResult = house.getMotherArea();
 
         //Assert

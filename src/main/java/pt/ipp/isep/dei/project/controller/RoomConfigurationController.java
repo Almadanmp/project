@@ -33,7 +33,7 @@ public class RoomConfigurationController {
      */
 
     Room getRoomFromHouseByName(String roomName, House house) {
-        for (Room r : house.getRoomList().getRoomList()) {
+        for (Room r : house.getRoomList()) {
             if (r.getRoomName().equals(roomName)) {
                 mRoom = r;
             }
@@ -48,7 +48,7 @@ public class RoomConfigurationController {
      */
 
     public String printRoomList(House house) {
-        return house.getRoomList().printRoomList(house);
+        return house.printRoomList();
     }
 
     /**
@@ -70,7 +70,7 @@ public class RoomConfigurationController {
      */
 
     public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
+        return house.printRoomsByIndex(listOfIndexesOfRoom);
     }
 
     /**
@@ -94,7 +94,7 @@ public class RoomConfigurationController {
      */
 
     public List<Integer> matchRoomIndexByString(String input, House house) {
-        return house.getRoomList().matchRoomIndexByString(input);
+        return house.matchRoomIndexByString(input);
     }
 
 

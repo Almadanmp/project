@@ -17,7 +17,5 @@ public interface DeviceSpecs {
      */
     double getConsumption(); // To be added: time/period argument (once spec is closed)
 
-
     DeviceType getType();
-
 }
