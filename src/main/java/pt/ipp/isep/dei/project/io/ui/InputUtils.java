@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-        import java.util.Date;
-        import java.util.GregorianCalendar;
-        import java.util.Scanner;
+import java.util.Scanner;
 
 /**
  * Utility class that aggregates common INPUT methods used by the UI classes.
@@ -42,40 +40,4 @@ class InputUtils {
         }
         return scan.nextInt();
     }
-
-    /**
-     * Method to get an inputDate from user.
-     * It will read an ints inputed from user and convert it to Date Format.
-     * @return Date
-     */
-     Date getInputStartDate() {
-        InputUtils inputUtils = new InputUtils();
-        Scanner scan = new Scanner(System.in);
-
-        int year = inputUtils.getInputDateAsInt(scan, "year");
-        scan.nextLine();
-
-        int month = inputUtils.getInputDateAsInt(scan, "month") - 1;
-        scan.nextLine();
-
-        int day = inputUtils.getInputDateAsInt(scan, "day");
-
-        System.out.println("You entered following date: "+ day + "/" + month + "/" + year + ".");
-        scan.nextLine();
-
-        return createDate(year, month, day);
-
-    }
-
-    /**
-     * @param year is the year of the created date.
-     * @param month is the month of the created date.
-     * @param day is the day of the created date.
-     * @return is the new created date.
-     */
-
-    public Date createDate(int year, int month, int day) {
-        return new GregorianCalendar(year, month, day).getTime();
-    }
-
 }
