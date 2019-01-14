@@ -53,6 +53,8 @@ class RoomConfigurationUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1: //US201
+                    getInputRoomByList();
+                    getRoomDeviceList(mRoom);
                     activeInput = false;
                     break;
                 case 2: //US210
@@ -144,6 +146,12 @@ class RoomConfigurationUI {
             }
 
         }
+    }
+    /*US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.*/
+
+    private void getRoomDeviceList(Room room) {
+        System.out.println("Available Devices in Room");
+        System.out.println(mRoomConfigurationController.printDeviceList(room));
     }
 
     /*US215 As an Administrator, I want to edit the configuration of an existing device, so that I
