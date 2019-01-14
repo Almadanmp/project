@@ -21,6 +21,7 @@ class RoomConfigurationUI {
     private String mSensorName;
     private String mStringRequestRoom = "You have chosen the following Room:";
     private String mStringRequestDevice = "You have chosen the following Device:";
+    private String mStringChosenSensor = "You have chosen the following Sensor:";
 
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
@@ -380,7 +381,7 @@ can reconfigure it.*/
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        SensorList mSensorList = mRoom.getmRoomSensorList();
+        mSensorList = mRoom.getmRoomSensorList();
         if (mSensorList.getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty\n");
             return;
@@ -394,7 +395,7 @@ can reconfigure it.*/
                 this.mSensor = mSensorList.getSensorList().get(aux);
                 this.mSensorName = mSensor.getName();
                 activeInput = true;
-                System.out.println("You have chosen the following Sensor:");
+                System.out.println(mStringChosenSensor);
                 System.out.println(mRoomConfigurationController.printSensor(mSensor));
             } else {
                 System.out.println(utils.invalidOption);
@@ -450,7 +451,7 @@ can reconfigure it.*/
             }
             listOfIndexesSensors = ctrl.matchSensorIndexByString(mSensorName, mSensorList);
         }
-        String mStringChosenSensor = "You have chosen the following Sensor:";
+        String mStringChosenSensor = this.mStringChosenSensor;
         if (listOfIndexesSensors.size() > 1) {
             System.out.println("There are multiple Sensors with that name. Please choose the right one.");
             System.out.println(ctrl.printSensorElementsByIndex(listOfIndexesSensors, mSensorList));
@@ -497,7 +498,7 @@ can reconfigure it.*/
                 this.mSensor = mSensorList.getSensorList().get(aux);
                 this.mSensorName = mSensor.getName();
                 activeInput = true;
-                System.out.println("You have chosen the following Sensor:");
+                System.out.println(mStringChosenSensor);
                 System.out.println(mRoomConfigurationController.printSensor(mSensor));
                 System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
             } else {
