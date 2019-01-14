@@ -213,14 +213,12 @@ public class EnergyGridSettingsController {
      * @param energyGrid - This will be the parameter in which we want to search all the devices
      */
 
-    public void printListOfDevicesByType(EnergyGrid energyGrid) {
+    public String printListOfDevicesByType(EnergyGrid energyGrid) {
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
-            System.out.println("This energy grid has no rooms attached\n");
-            return;
+            return "This energy grid has no rooms attached\n";
         }
         if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty()) {
-            System.out.println("This energy grid has no devices on it\n");
-            return;
-        }energyGrid.printDeviceListByType(energyGrid);
+            return "This energy grid has no devices on it\n";
+        }return energyGrid.printDeviceListByType(energyGrid);
     }
 }

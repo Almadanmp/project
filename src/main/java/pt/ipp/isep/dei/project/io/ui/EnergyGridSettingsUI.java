@@ -423,7 +423,7 @@ class EnergyGridSettingsUI {
 
     private void displayUS160(EnergyGrid energyGrid){
         if (mHouse == null){return;}
-        System.out.println(mController.printListOfDevicesByType(energyGrid));
+        mController.printListOfDevicesByType(energyGrid);
     }
 
     // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
