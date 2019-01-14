@@ -33,6 +33,11 @@ public class EnergyGrid implements Metered {
         return mRoomList;
     }
 
+    /**
+     *
+     * @return a DeviceList containing all the devices in the energy grid list of rooms.
+     */
+
     public DeviceList getDeviceListFromAllRooms(){
         DeviceList devices = new DeviceList();
         for (Room r: mRoomList.getRoomList()){
@@ -93,6 +98,11 @@ public class EnergyGrid implements Metered {
         }
         return false;
     }
+
+    /**
+     * @param energyGrid - parameter which we will use to get all the devices present on all of its rooms.
+     * @return a String with the device index, device type, device name and the room in which the device is contained.
+     */
 
     public String printDeviceListByType(EnergyGrid energyGrid){
         String mStringSpacer = "---------------\n";

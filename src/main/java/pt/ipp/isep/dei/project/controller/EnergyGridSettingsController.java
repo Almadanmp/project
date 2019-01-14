@@ -207,14 +207,20 @@ public class EnergyGridSettingsController {
     It must include device location
     DANIEL OLIVEIRA*/
 
+    /**
+     * This method validates the list of rooms and the list of devices in all rooms.
+     * If all the attributes are valid, this method will print the devices, according to their type
+     * @param energyGrid - This will be the parameter in which we want to search all the devices
+     */
 
-    public String printListOfDevicesByType(EnergyGrid energyGrid) {
+    public void printListOfDevicesByType(EnergyGrid energyGrid) {
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
-            return "This energy grid has no rooms attached\n";
+            System.out.println("This energy grid has no rooms attached\n");
+            return;
         }
         if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty()) {
-            return "This energy grid has no devices on it\n";
-        }return energyGrid.printDeviceListByType(energyGrid);
+            System.out.println("This energy grid has no devices on it\n");
+            return;
+        }energyGrid.printDeviceListByType(energyGrid);
     }
 }
-
