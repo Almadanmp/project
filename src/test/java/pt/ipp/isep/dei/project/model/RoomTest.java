@@ -323,6 +323,25 @@ public class RoomTest {
         //ASSERT
         Assertions.assertEquals(expectedResult, actualResult);
     }
+    @Test
+    void seeNominalPowerOfRoom() {
+        //ARRANGE
+        Fridge f1 = new Fridge();
+        Device d1 = new Device("d1",12, f1);
+        Device d2 = new Device("d2",10, f1);
+        Device d3 = new Device("d3",1, f1);
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevices(d1);
+        deviceList.addDevices(d2);
+        deviceList.addDevices(d3);
+        Room room1 = new Room("room1", 19, 5, 3, 3);
+        room1.setDeviceList(deviceList);
+        double expectedResult = 23;
+        //ACT
+        double actualResult = room1.getNominalPower();
+        //ASSERT
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void getDailyRoomConsumptionPerTypeTest() {
