@@ -83,9 +83,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 4: //US230
-                    if(getInputRoomByList()){
-                        return;
-                    }
+                    getInputRoomByList();
                     getRoomNominalPower();
                     activeInput = false;
                     break;
@@ -187,28 +185,9 @@ class RoomConfigurationUI {
         //get room
         mRoom.removeDevice(mDevice);
         InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        if (mHouse.getRoomList().isEmpty()) {
-            System.out.println("Invalid Room List - List Is Empty\n");
-            return;
-        }
-        boolean activeInput = false;
-        System.out.println("Please select one of the existing rooms on the selected House to which you want to add your Device: ");
-        while (!activeInput) {
-            System.out.println(mRoomConfigurationController.printRoomList(mHouse));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getRoomList().size()) {
-                this.mRoom = mHouse.getRoomList().get(aux);
-                this.mRoomName = mRoom.getRoomName();
-                System.out.println(mStringRequestRoom);
-                System.out.println(mRoomConfigurationController.printRoom(mRoom));
-                activeInput = true;
-                mRoom.addDevice(mDevice);
-                mDevice.setmParentRoom(mRoom);
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        }
+        getInputRoomByList();
+        mRoom.addDevice(mDevice);
+        mDevice.setmParentRoom(mRoom);
         //get nominal power
         String onlyNumbers = "Please,try again. Only numbers this time:";
         System.out.print("Please, type the new Nominal Power: ");
@@ -241,7 +220,7 @@ class RoomConfigurationUI {
             this.mColdWaterTemperature = scanner.nextDouble();
 
             System.out.println(
-                    "Do you wish to alter the performance ration?\n" +
+                    "Do you wish to alter the performance ratio?\n" +
                             "1) Yes;\n" +
                             "2) No;\n");
             int option = inputUtils.readInputNumberAsInt();
@@ -254,7 +233,7 @@ class RoomConfigurationUI {
                         scanner.next();
                     }
                     this.mPerformanceRatio = scanner.nextDouble();
-                    mRoomConfigurationController.setPerformanceRatio(mPerformanceRatio,mDevice);
+                    mRoomConfigurationController.setPerformanceRatio(mPerformanceRatio, mDevice);
                     break;
                 case 2:
                     break;
@@ -294,7 +273,7 @@ class RoomConfigurationUI {
             this.mRefrigeratorCapacity = scanner.nextDouble();
         }
 
-        }
+    }
 
     /*
     US215 As an Administrator, I want to edit the configuration of an existing device, so that I
@@ -305,7 +284,7 @@ class RoomConfigurationUI {
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             mRoomConfigurationController.setVolumeWater(mVolumeOfWater, mDevice);
             mRoomConfigurationController.setHotWaterTemp(mHotWaterTemperature, mDevice);
-            mRoomConfigurationController.setColdWaterTemp(mColdWaterTemperature,mDevice);
+            mRoomConfigurationController.setColdWaterTemp(mColdWaterTemperature, mDevice);
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
             mRoomConfigurationController.setCapacity(mCapacity, mDevice);
@@ -317,24 +296,25 @@ class RoomConfigurationUI {
             mRoomConfigurationController.setFreezerCapacity(mFreezerCapacity, mDevice);
             mRoomConfigurationController.setRefrigeratorCapacity(mRefrigeratorCapacity, mDevice);
         }
-        }
+    }
 
     /*
     US215 As an Administrator, I want to edit the configuration of an existing device, so that I
     can reconfigure it.*/
     private void displayDeviceUS215() {
-        System.out.println("You have successfully changed the Device name to " + mDeviceName + ". \n"
+        System.out.println("\nYou have successfully changed the Device name to " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
-                    mHotWaterTemperature + " ºC, the Min Temperature is "+mColdWaterTemperature+" ºC.");
+                    mHotWaterTemperature + " ºC, the Min Temperature is " + mColdWaterTemperature + " ºC.");
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE || mDevice.getDeviceType() == DeviceType.DISHWASHER) {
-            System.out.println("The capacity is "+mCapacity+" Kg.");
+            System.out.println("The capacity is " + mCapacity + " Kg.");
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
-            System.out.println("The freezer Capacity is  "+mFreezerCapacity+" L and the Refrigerator Capacity is "+ mRefrigeratorCapacity + " L.");
-        }}
+            System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L and the Refrigerator Capacity is " + mRefrigeratorCapacity + " L.");
+        }
+    }
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
     nominal power of a room, i.e. the sum of the nominal power of all devices in the
@@ -342,7 +322,7 @@ class RoomConfigurationUI {
 
     private void getRoomNominalPower() {
         double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(this.mRoom);
-        System.out.println("This room has a total nominal power of "+ roomNominalPower + " kW.\nThis results " +
+        System.out.println("This room has a total nominal power of " + roomNominalPower + " kW.\nThis results " +
                 "from the sum of the nominal power of all devices in the room.");
     }
 
