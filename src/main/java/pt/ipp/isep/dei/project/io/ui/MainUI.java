@@ -359,7 +359,7 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(house);
+                        roomConfiguration.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
@@ -377,7 +377,7 @@ public class MainUI {
                         break;
                     case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
-                        houseM.run(house);
+                        houseM.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
