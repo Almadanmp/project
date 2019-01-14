@@ -1,14 +1,12 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.List;
 
 public class EnergyGridSettingsController {
     private EnergyGrid mEnergyGrid;
     private PowerSource mPowerSource;
-    private String mStringSpacer = "---------------\n";
 
     public EnergyGridSettingsController() { // Class controller doesn't need attributes to be initialized.
     }
@@ -108,6 +106,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printGridRooms(EnergyGrid energyGrid) {
+        String mStringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringSpacer);
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -210,28 +209,12 @@ public class EnergyGridSettingsController {
 
 
     public String printListOfDevicesByType(EnergyGrid energyGrid) {
-        StringBuilder result = new StringBuilder(mStringSpacer);
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
             return "This energy grid has no rooms attached\n";
         }
         if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty()) {
             return "This energy grid has no devices on it\n";
-        }
-        for (DeviceType d : DeviceType.values()) {
-        for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
-            Room r = energyGrid.getListOfRooms().getRoomList().get(i);
-            for (int x = 0; x < r.getDeviceList().size(); x++) {
-                    if (d == r.getDeviceList().get(x).getDeviceType()) {
-                        Device device = r.getDeviceList().get(x);
-                        result.append(i).append(") Device type: ").append(d).append(" | ");
-                        result.append(device.getName()).append(" | ");
-                        result.append("Room: ").append(r.getRoomName()).append(" | \n");
-                    }
-                }
-            }
-        }
-        result.append(mStringSpacer);
-        return result.toString();
+        }return energyGrid.printDeviceListByType(energyGrid);
     }
 }
 
