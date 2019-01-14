@@ -49,7 +49,7 @@ public class DeviceList {
         }
         for (int i = 0; i < room.getDeviceList().size(); i++) {
             Device device = room.getDeviceList().get(i);
-            result.append("\n" + i).append(") Device Name: ").append(device.getName());
+            result.append("\n"+i).append(") Device Name: ").append(device.getName());
             result.append(", Device Type: ").append(device.getDeviceType());
             result.append(", Device Nominal Power: ").append(device.getNominalPower());
         }
