@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,19 +30,19 @@ public class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789,5,3);
+        Room room1 = new Room("room1", 19, 23456789, 5, 3);
         roomList1.addRoom(room1);
         room1.setRoomSensorList(list);
         ReadingList rL1 = new ReadingList();
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
         DeviceList deviceL1 = new DeviceList();
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        House house = new House("casa","ss","ss","sss", new Local(1, 1, 50),new GeographicArea("porto",new TypeArea("sksks"),1,1, new Local(1, 1, 50)),roomList);
-        double result = room.getMaxTemperatureInARoomOnAGivenDay(house,d2);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), roomList);
+        double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d2);
         double expectedResult = 30.0;
         assertEquals(expectedResult, result, 0.01);
     }
@@ -59,12 +62,12 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        House house = new House("casa","ss","ss","sss", new Local(1, 1, 50),new GeographicArea("porto",new TypeArea("sksks"),1,1, new Local(1, 1, 50)),roomList);
-        double result = room.getMaxTemperatureInARoomOnAGivenDay(house,d2);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), roomList);
+        double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d2);
         double expectedResult = 20.0;
         assertEquals(expectedResult, result, 0.01);
     }
@@ -85,11 +88,11 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        House house = new House("casa","ss","ss","sss", new Local(1, 1, 50),new GeographicArea("porto",new TypeArea("sksks"),1,1, new Local(1, 1, 50)),roomList);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), roomList);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d3);
         double expectedResult = 25.0;
         assertEquals(expectedResult, result, 0.01);
@@ -111,12 +114,12 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        House house = new House("casa","ss","ss","sss", new Local(1, 1, 50),new GeographicArea("porto",new TypeArea("sksks"),1,1, new Local(1, 1, 50)),roomList);
-        double result = room.getMaxTemperatureInARoomOnAGivenDay(house,d3);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), roomList);
+        double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d3);
         double expectedResult = -25.0;
         assertEquals(expectedResult, result, 0.01);
     }
@@ -145,7 +148,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = 20.0;
@@ -176,7 +179,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = -20.0;
@@ -208,7 +211,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = 30.0;
@@ -223,7 +226,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         boolean result = room.doesSensorListInARoomContainASensorByName("sensor1");
         assertTrue(result);
@@ -237,7 +240,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 8, 5,2);
+        Room room = new Room("quarto", 1, 8, 5, 2);
         room.setRoomSensorList(list);
         boolean result = room.doesSensorListInARoomContainASensorByName("sensor89");
         assertEquals(false, result);
@@ -251,7 +254,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 8, 5,3);
+        Room room = new Room("quarto", 1, 8, 5, 3);
         room.setRoomSensorList(list);
         Sensor s2 = new Sensor("sensor2", type, new Local(1, 1, 50), new Date());
         s2.setReadingList(listR);
@@ -267,7 +270,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         boolean result = room.addSensor(s1);
         assertEquals(false, result);
@@ -281,23 +284,93 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5,3);
+        Room room = new Room("quarto", 1, 80, 5, 3);
         boolean result = room.equals(null);
         assertEquals(false, result);
     }
 
     @Test
-     void hashCodeDummyTest(){
-        Room room1 = new Room("room1", 19, 5,3,3);
+    public void seeIfEqualsWorkDifClass() {
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
+        Room room = new Room("quarto", 1, 80, 5, 3);
+        boolean result = room.equals(type);
+        assertEquals(false, result);
+    }
+
+    @Test
+    void hashCodeDummyTest() {
+        Room room1 = new Room("room1", 19, 5, 3, 3);
         int expectedResult = 1;
         int actualResult = room1.hashCode();
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-     void seeIfPrintRoomWorks() {
-        Room room = new Room("room1", 1, 1,2,2);
+    void seeIfPrintRoomWorks() {
+        Room room = new Room("room1", 1, 1, 2, 2);
         String result = room.printRoom();
         assertEquals("room1, 1, 1.0, 2.0, 2.0.\n", result);
     }
+
+
+    @Test
+    void seeNominalPowerOfRoomWithoutDevices() {
+        //ARRANGE
+        Room room1 = new Room("room1", 19, 5, 3, 3);
+        double expectedResult = 0;
+        //ACT
+        double actualResult = room1.getNominalPower();
+        //ASSERT
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeNominalPowerOfRoom() {
+        //ARRANGE
+        Room room1 = new Room("room1", 19, 5, 3, 3);
+        Device d1 = new Device();
+        d1.getNominalPower();
+        double expectedResult = 0;
+        //ACT
+        double actualResult = room1.getNominalPower();
+        //ASSERT
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getDailyRoomConsumptionPerTypeTest() {
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d1 = new Device("fridgeOne", 12, new Fridge());
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500,30,1));
+        r1.addDevice(d1);
+        r1.addDevice(d2);
+        r1.addDevice(d3);
+        double expectedResult = 414493.19999999995;
+        double result = r1.getDailyRoomConsumptionPerType(DeviceType.WATER_HEATER);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void addDeviceFails() {
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
+        Device d3 = new Device("wHeater1", 11, new WaterHeater(500,30,1));
+        r1.addDevice(d2);
+        boolean expectedResult = false;
+        boolean result = r1.addDevice(d3);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void addDeviceSucceeds() {
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500,30,1));
+        r1.addDevice(d2);
+        boolean expectedResult = true;
+        boolean result = r1.addDevice(d3);
+        assertEquals(expectedResult, result);
+    }
+
 }

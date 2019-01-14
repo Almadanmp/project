@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ReadingListTest {
@@ -450,6 +451,8 @@ public class ReadingListTest {
     }
 
 
+
+
     @Test
     public void seeIfGetEmptyListWhenReadingListHasValuesFromDifferentMonthThanMonthGiven() {
         //Arrange
@@ -667,7 +670,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2018, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
@@ -709,7 +712,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 10, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
@@ -751,7 +754,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
@@ -765,7 +768,7 @@ public class ReadingListTest {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2015, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
@@ -1158,23 +1161,37 @@ public class ReadingListTest {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 2;
-        double value2 = 2.5;
-        double value3 = 5;
-        double value4 = -2;
-        double expectedResult = -2;
+        double expectedResult = 2;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        valuesOfDay.add(value1);
+        actualResult = rl1.getLowestValueFromGivenList(valuesOfDay);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
+    public void seeIfGetLowestValueFromEndOfListOutOfOrder() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 2;
+        double value2 = 1;
+        double expectedResult = 1;
         double actualResult;
         ReadingList rl1 = new ReadingList();
 
         //Act
         valuesOfDay.add(value1);
         valuesOfDay.add(value2);
-        valuesOfDay.add(value3);
-        valuesOfDay.add(value4);
         actualResult = rl1.getLowestValueFromGivenList(valuesOfDay);
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
+
 
     @Test
     public void seeIfGetLowestValueFromListIfValuesEqual() {
@@ -1296,7 +1313,7 @@ public class ReadingListTest {
         //Arrange
         List<Double> doubleList = new ArrayList<>();
         ReadingList rList = new ReadingList();
-        double expectedResult = -1;
+        double expectedResult = NaN;
         double actualResult;
         //Act
         actualResult = rList.getAverageFromGivenList(doubleList);
@@ -1352,7 +1369,7 @@ public class ReadingListTest {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
@@ -1394,7 +1411,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2018, 2, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
@@ -1436,7 +1453,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 10, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
@@ -1478,7 +1495,7 @@ public class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = -1;
+        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
@@ -1625,6 +1642,46 @@ public class ReadingListTest {
     }
 
     @Test
+    public void seeIfGetAverageOfGivenDayValueReadingsWhenReadigsInLimitsOfDayExtra() {
+        //Arrange
+        ReadingList rList = new ReadingList();
+        GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
+        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 24, 0, 0, 0);
+        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 18, 14, 3);
+        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
+        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 28, 12, 12, 12);
+        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 22, 23, 59, 59);
+        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 1, 0, 0, 0);
+        Reading r0 = new Reading(-2, g0.getTime());
+        Reading r1 = new Reading(10, g1.getTime());
+        Reading r2 = new Reading(31, g2.getTime());
+        Reading r3 = new Reading(25, g3.getTime());
+        Reading r4 = new Reading(26, g4.getTime());
+        Reading r5 = new Reading(23, g5.getTime());
+        Reading r6 = new Reading(22, g6.getTime());
+        Reading r7 = new Reading(23, g7.getTime());
+        Reading r8 = new Reading(22, g8.getTime());
+        rList.addReading(r0);
+        rList.addReading(r1);
+        rList.addReading(r2);
+        rList.addReading(r3);
+        rList.addReading(r4);
+        rList.addReading(r5);
+        rList.addReading(r6);
+        rList.addReading(r7);
+        rList.addReading(r8);
+        //Act
+        double expectedResult = 26.666;
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 23,1,1,1);
+        Date dateToTest = cal.getTime();
+        double actualResult = rList.getAverageOfGivenDayValueReadings(dateToTest);
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
     public void seeIfGetAverageOfMinusOneWhenDateGivenIsNotInList() {
         //Arrange
         ReadingList rList = new ReadingList();
@@ -1697,7 +1754,7 @@ public class ReadingListTest {
         rList.addReading(r8);
         //Act
         double expectedResult = -1;
-        GregorianCalendar cal = new GregorianCalendar(2018, 1, 23);
+        GregorianCalendar cal = new GregorianCalendar(2018, 1, 23,2,2,2);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfGivenDayValueReadings(dateToTest);
         //Assert
@@ -2025,14 +2082,81 @@ public class ReadingListTest {
 
     @Test
     public void seeIfGetMaximumValueOnGivenDateWorks() {
+        ReadingList rList = new ReadingList();
+        GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
+        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 24, 0, 0, 0);
+        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
+        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
+        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 18, 14, 3);
+        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
+        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 28, 12, 12, 12);
+        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 22, 23, 59, 59);
+        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 1, 0, 0, 0);
+        Reading r0 = new Reading(-2, g0.getTime());
+        Reading r1 = new Reading(10, g1.getTime());
+        Reading r2 = new Reading(5, g2.getTime());
+        Reading r3 = new Reading(25, g3.getTime());
+        Reading r4 = new Reading(5, g4.getTime());
+        Reading r5 = new Reading(6, g5.getTime());
+        Reading r6 = new Reading(22, g6.getTime());
+        Reading r7 = new Reading(23, g7.getTime());
+        Reading r8 = new Reading(22, g8.getTime());
+        rList.addReading(r0);
+        rList.addReading(r1);
+        rList.addReading(r2);
+        rList.addReading(r3);
+        rList.addReading(r4);
+        rList.addReading(r5);
+        rList.addReading(r6);
+        rList.addReading(r7);
+        rList.addReading(r8);
+        //Act
+        double expectedResult = 6;
+        double actualResult = rList.getMaximumOfGivenDayValueReadings(g5.getTime());
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+
+    @Test
+    public void seeIfGetMaximumValueOnGivenDateWorksTestCalendar() {
         ReadingList list = new ReadingList();
-        Date d1 = new GregorianCalendar(2015, 11, 2).getTime();
+        Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2,4,20,1).getTime();
+        Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2,23,59,59).getTime();
         Reading r1 = new Reading(15, d1);
-        Reading r2 = new Reading(30, d1);
+        Reading r2 = new Reading(30, d2);
         list.addReading(r1);
         list.addReading(r2);
         double result = list.getMaximumOfGivenDayValueReadings(d1);
         double expectedResult = 30.0;
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
+    public void seeIfGetMaximumValueOnGivenDateWorksTestCalendarLowerLimit() {
+        ReadingList list = new ReadingList();
+        Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 1,23,59,59).getTime();
+        Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2,23,59,59).getTime();
+        Reading r1 = new Reading(31, d1);
+        Reading r2 = new Reading(30, d2);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMaximumOfGivenDayValueReadings(d2);
+        double expectedResult = 31.0;
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
+    public void seeIfGetMaximumValueOnGivenDateWorksTestCalendarHigherLimit() {
+        ReadingList list = new ReadingList();
+        Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 3, 0, 0, 0).getTime();
+        Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2,23,59,59).getTime();
+        Reading r1 = new Reading(33, d1);
+        Reading r2 = new Reading(30, d2);
+        list.addReading(r1);
+        list.addReading(r2);
+        double result = list.getMaximumOfGivenDayValueReadings(d2);
+        double expectedResult = 33.0;
         assertEquals(expectedResult, result, 0.01);
     }
 
@@ -2126,7 +2250,7 @@ public class ReadingListTest {
         rList.addReading(r8);
         //Act
         double expectedResult = 15;
-        GregorianCalendar cal = new GregorianCalendar(2018, 10, 23);
+        GregorianCalendar cal = new GregorianCalendar(2018, 10, 23,1,1,1);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getTotalSumOfGivenDayValueReadings(dateToTest);
         //Assert
@@ -2170,8 +2294,10 @@ public class ReadingListTest {
         GregorianCalendar dateMax = new GregorianCalendar(2018, 10, 13);
         Date dateToTest1 = dateMin.getTime();
         Date dateToTest2 = dateMax.getTime();
-        double actualResult = rList.getAverageReadingsBetweenTwoDays(dateToTest1, dateToTest2);
+        double actualResult = rList.getAverageReadingsBetweenTwoDates(dateToTest1, dateToTest2);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+
 }

@@ -1,10 +1,10 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainUI {
 
@@ -12,45 +12,44 @@ public class MainUI {
 
         //Program Variables
 
-        boolean activeProgram = true;
-
         // ***************************************************************************
         // ********************* < MOCK DATA FOR TESTING PURPOSES >*******************
         // ***************************************************************************
 
+        // ******* MAIN MOCK *******************************************************
+
         // Geo List (1)
+
         GeographicAreaList geographicalAreaList = new GeographicAreaList();
 
         // Geo Areas (4)
 
-        GeographicArea ISEP = new GeographicArea("ISEP", new TypeArea("urban area"), 52,5,new Local(41.178553, -8.608035, 111));
-        ISEP.setWidth(0.261);
-        ISEP.setLength(0.249);
-        ISEP.setDescription("Campus do ISEP");
+        GeographicArea isep = new GeographicArea("ISEP", new TypeArea("urban area"), 52, 5, new Local(41.178553, -8.608035, 111));
+        isep.setWidth(0.261);
+        isep.setLength(0.249);
+        isep.setDescription("Campus do ISEP");
 
+        String msPorto = "Porto";
 
-        GeographicArea Porto = new GeographicArea("Porto", new TypeArea("city"), 31,6,new Local(41.164077, -8.620802, 118));
-        Porto.setWidth(10.09);
-        Porto.setLength(10.09);
-        Porto.setDescription("City of Porto");
+        GeographicArea porto = new GeographicArea(msPorto, new TypeArea("city"), 31, 6, new Local(41.164077, -8.620802, 118));
+        porto.setWidth(10.09);
+        porto.setLength(10.09);
+        porto.setDescription("City of Porto");
 
-        GeographicArea Portugal = new GeographicArea("Portugal", new TypeArea("country"), 22,9,new Local(60, 0, 110));
-        Portugal.setWidth(100);
-        Portugal.setLength(800);
-        Portugal.setDescription("Country of Portugal");
+        GeographicArea portugal = new GeographicArea("Portugal", new TypeArea("country"), 22, 9, new Local(60, 0, 110));
+        portugal.setWidth(100);
+        portugal.setLength(800);
+        portugal.setDescription("Country of Portugal");
 
-        GeographicArea PortoSanto = new GeographicArea("Porto Santo", new TypeArea("city"), 42,12,new Local(-45, 67, 67));
-        PortoSanto.setWidth(156);
-        PortoSanto.setLength(235);
-        PortoSanto.setDescription("City of Porto Santo");
+        GeographicArea portoSanto = new GeographicArea("Porto Santo", new TypeArea("city"), 42, 12, new Local(-45, 67, 67));
+        portoSanto.setWidth(156);
+        portoSanto.setLength(235);
+        portoSanto.setDescription("City of Porto Santo");
 
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(ISEP);
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(Porto);
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(Portugal);
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(PortoSanto);
-
-        //fixme : setDescription() tests missing **/
-
+        geographicalAreaList.addGeographicAreaToGeographicAreaList(isep);
+        geographicalAreaList.addGeographicAreaToGeographicAreaList(porto);
+        geographicalAreaList.addGeographicAreaToGeographicAreaList(portugal);
+        geographicalAreaList.addGeographicAreaToGeographicAreaList(portoSanto);
 
         //Rooms
 
@@ -59,14 +58,19 @@ public class MainUI {
         Room roomISEP2 = new Room("B109", 1, 7, 11, 3.5);
         Room roomISEP3 = new Room("B106", 1, 7, 13, 3.5);
         RoomList roomListEdifB = new RoomList();
+
         roomListEdifB.addRoom(roomISEP1);
         roomListEdifB.addRoom(roomISEP2);
         roomListEdifB.addRoom(roomISEP3);
 
+        RoomList gridRoomList = new RoomList();
+        gridRoomList.addRoom(roomISEP2);
+        gridRoomList.addRoom(roomISEP3);
+
         // Houses (1 per Geographical Area!)
 
-        House EdificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto", new Local(41.177748, -8.607745, 112), ISEP, roomListEdifB);
-        EdificioB.setmMotherArea(ISEP);
+        House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", msPorto, new Local(41.177748, -8.607745, 112), isep, roomListEdifB);
+        edificioB.setmMotherArea(isep);
 
         // Sensor Readings
 
@@ -141,7 +145,6 @@ public class MainUI {
         readingListISEPtemperature.addReading(reading34);
         readingListISEPtemperature.addReading(reading35);
         readingListISEPtemperature.addReading(reading36);
-        readingListISEPtemperature.addReading(reading37);
         readingListISEPtemperature.addReading(reading38);
         readingListISEPtemperature.addReading(reading39);
         readingListISEPtemperature.addReading(reading40);
@@ -150,6 +153,7 @@ public class MainUI {
         readingListISEPtemperature.addReading(reading43);
         readingListISEPtemperature.addReading(reading44);
         readingListISEPtemperature.addReading(reading45);
+        readingListISEPtemperature.addReading(reading37);
         readingListISEPtemperature.addReading(reading46);
         readingListISEPtemperature.addReading(reading47);
         readingListISEPtemperature.addReading(reading48);
@@ -168,19 +172,22 @@ public class MainUI {
         room109SensorList.addSensor(sensorRoom109);
         roomISEP2.setRoomSensorList(room109SensorList);
 
-        SensorList ISEPSensorList = new SensorList();
-        ISEPSensorList.addSensor(sensorRainfallISEP);
-        ISEPSensorList.addSensor(sensorTemperatureISEP);
-        ISEP.setSensorList(ISEPSensorList);
-
+        SensorList isepSensorList = new SensorList();
+        isepSensorList.addSensor(sensorRainfallISEP);
+        isepSensorList.addSensor(sensorTemperatureISEP);
+        isep.setSensorList(isepSensorList);
+        SensorList test = new SensorList();
+        roomISEP1.setRoomSensorList(test);
+        roomISEP3.setRoomSensorList(test);
+        porto.setSensorList(test);
 
         // Energy Grid
 
-        EnergyGrid mainGrid = new EnergyGrid("main grid", 0);
-        EnergyGridList EnergyGridListISEP = new EnergyGridList();
-        EnergyGridListISEP.addEnergyGridToEnergyGridList(mainGrid);
-        mainGrid.setListOfRooms(roomListEdifB);
-        EdificioB.setEGList(EnergyGridListISEP);
+        EnergyGrid mainGrid = new EnergyGrid("main grid", 50);
+        EnergyGridList energyGridListIsep = new EnergyGridList();
+        energyGridListIsep.addEnergyGridToEnergyGridList(mainGrid);
+        mainGrid.setListOfRooms(gridRoomList);
+        edificioB.setEGList(energyGridListIsep);
 
         // Type  Area List
 
@@ -190,15 +197,111 @@ public class MainUI {
         mTypeAreaList.addTypeArea(typeAreaA);
         mTypeAreaList.addTypeArea(typeAreaB);
 
+        // Sensor Type List
+
+        List<TypeSensor> typeSensorList = new ArrayList<>();
+
+        //Devices
+
+        Device device1 = new Device("aquecedor",23.0, new WaterHeater(100,30,2));
+        Device device2 = new Device("FridgeOne", 4, new Fridge());
+        Device device3 = new Device("WHTwo", 3, new WaterHeater(500,25,10));
+        device1.setmParentRoom(roomISEP2);
+        device2.setmParentRoom(roomISEP2);
+        device3.setmParentRoom(roomISEP2);
+        DeviceList listDevices = new DeviceList();
+        listDevices.addDevices(device1);
+        listDevices.addDevices(device2);
+        listDevices.addDevices(device3);
+        roomISEP2.setDeviceList(listDevices);
+
+
+        // ********* MOCKS EXTRA **********************************************
+
+        //Empty TypeAreaList
+
+        TypeAreaList emptyTypeAreaList = new TypeAreaList();
+
+        // Empty Geo Area List
+
+        GeographicAreaList emptyGeographicalAreaList = new GeographicAreaList();
+
+        // Geo Area List -  Geo Area without Sensor List
+
+        GeographicAreaList geographicalAreaList1 = new GeographicAreaList();
+        GeographicArea geographicArea1 = new GeographicArea("GeoAreaNoSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
+
+        geographicalAreaList1.addGeographicAreaToGeographicAreaList(geographicArea1);
+
+        // Geo Area List -  Geo Area with Empty Sensor List
+
+        GeographicAreaList geographicalAreaList2 = new GeographicAreaList();
+        GeographicArea geographicArea2 = new GeographicArea("GeoAreaEmptySensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
+        SensorList sensorList2 = new SensorList();
+
+        geographicArea2.setSensorList(sensorList2);
+        geographicalAreaList2.addGeographicAreaToGeographicAreaList(geographicArea2);
+
+        // Geo Area List -  Geo Area with Sensor List
+
+        GeographicAreaList geographicalAreaList3 = new GeographicAreaList();
+        GeographicArea geographicArea3 = new GeographicArea("GeoAreaWithSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
+        Sensor s3 = new Sensor("sensor", new TypeSensor("Temperatura", "Celsius"), new Local(2, 3, 4), new GregorianCalendar(2016, 11, 15).getTime());
+        SensorList sensorList3 = new SensorList();
+        sensorList3.addSensor(s3);
+
+        geographicArea3.setSensorList(sensorList3);
+        geographicalAreaList3.addGeographicAreaToGeographicAreaList(geographicArea3);
+
+        // House - Empty RoomList - Without EnergyGrid
+        GeographicArea geographicArea4 = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
+
+        // House - Empty RoomList - Empty EnergyGrid
+        RoomList roomList1 = new RoomList();
+        House house1 = new House("houseNoRoomsNoEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList1);
+
+        // House - With RoomList - Without EnergyGrid
+        Room room2 = new Room("houseNoEG", 1, 23, 23, 23);
+        RoomList roomList2 = new RoomList();
+        roomList2.addRoom(room2);
+        House house2 = new House("h", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList2);
+
+        // House - With RoomList - Empty EnergyGrid
+        Room room3 = new Room("room3", 1, 23, 23, 23);
+        RoomList roomList3 = new RoomList();
+        roomList3.addRoom(room3);
+        House house3 = new House("houseEmptyEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList3);
+
+        // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
+        Room room4 = new Room("room1", 1, 33, 13, 23);
+        Room room5 = new Room("room2", 2, 13, 93, 23);
+        Room room6 = new Room("room3", 2, 73, 43, 23);
+        Room room7 = new Room("room4", 5, 63, 23, 23);
+        RoomList roomList4 = new RoomList();
+        roomList4.addRoom(room4);
+        roomList4.addRoom(room5);
+        House house4 = new House("houseRoomDifEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList4);
+
+        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
+        energyGrid1.addRoomToAnEnergyGrid(room6);
+        energyGrid1.addRoomToAnEnergyGrid(room7);
+
+        EnergyGridList energyGridList1 = new EnergyGridList();
+        energyGridList1.addEnergyGridToEnergyGridList(energyGrid1);
+        house4.setEGList(energyGridList1);
+
+
         // **************************************************************************
-        // ******************* < / MOCK DATA FOR TESTING PUPOSES > ******************
+        // ******************* < / MOCK DATA FOR TESTING PURPOSES > ******************
         // **************************************************************************
 
         //MAIN CODE
 
         Scanner enterToReturnToConsole = new Scanner(System.in);
         int option;
-        while (activeProgram) {
+        while (true) {
 
             System.out.println("\n**********************************\n" +
                     "******** Smart Grid Menu *********\n" +
@@ -213,8 +316,9 @@ public class MainUI {
                     "3. Room Settings.\n",
                     "4. Sensor Settings.\n",
                     "5. Energy Grid Settings.\n",
-                    "6. House Monitoring.\n" +
-                   " 0. Exit Application\n" };
+                    "6. House Monitoring.\n",
+                    "7. Energy Consumption Management.\n" +
+                            " 0. Exit Application\n"};
 
             System.out.println("Select the task you want to do:");
 
@@ -228,48 +332,56 @@ public class MainUI {
             boolean activeInput = true;
 
             while (activeInput) {
-                option = UtilsUI.readInputNumberAsInt();
+                InputUtils inputUtils = new InputUtils();
+                UtilsUI utilsUI = new UtilsUI();
+                option = inputUtils.readInputNumberAsInt();
                 switch (option) {
                     case 0:
                         return;
                     case 1:
                         GASettingsUI view1 = new GASettingsUI();
-                        view1.run(geographicalAreaList, mTypeAreaList);
+                        view1.runGASettings(geographicalAreaList, mTypeAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
                     case 2:
                         HouseConfigurationUI houseC = new HouseConfigurationUI();
-                        houseC.run(EdificioB);
+                        houseC.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(geographicalAreaList, EdificioB);
+                        roomConfiguration.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
                     case 4:
-                        SensorSettingsUI sensorSettings = new  SensorSettingsUI();
-                        sensorSettings.run(geographicalAreaList);
+                        SensorSettingsUI sensorSettings = new SensorSettingsUI();
+                        sensorSettings.run(geographicalAreaList, typeSensorList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
                     case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                        energyGridSettings.run(EdificioB);
+                        energyGridSettings.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
                     case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
-                        houseM.run(EdificioB);
+                        houseM.run(edificioB);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = false;
+                        break;
+                    case 7:
+                        EGConsumptionUI egConsumptionUI = new EGConsumptionUI();
+                        egConsumptionUI.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
                     default:
-                        System.out.println(UtilsUI.INVALID_OPTION);
+                        System.out.println(utilsUI.invalidOption);
                         break;
                 }
             }

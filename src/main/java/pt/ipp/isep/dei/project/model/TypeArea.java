@@ -3,18 +3,35 @@ package pt.ipp.isep.dei.project.model;
 public class TypeArea {
     private String mName;
 
+    /**
+     * Main and only Area Type Constructor
+     *
+     */
     public TypeArea(String nameGiven) {
         setTypeOfGeographicArea(nameGiven);
     }
 
+    /**
+     * Sets the type of a Geographical Area
+     *
+     */
     public void setTypeOfGeographicArea(String nameGiven) {
         this.mName = nameGiven;
     }
+
+    /**
+     * Gets the type of a Geographical Area
+     * @return string with the name of the type
+     */
 
     public String getTypeOfGeographicArea() {
         return this.mName;
     }
 
+    /**
+     *
+     * @return prints the type of the Geographical Area
+     */
     public String printTypeGeographicArea() {
         String result;
         result = "Type Area: " + this.mName + "\n";
@@ -32,6 +49,9 @@ public class TypeArea {
         }
         throw new IllegalArgumentException("Please Insert Valid Name");
     }
+    /**
+     * Method 'equals' is required so that each 'Area Type' can be added to a 'Geographic Area'.
+     */
 
     @Override
     public boolean equals(Object objectToTest) {

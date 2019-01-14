@@ -14,6 +14,14 @@ public class PowerSource {
         this.mMaxEnergyStorage = maxEnergyStorage;
     }
 
+    public double getMaxEnergyStorage() {
+        return mMaxEnergyStorage;
+    }
+
+    public double getMaxPowerOutput() {
+        return mMaxPowerOutput;
+    }
+
     private String getPowerSourceName(){return this.mPowerSourceName;}
 
     @Override

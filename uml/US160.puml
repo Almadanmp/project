@@ -1,0 +1,13 @@
+@startuml
+actor PowerUser
+PowerUser -> MainUI: listDevicesOnSelectedGrid()
+MainUI -> RoomConfigurationUI: listDevicesOnSelectedGrid()
+RoomConfigurationUI -> RoomConfigurationUI: validateHouse()
+RoomConfigurationUI --> PowerUser: Feedback message
+PowerUser -> MainUI: matchEnergyGridByIndex()
+RoomConfigurationUI -> RoomConfigurationController: matchEnergyGridByIndex()
+RoomConfigurationController -> House: matchEnergyGridByIndex()
+House --> RoomConfigurationController: return EnergyGrid
+RoomConfigurationController -> EnergyGrid: printListOfDevicesByType()
+EnergyGrid --> PowerUser: return ListOfDevicesOrderedByType
+@enduml

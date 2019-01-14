@@ -1,37 +1,90 @@
 package pt.ipp.isep.dei.project.model;
 
-public class Device {
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+
+import java.util.Objects;
+
+public class Device implements Metered {
     private String mName;
-    private String mDeviceType;
     private Room mParentRoom;
-    private ReadingList mEnergyConsumptionList;
-    private double mTotalPowerDevice;
+    private double mNominalPower;
+    private DeviceSpecs mDeviceSpecs;
 
-    public Device(String name, String type, Room parentRoom, ReadingList list, double totalPower){
-        setmName(name);
-        setmDeviceType(type);
-        setmParentRoom(parentRoom);
-        setmEnergyConsumptionList(list);
-        setmTotalPowerDevice(totalPower);
+    //Empty constructor for test purposes
+    public Device() {
     }
 
-    void setmName(String name){
-        this.mName=name;
+    public Device(String name, double nominalPower, DeviceSpecs deviceSpecs) {
+        this.mName = name;
+        this.mNominalPower = nominalPower;
+        this.mDeviceSpecs = deviceSpecs;
     }
 
-    void setmDeviceType(String type){
-        this.mDeviceType=type;
+    //temporary before is gets moved to DeviceSpecs
+    public void setNominalPower(Double nomPower) {
+        this.mNominalPower = nomPower;
     }
 
-    void setmParentRoom(Room parentRoom){
-        this.mParentRoom=parentRoom;
+    public void setName(String name){this.mName = name;}
+
+
+    public double getNominalPower(){
+        return this.mNominalPower;
     }
 
-    void setmEnergyConsumptionList(ReadingList list){
-        this.mEnergyConsumptionList =list;
+    public void setmName(String name){
+        this.mName = name;
     }
 
-    void setmTotalPowerDevice(double totalPower){
-        this.mTotalPowerDevice =totalPower;
+    public String getName(){return this.mName;}
+
+    public void setmParentRoom(Room room){this.mParentRoom=room;}
+
+    public Room getmParentRoom(){return this.mParentRoom;}
+
+
+    public String printDevice(){
+        String result;
+        result = "The Device Name is " + this.mName + ", which is in the Room " + this.mParentRoom.getRoomName() + ", and its NominalPower is " +
+                getNominalPower() + " kW.\n";
+        return result;
+    }
+
+    public double getConsumption() {
+        return mDeviceSpecs.getConsumption();
+    }
+
+    /**
+     * get daily estimate consumption on a day (24hours)
+     * @return the estimateConsumption/24 hours
+     */
+    public double getDailyEstimateConsumption(){
+        return mDeviceSpecs.getConsumption()*24;
+    }
+
+    public DeviceType getDeviceType() {
+        return mDeviceSpecs.getType();
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Device device = (Device) o;
+        return Objects.equals(mName, device.mName);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }
+
+
+
+

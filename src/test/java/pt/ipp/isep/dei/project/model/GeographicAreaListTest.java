@@ -231,7 +231,7 @@ public class GeographicAreaListTest {
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
 
         //Act
-        actualResult = geographicAreaList.validateIfGeographicAreaToGeographicAreaList(stringToTest);
+        actualResult = geographicAreaList.checkIfContainsGAByString(stringToTest);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -260,7 +260,7 @@ public class GeographicAreaListTest {
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
 
         //Act
-        actualResult = geographicAreaList.validateIfGeographicAreaToGeographicAreaList(stringToTest);
+        actualResult = geographicAreaList.checkIfContainsGAByString(stringToTest);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -289,7 +289,7 @@ public class GeographicAreaListTest {
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
 
         //Act
-        actualResult = geographicAreaList.validateIfGeographicAreaToGeographicAreaList(stringToTest);
+        actualResult = geographicAreaList.checkIfContainsGAByString(stringToTest);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -320,7 +320,7 @@ public class GeographicAreaListTest {
         geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
 
         //Act
-        actualResult = geographicAreaList.validateIfGeographicAreaToGeographicAreaList(stringToTest);
+        actualResult = geographicAreaList.checkIfContainsGAByString(stringToTest);
         //Assert
         assertEquals(expectedResult, actualResult);
     }

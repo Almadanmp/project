@@ -633,7 +633,34 @@ public class SensorListTest {
     }
 
     @Test
-    void seeItGetSensorListByType() {
+    void seeItGetSensorListByTypeEquals() {
+        //Arrange
+
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+
+        //Act
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        sensorList1.addSensor(s1);
+        List<Sensor> actualResult = sensorList1.getSensorListByType("Rain");
+        List<Sensor> expectedResult = new ArrayList<>();
+        expectedResult.add(s1);
+        expectedResult.add(s3);
+
+
+        //Assert
+        expectedResult.equals(actualResult);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeItGetSensorListByTypeContains() {
         //Arrange
 
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
@@ -653,12 +680,60 @@ public class SensorListTest {
         expectedResult.add(s3);
 
         //Assert
-        expectedResult.equals(actualResult);
+        expectedResult.contains(actualResult);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeItGetSensorListByTypeDoesNotContain() {
+        //Arrange
+
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+
+        //Act
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        List<Sensor> actualResult = sensorList1.getSensorListByType("Temperature");
+        List<Sensor> expectedResult = new ArrayList<>();
+
+        //Assert
+        expectedResult.contains(actualResult);
+    }
+
+    @Test
+    void seeItGetSensorListByTypeContainsSameName() {
+        //Arrange
+
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Rain", "l/m2");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+
+        //Act
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        List<Sensor> actualResult = sensorList1.getSensorListByType("Rain");
+        List<Sensor> expectedResult = new ArrayList<>();
+        expectedResult.add(s1);
+        expectedResult.add(s2);
+        expectedResult.add(s3);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void ensureThatSensorListIsPrintCorrectly() {
-        Room room = new Room("Quarto Miki",1,3,3,3);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -675,18 +750,19 @@ public class SensorListTest {
                 "2) Designation: s3 | Sensor Type: Rain\n" +
                 "---------------\n";
         String actualResult = sensorList1.printSensorList(room);
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void ensureThatEmptySensorListIsPrintedWithWarningMessage() {
-        Room room = new Room("Quarto Miki",1,3,3,3);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         SensorList sensorList1 = new SensorList();
         room.setRoomSensorList(sensorList1);
         String expectedResult = "Invalid List - List is Empty\n";
         String actualResult = sensorList1.printSensorList(room);
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -708,7 +784,30 @@ public class SensorListTest {
         room.setRoomSensorList(sensorList1);
         List<Integer> result = sensorList1.matchSensorIndexByString("s3");
         List<Integer> expectedResult = Collections.singletonList(2);
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    void seeIfMatchSensorListIndexByString() {
+        //Arrange
+        List<Integer> list = new ArrayList<>();
+        Integer i = 2;
+        list.add(i);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        room.setRoomSensorList(sensorList1);
+        List<Integer> result = sensorList1.matchSensorListIndexByString("s3");
+        List<Integer> expectedResult = Collections.singletonList(2);
+        assertEquals(expectedResult, result);
 
     }
 
@@ -718,7 +817,7 @@ public class SensorListTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 2;
         list.add(i);
-        Room room = new Room("Quarto Miki",1,3,3,3);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -737,9 +836,10 @@ public class SensorListTest {
         //Assert
         Assert.assertEquals(expectedResult, result);
     }
+
     @Test
-    void ensureThatSensorIsInSensorListByString(){
-        Room room = new Room("Quarto Miki",1,3,3,3);
+    void ensureThatSensorIsInSensorListByString() {
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -752,11 +852,12 @@ public class SensorListTest {
         room.setRoomSensorList(sensorList1);
         boolean expectedResult = true;
         boolean actualResult = sensorList1.doesSensorListContainSensorByName("s1");
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
+
     @Test
-    void ensureThatSensorIsNotInSensorListByString(){
-        Room room = new Room("Quarto Miki",1,3,3,3);
+    void ensureThatSensorIsNotInSensorListByString() {
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -769,6 +870,42 @@ public class SensorListTest {
         room.setRoomSensorList(sensorList1);
         boolean expectedResult = false;
         boolean actualResult = sensorList1.doesSensorListContainSensorByName("s4");
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void seeIfPrintsSensorWholeList() {
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        sensorList1.addSensor(s3);
+        room.setRoomSensorList(sensorList1);
+        String expectedResult = "---------------\n" +
+                "0) Name: s1 | Type: Rain\n" +
+                "1) Name: s2 | Type: Vento\n" +
+                "2) Name: s3 | Type: Rain\n" +
+                "---------------\n";
+        String result = sensorList1.printSensorWholeList(sensorList1);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfPrintsEmptySensorWholeList() {
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
+        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
+        TypeSensor t2 = new TypeSensor("Vento", "km/h");
+        SensorList sensorList1 = new SensorList();
+        room.setRoomSensorList(sensorList1);
+        String expectedResult = "Invalid List - List is Empty\n";
+        String result = sensorList1.printSensorWholeList(sensorList1);
+        assertEquals(expectedResult, result);
+    }
+
+
 }

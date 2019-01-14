@@ -14,7 +14,7 @@ public class DeviceList {
     }
 
 
-    List<Device> getDeviceList() {
+    public List<Device> getDeviceList() {
         return this.mDeviceList;
     }
 
@@ -22,8 +22,8 @@ public class DeviceList {
         return mDeviceList.contains(device);
     }
 
-    public boolean addDevices (Device device) {
-        if(!mDeviceList.contains(device)){
+    public boolean addDevices(Device device) {
+        if (!mDeviceList.contains(device)) {
             mDeviceList.add(device);
             return true;
         }
@@ -36,6 +36,40 @@ public class DeviceList {
 
     boolean checkIfListIsValid() {
         return !mDeviceList.isEmpty();
+    }
+
+    public String printListOfDevicesFromRoom(Room room) {
+        StringBuilder result = new StringBuilder("---------------\n");
+        if (room.getDeviceList().isEmpty()) {
+            return "This room has no devices on it\n";
+        }
+        for (int i = 0; i < room.getDeviceList().size(); i++) {
+            Device device = room.getDeviceList().get(i);
+            result.append("\n" + i).append(") Device Name: ").append(device.getName());
+            result.append(", Device Type: ").append(device.getDeviceType());
+            result.append(", Device Nominal Power: ").append(device.getNominalPower());
+        }
+        result.append("\n---------------\n");
+        return result.toString();
+    }
+
+    public List<Integer> matchDeviceIndexByString(String input) {
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < mDeviceList.size(); i++) {
+            if (mDeviceList.get(i).getName().equals(input)) {
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    public String printElementsByIndex(List<Integer> indexes) {
+        StringBuilder result = new StringBuilder();
+        for (Integer indexe : indexes) {
+            int pos = indexe;
+            result.append(indexe).append(") ").append(mDeviceList.get(pos).getName()).append(", ").append(mDeviceList.get(pos).getmParentRoom().getRoomName()).append(", ").append(mDeviceList.get(pos).getNominalPower()).append(".\n");
+        }
+        return result.toString();
     }
 
     @Override

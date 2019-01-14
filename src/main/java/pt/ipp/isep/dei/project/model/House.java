@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+
+import java.util.Date;
 import java.util.Objects;
 
 /**
  * House Class. Defines de House
  */
-public class House {
+public class House implements Metered {
     private String mId;
     private String mStreet;
     private String mZip;
@@ -14,7 +17,6 @@ public class House {
     private EnergyGridList mEGList;
     private RoomList mRoomList;
     private GeographicArea mMotherArea;
-    private String mStringEnhancer = "---------------\n";
 
     //CONSTRUCTORS
     public House() {
@@ -43,7 +45,7 @@ public class House {
         this.mId = id;
     }
 
-    String getStreet() {
+    public String getStreet() {
         return this.mStreet;
     }
 
@@ -51,7 +53,7 @@ public class House {
         this.mStreet = mStreet;
     }
 
-    String getZip() {
+    public String getZip() {
         return mZip;
     }
 
@@ -67,7 +69,15 @@ public class House {
         this.mTown = town;
     }
 
-    Local getLocation() {
+    public double getNominalPower() {
+        double result = 0;
+        for (Room r1 : mRoomList.getRoomList()) {
+            result += r1.getNominalPower();
+        }
+        return result;
+    }
+
+    public Local getLocation() {
         return mLocation;
     }
 
@@ -105,14 +115,15 @@ public class House {
     public boolean addRoomToRoomList(Room room) {
         String roomToAddName = room.getRoomName();
         for (Room r : this.mRoomList.getRoomList()) {
-            String roomDesignationToTest = r.getRoomName();
-            if (roomDesignationToTest.equals(roomToAddName))
-                return false; }
+            String roomNameTest = r.getRoomName();
+            if (roomNameTest.equals(roomToAddName))
+                return false;
+        }
         this.mRoomList.addRoom(room);
         return true;
     }
 
-    public String printHouse() {
+    String printHouse() {
         String result;
         result = this.mId + ", " + this.mStreet + ", " + this.mZip + ", " +
                 this.mTown + ".\n";
@@ -130,19 +141,23 @@ public class House {
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
             Sensor copo = ga.getSensorList().getSensors()[i];
             if (distance > calculateDistanceToSensor(copo)) {
-                distance = calculateDistanceToSensor(copo); } }
+                distance = calculateDistanceToSensor(copo);
+            }
+        }
         return distance;
     }
 
-    public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house) {
-        for (Sensor s : ga.getSensorList().getSensorListByType("temperature")) {
+    public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house, String sensorType) {
+        for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
             if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
                 return s;
-            } }
+            }
+        }
         return null;
     }
 
     public String printGridList() {
+        String mStringEnhancer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringEnhancer);
         if (this.mEGList.getEnergyGridList().isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -150,11 +165,26 @@ public class House {
         for (int i = 0; i < this.mEGList.getEnergyGridList().size(); i++) {
             EnergyGrid aux = this.mEGList.getEnergyGridList().get(i);
             result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
-            result.append("Max Power: ").append(aux.getMaxPower()).append("\n");
+            result.append("Max Power: ").append(aux.getNominalPower()).append("\n");
         }
         result.append(mStringEnhancer);
         return result.toString();
     }
+
+    /**
+     * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
+     *
+     * @param deviceType the device type
+     * @return the sum of all daily estimate consumptions of that type
+     */
+    public double getDailyHouseConsumptionPerType(DeviceType deviceType) {
+        double result = 0;
+        for (Room r : mRoomList.getRoomList()) {
+            result += r.getDailyRoomConsumptionPerType(deviceType);
+        }
+        return result;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -162,14 +192,15 @@ public class House {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
-            return false; }
+            return false;
+        }
         House house = (House) o;
         return Objects.equals(mStreet, house.mStreet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.mStreet);
+        return 1;
     }
 }
 

@@ -9,11 +9,10 @@ class EnergyGridTest {
 
     @Test
     void seeIfPrintGridWorks() {
-        Room room = new Room("room1", 1, 1,2,2);
         Reading r1 = new Reading(20);
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("frigo", "frio", room, readingList, 0);
+        Device device = new Device();
         DeviceList deviceList = new DeviceList();
         deviceList.addDevices(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
@@ -29,10 +28,11 @@ class EnergyGridTest {
         Reading r1 = new Reading(20);
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("frigo", "frio", room, readingList, 0);
+        Device device = new Device();
         DeviceList deviceList = new DeviceList();
         deviceList.addDevices(device);
-        EnergyGrid energyGrid = new EnergyGrid("grid", 0, roomList);
+        EnergyGrid energyGrid = new EnergyGrid("grid", 0);
+        energyGrid.setListOfRooms(roomList);
         String result = energyGrid.getListOfRooms().printRooms();
         assertEquals("---------------\n" +
                 "0) Designation: room1 | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
@@ -160,11 +160,27 @@ class EnergyGridTest {
     }
 
     @Test
+    void seeIfEqualsEnergyGridToObject() {
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        boolean expectedResult = true;
+        boolean actualResult = energyGrid1.equals(energyGrid1);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfFalseWhenObjectsAreDifferentWithDifferentContent() {
         Room room = new Room("Quarto", 2, 10, 20, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         boolean expectedResult = false;
         boolean actualResult = energyGrid1.equals(room);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfFalseWhenObjectsAreNull() {
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        boolean expectedResult = false;
+        boolean actualResult = energyGrid1.equals(null);
         assertEquals(expectedResult, actualResult);
     }
 

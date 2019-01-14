@@ -1,15 +1,19 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-public class Room {
+public class Room implements Metered {
     private String mRoomName;
     private int mHouseFloor;
     private double mRoomWidth;
     private double mRoomLength;
     private double mRoomHeight;
     private SensorList mRoomSensorList;
+    private DeviceList mDeviceList;
 
 
     public Room(String name, int houseFloor, double width, double length, double height) {
@@ -18,41 +22,46 @@ public class Room {
         setRoomWidth(width);
         setRoomLength(length);
         setRoomHeight(height);
-        this.mRoomSensorList=new SensorList();
+        this.mRoomSensorList = new SensorList();
+        this.mDeviceList = new DeviceList();
     }
 
     public SensorList getmRoomSensorList() {
         return mRoomSensorList;
     }
 
-    public void setRoomName(String name) {
+    private void setRoomName(String name) {
         mRoomName = name;
     }
 
-    public void setRoomHouseFloor(int houseFloor) {
+    private void setRoomHouseFloor(int houseFloor) {
         mHouseFloor = houseFloor;
     }
 
-    public void setRoomHeight(double height) {
+
+    private void setRoomHeight(double height) {
         mRoomHeight = height;
     }
 
-    public void setRoomLength(double length) {
+    private void setRoomLength(double length) {
         mRoomLength = length;
     }
 
-    public void setRoomWidth(double width){mRoomWidth=width;}
+    private void setRoomWidth(double width) {
+        mRoomWidth = width;
+    }
 
-    public double getRoomHeight() {
+    double getRoomHeight() {
         return mRoomHeight;
     }
 
-    public double getRoomLength() {
+    double getRoomLength() {
         return mRoomLength;
     }
 
-    public double getRoomWidth(){ return mRoomWidth;}
-
+    double getRoomWidth() {
+        return mRoomWidth;
+    }
 
     public void setRoomSensorList(SensorList sensorList) {
         mRoomSensorList = sensorList;
@@ -66,13 +75,33 @@ public class Room {
         return mHouseFloor;
     }
 
+    public void setDeviceList(DeviceList deviceList) {
+        this.mDeviceList = deviceList;
+    }
 
-    public SensorList getRoomSensorList() {
-        return mRoomSensorList;
+    public List<Device> getDeviceList() {
+        return this.mDeviceList.getDeviceList();
+    }
+
+    public DeviceList getObjectDeviceList(){
+        return this.mDeviceList;
+    }
+
+    /** This method will go through the room's device list and add all the devices'
+     * The result is the room's total nominal power and will be returned as a double
+     *
+     * @return room's total nominal power (double)
+     */
+    public double getNominalPower() {
+        double result = 0;
+        for (Device d : this.getDeviceList()) {
+            result += d.getNominalPower();
+        }
+        return result;
     }
 
     public double getMaxTemperatureInARoomOnAGivenDay(House house, Date day) {
-        TypeSensor type = new TypeSensor("temperature","Celsius");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         Sensor s = new Sensor("sensor1", type, house.getLocation(), new Date());
         for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
             s = mRoomSensorList.getSensors()[i];
@@ -80,7 +109,7 @@ public class Room {
         return s.getReadingList().getMaximumOfGivenDayValueReadings(day);
     }
 
-    public boolean doesSensorListInARoomContainASensorByName(String name) {
+    boolean doesSensorListInARoomContainASensorByName(String name) {
         for (Sensor s : mRoomSensorList.getSensorList()) {
             if (s.getName().equals(name)) {
                 return true;
@@ -89,6 +118,14 @@ public class Room {
         return false;
     }
 
+    public boolean removeDevice(Device device) {
+        if ((mDeviceList.getDeviceList().contains(device))) {
+            mDeviceList.getDeviceList().remove(device);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public boolean addSensor(Sensor sensor) {
         if (!(mRoomSensorList.getSensorList().contains(sensor))) {
@@ -99,18 +136,28 @@ public class Room {
         }
     }
 
-
+    /**
+     * Adds a device to a room
+     *
+     * @param device to be added
+     * @return the result of the operation (true if successful, false otherwise)
+     */
+    public boolean addDevice(Device device) {
+        if (!(mDeviceList.getDeviceList().contains(device))) {
+            mDeviceList.getDeviceList().add(device);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Gets most recent reading for current temperature.
-     *
-     * @param
-     * @return
      */
 
     public double getCurrentRoomTemperature() {
         House h = new House();
-        TypeSensor type = new TypeSensor("temperature","Celsius");
+        TypeSensor type = new TypeSensor("temperature", "Celsius");
         Sensor s = new Sensor("sensor1", type, h.getLocation(), new Date());
         for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
             s = mRoomSensorList.getSensors()[i];
@@ -121,7 +168,23 @@ public class Room {
     public String printRoom() {
         String result;
         result = this.mRoomName + ", " + this.getHouseFloor() + ", " +
-                this.getRoomWidth() + ", "+ this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";
+                this.getRoomWidth() + ", " + this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";
+        return result;
+    }
+
+    /**
+     * Returns the daily estimate consumption of all devices of a given type in this room.
+     *
+     * @param deviceType the device type
+     * @return the sum of all daily estimate consumptions of that type
+     */
+    public double getDailyRoomConsumptionPerType(DeviceType deviceType) {
+        double result = 0;
+        for (Device d : getDeviceList()) {
+            if (d.getDeviceType() == deviceType) {
+                result += d.getDailyEstimateConsumption();
+            }
+        }
         return result;
     }
 
