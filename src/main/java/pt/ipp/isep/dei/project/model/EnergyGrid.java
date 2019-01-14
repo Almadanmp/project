@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import java.util.List;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.Objects;
@@ -93,6 +94,29 @@ public class EnergyGrid implements Metered {
 
     public String printGrid() {
         return "Energy Grid: " + this.mName + ", Max Power: " + this.getNominalPower();
+    }
+
+    public List<Room> getRoomList(){
+        return this.mRoomList.getRoomList();
+    }
+
+    public List<Device> getDeviceList(){
+        return this.mRoomList.getDeviceList();
+    }
+
+    public String printRoomsAndDevices(){
+        int counter = 0;
+        String result = "";
+        List<Room> roomList = this.getRoomList();
+        for (Room r: roomList){
+            result =+ counter + ") " + r.getRoomName() + ".\n";
+            counter++;
+        }
+        List<Device> deviceList = this.getDeviceList();
+        for (Device d : deviceList){
+            result =+ counter + ") " + d.getName() + ", Type: " + d.getDeviceType().name() + ", Power: " + d.getNominalPower() + ".\n";
+        }
+        return result;
     }
 
     public boolean removeRoom(Room room) {

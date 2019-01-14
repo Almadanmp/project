@@ -896,7 +896,7 @@ public class HouseMonitoringControllerTest {
         roomList.addRoom(room);
         roomList.addRoom(room1);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
-       house.setmMotherArea(ga);
+       house.setMotherArea(ga);
         double expectedResult = 24;
         double actualResult = ctrl.getAVGDailyRainfallOnGivenPeriod(house, dateToTest1, dateToTest2);
         //Assert
@@ -934,7 +934,7 @@ public class HouseMonitoringControllerTest {
         roomList.addRoom(room);
         roomList.addRoom(room1);
         House house = new House("casa","street","zip","town",new Local(1,1,1),ga,roomList);
-        house.setmMotherArea(ga);
+        house.setMotherArea(ga);
         double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house,d1,d2);
         double expectedResult = Double.NaN;
         assertEquals(expectedResult,result);
@@ -963,7 +963,7 @@ public class HouseMonitoringControllerTest {
         roomList.addRoom(room);
         roomList.addRoom(room1);
         House house = new House("casa","street","zip","town",new Local(1,1,1),ga,roomList);
-        house.setmMotherArea(ga);
+        house.setMotherArea(ga);
         double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house,d1,d2);
         double expectedResult = Double.NaN;
         assertEquals(expectedResult,result);
@@ -988,7 +988,7 @@ public class HouseMonitoringControllerTest {
         roomList.addRoom(room);
         roomList.addRoom(room1);
         House house = new House("casa","street","zip","town",new Local(1,1,1),ga,roomList);
-        house.setmMotherArea(ga);
+        house.setMotherArea(ga);
         double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house,d1,d2);
         double expectedResult = Double.NaN;
         assertEquals(expectedResult,result);
@@ -1015,7 +1015,7 @@ public class HouseMonitoringControllerTest {
         roomList.addRoom(room);
         roomList.addRoom(room1);
         House house = new House("casa","street","zip","town",new Local(1,1,1),ga,roomList);
-        house.setmMotherArea(ga);
+        house.setMotherArea(ga);
         double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house,d1,d2);
         double expectedResult = Double.NaN;
         assertEquals(expectedResult,result);

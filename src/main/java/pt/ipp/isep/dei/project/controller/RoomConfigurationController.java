@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
+import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import java.util.List;
 
@@ -30,7 +33,7 @@ public class RoomConfigurationController {
      */
 
     Room getRoomFromHouseByName(String roomName, House house) {
-        for (Room r : house.getRoomList().getRoomList()) {
+        for (Room r : house.getRoomList()) {
             if (r.getRoomName().equals(roomName)) {
                 mRoom = r;
             }
@@ -45,7 +48,7 @@ public class RoomConfigurationController {
      */
 
     public String printRoomList(House house) {
-        return house.getRoomList().printRoomList(house);
+        return house.printRoomList();
     }
 
     /**
@@ -67,7 +70,7 @@ public class RoomConfigurationController {
      */
 
     public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.getRoomList().printElementsByIndex(listOfIndexesOfRoom);
+        return house.printRoomsByIndex(listOfIndexesOfRoom);
     }
 
     /**
@@ -91,7 +94,7 @@ public class RoomConfigurationController {
      */
 
     public List<Integer> matchRoomIndexByString(String input, House house) {
-        return house.getRoomList().matchRoomIndexByString(input);
+        return house.matchRoomIndexByString(input);
     }
 
 
@@ -191,6 +194,43 @@ public class RoomConfigurationController {
     public String printDeviceList(Room room){
         return room.getObjectDeviceList().printListOfDevicesFromRoom(room);
     }
+
+    public void setVolumeWater(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WATER_HEATER){
+            WaterHeater waterHeater = new WaterHeater();
+            waterHeater.setVolumeOfWater(input);
+        }
+    }
+
+    public void setHotWaterTemp(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WATER_HEATER){
+            WaterHeater waterHeater = new WaterHeater();
+            waterHeater.setHotWaterTemperature(input);
+        }
+    }
+
+    public void setColdWaterTemp(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WATER_HEATER){
+            WaterHeater waterHeater = new WaterHeater();
+            waterHeater.setColdWaterTemperature(input);
+        }
+    }
+
+    public void setPerformanceRatio(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WATER_HEATER){
+            WaterHeater waterHeater = new WaterHeater();
+            waterHeater.setPerformanceRatio(input);
+        }
+    }
+
+
+    public void setCapacity(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WASHING_MACHINE){
+            WashingMachine waterHeater = new WashingMachine();
+            waterHeater.setmCapacity(input);
+        }
+    }
+
 
     /**
      *

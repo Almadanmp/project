@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.model.Metered;
 public class WashingMachine implements DeviceSpecs, Metered {
 
     private double mNominalPower;
+    private double mCapacity;
 
     void setNominalPower(double nominalPower) { this.mNominalPower = nominalPower;}
 
@@ -19,4 +20,5 @@ public class WashingMachine implements DeviceSpecs, Metered {
 
     public double getNominalPower() { return this.mNominalPower;}
 
+    public void setmCapacity(double capacity){capacity=this.mCapacity;}
 }

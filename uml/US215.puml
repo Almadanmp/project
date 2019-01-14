@@ -1,0 +1,24 @@
+@startuml
+actor Admin
+Admin -> MainUI: I want to edit the configuration of an existing device
+MainUI -> RoomConfigurationUI: run()
+RoomConfigurationUI --> Admin: getInputRoom()
+Admin -> RoomConfigurationUI: Select Room from Room list
+RoomConfigurationUI -> RoomConfigurationController: Check and Match Room from list by index
+RoomConfigurationController -> RoomList: Check and Match Room from list by index
+RoomList -> RoomList: validate Room
+Room --> Admin: Display selected Room
+RoomConfigurationUI --> Admin:getInputDevice()
+Admin -> RoomConfigurationUI: Select Device from Device list
+RoomConfigurationUI -> RoomConfigurationController: Check and Match Device from list by index
+RoomConfigurationController -> DeviceList: Check and Match Device from list by index
+DeviceList -> DeviceList: validate Device
+DeviceList --> Admin: Display selected Device
+RoomConfigurationUI --> Admin: getInputDeviceCharacteristicsUS215()
+Admin-> RoomConfigurationUI: Insert Device settings to configure (room, name, nominal Power)
+RoomConfigurationUI -> RoomConfigurationController: updateDeviceUS215(room, name, nominal Power)
+RoomConfigurationController -> Device: setDeviceName(), setDeviceNominalPower(), removeDeviceFromRoom(), addDeviceFromRoom()
+Device -> Device: validate settings
+Device--> Admin: displayDeviceUS215()
+
+@enduml

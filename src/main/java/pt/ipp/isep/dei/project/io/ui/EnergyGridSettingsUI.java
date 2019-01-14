@@ -252,7 +252,7 @@ class EnergyGridSettingsUI {
             System.out.println(mController.printHouseRoomsByIndex(roomIndexes, mHouse));
             int aux = inputUtils.readInputNumberAsInt();
             if (roomIndexes.contains(aux)) {
-                this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
+                this.mRoom = mHouse.getRoomList().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(mController.printRoom(mRoom));
             } else {
@@ -260,7 +260,7 @@ class EnergyGridSettingsUI {
             }
         } else {
             System.out.println("You have chosen the following Room:");
-            this.mRoom = mHouse.getRoomList().getRoomList().get(0);
+            this.mRoom = mHouse.getRoomList().get(0);
             System.out.println(mController.printRoom(mRoom));
         }
         return true;
@@ -270,7 +270,7 @@ class EnergyGridSettingsUI {
     private void getInputRoomByList(House house) {
         UtilsUI utilsUI = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        if (house.getRoomList().getRoomList().isEmpty()) {
+        if (house.getRoomList().isEmpty()) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -279,9 +279,9 @@ class EnergyGridSettingsUI {
         while (!activeInput) {
             System.out.println(mController.printHouseRoomList(house));
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux < house.getRoomList().getRoomList().size() && aux >= 0) {
+            if (aux < house.getRoomList().size() && aux >= 0) {
                 activeInput = true;
-                this.mRoom = house.getRoomList().getRoomList().get(aux);
+                this.mRoom = house.getRoomList().get(aux);
             } else {
                 System.out.println(utilsUI.invalidOption);
             }
@@ -484,7 +484,7 @@ class EnergyGridSettingsUI {
         if (this.mHouse.getEGList() == null) {
             System.out.println(noGrid);
             return;
-        } else if ((this.mHouse.getRoomList().getRoomList().isEmpty())) {
+        } else if ((this.mHouse.getRoomList().isEmpty())) {
             System.out.println("Your house doesn't have any rooms. Please create a room to continue.");
             return;
         } else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {

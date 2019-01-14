@@ -4,13 +4,11 @@ import pt.ipp.isep.dei.project.controller.EGConsumptionController;
 import pt.ipp.isep.dei.project.model.House;
 
 
-public class EGConsumptionUI {
-    EGConsumptionController controller = new EGConsumptionController();
+class EGConsumptionUI {
+    private EGConsumptionController controller = new EGConsumptionController();
 
-
-    public EGConsumptionUI() {
+    EGConsumptionUI() {
         this.controller = new EGConsumptionController();
-
     }
 
     void run(House programHouse) {
@@ -46,6 +44,13 @@ public class EGConsumptionUI {
             }
         }
     }
+
+    //US705
+
+    //private void runUS705(House programHouse){
+
+    //    System.out.println(controller.printRoomsAndDevices());
+    //}
 
 
     /**

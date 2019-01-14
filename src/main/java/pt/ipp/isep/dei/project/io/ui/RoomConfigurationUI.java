@@ -2,7 +2,9 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
+import java.util.List;
 import java.util.Scanner;
 
 class RoomConfigurationUI {
@@ -14,6 +16,11 @@ class RoomConfigurationUI {
     private Sensor mSensor;
     private Device mDevice;
     private double mNominalPower;
+    private double mVolumeOfWater;
+    private double mHotWaterTemperature;
+    private double mColdWaterTemperature;
+    private double mPerformanceRatio;
+    private double mCapacity;
     private String mDeviceName;
     private String mRoomName;
     private SensorList mSensorList;
@@ -32,8 +39,8 @@ class RoomConfigurationUI {
             return;
         }
         this.mHouse = house;
-        RoomList roomList = mHouse.getRoomList();
-        if (roomList == null || roomList.getRoomList().isEmpty()) {
+        List<Room> roomList = mHouse.getRoomList();
+        if (roomList == null || roomList.isEmpty()) {
             System.out.println("There are no available rooms in the house. Please add a room to continue.");
             return;
         }
@@ -101,7 +108,7 @@ class RoomConfigurationUI {
     private void getInputRoomByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        if (mHouse.getRoomList().getRoomList().isEmpty()) {
+        if (mHouse.getRoomList().isEmpty()) {
             System.out.println("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -110,8 +117,8 @@ class RoomConfigurationUI {
         while (activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
-                this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
+            if (aux >= 0 && aux < mHouse.getRoomList().size()) {
+                this.mRoom = mHouse.getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
                 System.out.println(mStringRequestRoom);
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
@@ -168,7 +175,7 @@ class RoomConfigurationUI {
         mRoom.removeDevice(mDevice);
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        if (mHouse.getRoomList().getRoomList().isEmpty()) {
+        if (mHouse.getRoomList().isEmpty()) {
             System.out.println("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -177,8 +184,8 @@ class RoomConfigurationUI {
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
-                this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
+            if (aux >= 0 && aux < mHouse.getRoomList().size()) {
+                this.mRoom = mHouse.getRoomList().get(aux);
                 this.mRoomName = mRoom.getRoomName();
                 System.out.println(mStringRequestRoom);
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
@@ -198,7 +205,67 @@ class RoomConfigurationUI {
         }
         this.mNominalPower = scanner.nextDouble();
 
-    }
+        if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
+            System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mVolumeOfWater = scanner.nextDouble();
+
+            System.out.print("Please, type the Maximum Temperature of the water in the Water Heater: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mHotWaterTemperature = scanner.nextDouble();
+
+            System.out.print("Please, type the Minimum Temperature of the water in the Water Heater: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mColdWaterTemperature = scanner.nextDouble();
+
+            System.out.println(
+                    "Do you wish to alter the performance ration?\n" +
+                            "1) Yes;\n" +
+                            "2) No;\n");
+            int option = inputUtils.readInputNumberAsInt();
+
+            switch (option) {
+                case 1:
+                    System.out.print("Please, type the Performance Ration of the Water Heater: ");
+                    while (!scanner.hasNextDouble()) {
+                        System.out.println(onlyNumbers);
+                        scanner.next();
+                    }
+                    this.mPerformanceRatio = scanner.nextDouble();
+                    mRoomConfigurationController.setPerformanceRatio(mPerformanceRatio,mDevice);
+                    break;
+                case 2:
+                    break;
+            }
+
+        }
+        if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
+            System.out.print("Please, type the new Capacity in Kg for the Washing Machine: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mCapacity = scanner.nextDouble();
+        }
+        if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
+            System.out.print("Please, type the new Capacity in Kg for the Dishwasher:");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mCapacity = scanner.nextDouble();
+        }
+
+        }
 
     /*
     US215 As an Administrator, I want to edit the configuration of an existing device, so that I
@@ -206,7 +273,18 @@ class RoomConfigurationUI {
     private void updateDeviceUS215() {
         mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
         mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
-    }
+        if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
+            mRoomConfigurationController.setVolumeWater(mVolumeOfWater, mDevice);
+            mRoomConfigurationController.setHotWaterTemp(mHotWaterTemperature, mDevice);
+            mRoomConfigurationController.setColdWaterTemp(mColdWaterTemperature,mDevice);
+        }
+        if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
+            mRoomConfigurationController.setCapacity(mCapacity, mDevice);
+        }
+        if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
+            mRoomConfigurationController.setCapacity(mCapacity, mDevice);
+        }
+        }
 
     /*
     US215 As an Administrator, I want to edit the configuration of an existing device, so that I
@@ -214,6 +292,13 @@ class RoomConfigurationUI {
     private void displayDeviceUS215() {
         System.out.println("You have successfully changed the Device name to " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
+        if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
+            System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
+                    mHotWaterTemperature + " ºC, the Min Temperature is "+mColdWaterTemperature+" ºC.");
+        }
+        if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE || mDevice.getDeviceType() == DeviceType.DISHWASHER) {
+            System.out.println("The capacity is "+mCapacity+" Kg.");
+        }
     }
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total

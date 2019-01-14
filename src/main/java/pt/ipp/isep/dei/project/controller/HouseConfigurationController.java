@@ -124,11 +124,11 @@ public class HouseConfigurationController {
 
     /**
      *
-     * @param roomList is the list of rooms we want to print.
+     * @param house is the house.
      * @return builds a string of all the individual members in the given list.
      */
 
-    public String printRooms(RoomList roomList) {
-        return roomList.printRooms();
+    public String printRooms(House house) {
+        return house.printRoomList();
     }
 }

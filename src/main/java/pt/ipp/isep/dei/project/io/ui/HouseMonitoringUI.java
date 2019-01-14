@@ -43,7 +43,7 @@ public class HouseMonitoringUI {
                     " your house first through the main menu");
             return;
         }
-        RoomList roomList = programHouse.getRoomList();
+        List<Room> roomList = programHouse.getRoomList();
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -54,7 +54,7 @@ public class HouseMonitoringUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if (roomList == null || roomList.getRoomList().isEmpty()) {
+                    if (roomList == null || roomList.isEmpty()) {
                         System.out.println("Your house doesn't have any rooms. Please add rooms to house to continue.");
                         return;
                     } else if (!getInputRoom(programHouse) || !getInputSensor()) {
@@ -67,7 +67,7 @@ public class HouseMonitoringUI {
                     break;
 
                 case 2:
-                    if (roomList == null || roomList.getRoomList().isEmpty()) {
+                    if (roomList == null || roomList.isEmpty()) {
                         System.out.println("Your house doesn't have any rooms. Please add rooms to house to continue.");
                         return;
                     }
@@ -163,7 +163,7 @@ public class HouseMonitoringUI {
             System.out.println(houseMonitoringcontroller.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
             int aux = inputUtils.readInputNumberAsInt();
             if (listOfIndexesRoom.contains(aux)) {
-                house.getRoomList().getRoomList().get(aux);
+                house.getRoomList().get(aux);
                 System.out.println("You have chosen the following Room:");
                 System.out.println(houseMonitoringcontroller.printRoom(mRoom));
             } else {
@@ -171,7 +171,7 @@ public class HouseMonitoringUI {
             }
         } else {
             System.out.println("You have chosen the following Room:");
-            house.getRoomList().getRoomList().get(0);
+            house.getRoomList().get(0);
             System.out.println(houseMonitoringcontroller.printRoom(mRoom));
         }
         return true;
@@ -181,7 +181,7 @@ public class HouseMonitoringUI {
     private void getInputRoomByList(House house) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        if (house.getRoomList().getRoomList().isEmpty()) {
+        if (house.getRoomList().isEmpty()) {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
@@ -191,8 +191,8 @@ public class HouseMonitoringUI {
         while (activeInput) {
             System.out.println(houseMonitoringcontroller.printHouseRoomList(house));
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getRoomList().getRoomList().size()) {
-                this.mRoom = house.getRoomList().getRoomList().get(aux);
+            if (aux >= 0 && aux < house.getRoomList().size()) {
+                this.mRoom = house.getRoomList().get(aux);
                 activeInput = false;
             } else {
                 System.out.println(utils.invalidOption);

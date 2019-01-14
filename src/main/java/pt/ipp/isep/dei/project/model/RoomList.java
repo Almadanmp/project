@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class RoomList {
         return this.mRoomList;
     }
 
-    public Room[] getRooms() {
+    public Room[] getRoomsInArray() {
         int sizeOfResultArray = mRoomList.size();
         Room[] result = new Room[sizeOfResultArray];
         for (int i = 0; i < mRoomList.size(); i++) {
@@ -86,7 +87,7 @@ public class RoomList {
         return false;
     }
 
-    public List<Integer> matchRoomIndexByString(String input) {
+    List<Integer> matchRoomIndexByString(String input) {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < mRoomList.size(); i++) {
             if (mRoomList.get(i).getRoomName().equals(input)) {
@@ -105,13 +106,21 @@ public class RoomList {
         return result.toString();
     }
 
+    public List<Device> getDeviceList(){
+        List<Device> result = new ArrayList<>();
+        for (Room r : this.getRoomList()){
+            result.addAll(r.getDeviceList());
+        }
+        return result;
+    }
+
     public String printRoomList(House house) {
         StringBuilder result = new StringBuilder(this.mStringResult);
-        if (house.getRoomList().getRoomList().isEmpty()) {
+        if (house.getRoomList().isEmpty()) {
             return this.mStringInvalidList;
         }
-        for (int i = 0; i < house.getRoomList().getRoomList().size(); i++) {
-            Room aux = house.getRoomList().getRoomList().get(i);
+        for (int i = 0; i < house.getRoomList().size(); i++) {
+            Room aux = house.getRoomList().get(i);
             result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
             result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
             result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
