@@ -361,4 +361,27 @@ class RoomConfigurationControllerTest {
         String expectedResult = "The Device Name is frigorifico, which is in the Room kitchen, and its NominalPower is 200.0 kW.\n";
         assertEquals(expectedResult,result);
     }
+
+    @Test
+    void seeIfPrintDeviceList(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        d1.setmParentRoom(room);
+        DeviceList dlist = new DeviceList();
+        dlist.addDevices(d1);
+        room.setDeviceList(dlist);
+        String result = ctrl.printDeviceList(room);
+        String expectedResult = "---------------\n" +
+                "\n" +
+                "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 200.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void seeIfSetDeviceName(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+
+    }
 }

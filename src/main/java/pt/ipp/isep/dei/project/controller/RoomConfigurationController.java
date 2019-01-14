@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
+import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import java.util.List;
 
@@ -191,6 +194,43 @@ public class RoomConfigurationController {
     public String printDeviceList(Room room){
         return room.getObjectDeviceList().printListOfDevicesFromRoom(room);
     }
+
+    public void setVolumeWater(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WATER_HEATER){
+            WaterHeater waterHeater = new WaterHeater();
+            waterHeater.setVolumeOfWater(input);
+        }
+    }
+
+    public void setHotWaterTemp(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WATER_HEATER){
+            WaterHeater waterHeater = new WaterHeater();
+            waterHeater.setHotWaterTemperature(input);
+        }
+    }
+
+    public void setColdWaterTemp(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WATER_HEATER){
+            WaterHeater waterHeater = new WaterHeater();
+            waterHeater.setColdWaterTemperature(input);
+        }
+    }
+
+    public void setPerformanceRatio(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WATER_HEATER){
+            WaterHeater waterHeater = new WaterHeater();
+            waterHeater.setPerformanceRatio(input);
+        }
+    }
+
+
+    public void setCapacity(double input, Device device){
+        if(device.getDeviceType() == DeviceType.WASHING_MACHINE){
+            WashingMachine waterHeater = new WashingMachine();
+            waterHeater.setmCapacity(input);
+        }
+    }
+
 
     /**
      *
