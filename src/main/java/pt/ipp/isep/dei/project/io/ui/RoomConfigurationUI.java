@@ -59,9 +59,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //215
-                    if(!getInputRoom()){
-                        return;
-                    }
+                    getInputRoomByList();
                     if(!getInputDevice()){
                         return;
                     }
@@ -71,12 +69,12 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 4: //US230
-                    getInputRoom();
+                    getInputRoomByList();
                     getRoomNominalPower();
                     activeInput = false;
                     break;
                 case 5: //US250
-                    getInputRoom();
+                    getInputRoomByList();
                     getInputSensorByListRoom();
                     activeInput = false;
                     break;
@@ -85,7 +83,7 @@ class RoomConfigurationUI {
                         System.out.println("There's no available sensors in the Geographical Area");
                         return;
                     }
-                    getInputRoom();
+                    getInputRoomByList();
                     getInputSensor();
                     activeInput = false;
                     break;
@@ -101,77 +99,6 @@ class RoomConfigurationUI {
 
     //  SHARED METHODS
 
-    private boolean getInputRoom() {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        System.out.println(
-                "We need to know which one is your room.\n" + "Would you like to:\n" +
-                        "1) Type the name of your Room;\n" +
-                        "2) Choose it from a list;\n" +
-                        "0) Return;");
-        int option = inputUtils.readInputNumberAsInt();
-        switch (option) {
-            case 1:
-                getInputRoomName();
-                if (!getRoomByName()) {
-                    System.out.println("Unable to select a Room. Returning to main menu.");
-                    return false;
-                }
-                break;
-            case 2:
-                getInputRoomByList();
-                break;
-            case 0:
-                return false;
-            default:
-                System.out.println(utils.invalidOption);
-                break;
-        }
-        return true;
-    }
-
-    private boolean getInputRoomName() {
-        Scanner mScanner = new Scanner(System.in);
-        System.out.println("Please type the name of the Room you want to access.");
-        this.mRoomName = mScanner.nextLine();
-        return (!("exit".equals(this.mRoomName)));
-    }
-
-    private boolean getRoomByName() {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        List<Integer> listOfIndexesRoom = mRoomConfigurationController.matchRoomIndexByString(mRoomName, mHouse);
-        while (listOfIndexesRoom.isEmpty()) {
-            System.out.print("There is no Room with that name. Please insert the name of a Room" +
-                    " that exists or  Type 'exit' to cancel and create a new Room on the Main Menu.");
-            if (!getInputRoomName()) {
-                return false;
-            }
-            listOfIndexesRoom = mRoomConfigurationController.matchRoomIndexByString(mRoomName, mHouse);
-        }
-        if (listOfIndexesRoom.size() > 1) {
-            System.out.println("There are multiple Rooms with that name. Please choose the right one.");
-            System.out.println(mRoomConfigurationController.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (listOfIndexesRoom.contains(aux)) {
-                this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
-                this.mRoomName = mRoom.getRoomName();
-                mHouse.getRoomList().getRoomList().get(aux);
-                System.out.println(mStringRequestRoom);
-                System.out.println(mRoomConfigurationController.printRoom(mRoom));
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        } else {
-            this.mRoom = mHouse.getRoomList().getRoomList().get(listOfIndexesRoom.get(0));
-            this.mRoomName = mRoom.getRoomName();
-            System.out.println(mStringRequestRoom);
-            this.mHouse.getRoomList().getRoomList().get(0);
-            System.out.println(mRoomConfigurationController.printRoom(mRoom));
-        }
-        return true;
-    }
-
     private void getInputRoomByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
@@ -180,7 +107,7 @@ class RoomConfigurationUI {
             return;
         }
         boolean activeInput = false;
-        System.out.println("Please select one of the existing rooms on the selected House: ");
+        System.out.println("First you need to select one of the existing rooms of the house. Please select from the list: ");
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
             int aux = inputUtils.readInputNumberAsInt();
@@ -357,8 +284,8 @@ can reconfigure it.*/
     }
 
     /*
-        US215 As an Administrator, I want to edit the configuration of an existing device, so that I
-        can reconfigure it.*/
+    US215 As an Administrator, I want to edit the configuration of an existing device, so that I
+    can reconfigure it.*/
     private void displayDeviceUS215() {
         System.out.println("You have successfully changed the Device name to " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
