@@ -60,9 +60,7 @@ class RoomConfigurationUI {
                     break;
                 case 3: //215
                     getInputRoomByList();
-                    if(!getInputDevice()){
-                        return;
-                    }
+                    getInputDeviceByList();
                     getInputDeviceCharacteristicsUS215();
                     updateDeviceUS215();
                     displayDeviceUS215();
@@ -107,7 +105,7 @@ class RoomConfigurationUI {
             return;
         }
         boolean activeInput = false;
-        System.out.println("First you need to select one of the existing rooms of the house. Please select from the list: ");
+        System.out.println("Please select one of the existing Rooms in the House: ");
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
             int aux = inputUtils.readInputNumberAsInt();
@@ -123,91 +121,14 @@ class RoomConfigurationUI {
         }
     }
 
-
-    private boolean getInputDevice() {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        System.out.println(
-                "We need to know which Device you wish to reconfigure.\n" + "Would you like to:\n" +
-                        "1) Type the name of your Device;\n" +
-                        "2) Choose it from a list;\n" +
-                        "0) Return;");
-        int option = inputUtils.readInputNumberAsInt();
-        switch (option) {
-            case 1:
-                getInputDeviceName();
-                if (!getDeviceByName()) {
-                    System.out.println("Unable to select a Device. Returning to main menu.");
-                    return false;
-                }
-                break;
-            case 2:
-                if(!getInputDeviceByList()){
-                    System.out.println("Unable to select a Device. Returning to main menu.");
-                    return false;
-                }
-                break;
-            case 0:
-                return false;
-            default:
-                System.out.println(utils.invalidOption);
-                break;
-        }
-        return true;
-    }
-
-    private boolean getInputDeviceName() {
-        Scanner mScanner = new Scanner(System.in);
-        System.out.println("Please type the name of the Device you want to reconfigure.");
-        this.mRoomName = mScanner.nextLine();
-        return (!("exit".equals(this.mRoomName)));
-    }
-
-    private boolean getDeviceByName() {
+    private void getInputDeviceByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        List<Integer> listOfIndexesDevice = mRoomConfigurationController.matchDeviceIndexByString(mDeviceName, mRoom);
-        while (listOfIndexesDevice.isEmpty()) {
-            System.out.print("There is no Device with that name. Please insert the name of a Device" +
-                    " that exists or  Type 'exit' to cancel and add a new Device on the Main Menu.");
-            if (!getInputDeviceName()) {
-                return false;
-            }
-            listOfIndexesDevice = mRoomConfigurationController.matchDeviceIndexByString(mDeviceName, mRoom);
-        }
-        if (listOfIndexesDevice.size() > 1) {
-            System.out.println("There are multiple Houses with that name. Please choose the right one.");
-            System.out.println(mRoomConfigurationController.printDeviceElementsByIndex(listOfIndexesDevice, mRoom));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (listOfIndexesDevice.contains(aux)) {
-                this.mDevice = mRoom.getDeviceList().get(aux);
-                this.mDeviceName = mDevice.getName();
-                mRoom.getDeviceList().get(aux);
-                System.out.println(mStringRequestDevice);
-                System.out.println(mRoomConfigurationController.printDevice(mDevice));
-                return true;
-            } else {
-                System.out.println(utils.invalidOption);
-                return false;
-            }
-        } else {
-            this.mDevice = mRoom.getDeviceList().get(listOfIndexesDevice.get(0));
-            this.mDeviceName = mDevice.getName();
-            System.out.println(mStringRequestDevice);
-            this.mRoom.getDeviceList().get(0);
-            System.out.println(mRoomConfigurationController.printDevice(mDevice));
-            return true;
-        }
-    }
-
-    private boolean getInputDeviceByList() {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        boolean activeInput = false;
         if (mRoom.getDeviceList().isEmpty()) {
             System.out.println("Invalid Device List - List Is Empty\n");
-            return false;
+            return;
         }
+        boolean activeInput = false;
         System.out.println("Please select one of the existing Devices in the selected Room: ");
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
@@ -218,14 +139,11 @@ class RoomConfigurationUI {
                 System.out.println(mStringRequestDevice);
                 System.out.println(mRoomConfigurationController.printDevice(mDevice));
                 activeInput = true;
-                return true;
             } else {
                 System.out.println(utils.invalidOption);
-                return false;
             }
 
         }
-        return true;
     }
 
     /*US215 As an Administrator, I want to edit the configuration of an existing device, so that I
