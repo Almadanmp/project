@@ -61,7 +61,9 @@ class RoomConfigurationUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1: //US201
-                    getInputRoomByList();
+                    if(getInputRoomByList()){
+                        return;
+                    }
                     getRoomDeviceList(mRoom);
                     activeInput = false;
                     break;
@@ -69,22 +71,28 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //215
-                    getInputRoomByList();
-                    if(!getInputDeviceByList()){
+                    if(getInputRoomByList()){
                         return;
-                    };
+                    }
+                    if(getInputDeviceByList()){
+                        return;
+                    }
                     getInputDeviceCharacteristicsUS215();
                     updateDeviceUS215();
                     displayDeviceUS215();
                     activeInput = false;
                     break;
                 case 4: //US230
-                    getInputRoomByList();
+                    if(getInputRoomByList()){
+                        return;
+                    }
                     getRoomNominalPower();
                     activeInput = false;
                     break;
                 case 5: //US250
-                    getInputRoomByList();
+                    if(getInputRoomByList()){
+                        return;
+                    }
                     getInputSensorByListFromRoom();
                     activeInput = false;
                     break;
@@ -93,8 +101,12 @@ class RoomConfigurationUI {
                         System.out.println("There's no available sensors in the Geographical Area");
                         return;
                     }
-                    getInputRoomByList();
-                    getInputSensorByList();
+                    if(getInputRoomByList()){
+                        return;
+                    }
+                    if(getInputSensorByList()){
+                        return;
+                    }
                     activeInput = false;
                     break;
                 case 0:
@@ -114,24 +126,21 @@ class RoomConfigurationUI {
         UtilsUI utils = new UtilsUI();
         if (mHouse.getRoomList().isEmpty()) {
             System.out.println("Invalid Room List - List Is Empty\n");
-            return false;
+            return true;
         }
-        boolean activeInput = true;
         System.out.println("Please select one of the existing Rooms in the House: ");
-        while (activeInput) {
-            System.out.println(mRoomConfigurationController.printRoomList(mHouse));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getRoomList().size()) {
-                this.mRoom = mHouse.getRoomList().get(aux);
-                this.mRoomName = mRoom.getRoomName();
-                System.out.println(mStringRequestRoom);
-                System.out.println(mRoomConfigurationController.printRoom(mRoom));
-                activeInput = false;
-            } else {
-                System.out.println(utils.invalidOption);
-            }
+        System.out.println(mRoomConfigurationController.printRoomList(mHouse));
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < mHouse.getRoomList().size()) {
+            this.mRoom = mHouse.getRoomList().get(aux);
+            this.mRoomName = mRoom.getRoomName();
+            System.out.println(mStringRequestRoom);
+            System.out.println(mRoomConfigurationController.printRoom(mRoom));
+            return false;
+        } else {
+            System.out.println(utils.invalidOption);
+            return true;
         }
-        return true;
     }
 
     private boolean getInputDeviceByList() {
@@ -139,28 +148,24 @@ class RoomConfigurationUI {
         UtilsUI utils = new UtilsUI();
         if (mRoom.getDeviceList().isEmpty()) {
             System.out.println("Invalid Device List - List Is Empty\n");
-            return false;
+            return true;
         }
-        boolean activeInput = true;
         System.out.println("Please select one of the existing Devices in the selected Room: ");
-        while (activeInput) {
-            System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mRoom.getDeviceList().size()) {
-                this.mDevice = mRoom.getDeviceList().get(aux);
-                this.mDeviceName = mDevice.getName();
-                System.out.println(mStringRequestDevice);
-                System.out.println(mRoomConfigurationController.printDevice(mDevice));
-                activeInput = false;
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-
+        System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < mRoom.getDeviceList().size()) {
+            this.mDevice = mRoom.getDeviceList().get(aux);
+            this.mDeviceName = mDevice.getName();
+            System.out.println(mStringRequestDevice);
+            System.out.println(mRoomConfigurationController.printDevice(mDevice));
+            return false;
+        } else {
+            System.out.println(utils.invalidOption);
+            return true;
         }
-        return true;
     }
-    /*US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.*/
 
+    /*US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.*/
     private void getRoomDeviceList(Room room) {
         System.out.println("Available Devices in Room " + mRoomName);
         System.out.println(mRoomConfigurationController.printDeviceList(room));
@@ -371,31 +376,30 @@ class RoomConfigurationUI {
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
 
-    private void getInputSensorByList() {
+    private boolean getInputSensorByList() {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
         if (mGeoArea.getSensorList().getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty\n");
-            return;
+            return true;
         }
-        boolean activeInput = true;
         System.out.println("Please select a sensor from the House Geographical Area from the list: ");
-        while (activeInput) {
-            System.out.println(ctrl.printSensorList(mSensorList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mSensorList.getSensorList().size()) {
-                this.mSensor = mSensorList.getSensorList().get(aux);
-                this.mSensorName = mSensor.getName();
-                activeInput = false;
-                System.out.println(mStringChosenSensor);
-                System.out.println(mRoomConfigurationController.printSensor(mSensor));
-                System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
-            } else {
-                System.out.println(utils.invalidOption);
-            }
+        System.out.println(ctrl.printSensorList(mSensorList));
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < mSensorList.getSensorList().size()) {
+            this.mSensor = mSensorList.getSensorList().get(aux);
+            this.mSensorName = mSensor.getName();
+            System.out.println(mStringChosenSensor);
+            System.out.println(mRoomConfigurationController.printSensor(mSensor));
+            System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
+            return false;
+        } else {
+            System.out.println(utils.invalidOption);
+            return true;
         }
     }
+
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
 

@@ -217,6 +217,11 @@ public class MainUI {
 
         // ********* MOCKS EXTRA **********************************************
 
+        // House - Empty RoomList - Without EnergyGrid
+        GeographicArea geographicArea4 = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
+
         /**
         //Empty TypeAreaList
 
@@ -354,7 +359,7 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(edificioB);
+                        roomConfiguration.run(house);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
@@ -372,7 +377,7 @@ public class MainUI {
                         break;
                     case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
-                        houseM.run(edificioB);
+                        houseM.run(house);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
