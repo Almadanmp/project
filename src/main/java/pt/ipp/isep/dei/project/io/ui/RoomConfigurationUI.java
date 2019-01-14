@@ -48,7 +48,7 @@ class RoomConfigurationUI {
         System.out.println("Room Configuration\n");
         System.out.println("--------------\n");
         while (activeInput) {
-            printHouseConfigMenu();
+            printRoomConfigMenu();
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1: //US201
@@ -75,6 +75,8 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 5: //US250
+                    getInputRoom();
+                    getInputSensorByListRoom();
                     activeInput = false;
                     break;
                 case 6: //US253
@@ -371,7 +373,34 @@ can reconfigure it.*/
                 "from the sum of the nominal power of all devices in the room.");
     }
 
+    /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
+    MIGUEL ORTIGAO*/
 
+    private void getInputSensorByListRoom() {
+        UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        SensorList mSensorList = mRoom.getmRoomSensorList();
+        if (mSensorList.getSensorList().isEmpty()) {
+            System.out.print("Invalid Sensor List - List Is Empty\n");
+            return;
+        }
+        boolean activeInput = false;
+        System.out.println("Please select a Sensor from the Chosen Room in order to Configure it: ");
+        while (!activeInput) {
+            System.out.println(ctrl.printSensorList(mSensorList));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < mSensorList.getSensorList().size()) {
+                this.mSensor = mSensorList.getSensorList().get(aux);
+                this.mSensorName = mSensor.getName();
+                activeInput = true;
+                System.out.println("You have chosen the following Sensor:");
+                System.out.println(mRoomConfigurationController.printSensor(mSensor));
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
@@ -479,8 +508,8 @@ can reconfigure it.*/
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
 
-    private void printHouseConfigMenu() {
-        System.out.println("House Controller Options:\n");
+    private void printRoomConfigMenu() {
+        System.out.println("Room Configuration Options:\n");
         System.out.println("1) Get a list of all devices in a room. (US201)");
         System.out.println("2) Add a new device to the room from the list of device types (US210)");
         System.out.println("3) Edit the configuration of an existing device (US215)");

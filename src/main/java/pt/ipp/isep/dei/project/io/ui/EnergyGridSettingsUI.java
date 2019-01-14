@@ -60,16 +60,7 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 4:
-                    if (this.mHouse.getEGList() == null) {
-                        System.out.println(noGrid);
-                        return;
-                    } else if ((this.mHouse.getRoomList().getRoomList().isEmpty())) {
-                        System.out.println("Your house doesn't have any rooms. Please create a room to continue.");
-                        return;
-                    } else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
-                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
-                        return;
-                    }
+                    printUS147Validation();
                     getInputRoom();
                     getInputEnergyGrid(mHouse);
                     updateGridUS147(mEnergyGrid, mRoom);
@@ -359,7 +350,7 @@ class EnergyGridSettingsUI {
     }
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
-    // energy consumption is included in that grid.
+    // energy consumption is included in that grid. MIGUEL ORTIGAO
 
     private void updateGridUS147(EnergyGrid grid, Room room) {
         if (mController.addRoomToGrid(grid, room)) {
@@ -480,4 +471,21 @@ class EnergyGridSettingsUI {
             return;
         }
     }
+
+    /**
+     * Print Different Types of Messages.
+     * If The Energy Grid Is Null or If the RoomList is Empty or If the Energy Grid List is Empty.
+     * If everything is OK, the case in the run() method continues.
+     */
+    void printUS147Validation() {
+        if (this.mHouse.getEGList() == null) {
+            System.out.println(noGrid);
+            return;
+        } else if ((this.mHouse.getRoomList().getRoomList().isEmpty())) {
+            System.out.println("Your house doesn't have any rooms. Please create a room to continue.");
+            return;
+        } else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
+            System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
+            return;
+        }}
 }

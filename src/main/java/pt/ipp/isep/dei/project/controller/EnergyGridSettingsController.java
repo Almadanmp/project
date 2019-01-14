@@ -173,7 +173,7 @@ public class EnergyGridSettingsController {
         }
     }
     /* USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
-    energy consumption is included in that grid.*/
+    energy consumption is included in that grid. MIGUEL ORTIGAO*/
 
     /**
      * @param grid is the grid we're going to add a room to.

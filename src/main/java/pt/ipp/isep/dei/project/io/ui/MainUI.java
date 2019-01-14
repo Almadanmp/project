@@ -351,7 +351,6 @@ public class MainUI {
                         activeInput = false;
                         break;
                     case 3:
-
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
                         roomConfiguration.run(edificioB);
                         returnToMenu(enterToReturnToConsole);

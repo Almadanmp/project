@@ -100,10 +100,6 @@ public class Room implements Metered {
         return result;
     }
 
-    public SensorList getRoomSensorList() {
-        return mRoomSensorList;
-    }
-
     public double getMaxTemperatureInARoomOnAGivenDay(House house, Date day) {
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         Sensor s = new Sensor("sensor1", type, house.getLocation(), new Date());
