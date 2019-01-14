@@ -1,11 +1,43 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.House;
+
 import java.util.Scanner;
 
 /**
  * Utility class that aggregates common INPUT methods used by the UI classes.
  */
 class InputUtils {
+
+    public EnergyGrid getInputGridByList(House house) {
+        EnergyGridSettingsController controller = new EnergyGridSettingsController();
+        EnergyGrid result = new EnergyGrid();
+        if (house == null) {
+            System.out.println("The selected house is NOT a valid one\n" + "Returning to main menu\n");
+            return null;
+        }
+        UtilsUI utilsUI = new UtilsUI();
+        if (house.getEGList().getEnergyGridList().isEmpty()) {
+            System.out.print("Invalid Grid List - List Is Empty\n" + "Returning to main menu\n");
+            return null;
+        }
+        boolean activeInput = false;
+        InputUtils inputUtils = new InputUtils();
+        System.out.println("Please select one of the existing grids on the selected house: ");
+        while (!activeInput) {
+            System.out.println(controller.printGridList(house));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < house.getEGList().getEnergyGridList().size()) {
+                result = house.getEGList().getEnergyGridList().get(aux);
+                activeInput = true;
+            } else {
+                System.out.println(utilsUI.invalidOption);
+            }
+        }
+        return result;
+    }
 
     /**
      * Method to read the user input as an Int
