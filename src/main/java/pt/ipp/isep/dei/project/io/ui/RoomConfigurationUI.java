@@ -20,6 +20,8 @@ class RoomConfigurationUI {
     private double mHotWaterTemperature;
     private double mColdWaterTemperature;
     private double mPerformanceRatio;
+    private double mFreezerCapacity;
+    private double mRefrigeratorCapacity;
     private double mCapacity;
     private String mDeviceName;
     private String mRoomName;
@@ -68,7 +70,9 @@ class RoomConfigurationUI {
                     break;
                 case 3: //215
                     getInputRoomByList();
-                    getInputDeviceByList();
+                    if(!getInputDeviceByList()){
+                        return;
+                    };
                     getInputDeviceCharacteristicsUS215();
                     updateDeviceUS215();
                     displayDeviceUS215();
@@ -105,12 +109,12 @@ class RoomConfigurationUI {
 
     //  SHARED METHODS
 
-    private void getInputRoomByList() {
+    private boolean getInputRoomByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (mHouse.getRoomList().isEmpty()) {
             System.out.println("Invalid Room List - List Is Empty\n");
-            return;
+            return false;
         }
         boolean activeInput = true;
         System.out.println("Please select one of the existing Rooms in the House: ");
@@ -127,14 +131,15 @@ class RoomConfigurationUI {
                 System.out.println(utils.invalidOption);
             }
         }
+        return true;
     }
 
-    private void getInputDeviceByList() {
+    private boolean getInputDeviceByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (mRoom.getDeviceList().isEmpty()) {
             System.out.println("Invalid Device List - List Is Empty\n");
-            return;
+            return false;
         }
         boolean activeInput = true;
         System.out.println("Please select one of the existing Devices in the selected Room: ");
@@ -152,6 +157,7 @@ class RoomConfigurationUI {
             }
 
         }
+        return true;
     }
     /*US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.*/
 
@@ -265,6 +271,22 @@ class RoomConfigurationUI {
             this.mCapacity = scanner.nextDouble();
         }
 
+        if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
+            System.out.print("Please, type the new Freezer Capacity in L for the Fridge:");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mFreezerCapacity = scanner.nextDouble();
+
+            System.out.print("Please, type the new Refrigerator Capacity in L for the Fridge:");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mRefrigeratorCapacity = scanner.nextDouble();
+        }
+
         }
 
     /*
@@ -284,6 +306,10 @@ class RoomConfigurationUI {
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
             mRoomConfigurationController.setCapacity(mCapacity, mDevice);
         }
+        if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
+            mRoomConfigurationController.setFreezerCapacity(mFreezerCapacity, mDevice);
+            mRoomConfigurationController.setRefrigeratorCapacity(mRefrigeratorCapacity, mDevice);
+        }
         }
 
     /*
@@ -299,7 +325,9 @@ class RoomConfigurationUI {
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE || mDevice.getDeviceType() == DeviceType.DISHWASHER) {
             System.out.println("The capacity is "+mCapacity+" Kg.");
         }
-    }
+        if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
+            System.out.println("The freezer Capacity is  "+mFreezerCapacity+" L and the Refrigerator Capacity is "+ mRefrigeratorCapacity + " L.");
+        }}
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
     nominal power of a room, i.e. the sum of the nominal power of all devices in the

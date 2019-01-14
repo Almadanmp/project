@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.project.model.Metered;
 public class Fridge implements DeviceSpecs, Metered {
 
     private double mNominalPower;
+    private double mFreezerCapacity;
+    private double mRefrigeratorCapacity;
 
     void setNominalPower(double nominalPower) { this.mNominalPower = nominalPower;}
 
@@ -18,4 +20,8 @@ public class Fridge implements DeviceSpecs, Metered {
     }
 
     public double getNominalPower() { return this.mNominalPower;}
+
+    public void setFreezerCapacity(double input){this.mFreezerCapacity=input;}
+
+    public void setmRefrigeratorCapacity(double input){this.mRefrigeratorCapacity=input;}
 }

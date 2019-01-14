@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
@@ -230,7 +231,19 @@ public class RoomConfigurationController {
             waterHeater.setmCapacity(input);
         }
     }
+    public void setFreezerCapacity(double input, Device device){
+        if(device.getDeviceType() == DeviceType.FRIDGE){
+            Fridge fridge = new Fridge();
+            fridge.setFreezerCapacity(input);
+        }
+    }
 
+    public void setRefrigeratorCapacity(double input, Device device){
+        if(device.getDeviceType() == DeviceType.FRIDGE){
+            Fridge fridge = new Fridge();
+            fridge.setmRefrigeratorCapacity(input);
+        }
+    }
 
     /**
      *
