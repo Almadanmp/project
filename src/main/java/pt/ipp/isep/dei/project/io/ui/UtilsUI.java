@@ -49,7 +49,7 @@ class UtilsUI {
 
     GeographicArea setGeographicAreaContainer(GeographicAreaList geographicAreaList) {
         System.out.println(
-                "1 )Do you want to select container from a list.\n" + "Or\n" +
+                "1 )Do you want to set the area which will contain another one from a list.\n" + "or\n" +
                         mReturnString);
         return selectGeographicAreaByList(geographicAreaList);
     }
@@ -72,7 +72,7 @@ class UtilsUI {
 
     GeographicArea setGeographicAreaContained(GeographicAreaList geographicAreaList) {
         System.out.println(
-                "1 )Do you want to select contained from a list.\n" + "Or\n" +
+                "1 )Do you want to set the area which will be contained from a list.\n" + "or\n" +
                         mReturnString);
         return selectGeographicAreaByList(geographicAreaList);
     }

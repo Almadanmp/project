@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.List;
 import java.util.Scanner;
 
 class RoomConfigurationUI {
@@ -84,7 +83,7 @@ class RoomConfigurationUI {
                         return;
                     }
                     getInputRoomByList();
-                    getInputSensor();
+                    getInputSensorByList();
                     activeInput = false;
                     break;
                 case 0:
@@ -106,9 +105,9 @@ class RoomConfigurationUI {
             System.out.println("Invalid Room List - List Is Empty\n");
             return;
         }
-        boolean activeInput = false;
+        boolean activeInput = true;
         System.out.println("Please select one of the existing Rooms in the House: ");
-        while (!activeInput) {
+        while (activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < mHouse.getRoomList().getRoomList().size()) {
@@ -116,7 +115,7 @@ class RoomConfigurationUI {
                 this.mRoomName = mRoom.getRoomName();
                 System.out.println(mStringRequestRoom);
                 System.out.println(mRoomConfigurationController.printRoom(mRoom));
-                activeInput = true;
+                activeInput = false;
             } else {
                 System.out.println(utils.invalidOption);
             }
@@ -130,9 +129,9 @@ class RoomConfigurationUI {
             System.out.println("Invalid Device List - List Is Empty\n");
             return;
         }
-        boolean activeInput = false;
+        boolean activeInput = true;
         System.out.println("Please select one of the existing Devices in the selected Room: ");
-        while (!activeInput) {
+        while (activeInput) {
             System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < mRoom.getDeviceList().size()) {
@@ -140,7 +139,7 @@ class RoomConfigurationUI {
                 this.mDeviceName = mDevice.getName();
                 System.out.println(mStringRequestDevice);
                 System.out.println(mRoomConfigurationController.printDevice(mDevice));
-                activeInput = true;
+                activeInput = false;
             } else {
                 System.out.println(utils.invalidOption);
             }
@@ -155,7 +154,7 @@ class RoomConfigurationUI {
     }
 
     /*US215 As an Administrator, I want to edit the configuration of an existing device, so that I
-can reconfigure it.*/
+    can reconfigure it. - CARINA ALAS*/
 
     private void getInputDeviceCharacteristicsUS215() {
 
@@ -259,82 +258,7 @@ can reconfigure it.*/
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
 
-    private Sensor getInputSensor() {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        System.out.println(
-                "We need to know which sensor you want to add the room.\n" + "Would you like to:\n" +
-                        "1) Type the Sensor name;\n" +
-                        "2) Choose it from a list;\n" +
-                        "0) Return;");
-        int option = inputUtils.readInputNumberAsInt();
-        switch (option) {
-            case 1:
-                getInputSensorName();
-                if (!getSensorByName(mSensorList)) {
-                    return this.mSensor;
-                }
-                break;
-            case 2:
-                getInputSensorByList(mSensorList);
-                return this.mSensor;
-
-            case 0:
-                break;
-            default:
-                System.out.println(utils.invalidOption);
-                break;
-        }
-
-        return this.mSensor;
-
-    }
-
-    private boolean getSensorByName(SensorList mSensorList) {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        List<Integer> listOfIndexesSensors = ctrl.matchSensorIndexByString(mSensorName, mSensorList);
-        while (listOfIndexesSensors.isEmpty()) {
-            System.out.println("There is no Sensor with that name. Please insert the name of a Geographic Area" +
-                    " that exists or  Type 'exit' to cancel and create a new Geographic Area on the Main Menu.");
-            if (!getInputSensorName()) {
-                System.out.println("Unable to select a Sensor. Returning to main menu.");
-                return false;
-            }
-            listOfIndexesSensors = ctrl.matchSensorIndexByString(mSensorName, mSensorList);
-        }
-        String mStringChosenSensor = this.mStringChosenSensor;
-        if (listOfIndexesSensors.size() > 1) {
-            System.out.println("There are multiple Sensors with that name. Please choose the right one.");
-            System.out.println(ctrl.printSensorElementsByIndex(listOfIndexesSensors, mSensorList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (listOfIndexesSensors.contains(aux)) {
-                this.mSensor = mSensorList.getSensorList().get(aux);
-                this.mSensorName = mSensor.getName();
-                System.out.println(mStringChosenSensor);
-                System.out.println(ctrl.printSensor(mSensor));
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        } else {
-            System.out.println(mStringChosenSensor);
-            this.mSensor = mSensorList.getSensorList().get(listOfIndexesSensors.get(0));
-            this.mSensorName = mSensor.getName();
-            System.out.println(ctrl.printSensor(mSensor));
-        }
-        System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
-        return true;
-    }
-
-    private boolean getInputSensorName() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please type the name of the Sensor located in your houses' Geographical Area.");
-        this.mSensorName = scanner.nextLine();
-        return (!("exit".equals(mSensorName)));
-    }
-
-    private void getInputSensorByList(SensorList mSensorList) {
+    private void getInputSensorByList() {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
@@ -342,15 +266,15 @@ can reconfigure it.*/
             System.out.print("Invalid Sensor List - List Is Empty\n");
             return;
         }
-        boolean activeInput = false;
-        System.out.println("Please select a Sensor from the Houses' Geographical Area from the list: ");
-        while (!activeInput) {
+        boolean activeInput = true;
+        System.out.println("Please select a sensor from the House Geographical Area from the list: ");
+        while (activeInput) {
             System.out.println(ctrl.printSensorList(mSensorList));
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < mSensorList.getSensorList().size()) {
                 this.mSensor = mSensorList.getSensorList().get(aux);
                 this.mSensorName = mSensor.getName();
-                activeInput = true;
+                activeInput = false;
                 System.out.println(mStringChosenSensor);
                 System.out.println(mRoomConfigurationController.printSensor(mSensor));
                 System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
