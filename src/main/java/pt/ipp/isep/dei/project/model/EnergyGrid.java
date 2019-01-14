@@ -1,9 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class EnergyGrid implements Metered {

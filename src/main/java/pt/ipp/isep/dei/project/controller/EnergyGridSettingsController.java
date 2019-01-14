@@ -8,6 +8,7 @@ import java.util.List;
 public class EnergyGridSettingsController {
     private EnergyGrid mEnergyGrid;
     private PowerSource mPowerSource;
+    private String mStringSpacer = "---------------\n";
 
     public EnergyGridSettingsController() { // Class controller doesn't need attributes to be initialized.
     }
@@ -107,7 +108,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printGridRooms(EnergyGrid energyGrid) {
-        StringBuilder result = new StringBuilder("---------------\n");
+        StringBuilder result = new StringBuilder(mStringSpacer);
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -116,7 +117,7 @@ public class EnergyGridSettingsController {
             result.append(i).append(") Designation: ").append(aux.getRoomName()).append(" | ");
             result.append("House Floor: ").append(aux.getHouseFloor()).append(" | \n");
         }
-        result.append("---------------\n");
+        result.append(mStringSpacer);
         return result.toString();
     }
 
@@ -207,10 +208,9 @@ public class EnergyGridSettingsController {
     It must include device location
     DANIEL OLIVEIRA*/
 
-    //Não está a passar da seleção da casa!
 
     public String printListOfDevicesByType(EnergyGrid energyGrid) {
-        StringBuilder result = new StringBuilder("---------------\n");
+        StringBuilder result = new StringBuilder(mStringSpacer);
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
             return "This energy grid has no rooms attached\n";
         }
@@ -230,7 +230,7 @@ public class EnergyGridSettingsController {
                 }
             }
         }
-        result.append("---------------\n");
+        result.append(mStringSpacer);
         return result.toString();
     }
 }

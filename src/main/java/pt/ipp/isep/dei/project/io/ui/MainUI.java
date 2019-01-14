@@ -218,6 +218,7 @@ public class MainUI {
 
         // ********* MOCKS EXTRA **********************************************
 
+        /**
         //Empty TypeAreaList
 
         TypeAreaList emptyTypeAreaList = new TypeAreaList();
@@ -296,6 +297,8 @@ public class MainUI {
         // **************************************************************************
         // ******************* < / MOCK DATA FOR TESTING PURPOSES > ******************
         // **************************************************************************
+
+         **/
 
         //MAIN CODE
 
