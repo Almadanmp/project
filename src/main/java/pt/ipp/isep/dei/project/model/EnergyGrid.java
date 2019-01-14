@@ -15,7 +15,7 @@ public class EnergyGrid implements Metered {
     private RoomList mRoomList;
     private PowerSourceList mListPowerSources;
 
-    EnergyGrid() {
+    public EnergyGrid() {
         this.mRoomList = new RoomList();
         this.mListPowerSources = new PowerSourceList();
         mNominalPower = 0;
