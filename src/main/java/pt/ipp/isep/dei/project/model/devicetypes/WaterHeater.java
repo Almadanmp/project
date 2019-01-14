@@ -40,4 +40,19 @@ public class WaterHeater implements DeviceSpecs, Metered {
         double result = specificHeatOfWater * mVolumeOfWater * dT * mPerformanceRatio;
         return result; //To be implemented by US752
     }
+
+    public void setVolumeOfWater(double volumeOfWater) {
+        this.mVolumeOfWater = volumeOfWater;
+    }
+
+    public void setHotWaterTemperature(double hotWaterTemperature) {
+        this.mHotWaterTemperature = hotWaterTemperature;
+    }
+
+    public void setColdWaterTemperature(double coldWaterTemperature) {
+        this.mColdWaterTemperature = coldWaterTemperature;
+    }
+    public void setPerformanceRatio(double performanceRatio) {
+        this.mPerformanceRatio = performanceRatio;
+    }
 }   
