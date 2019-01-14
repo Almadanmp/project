@@ -81,7 +81,7 @@ class RoomConfigurationUI {
                     break;
                 case 5: //US250
                     getInputRoomByList();
-                    getInputSensorByListRoom();
+                    getInputSensorByListFromRoom();
                     activeInput = false;
                     break;
                 case 6: //US253
@@ -314,7 +314,7 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
 
-    private void getInputSensorByListRoom() {
+    private void getInputSensorByListFromRoom() {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
