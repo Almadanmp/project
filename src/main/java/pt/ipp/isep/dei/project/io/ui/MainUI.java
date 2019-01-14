@@ -215,7 +215,6 @@ public class MainUI {
         listDevices.addDevices(device3);
         roomISEP2.setDeviceList(listDevices);
 
-
         // ********* MOCKS EXTRA **********************************************
 
         /**
