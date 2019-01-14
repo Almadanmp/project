@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
@@ -217,6 +218,12 @@ public class MainUI {
 
         // ********* MOCKS EXTRA **********************************************
 
+        List<DeviceType> deviceTypeList = new ArrayList<DeviceType>();
+        deviceTypeList.add(DeviceType.FRIDGE);
+        deviceTypeList.add(DeviceType.WASHING_MACHINE);
+        deviceTypeList.add(DeviceType.WATER_HEATER);
+        deviceTypeList.add(DeviceType.DISHWASHER);
+
         // House - Empty RoomList - Without EnergyGrid
         GeographicArea geographicArea4 = new GeographicArea();
         RoomList roomList = new RoomList();
@@ -359,7 +366,7 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(edificioB);
+                        roomConfiguration.run(edificioB,deviceTypeList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

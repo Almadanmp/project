@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.List;
 
@@ -25,6 +26,11 @@ public class RoomConfigurationController {
     }
 
     //  SHARED METHODS
+    /* USER STORY 210 - As an Administrator, I want to add a new device to a room from the list of available
+    device types, so that I can configure it. - MARIA MEIRELES */
+
+
+
 
     /**
      *
@@ -196,6 +202,25 @@ public class RoomConfigurationController {
         return room.getObjectDeviceList().printListOfDevicesFromRoom(room);
     }
 
+
+    public String printDeviceType(DeviceType deviceType){return deviceType.printDeviceType(deviceType);}
+
+    /**
+     *
+     * @param
+     * @return
+     */
+    public String printDeviceTypeList(List<DeviceType> deviceTypeList){
+        DeviceType deviceType= DeviceType.WATER_HEATER;
+        for(int i=0;i<deviceTypeList.size();i++){
+            deviceType = deviceTypeList.get(i);
+        }
+
+        return deviceType.printDeviceTypeByIndex();
+    }
+
+
+
     public void setVolumeWater(double input, Device device){
         if(device.getDeviceType() == DeviceType.WATER_HEATER){
             WaterHeater waterHeater = new WaterHeater();
@@ -263,6 +288,7 @@ public class RoomConfigurationController {
     public void setNominalPower(Double input, Device device){
         device.setNominalPower(input);
     }
+
     /**
      *
      * @param listOfIndexesOfSensor is a list of integers that represent positions in a list.
