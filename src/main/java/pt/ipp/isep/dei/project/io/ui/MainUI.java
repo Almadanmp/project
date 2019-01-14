@@ -186,8 +186,8 @@ public class MainUI {
 
         EnergyGrid mainGrid = new EnergyGrid("main grid", 50);
         EnergyGridList energyGridListIsep = new EnergyGridList();
-        energyGridListIsep.addEnergyGridToEnergyGridList(mainGrid);
-        mainGrid.setListOfRooms(gridRoomList);
+        energyGridListIsep.addGrid(mainGrid);
+        mainGrid.setRoomList(gridRoomList);
         edificioB.setEGList(energyGridListIsep);
 
         // Type  Area List
@@ -301,7 +301,7 @@ public class MainUI {
         energyGrid1.addRoomToAnEnergyGrid(room7);
 
         EnergyGridList energyGridList1 = new EnergyGridList();
-        energyGridList1.addEnergyGridToEnergyGridList(energyGrid1);
+        energyGridList1.addGrid(energyGrid1);
         house4.setEGList(energyGridList1);
 
 

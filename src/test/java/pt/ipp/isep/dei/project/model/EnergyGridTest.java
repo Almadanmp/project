@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 
 import static org.testng.Assert.assertEquals;
@@ -32,7 +34,7 @@ class EnergyGridTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevices(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
-        energyGrid.setListOfRooms(roomList);
+        energyGrid.setRoomList(roomList);
         String result = energyGrid.getListOfRooms().printRooms();
         assertEquals("---------------\n" +
                 "0) Designation: room1 | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
@@ -73,7 +75,7 @@ class EnergyGridTest {
         PowerSourceList pWL1 = new PowerSourceList();
         PowerSource pS1 = new PowerSource("downfloor", 22, 15);
         EnergyGrid energyGrid = new EnergyGrid();
-        energyGrid.setListOfRooms(roomList);
+        energyGrid.setRoomList(roomList);
         energyGrid.setListPowerSources(pWL1);
         pWL1.addPowerSource(pS1);
         boolean expectedResult = true;
@@ -90,7 +92,7 @@ class EnergyGridTest {
         PowerSourceList pWL1 = new PowerSourceList();
         PowerSource pS1 = new PowerSource("downfloor", 22, 15);
         EnergyGrid energyGrid = new EnergyGrid();
-        energyGrid.setListOfRooms(roomList);
+        energyGrid.setRoomList(roomList);
         energyGrid.setListPowerSources(pWL1);
         pWL1.addPowerSource(pS1);
         boolean expectedResult = false;
@@ -144,7 +146,7 @@ class EnergyGridTest {
         Room room = new Room("Quarto", 2, 10, 20, 3);
         energyGrid.setListPowerSources(powerSourceList);
         energyGrid.addPowerSource(powerSource);
-        energyGrid.setListOfRooms(roomList);
+        energyGrid.setRoomList(roomList);
         boolean expectedResult = true;
         boolean result = energyGrid.addRoomToAnEnergyGrid(room);
         assertEquals(expectedResult, result);
@@ -174,6 +176,35 @@ class EnergyGridTest {
         boolean expectedResult = false;
         boolean actualResult = energyGrid1.equals(room);
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetNominalPowerWorksMultipleRooms(){
+
+        //Arrange
+
+        Room r1 = new Room("Kitchen", 0,12,30,10);
+        Room r2 = new Room("Sótão", 3, 30,40,12);
+        Device d1 = new Device("WaterHeater1", 30, new WaterHeater());
+        Device d2 = new Device("Fridge", 50, new Fridge());
+        DeviceList deviceList1 = new DeviceList();
+        deviceList1.addDevices(d1);
+        r1.setDeviceList(deviceList1);
+        DeviceList deviceList2 = new DeviceList();
+        deviceList2.addDevices(d2);
+        r2.setDeviceList(deviceList2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(r1);
+        roomList.addRoom(r2);
+        EnergyGrid grid = new EnergyGrid();
+        grid.setRoomList(roomList);
+        double expectedResult = 80;
+
+        //Act
+        double actualResult = grid.getNominalPower();
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 
     @Test

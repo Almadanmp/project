@@ -13,7 +13,7 @@ public class EnergyGridListTest {
         EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
 
         Boolean expectedResult = true;
-        Boolean actualResult = pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        Boolean actualResult = pList1.addGrid(energyGrid1);
 
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -23,10 +23,10 @@ public class EnergyGridListTest {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
         EnergyGrid energyGrid2 = new EnergyGrid("Secundary Grid", 0);
-        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        pList1.addGrid(energyGrid1);
 
         Boolean expectedResult = false;
-        Boolean actualResult = pList1.addEnergyGridToEnergyGridList(energyGrid2);
+        Boolean actualResult = pList1.addGrid(energyGrid2);
 
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -36,8 +36,8 @@ public class EnergyGridListTest {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
         EnergyGrid energyGrid2 = new EnergyGrid("Secundary Grid", 0);
-        pList1.addEnergyGridToEnergyGridList(energyGrid1);
-        pList1.addEnergyGridToEnergyGridList(energyGrid2);
+        pList1.addGrid(energyGrid1);
+        pList1.addGrid(energyGrid2);
         String expectedResult = "Energy grid list: \n" +
                 "-Secundary Grid;";
         String result = pList1.printEnergyGridList();
@@ -57,10 +57,10 @@ public class EnergyGridListTest {
     public void ensureThatAObjectIsAInstanceOf() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
-        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        pList1.addGrid(energyGrid1);
         EnergyGridList pList2 = new EnergyGridList();
         EnergyGrid energyGrid2 = new EnergyGrid("Grid", 0);
-        pList2.addEnergyGridToEnergyGridList(energyGrid2);
+        pList2.addGrid(energyGrid2);
         Boolean expectedResult = true;
 
         Boolean actualResult = pList1.equals(pList2);
@@ -73,9 +73,9 @@ public class EnergyGridListTest {
     public void ensureThatAObjectIsAInstanceOf2() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
-        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        pList1.addGrid(energyGrid1);
         EnergyGridList pList2 = new EnergyGridList();
-        pList2.addEnergyGridToEnergyGridList(energyGrid1);
+        pList2.addGrid(energyGrid1);
         Boolean expectedResult = true;
 
         Boolean actualResult = pList1.equals(pList2);
@@ -87,7 +87,7 @@ public class EnergyGridListTest {
     public void ensureThatAObjectIsAInstanceOf4() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
-        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        pList1.addGrid(energyGrid1);
         Boolean expectedResult = true;
 
         Boolean actualResult = pList1.equals(pList1);
@@ -99,7 +99,7 @@ public class EnergyGridListTest {
     public void ensureThatAObjectIsAInstanceOf3() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
-        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        pList1.addGrid(energyGrid1);
         Boolean expectedResult = false;
         Boolean actualResult = pList1.equals(energyGrid1);
         Assertions.assertEquals(expectedResult, actualResult);
@@ -112,8 +112,8 @@ public class EnergyGridListTest {
         EnergyGridList pList2 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
         EnergyGrid energyGrid2 = new EnergyGrid("Main Grid", 0);
-        pList1.addEnergyGridToEnergyGridList(energyGrid1);
-        pList2.addEnergyGridToEnergyGridList(energyGrid2);
+        pList1.addGrid(energyGrid1);
+        pList2.addGrid(energyGrid2);
         Boolean expectedResult = false;
 
         Boolean actualResult = pList1.equals(pList2);
@@ -125,7 +125,7 @@ public class EnergyGridListTest {
     public void hashCodeDummyTest() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Main Grid", 0);
-        pList1.addEnergyGridToEnergyGridList(energyGrid1);
+        pList1.addGrid(energyGrid1);
         int expectedResult = 1;
         int actualResult = pList1.hashCode();
         Assertions.assertEquals(expectedResult, actualResult);

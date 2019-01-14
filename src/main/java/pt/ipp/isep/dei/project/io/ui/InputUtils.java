@@ -11,7 +11,13 @@ import java.util.Scanner;
  */
 class InputUtils {
 
-    public EnergyGrid getInputGridByList(House house) {
+    public void returnToMenu(Scanner scanner) {
+        String pressEnter = "\nPress ENTER to return.";
+        System.out.println(pressEnter);
+        scanner.nextLine();
+    }
+
+    EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         EnergyGrid result = new EnergyGrid();
         if (house == null) {

@@ -130,7 +130,7 @@ public class EnergyGridSettingsController {
      */
     public boolean addEnergyGridToHouse(House programHouse) {
         if (mEnergyGrid != null) {
-            programHouse.getEGList().addEnergyGridToEnergyGridList(mEnergyGrid);
+            programHouse.getEGList().addGrid(mEnergyGrid);
             return true;
         } else {
             return false;

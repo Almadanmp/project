@@ -6,11 +6,10 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertEquals;
 
 class HouseTest {
 
@@ -215,8 +214,8 @@ class HouseTest {
         EnergyGrid eg1 = new EnergyGrid("Rede", 444);
         EnergyGrid eg2 = new EnergyGrid("Rede 2", 555);
         EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addEnergyGridToEnergyGridList(eg1);
-        energyGridList.addEnergyGridToEnergyGridList(eg2);
+        energyGridList.addGrid(eg1);
+        energyGridList.addGrid(eg2);
         house.setEGList(energyGridList);
         String expectedResult = "---------------\n" +
                 "0) Designation: Rede | Max Power: 444.0\n" +
@@ -353,16 +352,44 @@ class HouseTest {
     }
 
     @Test
+    void seeIfGetNominalPowerWorks() {
+        //Arrange
+
+        Room r1 = new Room("Kitchen", 0, 12, 30, 10);
+        Room r2 = new Room("Sótão", 3, 30, 40, 12);
+        Device d1 = new Device("WaterHeater1", 30, new WaterHeater());
+        Device d2 = new Device("Fridge", 50, new Fridge());
+        DeviceList deviceList1 = new DeviceList();
+        deviceList1.addDevices(d1);
+        r1.setDeviceList(deviceList1);
+        DeviceList deviceList2 = new DeviceList();
+        deviceList2.addDevices(d2);
+        r2.setDeviceList(deviceList2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(r1);
+        roomList.addRoom(r2);
+        House testHouse = new House();
+        testHouse.setRoomList(roomList);
+        double expectedResult = 80;
+
+        //Act
+        double actualResult = testHouse.getNominalPower();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeSetEnergyGridList() {
         GeographicArea ga = new GeographicArea();
         RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         EnergyGrid eg = new EnergyGrid("main grid", 25);
-        energyGridList.addEnergyGridToEnergyGridList(eg);
+        energyGridList.addGrid(eg);
 
         //Arrange
         EnergyGridList expectedResult = new EnergyGridList();
-        expectedResult.addEnergyGridToEnergyGridList(eg);
+        expectedResult.addGrid(eg);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
         //Act
         house.setEGList(energyGridList);
@@ -400,15 +427,15 @@ class HouseTest {
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge());
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,30,1));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500,20,10));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 30, 1));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 20, 10));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device("fridgeTwo", 12, new Fridge());
-        Device d5 = new Device("wHeater3", 12, new WaterHeater(300,15,1));
-        Device d6 = new Device("wHeater4", 11, new WaterHeater(400,20,12));
+        Device d5 = new Device("wHeater3", 12, new WaterHeater(300, 15, 1));
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400, 20, 12));
         r2.addDevice(d4);
         r2.addDevice(d5);
         r2.addDevice(d6);

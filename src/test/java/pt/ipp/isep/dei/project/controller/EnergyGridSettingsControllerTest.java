@@ -27,8 +27,8 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
+        energyGridList.addGrid(energyGrid1);
+        energyGridList.addGrid(energyGrid2);
         roomList.addRoom(room);
         house.setRoomList(roomList);
         house.setEGList(energyGridList);
@@ -48,8 +48,8 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
+        energyGridList.addGrid(energyGrid1);
+        energyGridList.addGrid(energyGrid2);
         roomList.addRoom(room);
         house.setRoomList(roomList);
         house.setEGList(energyGridList);
@@ -69,7 +69,7 @@ class EnergyGridSettingsControllerTest {
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        energyGridList.addGrid(energyGrid1);
         roomList.addRoom(room);
         house.setRoomList(roomList);
         house.setEGList(energyGridList);
@@ -92,10 +92,10 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
+        energyGridList.addGrid(energyGrid1);
+        energyGridList.addGrid(energyGrid2);
         roomList.addRoom(room);
-        energyGrid1.setListOfRooms(roomList);
+        energyGrid1.setRoomList(roomList);
         house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         ctrlUS145.removeRoomFromGrid(energyGrid1, room);
@@ -113,10 +113,10 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid2);
+        energyGridList.addGrid(energyGrid1);
+        energyGridList.addGrid(energyGrid2);
         roomList.addRoom(room);
-        energyGrid1.setListOfRooms(roomList);
+        energyGrid1.setRoomList(roomList);
         house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         boolean result = ctrlUS145.removeRoomFromGrid(energyGrid1, room);
@@ -131,7 +131,7 @@ class EnergyGridSettingsControllerTest {
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        energyGridList.addGrid(energyGrid1);
         roomList.addRoom(room);
         house.setRoomList(roomList);
         house.setEGList(energyGridList);
@@ -149,7 +149,7 @@ class EnergyGridSettingsControllerTest {
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addEnergyGridToEnergyGridList(energyGrid1);
+        energyGridList.addGrid(energyGrid1);
         roomList.addRoom(room);
         house.setRoomList(roomList);
         house.setEGList(energyGridList);
@@ -169,9 +169,9 @@ class EnergyGridSettingsControllerTest {
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
-        egl.addEnergyGridToEnergyGridList(eg);
+        egl.addGrid(eg);
         RoomList rl = new RoomList();
-        eg.setListOfRooms(rl);
+        eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         rl.addRoom(room2EdC);
         rl.addRoom(room3EdC);
@@ -188,9 +188,9 @@ class EnergyGridSettingsControllerTest {
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
-        egl.addEnergyGridToEnergyGridList(eg);
+        egl.addGrid(eg);
         RoomList rl = new RoomList();
-        eg.setListOfRooms(rl);
+        eg.setRoomList(rl);
         rl.addRoom(room2EdC);
         rl.addRoom(room3EdC);
         boolean expectedResult = false;
@@ -206,9 +206,9 @@ class EnergyGridSettingsControllerTest {
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
-        egl.addEnergyGridToEnergyGridList(eg);
+        egl.addGrid(eg);
         RoomList rl = new RoomList();
-        eg.setListOfRooms(rl);
+        eg.setRoomList(rl);
         boolean expectedResult = true;
         boolean actualResult = egsc.addRoomToGrid(eg, room1EdC);
         assertEquals(expectedResult, actualResult);
@@ -222,9 +222,9 @@ class EnergyGridSettingsControllerTest {
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
-        egl.addEnergyGridToEnergyGridList(eg);
+        egl.addGrid(eg);
         RoomList rl = new RoomList();
-        eg.setListOfRooms(rl);
+        eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         rl.addRoom(room2EdC);
         rl.addRoom(room3EdC);
@@ -350,9 +350,9 @@ class EnergyGridSettingsControllerTest {
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
-        egl.addEnergyGridToEnergyGridList(eg);
+        egl.addGrid(eg);
         RoomList rl = new RoomList();
-        eg.setListOfRooms(rl);
+        eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         rl.addRoom(room2EdC);
         rl.addRoom(room3EdC);
@@ -382,7 +382,7 @@ class EnergyGridSettingsControllerTest {
         deviceList.addDevices(d2);
         deviceList.addDevices(d3);
         room1EdC.setDeviceList(deviceList);
-        eg.setListOfRooms(rl);
+        eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         String expectedResult = "---------------\n" +
                 "0) Device type: DISHWASHER | dos | Room: B107 | \n" +
@@ -398,7 +398,7 @@ class EnergyGridSettingsControllerTest {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
-        eg.setListOfRooms(rl);
+        eg.setRoomList(rl);
         String expectedResult = "This energy grid has no rooms attached\n";
         String result = ctrl.printListOfDevicesByType(eg);
         assertEquals(expectedResult, result);
@@ -412,7 +412,7 @@ class EnergyGridSettingsControllerTest {
         RoomList rl = new RoomList();
         DeviceList deviceList = new DeviceList();
         room1EdC.setDeviceList(deviceList);
-        eg.setListOfRooms(rl);
+        eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         String expectedResult = "This energy grid has no devices on it\n";
         String result = ctrl.printListOfDevicesByType(eg);

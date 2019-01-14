@@ -1,7 +1,13 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EGConsumptionController;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 
 class EGConsumptionUI {
@@ -10,6 +16,8 @@ class EGConsumptionUI {
     EGConsumptionUI() {
         this.controller = new EGConsumptionController();
     }
+
+    Scanner enterToReturnToConsole = new Scanner(System.in);
 
     void run(House programHouse) {
         InputUtils inputUtils = new InputUtils();
@@ -29,6 +37,7 @@ class EGConsumptionUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
+                    runUS705(programHouse);
                     activeInput = true;
                     break;
 
@@ -47,10 +56,38 @@ class EGConsumptionUI {
 
     //US705
 
-    //private void runUS705(House programHouse){
-
-    //    System.out.println(controller.printRoomsAndDevices());
-    //}
+    private void runUS705(House programHouse) {
+        List<Integer> indexes = new ArrayList<>();
+        boolean activeInput = true;
+        InputUtils inputs = new InputUtils();
+        Scanner scanner = new Scanner(System.in);
+        EnergyGrid grid = inputs.getInputGridByList(programHouse);
+        while (activeInput) {
+            System.out.println(controller.printRoomsAndDevices(grid));
+            System.out.println("Please choose a room or device from the list, or type 'exit' to leave:");
+            String userInput = scanner.nextLine();
+            try {
+                int inputNumber = Integer.parseInt(userInput);
+                if (indexes.contains(inputNumber)) {
+                    System.out.println("You have already selected that device. Please try again.");
+                    inputs.returnToMenu(enterToReturnToConsole);
+                } else if (controller.printRoomsAndDevices(grid).contains(Integer.toString(inputNumber))) {
+                    indexes.add(inputNumber);
+                    System.out.println("Room / Device successfully selected!");
+                    inputs.returnToMenu(enterToReturnToConsole);
+                } else System.out.println("\nPlease insert a number in the list.\n");
+            } catch (NumberFormatException exit) { //If exception occurred, it means user has inserted something that is not an int.
+                if ("exit".equals(userInput)) {
+                    System.out.println("Exiting.");
+                    break;
+                } else {
+                    System.out.println("Invalid input! Insert a number or 'exit' to continue.");
+                    inputs.returnToMenu(enterToReturnToConsole);
+                }
+            }
+        }
+        System.out.println("The total nominal power of the chosen subset is " + controller.getSumNominalPowerByIndex(indexes, grid) + " .\n");
+    }
 
 
     /**

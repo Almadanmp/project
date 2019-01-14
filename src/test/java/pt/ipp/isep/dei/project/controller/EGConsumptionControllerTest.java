@@ -1,21 +1,86 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.Device;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class EGConsumptionControllerTest {
+class EGConsumptionControllerTest {
+
+    //US705 TESTS
+
+    @Test
+    void seeIfPrintRoomsAndDevices() {
+
+        //Arrange
+
+        EnergyGrid grid = new EnergyGrid();
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d3 = new Device("Fridge", 10, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevices(d1);
+        deviceList.addDevices(d2);
+        deviceList.addDevices(d3);
+        r1.setDeviceList(deviceList);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(r1);
+        grid.setRoomList(roomList);
+        String expectedResult = "0) Kitchen.\n" +
+                "1) WaterHeater, Type: WATER_HEATER, Power: 21.0.\n" +
+                "2) WaterHeaterTwo, Type: WATER_HEATER, Power: 55.0.\n" +
+                "3) Fridge, Type: FRIDGE, Power: 10.0.\n";
+        EGConsumptionController controller = new EGConsumptionController();
+
+        //Act
+        String actualResult = controller.printRoomsAndDevices(grid);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetSumNominalPowerByIndexWorks() {
+        //Arrange
+
+        EnergyGrid grid = new EnergyGrid();
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d3 = new Device("Fridge", 10, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevices(d1);
+        deviceList.addDevices(d2);
+        deviceList.addDevices(d3);
+        r1.setDeviceList(deviceList);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(r1);
+        grid.setRoomList(roomList);
+        List<Integer> indexes = new ArrayList<>();
+        indexes.add(3);
+        indexes.add(0);
+        EGConsumptionController controller = new EGConsumptionController();
+        double expectedResult = 96;
+
+        //Act
+        double actualResult = controller.getSumNominalPowerByIndex(indexes,grid);
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
 
 
     //US752 TESTS
 
     @Test
-    public void getDailyHouseConsumptionTest() {
+    void getDailyHouseConsumptionTest() {
         EGConsumptionController controller = new EGConsumptionController();
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
@@ -40,7 +105,7 @@ public class EGConsumptionControllerTest {
     }
 
     @Test
-    public void getDailyHouseConsumptionNoRoomsTest() {
+    void getDailyHouseConsumptionNoRoomsTest() {
         EGConsumptionController controller = new EGConsumptionController();
         House h1 = new House();
         double expectedResult = 0;
@@ -49,7 +114,7 @@ public class EGConsumptionControllerTest {
     }
 
     @Test
-    public void getDailyHouseConsumptionNoDevicesTest() {
+    void getDailyHouseConsumptionNoDevicesTest() {
         EGConsumptionController controller = new EGConsumptionController();
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
@@ -62,7 +127,7 @@ public class EGConsumptionControllerTest {
     }
 
     @Test
-    public void getDailyHouseConsumptionNoHeaterDevicesTest() {
+    void getDailyHouseConsumptionNoHeaterDevicesTest() {
         EGConsumptionController controller = new EGConsumptionController();
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);

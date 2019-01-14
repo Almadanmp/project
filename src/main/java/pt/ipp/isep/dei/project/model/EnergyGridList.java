@@ -16,7 +16,7 @@ public class EnergyGridList {
         mEnergyGridList = new ArrayList<>();
     }
 
-    public boolean addEnergyGridToEnergyGridList(EnergyGrid energyGridToAdd) {
+    public boolean addGrid(EnergyGrid energyGridToAdd) {
         if (!(mEnergyGridList.contains(energyGridToAdd))) {
             mEnergyGridList.add(energyGridToAdd);
             return true;
