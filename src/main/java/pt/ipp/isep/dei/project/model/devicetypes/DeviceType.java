@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.devicetypes;
 
+import java.util.List;
+
 /**
  * Represents the common types of devices that one can find at home.
  */
@@ -20,4 +22,10 @@ public enum DeviceType {
         return result.toString();
     }
 
+    public String printDeviceType(DeviceType deviceType) {
+        StringBuilder result = new StringBuilder();
+
+        result.append(deviceType);
+        return result.toString();
+    }
 }

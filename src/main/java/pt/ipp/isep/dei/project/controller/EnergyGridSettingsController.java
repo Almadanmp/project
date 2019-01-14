@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.List;
 
@@ -107,7 +106,8 @@ public class EnergyGridSettingsController {
      */
 
     public String printGridRooms(EnergyGrid energyGrid) {
-        StringBuilder result = new StringBuilder("---------------\n");
+        String mStringSpacer = "---------------\n";
+        StringBuilder result = new StringBuilder(mStringSpacer);
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -116,7 +116,7 @@ public class EnergyGridSettingsController {
             result.append(i).append(") Designation: ").append(aux.getRoomName()).append(" | ");
             result.append("House Floor: ").append(aux.getHouseFloor()).append(" | \n");
         }
-        result.append("---------------\n");
+        result.append(mStringSpacer);
         return result.toString();
     }
 
@@ -207,31 +207,20 @@ public class EnergyGridSettingsController {
     It must include device location
     DANIEL OLIVEIRA*/
 
-    //Não está a passar da seleção da casa!
+    /**
+     * This method validates the list of rooms and the list of devices in all rooms.
+     * If all the attributes are valid, this method will print the devices, according to their type
+     *
+     * @param energyGrid - This will be the parameter in which we want to search all the devices
+     */
 
     public String printListOfDevicesByType(EnergyGrid energyGrid) {
-        StringBuilder result = new StringBuilder("---------------\n");
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
             return "This energy grid has no rooms attached\n";
         }
         if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty()) {
             return "This energy grid has no devices on it\n";
         }
-        for (DeviceType d : DeviceType.values()) {
-        for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
-            Room r = energyGrid.getListOfRooms().getRoomList().get(i);
-            for (int x = 0; x < r.getDeviceList().size(); x++) {
-                    if (d == r.getDeviceList().get(x).getDeviceType()) {
-                        Device device = r.getDeviceList().get(x);
-                        result.append(i).append(") Device type: ").append(d).append(" | ");
-                        result.append(device.getName()).append(" | ");
-                        result.append("Room: ").append(r.getRoomName()).append(" | \n");
-                    }
-                }
-            }
-        }
-        result.append("---------------\n");
-        return result.toString();
+        return energyGrid.printDeviceListByType(energyGrid);
     }
 }
-

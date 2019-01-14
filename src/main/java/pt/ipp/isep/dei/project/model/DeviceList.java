@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that groups a number of Devices.
+ */
+
 public class DeviceList {
 
     private List<Device> mDeviceList;

@@ -3,6 +3,10 @@ package pt.ipp.isep.dei.project.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that groups a number of Types of Geographical Areas.
+ */
+
 public class TypeAreaList {
     private List<TypeArea> mTypeAreaList;
     private String mResultLookEnhancer = "---------------\n";

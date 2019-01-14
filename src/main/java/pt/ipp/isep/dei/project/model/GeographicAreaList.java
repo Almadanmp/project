@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that groups a number of Geographical Areas.
+ */
+
 public class GeographicAreaList {
     private List<GeographicArea> mGeographicAreaList;
     private String mStringEnhancer = "---------------\n";

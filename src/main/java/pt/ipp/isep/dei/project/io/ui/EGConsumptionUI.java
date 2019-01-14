@@ -16,7 +16,7 @@ public class EGConsumptionUI {
     void run(House programHouse) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        if (programHouse == null || programHouse.getMotherArea() == null) {
+        if (programHouse == null) {
             System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
                     " your house first through the main menu");
             return;

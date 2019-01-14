@@ -21,6 +21,7 @@ class RoomConfigurationUI {
     private String mSensorName;
     private String mStringRequestRoom = "You have chosen the following Room:";
     private String mStringRequestDevice = "You have chosen the following Device:";
+    private String mStringChosenSensor = "You have chosen the following Sensor:";
 
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
@@ -58,24 +59,20 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //215
-                    if(!getInputRoom()){
-                        return;
-                    }
-                    if(!getInputDevice()){
-                        return;
-                    }
+                    getInputRoomByList();
+                    getInputDeviceByList();
                     getInputDeviceCharacteristicsUS215();
                     updateDeviceUS215();
                     displayDeviceUS215();
                     activeInput = false;
                     break;
                 case 4: //US230
-                    getInputRoom();
+                    getInputRoomByList();
                     getRoomNominalPower();
                     activeInput = false;
                     break;
                 case 5: //US250
-                    getInputRoom();
+                    getInputRoomByList();
                     getInputSensorByListRoom();
                     activeInput = false;
                     break;
@@ -84,7 +81,7 @@ class RoomConfigurationUI {
                         System.out.println("There's no available sensors in the Geographical Area");
                         return;
                     }
-                    getInputRoom();
+                    getInputRoomByList();
                     getInputSensor();
                     activeInput = false;
                     break;
@@ -100,77 +97,6 @@ class RoomConfigurationUI {
 
     //  SHARED METHODS
 
-    private boolean getInputRoom() {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        System.out.println(
-                "We need to know which one is your room.\n" + "Would you like to:\n" +
-                        "1) Type the name of your Room;\n" +
-                        "2) Choose it from a list;\n" +
-                        "0) Return;");
-        int option = inputUtils.readInputNumberAsInt();
-        switch (option) {
-            case 1:
-                getInputRoomName();
-                if (!getRoomByName()) {
-                    System.out.println("Unable to select a Room. Returning to main menu.");
-                    return false;
-                }
-                break;
-            case 2:
-                getInputRoomByList();
-                break;
-            case 0:
-                return false;
-            default:
-                System.out.println(utils.invalidOption);
-                break;
-        }
-        return true;
-    }
-
-    private boolean getInputRoomName() {
-        Scanner mScanner = new Scanner(System.in);
-        System.out.println("Please type the name of the Room you want to access.");
-        this.mRoomName = mScanner.nextLine();
-        return (!("exit".equals(this.mRoomName)));
-    }
-
-    private boolean getRoomByName() {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        List<Integer> listOfIndexesRoom = mRoomConfigurationController.matchRoomIndexByString(mRoomName, mHouse);
-        while (listOfIndexesRoom.isEmpty()) {
-            System.out.print("There is no Room with that name. Please insert the name of a Room" +
-                    " that exists or  Type 'exit' to cancel and create a new Room on the Main Menu.");
-            if (!getInputRoomName()) {
-                return false;
-            }
-            listOfIndexesRoom = mRoomConfigurationController.matchRoomIndexByString(mRoomName, mHouse);
-        }
-        if (listOfIndexesRoom.size() > 1) {
-            System.out.println("There are multiple Rooms with that name. Please choose the right one.");
-            System.out.println(mRoomConfigurationController.printRoomElementsByIndex(listOfIndexesRoom, mHouse));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (listOfIndexesRoom.contains(aux)) {
-                this.mRoom = mHouse.getRoomList().getRoomList().get(aux);
-                this.mRoomName = mRoom.getRoomName();
-                mHouse.getRoomList().getRoomList().get(aux);
-                System.out.println(mStringRequestRoom);
-                System.out.println(mRoomConfigurationController.printRoom(mRoom));
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        } else {
-            this.mRoom = mHouse.getRoomList().getRoomList().get(listOfIndexesRoom.get(0));
-            this.mRoomName = mRoom.getRoomName();
-            System.out.println(mStringRequestRoom);
-            this.mHouse.getRoomList().getRoomList().get(0);
-            System.out.println(mRoomConfigurationController.printRoom(mRoom));
-        }
-        return true;
-    }
-
     private void getInputRoomByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
@@ -179,7 +105,7 @@ class RoomConfigurationUI {
             return;
         }
         boolean activeInput = false;
-        System.out.println("Please select one of the existing rooms on the selected House: ");
+        System.out.println("Please select one of the existing Rooms in the House: ");
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printRoomList(mHouse));
             int aux = inputUtils.readInputNumberAsInt();
@@ -195,91 +121,14 @@ class RoomConfigurationUI {
         }
     }
 
-
-    private boolean getInputDevice() {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        System.out.println(
-                "We need to know which Device you wish to reconfigure.\n" + "Would you like to:\n" +
-                        "1) Type the name of your Device;\n" +
-                        "2) Choose it from a list;\n" +
-                        "0) Return;");
-        int option = inputUtils.readInputNumberAsInt();
-        switch (option) {
-            case 1:
-                getInputDeviceName();
-                if (!getDeviceByName()) {
-                    System.out.println("Unable to select a Device. Returning to main menu.");
-                    return false;
-                }
-                break;
-            case 2:
-                if(!getInputDeviceByList()){
-                    System.out.println("Unable to select a Device. Returning to main menu.");
-                    return false;
-                }
-                break;
-            case 0:
-                return false;
-            default:
-                System.out.println(utils.invalidOption);
-                break;
-        }
-        return true;
-    }
-
-    private boolean getInputDeviceName() {
-        Scanner mScanner = new Scanner(System.in);
-        System.out.println("Please type the name of the Device you want to reconfigure.");
-        this.mRoomName = mScanner.nextLine();
-        return (!("exit".equals(this.mRoomName)));
-    }
-
-    private boolean getDeviceByName() {
+    private void getInputDeviceByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        List<Integer> listOfIndexesDevice = mRoomConfigurationController.matchDeviceIndexByString(mDeviceName, mRoom);
-        while (listOfIndexesDevice.isEmpty()) {
-            System.out.print("There is no Device with that name. Please insert the name of a Device" +
-                    " that exists or  Type 'exit' to cancel and add a new Device on the Main Menu.");
-            if (!getInputDeviceName()) {
-                return false;
-            }
-            listOfIndexesDevice = mRoomConfigurationController.matchDeviceIndexByString(mDeviceName, mRoom);
-        }
-        if (listOfIndexesDevice.size() > 1) {
-            System.out.println("There are multiple Houses with that name. Please choose the right one.");
-            System.out.println(mRoomConfigurationController.printDeviceElementsByIndex(listOfIndexesDevice, mRoom));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (listOfIndexesDevice.contains(aux)) {
-                this.mDevice = mRoom.getDeviceList().get(aux);
-                this.mDeviceName = mDevice.getName();
-                mRoom.getDeviceList().get(aux);
-                System.out.println(mStringRequestDevice);
-                System.out.println(mRoomConfigurationController.printDevice(mDevice));
-                return true;
-            } else {
-                System.out.println(utils.invalidOption);
-                return false;
-            }
-        } else {
-            this.mDevice = mRoom.getDeviceList().get(listOfIndexesDevice.get(0));
-            this.mDeviceName = mDevice.getName();
-            System.out.println(mStringRequestDevice);
-            this.mRoom.getDeviceList().get(0);
-            System.out.println(mRoomConfigurationController.printDevice(mDevice));
-            return true;
-        }
-    }
-
-    private boolean getInputDeviceByList() {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        boolean activeInput = false;
         if (mRoom.getDeviceList().isEmpty()) {
             System.out.println("Invalid Device List - List Is Empty\n");
-            return false;
+            return;
         }
+        boolean activeInput = false;
         System.out.println("Please select one of the existing Devices in the selected Room: ");
         while (!activeInput) {
             System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
@@ -290,14 +139,11 @@ class RoomConfigurationUI {
                 System.out.println(mStringRequestDevice);
                 System.out.println(mRoomConfigurationController.printDevice(mDevice));
                 activeInput = true;
-                return true;
             } else {
                 System.out.println(utils.invalidOption);
-                return false;
             }
 
         }
-        return true;
     }
 
     /*US215 As an Administrator, I want to edit the configuration of an existing device, so that I
@@ -356,8 +202,8 @@ can reconfigure it.*/
     }
 
     /*
-        US215 As an Administrator, I want to edit the configuration of an existing device, so that I
-        can reconfigure it.*/
+    US215 As an Administrator, I want to edit the configuration of an existing device, so that I
+    can reconfigure it.*/
     private void displayDeviceUS215() {
         System.out.println("You have successfully changed the Device name to " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
@@ -369,7 +215,7 @@ can reconfigure it.*/
 
     private void getRoomNominalPower() {
         double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(this.mRoom);
-        System.out.println("The room you chose has a total nominal power of " + roomNominalPower + " kW.\nThis results" +
+        System.out.println("This room has a total nominal power of "+ roomNominalPower + " kW.\nThis results " +
                 "from the sum of the nominal power of all devices in the room.");
     }
 
@@ -380,7 +226,7 @@ can reconfigure it.*/
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        SensorList mSensorList = mRoom.getmRoomSensorList();
+        mSensorList = mRoom.getmRoomSensorList();
         if (mSensorList.getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty\n");
             return;
@@ -394,7 +240,7 @@ can reconfigure it.*/
                 this.mSensor = mSensorList.getSensorList().get(aux);
                 this.mSensorName = mSensor.getName();
                 activeInput = true;
-                System.out.println("You have chosen the following Sensor:");
+                System.out.println(mStringChosenSensor);
                 System.out.println(mRoomConfigurationController.printSensor(mSensor));
             } else {
                 System.out.println(utils.invalidOption);
@@ -450,7 +296,7 @@ can reconfigure it.*/
             }
             listOfIndexesSensors = ctrl.matchSensorIndexByString(mSensorName, mSensorList);
         }
-        String mStringChosenSensor = "You have chosen the following Sensor:";
+        String mStringChosenSensor = this.mStringChosenSensor;
         if (listOfIndexesSensors.size() > 1) {
             System.out.println("There are multiple Sensors with that name. Please choose the right one.");
             System.out.println(ctrl.printSensorElementsByIndex(listOfIndexesSensors, mSensorList));
@@ -497,7 +343,7 @@ can reconfigure it.*/
                 this.mSensor = mSensorList.getSensorList().get(aux);
                 this.mSensorName = mSensor.getName();
                 activeInput = true;
-                System.out.println("You have chosen the following Sensor:");
+                System.out.println(mStringChosenSensor);
                 System.out.println(mRoomConfigurationController.printSensor(mSensor));
                 System.out.print("Sensor " + mSensor.getName() + " was successfully added to " + this.mRoomName);
             } else {

@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
  * It is defined by a name, type of sensor, localization and the date it started functioning.
  * It contains a list with one or more weather readings.
  */
+
 public class Sensor {
     private String mName;
     private TypeSensor mTypeSensor;

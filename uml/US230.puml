@@ -1,0 +1,19 @@
+@startuml
+
+actor Admin
+Admin -> MainUI: getRoomNominalPower
+MainUI -> RoomConfigurationUI: run(house)
+RoomConfigurationUI -> RoomConfigurationUI: getInputRoom()
+RoomConfigurationUI -> Admin: getInputRoom
+Admin -> RoomConfigurationUI: return inputRoom
+RoomConfigurationUI -> RoomConfigurationController: ctrl.getRoomNominalPower(room)
+RoomConfigurationController -> Room: room.getNominalPower()
+Room -> DeviceList: getDeviceList()
+DeviceList --> Room: return DeviceList
+Room -> Device: device.getNominalPower()
+Device --> Room: return deviceNominalPower
+Room --> RoomConfigurationController: return roomNominalPower
+RoomConfigurationController --> RoomConfigurationUI: return roomNominalPower
+RoomConfigurationUI -> Admin: roomNominalPower
+
+@endumlΩ

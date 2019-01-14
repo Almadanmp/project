@@ -185,15 +185,15 @@ public class HouseMonitoringUI {
             System.out.print("Invalid Room List - List Is Empty\n");
             return;
         }
-        boolean activeInput = false;
+        boolean activeInput = true;
         System.out.println("Please select one of the existing rooms on the selected House: ");
 
-        while (!activeInput) {
+        while (activeInput) {
             System.out.println(houseMonitoringcontroller.printHouseRoomList(house));
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getRoomList().getRoomList().size()) {
                 this.mRoom = house.getRoomList().getRoomList().get(aux);
-                activeInput = true;
+                activeInput = false;
             } else {
                 System.out.println(utils.invalidOption);
             }

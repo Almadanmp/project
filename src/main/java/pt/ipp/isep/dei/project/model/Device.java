@@ -4,6 +4,10 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.Objects;
 
+/**
+ * Class that represents Device present in a Room.
+ */
+
 public class Device implements Metered {
     private String mName;
     private Room mParentRoom;
@@ -16,8 +20,8 @@ public class Device implements Metered {
 
     public Device(String name, double nominalPower, DeviceSpecs deviceSpecs) {
         this.mName = name;
-        this.mNominalPower = nominalPower;
         this.mDeviceSpecs = deviceSpecs;
+        this.mNominalPower = nominalPower;
     }
 
     //temporary before is gets moved to DeviceSpecs

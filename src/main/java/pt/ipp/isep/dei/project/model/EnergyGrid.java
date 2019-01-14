@@ -2,9 +2,11 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+
+/**
+ * Class that represents an Energy Grid present in a House.
+ */
 
 public class EnergyGrid implements Metered {
     private String mName;
@@ -34,6 +36,11 @@ public class EnergyGrid implements Metered {
     public RoomList getListOfRooms() {
         return mRoomList;
     }
+
+    /**
+     *
+     * @return a DeviceList containing all the devices in the energy grid list of rooms.
+     */
 
     public DeviceList getDeviceListFromAllRooms(){
         DeviceList devices = new DeviceList();
@@ -94,6 +101,31 @@ public class EnergyGrid implements Metered {
             return true;
         }
         return false;
+    }
+
+    /**
+     * @param energyGrid - parameter which we will use to get all the devices present on all of its rooms.
+     * @return a String with the device index, device type, device name and the room in which the device is contained.
+     */
+
+    public String printDeviceListByType(EnergyGrid energyGrid){
+        String mStringSpacer = "---------------\n";
+        StringBuilder result = new StringBuilder(mStringSpacer);
+        for (DeviceType d : DeviceType.values()) {
+            for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
+                Room r = energyGrid.getListOfRooms().getRoomList().get(i);
+                for (int x = 0; x < r.getDeviceList().size(); x++) {
+                    if (d == r.getDeviceList().get(x).getDeviceType()) {
+                        Device device = r.getDeviceList().get(x);
+                        result.append(i).append(") Device type: ").append(d).append(" | ");
+                        result.append(device.getName()).append(" | ");
+                        result.append("Room: ").append(r.getRoomName()).append(" | \n");
+                    }
+                }
+            }
+        }
+        result.append(mStringSpacer);
+        return result.toString();
     }
 
     @Override

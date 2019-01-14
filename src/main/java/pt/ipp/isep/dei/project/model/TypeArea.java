@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
+/**
+ * Class that represents the type of Geographical Area.
+ */
+
 public class TypeArea {
     private String mName;
 
