@@ -370,7 +370,7 @@ can reconfigure it.*/
 
     private void getRoomNominalPower() {
         double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(this.mRoom);
-        System.out.println("The room you chose has a total nominal power of " + roomNominalPower + " kW.\nThis results" +
+        System.out.println("This room has a total nominal power of "+ roomNominalPower + " kW.\nThis results " +
                 "from the sum of the nominal power of all devices in the room.");
     }
 

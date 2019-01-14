@@ -16,8 +16,8 @@ public class Device implements Metered {
 
     public Device(String name, double nominalPower, DeviceSpecs deviceSpecs) {
         this.mName = name;
-        this.mNominalPower = nominalPower;
         this.mDeviceSpecs = deviceSpecs;
+        this.mNominalPower = nominalPower;
     }
 
     //temporary before is gets moved to DeviceSpecs
