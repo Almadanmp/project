@@ -48,4 +48,13 @@ public class DeviceTypeTest {
                         "3) Device Type: FRIDGE;\n";
         assertEquals(expectedResult,result);
     }
+
+    @Test
+    void seeIfPrintDeviceType(){
+        DeviceType fridge = DeviceType.FRIDGE;
+        String result = fridge.printDeviceType(fridge);
+        String expectedResult =
+                        "FRIDGE";
+        assertEquals(expectedResult,result);
+    }
 }
