@@ -300,4 +300,23 @@ public class RoomConfigurationController {
     public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
         return sensorList.printElementsByIndex(listOfIndexesOfSensor);
     }
+    public String printTyperList(List<TypeSensor> typeList) {
+        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        if (typeList.isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < typeList.size(); i++) {
+            TypeSensor aux = typeList.get(i);
+            result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
+            result.append("Units: ").append(aux.getUnits()).append("\n");
+        }
+        result.append("---------------\n");
+        return result.toString();
+    }
+    public boolean addSensorToRoom(Room room,Sensor sensor) {
+        if (room.addSensor(sensor)) {
+            return true;
+        }
+        return false;
+    }
 }
