@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that groups a number of energy Grids of a House.
+ */
+
 public class EnergyGridList {
 
     private List<EnergyGrid> mEnergyGridList;

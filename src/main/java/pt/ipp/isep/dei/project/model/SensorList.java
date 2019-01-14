@@ -3,8 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import java.util.*;
 
 /**
- * Represents a List of Sensors.
+ * Class that groups a number of Sensors.
  */
+
 public class SensorList {
 
     private List<Sensor> mSensorList;

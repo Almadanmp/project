@@ -4,6 +4,10 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.Objects;
 
+/**
+ * Class that represents an Energy Grid present in a House.
+ */
+
 public class EnergyGrid implements Metered {
     private String mName;
     private double mNominalPower;

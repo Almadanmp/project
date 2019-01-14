@@ -2,6 +2,10 @@ package pt.ipp.isep.dei.project.model;
 
 import java.util.Objects;
 
+/**
+ * Class that represents a PowerSource of an Energy Grid.
+ */
+
 public class PowerSource {
 
     private String mPowerSourceName;

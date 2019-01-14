@@ -4,6 +4,10 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.Objects;
 
+/**
+ * Class that represents Device present in a Room.
+ */
+
 public class Device implements Metered {
     private String mName;
     private Room mParentRoom;

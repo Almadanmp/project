@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that groups a number of Rooms in a House.
+ */
+
 public class RoomList {
     private List<Room> mRoomList;
     private String mStringResult = "---------------\n";
