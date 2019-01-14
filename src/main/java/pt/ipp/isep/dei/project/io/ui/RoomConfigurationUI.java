@@ -93,7 +93,9 @@ class RoomConfigurationUI {
                     if(getInputRoomByList()){
                         return;
                     }
-                    getInputSensorByListFromRoom();
+                    if(getInputSensorFromRoomByList()){
+                        return;
+                    }
                     activeInput = false;
                     break;
                 case 6: //US253
@@ -104,7 +106,7 @@ class RoomConfigurationUI {
                     if(getInputRoomByList()){
                         return;
                     }
-                    if(getInputSensorByList()){
+                    if(getInputSensorFromGAByList()){
                         return;
                     }
                     activeInput = false;
@@ -347,36 +349,34 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
 
-    private void getInputSensorByListFromRoom() {
+    private boolean getInputSensorFromRoomByList() {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
         mSensorList = mRoom.getmRoomSensorList();
         if (mSensorList.getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty\n");
-            return;
+            return true;
         }
-        boolean activeInput = false;
         System.out.println("Please select a Sensor from the Chosen Room in order to Configure it: ");
-        while (!activeInput) {
-            System.out.println(ctrl.printSensorList(mSensorList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mSensorList.getSensorList().size()) {
-                this.mSensor = mSensorList.getSensorList().get(aux);
-                this.mSensorName = mSensor.getName();
-                activeInput = true;
-                System.out.println(mStringChosenSensor);
-                System.out.println(mRoomConfigurationController.printSensor(mSensor));
-            } else {
-                System.out.println(utils.invalidOption);
-            }
+        System.out.println(ctrl.printSensorList(mSensorList));
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < mSensorList.getSensorList().size()) {
+            this.mSensor = mSensorList.getSensorList().get(aux);
+            this.mSensorName = mSensor.getName();
+            System.out.println(mStringChosenSensor);
+            System.out.println(mRoomConfigurationController.printSensor(mSensor));
+            return false;
+        } else {
+            System.out.println(utils.invalidOption);
+            return true;
         }
     }
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
 
-    private boolean getInputSensorByList() {
+    private boolean getInputSensorFromGAByList() {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
