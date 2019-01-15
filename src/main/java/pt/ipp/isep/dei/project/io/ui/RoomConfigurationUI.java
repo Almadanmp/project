@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
-import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
@@ -21,7 +19,6 @@ class RoomConfigurationUI {
     private Sensor mSensor;
     private Device mDevice;
     private DeviceType mDeviceType;
-    private String mDeviceTypeName;
     private double mNominalPower;
     private double mVolumeOfWater;
     private double mHotWaterTemperature;
@@ -38,9 +35,7 @@ class RoomConfigurationUI {
     private String mStringRequestDevice = "You have chosen the following Device:";
     private String mStringChosenSensor = "You have chosen the following Sensor:";
     private DeviceSpecs mDeviceSpecs;
-    private List<TypeSensor> mSensorTypeList;
     private TypeSensor mTypeSensor;
-    private String mTypeSensorName;
     private int mDataYear;
     private int mDataMonth;
     private int mDataDay;
@@ -114,7 +109,6 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 6: //US253
-                    this.mSensorTypeList = typeSensorList;
                     if (mGeoArea.getSensorList().getSensorList().isEmpty() || mGeoArea.getSensorList() == null) {
                         System.out.println("There's no available sensors in the Geographical Area");
                         return;
@@ -543,8 +537,8 @@ class RoomConfigurationUI {
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < typeSensorList.size()) {
             this.mTypeSensor = typeSensorList.get(aux);
-            this.mTypeSensorName = mTypeSensor.getName();
-            System.out.println("You have chosen the following Type: " + mTypeSensorName);
+            String typeSensorName = mTypeSensor.getName();
+            System.out.println("You have chosen the following Type: " + typeSensorName);
             return false;
         } else {
             System.out.println(utils.invalidOption);

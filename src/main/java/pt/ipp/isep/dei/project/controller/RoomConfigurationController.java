@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.List;
 
@@ -314,9 +313,6 @@ public class RoomConfigurationController {
         return result.toString();
     }
     public boolean addSensorToRoom(Room room,Sensor sensor) {
-        if (room.addSensor(sensor)) {
-            return true;
-        }
-        return false;
+        return (room.addSensor(sensor));
     }
 }

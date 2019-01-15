@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.Sensor;
 
 import java.util.Date;
@@ -23,12 +22,10 @@ public class HouseMonitoringUI {
     private int dataMonth2;
     private int dataDay2;
     private double mCurrentHouseAreaTemperature;
-    private String mNameRoom;
     private Sensor mSensor;
     private Room mRoom;
     private double mMaxTemperature;
     private double mCurrentTemperature;
-    private String mNameSensor;
 
     public HouseMonitoringUI() {
         this.houseMonitoringcontroller = new HouseMonitoringController();
