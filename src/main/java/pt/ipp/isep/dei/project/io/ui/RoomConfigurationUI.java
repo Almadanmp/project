@@ -26,7 +26,6 @@ class RoomConfigurationUI {
     private double mCapacity;
     private String mDeviceName;
     private String mRoomName;
-    private SensorList mSensorList;
     private String mSensorName;
     private TypeSensor mTypeSensor;
     private int mDataYear;
@@ -48,8 +47,6 @@ class RoomConfigurationUI {
             System.out.println("There are no available rooms in the house. Please add a room to continue.");
             return;
         }
-        GeographicArea mGeoArea = house.getMotherArea();
-        this.mSensorList = mGeoArea.getSensorList();
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;

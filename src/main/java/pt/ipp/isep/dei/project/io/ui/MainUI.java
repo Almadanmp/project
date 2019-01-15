@@ -218,12 +218,12 @@ public class MainUI {
 
         // ********* MOCKS EXTRA **********************************************
 
-        List<DeviceType> deviceTypeList = new ArrayList<DeviceType>();
+        List<DeviceType> deviceTypeList = new ArrayList<>();
         deviceTypeList.add(DeviceType.FRIDGE);
         deviceTypeList.add(DeviceType.WASHING_MACHINE);
         deviceTypeList.add(DeviceType.WATER_HEATER);
         deviceTypeList.add(DeviceType.DISHWASHER);
-
+/**
         // House - Empty RoomList - Without EnergyGrid
         GeographicArea geographicArea4 = new GeographicArea();
         RoomList roomList = new RoomList();
@@ -231,7 +231,7 @@ public class MainUI {
 
         TypeAreaList emptyTypeAreaList = new TypeAreaList();
 
-        /**
+
         //Empty TypeAreaList
 
         TypeAreaList emptyTypeAreaList = new TypeAreaList();

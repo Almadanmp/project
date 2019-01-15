@@ -101,7 +101,6 @@ class SensorSettingsUI {
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < programGAList.getGeographicAreaList().size()) {
             mGeographicArea = programGAList.getGeographicAreaList().get(aux);
-            String mGeoAreaName = mGeographicArea.getId();
             System.out.println((mGeographicArea.printGeographicArea()));
         } else {
             System.out.println(utils.invalidOption);
