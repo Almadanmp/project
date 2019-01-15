@@ -473,9 +473,9 @@ class RoomConfigurationUI {
         }
     }
 
-    /*
-    US215 As an Administrator, I want to edit the configuration of an existing device, so that I
-    can reconfigure it.*/
+    /* US215 As an Administrator, I want to edit the configuration of an existing device, so that I
+    can reconfigure it. - CARINA ALAS*/
+
     private void displayDeviceUS215() {
         System.out.println("\nYou have successfully changed the Device name to " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
@@ -493,7 +493,7 @@ class RoomConfigurationUI {
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
     nominal power of a room, i.e. the sum of the nominal power of all devices in the
-    room. - TERESA VARELA */
+    room. - TERESA VARELA*/
 
     private void getRoomNominalPower() {
         double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(this.mRoom);
@@ -536,7 +536,7 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
         System.out.println("Please select a Type of Sensor from the list: ");
-        System.out.println(ctrl.printTyperList(typeSensorList));
+        System.out.println(ctrl.printTypeList(typeSensorList));
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < typeSensorList.size()) {
             this.mTypeSensor = typeSensorList.get(aux);

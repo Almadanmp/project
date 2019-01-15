@@ -229,6 +229,8 @@ public class MainUI {
         RoomList roomList = new RoomList();
         House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
 
+        TypeAreaList emptyTypeAreaList = new TypeAreaList();
+
         /**
         //Empty TypeAreaList
 

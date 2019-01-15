@@ -399,7 +399,7 @@ class RoomConfigurationControllerTest {
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
         String result ="Invalid List - List is Empty\n";
-        String actualResult = ctrl.printTyperList(list1);
+        String actualResult = ctrl.printTypeList(list1);
         //Assert
         assertEquals(result, actualResult);
     }
@@ -417,7 +417,7 @@ class RoomConfigurationControllerTest {
         "0) Name: rain | Units: mm\n" +
         "1) Name: wind | Units: km/h\n" +
         "---------------\n";
-        String actualResult = ctrl.printTyperList(list1);
+        String actualResult = ctrl.printTypeList(list1);
         //Assert
         assertEquals(result, actualResult);
     }
@@ -435,7 +435,7 @@ class RoomConfigurationControllerTest {
                 "0) Name: rain | Units: mm\n" +
                 "1) Name: wind | Units: km/h\n" +
                 "---------------\n";
-        String actualResult = ctrl.printTyperList(list1);
+        String actualResult = ctrl.printTypeList(list1);
         //Assert
         assertEquals(result, actualResult);
     }

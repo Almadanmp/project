@@ -298,7 +298,7 @@ public class RoomConfigurationController {
     public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
         return sensorList.printElementsByIndex(listOfIndexesOfSensor);
     }
-    public String printTyperList(List<TypeSensor> typeList) {
+    public String printTypeList(List<TypeSensor> typeList) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
         if (typeList.isEmpty()) {
             return "Invalid List - List is Empty\n";
