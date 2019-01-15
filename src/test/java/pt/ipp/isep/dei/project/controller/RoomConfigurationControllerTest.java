@@ -146,6 +146,14 @@ class RoomConfigurationControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    /*
+    USER STORY 210 -
+     */
+
+    @Test
+    void seeIfPrintDeviceTypeList(){
+
+    }
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
