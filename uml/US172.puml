@@ -1,19 +1,64 @@
 @startuml
 
+skinparam titleBorderRoundCorner 25
+skinparam titleBorderThickness 3
+skinparam titleBorderColor salmon
+skinparam titleBackgroundColor lightsalmon-lightpink
+skinparam FontName Verdana
+
+title US172 \n I want to know the total nominal power connected to a grid
+
+skinparam actor {
+	BorderColor salmon
+	}
+
+skinparam sequence {
+	LifeLineBackgroundColor salmon
+	ParticipantBackgroundColor PeachPuff
+}
+
+skinparam roundcorner 20
+
+skinparam component {
+  arrowThickness 2
+  ArrowFontName Verdana
+  ArrowColor salmon
+  ArrowFontColor darkslategrey
+}
+
 actor André
 André -> MainUI: getEnergyGridTotalPower(House)
 MainUI -> EnergyGridSettingsUI: run(house)
+activate EnergyGridSettingsUI
 EnergyGridSettingsUI -> EnergyGridSettingsUI: getInputGrid()
+André <-- EnergyGridSettingsUI: return inputGrid
 
-André <- EnergyGridSettingsUI: return inputGrid
-EnergyGridSettingsUI -> EnergyGridSettingsController: ctrl.getGridTotalPower(grid)
-EnergyGridSettingsController -> EnergyGrid: energyGrid.getTotalNominalPower()
-EnergyGrid -> DeviceList: getDeviceList()
+André --> EnergyGridSettingsUI: return inputGrid
+EnergyGridSettingsUI -> EnergyGridSettingsController: getGridTotalPower(grid)
+activate EnergyGridSettingsController
+EnergyGridSettingsController -> EnergyGrid: getGridTotalNominalPower()
+activate EnergyGrid
+EnergyGrid -> RoomList: getRoomList()
+activate RoomList
+RoomList --> EnergyGrid: return RoomList
+deactivate RoomList
+EnergyGrid -> Room: getRoomTotalNominalPower()
+activate Room
+Room -> DeviceList: getDeviceList()
+activate DeviceList
 DeviceList --> Room: return DeviceList
-Room -> Device: device.getNominalPower()
-Device --> Room: return deviceNominalPower
-Room --> RoomConfigurationController: return gridNominalPower
+deactivate DeviceList
+Room -> Device: getDeviceTotalNominalPower()
+activate Device
+Device --> Room: return deviceTotalNominalPower
+deactivate Device
+Room --> EnergyGrid: return roomTotalNominalPower
+deactivate Room
+EnergyGrid --> EnergyGridSettingsController: return gridTotalNominalPower
+deactivate EnergyGrid
 EnergyGridSettingsController --> EnergyGridSettingsUI: return gridNominalPower
-EnergyGridSettingsUI -> André: gridNominalPower
+deactivate EnergyGridSettingsController
+EnergyGridSettingsUI --> André: gridTotalNominalPower
+deactivate EnergyGridSettingsUI
 
 @endumlΩ
