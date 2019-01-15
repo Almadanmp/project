@@ -127,13 +127,14 @@ class RoomConfigurationControllerTest {
         //ASSERT
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void seeGetRoomNominalPower() {
         //ARRANGE
         Fridge f1 = new Fridge();
-        Device d1 = new Device("d1",12, f1);
-        Device d2 = new Device("d2",10, f1);
-        Device d3 = new Device("d3",1, f1);
+        Device d1 = new Device("d1", 12, f1);
+        Device d2 = new Device("d2", 10, f1);
+        Device d3 = new Device("d3", 1, f1);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
@@ -153,20 +154,40 @@ class RoomConfigurationControllerTest {
      */
 
     @Test
-    void seeIfPrintDeviceTypeList(){
+    void seeIfPrintDeviceTypeList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-            List<DeviceType> listD = new ArrayList<>();
-            List<Integer> list = new ArrayList<>();
-            Integer i = 1;
-            list.add(i);
-            String result = ctrl.printDeviceTypeList(listD);
-            String expectedResult =
-                    "0) Device Type: WATER_HEATER;\n" +
-                            "1) Device Type: WASHING_MACHINE;\n" +
-                            "2) Device Type: DISHWASHER;\n" +
-                            "3) Device Type: FRIDGE;\n";
-            assertEquals(expectedResult,result);
-        }
+        List<DeviceType> listD = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        String result = ctrl.printDeviceTypeList(listD);
+        String expectedResult =
+                "0) Device Type: WATER_HEATER;\n" +
+                        "1) Device Type: WASHING_MACHINE;\n" +
+                        "2) Device Type: DISHWASHER;\n" +
+                        "3) Device Type: FRIDGE;\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfPrintDeviceTypeList2() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        DeviceType dishwasher= DeviceType.DISHWASHER;
+        DeviceType fridge = DeviceType.FRIDGE;
+        List<DeviceType> listD = new ArrayList<>();
+        listD.add(fridge);
+        listD.add(dishwasher);
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        String result = ctrl.printDeviceTypeList(listD);
+        String expectedResult =
+                "0) Device Type: WATER_HEATER;\n" +
+                        "1) Device Type: WASHING_MACHINE;\n" +
+                        "2) Device Type: DISHWASHER;\n" +
+                        "3) Device Type: FRIDGE;\n";
+        assertEquals(expectedResult, result);
+    }
 
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
@@ -290,22 +311,22 @@ class RoomConfigurationControllerTest {
 
     @Test
     void seeIfPrintSensorWorks() {
-    //String printSensor(Sensor sensor) {
-    //Assert
+        //String printSensor(Sensor sensor) {
+        //Assert
         Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
         Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
-    //Act
-    RoomConfigurationController ctrl = new RoomConfigurationController();
-    String actualResult = ctrl.printSensor(s2);
-    String expectedResult = "Pluviosidade1, Pluviosidade, 10.0º lat, 30.0º long\n";
-    //Assert
-    assertEquals(expectedResult, actualResult);
+        //Act
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        String actualResult = ctrl.printSensor(s2);
+        String expectedResult = "Pluviosidade1, Pluviosidade, 10.0º lat, 30.0º long\n";
+        //Assert
+        assertEquals(expectedResult, actualResult);
     }
-    
+
     @Test
     void seeIfPrintSensorElementsByIndexWorks() {
         //public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
@@ -331,7 +352,7 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfPrintDeviceElementsByIndex(){
+    void seeIfPrintDeviceElementsByIndex() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
@@ -353,8 +374,9 @@ class RoomConfigurationControllerTest {
         //Assert
         Assert.assertEquals(expectedResult, result);
     }
+
     @Test
-    void SeeIfMatchDeviceIndexByStringWorks(){
+    void SeeIfMatchDeviceIndexByStringWorks() {
         //Arrange
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("frigorifico", 200, new Fridge());
@@ -371,7 +393,7 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfPrintDevice(){
+    void seeIfPrintDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("frigorifico", 200, new Fridge());
         Room room = new Room("kitchen", 1, 1, 2, 2);
@@ -381,11 +403,11 @@ class RoomConfigurationControllerTest {
         room.setDeviceList(dlist);
         String result = ctrl.printDevice(d1);
         String expectedResult = "The Device Name is frigorifico, and its NominalPower is 200.0 kW.\n";
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfPrintDeviceList(){
+    void seeIfPrintDeviceList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("frigorifico", 200, new Fridge());
         Room room = new Room("kitchen", 1, 1, 2, 2);
@@ -398,62 +420,65 @@ class RoomConfigurationControllerTest {
                 "\n" +
                 "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 200.0\n" +
                 "---------------\n";
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfSensorIsAddedToRoom() {
         //Arrange
         Room room1 = new Room("Quarto", 1, 5, 1, 21);
-        Sensor sensor1 = new Sensor("coiso",new TypeSensor("rain","mm"),new GregorianCalendar(2,3,4).getTime());
+        Sensor sensor1 = new Sensor("coiso", new TypeSensor("rain", "mm"), new GregorianCalendar(2, 3, 4).getTime());
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        boolean actualResult = ctrl.addSensorToRoom(room1,sensor1);
+        boolean actualResult = ctrl.addSensorToRoom(room1, sensor1);
         //Assert
         assertTrue(actualResult);
     }
+
     @Test
     void seeIfTypeListIsPrintedEmptyList() {
         //Arrange
         List<TypeSensor> list1 = new ArrayList<>();
-        TypeSensor t1 = new TypeSensor("rain","mm");
-        TypeSensor t2 = new TypeSensor("wind","km/h");
+        TypeSensor t1 = new TypeSensor("rain", "mm");
+        TypeSensor t2 = new TypeSensor("wind", "km/h");
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        String result ="Invalid List - List is Empty\n";
+        String result = "Invalid List - List is Empty\n";
         String actualResult = ctrl.printTypeList(list1);
         //Assert
         assertEquals(result, actualResult);
     }
+
     @Test
     void seeIfTypeListIsPrinted() {
         //Arrange
         List<TypeSensor> list1 = new ArrayList<>();
-        TypeSensor t1 = new TypeSensor("rain","mm");
-        TypeSensor t2 = new TypeSensor("wind","km/h");
+        TypeSensor t1 = new TypeSensor("rain", "mm");
+        TypeSensor t2 = new TypeSensor("wind", "km/h");
         list1.add(t1);
         list1.add(t2);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        String result ="---------------\n" +
-        "0) Name: rain | Units: mm\n" +
-        "1) Name: wind | Units: km/h\n" +
-        "---------------\n";
+        String result = "---------------\n" +
+                "0) Name: rain | Units: mm\n" +
+                "1) Name: wind | Units: km/h\n" +
+                "---------------\n";
         String actualResult = ctrl.printTypeList(list1);
         //Assert
         assertEquals(result, actualResult);
     }
+
     @Test
     void seeIfItSetsNominalPower() {
         //Arrange
         List<TypeSensor> list1 = new ArrayList<>();
-        TypeSensor t1 = new TypeSensor("rain","mm");
-        TypeSensor t2 = new TypeSensor("wind","km/h");
+        TypeSensor t1 = new TypeSensor("rain", "mm");
+        TypeSensor t2 = new TypeSensor("wind", "km/h");
         list1.add(t1);
         list1.add(t2);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        String result ="---------------\n" +
+        String result = "---------------\n" +
                 "0) Name: rain | Units: mm\n" +
                 "1) Name: wind | Units: km/h\n" +
                 "---------------\n";
@@ -464,49 +489,49 @@ class RoomConfigurationControllerTest {
 
 
     @Test
-    void seeIfAddDeviceToRoom(){
+    void seeIfAddDeviceToRoom() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device device = new Device("waterheater",150, new WaterHeater());
-        Room room = new Room("cozinha",1,1,1,1);
-        ctrl.setDeviceName("daniel",device);
-        ctrl.addDeviceToRoom(room,device);
-        ctrl.setNominalPower(123.0,device);
+        Device device = new Device("waterheater", 150, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        ctrl.setDeviceName("daniel", device);
+        ctrl.addDeviceToRoom(room, device);
+        ctrl.setNominalPower(123.0, device);
         String result = ctrl.printDeviceList(room);
         String expectedResult = "---------------\n" +
                 "\n" +
                 "0) Device Name: daniel, Device Type: WATER_HEATER, Device Nominal Power: 123.0\n" +
                 "---------------\n";
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfRemoveDeviceFromRoomWorks(){
+    void seeIfRemoveDeviceFromRoomWorks() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device device = new Device("waterheater",150, new WaterHeater());
-        Device device1 = new Device("skjsjk",123,new WaterHeater());
-        Room room = new Room("cozinha",1,1,1,1);
+        Device device = new Device("waterheater", 150, new WaterHeater());
+        Device device1 = new Device("skjsjk", 123, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
         room.addDevice(device);
         room.addDevice(device1);
-        ctrl.removeDeviceFromRoom(room,device1);
+        ctrl.removeDeviceFromRoom(room, device1);
         String result = ctrl.printDeviceList(room);
         String expectedResult = "---------------\n" +
                 "\n" +
                 "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
                 "---------------\n";
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfSetParentRoomWorks(){
+    void seeIfSetParentRoomWorks() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device device = new Device("waterheater",150, new WaterHeater());
-        Room room = new Room("cozinha",1,1,1,1);
-        ctrl.addDeviceToRoom(room,device);
+        Device device = new Device("waterheater", 150, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        ctrl.addDeviceToRoom(room, device);
         String result = ctrl.printDeviceList(room);
         String expectedResult = "---------------\n" +
                 "\n" +
                 "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
                 "---------------\n";
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 }
