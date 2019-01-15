@@ -4,14 +4,33 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
 
 class HouseTest {
+
+    @Test
+    void seeIfGetListDevice() {
+        Device device = new Device("fridge", 5, new Fridge());
+        Device device2 = new Device("washing", 5, new WashingMachine());
+        Room room1 = new Room("room1", 19, 23456789, 5, 3);
+        room1.addDevice(device);
+        room1.addDevice(device2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room1);
+        List<Device> expectedResult = new ArrayList<>();
+        expectedResult.add(device);
+        expectedResult.add(device2);
+        List<Device> result = roomList.getDeviceList();
+        assertEquals(expectedResult, result);
+    }
 
     @Test
     void seeDistanceToSensor() {
@@ -427,15 +446,15 @@ class HouseTest {
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge());
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 30, 1,0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 20, 10,0.9));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 30, 1, 0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 20, 10, 0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device("fridgeTwo", 12, new Fridge());
-        Device d5 = new Device("wHeater3", 12, new WaterHeater(300, 15, 1,0.9));
-        Device d6 = new Device("wHeater4", 11, new WaterHeater(400, 20, 12,0.9));
+        Device d5 = new Device("wHeater3", 12, new WaterHeater(300, 15, 1, 0.9));
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400, 20, 12, 0.9));
         r2.addDevice(d4);
         r2.addDevice(d5);
         r2.addDevice(d6);
