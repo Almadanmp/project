@@ -73,7 +73,7 @@ class RoomConfigurationUI {
                     if(getInputRoomByList()){
                         return;
                     }
-                    getRoomDeviceList(mRoom);
+                    printRoomDeviceList(mRoom);
                     activeInput = false;
                     break;
                 case 2: //US210
@@ -183,7 +183,7 @@ class RoomConfigurationUI {
      * @param room comes from getInputRoomByList
      * Prints Device List in that room.
      */
-    private void getRoomDeviceList(Room room) {
+    private void printRoomDeviceList(Room room) {
         System.out.println("Available Devices in Room " + mRoomName);
         System.out.println(mRoomConfigurationController.printDeviceList(room));
     }
