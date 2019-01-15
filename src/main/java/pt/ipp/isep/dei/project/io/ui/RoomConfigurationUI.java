@@ -73,7 +73,7 @@ class RoomConfigurationUI {
                     if (getInputRoomByList()) {
                         return;
                     }
-                    printRoomDeviceList(mRoom);
+                    printRoomDeviceList();
                     activeInput = false;
                     break;
                 case 2: //US210
@@ -103,7 +103,7 @@ class RoomConfigurationUI {
                     if (getInputRoomByList()) {
                         return;
                     }
-                    displaySensorListUS250(mRoom);
+                    displaySensorListUS250();
                     activeInput = false;
                     break;
                 case 6: //US253
@@ -174,12 +174,12 @@ class RoomConfigurationUI {
     }
 
     /**US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
-     * @param room comes from getInputRoomByList
+     * mRoom comes from getInputRoomByList
      * Prints Device List in that room.
      */
-    private void printRoomDeviceList(Room room) {
+    private void printRoomDeviceList() {
         System.out.println("Available Devices in Room " + mRoomName);
-        System.out.println(mRoomConfigurationController.printDeviceList(room));
+        System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
     }
 
      /* USER STORY 210 - As an Administrator, I want to add a new device to a room from the list of available
@@ -505,9 +505,9 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
 
-    private void displaySensorListUS250(Room room) {
+    private void displaySensorListUS250() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        SensorList sensorList = room.getmRoomSensorList();
+        SensorList sensorList = mRoom.getmRoomSensorList();
         System.out.println(ctrl.printSensorList(sensorList));
     }
 
