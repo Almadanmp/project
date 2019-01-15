@@ -506,9 +506,8 @@ class RoomConfigurationUI {
     MIGUEL ORTIGAO*/
 
     private void displaySensorListUS250() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
         SensorList sensorList = mRoom.getmRoomSensorList();
-        System.out.println(ctrl.printSensorList(sensorList));
+        System.out.println(mRoomConfigurationController.printSensorList(sensorList));
     }
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
