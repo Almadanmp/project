@@ -70,7 +70,7 @@ class RoomConfigurationUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1: //US201
-                    if(getInputRoomByList()){
+                    if (getInputRoomByList()) {
                         return;
                     }
                     printRoomDeviceList(mRoom);
@@ -83,10 +83,10 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //215
-                    if(getInputRoomByList()){
+                    if (getInputRoomByList()) {
                         return;
                     }
-                    if(getInputDeviceByList()){
+                    if (getInputDeviceByList()) {
                         return;
                     }
                     getInputDeviceCharacteristicsUS215();
@@ -100,12 +100,10 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 5: //US250
-                    if(getInputRoomByList()){
+                    if (getInputRoomByList()) {
                         return;
                     }
-                    if(getInputSensorFromRoomByList()){
-                        return;
-                    }
+                    getInputSensorFromRoomByList(mRoom);
                     activeInput = false;
                     break;
                 case 6: //US253
@@ -113,10 +111,10 @@ class RoomConfigurationUI {
                         System.out.println("There's no available sensors in the Geographical Area");
                         return;
                     }
-                    if(getInputRoomByList()){
+                    if (getInputRoomByList()) {
                         return;
                     }
-                    if(getInputTypeFromTypeListByList(typeSensorList)){
+                    if (getInputTypeFromTypeListByList(typeSensorList)) {
                         return;
                     }
                     getInput253();
@@ -220,7 +218,7 @@ class RoomConfigurationUI {
 
         // get device name
         System.out.print("Please, type the new name of the Device: ");
-       mDeviceName = scanner.nextLine();
+        mDeviceName = scanner.nextLine();
 
         //get room
         if (mHouse.getRoomList().isEmpty()) {
@@ -504,28 +502,10 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
 
-    private boolean getInputSensorFromRoomByList() {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
+    private void getInputSensorFromRoomByList(Room room) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        mSensorList = mRoom.getmRoomSensorList();
-        if (mSensorList.getSensorList().isEmpty()) {
-            System.out.print("Invalid Sensor List - List Is Empty\n");
-            return true;
-        }
-        System.out.println("Please select a Sensor from the Chosen Room in order to Configure it: ");
-        System.out.println(ctrl.printSensorList(mSensorList));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < mSensorList.getSensorList().size()) {
-            this.mSensor = mSensorList.getSensorList().get(aux);
-            this.mSensorName = mSensor.getName();
-            System.out.println(mStringChosenSensor);
-            System.out.println(mRoomConfigurationController.printSensor(mSensor));
-            return false;
-        } else {
-            System.out.println(utils.invalidOption);
-            return true;
-        }
+        SensorList sensorList = room.getmRoomSensorList();
+        System.out.println(ctrl.printSensorList(sensorList));
     }
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
@@ -548,6 +528,7 @@ class RoomConfigurationUI {
             return true;
         }
     }
+
     private void getInput253() {
         Scanner input = new Scanner(System.in);
         // Name Getter
@@ -584,7 +565,7 @@ class RoomConfigurationUI {
         SensorSettingsController mController = new SensorSettingsController();
         Date mDate = mController.createDate(this.mDataYear, this.mDataMonth, this.mDataDay);
         this.mSensor = mController.createRoomSensor(mSensorName, mTypeSensor, mDate);
-        if (ctrl.addSensorToRoom(mRoom,mSensor)) {
+        if (ctrl.addSensorToRoom(mRoom, mSensor)) {
             System.out.println("\nSensor successfully added to the Room " + mRoom.getRoomName());
         }
     }
