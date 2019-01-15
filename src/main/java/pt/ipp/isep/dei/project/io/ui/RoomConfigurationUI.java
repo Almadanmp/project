@@ -179,7 +179,10 @@ class RoomConfigurationUI {
         }
     }
 
-    /*US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.*/
+    /**US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
+     * @param room comes from getInputRoomByList
+     * Prints Device List in that room.
+     */
     private void getRoomDeviceList(Room room) {
         System.out.println("Available Devices in Room " + mRoomName);
         System.out.println(mRoomConfigurationController.printDeviceList(room));
