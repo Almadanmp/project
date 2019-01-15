@@ -31,8 +31,6 @@ class RoomConfigurationUI {
     private String mRoomName;
     private SensorList mSensorList;
     private String mSensorName;
-    private String mStringRequestRoom = "You have chosen the following Room:";
-    private String mStringRequestDevice = "You have chosen the following Device:";
     private String mStringChosenSensor = "You have chosen the following Sensor:";
     private TypeSensor mTypeSensor;
     private int mDataYear;
@@ -69,14 +67,15 @@ class RoomConfigurationUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1: //US201
-                    if (getInputRoomByList()) {
+                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
+                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                         return;
                     }
                     printRoomDeviceList();
                     activeInput = false;
                     break;
                 case 2: //US210
-                    if (getInputRoomByList()) {
+                    if ((inputUtils.getHouseRoomByList(this.mHouse) != null)) {
                         return;
                     }
                     if (getInputDeviceTypeByList(deviceTypeList)) {
@@ -87,10 +86,12 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //215
-                    if (getInputRoomByList()) {
+                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
+                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                         return;
                     }
-                    if (getInputDeviceByList()) {
+                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
+                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                         return;
                     }
                     getInputDeviceCharacteristicsUS215();
@@ -99,12 +100,14 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 4: //US230
-                    getInputRoomByList();
+                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+                    ;
                     getRoomNominalPower();
                     activeInput = false;
                     break;
                 case 5: //US250
-                    if (getInputRoomByList()) {
+                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
+                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                         return;
                     }
                     displaySensorListUS250();
@@ -115,7 +118,8 @@ class RoomConfigurationUI {
                         System.out.println("There's no defined types of sensor available yet. Please define one first.");
                         return;
                     }
-                    if (getInputRoomByList()) {
+                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
+                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                         return;
                     }
                     if (getInputTypeFromTypeListByList(typeSensorList)) {
@@ -135,52 +139,10 @@ class RoomConfigurationUI {
     }
 
 
-    //  SHARED METHODS
-
-    private boolean getInputRoomByList() {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        System.out.println("Please select one of the existing Rooms in the House: ");
-        System.out.println(mRoomConfigurationController.printRoomList(mHouse));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < mHouse.getRoomList().size()) {
-            this.mRoom = mHouse.getRoomList().get(aux);
-            this.mRoomName = mRoom.getRoomName();
-            System.out.println(mStringRequestRoom);
-            System.out.println(mRoomConfigurationController.printRoom(mRoom));
-            return false;
-        } else {
-            System.out.println(utils.invalidOption);
-            return true;
-        }
-    }
-
-    private boolean getInputDeviceByList() {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        if (mRoom.getDeviceList().isEmpty()) {
-            System.out.println("Invalid Device List - List Is Empty\n");
-            return true;
-        }
-        System.out.println("Please select one of the existing Devices in the selected Room: ");
-        System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < mRoom.getDeviceList().size()) {
-            this.mDevice = mRoom.getDeviceList().get(aux);
-            this.mDeviceName = mDevice.getName();
-            System.out.println(mStringRequestDevice);
-            System.out.println(mRoomConfigurationController.printDevice(mDevice));
-            return false;
-        } else {
-            System.out.println(utils.invalidOption);
-            return true;
-        }
-    }
-
     /**
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
-     * mRoom comes from getInputRoomByList
-     * Prints Device List in that room.
+     *
+     *             Prints Device List in that room.
      */
     private void printRoomDeviceList() {
         System.out.println("Available Devices in Room " + mRoomName);
@@ -338,7 +300,9 @@ class RoomConfigurationUI {
         //get room
         mRoomConfigurationController.removeDeviceFromRoom(mRoom, mDevice);
         InputUtils inputUtils = new InputUtils();
-        getInputRoomByList();
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        mDevice.setmParentRoom(mRoom);
+        this.mRoom = inputUtils.getHouseRoomByList(mHouse);
         mRoomConfigurationController.addDeviceToRoom(mRoom, mDevice);
         //get nominal power
         String onlyNumbers = "Please,try again. Only numbers this time:";

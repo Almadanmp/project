@@ -211,9 +211,9 @@ public class MainUI {
         device2.setmParentRoom(roomISEP2);
         device3.setmParentRoom(roomISEP2);
         DeviceList listDevices = new DeviceList();
-        listDevices.addDevices(device1);
-        listDevices.addDevices(device2);
-        listDevices.addDevices(device3);
+        listDevices.addDevice(device1);
+        listDevices.addDevice(device2);
+        listDevices.addDevice(device3);
         roomISEP2.setDeviceList(listDevices);
 
         // ********* MOCKS EXTRA **********************************************

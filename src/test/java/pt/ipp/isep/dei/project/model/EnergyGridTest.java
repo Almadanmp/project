@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
@@ -16,7 +18,7 @@ class EnergyGridTest {
         readingList.addReading(r1);
         Device device = new Device();
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevices(device);
+        deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         String result = energyGrid.printGrid();
         assertEquals("Energy Grid: grid, Max Power: 0.0", result);
@@ -32,7 +34,7 @@ class EnergyGridTest {
         readingList.addReading(r1);
         Device device = new Device();
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevices(device);
+        deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         energyGrid.setRoomList(roomList);
         String result = energyGrid.getListOfRooms().printRooms();
@@ -188,10 +190,10 @@ class EnergyGridTest {
         Device d1 = new Device("WaterHeater1", 30, new WaterHeater());
         Device d2 = new Device("Fridge", 50, new Fridge());
         DeviceList deviceList1 = new DeviceList();
-        deviceList1.addDevices(d1);
+        deviceList1.addDevice(d1);
         r1.setDeviceList(deviceList1);
         DeviceList deviceList2 = new DeviceList();
-        deviceList2.addDevices(d2);
+        deviceList2.addDevice(d2);
         r2.setDeviceList(deviceList2);
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
@@ -205,6 +207,32 @@ class EnergyGridTest {
 
         //Assert
         assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfPrintDevicesWorks(){
+        Device d1 = new Device("Fridge", 21, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        EnergyGrid energyGrid = new EnergyGrid();
+        Room r1 = new Room("Kitchen", 0, 21,31,10);
+        r1.setDeviceList(deviceList);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(r1);
+        energyGrid.setRoomList(roomList);
+        String expectedResult = "0) The Device Name is Fridge, and its NominalPower is 21.0 kW.\n";
+
+        String actualResult = energyGrid.printDeviceList();
+
+        Assertions.assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfPrintRoomListWorks() {
+        RoomList roomList = new RoomList();
+        EnergyGrid grid = new EnergyGrid();
+        String result = grid.printRoomList();
+        Assert.assertEquals("Invalid List - List is Empty\n", result);
     }
 
     @Test

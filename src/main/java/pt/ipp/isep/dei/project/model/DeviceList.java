@@ -24,7 +24,7 @@ public class DeviceList {
         return mDeviceList.contains(device);
     }
 
-    public boolean addDevices(Device device) {
+    public boolean addDevice(Device device) {
         if (!mDeviceList.contains(device)) {
             mDeviceList.add(device);
             return true;
@@ -32,8 +32,12 @@ public class DeviceList {
         return false;
     }
 
-    void removeDevice(Device deviceToRemove) {
-        mDeviceList.remove(deviceToRemove);
+    public boolean removeDevice(Device device){
+        if (this.contains(device)) {
+            mDeviceList.remove(device);
+            return true;
+        }
+        return false;
     }
 
     boolean checkIfListIsValid() {
@@ -55,6 +59,20 @@ public class DeviceList {
         for (Integer indexe : indexes) {
             int pos = indexe;
             result.append(indexe).append(") ").append(mDeviceList.get(pos).getName()).append(", ").append(mDeviceList.get(pos).getmParentRoom().getRoomName()).append(", ").append(mDeviceList.get(pos).getNominalPower()).append(".\n");
+        }
+        return result.toString();
+    }
+
+    public boolean contains(Device device){
+        return this.mDeviceList.contains(device);
+    }
+
+    public String printDevices(){
+        int counter = 0;
+        StringBuilder result = new StringBuilder();
+        for (Device d : this.mDeviceList){
+            result.append(counter).append(") ").append(d.printDevice());
+            counter++;
         }
         return result.toString();
     }

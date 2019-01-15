@@ -378,9 +378,9 @@ class EnergyGridSettingsControllerTest {
         d2.setName("dos");
         d3.setName("tres");
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevices(d1);
-        deviceList.addDevices(d2);
-        deviceList.addDevices(d3);
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
         room1EdC.setDeviceList(deviceList);
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);

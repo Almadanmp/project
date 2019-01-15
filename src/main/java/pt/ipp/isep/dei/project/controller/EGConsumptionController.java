@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.List;
@@ -15,12 +14,91 @@ public class EGConsumptionController {
      connected to a grid.
      */
 
-    public String printRoomsAndDevices(EnergyGrid grid){
+    /**
+     * Calls for the grid's method in the model to print its own rooms and devices.
+     * @param grid is the grid the user has already chosen.
+     * @return builds a string from the Rooms and the Devices in that grid.
+     */
+
+    String printRoomsAndDevices(EnergyGrid grid){
         return grid.printRoomsAndDevices();
     }
 
-    public double getSumNominalPowerByIndex (List<Integer> indexes, EnergyGrid grid){
-        return grid.getSumNominalPowerByIndex(indexes);
+    /**
+     * Calls for the room's method in the model to add all of its devices to a given deviceList.
+     * @param room is the room where the devices we want to add are.
+     * @param deviceList is the deviceList we want to add devices to.
+     * @return true if devices were added.
+     */
+
+    public boolean addRoomDevicesToDeviceList(Room room, DeviceList deviceList){
+        return room.addRoomDevicesToDeviceList(deviceList);
+    }
+
+    /**
+     * Calls for the roomList's method in the model to add a room to itself.
+     * @param room the room we want to add.
+     * @param list the list we want to add the room to.
+     * @return true if the room was added, false if it was already in the list.
+     */
+
+    public boolean addRoomToList (Room room, RoomList list){
+      return list.addRoom(room);
+    }
+
+    /**
+     * Calls for the list's method in the model to add a device to itself.
+     * @param device the device we want to add to a list.
+     * @param list the list we want to add the device to.
+     * @return true if the device was added, false if it was already in the list.
+     */
+
+    public boolean addDeviceToList(Device device, DeviceList list){
+        return list.addDevice(device);
+    }
+
+    /**
+     * Calls for the grid's method in the model to calculate a total nominal power from a given list of devices.
+     * @param grid is the grid we want to calculate power from.
+     * @param selectedDevices is the subset of devices we want to include in the calculation.
+     * @return is the total nominal power of given devices.
+     */
+
+    public double getSelectionNominalPower(EnergyGrid grid, DeviceList selectedDevices){
+        return grid.getSelectionNominalPower(selectedDevices);
+    }
+
+    /**
+     * Calls for the room's method in the model to remove all of its devices from a given list.
+     * @param room is the room that contains the devices we want to remove.
+     * @param deviceList is the list we want to remove the devices from.
+     * @return true if the devices were successfully removed, false if they were not on the list.
+     */
+
+    public boolean removeRoomDevicesFromDeviceList(Room room, DeviceList deviceList){
+       return room.removeRoomDevicesFromDeviceList(deviceList);
+    }
+
+    /**
+     * Calls for the roomList's method in the model to remove a given room from itself.
+     * @param room is the room we want to remove.
+     * @param roomList is the list we want to remove it from.
+     * @return true if the room was removed, false if it wasn't on the list.
+     */
+
+    public boolean removeRoomFromList (Room room, RoomList roomList){
+        return roomList.removeRoom(room);
+    }
+
+    /**
+     * Calls for the deviceList's method in the model to remove a given device from itself.
+     * @param d is the device we want to remove.
+     * @param deviceList is the list we want to remove the device from.
+     * @return true if the device was removed, false if it wasn't on the list.
+     */
+
+    public boolean removeDeviceFromList(Device d, DeviceList deviceList){
+        return deviceList.removeDevice(d);
     }
 
 

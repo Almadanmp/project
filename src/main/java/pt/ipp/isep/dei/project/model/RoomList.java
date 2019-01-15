@@ -12,11 +12,11 @@ public class RoomList {
     private List<Room> mRoomList;
     private String mStringResult = "---------------\n";
     private String mStringInvalidList = "Invalid List - List is Empty\n";
-    private String mStringDesignation =") Designation: ";
+    private String mStringDesignation = ") Designation: ";
     private String mStringHouseFloor = "House Floor: ";
     private String mStringWidth = "Width: ";
-    private String mStringLength ="Length: ";
-    private String mStringHeight ="Height: ";
+    private String mStringLength = "Length: ";
+    private String mStringHeight = "Height: ";
 
 
     public RoomList() {
@@ -95,9 +95,9 @@ public class RoomList {
         return result.toString();
     }
 
-    public List<Device> getDeviceList(){
+    public List<Device> getDeviceList() {
         List<Device> result = new ArrayList<>();
-        for (Room r : this.getRoomList()){
+        for (Room r : this.getRoomList()) {
             result.addAll(r.getDeviceList());
         }
         return result;
@@ -123,7 +123,7 @@ public class RoomList {
     public String printRooms() {
         StringBuilder result = new StringBuilder(this.mStringResult);
         if (this.getRoomList().isEmpty()) {
-            return  this.mStringInvalidList;
+            return this.mStringInvalidList;
         }
         for (int i = 0; i < this.getRoomList().size(); i++) {
             Room aux = this.getRoomList().get(i);
@@ -138,15 +138,17 @@ public class RoomList {
         return result.toString();
     }
 
-    public boolean contains(Room room){
+    public boolean contains(Room room) {
         return (this.mRoomList.contains(room));
     }
 
-    void removeRoom(Room room){
-        this.mRoomList.remove(room);
+    public boolean removeRoom(Room room) {
+        if (this.contains(room)) {
+            this.mRoomList.remove(room);
+            return true;
+        }
+        return false;
     }
-
-
 
 
     @Override

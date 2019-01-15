@@ -360,10 +360,10 @@ class HouseTest {
         Device d1 = new Device("WaterHeater1", 30, new WaterHeater());
         Device d2 = new Device("Fridge", 50, new Fridge());
         DeviceList deviceList1 = new DeviceList();
-        deviceList1.addDevices(d1);
+        deviceList1.addDevice(d1);
         r1.setDeviceList(deviceList1);
         DeviceList deviceList2 = new DeviceList();
-        deviceList2.addDevices(d2);
+        deviceList2.addDevice(d2);
         r2.setDeviceList(deviceList2);
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);

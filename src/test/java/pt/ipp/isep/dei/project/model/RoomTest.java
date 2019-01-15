@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.controller.EGConsumptionController;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
@@ -127,7 +128,7 @@ public class RoomTest {
     @Test
     void SeeIfPrintListOfDevicesFromRoomWorksNone(){
         Room room = new Room("cozinha",0,1,1,1);
-        String result = room.printListOfDevicesFromRoom(room);
+        String result = room.printDeviceList();
         String expectedResult = "This room has no devices on it\n";
         assertEquals(expectedResult,result);
     }
@@ -136,10 +137,10 @@ public class RoomTest {
     void SeeIfPrintListOfDevicesFromRoomWorks(){
         DeviceList deviceList = new DeviceList();
         Device d1 = new Device("frigorifico",230,new Fridge());
-        deviceList.addDevices(d1);
+        deviceList.addDevice(d1);
         Room room = new Room("cozinha",0,1,1,1);
         room.setDeviceList(deviceList);
-        String result = room.printListOfDevicesFromRoom(room);
+        String result = room.printDeviceList();
         String expectedResult ="---------------\n" +
                 "\n" +
                 "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 230.0\n" +
@@ -354,9 +355,9 @@ public class RoomTest {
         Device d2 = new Device("d2",10, f1);
         Device d3 = new Device("d3",1, f1);
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevices(d1);
-        deviceList.addDevices(d2);
-        deviceList.addDevices(d3);
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
         Room room1 = new Room("room1", 19, 5, 3, 3);
         room1.setDeviceList(deviceList);
         double expectedResult = 23;

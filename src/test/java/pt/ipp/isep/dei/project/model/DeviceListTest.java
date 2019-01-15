@@ -29,9 +29,9 @@ class DeviceListTest {
         //Device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
-        deviceL1.addDevices(d1);
+        deviceL1.addDevice(d1);
         //Act
-        Boolean actualResult = deviceL1.addDevices(d1);
+        Boolean actualResult = deviceL1.addDevice(d1);
         //Assert
         assertEquals(false, actualResult);
     }
@@ -53,9 +53,9 @@ class DeviceListTest {
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device("FridgeTwo", 12, new Fridge());
         Device device2 = new Device("FridgeOne", 12, new Fridge());
-        deviceL1.addDevices(d1);
+        deviceL1.addDevice(d1);
         //Act
-        Boolean actualResult = deviceL1.addDevices(device2);
+        Boolean actualResult = deviceL1.addDevice(device2);
         //Assert
         assertEquals(true, actualResult);
     }
@@ -76,7 +76,7 @@ class DeviceListTest {
         //Device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
-        deviceL1.addDevices(d1);
+        deviceL1.addDevice(d1);
         //Act ------------------------------
         boolean result = deviceL1.containsDevice(d1);
         //Assert ---------------------------
@@ -121,7 +121,7 @@ class DeviceListTest {
         //Device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
-        deviceL1.addDevices(d1);
+        deviceL1.addDevice(d1);
         //Act ----------------------------
         deviceL1.removeDevice(d1);
         boolean result = deviceL1.containsDevice(d1);
@@ -145,7 +145,7 @@ class DeviceListTest {
         //Device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
-        deviceL1.addDevices(d1);
+        deviceL1.addDevice(d1);
         //Act ----------------------------
         boolean result = deviceL1.containsDevice(d1);
         //Assert -------------------------
@@ -168,7 +168,7 @@ class DeviceListTest {
         //Device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
-        deviceL1.addDevices(d1);
+        deviceL1.addDevice(d1);
         //Act ----------------------------------
         boolean result = deviceL1.checkIfListIsValid();
         //Assert -------------------------------
@@ -201,7 +201,7 @@ class DeviceListTest {
         //Arrange
         Device device = new Device("frigorifico", 200, new Fridge());
         DeviceList dlist = new DeviceList();
-        dlist.addDevices(device);
+        dlist.addDevice(device);
         //Act
         List<Integer> result = dlist.matchDeviceIndexByString("frigorifico");
         List<Integer> expectedResult = Collections.singletonList(dlist.getDeviceList().indexOf(device));
@@ -220,8 +220,8 @@ class DeviceListTest {
         d1.setmParentRoom(room);
         d2.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
-        dlist.addDevices(d1);
-        dlist.addDevices(d2);
+        dlist.addDevice(d1);
+        dlist.addDevice(d2);
 
         //Act
         String result = dlist.printElementsByIndex(list);
@@ -249,10 +249,10 @@ class DeviceListTest {
         //Arrange
         DeviceList dList1 = new DeviceList();
         Device device1 = new Device();
-        dList1.addDevices(device1);
+        dList1.addDevice(device1);
         DeviceList dList2 = new DeviceList();
         Device device2 = new Device();
-        dList2.addDevices(device2);
+        dList2.addDevice(device2);
         //Act
         Boolean actualResult = dList1.equals(dList1);
         //Assert
@@ -265,9 +265,9 @@ class DeviceListTest {
         //Arrange
         DeviceList dList1 = new DeviceList();
         Device device1 = new Device();
-        dList1.addDevices(device1);
+        dList1.addDevice(device1);
         DeviceList dList2 = new DeviceList();
-        dList2.addDevices(device1);
+        dList2.addDevice(device1);
         //Act
         boolean actualResult = dList1.equals(dList2);
         //Assert
@@ -279,7 +279,7 @@ class DeviceListTest {
         //Arrange
         DeviceList dList1 = new DeviceList();
         Device device1 = new Device();
-        dList1.addDevices(device1);
+        dList1.addDevice(device1);
         //Act
         boolean actualResult = dList1.equals(device1);
         //Assert
@@ -293,10 +293,22 @@ class DeviceListTest {
         DeviceList dList2 = new DeviceList();
         Device device1 = new Device();
         Device device2 = new Device();
-        dList1.addDevices(device1);
-        dList2.addDevices(device2);
+        dList1.addDevice(device1);
+        dList2.addDevice(device2);
         //Act
         boolean actualResult = dList1.equals(dList2);
         assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfPrintDevicesWorks(){
+        Device d1 = new Device("Fridge", 21, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        String expectedResult = "0) The Device Name is Fridge, and its NominalPower is 21.0 kW.\n";
+
+        String actualResult = deviceList.printDevices();
+
+        assertEquals(expectedResult,actualResult);
     }
 }

@@ -49,7 +49,7 @@ public class EnergyGrid implements Metered {
         DeviceList devices = new DeviceList();
         for (Room r : mRoomList.getRoomList()) {
             for (int i = 0; i < r.getDeviceList().size(); i++) {
-                devices.addDevices(r.getDeviceList().get(i));
+                devices.addDevice(r.getDeviceList().get(i));
             }
         }
         return devices;
@@ -83,7 +83,7 @@ public class EnergyGrid implements Metered {
         return false;
     }
 
-    void setNominalPower(double nominalPower) {
+    private void setNominalPower(double nominalPower) {
         this.mNominalPower = nominalPower;
     }
 
@@ -123,27 +123,35 @@ public class EnergyGrid implements Metered {
         return result.toString();
     }
 
-    public List<Metered> getRoomsAndDevices() {
-        List<Metered> result = new ArrayList<>(this.getRoomList());
-        result.addAll(this.getDeviceList());
-        return result;
-    }
-
-    public double getSumNominalPowerByIndex(List<Integer> indexes) {
-        List<Metered> meteredList = this.getRoomsAndDevices();
-        double result = 0;
-        for (int index : indexes) {
-            result += meteredList.get(index).getNominalPower();
-        }
-        return result;
-    }
-
     public boolean removeRoom(Room room) {
         if (this.mRoomList.contains(room)) {
             this.mRoomList.removeRoom(room);
             return true;
         }
         return false;
+    }
+
+    public String printDeviceList(){
+        int counter = 0;
+        StringBuilder result = new StringBuilder();
+       for (Device d: this.getDeviceList()){
+            result.append(counter).append(") ").append(d.printDevice());
+            counter++;
+       }
+        return result.toString();
+    }
+
+    public String printRoomList(){
+        return this.mRoomList.printRooms();
+    }
+
+    public double getSelectionNominalPower(DeviceList selectedDevices){
+        double result = 0;
+        List<Metered> selectedList = new ArrayList<>(selectedDevices.getDeviceList());
+        for (Metered m : selectedList){
+            result += m.getNominalPower();
+        }
+        return result;
     }
 
     /**

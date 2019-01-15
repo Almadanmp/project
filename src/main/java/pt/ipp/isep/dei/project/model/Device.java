@@ -50,7 +50,7 @@ public class Device implements Metered {
 
     public String printDevice(){
         String result;
-        result = "The Device Name is " + this.mName + ", which is in the Room " + this.mParentRoom.getRoomName() + ", and its NominalPower is " +
+        result = "The Device Name is " + this.mName + ", and its NominalPower is " +
                 getNominalPower() + " kW.\n";
         return result;
     }

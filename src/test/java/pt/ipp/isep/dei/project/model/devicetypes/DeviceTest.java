@@ -58,7 +58,7 @@ public class DeviceTest {
         Room room = new Room("kitchen", 1, 1, 1, 1);
         d1.setmParentRoom(room);
         String result = d1.printDevice();
-        String expectedResult = "The Device Name is frigo, which is in the Room kitchen, and its NominalPower is 150.0 kW.\n";
+        String expectedResult = "The Device Name is frigo, and its NominalPower is 150.0 kW.\n";
         assertEquals(expectedResult, result);
     }
 

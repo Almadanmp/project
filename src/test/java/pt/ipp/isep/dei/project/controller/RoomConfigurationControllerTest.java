@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.controller;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
@@ -135,9 +134,9 @@ class RoomConfigurationControllerTest {
         Device d2 = new Device("d2",10, f1);
         Device d3 = new Device("d3",1, f1);
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevices(d1);
-        deviceList.addDevices(d2);
-        deviceList.addDevices(d3);
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
         Room room1 = new Room("room1", 19, 5, 3, 3);
         room1.setDeviceList(deviceList);
         double expectedResult = 23;
@@ -330,8 +329,8 @@ class RoomConfigurationControllerTest {
         d1.setmParentRoom(room);
         d2.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
-        dlist.addDevices(d1);
-        dlist.addDevices(d2);
+        dlist.addDevice(d1);
+        dlist.addDevice(d2);
         room.setDeviceList(dlist);
 
         //Act
@@ -349,7 +348,7 @@ class RoomConfigurationControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         d1.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
-        dlist.addDevices(d1);
+        dlist.addDevice(d1);
         room.setDeviceList(dlist);
         //Act
         List<Integer> result = ctrl.matchDeviceIndexByString("frigorifico", room);
@@ -365,10 +364,10 @@ class RoomConfigurationControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         d1.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
-        dlist.addDevices(d1);
+        dlist.addDevice(d1);
         room.setDeviceList(dlist);
         String result = ctrl.printDevice(d1);
-        String expectedResult = "The Device Name is frigorifico, which is in the Room kitchen, and its NominalPower is 200.0 kW.\n";
+        String expectedResult = "The Device Name is frigorifico, and its NominalPower is 200.0 kW.\n";
         assertEquals(expectedResult,result);
     }
 
@@ -379,7 +378,7 @@ class RoomConfigurationControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         d1.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
-        dlist.addDevices(d1);
+        dlist.addDevice(d1);
         room.setDeviceList(dlist);
         String result = ctrl.printDeviceList(room);
         String expectedResult = "---------------\n" +

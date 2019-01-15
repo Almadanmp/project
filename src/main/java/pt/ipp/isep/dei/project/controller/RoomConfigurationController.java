@@ -192,7 +192,7 @@ public class RoomConfigurationController {
      * @return string with all the devices in the given room.
      */
     public String printDeviceList(Room room){
-        return room.printListOfDevicesFromRoom(room);
+        return room.printDeviceList();
     }
 
     /**

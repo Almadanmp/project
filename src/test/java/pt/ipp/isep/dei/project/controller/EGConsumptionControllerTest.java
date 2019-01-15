@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
@@ -25,9 +26,9 @@ class EGConsumptionControllerTest {
         Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
         Device d3 = new Device("Fridge", 10, new Fridge());
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevices(d1);
-        deviceList.addDevices(d2);
-        deviceList.addDevices(d3);
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
         r1.setDeviceList(deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
@@ -47,30 +48,294 @@ class EGConsumptionControllerTest {
     }
 
     @Test
-    void seeIfGetSumNominalPowerByIndexWorks() {
+    void seeIfAddRoomDevicesToDeviceList() {
+
         //Arrange
 
-        EnergyGrid grid = new EnergyGrid();
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         Device d1 = new Device("WaterHeater", 21, new WaterHeater());
         Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
         Device d3 = new Device("Fridge", 10, new Fridge());
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevices(d1);
-        deviceList.addDevices(d2);
-        deviceList.addDevices(d3);
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
         r1.setDeviceList(deviceList);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(r1);
-        grid.setRoomList(roomList);
-        List<Integer> indexes = new ArrayList<>();
-        indexes.add(3);
-        indexes.add(0);
+        DeviceList deviceList1 = new DeviceList();
         EGConsumptionController controller = new EGConsumptionController();
-        double expectedResult = 96;
+        boolean expectedResult = true;
 
         //Act
-        double actualResult = controller.getSumNominalPowerByIndex(indexes,grid);
+        boolean actualResult = controller.addRoomDevicesToDeviceList(r1, deviceList1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfRemoveRoomDevicesToDeviceListTrue() {
+
+        //Arrange
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d3 = new Device("Fridge", 10, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
+        r1.setDeviceList(deviceList);
+        DeviceList deviceList1 = new DeviceList();
+        deviceList1.addDevice(d1);
+        deviceList1.addDevice(d2);
+        deviceList1.addDevice(d3);
+        EGConsumptionController controller = new EGConsumptionController();
+        boolean expectedResult = true;
+
+        //Act
+        boolean actualResult = controller.removeRoomDevicesFromDeviceList(r1, deviceList1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfRemoveRoomDevicesToDeviceListFalse() {
+
+        //Arrange
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d3 = new Device("Fridge", 10, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
+        r1.setDeviceList(deviceList);
+        DeviceList deviceList1 = new DeviceList();
+        EGConsumptionController controller = new EGConsumptionController();
+        boolean expectedResult = true;
+
+        //Act
+        boolean actualResult = controller.removeRoomDevicesFromDeviceList(r1, deviceList1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddRoomDevicesToDeviceListFalse() {
+
+        //Arrange
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d3 = new Device("Fridge", 10, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
+        r1.setDeviceList(deviceList);
+        DeviceList deviceList1 = null;
+        EGConsumptionController controller = new EGConsumptionController();
+        boolean expectedResult = false;
+
+        //Act
+        boolean actualResult = controller.removeRoomDevicesFromDeviceList(r1, deviceList1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddRoomToListWorksTrue() {
+
+        //Arrange
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
+        RoomList roomList = new RoomList();
+        boolean expectedResult = true;
+        EGConsumptionController controller = new EGConsumptionController();
+
+        //Act
+        boolean actualResult = controller.addRoomToList(r1, roomList);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfRemoveRoomFromListWorksTrue() {
+
+        //Arrange
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(r1);
+        boolean expectedResult = true;
+        EGConsumptionController controller = new EGConsumptionController();
+
+        //Act
+        boolean actualResult = controller.removeRoomFromList(r1, roomList);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfRemoveRoomFromListWorkFalse() {
+
+        //Arrange
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
+        RoomList roomList = new RoomList();
+        boolean expectedResult = false;
+        EGConsumptionController controller = new EGConsumptionController();
+
+        //Act
+        boolean actualResult = controller.removeRoomFromList(r1, roomList);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddRoomToListWorksFalse() {
+
+        //Arrange
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(r1);
+        boolean expectedResult = false;
+        EGConsumptionController controller = new EGConsumptionController();
+
+        //Act
+        boolean actualResult = controller.addRoomToList(r1, roomList);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddDeviceToListWorksTrue() {
+
+        //Arrange
+
+        Device d1 = new Device("Fridge", 20, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        boolean expectedResult = true;
+        EGConsumptionController controller = new EGConsumptionController();
+
+        //Act
+        boolean actualResult = controller.addDeviceToList(d1, deviceList);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddDeviceToListWorksFalse() {
+
+        //Arrange
+
+        Device d1 = new Device("Fridge", 20, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        boolean expectedResult = false;
+        EGConsumptionController controller = new EGConsumptionController();
+
+        //Act
+        boolean actualResult = controller.addDeviceToList(d1, deviceList);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfRemoveDeviceFromListWorksFalse() {
+
+        //Arrange
+
+        Device d1 = new Device("Fridge", 20, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        boolean expectedResult = false;
+        EGConsumptionController controller = new EGConsumptionController();
+
+        //Act
+        boolean actualResult = controller.removeDeviceFromList(d1, deviceList);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfRemoveDeviceFromListWorksTrue() {
+
+        //Arrange
+
+        Device d1 = new Device("Fridge", 20, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        boolean expectedResult = true;
+        EGConsumptionController controller = new EGConsumptionController();
+
+        //Act
+        boolean actualResult = controller.removeDeviceFromList(d1, deviceList);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+
+    @Test
+    void seeIfGetSumNominalPowerFromListWorks() {
+        //Arrange
+
+        EnergyGrid grid = new EnergyGrid();
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d3 = new Device("Fridge", 10, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
+        EGConsumptionController controller = new EGConsumptionController();
+        double expectedResult= 86;
+
+        //Act
+        double actualResult = controller.getSelectionNominalPower(grid,deviceList);
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfGetSumNominalPowerFromListWorksZero() {
+        //Arrange
+
+        EnergyGrid grid = new EnergyGrid();
+        DeviceList deviceList = new DeviceList();
+        EGConsumptionController controller = new EGConsumptionController();
+        double expectedResult= 0;
+
+        //Act
+        double actualResult = controller.getSelectionNominalPower(grid,deviceList);
 
         //Assert
         assertEquals(expectedResult,actualResult);
@@ -85,15 +350,15 @@ class EGConsumptionControllerTest {
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge());
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 30, 1,0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 20, 10,0.9));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 30, 1, 0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 20, 10, 0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device("fridgeTwo", 12, new Fridge());
-        Device d5 = new Device("wHeater3", 12, new WaterHeater(300, 15, 1,0.9));
-        Device d6 = new Device("wHeater4", 11, new WaterHeater(400, 20, 12,0.9));
+        Device d5 = new Device("wHeater3", 12, new WaterHeater(300, 15, 1, 0.9));
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400, 20, 12, 0.9));
         r2.addDevice(d4);
         r2.addDevice(d5);
         r2.addDevice(d6);
