@@ -136,10 +136,6 @@ class RoomConfigurationUI {
     private boolean getInputRoomByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        if (mHouse.getRoomList().isEmpty()) {
-            System.out.println("Invalid Room List - List Is Empty\n");
-            return true;
-        }
         System.out.println("Please select one of the existing Rooms in the House: ");
         System.out.println(mRoomConfigurationController.printRoomList(mHouse));
         int aux = inputUtils.readInputNumberAsInt();
