@@ -109,8 +109,8 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 6: //US253
-                    if (mGeoArea.getSensorList().getSensorList().isEmpty() || mGeoArea.getSensorList() == null) {
-                        System.out.println("There's no available sensors in the Geographical Area");
+                    if (typeSensorList.isEmpty()) {
+                        System.out.println("There's no defined types of sensor available yet. Please define one first.");
                         return;
                     }
                     if(getInputRoomByList()){
@@ -587,6 +587,7 @@ class RoomConfigurationUI {
         if (ctrl.addSensorToRoom(mRoom,mSensor)) {
             System.out.println("\nSensor successfully added to the Room " + mRoom.getRoomName());
         }
+        else System.out.println("\nSensor already exists in the room.");
     }
 
 
