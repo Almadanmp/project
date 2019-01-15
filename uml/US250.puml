@@ -1,4 +1,5 @@
 @startuml
+autonumber
 actor Admin
 Admin -> MainUI: Get List Of\nSensors in a Room
 MainUI -> RoomConfigurationUI: getInputRoom()
@@ -9,14 +10,10 @@ RoomList --> RoomConfigurationUI: return false
 RoomConfigurationUI -> RoomConfigurationController: printRoomList()
 RoomConfigurationController --> Admin: Display RoomList
 Admin --> MainUI: Select Room
-MainUI -> RoomConfigurationUI: getInputSensorByListFromRoom()
+MainUI -> RoomConfigurationUI: displaySensorListUS250()
 RoomConfigurationUI -> Room : getmRoomSensorList()
 Room -> Room: isEmpty()
 Room --> RoomConfigurationUI: return false
 RoomConfigurationUI -> RoomConfigurationController: printSensorList()
 RoomConfigurationController --> Admin: Display SensorList
-Admin --> MainUI: Select Sensor
-MainUI -> RoomConfigurationUI: get(SelectedSensor)
-RoomConfigurationUI -> SensorList: get(SelectedSensor)
-SensorList --> Admin: "You have chosen the following Sensor: Selected Sensor"
 @enduml
