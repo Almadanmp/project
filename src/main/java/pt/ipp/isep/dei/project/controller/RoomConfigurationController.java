@@ -9,7 +9,6 @@ public class RoomConfigurationController {
 
     private Room mRoom;
     private Sensor mSensor;
-    private Device mDevice;
 
     /**
      * Empty constructor.
@@ -23,13 +22,6 @@ public class RoomConfigurationController {
     }
 
     //  SHARED METHODS
-    /* USER STORY 210 - As an Administrator, I want to add a new device to a room from the list of available
-    device types, so that I can configure it. - MARIA MEIRELES */
-
-    public void createDevice(String deviceName, double nominalPower, DeviceSpecs deviceSpecs) {
-        this.mDevice = new Device(deviceName, nominalPower, deviceSpecs);
-    }
-
 
     /**
      *
@@ -206,7 +198,7 @@ public class RoomConfigurationController {
     /**
      *
      * @param
-     * @return
+     * @return a string with the list of available device types by index
      */
     public String printDeviceTypeList(List<DeviceType> deviceTypeList){
         DeviceType deviceType= DeviceType.WATER_HEATER;
