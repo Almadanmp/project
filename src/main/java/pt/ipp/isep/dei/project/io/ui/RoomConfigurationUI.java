@@ -103,7 +103,7 @@ class RoomConfigurationUI {
                     if (getInputRoomByList()) {
                         return;
                     }
-                    getInputSensorFromRoomByList(mRoom);
+                    displaySensorListUS250(mRoom);
                     activeInput = false;
                     break;
                 case 6: //US253
@@ -498,7 +498,7 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
 
-    private void getInputSensorFromRoomByList(Room room) {
+    private void displaySensorListUS250(Room room) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         SensorList sensorList = room.getmRoomSensorList();
         System.out.println(ctrl.printSensorList(sensorList));
