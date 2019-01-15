@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 class InputUtils {
 
-    public void returnToMenu(Scanner scanner) {
+    void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();
@@ -23,10 +23,10 @@ class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (house.getRoomList().isEmpty()) {
-            System.out.println("Invalid Room List - List Is Empty\n");
+            System.out.println("Invalid room list - List is empty\n");
             return null;
         }
-        System.out.println("Please select one of the existing Rooms in the House: ");
+        System.out.println("Please select one of the existing rooms in the house: ");
         System.out.println(house.printRoomList());
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < house.getRoomList().size()) {
@@ -45,10 +45,10 @@ class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (grid.getRoomList().isEmpty()) {
-            System.out.println("Invalid Room List - List Is Empty\n");
+            System.out.println("Invalid room list - List is empty\n");
             return null;
         }
-        System.out.println("Please select one of the existing Rooms in the House: ");
+        System.out.println("Please select one of the existing rooms in the house: ");
         System.out.println(grid.printRoomList());
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < grid.getRoomList().size()) {
@@ -67,15 +67,15 @@ class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (grid.getDeviceList().isEmpty()) {
-            System.out.println("Invalid Device List - List Is Empty\n");
+            System.out.println("Invalid device list - List is empty\n");
             return null;
         }
-        System.out.println("Please select one of the existing Devices in the selected Room: ");
+        System.out.println("Please select one of the existing devices in the selected room: ");
         System.out.println(grid.printDeviceList());
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < grid.getDeviceList().size()) {
             Device result = grid.getDeviceList().get(aux);
-            String stringRequestDevice = "You have chosen the following Device:";
+            String stringRequestDevice = "You have chosen the following device:";
             System.out.println(stringRequestDevice);
             System.out.println(result.printDevice());
             return result;
@@ -89,12 +89,12 @@ class InputUtils {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         EnergyGrid result = new EnergyGrid();
         if (house == null) {
-            System.out.println("The selected house is NOT a valid one\n" + "Returning to main menu\n");
+            System.out.println("The selected house is not a valid one\n" + "Returning to main menu\n");
             return null;
         }
         UtilsUI utilsUI = new UtilsUI();
         if (house.getEGList().getEnergyGridList().isEmpty()) {
-            System.out.print("Invalid Grid List - List Is Empty\n" + "Returning to main menu\n");
+            System.out.print("Invalid grid list - List is empty\n" + "Returning to main menu\n");
             return null;
         }
         boolean activeInput = false;
@@ -116,14 +116,14 @@ class InputUtils {
     boolean yesOrNo(String answer, String question){
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
-        while (!(answer.equalsIgnoreCase("y")) && !(answer.equalsIgnoreCase("n"))) {
+        while (!("y".equalsIgnoreCase(answer)) && !("n".equalsIgnoreCase(answer))) {
             System.out.println(utils.invalidOption);
             System.out.println(question);
             answer = scanner.nextLine();
         }
-        if (answer.equalsIgnoreCase("y")) {
+        if ("y".equalsIgnoreCase(answer)) {
             return true;
-        } else return !answer.equalsIgnoreCase("n");
+        } else return !"n".equalsIgnoreCase(answer);
     }
 
     /**
