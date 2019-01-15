@@ -13,7 +13,7 @@ class EGConsumptionUI {
         this.controller = new EGConsumptionController();
     }
 
-    private Scanner enterToReturnToConsole = new Scanner(System.in);
+    private Scanner returnToConsole = new Scanner(System.in);
 
     void run(House programHouse) {
         InputUtils inputUtils = new InputUtils();
@@ -85,7 +85,7 @@ class EGConsumptionUI {
                 case 3:
                     printSelection(selectedDevices, selectedRooms);
                     printSelectionNominalPower(grid, selectedDevices);
-                    inputs.returnToMenu(enterToReturnToConsole);
+                    inputs.returnToMenu(returnToConsole);
                     break;
                 case 4:
                     return;
@@ -154,7 +154,7 @@ class EGConsumptionUI {
             }
             return;
         }
-        if (!(d1 == null)) {
+        if (d1 != null) {
             controller.addDeviceToList(d1, selectedDevices);
         }
     }
@@ -179,7 +179,6 @@ class EGConsumptionUI {
      */
 
     private void printSelectionNominalPower(EnergyGrid grid, DeviceList selectedDevices) {
-        EGConsumptionController controller = new EGConsumptionController();
         double totalPower = controller.getSelectionNominalPower(grid, selectedDevices);
         System.out.println("The total nominal power for the selected subset is " + totalPower + " kW/h.");
     }
