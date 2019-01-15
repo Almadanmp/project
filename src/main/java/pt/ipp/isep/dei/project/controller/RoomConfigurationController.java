@@ -12,6 +12,7 @@ public class RoomConfigurationController {
 
     private Room mRoom;
     private Sensor mSensor;
+    private Device mDevice;
 
     /**
      * Empty constructor.
@@ -28,13 +29,15 @@ public class RoomConfigurationController {
     /* USER STORY 210 - As an Administrator, I want to add a new device to a room from the list of available
     device types, so that I can configure it. - MARIA MEIRELES */
 
-
+    public void createDevice(String deviceName, double nominalPower, DeviceSpecs deviceSpecs) {
+        this.mDevice = new Device(deviceName, nominalPower, deviceSpecs);
+    }
 
 
     /**
      *
      * @param roomName is the name of the room we want to look for.
-     * @param house is the house where we want to look for the room.
+     * @param house    is the house where we want to look for the room.
      * @return is the room in the House with the name that matches given string. Is null if no Room matches.
      */
 
@@ -190,7 +193,9 @@ public class RoomConfigurationController {
      * @param device the device we want to print.
      * @return string with the given device.
      */
-    public String printDevice(Device device){return device.printDevice();}
+    public String printDevice(Device device) {
+        return device.printDevice();
+    }
 
     /**
      *
@@ -200,6 +205,7 @@ public class RoomConfigurationController {
     public String printDeviceList(Room room){
         return room.printListOfDevicesFromRoom(room);
     }
+
 
     public String printDeviceType(DeviceType deviceType){return deviceType.printDeviceType(deviceType);}
 

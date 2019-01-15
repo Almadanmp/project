@@ -9,6 +9,12 @@ public class Fridge implements DeviceSpecs, Metered {
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
 
+    public Fridge (){}
+
+    public Fridge (double mFreezerCapacity, double mRefrigeratorCapacity){
+        this.mFreezerCapacity = mFreezerCapacity;
+        this.mRefrigeratorCapacity = mRefrigeratorCapacity;
+    }
     void setNominalPower(double nominalPower) { this.mNominalPower = nominalPower;}
 
     public DeviceType getType() {
