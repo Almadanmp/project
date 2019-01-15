@@ -16,6 +16,33 @@ import static org.testng.Assert.assertTrue;
 public class RoomTest {
 
     @Test
+    void seeIfRemoveDeviceFromRoomWorks() {
+        Device device = new Device("waterheater", 150, new WaterHeater());
+        Device device1 = new Device("skjsjk", 123, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        room.addDevice(device);
+        room.addDevice(device1);
+        room.removeDevice(device1);
+        String result = room.printDeviceList();
+        String expectedResult = "---------------\n" +
+                "\n" +
+                "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfRemoveDeviceFromRoomWorksFalse() {
+        Device device = new Device("waterheater", 150, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        room.addDevice(device);
+        room.removeDevice(device);
+        String result = room.printDeviceList();
+        String expectedResult = "This room has no devices on it\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorks() {
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
