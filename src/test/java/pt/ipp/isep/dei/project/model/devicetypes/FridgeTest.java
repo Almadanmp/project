@@ -32,4 +32,23 @@ public class FridgeTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    public void seeIfGetFreezerCapacity() {
+        Fridge fridge = new Fridge(4,5);
+        double expectedResult = 3;
+        fridge.getFreezerCapacity();
+        fridge.setFreezerCapacity(3);
+        double result = fridge.getFreezerCapacity();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfGetRefrigeratorCapacity() {
+        Fridge fridge = new Fridge(4,5);
+        double expectedResult = 3;
+        fridge.getRefrigeratorCapacity();
+        fridge.setRefrigeratorCapacity(3);
+        double result = fridge.getRefrigeratorCapacity();
+        assertEquals(expectedResult, result);
+    }
 }

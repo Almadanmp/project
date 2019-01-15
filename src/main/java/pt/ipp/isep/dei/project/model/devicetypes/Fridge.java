@@ -32,5 +32,21 @@ public class Fridge implements DeviceSpecs, Metered {
     public double getNominalPower() {
         return this.mNominalPower;
     }
+
+    public double getFreezerCapacity (){
+        return this.mFreezerCapacity;
+    }
+
+    public void setFreezerCapacity(double freezerCapacity){
+        this.mFreezerCapacity = freezerCapacity;
+    }
+
+    public double getRefrigeratorCapacity (){
+        return this.mRefrigeratorCapacity;
+    }
+
+    public void setRefrigeratorCapacity(double refrigeratorCapacity){
+        this.mRefrigeratorCapacity = refrigeratorCapacity;
+    }
 }
 

@@ -25,10 +25,12 @@ public class WashingMachine implements DeviceSpecs, Metered {
     }
 
     public double getNominalPower() {
+
         return this.mNominalPower;
     }
 
     void setNominalPower(double nominalPower) {
+
         this.mNominalPower = nominalPower;
     }
 
