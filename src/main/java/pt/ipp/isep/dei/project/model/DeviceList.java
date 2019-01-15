@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class that groups a number of Devices.

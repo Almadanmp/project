@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 
@@ -21,6 +22,7 @@ class SensorSettingsUI {
     private int dataDay;
     private Sensor mSensor;
     private GeographicArea mGeographicArea;
+    private String mGeoAreaName;
     private GeographicAreaList mGeographicAreaList;
     private List<TypeSensor> mTypeSensorList;
 
@@ -83,6 +85,30 @@ class SensorSettingsUI {
             System.out.println("There are no Types of Sensor defined.");
         } else {
             mController.printTypes(list);
+        }
+    }
+
+    // SHARED METHODS //
+    //GET INPUT GEOGRAPHIC AREA BY LIST //
+
+    private boolean getInputGeographicAreaByList(GeographicAreaList programGAList) {
+        UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
+        if(programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
+            return true;
+        }
+        System.out.println("Please select the Geographic Area in which your House is in from the list: ");
+        SensorSettingsController controller = new SensorSettingsController();
+        System.out.println(controller.printGAList(programGAList));
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < programGAList.getGeographicAreaList().size()) {
+            mGeographicArea = programGAList.getGeographicAreaList().get(aux);
+            mGeoAreaName = mGeographicArea.getId();
+            System.out.println((mGeographicArea.printGeographicArea()));
+            return false;
+        } else {
+            System.out.println(utils.invalidOption);
+            return true;
         }
     }
 
@@ -226,8 +252,7 @@ class SensorSettingsUI {
     }
 
     private void getInputPart306() {
-        UtilsUI utils = new UtilsUI();
-        this.mGeographicArea = utils.getInputGeographicArea(mGeographicAreaList);
+        getInputGeographicAreaByList(mGeographicAreaList);
         updateAndDisplayUS06Part206();
     }
 

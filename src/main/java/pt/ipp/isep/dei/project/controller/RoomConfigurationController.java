@@ -2,9 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
-import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import java.util.List;
 
@@ -25,16 +22,11 @@ public class RoomConfigurationController {
     }
 
     //  SHARED METHODS
-    /* USER STORY 210 - As an Administrator, I want to add a new device to a room from the list of available
-    device types, so that I can configure it. - MARIA MEIRELES */
-
-
-
 
     /**
      *
      * @param roomName is the name of the room we want to look for.
-     * @param house is the house where we want to look for the room.
+     * @param house    is the house where we want to look for the room.
      * @return is the room in the House with the name that matches given string. Is null if no Room matches.
      */
 
@@ -190,7 +182,9 @@ public class RoomConfigurationController {
      * @param device the device we want to print.
      * @return string with the given device.
      */
-    public String printDevice(Device device){return device.printDevice();}
+    public String printDevice(Device device) {
+        return device.printDevice();
+    }
 
     /**
      *
@@ -201,12 +195,10 @@ public class RoomConfigurationController {
         return room.printListOfDevicesFromRoom(room);
     }
 
-    public String printDeviceType(DeviceType deviceType){return deviceType.printDeviceType(deviceType);}
-
     /**
      *
      * @param
-     * @return
+     * @return a string with the list of available device types by index
      */
     public String printDeviceTypeList(List<DeviceType> deviceTypeList){
         DeviceType deviceType= DeviceType.WATER_HEATER;
@@ -217,55 +209,22 @@ public class RoomConfigurationController {
         return deviceType.printDeviceTypeByIndex();
     }
 
-
-
-    public void setVolumeWater(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WATER_HEATER){
-            WaterHeater waterHeater = new WaterHeater();
-            waterHeater.setVolumeOfWater(input);
-        }
+    /**
+     *
+     * @param room room from which we want to remove the device.
+     * @param device device we want to remove.
+     */
+    public void removeDeviceFromRoom(Room room, Device device){
+        room.removeDevice(device);
     }
 
-    public void setHotWaterTemp(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WATER_HEATER){
-            WaterHeater waterHeater = new WaterHeater();
-            waterHeater.setHotWaterTemperature(input);
-        }
-    }
-
-    public void setColdWaterTemp(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WATER_HEATER){
-            WaterHeater waterHeater = new WaterHeater();
-            waterHeater.setColdWaterTemperature(input);
-        }
-    }
-
-    public void setPerformanceRatio(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WATER_HEATER){
-            WaterHeater waterHeater = new WaterHeater();
-            waterHeater.setPerformanceRatio(input);
-        }
-    }
-
-
-    public void setCapacity(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WASHING_MACHINE){
-            WashingMachine waterHeater = new WashingMachine();
-            waterHeater.setmCapacity(input);
-        }
-    }
-    public void setFreezerCapacity(double input, Device device){
-        if(device.getDeviceType() == DeviceType.FRIDGE){
-            Fridge fridge = new Fridge();
-            fridge.setFreezerCapacity(input);
-        }
-    }
-
-    public void setRefrigeratorCapacity(double input, Device device){
-        if(device.getDeviceType() == DeviceType.FRIDGE){
-            Fridge fridge = new Fridge();
-            fridge.setmRefrigeratorCapacity(input);
-        }
+    /**
+     *
+     * @param room from which we want to remove the device.
+     * @param device device we want to remove.
+     */
+    public void addDeviceToRoom(Room room, Device device){
+        room.addDevice(device);
     }
 
     /**
@@ -276,7 +235,6 @@ public class RoomConfigurationController {
     public void setDeviceName(String input, Device device) {
         device.setmName(input);
     }
-
 
     /**
      *
@@ -311,6 +269,7 @@ public class RoomConfigurationController {
         result.append("---------------\n");
         return result.toString();
     }
+
     public boolean addSensorToRoom(Room room,Sensor sensor) {
         return (room.addSensor(sensor));
     }

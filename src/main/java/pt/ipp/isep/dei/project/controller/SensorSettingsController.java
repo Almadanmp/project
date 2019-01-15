@@ -21,6 +21,16 @@ public class SensorSettingsController {
 
     //SHARED METHODS THROUGH DIFFERENT UIS
 
+    /**
+     * @param geoAreaList is the list of Geographic Areas we want to print.
+     * @return builds a string with each individual member of the given list.
+     */
+
+    public String printGAList(GeographicAreaList geoAreaList) {
+        return geoAreaList.printGaWholeList(geoAreaList);
+    }
+
+
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
     public void printTypes(List<TypeSensor> typeList) {

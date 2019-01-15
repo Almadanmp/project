@@ -251,7 +251,7 @@ class GASettingsControllerTest {
     void seeIfCreatesGeographicAreaAndAddsItToList() {
         GeographicAreaList geoList = new GeographicAreaList();
         String name = "Porto";
-        String typeArea = "Distrito";
+        TypeArea typeArea = new TypeArea("Distrito");
         double latitude = 38;
         double longitude = 7;
         double altitude = 5;
@@ -268,7 +268,7 @@ class GASettingsControllerTest {
     void seeIfFailsCreatingSecondEqualGeographicArea() {
         GeographicAreaList geoList = new GeographicAreaList();
         String name = "Porto";
-        String typeArea = "Distrito";
+        TypeArea typeArea = new TypeArea("Distrito");
         double latitude = 38;
         double longitude = 7;
         double altitude = 5;
@@ -289,7 +289,7 @@ class GASettingsControllerTest {
     void seeIfCreatesTwoDifferentGeographicAreas() {
         GeographicAreaList geoList = new GeographicAreaList();
         String name1 = "Porto";
-        String typeArea = "Distrito";
+        TypeArea typeArea = new TypeArea("Distrito");
         double latitude = 38;
         double longitude = 7;
         double altitude = 5;
@@ -309,7 +309,7 @@ class GASettingsControllerTest {
     @Test
     void seeIfFailsWithNullInputGeoList() {
         String name1 = "Porto";
-        String typeArea = "Distrito";
+        TypeArea typeArea = new TypeArea("Distrito");
         double latitude = 38;
         double longitude = 7;
         double altitude = 5;

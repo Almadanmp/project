@@ -23,5 +23,4 @@ RoomConfigurationUI -> RoomConfigurationController: updateDeviceUS215(room, name
 RoomConfigurationController -> Device: setDeviceName(),\n setDeviceNominalPower(),\n removeDeviceFromRoom(),\n addDeviceFromRoom()
 Device -> Device: validate settings
 Device--> Admin: displayDeviceUS215()
-
 @enduml

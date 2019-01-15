@@ -370,8 +370,8 @@ public class RoomTest {
     void getDailyRoomConsumptionPerTypeTest() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge());
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500,30,1));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10,0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500,30,1,0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);

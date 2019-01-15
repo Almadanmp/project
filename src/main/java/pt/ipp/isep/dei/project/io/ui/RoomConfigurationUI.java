@@ -34,7 +34,6 @@ class RoomConfigurationUI {
     private String mStringRequestRoom = "You have chosen the following Room:";
     private String mStringRequestDevice = "You have chosen the following Device:";
     private String mStringChosenSensor = "You have chosen the following Sensor:";
-    private DeviceSpecs mDeviceSpecs;
     private TypeSensor mTypeSensor;
     private int mDataYear;
     private int mDataMonth;
@@ -73,12 +72,17 @@ class RoomConfigurationUI {
                     if (getInputRoomByList()) {
                         return;
                     }
-                    printRoomDeviceList(mRoom);
+                    printRoomDeviceList();
                     activeInput = false;
                     break;
                 case 2: //US210
-                    getInputDeviceTypeByList(deviceTypeList);
-                    createDevice(mDeviceType);
+                    if (getInputRoomByList()) {
+                        return;
+                    }
+                    if (getInputDeviceTypeByList(deviceTypeList)) {
+                        return;
+                    }
+                    createDevice();
                     displayDeviceUS210();
                     activeInput = false;
                     break;
@@ -103,7 +107,7 @@ class RoomConfigurationUI {
                     if (getInputRoomByList()) {
                         return;
                     }
-                    getInputSensorFromRoomByList(mRoom);
+                    displaySensorListUS250();
                     activeInput = false;
                     break;
                 case 6: //US253
@@ -136,10 +140,6 @@ class RoomConfigurationUI {
     private boolean getInputRoomByList() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        if (mHouse.getRoomList().isEmpty()) {
-            System.out.println("Invalid Room List - List Is Empty\n");
-            return true;
-        }
         System.out.println("Please select one of the existing Rooms in the House: ");
         System.out.println(mRoomConfigurationController.printRoomList(mHouse));
         int aux = inputUtils.readInputNumberAsInt();
@@ -177,71 +177,55 @@ class RoomConfigurationUI {
         }
     }
 
-    /**US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
-     * @param room comes from getInputRoomByList
+    /**
+     * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
+     * mRoom comes from getInputRoomByList
      * Prints Device List in that room.
      */
-    private void printRoomDeviceList(Room room) {
+    private void printRoomDeviceList() {
         System.out.println("Available Devices in Room " + mRoomName);
-        System.out.println(mRoomConfigurationController.printDeviceList(room));
+        System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
     }
 
      /* USER STORY 210 - As an Administrator, I want to add a new device to a room from the list of available
     device types, so that I can configure it. - MARIA MEIRELES */
 
+    /**
+     * @param deviceTypeList is a list of device types
+     * @return prints a list of available device types by index if the list of device types is not empty
+     */
     private boolean getInputDeviceTypeByList(List<DeviceType> deviceTypeList) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        boolean activeInput = false;
-        while (!activeInput) {
-            System.out.println("Please select one of the Device Types: ");
-            System.out.println(mRoomConfigurationController.printDeviceTypeList(deviceTypeList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < DeviceType.values().length) {
-                this.mDeviceType = DeviceType.values()[aux];
-                return true;
-            } else {
-                System.out.println(utils.invalidOption);
-                return false;
-            }
-
+        if (deviceTypeList.isEmpty()) {
+            return true;
         }
-        return true;
+        System.out.println("Please select one of the Device Types: ");
+        System.out.println(mRoomConfigurationController.printDeviceTypeList(deviceTypeList));
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < DeviceType.values().length) {
+            this.mDeviceType = DeviceType.values()[aux];
+            return false;
+        } else {
+            System.out.println(utils.invalidOption);
+            return true;
+        }
     }
 
-    private void createDevice(DeviceType deviceType) {
-        Device device = new Device();
+    /**
+     * Asks for input from the user in order to construct a new device with its parameters
+     * (name, nominal power and device specs (according to the selected device Type)
+     */
+
+    private void createDevice() {
+        this.mDevice = new Device();
         Scanner scanner = new Scanner(System.in);
         String onlyNumbers = "Please,try again. Only numbers this time:";
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
 
         // get device name
         System.out.print("Please, type the new name of the Device: ");
         mDeviceName = scanner.nextLine();
 
-        //get room
-        if (mHouse.getRoomList().isEmpty()) {
-            System.out.println("Invalid Room List - List Is Empty\n");
-            return;
-        }
-
-        boolean activeInput = false;
-        System.out.println("Please select one of the existing rooms on the selected House to which you want to add your Device: ");
-        while (!activeInput) {
-            System.out.println(mRoomConfigurationController.printRoomList(mHouse));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getRoomList().size()) {
-                this.mRoom = mHouse.getRoomList().get(aux);
-                this.mRoomName = mRoom.getRoomName();
-                System.out.println(mStringRequestRoom);
-                System.out.println(mRoomConfigurationController.printRoom(mRoom));
-                activeInput = true;
-                mRoom.addDevice(device);
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        }
         //get nominal power
         System.out.print("Please, type the new Nominal Power: ");
         while (!scanner.hasNextDouble()) {
@@ -249,91 +233,86 @@ class RoomConfigurationUI {
             scanner.next();
         }
         this.mNominalPower = scanner.nextDouble();
-        switch (deviceType) {
-            case WATER_HEATER:
-                mDeviceSpecs = new WaterHeater();
-                System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
-                while (!scanner.hasNextDouble()) {
-                    System.out.println(onlyNumbers);
-                    scanner.next();
-                }
-                this.mVolumeOfWater = scanner.nextDouble();
 
-                System.out.print("Please, type the Maximum Temperature of the water in the Water Heater: ");
-                while (!scanner.hasNextDouble()) {
-                    System.out.println(onlyNumbers);
-                    scanner.next();
-                }
-                this.mHotWaterTemperature = scanner.nextDouble();
+        //Device Type
+        if (this.mDeviceType == DeviceType.WATER_HEATER) {
+            System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mVolumeOfWater = scanner.nextDouble();
 
-                System.out.print("Please, type the Minimum Temperature of the water in the Water Heater: ");
-                while (!scanner.hasNextDouble()) {
-                    System.out.println(onlyNumbers);
-                    scanner.next();
-                }
-                this.mColdWaterTemperature = scanner.nextDouble();
-
-                System.out.println(
-                        "Do you wish to alter the performance ration?\n" +
-                                "1) Yes;\n" +
-                                "2) No;\n");
-                int option = inputUtils.readInputNumberAsInt();
-
-                switch (option) {
-                    case 1:
-                        System.out.print("Please, type the Performance Ration of the Water Heater: ");
-                        while (!scanner.hasNextDouble()) {
-                            System.out.println(onlyNumbers);
-                            scanner.next();
-                        }
-                        mPerformanceRatio = scanner.nextDouble();
-                        break;
-                    case 2:
-                        this.mPerformanceRatio = 0.9;
-                        break;
-                }
-                mDevice = new Device(mDeviceName, mNominalPower, mDeviceSpecs);
-                break;
-            case FRIDGE:
-                mDeviceSpecs = new Fridge();
-                System.out.print("Please, type the Freezer Capacity in L for the Fridge:");
-                while (!scanner.hasNextDouble()) {
-                    System.out.println(onlyNumbers);
-                    scanner.next();
-                }
-                mFreezerCapacity = scanner.nextDouble();
-                mDevice = new Device(mDeviceName, mNominalPower, mDeviceSpecs);
-                break;
-            case WASHING_MACHINE:
-                mDeviceSpecs = new WashingMachine();
-                System.out.print("Please, type the Capacity in Kg for the Washing Machine: ");
-                while (!scanner.hasNextDouble()) {
-                    System.out.println(onlyNumbers);
-                    scanner.next();
-                }
-                mCapacity = scanner.nextDouble();
-                mDevice = new Device(mDeviceName, mNominalPower, mDeviceSpecs);
-                break;
-            case DISHWASHER:
-                mDeviceSpecs = new Dishwasher();
-                System.out.print("Please, type the Capacity in Kg for the Dishwasher:");
-                while (!scanner.hasNextDouble()) {
-                    System.out.println(onlyNumbers);
-                    scanner.next();
-                }
-                mCapacity = scanner.nextDouble();
-                mDevice = new Device(mDeviceName, mNominalPower, mDeviceSpecs);
-                break;
+            System.out.print("Please, type the Maximum Temperature of the water in the Water Heater: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mHotWaterTemperature = scanner.nextDouble();
+            System.out.print("Please, type the Performance Ration of the Water Heater: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mPerformanceRatio = scanner.nextDouble();
+            mDevice = new Device(mDeviceName, mNominalPower, new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio));
+            mRoom.addDevice(mDevice);
+            mDevice.setmParentRoom(mRoom);
+        }
+        if (this.mDeviceType == DeviceType.FRIDGE) {
+            System.out.print("Please, type the Freezer Capacity in L for the Fridge:");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mFreezerCapacity = scanner.nextDouble();
+            System.out.print("Please, type the Refrigerator Capacity in L for the Fridge:");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mRefrigeratorCapacity = scanner.nextDouble();
+            mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity));
+            mRoom.addDevice(mDevice);
+            mDevice.setmParentRoom(mRoom);
+        }
+        if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
+            System.out.print("Please, type the Capacity in Kg for the Washing Machine: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mCapacity = scanner.nextDouble();
+            mDevice = new Device(mDeviceName, mNominalPower, new WashingMachine(mCapacity));
+            mRoom.addDevice(mDevice);
+            mDevice.setmParentRoom(mRoom);
+        }
+        if (this.mDeviceType == DeviceType.DISHWASHER) {
+            System.out.print("Please, type the Capacity in Kg for the Dishwasher:");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mCapacity = scanner.nextDouble();
+            mDevice = new Device(mDeviceName, mNominalPower, new Dishwasher(mCapacity));
+            mRoom.addDevice(mDevice);
+            mDevice.setmParentRoom(mRoom);
         }
     }
 
+
+    /**
+     * Displays a string with the new created device and its parameters.
+     * Adds the new created device to the selected room
+     */
 
     private void displayDeviceUS210() {
         System.out.println("You have successfully created a " + mDeviceType.printDeviceType(mDeviceType) + " with the name " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + ".");
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
-                    mHotWaterTemperature + " ºC, the Min Temperature is " + mColdWaterTemperature + " ºC.");
+                    mHotWaterTemperature + " ºC, and the Performance Ratio is: "
+                    + mPerformanceRatio + ".");
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE || mDevice.getDeviceType() == DeviceType.DISHWASHER) {
             System.out.println("The capacity is " + mCapacity + " Kg.");
@@ -341,6 +320,8 @@ class RoomConfigurationUI {
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
             System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L and the Refrigerator Capacity is " + mRefrigeratorCapacity + " L.");
         }
+        mDevice.setmParentRoom(mRoom);
+        mRoom.addDevice(mDevice);
     }
 
     /* USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,
@@ -355,11 +336,10 @@ class RoomConfigurationUI {
         this.mDeviceName = scanner.nextLine();
 
         //get room
-        mRoom.removeDevice(mDevice);
+        mRoomConfigurationController.removeDeviceFromRoom(mRoom, mDevice);
         InputUtils inputUtils = new InputUtils();
         getInputRoomByList();
-        mRoom.addDevice(mDevice);
-        mDevice.setmParentRoom(mRoom);
+        mRoomConfigurationController.addDeviceToRoom(mRoom, mDevice);
         //get nominal power
         String onlyNumbers = "Please,try again. Only numbers this time:";
         System.out.print("Please, type the new Nominal Power: ");
@@ -384,13 +364,6 @@ class RoomConfigurationUI {
             }
             this.mHotWaterTemperature = scanner.nextDouble();
 
-            System.out.print("Please, type the Minimum Temperature of the water in the Water Heater: ");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mColdWaterTemperature = scanner.nextDouble();
-
             System.out.println(
                     "Do you wish to alter the performance ratio?\n" +
                             "1) Yes;\n" +
@@ -405,7 +378,6 @@ class RoomConfigurationUI {
                         scanner.next();
                     }
                     this.mPerformanceRatio = scanner.nextDouble();
-                    mRoomConfigurationController.setPerformanceRatio(mPerformanceRatio, mDevice);
                     break;
                 case 2:
                     this.mPerformanceRatio = 0.9;
@@ -455,19 +427,20 @@ class RoomConfigurationUI {
         mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
         mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
-            mRoomConfigurationController.setVolumeWater(mVolumeOfWater, mDevice);
-            mRoomConfigurationController.setHotWaterTemp(mHotWaterTemperature, mDevice);
-            mRoomConfigurationController.setColdWaterTemp(mColdWaterTemperature, mDevice);
+            WaterHeater waterHeater = new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
+            mDevice = new Device(mDeviceName, mNominalPower, waterHeater);
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
-            mRoomConfigurationController.setCapacity(mCapacity, mDevice);
+            WashingMachine washingMachine = new WashingMachine(mCapacity);
+            mDevice = new Device(mDeviceName, mNominalPower, washingMachine);
         }
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
-            mRoomConfigurationController.setCapacity(mCapacity, mDevice);
+            Dishwasher dishwasher = new Dishwasher(mCapacity);
+            mDevice = new Device(mDeviceName, mNominalPower, dishwasher);
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
-            mRoomConfigurationController.setFreezerCapacity(mFreezerCapacity, mDevice);
-            mRoomConfigurationController.setRefrigeratorCapacity(mRefrigeratorCapacity, mDevice);
+            Fridge fridge = new Fridge(mFreezerCapacity, mRefrigeratorCapacity);
+            mDevice = new Device(mDeviceName, mNominalPower, fridge);
         }
     }
 
@@ -479,7 +452,8 @@ class RoomConfigurationUI {
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
-                    mHotWaterTemperature + " ºC, the Min Temperature is " + mColdWaterTemperature + " ºC.");
+                    mHotWaterTemperature + " ºC, and the Performance Ratio is: "
+                    + mPerformanceRatio + ".");
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE || mDevice.getDeviceType() == DeviceType.DISHWASHER) {
             System.out.println("The capacity is " + mCapacity + " Kg.");
@@ -502,10 +476,9 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
 
-    private void getInputSensorFromRoomByList(Room room) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        SensorList sensorList = room.getmRoomSensorList();
-        System.out.println(ctrl.printSensorList(sensorList));
+    private void displaySensorListUS250() {
+        SensorList sensorList = mRoom.getmRoomSensorList();
+        System.out.println(mRoomConfigurationController.printSensorList(sensorList));
     }
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
@@ -567,8 +540,7 @@ class RoomConfigurationUI {
         this.mSensor = mController.createRoomSensor(mSensorName, mTypeSensor, mDate);
         if (ctrl.addSensorToRoom(mRoom, mSensor)) {
             System.out.println("\nSensor successfully added to the Room " + mRoom.getRoomName());
-        }
-        else System.out.println("\nSensor already exists in the room.");
+        } else System.out.println("\nSensor already exists in the room.");
     }
 
 

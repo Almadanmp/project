@@ -298,6 +298,30 @@ class SensorSettingsControllerTest {
         assertEquals(expectedResult,result);
     }
 
+    @Test
+    void seeIfPrintGAList() {
+        //Arrange
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        gAL1.addGeographicAreaToGeographicAreaList(gA1);
+        gAL1.addGeographicAreaToGeographicAreaList(gA2);
+        gAL1.addGeographicAreaToGeographicAreaList(gA3);
+
+        //Act
+        String expectedResult = "---------------\n" +
+                "0) Name: Portugal | Type: Country | Latitude: 21.0 | Longitude: 33.0\n" +
+                "1) Name: Oporto | Type: City | Latitude: 14.0 | Longitude: 14.0\n" +
+                "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
+                "---------------\n";
+        SensorSettingsController ctrl = new SensorSettingsController();
+        String result = ctrl.printGAList(gAL1);
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
 
 
 //    @Test

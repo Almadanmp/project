@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import java.util.Objects;
 
@@ -46,6 +47,7 @@ public class Device implements Metered {
     public Room getmParentRoom(){return this.mParentRoom;}
 
 
+
     public String printDevice(){
         String result;
         result = "The Device Name is " + this.mName + ", which is in the Room " + this.mParentRoom.getRoomName() + ", and its NominalPower is " +
@@ -64,6 +66,7 @@ public class Device implements Metered {
     public DeviceType getDeviceType() {
         return mDeviceSpecs.getType();
     }
+
 
     @Override
     public boolean equals(Object o) {

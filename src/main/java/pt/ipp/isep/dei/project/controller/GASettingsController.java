@@ -101,11 +101,11 @@ public class GASettingsController {
      * @return success if a new GA is added, false otherwise
      */
 
-    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, String typeArea, double latitude, double longitude, double altitude, double length, double width) {
+    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, double latitude, double longitude, double altitude, double length, double width) {
         if (newGeoList == null) {
             return false;
         }
-        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea), length, width, new Local(latitude, longitude, altitude));
+        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea.getTypeOfGeographicArea()), length, width, new Local(latitude, longitude, altitude));
         return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
     }
 

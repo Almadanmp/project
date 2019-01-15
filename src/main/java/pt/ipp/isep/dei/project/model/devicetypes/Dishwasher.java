@@ -8,6 +8,11 @@ public class Dishwasher implements DeviceSpecs, Metered {
     private double mNominalPower;
     private double mCapacity;
 
+    public Dishwasher(){}
+    public Dishwasher (double capacity){
+        this.mCapacity = capacity;
+    }
+
     void setNominalPower(double nominalPower) { this.mNominalPower = nominalPower;}
 
     public DeviceType getType() {
