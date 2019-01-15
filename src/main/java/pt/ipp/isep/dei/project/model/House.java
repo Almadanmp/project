@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -81,8 +82,8 @@ public class House implements Metered {
         return mLocation;
     }
 
-    public List<Device> getDeviceList(){
-         return this.mRoomList.getDeviceList();
+    public List<Device> getDeviceList() {
+        return this.mRoomList.getDeviceList();
     }
 
     public void setLocation(double latitude, double longitude, double altitude) {
@@ -90,11 +91,12 @@ public class House implements Metered {
         mLocation.setLongitude(longitude);
         mLocation.setAltitude(altitude);
     }
+
     public void setRoomList(RoomList roomList) {
         this.mRoomList = roomList;
     }
 
-    public void setMotherArea(GeographicArea motherArea){
+    public void setMotherArea(GeographicArea motherArea) {
         this.mMotherArea = motherArea;
     }
 
@@ -179,18 +181,17 @@ public class House implements Metered {
      */
 
 
-    public String printRoomList(){
+    public String printRoomList() {
         return this.mRoomList.printRooms();
     }
 
     /**
-     *
      * @param indexList is a list of integers that represent positions in a list.
      * @return builds a string from the individual elements in the RoomList that are contained in the positions
      * given by the list of indexes.
      */
 
-    public String printRoomsByIndex(List<Integer> indexList){
+    public String printRoomsByIndex(List<Integer> indexList) {
         return this.mRoomList.printElementsByIndex(indexList);
     }
 
@@ -200,10 +201,25 @@ public class House implements Metered {
      * input string.
      */
 
-    public List<Integer> matchRoomIndexByString(String input){
+    public List<Integer> matchRoomIndexByString(String input) {
         return this.mRoomList.matchRoomIndexByString(input);
     }
 
+
+    /**
+     * Returns a list of devices of a given type, in all rooms of this house.
+     *
+     * @param deviceType the device type
+     * @return the list with all devices of a given type
+     *
+     */
+    public List<Device> getHouseDevicesOfGivenType(DeviceType deviceType) {
+        List<Device> devicesOfGivenType = new ArrayList<>();
+        for (Room r : mRoomList.getRoomList()) {
+            devicesOfGivenType.addAll(r.getRoomDevicesOfGivenType(deviceType));
+        }
+        return devicesOfGivenType;
+    }
 
     /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
@@ -218,6 +234,8 @@ public class House implements Metered {
         }
         return result;
     }
+
+
 
 
     @Override

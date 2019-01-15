@@ -7,8 +7,10 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -427,6 +429,20 @@ public class RoomTest {
         r1.addDevice(d2);
         boolean expectedResult = true;
         boolean result = r1.addDevice(d3);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getRoomDevicesOfGivenType(){
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500,30,1));
+        r1.addDevice(d2);
+        r1.addDevice(d3);
+        List<Device> expectedResult = new ArrayList<>();
+        expectedResult.add(d2);
+        expectedResult.add(d3);
+        List<Device> result = r1.getRoomDevicesOfGivenType(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }
 

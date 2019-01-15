@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -88,8 +89,10 @@ public class Room implements Metered {
         return this.mDeviceList.getDeviceList();
     }
 
-    /**Method for printing all available devices in a room.
+    /**
+     * Method for printing all available devices in a room.
      * Used in US201 and US215
+     *
      * @return string with devices in room.
      */
 
@@ -100,7 +103,7 @@ public class Room implements Metered {
         }
         for (int i = 0; i < this.getDeviceList().size(); i++) {
             Device device = this.getDeviceList().get(i);
-            result.append("\n"+i).append(") Device Name: ").append(device.getName());
+            result.append("\n" + i).append(") Device Name: ").append(device.getName());
             result.append(", Device Type: ").append(device.getDeviceType());
             result.append(", Device Nominal Power: ").append(device.getNominalPower());
         }
@@ -108,11 +111,12 @@ public class Room implements Metered {
         return result.toString();
     }
 
-    public DeviceList getObjectDeviceList(){
+    public DeviceList getObjectDeviceList() {
         return this.mDeviceList;
     }
 
-    /** This method will go through the room's device list and add all the devices'
+    /**
+     * This method will go through the room's device list and add all the devices'
      * The result is the room's total nominal power and will be returned as a double
      *
      * @return room's total nominal power (double)
@@ -178,6 +182,7 @@ public class Room implements Metered {
 
     /**
      * Gets most recent reading for current temperature.
+     *
      * @return 1
      */
 
@@ -198,6 +203,24 @@ public class Room implements Metered {
         return result;
     }
 
+
+    /**
+     * Returns a list of devices of a given type, in a room
+     *
+     * @param deviceType the device type
+     * @return the list with all devices of a given type
+     *
+     */
+    public List<Device> getRoomDevicesOfGivenType(DeviceType deviceType) {
+        List<Device> devicesOfGivenType = new ArrayList<>();
+        for (Device d : getDeviceList()) {
+            if (d.getDeviceType() == deviceType) {
+                devicesOfGivenType.add(d);
+            }
+        }
+        return devicesOfGivenType;
+    }
+
     /**
      * Returns the daily estimate consumption of all devices of a given type in this room.
      *
@@ -214,21 +237,21 @@ public class Room implements Metered {
         return result;
     }
 
-    public boolean addRoomDevicesToDeviceList(DeviceList list){
-        for (Device d : this.getDeviceList()){
-            if (!(list.containsDevice(d))){
+    public boolean addRoomDevicesToDeviceList(DeviceList list) {
+        for (Device d : this.getDeviceList()) {
+            if (!(list.containsDevice(d))) {
                 list.addDevice(d);
             }
         }
         return true;
     }
 
-    public boolean removeRoomDevicesFromDeviceList(DeviceList list){
-        if (list == null){
+    public boolean removeRoomDevicesFromDeviceList(DeviceList list) {
+        if (list == null) {
             return false;
         }
-        for (Device d : this.getDeviceList()){
-            if (list.containsDevice(d)){
+        for (Device d : this.getDeviceList()) {
+            if (list.containsDevice(d)) {
                 list.removeDevice(d);
             }
         }
