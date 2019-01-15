@@ -11,7 +11,8 @@ public class WaterHeater implements DeviceSpecs, Metered {
     double mColdWaterTemperature;
     double mPerformanceRatio;
 
-    public WaterHeater(){}
+    public WaterHeater() {
+    }
 
 
     public WaterHeater(double volumeOfWater, double hotWaterTemperature, double mPerformanceRatio) {
@@ -37,6 +38,10 @@ public class WaterHeater implements DeviceSpecs, Metered {
         return this.mNominalPower;
     }
 
+    void setNominalPower(double nominalPower) {
+        this.mNominalPower = nominalPower;
+    }
+
     public double getConsumption() {
         double specificHeatOfWater = 1.163;
         double dT = mHotWaterTemperature - mColdWaterTemperature;
@@ -44,7 +49,7 @@ public class WaterHeater implements DeviceSpecs, Metered {
         return result; //To be implemented by US752
     }
 
-    public double getVolumeWater(){
+    public double getVolumeWater() {
         return this.mVolumeOfWater;
     }
 

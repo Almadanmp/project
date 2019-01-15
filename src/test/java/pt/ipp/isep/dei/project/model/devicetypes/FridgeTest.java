@@ -21,4 +21,15 @@ public class FridgeTest {
         double result = fridge.getConsumption();
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void seeIfGetNominalPower() {
+        Fridge fridge = new Fridge(4,5);
+        double expectedResult = 6;
+        fridge.getNominalPower();
+        fridge.setNominalPower(6);
+        double result = fridge.getNominalPower();
+        assertEquals(expectedResult, result);
+    }
+
 }

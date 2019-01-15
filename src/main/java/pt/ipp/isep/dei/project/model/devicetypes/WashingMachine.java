@@ -8,17 +8,15 @@ public class WashingMachine implements DeviceSpecs, Metered {
     private double mNominalPower;
     private double mCapacity;
 
-    public WashingMachine (){}
+    public WashingMachine() {
+    }
 
-    public WashingMachine (double capacity){
+    public WashingMachine(double capacity) {
         this.mCapacity = capacity;
     }
 
-    void setNominalPower(double nominalPower) {
-        this.mNominalPower = nominalPower;
-    }
-
     public DeviceType getType() {
+
         return DeviceType.WASHING_MACHINE;
     }
 
@@ -30,7 +28,15 @@ public class WashingMachine implements DeviceSpecs, Metered {
         return this.mNominalPower;
     }
 
+    void setNominalPower(double nominalPower) {
+        this.mNominalPower = nominalPower;
+    }
 
+    public double getCapacity() {
+        return this.mCapacity;
+    }
 
-    public void setmCapacity(double capacity){capacity=this.mCapacity;}
+    public void setCapacity(double capacity) {
+        this.mCapacity = capacity;
+    }
 }

@@ -36,6 +36,15 @@ public class WaterHeaterTest {
         double result = waterHeater.getVolumeWater();
         double expectedResult = 12.0;
         assertEquals(expectedResult,result);
+    }
 
+    @Test
+    public void seeIfGetNominalPower() {
+        WaterHeater waterHeater = new WaterHeater();
+        double expectedResult = 6;
+        waterHeater.getNominalPower();
+        waterHeater.setNominalPower(6);
+        double result = waterHeater.getNominalPower();
+        assertEquals(expectedResult, result);
     }
 }

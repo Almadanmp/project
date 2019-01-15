@@ -22,7 +22,6 @@ class RoomConfigurationUI {
     private double mNominalPower;
     private double mVolumeOfWater;
     private double mHotWaterTemperature;
-    private double mColdWaterTemperature;
     private double mPerformanceRatio;
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
@@ -31,7 +30,6 @@ class RoomConfigurationUI {
     private String mRoomName;
     private SensorList mSensorList;
     private String mSensorName;
-    private String mStringChosenSensor = "You have chosen the following Sensor:";
     private TypeSensor mTypeSensor;
     private int mDataYear;
     private int mDataMonth;
@@ -101,7 +99,6 @@ class RoomConfigurationUI {
                     break;
                 case 4: //US230
                     this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                    ;
                     getRoomNominalPower();
                     activeInput = false;
                     break;
@@ -218,8 +215,6 @@ class RoomConfigurationUI {
             }
             this.mPerformanceRatio = scanner.nextDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio));
-            mRoom.addDevice(mDevice);
-            mDevice.setmParentRoom(mRoom);
         }
         if (this.mDeviceType == DeviceType.FRIDGE) {
             System.out.print("Please, type the Freezer Capacity in L for the Fridge:");
@@ -235,8 +230,6 @@ class RoomConfigurationUI {
             }
             this.mRefrigeratorCapacity = scanner.nextDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity));
-            mRoom.addDevice(mDevice);
-            mDevice.setmParentRoom(mRoom);
         }
         if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
             System.out.print("Please, type the Capacity in Kg for the Washing Machine: ");
@@ -246,8 +239,6 @@ class RoomConfigurationUI {
             }
             this.mCapacity = scanner.nextDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new WashingMachine(mCapacity));
-            mRoom.addDevice(mDevice);
-            mDevice.setmParentRoom(mRoom);
         }
         if (this.mDeviceType == DeviceType.DISHWASHER) {
             System.out.print("Please, type the Capacity in Kg for the Dishwasher:");
@@ -257,8 +248,6 @@ class RoomConfigurationUI {
             }
             this.mCapacity = scanner.nextDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new Dishwasher(mCapacity));
-            mRoom.addDevice(mDevice);
-            mDevice.setmParentRoom(mRoom);
         }
     }
 

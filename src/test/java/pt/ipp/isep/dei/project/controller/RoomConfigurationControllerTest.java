@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
@@ -153,8 +154,20 @@ class RoomConfigurationControllerTest {
 
     @Test
     void seeIfPrintDeviceTypeList(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+            List<DeviceType> listD = new ArrayList<>();
+            List<Integer> list = new ArrayList<>();
+            Integer i = 1;
+            list.add(i);
+            String result = ctrl.printDeviceTypeList(listD);
+            String expectedResult =
+                    "0) Device Type: WATER_HEATER;\n" +
+                            "1) Device Type: WASHING_MACHINE;\n" +
+                            "2) Device Type: DISHWASHER;\n" +
+                            "3) Device Type: FRIDGE;\n";
+            assertEquals(expectedResult,result);
+        }
 
-    }
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
