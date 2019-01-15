@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.List;
