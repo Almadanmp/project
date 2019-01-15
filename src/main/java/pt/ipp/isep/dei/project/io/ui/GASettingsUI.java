@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.TypeArea;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
 
-import java.util.List;
 import java.util.Scanner;
 
 class GASettingsUI {
@@ -75,7 +74,9 @@ class GASettingsUI {
                         return;
                     }
                     getAreaInputUS03();
-                    getTypeAreaInputUS03(programTypeAreaList);
+                    if(getInputTypeAreaByList(programTypeAreaList)){
+                        return;
+                    }
                     getLocalInputUS03();
                     updateGeoAreaUS03();
                     updateModelUS03(programGAList);
@@ -87,7 +88,9 @@ class GASettingsUI {
                         System.out.println(mStringMessageAskingToCreateGeographicAreaType);
                         return;
                     }
-                    getInputTypeArea(programTypeAreaList);
+                    if(getInputTypeAreaByList(programTypeAreaList)){
+                        return;
+                    }
                     if (!matchGAByTypeArea(programGAList)) {
                         return;
                     } else {
@@ -122,99 +125,28 @@ class GASettingsUI {
         }
     }
 
-    // OPÇÃO LISTAR POR NOMES / POR LISTA - TYPE AREA
 
-    private void getInputTypeArea(TypeAreaList typeAreaList) {
+    // SHARED METHODS //
+    //GET INPUT TYPE AREA BY LIST//
+
+    private boolean getInputTypeAreaByList(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        System.out.println(
-                "We need to know what is the type of Geographic Area you want.\n" + "Would you like to:\n" + "1)Type the Geographic Area Type name;\n" + "2) Choose it from a list;\n" +
-                        "0) Return;");
-        boolean activeInput = false;
-        while (!activeInput) {
-            int option = inputUtils.readInputNumberAsInt();
-            switch (option) {
-                case 1:
-                    getInputTypeAreaName();
-                    if (!getTypeAreaByName(typeAreaList)) {
-                        System.out.println("Unable to select a Geographic Area. Returning to main menu.");
-                        return;
-                    }
-                    activeInput = true;
-                    break;
-                case 2:
-                    getInputTypeAreaByList(typeAreaList);
-                    activeInput = true;
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println(utils.invalidOption);
-                    break;
-            }
+        if (typeAreaList.getTypeAreaList().isEmpty()) {
+            System.out.print("Invalid Type Area List - List Is Empty\n");
+            return true;
         }
-    }
-
-
-    //GET INPUT TYPE AREA NAME BY NAME OR BY LIST//
-    private boolean getInputTypeAreaName() {
-        Scanner mScanner = new Scanner(System.in);
-        System.out.println("Please type the name of the Geographic Area Type Where: ");
-        this.mTypeAreaString = mScanner.nextLine();
-        return (!"exit".equals((this.mTypeAreaString)));
-    }
-
-    private boolean getTypeAreaByName(TypeAreaList typeAreaList) {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        List<Integer> listOfIndexesTypeArea = mController.matchTypeAreaIndexByString(this.mTypeAreaString, typeAreaList);
-        String youHaveChosen = "You have chosen the following Geographic Area Type:";
-        while (listOfIndexesTypeArea.isEmpty()) {
-            System.out.println("There is no Geographic Area Type with that name. Please insert the name of a Geographic Area Type" +
-                    " that exists or type 'exit' to cancel and create a new Geographic Area Type on the Main Menu.");
-            if (!getInputTypeAreaName()) {
-                return false;
-            }
-            listOfIndexesTypeArea = mController.matchTypeAreaIndexByString(this.mTypeAreaString, typeAreaList);
-        }
-
-        if (listOfIndexesTypeArea.size() > 1) {
-            System.out.println("There are multiple Geographic Area Types with that name. Please choose the right one.");
-            System.out.println(mController.printTypeAreaElementsByIndex(listOfIndexesTypeArea, typeAreaList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (listOfIndexesTypeArea.contains(aux)) {
-                this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
-                System.out.println(youHaveChosen);
-                System.out.println(mController.printTypeArea(this.mTypeArea));
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        } else {
-            System.out.println(youHaveChosen);
-            this.mTypeArea = typeAreaList.getTypeAreaList().get(listOfIndexesTypeArea.get(0));
-            System.out.println(mController.printTypeArea(this.mTypeArea));
-        }
-        return true;
-    }
-
-
-    private void getInputTypeAreaByList(TypeAreaList typeAreaList) {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        boolean activeInput = false;
         System.out.println("Please select the Geographic Area Type from the list: ");
-
-        while (!activeInput) {
-            System.out.print(mController.printGATypeList(typeAreaList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
-                this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
-                activeInput = true;
-                System.out.println("You have chosen the following Geographic Area Type:");
-                System.out.println(mController.printTypeArea(this.mTypeArea));
-            } else {
-                System.out.println(utils.invalidOption);
-            }
+        System.out.print(mController.printGATypeList(typeAreaList));
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
+            this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
+            System.out.println("You have chosen the following Geographic Area Type:");
+            System.out.println(mController.printTypeArea(this.mTypeArea));
+            return false;
+        } else {
+            System.out.println(utils.invalidOption);
+            return true;
         }
     }
 
@@ -257,26 +189,6 @@ class GASettingsUI {
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
     private void getAreaInputUS03() {
         this.nameOfGeoArea = readInputString("name");
-    }
-
-    private void getTypeAreaInputUS03(TypeAreaList typeAreaList) {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        boolean activeInput = false;
-        System.out.println("Please select one of the following types for the new Geographic Area: ");
-
-        while (!activeInput) {
-            System.out.println(mController.getTypeAreaList(typeAreaList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
-                TypeArea auxType = typeAreaList.getTypeAreaList().get(aux);
-                activeInput = true;
-                System.out.println("You have chosen the following type for the new Geographic Area:");
-                System.out.println((auxType.printTypeGeographicArea()));
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        }
     }
 
     private void getLocalInputUS03() {
