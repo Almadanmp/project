@@ -349,7 +349,6 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         getInputRoomByList();
         mRoomConfigurationController.addDeviceToRoom(mRoom,mDevice);
-        mRoomConfigurationController.setParentRoom(mRoom,mDevice);
         //get nominal power
         String onlyNumbers = "Please,try again. Only numbers this time:";
         System.out.print("Please, type the new Nominal Power: ");

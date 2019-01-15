@@ -2,9 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
-import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import java.util.List;
 
@@ -206,9 +203,6 @@ public class RoomConfigurationController {
         return room.printListOfDevicesFromRoom(room);
     }
 
-
-    public String printDeviceType(DeviceType deviceType){return deviceType.printDeviceType(deviceType);}
-
     /**
      *
      * @param
@@ -223,20 +217,23 @@ public class RoomConfigurationController {
         return deviceType.printDeviceTypeByIndex();
     }
 
-
-
+    /**
+     *
+     * @param room room from which we want to remove the device.
+     * @param device device we want to remove.
+     */
     public void removeDeviceFromRoom(Room room, Device device){
         room.removeDevice(device);
     }
 
+    /**
+     *
+     * @param room from which we want to remove the device.
+     * @param device device we want to remove.
+     */
     public void addDeviceToRoom(Room room, Device device){
         room.addDevice(device);
     }
-    public void setParentRoom(Room room, Device device){
-        device.setmParentRoom(room);
-    }
-
-
 
     /**
      *
@@ -246,7 +243,6 @@ public class RoomConfigurationController {
     public void setDeviceName(String input, Device device) {
         device.setmName(input);
     }
-
 
     /**
      *
@@ -281,6 +277,7 @@ public class RoomConfigurationController {
         result.append("---------------\n");
         return result.toString();
     }
+
     public boolean addSensorToRoom(Room room,Sensor sensor) {
         return (room.addSensor(sensor));
     }

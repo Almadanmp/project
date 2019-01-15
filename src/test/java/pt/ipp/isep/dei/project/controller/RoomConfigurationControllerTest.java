@@ -456,11 +456,13 @@ class RoomConfigurationControllerTest {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device device = new Device("waterheater",150, new WaterHeater());
         Room room = new Room("cozinha",1,1,1,1);
+        ctrl.setDeviceName("daniel",device);
         ctrl.addDeviceToRoom(room,device);
+        ctrl.setNominalPower(123.0,device);
         String result = ctrl.printDeviceList(room);
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
+                "0) Device Name: daniel, Device Type: WATER_HEATER, Device Nominal Power: 123.0\n" +
                 "---------------\n";
         assertEquals(expectedResult,result);
     }
@@ -488,7 +490,6 @@ class RoomConfigurationControllerTest {
         Device device = new Device("waterheater",150, new WaterHeater());
         Room room = new Room("cozinha",1,1,1,1);
         ctrl.addDeviceToRoom(room,device);
-        ctrl.setParentRoom(room,device);
         String result = ctrl.printDeviceList(room);
         String expectedResult = "---------------\n" +
                 "\n" +
