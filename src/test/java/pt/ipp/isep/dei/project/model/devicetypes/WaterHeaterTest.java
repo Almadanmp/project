@@ -16,7 +16,7 @@ public class WaterHeaterTest {
 
     @Test
     public void getConsumptionTest() {
-        WaterHeater waterHeater = new WaterHeater(200,25,10);
+        WaterHeater waterHeater = new WaterHeater(200,25,10,0.9);
         double expectedResult = 3140.1;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
@@ -28,5 +28,14 @@ public class WaterHeaterTest {
         double expectedResult = 6280.2;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
+    }
+    @Test
+    void seeIfsetVolumeWaterWorks(){
+        WaterHeater waterHeater = new WaterHeater();
+        waterHeater.setVolumeOfWater(12);
+        double result = waterHeater.getVolumeWater();
+        double expectedResult = 12.0;
+        assertEquals(expectedResult,result);
+
     }
 }

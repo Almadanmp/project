@@ -1,5 +1,6 @@
 @startuml
 actor Admin
+participant "d1: Device"
 Admin -> MainUI: Add Device to a Room from available type
 MainUI -> RoomConfigurationUI: Add Device to a Room from available Type
 RoomConfigurationUI --> Admin: Display available DeviceTypes

@@ -345,11 +345,11 @@ class RoomConfigurationUI {
         this.mDeviceName = scanner.nextLine();
 
         //get room
-        mRoom.removeDevice(mDevice);
+        mRoomConfigurationController.removeDeviceFromRoom(mRoom,mDevice);
         InputUtils inputUtils = new InputUtils();
         getInputRoomByList();
-        mRoom.addDevice(mDevice);
-        mDevice.setmParentRoom(mRoom);
+        mRoomConfigurationController.addDeviceToRoom(mRoom,mDevice);
+        mRoomConfigurationController.setParentRoom(mRoom,mDevice);
         //get nominal power
         String onlyNumbers = "Please,try again. Only numbers this time:";
         System.out.print("Please, type the new Nominal Power: ");
@@ -374,13 +374,6 @@ class RoomConfigurationUI {
             }
             this.mHotWaterTemperature = scanner.nextDouble();
 
-            System.out.print("Please, type the Minimum Temperature of the water in the Water Heater: ");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mColdWaterTemperature = scanner.nextDouble();
-
             System.out.println(
                     "Do you wish to alter the performance ratio?\n" +
                             "1) Yes;\n" +
@@ -395,7 +388,6 @@ class RoomConfigurationUI {
                         scanner.next();
                     }
                     this.mPerformanceRatio = scanner.nextDouble();
-                    mRoomConfigurationController.setPerformanceRatio(mPerformanceRatio, mDevice);
                     break;
                 case 2:
                     this.mPerformanceRatio = 0.9;
@@ -445,19 +437,20 @@ class RoomConfigurationUI {
         mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
         mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
-            mRoomConfigurationController.setVolumeWater(mVolumeOfWater, mDevice);
-            mRoomConfigurationController.setHotWaterTemp(mHotWaterTemperature, mDevice);
-            mRoomConfigurationController.setColdWaterTemp(mColdWaterTemperature, mDevice);
+            WaterHeater waterHeater = new WaterHeater(mVolumeOfWater,mHotWaterTemperature,mPerformanceRatio);
+            mDevice = new Device(mDeviceName,mNominalPower,waterHeater);
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
-            mRoomConfigurationController.setCapacity(mCapacity, mDevice);
+            WashingMachine washingMachine = new WashingMachine(mCapacity);
+            mDevice = new Device(mDeviceName,mNominalPower,washingMachine);
         }
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
-            mRoomConfigurationController.setCapacity(mCapacity, mDevice);
+            Dishwasher dishwasher = new Dishwasher(mCapacity);
+            mDevice=new Device(mDeviceName,mNominalPower,dishwasher);
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
-            mRoomConfigurationController.setFreezerCapacity(mFreezerCapacity, mDevice);
-            mRoomConfigurationController.setRefrigeratorCapacity(mRefrigeratorCapacity, mDevice);
+            Fridge fridge = new Fridge(mFreezerCapacity,mRefrigeratorCapacity);
+            mDevice = new Device(mDeviceName,mNominalPower,fridge);
         }
     }
 
@@ -469,7 +462,8 @@ class RoomConfigurationUI {
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
-                    mHotWaterTemperature + " ºC, the Min Temperature is " + mColdWaterTemperature + " ºC.");
+                    mHotWaterTemperature + " ºC, and the Performance Ratio is: "
+            + mPerformanceRatio + ".");
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE || mDevice.getDeviceType() == DeviceType.DISHWASHER) {
             System.out.println("The capacity is " + mCapacity + " Kg.");

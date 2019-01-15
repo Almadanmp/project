@@ -13,12 +13,13 @@ public class WaterHeater implements DeviceSpecs, Metered {
 
     public WaterHeater(){}
 
-    public WaterHeater(double volumeOfWater, double hotWaterTemperature, double coldWaterTemperature) {
+
+    public WaterHeater(double volumeOfWater, double hotWaterTemperature, double mPerformanceRatio) {
         this.mVolumeOfWater = volumeOfWater;
         this.mHotWaterTemperature = hotWaterTemperature;
-        this.mColdWaterTemperature = coldWaterTemperature;
-        this.mPerformanceRatio = 0.9;
+        this.mPerformanceRatio = mPerformanceRatio;
     }
+
 
     public WaterHeater(double volumeOfWater, double hotWaterTemperature, double coldWaterTemperature,
                        double performanceRatio) {
@@ -43,18 +44,13 @@ public class WaterHeater implements DeviceSpecs, Metered {
         return result; //To be implemented by US752
     }
 
+    public double getVolumeWater(){
+        return this.mVolumeOfWater;
+    }
+
     public void setVolumeOfWater(double volumeOfWater) {
         this.mVolumeOfWater = volumeOfWater;
     }
 
-    public void setHotWaterTemperature(double hotWaterTemperature) {
-        this.mHotWaterTemperature = hotWaterTemperature;
-    }
 
-    public void setColdWaterTemperature(double coldWaterTemperature) {
-        this.mColdWaterTemperature = coldWaterTemperature;
-    }
-    public void setPerformanceRatio(double performanceRatio) {
-        this.mPerformanceRatio = performanceRatio;
-    }
 }   

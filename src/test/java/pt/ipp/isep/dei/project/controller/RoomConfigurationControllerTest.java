@@ -3,8 +3,10 @@ package pt.ipp.isep.dei.project.controller;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
+import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -446,5 +448,52 @@ class RoomConfigurationControllerTest {
         String actualResult = ctrl.printTypeList(list1);
         //Assert
         assertEquals(result, actualResult);
+    }
+
+
+    @Test
+    void seeIfAddDeviceToRoom(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device device = new Device("waterheater",150, new WaterHeater());
+        Room room = new Room("cozinha",1,1,1,1);
+        ctrl.addDeviceToRoom(room,device);
+        String result = ctrl.printDeviceList(room);
+        String expectedResult = "---------------\n" +
+                "\n" +
+                "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void seeIfRemoveDeviceFromRoomWorks(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device device = new Device("waterheater",150, new WaterHeater());
+        Device device1 = new Device("skjsjk",123,new WaterHeater());
+        Room room = new Room("cozinha",1,1,1,1);
+        room.addDevice(device);
+        room.addDevice(device1);
+        ctrl.removeDeviceFromRoom(room,device1);
+        String result = ctrl.printDeviceList(room);
+        String expectedResult = "---------------\n" +
+                "\n" +
+                "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void seeIfSetParentRoomWorks(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device device = new Device("waterheater",150, new WaterHeater());
+        Room room = new Room("cozinha",1,1,1,1);
+        ctrl.addDeviceToRoom(room,device);
+        ctrl.setParentRoom(room,device);
+        String result = ctrl.printDeviceList(room);
+        String expectedResult = "---------------\n" +
+                "\n" +
+                "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult,result);
     }
 }

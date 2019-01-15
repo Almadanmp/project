@@ -225,54 +225,18 @@ public class RoomConfigurationController {
 
 
 
-    public void setVolumeWater(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WATER_HEATER){
-            WaterHeater waterHeater = new WaterHeater();
-            waterHeater.setVolumeOfWater(input);
-        }
+    public void removeDeviceFromRoom(Room room, Device device){
+        room.removeDevice(device);
     }
 
-    public void setHotWaterTemp(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WATER_HEATER){
-            WaterHeater waterHeater = new WaterHeater();
-            waterHeater.setHotWaterTemperature(input);
-        }
+    public void addDeviceToRoom(Room room, Device device){
+        room.addDevice(device);
     }
-
-    public void setColdWaterTemp(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WATER_HEATER){
-            WaterHeater waterHeater = new WaterHeater();
-            waterHeater.setColdWaterTemperature(input);
-        }
-    }
-
-    public void setPerformanceRatio(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WATER_HEATER){
-            WaterHeater waterHeater = new WaterHeater();
-            waterHeater.setPerformanceRatio(input);
-        }
+    public void setParentRoom(Room room, Device device){
+        device.setmParentRoom(room);
     }
 
 
-    public void setCapacity(double input, Device device){
-        if(device.getDeviceType() == DeviceType.WASHING_MACHINE){
-            WashingMachine waterHeater = new WashingMachine();
-            waterHeater.setmCapacity(input);
-        }
-    }
-    public void setFreezerCapacity(double input, Device device){
-        if(device.getDeviceType() == DeviceType.FRIDGE){
-            Fridge fridge = new Fridge();
-            fridge.setFreezerCapacity(input);
-        }
-    }
-
-    public void setRefrigeratorCapacity(double input, Device device){
-        if(device.getDeviceType() == DeviceType.FRIDGE){
-            Fridge fridge = new Fridge();
-            fridge.setmRefrigeratorCapacity(input);
-        }
-    }
 
     /**
      *
