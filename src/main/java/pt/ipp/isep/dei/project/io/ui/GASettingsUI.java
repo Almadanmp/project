@@ -319,7 +319,7 @@ class GASettingsUI {
         return mGeoArea;
     }
 
-    GeographicArea setGeographicAreaContained(GeographicAreaList geographicAreaList) {
+    private GeographicArea setGeographicAreaContained(GeographicAreaList geographicAreaList) {
         System.out.println(
                 "1 )Do you want to set the area which will be contained from a list.\n" + "or\n" +
                         mReturnString);
@@ -327,12 +327,12 @@ class GASettingsUI {
         return mGeoArea;
     }
 
-    private boolean getInputGeographicAreaForContains(GeographicAreaList programGAList) {
+    private void getInputGeographicAreaForContains(GeographicAreaList programGAList) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         if(programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
             System.out.println("The list of Geographic Areas is empty.");
-            return true;
+            return;
         }
         GASettingsController controller = new GASettingsController();
         System.out.println(controller.printGAList(programGAList));
@@ -341,10 +341,8 @@ class GASettingsUI {
             mGeoArea = programGAList.getGeographicAreaList().get(aux);
             nameOfGeoArea = mGeoArea.getId();
             System.out.println((mGeoArea.printGeographicArea()));
-            return false;
         } else {
             System.out.println(utils.invalidOption);
-            return true;
         }
     }
 

@@ -13,10 +13,8 @@ import java.util.Scanner;
 class RoomConfigurationUI {
 
     private House mHouse;
-    private GeographicArea mGeoArea;
     private RoomConfigurationController mRoomConfigurationController;
     private Room mRoom;
-    private Sensor mSensor;
     private Device mDevice;
     private DeviceType mDeviceType;
     private double mNominalPower;
@@ -50,7 +48,7 @@ class RoomConfigurationUI {
             System.out.println("There are no available rooms in the house. Please add a room to continue.");
             return;
         }
-        this.mGeoArea = house.getMotherArea();
+        GeographicArea mGeoArea = house.getMotherArea();
         this.mSensorList = mGeoArea.getSensorList();
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
@@ -490,7 +488,7 @@ class RoomConfigurationUI {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         SensorSettingsController mController = new SensorSettingsController();
         Date mDate = mController.createDate(this.mDataYear, this.mDataMonth, this.mDataDay);
-        this.mSensor = mController.createRoomSensor(mSensorName, mTypeSensor, mDate);
+        Sensor mSensor = mController.createRoomSensor(mSensorName, mTypeSensor, mDate);
         if (ctrl.addSensorToRoom(mRoom, mSensor)) {
             System.out.println("\nSensor successfully added to the Room " + mRoom.getRoomName());
         } else System.out.println("\nSensor already exists in the room.");

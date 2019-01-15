@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 
@@ -22,7 +21,6 @@ class SensorSettingsUI {
     private int dataDay;
     private Sensor mSensor;
     private GeographicArea mGeographicArea;
-    private String mGeoAreaName;
     private GeographicAreaList mGeographicAreaList;
     private List<TypeSensor> mTypeSensorList;
 
@@ -91,11 +89,11 @@ class SensorSettingsUI {
     // SHARED METHODS //
     //GET INPUT GEOGRAPHIC AREA BY LIST //
 
-    private boolean getInputGeographicAreaByList(GeographicAreaList programGAList) {
+    private void getInputGeographicAreaByList(GeographicAreaList programGAList) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         if(programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
-            return true;
+            return;
         }
         System.out.println("Please select the Geographic Area in which your House is in from the list: ");
         SensorSettingsController controller = new SensorSettingsController();
@@ -103,12 +101,10 @@ class SensorSettingsUI {
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < programGAList.getGeographicAreaList().size()) {
             mGeographicArea = programGAList.getGeographicAreaList().get(aux);
-            mGeoAreaName = mGeographicArea.getId();
+            String mGeoAreaName = mGeographicArea.getId();
             System.out.println((mGeographicArea.printGeographicArea()));
-            return false;
         } else {
             System.out.println(utils.invalidOption);
-            return true;
         }
     }
 

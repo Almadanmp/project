@@ -131,24 +131,24 @@ public class EnergyGrid implements Metered {
         return false;
     }
 
-    public String printDeviceList(){
+    public String printDeviceList() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-       for (Device d: this.getDeviceList()){
+        for (Device d : this.getDeviceList()) {
             result.append(counter).append(") ").append(d.printDevice());
             counter++;
-       }
+        }
         return result.toString();
     }
 
-    public String printRoomList(){
+    public String printRoomList() {
         return this.mRoomList.printRooms();
     }
 
-    public double getSelectionNominalPower(DeviceList selectedDevices){
+    public double getSelectionNominalPower(DeviceList selectedDevices) {
         double result = 0;
         List<Metered> selectedList = new ArrayList<>(selectedDevices.getDeviceList());
-        for (Metered m : selectedList){
+        for (Metered m : selectedList) {
             result += m.getNominalPower();
         }
         return result;
@@ -180,7 +180,8 @@ public class EnergyGrid implements Metered {
                 result.append(device.getName()).append(" | ");
                 result.append("Room: ").append(r.getRoomName()).append(" | \n");
             }
-        }return result.toString();
+        }
+        return result.toString();
     }
 
     @Override
