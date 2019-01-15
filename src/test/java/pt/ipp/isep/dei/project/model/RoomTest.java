@@ -125,6 +125,29 @@ public class RoomTest {
     }
 
     @Test
+    void SeeIfPrintListOfDevicesFromRoomWorksNone(){
+        Room room = new Room("cozinha",0,1,1,1);
+        String result = room.printListOfDevicesFromRoom(room);
+        String expectedResult = "This room has no devices on it\n";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void SeeIfPrintListOfDevicesFromRoomWorks(){
+        DeviceList deviceList = new DeviceList();
+        Device d1 = new Device("frigorifico",230,new Fridge());
+        deviceList.addDevices(d1);
+        Room room = new Room("cozinha",0,1,1,1);
+        room.setDeviceList(deviceList);
+        String result = room.printListOfDevicesFromRoom(room);
+        String expectedResult ="---------------\n" +
+                "\n" +
+                "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 230.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
     public void seeIfGetCurrentRoomTemperatureWorks() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");

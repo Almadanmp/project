@@ -87,6 +87,7 @@ public class SensorSettingsController {
         return mSensorType;
     }
 
+
     /**
      *
      * @param name is the new sensor's name.
@@ -99,6 +100,11 @@ public class SensorSettingsController {
 
     public Sensor createSensor(String name, TypeSensor type, Local local, Date date) {
         this.mSensor = new Sensor(name, type, local, date);
+        return mSensor;
+    }
+
+    public Sensor createRoomSensor(String name, TypeSensor type, Date date) {
+        this.mSensor = new Sensor(name, type, date);
         return mSensor;
     }
 

@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.List;
 
@@ -199,9 +198,8 @@ public class RoomConfigurationController {
      * @return string with all the devices in the given room.
      */
     public String printDeviceList(Room room){
-        return room.getObjectDeviceList().printListOfDevicesFromRoom(room);
+        return room.printListOfDevicesFromRoom(room);
     }
-
 
     public String printDeviceType(DeviceType deviceType){return deviceType.printDeviceType(deviceType);}
 
@@ -299,5 +297,21 @@ public class RoomConfigurationController {
 
     public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
         return sensorList.printElementsByIndex(listOfIndexesOfSensor);
+    }
+    public String printTypeList(List<TypeSensor> typeList) {
+        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        if (typeList.isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < typeList.size(); i++) {
+            TypeSensor aux = typeList.get(i);
+            result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
+            result.append("Units: ").append(aux.getUnits()).append("\n");
+        }
+        result.append("---------------\n");
+        return result.toString();
+    }
+    public boolean addSensorToRoom(Room room,Sensor sensor) {
+        return (room.addSensor(sensor));
     }
 }

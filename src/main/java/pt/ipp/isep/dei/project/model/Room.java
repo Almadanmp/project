@@ -88,6 +88,27 @@ public class Room implements Metered {
         return this.mDeviceList.getDeviceList();
     }
 
+    /**Method for printing all available devices in a room.
+     * Used in US201 and US215
+     * @param room room designation
+     * @return string with devices in room.
+     */
+
+    public String printListOfDevicesFromRoom(Room room) {
+        StringBuilder result = new StringBuilder("---------------\n");
+        if (room.getDeviceList().isEmpty()) {
+            return "This room has no devices on it\n";
+        }
+        for (int i = 0; i < room.getDeviceList().size(); i++) {
+            Device device = room.getDeviceList().get(i);
+            result.append("\n"+i).append(") Device Name: ").append(device.getName());
+            result.append(", Device Type: ").append(device.getDeviceType());
+            result.append(", Device Nominal Power: ").append(device.getNominalPower());
+        }
+        result.append("\n---------------\n");
+        return result.toString();
+    }
+
     public DeviceList getObjectDeviceList(){
         return this.mDeviceList;
     }

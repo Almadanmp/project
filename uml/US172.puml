@@ -1,0 +1,19 @@
+@startuml
+
+actor André
+André -> MainUI: getEnergyGridTotalPower(House)
+MainUI -> EnergyGridSettingsUI: run(house)
+EnergyGridSettingsUI -> EnergyGridSettingsUI: getInputGrid()
+
+André <- EnergyGridSettingsUI: return inputGrid
+EnergyGridSettingsUI -> EnergyGridSettingsController: ctrl.getGridTotalPower(grid)
+EnergyGridSettingsController -> EnergyGrid: energyGrid.getTotalNominalPower()
+EnergyGrid -> DeviceList: getDeviceList()
+DeviceList --> Room: return DeviceList
+Room -> Device: device.getNominalPower()
+Device --> Room: return deviceNominalPower
+Room --> RoomConfigurationController: return gridNominalPower
+EnergyGridSettingsController --> EnergyGridSettingsUI: return gridNominalPower
+EnergyGridSettingsUI -> André: gridNominalPower
+
+@endumlΩ

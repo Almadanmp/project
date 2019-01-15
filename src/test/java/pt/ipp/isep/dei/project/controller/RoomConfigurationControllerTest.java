@@ -380,8 +380,63 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfSetDeviceName(){
+    void seeIfSensorIsAddedToRoom() {
+        //Arrange
+        Room room1 = new Room("Quarto", 1, 5, 1, 21);
+        Sensor sensor1 = new Sensor("coiso",new TypeSensor("rain","mm"),new GregorianCalendar(2,3,4).getTime());
+        //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-
+        boolean actualResult = ctrl.addSensorToRoom(room1,sensor1);
+        //Assert
+        assertTrue(actualResult);
+    }
+    @Test
+    void seeIfTypeListIsPrintedEmptyList() {
+        //Arrange
+        List<TypeSensor> list1 = new ArrayList<>();
+        TypeSensor t1 = new TypeSensor("rain","mm");
+        TypeSensor t2 = new TypeSensor("wind","km/h");
+        //Act
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        String result ="Invalid List - List is Empty\n";
+        String actualResult = ctrl.printTypeList(list1);
+        //Assert
+        assertEquals(result, actualResult);
+    }
+    @Test
+    void seeIfTypeListIsPrinted() {
+        //Arrange
+        List<TypeSensor> list1 = new ArrayList<>();
+        TypeSensor t1 = new TypeSensor("rain","mm");
+        TypeSensor t2 = new TypeSensor("wind","km/h");
+        list1.add(t1);
+        list1.add(t2);
+        //Act
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        String result ="---------------\n" +
+        "0) Name: rain | Units: mm\n" +
+        "1) Name: wind | Units: km/h\n" +
+        "---------------\n";
+        String actualResult = ctrl.printTypeList(list1);
+        //Assert
+        assertEquals(result, actualResult);
+    }
+    @Test
+    void seeIfItSetsNominalPower() {
+        //Arrange
+        List<TypeSensor> list1 = new ArrayList<>();
+        TypeSensor t1 = new TypeSensor("rain","mm");
+        TypeSensor t2 = new TypeSensor("wind","km/h");
+        list1.add(t1);
+        list1.add(t2);
+        //Act
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        String result ="---------------\n" +
+                "0) Name: rain | Units: mm\n" +
+                "1) Name: wind | Units: km/h\n" +
+                "---------------\n";
+        String actualResult = ctrl.printTypeList(list1);
+        //Assert
+        assertEquals(result, actualResult);
     }
 }

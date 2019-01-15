@@ -42,21 +42,6 @@ public class DeviceList {
         return !mDeviceList.isEmpty();
     }
 
-    public String printListOfDevicesFromRoom(Room room) {
-        StringBuilder result = new StringBuilder("---------------\n");
-        if (room.getDeviceList().isEmpty()) {
-            return "This room has no devices on it\n";
-        }
-        for (int i = 0; i < room.getDeviceList().size(); i++) {
-            Device device = room.getDeviceList().get(i);
-            result.append("\n"+i).append(") Device Name: ").append(device.getName());
-            result.append(", Device Type: ").append(device.getDeviceType());
-            result.append(", Device Nominal Power: ").append(device.getNominalPower());
-        }
-        result.append("\n---------------\n");
-        return result.toString();
-    }
-
     public List<Integer> matchDeviceIndexByString(String input) {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < mDeviceList.size(); i++) {

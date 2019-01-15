@@ -184,7 +184,7 @@ public class MainUI {
 
         // Energy Grid
 
-        EnergyGrid mainGrid = new EnergyGrid("main grid", 50);
+        EnergyGrid mainGrid = new EnergyGrid("main grid", 0);
         EnergyGridList energyGridListIsep = new EnergyGridList();
         energyGridListIsep.addGrid(mainGrid);
         mainGrid.setRoomList(gridRoomList);
@@ -228,6 +228,8 @@ public class MainUI {
         GeographicArea geographicArea4 = new GeographicArea();
         RoomList roomList = new RoomList();
         House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
+
+        TypeAreaList emptyTypeAreaList = new TypeAreaList();
 
         /**
         //Empty TypeAreaList
@@ -366,7 +368,7 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(edificioB,deviceTypeList);
+                        roomConfiguration.run(edificioB,deviceTypeList,typeSensorList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.Objects;
@@ -15,6 +16,7 @@ public class EnergyGrid implements Metered {
     private double mNominalPower;
     private RoomList mRoomList;
     private PowerSourceList mListPowerSources;
+    private String mStringSpacer = "---------------\n";
 
     public EnergyGrid() {
         this.mRoomList = new RoomList();
@@ -40,22 +42,22 @@ public class EnergyGrid implements Metered {
     }
 
     /**
-     *
      * @return a DeviceList containing all the devices in the energy grid list of rooms.
      */
 
-    public DeviceList getDeviceListFromAllRooms(){
+    public DeviceList getDeviceListFromAllRooms() {
         DeviceList devices = new DeviceList();
-        for (Room r: mRoomList.getRoomList()){
-            for( int i = 0; i<r.getDeviceList().size();i++) {
+        for (Room r : mRoomList.getRoomList()) {
+            for (int i = 0; i < r.getDeviceList().size(); i++) {
                 devices.addDevices(r.getDeviceList().get(i));
             }
-        }return devices;
+        }
+        return devices;
     }
 
     public double getNominalPower() {
         double result = 0;
-        for (Room r: mRoomList.getRoomList()){
+        for (Room r : mRoomList.getRoomList()) {
             result += r.getNominalPower();
             mNominalPower = result;
         }
@@ -97,40 +99,40 @@ public class EnergyGrid implements Metered {
         return "Energy Grid: " + this.mName + ", Max Power: " + this.getNominalPower();
     }
 
-    public List<Room> getRoomList(){
+    public List<Room> getRoomList() {
         return this.mRoomList.getRoomList();
     }
 
-    public List<Device> getDeviceList(){
+    public List<Device> getDeviceList() {
         return this.mRoomList.getDeviceList();
     }
 
-    public String printRoomsAndDevices(){
+    public String printRoomsAndDevices() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
         List<Room> roomList = this.getRoomList();
-        for (Room r: roomList){
+        for (Room r : roomList) {
             result.append(counter).append(") ").append(r.getRoomName()).append(".\n");
             counter++;
         }
         List<Device> deviceList = this.getDeviceList();
-        for (Device d : deviceList){
+        for (Device d : deviceList) {
             result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getDeviceType().name()).append(", Power: ").append(d.getNominalPower()).append(".\n");
             counter++;
         }
         return result.toString();
     }
 
-    public List<Metered> getRoomsAndDevices(){
+    public List<Metered> getRoomsAndDevices() {
         List<Metered> result = new ArrayList<>(this.getRoomList());
         result.addAll(this.getDeviceList());
         return result;
     }
 
-    public double getSumNominalPowerByIndex(List<Integer> indexes){
-        List <Metered> meteredList = this.getRoomsAndDevices();
+    public double getSumNominalPowerByIndex(List<Integer> indexes) {
+        List<Metered> meteredList = this.getRoomsAndDevices();
         double result = 0;
-        for (int index : indexes){
+        for (int index : indexes) {
             result += meteredList.get(index).getNominalPower();
         }
         return result;
@@ -149,24 +151,28 @@ public class EnergyGrid implements Metered {
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
 
-    public String printDeviceListByType(EnergyGrid energyGrid){
-        String mStringSpacer = "---------------\n";
+    public String printDeviceListByType(EnergyGrid energyGrid) {
         StringBuilder result = new StringBuilder(mStringSpacer);
         for (DeviceType d : DeviceType.values()) {
             for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
                 Room r = energyGrid.getListOfRooms().getRoomList().get(i);
-                for (int x = 0; x < r.getDeviceList().size(); x++) {
-                    if (d == r.getDeviceList().get(x).getDeviceType()) {
-                        Device device = r.getDeviceList().get(x);
-                        result.append(i).append(") Device type: ").append(d).append(" | ");
-                        result.append(device.getName()).append(" | ");
-                        result.append("Room: ").append(r.getRoomName()).append(" | \n");
-                    }
-                }
+                result.append(deviceListInGridStringConstructor(r, d, i));
             }
         }
         result.append(mStringSpacer);
         return result.toString();
+    }
+
+    private String deviceListInGridStringConstructor(Room r, DeviceType d, int i) {
+        StringBuilder result = new StringBuilder();
+        for (int x = 0; x < r.getDeviceList().size(); x++) {
+            if (d == r.getDeviceList().get(x).getDeviceType()) {
+                Device device = r.getDeviceList().get(x);
+                result.append(i).append(") Device type: ").append(d).append(" | ");
+                result.append(device.getName()).append(" | ");
+                result.append("Room: ").append(r.getRoomName()).append(" | \n");
+            }
+        }return result.toString();
     }
 
     @Override
