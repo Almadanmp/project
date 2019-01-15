@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Device;
 import pt.ipp.isep.dei.project.model.Room;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeviceTest {
@@ -88,6 +90,25 @@ public class DeviceTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeIfGetAndSetAttributeValue() {
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        double expectedResult = 33;
+        d1.setAttributeValue("nominalPower", 33);
+        double result = d1.getAttributeValue("nominalPower");
+        assertEquals(expectedResult, result);
+    }
 
+    @Test
+    void seeIfGetAttributeNames() {
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        List<String> result = d1.getAttributeNames();
+        assertTrue(result.contains("nominalPower"));
+        assertTrue(result.contains("volumeOfWater"));
+        assertTrue(result.contains("hotWaterTemperature"));
+        assertTrue(result.contains("coldWaterTemperature"));
+        assertTrue(result.contains("performanceRatio"));
+        assertEquals(result.size(), 5);
+    }
 
 }

@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.project.model.devicetypes;
 import pt.ipp.isep.dei.project.model.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.Metered;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Fridge implements DeviceSpecs, Metered {
 
     private double mNominalPower;
@@ -33,20 +36,35 @@ public class Fridge implements DeviceSpecs, Metered {
         return this.mNominalPower;
     }
 
-    public double getFreezerCapacity (){
+    public double getFreezerCapacity() {
         return this.mFreezerCapacity;
     }
 
-    public void setFreezerCapacity(double freezerCapacity){
+    public void setFreezerCapacity(double freezerCapacity) {
         this.mFreezerCapacity = freezerCapacity;
     }
 
-    public double getRefrigeratorCapacity (){
+    public double getRefrigeratorCapacity() {
         return this.mRefrigeratorCapacity;
     }
 
-    public void setRefrigeratorCapacity(double refrigeratorCapacity){
+    public void setRefrigeratorCapacity(double refrigeratorCapacity) {
         this.mRefrigeratorCapacity = refrigeratorCapacity;
+    }
+
+
+    public List<String> getAttributeNames() {
+        List<String> aux = new ArrayList<>();
+        return aux;
+    }
+
+    public double getAttributeValue(String attributeName) {
+        return 0;
+    }
+
+
+    public boolean setAttributeValue(String attributeName, double attributeValue) {
+        return false;
     }
 }
 

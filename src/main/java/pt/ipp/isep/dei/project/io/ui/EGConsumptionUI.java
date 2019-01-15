@@ -61,7 +61,7 @@ class EGConsumptionUI {
         RoomList selectedRooms = new RoomList();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
-            printSelection(selectedDevices,selectedRooms);
+            printSelection(selectedDevices, selectedRooms);
             System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); \n 2) Select / Deselect a Device; \n 3) Get the Total Nominal Power of the currently selected subset; \n 4) Return to main menu;\n ");
             int option;
             option = inputs.readInputNumberAsInt();
@@ -98,8 +98,9 @@ class EGConsumptionUI {
 
     /**
      * Prints currently selected devices and rooms.
+     *
      * @param selectedDevices the list of currently selected devices.
-     * @param selectedRooms the list of currently selected rooms.
+     * @param selectedRooms   the list of currently selected rooms.
      */
 
     private void printSelection(DeviceList selectedDevices, RoomList selectedRooms) {
@@ -111,8 +112,9 @@ class EGConsumptionUI {
 
     /**
      * Allows user to select multiple rooms, or deselect them if already selected.
-     * @param grid is the grid we want to select rooms from.
-     * @param selectedRooms is the rooms already selected.
+     *
+     * @param grid            is the grid we want to select rooms from.
+     * @param selectedRooms   is the rooms already selected.
      * @param selectedDevices is the devices already selected, including devices contained in the rooms already selected.
      */
 
@@ -123,7 +125,7 @@ class EGConsumptionUI {
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to remove it from the list? (Y/N)\n";
             System.out.println(duplicateRoom);
-            if(inputs.yesOrNo(scanner.nextLine(), duplicateRoom)){
+            if (inputs.yesOrNo(scanner.nextLine(), duplicateRoom)) {
                 controller.removeRoomFromList(r1, selectedRooms);
                 controller.removeRoomDevicesFromDeviceList(r1, selectedDevices);
                 System.out.println("The room and its devices have been deselected.");
@@ -137,7 +139,8 @@ class EGConsumptionUI {
 
     /**
      * Allows user to select multiple devices, or deselect them if already selected.
-     * @param grid is the grid we want to select devices from.
+     *
+     * @param grid            is the grid we want to select devices from.
      * @param selectedDevices is the devices already selected, including devices contained in the rooms already selected.
      */
 
@@ -148,7 +151,7 @@ class EGConsumptionUI {
         if (selectedDevices.contains(d1)) {
             String duplicateDevice = "That device is already on the list. Would you like to deselect the device? (Y/N)\n";
             System.out.println(duplicateDevice);
-            if(inputs.yesOrNo(scanner.nextLine(), duplicateDevice)){
+            if (inputs.yesOrNo(scanner.nextLine(), duplicateDevice)) {
                 controller.removeDeviceFromList(d1, selectedDevices);
                 System.out.println("The device has been deselected.");
             }
@@ -161,6 +164,7 @@ class EGConsumptionUI {
 
     /**
      * Asks user if he wants to select more rooms or devices.
+     *
      * @return true if yes, false if no.
      */
 
@@ -174,7 +178,8 @@ class EGConsumptionUI {
 
     /**
      * Prints the value of the totalNominalPower of selected subset.
-     * @param grid grid we want to select a subset from.
+     *
+     * @param grid            grid we want to select a subset from.
      * @param selectedDevices selected subset.
      */
 
@@ -191,6 +196,23 @@ class EGConsumptionUI {
      */
 
     private void runUS752(House house) {
+        Scanner scanner = new Scanner(System.in);
+        String onlyNumbers = "Please,try again. Only numbers this time:";
+        System.out.println("Please insert the cold water temperature:");
+        while (!scanner.hasNextDouble()) {
+            System.out.println(onlyNumbers);
+            scanner.next();
+        }
+        double coldWaterTemperature = scanner.nextDouble();
+        System.out.println("Please insert the volume of water to heat:");
+        while (!scanner.hasNextDouble()) {
+            System.out.println(onlyNumbers);
+            scanner.next();
+        }
+        double volumeWaterToHeat = scanner.nextDouble();
+
+        controller.configureHeaters(house, coldWaterTemperature, volumeWaterToHeat);
+
         double result = controller.getDailyHouseConsumptionWaterHeater(house);
         System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
     }

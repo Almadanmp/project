@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,25 +30,44 @@ public class Device implements Metered {
         this.mNominalPower = nomPower;
     }
 
-    public void setName(String name){this.mName = name;}
-
-    public double getNominalPower(){
-        return this.mNominalPower;
-    }
-
-    public void setmName(String name){
+    public void setName(String name) {
         this.mName = name;
     }
 
-    public String getName(){return this.mName;}
+    public double getNominalPower() {
+        return this.mNominalPower;
+    }
 
-    public void setmParentRoom(Room room){this.mParentRoom=room;}
+    public void setmName(String name) {
+        this.mName = name;
+    }
 
-    public Room getmParentRoom(){return this.mParentRoom;}
+    public String getName() {
+        return this.mName;
+    }
+
+    public void setmParentRoom(Room room) {
+        this.mParentRoom = room;
+    }
+
+    public Room getmParentRoom() {
+        return this.mParentRoom;
+    }
 
 
+    public List<String> getAttributeNames() {
+        return mDeviceSpecs.getAttributeNames();
+    }
 
-    public String printDevice(){
+    public double getAttributeValue(String attributeName) {
+        return mDeviceSpecs.getAttributeValue(attributeName);
+    }
+
+    public void setAttributeValue(String attributeName, double attributeValue) {
+        mDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+    }
+
+    public String printDevice() {
         String result;
         result = "The Device Name is " + this.mName + ", and its NominalPower is " +
                 getNominalPower() + " kW.\n";
@@ -57,10 +76,11 @@ public class Device implements Metered {
 
     /**
      * get daily estimate consumption on a day (24hours)
+     *
      * @return the estimateConsumption/24 hours
      */
-    public double getDailyEstimateConsumption(){
-        return mDeviceSpecs.getConsumption()*24;
+    public double getDailyEstimateConsumption() {
+        return mDeviceSpecs.getConsumption() * 24;
     }
 
     public DeviceType getDeviceType() {

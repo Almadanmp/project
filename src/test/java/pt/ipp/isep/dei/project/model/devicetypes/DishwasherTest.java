@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.project.model.devicetypes;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DishwasherTest {
@@ -41,5 +44,29 @@ public class DishwasherTest {
         double result = dishwasher.getCapacity();
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void getAttributeNamesTest() {
+        Dishwasher dishwasher = new Dishwasher(1);
+        List<String> expectedResult = new ArrayList<>();
+        List<String> result = dishwasher.getAttributeNames();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void getAttributeValuesTest() {
+        Dishwasher dishwasher = new Dishwasher(1);
+        double expectedResult = 0;
+        double result = dishwasher.getAttributeValue("lisboa");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void setAttributeValueTest() {
+        Dishwasher dishwasher = new Dishwasher(1);
+        boolean result = dishwasher.setAttributeValue("lisboa", 12);
+        assertEquals(false, result);
+    }
+
 
 }
