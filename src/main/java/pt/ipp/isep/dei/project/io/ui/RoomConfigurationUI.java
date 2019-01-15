@@ -77,7 +77,12 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 2: //US210
-                    getInputDeviceTypeByList(deviceTypeList);
+                    if(getInputRoomByList()){
+                        return;
+                    }
+                    if(getInputDeviceTypeByList(deviceTypeList)){
+                        return;
+                    }
                     createDevice();
                     displayDeviceUS210();
                     activeInput = false;
@@ -188,15 +193,18 @@ class RoomConfigurationUI {
     private boolean getInputDeviceTypeByList(List<DeviceType> deviceTypeList) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
+        if(deviceTypeList.isEmpty()) {
+            return true;
+        }
         System.out.println("Please select one of the Device Types: ");
         System.out.println(mRoomConfigurationController.printDeviceTypeList(deviceTypeList));
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < DeviceType.values().length) {
             this.mDeviceType = DeviceType.values()[aux];
-            return true;
+            return false;
         } else {
             System.out.println(utils.invalidOption);
-            return false;
+            return true;
         }
     }
 
@@ -211,29 +219,6 @@ class RoomConfigurationUI {
         System.out.print("Please, type the new name of the Device: ");
         mDeviceName = scanner.nextLine();
 
-        //get room
-        if (mHouse.getRoomList().isEmpty()) {
-            System.out.println("Invalid Room List - List Is Empty\n");
-            return;
-        }
-
-        boolean activeInput = false;
-        System.out.println("Please select one of the existing rooms on the selected House to which you want to add your Device: ");
-        while (!activeInput) {
-            System.out.println(mRoomConfigurationController.printRoomList(mHouse));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < mHouse.getRoomList().size()) {
-                this.mRoom = mHouse.getRoomList().get(aux);
-                this.mRoomName = mRoom.getRoomName();
-                System.out.println(mStringRequestRoom);
-                System.out.println(mRoomConfigurationController.printRoom(mRoom));
-                activeInput = true;
-                mRoom.addDevice(mDevice);
-                mDevice.setmParentRoom(mRoom);
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        }
         //get nominal power
         System.out.print("Please, type the new Nominal Power: ");
         while (!scanner.hasNextDouble()) {
@@ -344,6 +329,8 @@ class RoomConfigurationUI {
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
             System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L and the Refrigerator Capacity is " + mRefrigeratorCapacity + " L.");
         }
+        mDevice.setmParentRoom(mRoom);
+        mRoom.addDevice(mDevice);
     }
 
     /* USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,
