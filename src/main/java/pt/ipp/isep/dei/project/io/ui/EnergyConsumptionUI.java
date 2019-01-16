@@ -35,11 +35,7 @@ class EnergyConsumptionUI {
                 case 1:
                     if (programHouse.getEGList() == null) {
                         System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
-                        return;
-                    } else if (programHouse.getEGList().getEnergyGridList().isEmpty()) {
-                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
-                        return;
-                    }
+                        return; }
                     EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
                     double nominalPower = updateUS172(mEnergyGrid);
                     displayUS172(nominalPower);
