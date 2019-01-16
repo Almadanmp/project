@@ -151,5 +151,9 @@ public class EnergyConsumptionController {
     public double getDailyHouseConsumptionWaterHeater(House house) {
         return house.getDailyHouseConsumptionPerType(DeviceType.WATER_HEATER);
     }
+
+    public double getTotalPowerFromGrid(EnergyGrid grid) {
+        return grid.getNominalPower();
+    }
 }
 
