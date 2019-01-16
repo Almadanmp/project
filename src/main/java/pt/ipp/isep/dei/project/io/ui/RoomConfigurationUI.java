@@ -134,6 +134,7 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (deviceTypeList.isEmpty()) {
+            System.out.println("Device types list is empty.");
             return true;
         }
         System.out.println("Please select one of the Device Types: ");
