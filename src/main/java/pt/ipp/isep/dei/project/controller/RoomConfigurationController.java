@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.devicetypes.Program;
+import pt.ipp.isep.dei.project.model.devicetypes.ProgramList;
 
 import java.util.List;
 
@@ -244,7 +244,7 @@ public class RoomConfigurationController {
     device.setAttributeValue("capacity", capacity);
     }
 
-    public void  configureOneWashingMachineProgram(Device device, Program program ){
+    public void  configureOneWashingMachineProgram(Device device, ProgramList program ){
         device.setAttributeValue("programList", program);
     }
 
@@ -252,7 +252,7 @@ public class RoomConfigurationController {
     device.setAttributeValue("capacity", capacity);
     }
 
-    public void  configureOneDishWasherProgram(Device device, Program program ){
+    public void  configureOneDishWasherProgram(Device device, ProgramList program ){
         device.setAttributeValue("programList", program);
     }
 

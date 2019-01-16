@@ -33,6 +33,18 @@ public class ProgramList {
         return result.toString();
     }
 
+    public String buildProgramListStringForEach() {
+        StringBuilder result = new StringBuilder("");
+        if (getProgramList().isEmpty()) {
+            return "This device has no programs\n";
+        }
+        for (int i = 0; i < getProgramList().size(); i++) {
+            Program program = getProgramList().get(i);
+            result.append("\n").append(program.buildProgramString());
+        }
+        return result.toString();
+    }
+
     public boolean addProgram(Program program) {
         if (!(mProgramList.contains(program))) {
             mProgramList.add(program);
@@ -43,7 +55,7 @@ public class ProgramList {
     }
 
     public boolean removeProgram(Program program) {
-        if (!(mProgramList.contains(program))) {
+        if (mProgramList.contains(program)) {
             mProgramList.remove(program);
             return true;
         } else {

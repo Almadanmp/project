@@ -105,8 +105,8 @@ class InputUtils {
             return null;
         }
     }
-//mudar o nome
-    Program getProgramListFromDevice(Device device) {
+
+    Program getSelectedProgramFromDevice(Device device) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         ProgramList programList = (ProgramList)device.getAttributeValue("programList");

@@ -16,8 +16,8 @@ public class Program {
 
     public String buildProgramString(){
         String result;
-        result = "The Program Name is " + getProgramName() + ", its Duration is " +
-                getDuration() + " hours and its Energy Consumption is"+getEnergyConsumption()+".\n";
+        result = "- The Program Name is " + getProgramName() + ", its Duration is " +
+                getDuration() + " hours and its Energy Consumption is "+getEnergyConsumption()+".\n";
         return result;
     }
     public void setProgramName(String name){

@@ -67,7 +67,7 @@ public class ProgramListTest {
         Program program = new Program("program", 2, 3);
         ProgramList list = new ProgramList();
         boolean result = list.removeProgram(program);
-        assertEquals(true, result);
+        assertEquals(false, result);
     }
 
     @Test
@@ -76,6 +76,6 @@ public class ProgramListTest {
         ProgramList list = new ProgramList();
         list.addProgram(program);
         boolean result = list.removeProgram(program);
-        assertEquals(false, result);
+        assertEquals(true, result);
     }
     }
