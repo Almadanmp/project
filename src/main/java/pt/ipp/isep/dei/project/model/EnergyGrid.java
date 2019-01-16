@@ -159,7 +159,7 @@ public class EnergyGrid implements Metered {
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
 
-    public String buildDeviceListByTypeString(EnergyGrid energyGrid) {
+    public String printListOfDeviceByType(EnergyGrid energyGrid) {
         StringBuilder result = new StringBuilder(mStringSpacer);
         for (DeviceType d : DeviceType.values()) {
             for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {

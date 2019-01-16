@@ -40,7 +40,7 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS752Extra(programHouse);
+                    runUS705(programHouse);
                     activeInput = true;
                     break;
                 case 3:

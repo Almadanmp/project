@@ -18,7 +18,12 @@ class EnergyGridSettingsUI {
     void run(House house) {
         InputUtils inputs = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.houseIsNull(house) || utilsUI.houseEGListIsNull(house)) {
+        if (utilsUI.houseIsNull(house) ) {
+            System.out.println("Invalid House selected\nReturning to Main Menu");
+            return;
+        }
+        if (utilsUI.houseEGListIsNull(house)){
+            System.out.println("The selected House has not a valid Energy Grid associated\nReturning to Main Menu");
             return;
         }
         this.mHouse = house;
@@ -108,6 +113,7 @@ class EnergyGridSettingsUI {
             double maxEnergyStorage = scanner.nextDouble();
             mController.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
         }
+        System.out.println("The energy grid you've selected has no rooms attached to it.");
     }
 
     private void updateGridAndDisplayState() {
@@ -164,7 +170,7 @@ class EnergyGridSettingsUI {
     DANIEL OLIVEIRA*/
 
     private void displayUS160(EnergyGrid energyGrid) {
-        System.out.println(mController.buildListOfDevicesByTypeString(energyGrid));
+        System.out.println(mController.printListOfDevicesOrderedByType(energyGrid));
     }
 
 
