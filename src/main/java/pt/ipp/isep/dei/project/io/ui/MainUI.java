@@ -391,8 +391,8 @@ public class MainUI {
                         activeInput = false;
                         break;
                     case 7:
-                        EGConsumptionUI egConsumptionUI = new EGConsumptionUI();
-                        egConsumptionUI.run(edificioB);
+                        EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
+                        energyConsumptionUI.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

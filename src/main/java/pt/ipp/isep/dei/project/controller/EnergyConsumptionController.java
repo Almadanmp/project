@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.List;
 
-public class EGConsumptionController {
+public class EnergyConsumptionController {
 
 
     /*

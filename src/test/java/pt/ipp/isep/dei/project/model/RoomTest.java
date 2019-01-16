@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.controller.EGConsumptionController;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
