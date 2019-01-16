@@ -23,6 +23,7 @@ class RoomConfigurationUI {
     private double mPerformanceRatio;
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
+    private double mAnnualEnergyConsumption;
     private double mCapacity;
     private String mDeviceName;
     private String mRoomName;
@@ -73,7 +74,7 @@ class RoomConfigurationUI {
                     displayDeviceUS210();
                     activeInput = false;
                     break;
-                case 3: //215
+                case 3: //US215
                     this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                     this.mDevice = inputUtils.getInputDeviceByList(this.mRoom);
                     getInputDeviceCharacteristicsUS215();
@@ -208,7 +209,13 @@ class RoomConfigurationUI {
                 scanner.next();
             }
             this.mRefrigeratorCapacity = scanner.nextDouble();
-            mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity));
+            System.out.print("Please, type the new Annual Energy Consumption in kWh:");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mAnnualEnergyConsumption = scanner.nextDouble();
+            mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity, mAnnualEnergyConsumption));
         }
         if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
             System.out.print("Please, type the Capacity in Kg for the Washing Machine: ");
@@ -270,7 +277,6 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         mDevice.setmParentRoom(mRoom);
-        this.mRoom = inputUtils.getHouseRoomByList(mHouse);
         mRoomConfigurationController.addDeviceToRoom(mRoom, mDevice);
         //get nominal power
         String onlyNumbers = "Please,try again. Only numbers this time:";
@@ -348,6 +354,13 @@ class RoomConfigurationUI {
                 scanner.next();
             }
             this.mRefrigeratorCapacity = scanner.nextDouble();
+
+            System.out.print("Please, type the new Annual Energy Consumption in kWh:");
+            while (!scanner.hasNextDouble()) {
+                System.out.println(onlyNumbers);
+                scanner.next();
+            }
+            this.mAnnualEnergyConsumption = scanner.nextDouble();
         }
 
     }
@@ -384,7 +397,7 @@ class RoomConfigurationUI {
             //mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
             //System.out.println("Device Configured.\n");//
 
-            Fridge fridge = new Fridge(mFreezerCapacity, mRefrigeratorCapacity);
+            Fridge fridge = new Fridge(mFreezerCapacity, mRefrigeratorCapacity,mAnnualEnergyConsumption);
             mDevice = new Device(mDeviceName, mNominalPower, fridge);
         }
     }
@@ -404,7 +417,8 @@ class RoomConfigurationUI {
             System.out.println("The capacity is " + mCapacity + " Kg.");
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
-            System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L and the Refrigerator Capacity is " + mRefrigeratorCapacity + " L.");
+            System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
+                    " L and the "+ mAnnualEnergyConsumption +" kWh.");
         }
     }
 

@@ -54,8 +54,7 @@ public class WaterHeater implements DeviceSpecs, Metered {
     public double getConsumption() {
         double specificHeatOfWater = 1.163;
         double dT = mHotWaterTemperature - mColdWaterTemperature;
-        double result = specificHeatOfWater * mVolumeOfWater * dT * mPerformanceRatio;
-        return result; //To be implemented by US752
+        return specificHeatOfWater * mVolumeOfWater * dT * mPerformanceRatio; //To be implemented by US752
     }
 
     public double getVolumeWater() {
