@@ -249,12 +249,12 @@ class GASettingsUI {
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
-    private boolean matchGAByTypeArea(GeographicAreaList newGeoListUi) {
-        if ((newGeoListUi.getGeographicAreaList().isEmpty())) {
+    private boolean matchGAByTypeArea(GeographicAreaList geographicAreaList) {
+        if ((geographicAreaList.getGeographicAreaList().isEmpty())) {
             System.out.print("The list of Geographic Areas is currently empty.\n Please return to main menu and add a Geographic Area to the list first.");
             return false;
         } else {
-            this.mGeoAreaList = mController.matchGAByTypeArea(newGeoListUi, this.mTypeArea);
+            this.mGeoAreaList = mController.matchGAByTypeArea(geographicAreaList, this.mTypeArea);
             this.mTypeAreaName = mController.getTypeAreaName(this.mTypeArea);
             return true;
         }
