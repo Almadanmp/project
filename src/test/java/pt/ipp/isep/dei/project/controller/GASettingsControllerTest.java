@@ -555,7 +555,7 @@ class GASettingsControllerTest {
         assertTrue(actualResult);
     }
 
-    //public void buildAreaByNameString(String name, GeographicAreaList newGeoListUi) {
+    //public void checkIfGAExistsInGAList(String name, GeographicAreaList newGeoListUi) {
     @Test
     void seeIfPrintAreaByNameWorks() {
         //Arrange
@@ -569,7 +569,7 @@ class GASettingsControllerTest {
         //Act
         GASettingsController ctrl = new GASettingsController();
         String name = "Oporto";
-        boolean actualResult = ctrl.buildAreaByNameString(name, gAL1);
+        boolean actualResult = ctrl.checkIfGAExistsInGAList(name, gAL1);
         //Assert
         assertTrue(actualResult);
     }
@@ -587,7 +587,7 @@ class GASettingsControllerTest {
         //Act
         GASettingsController ctrl = new GASettingsController();
         String name = "Valongo";
-        boolean actualResult = ctrl.buildAreaByNameString(name, gAL1);
+        boolean actualResult = ctrl.checkIfGAExistsInGAList(name, gAL1);
         //Assert
         assertFalse(actualResult);
     }

@@ -241,6 +241,7 @@ public class MainUI {
         deviceTypeList.add(DeviceType.LAMP);
 
         TypeAreaList emptyTypeAreaList = new TypeAreaList();
+        GeographicAreaList emptyGeographicalAreaList = new GeographicAreaList();
 
 
 
@@ -376,7 +377,7 @@ public class MainUI {
                         return;
                     case 1:
                         GASettingsUI view1 = new GASettingsUI();
-                        view1.runGASettings(geographicalAreaList, emptyTypeAreaList);
+                        view1.runGASettings(emptyGeographicalAreaList, mTypeAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

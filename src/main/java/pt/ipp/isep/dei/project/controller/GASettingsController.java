@@ -170,11 +170,10 @@ public class GASettingsController {
      */
 
     boolean checkIfListContainsGeoArea(String ga, GeographicAreaList geographicAreaList) {
-
         return geographicAreaList.checkIfContainsGAByString(ga);
     }
 
-    public boolean buildAreaByNameString(String name, GeographicAreaList newGeoListUi) {
+    public boolean checkIfGAExistsInGAList(String name, GeographicAreaList newGeoListUi) {
         return checkIfListContainsGeoArea(name, newGeoListUi);
     }
 
