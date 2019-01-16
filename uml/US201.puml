@@ -2,10 +2,10 @@
 actor Admin
 Admin -> MainUI: I want to get a list of all devices in a room
 MainUI -> RoomConfigurationUI: run(House)
-RoomConfigurationUI --> Admin: getInputRoom()
+RoomConfigurationUI --> Admin: displayRoomList()
 Admin ->RoomConfigurationUI: insert room from list
-RoomConfigurationUI->RoomConfigurationController: ctrl.checkIfRoomIsContainedInList(index,house)
-RoomConfigurationController->RoomList:this.roomList.checkIfRoomIsContainedInList(index,house)
+RoomConfigurationUI->RoomConfigurationController: checkIfRoomIsContainedInList(index,house)
+RoomConfigurationController->RoomList:checkIfRoomIsContainedInList(index,house)
 RoomList->RoomList:validate data
 RoomList-->RoomConfigurationController:return Room
 RoomConfigurationController-->RoomConfigurationUI: setRoom
@@ -13,5 +13,5 @@ RoomConfigurationUI->RoomConfigurationController: getDeviceListFromRoom
 RoomConfigurationController->Room: printDeviceList()
 Room-->RoomConfigurationController:printDeviceList()
 RoomConfigurationController-->RoomConfigurationUI:printDeviceList()
-RoomConfigurationUI-->Admin:printDeviceList()
+RoomConfigurationUI-->Admin:displayDeviceList()
 @enduml
