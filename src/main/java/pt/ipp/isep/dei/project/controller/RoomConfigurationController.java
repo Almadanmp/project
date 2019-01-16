@@ -206,7 +206,7 @@ public class RoomConfigurationController {
             deviceType = deviceTypeList.get(i);
         }
 
-        return deviceType.printDeviceTypeByIndex();
+        return deviceType.buildDeviceTypesByIndexString();
     }
 
     /**

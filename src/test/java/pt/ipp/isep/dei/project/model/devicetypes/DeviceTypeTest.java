@@ -2,9 +2,6 @@ package pt.ipp.isep.dei.project.model.devicetypes;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeviceTypeTest {
@@ -41,10 +38,7 @@ public class DeviceTypeTest {
     @Test
     void seeIfPrintDeviceTypeByList(){
         DeviceType fridge = DeviceType.FRIDGE;
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        String result = fridge.printDeviceTypeByIndex();
+        String result = fridge.buildDeviceTypesByIndexString();
         String expectedResult =
                 "0) Device Type: WATER_HEATER;\n" +
                         "1) Device Type: WASHING_MACHINE;\n" +
@@ -57,7 +51,7 @@ public class DeviceTypeTest {
     @Test
     void seeIfPrintDeviceType(){
         DeviceType fridge = DeviceType.FRIDGE;
-        String result = fridge.printDeviceType(fridge);
+        String result = fridge.buildDeviceTypeString(fridge);
         String expectedResult =
                         "FRIDGE";
         assertEquals(expectedResult,result);

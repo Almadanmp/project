@@ -224,7 +224,7 @@ class RoomConfigurationUI {
      */
 
     private void displayDeviceUS210() {
-        System.out.println("You have successfully created a " + mDeviceType.printDeviceType(mDeviceType) + " with the name " + mDeviceName + ". \n"
+        System.out.println("You have successfully created a " + mDeviceType.buildDeviceTypeString(mDeviceType) + " with the name " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + ".");
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
