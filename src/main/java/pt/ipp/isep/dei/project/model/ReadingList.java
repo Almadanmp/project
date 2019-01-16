@@ -161,7 +161,7 @@ public class ReadingList {
                 GregorianCalendar temporaryCalend = new GregorianCalendar();
                 temporaryCalend.setTime(currentReadingDate);
                 int dayToAdd = temporaryCalend.get(Calendar.DAY_OF_MONTH);
-                    daysWithReadings.add(dayToAdd);
+                daysWithReadings.add(dayToAdd);
 
             }
         }
@@ -581,37 +581,35 @@ public class ReadingList {
      * @return whether the list is empty or not.
      */
     public boolean isEmpty() {
-        if (mReadings == null) {
-            return true;
-        } else {
-            return mReadings.isEmpty();
-        }
+        return mReadings.isEmpty();
     }
+
     /**
-     * Method that gives the Total of Readings on a given day (Date).
+     * Method that gives the Total Value of Readings on a given day (Date).
      *
      * @param givenDate
      * @param
      * @return sum
      */
-    public double getTotalReadingOnGivenDay(Date givenDate) {
+    public double getTotalValueOfReadingOnGivenDay(Date givenDate) {
         List<Integer> daysWithReadings = getListOfDaysWithReadingsBetweenTwoGivenDates(givenDate, givenDate);
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
         for (int day : daysWithReadings) {
             List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(day);
             double givenD;
-            givenD = gettotalFromGivenList(valueReadingsThatMatchDay);
+            givenD = getTotalFromGivenList(valueReadingsThatMatchDay);
             totalValuesFromDaysWithReadings.add(givenD);
         }
-        return gettotalFromGivenList(totalValuesFromDaysWithReadings);
+        return getTotalFromGivenList(totalValuesFromDaysWithReadings);
     }
+
     /**
      * This method receives a list of doubles that correspond to value readings and
      * will return the average value on that list.
      *
      * @return returns the average of all values contained within that ArrayList
      */
-    private double gettotalFromGivenList(List<Double> valueList) {
+    private double getTotalFromGivenList(List<Double> valueList) {
         double sum = 0;
         if (valueList.isEmpty()) {
             return NaN;

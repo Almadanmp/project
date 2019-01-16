@@ -37,7 +37,7 @@ public interface DeviceSpecs {
      * get a attribute value
      *
      * @param attributeName attribute name form which we want the attribute value
-     * @return attribue value
+     * @return attribute value
      */
     double getAttributeValue(String attributeName);
 

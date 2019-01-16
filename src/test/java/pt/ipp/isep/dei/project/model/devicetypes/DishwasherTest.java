@@ -26,16 +26,6 @@ public class DishwasherTest {
     }
 
     @Test
-    public void seeIfGetNominalPower() {
-        Dishwasher dishwasher = new Dishwasher(4);
-        double expectedResult = 6;
-        dishwasher.getNominalPower();
-        dishwasher.setNominalPower(6);
-        double result = dishwasher.getNominalPower();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     public void seeIfGetCapacity() {
         Dishwasher dishwasher = new Dishwasher(4);
         double expectedResult = 6;

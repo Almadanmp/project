@@ -6,22 +6,19 @@ import pt.ipp.isep.dei.project.model.Metered;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fridge implements DeviceSpecs, Metered {
+public class Fridge implements DeviceSpecs {
 
-    private double mNominalPower;
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
+    private double mAnnualEnergyConsumption;
 
     public Fridge() {
     }
 
-    public Fridge(double mFreezerCapacity, double mRefrigeratorCapacity) {
+    public Fridge(double mFreezerCapacity, double mRefrigeratorCapacity, double annualEnergyConsumption) {
         this.mFreezerCapacity = mFreezerCapacity;
         this.mRefrigeratorCapacity = mRefrigeratorCapacity;
-    }
-
-    void setNominalPower(double nominalPower) {
-        this.mNominalPower = nominalPower;
+        this.mAnnualEnergyConsumption = annualEnergyConsumption;
     }
 
     public DeviceType getType() {
@@ -30,10 +27,6 @@ public class Fridge implements DeviceSpecs, Metered {
 
     public double getConsumption() {
         return 0; //To be implemented later, not yet specified
-    }
-
-    public double getNominalPower() {
-        return this.mNominalPower;
     }
 
     public double getFreezerCapacity() {
@@ -73,6 +66,7 @@ public class Fridge implements DeviceSpecs, Metered {
         result.add("nominalPower");
         result.add("freezerCapacity");
         result.add("refrigeratorCapacity");
+        result.add("annualEnergyConsumption");
 
         return result;
     }
@@ -86,6 +80,8 @@ public class Fridge implements DeviceSpecs, Metered {
                 return mFreezerCapacity;
             case "refrigeratorCapacity":
                 return mRefrigeratorCapacity;
+            case "annualEnergyConsumption":
+                return mAnnualEnergyConsumption;
             default:
                 return 0;
         }
@@ -102,6 +98,9 @@ public class Fridge implements DeviceSpecs, Metered {
                 return true;
             case "refrigeratorCapacity":
                 this.mRefrigeratorCapacity = attributeValue;
+                return true;
+            case "annualEnergyConsumption":
+                this.mAnnualEnergyConsumption = attributeValue;
                 return true;
             default:
                 return false;

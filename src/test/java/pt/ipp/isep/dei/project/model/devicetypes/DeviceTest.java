@@ -94,8 +94,8 @@ public class DeviceTest {
     void seeIfGetAndSetAttributeValue() {
         Device d1 = new Device("heater", 150, new WaterHeater());
         double expectedResult = 33;
-        d1.setAttributeValue("nominalPower", 33);
-        double result = d1.getAttributeValue("nominalPower");
+        d1.setAttributeValue("volumeOfWater", 33);
+        double result = d1.getAttributeValue("volumeOfWater");
         assertEquals(expectedResult, result);
     }
 
@@ -103,11 +103,11 @@ public class DeviceTest {
     void seeIfGetAttributeNames() {
         Device d1 = new Device("heater", 150, new WaterHeater());
         List<String> result = d1.getAttributeNames();
-        assertTrue(result.contains("nominalPower"));
         assertTrue(result.contains("volumeOfWater"));
         assertTrue(result.contains("hotWaterTemperature"));
         assertTrue(result.contains("coldWaterTemperature"));
         assertTrue(result.contains("performanceRatio"));
+        assertTrue(result.contains("volumeOfWaterToHeat"));
         assertEquals(result.size(), 5);
     }
 

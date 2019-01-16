@@ -236,7 +236,7 @@ public class HouseMonitoringController {
         if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
             return Double.NaN;
         }
-        return closestSensor.getReadingList().getTotalReadingOnGivenDay(day);
+        return closestSensor.getReadingList().getTotalValueOfReadingOnGivenDay(day);
     }
 
 

@@ -165,7 +165,8 @@ class RoomConfigurationControllerTest {
                 "0) Device Type: WATER_HEATER;\n" +
                         "1) Device Type: WASHING_MACHINE;\n" +
                         "2) Device Type: DISHWASHER;\n" +
-                        "3) Device Type: FRIDGE;\n";
+                        "3) Device Type: FRIDGE;\n" +
+                        "4) Device Type: LAMP;\n";
         assertEquals(expectedResult, result);
     }
 
@@ -185,7 +186,8 @@ class RoomConfigurationControllerTest {
                 "0) Device Type: WATER_HEATER;\n" +
                         "1) Device Type: WASHING_MACHINE;\n" +
                         "2) Device Type: DISHWASHER;\n" +
-                        "3) Device Type: FRIDGE;\n";
+                        "3) Device Type: FRIDGE;\n" +
+                        "4) Device Type: LAMP;\n";
         assertEquals(expectedResult, result);
     }
 

@@ -23,7 +23,9 @@ class RoomConfigurationUI {
     private double mPerformanceRatio;
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
+    private double mAnnualEnergyConsumption;
     private double mCapacity;
+    private double mLuminousFlux;
     private String mDeviceName;
     private String mRoomName;
     private String mSensorName;
@@ -73,7 +75,7 @@ class RoomConfigurationUI {
                     displayDeviceUS210();
                     activeInput = false;
                     break;
-                case 3: //215
+                case 3: //US215
                     this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                     this.mDevice = inputUtils.getInputDeviceByList(this.mRoom);
                     getInputDeviceCharacteristicsUS215();
@@ -158,7 +160,6 @@ class RoomConfigurationUI {
     private void createDevice() {
         this.mDevice = new Device();
         Scanner scanner = new Scanner(System.in);
-        String onlyNumbers = "Please,try again. Only numbers this time:";
 
         // get device name
         System.out.print("Please, type the new name of the Device: ");
@@ -166,67 +167,53 @@ class RoomConfigurationUI {
 
         //get nominal power
         System.out.print("Please, type the new Nominal Power: ");
-        while (!scanner.hasNextDouble()) {
-            System.out.println(onlyNumbers);
-            scanner.next();
-        }
-        this.mNominalPower = scanner.nextDouble();
+        InputUtils inputUtils = new InputUtils();
+
+        this.mNominalPower = inputUtils.getInputAsDouble();
 
         //Device Type
         if (this.mDeviceType == DeviceType.WATER_HEATER) {
             System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mVolumeOfWater = scanner.nextDouble();
+
+            this.mVolumeOfWater = inputUtils.getInputAsDouble();
 
             System.out.print("Please, type the Maximum Temperature of the water in the Water Heater: ");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mHotWaterTemperature = scanner.nextDouble();
+
+            this.mHotWaterTemperature = inputUtils.getInputAsDouble();
             System.out.print("Please, type the Performance Ration of the Water Heater: ");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mPerformanceRatio = scanner.nextDouble();
+
+            this.mPerformanceRatio = inputUtils.getInputAsDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio));
         }
         if (this.mDeviceType == DeviceType.FRIDGE) {
             System.out.print("Please, type the Freezer Capacity in L for the Fridge:");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mFreezerCapacity = scanner.nextDouble();
+
+            this.mFreezerCapacity = inputUtils.getInputAsDouble();
             System.out.print("Please, type the Refrigerator Capacity in L for the Fridge:");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mRefrigeratorCapacity = scanner.nextDouble();
-            mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity));
+
+            this.mRefrigeratorCapacity = inputUtils.getInputAsDouble();
+            System.out.print("Please, type the new Annual Energy Consumption in kWh:");
+
+            this.mAnnualEnergyConsumption = inputUtils.getInputAsDouble();
+            mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity, mAnnualEnergyConsumption));
         }
         if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
             System.out.print("Please, type the Capacity in Kg for the Washing Machine: ");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mCapacity = scanner.nextDouble();
+
+            this.mCapacity = inputUtils.getInputAsDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new WashingMachine(mCapacity));
         }
         if (this.mDeviceType == DeviceType.DISHWASHER) {
             System.out.print("Please, type the Capacity in Kg for the Dishwasher:");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mCapacity = scanner.nextDouble();
+
+            this.mCapacity = inputUtils.getInputAsDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new Dishwasher(mCapacity));
+        }
+        if (this.mDeviceType == DeviceType.LAMP) {
+            System.out.print("Please, type the new Luminous Flux in lm for the Lamp:");
+
+            this.mLuminousFlux = inputUtils.getInputAsDouble();
+            mDevice = new Device(mDeviceName, mNominalPower, new Lamp(mLuminousFlux));
         }
     }
 
@@ -245,10 +232,14 @@ class RoomConfigurationUI {
                     + mPerformanceRatio + ".");
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE || mDevice.getDeviceType() == DeviceType.DISHWASHER) {
-            System.out.println("The capacity is " + mCapacity + " Kg.");
+            System.out.println("The Capacity is " + mCapacity + " Kg.");
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
-            System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L and the Refrigerator Capacity is " + mRefrigeratorCapacity + " L.");
+            System.out.println("The Freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
+                    " L and the "+ mAnnualEnergyConsumption +" kWh.");
+        }
+        if (mDevice.getDeviceType() == DeviceType.LAMP){
+            System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
         }
         mDevice.setmParentRoom(mRoom);
         mRoom.addDevice(mDevice);
@@ -258,7 +249,6 @@ class RoomConfigurationUI {
     so that I can reconfigure it.. - CARINA ALAS */
 
     public void getInputDeviceCharacteristicsUS215() {
-
         Scanner scanner = new Scanner(System.in);
 
         // get device name
@@ -270,31 +260,20 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         mDevice.setmParentRoom(mRoom);
-        this.mRoom = inputUtils.getHouseRoomByList(mHouse);
         mRoomConfigurationController.addDeviceToRoom(mRoom, mDevice);
         //get nominal power
-        String onlyNumbers = "Please,try again. Only numbers this time:";
         System.out.print("Please, type the new Nominal Power: ");
-        while (!scanner.hasNextDouble()) {
-            System.out.println(onlyNumbers);
-            scanner.next();
-        }
-        this.mNominalPower = scanner.nextDouble();
+
+        this.mNominalPower = inputUtils.getInputAsDouble();
 
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mVolumeOfWater = scanner.nextDouble();
+
+            this.mVolumeOfWater = inputUtils.getInputAsDouble();
 
             System.out.print("Please, type the Maximum Temperature of the water in the Water Heater: ");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mHotWaterTemperature = scanner.nextDouble();
+
+            this.mHotWaterTemperature = inputUtils.getInputAsDouble();
 
             System.out.println(
                     "Do you wish to alter the performance ratio?\n" +
@@ -305,11 +284,8 @@ class RoomConfigurationUI {
             switch (option) {
                 case 1:
                     System.out.print("Please, type the Performance Ration of the Water Heater: ");
-                    while (!scanner.hasNextDouble()) {
-                        System.out.println(onlyNumbers);
-                        scanner.next();
-                    }
-                    this.mPerformanceRatio = scanner.nextDouble();
+
+                    this.mPerformanceRatio = inputUtils.getInputAsDouble();
                     break;
                 case 2:
                     this.mPerformanceRatio = 0.9;
@@ -319,35 +295,32 @@ class RoomConfigurationUI {
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
             System.out.print("Please, type the new Capacity in Kg for the Washing Machine: ");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mCapacity = scanner.nextDouble();
+
+            this.mCapacity = inputUtils.getInputAsDouble();
         }
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
             System.out.print("Please, type the new Capacity in Kg for the Dishwasher:");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mCapacity = scanner.nextDouble();
+
+            this.mCapacity = inputUtils.getInputAsDouble();
         }
 
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
             System.out.print("Please, type the new Freezer Capacity in L for the Fridge:");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mFreezerCapacity = scanner.nextDouble();
+
+            this.mFreezerCapacity = inputUtils.getInputAsDouble();
 
             System.out.print("Please, type the new Refrigerator Capacity in L for the Fridge:");
-            while (!scanner.hasNextDouble()) {
-                System.out.println(onlyNumbers);
-                scanner.next();
-            }
-            this.mRefrigeratorCapacity = scanner.nextDouble();
+
+            this.mRefrigeratorCapacity = inputUtils.getInputAsDouble();
+
+            System.out.print("Please, type the new Annual Energy Consumption in kWh:");
+
+            this.mAnnualEnergyConsumption = inputUtils.getInputAsDouble();
+        }
+        if (mDevice.getDeviceType() == DeviceType.LAMP) {
+            System.out.print("Please, type the new Luminous Flux in lm for the Lamp:");
+
+            this.mLuminousFlux = inputUtils.getInputAsDouble();
         }
 
     }
@@ -384,8 +357,15 @@ class RoomConfigurationUI {
             //mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
             //System.out.println("Device Configured.\n");//
 
-            Fridge fridge = new Fridge(mFreezerCapacity, mRefrigeratorCapacity);
+            Fridge fridge = new Fridge(mFreezerCapacity, mRefrigeratorCapacity,mAnnualEnergyConsumption);
             mDevice = new Device(mDeviceName, mNominalPower, fridge);
+        }
+        if (mDevice.getDeviceType() == DeviceType.LAMP) {
+            //mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
+            //System.out.println("Device Configured.\n");//
+
+            Lamp lamp = new Lamp(mLuminousFlux);
+            mDevice = new Device(mDeviceName, mNominalPower, lamp);
         }
     }
 
@@ -404,7 +384,11 @@ class RoomConfigurationUI {
             System.out.println("The capacity is " + mCapacity + " Kg.");
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
-            System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L and the Refrigerator Capacity is " + mRefrigeratorCapacity + " L.");
+            System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
+                    " L and the "+ mAnnualEnergyConsumption +" kWh.");
+        }
+        if (mDevice.getDeviceType() == DeviceType.LAMP){
+            System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
         }
     }
 

@@ -26,18 +26,8 @@ public class FridgeTest {
     }
 
     @Test
-    public void seeIfGetNominalPower() {
-        Fridge fridge = new Fridge(4, 5);
-        double expectedResult = 6;
-        fridge.getNominalPower();
-        fridge.setNominalPower(6);
-        double result = fridge.getNominalPower();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     public void seeIfGetFreezerCapacity() {
-        Fridge fridge = new Fridge(4, 5);
+        Fridge fridge = new Fridge(4, 5,1);
         double expectedResult = 3;
         fridge.getFreezerCapacity();
         fridge.setFreezerCapacity(3);
@@ -47,7 +37,7 @@ public class FridgeTest {
 
     @Test
     public void seeIfGetRefrigeratorCapacity() {
-        Fridge fridge = new Fridge(4, 5);
+        Fridge fridge = new Fridge(4, 5,1);
         double expectedResult = 3;
         fridge.getRefrigeratorCapacity();
         fridge.setRefrigeratorCapacity(3);
@@ -57,7 +47,7 @@ public class FridgeTest {
 
     @Test
     public void getAttributeNamesTest() {
-        Fridge fridge = new Fridge(4, 5);
+        Fridge fridge = new Fridge(4, 5,1);
         List<String> expectedResult = new ArrayList<>();
         List<String> result = fridge.getAttributeNames();
         assertEquals(expectedResult, result);
@@ -65,7 +55,7 @@ public class FridgeTest {
 
     @Test
     public void getAttributeValuesTest() {
-        Fridge fridge = new Fridge(4, 5);
+        Fridge fridge = new Fridge(4, 5,1);
         double expectedResult = 0;
         double result = fridge.getAttributeValue("lisboa");
         assertEquals(expectedResult, result);
@@ -73,7 +63,7 @@ public class FridgeTest {
 
     @Test
     public void setAttributeValueTest() {
-        Fridge fridge = new Fridge(4, 5);
+        Fridge fridge = new Fridge(4, 5,1);
         boolean result = fridge.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
     }

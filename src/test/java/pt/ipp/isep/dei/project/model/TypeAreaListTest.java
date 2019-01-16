@@ -158,13 +158,4 @@ class TypeAreaListTest {
         result = list.printGATypeWholeList(list);
         assertEquals(expectedResult, result);
     }
-
-    @Test
-    void seeIfPrintGAWholeListFails() {
-            TypeAreaList list = new TypeAreaList();
-             String expectedResult = "Invalid List - List is Empty\n";
-        String result;
-        result = list.printGATypeWholeList(list);
-        assertEquals(expectedResult, result);
-    }
 }
