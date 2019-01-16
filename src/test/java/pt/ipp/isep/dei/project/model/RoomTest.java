@@ -494,8 +494,9 @@ public class RoomTest {
         room.setDeviceList(dList);
         //Act
         boolean actualResult = room.addRoomDevicesToDeviceList(dList);
+        boolean expectedResult = dList.containsDevice(device1) && dList.containsDevice(device2);
         //Assert
-        assertTrue(actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
