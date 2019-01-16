@@ -18,7 +18,7 @@ class EnergyGridSettingsUI {
     void run(House house) {
         InputUtils inputs = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.validateHouse(house) || utilsUI.validateHouseEGList(house)) {
+        if (utilsUI.houseIsNull(house) || utilsUI.houseEGListIsNull(house)) {
             return;
         }
         this.mHouse = house;
@@ -49,7 +49,6 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 4:
-                    printUS147Validation();
                     Room room = inputs.getHouseRoomByList(mHouse);
                     mEnergyGrid = inputs.getInputGridByList(mHouse);
                     updateGridUS147(mEnergyGrid, room);
@@ -180,18 +179,5 @@ class EnergyGridSettingsUI {
         System.out.println("5) Detach a room from a house grid. (US149)");
         System.out.println("6) Display all available devices on an energy grid (US160)");
         System.out.println("0) (Return to main menu)\n");
-    }
-
-    /**
-     * Print Different Types of Messages.
-     * If The Energy Grid Is Null or If the RoomList is Empty or If the Energy Grid List is Empty.
-     * If everything is OK, the case in the run() method continues.
-     */
-    private void printUS147Validation() {
-         if (this.mHouse.getRoomList().isEmpty()) {
-            System.out.println("Your house doesn't have any rooms. Please create a room to continue.");
-         } else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
-            System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
-         }
     }
 }

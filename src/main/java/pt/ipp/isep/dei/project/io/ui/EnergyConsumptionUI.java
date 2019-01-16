@@ -19,9 +19,7 @@ class EnergyConsumptionUI {
     void run(House programHouse) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        if (programHouse == null) {
-            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
-                    " your house first through the main menu");
+        if (utils.houseIsNull(programHouse)) {
             return;
         }
         boolean activeInput = false;
@@ -34,10 +32,11 @@ class EnergyConsumptionUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if (!checkHouseGrid(programHouse)){
-                    EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
-                    double nominalPower = updateUS172(mEnergyGrid);
-                    displayUS172(nominalPower); }
+                    if (!checkHouseGrid(programHouse)) {
+                        EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
+                        double nominalPower = updateUS172(mEnergyGrid);
+                        displayUS172(nominalPower);
+                    }
                     activeInput = false;
                     break;
                 case 2:
@@ -247,9 +246,10 @@ class EnergyConsumptionUI {
         }
         return 0;
     }
+
     private void displayUS172(Double nomPower) {
         InputUtils inputs = new InputUtils();
-            System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
+        System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
         inputs.returnToMenu(returnToConsole);
 
     }
