@@ -26,7 +26,6 @@ class GASettingsUI {
     private String mMotherAreaName;
     private String mContainedAreaName;
     private String mContainerAreaName;
-    private String mReturnString = "0) Return;";
 
     GASettingsUI() {
         this.mController = new GASettingsController();
@@ -41,7 +40,6 @@ class GASettingsUI {
         while (activeInput) {
             printOptionMessage();
             option = inputUtils.readInputNumberAsInt();
-            String mStringMessageAskingToCreateGeographicAreaType = "There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.";
             switch (option) {
                 case 1:
                     getInputUS01(programTypeAreaList);
@@ -63,19 +61,9 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 4:
-                    if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().isEmpty()) {
-                        System.out.println(mStringMessageAskingToCreateGeographicAreaType);
-                        return;
-                    }
-                    if (getInputTypeAreaByList(programTypeAreaList)) {
-                        return;
-                    }
-                    if (!matchGAByTypeArea(programGAList)) {
-                        return;
-                    } else {
-                        displayGAListByTypeArea();
-                    }
-                    activeInput = false;
+                    mTypeArea = getInputTypeAreaByList(programTypeAreaList);
+                    mGeoAreaList = matchGAByTypeArea(programGAList);
+                    displayGAListByTypeArea();
                     break;
                 case 5:
                     getInputMotherDaughterGA(programGAList);
@@ -102,12 +90,12 @@ class GASettingsUI {
     // SHARED METHODS //
 
     //GET INPUT TYPE AREA BY LIST//
-    private boolean getInputTypeAreaByList(TypeAreaList typeAreaList) {
+    private TypeArea getInputTypeAreaByList(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         if (typeAreaList.getTypeAreaList().isEmpty()) {
             System.out.print("Invalid Type Area List - List Is Empty\n");
-            return true;
+            return null;
         }
         System.out.println("Please select the Geographic Area Type from the list: ");
         System.out.print(mController.printGATypeList(typeAreaList));
@@ -117,10 +105,10 @@ class GASettingsUI {
             this.mTypeAreaName = typeAreaList.getTypeAreaList().get(aux).getTypeOfGeographicArea();
             System.out.println("You have chosen the following Geographic Area Type:");
             System.out.println(mController.printTypeArea(this.mTypeArea));
-            return false;
+            return this.mTypeArea;
         } else {
             System.out.println(utils.invalidOption);
-            return true;
+            return null;
         }
     }
 
@@ -251,18 +239,21 @@ class GASettingsUI {
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
-    private boolean matchGAByTypeArea(GeographicAreaList geographicAreaList) {
-        if ((geographicAreaList.getGeographicAreaList().isEmpty())) {
-            System.out.print("The list of Geographic Areas is currently empty.\n Please return to main menu and add a Geographic Area to the list first.");
-            return false;
+    private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList) {
+        if ((geographicAreaList.getGeographicAreaList().isEmpty() || this.mTypeArea == null)) {
+            System.out.print("The list of Geographic Areas is currently empty, or the list of Types of Area is empty.\n Please return to main menu and add a Geographic Area or a Type to the list first.");
+            return null;
         } else {
             this.mGeoAreaList = mController.matchGAByTypeArea(geographicAreaList, this.mTypeArea);
             this.mTypeAreaName = mController.getTypeAreaName(this.mTypeArea);
-            return true;
+            return mGeoAreaList;
         }
     }
 
     private void displayGAListByTypeArea() {
+        if (this.mGeoAreaList == null || this.mTypeArea == null){
+            return;
+        }
         if (this.mGeoAreaList.getGeographicAreaList().isEmpty()) {
             System.out.println("There are no Geographic Areas of that Area Type.");
         } else {
