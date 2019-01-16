@@ -20,7 +20,7 @@ class EnergyGridTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
-        String result = energyGrid.printGrid();
+        String result = energyGrid.buildGridString();
         assertEquals("Energy Grid: grid, Max Power: 0.0", result);
     }
 
@@ -37,7 +37,7 @@ class EnergyGridTest {
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         energyGrid.setRoomList(roomList);
-        String result = energyGrid.getListOfRooms().printRooms();
+        String result = energyGrid.getListOfRooms().buildRoomsString();
         assertEquals("---------------\n" +
                 "0) Designation: room1 | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n", result);
@@ -222,7 +222,7 @@ class EnergyGridTest {
         energyGrid.setRoomList(roomList);
         String expectedResult = "0) The Device Name is Fridge, and its NominalPower is 21.0 kW.\n";
 
-        String actualResult = energyGrid.printDeviceList();
+        String actualResult = energyGrid.buildDeviceListString();
 
         Assertions.assertEquals(expectedResult,actualResult);
     }
@@ -231,7 +231,7 @@ class EnergyGridTest {
     void seeIfPrintRoomListWorks() {
         RoomList roomList = new RoomList();
         EnergyGrid grid = new EnergyGrid();
-        String result = grid.printRoomList();
+        String result = grid.buildRoomListString();
         Assert.assertEquals("Invalid List - List is Empty\n", result);
     }
 

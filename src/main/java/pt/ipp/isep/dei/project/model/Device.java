@@ -67,7 +67,7 @@ public class Device implements Metered {
         mDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
-    public String printDevice() {
+    public String buildDeviceString() {
         String result;
         result = "The Device Name is " + this.mName + ", and its NominalPower is " +
                 getNominalPower() + " kW.\n";

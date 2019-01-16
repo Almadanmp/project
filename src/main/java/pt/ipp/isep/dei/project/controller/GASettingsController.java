@@ -31,7 +31,7 @@ public class GASettingsController {
      */
 
     public String printTypeAreaElementsByIndex(List<Integer> listOfIndexesTypeGeographicAreas, TypeAreaList typeAreaList) {
-        return typeAreaList.printGATypeElementsByIndex(listOfIndexesTypeGeographicAreas);
+        return typeAreaList.buildGATypeElementsByIndexString(listOfIndexesTypeGeographicAreas);
     }
 
     /**
@@ -40,7 +40,7 @@ public class GASettingsController {
      */
 
     public String printTypeArea(TypeArea typeArea) {
-        return typeArea.printTypeGeographicArea();
+        return typeArea.buildTypeGeographicAreaString();
     }
 
     /**
@@ -49,7 +49,7 @@ public class GASettingsController {
      */
 
     public String printGATypeList(TypeAreaList typeAreaList) {
-        return typeAreaList.printGATypeWholeList(typeAreaList);
+        return typeAreaList.buildGATypeWholeListString(typeAreaList);
     }
 
     /**
@@ -58,7 +58,7 @@ public class GASettingsController {
      */
 
     public String printGAList(GeographicAreaList geoAreaList) {
-        return geoAreaList.printGaWholeList(geoAreaList);
+        return geoAreaList.buildGaWholeListString(geoAreaList);
     }
 
 
@@ -85,7 +85,7 @@ public class GASettingsController {
      */
 
     public String getTypeAreaList(TypeAreaList typeAreaList) {
-        return typeAreaList.printGATypeWholeList(typeAreaList);
+        return typeAreaList.buildGATypeWholeListString(typeAreaList);
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */

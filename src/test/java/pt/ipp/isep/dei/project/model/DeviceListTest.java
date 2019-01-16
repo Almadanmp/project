@@ -237,7 +237,7 @@ class DeviceListTest {
         dlist.addDevice(d2);
 
         //Act
-        String result = dlist.printElementsByIndex(list);
+        String result = dlist.buildElementByIndexString(list);
         String expectedResult = "1) maquina de lavar, kitchen, 150.0.\n";
 
         //Assert
@@ -320,7 +320,7 @@ class DeviceListTest {
         deviceList.addDevice(d1);
         String expectedResult = "0) The Device Name is Fridge, and its NominalPower is 21.0 kW.\n";
 
-        String actualResult = deviceList.printDevices();
+        String actualResult = deviceList.buildDevicesString();
 
         assertEquals(expectedResult,actualResult);
     }

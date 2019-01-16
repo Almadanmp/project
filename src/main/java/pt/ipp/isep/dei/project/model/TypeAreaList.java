@@ -19,7 +19,7 @@ public class TypeAreaList {
      * This method prints all the Geographic Area Types in a TypeAreaList.
      * @return
      */
-    public String printTypeAreaList() {
+    public String buildTypeAreaListString() {
         StringBuilder finalString = new StringBuilder("\nArea Types List:\n");
         if(mTypeAreaList.isEmpty()) {
             finalString.append("\n|||| List is Empty ||||\nAdd types to list first");
@@ -79,11 +79,11 @@ public class TypeAreaList {
      * @return builds a string of all the individual members of the geoArea list.
      */
 
-    public String printGATypeElementsByIndex (List<Integer> indexes){
+    public String buildGATypeElementsByIndexString(List<Integer> indexes){
         StringBuilder result = new StringBuilder(mResultLookEnhancer);
         for (Integer index : indexes) {
             int pos = index;
-            result.append(index).append(") ").append(mTypeAreaList.get(pos).printTypeGeographicArea());
+            result.append(index).append(") ").append(mTypeAreaList.get(pos).buildTypeGeographicAreaString());
         }
         result.append(mResultLookEnhancer);
         return result.toString();
@@ -95,7 +95,7 @@ public class TypeAreaList {
      */
 
 
-    public String printGATypeWholeList(TypeAreaList typeAreaList) {
+    public String buildGATypeWholeListString(TypeAreaList typeAreaList) {
         StringBuilder result = new StringBuilder(mResultLookEnhancer);
         for (int i = 0; i < typeAreaList.getTypeAreaList().size(); i++) {
             TypeArea aux = typeAreaList.getTypeAreaList().get(i);

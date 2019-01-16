@@ -24,7 +24,7 @@ public class RoomTest {
         room.addDevice(device);
         room.addDevice(device1);
         room.removeDevice(device1);
-        String result = room.printDeviceList();
+        String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
                 "\n" +
                 "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
@@ -38,7 +38,7 @@ public class RoomTest {
         Room room = new Room("cozinha", 1, 1, 1, 1);
         room.addDevice(device);
         room.removeDevice(device);
-        String result = room.printDeviceList();
+        String result = room.buildDeviceListString();
         String expectedResult = "This room has no devices on it\n";
         assertEquals(expectedResult, result);
     }
@@ -156,7 +156,7 @@ public class RoomTest {
     @Test
     void SeeIfPrintListOfDevicesFromRoomWorksNone() {
         Room room = new Room("cozinha", 0, 1, 1, 1);
-        String result = room.printDeviceList();
+        String result = room.buildDeviceListString();
         String expectedResult = "This room has no devices on it\n";
         assertEquals(expectedResult, result);
     }
@@ -168,7 +168,7 @@ public class RoomTest {
         deviceList.addDevice(d1);
         Room room = new Room("cozinha", 0, 1, 1, 1);
         room.setDeviceList(deviceList);
-        String result = room.printDeviceList();
+        String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
                 "\n" +
                 "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 230.0\n" +
@@ -360,7 +360,7 @@ public class RoomTest {
     @Test
     void seeIfPrintRoomWorks() {
         Room room = new Room("room1", 1, 1, 2, 2);
-        String result = room.printRoom();
+        String result = room.buildRoomString();
         assertEquals("room1, 1, 1.0, 2.0, 2.0.\n", result);
     }
 

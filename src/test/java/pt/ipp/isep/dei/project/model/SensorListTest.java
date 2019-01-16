@@ -749,7 +749,7 @@ public class SensorListTest {
                 "1) Designation: s2 | Sensor Type: Vento\n" +
                 "2) Designation: s3 | Sensor Type: Rain\n" +
                 "---------------\n";
-        String actualResult = sensorList1.printSensorList(room);
+        String actualResult = sensorList1.buildSensorListString(room);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -761,7 +761,7 @@ public class SensorListTest {
         SensorList sensorList1 = new SensorList();
         room.setRoomSensorList(sensorList1);
         String expectedResult = "Invalid List - List is Empty\n";
-        String actualResult = sensorList1.printSensorList(room);
+        String actualResult = sensorList1.buildSensorListString(room);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -830,7 +830,7 @@ public class SensorListTest {
         room.setRoomSensorList(sensorList1);
 
         //Act
-        String result = sensorList1.printElementsByIndex(list);
+        String result = sensorList1.buildElementsByIndexString(list);
         String expectedResult = "2) s3 which is a Rain sensor.\n";
 
         //Assert
@@ -891,7 +891,7 @@ public class SensorListTest {
                 "1) Name: s2 | Type: Vento\n" +
                 "2) Name: s3 | Type: Rain\n" +
                 "---------------\n";
-        String result = sensorList1.printSensorWholeList(sensorList1);
+        String result = sensorList1.buildSensorWholeListString(sensorList1);
         assertEquals(expectedResult, result);
     }
 
@@ -903,7 +903,7 @@ public class SensorListTest {
         SensorList sensorList1 = new SensorList();
         room.setRoomSensorList(sensorList1);
         String expectedResult = "Invalid List - List is Empty\n";
-        String result = sensorList1.printSensorWholeList(sensorList1);
+        String result = sensorList1.buildSensorWholeListString(sensorList1);
         assertEquals(expectedResult, result);
     }
 

@@ -115,7 +115,7 @@ class EnergyConsumptionUI {
         if (selectedDevices.getDeviceList().isEmpty() && selectedRooms.getRoomList().isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
-            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.printRooms() + "\n" + "You have already selected the following devices:\n\n" + selectedDevices.printDevices() + ".");
+            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildRoomsString() + "\n" + "You have already selected the following devices:\n\n" + selectedDevices.buildDevicesString() + ".");
     }
 
     /**
@@ -142,7 +142,7 @@ class EnergyConsumptionUI {
         }
         controller.addRoomToList(r1, selectedRooms);
         controller.addRoomDevicesToDeviceList(r1, selectedDevices);
-        System.out.println("You have selected the room: " + r1.printRoom());
+        System.out.println("You have selected the room: " + r1.buildRoomString());
     }
 
     /**

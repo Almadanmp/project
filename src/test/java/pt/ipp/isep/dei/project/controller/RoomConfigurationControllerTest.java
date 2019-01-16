@@ -313,7 +313,7 @@ class RoomConfigurationControllerTest {
 
     @Test
     void seeIfPrintSensorWorks() {
-        //String printSensor(Sensor sensor) {
+        //String buildSensorString(Sensor sensor) {
         //Assert
         Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),

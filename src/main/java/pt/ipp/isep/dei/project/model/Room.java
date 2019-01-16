@@ -96,7 +96,7 @@ public class Room implements Metered {
      * @return string with devices in room.
      */
 
-    public String printDeviceList() {
+    public String buildDeviceListString() {
         StringBuilder result = new StringBuilder("---------------\n");
         if (this.getDeviceList().isEmpty()) {
             return "This room has no devices on it\n";
@@ -196,7 +196,7 @@ public class Room implements Metered {
         return s.getReadingList().getMostRecentValueOfReading();
     }
 
-    public String printRoom() {
+    public String buildRoomString() {
         String result;
         result = this.mRoomName + ", " + this.getHouseFloor() + ", " +
                 this.getRoomWidth() + ", " + this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";

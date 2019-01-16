@@ -95,7 +95,7 @@ public class EnergyGrid implements Metered {
         return this.mRoomList.addRoom(room);
     }
 
-    public String printGrid() {
+    public String buildGridString() {
         return "Energy Grid: " + this.mName + ", Max Power: " + this.getNominalPower();
     }
 
@@ -107,7 +107,7 @@ public class EnergyGrid implements Metered {
         return this.mRoomList.getDeviceList();
     }
 
-    public String printRoomsAndDevices() {
+    public String buildRoomsAndDevicesString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
         List<Room> roomList = this.getRoomList();
@@ -131,18 +131,18 @@ public class EnergyGrid implements Metered {
         return false;
     }
 
-    public String printDeviceList() {
+    public String buildDeviceListString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
         for (Device d : this.getDeviceList()) {
-            result.append(counter).append(") ").append(d.printDevice());
+            result.append(counter).append(") ").append(d.buildDeviceString());
             counter++;
         }
         return result.toString();
     }
 
-    public String printRoomList() {
-        return this.mRoomList.printRooms();
+    public String buildRoomListString() {
+        return this.mRoomList.buildRoomsString();
     }
 
     public double getSelectionNominalPower(DeviceList selectedDevices) {
@@ -159,19 +159,19 @@ public class EnergyGrid implements Metered {
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
 
-    public String printDeviceListByType(EnergyGrid energyGrid) {
+    public String buildDeviceListByTypeString(EnergyGrid energyGrid) {
         StringBuilder result = new StringBuilder(mStringSpacer);
         for (DeviceType d : DeviceType.values()) {
             for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
                 Room r = energyGrid.getListOfRooms().getRoomList().get(i);
-                if (r != null){result.append(deviceListInGridStringConstructor(r, d));}
+                if (r != null){result.append(buildDeviceListInGridString(r, d, i));}
             }
         }
         result.append(mStringSpacer);
         return result.toString();
     }
 
-    private String deviceListInGridStringConstructor(Room r, DeviceType d) {
+    private String buildDeviceListInGridString(Room r, DeviceType d, int i) {
         StringBuilder result = new StringBuilder();
         for (int x = 0; x < r.getDeviceList().size(); x++) {
             if (d == r.getDeviceList().get(x).getDeviceType()) {

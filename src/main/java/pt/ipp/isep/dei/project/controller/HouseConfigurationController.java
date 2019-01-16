@@ -16,7 +16,7 @@ public class HouseConfigurationController {
      */
 
     String printGAList(GeographicAreaList geoAreaList) {
-        return geoAreaList.printGaWholeList(geoAreaList);
+        return geoAreaList.buildGaWholeListString(geoAreaList);
     }
 
     /**
@@ -71,7 +71,7 @@ public class HouseConfigurationController {
      */
 
     public String printGeoAreasByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
-        return geoAreaList.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas);
+        return geoAreaList.buildGeographicAreaElementsByIndexString(listOfIndexesGeographicAreas);
     }
 
     /**
@@ -81,7 +81,7 @@ public class HouseConfigurationController {
      */
 
     public String printGeoArea(GeographicArea geoArea) {
-        return geoArea.printGeographicArea();
+        return geoArea.buildGeographicAreaString();
     }
 
     /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
@@ -129,6 +129,6 @@ public class HouseConfigurationController {
      */
 
     public String printRooms(House house) {
-        return house.printRoomList();
+        return house.buildRoomListString();
     }
 }

@@ -31,7 +31,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printEnergyGridByIndex(List<Integer> indexList, EnergyGridList egList) {
-        return egList.printElementsByIndex(indexList);
+        return egList.buildElementsByIndexString(indexList);
     }
 
     /**
@@ -40,7 +40,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printEnergyGrid(EnergyGrid grid) {
-        return grid.printGrid();
+        return grid.buildGridString();
     }
 
     /**
@@ -52,7 +52,7 @@ public class EnergyGridSettingsController {
         if(roomList ==  null){
             return "The Room List wasn't properly initialized. Please try again.";
         }
-        return roomList.printRooms();
+        return roomList.buildRoomsString();
     }
 
     /**
@@ -61,7 +61,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printHouseRoomList(House house) {
-        return house.printRoomList();
+        return house.buildRoomListString();
     }
 
     /**
@@ -70,7 +70,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printGridList(House house) {
-        return house.printGridList();
+        return house.buildGridListString();
     }
 
     /**
@@ -91,7 +91,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printHouseRoomsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.printRoomsByIndex(listOfIndexesOfRoom);
+        return house.buildRoomsByIndexString(listOfIndexesOfRoom);
     }
 
     /**
@@ -100,7 +100,7 @@ public class EnergyGridSettingsController {
      */
 
     public String printRoom(Room room) {
-        return room.printRoom();
+        return room.buildRoomString();
     }
 
     /**
@@ -223,6 +223,6 @@ public class EnergyGridSettingsController {
         if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty() || energyGrid.getListOfRooms() == null) {
             return "This energy grid has no devices on it\n";
         }
-        return energyGrid.printDeviceListByType(energyGrid);
+        return energyGrid.buildDeviceListByTypeString(energyGrid);
     }
 }

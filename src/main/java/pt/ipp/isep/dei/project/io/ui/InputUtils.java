@@ -24,13 +24,13 @@ class InputUtils {
             return null;
         }
         System.out.println("Please select one of the existing geographic areas: ");
-        System.out.println(geographicAreaList.printGaWholeList(geographicAreaList));
+        System.out.println(geographicAreaList.buildGaWholeListString(geographicAreaList));
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < geographicAreaList.getGeographicAreaList().size()) {
             GeographicArea result = geographicAreaList.getGeographicAreaList().get(aux);
             String stringRequestGA = "You have chosen the following Geographic Area: ";
             System.out.println(stringRequestGA);
-            System.out.println(result.printGeographicArea());
+            System.out.println(result.buildGeographicAreaString());
             return result;
         } else {
             System.out.println(utils.invalidOption);
@@ -46,13 +46,13 @@ class InputUtils {
             return null;
         }
         System.out.println("Please select one of the existing rooms in the house: ");
-        System.out.println(house.printRoomList());
+        System.out.println(house.buildRoomListString());
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < house.getRoomList().size()) {
             Room result = house.getRoomList().get(aux);
             String stringRequestRoom = "You have chosen the following Room: ";
             System.out.println(stringRequestRoom);
-            System.out.println(result.printRoom());
+            System.out.println(result.buildRoomString());
             return result;
         } else {
             System.out.println(utils.invalidOption);
@@ -68,13 +68,13 @@ class InputUtils {
             return null;
         }
         System.out.println("Please select one of the existing rooms in the house: ");
-        System.out.println(grid.printRoomList());
+        System.out.println(grid.buildRoomListString());
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < grid.getRoomList().size()) {
             Room result = grid.getRoomList().get(aux);
             String stringRequestRoom = "You have chosen the following Room: ";
             System.out.println(stringRequestRoom);
-            System.out.println(result.printRoom());
+            System.out.println(result.buildRoomString());
             return result;
         } else {
             System.out.println(utils.invalidOption);
@@ -90,13 +90,13 @@ class InputUtils {
             return null;
         }
         System.out.println("Please select one of the existing devices in the selected room: ");
-        System.out.println(grid.printDeviceList());
+        System.out.println(grid.buildDeviceListString());
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < grid.getDeviceList().size()) {
             Device result = grid.getDeviceList().get(aux);
             String stringRequestDevice = "You have chosen the following device: ";
             System.out.println(stringRequestDevice);
-            System.out.println(result.printDevice());
+            System.out.println(result.buildDeviceString());
             return result;
         } else {
             System.out.println(utils.invalidOption);
@@ -112,12 +112,12 @@ class InputUtils {
             return null;
         }
         System.out.println("Please select one of the existing Devices in the selected Room: ");
-            System.out.println(room.printDeviceList());
+            System.out.println(room.buildDeviceListString());
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < room.getDeviceList().size()) {
                 Device result = room.getDeviceList().get(aux);
                 System.out.println("You have chosen the following device:");
-                System.out.println(result.printDevice());
+                System.out.println(result.buildDeviceString());
                 return result;
             } else {
                 System.out.println(utils.invalidOption);

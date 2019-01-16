@@ -856,7 +856,7 @@ import static org.junit.jupiter.api.Assertions.*;
         Local loc1 = new Local(-5, -5, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
-        String result = s1.printSensor();
+        String result = s1.buildSensorString();
         Assertions.assertEquals("XV56-LD1, Temperatura, -5.0º lat, -5.0º long\n", result);
     }
 

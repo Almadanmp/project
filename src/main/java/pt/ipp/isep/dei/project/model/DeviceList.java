@@ -54,7 +54,7 @@ public class DeviceList {
         return result;
     }
 
-    public String printElementsByIndex(List<Integer> indexes) {
+    public String buildElementByIndexString(List<Integer> indexes) {
         StringBuilder result = new StringBuilder();
         for (Integer indexe : indexes) {
             int pos = indexe;
@@ -67,11 +67,11 @@ public class DeviceList {
         return this.mDeviceList.contains(device);
     }
 
-    public String printDevices(){
+    public String buildDevicesString(){
         int counter = 0;
         StringBuilder result = new StringBuilder();
         for (Device d : this.mDeviceList){
-            result.append(counter).append(") ").append(d.printDevice());
+            result.append(counter).append(") ").append(d.buildDeviceString());
             counter++;
         }
         return result.toString();

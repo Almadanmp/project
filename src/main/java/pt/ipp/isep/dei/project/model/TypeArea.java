@@ -36,7 +36,7 @@ public class TypeArea {
      *
      * @return prints the type of the Geographical Area
      */
-    public String printTypeGeographicArea() {
+    public String buildTypeGeographicAreaString() {
         String result;
         result = "Type Area: " + this.mName + "\n";
         return result;

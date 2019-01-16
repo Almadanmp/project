@@ -65,7 +65,7 @@ public class GeographicAreaList {
      * It will print the attributes needed to check if a GA is different from another GA
      * (name, type of GA and Localization)
      */
-    public String printGaWholeList(GeographicAreaList newGeoListUi) {
+    public String buildGaWholeListString(GeographicAreaList newGeoListUi) {
         StringBuilder result = new StringBuilder(new StringBuilder(mStringEnhancer));
 
         if (newGeoListUi.getGeographicAreaList().isEmpty()) {
@@ -101,11 +101,11 @@ public class GeographicAreaList {
     /**
      * Method to pring Geographic Area Elements by index
      */
-    public String printGeoGraphicAreaElementsByIndex(List<Integer> indexes) {
+    public String buildGeographicAreaElementsByIndexString(List<Integer> indexes) {
         StringBuilder result = new StringBuilder(mStringEnhancer);
         for (Integer index : indexes) {
             int pos = index;
-            result.append(index).append(") ").append(mGeographicAreaList.get(pos).printGeographicArea());
+            result.append(index).append(") ").append(mGeographicAreaList.get(pos).buildGeographicAreaString());
         }
         result.append(mStringEnhancer);
         return result.toString();

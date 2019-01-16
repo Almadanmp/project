@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
-import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -27,7 +26,7 @@ public class SensorSettingsController {
      */
 
     public String printGAList(GeographicAreaList geoAreaList) {
-        return geoAreaList.printGaWholeList(geoAreaList);
+        return geoAreaList.buildGaWholeListString(geoAreaList);
     }
 
 

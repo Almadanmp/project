@@ -24,7 +24,7 @@ public class EnergyGridList {
         return false;
     }
 
-    String printEnergyGridList() {
+    String buildEnergyGridListString() {
         StringBuilder finalString = new StringBuilder();
         String emptyList = "The list is empty.";
         if (mEnergyGridList.isEmpty()) {
@@ -53,7 +53,7 @@ public class EnergyGridList {
         return result;
     }
 
-    public String printElementsByIndex(List<Integer> indexes) {
+    public String buildElementsByIndexString(List<Integer> indexes) {
         StringBuilder result = new StringBuilder();
         for (int pos : indexes) {
             result.append(pos).append(") ").append(mEnergyGridList.get(pos).getName()).append(", ").append(mEnergyGridList.get(pos).getNominalPower()).append(", ").append(mEnergyGridList.get(pos).getListPowerSources()).append(".\n");

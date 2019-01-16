@@ -37,7 +37,7 @@ public class HouseMonitoringController {
      */
 
     public String printSensor(Sensor sensor) {
-        return sensor.printSensor();
+        return sensor.buildSensorString();
     }
 
     /**
@@ -89,7 +89,7 @@ public class HouseMonitoringController {
      */
 
     String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
-        return geoAreaList.printGeoGraphicAreaElementsByIndex(listOfIndexesGeographicAreas);
+        return geoAreaList.buildGeographicAreaElementsByIndexString(listOfIndexesGeographicAreas);
     }
 
     /**
@@ -99,7 +99,7 @@ public class HouseMonitoringController {
      */
 
     String printGeoArea(GeographicArea geoArea) {
-        return geoArea.printGeographicArea();
+        return geoArea.buildGeographicAreaString();
     }
 
     /**
@@ -109,7 +109,7 @@ public class HouseMonitoringController {
      */
 
     String printGeoAreaList(GeographicAreaList geoAreaList) {
-        return geoAreaList.printGaWholeList(geoAreaList);
+        return geoAreaList.buildGaWholeListString(geoAreaList);
     }
 
     /**
@@ -144,7 +144,7 @@ public class HouseMonitoringController {
      */
 
     public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.printRoomsByIndex(listOfIndexesOfRoom);
+        return house.buildRoomsByIndexString(listOfIndexesOfRoom);
     }
 
     /**
@@ -155,7 +155,7 @@ public class HouseMonitoringController {
      */
 
     public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, Room room) {
-        return room.getmRoomSensorList().printElementsByIndex(listOfIndexesOfSensor);
+        return room.getmRoomSensorList().buildElementsByIndexString(listOfIndexesOfSensor);
     }
 
     /**
@@ -165,7 +165,7 @@ public class HouseMonitoringController {
      */
 
     public String printRoomSensorList(Room room) {
-        return room.getmRoomSensorList().printSensorList(room);
+        return room.getmRoomSensorList().buildSensorListString(room);
     }
 
     /**
@@ -175,7 +175,7 @@ public class HouseMonitoringController {
      */
 
     public String printHouseRoomList(House house) {
-        return house.printRoomList();
+        return house.buildRoomListString();
     }
 
     /**
@@ -185,7 +185,7 @@ public class HouseMonitoringController {
      */
 
     public String printRoom(Room room) {
-        return room.printRoom();
+        return room.buildRoomString();
     }
 
     /**

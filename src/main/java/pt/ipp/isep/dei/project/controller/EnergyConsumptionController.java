@@ -25,7 +25,7 @@ public class EnergyConsumptionController {
      */
 
     String printRoomsAndDevices(EnergyGrid grid) {
-        return grid.printRoomsAndDevices();
+        return grid.buildRoomsAndDevicesString();
     }
 
     /**

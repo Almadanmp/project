@@ -46,7 +46,7 @@ public class RoomConfigurationController {
      */
 
     public String printRoomList(House house) {
-        return house.printRoomList();
+        return house.buildRoomListString();
     }
 
     /**
@@ -56,7 +56,7 @@ public class RoomConfigurationController {
      */
 
     public String printRoom(Room room) {
-        return room.printRoom();
+        return room.buildRoomString();
     }
 
     /**
@@ -68,7 +68,7 @@ public class RoomConfigurationController {
      */
 
     public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.printRoomsByIndex(listOfIndexesOfRoom);
+        return house.buildRoomsByIndexString(listOfIndexesOfRoom);
     }
 
     /**
@@ -80,7 +80,7 @@ public class RoomConfigurationController {
      */
 
     public String printDeviceElementsByIndex(List<Integer> listOfIndexesOfDevice, Room room) {
-        return room.getObjectDeviceList().printElementsByIndex(listOfIndexesOfDevice);
+        return room.getObjectDeviceList().buildElementByIndexString(listOfIndexesOfDevice);
     }
 
     /**
@@ -164,7 +164,7 @@ public class RoomConfigurationController {
      */
 
     public String printSensorList(SensorList sensorList) {
-        return sensorList.printSensorWholeList(sensorList);
+        return sensorList.buildSensorWholeListString(sensorList);
     }
 
     /**
@@ -174,7 +174,7 @@ public class RoomConfigurationController {
      */
 
     public String printSensor(Sensor sensor) {
-        return sensor.printSensor();
+        return sensor.buildSensorString();
     }
 
     /**
@@ -183,7 +183,7 @@ public class RoomConfigurationController {
      * @return string with the given device.
      */
     public String printDevice(Device device) {
-        return device.printDevice();
+        return device.buildDeviceString();
     }
 
     /**
@@ -192,7 +192,7 @@ public class RoomConfigurationController {
      * @return string with all the devices in the given room.
      */
     public String printDeviceList(Room room){
-        return room.printDeviceList();
+        return room.buildDeviceListString();
     }
 
     /**
@@ -274,7 +274,7 @@ public class RoomConfigurationController {
      */
 
     public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
-        return sensorList.printElementsByIndex(listOfIndexesOfSensor);
+        return sensorList.buildElementsByIndexString(listOfIndexesOfSensor);
     }
     public String printTypeList(List<TypeSensor> typeList) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));

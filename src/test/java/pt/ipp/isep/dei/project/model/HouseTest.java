@@ -222,7 +222,7 @@ class HouseTest {
         EnergyGridList energyGridList = new EnergyGridList();
         house.setEGList(energyGridList);
         String expectedResult = "Invalid List - List is Empty\n";
-        String actualResult = house.printGridList();
+        String actualResult = house.buildGridListString();
         assertEquals(expectedResult, actualResult);
     }
 
@@ -241,7 +241,7 @@ class HouseTest {
                 "0) Designation: Rede | Max Power: 444.0\n" +
                 "1) Designation: Rede 2 | Max Power: 555.0\n" +
                 "---------------\n";
-        String actualResult = house.printGridList();
+        String actualResult = house.buildGridListString();
         assertEquals(expectedResult, actualResult);
     }
 
@@ -427,7 +427,7 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
         String expectedResult = "casa de praia, Rua das Flores, 4512, Porto.\n";
         //ACT
-        String actualResult = house.printHouse();
+        String actualResult = house.buildHouseString();
         //ASSERT
         assertEquals(expectedResult, actualResult);
     }

@@ -16,7 +16,7 @@ class TypeAreaListTest {
         TypeAreaList list = new TypeAreaList();
         TypeArea t1 = new TypeArea("Rua");
         list.addTypeArea(t1);
-        String result = list.printTypeAreaList();
+        String result = list.buildTypeAreaListString();
         String expectedResult = "\n" +
                 "Area Types List:\n" +
                 "\n" +
@@ -27,7 +27,7 @@ class TypeAreaListTest {
     @Test
     void seeIfPrintsWhenTypeAreaListIsEmpty() {
         TypeAreaList list = new TypeAreaList();
-        String result = list.printTypeAreaList();
+        String result = list.buildTypeAreaListString();
         String expectedResult = "\nArea Types List:\n\n|||| List is Empty ||||\nAdd types to list first";
         assertEquals(result, expectedResult);
     }
@@ -35,7 +35,7 @@ class TypeAreaListTest {
     @Test
     void seeIfPrintsWhenTypeAreaListIsNull() {
         TypeAreaList list = new TypeAreaList();
-        String result = list.printTypeAreaList();
+        String result = list.buildTypeAreaListString();
         String expectedResult = "\nArea Types List:\n\n|||| List is Empty ||||\nAdd types to list first";
         assertEquals(result, expectedResult);
     }
@@ -135,7 +135,7 @@ class TypeAreaListTest {
                "2) Type Area: aldeia\n" +
                "---------------\n";
         String result;
-        result = list.printGATypeElementsByIndex(indexList);
+        result = list.buildGATypeElementsByIndexString(indexList);
         assertEquals(expectedResult, result);
     }
 
@@ -155,7 +155,7 @@ class TypeAreaListTest {
                         "2) Name: aldeia \n" +
                         "---------------\n";
         String result;
-        result = list.printGATypeWholeList(list);
+        result = list.buildGATypeWholeListString(list);
         assertEquals(expectedResult, result);
     }
 }

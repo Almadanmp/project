@@ -175,7 +175,7 @@ public class SensorList {
      * @return builds a string of all the individual members of the Sensor list.
      */
 
-    public String printElementsByIndex (List<Integer> indexes){
+    public String buildElementsByIndexString(List<Integer> indexes){
         StringBuilder result = new StringBuilder();
         for (int pos : indexes) {
             result.append(pos).append(") ").append(mSensorList.get(pos).getName()).append(" which is a ").append(mSensorList.get(pos).getTypeSensor().getName()).append(" sensor.\n");
@@ -189,7 +189,7 @@ public class SensorList {
      * @return builds a string of all the individual members of the list of sensors of the Room.
      */
 
-    public String printSensorList(Room room) {
+    public String buildSensorListString(Room room) {
         StringBuilder result = new StringBuilder(mStringEnhancer);
         if (room.getmRoomSensorList().getSensorList().isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -283,7 +283,7 @@ public class SensorList {
      * It will print the attributes needed to check if a Sensor is different from another Sensor
      * (name, type of Sensor and Units)
      */
-    public String printSensorWholeList(SensorList sensorList) {
+    public String buildSensorWholeListString(SensorList sensorList) {
         StringBuilder result = new StringBuilder(new StringBuilder(mStringEnhancer));
 
         if (sensorList.getSensorList().isEmpty()) {

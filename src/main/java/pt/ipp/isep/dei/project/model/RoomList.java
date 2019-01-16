@@ -86,7 +86,7 @@ public class RoomList {
         return result;
     }
 
-    public String printElementsByIndex(List<Integer> indexes) {
+    public String buildElementsByIndexString(List<Integer> indexes) {
         StringBuilder result = new StringBuilder();
         for (Integer indexe : indexes) {
             int pos = indexe;
@@ -103,7 +103,7 @@ public class RoomList {
         return result;
     }
 
-    public String printRoomList(House house) {
+    public String buildRoomListString(House house) {
         StringBuilder result = new StringBuilder(this.mStringResult);
         if (house.getRoomList().isEmpty()) {
             return this.mStringInvalidList;
@@ -120,7 +120,7 @@ public class RoomList {
         return result.toString();
     }
 
-    public String printRooms() {
+    public String buildRoomsString() {
         StringBuilder result = new StringBuilder(this.mStringResult);
         if (this.getRoomList().isEmpty()) {
             return this.mStringInvalidList;

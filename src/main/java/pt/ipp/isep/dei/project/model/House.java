@@ -128,7 +128,7 @@ public class House implements Metered {
         return true;
     }
 
-    String printHouse() {
+    String buildHouseString() {
         String result;
         result = this.mId + ", " + this.mStreet + ", " + this.mZip + ", " +
                 this.mTown + ".\n";
@@ -161,7 +161,7 @@ public class House implements Metered {
         return null;
     }
 
-    public String printGridList() {
+    public String buildGridListString() {
         String mStringEnhancer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringEnhancer);
         if (this.mEGList.getEnergyGridList().isEmpty()) {
@@ -181,8 +181,8 @@ public class House implements Metered {
      */
 
 
-    public String printRoomList() {
-        return this.mRoomList.printRooms();
+    public String buildRoomListString() {
+        return this.mRoomList.buildRoomsString();
     }
 
     /**
@@ -191,8 +191,8 @@ public class House implements Metered {
      * given by the list of indexes.
      */
 
-    public String printRoomsByIndex(List<Integer> indexList) {
-        return this.mRoomList.printElementsByIndex(indexList);
+    public String buildRoomsByIndexString(List<Integer> indexList) {
+        return this.mRoomList.buildElementsByIndexString(indexList);
     }
 
     /**

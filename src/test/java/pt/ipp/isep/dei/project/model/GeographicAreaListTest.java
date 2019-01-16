@@ -684,7 +684,7 @@ public class GeographicAreaListTest {
                 "1) Name: Oporto | Type: City | Latitude: 14.0 | Longitude: 14.0\n" +
                 "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
                 "---------------\n";
-        String result = gAL1.printGaWholeList(gAL1);
+        String result = gAL1.buildGaWholeListString(gAL1);
         assertEquals(expectedResult, result);
     }
 
@@ -692,7 +692,7 @@ public class GeographicAreaListTest {
     public void seeIfPrintsGeoAListIfEmpty() {
         GeographicAreaList gAL1 = new GeographicAreaList();
          String expectedResult = "Invalid List - List is Empty\n";
-        String result = gAL1.printGaWholeList(gAL1);
+        String result = gAL1.buildGaWholeListString(gAL1);
         assertEquals(expectedResult, result);
     }
 

@@ -40,7 +40,7 @@ public class EnergyGridListTest {
         pList1.addGrid(energyGrid2);
         String expectedResult = "Energy grid list: \n" +
                 "-Secundary Grid;";
-        String result = pList1.printEnergyGridList();
+        String result = pList1.buildEnergyGridListString();
         assertEquals(expectedResult, result);
     }
 
@@ -49,7 +49,7 @@ public class EnergyGridListTest {
         EnergyGridList pList1 = new EnergyGridList();
 
         String expectedResult = "The list is empty.";
-        String result = pList1.printEnergyGridList();
+        String result = pList1.buildEnergyGridListString();
         assertEquals(expectedResult, result);
     }
 

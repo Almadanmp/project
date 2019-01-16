@@ -203,7 +203,7 @@ public class Sensor {
      *
      * @return returns a string with Sensor Parameters
      */
-    public String printSensor() {
+    public String buildSensorString() {
         String result;
         result = this.mName + ", " + this.mTypeSensor.getName() + ", " +
                 this.mLocal.getLatitude() + "º lat, " + this.mLocal.getLongitude() + "º long\n";

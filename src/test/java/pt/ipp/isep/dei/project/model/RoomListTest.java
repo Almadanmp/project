@@ -171,7 +171,7 @@ public class RoomListTest {
         roomList.addRoom(room1);
 
         //Act
-        String result = roomList.printElementsByIndex(list);
+        String result = roomList.buildElementsByIndexString(list);
         String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
 
         //Assert
@@ -191,7 +191,7 @@ public class RoomListTest {
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
-        String result = roomList.printRoomList(house);
+        String result = roomList.buildRoomListString(house);
         assertEquals(expectedResult, result);
     }
 
@@ -202,14 +202,14 @@ public class RoomListTest {
 
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
         String expectedResult = "Invalid List - List is Empty\n";
-        String result = roomList.printRoomList(house);
+        String result = roomList.buildRoomListString(house);
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfPrintInvalidRoomsWorks() {
         RoomList roomList = new RoomList();
-        String result = roomList.printRooms();
+        String result = roomList.buildRoomsString();
         Assert.assertEquals("Invalid List - List is Empty\n", result);
     }
 
