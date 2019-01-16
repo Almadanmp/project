@@ -55,7 +55,7 @@ class EnergyGridSettingsControllerTest {
         house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         List<Integer> list = ctrlUS145.matchGridIndexByString("EG1", house);
-        String actualResult = ctrlUS145.printEnergyGridByIndex(list, energyGridList);
+        String actualResult = ctrlUS145.buildEnergyGridByIndexString(list, energyGridList);
         String expectedResult = "0) EG1, 400.0, pt.ipp.isep.dei.project.model.PowerSourceList@1.\n";
         Assert.assertEquals(expectedResult, actualResult);
     }
@@ -74,7 +74,7 @@ class EnergyGridSettingsControllerTest {
         house.setRoomList(roomList);
         house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
-        String result = ctrlUS145.printRooms(roomList);
+        String result = ctrlUS145.buildRoomsString(roomList);
         String expectedResult = "---------------\n" +
                 "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
@@ -136,7 +136,7 @@ class EnergyGridSettingsControllerTest {
         house.setRoomList(roomList);
         house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
-        String result = ctrlUS145.printEnergyGrid(energyGrid1);
+        String result = ctrlUS145.buildEnergyGridString(energyGrid1);
         String expectedResult = "Energy Grid: EG1, Max Power: 400.0";
         Assert.assertEquals(expectedResult, result);
     }
@@ -154,7 +154,7 @@ class EnergyGridSettingsControllerTest {
         house.setRoomList(roomList);
         house.setEGList(energyGridList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
-        String result = ctrlUS145.printGridList(house);
+        String result = ctrlUS145.buildGridListString(house);
         String expectedResult = "---------------\n" +
                 "0) Designation: EG1 | Max Power: 400.0\n" +
                 "---------------\n";
@@ -241,7 +241,7 @@ class EnergyGridSettingsControllerTest {
         roomList.addRoom(room);
         house.setRoomList(roomList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
-        String result = ctrlUS145.printHouseRoomList(house);
+        String result = ctrlUS145.buildHouseRoomListString(house);
         String expectedResult = "---------------\n" +
                 "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
@@ -277,7 +277,7 @@ class EnergyGridSettingsControllerTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
 
         //Act
-        String result = ctrl.printHouseRoomsByIndex(list, house);
+        String result = ctrl.buildHouseRoomsByIndexString(list, house);
         String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
 
         //Assert
@@ -328,7 +328,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfPrintRoomWorks() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         Room room = new Room("quarto1", 1, 2, 2, 2);
-        String result = ctrl.printRoom(room);
+        String result = ctrl.buildRoomString(room);
         String expectedResult = "quarto1, 1, 2.0, 2.0, 2.0.\n";
         assertEquals(expectedResult, result);
     }
@@ -338,7 +338,7 @@ class EnergyGridSettingsControllerTest {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         EnergyGrid grid = new EnergyGrid("grid", 400);
         String expectedResult = "Invalid List - List is Empty\n";
-        String result = ctrl.printGridRooms(grid);
+        String result = ctrl.buildGridRoomsString(grid);
         assertEquals(expectedResult, result);
     }
 
@@ -361,7 +361,7 @@ class EnergyGridSettingsControllerTest {
                 "1) Designation: B109 | House Floor: 1 | \n" +
                 "2) Designation: B106 | House Floor: 1 | \n" +
                 "---------------\n";
-        String result = ctrl.printGridRooms(eg);
+        String result = ctrl.buildGridRoomsString(eg);
         assertEquals(expectedResult, result);
     }
 
@@ -389,7 +389,7 @@ class EnergyGridSettingsControllerTest {
                 "Device type: FRIDGE | uno | Room: B107 | \n" +
                 "Device type: FRIDGE | tres | Room: B107 | \n" +
                 "---------------\n";
-        String result = ctrl.printListOfDevicesByType(eg);
+        String result = ctrl.buildListOfDevicesByTypeString(eg);
         assertEquals(expectedResult, result);
     }
 
@@ -400,7 +400,7 @@ class EnergyGridSettingsControllerTest {
         RoomList rl = new RoomList();
         eg.setRoomList(rl);
         String expectedResult = "This energy grid has no rooms attached\n";
-        String result = ctrl.printListOfDevicesByType(eg);
+        String result = ctrl.buildListOfDevicesByTypeString(eg);
         assertEquals(expectedResult, result);
     }
 
@@ -415,7 +415,7 @@ class EnergyGridSettingsControllerTest {
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         String expectedResult = "This energy grid has no devices on it\n";
-        String result = ctrl.printListOfDevicesByType(eg);
+        String result = ctrl.buildListOfDevicesByTypeString(eg);
         assertEquals(expectedResult, result);
     }
 }

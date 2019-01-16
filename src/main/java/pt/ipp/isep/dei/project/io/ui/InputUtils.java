@@ -134,7 +134,7 @@ class InputUtils {
         boolean activeInput = false;
         System.out.println("Please select one of the existing grids on the selected house: ");
         while (!activeInput) {
-            System.out.println(controller.printGridList(house));
+            System.out.println(controller.buildGridListString(house));
             int aux = this.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getEGList().getEnergyGridList().size()) {
                 result = house.getEGList().getEnergyGridList().get(aux);

@@ -53,7 +53,7 @@ class RoomConfigurationControllerTest {
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
-        String actualResult = ctrl.printRoomList(house);
+        String actualResult = ctrl.buildRoomListString(house);
         //Assert
         assertEquals(expectedactualResult, actualResult);
     }
@@ -64,7 +64,7 @@ class RoomConfigurationControllerTest {
         Room room = new Room("room1", 1, 1, 2, 2);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        String actualResult = ctrl.printRoom(room);
+        String actualResult = ctrl.buildRoomString(room);
         String expectedResult = "room1, 1, 1.0, 2.0, 2.0.\n";
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -85,7 +85,7 @@ class RoomConfigurationControllerTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA, roomList);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        String actualResult = ctrl.printRoomElementsByIndex(list, house);
+        String actualResult = ctrl.buildRoomElementsByIndexString(list, house);
         String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -160,7 +160,7 @@ class RoomConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        String result = ctrl.printDeviceTypeList(listD);
+        String result = ctrl.buildDeviceTypeListString(listD);
         String expectedResult =
                 "0) Device Type: WATER_HEATER;\n" +
                         "1) Device Type: WASHING_MACHINE;\n" +
@@ -181,7 +181,7 @@ class RoomConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        String result = ctrl.printDeviceTypeList(listD);
+        String result = ctrl.buildDeviceTypeListString(listD);
         String expectedResult =
                 "0) Device Type: WATER_HEATER;\n" +
                         "1) Device Type: WASHING_MACHINE;\n" +
@@ -302,7 +302,7 @@ class RoomConfigurationControllerTest {
         sList.addSensor(s2);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        String actualResult = ctrl.printSensorList(sList);
+        String actualResult = ctrl.buildSensorListString(sList);
         String expectedResult = "---------------\n" +
                 "0) Name: Vento1 | Type: Atmosphere\n" +
                 "1) Name: Pluviosidade1 | Type: Pluviosidade\n" +
@@ -323,7 +323,7 @@ class RoomConfigurationControllerTest {
                 new GregorianCalendar(118, 12, 4).getTime());
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        String actualResult = ctrl.printSensor(s2);
+        String actualResult = ctrl.buildSensorString(s2);
         String expectedResult = "Pluviosidade1, Pluviosidade, 10.0º lat, 30.0º long\n";
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -331,7 +331,7 @@ class RoomConfigurationControllerTest {
 
     @Test
     void seeIfPrintSensorElementsByIndexWorks() {
-        //public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
+        //public String buildSensorElementsByIndexString(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
         //Assert
         Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
@@ -347,7 +347,7 @@ class RoomConfigurationControllerTest {
         Integer i = 1;
         list.add(i);
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        String actualResult = ctrl.printSensorElementsByIndex(list, sList);
+        String actualResult = ctrl.buildSensorElementsByIndexString(list, sList);
         String expectedResult = "1) Pluviosidade1 which is a Pluviosidade sensor.\n";
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -370,7 +370,7 @@ class RoomConfigurationControllerTest {
         room.setDeviceList(dlist);
 
         //Act
-        String result = ctrl.printDeviceElementsByIndex(list, room);
+        String result = ctrl.buildDeviceElementsByIndexString(list, room);
         String expectedResult = "1) maquina de lavar, kitchen, 150.0.\n";
 
         //Assert
@@ -403,7 +403,7 @@ class RoomConfigurationControllerTest {
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         room.setDeviceList(dlist);
-        String result = ctrl.printDevice(d1);
+        String result = ctrl.buildDeviceString(d1);
         String expectedResult = "The Device Name is frigorifico, and its NominalPower is 200.0 kW.\n";
         assertEquals(expectedResult, result);
     }
@@ -417,7 +417,7 @@ class RoomConfigurationControllerTest {
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         room.setDeviceList(dlist);
-        String result = ctrl.printDeviceList(room);
+        String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +
                 "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 200.0\n" +
@@ -446,7 +446,7 @@ class RoomConfigurationControllerTest {
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
         String result = "Invalid List - List is Empty\n";
-        String actualResult = ctrl.printTypeList(list1);
+        String actualResult = ctrl.buildTypeListString(list1);
         //Assert
         assertEquals(result, actualResult);
     }
@@ -465,7 +465,7 @@ class RoomConfigurationControllerTest {
                 "0) Name: rain | Units: mm\n" +
                 "1) Name: wind | Units: km/h\n" +
                 "---------------\n";
-        String actualResult = ctrl.printTypeList(list1);
+        String actualResult = ctrl.buildTypeListString(list1);
         //Assert
         assertEquals(result, actualResult);
     }
@@ -484,7 +484,7 @@ class RoomConfigurationControllerTest {
                 "0) Name: rain | Units: mm\n" +
                 "1) Name: wind | Units: km/h\n" +
                 "---------------\n";
-        String actualResult = ctrl.printTypeList(list1);
+        String actualResult = ctrl.buildTypeListString(list1);
         //Assert
         assertEquals(result, actualResult);
     }
@@ -498,7 +498,7 @@ class RoomConfigurationControllerTest {
         ctrl.setDeviceName("daniel", device);
         ctrl.addDeviceToRoom(room, device);
         ctrl.setNominalPower(123.0, device);
-        String result = ctrl.printDeviceList(room);
+        String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +
                 "0) Device Name: daniel, Device Type: WATER_HEATER, Device Nominal Power: 123.0\n" +
@@ -515,7 +515,7 @@ class RoomConfigurationControllerTest {
         room.addDevice(device);
         room.addDevice(device1);
         ctrl.removeDeviceFromRoom(room, device1);
-        String result = ctrl.printDeviceList(room);
+        String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +
                 "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
@@ -529,7 +529,7 @@ class RoomConfigurationControllerTest {
         Device device = new Device("waterheater", 150, new WaterHeater());
         Room room = new Room("cozinha", 1, 1, 1, 1);
         ctrl.addDeviceToRoom(room, device);
-        String result = ctrl.printDeviceList(room);
+        String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +
                 "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +

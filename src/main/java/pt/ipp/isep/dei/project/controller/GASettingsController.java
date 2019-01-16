@@ -30,7 +30,7 @@ public class GASettingsController {
      * @return builds a string of all the objects contained in the indexes of the provided list.
      */
 
-    public String printTypeAreaElementsByIndex(List<Integer> listOfIndexesTypeGeographicAreas, TypeAreaList typeAreaList) {
+    public String buildTypeAreaElementsByIndexString(List<Integer> listOfIndexesTypeGeographicAreas, TypeAreaList typeAreaList) {
         return typeAreaList.buildGATypeElementsByIndexString(listOfIndexesTypeGeographicAreas);
     }
 
@@ -39,7 +39,7 @@ public class GASettingsController {
      * @return builds a string with the given type of area.
      */
 
-    public String printTypeArea(TypeArea typeArea) {
+    public String buildTypeAreaString(TypeArea typeArea) {
         return typeArea.buildTypeGeographicAreaString();
     }
 
@@ -48,7 +48,7 @@ public class GASettingsController {
      * @return builds a string with each individual member of the given list.
      */
 
-    public String printGATypeList(TypeAreaList typeAreaList) {
+    public String buildGATypeListString(TypeAreaList typeAreaList) {
         return typeAreaList.buildGATypeWholeListString(typeAreaList);
     }
 
@@ -57,7 +57,7 @@ public class GASettingsController {
      * @return builds a string with each individual member of the given list.
      */
 
-    public String printGAList(GeographicAreaList geoAreaList) {
+    public String buildGAListString(GeographicAreaList geoAreaList) {
         return geoAreaList.buildGaWholeListString(geoAreaList);
     }
 
@@ -174,7 +174,7 @@ public class GASettingsController {
         return geographicAreaList.checkIfContainsGAByString(ga);
     }
 
-    public boolean printAreaByName(String name, GeographicAreaList newGeoListUi) {
+    public boolean buildAreaByNameString(String name, GeographicAreaList newGeoListUi) {
         return checkIfListContainsGeoArea(name, newGeoListUi);
     }
 

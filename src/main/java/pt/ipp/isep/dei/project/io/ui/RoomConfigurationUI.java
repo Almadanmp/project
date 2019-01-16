@@ -123,7 +123,7 @@ class RoomConfigurationUI {
      */
     private void printRoomDeviceList() {
         System.out.println("Available Devices in Room " + mRoom.getRoomName());
-        System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
+        System.out.println(mRoomConfigurationController.buildDeviceListString(mRoom));
     }
 
      /* USER STORY 210 - As an Administrator, I want to add a new device to a room from the list of available
@@ -141,7 +141,7 @@ class RoomConfigurationUI {
             return true;
         }
         System.out.println("Please select one of the Device Types: ");
-        System.out.println(mRoomConfigurationController.printDeviceTypeList(deviceTypeList));
+        System.out.println(mRoomConfigurationController.buildDeviceTypeListString(deviceTypeList));
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < DeviceType.values().length) {
             this.mDeviceType = DeviceType.values()[aux];
@@ -412,7 +412,7 @@ class RoomConfigurationUI {
 
     private void displaySensorListUS250() {
         SensorList sensorList = mRoom.getmRoomSensorList();
-        System.out.println(mRoomConfigurationController.printSensorList(sensorList));
+        System.out.println(mRoomConfigurationController.buildSensorListString(sensorList));
     }
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
@@ -423,7 +423,7 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();
         System.out.println("Please select a Type of Sensor from the list: ");
-        System.out.println(ctrl.printTypeList(typeSensorList));
+        System.out.println(ctrl.buildTypeListString(typeSensorList));
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < typeSensorList.size()) {
             this.mTypeSensor = typeSensorList.get(aux);

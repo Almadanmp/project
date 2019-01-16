@@ -36,7 +36,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
-        String actualResult = controller.printRoomsAndDevices(grid);
+        String actualResult = controller.buildRoomsAndDevicesString(grid);
 
         //Assert
         assertEquals(expectedResult, actualResult);

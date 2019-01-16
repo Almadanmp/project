@@ -61,7 +61,7 @@ class GASettingsControllerTest {
                 "1) Type Area: distrito\n" +
                 "2) Type Area: aldeia\n" +
                 "---------------\n";
-        String result = ctrl.printTypeAreaElementsByIndex(listIndex, list);
+        String result = ctrl.buildTypeAreaElementsByIndexString(listIndex, list);
         assertEquals(expectedResult, result);
     }
 
@@ -71,7 +71,7 @@ class GASettingsControllerTest {
         TypeArea type1 = new TypeArea("cidade");
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(type1);
-        String actualResult = ctrl.printTypeArea(type1);
+        String actualResult = ctrl.buildTypeAreaString(type1);
         String expectedResult = "Type Area: cidade\n";
         assertEquals(expectedResult, actualResult);
     }
@@ -84,7 +84,7 @@ class GASettingsControllerTest {
         TypeAreaList list = new TypeAreaList();
         list.addTypeArea(type1);
         list.addTypeArea(type2);
-        String actualResult = ctrl.printGATypeList(list);
+        String actualResult = ctrl.buildGATypeListString(list);
         String expectedResult = "---------------\n" +
                 "0) Name: cidade \n" +
                 "1) Name: bairro \n" +
@@ -428,7 +428,7 @@ class GASettingsControllerTest {
                 "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
                 "---------------\n";
         GASettingsController ctrl = new GASettingsController();
-        String result = ctrl.printGAList(gAL1);
+        String result = ctrl.buildGAListString(gAL1);
 
         //Assert
         assertEquals(expectedResult, result);
@@ -551,7 +551,7 @@ class GASettingsControllerTest {
         assertTrue(actualResult);
     }
 
-    //public void printAreaByName(String name, GeographicAreaList newGeoListUi) {
+    //public void buildAreaByNameString(String name, GeographicAreaList newGeoListUi) {
     @Test
     void seeIfPrintAreaByNameWorks() {
         //Arrange
@@ -565,7 +565,7 @@ class GASettingsControllerTest {
         //Act
         GASettingsController ctrl = new GASettingsController();
         String name = "Oporto";
-        boolean actualResult = ctrl.printAreaByName(name, gAL1);
+        boolean actualResult = ctrl.buildAreaByNameString(name, gAL1);
         //Assert
         assertTrue(actualResult);
     }
@@ -583,7 +583,7 @@ class GASettingsControllerTest {
         //Act
         GASettingsController ctrl = new GASettingsController();
         String name = "Valongo";
-        boolean actualResult = ctrl.printAreaByName(name, gAL1);
+        boolean actualResult = ctrl.buildAreaByNameString(name, gAL1);
         //Assert
         assertFalse(actualResult);
     }

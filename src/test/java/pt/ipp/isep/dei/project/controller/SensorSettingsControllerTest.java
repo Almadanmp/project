@@ -3,11 +3,8 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
@@ -316,7 +313,7 @@ class SensorSettingsControllerTest {
                 "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
                 "---------------\n";
         SensorSettingsController ctrl = new SensorSettingsController();
-        String result = ctrl.printGAList(gAL1);
+        String result = ctrl.buildGAListString(gAL1);
 
         //Assert
         assertEquals(expectedResult, result);

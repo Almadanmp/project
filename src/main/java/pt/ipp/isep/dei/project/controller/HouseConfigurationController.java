@@ -15,7 +15,7 @@ public class HouseConfigurationController {
      * @return builds a striing of all the individual members of the geoArea list.
      */
 
-    String printGAList(GeographicAreaList geoAreaList) {
+    String buildGAListString(GeographicAreaList geoAreaList) {
         return geoAreaList.buildGaWholeListString(geoAreaList);
     }
 
@@ -70,7 +70,7 @@ public class HouseConfigurationController {
      * @return builds a string of all the geoAreas contained in the list at the positions given in the list of indexes.
      */
 
-    public String printGeoAreasByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
+    public String buildGeoAreasByIndexString(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
         return geoAreaList.buildGeographicAreaElementsByIndexString(listOfIndexesGeographicAreas);
     }
 
@@ -80,7 +80,7 @@ public class HouseConfigurationController {
      * @return builds a string with the given area.
      */
 
-    public String printGeoArea(GeographicArea geoArea) {
+    public String buildGeoAreaString(GeographicArea geoArea) {
         return geoArea.buildGeographicAreaString();
     }
 
@@ -128,7 +128,7 @@ public class HouseConfigurationController {
      * @return builds a string of all the individual members in the given list.
      */
 
-    public String printRooms(House house) {
+    public String buildRoomsString(House house) {
         return house.buildRoomListString();
     }
 }

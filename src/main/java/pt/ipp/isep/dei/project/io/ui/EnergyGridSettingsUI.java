@@ -126,7 +126,7 @@ class EnergyGridSettingsUI {
 
     private void displayRoomList(EnergyGrid energyGrid) {
         if (mEnergyGrid != null) {
-            System.out.println(mController.printRooms(energyGrid.getListOfRooms()));
+            System.out.println(mController.buildRoomsString(energyGrid.getListOfRooms()));
         } else {
             System.out.println("The energy grid you've selected has no rooms attached to it.");
         }
@@ -165,7 +165,7 @@ class EnergyGridSettingsUI {
     DANIEL OLIVEIRA*/
 
     private void displayUS160(EnergyGrid energyGrid) {
-        System.out.println(mController.printListOfDevicesByType(energyGrid));
+        System.out.println(mController.buildListOfDevicesByTypeString(energyGrid));
     }
 
 

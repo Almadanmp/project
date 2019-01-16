@@ -25,14 +25,14 @@ public class SensorSettingsController {
      * @return builds a string with each individual member of the given list.
      */
 
-    public String printGAList(GeographicAreaList geoAreaList) {
+    public String buildGAListString(GeographicAreaList geoAreaList) {
         return geoAreaList.buildGaWholeListString(geoAreaList);
     }
 
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    public void printTypes(List<TypeSensor> typeList) {
+    public void buildSensorTypesString(List<TypeSensor> typeList) {
         for(int i = 0; i < typeList.size(); i++) {
             String name = typeList.get(i).getName();
             String units = typeList.get(i).getUnits();

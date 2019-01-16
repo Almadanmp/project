@@ -30,7 +30,7 @@ public class HouseMonitoringControllerTest {
                 "1) Name: Oporto | Type: City | Latitude: 14.0 | Longitude: 14.0\n" +
                 "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
                 "---------------\n";
-        String result = US623.printGeoAreaList(gAL1);
+        String result = US623.buildGeoAreaListString(gAL1);
         assertEquals(expectedResult, result);
     }
 
@@ -39,7 +39,7 @@ public class HouseMonitoringControllerTest {
         HouseMonitoringController US623 = new HouseMonitoringController();
         GeographicAreaList gAL1 = new GeographicAreaList();
         String expectedResult = "Invalid List - List is Empty\n";
-        String result = US623.printGeoAreaList(gAL1);
+        String result = US623.buildGeoAreaListString(gAL1);
         assertEquals(expectedResult, result);
     }
 
@@ -549,7 +549,7 @@ public class HouseMonitoringControllerTest {
         //Geo Area List
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         //Act -----------------------
-        String result = ctrl.printGeoArea(ga);
+        String result = ctrl.buildGeoAreaString(ga);
         String expectedResult = "porto, cidade, 4.0º lat, 4.0º long\n";
         //Assert --------------------
         assertEquals(expectedResult, result);
@@ -682,7 +682,7 @@ public class HouseMonitoringControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        String result = ctrl.printGeoGraphicAreaElementsByIndex(list, mGeographicAreaList);
+        String result = ctrl.buildGeographicAreaElementsByIndexString(list, mGeographicAreaList);
         String expectedResult = "---------------\n" +
                 "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
                 "---------------\n";
@@ -714,7 +714,7 @@ public class HouseMonitoringControllerTest {
     public void seeIfprintSensorWorks() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Sensor s1 = new Sensor("sensor", new TypeSensor("temperatura", "Celsius"), new Local(4, 4, 100), new GregorianCalendar(7, 7, 7).getTime());
-        String result = ctrl.printSensor(s1);
+        String result = ctrl.buildSensorString(s1);
         String expected = "sensor, temperatura, 4.0º lat, 4.0º long\n";
         assertEquals(expected, result);
     }
@@ -753,7 +753,7 @@ public class HouseMonitoringControllerTest {
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
 
         //Act
-        String result = ctrl.printRoomElementsByIndex(list, house);
+        String result = ctrl.buildRoomElementsByIndexString(list, house);
         String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
 
         //Assert
@@ -783,7 +783,7 @@ public class HouseMonitoringControllerTest {
         room.setRoomSensorList(sensorList1);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
         //Act
-        String result = ctrl.printSensorElementsByIndex(list, room);
+        String result = ctrl.buildSensorElementsByIndexString(list, room);
         String expectedResult = "2) s3 which is a Rain sensor.\n";
 
         //Assert
@@ -809,7 +809,7 @@ public class HouseMonitoringControllerTest {
                 "1) Designation: s2 | Sensor Type: Vento\n" +
                 "2) Designation: s3 | Sensor Type: Rain\n" +
                 "---------------\n";
-        String actualResult = ctrl.printRoomSensorList(room);
+        String actualResult = ctrl.buildRoomSensorListString(room);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -820,7 +820,7 @@ public class HouseMonitoringControllerTest {
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         String expectedResult = "kitchen, 1, 1.0, 2.0, 2.0.\n";
-        String result = ctrl.printRoom(room);
+        String result = ctrl.buildRoomString(room);
         assertEquals(expectedResult, result);
     }
 
@@ -838,7 +838,7 @@ public class HouseMonitoringControllerTest {
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
-        String result = ctrl.printHouseRoomList(house);
+        String result = ctrl.buildHouseRoomListString(house);
         assertEquals(expectedResult, result);
     }
 

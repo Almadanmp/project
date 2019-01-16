@@ -31,7 +31,7 @@ class HouseConfigurationControllerTest {
                 "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
                 "---------------\n";
         HouseConfigurationController ctrl = new HouseConfigurationController();
-        String result = ctrl.printGAList(gAL1);
+        String result = ctrl.buildGAListString(gAL1);
 
         //Assert
         assertEquals(expectedResult, result);
@@ -69,7 +69,7 @@ class HouseConfigurationControllerTest {
         mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
 
         //Act
-        String result = ctrl.printGeoAreasByIndex(list, mGeographicAreaList);
+        String result = ctrl.buildGeoAreasByIndexString(list, mGeographicAreaList);
         String expectedResult = "---------------\n" +
                 "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
                 "---------------\n";
@@ -213,7 +213,7 @@ class HouseConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        String result = ctrl.printGeoAreasByIndex(list, mGeographicAreaList);
+        String result = ctrl.buildGeoAreasByIndexString(list, mGeographicAreaList);
         String expectedResult = "---------------\n" +
                 "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
                 "---------------\n";
@@ -234,7 +234,7 @@ class HouseConfigurationControllerTest {
         gAL1.addGeographicAreaToGeographicAreaList(gA3);
         String expectedResult =
                 "Portugal, Country, 21.0º lat, 33.0º long\n";
-        String result = US101.printGeoArea(gA1);
+        String result = US101.buildGeoAreaString(gA1);
         assertEquals(expectedResult, result);
     }
 
@@ -255,7 +255,7 @@ class HouseConfigurationControllerTest {
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
-        String result = ctrl.printRooms(house);
+        String result = ctrl.buildRoomsString(house);
         Assertions.assertEquals(expectedResult, result);
     }
 

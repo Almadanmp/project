@@ -24,7 +24,7 @@ public class EnergyConsumptionController {
      * @return builds a string from the Rooms and the Devices in that grid.
      */
 
-    String printRoomsAndDevices(EnergyGrid grid) {
+    String buildRoomsAndDevicesString(EnergyGrid grid) {
         return grid.buildRoomsAndDevicesString();
     }
 

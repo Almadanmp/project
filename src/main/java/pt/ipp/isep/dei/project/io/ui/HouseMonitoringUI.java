@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.Sensor;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -108,7 +107,7 @@ public class HouseMonitoringUI {
             return true;
         }
         System.out.println("Please select one of the existing rooms on the selected House: ");
-        System.out.println(houseMonitoringcontroller.printHouseRoomList(this.mHouse));
+        System.out.println(houseMonitoringcontroller.buildHouseRoomListString(this.mHouse));
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < this.mHouse.getRoomList().size()) {
             this.mRoom = this.mHouse.getRoomList().get(aux);
@@ -128,7 +127,7 @@ public class HouseMonitoringUI {
             return true;
         }
         System.out.println("Please select one of the existing Sensors on the selected Room: ");
-        houseMonitoringcontroller.printRoomSensorList(mRoom);
+        houseMonitoringcontroller.buildRoomSensorListString(mRoom);
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < mRoom.getmRoomSensorList().getSensorList().size()) {
             this.mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);

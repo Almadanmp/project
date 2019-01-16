@@ -98,13 +98,13 @@ class GASettingsUI {
             return null;
         }
         System.out.println("Please select the Geographic Area Type from the list: ");
-        System.out.print(mController.printGATypeList(typeAreaList));
+        System.out.print(mController.buildGATypeListString(typeAreaList));
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
             this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
             this.mTypeAreaName = typeAreaList.getTypeAreaList().get(aux).getTypeOfGeographicArea();
             System.out.println("You have chosen the following Geographic Area Type:");
-            System.out.println(mController.printTypeArea(this.mTypeArea));
+            System.out.println(mController.buildTypeAreaString(this.mTypeArea));
             return this.mTypeArea;
         } else {
             System.out.println(utils.invalidOption);
@@ -258,7 +258,7 @@ class GASettingsUI {
             System.out.println("There are no Geographic Areas of that Area Type.");
         } else {
             System.out.println("Geographic Areas of the type " + this.mTypeAreaName + ":\n");
-            System.out.println(mController.printGAList(this.mGeoAreaList));
+            System.out.println(mController.buildGAListString(this.mGeoAreaList));
         }
     }
 
@@ -267,12 +267,12 @@ class GASettingsUI {
         UtilsUI utils = new UtilsUI();
         if (utils.geographicAreaListIsValid(programGAList)) {
             this.mMotherAreaName = setGeographicAreaContainer(programGAList).getId();
-            if (mController.printAreaByName(mMotherAreaName, programGAList)) {
+            if (mController.buildAreaByNameString(mMotherAreaName, programGAList)) {
                 System.out.println("Success, you have inserted a valid Geographic Area.");
             } else System.out.println("Error! You have inserted a non-existent Geographic Area.");
 
             this.mDaughterAreaName = setGeographicAreaContained(programGAList).getId();
-            if (mController.printAreaByName(mDaughterAreaName, programGAList)) {
+            if (mController.buildAreaByNameString(mDaughterAreaName, programGAList)) {
                 System.out.println("Success, you have inserted a valid Geographic Area.");
             } else System.out.println("Error! You have inserted a non-existent Geographic Area.");
         }

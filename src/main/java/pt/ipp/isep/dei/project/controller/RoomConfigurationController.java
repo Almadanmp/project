@@ -45,7 +45,7 @@ public class RoomConfigurationController {
      * @return builds a string from the House's room list.
      */
 
-    public String printRoomList(House house) {
+    public String buildRoomListString(House house) {
         return house.buildRoomListString();
     }
 
@@ -55,7 +55,7 @@ public class RoomConfigurationController {
      * @return builds a string from given room.
      */
 
-    public String printRoom(Room room) {
+    public String buildRoomString(Room room) {
         return room.buildRoomString();
     }
 
@@ -67,7 +67,7 @@ public class RoomConfigurationController {
      * given by the list of indexes.
      */
 
-    public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
+    public String buildRoomElementsByIndexString(List<Integer> listOfIndexesOfRoom, House house) {
         return house.buildRoomsByIndexString(listOfIndexesOfRoom);
     }
 
@@ -79,7 +79,7 @@ public class RoomConfigurationController {
      * given by the list of indexes.
      */
 
-    public String printDeviceElementsByIndex(List<Integer> listOfIndexesOfDevice, Room room) {
+    public String buildDeviceElementsByIndexString(List<Integer> listOfIndexesOfDevice, Room room) {
         return room.getObjectDeviceList().buildElementByIndexString(listOfIndexesOfDevice);
     }
 
@@ -163,7 +163,7 @@ public class RoomConfigurationController {
      * @return builds a string from given sensor list.
      */
 
-    public String printSensorList(SensorList sensorList) {
+    public String buildSensorListString(SensorList sensorList) {
         return sensorList.buildSensorWholeListString(sensorList);
     }
 
@@ -173,7 +173,7 @@ public class RoomConfigurationController {
      * @return builds a string from given sensor.
      */
 
-    public String printSensor(Sensor sensor) {
+    public String buildSensorString(Sensor sensor) {
         return sensor.buildSensorString();
     }
 
@@ -182,7 +182,7 @@ public class RoomConfigurationController {
      * @param device the device we want to print.
      * @return string with the given device.
      */
-    public String printDevice(Device device) {
+    public String buildDeviceString(Device device) {
         return device.buildDeviceString();
     }
 
@@ -191,7 +191,7 @@ public class RoomConfigurationController {
      * @param room the room we want to print the list of devices from.
      * @return string with all the devices in the given room.
      */
-    public String printDeviceList(Room room){
+    public String buildDeviceListString(Room room){
         return room.buildDeviceListString();
     }
 
@@ -200,7 +200,7 @@ public class RoomConfigurationController {
      * @param
      * @return a string with the list of available device types by index
      */
-    public String printDeviceTypeList(List<DeviceType> deviceTypeList){
+    public String buildDeviceTypeListString(List<DeviceType> deviceTypeList){
         DeviceType deviceType= DeviceType.WATER_HEATER;
         for(int i=0;i<deviceTypeList.size();i++){
             deviceType = deviceTypeList.get(i);
@@ -273,10 +273,10 @@ public class RoomConfigurationController {
      * given by the list of indexes.
      */
 
-    public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
+    public String buildSensorElementsByIndexString(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
         return sensorList.buildElementsByIndexString(listOfIndexesOfSensor);
     }
-    public String printTypeList(List<TypeSensor> typeList) {
+    public String buildTypeListString(List<TypeSensor> typeList) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
         if (typeList.isEmpty()) {
             return "Invalid List - List is Empty\n";

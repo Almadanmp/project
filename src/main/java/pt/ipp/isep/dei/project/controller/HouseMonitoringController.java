@@ -36,7 +36,7 @@ public class HouseMonitoringController {
      * @return builds a string with given sensor.
      */
 
-    public String printSensor(Sensor sensor) {
+    public String buildSensorString(Sensor sensor) {
         return sensor.buildSensorString();
     }
 
@@ -88,7 +88,7 @@ public class HouseMonitoringController {
      * @return builds a string of the elements of the list contained in the indexes given as a parameter.
      */
 
-    String printGeoGraphicAreaElementsByIndex(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
+    String buildGeographicAreaElementsByIndexString(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
         return geoAreaList.buildGeographicAreaElementsByIndexString(listOfIndexesGeographicAreas);
     }
 
@@ -98,7 +98,7 @@ public class HouseMonitoringController {
      * @return builds a string with the given Area.
      */
 
-    String printGeoArea(GeographicArea geoArea) {
+    String buildGeoAreaString(GeographicArea geoArea) {
         return geoArea.buildGeographicAreaString();
     }
 
@@ -108,7 +108,7 @@ public class HouseMonitoringController {
      * @return builds a string with the individual elements of the given list.
      */
 
-    String printGeoAreaList(GeographicAreaList geoAreaList) {
+    String buildGeoAreaListString(GeographicAreaList geoAreaList) {
         return geoAreaList.buildGaWholeListString(geoAreaList);
     }
 
@@ -143,7 +143,7 @@ public class HouseMonitoringController {
      * @return builds a string of all the elements of the house's roomList in the positions given by the list of indexes.
      */
 
-    public String printRoomElementsByIndex(List<Integer> listOfIndexesOfRoom, House house) {
+    public String buildRoomElementsByIndexString(List<Integer> listOfIndexesOfRoom, House house) {
         return house.buildRoomsByIndexString(listOfIndexesOfRoom);
     }
 
@@ -154,7 +154,7 @@ public class HouseMonitoringController {
      * @return builds a string of all the elements of the room's sensorList in the positions given by the list of indexes.
      */
 
-    public String printSensorElementsByIndex(List<Integer> listOfIndexesOfSensor, Room room) {
+    public String buildSensorElementsByIndexString(List<Integer> listOfIndexesOfSensor, Room room) {
         return room.getmRoomSensorList().buildElementsByIndexString(listOfIndexesOfSensor);
     }
 
@@ -164,7 +164,7 @@ public class HouseMonitoringController {
      * @return builds a string from the individual elements of the room's sensor list.
      */
 
-    public String printRoomSensorList(Room room) {
+    public String buildRoomSensorListString(Room room) {
         return room.getmRoomSensorList().buildSensorListString(room);
     }
 
@@ -174,7 +174,7 @@ public class HouseMonitoringController {
      * @return builds a string from the individual elements of the house's room list.
      */
 
-    public String printHouseRoomList(House house) {
+    public String buildHouseRoomListString(House house) {
         return house.buildRoomListString();
     }
 
@@ -184,7 +184,7 @@ public class HouseMonitoringController {
      * @return builds a string with given room.
      */
 
-    public String printRoom(Room room) {
+    public String buildRoomString(Room room) {
         return room.buildRoomString();
     }
 
