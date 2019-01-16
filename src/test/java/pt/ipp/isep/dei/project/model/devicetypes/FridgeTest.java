@@ -49,16 +49,6 @@ public class FridgeTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    public void getAttributeNamesTest() {
-        Fridge fridge = new Fridge(4, 5,1);
-        List<String> expectedResult = new ArrayList<>();
-        expectedResult.add("freezerCapacity");
-        expectedResult.add("refrigeratorCapacity");
-        expectedResult.add("annualEnergyConsumption");
-        List<String> result = fridge.getAttributeNames();
-        assertEquals(expectedResult, result);
-    }
 
     @Test
     public void getAttributeValuesTest() {

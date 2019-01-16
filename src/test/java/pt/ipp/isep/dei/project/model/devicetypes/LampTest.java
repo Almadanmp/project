@@ -22,7 +22,7 @@ public class LampTest {
 
     @Test
     public void getConsumptionTest() {
-        Lamp lamp = new Lamp();
+        Lamp lamp = new Lamp(5);
         double expectedResult = 0;
         double result = lamp.getConsumption();
         assertEquals(expectedResult, result);
@@ -37,12 +37,27 @@ public class LampTest {
         assertEquals(expectedResult, result);
     }
 
-
-
     @Test
     public void setAttributeValueTest() {
         Lamp lamp = new Lamp();
         boolean result = lamp.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
     }
+
+    @Test
+    public void getObjectAttributeValueTest() {
+        Lamp lamp = new Lamp(4);
+       double expectedResult = 4;
+        Object result = lamp.getAttributeValue("LuminousFlux");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void setAttributeValueTestFalse() {
+        Lamp lamp = new Lamp(4);
+        Object result = lamp.setAttributeValue("LuminousFlux",5);
+        assertEquals(false, result);
+    }
+
+
 }

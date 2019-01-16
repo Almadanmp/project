@@ -9,6 +9,9 @@ public class Fridge implements DeviceSpecs {
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
     private double mAnnualEnergyConsumption;
+    private String mFreezerCapacityString;
+    private String mRefrigeratorCapacityString;
+    private String mAnualConsumptionString;
 
     public Fridge() {
     }
@@ -45,9 +48,9 @@ public class Fridge implements DeviceSpecs {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add("freezerCapacity");
-        result.add("refrigeratorCapacity");
-        result.add("annualEnergyConsumption");
+        result.add(mFreezerCapacityString);
+        result.add(mRefrigeratorCapacityString);
+        result.add(mAnualConsumptionString);
 
         return result;
     }
