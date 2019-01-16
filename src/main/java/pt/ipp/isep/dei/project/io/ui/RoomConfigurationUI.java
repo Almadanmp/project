@@ -209,10 +209,11 @@ class RoomConfigurationUI {
             this.mCapacity = inputUtils.getInputAsDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new Dishwasher(mCapacity));
         }
-        if (mDevice.getDeviceType() == DeviceType.LAMP) {
+        if (this.mDeviceType == DeviceType.LAMP) {
             System.out.print("Please, type the new Luminous Flux in lm for the Lamp:");
 
             this.mLuminousFlux = inputUtils.getInputAsDouble();
+            mDevice = new Device(mDeviceName, mNominalPower, new Lamp(mLuminousFlux));
         }
     }
 
