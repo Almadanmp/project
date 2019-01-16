@@ -6,9 +6,8 @@ import pt.ipp.isep.dei.project.model.Metered;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WashingMachine implements DeviceSpecs, Metered {
+public class WashingMachine implements DeviceSpecs {
 
-    private double mNominalPower;
     private double mCapacity;
 
     public WashingMachine() {
@@ -27,15 +26,6 @@ public class WashingMachine implements DeviceSpecs, Metered {
         return 0; //To be implemented later, not yet specified
     }
 
-    public double getNominalPower() {
-
-        return this.mNominalPower;
-    }
-
-    void setNominalPower(double nominalPower) {
-
-        this.mNominalPower = nominalPower;
-    }
 
     public double getCapacity() {
         return this.mCapacity;

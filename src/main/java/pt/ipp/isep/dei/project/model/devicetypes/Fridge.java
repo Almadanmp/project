@@ -6,9 +6,8 @@ import pt.ipp.isep.dei.project.model.Metered;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fridge implements DeviceSpecs, Metered {
+public class Fridge implements DeviceSpecs {
 
-    private double mNominalPower;
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
     private double mAnnualEnergyConsumption;
@@ -22,20 +21,12 @@ public class Fridge implements DeviceSpecs, Metered {
         this.mAnnualEnergyConsumption = annualEnergyConsumption;
     }
 
-    void setNominalPower(double nominalPower) {
-        this.mNominalPower = nominalPower;
-    }
-
     public DeviceType getType() {
         return DeviceType.FRIDGE;
     }
 
     public double getConsumption() {
         return 0; //To be implemented later, not yet specified
-    }
-
-    public double getNominalPower() {
-        return this.mNominalPower;
     }
 
     public double getFreezerCapacity() {

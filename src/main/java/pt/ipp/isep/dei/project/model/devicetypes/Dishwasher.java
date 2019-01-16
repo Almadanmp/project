@@ -6,9 +6,8 @@ import pt.ipp.isep.dei.project.model.Metered;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dishwasher implements DeviceSpecs, Metered {
+public class Dishwasher implements DeviceSpecs {
 
-    private double mNominalPower;
     private double mCapacity;
 
     public Dishwasher() {
@@ -18,9 +17,6 @@ public class Dishwasher implements DeviceSpecs, Metered {
         this.mCapacity = capacity;
     }
 
-    void setNominalPower(double nominalPower) {
-        this.mNominalPower = nominalPower;
-    }
 
     public DeviceType getType() {
         return DeviceType.DISHWASHER;
@@ -30,9 +26,6 @@ public class Dishwasher implements DeviceSpecs, Metered {
         return 0; //To be implemented later, not yet specified
     }
 
-    public double getNominalPower() {
-        return this.mNominalPower;
-    }
 
     public double getCapacity() {
         return this.mCapacity;

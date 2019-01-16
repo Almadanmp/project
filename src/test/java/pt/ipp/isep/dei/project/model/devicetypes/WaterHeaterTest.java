@@ -41,20 +41,11 @@ public class WaterHeaterTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    public void seeIfGetNominalPower() {
-        WaterHeater waterHeater = new WaterHeater();
-        double expectedResult = 6;
-        waterHeater.getNominalPower();
-        waterHeater.setNominalPower(6);
-        double result = waterHeater.getNominalPower();
-        assertEquals(expectedResult, result);
-    }
 
     @Test
     public void seeIfGetAndSetAttributeValue() {
         WaterHeater waterHeater = new WaterHeater();
-        String attribute = "nominalPower";
+        String attribute = "volumeOfWater";
         double expectedResult = 6;
         boolean setResult = waterHeater.setAttributeValue(attribute, 6);
         double getResult = waterHeater.getAttributeValue(attribute);
@@ -83,28 +74,20 @@ public class WaterHeaterTest {
     public void seeIfGetAttributeNames() {
         WaterHeater waterHeater = new WaterHeater();
         List<String> result = waterHeater.getAttributeNames();
-        assertTrue(result.contains("nominalPower"));
         assertTrue(result.contains("volumeOfWater"));
         assertTrue(result.contains("hotWaterTemperature"));
         assertTrue(result.contains("coldWaterTemperature"));
         assertTrue(result.contains("performanceRatio"));
-        assertEquals(result.size(), 5);
+        assertEquals(result.size(), 4);
     }
 
     @Test
     public void seeIfGetAndSetAttributeValues() {
         WaterHeater waterHeater = new WaterHeater();
-        String attribute = "nominalPower";
-        double expectedResult = 1;
-        boolean setResult = waterHeater.setAttributeValue(attribute, 1);
+        String attribute = "volumeOfWater";
+        double expectedResult = 2;
+        boolean setResult = waterHeater.setAttributeValue(attribute, 2);
         double getResult = waterHeater.getAttributeValue(attribute);
-        assertEquals(expectedResult, getResult);
-        assertTrue(setResult);
-
-        attribute = "volumeOfWater";
-        expectedResult = 2;
-        setResult = waterHeater.setAttributeValue(attribute, 2);
-        getResult = waterHeater.getAttributeValue(attribute);
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 

@@ -26,16 +26,6 @@ public class WashingMachineTest {
     }
 
     @Test
-    public void seeIfGetNominalPower() {
-        WashingMachine washingMachine = new WashingMachine(5);
-        double expectedResult = 6;
-        washingMachine.getNominalPower();
-        washingMachine.setNominalPower(6);
-        double result = washingMachine.getNominalPower();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     public void seeIfGetCapacity() {
         WashingMachine washingMachine = new WashingMachine(5);
         double expectedResult = 6;
