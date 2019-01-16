@@ -235,6 +235,10 @@ public class RoomConfigurationController {
 
    }
 
+   public Object getAttributeValueWashingMachine(Device device){
+        return device.getAttributeValue("programList");
+   }
+
 
     public void  configureOneWashingMachineCapacity(Device device, double capacity ){
     device.setAttributeValue("capacity", capacity);

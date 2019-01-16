@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.devicetypes.Program;
+import pt.ipp.isep.dei.project.model.devicetypes.ProgramList;
 
 import java.util.Scanner;
 
@@ -97,6 +99,29 @@ class InputUtils {
             String stringRequestDevice = "You have chosen the following device: ";
             System.out.println(stringRequestDevice);
             System.out.println(result.buildDeviceString());
+            return result;
+        } else {
+            System.out.println(utils.invalidOption);
+            return null;
+        }
+    }
+//mudar o nome
+    Program getProgramListFromDevice(Device device) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        ProgramList programList = (ProgramList)device.getAttributeValue("programList");
+        if (programList.getProgramList().isEmpty()) {
+            System.out.println("Invalid Program list - List is empty\n");
+            return null;
+        }
+        System.out.println("Please select one of the existing Programs in the selected Program List to alter: ");
+        System.out.println(programList.buildProgramListString());
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < programList.getProgramList().size()) {
+            Program result =programList.getProgramList().get(aux);
+            String stringRequestProgram = "You have chosen the following Program: ";
+            System.out.println(stringRequestProgram);
+            System.out.println(result.buildProgramString());
             return result;
         } else {
             System.out.println(utils.invalidOption);

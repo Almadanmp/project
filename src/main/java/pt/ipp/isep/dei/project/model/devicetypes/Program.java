@@ -14,6 +14,12 @@ public class Program {
         setEnergyConsumption(energyConsumption);
     }
 
+    public String buildProgramString(){
+        String result;
+        result = "The Program Name is " + getProgramName() + ", its Duration is " +
+                getDuration() + " hours and its Energy Consumption is"+getEnergyConsumption()+".\n";
+        return result;
+    }
     public void setProgramName(String name){
         this.mProgramName=name;
     }

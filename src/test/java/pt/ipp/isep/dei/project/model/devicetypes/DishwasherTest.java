@@ -31,7 +31,10 @@ public class DishwasherTest {
 
     @Test
     public void seeIfGetCapacity() {
-        Dishwasher dishwasher = new Dishwasher(4);
+        Program program1 = new Program("programa",2,2);
+        ProgramList listProgram= new ProgramList();
+        listProgram.addProgram(program1);
+        Dishwasher dishwasher = new Dishwasher(4,listProgram);
         double expectedResult = 6;
         dishwasher.getCapacity();
         dishwasher.setCapacity(6);
@@ -41,16 +44,23 @@ public class DishwasherTest {
 
     @Test
     public void getAttributeNamesTest() {
-        Dishwasher dishwasher = new Dishwasher(1);
+        Program program1 = new Program("programa",2,2);
+        ProgramList listProgram= new ProgramList();
+        listProgram.addProgram(program1);
+        Dishwasher dishwasher = new Dishwasher(1,listProgram);
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("capacity");
+        expectedResult.add("programList");
         List<String> result = dishwasher.getAttributeNames();
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void getAttributeValuesTest() {
-        Dishwasher dishwasher = new Dishwasher(1.0);
+        Program program1 = new Program("programa",2,2);
+        ProgramList listProgram= new ProgramList();
+        listProgram.addProgram(program1);
+        Dishwasher dishwasher = new Dishwasher(1.0,listProgram);
         Double expectedResult = 1.0;
         Object result = dishwasher.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
@@ -58,7 +68,10 @@ public class DishwasherTest {
 
     @Test
     public void setAttributeValueTest() {
-        Dishwasher dishwasher = new Dishwasher(1);
+        Program program1 = new Program("programa",2,2);
+        ProgramList listProgram= new ProgramList();
+        listProgram.addProgram(program1);
+        Dishwasher dishwasher = new Dishwasher(1,listProgram);
         boolean result = dishwasher.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
     }
