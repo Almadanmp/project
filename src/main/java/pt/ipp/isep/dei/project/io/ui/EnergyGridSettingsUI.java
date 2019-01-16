@@ -77,21 +77,6 @@ class EnergyGridSettingsUI {
                     displayUS160(mEnergyGrid);
                     activeInput = false;
                     break;
-                case 7:
-                    if (this.mHouse.getEGList() == null) {
-                        System.out.println(noGrid);
-                        return;
-                    } else if (this.mHouse.getEGList().getEnergyGridList().isEmpty()) {
-                        System.out.println(noGrid);
-                        return;
-                    }
-                    mEnergyGrid = inputs.getInputGridByList(mHouse);
-                    updateUS172(mEnergyGrid);
-                    displayUS172();
-                    activeInput = false;
-                    break;
-
-
                 case 0:
                     return;
                 default:
@@ -236,21 +221,6 @@ class EnergyGridSettingsUI {
         mController.printListOfDevicesByType(energyGrid);
     }
 
-    // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
-    //connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
-    //in the grid.  - ANDRE RUA.
-
-    private void updateUS172(EnergyGrid grid) {
-        if (mEnergyGrid != null) {
-            this.mEGridNPower = mController.getTotalPowerFromGrid(grid);
-        }
-    }
-
-    private void displayUS172() {
-        if (mEnergyGrid != null) {
-            System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + mEGridNPower + " kW.");
-        }
-    }
 
     // UI SPECIFIC METHODS - Not Used on User Stories.
 
@@ -262,7 +232,6 @@ class EnergyGridSettingsUI {
         System.out.println("4) Attach a room to a house grid. (US147)");
         System.out.println("5) Detach a room from a house grid. (US149)");
         System.out.println("6) Display all available devices on an energy grid (US160)");
-        System.out.println("7) Display total nominal power of one of the Energy Grids. (US172)");
         System.out.println("0) (Return to main menu)\n");
     }
 

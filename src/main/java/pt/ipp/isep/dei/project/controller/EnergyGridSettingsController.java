@@ -198,10 +198,6 @@ public class EnergyGridSettingsController {
         return grid.removeRoom(room);
     }
 
-    public double getTotalPowerFromGrid(EnergyGrid grid) {
-        return grid.getNominalPower();
-    }
-
     /*USER STORY 160 - As a Power User (or Administrator),
     I want to get a list of all devices in a grid, grouped by device type.
     It must include device location

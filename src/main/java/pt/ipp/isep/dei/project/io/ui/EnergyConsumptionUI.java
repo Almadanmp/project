@@ -33,12 +33,24 @@ class EnergyConsumptionUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    runUS705(programHouse);
-                    activeInput = true;
+                    if (programHouse.getEGList() == null) {
+                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
+                        return;
+                    } else if (programHouse.getEGList().getEnergyGridList().isEmpty()) {
+                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
+                        return;
+                    }
+                    EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
+                    double nominalPower = updateUS172(mEnergyGrid);
+                    displayUS172(nominalPower,mEnergyGrid);
+                    activeInput = false;
                     break;
-
                 case 2:
                     runUS752(programHouse);
+                    activeInput = true;
+                    break;
+                case 3:
+                    runUS705(programHouse);
                     activeInput = true;
                     break;
                 case 0:
@@ -209,11 +221,36 @@ class EnergyConsumptionUI {
         System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
     }
 
+    // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
+    //connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
+    //in the grid.
+
+    private double updateUS172(EnergyGrid grid) {
+        EnergyConsumptionController mController = new EnergyConsumptionController();
+        if (grid != null) {
+            return mController.getTotalPowerFromGrid(grid);
+        }
+        return 0;
+    }
+    private void displayUS172(Double nomPower,EnergyGrid grid) {
+        if (grid != null) {
+            System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
+        }
+    }
+
+
+
+
+
+
+
+
     private void printOptionMessage() {
         System.out.println("Energy Consumption Management Options:\n");
-        System.out.println("1) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
-                " (US705)");
+        System.out.println("1) Display total nominal power of one of the Energy Grids. (US172)");
         System.out.println("2) Estimate the total energy used in heating water in a day. (US752)");
+        System.out.println("3) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
+                " (US705)");
         System.out.println("0) (Return to main menu)\n");
     }
 
