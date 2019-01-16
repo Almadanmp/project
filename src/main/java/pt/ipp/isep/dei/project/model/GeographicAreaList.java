@@ -61,24 +61,6 @@ public class GeographicAreaList {
     }
 
     /**
-     * Method that goes through every geographic area from the attribute mGeographicAreaList
-     * and returns a string with every GA name
-     */
-    public String printGeoAreaList() {
-        StringBuilder finalString = new StringBuilder();
-        String emptyList = "The list is empty.";
-        if (mGeographicAreaList.isEmpty()) {
-            return emptyList;
-        }
-        finalString.append("Geographic Area List:");
-        for (GeographicArea tipo : mGeographicAreaList) {
-            finalString.append(" \n" + "-").append(tipo.getId()).append(";");
-        }
-        return finalString.toString();
-    }
-
-
-    /**
      * Method to print a Whole Geographic Area List.
      * It will print the attributes needed to check if a GA is different from another GA
      * (name, type of GA and Localization)

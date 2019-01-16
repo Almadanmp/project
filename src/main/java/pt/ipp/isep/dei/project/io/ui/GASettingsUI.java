@@ -100,12 +100,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 5:
-                    this.mMotherAreaName = setGeographicAreaContainer(programGAList).getId();
-                    if (mController.printAreaByName(mMotherAreaName, programGAList)) {
-                        System.out.println("Success, you have inserted a valid Geographic Area.");
-                    } else System.out.println("Error! You have inserted a non-existent Geographic Area.");
-                    this.mDaughterAreaName = setGeographicAreaContained(programGAList).getId();
-                    mController.printAreaByName(mDaughterAreaName, programGAList);
+                    getInputMotherDaughterGA(programGAList);
                     updateStateUS07(programGAList);
                     displayStateUS07();
                     activeInput = false;
@@ -144,29 +139,6 @@ class GASettingsUI {
             this.mTypeAreaName = typeAreaList.getTypeAreaList().get(aux).getTypeOfGeographicArea();
             System.out.println("You have chosen the following Geographic Area Type:");
             System.out.println(mController.printTypeArea(this.mTypeArea));
-            return false;
-        } else {
-            System.out.println(utils.invalidOption);
-            return true;
-        }
-    }
-
-    //GET INPUT GEOGRAPHIC AREA BY LIST //
-
-    private boolean getInputGeographicAreaByList(GeographicAreaList programGAList) {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        if(programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
-            return true;
-        }
-        System.out.println("Please select the Geographic Area in which your House is in from the list: ");
-        GASettingsController controller = new GASettingsController();
-        System.out.println(controller.printGAList(programGAList));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < programGAList.getGeographicAreaList().size()) {
-            mGeoArea = programGAList.getGeographicAreaList().get(aux);
-            nameOfGeoArea = mGeoArea.getId();
-            System.out.println((mGeoArea.printGeographicArea()));
             return false;
         } else {
             System.out.println(utils.invalidOption);
@@ -298,6 +270,19 @@ class GASettingsUI {
     }
 
     /* USER STORY 07 - */
+    private void getInputMotherDaughterGA(GeographicAreaList programGAList) {
+        this.mMotherAreaName = setGeographicAreaContainer(programGAList).getId();
+        if (mController.printAreaByName(mMotherAreaName, programGAList)) {
+            System.out.println("Success, you have inserted a valid Geographic Area.");
+        }
+        else System.out.println("Error! You have inserted a non-existent Geographic Area.");
+
+        this.mDaughterAreaName = setGeographicAreaContained(programGAList).getId();
+        if (mController.printAreaByName(mDaughterAreaName, programGAList)) {
+            System.out.println("Success, you have inserted a valid Geographic Area.");
+        }
+        else System.out.println("Error! You have inserted a non-existent Geographic Area.");
+    }
 
     private void updateStateUS07(GeographicAreaList newGeoListUi) {
         GeographicArea daughterArea = mController.matchGeoAreaByName(mDaughterAreaName, newGeoListUi);
@@ -312,38 +297,33 @@ class GASettingsUI {
     // METODOS CONTAINS GEOGRAPHIC AREA
 
     private GeographicArea setGeographicAreaContainer(GeographicAreaList geographicAreaList) {
-        System.out.println(
-                "1 )Do you want to set the area which will contain another one from a list.\n" + "or\n" +
-                        mReturnString);
-        getInputGeographicAreaForContains(geographicAreaList);
+        getInputGeographicAreaForContainer(geographicAreaList);
         return mGeoArea;
     }
 
     private GeographicArea setGeographicAreaContained(GeographicAreaList geographicAreaList) {
-        System.out.println(
-                "1 )Do you want to set the area which will be contained from a list.\n" + "or\n" +
-                        mReturnString);
-        getInputGeographicAreaForContains(geographicAreaList);
+        getInputGeographicAreaForContained(geographicAreaList);
         return mGeoArea;
     }
 
-    private void getInputGeographicAreaForContains(GeographicAreaList programGAList) {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
+    private void getInputGeographicAreaForContainer(GeographicAreaList programGAList) {
         if(programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
             System.out.println("The list of Geographic Areas is empty.");
             return;
         }
-        GASettingsController controller = new GASettingsController();
-        System.out.println(controller.printGAList(programGAList));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < programGAList.getGeographicAreaList().size()) {
-            mGeoArea = programGAList.getGeographicAreaList().get(aux);
-            nameOfGeoArea = mGeoArea.getId();
-            System.out.println((mGeoArea.printGeographicArea()));
-        } else {
-            System.out.println(utils.invalidOption);
+        System.out.println("First you need to select the geographic area you wish to set as container.");
+        InputUtils inputUtils = new InputUtils();
+        mGeoArea = inputUtils.getGeographicAreaByList(programGAList);
+    }
+
+    private void getInputGeographicAreaForContained(GeographicAreaList programGAList) {
+        if(programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
+            System.out.println("The list of Geographic Areas is empty.");
+            return;
         }
+        System.out.println("Second you need to select the geographic area you wish to set as contained.");
+        InputUtils inputUtils = new InputUtils();
+        mGeoArea = inputUtils.getGeographicAreaByList(programGAList);
     }
 
     /* US08 - As an Administrator, I want to find out if a geographical area is included, directly
@@ -354,7 +334,9 @@ class GASettingsUI {
      * this method makes the user define the NAME of the GeographicArea CONTAINER
      */
     private void getContainerArea(GeographicAreaList newGeoListUi) {
-        getInputGeographicAreaByList(newGeoListUi);
+        System.out.println("First you need to select the geographic area you wish to test if contains another geographic area.");
+        InputUtils inputUtils = new InputUtils();
+        mGeoArea = inputUtils.getGeographicAreaByList(newGeoListUi);
         this.mContainerAreaName = mGeoArea.getId();
     }
 
@@ -363,7 +345,9 @@ class GASettingsUI {
      * this method makes the user define the NAME of the GeographicArea CONTAINED
      */
     private void getContainedArea(GeographicAreaList newGeoListUi) {
-        getInputGeographicAreaByList(newGeoListUi);
+        System.out.println("Second you need to select the geographic area you wish to test if is contained in the first one.");
+        InputUtils inputUtils = new InputUtils();
+        mGeoArea = inputUtils.getGeographicAreaByList(newGeoListUi);
         this.mContainedAreaName = mGeoArea.getId();
     }
 

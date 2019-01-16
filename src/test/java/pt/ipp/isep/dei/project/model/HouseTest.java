@@ -466,7 +466,7 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
     @Test
-    void getRoomDevicesOfGivenType(){
+    void getHouseDevicesOfGivenType(){
         House house = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
@@ -479,6 +479,22 @@ class HouseTest {
         expectedResult.add(d3);
         List<Device> result = house.getHouseDevicesOfGivenType(DeviceType.WATER_HEATER);
         Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDeviceListTest(){
+        House house = new House();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200,20,10));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500,30,1));
+        r1.addDevice(d2);
+        r1.addDevice(d3);
+        house.addRoomToRoomList(r1);
+        List<Device> expectedResult = new ArrayList<>();
+        expectedResult.add(d2);
+        expectedResult.add(d3);
+        List<Device> result = house.getDeviceList();
+        assertEquals(expectedResult, result);
     }
 }
 

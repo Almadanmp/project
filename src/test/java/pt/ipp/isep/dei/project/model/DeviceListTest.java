@@ -210,6 +210,19 @@ class DeviceListTest {
     }
 
     @Test
+    void SeeIfMatchDeviceIndexByStringFails(){
+        //Arrange
+        Device device = new Device("frigorifico", 200, new Fridge());
+        DeviceList dlist = new DeviceList();
+        dlist.addDevice(device);
+        //Act
+        List<Integer> result = dlist.matchDeviceIndexByString("heater");
+        List<Integer> expectedResult = new ArrayList<>();
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void SeeIfPrintElementsByIndexWorks(){
         List<Integer> list = new ArrayList<>();
         Integer i = 1;

@@ -165,14 +165,6 @@ public class GASettingsController {
 
     }
 
-    /**
-     * @param geographicAreaList is the list of Geographic Areas which we are going to print names from.
-     * @return builds a string of the names of every GeoArea in the list.
-     */
-
-    String printGeoAreaNamesFromList(GeographicAreaList geographicAreaList) {
-        return geographicAreaList.printGeoAreaList();
-    }
 
     /**
      * @param ga                 is the name of the geographic area we're going to check is contained in the list.
