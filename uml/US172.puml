@@ -28,14 +28,14 @@ skinparam component {
 
 actor André
 André -> MainUI: getEnergyGridTotalPower(House)
-MainUI -> EnergyGridSettingsUI: run(house)
-activate EnergyGridSettingsUI
-EnergyGridSettingsUI -> EnergyGridSettingsUI: getInputGrid()
-André <-- EnergyGridSettingsUI: return inputGrid
+MainUI -> EnergyConsumptionUI: runEnergyConsumptiionUI(house)
+activate EnergyConsumptionUI
+EnergyConsumptionUI -> EnergyConsumptionUI: run US172(house)
+EnergyConsumptionUI -> EnergyConsumptionUI: getInputGrid()
+André <-- EnergyConsumptionUI: display inputGrid
 
-André --> EnergyGridSettingsUI: return inputGrid
-EnergyGridSettingsUI -> EnergyGridSettingsController: getGridTotalPower(grid)
-activate EnergyGridSettingsController
+EnergyConsumptionUI -> EnergyConsumptionController: getGridTotalPower(grid)
+activate EnergyConsumptionController
 EnergyGridSettingsController -> EnergyGrid: getGridTotalNominalPower()
 activate EnergyGrid
 EnergyGrid -> RoomList: getRoomList()
@@ -54,11 +54,11 @@ Device --> Room: return deviceTotalNominalPower
 deactivate Device
 Room --> EnergyGrid: return roomTotalNominalPower
 deactivate Room
-EnergyGrid --> EnergyGridSettingsController: return gridTotalNominalPower
+EnergyGrid --> EnergyConsumptionController: return gridTotalNominalPower
 deactivate EnergyGrid
-EnergyGridSettingsController --> EnergyGridSettingsUI: return gridNominalPower
-deactivate EnergyGridSettingsController
-EnergyGridSettingsUI --> André: gridTotalNominalPower
-deactivate EnergyGridSettingsUI
+EnergyConsumptionController --> EnergyConsumptionUI: return gridNominalPower
+deactivate EnergyConsumptionController
+EnergyConsumptionUI --> André: gridTotalNominalPower
+deactivate EnergyConsumptionUI
 
 @endumlΩ
