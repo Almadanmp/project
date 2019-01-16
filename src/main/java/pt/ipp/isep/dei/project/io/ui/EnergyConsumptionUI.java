@@ -42,7 +42,7 @@ class EnergyConsumptionUI {
                     }
                     EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
                     double nominalPower = updateUS172(mEnergyGrid);
-                    displayUS172(nominalPower,mEnergyGrid);
+                    displayUS172(nominalPower);
                     activeInput = false;
                     break;
                 case 2:
@@ -232,18 +232,9 @@ class EnergyConsumptionUI {
         }
         return 0;
     }
-    private void displayUS172(Double nomPower,EnergyGrid grid) {
-        if (grid != null) {
+    private void displayUS172(Double nomPower) {
             System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
-        }
     }
-
-
-
-
-
-
-
 
     private void printOptionMessage() {
         System.out.println("Energy Consumption Management Options:\n");

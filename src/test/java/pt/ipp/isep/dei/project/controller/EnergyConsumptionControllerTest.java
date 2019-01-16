@@ -403,4 +403,42 @@ class EnergyConsumptionControllerTest {
         double result = controller.getDailyHouseConsumptionWaterHeater(h1);
         assertEquals(expectedResult, result);
     }
+    @Test
+    void getTotalNominalPowerFromGridTest() {
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        House h1 = new House();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d1 = new Device("fridgeOne", 12, new Fridge());
+        r1.addDevice(d1);
+        Room r2 = new Room("kitchen", 2, 12, 12, 12);
+        Device d4 = new Device("fridgeTwo", 12, new Fridge());
+        EnergyGrid grid1 = new EnergyGrid();
+        RoomList rlist1 = new RoomList();
+        grid1.setRoomList(rlist1);
+        rlist1.addRoom(r2);
+        rlist1.addRoom(r1);
+        r2.addDevice(d4);
+        h1.addRoomToRoomList(r1);
+        h1.addRoomToRoomList(r2);
+        double expectedResult = 24;
+        double result = controller.getTotalPowerFromGrid(grid1);
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    void getTotalNominalPowerFromGridNoDevicesTest() {
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        House h1 = new House();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Room r2 = new Room("kitchen", 2, 12, 12, 12);
+        EnergyGrid grid1 = new EnergyGrid();
+        RoomList rlist1 = new RoomList();
+        grid1.setRoomList(rlist1);
+        rlist1.addRoom(r2);
+        rlist1.addRoom(r1);
+        h1.addRoomToRoomList(r1);
+        h1.addRoomToRoomList(r2);
+        double expectedResult = 0;
+        double result = controller.getTotalPowerFromGrid(grid1);
+        assertEquals(expectedResult, result);
+    }
 }
