@@ -2,18 +2,18 @@
 autonumber
 actor Admin
 Admin -> MainUI: Get List Of\nSensors in a Room
-MainUI -> RoomConfigurationUI: getInputRoom()
-RoomConfigurationUI -> House: getRoomList()
-House -> RoomList: getRoomList()
-RoomList -> RoomList: isEmpty()
-RoomList --> RoomConfigurationUI: return false
-RoomConfigurationUI -> RoomConfigurationController: printRoomList()
-RoomConfigurationController --> Admin: Display RoomList
-Admin --> MainUI: Select Room
-MainUI -> RoomConfigurationUI: displaySensorListUS250()
+MainUI -> RoomConfigurationUI: run(house)
+RoomConfigurationUI -> InputUtils: getHouseRoomByList(house)
+InputUtils -> House: getRoomList()
+House -> House: isEmpty()
+House --> InputUtils: return
+InputUtils -> InputUtils: printRoomList()
+InputUtils --> Admin: Display RoomList
+Admin --> InputUtils: Select Room
+InputUtils -> RoomConfigurationUI: displaySensorListUS250()
 RoomConfigurationUI -> Room : getmRoomSensorList()
 Room -> Room: isEmpty()
-Room --> RoomConfigurationUI: return false
-RoomConfigurationUI -> RoomConfigurationController: printSensorList()
-RoomConfigurationController --> Admin: Display SensorList
+Room --> RoomConfigurationUI: return
+RoomConfigurationUI -> RoomConfigurationUI: printSensorList()
+RoomConfigurationUI --> Admin: Display SensorList
 @enduml
