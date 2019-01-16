@@ -227,11 +227,31 @@ public class RoomConfigurationController {
         room.addDevice(device);
     }
 
-    /**
-     *
-     * @param input the new name we want to give to the device.
-     * @param device the device we want to change the name from.
-     */
+      /*  public void configureOneHeater(Device device, double coldWaterTemperature, double volumeOfWaterToHeat){
+        device.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
+        device.setAttributeValue("volumeOfWater", volumeOfWaterToHeat);
+    }*/
+
+
+    /*  public void  configureOneWashingMachine(Device device, double capacity ){
+    device.setAttributeValue("capacity", capacity);
+    }*/
+
+      /*  public void  configureOneDishWasher(Device device, double capacity ){
+    device.setAttributeValue("capacity", capacity);
+    }*/
+
+      /*  public void  configureOneFridge(Device device, double freezerCapacity, double refrigeratorCapacity ){
+    device.setAttributeValue("freezerCapacity", freezerCapacity);
+        device.setAttributeValue("refrigeratorCapacity", refrigeratorCapacity);
+
+    }*/
+
+   /**
+    *
+    * @param input the new name we want to give to the device.
+    * @param device the device we want to change the name from.
+    */
     public void setDeviceName(String input, Device device) {
         device.setmName(input);
     }

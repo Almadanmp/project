@@ -59,5 +59,40 @@ public class WashingMachine implements DeviceSpecs, Metered {
     @Override
     public boolean setAttributeValue(String attributeName, double attributeValue) {
         return false;
+
     }
+
+    /*public List<String> getAttributeNames() {
+        List<String> result = new ArrayList<>();
+        result.add("nominalPower");
+        result.add("capacity");
+
+        return result;
+    }
+
+
+    public double getAttributeValue(String attributeName) {
+        switch (attributeName) {
+            case "nominalPower":
+                return mNominalPower;
+            case "capacity":
+                return mCapacity;
+            default:
+                return 0;
+        }
+    }
+
+
+    public boolean setAttributeValue(String attributeName, double attributeValue) {
+        switch (attributeName) {
+            case "nominalPower":
+                this.mNominalPower = attributeValue;
+                return true;
+            case "capacity":
+                this.mCapacity = attributeValue;
+                return true;
+            default:
+                return false;
+        }
+    }*/
 }

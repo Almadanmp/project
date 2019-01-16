@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
-import pt.ipp.isep.dei.project.model.Device;
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Scanner;
 
@@ -84,6 +81,29 @@ class InputUtils {
             return null;
         }
     }
+
+    Device getInputDeviceByList(Room room) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        if (room.getDeviceList().isEmpty()) {
+            System.out.println("Invalid Device List - List Is Empty\n");
+            return null;
+        }
+        System.out.println("Please select one of the existing Devices in the selected Room: ");
+            System.out.println(room.printDeviceList());
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < room.getDeviceList().size()) {
+                Device result = room.getDeviceList().get(aux);
+                System.out.println("You have chosen the following device:");
+                System.out.println(result.printDevice());
+                return result;
+            } else {
+                System.out.println(utils.invalidOption);
+                return null;
+            }
+
+        }
+
 
     EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();

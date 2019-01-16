@@ -190,6 +190,7 @@ public class MainUI {
         mainGrid.setRoomList(gridRoomList);
         edificioB.setEGList(energyGridListIsep);
 
+
         // Type  Area List
 
         TypeAreaList mTypeAreaList = new TypeAreaList();
