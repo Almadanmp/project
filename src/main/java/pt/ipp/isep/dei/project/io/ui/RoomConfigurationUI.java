@@ -60,17 +60,12 @@ class RoomConfigurationUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1: //US201
-                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
-                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                        return;
-                    }
+                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                     printRoomDeviceList();
                     activeInput = false;
                     break;
                 case 2: //US210
-                    if ((inputUtils.getHouseRoomByList(this.mHouse) != null)) {
-                        return;
-                    }
+                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                     if (getInputDeviceTypeByList(deviceTypeList)) {
                         return;
                     }
@@ -79,14 +74,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //215
-                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
-                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                        return;
-                    }
-                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
-                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                        return;
-                    }
+                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                     getInputDeviceCharacteristicsUS215();
                     updateDeviceUS215();
                     displayDeviceUS215();
@@ -98,10 +86,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 5: //US250
-                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
-                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                        return;
-                    }
+                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                     displaySensorListUS250();
                     activeInput = false;
                     break;
@@ -110,10 +95,7 @@ class RoomConfigurationUI {
                         System.out.println("There's no defined types of sensor available yet. Please define one first.");
                         return;
                     }
-                    if (inputUtils.getHouseRoomByList(this.mHouse) != null) {
-                        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                        return;
-                    }
+                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
                     if (getInputTypeFromTypeListByList(typeSensorList)) {
                         return;
                     }
