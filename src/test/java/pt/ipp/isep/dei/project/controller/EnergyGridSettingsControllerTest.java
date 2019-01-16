@@ -85,6 +85,14 @@ class EnergyGridSettingsControllerTest {
         Assert.assertEquals(expectedResult, result);
     }
 
+    @Test
+    void seeIfRoomsPrintNull() {
+        EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
+        String result = ctrlUS145.buildRoomsString(null);
+        String expectedResult = "The Room List wasn't properly initialized. Please try again.";
+        Assert.assertEquals(expectedResult, result);
+    }
+
     //USER STORY 149
 
     @Test

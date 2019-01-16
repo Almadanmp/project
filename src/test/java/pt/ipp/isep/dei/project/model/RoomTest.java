@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
@@ -437,6 +438,16 @@ public class RoomTest {
     }
 
     @Test
+    void addDeviceSucceeds2() {
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        r1.addDevice(d2);
+        boolean expectedResult = true;
+        boolean result = r1.addDevice(d2);
+        assertEquals(false, result);
+    }
+
+    @Test
     void getRoomDevicesOfGivenTypeSuccess() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
@@ -518,4 +529,20 @@ public class RoomTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-}
+
+    @Test
+    void seeIfGetAllHouseDevices() {
+            House house = new House();
+            Room r1 = new Room("quarto", 1, 12, 12, 12);
+            Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
+            Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
+            r1.addDevice(d2);
+            r1.addDevice(d3);
+            house.addRoomToRoomList(r1);
+            List<Device> expectedResult = new ArrayList<>();
+            expectedResult.add(d2);
+            expectedResult.add(d3);
+            List<Device> result = house.getAllHouseDevices();
+            Assert.assertEquals(expectedResult, result);
+        }
+    }
