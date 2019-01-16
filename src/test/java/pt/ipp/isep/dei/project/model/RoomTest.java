@@ -102,7 +102,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfgetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
+    public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -128,7 +128,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfgetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
+    public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -480,5 +480,37 @@ public class RoomTest {
         boolean result = r1.removeDevice(d4);
         assertEquals(false, result);
 
+    }
+
+    @Test
+    void seeIfAddRoomDevicesToDeviceListWorksWhenDeviceListAlreadyAddedToRoom() {
+        //Arrange
+        Device device1 = new Device("waterheater", 150, new WaterHeater());
+        Device device2 = new Device("skjsjk", 123, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        DeviceList dList = new DeviceList();
+        dList.addDevice(device1);
+        dList.addDevice(device2);
+        room.setDeviceList(dList);
+        //Act
+        boolean actualResult = room.addRoomDevicesToDeviceList(dList);
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomDevicesToDeviceListWorksWhenNotYetAddedToRoom() {
+        //Arrange
+        Device device1 = new Device("waterheater", 150, new WaterHeater());
+        Device device2 = new Device("skjsjk", 123, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        DeviceList dList = new DeviceList();
+        dList.addDevice(device1);
+        dList.addDevice(device2);
+        //Act
+        boolean actualResult = room.addRoomDevicesToDeviceList(dList);
+        boolean expectedResult = dList.containsDevice(device1) && dList.containsDevice(device2);
+        //Assert
+        assertEquals(expectedResult, actualResult);
     }
 }
