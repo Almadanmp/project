@@ -224,6 +224,7 @@ public class MainUI {
         deviceTypeList.add(DeviceType.WASHING_MACHINE);
         deviceTypeList.add(DeviceType.WATER_HEATER);
         deviceTypeList.add(DeviceType.DISHWASHER);
+        deviceTypeList.add(DeviceType.LAMP);
 /**
         // House - Empty RoomList - Without EnergyGrid
         GeographicArea geographicArea4 = new GeographicArea();
