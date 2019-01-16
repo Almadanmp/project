@@ -9,6 +9,10 @@ import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import static org.testng.Assert.assertEquals;
 
+/**
+ * EnergyGrid tests class.
+ */
+
 class EnergyGridTest {
 
     @Test

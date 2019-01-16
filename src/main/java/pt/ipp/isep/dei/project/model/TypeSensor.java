@@ -25,7 +25,6 @@ public class TypeSensor {
         setUnits(units);
     }
 
-
     /**
      * Setter Name
      *
@@ -42,7 +41,7 @@ public class TypeSensor {
     /**
      * Setter Units of the Sensor.
      *
-     * @param units
+     * @param units Unit measure of the type
      */
     public void setUnits(String units) {
         if (isNameValid(units)) {
@@ -55,7 +54,7 @@ public class TypeSensor {
     /**
      * Getter Units of the Sensor.
      *
-     * @return
+     * @return the unit measure of the type
      */
     public String getUnits() {
         return this.mUnits;
@@ -63,6 +62,8 @@ public class TypeSensor {
 
     /**
      * Getter Name
+     *
+     * @return the name of the type
      */
     public String getName() {
         return this.mName;

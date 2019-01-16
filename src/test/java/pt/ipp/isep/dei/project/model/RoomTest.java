@@ -14,6 +14,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+/**
+ * Room tests class.
+ */
+
 public class RoomTest {
 
     @Test

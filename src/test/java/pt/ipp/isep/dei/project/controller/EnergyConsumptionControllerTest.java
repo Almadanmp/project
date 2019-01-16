@@ -7,6 +7,10 @@ import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * EnergyConsumptionController tests class.
+ */
+
 class EnergyConsumptionControllerTest {
 
     //US705 TESTS

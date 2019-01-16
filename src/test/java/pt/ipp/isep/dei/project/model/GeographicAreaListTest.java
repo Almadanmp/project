@@ -8,6 +8,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * GeographicAreaList tests class.
+ */
+
 public class GeographicAreaListTest {
 
     @Test

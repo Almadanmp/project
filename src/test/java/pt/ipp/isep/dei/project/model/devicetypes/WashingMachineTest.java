@@ -7,6 +7,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * WashingMachine tests class.
+ */
+
 public class WashingMachineTest {
 
     @Test

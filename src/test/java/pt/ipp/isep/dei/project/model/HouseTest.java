@@ -15,6 +15,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
 
+/**
+ * House tests class.
+ */
+
 class HouseTest {
 
     @Test

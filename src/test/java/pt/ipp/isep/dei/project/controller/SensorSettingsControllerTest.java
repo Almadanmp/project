@@ -9,6 +9,10 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
 
+/**
+ * SensorSettingsController tests class.
+ */
+
 class SensorSettingsControllerTest {
 
     //user 005

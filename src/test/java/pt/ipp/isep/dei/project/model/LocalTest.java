@@ -6,6 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Local tests class.
+ */
+
 public class LocalTest {
     @Test
     public void seeIfGetSetLatitudeWorks() {

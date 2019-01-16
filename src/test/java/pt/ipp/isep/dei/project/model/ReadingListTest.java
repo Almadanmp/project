@@ -8,6 +8,10 @@ import java.util.*;
 import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * ReadingList tests class.
+ */
+
 public class ReadingListTest {
 
     @Test

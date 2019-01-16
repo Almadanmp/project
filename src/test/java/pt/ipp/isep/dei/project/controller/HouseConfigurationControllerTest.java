@@ -10,6 +10,10 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+/**
+ * HouseConfigurationController tests class.
+ */
+
 class HouseConfigurationControllerTest {
 
     @Test

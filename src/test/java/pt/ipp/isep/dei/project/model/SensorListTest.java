@@ -7,6 +7,9 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * SensorList tests class.
+ */
 
 public class SensorListTest {
 

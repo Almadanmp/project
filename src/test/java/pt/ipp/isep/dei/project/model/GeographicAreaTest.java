@@ -9,6 +9,10 @@ import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * GeographicArea tests class.
+ */
+
 class GeographicAreaTest {
 
 

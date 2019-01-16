@@ -8,6 +8,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Device tests class.
+ */
+
 public class DeviceTest {
 
     @Test

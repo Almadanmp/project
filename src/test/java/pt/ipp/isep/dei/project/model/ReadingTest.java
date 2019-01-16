@@ -8,6 +8,10 @@ import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Reading tests class.
+ */
+
 public class ReadingTest{
 
     @Test

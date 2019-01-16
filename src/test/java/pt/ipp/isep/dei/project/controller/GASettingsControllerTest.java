@@ -10,6 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.testng.Assert.*;
 
+/**
+ * GASettingsController tests class.
+ */
+
 class GASettingsControllerTest {
 
     //SHARED METHODS

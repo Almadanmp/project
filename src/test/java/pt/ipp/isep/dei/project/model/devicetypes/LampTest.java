@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/**
+ * Lamp tests class.
+ */
+
 public class LampTest {
     @Test
     public void getTypeTest() {

@@ -7,6 +7,10 @@ import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * PowerSource tests class.
+ */
+
 public class PowerSourceTest {
 
     @Test
