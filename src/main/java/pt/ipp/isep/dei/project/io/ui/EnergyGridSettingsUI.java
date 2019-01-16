@@ -10,7 +10,7 @@ import java.util.Scanner;
 class EnergyGridSettingsUI {
     private EnergyGridSettingsController mController;
     private EnergyGrid mEnergyGrid;
-    private House mHouse;
+
     EnergyGridSettingsUI() {
         this.mController = new EnergyGridSettingsController();
     }
@@ -26,7 +26,7 @@ class EnergyGridSettingsUI {
             System.out.println("The selected House has not a valid Energy Grid associated\nReturning to Main Menu");
             return;
         }
-        this.mHouse = house;
+        House mHouse = house;
         InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;

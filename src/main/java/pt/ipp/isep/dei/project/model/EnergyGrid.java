@@ -164,14 +164,14 @@ public class EnergyGrid implements Metered {
         for (DeviceType d : DeviceType.values()) {
             for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
                 Room r = energyGrid.getListOfRooms().getRoomList().get(i);
-                if (r != null){result.append(buildDeviceListInGridString(r, d, i));}
+                if (r != null){result.append(buildDeviceListInGridString(r, d));}
             }
         }
         result.append(mStringSpacer);
         return result.toString();
     }
 
-    private String buildDeviceListInGridString(Room r, DeviceType d, int i) {
+    private String buildDeviceListInGridString(Room r, DeviceType d) {
         StringBuilder result = new StringBuilder();
         for (int x = 0; x < r.getDeviceList().size(); x++) {
             if (d == r.getDeviceList().get(x).getDeviceType()) {
