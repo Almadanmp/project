@@ -159,4 +159,20 @@ class InputUtils {
         }
         return scan.nextInt();
     }
+
+    /**
+     * Method to read a double value from a user.
+     * Will validate input is a double. if it isn't it will print an error message.
+     * @return value read from user
+     */
+    public double getInputAsDouble(){
+        Scanner scanner = new Scanner(System.in);
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Please,try again. Only numbers this time:");
+            scanner.next();
+        }
+        return scanner.nextDouble();
+    }
+
+
 }

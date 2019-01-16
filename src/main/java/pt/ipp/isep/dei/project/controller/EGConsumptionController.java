@@ -114,6 +114,10 @@ public class EGConsumptionController {
      * given the cold-water temperature and the volume of water produced in each water heater.
      */
 
+    public List <Device> getWaterHeaterDeviceList(House house){
+        return house.getHouseDevicesOfGivenType(DeviceType.WATER_HEATER);
+    }
+
     /**
      * Gets a list of all water heaters in the house and configures them with the user input values
      *
@@ -126,9 +130,18 @@ public class EGConsumptionController {
         for (Device d : allWaterHeaters) {
             d.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
             d.setAttributeValue("volumeOfWater", volumeOfWaterToHeat);
+    //TODO choose implementation (above or bellow) after discussing with teachers.
+            //    WaterHeater dSpecs = (WaterHeater) d.getDeviceSpecs();
+            //    dSpecs.setVolumeOfWater(volumeOfWaterToHeat);
+            //    dSpecs.setColdWaterTemperature(coldWaterTemperature);
         }
     }
 
+    //TODO choose implementation after discussing with teachers.
+  /*  public void configureOneHeater(Device device, double coldWaterTemperature, double volumeOfWaterToHeat){
+        device.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
+        device.setAttributeValue("volumeOfWater", volumeOfWaterToHeat);
+    }*/
     /**
      * get the estimate consumption on all water heater available in the users house
      *

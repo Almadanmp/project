@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.EGConsumptionController;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -196,20 +197,12 @@ class EGConsumptionUI {
      */
 
     private void runUS752(House house) {
-        Scanner scanner = new Scanner(System.in);
-        String onlyNumbers = "Please,try again. Only numbers this time:";
+        InputUtils inputUtils = new InputUtils();
         System.out.println("Please insert the cold water temperature:");
-        while (!scanner.hasNextDouble()) {
-            System.out.println(onlyNumbers);
-            scanner.next();
-        }
-        double coldWaterTemperature = scanner.nextDouble();
+        double coldWaterTemperature = inputUtils.getInputAsDouble();
         System.out.println("Please insert the volume of water to heat:");
-        while (!scanner.hasNextDouble()) {
-            System.out.println(onlyNumbers);
-            scanner.next();
-        }
-        double volumeWaterToHeat = scanner.nextDouble();
+
+        double volumeWaterToHeat = inputUtils.getInputAsDouble();
 
         controller.configureHeaters(house, coldWaterTemperature, volumeWaterToHeat);
 
@@ -224,4 +217,24 @@ class EGConsumptionUI {
         System.out.println("2) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
     }
+
+    //TODO choose implementation after discussing with teachers.
+/*    private void runUS752Extra(House house) {
+        InputUtils inputUtils = new InputUtils();
+        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
+        System.out.println("You currently have " + waterHeaters.size() + " water heaters in your house.\n");
+        for (Device d : waterHeaters) {
+            System.out.println("Water Heater name: " + d.getName() + ".\n");
+            System.out.println("Please insert the cold water temperature:");
+            double coldWaterTemperature = inputUtils.getInputAsDouble();
+            System.out.println("Please insert the volume of water to heat:");
+            double volumeWaterToHeat = inputUtils.getInputAsDouble();
+            controller.configureOneHeater(d, coldWaterTemperature, volumeWaterToHeat);
+            System.out.println("Device Configured.\n");
+        }
+
+        double result = controller.getDailyHouseConsumptionWaterHeater(house);
+        System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
+
+    }*/
 }
