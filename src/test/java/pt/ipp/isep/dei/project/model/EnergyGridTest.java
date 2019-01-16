@@ -237,7 +237,6 @@ class EnergyGridTest {
 
     @Test
     void seeIfPrintRoomListWorks() {
-        RoomList roomList = new RoomList();
         EnergyGrid grid = new EnergyGrid();
         String result = grid.buildRoomListString();
         Assert.assertEquals("Invalid List - List is Empty\n", result);
