@@ -251,7 +251,7 @@ class GASettingsUI {
     }
 
     private void displayGAListByTypeArea() {
-        if (this.mGeoAreaList == null || this.mTypeArea == null){
+        if (this.mGeoAreaList == null || this.mTypeArea == null) {
             return;
         }
         if (this.mGeoAreaList.getGeographicAreaList().isEmpty()) {
@@ -264,25 +264,34 @@ class GASettingsUI {
 
     /* USER STORY 07 - */
     private void getInputMotherDaughterGA(GeographicAreaList programGAList) {
-        this.mMotherAreaName = setGeographicAreaContainer(programGAList).getId();
-        if (mController.printAreaByName(mMotherAreaName, programGAList)) {
-            System.out.println("Success, you have inserted a valid Geographic Area.");
-        } else System.out.println("Error! You have inserted a non-existent Geographic Area.");
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaListIsValid(programGAList)) {
+            this.mMotherAreaName = setGeographicAreaContainer(programGAList).getId();
+            if (mController.printAreaByName(mMotherAreaName, programGAList)) {
+                System.out.println("Success, you have inserted a valid Geographic Area.");
+            } else System.out.println("Error! You have inserted a non-existent Geographic Area.");
 
-        this.mDaughterAreaName = setGeographicAreaContained(programGAList).getId();
-        if (mController.printAreaByName(mDaughterAreaName, programGAList)) {
-            System.out.println("Success, you have inserted a valid Geographic Area.");
-        } else System.out.println("Error! You have inserted a non-existent Geographic Area.");
+            this.mDaughterAreaName = setGeographicAreaContained(programGAList).getId();
+            if (mController.printAreaByName(mDaughterAreaName, programGAList)) {
+                System.out.println("Success, you have inserted a valid Geographic Area.");
+            } else System.out.println("Error! You have inserted a non-existent Geographic Area.");
+        }
     }
 
     private void updateStateUS07(GeographicAreaList newGeoListUi) {
-        GeographicArea daughterArea = mController.matchGeoAreaByName(mDaughterAreaName, newGeoListUi);
-        GeographicArea motherArea = mController.matchGeoAreaByName(mMotherAreaName, newGeoListUi);
-        mController.setMotherArea(daughterArea, motherArea);
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaListIsValid(newGeoListUi)) {
+            GeographicArea daughterArea = mController.matchGeoAreaByName(mDaughterAreaName, newGeoListUi);
+            GeographicArea motherArea = mController.matchGeoAreaByName(mMotherAreaName, newGeoListUi);
+            mController.setMotherArea(daughterArea, motherArea);
+        }
     }
 
     private void displayStateUS07() {
-        System.out.print("The Geographic Area " + mDaughterAreaName + " is contained in " + mMotherAreaName + "\n");
+        UtilsUI utils = new UtilsUI();
+        if (mDaughterAreaName != null && mMotherAreaName != null) {
+            System.out.print("The Geographic Area " + mDaughterAreaName + " is contained in " + mMotherAreaName + "\n");
+        }
     }
 
     // METODOS CONTAINS GEOGRAPHIC AREA
@@ -350,9 +359,9 @@ class GASettingsUI {
 
     /**
      * @param geographicAreaList is the MainUI List
-     *                     First we check if the Geographic Areas that we are testing exist in the MainUI list.
-     *                     Then we check the GeographicAreaContained for its flag
-     *                     And finally it tests the flag (Geographic Area) is equal to the testing GeographicArea Container
+     *                           First we check if the Geographic Areas that we are testing exist in the MainUI list.
+     *                           Then we check the GeographicAreaContained for its flag
+     *                           And finally it tests the flag (Geographic Area) is equal to the testing GeographicArea Container
      */
 
     private void checkIfContained(GeographicAreaList geographicAreaList) {
