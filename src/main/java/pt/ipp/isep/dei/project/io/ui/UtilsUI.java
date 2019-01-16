@@ -2,8 +2,10 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.List;
 import java.util.Scanner;
