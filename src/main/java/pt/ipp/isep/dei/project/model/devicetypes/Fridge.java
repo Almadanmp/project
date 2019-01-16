@@ -53,7 +53,7 @@ public class Fridge implements DeviceSpecs {
     }
 
 
-    public double getAttributeValue(String attributeName) {
+    public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case "freezerCapacity":
                 return mFreezerCapacity;

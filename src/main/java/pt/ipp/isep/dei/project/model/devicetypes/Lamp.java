@@ -31,7 +31,7 @@ public class Lamp implements DeviceSpecs{
     }
 
 
-    public double getAttributeValue(String attributeName) {
+    public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case "LuminousFlux":
                 return mLuminousFlux;

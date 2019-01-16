@@ -37,13 +37,7 @@ public class LampTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    public void getAttributeValuesTest() {
-        Lamp lamp = new Lamp();
-        double expectedResult = 0;
-        double result = lamp.getAttributeValue("lisboa");
-        assertEquals(expectedResult, result);
-    }
+
 
     @Test
     public void setAttributeValueTest() {

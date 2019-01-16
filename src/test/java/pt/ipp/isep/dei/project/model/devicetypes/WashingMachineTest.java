@@ -51,8 +51,8 @@ public class WashingMachineTest {
     @Test
     public void getAttributeValuesTest() {
         WashingMachine washingMachine = new WashingMachine(5);
-        double expectedResult = 0;
-        double result = washingMachine.getAttributeValue("lisboa");
+        double expectedResult = 5.0;
+        Object result = washingMachine.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
     }
 

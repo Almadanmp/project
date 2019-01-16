@@ -63,8 +63,8 @@ public class FridgeTest {
     @Test
     public void getAttributeValuesTest() {
         Fridge fridge = new Fridge(4, 5,1);
-        double expectedResult = 0;
-        double result = fridge.getAttributeValue("lisboa");
+        double expectedResult = 4.0;
+        Object result = fridge.getAttributeValue("freezerCapacity");
         assertEquals(expectedResult, result);
     }
 

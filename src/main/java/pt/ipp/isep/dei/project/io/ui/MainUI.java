@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
+import pt.ipp.isep.dei.project.model.devicetypes.*;
 
 import java.util.*;
 
@@ -205,17 +203,21 @@ public class MainUI {
 
         //Devices
 
-        Device device1 = new Device("aquecedor",23.0, new WaterHeater(100.0,30.0,2.0));
+        Device device1 = new Device("maquina de lavar",23.0, new WashingMachine(100.0));
         Device device2 = new Device("FridgeOne", 4, new Fridge());
         Device device3 = new Device("WHTwo", 3, new WaterHeater(500.0,25.0,10.0));
+        Device device4 = new Device("Lamp", 4, new Lamp());
         device1.setmParentRoom(roomISEP2);
         device2.setmParentRoom(roomISEP2);
         device3.setmParentRoom(roomISEP2);
+        device4.setmParentRoom(roomISEP2);
         DeviceList listDevices = new DeviceList();
         listDevices.addDevice(device1);
         listDevices.addDevice(device2);
         listDevices.addDevice(device3);
+        listDevices.addDevice(device4);
         roomISEP2.setDeviceList(listDevices);
+
 
    //     Device device4 = new Device("aquecedor1",23.0, new WaterHeater(100.0,30.0,2.0));
         Device device5 = new Device("FridgeOne1", 4, new Fridge());

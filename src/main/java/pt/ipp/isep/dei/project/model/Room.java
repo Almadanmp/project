@@ -172,8 +172,11 @@ public class Room implements Metered {
      * @return the result of the operation (true if successful, false otherwise)
      */
     public boolean addDevice(Device device) {
-        if (!(mDeviceList.getDeviceList().contains(device))) {
-            mDeviceList.getDeviceList().add(device);
+        String nome="";
+        for (Device d: mDeviceList.getDeviceList()){
+            nome=d.getName();}
+        if (!(mDeviceList.containsDevice(device)) && !(device.getName().equals(nome))) {
+            mDeviceList.addDevice(device);
             return true;
         } else {
             return false;
@@ -270,6 +273,8 @@ public class Room implements Metered {
         Room room = (Room) o;
         return Objects.equals(mRoomName, room.mRoomName);
     }
+
+
 
     @Override
     public int hashCode() {

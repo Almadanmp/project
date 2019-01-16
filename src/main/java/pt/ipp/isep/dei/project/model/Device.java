@@ -59,11 +59,11 @@ public class Device implements Metered {
         return mDeviceSpecs.getAttributeNames();
     }
 
-    public double getAttributeValue(String attributeName) {
+    public Object getAttributeValue(String attributeName) {
         return mDeviceSpecs.getAttributeValue(attributeName);
     }
 
-    public void setAttributeValue(String attributeName, double attributeValue) {
+    public void setAttributeValue(String attributeName, Object attributeValue) {
         mDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 

@@ -50,9 +50,9 @@ public class DishwasherTest {
 
     @Test
     public void getAttributeValuesTest() {
-        Dishwasher dishwasher = new Dishwasher(1);
-        double expectedResult = 0;
-        double result = dishwasher.getAttributeValue("lisboa");
+        Dishwasher dishwasher = new Dishwasher(1.0);
+        Double expectedResult = 1.0;
+        Object result = dishwasher.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
     }
 

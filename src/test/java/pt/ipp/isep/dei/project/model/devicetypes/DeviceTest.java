@@ -96,9 +96,9 @@ public class DeviceTest {
     @Test
     void seeIfGetAndSetAttributeValue() {
         Device d1 = new Device("heater", 150, new WaterHeater());
-        double expectedResult = 33;
-        d1.setAttributeValue("volumeOfWater", 33);
-        double result = d1.getAttributeValue("volumeOfWater");
+        Double expectedResult = 33.3;
+        d1.setAttributeValue("volumeOfWater", 33.3);
+        Object result = d1.getAttributeValue("volumeOfWater");
         assertEquals(expectedResult, result);
     }
 

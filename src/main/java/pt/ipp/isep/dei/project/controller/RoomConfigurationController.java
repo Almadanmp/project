@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.devicetypes.Program;
 
 import java.util.List;
 
@@ -227,25 +228,38 @@ public class RoomConfigurationController {
         room.addDevice(device);
     }
 
-      /*  public void configureOneHeater(Device device, double coldWaterTemperature, double volumeOfWaterToHeat){
+   public void configureOneHeater(Device device, double coldWaterTemperature, double volumeOfWaterToHeat, double performanceRatio){
         device.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
         device.setAttributeValue("volumeOfWater", volumeOfWaterToHeat);
-    }*/
+       device.setAttributeValue("performanceRatio", performanceRatio);
+
+   }
 
 
-    /*  public void  configureOneWashingMachine(Device device, double capacity ){
+    public void  configureOneWashingMachineCapacity(Device device, double capacity ){
     device.setAttributeValue("capacity", capacity);
-    }*/
+    }
 
-      /*  public void  configureOneDishWasher(Device device, double capacity ){
+    public void  configureOneWashingMachineProgram(Device device, Program program ){
+        device.setAttributeValue("programList", program);
+    }
+
+   public void  configureOneDishWasherCapacity(Device device, double capacity ){
     device.setAttributeValue("capacity", capacity);
-    }*/
+    }
 
-      /*  public void  configureOneFridge(Device device, double freezerCapacity, double refrigeratorCapacity ){
+    public void  configureOneDishWasherProgram(Device device, Program program ){
+        device.setAttributeValue("programList", program);
+    }
+
+      public void  configureOneFridge(Device device, double freezerCapacity, double refrigeratorCapacity ){
     device.setAttributeValue("freezerCapacity", freezerCapacity);
         device.setAttributeValue("refrigeratorCapacity", refrigeratorCapacity);
+    }
 
-    }*/
+    public void configureOneLamp(Device device, double luminousLux){
+        device.setAttributeValue("luminousFlux",luminousLux);
+    }
 
    /**
     *

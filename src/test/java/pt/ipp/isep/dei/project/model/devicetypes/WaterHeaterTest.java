@@ -52,19 +52,12 @@ public class WaterHeaterTest {
         String attribute = "volumeOfWater";
         Double expectedResult = 6.0;
         boolean setResult = waterHeater.setAttributeValue(attribute, 6.0);
-        Double getResult = waterHeater.getAttributeValue(attribute);
+        Object getResult = waterHeater.getAttributeValue(attribute);
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
     }
 
-    @Test
-    public void seeIfGetAttributeValueInvalid() {
-        WaterHeater waterHeater = new WaterHeater();
-        String attribute = "invalid";
-        double expectedResult = 0;
-        double result = waterHeater.getAttributeValue(attribute);
-        assertEquals(expectedResult, result);
-    }
+
 
     @Test
     public void seeIfSetAttributeValueInvalid() {
@@ -92,7 +85,7 @@ public class WaterHeaterTest {
         String attribute = "volumeOfWater";
         Double expectedResult = 2.0;
         boolean setResult = waterHeater.setAttributeValue(attribute, 2.0);
-        Double getResult = waterHeater.getAttributeValue(attribute);
+        Object getResult = waterHeater.getAttributeValue(attribute);
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 

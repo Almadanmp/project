@@ -60,7 +60,7 @@ public class WaterHeater implements DeviceSpecs {
     }
 
 
-    public double getAttributeValue(String attributeName) {
+    public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case "volumeOfWater":
                 return mVolumeOfWater;

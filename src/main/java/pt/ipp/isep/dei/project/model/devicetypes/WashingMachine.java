@@ -6,15 +6,22 @@ import pt.ipp.isep.dei.project.model.Metered;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WashingMachine implements DeviceSpecs {
+public class WashingMachine implements DeviceSpecs, ProgramList {
 
     private double mCapacity;
+    private List<Program> mProgramList = new ArrayList<>();
 
     public WashingMachine() {
     }
 
     public WashingMachine(double capacity) {
         this.mCapacity = capacity;
+        mProgramList = new ArrayList<>();
+    }
+
+    @Override
+    public List<Program> getProgramList() {
+        return mProgramList;
     }
 
     public DeviceType getType() {
@@ -42,10 +49,12 @@ public class WashingMachine implements DeviceSpecs {
     }
 
 
-    public double getAttributeValue(String attributeName) {
+    public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case "capacity":
                 return mCapacity;
+            case "programList":
+                return mProgramList;
             default:
                 return 0;
         }
@@ -57,6 +66,13 @@ public class WashingMachine implements DeviceSpecs {
             case "capacity":
                 if (attributeValue instanceof Double) {
                     this.mCapacity = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
+            case "programList":
+                if(attributeValue instanceof Program){
+                    this.mProgramList.add((Program)attributeValue);
                     return true;
                 } else {
                     return false;

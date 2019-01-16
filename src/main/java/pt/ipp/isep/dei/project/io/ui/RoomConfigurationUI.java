@@ -28,6 +28,10 @@ class RoomConfigurationUI {
     private double mLuminousFlux;
     private String mDeviceName;
     private String mRoomName;
+    private Program mProgram;
+    private String mProgramName;
+    private double mDuration;
+    private double mEnergyConsumption;
     private String mSensorName;
     private TypeSensor mTypeSensor;
     private int mDataYear;
@@ -279,34 +283,54 @@ class RoomConfigurationUI {
             System.out.print("Please, type the Maximum Temperature of the water in the Water Heater: ");
 
             this.mHotWaterTemperature = inputUtils.getInputAsDouble();
-
-            System.out.println(
-                    "Do you wish to alter the performance ratio?\n" +
-                            "1) Yes;\n" +
-                            "2) No;\n");
-            int option = inputUtils.readInputNumberAsInt();
-
-            switch (option) {
-                case 1:
-                    System.out.print("Please, type the Performance Ration of the Water Heater: ");
-
-                    this.mPerformanceRatio = inputUtils.getInputAsDouble();
-                    break;
-                case 2:
-                    this.mPerformanceRatio = 0.9;
-                    break;
-            }
+            System.out.println("Please type the new Performance Ratio");
+            this.mPerformanceRatio = inputUtils.getInputAsDouble();
 
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
             System.out.print("Please, type the new Capacity in Kg for the Washing Machine: ");
 
             this.mCapacity = inputUtils.getInputAsDouble();
-        }
+            System.out.println("Please, type the new Program name:");
+            this.mProgramName=scanner.nextLine();
+            System.out.println("Please, type the new Program duration:");
+            this.mDuration=inputUtils.getInputAsDouble();
+            System.out.println("Please, type the new Program Energy Consumption:");
+            this.mEnergyConsumption=inputUtils.getInputAsDouble();
+            System.out.println(
+                    "Do you wish to add another Program?\n" +
+                            "1) Yes;\n" +
+                            "2) No;\n");
+            int option = inputUtils.readInputNumberAsInt();
+            boolean activeProgram=continuePrompt();
+            while(activeProgram){
+            switch (option) {
+                case 1:
+                    activeProgram=true;
+                    while(activeProgram) {
+                        System.out.println("Please, type the new Program name:");
+                        this.mProgramName = scanner.nextLine();
+                        System.out.println("Please, type the new Program duration:");
+                        this.mDuration = inputUtils.getInputAsDouble();
+                        System.out.println("Please, type the new Program Energy Consumption:");
+                        this.mEnergyConsumption = inputUtils.getInputAsDouble();
+                        activeProgram = continuePrompt();
+                    }
+                    break;
+                case 2:
+                    break;
+            }
+
+        }}
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
             System.out.print("Please, type the new Capacity in Kg for the Dishwasher:");
 
             this.mCapacity = inputUtils.getInputAsDouble();
+            this.mProgramName=scanner.nextLine();
+            System.out.println("Please, type the new Program duration:");
+            this.mDuration=inputUtils.getInputAsDouble();
+            System.out.println("Please, type the new Program Energy Consumption:");
+            this.mEnergyConsumption=inputUtils.getInputAsDouble();
         }
 
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
@@ -329,7 +353,13 @@ class RoomConfigurationUI {
         }
 
     }
-
+    private boolean continuePrompt() {
+        String prompt = "Do you wish to add another Program? (y/n)";
+        System.out.println(prompt);
+        Scanner scanner = new Scanner(System.in);
+        InputUtils inputs = new InputUtils();
+        return inputs.yesOrNo(scanner.nextLine(), prompt);
+    }
     /*
     US215 As an Administrator, I want to edit the configuration of an existing device, so that I
     can reconfigure it.*/
@@ -340,39 +370,35 @@ class RoomConfigurationUI {
 
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
 
-            //mRoomConfigurationController.configureOneHeater(mDevice, mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
-            //System.out.println("Device Configured.\n");//
+            mRoomConfigurationController.configureOneHeater(mDevice, mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
+            System.out.println("Device Configured.\n");
 
-            WaterHeater waterHeater = new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
-            mDevice = new Device(mDeviceName, mNominalPower, waterHeater);
+           // WaterHeater waterHeater = new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
+            //mDevice = new Device(mDeviceName, mNominalPower, waterHeater);
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
-            //mRoomConfigurationController.configureOneWashingMachine(mDevice, mCapacity);
-            //System.out.println("Device Configured.\n");//
+            Program program = new Program(mProgramName,mDuration,mEnergyConsumption);
+            mRoomConfigurationController.configureOneWashingMachineCapacity(mDevice, mCapacity);
+            mRoomConfigurationController.configureOneWashingMachineProgram(mDevice,program);
+            System.out.println("Device Configured.\n");
 
-            WashingMachine washingMachine = new WashingMachine(mCapacity);
-            mDevice = new Device(mDeviceName, mNominalPower, washingMachine);
         }
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
-            //mRoomConfigurationController.configureOneDishWasher(mDevice, mCapacity);
-            //System.out.println("Device Configured.\n");//
+            Program program = new Program(mProgramName,mDuration,mEnergyConsumption);
+            mRoomConfigurationController.configureOneDishWasherProgram(mDevice, program);
+            mRoomConfigurationController.configureOneDishWasherCapacity(mDevice, mCapacity);
+            System.out.println("Device Configured.\n");//
 
-            Dishwasher dishwasher = new Dishwasher(mCapacity);
-            mDevice = new Device(mDeviceName, mNominalPower, dishwasher);
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
-            //mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
-            //System.out.println("Device Configured.\n");//
+            mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
+            System.out.println("Device Configured.\n");
 
-            Fridge fridge = new Fridge(mFreezerCapacity, mRefrigeratorCapacity,mAnnualEnergyConsumption);
-            mDevice = new Device(mDeviceName, mNominalPower, fridge);
         }
         if (mDevice.getDeviceType() == DeviceType.LAMP) {
-            //mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
-            //System.out.println("Device Configured.\n");//
+            mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
+            System.out.println("Device Configured.\n");
 
-            Lamp lamp = new Lamp(mLuminousFlux);
-            mDevice = new Device(mDeviceName, mNominalPower, lamp);
         }
     }
 

@@ -1,12 +1,40 @@
 package pt.ipp.isep.dei.project.model.devicetypes;
 
 public class Program {
-    String programName;
-    double duration;
-    double energyConsumption;
+    String mProgramName;
+    double mDuration;
+    double mEnergyConsumption;
 
+    public Program() {
+    }
 
+    public Program(String name, double duration, double energyConsumption) {
+        setDuration(duration);
+        setProgramName(name);
+        setEnergyConsumption(energyConsumption);
+    }
 
+    public void setProgramName(String name){
+        this.mProgramName=name;
+    }
 
+    public void setDuration(double duration){
+        this.mDuration=duration;
+    }
 
+    public void setEnergyConsumption(double energyConsumption){
+        this.mEnergyConsumption=energyConsumption;
+    }
+
+    public String getProgramName(){
+        return this.mProgramName;
+    }
+
+    public double getDuration(){
+        return this.mDuration;
+    }
+
+    public double getEnergyConsumption(){
+        return this.mEnergyConsumption;
+    }
 }
