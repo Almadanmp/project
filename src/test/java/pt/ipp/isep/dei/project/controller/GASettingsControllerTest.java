@@ -236,15 +236,6 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfPrintTypeAreaListWorksWithEmptyList() {
-        TypeAreaList list = new TypeAreaList();
-        GASettingsController ctrl = new GASettingsController();
-        String actualResult = ctrl.getTypeAreaList(list);
-        String expectedResult = "Invalid List - List is Empty\n";
-        assertEquals(expectedResult, actualResult);
-    }
-
     //USER STORY 003 TESTS
 
     @Test
@@ -304,21 +295,6 @@ class GASettingsControllerTest {
         assertTrue(result1); //safety check (already covered on previous test)
         assertTrue(result2);
         assertEquals(2, geoList.getGeographicAreaList().size());
-    }
-
-    @Test
-    void seeIfFailsWithNullInputGeoList() {
-        String name1 = "Porto";
-        TypeArea typeArea = new TypeArea("Distrito");
-        double latitude = 38;
-        double longitude = 7;
-        double altitude = 5;
-        double length = 2;
-        double width = 4;
-        GASettingsController us3 = new GASettingsController();
-        boolean result = us3.addNewGeoAreaToList(null, name1, typeArea, length, width, latitude, longitude, altitude);
-
-        Assertions.assertFalse(result);
     }
 
     //USER STORY 004 TESTS

@@ -37,26 +37,16 @@ class GASettingsUI {
         InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
-        if (programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
-            System.out.println("Invalid Geographic Area List - List Is Empty");
-            return;
-        }
-        System.out.println("--------------\n");
-        System.out.println("Geographic Area Settings\n");
-        System.out.println("--------------\n");
+        System.out.println("--------------\nGeographic Area Settings\n--------------\n");
         while (activeInput) {
             printOptionMessage();
             option = inputUtils.readInputNumberAsInt();
             String mStringMessageAskingToCreateGeographicAreaType = "There aren't any Geographic Area Types. Please create a new Geographic Area type before you continue.";
             switch (option) {
                 case 1:
-                    if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().isEmpty()) {
-                        System.out.println(mStringMessageAskingToCreateGeographicAreaType);
-                        return;
-                    }
-                    getInputUS01();
+                    getInputUS01(programTypeAreaList);
                     updateModelUS01(programTypeAreaList);
-                    displayStateUS01();
+                    displayStateUS01(programTypeAreaList);
                     activeInput = false;
                     break;
 
@@ -66,22 +56,14 @@ class GASettingsUI {
                         return;
                     }
                     updateModelUS02(programTypeAreaList);
-                    displayStateUS02();
+                    displayStateUS02(programTypeAreaList);
                     activeInput = false;
                     break;
                 case 3:
-                    if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().isEmpty()) {
-                        System.out.println(mStringMessageAskingToCreateGeographicAreaType);
-                        return;
-                    }
-                    getAreaInputUS03();
-                    if(getInputTypeAreaByList(programTypeAreaList)){
-                        return;
-                    }
-                    getLocalInputUS03();
-                    updateGeoAreaUS03();
-                    updateModelUS03(programGAList);
-                    displayStateUS03();
+                    getAreaInputUS03(programGAList);
+                    getLocalInputUS03(programGAList);
+                    updateGeoAreaUS03(programGAList);
+                    displayStateUS03(programGAList);
                     activeInput = false;
                     break;
                 case 4:
@@ -150,68 +132,92 @@ class GASettingsUI {
 /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
  classification of geographical areas.*/
 
-    private void getInputUS01() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please insert the name of the new Geographic Area Type: ");
-        while (!scanner.hasNext("[a-zA-Z_]+")) {
-            System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
-            scanner.next();
+    private void getInputUS01(TypeAreaList typeAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.typeAreaIsValid(typeAreaList)) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Please insert the name of the new Geographic Area Type: ");
+            while (!scanner.hasNext("[a-zA-Z_]+")) {
+                System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
+                scanner.next();
+            }
+            this.mTypeAreaName = scanner.next();
         }
-        this.mTypeAreaName = scanner.next();
     }
 
     private void updateModelUS01(TypeAreaList typeAreaList) {
-        this.mListWasCreated = mController.createAndAddTypeAreaToList(mTypeAreaName, typeAreaList);
+        UtilsUI utils = new UtilsUI();
+        if (utils.typeAreaIsValid(typeAreaList)) {
+            this.mListWasCreated = mController.createAndAddTypeAreaToList(mTypeAreaName, typeAreaList);
+        }
     }
 
-    private void displayStateUS01() {
-        if (mListWasCreated) {
-            System.out.println("Success, you have inserted a new Type of Geographic Area.");
-        } else {
-            System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
+    private void displayStateUS01(TypeAreaList typeAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.typeAreaIsValid(typeAreaList)) {
+            if (mListWasCreated) {
+                System.out.println("Success, you have inserted a new Type of Geographic Area.");
+            } else {
+                System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
+            }
         }
     }
 
     /* USER STORY 002 - As a System Administrator I want to obtain a list of the types of Geographical Areas previously stated.
      * Class responsible for presenting the list. - NUNO AZEVEDO */
     private void updateModelUS02(TypeAreaList typeAreaList) {
-        System.out.println(mController.getTypeAreaList(typeAreaList));
+        UtilsUI utils = new UtilsUI();
+        if (utils.typeAreaIsValid(typeAreaList)) {
+            System.out.println(mController.getTypeAreaList(typeAreaList));
+        }
     }
 
-    private void displayStateUS02() {
-        System.out.println("\nList finished.");
+    private void displayStateUS02(TypeAreaList typeAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.typeAreaIsValid(typeAreaList)) {
+            System.out.println("\nList finished.");
+        }
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
-    private void getAreaInputUS03() {
-        this.nameOfGeoArea = readInputString("name");
+    private void getAreaInputUS03(GeographicAreaList geographicAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaListIsValid(geographicAreaList)) {
+            this.nameOfGeoArea = readInputString("name");
+        }
     }
 
-    private void getLocalInputUS03() {
-        this.mGeoAreaLat = readInputNumber("Latitude");
-        this.mGeoAreaLong = readInputNumber("Longitude");
-        this.mGeoAreaAlt = readInputNumber("Altitude");
-        this.mGeoAreaLength = readInputNumber("Length");
-        this.mGeoAreaWidth = readInputNumber("Width");
+    private void getLocalInputUS03(GeographicAreaList geographicAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaListIsValid(geographicAreaList)) {
+            this.mGeoAreaLat = readInputNumber("Latitude");
+            this.mGeoAreaLong = readInputNumber("Longitude");
+            this.mGeoAreaAlt = readInputNumber("Altitude");
+            this.mGeoAreaLength = readInputNumber("Length");
+            this.mGeoAreaWidth = readInputNumber("Width");
+        }
 
     }
 
-    private void updateGeoAreaUS03() {
-        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + mTypeAreaName +
-                " and its " + "localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The size" +
-                " is " + this.mGeoAreaLength + " by " + this.mGeoAreaWidth + " kms\n");
+    private void updateGeoAreaUS03(GeographicAreaList geographicAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaListIsValid(geographicAreaList)) {
+            System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + mTypeAreaName +
+                    " and its " + "localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The size" +
+                    " is " + this.mGeoAreaLength + " by " + this.mGeoAreaWidth + " kms\n");
+            this.mAreaAddedToList = mController.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, mTypeArea, mGeoAreaLat, mGeoAreaLong, mGeoAreaAlt, mGeoAreaLength, mGeoAreaWidth);
+        }
     }
 
-    private void updateModelUS03(GeographicAreaList newGeoListUi) {
-        this.mAreaAddedToList = mController.addNewGeoAreaToList(newGeoListUi, nameOfGeoArea, mTypeArea, mGeoAreaLat, mGeoAreaLong, mGeoAreaAlt, mGeoAreaLength, mGeoAreaWidth);
-    }
-
-    private void displayStateUS03() {
-        if (mAreaAddedToList) {
-            System.out.print("The Geographic Area has been successfully added.");
-        } else
-            System.out.print("The Geographic Area hasn't been added to the list. " +
-                    "There is already an area with those input values.");
+    private void displayStateUS03(GeographicAreaList geographicAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaListIsValid(geographicAreaList)) {
+            if (mAreaAddedToList) {
+                System.out.print("The Geographic Area has been successfully added.");
+            } else
+                System.out.print("The Geographic Area hasn't been added to the list. " +
+                        "There is already an area with those input values.");
+        }
     }
 
     private String createInputMsg(String inputType) {
@@ -274,14 +280,12 @@ class GASettingsUI {
         this.mMotherAreaName = setGeographicAreaContainer(programGAList).getId();
         if (mController.printAreaByName(mMotherAreaName, programGAList)) {
             System.out.println("Success, you have inserted a valid Geographic Area.");
-        }
-        else System.out.println("Error! You have inserted a non-existent Geographic Area.");
+        } else System.out.println("Error! You have inserted a non-existent Geographic Area.");
 
         this.mDaughterAreaName = setGeographicAreaContained(programGAList).getId();
         if (mController.printAreaByName(mDaughterAreaName, programGAList)) {
             System.out.println("Success, you have inserted a valid Geographic Area.");
-        }
-        else System.out.println("Error! You have inserted a non-existent Geographic Area.");
+        } else System.out.println("Error! You have inserted a non-existent Geographic Area.");
     }
 
     private void updateStateUS07(GeographicAreaList newGeoListUi) {
@@ -307,7 +311,7 @@ class GASettingsUI {
     }
 
     private void getInputGeographicAreaForContainer(GeographicAreaList programGAList) {
-        if(programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
+        if (programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
             System.out.println("The list of Geographic Areas is empty.");
             return;
         }
@@ -317,7 +321,7 @@ class GASettingsUI {
     }
 
     private void getInputGeographicAreaForContained(GeographicAreaList programGAList) {
-        if(programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
+        if (programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
             System.out.println("The list of Geographic Areas is empty.");
             return;
         }

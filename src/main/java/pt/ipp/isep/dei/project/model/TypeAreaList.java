@@ -97,11 +97,6 @@ public class TypeAreaList {
 
     public String printGATypeWholeList(TypeAreaList typeAreaList) {
         StringBuilder result = new StringBuilder(mResultLookEnhancer);
-
-        if (typeAreaList.getTypeAreaList().isEmpty()){
-            return "Invalid List - List is Empty\n";
-        }
-
         for (int i = 0; i < typeAreaList.getTypeAreaList().size(); i++) {
             TypeArea aux = typeAreaList.getTypeAreaList().get(i);
             result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" \n");
