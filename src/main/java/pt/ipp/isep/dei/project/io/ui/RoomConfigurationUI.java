@@ -224,7 +224,9 @@ class RoomConfigurationUI {
      */
 
     private void displayDeviceUS210() {
-        System.out.println("You have successfully created a " + mDeviceType.buildDeviceTypeString(mDeviceType) + " with the name " + mDeviceName + ". \n"
+
+        if(mRoom.addDevice(mDevice)){
+            System.out.println("You have successfully created a " + mDeviceType.buildDeviceTypeString(mDeviceType) + " with the name " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + ".");
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
@@ -242,7 +244,10 @@ class RoomConfigurationUI {
             System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
         }
         mDevice.setmParentRoom(mRoom);
-        mRoom.addDevice(mDevice);
+        }
+        else{
+            System.out.println("Device already exists in the room. Please, try again.\n");
+        }
     }
 
     /* USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,
