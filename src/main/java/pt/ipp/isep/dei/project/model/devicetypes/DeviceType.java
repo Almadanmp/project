@@ -7,7 +7,8 @@ public enum DeviceType {
     WATER_HEATER(),
     WASHING_MACHINE(),
     DISHWASHER(),
-    FRIDGE();
+    FRIDGE(),
+    LAMP();
 
 
 

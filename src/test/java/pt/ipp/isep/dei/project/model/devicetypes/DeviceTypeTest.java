@@ -32,7 +32,11 @@ public class DeviceTypeTest {
         DeviceType fridge = DeviceType.FRIDGE;
         assertEquals(DeviceType.valueOf("FRIDGE"), fridge);
     }
-
+    @Test
+    public void lampValueTest() {
+        DeviceType lamp = DeviceType.LAMP;
+        assertEquals(DeviceType.valueOf("LAMP"), lamp);
+    }
 
     @Test
     void seeIfPrintDeviceTypeByList(){
@@ -45,7 +49,8 @@ public class DeviceTypeTest {
                 "0) Device Type: WATER_HEATER;\n" +
                         "1) Device Type: WASHING_MACHINE;\n" +
                         "2) Device Type: DISHWASHER;\n" +
-                        "3) Device Type: FRIDGE;\n";
+                        "3) Device Type: FRIDGE;\n" +
+                        "4) Device Type: LAMP;\n";
         assertEquals(expectedResult,result);
     }
 
