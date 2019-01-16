@@ -2,16 +2,12 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EGConsumptionControllerTest {
+class EnergyConsumptionControllerTest {
 
     //US705 TESTS
 
@@ -37,7 +33,7 @@ class EGConsumptionControllerTest {
                 "1) WaterHeater, Type: WATER_HEATER, Power: 21.0.\n" +
                 "2) WaterHeaterTwo, Type: WATER_HEATER, Power: 55.0.\n" +
                 "3) Fridge, Type: FRIDGE, Power: 10.0.\n";
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
         String actualResult = controller.printRoomsAndDevices(grid);
@@ -62,7 +58,7 @@ class EGConsumptionControllerTest {
         deviceList.addDevice(d3);
         r1.setDeviceList(deviceList);
         DeviceList deviceList1 = new DeviceList();
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean expectedResult = true;
 
         //Act
@@ -91,7 +87,7 @@ class EGConsumptionControllerTest {
         deviceList1.addDevice(d1);
         deviceList1.addDevice(d2);
         deviceList1.addDevice(d3);
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean expectedResult = true;
 
         //Act
@@ -117,7 +113,7 @@ class EGConsumptionControllerTest {
         deviceList.addDevice(d3);
         r1.setDeviceList(deviceList);
         DeviceList deviceList1 = new DeviceList();
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean expectedResult = true;
 
         //Act
@@ -143,7 +139,7 @@ class EGConsumptionControllerTest {
         deviceList.addDevice(d3);
         r1.setDeviceList(deviceList);
         DeviceList deviceList1 = null;
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean expectedResult = false;
 
         //Act
@@ -162,7 +158,7 @@ class EGConsumptionControllerTest {
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         RoomList roomList = new RoomList();
         boolean expectedResult = true;
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
         boolean actualResult = controller.addRoomToList(r1, roomList);
@@ -181,7 +177,7 @@ class EGConsumptionControllerTest {
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
         boolean expectedResult = true;
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
         boolean actualResult = controller.removeRoomFromList(r1, roomList);
@@ -199,7 +195,7 @@ class EGConsumptionControllerTest {
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         RoomList roomList = new RoomList();
         boolean expectedResult = false;
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
         boolean actualResult = controller.removeRoomFromList(r1, roomList);
@@ -218,7 +214,7 @@ class EGConsumptionControllerTest {
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
         boolean expectedResult = false;
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
         boolean actualResult = controller.addRoomToList(r1, roomList);
@@ -236,7 +232,7 @@ class EGConsumptionControllerTest {
         Device d1 = new Device("Fridge", 20, new Fridge());
         DeviceList deviceList = new DeviceList();
         boolean expectedResult = true;
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
         boolean actualResult = controller.addDeviceToList(d1, deviceList);
@@ -255,7 +251,7 @@ class EGConsumptionControllerTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         boolean expectedResult = false;
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
         boolean actualResult = controller.addDeviceToList(d1, deviceList);
@@ -273,7 +269,7 @@ class EGConsumptionControllerTest {
         Device d1 = new Device("Fridge", 20, new Fridge());
         DeviceList deviceList = new DeviceList();
         boolean expectedResult = false;
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
         boolean actualResult = controller.removeDeviceFromList(d1, deviceList);
@@ -292,7 +288,7 @@ class EGConsumptionControllerTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         boolean expectedResult = true;
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
         boolean actualResult = controller.removeDeviceFromList(d1, deviceList);
@@ -315,7 +311,7 @@ class EGConsumptionControllerTest {
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
         deviceList.addDevice(d3);
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         double expectedResult= 86;
 
         //Act
@@ -331,7 +327,7 @@ class EGConsumptionControllerTest {
 
         EnergyGrid grid = new EnergyGrid();
         DeviceList deviceList = new DeviceList();
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         double expectedResult= 0;
 
         //Act
@@ -346,7 +342,7 @@ class EGConsumptionControllerTest {
 
     @Test
     void getDailyHouseConsumptionTest() {
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge());
@@ -371,7 +367,7 @@ class EGConsumptionControllerTest {
 
     @Test
     void getDailyHouseConsumptionNoRoomsTest() {
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House();
         double expectedResult = 0;
         double result = controller.getDailyHouseConsumptionWaterHeater(h1);
@@ -380,7 +376,7 @@ class EGConsumptionControllerTest {
 
     @Test
     void getDailyHouseConsumptionNoDevicesTest() {
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
@@ -393,7 +389,7 @@ class EGConsumptionControllerTest {
 
     @Test
     void getDailyHouseConsumptionNoHeaterDevicesTest() {
-        EGConsumptionController controller = new EGConsumptionController();
+        EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge());

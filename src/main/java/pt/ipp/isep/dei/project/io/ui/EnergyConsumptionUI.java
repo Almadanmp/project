@@ -1,17 +1,16 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controller.EGConsumptionController;
+import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.List;
 import java.util.Scanner;
 
 
-class EGConsumptionUI {
-    private EGConsumptionController controller = new EGConsumptionController();
+class EnergyConsumptionUI {
+    private EnergyConsumptionController controller = new EnergyConsumptionController();
 
-    EGConsumptionUI() {
-        this.controller = new EGConsumptionController();
+    EnergyConsumptionUI() {
+        this.controller = new EnergyConsumptionController();
     }
 
     private Scanner returnToConsole = new Scanner(System.in);
