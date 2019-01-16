@@ -86,7 +86,7 @@ public class RoomList {
         return result;
     }
 
-    public String buildElementsByIndexString(List<Integer> indexes) {
+    String buildElementsByIndexString(List<Integer> indexes) {
         StringBuilder result = new StringBuilder();
         for (Integer indexe : indexes) {
             int pos = indexe;

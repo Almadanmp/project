@@ -1,9 +1,9 @@
 package pt.ipp.isep.dei.project.model.devicetypes;
 
 public class Program {
-    String mProgramName;
-    double mDuration;
-    double mEnergyConsumption;
+    private String mProgramName;
+    private double mDuration;
+    private double mEnergyConsumption;
 
     public Program() {
     }
