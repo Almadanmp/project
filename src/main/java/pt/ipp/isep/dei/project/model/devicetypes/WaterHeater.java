@@ -14,8 +14,9 @@ public class WaterHeater implements DeviceSpecs {
 
     double mVolumeOfWater;
     double mHotWaterTemperature;
-    double mColdWaterTemperature;
     double mPerformanceRatio;
+    double mColdWaterTemperature;
+    double mVolumeOfWaterToHeat;
 
     public WaterHeater() {
     }
@@ -27,14 +28,6 @@ public class WaterHeater implements DeviceSpecs {
         this.mPerformanceRatio = mPerformanceRatio;
     }
 
-
-    public WaterHeater(double volumeOfWater, double hotWaterTemperature, double coldWaterTemperature,
-                       double performanceRatio) {
-        this.mVolumeOfWater = volumeOfWater;
-        this.mHotWaterTemperature = hotWaterTemperature;
-        this.mColdWaterTemperature = coldWaterTemperature;
-        this.mPerformanceRatio = performanceRatio;
-    }
 
     public DeviceType getType() {
         return DeviceType.WATER_HEATER;
@@ -59,8 +52,9 @@ public class WaterHeater implements DeviceSpecs {
         List<String> result = new ArrayList<>();
         result.add("volumeOfWater");
         result.add("hotWaterTemperature");
-        result.add("coldWaterTemperature");
         result.add("performanceRatio");
+        result.add("coldWaterTemperature");
+          result.add("volumeOfWaterToHeat");
 
         return result;
     }
@@ -72,15 +66,16 @@ public class WaterHeater implements DeviceSpecs {
                 return mVolumeOfWater;
             case "hotWaterTemperature":
                 return mHotWaterTemperature;
-            case "coldWaterTemperature":
-                return mColdWaterTemperature;
             case "performanceRatio":
                 return mPerformanceRatio;
+            case "coldWaterTemperature":
+                return mColdWaterTemperature;
+            case "volumeOfWaterToHeat":
+                return mVolumeOfWaterToHeat;
             default:
                 return 0;
         }
     }
-
 
     public boolean setAttributeValue(String attributeName, double attributeValue) {
         switch (attributeName) {
@@ -90,11 +85,14 @@ public class WaterHeater implements DeviceSpecs {
             case "hotWaterTemperature":
                 this.mHotWaterTemperature = attributeValue;
                 return true;
+            case "performanceRatio":
+                this.mPerformanceRatio = attributeValue;
+                return true;
             case "coldWaterTemperature":
                 this.mColdWaterTemperature = attributeValue;
                 return true;
-            case "performanceRatio":
-                this.mPerformanceRatio = attributeValue;
+            case "volumeOfWaterToHeat":
+                this.mVolumeOfWaterToHeat = attributeValue;
                 return true;
             default:
                 return false;

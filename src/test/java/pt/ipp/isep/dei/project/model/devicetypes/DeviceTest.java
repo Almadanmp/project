@@ -107,7 +107,8 @@ public class DeviceTest {
         assertTrue(result.contains("hotWaterTemperature"));
         assertTrue(result.contains("coldWaterTemperature"));
         assertTrue(result.contains("performanceRatio"));
-        assertEquals(result.size(), 4);
+        assertTrue(result.contains("volumeOfWaterToHeat"));
+        assertEquals(result.size(), 5);
     }
 
 }

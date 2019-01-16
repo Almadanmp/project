@@ -18,16 +18,16 @@ public class WaterHeaterTest {
 
     @Test
     public void getConsumptionTest() {
-        WaterHeater waterHeater = new WaterHeater(200, 25, 10, 0.9);
-        double expectedResult = 3140.1;
+        WaterHeater waterHeater = new WaterHeater(200, 25, 0.9);
+        double expectedResult = 5233.5;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void getConsumptionWithRatioTest() {
-        WaterHeater waterHeater = new WaterHeater(200, 25, 10, 1.8);
-        double expectedResult = 6280.2;
+        WaterHeater waterHeater = new WaterHeater(200, 25, 1.8);
+        double expectedResult = 10467.0;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
@@ -78,7 +78,8 @@ public class WaterHeaterTest {
         assertTrue(result.contains("hotWaterTemperature"));
         assertTrue(result.contains("coldWaterTemperature"));
         assertTrue(result.contains("performanceRatio"));
-        assertEquals(result.size(), 4);
+        assertTrue(result.contains("volumeOfWaterToHeat"));
+        assertEquals(result.size(), 5);
     }
 
     @Test
