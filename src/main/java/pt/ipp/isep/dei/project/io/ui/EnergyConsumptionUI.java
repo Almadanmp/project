@@ -42,11 +42,11 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS752(programHouse);
+                    runUS705(programHouse);
                     activeInput = true;
                     break;
                 case 3:
-                    runUS705(programHouse);
+                    runUS752(programHouse);
                     activeInput = true;
                     break;
                 case 0:
@@ -229,15 +229,18 @@ class EnergyConsumptionUI {
         return 0;
     }
     private void displayUS172(Double nomPower) {
+        InputUtils inputs = new InputUtils();
             System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
+        inputs.returnToMenu(returnToConsole);
+
     }
 
     private void printOptionMessage() {
         System.out.println("Energy Consumption Management Options:\n");
         System.out.println("1) Display total nominal power of one of the Energy Grids. (US172)");
-        System.out.println("2) Estimate the total energy used in heating water in a day. (US752)");
-        System.out.println("3) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
+        System.out.println("2) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
                 " (US705)");
+        System.out.println("3) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
     }
 
