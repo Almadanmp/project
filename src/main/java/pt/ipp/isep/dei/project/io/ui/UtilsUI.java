@@ -11,10 +11,13 @@ import pt.ipp.isep.dei.project.model.TypeAreaList;
 class UtilsUI {
 
     String invalidOption = "Please enter a valid option";
+    String invalidHouse = "The selected House is not a valid one.\n\" + \"Returning to main menu\n";
+    String invalidGridList = "Invalid Grid List - List is empty.\n" + "Returning to main menu\n";
+    String invalidGAList = "Invalid Geographic Area List - List is empty\n" + "Returning to main menu\n";
+    String invalidGATypeList = "Invalid list of Geographic Area types. List is empty\n" + "Returning to main menu\n";
 
     boolean validateHouse(House house) {
         if (house == null) {
-            System.out.println("The selected House is not a valid one\n" + "Returning to main menu\n");
             return true;
         }
         return false;
@@ -22,7 +25,6 @@ class UtilsUI {
 
     boolean validateHouseEGList(House house) {
         if (house.getEGList() == null) {
-            System.out.println("Invalid Grid List - List is empty\n" + "Returning to main menu\n");
             return true;
         }
         return false;
@@ -30,7 +32,6 @@ class UtilsUI {
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
         if (geographicAreaList == null || geographicAreaList.getGeographicAreaList().isEmpty()) {
-            System.out.println("Invalid Geographic Area List - List is empty");
             return false;
         }
         return true;
@@ -38,7 +39,6 @@ class UtilsUI {
 
     boolean typeAreaIsValid(TypeAreaList list) {
         if (list == null || list.getTypeAreaList().isEmpty()) {
-            System.out.println("Invalid list of Geographic Area types. List is empty");
             return false;
         }
         return true;

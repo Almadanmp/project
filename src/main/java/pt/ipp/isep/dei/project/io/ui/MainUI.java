@@ -237,13 +237,17 @@ public class MainUI {
         deviceTypeList.add(DeviceType.WATER_HEATER);
         deviceTypeList.add(DeviceType.DISHWASHER);
         deviceTypeList.add(DeviceType.LAMP);
+
+        TypeAreaList emptyTypeAreaList = new TypeAreaList();
+
+
+
+
 /**
         // House - Empty RoomList - Without EnergyGrid
         GeographicArea geographicArea4 = new GeographicArea();
         RoomList roomList = new RoomList();
         House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
-
-        TypeAreaList emptyTypeAreaList = new TypeAreaList();
 
 
         //Empty TypeAreaList
@@ -370,7 +374,7 @@ public class MainUI {
                         return;
                     case 1:
                         GASettingsUI view1 = new GASettingsUI();
-                        view1.runGASettings(geographicalAreaList, mTypeAreaList);
+                        view1.runGASettings(geographicalAreaList, emptyTypeAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
