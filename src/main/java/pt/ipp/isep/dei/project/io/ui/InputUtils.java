@@ -16,6 +16,28 @@ class InputUtils {
         scanner.nextLine();
     }
 
+    GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        if (geographicAreaList.getGeographicAreaList().isEmpty()) {
+            System.out.println("Invalid Geographic Area list - List is empty\n");
+            return null;
+        }
+        System.out.println("Please select one of the existing geographic areas: ");
+        System.out.println(geographicAreaList.printGaWholeList(geographicAreaList));
+        int aux = inputUtils.readInputNumberAsInt();
+        if (aux >= 0 && aux < geographicAreaList.getGeographicAreaList().size()) {
+            GeographicArea result = geographicAreaList.getGeographicAreaList().get(aux);
+            String stringRequestGA = "You have chosen the following Geographic Area: ";
+            System.out.println(stringRequestGA);
+            System.out.println(result.printGeographicArea());
+            return result;
+        } else {
+            System.out.println(utils.invalidOption);
+            return null;
+        }
+    }
+
     Room getHouseRoomByList(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
@@ -28,7 +50,7 @@ class InputUtils {
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < house.getRoomList().size()) {
             Room result = house.getRoomList().get(aux);
-            String stringRequestRoom = "You have chosen the following Room:";
+            String stringRequestRoom = "You have chosen the following Room: ";
             System.out.println(stringRequestRoom);
             System.out.println(result.printRoom());
             return result;
@@ -50,7 +72,7 @@ class InputUtils {
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < grid.getRoomList().size()) {
             Room result = grid.getRoomList().get(aux);
-            String stringRequestRoom = "You have chosen the following Room:";
+            String stringRequestRoom = "You have chosen the following Room: ";
             System.out.println(stringRequestRoom);
             System.out.println(result.printRoom());
             return result;
@@ -72,7 +94,7 @@ class InputUtils {
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < grid.getDeviceList().size()) {
             Device result = grid.getDeviceList().get(aux);
-            String stringRequestDevice = "You have chosen the following device:";
+            String stringRequestDevice = "You have chosen the following device: ";
             System.out.println(stringRequestDevice);
             System.out.println(result.printDevice());
             return result;
@@ -177,7 +199,7 @@ class InputUtils {
      * Will validate input is a double. if it isn't it will print an error message.
      * @return value read from user
      */
-    public double getInputAsDouble(){
+    double getInputAsDouble(){
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextDouble()) {
             System.out.println("Please,try again. Only numbers this time:");

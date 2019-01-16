@@ -86,27 +86,6 @@ class SensorSettingsUI {
         }
     }
 
-    // SHARED METHODS //
-    //GET INPUT GEOGRAPHIC AREA BY LIST //
-
-    private void getInputGeographicAreaByList(GeographicAreaList programGAList) {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        if(programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
-            return;
-        }
-        System.out.println("Please select the Geographic Area in which your House is in from the list: ");
-        SensorSettingsController controller = new SensorSettingsController();
-        System.out.println(controller.printGAList(programGAList));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < programGAList.getGeographicAreaList().size()) {
-            mGeographicArea = programGAList.getGeographicAreaList().get(aux);
-            System.out.println((mGeographicArea.printGeographicArea()));
-        } else {
-            System.out.println(utils.invalidOption);
-        }
-    }
-
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
     private void getInput05() {
@@ -247,7 +226,8 @@ class SensorSettingsUI {
     }
 
     private void getInputPart306() {
-        getInputGeographicAreaByList(mGeographicAreaList);
+        InputUtils inputUtils = new InputUtils();
+        mGeographicArea = inputUtils.getGeographicAreaByList(mGeographicAreaList);
         updateAndDisplayUS06Part206();
     }
 

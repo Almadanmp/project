@@ -166,47 +166,6 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfPrintsNamesOfGeoAreaList() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Cidade");
-        Local l1 = new Local(38, 7, 100);
-        String n1 = "Porto";
-        GeographicArea ga1 = new GeographicArea(n1,t1,2,3,l1);
-
-        Local l2 = new Local(39, 67, 100);
-        String n2 = "Braga";
-        GeographicArea ga2 = new GeographicArea(n2,t1,2,3,l2);
-
-        Local l3 = new Local(87, 67, 100);
-        String n3 = "Lisboa";
-        GeographicArea ga3 = new GeographicArea(n3,t1,2,3,l3);
-
-        GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
-
-
-        String expectedResult = "Geographic Area List: \n-Porto; \n-Braga; \n-Lisboa;";
-        String actualResult;
-        //Act
-        actualResult = geographicAreaList.printGeoAreaList();
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-    @Test
-    public void seeIfPrintsNamesOfEmptyGeoAreaList() {
-        //Arrange
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        String expectedResult = "The list is empty.";
-        String actualResult;
-        //Act
-        actualResult = geographicAreaList.printGeoAreaList();
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-
-    @Test
     public void seeIfTrueWhenGeographicAreaWithNameGivenIsFirstInGeographicAreaList() {
         //Arrange
         String stringToTest = "Porto";
