@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
 
@@ -216,15 +217,18 @@ class EnergyGridTest {
     @Test
     void seeIfPrintDevicesWorks(){
         Device d1 = new Device("Fridge", 21, new Fridge());
+        Device d2 = new Device("WashingMachine", 30, new WashingMachine());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
         EnergyGrid energyGrid = new EnergyGrid();
         Room r1 = new Room("Kitchen", 0, 21,31,10);
         r1.setDeviceList(deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
         energyGrid.setRoomList(roomList);
-        String expectedResult = "0) The Device Name is Fridge, and its NominalPower is 21.0 kW.\n";
+        String expectedResult = "0) The Device Name is Fridge, and its NominalPower is 21.0 kW.\n" +
+                "1) The Device Name is WashingMachine, and its NominalPower is 30.0 kW.\n";
 
         String actualResult = energyGrid.buildDeviceListString();
 
