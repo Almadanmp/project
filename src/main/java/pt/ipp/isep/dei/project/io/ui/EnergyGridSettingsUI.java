@@ -10,11 +10,8 @@ import java.util.Scanner;
 class EnergyGridSettingsUI {
     private EnergyGridSettingsController mController;
     private EnergyGrid mEnergyGrid;
-    private Room mRoom;
     private House mHouse;
     private String noGrid = "You don't have a energy grid in your house. Please add a energy grid to continue.";
-    private Double mEGridNPower;
-
     EnergyGridSettingsUI() {
         this.mController = new EnergyGridSettingsController();
     }
@@ -56,20 +53,16 @@ class EnergyGridSettingsUI {
                     break;
                 case 4:
                     printUS147Validation();
-                    if(getInputRoomByList()){
-                        return;
-                    }
+                    Room room = inputs.getHouseRoomByList(mHouse);
                     mEnergyGrid = inputs.getInputGridByList(mHouse);
-                    updateGridUS147(mEnergyGrid, mRoom);
+                    updateGridUS147(mEnergyGrid, room);
                     activeInput = false;
                     break;
                 case 5:
                     printGridValidation();
                     mEnergyGrid = inputs.getInputGridByList(mHouse);
-                    if(getInputRoomByListInEG()){
-                        return;
-                    }
-                    updateGridUS149(mEnergyGrid, mRoom);
+                    room = inputs.getGridRoomByList(mEnergyGrid);
+                    updateGridUS149(mEnergyGrid, room);
                     activeInput = false;
                     break;
                 case 6:
@@ -83,27 +76,6 @@ class EnergyGridSettingsUI {
                     System.out.println(utilsUI.invalidOption);
                     break;
             }
-        }
-    }
-
-    // Get Input Room By List
-
-    private boolean getInputRoomByList() {
-        UtilsUI utilsUI = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        if (this.mHouse.getRoomList().isEmpty()) {
-            System.out.print("Invalid Room List - List Is Empty\n");
-            return true;
-        }
-        System.out.println("Please select one of the existing rooms on the selected House: ");
-        System.out.println(mController.printHouseRoomList(this.mHouse));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux < this.mHouse.getRoomList().size() && aux >= 0) {
-            this.mRoom = this.mHouse.getRoomList().get(aux);
-            return false;
-        } else {
-            System.out.println(utilsUI.invalidOption);
-            return true;
         }
     }
 
@@ -172,6 +144,9 @@ class EnergyGridSettingsUI {
     // energy consumption is included in that grid. MIGUEL ORTIGAO
 
     private void updateGridUS147(EnergyGrid grid, Room room) {
+        if (room == null || grid == null) {
+            return;
+        }
         if (mController.addRoomToGrid(grid, room)) {
             System.out.println("Room successfully added to the grid!");
         } else {
@@ -183,29 +158,12 @@ class EnergyGridSettingsUI {
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
 
     private void updateGridUS149(EnergyGrid grid, Room room) {
-        if (mController.removeRoomFromGrid(grid, room)) {
-            System.out.println("Room successfully removed from grid!");
-        } else {
-            System.out.println("It wasn't possible to remove the room. Please try again.");
-        }
-    }
-
-    private boolean getInputRoomByListInEG() {
-        UtilsUI utilsUI = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        if (mEnergyGrid.getListOfRooms().getRoomList().isEmpty()) {
-            System.out.print("Invalid Room List - List Is Empty\n");
-            return true;
-        }
-        System.out.println("Please select one of the existing rooms on the selected House: ");
-        System.out.println(mController.printGridRooms(mEnergyGrid));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < mEnergyGrid.getListOfRooms().getRoomList().size()) {
-            this.mRoom = mEnergyGrid.getListOfRooms().getRoomList().get(aux);
-            return false;
-        } else {
-            System.out.println(utilsUI.invalidOption);
-            return true;
+        if (grid != null && room != null) {
+            if (mController.removeRoomFromGrid(grid, room)) {
+                System.out.println("Room successfully removed from grid!");
+            } else {
+                System.out.println("It wasn't possible to remove the room. Please try again.");
+            }
         }
     }
 
@@ -215,7 +173,7 @@ class EnergyGridSettingsUI {
     DANIEL OLIVEIRA*/
 
     private void displayUS160(EnergyGrid energyGrid) {
-        if (mHouse == null) {
+        if (mHouse == null || energyGrid == null) {
             return;
         }
         mController.printListOfDevicesByType(energyGrid);

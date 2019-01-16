@@ -2,21 +2,21 @@
 autonumber
 actor Admin
 Admin -> MainUI: I want to edit the configuration of an existing device (US215)
-MainUI -> RoomConfigurationUI: run()
-RoomConfigurationUI --> Admin: getInputRoom()
+MainUI -> RoomConfigurationUI: runUS215()
+RoomConfigurationUI --> Admin: displayRoomList()
 Admin -> RoomConfigurationUI: Select Room from Room list
 RoomConfigurationUI -> RoomConfigurationController: getRoomFromList()
 RoomConfigurationController -> RoomList: getRoomFromList()
 RoomList->Room: getRoomFromList()
 Room -> Room: validate Room
-Room --> Admin: printRoom()
-RoomConfigurationUI --> Admin:getInputDevice()
+Room --> Admin: displayRoom()
+RoomConfigurationUI --> Admin:displayDeviceListFromRoom()
 Admin -> RoomConfigurationUI: Select Device from Device list
 RoomConfigurationUI -> RoomConfigurationController: getDeviceFromList()
 RoomConfigurationController -> DeviceList:  getDeviceFromList()
 DeviceList->Device: getDeviceFromList()
 Device -> Device: validate Device
-Device --> Admin: printDevice()
+Device --> Admin: displayDevice()
 RoomConfigurationUI --> Admin: getInputDeviceCharacteristicsUS215()
 Admin-> RoomConfigurationUI: Insert Device settings to configure according to Device Type\n (room, name, nominal Power)
 RoomConfigurationUI -> RoomConfigurationController: updateDeviceUS215(room, name, nominal Power)

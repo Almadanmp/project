@@ -51,20 +51,61 @@ public class Fridge implements DeviceSpecs, Metered {
     public void setRefrigeratorCapacity(double refrigeratorCapacity) {
         this.mRefrigeratorCapacity = refrigeratorCapacity;
     }
-
-
+    @Override
     public List<String> getAttributeNames() {
         List<String> aux = new ArrayList<>();
         return aux;
     }
 
+    @Override
     public double getAttributeValue(String attributeName) {
         return 0;
     }
 
-
+    @Override
     public boolean setAttributeValue(String attributeName, double attributeValue) {
         return false;
+
     }
+
+   /* public List<String> getAttributeNames() {
+        List<String> result = new ArrayList<>();
+        result.add("nominalPower");
+        result.add("freezerCapacity");
+        result.add("refrigeratorCapacity");
+
+        return result;
+    }
+
+
+    public double getAttributeValue(String attributeName) {
+        switch (attributeName) {
+            case "nominalPower":
+                return mNominalPower;
+            case "freezerCapacity":
+                return mFreezerCapacity;
+            case "refrigeratorCapacity":
+                return mRefrigeratorCapacity;
+            default:
+                return 0;
+        }
+    }
+
+
+    public boolean setAttributeValue(String attributeName, double attributeValue) {
+        switch (attributeName) {
+            case "nominalPower":
+                this.mNominalPower = attributeValue;
+                return true;
+            case "freezerCapacity":
+                this.mFreezerCapacity = attributeValue;
+                return true;
+            case "refrigeratorCapacity":
+                this.mRefrigeratorCapacity = attributeValue;
+                return true;
+            default:
+                return false;
+        }
+    }*/
 }
 

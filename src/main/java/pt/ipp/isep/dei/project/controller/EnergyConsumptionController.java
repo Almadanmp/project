@@ -142,6 +142,7 @@ public class EnergyConsumptionController {
         device.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
         device.setAttributeValue("volumeOfWater", volumeOfWaterToHeat);
     }*/
+
     /**
      * get the estimate consumption on all water heater available in the users house
      *

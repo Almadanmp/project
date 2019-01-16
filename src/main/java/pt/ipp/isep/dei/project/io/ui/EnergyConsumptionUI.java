@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 
 class EnergyConsumptionUI {
-    private EnergyConsumptionController controller = new EnergyConsumptionController();
+    private EnergyConsumptionController controller;
 
     EnergyConsumptionUI() {
         this.controller = new EnergyConsumptionController();
