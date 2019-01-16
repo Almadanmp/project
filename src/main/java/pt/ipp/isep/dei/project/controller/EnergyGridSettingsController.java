@@ -214,10 +214,13 @@ public class EnergyGridSettingsController {
      */
 
     public String printListOfDevicesByType(EnergyGrid energyGrid) {
+        if (energyGrid == null) {
+            return "This energy grid is invalid\n";
+        }
         if (energyGrid.getListOfRooms().getRoomList().isEmpty() || energyGrid.getListOfRooms() == null) {
             return "This energy grid has no rooms attached\n";
         }
-        if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty()) {
+        if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty() || energyGrid.getListOfRooms() == null) {
             return "This energy grid has no devices on it\n";
         }
         return energyGrid.printDeviceListByType(energyGrid);

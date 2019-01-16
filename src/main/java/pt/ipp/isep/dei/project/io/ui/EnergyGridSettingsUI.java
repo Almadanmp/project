@@ -165,9 +165,6 @@ class EnergyGridSettingsUI {
     DANIEL OLIVEIRA*/
 
     private void displayUS160(EnergyGrid energyGrid) {
-        if (energyGrid == null) {
-            return;
-        }
         mController.printListOfDevicesByType(energyGrid);
     }
 
