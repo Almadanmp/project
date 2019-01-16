@@ -117,30 +117,21 @@ public class EnergyConsumptionController {
      * given the cold-water temperature and the volume of water produced in each water heater.
      */
 
+    /**
+     * Gets a List of Devices from a House of the Water heater Type
+     * @param house user house
+     * @return returns a list of water heaters from a house
+     */
     public List <Device> getWaterHeaterDeviceList(House house){
         return house.getHouseDevicesOfGivenType(DeviceType.WATER_HEATER);
     }
 
     /**
-     * Gets a list of all water heaters in the house and configures them with the user input values
-     *
-     * @param house                user house
-     * @param coldWaterTemperature cold water temperature
-     * @param volumeOfWaterToHeat  the volume of water to heat
+     * Changes the configuration of the heater on selected attributes
+     * @param device device to change
+     * @param coldWaterTemperature value for the cold water temperature
+     * @param volumeOfWaterToHeat value for the amount of water to heat
      */
-    public void configureHeaters(House house, double coldWaterTemperature, double volumeOfWaterToHeat) {
-        List<Device> allWaterHeaters = house.getHouseDevicesOfGivenType(DeviceType.WATER_HEATER);
-        for (Device d : allWaterHeaters) {
-            d.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
-            d.setAttributeValue("volumeOfWater", volumeOfWaterToHeat);
-    //TODO choose implementation (above or bellow) after discussing with teachers.
-            //    WaterHeater dSpecs = (WaterHeater) d.getDeviceSpecs();
-            //    dSpecs.setVolumeOfWater(volumeOfWaterToHeat);
-            //    dSpecs.setColdWaterTemperature(coldWaterTemperature);
-        }
-    }
-
-    //TODO choose implementation after discussing with teachers.
     public void configureOneHeater(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat){
         device.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
         device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat);

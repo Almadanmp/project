@@ -44,7 +44,7 @@ class EnergyConsumptionUI {
                     activeInput = true;
                     break;
                 case 3:
-                    runUS752Extra(programHouse);
+                    runUS752(programHouse);
                     activeInput = true;
                     break;
                 case 0:
@@ -201,22 +201,7 @@ class EnergyConsumptionUI {
      * given the cold-water temperature and the volume of water produced in each water heater.
      */
 
-  /*  private void runUS752(House house) {
-        InputUtils inputUtils = new InputUtils();
-        System.out.println("Please insert the cold water temperature:");
-        double coldWaterTemperature = inputUtils.getInputAsDouble();
-        System.out.println("Please insert the volume of water to heat:");
-
-        double volumeWaterToHeat = inputUtils.getInputAsDouble();
-
-        controller.configureHeaters(house, coldWaterTemperature, volumeWaterToHeat);
-
-        double result = controller.getDailyHouseConsumptionWaterHeater(house);
-        System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
-    }*/
-
-    //TODO choose implementation after discussing with teachers.
-    private void runUS752Extra(House house) {
+    private void runUS752(House house) {
         InputUtils inputUtils = new InputUtils();
         List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
         System.out.println("You currently have " + waterHeaters.size() + " water heaters in your house.\n");
