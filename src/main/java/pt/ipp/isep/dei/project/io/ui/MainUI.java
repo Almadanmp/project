@@ -205,17 +205,6 @@ public class MainUI {
 
         //Devices
 
-        Device device1 = new Device("aquecedor",23.0, new WaterHeater(100,30,2));
-        Device device2 = new Device("FridgeOne", 4, new Fridge());
-        Device device3 = new Device("WHTwo", 3, new WaterHeater(500,25,10));
-        device1.setmParentRoom(roomISEP2);
-        device2.setmParentRoom(roomISEP2);
-        device3.setmParentRoom(roomISEP2);
-        DeviceList listDevices = new DeviceList();
-        listDevices.addDevice(device1);
-        listDevices.addDevice(device2);
-        listDevices.addDevice(device3);
-        roomISEP2.setDeviceList(listDevices);
 
         // ********* MOCKS EXTRA **********************************************
 
