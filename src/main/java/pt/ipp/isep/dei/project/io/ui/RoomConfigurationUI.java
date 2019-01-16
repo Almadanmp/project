@@ -119,7 +119,7 @@ class RoomConfigurationUI {
      *             Prints Device List in that room.
      */
     private void printRoomDeviceList() {
-        System.out.println("Available Devices in Room " + mRoomName);
+        System.out.println("Available Devices in Room " + mRoom.getRoomName());
         System.out.println(mRoomConfigurationController.printDeviceList(mRoom));
     }
 
