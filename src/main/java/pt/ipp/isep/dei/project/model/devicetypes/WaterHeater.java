@@ -21,7 +21,6 @@ public class WaterHeater implements DeviceSpecs {
     public WaterHeater() {
     }
 
-
     public WaterHeater(Double volumeOfWater, Double hotWaterTemperature, Double mPerformanceRatio) {
         this.mVolumeOfWater = volumeOfWater;
         this.mHotWaterTemperature = hotWaterTemperature;
@@ -33,7 +32,22 @@ public class WaterHeater implements DeviceSpecs {
         return DeviceType.WATER_HEATER;
     }
 
+    /**
+     * Estimate energy consumption for a water heater.
+     * It is calculated by the following equation:
+     * Energy consumption = C*V*dT*PR (kWh)
+     * C -> Specific heat of water = 1,163 Wh/kg°C
+     * V -> Volume of water to heat (water consumption in litres)
+     * Dt -> difference in temperature = hot water temperature – cold watertemperature
+     * PR -> performance ratio (typically 0.9)
+     * When the temperature of ColdWater is above the HotWaterTemperature, there will be no energy consumption, so we
+     * return 0.
+     * @return returns an estimate energy consumption for a water heater
+     */
     public double getConsumption() {
+        if (mColdWaterTemperature > mHotWaterTemperature) {
+            return 0;
+        }
         double specificHeatOfWater = 1.163;
         double dT = mHotWaterTemperature - mColdWaterTemperature;
         return specificHeatOfWater * mVolumeOfWaterToHeat * dT * mPerformanceRatio; //To be implemented by US752
@@ -58,7 +72,6 @@ public class WaterHeater implements DeviceSpecs {
 
         return result;
     }
-
 
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {

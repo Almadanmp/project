@@ -208,11 +208,11 @@ public class MainUI {
         listProgram.addProgram(program1);
         Device device1 = new Device("maquina de lavar",23.0, new WashingMachine(100.0,listProgram));
         Device device2 = new Device("FridgeOne", 4, new Fridge());
-        Device device3 = new Device("WHTwo", 3, new WaterHeater(500.0,25.0,10.0));
+        Device device3 = new Device("WH Main", 3, new WaterHeater(500.0,25.0,10.0));
         Device device4 = new Device("Lamp", 4, new Lamp());
         device1.setmParentRoom(roomISEP2);
         device2.setmParentRoom(roomISEP2);
-        device3.setmParentRoom(roomISEP2);
+       device3.setmParentRoom(roomISEP2);
         device4.setmParentRoom(roomISEP2);
         DeviceList listDevices = new DeviceList();
         listDevices.addDevice(device1);
@@ -224,14 +224,14 @@ public class MainUI {
 
    //     Device device4 = new Device("aquecedor1",23.0, new WaterHeater(100.0,30.0,2.0));
         Device device5 = new Device("FridgeOne1", 4, new Fridge());
- //       Device device6 = new Device("WHTwo1", 3, new WaterHeater(500.0,25.0,10.0));
+        Device device6 = new Device("WH Secondary", 3, new WaterHeater(500.0,25.0,10.0));
        // device4.setmParentRoom(roomISEP3);
         device5.setmParentRoom(roomISEP3);
-     //   device6.setmParentRoom(roomISEP3);
+        device6.setmParentRoom(roomISEP3);
         DeviceList listDevices1 = new DeviceList();
    //     listDevices1.addDevice(device4);
         listDevices1.addDevice(device5);
-     //   listDevices1.addDevice(device6);
+        listDevices1.addDevice(device6);
         roomISEP3.setDeviceList(listDevices1);
 
         // ********* MOCKS EXTRA **********************************************
@@ -358,7 +358,7 @@ public class MainUI {
                     "5. Energy Grid Settings.\n",
                     "6. House Monitoring.\n",
                     "7. Energy Consumption Management.\n" +
-                            " 0. Exit Application\n"};
+                    " 0. Exit Application\n"};
 
             System.out.println("Select the task you want to do:");
 

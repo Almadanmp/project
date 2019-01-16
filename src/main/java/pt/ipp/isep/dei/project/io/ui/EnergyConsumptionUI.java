@@ -204,12 +204,17 @@ class EnergyConsumptionUI {
     private void runUS752(House house) {
         InputUtils inputUtils = new InputUtils();
         List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
-        System.out.println("You currently have " + waterHeaters.size() + " water heaters in your house.\n");
+        if (waterHeaters.isEmpty()) {
+            System.out.println("Your house has no Water Heaters. Returning to Main Menu.");
+            return;
+        }
+        System.out.println("You currently have " + waterHeaters.size() + " water heaters in your house:\n");
+
         for (Device d : waterHeaters) {
             System.out.println("Water Heater name: " + d.getName() + ".\n");
-            System.out.println("Please insert the cold water temperature:");
+            System.out.println("Please insert the cold water temperature for Water Heater " + d.getName()+":");
             double coldWaterTemperature = inputUtils.getInputAsDouble();
-            System.out.println("Please insert the volume of water to heat:");
+            System.out.println("Please insert the volume of water to heat for Water Heater" + d.getName() +":");
             double volumeWaterToHeat = inputUtils.getInputAsDouble();
             controller.configureOneHeater(d, coldWaterTemperature, volumeWaterToHeat);
             System.out.println("Device Configured.\n");
