@@ -33,12 +33,10 @@ class EnergyConsumptionUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if (programHouse.getEGList() == null) {
-                        System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
-                        return; }
+                    if (!checkHouseGrid(programHouse)){
                     EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
                     double nominalPower = updateUS172(mEnergyGrid);
-                    displayUS172(nominalPower);
+                    displayUS172(nominalPower); }
                     activeInput = false;
                     break;
                 case 2:
@@ -242,6 +240,16 @@ class EnergyConsumptionUI {
                 " (US705)");
         System.out.println("3) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
+    }
+
+    private boolean checkHouseGrid(House house) {
+        if (house.getEGList() == null) {
+            InputUtils inputs = new InputUtils();
+            System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
+            inputs.returnToMenu(returnToConsole);
+            return true;
+        }
+        return false;
     }
 
     //TODO choose implementation after discussing with teachers.
