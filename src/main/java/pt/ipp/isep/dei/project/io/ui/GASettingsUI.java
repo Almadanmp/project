@@ -51,10 +51,6 @@ class GASettingsUI {
                     break;
 
                 case 2:
-                    if (programTypeAreaList == null || programTypeAreaList.getTypeAreaList().isEmpty()) {
-                        System.out.println(mStringMessageAskingToCreateGeographicAreaType);
-                        return;
-                    }
                     updateModelUS02(programTypeAreaList);
                     displayStateUS02(programTypeAreaList);
                     activeInput = false;
@@ -337,41 +333,50 @@ class GASettingsUI {
      * getInputGeographicContainer()
      * this method makes the user define the NAME of the GeographicArea CONTAINER
      */
-    private void getContainerArea(GeographicAreaList newGeoListUi) {
-        System.out.println("First you need to select the geographic area you wish to test if contains another geographic area.");
-        InputUtils inputUtils = new InputUtils();
-        mGeoArea = inputUtils.getGeographicAreaByList(newGeoListUi);
-        this.mContainerAreaName = mGeoArea.getId();
+    private void getContainerArea(GeographicAreaList geographicAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaListIsValid(geographicAreaList)) {
+            System.out.println("First you need to select the geographic area you wish to test if contains another geographic area.");
+            InputUtils inputUtils = new InputUtils();
+            mGeoArea = inputUtils.getGeographicAreaByList(geographicAreaList);
+            this.mContainerAreaName = mGeoArea.getId();
+        }
     }
 
     /**
      * getInputGeographicContainer()
      * this method makes the user define the NAME of the GeographicArea CONTAINED
      */
-    private void getContainedArea(GeographicAreaList newGeoListUi) {
-        System.out.println("Second you need to select the geographic area you wish to test if is contained in the first one.");
-        InputUtils inputUtils = new InputUtils();
-        mGeoArea = inputUtils.getGeographicAreaByList(newGeoListUi);
-        this.mContainedAreaName = mGeoArea.getId();
+    private void getContainedArea(GeographicAreaList geographicAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaListIsValid(geographicAreaList)) {
+            System.out.println("Second you need to select the geographic area you wish to test if is contained in the first one.");
+            InputUtils inputUtils = new InputUtils();
+            mGeoArea = inputUtils.getGeographicAreaByList(geographicAreaList);
+            this.mContainedAreaName = mGeoArea.getId();
+        }
     }
 
     /**
-     * @param newGeoListUi is the MainUI List
+     * @param geographicAreaList is the MainUI List
      *                     First we check if the Geographic Areas that we are testing exist in the MainUI list.
      *                     Then we check the GeographicAreaContained for its flag
      *                     And finally it tests the flag (Geographic Area) is equal to the testing GeographicArea Container
      */
 
-    private void checkIfContained(GeographicAreaList newGeoListUi) {
-        if (!(mController.seeIfGAListContainsAreasByName(mContainedAreaName, mContainerAreaName, newGeoListUi))) {
-            System.out.println("The given areas are invalid!");
-            return;
+    private void checkIfContained(GeographicAreaList geographicAreaList) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaListIsValid(geographicAreaList)) {
+            if (!(mController.seeIfGAListContainsAreasByName(mContainedAreaName, mContainerAreaName, geographicAreaList))) {
+                System.out.println("The given areas are invalid!");
+                return;
+            }
+            if (!(mController.seeIfItsContained())) {
+                System.out.println(mContainedAreaName + " is NOT contained in " + mContainerAreaName);
+                return;
+            }
+            System.out.println(mContainedAreaName + " is contained in " + mContainerAreaName);
         }
-        if (!(mController.seeIfItsContained())) {
-            System.out.println(mContainedAreaName + " is NOT contained in " + mContainerAreaName);
-            return;
-        }
-        System.out.println(mContainedAreaName + " is contained in " + mContainerAreaName);
     }
 
 
