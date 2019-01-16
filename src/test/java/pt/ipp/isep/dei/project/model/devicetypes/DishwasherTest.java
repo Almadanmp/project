@@ -43,6 +43,7 @@ public class DishwasherTest {
     public void getAttributeNamesTest() {
         Dishwasher dishwasher = new Dishwasher(1);
         List<String> expectedResult = new ArrayList<>();
+        expectedResult.add("capacity");
         List<String> result = dishwasher.getAttributeNames();
         assertEquals(expectedResult, result);
     }

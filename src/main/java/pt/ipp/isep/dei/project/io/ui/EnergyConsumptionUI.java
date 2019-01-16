@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -40,11 +41,11 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS705(programHouse);
+                    runUS752Extra(programHouse);
                     activeInput = true;
                     break;
                 case 3:
-                    runUS752(programHouse);
+                    runUS752Extra(programHouse);
                     activeInput = true;
                     break;
                 case 0:
@@ -201,7 +202,7 @@ class EnergyConsumptionUI {
      * given the cold-water temperature and the volume of water produced in each water heater.
      */
 
-    private void runUS752(House house) {
+  /*  private void runUS752(House house) {
         InputUtils inputUtils = new InputUtils();
         System.out.println("Please insert the cold water temperature:");
         double coldWaterTemperature = inputUtils.getInputAsDouble();
@@ -213,6 +214,26 @@ class EnergyConsumptionUI {
 
         double result = controller.getDailyHouseConsumptionWaterHeater(house);
         System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
+    }*/
+
+    //TODO choose implementation after discussing with teachers.
+    private void runUS752Extra(House house) {
+        InputUtils inputUtils = new InputUtils();
+        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
+        System.out.println("You currently have " + waterHeaters.size() + " water heaters in your house.\n");
+        for (Device d : waterHeaters) {
+            System.out.println("Water Heater name: " + d.getName() + ".\n");
+            System.out.println("Please insert the cold water temperature:");
+            double coldWaterTemperature = inputUtils.getInputAsDouble();
+            System.out.println("Please insert the volume of water to heat:");
+            double volumeWaterToHeat = inputUtils.getInputAsDouble();
+            controller.configureOneHeater(d, coldWaterTemperature, volumeWaterToHeat);
+            System.out.println("Device Configured.\n");
+        }
+
+        double result = controller.getDailyHouseConsumptionWaterHeater(house);
+        System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
+
     }
 
     // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
@@ -252,23 +273,5 @@ class EnergyConsumptionUI {
         return false;
     }
 
-    //TODO choose implementation after discussing with teachers.
-/*    private void runUS752Extra(House house) {
-        InputUtils inputUtils = new InputUtils();
-        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
-        System.out.println("You currently have " + waterHeaters.size() + " water heaters in your house.\n");
-        for (Device d : waterHeaters) {
-            System.out.println("Water Heater name: " + d.getName() + ".\n");
-            System.out.println("Please insert the cold water temperature:");
-            double coldWaterTemperature = inputUtils.getInputAsDouble();
-            System.out.println("Please insert the volume of water to heat:");
-            double volumeWaterToHeat = inputUtils.getInputAsDouble();
-            controller.configureOneHeater(d, coldWaterTemperature, volumeWaterToHeat);
-            System.out.println("Device Configured.\n");
-        }
 
-        double result = controller.getDailyHouseConsumptionWaterHeater(house);
-        System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
-
-    }*/
 }

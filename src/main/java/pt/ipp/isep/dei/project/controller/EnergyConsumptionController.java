@@ -141,10 +141,11 @@ public class EnergyConsumptionController {
     }
 
     //TODO choose implementation after discussing with teachers.
-  /*  public void configureOneHeater(Device device, double coldWaterTemperature, double volumeOfWaterToHeat){
+    public void configureOneHeater(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat){
         device.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
-        device.setAttributeValue("volumeOfWater", volumeOfWaterToHeat);
-    }*/
+        device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat);
+
+    }
 
     /**
      * get the estimate consumption on all water heater available in the users house

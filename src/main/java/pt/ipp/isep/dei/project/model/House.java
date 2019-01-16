@@ -221,6 +221,14 @@ public class House implements Metered {
         return devicesOfGivenType;
     }
 
+    public List<Device> getAllHouseDevices() {
+        List<Device>  allDevices = new ArrayList<>();
+        for (Room r : mRoomList.getRoomList()) {
+            allDevices.addAll(r.getDeviceList());
+        }
+        return allDevices;
+    }
+
     /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
      *
@@ -228,7 +236,7 @@ public class House implements Metered {
      * @return the sum of all daily estimate consumptions of that type
      */
     public double getDailyHouseConsumptionPerType(DeviceType deviceType) {
-        double result = 0;
+        double result = 0.0;
         for (Room r : mRoomList.getRoomList()) {
             result += r.getDailyRoomConsumptionPerType(deviceType);
         }

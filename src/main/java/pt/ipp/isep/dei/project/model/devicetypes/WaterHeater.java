@@ -12,17 +12,17 @@ public class WaterHeater implements DeviceSpecs {
     //private static final String ATTRIBUTE_COLD_WATER_TEMP = "coldWaterTemperature";
     //private static final String ATTRIBUTE_PERFORMANCE_RATIO = "performanceRatio";
 
-    double mVolumeOfWater;
-    double mHotWaterTemperature;
-    double mPerformanceRatio;
-    double mColdWaterTemperature;
-    double mVolumeOfWaterToHeat;
+    Double mVolumeOfWater;
+    Double mHotWaterTemperature;
+    Double mPerformanceRatio;
+    Double mColdWaterTemperature = 0.0;
+    Double mVolumeOfWaterToHeat = 0.0;
 
     public WaterHeater() {
     }
 
 
-    public WaterHeater(double volumeOfWater, double hotWaterTemperature, double mPerformanceRatio) {
+    public WaterHeater(Double volumeOfWater, Double hotWaterTemperature, Double mPerformanceRatio) {
         this.mVolumeOfWater = volumeOfWater;
         this.mHotWaterTemperature = hotWaterTemperature;
         this.mPerformanceRatio = mPerformanceRatio;
@@ -36,7 +36,7 @@ public class WaterHeater implements DeviceSpecs {
     public double getConsumption() {
         double specificHeatOfWater = 1.163;
         double dT = mHotWaterTemperature - mColdWaterTemperature;
-        return specificHeatOfWater * mVolumeOfWater * dT * mPerformanceRatio; //To be implemented by US752
+        return specificHeatOfWater * mVolumeOfWaterToHeat * dT * mPerformanceRatio; //To be implemented by US752
     }
 
     public double getVolumeWater() {
@@ -54,7 +54,7 @@ public class WaterHeater implements DeviceSpecs {
         result.add("hotWaterTemperature");
         result.add("performanceRatio");
         result.add("coldWaterTemperature");
-          result.add("volumeOfWaterToHeat");
+        result.add("volumeOfWaterToHeat");
 
         return result;
     }
@@ -77,23 +77,43 @@ public class WaterHeater implements DeviceSpecs {
         }
     }
 
-    public boolean setAttributeValue(String attributeName, double attributeValue) {
+    public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
             case "volumeOfWater":
-                this.mVolumeOfWater = attributeValue;
-                return true;
+                if (attributeValue instanceof Double) {
+                    this.mVolumeOfWater = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
             case "hotWaterTemperature":
-                this.mHotWaterTemperature = attributeValue;
-                return true;
+                if (attributeValue instanceof Double) {
+                    this.mHotWaterTemperature = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
             case "performanceRatio":
-                this.mPerformanceRatio = attributeValue;
-                return true;
+                if (attributeValue instanceof Double) {
+                    this.mPerformanceRatio = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
             case "coldWaterTemperature":
-                this.mColdWaterTemperature = attributeValue;
-                return true;
+                if (attributeValue instanceof Double) {
+                    this.mColdWaterTemperature = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
             case "volumeOfWaterToHeat":
-                this.mVolumeOfWaterToHeat = attributeValue;
-                return true;
+                if (attributeValue instanceof Double) {
+                    this.mVolumeOfWaterToHeat = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
             default:
                 return false;
         }

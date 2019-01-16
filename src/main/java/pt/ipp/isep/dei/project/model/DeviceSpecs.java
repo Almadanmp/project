@@ -48,5 +48,5 @@ public interface DeviceSpecs {
      * @param attributeValue new value to set on the attribute
      * @return false if the attribute value fails (if attribute value name inputted doesn't exist on attributes.
      */
-    boolean setAttributeValue(String attributeName, double attributeValue);
+    boolean setAttributeValue(String attributeName, Object attributeValue);
 }

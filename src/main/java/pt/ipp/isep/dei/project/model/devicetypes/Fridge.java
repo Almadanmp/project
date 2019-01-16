@@ -1,13 +1,11 @@
 package pt.ipp.isep.dei.project.model.devicetypes;
 
 import pt.ipp.isep.dei.project.model.DeviceSpecs;
-import pt.ipp.isep.dei.project.model.Metered;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Fridge implements DeviceSpecs {
-
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
     private double mAnnualEnergyConsumption;
@@ -26,7 +24,7 @@ public class Fridge implements DeviceSpecs {
     }
 
     public double getConsumption() {
-        return 0; //To be implemented later, not yet specified
+        return 0.0; //To be implemented later, not yet specified
     }
 
     public double getFreezerCapacity() {
@@ -44,26 +42,9 @@ public class Fridge implements DeviceSpecs {
     public void setRefrigeratorCapacity(double refrigeratorCapacity) {
         this.mRefrigeratorCapacity = refrigeratorCapacity;
     }
-    @Override
+
     public List<String> getAttributeNames() {
-        List<String> aux = new ArrayList<>();
-        return aux;
-    }
-
-    @Override
-    public double getAttributeValue(String attributeName) {
-        return 0;
-    }
-
-    @Override
-    public boolean setAttributeValue(String attributeName, double attributeValue) {
-        return false;
-
-    }
-
-   /* public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add("nominalPower");
         result.add("freezerCapacity");
         result.add("refrigeratorCapacity");
         result.add("annualEnergyConsumption");
@@ -74,8 +55,6 @@ public class Fridge implements DeviceSpecs {
 
     public double getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case "nominalPower":
-                return mNominalPower;
             case "freezerCapacity":
                 return mFreezerCapacity;
             case "refrigeratorCapacity":
@@ -87,24 +66,32 @@ public class Fridge implements DeviceSpecs {
         }
     }
 
-
-    public boolean setAttributeValue(String attributeName, double attributeValue) {
+    public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
-            case "nominalPower":
-                this.mNominalPower = attributeValue;
-                return true;
             case "freezerCapacity":
-                this.mFreezerCapacity = attributeValue;
-                return true;
+                if (attributeValue instanceof Double) {
+                    this.mFreezerCapacity = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
             case "refrigeratorCapacity":
-                this.mRefrigeratorCapacity = attributeValue;
-                return true;
+                if (attributeValue instanceof Double) {
+                    this.mRefrigeratorCapacity = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
             case "annualEnergyConsumption":
-                this.mAnnualEnergyConsumption = attributeValue;
-                return true;
+                if (attributeValue instanceof Double) {
+                    this.mAnnualEnergyConsumption = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
             default:
                 return false;
         }
-    }*/
+    }
 }
 

@@ -32,6 +32,7 @@ public class LampTest {
     public void getAttributeNamesTest() {
         Lamp lamp = new Lamp();
         List<String> expectedResult = new ArrayList<>();
+        expectedResult.add("LuminousFlux");
         List<String> result = lamp.getAttributeNames();
         assertEquals(expectedResult, result);
     }

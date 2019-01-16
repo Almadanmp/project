@@ -199,7 +199,7 @@ class InputUtils {
      * Will validate input is a double. if it isn't it will print an error message.
      * @return value read from user
      */
-    double getInputAsDouble(){
+    Double getInputAsDouble(){
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextDouble()) {
             System.out.println("Please,try again. Only numbers this time:");

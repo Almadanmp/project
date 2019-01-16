@@ -350,21 +350,21 @@ class EnergyConsumptionControllerTest {
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge());
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 30, 0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 20, 0.9));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device("fridgeTwo", 12, new Fridge());
-        Device d5 = new Device("wHeater3", 12, new WaterHeater(300, 15,  0.9));
-        Device d6 = new Device("wHeater4", 11, new WaterHeater(400, 20,  0.9));
+        Device d5 = new Device("wHeater3", 12, new WaterHeater(300.0, 15.0,  0.9));
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0,  0.9));
         r2.addDevice(d4);
         r2.addDevice(d5);
         r2.addDevice(d6);
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
-        double expectedResult = 715942.8;
+        double expectedResult = 0.0;
         double result = controller.getDailyHouseConsumptionWaterHeater(h1);
         assertEquals(expectedResult, result);
     }

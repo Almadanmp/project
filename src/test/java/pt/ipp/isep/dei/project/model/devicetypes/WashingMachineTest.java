@@ -43,6 +43,7 @@ public class WashingMachineTest {
     public void getAttributeNamesTest() {
         WashingMachine washingMachine = new WashingMachine(5);
         List<String> expectedResult = new ArrayList<>();
+        expectedResult.add("capacity");
         List<String> result = washingMachine.getAttributeNames();
         assertEquals(expectedResult, result);
     }

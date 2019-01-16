@@ -404,21 +404,21 @@ public class RoomTest {
     void getDailyRoomConsumptionPerTypeTest() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge());
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 20, 0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 30, 0.9));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        double expectedResult = 477295.2;
-        double result = r1.getDailyRoomConsumptionPerType(DeviceType.WATER_HEATER);
+        Double expectedResult = 0.0;
+        Double result = r1.getDailyRoomConsumptionPerType(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }
 
     @Test
     void addDeviceFails() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 20, 10));
-        Device d3 = new Device("wHeater1", 11, new WaterHeater(500, 30, 1));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater1", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
         boolean expectedResult = false;
         boolean result = r1.addDevice(d3);
@@ -428,8 +428,8 @@ public class RoomTest {
     @Test
     void addDeviceSucceeds() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 20, 10));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 30, 1));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
         boolean expectedResult = true;
         boolean result = r1.addDevice(d3);
@@ -439,8 +439,8 @@ public class RoomTest {
     @Test
     void getRoomDevicesOfGivenTypeSuccess() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 20, 10));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 30, 1));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
         r1.addDevice(d3);
         List<Device> expectedResult = new ArrayList<>();
@@ -453,8 +453,8 @@ public class RoomTest {
     @Test
     void getRoomDevicesOfGivenTypeFails() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 20, 10));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 30, 1));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
         r1.addDevice(d3);
         List<Device> expectedResult = new ArrayList<>();
@@ -465,8 +465,8 @@ public class RoomTest {
     @Test
     void removeDeviceSucess() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 20, 10));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 30, 1));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.removeDevice(d2);
@@ -476,9 +476,9 @@ public class RoomTest {
     @Test
     void removeDeviceFails() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200, 20, 10));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500, 30, 1));
-        Device d4 = new Device("wHeater4", 11, new WaterHeater(500, 30, 1));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 2.0, 1.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 3.0, 1.0));
+        Device d4 = new Device("wHeater4", 11, new WaterHeater(50.0, 3.0, 1.0));
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.removeDevice(d4);

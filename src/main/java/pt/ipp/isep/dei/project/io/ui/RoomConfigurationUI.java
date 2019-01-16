@@ -336,6 +336,8 @@ class RoomConfigurationUI {
     private void updateDeviceUS215() {
         mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
         mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
+
+
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
 
             //mRoomConfigurationController.configureOneHeater(mDevice, mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);

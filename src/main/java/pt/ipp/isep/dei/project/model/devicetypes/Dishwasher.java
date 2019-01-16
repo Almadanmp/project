@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model.devicetypes;
 
 import pt.ipp.isep.dei.project.model.DeviceSpecs;
-import pt.ipp.isep.dei.project.model.Metered;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class Dishwasher implements DeviceSpecs {
     }
 
     public double getConsumption() {
-        return 0; //To be implemented later, not yet specified
+        return 0.0; //To be implemented later, not yet specified
     }
 
 
@@ -35,26 +34,8 @@ public class Dishwasher implements DeviceSpecs {
         this.mCapacity = capacity;
     }
 
-    @Override
     public List<String> getAttributeNames() {
-        List<String> aux = new ArrayList<>();
-        return aux;
-    }
-
-    @Override
-    public double getAttributeValue(String attributeName) {
-        return 0;
-    }
-
-    @Override
-    public boolean setAttributeValue(String attributeName, double attributeValue) {
-        return false;
-
-    }
-
-   /* public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add("nominalPower");
         result.add("capacity");
 
         return result;
@@ -63,8 +44,6 @@ public class Dishwasher implements DeviceSpecs {
 
     public double getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case "nominalPower":
-                return mNominalPower;
             case "capacity":
                 return mCapacity;
             default:
@@ -73,17 +52,17 @@ public class Dishwasher implements DeviceSpecs {
     }
 
 
-    public boolean setAttributeValue(String attributeName, double attributeValue) {
+    public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
-            case "nominalPower":
-                this.mNominalPower = attributeValue;
-                return true;
             case "capacity":
-                this.mCapacity = attributeValue;
-                return true;
+                if (attributeValue instanceof Double) {
+                    this.mCapacity = (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
             default:
                 return false;
         }
-    }*/
-
+    }
 }

@@ -6,8 +6,7 @@ import pt.ipp.isep.dei.project.model.Metered;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lamp implements DeviceSpecs, Metered {
-    private double mNominalPower;
+public class Lamp implements DeviceSpecs{
     private double mLuminousFlux;
 
     public Lamp(){}
@@ -21,28 +20,37 @@ public class Lamp implements DeviceSpecs, Metered {
     }
 
     public double getConsumption() {
-        return 0; //To be implemented later, not yet specified
+        return 0.0; //To be implemented later, not yet specified
     }
 
-    public double getNominalPower() {
-        return this.mNominalPower;
-    }
 
-    @Override
     public List<String> getAttributeNames() {
-        List<String> aux = new ArrayList<>();
-        return aux;
+        List<String> result = new ArrayList<>();
+        result.add("LuminousFlux");
+        return result;
     }
 
-    @Override
+
     public double getAttributeValue(String attributeName) {
-        return 0;
+        switch (attributeName) {
+            case "LuminousFlux":
+                return mLuminousFlux;
+            default:
+                return 0;
+        }
     }
 
-    @Override
-    public boolean setAttributeValue(String attributeName, double attributeValue) {
-        return false;
-
+    public boolean setAttributeValue(String attributeName, Object attributeValue) {
+        switch (attributeName) {
+            case "LuminousFlux":
+                if (attributeValue instanceof Double) {
+                    this.mLuminousFlux= (Double) attributeValue;
+                    return true;
+                } else {
+                    return false;
+                }
+            default:
+                return false;
+        }
     }
-
 }
