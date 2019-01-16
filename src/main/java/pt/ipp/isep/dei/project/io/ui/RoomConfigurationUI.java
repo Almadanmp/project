@@ -75,6 +75,7 @@ class RoomConfigurationUI {
                     break;
                 case 3: //215
                     this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+                    this.mDevice = inputUtils.getInputDeviceByList(this.mRoom);
                     getInputDeviceCharacteristicsUS215();
                     updateDeviceUS215();
                     displayDeviceUS215();
@@ -115,8 +116,8 @@ class RoomConfigurationUI {
 
     /**
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
-     *
-     *             Prints Device List in that room.
+     * <p>
+     * Prints Device List in that room.
      */
     private void printRoomDeviceList() {
         System.out.println("Available Devices in Room " + mRoomName);
@@ -256,7 +257,7 @@ class RoomConfigurationUI {
     /* USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,
     so that I can reconfigure it.. - CARINA ALAS */
 
-    private void getInputDeviceCharacteristicsUS215() {
+    public void getInputDeviceCharacteristicsUS215() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -358,18 +359,31 @@ class RoomConfigurationUI {
         mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
         mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
+
+            //mRoomConfigurationController.configureOneHeater(mDevice, mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
+            //System.out.println("Device Configured.\n");//
+
             WaterHeater waterHeater = new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
             mDevice = new Device(mDeviceName, mNominalPower, waterHeater);
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
+            //mRoomConfigurationController.configureOneWashingMachine(mDevice, mCapacity);
+            //System.out.println("Device Configured.\n");//
+
             WashingMachine washingMachine = new WashingMachine(mCapacity);
             mDevice = new Device(mDeviceName, mNominalPower, washingMachine);
         }
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
+            //mRoomConfigurationController.configureOneDishWasher(mDevice, mCapacity);
+            //System.out.println("Device Configured.\n");//
+
             Dishwasher dishwasher = new Dishwasher(mCapacity);
             mDevice = new Device(mDeviceName, mNominalPower, dishwasher);
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
+            //mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
+            //System.out.println("Device Configured.\n");//
+
             Fridge fridge = new Fridge(mFreezerCapacity, mRefrigeratorCapacity);
             mDevice = new Device(mDeviceName, mNominalPower, fridge);
         }
