@@ -40,7 +40,6 @@ public class HouseMonitoringUI {
             return;
         }
         this.mHouse = programHouse;
-        List<Room> roomList = programHouse.getRoomList();
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
