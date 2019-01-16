@@ -112,6 +112,15 @@ public class FridgeTest {
         Object result = fridge.getAttributeValue("freezerCapacity");
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void seeIfGetAttributeValuesTest2() {
+        Fridge fridge = new Fridge(4, 5, 1);
+        int expectedResult = 0;
+        Object result = fridge.getAttributeValue("no");
+        assertEquals(expectedResult, result);
+    }
+
     @Test
     public void seeIfGetAndSetAttributeValue() {
         Fridge fridge = new Fridge(4, 5, 1);
@@ -147,6 +156,14 @@ public class FridgeTest {
     public void seeIfSetAttributeValueInvalid() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "invalid";
+        boolean result = fridge.setAttributeValue(attribute, 6);
+        assertFalse(result);
+    }
+
+    @Test
+    public void seeIfSetAttributemValueInvalid2() {
+        Fridge fridge = new Fridge(4, 5, 1);
+        String attribute = "freezerCapacity";
         boolean result = fridge.setAttributeValue(attribute, 6);
         assertFalse(result);
     }

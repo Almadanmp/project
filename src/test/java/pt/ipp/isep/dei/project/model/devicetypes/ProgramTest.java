@@ -4,13 +4,14 @@ package pt.ipp.isep.dei.project.model.devicetypes;
 import org.junit.jupiter.api.Test;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
 
 public class ProgramTest {
 
     @Test
     public void seeIfSetProgramName() {
-        Program program = new Program("programa1", 12,12);
+        Program program = new Program("programa1", 12, 12);
         program.getProgramName();
         program.setProgramName("programa2");
         String expectedResult = "programa2";
@@ -20,7 +21,7 @@ public class ProgramTest {
 
     @Test
     public void seeIfTestSetDuration() {
-        Program program = new Program("programa1", 12,12);
+        Program program = new Program("programa1", 12, 12);
         program.getDuration();
         program.setDuration(4);
         double expectedResult = 4;
@@ -37,5 +38,15 @@ public class ProgramTest {
         double result = program.getEnergyConsumption();
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void seeIfPrintRoomWorks() {
+        Program program = new Program("programa1", 12, 12);
+        String result = program.buildProgramString();
+        String expected = "The Program Name is programa1, its Duration is 12.0 hours " +
+                "and its Energy Consumption is12.0.\n";
+        assertEquals(expected, result);
+    }
+
 
 }
