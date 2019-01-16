@@ -108,15 +108,7 @@ class InputUtils {
     EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         EnergyGrid result = new EnergyGrid();
-        if (house == null) {
-            System.out.println("The selected house is not a valid one\n" + "Returning to main menu\n");
-            return null;
-        }
         UtilsUI utilsUI = new UtilsUI();
-        if (house.getEGList().getEnergyGridList().isEmpty()) {
-            System.out.print("Invalid grid list - List is empty\n" + "Returning to main menu\n");
-            return null;
-        }
         boolean activeInput = false;
         System.out.println("Please select one of the existing grids on the selected house: ");
         while (!activeInput) {

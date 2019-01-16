@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.House;
 
 import java.util.List;
 import java.util.Scanner;
@@ -138,5 +138,19 @@ class UtilsUI {
                 System.out.println(invalidOption);
             }
         }
+    }
+
+    boolean validateHouse(House house){
+        if (house == null) {
+            System.out.println("The selected house is not a valid one\n" + "Returning to main menu\n");
+            return true;
+        }return false;
+    }
+
+    boolean validateHouseEGList(House house){
+        if (house.getEGList() == null){
+            System.out.println("Invalid grid list - List is empty\n" + "Returning to main menu\n");
+            return true;
+        }return false;
     }
 }
