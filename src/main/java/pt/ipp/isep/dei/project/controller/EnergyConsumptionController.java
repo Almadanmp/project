@@ -5,8 +5,11 @@ import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
 
 import java.util.List;
 
-public class EnergyConsumptionController {
+/**
+ * Controller class for Energy Consumption UI
+ */
 
+public class EnergyConsumptionController {
 
     /*
      * US705
@@ -152,6 +155,13 @@ public class EnergyConsumptionController {
     public double getDailyHouseConsumptionWaterHeater(House house) {
         return house.getDailyHouseConsumptionPerType(DeviceType.WATER_HEATER);
     }
+
+    /**
+     * Returns the sum of the values of nominal power of all the devices in the input energy grid
+     *
+     * @param grid the grid in which we want to get the total nominal power from
+     * @return the value of the nominal power of all the devices in this grid
+     */
 
     public double getTotalPowerFromGrid(EnergyGrid grid) {
         return grid.getNominalPower();
