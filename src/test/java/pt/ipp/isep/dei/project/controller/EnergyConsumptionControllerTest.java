@@ -490,6 +490,14 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
+    void getHouseDevicesOfGivenType(){
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        Device d = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
+        String result = controller.getWaterHeaterName(d);
+        Assertions.assertEquals("wHeater2", result);
+    }
+
+    @Test
     void configureOneHeaterTestFalse() {
         Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
         d6.setAttributeValue("blowUp", 12);

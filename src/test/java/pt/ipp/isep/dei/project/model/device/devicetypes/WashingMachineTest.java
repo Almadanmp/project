@@ -9,6 +9,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * WashingMachine tests class.
@@ -75,12 +77,12 @@ public class WashingMachineTest {
         listProgram.addProgram(program1);
         WashingMachine washingMachine = new WashingMachine(5, listProgram);
         int expectedResult = 0;
-        Object result = washingMachine.getAttributeValue("capacity"+"programList");
+        Object result = washingMachine.getAttributeValue("capacity" + "programList");
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void getAttributeValuesWithmCapacityEmptyTest() {
+    public void getAttributeValuesWithCapacityEmptyTest() {
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = new ProgramList();
         listProgram.addProgram(program1);
@@ -89,17 +91,6 @@ public class WashingMachineTest {
         Object result = washingMachine.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
     }
-
-    @Test
-    public void setAttributeValueTest() {
-        Program program1 = new Program("programa", 2, 2);
-        ProgramList listProgram = new ProgramList();
-        listProgram.addProgram(program1);
-        WashingMachine washingMachine = new WashingMachine(5, listProgram);
-        boolean result = washingMachine.setAttributeValue("lisboa", 12);
-        assertEquals(false, result);
-    }
-
 
     @Test
     public void setAttributeValueTestCapacity() {
@@ -126,7 +117,7 @@ public class WashingMachineTest {
         //Act
         boolean actualResult = washingMachine.setAttributeValue("capacity", 12.0);
         //Assert
-        assertTrue(actualResult);
+        assertEquals(true,actualResult);
     }
 
     @Test
@@ -156,6 +147,17 @@ public class WashingMachineTest {
     }
 
     @Test
+    public void setAttributeValueTestDefault3() {
+        WashingMachine washingMachine = new WashingMachine(1);
+        washingMachine.setAttributeValue("programList", 5.0);
+        washingMachine.setAttributeValue("capacity", 6.0);
+        Object result = washingMachine.getAttributeValue("capacity");
+        Object expectedResult = 6.0;
+        assertEquals(expectedResult, result);
+    }
+
+
+    @Test
     public void setAttributeValueTestFalse() {
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = new ProgramList();
@@ -171,4 +173,16 @@ public class WashingMachineTest {
         Object result = washingMachine.setAttributeValue("capacity", 5);
         assertEquals(false, result);
     }
+
+    @Test
+    public void setAttributeValueTest() {
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = new ProgramList();
+        listProgram.addProgram(program1);
+        WashingMachine washingMachine = new WashingMachine(5, listProgram);
+        boolean result = washingMachine.setAttributeValue("lisboa", 12);
+        assertEquals(false, result);
+    }
+
+
 }
