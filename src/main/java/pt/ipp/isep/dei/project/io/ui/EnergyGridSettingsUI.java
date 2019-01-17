@@ -101,7 +101,6 @@ class EnergyGridSettingsUI {
     /* USER STORY 135 UI - As an Administrator, I want to add a power source to an energy grid, so that the produced
     energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
-    //FIXME parece-me que esta US não faz uma validação no caso da EnergyGrid não ter uma lista de PowerSource
 
     private void getInputAndCreatePowerSource() {
         if (mEnergyGrid != null) {

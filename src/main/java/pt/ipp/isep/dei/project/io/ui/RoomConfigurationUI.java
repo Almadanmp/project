@@ -77,20 +77,11 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 2: //US210
-                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                    if (getInputDeviceTypeByList(deviceTypeList)) {
-                        return;
-                    }
-                    createDevice();
-                    displayDeviceUS210();
+                    runUS210(deviceTypeList);
                     activeInput = false;
                     break;
                 case 3: //US215
-                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                    this.mDevice = inputUtils.getInputDeviceByList(this.mRoom);
-                    getInputDeviceCharacteristicsUS215();
-                    updateDeviceUS215();
-                    displayDeviceUS215();
+                    runUS215();
                     activeInput = false;
                     break;
                 case 4: //US230
@@ -104,12 +95,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 6: //US253
-                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                    if (getInputTypeFromTypeListByList(typeSensorList)) {
-                        return;
-                    }
-                    getInput253();
-                    updateAndDisplay253();
+                    runUS253(typeSensorList);
                     activeInput = false;
                     break;
                 case 0:
@@ -121,7 +107,45 @@ class RoomConfigurationUI {
         }
     }
 
+    /**
+     * runs US210, created to avoid having several lines in case 2.
+     * @param deviceTypeList
+     */
+    private void runUS210(List<DeviceType> deviceTypeList) {
+        InputUtils inputUtils = new InputUtils();
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        if (getInputDeviceTypeByList(deviceTypeList)) {
+            return;
+        }
+        createDevice();
+        displayDeviceUS210();
+    }
 
+    /**
+     *runs US215, created to avoid having several lines in case 3.
+     */
+    private void runUS215() {
+        InputUtils inputUtils = new InputUtils();
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        this.mDevice = inputUtils.getInputDeviceByList(this.mRoom);
+        getInputDeviceCharacteristicsUS215();
+        updateDeviceUS215();
+        displayDeviceUS215();
+    }
+
+    /**
+     * runs US253, created to avoid having several lines in case 6.
+     * @param typeSensorList
+     */
+    private void runUS253( List<TypeSensor> typeSensorList){
+        InputUtils inputUtils = new InputUtils();
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        if (getInputTypeFromTypeListByList(typeSensorList)) {
+            return;
+        }
+        getInput253();
+        updateAndDisplay253();
+    }
     /**
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
      * <p>
@@ -490,7 +514,7 @@ class RoomConfigurationUI {
     room. - TERESA VARELA*/
 
     private void getRoomNominalPower() {
-        if(this.mRoom != null) {
+        if (this.mRoom != null) {
             double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(this.mRoom);
             System.out.println("This room has a total nominal power of " + roomNominalPower + " kW.\nThis results " +
                     "from the sum of the nominal power of all devices in the room.");
