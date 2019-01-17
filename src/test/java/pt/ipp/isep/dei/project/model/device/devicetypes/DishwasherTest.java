@@ -58,13 +58,19 @@ public class DishwasherTest {
     }
 
     @Test
-    public void getAttributeValuesTest() {
-        Program program1 = new Program("programa",2,2);
-        ProgramList listProgram= new ProgramList();
-        listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1.0,listProgram);
+    public void getAttributeValuesTestCapacity() {
+        Dishwasher dishwasher = new Dishwasher(1.0);
         Double expectedResult = 1.0;
         Object result = dishwasher.getAttributeValue("capacity");
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void getAttributeValuesTestListProgram() {
+        Program program1 = new Program("programa",2,2);
+        ProgramList expectedResult= new ProgramList();
+        expectedResult.addProgram(program1);
+        Dishwasher dishwasher = new Dishwasher(1.0,expectedResult);
+        Object result = dishwasher.getAttributeValue("programList");
         assertEquals(expectedResult, result);
     }
 
@@ -76,6 +82,21 @@ public class DishwasherTest {
         Dishwasher dishwasher = new Dishwasher(1,listProgram);
         boolean result = dishwasher.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
+    }
+
+    @Test
+    public void setAttributeValueTestCapacity() {
+        Dishwasher dishwasher = new Dishwasher(1);
+        dishwasher.setAttributeValue("capacity", 5.0);
+        Object result = dishwasher.getAttributeValue("capacity");
+        assertEquals(5.0, result);
+    }
+    @Test
+    public void setAttributeValueTestDefault() {
+        Dishwasher dishwasher = new Dishwasher(1);
+        dishwasher.setAttributeValue("capacity", 5.0);
+        Object result = dishwasher.getAttributeValue("lisbon");
+        assertEquals(0, result);
     }
 
 
