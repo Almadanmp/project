@@ -11,12 +11,11 @@ import java.util.Scanner;
 
 class EnergyConsumptionUI {
     private EnergyConsumptionController controller;
+    private Scanner returnToConsole = new Scanner(System.in);
 
     EnergyConsumptionUI() {
         this.controller = new EnergyConsumptionController();
     }
-
-    private Scanner returnToConsole = new Scanner(System.in);
 
     void run(House programHouse) {
         InputUtils inputUtils = new InputUtils();
