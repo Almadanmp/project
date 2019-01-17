@@ -9,9 +9,9 @@ public class Fridge implements DeviceSpecs {
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
     private double mAnnualEnergyConsumption;
-    private final String mFreezerCapacityString = "freezerCapacity";
-    private final String mRefrigeratorCapacityString = "refrigeratorCapacity";
-    private final String mAnnualConsumptionString = "annualEnergyConsumption";
+    private static final String mFreezerCapacityString = "freezerCapacity";
+    private static final String mRefrigeratorCapacityString = "refrigeratorCapacity";
+    private static final String mAnnualConsumptionString = "annualEnergyConsumption";
 
     public Fridge() {
     }
