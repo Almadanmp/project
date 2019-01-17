@@ -2,9 +2,9 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.Program;
-import pt.ipp.isep.dei.project.model.Device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.Program;
+import pt.ipp.isep.dei.project.model.device.ProgramList;
 
 import java.util.Scanner;
 
@@ -134,7 +134,7 @@ class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (room.getDeviceList().isEmpty()) {
-            System.out.println("Invalid Device List - List Is Empty\n");
+            System.out.println("Invalid device List - List Is Empty\n");
             return null;
         }
         System.out.println("Please select one of the existing Devices in the selected Room: ");

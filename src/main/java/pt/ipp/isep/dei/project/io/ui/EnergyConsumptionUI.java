@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.List;
 import java.util.Scanner;
@@ -70,7 +70,7 @@ class EnergyConsumptionUI {
         DeviceList selectedDevices = new DeviceList();
         while (true) {
             printSelection(selectedDevices, selectedRooms);
-            System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); \n 2) Select / Deselect a Device; \n 3) Get the Total Nominal Power of the currently selected subset; \n 4) Return to main menu;\n ");
+            System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); \n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; \n 4) Return to main menu;\n ");
             int option;
             option = inputs.readInputNumberAsInt();
             switch (option) {
@@ -224,7 +224,7 @@ class EnergyConsumptionUI {
                 return;
             }
 
-            System.out.println("Device " + d.getName() + " options registered.\n");
+            System.out.println("device " + d.getName() + " options registered.\n");
         }
         double result = controller.getDailyHouseConsumptionWaterHeater(house);
         System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");

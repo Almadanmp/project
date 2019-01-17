@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.Device.devicetypes;
+package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
 

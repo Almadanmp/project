@@ -3,11 +3,11 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.Program;
-import pt.ipp.isep.dei.project.model.Device.ProgramList;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.*;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.Program;
+import pt.ipp.isep.dei.project.model.device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.*;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.Date;
 import java.util.List;
@@ -128,7 +128,7 @@ class RoomConfigurationUI {
     /**
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
      * <p>
-     * Prints Device List in that room.
+     * Prints device List in that room.
      */
     private void printRoomDeviceList() {
         System.out.println("Available Devices in Room " + mRoom.getRoomName());
@@ -146,10 +146,10 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (deviceTypeList.isEmpty()) {
-            System.out.println("Device types list is empty.");
+            System.out.println("device types list is empty.");
             return true;
         }
-        System.out.println("Please select one of the Device Types: ");
+        System.out.println("Please select one of the device Types: ");
         System.out.println(mRoomConfigurationController.buildDeviceTypeListString(deviceTypeList));
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < DeviceType.values().length) {
@@ -171,7 +171,7 @@ class RoomConfigurationUI {
         Scanner scanner = new Scanner(System.in);
 
         // get device name
-        System.out.print("Please, type the new name of the Device: ");
+        System.out.print("Please, type the new name of the device: ");
         mDeviceName = scanner.nextLine();
 
         //get nominal power
@@ -180,7 +180,7 @@ class RoomConfigurationUI {
 
         this.mNominalPower = inputUtils.getInputAsDouble();
 
-        //Device Type
+        //device Type
         if (this.mDeviceType == DeviceType.WATER_HEATER) {
             System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
 
@@ -254,7 +254,7 @@ class RoomConfigurationUI {
             }
             mDevice.setmParentRoom(mRoom);
         } else {
-            System.out.println("Device already exists in the room. Please, try again.\n");
+            System.out.println("device already exists in the room. Please, try again.\n");
         }
     }
 
@@ -269,7 +269,7 @@ class RoomConfigurationUI {
         }
 
         // get device name
-        System.out.print("Please, type the new name of the Device: ");
+        System.out.print("Please, type the new name of the device: ");
         this.mDeviceName = scanner.nextLine();
 
         //get room
@@ -397,32 +397,32 @@ class RoomConfigurationUI {
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
 
             mRoomConfigurationController.configureOneHeater(mDevice, mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
-            System.out.println("Device Configured.\n");
+            System.out.println("device Configured.\n");
 
             // WaterHeater waterHeater = new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
-            //mDevice = new Device(mDeviceName, mNominalPower, waterHeater);
+            //mDevice = new device(mDeviceName, mNominalPower, waterHeater);
         }
         if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
             mRoomConfigurationController.configureOneWashingMachineCapacity(mDevice, mCapacity);
             mRoomConfigurationController.configureOneWashingMachineProgram(mDevice, mProgramList);
-            System.out.println("Device Configured.\n");
+            System.out.println("device Configured.\n");
 
         }
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
 
             mRoomConfigurationController.configureOneDishWasherProgram(mDevice, mProgramList);
             mRoomConfigurationController.configureOneDishWasherCapacity(mDevice, mCapacity);
-            System.out.println("Device Configured.\n");
+            System.out.println("device Configured.\n");
 
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
             mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
-            System.out.println("Device Configured.\n");
+            System.out.println("device Configured.\n");
 
         }
         if (mDevice.getDeviceType() == DeviceType.LAMP) {
             mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
-            System.out.println("Device Configured.\n");
+            System.out.println("device Configured.\n");
 
         }
     }
@@ -434,7 +434,7 @@ class RoomConfigurationUI {
         if (mDevice == null || mRoom == null) {
             return;
         }
-        System.out.println("\nYou have successfully changed the Device name to " + mDeviceName + ". \n"
+        System.out.println("\nYou have successfully changed the device name to " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +

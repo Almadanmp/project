@@ -3,11 +3,11 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.DeviceList;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +34,7 @@ public class RoomTest {
         String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
+                "0) device Name: waterheater, device Type: WATER_HEATER, device Nominal Power: 150.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }
@@ -178,7 +178,7 @@ public class RoomTest {
         String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 230.0\n" +
+                "0) device Name: frigorifico, device Type: FRIDGE, device Nominal Power: 230.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }

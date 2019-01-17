@@ -3,9 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.DeviceList;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.Objects;
 
@@ -178,7 +178,7 @@ public class EnergyGrid implements Metered {
         for (int x = 0; x < r.getDeviceList().size(); x++) {
             if (d == r.getDeviceList().get(x).getDeviceType()) {
                 Device device = r.getDeviceList().get(x);
-                result.append("Device type: ").append(d).append(" | ");
+                result.append("device type: ").append(d).append(" | ");
                 result.append(device.getName()).append(" | ");
                 result.append("Room: ").append(r.getRoomName()).append(" | \n");
             }

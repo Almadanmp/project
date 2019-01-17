@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.Device.devicetypes;
+package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
 
@@ -44,11 +44,11 @@ public class DeviceTypeTest {
         DeviceType fridge = DeviceType.FRIDGE;
         String result = fridge.buildDeviceTypesByIndexString();
         String expectedResult =
-                "0) Device Type: WATER_HEATER;\n" +
-                        "1) Device Type: WASHING_MACHINE;\n" +
-                        "2) Device Type: DISHWASHER;\n" +
-                        "3) Device Type: FRIDGE;\n" +
-                        "4) Device Type: LAMP;\n";
+                "0) device Type: WATER_HEATER;\n" +
+                        "1) device Type: WASHING_MACHINE;\n" +
+                        "2) device Type: DISHWASHER;\n" +
+                        "3) device Type: FRIDGE;\n" +
+                        "4) device Type: LAMP;\n";
         assertEquals(expectedResult,result);
     }
 

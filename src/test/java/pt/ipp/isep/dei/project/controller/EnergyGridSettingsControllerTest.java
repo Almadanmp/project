@@ -3,10 +3,10 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.DeviceList;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.Dishwasher;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.Dishwasher;
+import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -399,9 +399,9 @@ class EnergyGridSettingsControllerTest {
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         String expectedResult = "---------------\n" +
-                "Device type: DISHWASHER | dos | Room: B107 | \n" +
-                "Device type: FRIDGE | uno | Room: B107 | \n" +
-                "Device type: FRIDGE | tres | Room: B107 | \n" +
+                "device type: DISHWASHER | dos | Room: B107 | \n" +
+                "device type: FRIDGE | uno | Room: B107 | \n" +
+                "device type: FRIDGE | tres | Room: B107 | \n" +
                 "---------------\n";
         String result = ctrl.printListOfDevicesOrderedByType(eg);
         assertEquals(expectedResult, result);

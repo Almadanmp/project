@@ -1,14 +1,14 @@
-package pt.ipp.isep.dei.project.model.Device;
+package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Class that represents Device present in a Room.
+ * Class that represents device present in a Room.
  */
 
 public class Device implements Metered {
@@ -71,7 +71,7 @@ public class Device implements Metered {
 
     public String buildDeviceString() {
         String result;
-        result = "The Device Name is " + this.mName + ", and its NominalPower is " +
+        result = "The device Name is " + this.mName + ", and its NominalPower is " +
                 getNominalPower() + " kW.\n";
         return result;
     }

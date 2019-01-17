@@ -3,11 +3,11 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.DeviceList;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.WashingMachine;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
+import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
 
 import static org.testng.Assert.assertEquals;
@@ -229,8 +229,8 @@ class EnergyGridTest {
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
         energyGrid.setRoomList(roomList);
-        String expectedResult = "0) The Device Name is Fridge, and its NominalPower is 21.0 kW.\n" +
-                "1) The Device Name is WashingMachine, and its NominalPower is 30.0 kW.\n";
+        String expectedResult = "0) The device Name is Fridge, and its NominalPower is 21.0 kW.\n" +
+                "1) The device Name is WashingMachine, and its NominalPower is 30.0 kW.\n";
 
         String actualResult = energyGrid.buildDeviceListString();
 

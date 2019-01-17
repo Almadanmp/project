@@ -2,10 +2,10 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.DeviceList;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.WashingMachine;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
 
 import java.util.*;
 
@@ -32,7 +32,7 @@ class DeviceListTest {
         rL1.addReading(r1);
         //Total Power
         double tP1 = 50;
-        //Device List
+        //device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
         deviceL1.addDevice(d1);
@@ -55,7 +55,7 @@ class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Device List
+        //device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device("FridgeTwo", 12, new Fridge());
         Device device2 = new Device("FridgeOne", 12, new Fridge());
@@ -79,7 +79,7 @@ class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Device List
+        //device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
         deviceL1.addDevice(d1);
@@ -102,7 +102,7 @@ class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Device List
+        //device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
         //Act ------------------------------
@@ -124,7 +124,7 @@ class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Device List
+        //device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
         deviceL1.addDevice(d1);
@@ -148,7 +148,7 @@ class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Device List
+        //device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
         deviceL1.addDevice(d1);
@@ -171,7 +171,7 @@ class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Device List
+        //device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device();
         deviceL1.addDevice(d1);
@@ -194,7 +194,7 @@ class DeviceListTest {
         Reading r1;
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
-        //Device List
+        //device List
         DeviceList deviceL1 = new DeviceList();
         //Act ----------------------------------
         boolean result = deviceL1.checkIfListIsValid();
@@ -324,7 +324,7 @@ class DeviceListTest {
         Device d1 = new Device("Fridge", 21, new Fridge());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
-        String expectedResult = "0) The Device Name is Fridge, and its NominalPower is 21.0 kW.\n";
+        String expectedResult = "0) The device Name is Fridge, and its NominalPower is 21.0 kW.\n";
 
         String actualResult = deviceList.buildDevicesString();
 

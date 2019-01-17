@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.Device;
+package pt.ipp.isep.dei.project.model.device;
 
 import java.util.*;
 

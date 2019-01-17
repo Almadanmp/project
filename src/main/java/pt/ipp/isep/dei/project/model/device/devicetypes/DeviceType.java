@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.Device.devicetypes;
+package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 /**
  * Represents the common types of devices that one can find at home.
@@ -14,7 +14,7 @@ public enum DeviceType {
     public String buildDeviceTypesByIndexString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < DeviceType.values().length; i++) {
-            result.append(i + ") ").append("Device Type: ").append(DeviceType.values()[i]).append(";\n");
+            result.append(i + ") ").append("device Type: ").append(DeviceType.values()[i]).append(";\n");
         }
 
         return result.toString();

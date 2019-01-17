@@ -1,7 +1,7 @@
-package pt.ipp.isep.dei.project.model.Device.devicetypes;
+package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.Device.Device;
+import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Device tests class.
+ * device tests class.
  */
 
 public class DeviceTest {
@@ -63,7 +63,7 @@ public class DeviceTest {
         Room room = new Room("kitchen", 1, 1, 1, 1);
         d1.setmParentRoom(room);
         String result = d1.buildDeviceString();
-        String expectedResult = "The Device Name is frigo, and its NominalPower is 150.0 kW.\n";
+        String expectedResult = "The device Name is frigo, and its NominalPower is 150.0 kW.\n";
         assertEquals(expectedResult, result);
     }
 

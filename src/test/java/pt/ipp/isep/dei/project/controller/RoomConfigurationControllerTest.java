@@ -3,12 +3,12 @@ package pt.ipp.isep.dei.project.controller;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.DeviceList;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.WashingMachine;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
+import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -168,11 +168,11 @@ class RoomConfigurationControllerTest {
         list.add(i);
         String result = ctrl.buildDeviceTypeListString(listD);
         String expectedResult =
-                "0) Device Type: WATER_HEATER;\n" +
-                        "1) Device Type: WASHING_MACHINE;\n" +
-                        "2) Device Type: DISHWASHER;\n" +
-                        "3) Device Type: FRIDGE;\n" +
-                        "4) Device Type: LAMP;\n";
+                "0) device Type: WATER_HEATER;\n" +
+                        "1) device Type: WASHING_MACHINE;\n" +
+                        "2) device Type: DISHWASHER;\n" +
+                        "3) device Type: FRIDGE;\n" +
+                        "4) device Type: LAMP;\n";
         assertEquals(expectedResult, result);
     }
 
@@ -189,11 +189,11 @@ class RoomConfigurationControllerTest {
         list.add(i);
         String result = ctrl.buildDeviceTypeListString(listD);
         String expectedResult =
-                "0) Device Type: WATER_HEATER;\n" +
-                        "1) Device Type: WASHING_MACHINE;\n" +
-                        "2) Device Type: DISHWASHER;\n" +
-                        "3) Device Type: FRIDGE;\n" +
-                        "4) Device Type: LAMP;\n";
+                "0) device Type: WATER_HEATER;\n" +
+                        "1) device Type: WASHING_MACHINE;\n" +
+                        "2) device Type: DISHWASHER;\n" +
+                        "3) device Type: FRIDGE;\n" +
+                        "4) device Type: LAMP;\n";
         assertEquals(expectedResult, result);
     }
 
@@ -410,7 +410,7 @@ class RoomConfigurationControllerTest {
         dlist.addDevice(d1);
         room.setDeviceList(dlist);
         String result = ctrl.buildDeviceString(d1);
-        String expectedResult = "The Device Name is frigorifico, and its NominalPower is 200.0 kW.\n";
+        String expectedResult = "The device Name is frigorifico, and its NominalPower is 200.0 kW.\n";
         assertEquals(expectedResult, result);
     }
 
@@ -426,7 +426,7 @@ class RoomConfigurationControllerTest {
         String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) Device Name: frigorifico, Device Type: FRIDGE, Device Nominal Power: 200.0\n" +
+                "0) device Name: frigorifico, device Type: FRIDGE, device Nominal Power: 200.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }
@@ -507,7 +507,7 @@ class RoomConfigurationControllerTest {
         String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) Device Name: daniel, Device Type: WATER_HEATER, Device Nominal Power: 123.0\n" +
+                "0) device Name: daniel, device Type: WATER_HEATER, device Nominal Power: 123.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }
@@ -524,7 +524,7 @@ class RoomConfigurationControllerTest {
         String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
+                "0) device Name: waterheater, device Type: WATER_HEATER, device Nominal Power: 150.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }
@@ -538,7 +538,7 @@ class RoomConfigurationControllerTest {
         String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) Device Name: waterheater, Device Type: WATER_HEATER, Device Nominal Power: 150.0\n" +
+                "0) device Name: waterheater, device Type: WATER_HEATER, device Nominal Power: 150.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }

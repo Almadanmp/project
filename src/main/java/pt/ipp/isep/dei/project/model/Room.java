@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.DeviceList;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -105,9 +105,9 @@ public class Room implements Metered {
         }
         for (int i = 0; i < this.getDeviceList().size(); i++) {
             Device device = this.getDeviceList().get(i);
-            result.append("\n" + i).append(") Device Name: ").append(device.getName());
-            result.append(", Device Type: ").append(device.getDeviceType());
-            result.append(", Device Nominal Power: ").append(device.getNominalPower());
+            result.append("\n" + i).append(") device Name: ").append(device.getName());
+            result.append(", device Type: ").append(device.getDeviceType());
+            result.append(", device Nominal Power: ").append(device.getNominalPower());
         }
         result.append("\n---------------\n");
         return result.toString();

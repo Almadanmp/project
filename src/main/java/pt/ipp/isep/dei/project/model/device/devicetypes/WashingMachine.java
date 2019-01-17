@@ -1,34 +1,34 @@
-package pt.ipp.isep.dei.project.model.Device.devicetypes;
+package pt.ipp.isep.dei.project.model.device.devicetypes;
 
-import pt.ipp.isep.dei.project.model.Device.DeviceSpecs;
-import pt.ipp.isep.dei.project.model.Device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
+import pt.ipp.isep.dei.project.model.device.ProgramList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dishwasher implements DeviceSpecs {
+public class WashingMachine implements DeviceSpecs {
 
     private double mCapacity;
     private ProgramList mProgramList;
 
-    public Dishwasher() {
-        mProgramList = new ProgramList();
+    public WashingMachine(){
+        mProgramList=new ProgramList();
     }
 
-    public Dishwasher(double capacity) {
+    public WashingMachine(double capacity) {
         this.mCapacity = capacity;
-        mProgramList = new ProgramList();
+        mProgramList=new ProgramList();
     }
 
-    public Dishwasher(double capacity, ProgramList programList) {
+    public WashingMachine(double capacity,ProgramList programList) {
         this.mCapacity = capacity;
         mProgramList = programList;
     }
 
 
-
     public DeviceType getType() {
-        return DeviceType.DISHWASHER;
+
+        return DeviceType.WASHING_MACHINE;
     }
 
     public double getConsumption() {
@@ -52,6 +52,7 @@ public class Dishwasher implements DeviceSpecs {
     }
 
 
+
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case "capacity":
@@ -62,6 +63,7 @@ public class Dishwasher implements DeviceSpecs {
                 return 0;
         }
     }
+
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {

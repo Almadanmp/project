@@ -1,11 +1,11 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.Device.Device;
-import pt.ipp.isep.dei.project.model.Device.DeviceList;
-import pt.ipp.isep.dei.project.model.Device.Program;
-import pt.ipp.isep.dei.project.model.Device.ProgramList;
-import pt.ipp.isep.dei.project.model.Device.devicetypes.*;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Program;
+import pt.ipp.isep.dei.project.model.device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.*;
 
 import java.util.*;
 
@@ -228,7 +228,7 @@ public class MainUI {
         roomISEP2.setDeviceList(listDevices);
 
 
-   //     Device device4 = new Device("aquecedor1",23.0, new WaterHeater(100.0,30.0,2.0));
+   //     device device4 = new device("aquecedor1",23.0, new WaterHeater(100.0,30.0,2.0));
         Device device5 = new Device("FridgeOne1", 4, new Fridge());
         Device device6 = new Device("WH Secondary", 3, new WaterHeater(500.0,25.0,10.0));
        // device4.setmParentRoom(roomISEP3);
