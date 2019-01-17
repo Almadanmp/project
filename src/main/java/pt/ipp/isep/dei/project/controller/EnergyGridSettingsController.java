@@ -20,7 +20,7 @@ public class EnergyGridSettingsController {
      * of wanted name.
      */
 
-    public List<Integer> matchGridIndexByString(String gridName, House house) {
+    List<Integer> matchGridIndexByString(String gridName, House house) {
         return house.getEGList().matchGridListElementsByString(gridName);
     }
 
@@ -30,7 +30,7 @@ public class EnergyGridSettingsController {
      * @return from the given list of Energy Grids the grids in the indexes provided by the list, we build a string.
      */
 
-    public String buildEnergyGridByIndexString(List<Integer> indexList, EnergyGridList egList) {
+    String buildEnergyGridByIndexString(List<Integer> indexList, EnergyGridList egList) {
         return egList.buildElementsByIndexString(indexList);
     }
 
@@ -39,7 +39,7 @@ public class EnergyGridSettingsController {
      * @return we build a string from the provided grid.
      */
 
-    public String buildEnergyGridString(EnergyGrid grid) {
+    String buildEnergyGridString(EnergyGrid grid) {
         return grid.buildGridString();
     }
 
@@ -60,7 +60,7 @@ public class EnergyGridSettingsController {
      * @return builds a string of all the individual rooms contained in the house's roomList.
      */
 
-    public String buildHouseRoomListString(House house) {
+    String buildHouseRoomListString(House house) {
         return house.buildRoomListString();
     }
 
@@ -80,7 +80,7 @@ public class EnergyGridSettingsController {
      * the input.
      */
 
-    public List<Integer> getIndexHouseRoomsByString(String input, House house) {
+    List<Integer> getIndexHouseRoomsByString(String input, House house) {
         return house.matchRoomIndexByString(input);
     }
 
@@ -90,7 +90,7 @@ public class EnergyGridSettingsController {
      * @return builds a string of the rooms in the House's RoomList that are contained in the indexes provided by the first parameter.
      */
 
-    public String buildHouseRoomsByIndexString(List<Integer> listOfIndexesOfRoom, House house) {
+    String buildHouseRoomsByIndexString(List<Integer> listOfIndexesOfRoom, House house) {
         return house.buildRoomsByIndexString(listOfIndexesOfRoom);
     }
 
@@ -108,7 +108,7 @@ public class EnergyGridSettingsController {
      * @return builds a string of all the rooms contained in the EnergyGrid's RoomList.
      */
 
-    public String buildGridRoomsString(EnergyGrid energyGrid) {
+    String buildGridRoomsString(EnergyGrid energyGrid) {
         String mStringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringSpacer);
         if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
@@ -213,7 +213,7 @@ public class EnergyGridSettingsController {
      * @param energyGrid - This will be the parameter in which we want to search all the devices
      */
 
-    public String printListOfDevicesOrderedByType(EnergyGrid energyGrid) {
+    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid) {
         if (energyGrid == null) {
             return "This energy grid is invalid\n";
         }
@@ -223,6 +223,6 @@ public class EnergyGridSettingsController {
         if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty() || energyGrid.getListOfRooms() == null) {
             return "This energy grid has no devices on it\n";
         }
-        return energyGrid.printListOfDeviceByType(energyGrid);
+        return energyGrid.buildListOfDeviceByTypeString(energyGrid);
     }
 }

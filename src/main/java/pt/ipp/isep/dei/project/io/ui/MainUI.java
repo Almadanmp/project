@@ -251,10 +251,6 @@ public class MainUI {
         deviceTypeList.add(DeviceType.DISHWASHER);
         deviceTypeList.add(DeviceType.LAMP);
 
-        TypeAreaList emptyTypeAreaList = new TypeAreaList();
-        GeographicAreaList emptyGeographicalAreaList = new GeographicAreaList();
-
-
 
 
 /**

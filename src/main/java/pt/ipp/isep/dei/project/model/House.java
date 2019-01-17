@@ -222,7 +222,7 @@ public class House implements Metered {
         return devicesOfGivenType;
     }
 
-    public List<Device> getAllHouseDevices() {
+    List<Device> getAllHouseDevices() {
         List<Device>  allDevices = new ArrayList<>();
         for (Room r : mRoomList.getRoomList()) {
             allDevices.addAll(r.getDeviceList());

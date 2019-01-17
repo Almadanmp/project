@@ -10,21 +10,21 @@ public class PowerSourceList {
 
     private List<PowerSource> mPowerSourceList;
 
-    public PowerSourceList() {
+    PowerSourceList() {
         this.mPowerSourceList = new ArrayList<>();
     }
 
     /**
      * Checks if a PowerSource is inside the PowerSource List
      *
-     * @param powerSource
-     * @return
+     * @param powerSource power source received
+     * @return true if contains false if not
      */
-    public boolean containsPowerSource(PowerSource powerSource) {
+    boolean containsPowerSource(PowerSource powerSource) {
         return mPowerSourceList.contains(powerSource);
     }
 
-    public boolean addPowerSource(PowerSource powerSource) {
+    boolean addPowerSource(PowerSource powerSource) {
         if (!(mPowerSourceList.contains(powerSource))) {
             mPowerSourceList.add(powerSource);
             return true;
@@ -39,7 +39,7 @@ public class PowerSourceList {
      *
      * @return array of powerSources
      */
-    public PowerSource[] getPowerSources() {
+    PowerSource[] getPowerSources() {
         int sizeOfResultArray = mPowerSourceList.size();
         PowerSource[] result = new PowerSource[sizeOfResultArray];
         for (int i = 0; i < mPowerSourceList.size(); i++) {

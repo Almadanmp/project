@@ -63,7 +63,7 @@ public class ReadingList {
     /**
      * This method returns the most recent value of Reading within a Reading List.
      *
-     * @return
+     * @return most recent reading value
      */
     public double getMostRecentValueOfReading() {
 
@@ -96,8 +96,8 @@ public class ReadingList {
     /**
      * Get before start and after end month
      *
-     * @param dateGiven
-     * @return
+     * @param dateGiven date given
+     * @return date one second before date given
      */
     private Date getDateBeforeStartMonth(Date dateGiven) {
         ReadingList rl1 = new ReadingList();
@@ -486,8 +486,8 @@ public class ReadingList {
     /**
      * This method returns the Maximum Value of the Reading of a Given Day.
      *
-     * @param dateGiven
-     * @return
+     * @param dateGiven date given
+     * @return get maximum value reading in a given day
      */
 
     double getMaximumOfGivenDayValueReadings(Date dateGiven) {
@@ -559,8 +559,8 @@ public class ReadingList {
     /**
      * Method that gives the Average of Readings between two dates (given days)
      *
-     * @param minDate
-     * @param maxDate
+     * @param minDate min date
+     * @param maxDate max date
      * @return average
      */
     public double getAverageReadingsBetweenTwoDates(Date minDate, Date maxDate) {
@@ -587,8 +587,7 @@ public class ReadingList {
     /**
      * Method that gives the Total Value of Readings on a given day (Date).
      *
-     * @param givenDate
-     * @param
+     * @param givenDate given date
      * @return sum
      */
     public double getTotalValueOfReadingOnGivenDay(Date givenDate) {

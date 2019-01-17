@@ -18,11 +18,11 @@ public class PowerSource {
         this.mMaxEnergyStorage = maxEnergyStorage;
     }
 
-    public double getMaxEnergyStorage() {
+    double getMaxEnergyStorage() {
         return mMaxEnergyStorage;
     }
 
-    public double getMaxPowerOutput() {
+    double getMaxPowerOutput() {
         return mMaxPowerOutput;
     }
 

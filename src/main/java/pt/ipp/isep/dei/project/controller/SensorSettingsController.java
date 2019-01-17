@@ -25,7 +25,7 @@ public class SensorSettingsController {
      * @return builds a string with each individual member of the given list.
      */
 
-    public String buildGAListString(GeographicAreaList geoAreaList) {
+    String buildGAListString(GeographicAreaList geoAreaList) {
         return geoAreaList.buildGaWholeListString(geoAreaList);
     }
 
