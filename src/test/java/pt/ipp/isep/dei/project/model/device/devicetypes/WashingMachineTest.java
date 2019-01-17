@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * WashingMachine tests class.
@@ -113,6 +114,19 @@ public class WashingMachineTest {
         WashingMachine washingMachine = new WashingMachine();
         Object result = washingMachine.getAttributeValue("capacity");
         assertEquals(0.0, result);
+    }
+
+    @Test
+    void seeIfSetAttributeValueTestTrueWorks() {
+        //Arrange
+        Program program1 = new Program("programa",2,2);
+        ProgramList listProgram= new ProgramList();
+        listProgram.addProgram(program1);
+        WashingMachine washingMachine = new WashingMachine(1,listProgram);
+        //Act
+        boolean actualResult = washingMachine.setAttributeValue("capacity", 12.0);
+        //Assert
+        assertTrue(actualResult);
     }
 
     @Test

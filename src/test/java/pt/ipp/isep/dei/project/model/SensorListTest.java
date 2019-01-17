@@ -515,6 +515,24 @@ public class SensorListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+    @Test
+    void seeIfSetTypeWorksAssertTrue() {
+        //Arrange
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
+                new Local(12, 31, 21),
+                new GregorianCalendar(118, 10, 4).getTime());
+        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
+                new Local(10, 30, 20),
+                new GregorianCalendar(118, 1, 4).getTime());
+        SensorList lc = new SensorList(new Sensor[]{s1, s2});
+
+        //Act
+        boolean expectedResult = lc.setTypeSensorByString("Chuva", "Movement");
+
+
+        //Assert
+        assertTrue(expectedResult);
+    }
 
 
     @Test

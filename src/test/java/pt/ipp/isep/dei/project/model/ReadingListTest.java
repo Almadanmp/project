@@ -28,6 +28,20 @@ public class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+    @Test
+    public void seeIfGetTotalFromGivenList() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        List<Double> list =new ArrayList<>();
+        list.add(1.0);
+        list.add(2.0);
+
+        //Act
+        double actualResult = readingList.getTotalFromGivenList(list);
+
+        //Assert
+        assertEquals(3.0, actualResult);
+    }
 
     @Test
     public void seeAddReadingIfListHasDifferentReading() {
