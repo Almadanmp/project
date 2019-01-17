@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
@@ -24,6 +25,8 @@ class UtilsUI {
     boolean houseEGListIsNull(House house) {
         return house.getEGList() == null;
     }
+
+    boolean gridIsNull(EnergyGrid energyGrid) {return energyGrid == null;}
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
         return geographicAreaList != null && !geographicAreaList.getGeographicAreaList().isEmpty();
