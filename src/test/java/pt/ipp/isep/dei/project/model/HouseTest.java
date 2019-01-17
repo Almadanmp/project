@@ -468,7 +468,7 @@ class HouseTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0.0;
-        double result = h1.getDailyHouseConsumptionWaterHeaters(DeviceType.WATER_HEATER);
+        double result = h1.getEstimateDeviceConsumption(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }
     @Test
@@ -483,7 +483,7 @@ class HouseTest {
         List<Device> expectedResult = new ArrayList<>();
         expectedResult.add(d2);
         expectedResult.add(d3);
-        List<Device> result = house.getHouseDevicesOfGivenType(DeviceType.WATER_HEATER);
+        List<Device> result = house.getDevicesOfGivenType(DeviceType.WATER_HEATER);
         Assertions.assertEquals(expectedResult, result);
     }
 

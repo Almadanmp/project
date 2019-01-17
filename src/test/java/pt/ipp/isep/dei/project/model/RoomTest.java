@@ -479,7 +479,7 @@ public class RoomTest {
         List<Device> expectedResult = new ArrayList<>();
         expectedResult.add(d2);
         expectedResult.add(d3);
-        List<Device> result = r1.getRoomDevicesOfGivenType(DeviceType.WATER_HEATER);
+        List<Device> result = r1.getDevicesOfGivenType(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }
 
@@ -491,7 +491,7 @@ public class RoomTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         List<Device> expectedResult = new ArrayList<>();
-        List<Device> result = r1.getRoomDevicesOfGivenType(DeviceType.FRIDGE);
+        List<Device> result = r1.getDevicesOfGivenType(DeviceType.FRIDGE);
         assertEquals(expectedResult, result);
     }
 

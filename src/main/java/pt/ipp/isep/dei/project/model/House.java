@@ -214,10 +214,10 @@ public class House implements Metered {
      * @return the list with all devices of a given type
      *
      */
-    public List<Device> getHouseDevicesOfGivenType(DeviceType deviceType) {
+    public List<Device> getDevicesOfGivenType(DeviceType deviceType) {
         List<Device> devicesOfGivenType = new ArrayList<>();
         for (Room r : mRoomList.getRoomList()) {
-            devicesOfGivenType.addAll(r.getRoomDevicesOfGivenType(deviceType));
+            devicesOfGivenType.addAll(r.getDevicesOfGivenType(deviceType));
         }
         return devicesOfGivenType;
     }
@@ -236,7 +236,7 @@ public class House implements Metered {
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyHouseConsumptionWaterHeaters(DeviceType deviceType) {
+    public double getEstimateDeviceConsumption(DeviceType deviceType) {
         double result = 0;
         for (Room r : mRoomList.getRoomList()) {
             result += r.getDailyRoomConsumptionPerType(deviceType);

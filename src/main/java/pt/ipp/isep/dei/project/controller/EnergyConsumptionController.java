@@ -128,7 +128,7 @@ public class EnergyConsumptionController {
      * @return returns a list of water heaters from a house
      */
     public List<Device> getWaterHeaterDeviceList(House house) {
-        return house.getHouseDevicesOfGivenType(DeviceType.WATER_HEATER);
+        return house.getDevicesOfGivenType(DeviceType.WATER_HEATER);
     }
 
     /**
@@ -159,8 +159,8 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return estimate energy consumption on the water heaters
      */
-    public double getDailyHouseConsumptionWaterHeaters(House house) {
-        return house.getDailyHouseConsumptionWaterHeaters(DeviceType.WATER_HEATER);
+    public double getWaterHeaterEstimateConsumption(House house) {
+        return house.getEstimateDeviceConsumption(DeviceType.WATER_HEATER);
     }
 
     /**

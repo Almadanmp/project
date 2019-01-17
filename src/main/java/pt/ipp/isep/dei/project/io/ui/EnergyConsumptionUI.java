@@ -228,7 +228,7 @@ class EnergyConsumptionUI {
             }
             System.out.println("device " + controller.getWaterHeaterName(d) + " options registered. \n");
         }
-        double result = controller.getDailyHouseConsumptionWaterHeaters(house);
+        double result = controller.getWaterHeaterEstimateConsumption(house);
         System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
     }
 
