@@ -30,8 +30,6 @@ class RoomConfigurationUI {
     private double mCapacity;
     private double mLuminousFlux;
     private String mDeviceName;
-    private String mRoomName;
-    private Program mProgram;
     private ProgramList mProgramList = new ProgramList();
     private String mProgramName;
     private double mDuration;
@@ -41,6 +39,8 @@ class RoomConfigurationUI {
     private int mDataYear;
     private int mDataMonth;
     private int mDataDay;
+    private String requestProgramName = "Please, type the new Program name:";
+    private String requestProgramEnergyConsumption = "Please, type the new Program Energy Consumption:";
 
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
@@ -206,11 +206,11 @@ class RoomConfigurationUI {
             System.out.print("Please, type the Capacity in Kg for the Washing Machine: ");
             this.mCapacity = inputUtils.getInputAsDouble();
             Program program;
-            System.out.println("Please, type the new Program name:");
+            System.out.println(requestProgramName);
             this.mProgramName = scanner.nextLine();
             System.out.println("Please, type the new Program duration:");
             this.mDuration = inputUtils.getInputAsDouble();
-            System.out.println("Please, type the new Program Energy Consumption:");
+            System.out.println(requestProgramEnergyConsumption);
             this.mEnergyConsumption = inputUtils.getInputAsDouble();
             program = new Program(mProgramName, mDuration, mEnergyConsumption);
             mProgramList.addProgram(program);
@@ -222,11 +222,11 @@ class RoomConfigurationUI {
             System.out.print("Please, type the Capacity in Kg for the Dishwasher:");
             this.mCapacity = inputUtils.getInputAsDouble();
             Program program;
-            System.out.println("Please, type the new Program name:");
+            System.out.println(requestProgramName);
             this.mProgramName = scanner.nextLine();
             System.out.println("Please, type the new Program duration:");
             this.mDuration = inputUtils.getInputAsDouble();
-            System.out.println("Please, type the new Program Energy Consumption:");
+            System.out.println(requestProgramEnergyConsumption);
             this.mEnergyConsumption = inputUtils.getInputAsDouble();
             program = new Program(mProgramName, mDuration, mEnergyConsumption);
             mProgramList.addProgram(program);
@@ -249,11 +249,11 @@ class RoomConfigurationUI {
         if (mProgramList.getProgramList().size() > 0) {
             System.out.println("Would you like to add a new Program? (y/n)");
             while (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to add a new Program? (y/n)")) {
-                System.out.println("Please, type the new Program name:");
+                System.out.println(requestProgramName);
                 this.mProgramName = scanner.nextLine();
                 System.out.println("Please, type the new Program duration:");
                 this.mDuration = inputUtils.getInputAsDouble();
-                System.out.println("Please, type the new Program Energy Consumption:");
+                System.out.println(requestProgramEnergyConsumption);
                 this.mEnergyConsumption = inputUtils.getInputAsDouble();
                 program1 = new Program(mProgramName, mDuration, mEnergyConsumption);
                 mProgramList.addProgram(program1);
@@ -344,11 +344,11 @@ class RoomConfigurationUI {
                 return;
             }
             mProgramList.removeProgram(program);
-            System.out.println("Please, type the new Program name:");
+            System.out.println(requestProgramName);
             this.mProgramName = scanner.nextLine();
             System.out.println("Please, type the new Program duration:");
             this.mDuration = inputUtils.getInputAsDouble();
-            System.out.println("Please, type the new Program Energy Consumption:");
+            System.out.println(requestProgramEnergyConsumption);
             this.mEnergyConsumption = inputUtils.getInputAsDouble();
             program = new Program(mProgramName, mDuration, mEnergyConsumption);
             mProgramList.addProgram(program);
@@ -365,11 +365,11 @@ class RoomConfigurationUI {
             program = inputUtils.getSelectedProgramFromDevice(mDevice);
             mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(mDevice));
             mProgramList.removeProgram(program);
-            System.out.println("Please, type the new Program name:");
+            System.out.println(requestProgramName);
             this.mProgramName = scanner.nextLine();
             System.out.println("Please, type the new Program duration:");
             this.mDuration = inputUtils.getInputAsDouble();
-            System.out.println("Please, type the new Program Energy Consumption:");
+            System.out.println(requestProgramEnergyConsumption);
             this.mEnergyConsumption = inputUtils.getInputAsDouble();
             program = new Program(mProgramName, mDuration, mEnergyConsumption);
             mProgramList.addProgram(program);
@@ -408,11 +408,11 @@ class RoomConfigurationUI {
             while (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to edit another Program? (y/n)")) {
                 program1 = inputUtils.getSelectedProgramFromDevice(mDevice);
                 mProgramList.removeProgram(program1);
-                System.out.println("Please, type the new Program name:");
+                System.out.println(requestProgramName);
                 this.mProgramName = scanner.nextLine();
                 System.out.println("Please, type the new Program duration:");
                 this.mDuration = inputUtils.getInputAsDouble();
-                System.out.println("Please, type the new Program Energy Consumption:");
+                System.out.println(requestProgramEnergyConsumption);
                 this.mEnergyConsumption = inputUtils.getInputAsDouble();
                 program1 = new Program(mProgramName, mDuration, mEnergyConsumption);
                 mProgramList.addProgram(program1);
@@ -444,20 +444,21 @@ class RoomConfigurationUI {
             System.out.println("device Configured.\n");
 
         }
+        String deviceReconfigurated = "Device reconfigured.\n";
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
             mRoomConfigurationController.configureOneDishWasherProgram(mDevice, mProgramList);
             mRoomConfigurationController.configureOneDishWasherCapacity(mDevice, mCapacity);
-            System.out.println("Device reconfigured.\n");
+            System.out.println(deviceReconfigurated);
 
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
             mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
-            System.out.println("Device reconfigured.\n");
+            System.out.println(deviceReconfigurated);
 
         }
         if (mDevice.getDeviceType() == DeviceType.LAMP) {
             mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
-            System.out.println("Device reconfigured.\n");
+            System.out.println(deviceReconfigurated);
 
         }
     }
