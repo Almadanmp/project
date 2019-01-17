@@ -103,14 +103,8 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 6: //US253
-                    if (typeSensorList.isEmpty()) {
-                        System.out.println("There's no defined types of sensor available yet. Please define one first.");
-                        return;
-                    }
                     this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                    if (getInputTypeFromTypeListByList(typeSensorList)) {
-                        return;
-                    }
+                    if (getInputTypeFromTypeListByList(typeSensorList)) return;
                     getInput253();
                     updateAndDisplay253();
                     activeInput = false;
@@ -517,6 +511,10 @@ class RoomConfigurationUI {
     sensor types, in order to configure it. - ANDRÉ RUA */
 
     private boolean getInputTypeFromTypeListByList(List<TypeSensor> typeSensorList) {
+        if (typeSensorList.isEmpty()) {
+            System.out.println("There's no defined types of sensor available yet. Please define one first.");
+            return true;
+        }
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController ctrl = new RoomConfigurationController();

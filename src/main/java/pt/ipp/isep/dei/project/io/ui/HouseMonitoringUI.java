@@ -49,10 +49,10 @@ public class HouseMonitoringUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if(getInputRoomByList()){
+                    if (getInputRoomByList()) {
                         return;
                     }
-                    if(getInputSensorByList()){
+                    if (getInputSensorByList()) {
                         return;
                     }
                     getInputStartDate();
@@ -62,29 +62,29 @@ public class HouseMonitoringUI {
                     break;
 
                 case 2:
-                    if(getInputRoomByList()){
+                    if (getInputRoomByList()) {
                         return;
                     }
-                    if(getInputSensorByList()){
+                    if (getInputSensorByList()) {
                         return;
                     }
                     updateModel605();
                     displayState605();
                     activeInput = true;
                     break;
-                case 3: //FIXME A US600 620 E 623 TÊM DE VERIFICAR SE A AREA GEOGRAFICA TEM LISTA DE SENSORES VAZIA
+                case 3:
                     updateModel600(programHouse);
-                    displayState600();
+                    displayState600(programHouse);
                     activeInput = true;
                     break;
                 case 4:
-                    getInputStartDate();
-                    updateAndDisplayModelUS620();
+                    getInputStartDateWithValidSensorList(programHouse);
+                    updateAndDisplayModelUS620(programHouse);
                     activeInput = true;
                     break;
                 case 5:
-                    getInputStartDate();
-                    getInputEndDate();
+                    getInputStartDateWithValidSensorList(programHouse);
+                    getInputEndDate623(programHouse);
                     updateAndDisplayUS623(programHouse);
                     activeInput = true;
                     break;
@@ -154,6 +154,14 @@ public class HouseMonitoringUI {
         scan.nextLine();
     }
 
+    private void getInputEndDate623(House house){
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
+            return;
+        }
+        getInputEndDate();
+    }
+
+
     private void getInputEndDate() {
         InputUtils inputUtils = new InputUtils();
         Scanner scan = new Scanner(System.in);
@@ -177,11 +185,18 @@ public class HouseMonitoringUI {
      * includes the house, there is more than one temperature sensor, the nearest one
      * should be used.
      */
-    public void updateModel600(House house) {
+    private void updateModel600(House house) {
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
+            System.out.println("The Geographic Area in which this House is inserted doesn't have a valid Sensor List.");
+            return;
+        }
         mCurrentHouseAreaTemperature = houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, house.getMotherArea());
     }
 
-    public void displayState600() {
+    private void displayState600(House house) {
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
+            return;
+        }
         System.out.println("The current temperature in the house area is: " + mCurrentHouseAreaTemperature + "°C.");
     }
 
@@ -220,10 +235,21 @@ public class HouseMonitoringUI {
                 " was " + this.mMaxTemperature + "°C.");
     }
 
+    private void getInputStartDateWithValidSensorList(House house){
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null){
+            System.out.println("The Geographic Area in which this House is inserted doesn't have a valid Sensor List.");
+            return;
+        }
+        getInputStartDate();
+    }
+
     /**
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
-    private void updateAndDisplayModelUS620() {
+    private void updateAndDisplayModelUS620(House house) {
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null){
+            return;
+        }
         Date mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         double result620 = houseMonitoringcontroller.getTotalRainfallOnGivenDay(mHouse, mStartDate);
         printResultMessageUS620(mHouse, mStartDate, result620);
@@ -243,6 +269,9 @@ public class HouseMonitoringUI {
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
     private void updateAndDisplayUS623(House house) {
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null){
+            return;
+        }
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
         double result623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, initialDate, endDate);
