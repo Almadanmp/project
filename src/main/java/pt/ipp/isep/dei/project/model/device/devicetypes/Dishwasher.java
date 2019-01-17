@@ -55,13 +55,12 @@ public class Dishwasher implements DeviceSpecs {
 
 
     public Object getAttributeValue(String attributeName) {
-        switch (attributeName) {
-            case CAP:
-                return mCapacity;
-            case "programList":
-                return mProgramList;
-            default:
-                return 0;
+        if (attributeName.equals(CAP)) {
+            return mCapacity;
+        } else if (attributeName.equals("programList")) {
+            return mProgramList;
+        } else {
+            return 0;
         }
     }
 
