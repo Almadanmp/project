@@ -212,17 +212,20 @@ class EnergyConsumptionUI {
 
         for (Device d : waterHeaters) {
             System.out.println("Water Heater name: " + d.getName() + ".\n");
-            System.out.println("Please insert the cold water temperature for Water Heater " + d.getName()+":");
+            System.out.println("Please insert the cold water temperature for Water Heater: " + d.getName() + ":");
             double coldWaterTemperature = inputUtils.getInputAsDouble();
-            System.out.println("Please insert the volume of water to heat for Water Heater" + d.getName() +":");
+            System.out.println("Please insert the volume of water to heat for Water Heater: " + d.getName() + ":");
             double volumeWaterToHeat = inputUtils.getInputAsDouble();
-            controller.configureOneHeater(d, coldWaterTemperature, volumeWaterToHeat);
-            System.out.println("Device Configured.\n");
-        }
+            boolean configResult = controller.configureOneHeater(d, coldWaterTemperature, volumeWaterToHeat);
+            if (configResult == false){
+                System.out.println("Error: unable to set parameters. Returning to Main Menu.");
+                return;
+            }
 
+            System.out.println("Device " + d.getName() + " options registered.\n");
+        }
         double result = controller.getDailyHouseConsumptionWaterHeater(house);
         System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
-
     }
 
     // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power

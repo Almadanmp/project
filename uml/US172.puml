@@ -28,7 +28,7 @@ skinparam component {
 
 actor André
 André -> MainUI: getEnergyGridTotalPower(House)
-MainUI -> EnergyConsumptionUI: runEnergyConsumptiionUI(house)
+MainUI -> EnergyConsumptionUI: runEnergyConsumptionUI(house)
 activate EnergyConsumptionUI
 EnergyConsumptionUI -> EnergyConsumptionUI: run US172(house)
 EnergyConsumptionUI -> EnergyConsumptionUI: getInputGrid()

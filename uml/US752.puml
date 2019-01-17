@@ -1,24 +1,43 @@
 @startuml
+
+title US752 \n  I want to estimate the total energy used in heating water in a given day
+
 autonumber
+
+
 actor User
-User -> MainUI: GetTotalEnergyConsumption
-HouseMonitoringUI --> User: Request Date
-User -> HouseMonitoringUI: insert startDate (Date(y-m-d))
-MainUI -> HouseMonitoringUI: create data (Date(y-m-d))
-HouseMonitoringUI -> HouseMonitoringUI: set data (year1, month1, day1)
-User -> HouseMonitoringUI: insert endDate (Date(y-m-d))
-MainUI -> HouseMonitoringUI: create data (Date(y-m-d))
-HouseMonitoringUI -> HouseMonitoringUI: set data (year2, month2, day2)
-HouseMonitoringUI -> HouseMonitoringController: createDate (year1, month1, day1)
-HouseMonitoringController --> HouseMonitoringUI: return initialDate
-HouseMonitoringUI -> HouseMonitoringController: createDate (year2, month2, day2)
-HouseMonitoringController --> HouseMonitoringUI: return endDate
-HouseMonitoringUI -> HouseMonitoringController: getAVGDailyRainfallOnGivenPeriod(mHouse, initialDate, endDate)
-HouseMonitoringController -> GeographicArea: getAvgReadingsFromSensorTypeInGA ("rain", initialDate, endDate)
-GeographicArea -> ReadingList: getAverageReadingsBetweenTwoDays ("rain", initialDate, endDate)
-ReadingList --> GeographicArea: return AVGValuesFromDaysWithReadings
-GeographicArea --> HouseMonitoringController: return AVGReadingsFromSensorType
-HouseMonitoringController -->  HouseMonitoringUI: return AVGReadingsFromSensorType
-HouseMonitoringUI -> HouseMonitoringUI: Build result string
-HouseMonitoringUI -->User: Display result string
+
+User -> MainUI: GetTotalEnergyConsumption(house)
+MainUI -> EnergyConsumptionUI: runEnergyConsumptionUI(house)
+
+activate EnergyConsumptionUI
+EnergyConsumptionUI -> EnergyConsumptionUI: run US752(house)
+
+
+EnergyConsumptionUI -> EnergyConsumptionController: getWaterHeaterDeviceList(house)
+EnergyConsumptionController -> House: getHouseDevicesOfGivenType(deviceType)
+House --> EnergyConsumptionController: return houseDevicesOfGivenType
+EnergyConsumptionController --> EnergyConsumptionUI: return houseDevicesOfGivenType
+
+loop all house water heaters
+    EnergyConsumptionUI -> User: getColdWaterTemp(double)
+    User --> EnergyConsumptionUI: return coldWaterTemp(double)
+    EnergyConsumptionUI -> EnergyConsumptionUI: set coldWaterTemp(double)
+    EnergyConsumptionUI -> User: getVolumeOfWaterToHeat(double)
+    User --> EnergyConsumptionUI: return VolumeOfWaterToHeat(double)
+    EnergyConsumptionUI -> EnergyConsumptionUI: set VolumeOfWaterToHeat(double)
+    EnergyConsumptionUI -> EnergyConsumptionController: configureOneHeater(Device, double, double)
+    EnergyConsumptionController -> Device: setAttributeValue(String, double)
+end
+EnergyConsumptionUI -> EnergyConsumptionController: getDailyHouseConsumptionWaterHeater(house)
+EnergyConsumptionController -> House: getDailyHouseConsumptionPerType(DeviceType)
+House -> Room: getDailyRoomConsumptionPerType(DeviceType)
+Room -> Device: getDailyEstimateConsumption()
+Device --> Room: return dailyEstimateConsumption(double)
+Room --> House: return dailyRoomConsumption(double)
+House --> EnergyConsumptionController: return dailyHouseConsumptionPerType(double)
+EnergyConsumptionController --> EnergyConsumptionUI: return dailyHouseConsumptionOnWaterHeaters(double)
+EnergyConsumptionUI -> EnergyConsumptionUI: Build result string
+EnergyConsumptionUI --> User: Display result string
+deactivate EnergyConsumptionUI
 @enduml
