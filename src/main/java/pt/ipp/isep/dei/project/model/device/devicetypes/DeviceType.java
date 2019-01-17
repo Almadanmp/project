@@ -14,15 +14,13 @@ public enum DeviceType {
     public String buildDeviceTypesByIndexString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < DeviceType.values().length; i++) {
-            result.append(i + ") ").append("device Type: ").append(DeviceType.values()[i]).append(";\n");
+            result.append(i).append(") ").append("device Type: ").append(DeviceType.values()[i]).append(";\n");
         }
 
         return result.toString();
     }
 
     public String buildDeviceTypeString(DeviceType deviceType) {
-        StringBuilder result = new StringBuilder();
-        result.append(deviceType);
-        return result.toString();
+        return String.valueOf(deviceType);
     }
 }

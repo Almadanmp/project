@@ -228,8 +228,9 @@ class GASettingsUI {
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
-    private UtilsUI utils = new UtilsUI();
+
     private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList) {
+        UtilsUI utils = new UtilsUI();
         if (this.mTypeArea == null){
             return null;
         }
@@ -244,6 +245,7 @@ class GASettingsUI {
     }
 
     private void displayGAListByTypeArea(GeographicAreaList geographicAreaList) {
+        UtilsUI utils = new UtilsUI();
         if (this.mGeoAreaList == null || this.mTypeArea == null || (!(utils.geographicAreaListIsValid(geographicAreaList)))){
             return;
         }
@@ -289,6 +291,7 @@ class GASettingsUI {
     }
 
     private void displayStateUS07(GeographicAreaList newGeoListUi) {
+        UtilsUI utils = new UtilsUI();
         if (utils.geographicAreaListIsValid(newGeoListUi) && mMotherAreaName != null && mDaughterAreaName != null) {
             System.out.print("The Geographic Area " + mDaughterAreaName + " is contained in " + mMotherAreaName + "\n");
         }
