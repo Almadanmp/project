@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Lamp implements DeviceSpecs {
     private double mLuminousFlux;
-    static final String FLUX = "LuminousFlux";
+    private static final String FLUX = "LuminousFlux";
 
     public Lamp() {
     }
