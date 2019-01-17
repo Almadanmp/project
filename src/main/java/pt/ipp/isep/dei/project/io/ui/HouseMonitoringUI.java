@@ -127,7 +127,7 @@ public class HouseMonitoringUI {
             return true;
         }
         System.out.println("Please select one of the existing Sensors on the selected Room: ");
-        houseMonitoringcontroller.buildRoomSensorListString(mRoom);
+        System.out.println(houseMonitoringcontroller.buildRoomSensorListString(mRoom));
         int aux = inputUtils.readInputNumberAsInt();
         if (aux >= 0 && aux < mRoom.getmRoomSensorList().getSensorList().size()) {
             this.mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
