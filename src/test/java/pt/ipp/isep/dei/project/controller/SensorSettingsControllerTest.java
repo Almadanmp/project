@@ -3,8 +3,10 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
@@ -16,7 +18,6 @@ import static org.testng.Assert.*;
 class SensorSettingsControllerTest {
 
     //user 005
-
 
 
     //USER STORY 006 TESTS
@@ -258,9 +259,9 @@ class SensorSettingsControllerTest {
         SensorSettingsController ctrl = new SensorSettingsController();
         SensorList sensorList = new SensorList();
         ctrl.setSensorList(sensorList);
-        ctrl.createType("temp","F");
+        ctrl.createType("temp", "F");
         TypeSensor result = ctrl.getType();
-        TypeSensor expectedResult = new TypeSensor("temp","F");
+        TypeSensor expectedResult = new TypeSensor("temp", "F");
         assertEquals(expectedResult, result);
     }
 
@@ -291,12 +292,12 @@ class SensorSettingsControllerTest {
     }
 
     @Test
-    void seeIfGetDateWorks(){
+    void seeIfGetDateWorks() {
         SensorSettingsController ctrl = new SensorSettingsController();
-        ctrl.createDate(2018,12,1);
+        ctrl.createDate(2018, 12, 1);
         Date result = ctrl.getDate();
-        Date expectedResult = new GregorianCalendar(2018,12,1).getTime();
-        assertEquals(expectedResult,result);
+        Date expectedResult = new GregorianCalendar(2018, 12, 1).getTime();
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -323,6 +324,67 @@ class SensorSettingsControllerTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void seeIfTypeListIsPrinted() {
+        //Arrange
+        List<TypeSensor> list1 = new ArrayList<>();
+        TypeSensor t1 = new TypeSensor("rain", "mm");
+        TypeSensor t2 = new TypeSensor("wind", "km/h");
+        list1.add(t1);
+        list1.add(t2);
+        //Act
+        SensorSettingsController ctrl = new SensorSettingsController();
+        String result = "---------------\n" +
+                "0) Name: rain | Units: mm\n" +
+                "1) Name: wind | Units: km/h\n" +
+                "---------------\n";
+        String actualResult = ctrl.buildSensorTypesString(list1);
+        //Assert
+        assertEquals(result, actualResult);
+    }
+
+    @Test
+    void seeIfItSetsNominalPower() {
+        //Arrange
+        List<TypeSensor> list1 = new ArrayList<>();
+        TypeSensor t1 = new TypeSensor("rain", "mm");
+        TypeSensor t2 = new TypeSensor("wind", "km/h");
+        list1.add(t1);
+        list1.add(t2);
+        //Act
+        SensorSettingsController ctrl = new SensorSettingsController();
+        String result = "---------------\n" +
+                "0) Name: rain | Units: mm\n" +
+                "1) Name: wind | Units: km/h\n" +
+                "---------------\n";
+        String actualResult = ctrl.buildSensorTypesString(list1);
+        //Assert
+        assertEquals(result, actualResult);
+    }
+
+    @Test
+    void ensureThatWeCreateARoomSensor() {
+
+        //Arrange
+        SensorSettingsController ctrl = new SensorSettingsController();
+        String nameString = "XV-56D";
+        String typeStr = "Temperatura";
+        String unit = "Celsius";
+        TypeSensor type1 = ctrl.createType(typeStr, unit);
+        int year = 2018;
+        int month = 8;
+        int day = 9;
+        Date date1 = ctrl.createDate(year, month, day);
+        ctrl.createRoomSensor(nameString, type1, date1);
+        TypeSensor t1 = new TypeSensor("Temperature", "Celsius³");
+        Sensor expectedResult = new Sensor("XV-56D", t1, new GregorianCalendar(2018, 8, 9).getTime());
+
+        //Act
+        Sensor actualResult = ctrl.createRoomSensor(nameString, type1, date1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
 
 //    @Test

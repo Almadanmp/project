@@ -13,7 +13,7 @@ public class SensorSettingsController {
     private Sensor mSensor;
     private TypeSensor mSensorType;
 
-    public SensorSettingsController(){
+    public SensorSettingsController() {
         this.mSensorList = new SensorList();
     }
 
@@ -32,16 +32,19 @@ public class SensorSettingsController {
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    public void buildSensorTypesString(List<TypeSensor> typeList) {
-        for(int i = 0; i < typeList.size(); i++) {
-            String name = typeList.get(i).getName();
-            String units = typeList.get(i).getUnits();
-            System.out.println("Sensor Type: " + name + " | " + "Unit of Measurement: " + units + "\n");
+    public String buildSensorTypesString(List<TypeSensor> typeList) {
+        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        for (int i = 0; i < typeList.size(); i++) {
+            TypeSensor aux = typeList.get(i);
+            result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
+            result.append("Units: ").append(aux.getUnits()).append("\n");
         }
+        result.append("---------------\n");
+        return result.toString();
     }
 
+
     /**
-     *
      * @return is the sensorList stored as attribute.
      */
 
@@ -49,8 +52,8 @@ public class SensorSettingsController {
         return this.mSensorList;
     }
 
-    public void setSensorList(SensorList sensorList){
-        this.mSensorList=sensorList;
+    public void setSensorList(SensorList sensorList) {
+        this.mSensorList = sensorList;
     }
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
@@ -60,11 +63,11 @@ public class SensorSettingsController {
      * Method to create a Local with given doubles.
      * Calls the original method from model.
      *
-     * @param latitude is the new local's latitude.
+     * @param latitude  is the new local's latitude.
      * @param longitude is the new local's longitude.
-     * @param altitude is the new local's altitude.
+     * @param altitude  is the new local's altitude.
      * @return is the newly made local.
-     * */
+     */
 
     public Local createLocal(Double latitude, Double longitude, Double altitude) {
         this.mLocal = new Local(latitude, longitude, altitude);
@@ -72,10 +75,9 @@ public class SensorSettingsController {
     }
 
     /**
-     *
-     * @param year is the new date's year.
+     * @param year  is the new date's year.
      * @param month is the new date's month.
-     * @param day is the new date's day.
+     * @param day   is the new date's day.
      * @return is the newly made Date.
      */
 
@@ -85,8 +87,7 @@ public class SensorSettingsController {
     }
 
     /**
-     *
-     * @param sensorType is the new type's name.
+     * @param sensorType  is the new type's name.
      * @param sensorUnits is the new type's units.
      * @return is the newly created sensorType.
      */
@@ -98,11 +99,10 @@ public class SensorSettingsController {
 
 
     /**
-     *
-     * @param name is the new sensor's name.
-     * @param type is the new sensor's type.
+     * @param name  is the new sensor's name.
+     * @param type  is the new sensor's type.
      * @param local is the new sensor's local.
-     * @param date is the new sensor's date of when it started functioning.
+     * @param date  is the new sensor's date of when it started functioning.
      * @return is the newly made sensor.
      */
 
@@ -118,8 +118,7 @@ public class SensorSettingsController {
     }
 
     /**
-     *
-     * @param sensor is the sensor to add to the list.
+     * @param sensor     is the sensor to add to the list.
      * @param sensorList is the list to add the sensor to.
      * @return is true if successfully added, false if not.
      */
@@ -132,11 +131,11 @@ public class SensorSettingsController {
         return true;
     }
 
-    public void setSensor(Sensor sensor){
-        this.mSensor=sensor;
+    public void setSensor(Sensor sensor) {
+        this.mSensor = sensor;
     }
+
     /**
-     *
      * @param geoArea is the area we want to add the sensor to.
      * @return is true if successfully added, false if not.
      */
@@ -146,7 +145,6 @@ public class SensorSettingsController {
     }
 
     /**
-     *
      * @return is currently stored local.
      */
 
@@ -156,7 +154,6 @@ public class SensorSettingsController {
     }
 
     /**
-     *
      * @return is currently stored type.
      */
 
@@ -165,7 +162,6 @@ public class SensorSettingsController {
     }
 
     /**
-     *
      * @return is currently stored date of start of functioning.
      */
 
@@ -174,7 +170,6 @@ public class SensorSettingsController {
     }
 
     /**
-     *
      * @return is currently stored sensor.
      */
 

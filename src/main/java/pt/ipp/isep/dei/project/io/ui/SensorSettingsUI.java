@@ -82,7 +82,7 @@ class SensorSettingsUI {
         if (mTypeSensorList.isEmpty()) {
             System.out.println("There are no Types of Sensor defined.");
         } else {
-            mController.buildSensorTypesString(list);
+            System.out.println(mController.buildSensorTypesString(list));
         }
     }
 
