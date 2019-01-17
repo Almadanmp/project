@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WashingMachine implements DeviceSpecs {
+    private static final String CAPACITY = "capacity";
 
     private double mCapacity;
     private ProgramList mProgramList;
@@ -46,7 +47,7 @@ public class WashingMachine implements DeviceSpecs {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add("capacity");
+        result.add(CAPACITY);
         result.add("programList");
         return result;
     }
@@ -55,7 +56,7 @@ public class WashingMachine implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case "capacity":
+            case CAPACITY:
                 return mCapacity;
             case "programList":
                 return mProgramList;
@@ -66,7 +67,7 @@ public class WashingMachine implements DeviceSpecs {
 
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        if ("capacity".equals(attributeName)) {
+        if (CAPACITY.equals(attributeName)) {
             if (attributeValue instanceof Double) {
                 this.mCapacity = (Double) attributeValue;
                 return true;
