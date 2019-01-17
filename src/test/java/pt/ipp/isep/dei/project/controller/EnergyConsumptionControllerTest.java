@@ -5,6 +5,9 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.devicetypes.WaterHeater;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -316,13 +319,13 @@ class EnergyConsumptionControllerTest {
         deviceList.addDevice(d2);
         deviceList.addDevice(d3);
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        double expectedResult= 86;
+        double expectedResult = 86;
 
         //Act
-        double actualResult = controller.getSelectionNominalPower(grid,deviceList);
+        double actualResult = controller.getSelectionNominalPower(grid, deviceList);
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -332,13 +335,13 @@ class EnergyConsumptionControllerTest {
         EnergyGrid grid = new EnergyGrid();
         DeviceList deviceList = new DeviceList();
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        double expectedResult= 0;
+        double expectedResult = 0;
 
         //Act
-        double actualResult = controller.getSelectionNominalPower(grid,deviceList);
+        double actualResult = controller.getSelectionNominalPower(grid, deviceList);
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
 
@@ -357,8 +360,8 @@ class EnergyConsumptionControllerTest {
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device("fridgeTwo", 12, new Fridge());
-        Device d5 = new Device("wHeater3", 12, new WaterHeater(300.0, 15.0,  0.9));
-        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0,  0.9));
+        Device d5 = new Device("wHeater3", 12, new WaterHeater(300.0, 15.0, 0.9));
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
         r2.addDevice(d4);
         r2.addDevice(d5);
         r2.addDevice(d6);
@@ -407,6 +410,7 @@ class EnergyConsumptionControllerTest {
         double result = controller.getDailyHouseConsumptionWaterHeater(h1);
         assertEquals(expectedResult, result);
     }
+
     @Test
     void getTotalNominalPowerFromGridTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
@@ -428,6 +432,7 @@ class EnergyConsumptionControllerTest {
         double result = controller.getTotalPowerFromGrid(grid1);
         assertEquals(expectedResult, result);
     }
+
     @Test
     void getTotalNominalPowerFromGridNoDevicesTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
@@ -444,5 +449,29 @@ class EnergyConsumptionControllerTest {
         double expectedResult = 0;
         double result = controller.getTotalPowerFromGrid(grid1);
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getWaterHeaterDeviceListTest() {
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        House h1 = new House();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        h1.addRoomToRoomList(r1);
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
+        DeviceList d1 = new DeviceList();
+        d1.addDevice(d6);
+        r1.setDeviceList(d1);
+        List<Device> expecteResult = new ArrayList<>();
+        expecteResult.add(d6);
+        List<Device> result = controller.getWaterHeaterDeviceList(h1);
+    }
+
+    @Test
+    void configureOneHeaterTest() {
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
+        Double attributeValue = 2.0;
+        Double attributeValue2 = 30.0;
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        controller.configureOneHeater(d6, attributeValue, attributeValue2);
     }
 }
