@@ -208,10 +208,12 @@ public class MainUI {
         //Devices
 
         Program program1 = new Program("programa",2,2);
-        ProgramList listProgram= new ProgramList();
+        Program program3 = new Program("programa",2,2);
+       ProgramList listProgram= new ProgramList();
         Program program2 = new Program("programa",2,2);
         listProgram.addProgram(program1);
         listProgram.addProgram(program2);
+        listProgram.addProgram(program3);
         Device device1 = new Device("maquina de lavar",23.0, new WashingMachine(100.0,listProgram));
         Device device2 = new Device("FridgeOne", 4, new Fridge());
         Device device3 = new Device("WH Main", 3, new WaterHeater(500.0,25.0,10.0));

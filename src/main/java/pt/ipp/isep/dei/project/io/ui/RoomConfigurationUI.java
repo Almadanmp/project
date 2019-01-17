@@ -304,6 +304,7 @@ class RoomConfigurationUI {
         Scanner scanner = new Scanner(System.in);
 
         if (mDevice == null || mRoom == null) {
+            System.out.println("There are no devices in this room.");
             return;
         }
 
@@ -316,6 +317,7 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         mDevice.setmParentRoom(mRoom);
+
         mRoomConfigurationController.addDeviceToRoom(mRoom, mDevice);
         //get nominal power
         System.out.print("Please, type the new Nominal Power: ");
@@ -343,6 +345,10 @@ class RoomConfigurationUI {
             Program program;
             program = inputUtils.getSelectedProgramFromDevice(mDevice);
             mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(mDevice));
+            if(program==null||mProgramList==null){
+                System.out.println("There are no programs to edit.");
+                return;
+            }
             mProgramList.removeProgram(program);
             System.out.println("Please, type the new Program name:");
             this.mProgramName = scanner.nextLine();
@@ -424,13 +430,11 @@ class RoomConfigurationUI {
     US215 As an Administrator, I want to edit the configuration of an existing device, so that I
     can reconfigure it.*/
     private void updateDeviceUS215() {
-        mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
-        mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
-
         if (mDevice == null || mRoom == null) {
             return;
         }
-
+        mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
+        mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
 
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
 
@@ -447,20 +451,19 @@ class RoomConfigurationUI {
 
         }
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
-
             mRoomConfigurationController.configureOneDishWasherProgram(mDevice, mProgramList);
             mRoomConfigurationController.configureOneDishWasherCapacity(mDevice, mCapacity);
-            System.out.println("device Configured.\n");
+            System.out.println("Device reconfigured.\n");
 
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
             mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
-            System.out.println("device Configured.\n");
+            System.out.println("Device reconfigured.\n");
 
         }
         if (mDevice.getDeviceType() == DeviceType.LAMP) {
             mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
-            System.out.println("device Configured.\n");
+            System.out.println("Device reconfigured.\n");
 
         }
     }
