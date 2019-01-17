@@ -246,6 +246,24 @@ public class MainUI {
         deviceTypeList.add(DeviceType.DISHWASHER);
         deviceTypeList.add(DeviceType.LAMP);
 
+        // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
+        Room room4 = new Room("room1", 1, 33, 13, 23);
+        Room room5 = new Room("room2", 2, 13, 93, 23);
+        Room room6 = new Room("room3", 2, 73, 43, 23);
+        Room room7 = new Room("room4", 5, 63, 23, 23);
+        RoomList roomList4 = new RoomList();
+        roomList4.addRoom(room4);
+        roomList4.addRoom(room5);
+        House house4 = new House("houseRoomDifEG", "Street", "4230", msPorto, new Local(23, 23, 21), isep, roomList4);
+
+        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
+        energyGrid1.addRoomToAnEnergyGrid(room6);
+        energyGrid1.addRoomToAnEnergyGrid(room7);
+
+        EnergyGridList energyGridList1 = new EnergyGridList();
+        energyGridList1.addGrid(energyGrid1);
+        house4.setEGList(energyGridList1);
+
 
 
 /**
@@ -403,7 +421,7 @@ public class MainUI {
                         break;
                     case 5:
                         EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                        energyGridSettings.run(edificioB);
+                        energyGridSettings.run(house4);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

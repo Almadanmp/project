@@ -155,22 +155,20 @@ class InputUtils {
 
     EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
-        EnergyGrid result = new EnergyGrid();
         UtilsUI utilsUI = new UtilsUI();
-        boolean activeInput = false;
-        System.out.println("Please select one of the existing grids on the selected house: ");
-        while (!activeInput) {
-            System.out.println(controller.buildGridListString(house));
-            int aux = this.readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getEGList().getEnergyGridList().size()) {
-                result = house.getEGList().getEnergyGridList().get(aux);
-                activeInput = true;
-            } else {
-                System.out.println(utilsUI.invalidOption);
-            }
+        if (house.getEGList().getEnergyGridList().isEmpty()) {
+            System.out.println("Invalid Energy Grid List - List Is Empty\n");
+            return null;
         }
-        System.out.println("You have successfully selected a grid.\n");
-        return result;
+        System.out.println("Please select one of the existing grids on the selected house: ");
+        System.out.println(controller.buildGridListString(house));
+        int aux = this.readInputNumberAsInt();
+        if (aux >= 0 && aux < house.getEGList().getEnergyGridList().size()) {
+            return house.getEGList().getEnergyGridList().get(aux);
+        } else {
+            System.out.println(utilsUI.invalidOption);
+            return null;
+        }
     }
 
     boolean yesOrNo(String answer, String question){

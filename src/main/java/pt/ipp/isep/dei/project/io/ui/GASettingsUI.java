@@ -112,8 +112,8 @@ class GASettingsUI {
     }
 
 
-/* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
- classification of geographical areas.*/
+    /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
+     classification of geographical areas.*/
 
     private void getInputUS01(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
@@ -262,7 +262,7 @@ class GASettingsUI {
         }
     }
 
-    /* USER STORY 07 - */
+    /* USER STORY 07 -  Add an existing geographical area to another one. */
     private void getInputMotherGA(GeographicAreaList programGAList) {
         UtilsUI utils = new UtilsUI();
         if (utils.geographicAreaListIsValid(programGAList)) {
