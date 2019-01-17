@@ -167,7 +167,6 @@ class GASettingsUI {
         UtilsUI utils = new UtilsUI();
         if(geographicAreaList == null){
             System.out.println("The geographic area list is invalid.");
-            return;
         }
         else if (utils.typeAreaIsValid(typeAreaList)) {
             this.nameOfGeoArea = readInputString("name");
@@ -370,9 +369,6 @@ class GASettingsUI {
             InputUtils inputUtils = new InputUtils();
             mGeoArea = inputUtils.getGeographicAreaByList(geographicAreaList);
             this.mContainedAreaName = getGAId(mGeoArea);
-        }
-        else {
-            return;
         }
     }
 

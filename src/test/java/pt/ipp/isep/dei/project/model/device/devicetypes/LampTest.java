@@ -45,6 +45,13 @@ public class LampTest {
     }
 
     @Test
+    public void setAttributeValueTestTrue2() {
+        Lamp lamp = new Lamp();
+        boolean result = lamp.setAttributeValue("LuminousFlux", 12.0);
+        assertEquals(true, result);
+    }
+
+    @Test
     public void getObjectAttributeValueTest() {
         Lamp lamp = new Lamp(4);
        double expectedResult = 4;
