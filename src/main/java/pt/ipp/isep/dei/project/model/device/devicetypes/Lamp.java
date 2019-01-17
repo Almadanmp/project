@@ -40,15 +40,10 @@ public class Lamp implements DeviceSpecs {
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        switch (attributeName) {
-            case lFlux:
-                if (attributeValue instanceof Double) {
-                    this.mLuminousFlux = (Double) attributeValue;
-                    return true;
-                }
-                return false;
-            default:
-                return false;
+        if (attributeName.equals(lFlux) && attributeValue instanceof Double) {
+            this.mLuminousFlux = (Double) attributeValue;
+            return true;
         }
+        return false;
     }
 }
