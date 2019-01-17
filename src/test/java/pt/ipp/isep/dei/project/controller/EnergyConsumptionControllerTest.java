@@ -324,7 +324,7 @@ class EnergyConsumptionControllerTest {
         double expectedResult = 86;
 
         //Act
-        double actualResult = controller.getSelectionNominalPower(grid, deviceList);
+        double actualResult = controller.getSelectionNominalPower(deviceList);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -334,13 +334,12 @@ class EnergyConsumptionControllerTest {
     void seeIfGetSumNominalPowerFromListWorksZero() {
         //Arrange
 
-        EnergyGrid grid = new EnergyGrid();
         DeviceList deviceList = new DeviceList();
         EnergyConsumptionController controller = new EnergyConsumptionController();
         double expectedResult = 0;
 
         //Act
-        double actualResult = controller.getSelectionNominalPower(grid, deviceList);
+        double actualResult = controller.getSelectionNominalPower(deviceList);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -469,24 +468,43 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
-    void configureOneHeaterTest() {
+    void configureOneHeaterTestFalse() {
         Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
-        d6.setAttributeValue("coldWaterTemperature", 12);
-        d6.setAttributeValue("volumeOfWaterToHeat", 60);
-        Double attributeValue = 2.0;
+        d6.setAttributeValue("blowUp", 12);
+        d6.setAttributeValue("blabla", 60);
+        Double attributeValue = null;
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
         controller.configureOneHeater(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureOneHeater(d6, attributeValue, attributeValue2);
+        boolean expectedResult = false;
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void configureOneHeaterTestFalse() {
+    void configureOneHeaterTestFalseSecondElement() {
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
+        d6.setAttributeValue("blowUp", 12);
+        d6.setAttributeValue("blabla", 60);
+        Double attributeValue = 2.0;
+        Double attributeValue2 = null;
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        controller.configureOneHeater(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureOneHeater(d6, attributeValue, attributeValue2);
+        boolean expectedResult = false;
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void configureOneHeaterTestTrue() {
         Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
         d6.setAttributeValue("Porto", 12);
         d6.setAttributeValue("Lisboa", 60);
         Double attributeValue = 2.0;
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureOneHeater(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureOneHeater(d6, attributeValue, attributeValue2);
+        boolean expectedResult = true;
+        assertEquals(expectedResult, result);
     }
 }
