@@ -5,13 +5,15 @@ import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lamp implements DeviceSpecs{
+public class Lamp implements DeviceSpecs {
     private double mLuminousFlux;
+    static final String lFlux = "LuminousFlux";
 
-    public Lamp(){}
+    public Lamp() {
+    }
 
-    public Lamp(double luminousFlux){
-        this.mLuminousFlux=luminousFlux;
+    public Lamp(double luminousFlux) {
+        this.mLuminousFlux = luminousFlux;
     }
 
     public DeviceType getType() {
@@ -22,31 +24,29 @@ public class Lamp implements DeviceSpecs{
         return 0.0; //To be implemented later, not yet specified
     }
 
-
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add("LuminousFlux");
+        result.add(lFlux);
         return result;
     }
 
 
     public Object getAttributeValue(String attributeName) {
-        switch (attributeName) {
-            case "LuminousFlux":
-                return mLuminousFlux;
-            default:
-                return 0;
+        if (attributeName.equals(lFlux)) {
+            return mLuminousFlux;
+        } else {
+            return 0;
         }
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
-            case "LuminousFlux":
+            case lFlux:
                 if (attributeValue instanceof Double) {
-                    this.mLuminousFlux= (Double) attributeValue;
+                    this.mLuminousFlux = (Double) attributeValue;
                     return true;
                 }
-                    return false;
+                return false;
             default:
                 return false;
         }
