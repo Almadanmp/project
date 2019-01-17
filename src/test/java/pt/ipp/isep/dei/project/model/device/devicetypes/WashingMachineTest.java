@@ -101,4 +101,13 @@ public class WashingMachineTest {
         Object result = washingMachine.getAttributeValue("lisbon");
         assertEquals(0, result);
     }
+    @Test
+    public void setAttributeValueTestFalse() {
+        Program program1 = new Program("programa",2,2);
+        ProgramList listProgram= new ProgramList();
+        listProgram.addProgram(program1);
+       WashingMachine washingMachine= new WashingMachine(1,listProgram);
+        boolean result = washingMachine.setAttributeValue("lisboa", listProgram);
+        assertEquals(false, result);
+    }
 }

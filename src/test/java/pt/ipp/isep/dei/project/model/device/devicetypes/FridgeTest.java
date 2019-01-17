@@ -35,7 +35,6 @@ public class FridgeTest {
     public void seeIfGetFreezerCapacity() {
         Fridge fridge = new Fridge(4, 5, 1);
         double expectedResult = 3;
-        fridge.getFreezerCapacity();
         fridge.setFreezerCapacity(3);
         double result = fridge.getFreezerCapacity();
         assertEquals(expectedResult, result);
@@ -45,7 +44,6 @@ public class FridgeTest {
     public void seeIfGetRefrigeratorCapacity() {
         Fridge fridge = new Fridge(4, 5, 1);
         double expectedResult = 3;
-        fridge.getRefrigeratorCapacity();
         fridge.setRefrigeratorCapacity(3);
         double result = fridge.getRefrigeratorCapacity();
         assertEquals(expectedResult, result);
@@ -167,4 +165,39 @@ public class FridgeTest {
         boolean result = fridge.setAttributeValue(attribute, 6);
         assertFalse(result);
     }
+    @Test
+    public void seeIfSetAttributemValueInvalid3() {
+        Fridge fridge = new Fridge(4, 5, 1);
+        String attribute = "refrigeratorCapacity";
+        boolean result = fridge.setAttributeValue(attribute, 6);
+        assertFalse(result);
+    }
+    @Test
+    public void seeIfSetAttributemValueInvalid4() {
+        Fridge fridge = new Fridge(4, 5, 1);
+        String attribute = "annualEnergyConsumption";
+        boolean result = fridge.setAttributeValue(attribute, 6);
+        assertFalse(result);
+    } @Test
+    public void seeIfSetAttributemValueInvalid5() {
+        Fridge fridge = new Fridge(4, 5, 1);
+        String attribute = "freezerCapacity";
+        boolean result = fridge.setAttributeValue(attribute, "ljlkhg");
+        assertFalse(result);
+    }
+    @Test
+    public void seeIfSetAttributemValueInvalid6() {
+        Fridge fridge = new Fridge(4, 5, 1);
+        String attribute = "refrigeratorCapacity";
+        boolean result = fridge.setAttributeValue(attribute, "ljlkhg");
+        assertFalse(result);
+    }
+    @Test
+    public void seeIfSetAttributemValueInvalid7() {
+        Fridge fridge = new Fridge(4, 5, 1);
+        String attribute = "annualEnergyConsumption";
+        boolean result = fridge.setAttributeValue(attribute, "ljlkhg");
+        assertFalse(result);
+    }
+
 }

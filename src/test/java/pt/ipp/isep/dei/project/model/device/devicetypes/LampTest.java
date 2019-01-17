@@ -58,6 +58,20 @@ public class LampTest {
         Object result = lamp.setAttributeValue("LuminousFlux",5);
         assertEquals(false, result);
     }
+    @Test
+    public void setAttributeValueTestDefault() {
+        Lamp lamp = new Lamp(1);
+        lamp.setAttributeValue("LuminousFlux", 5.0);
+        Object result = lamp.getAttributeValue("lisbon");
+        assertEquals(0, result);
+    }
 
+    @Test
+    public void setAttributeValueTestTrue() {
+        Lamp lamp = new Lamp(1);
+        lamp.setAttributeValue("LuminousFlux", 5.0);
+        Object result = lamp.getAttributeValue("LuminousFlux");
+        assertEquals(5.0, result);
+    }
 
 }

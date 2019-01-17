@@ -10,6 +10,8 @@ public class Dishwasher implements DeviceSpecs {
 
     private double mCapacity;
     private ProgramList mProgramList;
+    private String mCapacityString = "capacity";
+    private String mProgramListString = "programList";
 
     public Dishwasher() {
         mProgramList = new ProgramList();
@@ -46,8 +48,8 @@ public class Dishwasher implements DeviceSpecs {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add("capacity");
-        result.add("programList");
+        result.add(mCapacityString);
+        result.add(mProgramListString);
         return result;
     }
 

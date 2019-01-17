@@ -248,7 +248,7 @@ class RoomConfigurationUI {
         Scanner scanner = new Scanner(System.in);
         if (mProgramList.getProgramList().size() > 0) {
             System.out.println("Would you like to add a new Program? (y/n)");
-            while (inputUtils.yesOrNo(scanner.nextLine(),"Would you like to add a new Program? (y/n)")) {
+            while (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to add a new Program? (y/n)")) {
                 System.out.println("Please, type the new Program name:");
                 this.mProgramName = scanner.nextLine();
                 System.out.println("Please, type the new Program duration:");
@@ -339,7 +339,7 @@ class RoomConfigurationUI {
             Program program;
             program = inputUtils.getSelectedProgramFromDevice(mDevice);
             mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(mDevice));
-            if(program==null||mProgramList==null){
+            if (program == null || mProgramList == null) {
                 System.out.println("There are no programs to edit.");
                 return;
             }

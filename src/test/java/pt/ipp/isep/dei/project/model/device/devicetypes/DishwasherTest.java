@@ -85,6 +85,16 @@ public class DishwasherTest {
     }
 
     @Test
+    public void setAttributeValueTestFalse() {
+        Program program1 = new Program("programa",2,2);
+        ProgramList listProgram= new ProgramList();
+        listProgram.addProgram(program1);
+        Dishwasher dishwasher = new Dishwasher(1,listProgram);
+        boolean result = dishwasher.setAttributeValue("lisboa", listProgram);
+        assertEquals(false, result);
+    }
+
+    @Test
     public void setAttributeValueTestCapacity() {
         Dishwasher dishwasher = new Dishwasher(1);
         dishwasher.setAttributeValue("capacity", 5.0);
