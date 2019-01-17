@@ -26,9 +26,7 @@ public class WashingMachine implements DeviceSpecs {
         mProgramList = programList;
     }
 
-
     public DeviceType getType() {
-
         return DeviceType.WASHING_MACHINE;
     }
 

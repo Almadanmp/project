@@ -2,7 +2,10 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
@@ -370,7 +373,7 @@ class EnergyConsumptionControllerTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0.0;
-        double result = controller.getDailyHouseConsumptionWaterHeater(h1);
+        double result = controller.getDailyHouseConsumptionWaterHeaters(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -379,7 +382,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House();
         double expectedResult = 0;
-        double result = controller.getDailyHouseConsumptionWaterHeater(h1);
+        double result = controller.getDailyHouseConsumptionWaterHeaters(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -392,7 +395,7 @@ class EnergyConsumptionControllerTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0;
-        double result = controller.getDailyHouseConsumptionWaterHeater(h1);
+        double result = controller.getDailyHouseConsumptionWaterHeaters(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -409,7 +412,7 @@ class EnergyConsumptionControllerTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0;
-        double result = controller.getDailyHouseConsumptionWaterHeater(h1);
+        double result = controller.getDailyHouseConsumptionWaterHeaters(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -494,8 +497,8 @@ class EnergyConsumptionControllerTest {
         Double attributeValue = null;
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureOneHeater(d6, attributeValue, attributeValue2);
-        boolean result = controller.configureOneHeater(d6, attributeValue, attributeValue2);
+        controller.configureHeater(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureHeater(d6, attributeValue, attributeValue2);
         boolean expectedResult = false;
         assertEquals(expectedResult, result);
     }
@@ -508,8 +511,8 @@ class EnergyConsumptionControllerTest {
         Double attributeValue = 2.0;
         Double attributeValue2 = null;
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureOneHeater(d6, attributeValue, attributeValue2);
-        boolean result = controller.configureOneHeater(d6, attributeValue, attributeValue2);
+        controller.configureHeater(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureHeater(d6, attributeValue, attributeValue2);
         boolean expectedResult = false;
         assertEquals(expectedResult, result);
     }
@@ -522,8 +525,16 @@ class EnergyConsumptionControllerTest {
         Double attributeValue = 2.0;
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        boolean result = controller.configureOneHeater(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureHeater(d6, attributeValue, attributeValue2);
         boolean expectedResult = true;
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getWaterHeaterNameTest() {
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
+        String expectedResult = "wHeater4";
+        String result = d6.getName();
         assertEquals(expectedResult, result);
     }
 }

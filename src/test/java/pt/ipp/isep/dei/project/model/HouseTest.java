@@ -468,7 +468,7 @@ class HouseTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0.0;
-        double result = h1.getDailyHouseConsumptionPerType(DeviceType.WATER_HEATER);
+        double result = h1.getDailyHouseConsumptionWaterHeaters(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }
     @Test

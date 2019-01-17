@@ -236,7 +236,7 @@ public class House implements Metered {
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyHouseConsumptionPerType(DeviceType deviceType) {
+    public double getDailyHouseConsumptionWaterHeaters(DeviceType deviceType) {
         double result = 0;
         for (Room r : mRoomList.getRoomList()) {
             result += r.getDailyRoomConsumptionPerType(deviceType);

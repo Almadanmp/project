@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
@@ -120,20 +123,32 @@ public class EnergyConsumptionController {
 
     /**
      * Gets a List of Devices from a House of the Water heater Type
+     *
      * @param house user house
      * @return returns a list of water heaters from a house
      */
-    public List <Device> getWaterHeaterDeviceList(House house){
+    public List<Device> getWaterHeaterDeviceList(House house) {
         return house.getHouseDevicesOfGivenType(DeviceType.WATER_HEATER);
     }
 
     /**
-     * Changes the configuration of the heater on selected attributes
-     * @param device device to change
-     * @param coldWaterTemperature value for the cold water temperature
-     * @param volumeOfWaterToHeat value for the amount of water to heat
+     * gets a water heater name
+     *
+     * @param d water heater (device)
+     * @return name(string)
      */
-    public boolean configureOneHeater(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
+    public String getWaterHeaterName(Device d) {
+        return d.getName();
+    }
+
+    /**
+     * Changes the configuration of the heater on selected attributes
+     *
+     * @param device               device to change
+     * @param coldWaterTemperature value for the cold water temperature
+     * @param volumeOfWaterToHeat  value for the amount of water to heat
+     */
+    public boolean configureHeater(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
         return (device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) &&
                 device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat));
     }
@@ -144,8 +159,8 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return estimate energy consumption on the water heaters
      */
-    public double getDailyHouseConsumptionWaterHeater(House house) {
-        return house.getDailyHouseConsumptionPerType(DeviceType.WATER_HEATER);
+    public double getDailyHouseConsumptionWaterHeaters(House house) {
+        return house.getDailyHouseConsumptionWaterHeaters(DeviceType.WATER_HEATER);
     }
 
     /**

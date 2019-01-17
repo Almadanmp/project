@@ -1,6 +1,6 @@
 @startuml
 
-title US752 \n  I want to estimate the total energy used in heating water in a given day \n \n Loop on receiving data from user for all water heaters on the house.
+title US752 \n  I want to estimate the total energy used in heating water in a given day \n \n Loop on receive data from user for all water heaters on the house.
 
 
 autonumber
@@ -9,15 +9,16 @@ autonumber
 actor User
 
 loop all house water heaters
-    EnergyConsumptionUI -> User: getColdWaterTemp(double)
-    activate EnergyConsumptionUI
-    User --> EnergyConsumptionUI: return coldWaterTemp(double)
+    EnergyConsumptionUI --> User: request cold water temperature
+        activate EnergyConsumptionUI
+    User --> EnergyConsumptionUI: cold water temperature
     EnergyConsumptionUI -> EnergyConsumptionUI: set coldWaterTemp(double)
-    EnergyConsumptionUI -> User: getVolumeOfWaterToHeat(double)
-    User --> EnergyConsumptionUI: return VolumeOfWaterToHeat(double)
+    EnergyConsumptionUI --> User: request volume of water to heat
+    User --> EnergyConsumptionUI: volume of water to heat
     EnergyConsumptionUI -> EnergyConsumptionUI: set VolumeOfWaterToHeat(double)
-    EnergyConsumptionUI -> EnergyConsumptionController: configureOneHeater(Device, double, double)
-    deactivate EnergyConsumptionUI
+    EnergyConsumptionUI -> EnergyConsumptionController: configureHeater(Device, double, double)
+    participant Room
+        deactivate EnergyConsumptionUI
     EnergyConsumptionController -> Device: setAttributeValue(String, double)
 end
 @enduml
