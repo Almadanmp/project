@@ -213,7 +213,7 @@ public class EnergyGridSettingsController {
      * @param energyGrid - This will be the parameter in which we want to search all the devices
      */
 
-    public String printListOfDevicesOrderedByType(EnergyGrid energyGrid) {
+    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid) {
         if (energyGrid == null) {
             return "This energy grid is invalid\n";
         }
@@ -223,6 +223,6 @@ public class EnergyGridSettingsController {
         if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty() || energyGrid.getListOfRooms() == null) {
             return "This energy grid has no devices on it\n";
         }
-        return energyGrid.printListOfDeviceByType(energyGrid);
+        return energyGrid.buildListOfDeviceByTypeString(energyGrid);
     }
 }

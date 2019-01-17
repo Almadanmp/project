@@ -403,7 +403,7 @@ class EnergyGridSettingsControllerTest {
                 "device type: FRIDGE | uno | Room: B107 | \n" +
                 "device type: FRIDGE | tres | Room: B107 | \n" +
                 "---------------\n";
-        String result = ctrl.printListOfDevicesOrderedByType(eg);
+        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
         assertEquals(expectedResult, result);
     }
 
@@ -414,7 +414,7 @@ class EnergyGridSettingsControllerTest {
         RoomList rl = new RoomList();
         eg.setRoomList(rl);
         String expectedResult = "This energy grid has no rooms attached\n";
-        String result = ctrl.printListOfDevicesOrderedByType(eg);
+        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
         assertEquals(expectedResult, result);
     }
 
@@ -429,7 +429,15 @@ class EnergyGridSettingsControllerTest {
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         String expectedResult = "This energy grid has no devices on it\n";
-        String result = ctrl.printListOfDevicesOrderedByType(eg);
+        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
         assertEquals(expectedResult, result);
+    }
+    @Test
+    void ensureThatNullEnergyGridReturnsMessage () {
+        EnergyGrid eg = null;
+        EnergyGridSettingsController energyGridSettingsController = new EnergyGridSettingsController();
+        String expectedResult = "This energy grid is invalid\n";
+        String actualResult = energyGridSettingsController.buildListOfDevicesOrderedByTypeString(eg);
+        assertEquals(expectedResult,actualResult);
     }
 }

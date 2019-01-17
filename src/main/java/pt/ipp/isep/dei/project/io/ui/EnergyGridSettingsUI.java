@@ -171,7 +171,7 @@ class EnergyGridSettingsUI {
     DANIEL OLIVEIRA*/
 
     private void displayUS160(EnergyGrid energyGrid) {
-        System.out.println(mController.printListOfDevicesOrderedByType(energyGrid));
+        System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid));
     }
 
 
