@@ -44,6 +44,14 @@ public class DeviceList {
         return !mDeviceList.isEmpty();
     }
 
+    public double getNominalPower() {
+        double result = 0;
+        for (Device d : this.getDeviceList()) {
+            result += d.getNominalPower();
+        }
+        return result;
+    }
+
     public List<Integer> matchDeviceIndexByString(String input) {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < mDeviceList.size(); i++) {

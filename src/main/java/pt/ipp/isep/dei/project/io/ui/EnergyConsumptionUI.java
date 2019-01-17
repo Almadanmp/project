@@ -91,7 +91,7 @@ class EnergyConsumptionUI {
                     break;
                 case 3:
                     printSelection(selectedDevices, selectedRooms);
-                    printSelectionNominalPower(grid, selectedDevices);
+                    printSelectionNominalPower(selectedDevices);
                     inputs.returnToMenu(returnToConsole);
                     break;
                 case 4:
@@ -186,12 +186,11 @@ class EnergyConsumptionUI {
     /**
      * Prints the value of the totalNominalPower of selected subset.
      *
-     * @param grid            grid we want to select a subset from.
      * @param selectedDevices selected subset.
      */
 
-    private void printSelectionNominalPower(EnergyGrid grid, DeviceList selectedDevices) {
-        double totalPower = controller.getSelectionNominalPower(grid, selectedDevices);
+    private void printSelectionNominalPower(DeviceList selectedDevices) {
+        double totalPower = controller.getSelectionNominalPower(selectedDevices);
         System.out.println("The total nominal power for the selected subset is " + totalPower + " kW/h.");
     }
 

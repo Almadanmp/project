@@ -147,14 +147,6 @@ public class EnergyGrid implements Metered {
         return this.mRoomList.buildRoomsString();
     }
 
-    public double getSelectionNominalPower(DeviceList selectedDevices) {
-        double result = 0;
-        List<Metered> selectedList = new ArrayList<>(selectedDevices.getDeviceList());
-        for (Metered m : selectedList) {
-            result += m.getNominalPower();
-        }
-        return result;
-    }
 
     /**
      * @param energyGrid - parameter which we will use to get all the devices present on all of its rooms.
