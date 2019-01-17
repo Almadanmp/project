@@ -5,6 +5,8 @@ import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Program;
+import pt.ipp.isep.dei.project.model.device.ProgramList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
@@ -583,13 +585,74 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfconfigureOneWashingMachineCapacity() {
+    void seeIfConfigureOneWashingMachineCapacity() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("heater", 150, new WaterHeater());
         Object expectedResult = 0;
-        ctrl.configureOneWashingMachineCapacity(d1,34);
-        d1.setAttributeValue("capacity",3);
+        ctrl.configureOneWashingMachineCapacity(d1, 34);
+        d1.setAttributeValue("capacity", 3);
         Object result = d1.getAttributeValue("capacity");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfConfigureOneWashingMachineProgram() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Object expectedResult = 0;
+        Program program = new Program("rep", 22, 23);
+        ProgramList programList = new ProgramList();
+        programList.addProgram(program);
+        ctrl.configureOneWashingMachineProgram(d1, programList);
+        d1.setAttributeValue("programList", program);
+        Object result = d1.getAttributeValue("programlist");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfConfigureOneDishWasherCapacity() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Object expectedResult = 0;
+        ctrl.configureOneDishWasherCapacity(d1, 34);
+        d1.setAttributeValue("capacity", 3);
+        Object result = d1.getAttributeValue("capacity");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfConfigureOneDishWasherProgram() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Object expectedResult = 0;
+        Program program = new Program("rep", 22, 23);
+        ProgramList programList = new ProgramList();
+        programList.addProgram(program);
+        ctrl.configureOneDishWasherProgram(d1, programList);
+        d1.setAttributeValue("programList", program);
+        Object result = d1.getAttributeValue("programlist");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfConfigureOneFridge() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Object expectedResult = 0;
+        ctrl.configureOneFridge(d1, 34, 9);
+        d1.setAttributeValue("freezerCapacity", 3);
+        Object result = d1.getAttributeValue("freezerCapacity");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfConfigureOneLamp() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Object expectedResult = 0;
+        ctrl.configureOneLamp(d1, 34);
+        d1.setAttributeValue("luminousFlux", 3);
+        Object result = d1.getAttributeValue("luminousFlux");
         assertEquals(expectedResult, result);
     }
 }
