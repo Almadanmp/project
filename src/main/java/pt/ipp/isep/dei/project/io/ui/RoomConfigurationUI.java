@@ -194,7 +194,6 @@ class RoomConfigurationUI {
         // get device name
         System.out.print("Please, type the new name of the device: ");
         mDeviceName = scanner.nextLine();
-
         //get nominal power
         System.out.print("Please, type the new Nominal Power: ");
         InputUtils inputUtils = new InputUtils();
@@ -330,9 +329,7 @@ class RoomConfigurationUI {
         mRoomConfigurationController.removeDeviceFromRoom(mRoom, mDevice);
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        mDevice.setmParentRoom(mRoom);
 
-        mRoomConfigurationController.addDeviceToRoom(mRoom, mDevice);
         //get nominal power
         System.out.print("Please, type the new Nominal Power: ");
 
@@ -463,21 +460,21 @@ class RoomConfigurationUI {
             System.out.println("device Configured.\n");
 
         }
-        String deviceReconfigurated = "Device reconfigured.\n";
+        String deviceReconfigured = "Device reconfigured.\n";
         if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
             mRoomConfigurationController.configureOneDishWasherProgram(mDevice, mProgramList);
             mRoomConfigurationController.configureOneDishWasherCapacity(mDevice, mCapacity);
-            System.out.println(deviceReconfigurated);
+            System.out.println(deviceReconfigured);
 
         }
         if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
             mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
-            System.out.println(deviceReconfigurated);
+            System.out.println(deviceReconfigured);
 
         }
         if (mDevice.getDeviceType() == DeviceType.LAMP) {
             mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
-            System.out.println(deviceReconfigurated);
+            System.out.println(deviceReconfigured);
 
         }
     }
@@ -489,7 +486,8 @@ class RoomConfigurationUI {
         if (mDevice == null || mRoom == null) {
             return;
         }
-        System.out.println("\nYou have successfully changed the device name to " + mDeviceName + ". \n"
+        if (mRoom.addDevice(mDevice)) {
+            System.out.println("\nYou have successfully changed the device name to " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
         if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
             System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
@@ -506,6 +504,11 @@ class RoomConfigurationUI {
         }
         if (mDevice.getDeviceType() == DeviceType.LAMP) {
             System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
+        }
+            mDevice.setmParentRoom(mRoom);
+        } else {
+            mRoom.addDevice(mDevice);
+            System.out.println("device already exists in the room. Please, try again.\n");
         }
     }
 
