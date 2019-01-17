@@ -27,6 +27,25 @@ public class WaterHeaterTest {
         Double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
+    @Test
+    public void getConsumptionWithSetsTest() {
+        WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
+        waterHeater.setAttributeValue("coldWaterTemperature", 12);
+        waterHeater.setAttributeValue("volumeOfWaterToHeat", 300);
+        Double expectedResult = 0.0;
+        Double result = waterHeater.getConsumption();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void getConsumptionWithSetsFailsTest() {
+        WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
+        waterHeater.setAttributeValue("coldWaterTemperature", 30);
+        waterHeater.setAttributeValue("volumeOfWaterToHeat", 200);
+        Double expectedResult = 0.0;
+        Double result = waterHeater.getConsumption();
+        assertEquals(expectedResult, result);
+    }
 
     @Test
     public void getConsumptionTestFails() {

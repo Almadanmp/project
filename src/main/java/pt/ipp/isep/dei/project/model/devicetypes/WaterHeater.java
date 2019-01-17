@@ -7,10 +7,11 @@ import java.util.List;
 
 
 public class WaterHeater implements DeviceSpecs {
-    //private static final String ATTRIBUTE_VOLUME_OF_WATER = "volumeOfWater";
-    //private static final String ATTRIBUTE_HOT_WATER_TEMP = "hotWaterTemperature";
-    //private static final String ATTRIBUTE_COLD_WATER_TEMP = "coldWaterTemperature";
-    //private static final String ATTRIBUTE_PERFORMANCE_RATIO = "performanceRatio";
+    private static final String ATTRIBUTE_VOLUME_OF_WATER = "volumeOfWater";
+    private static final String ATTRIBUTE_HOT_WATER_TEMP = "hotWaterTemperature";
+    private static final String ATTRIBUTE_COLD_WATER_TEMP = "coldWaterTemperature";
+    private static final String ATTRIBUTE_PERFORMANCE_RATIO = "performanceRatio";
+    private static final String ATTRIBUTE_VOLUME_OF_WATER_HEAT = "volumeOfWaterToHeat";
 
     Double mVolumeOfWater;
     Double mHotWaterTemperature;
@@ -64,26 +65,26 @@ public class WaterHeater implements DeviceSpecs {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add("volumeOfWater");
-        result.add("hotWaterTemperature");
-        result.add("performanceRatio");
-        result.add("coldWaterTemperature");
-        result.add("volumeOfWaterToHeat");
+        result.add(ATTRIBUTE_VOLUME_OF_WATER );
+        result.add(ATTRIBUTE_HOT_WATER_TEMP);
+        result.add(ATTRIBUTE_PERFORMANCE_RATIO);
+        result.add(ATTRIBUTE_COLD_WATER_TEMP);
+        result.add(ATTRIBUTE_VOLUME_OF_WATER_HEAT);
 
         return result;
     }
 
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case "volumeOfWater":
+            case ATTRIBUTE_VOLUME_OF_WATER :
                 return mVolumeOfWater;
-            case "hotWaterTemperature":
+            case ATTRIBUTE_HOT_WATER_TEMP:
                 return mHotWaterTemperature;
-            case "performanceRatio":
+            case ATTRIBUTE_PERFORMANCE_RATIO:
                 return mPerformanceRatio;
-            case "coldWaterTemperature":
+            case ATTRIBUTE_COLD_WATER_TEMP:
                 return mColdWaterTemperature;
-            case "volumeOfWaterToHeat":
+            case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
                 return mVolumeOfWaterToHeat;
             default:
                 return 0;
@@ -92,35 +93,35 @@ public class WaterHeater implements DeviceSpecs {
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
-            case "volumeOfWater":
+            case ATTRIBUTE_VOLUME_OF_WATER :
                 if (attributeValue instanceof Double) {
                     this.mVolumeOfWater = (Double) attributeValue;
                     return true;
                 } else {
                     return false;
                 }
-            case "hotWaterTemperature":
+            case ATTRIBUTE_HOT_WATER_TEMP:
                 if (attributeValue instanceof Double) {
                     this.mHotWaterTemperature = (Double) attributeValue;
                     return true;
                 } else {
                     return false;
                 }
-            case "performanceRatio":
+            case ATTRIBUTE_PERFORMANCE_RATIO:
                 if (attributeValue instanceof Double) {
                     this.mPerformanceRatio = (Double) attributeValue;
                     return true;
                 } else {
                     return false;
                 }
-            case "coldWaterTemperature":
+            case ATTRIBUTE_COLD_WATER_TEMP:
                 if (attributeValue instanceof Double) {
                     this.mColdWaterTemperature = (Double) attributeValue;
                     return true;
                 } else {
                     return false;
                 }
-            case "volumeOfWaterToHeat":
+            case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
                 if (attributeValue instanceof Double) {
                     this.mVolumeOfWaterToHeat = (Double) attributeValue;
                     return true;
