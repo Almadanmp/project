@@ -189,13 +189,13 @@ public class Room implements Metered {
      */
 
     public double getCurrentRoomTemperature() {
-        House h = new House();
-        TypeSensor type = new TypeSensor("temperature", "Celsius");
-        Sensor s = new Sensor("sensor1", type, h.getLocation(), new Date());
-        for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
-            s = mRoomSensorList.getSensors()[i];
+        double currentT = 0.0;
+        int i = mRoomSensorList.getSensors().length - 1;
+        if (i >= 0) {
+            Sensor s = mRoomSensorList.getSensors()[i];
+            currentT = s.getReadingList().getMostRecentValueOfReading();
         }
-        return s.getReadingList().getMostRecentValueOfReading();
+        return currentT;
     }
 
     public String buildRoomString() {
