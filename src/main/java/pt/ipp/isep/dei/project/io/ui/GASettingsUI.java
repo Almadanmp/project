@@ -53,7 +53,6 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 3:
-                    getInputTypeAreaByList(programTypeAreaList);
                     getAreaInputUS03(programGAList, programTypeAreaList);
                     updateGeoAreaUS03(programGAList, programTypeAreaList);
                     displayStateUS03(programGAList, programTypeAreaList);
@@ -66,7 +65,6 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 5:
-                    getInputMotherGA(programGAList);
                     getInputDaughterGA(programGAList);
                     updateStateUS07(programGAList);
                     displayStateUS07(programGAList);
@@ -164,6 +162,7 @@ class GASettingsUI {
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
     private void getAreaInputUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
+        getInputTypeAreaByList(typeAreaList);
         UtilsUI utils = new UtilsUI();
         if(geographicAreaList == null){
             System.out.println("The geographic area list is invalid.");
@@ -279,6 +278,7 @@ class GASettingsUI {
         }
     }
     private void getInputDaughterGA(GeographicAreaList programGAList) {
+        getInputMotherGA(programGAList);
         UtilsUI utils = new UtilsUI();
         if (utils.geographicAreaListIsValid(programGAList) && this.mMotherAreaName != null) {
             this.mDaughterAreaName = null;

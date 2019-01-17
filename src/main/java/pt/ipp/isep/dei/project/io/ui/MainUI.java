@@ -230,14 +230,11 @@ public class MainUI {
         roomISEP2.setDeviceList(listDevices);
 
 
-   //     device device4 = new device("aquecedor1",23.0, new WaterHeater(100.0,30.0,2.0));
         Device device5 = new Device("FridgeOne1", 4, new Fridge());
         Device device6 = new Device("WH Secondary", 3, new WaterHeater(500.0,25.0,10.0));
-       // device4.setmParentRoom(roomISEP3);
         device5.setmParentRoom(roomISEP3);
         device6.setmParentRoom(roomISEP3);
         DeviceList listDevices1 = new DeviceList();
-   //     listDevices1.addDevice(device4);
         listDevices1.addDevice(device5);
         listDevices1.addDevice(device6);
         roomISEP3.setDeviceList(listDevices1);
