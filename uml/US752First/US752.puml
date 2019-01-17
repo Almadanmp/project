@@ -56,5 +56,4 @@ EnergyConsumptionUI -> EnergyConsumptionUI: Build result string
 EnergyConsumptionUI --> User: Display result string
 deactivate EnergyConsumptionUI
 deactivate MainUI
-
 @enduml

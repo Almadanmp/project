@@ -41,8 +41,12 @@ public class WaterHeater implements DeviceSpecs {
      * V -> Volume of water to heat (water consumption in litres)
      * Dt -> difference in temperature = hot water temperature – cold watertemperature
      * PR -> performance ratio (typically 0.9)
+     *
      * When the temperature of ColdWater is above the HotWaterTemperature, there will be no energy consumption, so we
      * return 0.
+     *
+     * coldWaterTemperature e volumeOfWaterToHead need to be set before using this method
+     * (returns -1 if they are not set) )
      *
      * @return returns an estimate energy consumption for a water heater
      */
