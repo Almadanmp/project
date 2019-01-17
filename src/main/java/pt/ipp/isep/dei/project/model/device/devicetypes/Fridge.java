@@ -9,9 +9,9 @@ public class Fridge implements DeviceSpecs {
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
     private double mAnnualEnergyConsumption;
-    private static final String mFreezerCapacityString = "freezerCapacity";
-    private static final String mRefrigeratorCapacityString = "refrigeratorCapacity";
-    private static final String mAnnualConsumptionString = "annualEnergyConsumption";
+    private static final String FreezerCapacityString = "freezerCapacity";
+    private static final String RefrigeratorCapacityString = "refrigeratorCapacity";
+    private static final String AnnualConsumptionString = "annualEnergyConsumption";
 
     public Fridge() {
     }
@@ -48,9 +48,9 @@ public class Fridge implements DeviceSpecs {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add(mFreezerCapacityString);
-        result.add(mRefrigeratorCapacityString);
-        result.add(mAnnualConsumptionString);
+        result.add(FreezerCapacityString);
+        result.add(RefrigeratorCapacityString);
+        result.add(AnnualConsumptionString);
 
         return result;
     }
@@ -58,11 +58,11 @@ public class Fridge implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case mFreezerCapacityString:
+            case FreezerCapacityString:
                 return mFreezerCapacity;
-            case mRefrigeratorCapacityString:
+            case RefrigeratorCapacityString:
                 return mRefrigeratorCapacity;
-            case mAnnualConsumptionString:
+            case AnnualConsumptionString:
                 return mAnnualEnergyConsumption;
             default:
                 return 0;
