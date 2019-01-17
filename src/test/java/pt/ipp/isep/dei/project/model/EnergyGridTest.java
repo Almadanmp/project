@@ -259,5 +259,32 @@ class EnergyGridTest {
         int result = energyGrid.hashCode();
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void seeIfDeviceListPrintsByTypeWithNullList() {
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        RoomList rl = new RoomList();
+        DeviceList deviceList = new DeviceList();
+        room1EdC.setDeviceList(deviceList);
+        eg.setRoomList(rl);
+        rl.addRoom(room1EdC);
+        deviceList = null;
+        String expectedResult = "---------------\n"+"---------------\n";
+        String result = eg.buildListOfDeviceByTypeString(eg);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfDeviceListPrintsByTypeWithNullList2() {
+        Room m = null;
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        RoomList rl = new RoomList();
+        rl.addRoom(m);
+        eg.setRoomList(rl);
+        String expectedResult = "---------------\n"+"---------------\n";
+        String result = eg.buildListOfDeviceByTypeString(eg);
+        Assertions.assertEquals(expectedResult, result);
+    }
 }
 
