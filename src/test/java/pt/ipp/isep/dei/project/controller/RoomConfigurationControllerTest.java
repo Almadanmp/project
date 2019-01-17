@@ -588,7 +588,7 @@ class RoomConfigurationControllerTest {
     void seeIfConfigureOneWashingMachineCapacity() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("heater", 150, new WaterHeater());
-        Object expectedResult = 0;
+        Object expectedResult = 0.0;
         ctrl.configureOneWashingMachineCapacity(d1, 34);
         d1.setAttributeValue("capacity", 3);
         Object result = d1.getAttributeValue("capacity");
@@ -599,7 +599,7 @@ class RoomConfigurationControllerTest {
     void seeIfConfigureOneWashingMachineProgram() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("heater", 150, new WaterHeater());
-        Object expectedResult = 0;
+        Object expectedResult = 0.0;
         Program program = new Program("rep", 22, 23);
         ProgramList programList = new ProgramList();
         programList.addProgram(program);
@@ -613,7 +613,7 @@ class RoomConfigurationControllerTest {
     void seeIfConfigureOneDishWasherCapacity() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("heater", 150, new WaterHeater());
-        Object expectedResult = 0;
+        Object expectedResult = 0.0;
         ctrl.configureOneDishWasherCapacity(d1, 34);
         d1.setAttributeValue("capacity", 3);
         Object result = d1.getAttributeValue("capacity");
@@ -624,7 +624,7 @@ class RoomConfigurationControllerTest {
     void seeIfConfigureOneDishWasherProgram() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("heater", 150, new WaterHeater());
-        Object expectedResult = 0;
+        Object expectedResult = 0.0;
         Program program = new Program("rep", 22, 23);
         ProgramList programList = new ProgramList();
         programList.addProgram(program);
@@ -638,7 +638,7 @@ class RoomConfigurationControllerTest {
     void seeIfConfigureOneFridge() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("heater", 150, new WaterHeater());
-        Object expectedResult = 0;
+        Object expectedResult = 0.0;
         ctrl.configureOneFridge(d1, 34, 9);
         d1.setAttributeValue("freezerCapacity", 3);
         Object result = d1.getAttributeValue("freezerCapacity");
@@ -649,7 +649,7 @@ class RoomConfigurationControllerTest {
     void seeIfConfigureOneLamp() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("heater", 150, new WaterHeater());
-        Object expectedResult = 0;
+        Object expectedResult = 0.0;
         ctrl.configureOneLamp(d1, 34);
         d1.setAttributeValue("luminousFlux", 3);
         Object result = d1.getAttributeValue("luminousFlux");

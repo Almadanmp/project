@@ -10,12 +10,12 @@ activate RoomConfigurationUI
 RoomConfigurationUI --> Admin: displayRoomList()
 Admin -> RoomConfigurationUI: Select Room from Room list
 ref over RoomConfigurationUI
-Selecting a Room From the List of Rooms
+Select Room
 end
 RoomConfigurationUI --> Admin:displayDeviceListFromRoom()
 Admin -> RoomConfigurationUI: Select Device from Device list
 ref over RoomConfigurationUI
-Selecting a Device From the selected Room
+Select Device
 end
 RoomConfigurationUI --> Admin: getInputDeviceCharacteristicsUS215()
 Admin-> RoomConfigurationUI: Insert Device settings to configure according to \n Device Type (room, name, nominal Power)
@@ -24,6 +24,7 @@ activate RoomConfigurationController
 RoomConfigurationController -> Device: setDeviceName(), setDeviceNominalPower(),\n removeDeviceFromRoom(),\n addDeviceFromRoom()
 activate Device
 Device -> Device: validate settings
+
 ref over Device
 DeviceType
 end

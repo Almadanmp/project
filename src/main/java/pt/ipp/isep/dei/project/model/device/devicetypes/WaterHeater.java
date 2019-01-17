@@ -51,7 +51,7 @@ public class WaterHeater implements DeviceSpecs {
      * @return returns an estimate energy consumption for a water heater
      */
     public double getConsumption() {
-        if (mColdWaterTemperature > mHotWaterTemperature) {
+        if (mColdWaterTemperature >= mHotWaterTemperature) {
             return 0;
         }
         double specificHeatOfWater = 1.163;
@@ -92,7 +92,7 @@ public class WaterHeater implements DeviceSpecs {
             case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
                 return mVolumeOfWaterToHeat;
             default:
-                return 0;
+                return 0.0;
         }
     }
 
