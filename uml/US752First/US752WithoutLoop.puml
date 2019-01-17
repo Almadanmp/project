@@ -1,0 +1,52 @@
+@startuml
+
+title US752 \n  I want to estimate the total energy used in heating water in a given day
+
+autonumber
+
+
+actor User
+
+User -> MainUI: GetTotalEnergyConsumption(house)
+
+activate MainUI
+MainUI -> EnergyConsumptionUI: runEnergyConsumptionUI(house)
+
+activate EnergyConsumptionUI
+EnergyConsumptionUI -> EnergyConsumptionUI: run US752(house)
+EnergyConsumptionUI -> EnergyConsumptionController: getWaterHeaterDeviceList(house)
+
+activate EnergyConsumptionController
+EnergyConsumptionController -> House: getHouseDevicesOfGivenType(deviceType)
+activate House
+House --> EnergyConsumptionController: return houseDevicesOfGivenType
+deactivate House
+EnergyConsumptionController --> EnergyConsumptionUI: return WaterHeaterDeviceList(
+deactivate EnergyConsumptionController
+
+ref over EnergyConsumptionUI
+Loop on getting values for all water heaters
+end
+
+EnergyConsumptionUI -> EnergyConsumptionController: getDailyHouseConsumptionWaterHeater(house)
+activate EnergyConsumptionController
+EnergyConsumptionController -> House: getDailyHouseConsumptionPerType(DeviceType)
+activate House
+House -> Room: getDailyRoomConsumptionPerType(DeviceType)
+activate Room
+Room -> Device: getDailyEstimateConsumption()
+activate Device
+Device --> Room: return dailyEstimateConsumption(double)
+deactivate Device
+Room --> House: return dailyRoomConsumption(double)
+deactivate Room
+House --> EnergyConsumptionController: return dailyHouseConsumptionPerType(double)
+deactivate House
+EnergyConsumptionController --> EnergyConsumptionUI: return dailyHouseConsumptionOnWaterHeaters(double)
+deactivate EnergyConsumptionController
+EnergyConsumptionUI -> EnergyConsumptionUI: Build result string
+EnergyConsumptionUI --> User: Display result string
+deactivate EnergyConsumptionUI
+deactivate MainUI
+
+@enduml

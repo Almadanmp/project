@@ -6,7 +6,7 @@ autonumber
 
 
 actor User
-
+activate MainUI
 User -> MainUI: GetTotalEnergyConsumption(house)
 
 MainUI -> EnergyConsumptionUI: runEnergyConsumptionUI(house)
@@ -15,30 +15,46 @@ activate EnergyConsumptionUI
 EnergyConsumptionUI -> EnergyConsumptionUI: run US752(house)
 
 EnergyConsumptionUI -> EnergyConsumptionController: getWaterHeaterDeviceList(house)
+activate EnergyConsumptionController
 EnergyConsumptionController -> House: getHouseDevicesOfGivenType(deviceType)
+activate House
 House --> EnergyConsumptionController: return houseDevicesOfGivenType
-EnergyConsumptionController --> EnergyConsumptionUI: return houseDevicesOfGivenType
+deactivate House
+EnergyConsumptionController --> EnergyConsumptionUI: return WaterHeaterDeviceList
+deactivate EnergyConsumptionController
 
 loop all house water heaters
     EnergyConsumptionUI -> User: getColdWaterTemp(double)
+        activate EnergyConsumptionUI
     User --> EnergyConsumptionUI: return coldWaterTemp(double)
     EnergyConsumptionUI -> EnergyConsumptionUI: set coldWaterTemp(double)
     EnergyConsumptionUI -> User: getVolumeOfWaterToHeat(double)
     User --> EnergyConsumptionUI: return VolumeOfWaterToHeat(double)
     EnergyConsumptionUI -> EnergyConsumptionUI: set VolumeOfWaterToHeat(double)
     EnergyConsumptionUI -> EnergyConsumptionController: configureOneHeater(Device, double, double)
+    participant Room
+        deactivate EnergyConsumptionUI
     EnergyConsumptionController -> Device: setAttributeValue(String, double)
 end
 EnergyConsumptionUI -> EnergyConsumptionController: getDailyHouseConsumptionWaterHeater(house)
+activate EnergyConsumptionController
 EnergyConsumptionController -> House: getDailyHouseConsumptionPerType(DeviceType)
+activate House
 House -> Room: getDailyRoomConsumptionPerType(DeviceType)
+activate Room
 Room -> Device: getDailyEstimateConsumption()
+activate Device
 Device --> Room: return dailyEstimateConsumption(double)
+deactivate Device
 Room --> House: return dailyRoomConsumption(double)
+deactivate Room
 House --> EnergyConsumptionController: return dailyHouseConsumptionPerType(double)
+deactivate House
 EnergyConsumptionController --> EnergyConsumptionUI: return dailyHouseConsumptionOnWaterHeaters(double)
+deactivate EnergyConsumptionController
 EnergyConsumptionUI -> EnergyConsumptionUI: Build result string
 EnergyConsumptionUI --> User: Display result string
 deactivate EnergyConsumptionUI
+deactivate MainUI
 
 @enduml
