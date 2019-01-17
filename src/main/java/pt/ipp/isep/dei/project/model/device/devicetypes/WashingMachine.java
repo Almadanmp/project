@@ -66,15 +66,13 @@ public class WashingMachine implements DeviceSpecs {
 
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        switch (attributeName) {
-            case "capacity":
-                if (attributeValue instanceof Double) {
-                    this.mCapacity = (Double) attributeValue;
-                    return true;
-                }
-                    return false;
-            default:
-                return false;
+        if ("capacity".equals(attributeName)) {
+            if (attributeValue instanceof Double) {
+                this.mCapacity = (Double) attributeValue;
+                return true;
+            }
+            return false;
         }
+        return false;
     }
 }
