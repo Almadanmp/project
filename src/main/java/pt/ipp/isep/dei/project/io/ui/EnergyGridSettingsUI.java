@@ -27,7 +27,6 @@ class EnergyGridSettingsUI {
             System.out.println("The selected House has not a valid Energy Grid associated\nReturning to Main Menu");
             return;
         }
-        House mHouse = house;
         InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
@@ -38,37 +37,37 @@ class EnergyGridSettingsUI {
             printEnergyGridMenu();
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
-                case 1:
+                case 1: //US130
                     getInputUS130();
-                    updateHouse(mHouse);
+                    updateHouse(house);
                     activeInput = false;
                     break;
-                case 2:
-                    mEnergyGrid = inputs.getInputGridByList(mHouse);
+                case 2: //US135
+                    mEnergyGrid = inputs.getInputGridByList(house);
                     getInputAndCreatePowerSource();
                     updateGridAndDisplayState();
                     activeInput = false;
                     break;
-                case 3:
-                    mEnergyGrid = inputs.getInputGridByList(mHouse);
+                case 3: //US145
+                    mEnergyGrid = inputs.getInputGridByList(house);
                     displayRoomList(mEnergyGrid);
                     activeInput = false;
                     break;
-                case 4:
-                    Room room = inputs.getHouseRoomByList(mHouse);
-                    mEnergyGrid = inputs.getInputGridByList(mHouse);
-                    updateGridUS147(mEnergyGrid, room);
+                case 4: //US147
+                    Room room = inputs.getHouseRoomByList(house);
+                    EnergyGrid energyGrid = getInputGrid(house, room);
+                    updateGridUS147(energyGrid, room);
                     activeInput = false;
                     break;
-                case 5:
-                    mEnergyGrid = inputs.getInputGridByList(mHouse);
-                    room = inputs.getGridRoomByList(mEnergyGrid);
-                    updateGridUS149(mEnergyGrid, room);
+                case 5: //US149
+                    energyGrid = inputs.getInputGridByList(house);
+                    room = getInputEnergyGridRoom(energyGrid);
+                    updateGridUS149(energyGrid, room);
                     activeInput = false;
                     break;
-                case 6:
-                    mEnergyGrid = inputs.getInputGridByList(mHouse);
-                    displayUS160(mEnergyGrid);
+                case 6: //US160
+                    energyGrid = inputs.getInputGridByList(house);
+                    displayUS160(energyGrid);
                     activeInput = false;
                     break;
                 case 0:
@@ -102,6 +101,7 @@ class EnergyGridSettingsUI {
     /* USER STORY 135 UI - As an Administrator, I want to add a power source to an energy grid, so that the produced
     energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
+    //FIXME parece-me que esta US não faz uma validação no caso da EnergyGrid não ter uma lista de PowerSource
 
     private void getInputAndCreatePowerSource() {
         if (mEnergyGrid != null) {
@@ -114,7 +114,6 @@ class EnergyGridSettingsUI {
             double maxEnergyStorage = scanner.nextDouble();
             mController.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
         }
-        System.out.println("The energy grid you've selected has no rooms attached to it.");
     }
 
     private void updateGridAndDisplayState() {
@@ -133,13 +132,21 @@ class EnergyGridSettingsUI {
     private void displayRoomList(EnergyGrid energyGrid) {
         if (mEnergyGrid != null) {
             System.out.println(mController.buildRoomsString(energyGrid.getListOfRooms()));
-        } else {
-            System.out.println("The energy grid you've selected has no rooms attached to it.");
         }
     }
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
+
+    private EnergyGrid getInputGrid(House house, Room room) {
+        if(room != null) {
+        InputUtils inputUtils = new InputUtils();
+        return inputUtils.getInputGridByList(house);
+        }
+        else {
+            return null;
+        }
+    }
 
     private void updateGridUS147(EnergyGrid grid, Room room) {
         if (room == null || grid == null) {
@@ -155,6 +162,15 @@ class EnergyGridSettingsUI {
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
 
+    private Room getInputEnergyGridRoom(EnergyGrid energyGrid){
+        if(energyGrid != null) {
+            InputUtils inputUtils = new InputUtils();
+            return inputUtils.getGridRoomByList(energyGrid);
+        }
+        else{
+            return null;
+        }
+    }
     private void updateGridUS149(EnergyGrid grid, Room room) {
         if (grid != null && room != null) {
             if (mController.removeRoomFromGrid(grid, room)) {
@@ -171,7 +187,9 @@ class EnergyGridSettingsUI {
     DANIEL OLIVEIRA*/
 
     private void displayUS160(EnergyGrid energyGrid) {
-        System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid));
+        if(energyGrid != null) {
+            System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid));
+        }
     }
 
 
