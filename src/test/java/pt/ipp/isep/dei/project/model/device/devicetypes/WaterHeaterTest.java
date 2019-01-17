@@ -39,7 +39,9 @@ public class WaterHeaterTest {
         WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
         Double coldT = 30.0;
         Double waterV = 200.0;
+        Double hotT = 25.0;
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
+        waterHeater.setAttributeValue("hotWaterTemperature",hotT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
         Double expectedResult = 0.0;
         Double result = waterHeater.getConsumption();

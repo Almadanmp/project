@@ -15,6 +15,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -426,6 +427,40 @@ public class RoomTest {
         Double result = r1.getDailyRoomConsumptionPerType(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void seeIfRemoveRoomDevicesFromDeviceListAssertTrue(){
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
+        r1.addDevice(d2);
+        d2.setmParentRoom(r1);
+        r1.addDevice(d3);
+        d3.setmParentRoom(r1);
+        d2.setAttributeValue("coldWaterTemperature", 5.0);
+        d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
+        d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
+        d3.setAttributeValue("coldWaterTemperature", 1.0);
+
+        assertTrue(r1.removeDevice(d2));
+    }
+    @Test
+    void seeIfRemoveRoomDevicesFromDeviceListAssertFalse(){
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
+        Device d1 = new Device("wHeater4", 12, new WaterHeater(200.0, 30.0, 0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
+        r1.addDevice(d2);
+        d2.setmParentRoom(r1);
+        r1.addDevice(d3);
+        d3.setmParentRoom(r1);
+        d2.setAttributeValue("coldWaterTemperature", 5.0);
+        d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
+        d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
+        d3.setAttributeValue("coldWaterTemperature", 1.0);
+
+        assertFalse(r1.removeDevice(d1));
+}
     @Test
     void getDailyRoomConsumptionPerTypeTest2() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
