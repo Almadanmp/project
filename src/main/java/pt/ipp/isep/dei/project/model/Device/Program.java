@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.devicetypes;
+package pt.ipp.isep.dei.project.model.Device;
 
 public class Program {
     private String mProgramName;

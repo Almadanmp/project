@@ -3,7 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.Device.Device;
+import pt.ipp.isep.dei.project.model.Device.DeviceList;
+import pt.ipp.isep.dei.project.model.Device.devicetypes.DeviceType;
 
 import java.util.Objects;
 

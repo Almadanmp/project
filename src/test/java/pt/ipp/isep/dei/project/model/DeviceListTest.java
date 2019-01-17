@@ -2,8 +2,10 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.devicetypes.WashingMachine;
+import pt.ipp.isep.dei.project.model.Device.Device;
+import pt.ipp.isep.dei.project.model.Device.DeviceList;
+import pt.ipp.isep.dei.project.model.Device.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.Device.devicetypes.WashingMachine;
 
 import java.util.*;
 

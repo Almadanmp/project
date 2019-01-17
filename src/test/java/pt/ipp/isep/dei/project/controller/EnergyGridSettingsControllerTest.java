@@ -3,8 +3,10 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.devicetypes.Dishwasher;
-import pt.ipp.isep.dei.project.model.devicetypes.Fridge;
+import pt.ipp.isep.dei.project.model.Device.Device;
+import pt.ipp.isep.dei.project.model.Device.DeviceList;
+import pt.ipp.isep.dei.project.model.Device.devicetypes.Dishwasher;
+import pt.ipp.isep.dei.project.model.Device.devicetypes.Fridge;
 
 import java.util.ArrayList;
 import java.util.Collections;

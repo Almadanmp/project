@@ -1,6 +1,8 @@
-package pt.ipp.isep.dei.project.model.devicetypes;
+package pt.ipp.isep.dei.project.model.Device.devicetypes;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.Device.Program;
+import pt.ipp.isep.dei.project.model.Device.ProgramList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,24 +10,24 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Dishwasher tests class.
+ * WashingMachine tests class.
  */
 
-public class DishwasherTest {
+public class WashingMachineTest {
 
     @Test
-    public void seeIfGetTypeTest() {
-        Dishwasher dishwasher = new Dishwasher();
-        DeviceType expectedResult = DeviceType.DISHWASHER;
-        DeviceType result = dishwasher.getType();
+    public void getTypeTest() {
+        WashingMachine washingMachine = new WashingMachine();
+        DeviceType expectedResult = DeviceType.WASHING_MACHINE;
+        DeviceType result = washingMachine.getType();
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void seeIfGetConsumptionTest() {
-        Dishwasher dishwasher = new Dishwasher();
+    public void getConsumptionTest() {
+        WashingMachine washingMachine = new WashingMachine();
         double expectedResult = 0;
-        double result = dishwasher.getConsumption();
+        double result = washingMachine.getConsumption();
         assertEquals(expectedResult, result);
     }
 
@@ -34,11 +36,10 @@ public class DishwasherTest {
         Program program1 = new Program("programa",2,2);
         ProgramList listProgram= new ProgramList();
         listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(4,listProgram);
+        WashingMachine washingMachine = new WashingMachine(5,listProgram);
         double expectedResult = 6;
-        dishwasher.getCapacity();
-        dishwasher.setCapacity(6);
-        double result = dishwasher.getCapacity();
+        washingMachine.setCapacity(6);
+        double result = washingMachine.getCapacity();
         assertEquals(expectedResult, result);
     }
 
@@ -47,11 +48,11 @@ public class DishwasherTest {
         Program program1 = new Program("programa",2,2);
         ProgramList listProgram= new ProgramList();
         listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1,listProgram);
+        WashingMachine washingMachine = new WashingMachine(5,listProgram);
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("capacity");
         expectedResult.add("programList");
-        List<String> result = dishwasher.getAttributeNames();
+        List<String> result = washingMachine.getAttributeNames();
         assertEquals(expectedResult, result);
     }
 
@@ -60,9 +61,9 @@ public class DishwasherTest {
         Program program1 = new Program("programa",2,2);
         ProgramList listProgram= new ProgramList();
         listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1.0,listProgram);
-        Double expectedResult = 1.0;
-        Object result = dishwasher.getAttributeValue("capacity");
+        WashingMachine washingMachine = new WashingMachine(5,listProgram);
+        double expectedResult = 5.0;
+        Object result = washingMachine.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
     }
 
@@ -71,10 +72,8 @@ public class DishwasherTest {
         Program program1 = new Program("programa",2,2);
         ProgramList listProgram= new ProgramList();
         listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1,listProgram);
-        boolean result = dishwasher.setAttributeValue("lisboa", 12);
+        WashingMachine washingMachine = new WashingMachine(5,listProgram);
+        boolean result = washingMachine.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
     }
-
-
 }

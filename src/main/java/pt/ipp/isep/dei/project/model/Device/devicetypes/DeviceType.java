@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.devicetypes;
+package pt.ipp.isep.dei.project.model.Device.devicetypes;
 
 /**
  * Represents the common types of devices that one can find at home.

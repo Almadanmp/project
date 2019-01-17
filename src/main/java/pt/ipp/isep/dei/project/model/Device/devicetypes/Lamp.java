@@ -1,7 +1,6 @@
-package pt.ipp.isep.dei.project.model.devicetypes;
+package pt.ipp.isep.dei.project.model.Device.devicetypes;
 
-import pt.ipp.isep.dei.project.model.DeviceSpecs;
-import pt.ipp.isep.dei.project.model.Metered;
+import pt.ipp.isep.dei.project.model.Device.DeviceSpecs;
 
 import java.util.ArrayList;
 import java.util.List;

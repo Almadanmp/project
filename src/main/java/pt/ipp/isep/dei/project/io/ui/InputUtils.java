@@ -2,8 +2,9 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.devicetypes.Program;
-import pt.ipp.isep.dei.project.model.devicetypes.ProgramList;
+import pt.ipp.isep.dei.project.model.Device.Device;
+import pt.ipp.isep.dei.project.model.Device.Program;
+import pt.ipp.isep.dei.project.model.Device.ProgramList;
 
 import java.util.Scanner;
 

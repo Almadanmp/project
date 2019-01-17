@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.Device;
 
 import java.util.*;
 
@@ -20,7 +20,7 @@ public class DeviceList {
         return this.mDeviceList;
     }
 
-    boolean containsDevice(Device device) {
+    public boolean containsDevice(Device device) {
         return mDeviceList.contains(device);
     }
 
@@ -40,7 +40,7 @@ public class DeviceList {
         return false;
     }
 
-    boolean checkIfListIsValid() {
+    public boolean checkIfListIsValid() {
         return !mDeviceList.isEmpty();
     }
 

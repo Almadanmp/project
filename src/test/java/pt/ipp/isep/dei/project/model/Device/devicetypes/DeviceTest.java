@@ -1,7 +1,7 @@
-package pt.ipp.isep.dei.project.model.devicetypes;
+package pt.ipp.isep.dei.project.model.Device.devicetypes;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.Device;
+import pt.ipp.isep.dei.project.model.Device.Device;
 import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.List;

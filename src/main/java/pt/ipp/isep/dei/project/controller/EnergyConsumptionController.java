@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.Device.Device;
+import pt.ipp.isep.dei.project.model.Device.DeviceList;
+import pt.ipp.isep.dei.project.model.Device.devicetypes.DeviceType;
 
 import java.util.List;
 
@@ -132,12 +134,9 @@ public class EnergyConsumptionController {
      * @param coldWaterTemperature value for the cold water temperature
      * @param volumeOfWaterToHeat value for the amount of water to heat
      */
-    public boolean configureOneHeater(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat){
-       if( device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) == false ||
-           device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat) == false) {
-           return false;
-        }
-        return true;
+    public boolean configureOneHeater(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
+        return (device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) &&
+                device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat));
     }
 
     /**

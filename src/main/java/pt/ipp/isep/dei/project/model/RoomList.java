@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.model.Device.Device;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

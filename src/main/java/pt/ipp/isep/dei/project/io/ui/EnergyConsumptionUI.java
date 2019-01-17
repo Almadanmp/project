@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.Device.Device;
+import pt.ipp.isep.dei.project.model.Device.DeviceList;
 
 import java.util.List;
 import java.util.Scanner;
@@ -217,7 +219,7 @@ class EnergyConsumptionUI {
             System.out.println("Please insert the volume of water to heat for Water Heater: " + d.getName() + ":");
             double volumeWaterToHeat = inputUtils.getInputAsDouble();
             boolean configResult = controller.configureOneHeater(d, coldWaterTemperature, volumeWaterToHeat);
-            if (configResult == false){
+            if (!configResult){
                 System.out.println("Error: unable to set parameters. Returning to Main Menu.");
                 return;
             }
