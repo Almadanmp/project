@@ -19,7 +19,8 @@ class EnergyGridSettingsUI {
         InputUtils inputs = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         if (utilsUI.houseIsNull(house) ) {
-            System.out.println("Invalid House selected\nReturning to Main Menu");
+            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
+                    " your house first through the main menu.");
             return;
         }
         if (utilsUI.houseEGListIsNull(house)){

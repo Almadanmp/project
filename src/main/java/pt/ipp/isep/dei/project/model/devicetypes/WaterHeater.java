@@ -43,11 +43,12 @@ public class WaterHeater implements DeviceSpecs {
      * PR -> performance ratio (typically 0.9)
      * When the temperature of ColdWater is above the HotWaterTemperature, there will be no energy consumption, so we
      * return 0.
+     *
      * @return returns an estimate energy consumption for a water heater
      */
     public double getConsumption() {
         if (mColdWaterTemperature > mHotWaterTemperature) {
-            return 0;
+            return 0.0;
         }
         double specificHeatOfWater = 1.163;
         double dT = mHotWaterTemperature - mColdWaterTemperature;
@@ -65,7 +66,7 @@ public class WaterHeater implements DeviceSpecs {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add(ATTRIBUTE_VOLUME_OF_WATER );
+        result.add(ATTRIBUTE_VOLUME_OF_WATER);
         result.add(ATTRIBUTE_HOT_WATER_TEMP);
         result.add(ATTRIBUTE_PERFORMANCE_RATIO);
         result.add(ATTRIBUTE_COLD_WATER_TEMP);
@@ -76,7 +77,7 @@ public class WaterHeater implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case ATTRIBUTE_VOLUME_OF_WATER :
+            case ATTRIBUTE_VOLUME_OF_WATER:
                 return mVolumeOfWater;
             case ATTRIBUTE_HOT_WATER_TEMP:
                 return mHotWaterTemperature;
@@ -93,7 +94,7 @@ public class WaterHeater implements DeviceSpecs {
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
-            case ATTRIBUTE_VOLUME_OF_WATER :
+            case ATTRIBUTE_VOLUME_OF_WATER:
                 if (attributeValue instanceof Double) {
                     this.mVolumeOfWater = (Double) attributeValue;
                     return true;

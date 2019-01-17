@@ -45,7 +45,8 @@ class RoomConfigurationUI {
 
     void run(House house, List<DeviceType> deviceTypeList, List<TypeSensor> typeSensorList) {
         if (house == null) {
-            System.out.println("Please create a House before you continue.");
+            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
+                    " your house first through the main menu");
             return;
         }
         this.mHouse = house;
