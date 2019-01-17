@@ -48,11 +48,11 @@ public class WaterHeater implements DeviceSpecs {
      */
     public double getConsumption() {
         if (mColdWaterTemperature > mHotWaterTemperature) {
-            return 0.0;
+            return 0;
         }
         double specificHeatOfWater = 1.163;
         double dT = mHotWaterTemperature - mColdWaterTemperature;
-        return Math.floor(specificHeatOfWater * mVolumeOfWaterToHeat * dT * mPerformanceRatio*1000)/1000; //To be implemented by US752
+        return Math.floor(specificHeatOfWater * mVolumeOfWaterToHeat * dT * mPerformanceRatio * 1000) / 1000; //To be implemented by US752
     }
 
     public double getVolumeWater() {
@@ -98,37 +98,32 @@ public class WaterHeater implements DeviceSpecs {
                 if (attributeValue instanceof Double) {
                     this.mVolumeOfWater = (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             case ATTRIBUTE_HOT_WATER_TEMP:
                 if (attributeValue instanceof Double) {
                     this.mHotWaterTemperature = (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             case ATTRIBUTE_PERFORMANCE_RATIO:
                 if (attributeValue instanceof Double) {
                     this.mPerformanceRatio = (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             case ATTRIBUTE_COLD_WATER_TEMP:
                 if (attributeValue instanceof Double) {
                     this.mColdWaterTemperature = (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
                 if (attributeValue instanceof Double) {
                     this.mVolumeOfWaterToHeat = (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             default:
                 return false;
         }

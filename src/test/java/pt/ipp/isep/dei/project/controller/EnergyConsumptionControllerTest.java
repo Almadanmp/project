@@ -469,6 +469,19 @@ class EnergyConsumptionControllerTest {
     @Test
     void configureOneHeaterTest() {
         Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
+        d6.setAttributeValue("coldWaterTemperature", 12);
+        d6.setAttributeValue("volumeOfWaterToHeat", 60);
+        Double attributeValue = 2.0;
+        Double attributeValue2 = 30.0;
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        controller.configureOneHeater(d6, attributeValue, attributeValue2);
+    }
+
+    @Test
+    void configureOneHeaterTestFalse() {
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
+        d6.setAttributeValue("Porto", 12);
+        d6.setAttributeValue("Lisboa", 60);
         Double attributeValue = 2.0;
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();

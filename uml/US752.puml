@@ -8,11 +8,11 @@ autonumber
 actor User
 
 User -> MainUI: GetTotalEnergyConsumption(house)
+
 MainUI -> EnergyConsumptionUI: runEnergyConsumptionUI(house)
 
 activate EnergyConsumptionUI
 EnergyConsumptionUI -> EnergyConsumptionUI: run US752(house)
-
 
 EnergyConsumptionUI -> EnergyConsumptionController: getWaterHeaterDeviceList(house)
 EnergyConsumptionController -> House: getHouseDevicesOfGivenType(deviceType)
@@ -40,4 +40,5 @@ EnergyConsumptionController --> EnergyConsumptionUI: return dailyHouseConsumptio
 EnergyConsumptionUI -> EnergyConsumptionUI: Build result string
 EnergyConsumptionUI --> User: Display result string
 deactivate EnergyConsumptionUI
+
 @enduml

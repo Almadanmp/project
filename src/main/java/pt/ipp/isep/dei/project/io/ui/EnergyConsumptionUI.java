@@ -217,7 +217,7 @@ class EnergyConsumptionUI {
             System.out.println("Please insert the volume of water to heat for Water Heater: " + d.getName() + ":");
             double volumeWaterToHeat = inputUtils.getInputAsDouble();
             boolean configResult = controller.configureOneHeater(d, coldWaterTemperature, volumeWaterToHeat);
-            if (configResult == false){
+            if (!configResult){
                 System.out.println("Error: unable to set parameters. Returning to Main Menu.");
                 return;
             }

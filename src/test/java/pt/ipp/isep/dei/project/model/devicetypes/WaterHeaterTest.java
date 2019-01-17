@@ -51,8 +51,8 @@ public class WaterHeaterTest {
     public void getConsumptionTestFails() {
         WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
        waterHeater.setAttributeValue("coldWaterTemperature", 200);
-        Double expectedResult = 0.0;
-        Double result = waterHeater.getConsumption();
+        double expectedResult = 0;
+        double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
 
@@ -60,8 +60,8 @@ public class WaterHeaterTest {
     @Test
     public void getConsumptionWithRatioTest() {
         WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 1.8);
-        Double expectedResult = 0.0;
-        Double result = waterHeater.getConsumption();
+        double expectedResult = 0;
+        double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
 

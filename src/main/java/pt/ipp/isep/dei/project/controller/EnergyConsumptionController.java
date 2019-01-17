@@ -132,12 +132,9 @@ public class EnergyConsumptionController {
      * @param coldWaterTemperature value for the cold water temperature
      * @param volumeOfWaterToHeat value for the amount of water to heat
      */
-    public boolean configureOneHeater(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat){
-       if( device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) == false ||
-           device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat) == false) {
-           return false;
-        }
-        return true;
+    public boolean configureOneHeater(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
+        return (device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) &&
+                device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat));
     }
 
     /**
