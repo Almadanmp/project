@@ -179,7 +179,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDeviceTypeList2() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceType dishwasher= DeviceType.DISHWASHER;
+        DeviceType dishwasher = DeviceType.DISHWASHER;
         DeviceType fridge = DeviceType.FRIDGE;
         List<DeviceType> listD = new ArrayList<>();
         listD.add(fridge);
@@ -540,6 +540,56 @@ class RoomConfigurationControllerTest {
                 "\n" +
                 "0) device Name: waterheater, device Type: WATER_HEATER, device Nominal Power: 150.0\n" +
                 "---------------\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfConfigureOneHeaterVolume() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Double expectedResult = 67.0;
+        ctrl.configureOneHeater(d1, 56, 67, 78);
+        Object result = d1.getAttributeValue("volumeOfWater");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfConfigureOneHeaterPerformance() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Double expectedResult = 78.0;
+        ctrl.configureOneHeater(d1, 56, 67, 78);
+        Object result = d1.getAttributeValue("performanceRatio");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfConfigureOneHeaterTemperature() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Double expectedResult = 56.0;
+        ctrl.configureOneHeater(d1, 56, 67, 78);
+        Object result = d1.getAttributeValue("coldWaterTemperature");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetAttributeValueWashingMachine() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Object expectedResult = d1.getAttributeValue("programList");
+        Object result = ctrl.getAttributeValueWashingMachine(d1);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfconfigureOneWashingMachineCapacity() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, new WaterHeater());
+        Object expectedResult = 0;
+        ctrl.configureOneWashingMachineCapacity(d1,34);
+        d1.setAttributeValue("capacity",3);
+        Object result = d1.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
     }
 }
