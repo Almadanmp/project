@@ -76,4 +76,29 @@ public class WashingMachineTest {
         boolean result = washingMachine.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
     }
+
+
+    @Test
+    public void setAttributeValueTestCapacity() {
+        WashingMachine washingMachine = new WashingMachine(1);
+        washingMachine.setAttributeValue("capacity", 5.0);
+        Object result = washingMachine.getAttributeValue("capacity");
+        assertEquals(5.0, result);
+    }
+    @Test
+    public void getAttributeValuesTestListProgram() {
+        Program program1 = new Program("programa",2,2);
+        ProgramList expectedResult= new ProgramList();
+        expectedResult.addProgram(program1);
+        WashingMachine washingMachine = new WashingMachine(1.0,expectedResult);
+        Object result = washingMachine.getAttributeValue("programList");
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void setAttributeValueTestDefault() {
+        WashingMachine washingMachine = new WashingMachine(1);
+        washingMachine.setAttributeValue("capacity", 5.0);
+        Object result = washingMachine.getAttributeValue("lisbon");
+        assertEquals(0, result);
+    }
 }

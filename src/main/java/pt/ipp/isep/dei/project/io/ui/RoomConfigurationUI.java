@@ -409,7 +409,7 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         Program program1;
         Scanner scanner = new Scanner(System.in);
-        if (mProgramList.getProgramList().size() > 0) {
+        if (mProgramList.getProgramList().size() > 1) {
             System.out.println("Would you like to edit another Program? (y/n)");
             while (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to edit another Program? (y/n)")) {
                 program1 = inputUtils.getSelectedProgramFromDevice(mDevice);
