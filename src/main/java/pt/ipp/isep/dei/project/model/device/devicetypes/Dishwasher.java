@@ -10,7 +10,8 @@ public class Dishwasher implements DeviceSpecs {
 
     private double mCapacity;
     private ProgramList mProgramList;
-    private String mCapacityString = "capacity";
+    private static final String CAP = "capacity";
+    private String mCapacityString = CAP;
     private String mProgramListString = "programList";
 
     public Dishwasher() {
@@ -26,7 +27,6 @@ public class Dishwasher implements DeviceSpecs {
         this.mCapacity = capacity;
         mProgramList = programList;
     }
-
 
 
     public DeviceType getType() {
@@ -56,7 +56,7 @@ public class Dishwasher implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case "capacity":
+            case CAP:
                 return mCapacity;
             case "programList":
                 return mProgramList;
@@ -66,15 +66,10 @@ public class Dishwasher implements DeviceSpecs {
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        switch (attributeName) {
-            case "capacity":
-                if (attributeValue instanceof Double) {
-                    this.mCapacity = (Double) attributeValue;
-                    return true;
-                }
-                    return false;
-            default:
-                return false;
+        if (attributeName.equals(CAP) && attributeValue instanceof Double) {
+            this.mCapacity = (Double) attributeValue;
+            return true;
         }
+        return false;
     }
 }
