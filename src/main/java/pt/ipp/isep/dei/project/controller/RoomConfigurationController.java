@@ -11,6 +11,7 @@ public class RoomConfigurationController {
 
     private Room mRoom;
     private Sensor mSensor;
+    private String mProgramList = "programList";
 
     /**
      * Empty constructor.
@@ -199,7 +200,7 @@ public class RoomConfigurationController {
 
     /**
      *
-     * @param
+     * @param deviceTypeList is the list of DeviceTypes we want to turn into a list.
      * @return a string with the list of available device types by index
      */
     public String buildDeviceTypeListString(List<DeviceType> deviceTypeList){
@@ -246,7 +247,7 @@ public class RoomConfigurationController {
     }
 
     public void  configureOneWashingMachineProgram(Device device, ProgramList program ){
-        device.setAttributeValue("programList", program);
+        device.setAttributeValue(mProgramList, program);
     }
 
    public void  configureOneDishWasherCapacity(Device device, double capacity ){
@@ -254,7 +255,7 @@ public class RoomConfigurationController {
     }
 
     public void  configureOneDishWasherProgram(Device device, ProgramList program ){
-        device.setAttributeValue("programList", program);
+        device.setAttributeValue(mProgramList, program);
     }
 
       public void  configureOneFridge(Device device, double freezerCapacity, double refrigeratorCapacity ){

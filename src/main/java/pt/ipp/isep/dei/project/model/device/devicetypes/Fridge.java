@@ -9,9 +9,9 @@ public class Fridge implements DeviceSpecs {
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
     private double mAnnualEnergyConsumption;
-    private String mFreezerCapacityString = "freezerCapacity";
-    private String mRefrigeratorCapacityString = "refrigeratorCapacity";
-    private String mAnualConsumptionString = "annualEnergyConsumption";
+    private final String mFreezerCapacityString = "freezerCapacity";
+    private final String mRefrigeratorCapacityString = "refrigeratorCapacity";
+    private final String mAnnualConsumptionString = "annualEnergyConsumption";
 
     public Fridge() {
     }
@@ -30,19 +30,19 @@ public class Fridge implements DeviceSpecs {
         return 0.0; //To be implemented later, not yet specified
     }
 
-    public double getFreezerCapacity() {
+    double getFreezerCapacity() {
         return this.mFreezerCapacity;
     }
 
-    public void setFreezerCapacity(double freezerCapacity) {
+    void setFreezerCapacity(double freezerCapacity) {
         this.mFreezerCapacity = freezerCapacity;
     }
 
-    public double getRefrigeratorCapacity() {
+    double getRefrigeratorCapacity() {
         return this.mRefrigeratorCapacity;
     }
 
-    public void setRefrigeratorCapacity(double refrigeratorCapacity) {
+    void setRefrigeratorCapacity(double refrigeratorCapacity) {
         this.mRefrigeratorCapacity = refrigeratorCapacity;
     }
 
@@ -50,7 +50,7 @@ public class Fridge implements DeviceSpecs {
         List<String> result = new ArrayList<>();
         result.add(mFreezerCapacityString);
         result.add(mRefrigeratorCapacityString);
-        result.add(mAnualConsumptionString);
+        result.add(mAnnualConsumptionString);
 
         return result;
     }
@@ -58,11 +58,11 @@ public class Fridge implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case "freezerCapacity":
+            case mFreezerCapacityString:
                 return mFreezerCapacity;
-            case "refrigeratorCapacity":
+            case mRefrigeratorCapacityString:
                 return mRefrigeratorCapacity;
-            case "annualEnergyConsumption":
+            case mAnnualConsumptionString:
                 return mAnnualEnergyConsumption;
             default:
                 return 0;
