@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -465,6 +466,24 @@ class EnergyConsumptionControllerTest {
         List<Device> expecteResult = new ArrayList<>();
         expecteResult.add(d6);
         List<Device> result = controller.getWaterHeaterDeviceList(h1);
+        Assertions.assertEquals(expecteResult, result);
+    }
+
+    @Test
+    void getWaterHeaterDeviceListTest2() {
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        House house = new House();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
+        r1.addDevice(d2);
+        r1.addDevice(d3);
+        house.addRoomToRoomList(r1);
+        List<Device> expectedResult = new ArrayList<>();
+        expectedResult.add(d2);
+        expectedResult.add(d3);
+        List<Device> result = controller.getWaterHeaterDeviceList(house);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test

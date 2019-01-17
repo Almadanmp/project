@@ -330,4 +330,19 @@ class DeviceListTest {
 
         assertEquals(expectedResult,actualResult);
     }
+
+    @Test
+    void seeIfPrintDevicesWorks2(){
+        Device d1 = new Device("Fridge", 21, new Fridge());
+        Device d2 = new Device("Frnidge", 21, new Fridge());
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d1);
+        String expectedResult = "0) The device Name is Frnidge, and its NominalPower is 21.0 kW.\n"+
+                "1) The device Name is Fridge, and its NominalPower is 21.0 kW.\n";
+
+        String actualResult = deviceList.buildDevicesString();
+
+        assertEquals(expectedResult,actualResult);
+    }
 }
