@@ -27,8 +27,7 @@ class HouseConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         if (utilsUI.houseIsNull(house)) {
-            System.out.println("Invalid House - This house doesn't meet the necessary requirements, please configure" +
-                    " your house first through the main menu.");
+            System.out.println(utilsUI.invalidHouse);
             return;
         }
         boolean activeInput = true;

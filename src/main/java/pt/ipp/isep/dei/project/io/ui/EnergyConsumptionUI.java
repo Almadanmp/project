@@ -24,28 +24,31 @@ class EnergyConsumptionUI {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (utils.houseIsNull(programHouse)) {
+            System.out.println(utils.invalidHouse);
             return;
         }
-        boolean activeInput = false;
+        boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
         System.out.println("Energy Consumption Monitoring\n");
         System.out.println("--------------\n");
-        while (!activeInput) {
+        while (activeInput) {
             printOptionMessage();
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    runUS172(programHouse);
+                    EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
+                    double nominalPower = updateUS172(mEnergyGrid);
+                    displayUS172(nominalPower);
                     activeInput = false;
                     break;
                 case 2:
                     runUS705(programHouse);
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 3:
                     runUS752(programHouse);
-                    activeInput = true;
+                    activeInput = false;
                     break;
                 case 0:
                     return;
@@ -56,14 +59,6 @@ class EnergyConsumptionUI {
         }
     }
 
-    private void runUS172(House programHouse){
-        InputUtils inputUtils = new InputUtils();
-        if (!checkHouseGrid(programHouse)) {
-            EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
-            double nominalPower = updateUS172(mEnergyGrid);
-            displayUS172(nominalPower);
-        }
-    }
     // US705 - As a Power User, I want to know the total nominal power of a subset of rooms
     // and/or devices of my choosing connected to a grid.
 
@@ -72,6 +67,9 @@ class EnergyConsumptionUI {
         boolean active;
         InputUtils inputs = new InputUtils();
         EnergyGrid grid = inputs.getInputGridByList(programHouse);
+        if(utils.gridIsNull(grid)) {
+            return;
+        }
         RoomList selectedRooms = new RoomList();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
@@ -211,12 +209,12 @@ class EnergyConsumptionUI {
     private void runUS752(House house) {
         UtilsUI utilsUI = new UtilsUI();
         if (utilsUI.houseDeviceListInvalid(house)){
-            System.out.println("The selected House has not a valid Device List associated\nReturning to Main Menu");
+            System.out.println("The selected House does not have a valid Device List associated\nReturning to Main Menu");
             return;
         }
 
         if (utilsUI.houseRoomListInvalid(house)){
-            System.out.println("The selected House has not a valid Room List associated\nReturning to Main Menu");
+            System.out.println("The selected House does not have a valid Room List associated\nReturning to Main Menu");
             return;
         }
         InputUtils inputUtils = new InputUtils();
@@ -270,16 +268,6 @@ class EnergyConsumptionUI {
                 " (US705)");
         System.out.println("3) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
-    }
-
-    private boolean checkHouseGrid(House house) {
-        if (house.getEGList() == null) {
-            InputUtils inputs = new InputUtils();
-            System.out.println("You don't have a energy grid in your house. Please add a energy grid to continue.");
-            inputs.returnToMenu(returnToConsole);
-            return true;
-        }
-        return false;
     }
 
 

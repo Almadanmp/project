@@ -264,6 +264,10 @@ public class MainUI {
         energyGridList1.addGrid(energyGrid1);
         house4.setEGList(energyGridList1);
 
+        // House - Empty RoomList - Without EnergyGrid
+        GeographicArea geographicArea4 = new GeographicArea();
+        RoomList roomList = new RoomList();
+        House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
 
 
 /**
@@ -433,7 +437,7 @@ public class MainUI {
                         break;
                     case 7:
                         EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                        energyConsumptionUI.run(edificioB);
+                        energyConsumptionUI.run(house);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
