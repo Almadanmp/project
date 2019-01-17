@@ -59,9 +59,8 @@ public class Dishwasher implements DeviceSpecs {
             return mCapacity;
         } else if (attributeName.equals("programList")) {
             return mProgramList;
-        } else {
-            return 0;
         }
+        return 0;
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
