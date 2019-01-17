@@ -109,5 +109,12 @@ public class DishwasherTest {
         assertEquals(0, result);
     }
 
+    @Test
+    public void setAttributeValueTestFalseAgain() {
+        Dishwasher dishwasher = new Dishwasher(1);
+        Object result = dishwasher.setAttributeValue("capacity",5);
+        assertEquals(false, result);
+    }
+
 
 }

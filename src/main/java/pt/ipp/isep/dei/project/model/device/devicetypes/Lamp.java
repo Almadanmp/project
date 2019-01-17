@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Lamp implements DeviceSpecs {
     private double mLuminousFlux;
-    static final String flux = "LuminousFlux";
+    private static final String FLUX = "LuminousFlux";
 
     public Lamp() {
     }
@@ -26,12 +26,12 @@ public class Lamp implements DeviceSpecs {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add(flux);
+        result.add(FLUX);
         return result;
     }
 
     public Object getAttributeValue(String attributeName) {
-        if (attributeName.equals(flux)) {
+        if (attributeName.equals(FLUX)) {
             return mLuminousFlux;
         } else {
             return 0;
@@ -39,7 +39,7 @@ public class Lamp implements DeviceSpecs {
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        if (attributeName.equals(flux) && attributeValue instanceof Double) {
+        if (attributeName.equals(FLUX) && attributeValue instanceof Double) {
             this.mLuminousFlux = (Double) attributeValue;
             return true;
         }

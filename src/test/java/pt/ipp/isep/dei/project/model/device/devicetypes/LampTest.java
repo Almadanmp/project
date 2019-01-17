@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Lamp tests class.
@@ -42,6 +43,13 @@ public class LampTest {
         Lamp lamp = new Lamp();
         boolean result = lamp.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
+    }
+
+    @Test
+    public void setAttributeValueTestTrue2() {
+        Lamp lamp = new Lamp();
+        boolean actualResult = lamp.setAttributeValue("LuminousFlux", 12.0);
+        assertTrue(actualResult);
     }
 
     @Test
