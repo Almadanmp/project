@@ -69,13 +69,12 @@ public class EnergyConsumptionController {
     /**
      * Calls for the grid's method in the model to calculate a total nominal power from a given list of devices.
      *
-     * @param grid            is the grid we want to calculate power from.
      * @param selectedDevices is the subset of devices we want to include in the calculation.
      * @return is the total nominal power of given devices.
      */
 
-    public double getSelectionNominalPower(EnergyGrid grid, DeviceList selectedDevices) {
-        return grid.getSelectionNominalPower(selectedDevices);
+    public double getSelectionNominalPower(DeviceList selectedDevices) {
+        return selectedDevices.getNominalPower();
     }
 
     /**
