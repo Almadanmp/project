@@ -108,6 +108,14 @@ public class WashingMachineTest {
     }
 
     @Test
+    public void getAttributeValuesTestListProgramWithProgramListEmpty() {
+        ProgramList expectedResult = new ProgramList();
+        WashingMachine washingMachine = new WashingMachine(1.0, expectedResult);
+        Object result = washingMachine.getAttributeValue("programList");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     public void setAttributeValueTestDefault() {
         WashingMachine washingMachine = new WashingMachine(1);
         washingMachine.setAttributeValue("capacity", 5.0);
