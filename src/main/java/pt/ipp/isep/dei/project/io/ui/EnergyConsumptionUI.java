@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
@@ -202,6 +205,16 @@ class EnergyConsumptionUI {
      */
 
     private void runUS752(House house) {
+        UtilsUI utilsUI = new UtilsUI();
+        if (utilsUI.houseDeviceListInvalid(house)){
+            System.out.println("The selected House has not a valid Device List associated\nReturning to Main Menu");
+            return;
+        }
+
+        if (utilsUI.houseRoomListInvalid(house)){
+            System.out.println("The selected House has not a valid Room List associated\nReturning to Main Menu");
+            return;
+        }
         InputUtils inputUtils = new InputUtils();
         List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
         if (waterHeaters.isEmpty()) {
@@ -217,12 +230,11 @@ class EnergyConsumptionUI {
             System.out.println("Please insert the volume of water to heat for Water Heater: " + d.getName() + ":");
             double volumeWaterToHeat = inputUtils.getInputAsDouble();
             boolean configResult = controller.configureOneHeater(d, coldWaterTemperature, volumeWaterToHeat);
-            if (!configResult){
+            if (!configResult) {
                 System.out.println("Error: unable to set parameters. Returning to Main Menu.");
                 return;
             }
-
-            System.out.println("device " + d.getName() + " options registered.\n");
+            System.out.println("device " + d.getName() + " options registered. \n");
         }
         double result = controller.getDailyHouseConsumptionWaterHeater(house);
         System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");

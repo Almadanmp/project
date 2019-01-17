@@ -56,7 +56,7 @@ public class WaterHeater implements DeviceSpecs {
         }
         double specificHeatOfWater = 1.163;
         double dT = mHotWaterTemperature - mColdWaterTemperature;
-        return Math.floor(specificHeatOfWater * mVolumeOfWaterToHeat * dT * mPerformanceRatio * 1000) / 1000; //To be implemented by US752
+        return Math.floor(specificHeatOfWater * mVolumeOfWaterToHeat * dT * mPerformanceRatio * 1000) / 1000;
     }
 
     public double getVolumeWater() {
