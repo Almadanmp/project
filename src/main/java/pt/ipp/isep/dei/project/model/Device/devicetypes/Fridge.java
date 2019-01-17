@@ -75,23 +75,20 @@ public class Fridge implements DeviceSpecs {
                 if (attributeValue instanceof Double) {
                     this.mFreezerCapacity = (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                    return false;
             case "refrigeratorCapacity":
                 if (attributeValue instanceof Double) {
                     this.mRefrigeratorCapacity = (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                    return false;
             case "annualEnergyConsumption":
                 if (attributeValue instanceof Double) {
                     this.mAnnualEnergyConsumption = (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                    return false;
             default:
                 return false;
         }

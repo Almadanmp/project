@@ -45,9 +45,8 @@ public class Lamp implements DeviceSpecs{
                 if (attributeValue instanceof Double) {
                     this.mLuminousFlux= (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                    return false;
             default:
                 return false;
         }

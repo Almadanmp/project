@@ -69,9 +69,8 @@ public class Dishwasher implements DeviceSpecs {
                 if (attributeValue instanceof Double) {
                     this.mCapacity = (Double) attributeValue;
                     return true;
-                } else {
-                    return false;
                 }
+                    return false;
             default:
                 return false;
         }
