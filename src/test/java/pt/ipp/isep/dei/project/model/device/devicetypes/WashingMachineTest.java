@@ -68,6 +68,17 @@ public class WashingMachineTest {
     }
 
     @Test
+    public void getAttributeValuesTest1() {
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = new ProgramList();
+        listProgram.addProgram(program1);
+        WashingMachine washingMachine = new WashingMachine(5, listProgram);
+        int expectedResult = 0;
+        Object result = washingMachine.getAttributeValue("capacity"+"programList");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     public void getAttributeValuesWithmCapacityEmptyTest() {
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = new ProgramList();
@@ -95,6 +106,13 @@ public class WashingMachineTest {
         washingMachine.setAttributeValue("capacity", 5.0);
         Object result = washingMachine.getAttributeValue("capacity");
         assertEquals(5.0, result);
+    }
+
+    @Test
+    public void setAttributeValueTestCapacity2() {
+        WashingMachine washingMachine = new WashingMachine();
+        Object result = washingMachine.getAttributeValue("capacity");
+        assertEquals(0.0, result);
     }
 
     @Test
