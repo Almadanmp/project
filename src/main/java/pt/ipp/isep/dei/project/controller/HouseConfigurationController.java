@@ -37,7 +37,7 @@ public class HouseConfigurationController {
      * matches the given string.
      */
 
-    public List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
+    List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
         return geoAreaList.matchGeographicAreaIndexByString(input);
     }
 
@@ -70,7 +70,7 @@ public class HouseConfigurationController {
      * @return builds a string of all the geoAreas contained in the list at the positions given in the list of indexes.
      */
 
-    public String buildGeoAreasByIndexString(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
+    String buildGeoAreasByIndexString(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
         return geoAreaList.buildGeographicAreaElementsByIndexString(listOfIndexesGeographicAreas);
     }
 
@@ -80,7 +80,7 @@ public class HouseConfigurationController {
      * @return builds a string with the given area.
      */
 
-    public String buildGeoAreaString(GeographicArea geoArea) {
+    String buildGeoAreaString(GeographicArea geoArea) {
         return geoArea.buildGeographicAreaString();
     }
 

@@ -19,7 +19,7 @@ public class TypeArea {
      * Sets the type of a Geographical Area
      *
      */
-    public void setTypeOfGeographicArea(String nameGiven) {
+    void setTypeOfGeographicArea(String nameGiven) {
         this.mName = nameGiven;
     }
 
@@ -47,7 +47,7 @@ public class TypeArea {
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
-    public boolean isNameValid(String name) {
+    boolean isNameValid(String name) {
         if (name != null && !name.isEmpty() && !name.matches(".*\\d+.*")) {
                 return true;
         }

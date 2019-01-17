@@ -13,8 +13,8 @@ public class Reading {
     /**
      * Builder with 'value' and 'date'
      *
-     * @param value
-     * @param date
+     * @param value value received
+     * @param date date received
      */
     public Reading(double value, Date date) {
         setmValue(value);

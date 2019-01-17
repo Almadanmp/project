@@ -11,8 +11,8 @@ import pt.ipp.isep.dei.project.model.TypeAreaList;
 class UtilsUI {
 
     String invalidOption = "Please enter a valid option";
-    String invalidHouse = "The selected House is not a valid one.\n\" + \"Returning to main menu\n";
-    String invalidGridList = "Invalid Grid List - List is empty.\n" + "Returning to main menu\n";
+    String invalidHouse = "The selected House is not a valid one.\n\" + \"Returning to main menu\n"; //Serão usados
+    String invalidGridList = "Invalid Grid List - List is empty.\n" + "Returning to main menu\n"; //Serão usados
     String invalidGAList = "Invalid Geographic Area List - List is empty\n" + "Returning to main menu\n";
     String invalidGATypeList = "Invalid list of Geographic Area types. List is empty\n" + "Returning to main menu\n";
 

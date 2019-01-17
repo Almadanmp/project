@@ -19,7 +19,7 @@ public class GASettingsController {
      * typeAreas with the name given in the first parameter are contained.
      */
 
-    public List<Integer> matchTypeAreaIndexByString(String input, TypeAreaList typeAreaList) {
+    List<Integer> matchTypeAreaIndexByString(String input, TypeAreaList typeAreaList) {
         return typeAreaList.matchGeographicAreaTypeIndexByString(input);
     }
 
@@ -30,7 +30,7 @@ public class GASettingsController {
      * @return builds a string of all the objects contained in the indexes of the provided list.
      */
 
-    public String buildTypeAreaElementsByIndexString(List<Integer> listOfIndexesTypeGeographicAreas, TypeAreaList typeAreaList) {
+    String buildTypeAreaElementsByIndexString(List<Integer> listOfIndexesTypeGeographicAreas, TypeAreaList typeAreaList) {
         return typeAreaList.buildGATypeElementsByIndexString(listOfIndexesTypeGeographicAreas);
     }
 

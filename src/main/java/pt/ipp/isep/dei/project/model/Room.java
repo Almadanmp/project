@@ -216,7 +216,7 @@ public class Room implements Metered {
      * @return the list with all devices of a given type
      *
      */
-    public List<Device> getRoomDevicesOfGivenType(DeviceType deviceType) {
+    List<Device> getRoomDevicesOfGivenType(DeviceType deviceType) {
         List<Device> devicesOfGivenType = new ArrayList<>();
         for (Device d : getDeviceList()) {
             if (d.getDeviceType() == deviceType) {
@@ -232,7 +232,7 @@ public class Room implements Metered {
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyRoomConsumptionPerType(DeviceType deviceType) {
+    double getDailyRoomConsumptionPerType(DeviceType deviceType) {
         double result = 0;
         for (Device d : getDeviceList()) {
             if (d.getDeviceType() == deviceType) {
