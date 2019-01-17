@@ -28,6 +28,14 @@ class UtilsUI {
         return geographicAreaList != null && !geographicAreaList.getGeographicAreaList().isEmpty();
     }
 
+    boolean houseRoomListInvalid(House house) {
+        return house.getRoomList() != null && !house.getRoomList().isEmpty();
+    }
+
+    boolean houseDeviceListInvalid(House house) {
+        return house.getDeviceList() != null && !house.getRoomList().isEmpty();
+    }
+
     boolean typeAreaIsValid(TypeAreaList list) {
         return list != null && !list.getTypeAreaList().isEmpty();
     }

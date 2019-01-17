@@ -105,7 +105,9 @@ class RoomConfigurationUI {
                     break;
                 case 6: //US253
                     this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                    if (getInputTypeFromTypeListByList(typeSensorList)) return;
+                    if (getInputTypeFromTypeListByList(typeSensorList)) {
+                        return;
+                    }
                     getInput253();
                     updateAndDisplay253();
                     activeInput = false;
@@ -221,7 +223,7 @@ class RoomConfigurationUI {
         }
     }
 
-    private void createAWashingMachineOrADishWasher(){
+    private void createAWashingMachineOrADishWasher() {
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please, type the Capacity in Kg for the Washing Machine: ");
@@ -229,7 +231,7 @@ class RoomConfigurationUI {
         Program program;
         System.out.println(requestProgramName);
         this.mProgramName = scanner.nextLine();
-        System.out.println("Please, type the new Program duration:");
+        System.out.println(requestProgramDuration);
         this.mDuration = inputUtils.getInputAsDouble();
         System.out.println(requestProgramEnergyConsumption);
         this.mEnergyConsumption = inputUtils.getInputAsDouble();
@@ -237,6 +239,7 @@ class RoomConfigurationUI {
         mProgramList.addProgram(program);
         loopForProgramsCreation();
     }
+
     private void loopForProgramsCreation() {
         InputUtils inputUtils = new InputUtils();
         Program program1;
@@ -378,19 +381,18 @@ class RoomConfigurationUI {
 
     }
 
-    public void updateDishWasherOrWashingMachine(Program program){
+    private void updateDishWasherOrWashingMachine(Program program) {
         Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
         mProgramList.removeProgram(program);
         System.out.println(requestProgramName);
         this.mProgramName = scanner.nextLine();
-        System.out.println("Please, type the new Program duration:");
+        System.out.println(requestProgramDuration);
         this.mDuration = inputUtils.getInputAsDouble();
         System.out.println(requestProgramEnergyConsumption);
         this.mEnergyConsumption = inputUtils.getInputAsDouble();
         program = new Program(mProgramName, mDuration, mEnergyConsumption);
         mProgramList.addProgram(program);
-
         loopForPrograms();
 
     }
