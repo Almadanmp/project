@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Fridge tests class.
  */
 
-public class FridgeTest {
+class FridgeTest {
 
     @Test
-    public void getTypeTest() {
+    void getTypeTest() {
         Fridge fridge = new Fridge();
         DeviceType expectedResult = DeviceType.FRIDGE;
         DeviceType result = fridge.getType();
@@ -24,7 +24,7 @@ public class FridgeTest {
     }
 
     @Test
-    public void getConsumptionTest() {
+    void getConsumptionTest() {
         Fridge fridge = new Fridge();
         double expectedResult = 0;
         double result = fridge.getConsumption();
@@ -32,7 +32,7 @@ public class FridgeTest {
     }
 
     @Test
-    public void seeIfGetFreezerCapacity() {
+    void seeIfGetFreezerCapacity() {
         Fridge fridge = new Fridge(4, 5, 1);
         double expectedResult = 3;
         fridge.setFreezerCapacity(3);
@@ -41,7 +41,7 @@ public class FridgeTest {
     }
 
     @Test
-    public void seeIfGetRefrigeratorCapacity() {
+    void seeIfGetRefrigeratorCapacity() {
         Fridge fridge = new Fridge(4, 5, 1);
         double expectedResult = 3;
         fridge.setRefrigeratorCapacity(3);
@@ -51,7 +51,7 @@ public class FridgeTest {
 
 
     @Test
-    public void getAttributeValuesTest() {
+    void getAttributeValuesTest() {
         Fridge fridge = new Fridge(4, 5, 1);
         double expectedResult = 4.0;
         Object result = fridge.getAttributeValue("freezerCapacity");
@@ -59,41 +59,41 @@ public class FridgeTest {
     }
 
     @Test
-    public void setAttributeValueTest() {
+    void setAttributeValueTest() {
         Fridge fridge = new Fridge(4, 5, 1);
         boolean result = fridge.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
     }
 
     @Test
-    public void seeIfGetAttributeNamesFreezer() {
+    void seeIfGetAttributeNamesFreezer() {
         Fridge fridge = new Fridge(4, 5, 6);
         double expectedResult = 4;
         assertEquals(expectedResult, fridge.getAttributeValue("freezerCapacity"));
     }
 
     @Test
-    public void seeIfGetAttributeNamesRefrigerator() {
+    void seeIfGetAttributeNamesRefrigerator() {
         Fridge fridge = new Fridge(4, 5, 6);
         double expectedResult = 5;
         assertEquals(expectedResult, fridge.getAttributeValue("refrigeratorCapacity"));
     }
     @Test
-    public void seeIfGetAttributeNamesAnnual() {
+    void seeIfGetAttributeNamesAnnual() {
         Fridge fridge = new Fridge(4, 5, 6);
         double expectedResult = 6;
         assertEquals(expectedResult, fridge.getAttributeValue("annualEnergyConsumption"));
     }
 
     @Test
-    public void seeIfSetAttributeValuesTest() {
+    void seeIfSetAttributeValuesTest() {
         Fridge fridge = new Fridge(4, 5, 1);
         Object result = fridge.setAttributeValue("freezerCapacity", fridge);
         assertEquals(false, result);
     }
 
     @Test
-    public void seeIfGetAttributeNamesTest() {
+    void seeIfGetAttributeNamesTest() {
         Fridge fridge = new Fridge(4, 5, 1);
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("freezerCapacity");
@@ -104,7 +104,7 @@ public class FridgeTest {
     }
 
     @Test
-    public void seeIfGetAttributeValuesTest() {
+    void seeIfGetAttributeValuesTest() {
         Fridge fridge = new Fridge(4, 5, 1);
         double expectedResult = 4;
         Object result = fridge.getAttributeValue("freezerCapacity");
@@ -112,7 +112,7 @@ public class FridgeTest {
     }
 
     @Test
-    public void seeIfGetAttributeValuesTest2() {
+    void seeIfGetAttributeValuesTest2() {
         Fridge fridge = new Fridge(4, 5, 1);
         int expectedResult = 0;
         Object result = fridge.getAttributeValue("no");
@@ -120,7 +120,7 @@ public class FridgeTest {
     }
 
     @Test
-    public void seeIfGetAndSetAttributeValue() {
+    void seeIfGetAndSetAttributeValue() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "freezerCapacity";
         Double expectedResult = 6.0;
@@ -130,7 +130,7 @@ public class FridgeTest {
         assertTrue(setResult);
     }
     @Test
-    public void seeIfGetAndSetAttributeValue2() {
+    void seeIfGetAndSetAttributeValue2() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "refrigeratorCapacity";
         Double expectedResult = 6.0;
@@ -141,7 +141,7 @@ public class FridgeTest {
     }
 
     @Test
-    public void seeIfGetAndSetAttributeValue3() {
+    void seeIfGetAndSetAttributeValue3() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "annualEnergyConsumption";
         Double expectedResult = 6.0;
@@ -151,7 +151,7 @@ public class FridgeTest {
         assertTrue(setResult);
     }
     @Test
-    public void seeIfSetAttributeValueInvalid() {
+    void seeIfSetAttributeValueInvalid() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "invalid";
         boolean result = fridge.setAttributeValue(attribute, 6);
@@ -159,45 +159,61 @@ public class FridgeTest {
     }
 
     @Test
-    public void seeIfSetAttributemValueInvalid2() {
+    void seeIfSetAttributeValueInvalid2() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "freezerCapacity";
         boolean result = fridge.setAttributeValue(attribute, 6);
         assertFalse(result);
     }
     @Test
-    public void seeIfSetAttributemValueInvalid3() {
+    void seeIfSetAttributeValueInvalid3() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "refrigeratorCapacity";
         boolean result = fridge.setAttributeValue(attribute, 6);
         assertFalse(result);
     }
     @Test
-    public void seeIfSetAttributemValueInvalid4() {
+    void seeIfSetAttributeValueInvalid4() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "annualEnergyConsumption";
         boolean result = fridge.setAttributeValue(attribute, 6);
         assertFalse(result);
     } @Test
-    public void seeIfSetAttributemValueInvalid5() {
+    void seeIfSetAttributeValueInvalid5() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "freezerCapacity";
         boolean result = fridge.setAttributeValue(attribute, "ljlkhg");
         assertFalse(result);
     }
     @Test
-    public void seeIfSetAttributemValueInvalid6() {
+    void seeIfSetAttributeValueInvalid6() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "refrigeratorCapacity";
         boolean result = fridge.setAttributeValue(attribute, "ljlkhg");
         assertFalse(result);
     }
     @Test
-    public void seeIfSetAttributemValueInvalid7() {
+    void seeIfSetAttributeValueInvalid7() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "annualEnergyConsumption";
         boolean result = fridge.setAttributeValue(attribute, "ljlkhg");
         assertFalse(result);
     }
 
+    @Test
+    void seeIfGetObjectAttributeValueTestWorks() {
+        //Arrange
+        Fridge fridge = new Fridge(4,5,6);
+        //Act
+        double expectedResult1 = 4;
+        double expectedResult2 = 5;
+        double expectedResult3 = 6;
+        Object actualResult1 = fridge.getAttributeValue("freezerCapacity");
+        Object actualResult2 = fridge.getAttributeValue("refrigeratorCapacity");
+        Object actualResult3 = fridge.getAttributeValue("annualEnergyConsumption");
+        //Assert
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(expectedResult3, actualResult3);
+    }
 }
