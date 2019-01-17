@@ -419,6 +419,19 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
+    void seeIfDeviceListPrintsByTypeWithNullRoomList() {
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        RoomList rl = new RoomList();
+        eg.setRoomList(rl);
+        rl = null;
+        String expectedResult = "This energy grid has no rooms attached\n";
+        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
+        assertEquals(expectedResult, result);
+    }
+
+
+    @Test
     void seeIfDeviceListPrintsByTypeWithNoDevices() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
@@ -432,12 +445,29 @@ class EnergyGridSettingsControllerTest {
         String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
         assertEquals(expectedResult, result);
     }
+
     @Test
-    void ensureThatNullEnergyGridReturnsMessage () {
+    void seeIfDeviceListPrintsByTypeWithNullList() {
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        RoomList rl = new RoomList();
+        DeviceList deviceList = new DeviceList();
+        room1EdC.setDeviceList(deviceList);
+        eg.setRoomList(rl);
+        rl.addRoom(room1EdC);
+        deviceList = null;
+        String expectedResult = "This energy grid has no devices on it\n";
+        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void ensureThatNullEnergyGridReturnsMessage() {
         EnergyGrid eg = null;
         EnergyGridSettingsController energyGridSettingsController = new EnergyGridSettingsController();
         String expectedResult = "This energy grid is invalid\n";
         String actualResult = energyGridSettingsController.buildListOfDevicesOrderedByTypeString(eg);
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 }

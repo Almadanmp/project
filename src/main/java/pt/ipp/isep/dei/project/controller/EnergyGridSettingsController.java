@@ -220,7 +220,7 @@ public class EnergyGridSettingsController {
         if (energyGrid.getListOfRooms().getRoomList().isEmpty() || energyGrid.getListOfRooms() == null) {
             return "This energy grid has no rooms attached\n";
         }
-        if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty() || energyGrid.getListOfRooms() == null) {
+        if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty() || energyGrid.getDeviceList() == null) {
             return "This energy grid has no devices on it\n";
         }
         return energyGrid.buildListOfDeviceByTypeString(energyGrid);
