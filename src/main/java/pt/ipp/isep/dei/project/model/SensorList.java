@@ -209,7 +209,7 @@ public class SensorList {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    public List<Sensor> getSensorListByType(String name) {
+    List<Sensor> getSensorListByType(String name) {
         List<Sensor> containedTypeSensors = new ArrayList<>();
         for (Sensor sensor : this.mSensorList) {
             if (name.equals(sensor.getTypeSensor().getName())) {
@@ -254,7 +254,7 @@ public class SensorList {
      * @return finds sensors with the same name as nameOfSensor and changes said sensors type to typeToSet.
      */
 
-    public boolean setTypeSensorByString(String nameOfSensor, String typeToSet) {
+    boolean setTypeSensorByString(String nameOfSensor, String typeToSet) {
         if (!checkIfListInvalid()) {
             for (Sensor sensor : mSensorList)
                 if (sensor.getName().equals(nameOfSensor)) {
