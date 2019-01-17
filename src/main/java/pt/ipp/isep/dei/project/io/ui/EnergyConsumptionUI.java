@@ -36,11 +36,7 @@ class EnergyConsumptionUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if (!checkHouseGrid(programHouse)) {
-                        EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
-                        double nominalPower = updateUS172(mEnergyGrid);
-                        displayUS172(nominalPower);
-                    }
+                    runUS172(programHouse);
                     activeInput = false;
                     break;
                 case 2:
@@ -60,6 +56,14 @@ class EnergyConsumptionUI {
         }
     }
 
+    private void runUS172(House programHouse){
+        InputUtils inputUtils = new InputUtils();
+        if (!checkHouseGrid(programHouse)) {
+            EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
+            double nominalPower = updateUS172(mEnergyGrid);
+            displayUS172(nominalPower);
+        }
+    }
     // US705 - As a Power User, I want to know the total nominal power of a subset of rooms
     // and/or devices of my choosing connected to a grid.
 
