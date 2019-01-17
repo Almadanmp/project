@@ -475,7 +475,7 @@ public class RoomTest {
         d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
         d3.setAttributeValue("coldWaterTemperature", 1.0);
         double expectedResult = 4605.479;
-        double result = r1.getDailyRoomConsumptionPerType(d2.getDeviceType());
+        double result = r1.getDailyRoomConsumptionPerType(d2.getType());
         assertEquals(expectedResult, result);
     }
 

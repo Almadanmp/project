@@ -88,7 +88,7 @@ public class Room implements Metered {
     }
 
     public List<Device> getDeviceList() {
-        return this.mDeviceList.getDeviceList();
+        return this.mDeviceList.getList();
     }
 
     /**
@@ -106,7 +106,7 @@ public class Room implements Metered {
         for (int i = 0; i < this.getDeviceList().size(); i++) {
             Device device = this.getDeviceList().get(i);
             result.append("\n" + i).append(") device Name: ").append(device.getName());
-            result.append(", device Type: ").append(device.getDeviceType());
+            result.append(", device Type: ").append(device.getType());
             result.append(", device Nominal Power: ").append(device.getNominalPower());
         }
         result.append("\n---------------\n");
@@ -150,8 +150,8 @@ public class Room implements Metered {
     }
 
     public boolean removeDevice(Device device) {
-        if ((mDeviceList.getDeviceList().contains(device))) {
-            mDeviceList.getDeviceList().remove(device);
+        if ((mDeviceList.getList().contains(device))) {
+            mDeviceList.getList().remove(device);
             return true;
         } else {
             return false;
@@ -215,7 +215,7 @@ public class Room implements Metered {
     List<Device> getDevicesOfGivenType(DeviceType deviceType) {
         List<Device> devicesOfGivenType = new ArrayList<>();
         for (Device d : getDeviceList()) {
-            if (d.getDeviceType() == deviceType) {
+            if (d.getType() == deviceType) {
                 devicesOfGivenType.add(d);
             }
         }
@@ -231,7 +231,7 @@ public class Room implements Metered {
     double getDailyRoomConsumptionPerType(DeviceType deviceType) {
         double result = 0;
         for (Device d : getDeviceList()) {
-            if (d.getDeviceType() == deviceType) {
+            if (d.getType() == deviceType) {
                 result += d.getDailyEstimateConsumption();
             }
         }

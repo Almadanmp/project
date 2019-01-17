@@ -16,16 +16,20 @@ public class WaterHeater implements DeviceSpecs {
     Double mVolumeOfWater;
     Double mHotWaterTemperature;
     Double mPerformanceRatio;
-    Double mColdWaterTemperature = 0.0;
-    Double mVolumeOfWaterToHeat = 0.0;
+    Double mColdWaterTemperature;
+    Double mVolumeOfWaterToHeat;
 
     public WaterHeater() {
+        mColdWaterTemperature = 0.0;
+        mVolumeOfWaterToHeat = 0.0;
     }
 
     public WaterHeater(Double volumeOfWater, Double hotWaterTemperature, Double mPerformanceRatio) {
         this.mVolumeOfWater = volumeOfWater;
         this.mHotWaterTemperature = hotWaterTemperature;
         this.mPerformanceRatio = mPerformanceRatio;
+        mColdWaterTemperature = 0.0;
+        mVolumeOfWaterToHeat = 0.0;
     }
 
 
@@ -41,10 +45,10 @@ public class WaterHeater implements DeviceSpecs {
      * V -> Volume of water to heat (water consumption in litres/min)
      * Dt -> difference in temperature = hot water temperature – cold watertemperature
      * PR -> performance ratio (typically 0.9)
-     *
+     * <p>
      * When the temperature of ColdWater is above the HotWaterTemperature, there will be no energy consumption, so we
      * return 0.
-     *
+     * <p>
      * coldWaterTemperature e volumeOfWaterToHead need to be set before using this method
      * (returns -1 if they are not set) )
      *

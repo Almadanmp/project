@@ -210,7 +210,7 @@ class DeviceListTest {
         dlist.addDevice(device);
         //Act
         List<Integer> result = dlist.matchDeviceIndexByString("frigorifico");
-        List<Integer> expectedResult = Collections.singletonList(dlist.getDeviceList().indexOf(device));
+        List<Integer> expectedResult = Collections.singletonList(dlist.getList().indexOf(device));
         //Assert
         assertEquals(expectedResult, result);
     }

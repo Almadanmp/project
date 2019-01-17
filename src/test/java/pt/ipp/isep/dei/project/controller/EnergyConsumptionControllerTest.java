@@ -373,7 +373,7 @@ class EnergyConsumptionControllerTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0.0;
-        double result = controller.getWaterHeaterEstimateConsumption(h1);
+        double result = controller.getWHEstimateConsumption(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -382,7 +382,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House();
         double expectedResult = 0;
-        double result = controller.getWaterHeaterEstimateConsumption(h1);
+        double result = controller.getWHEstimateConsumption(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -395,7 +395,7 @@ class EnergyConsumptionControllerTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0;
-        double result = controller.getWaterHeaterEstimateConsumption(h1);
+        double result = controller.getWHEstimateConsumption(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -412,7 +412,7 @@ class EnergyConsumptionControllerTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0;
-        double result = controller.getWaterHeaterEstimateConsumption(h1);
+        double result = controller.getWHEstimateConsumption(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -468,7 +468,7 @@ class EnergyConsumptionControllerTest {
         r1.setDeviceList(d1);
         List<Device> expecteResult = new ArrayList<>();
         expecteResult.add(d6);
-        List<Device> result = controller.getWaterHeaterDeviceList(h1);
+        List<Device> result = controller.getWHDeviceList(h1);
         Assertions.assertEquals(expecteResult, result);
     }
 
@@ -485,7 +485,7 @@ class EnergyConsumptionControllerTest {
         List<Device> expectedResult = new ArrayList<>();
         expectedResult.add(d2);
         expectedResult.add(d3);
-        List<Device> result = controller.getWaterHeaterDeviceList(house);
+        List<Device> result = controller.getWHDeviceList(house);
         Assertions.assertEquals(expectedResult, result);
     }
 
@@ -493,7 +493,7 @@ class EnergyConsumptionControllerTest {
     void getHouseDevicesOfGivenType(){
         EnergyConsumptionController controller = new EnergyConsumptionController();
         Device d = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
-        String result = controller.getWaterHeaterName(d);
+        String result = controller.getWHName(d);
         Assertions.assertEquals("wHeater2", result);
     }
 
@@ -505,8 +505,8 @@ class EnergyConsumptionControllerTest {
         Double attributeValue = null;
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureHeater(d6, attributeValue, attributeValue2);
-        boolean result = controller.configureHeater(d6, attributeValue, attributeValue2);
+        controller.configureWH(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
         boolean expectedResult = false;
         assertEquals(expectedResult, result);
     }
@@ -519,8 +519,8 @@ class EnergyConsumptionControllerTest {
         Double attributeValue = 2.0;
         Double attributeValue2 = null;
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureHeater(d6, attributeValue, attributeValue2);
-        boolean result = controller.configureHeater(d6, attributeValue, attributeValue2);
+        controller.configureWH(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
         boolean expectedResult = false;
         assertEquals(expectedResult, result);
     }
@@ -533,7 +533,7 @@ class EnergyConsumptionControllerTest {
         Double attributeValue = 2.0;
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        boolean result = controller.configureHeater(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
         boolean expectedResult = true;
         assertEquals(expectedResult, result);
     }

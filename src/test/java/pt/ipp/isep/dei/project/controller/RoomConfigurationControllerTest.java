@@ -115,7 +115,7 @@ class RoomConfigurationControllerTest {
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
         List<Integer> actualResult = ctrl.matchRoomIndexByString("sala", house);
-        List<Integer> expectedResult = Collections.singletonList(roomList.getRoomList().indexOf(room1));
+        List<Integer> expectedResult = Collections.singletonList(roomList.getList().indexOf(room1));
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -397,7 +397,7 @@ class RoomConfigurationControllerTest {
         room.setDeviceList(dlist);
         //Act
         List<Integer> result = ctrl.matchDeviceIndexByString("frigorifico", room);
-        List<Integer> expectedResult = Collections.singletonList(dlist.getDeviceList().indexOf(d1));
+        List<Integer> expectedResult = Collections.singletonList(dlist.getList().indexOf(d1));
         //Assert
         assertEquals(expectedResult, result);
     }

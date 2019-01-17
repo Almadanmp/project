@@ -116,7 +116,7 @@ class EnergyConsumptionUI {
      */
 
     private void printSelection(DeviceList selectedDevices, RoomList selectedRooms) {
-        if (selectedDevices.getDeviceList().isEmpty() && selectedRooms.getRoomList().isEmpty()) {
+        if (selectedDevices.getList().isEmpty() && selectedRooms.getList().isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
             System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildRoomsString() + "\n" + "You have already selected the following devices:\n\n" + selectedDevices.buildDevicesString() + ".");
@@ -208,7 +208,7 @@ class EnergyConsumptionUI {
 
     private void runUS752(House house) {
         InputUtils inputUtils = new InputUtils();
-        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
+        List<Device> waterHeaters = controller.getWHDeviceList(house);
         if (waterHeaters.isEmpty()) {
             System.out.println("Your house has no Water Heaters. Returning to Main Menu.");
             return;
@@ -216,19 +216,19 @@ class EnergyConsumptionUI {
         System.out.println("You currently have " + waterHeaters.size() + " water heaters in your house:\n");
 
         for (Device d : waterHeaters) {
-            System.out.println("Water Heater name: " + controller.getWaterHeaterName(d) + ".\n");
-            System.out.println("Please insert the cold water temperature for Water Heater: " + controller.getWaterHeaterName(d) + ":");
+            System.out.println("Water Heater name: " + controller.getWHName(d) + ".\n");
+            System.out.println("Please insert the cold water temperature for Water Heater: " + controller.getWHName(d) + ":");
             double coldWaterTemperature = inputUtils.getInputAsDouble();
             System.out.println("Please insert the volume of water to heat for Water Heater: " + d.getName() + ":");
             double volumeWaterToHeat = inputUtils.getInputAsDouble();
-            boolean configResult = controller.configureHeater(d, coldWaterTemperature, volumeWaterToHeat);
+            boolean configResult = controller.configureWH(d, coldWaterTemperature, volumeWaterToHeat);
             if (!configResult) {
                 System.out.println("Error: unable to set parameters. Returning to Main Menu.");
                 return;
             }
-            System.out.println("device " + controller.getWaterHeaterName(d) + " options registered. \n");
+            System.out.println("device " + controller.getWHName(d) + " options registered. \n");
         }
-        double result = controller.getWaterHeaterEstimateConsumption(house);
+        double result = controller.getWHEstimateConsumption(house);
         System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
     }
 

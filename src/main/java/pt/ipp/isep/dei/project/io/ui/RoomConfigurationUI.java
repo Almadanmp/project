@@ -289,19 +289,19 @@ class RoomConfigurationUI {
         if (mRoom.addDevice(mDevice)) {
             System.out.println("You have successfully created a " + mDeviceType.buildDeviceTypeString(mDeviceType) + " with the name " + mDeviceName + ". \n"
                     + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + ".");
-            if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
+            if (mDevice.getType() == DeviceType.WATER_HEATER) {
                 System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
                         mHotWaterTemperature + " ºC, and the Performance Ratio is: "
                         + mPerformanceRatio + ".");
             }
-            if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE || mDevice.getDeviceType() == DeviceType.DISHWASHER) {
+            if (mDevice.getType() == DeviceType.WASHING_MACHINE || mDevice.getType() == DeviceType.DISHWASHER) {
                 System.out.println("The Capacity is " + mCapacity + " Kg.");
             }
-            if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
+            if (mDevice.getType() == DeviceType.FRIDGE) {
                 System.out.println("The Freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
                         " L and the " + mAnnualEnergyConsumption + " kWh.");
             }
-            if (mDevice.getDeviceType() == DeviceType.LAMP) {
+            if (mDevice.getType() == DeviceType.LAMP) {
                 System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
             }
             mDevice.setmParentRoom(mRoom);
@@ -335,7 +335,7 @@ class RoomConfigurationUI {
 
         this.mNominalPower = inputUtils.getInputAsDouble();
 
-        if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
+        if (mDevice.getType() == DeviceType.WATER_HEATER) {
             System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
 
             this.mVolumeOfWater = inputUtils.getInputAsDouble();
@@ -347,7 +347,7 @@ class RoomConfigurationUI {
             this.mPerformanceRatio = inputUtils.getInputAsDouble();
 
         }
-        if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
+        if (mDevice.getType() == DeviceType.WASHING_MACHINE) {
             System.out.print("Please, type the new Capacity in Kg for the Washing Machine: ");
 
             this.mCapacity = inputUtils.getInputAsDouble();
@@ -365,7 +365,7 @@ class RoomConfigurationUI {
 
 
         }
-        if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
+        if (mDevice.getType() == DeviceType.DISHWASHER) {
             System.out.print("Please, type the new Capacity in Kg for the Dishwasher:");
 
             this.mCapacity = inputUtils.getInputAsDouble();
@@ -381,7 +381,7 @@ class RoomConfigurationUI {
 
         }
 
-        if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
+        if (mDevice.getType() == DeviceType.FRIDGE) {
             System.out.print("Please, type the new Freezer Capacity in L for the Fridge:");
 
             this.mFreezerCapacity = inputUtils.getInputAsDouble();
@@ -394,7 +394,7 @@ class RoomConfigurationUI {
 
             this.mAnnualEnergyConsumption = inputUtils.getInputAsDouble();
         }
-        if (mDevice.getDeviceType() == DeviceType.LAMP) {
+        if (mDevice.getType() == DeviceType.LAMP) {
             System.out.print("Please, type the new Luminous Flux in lm for the Lamp:");
 
             this.mLuminousFlux = inputUtils.getInputAsDouble();
@@ -449,30 +449,30 @@ class RoomConfigurationUI {
         mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
         mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
 
-        if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
+        if (mDevice.getType() == DeviceType.WATER_HEATER) {
 
             mRoomConfigurationController.configureOneHeater(mDevice, mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
             System.out.println("device Configured.\n");
         }
-        if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE) {
+        if (mDevice.getType() == DeviceType.WASHING_MACHINE) {
             mRoomConfigurationController.configureOneWashingMachineCapacity(mDevice, mCapacity);
             mRoomConfigurationController.configureOneWashingMachineProgram(mDevice, mProgramList);
             System.out.println("device Configured.\n");
 
         }
         String deviceReconfigured = "Device reconfigured.\n";
-        if (mDevice.getDeviceType() == DeviceType.DISHWASHER) {
+        if (mDevice.getType() == DeviceType.DISHWASHER) {
             mRoomConfigurationController.configureOneDishWasherProgram(mDevice, mProgramList);
             mRoomConfigurationController.configureOneDishWasherCapacity(mDevice, mCapacity);
             System.out.println(deviceReconfigured);
 
         }
-        if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
+        if (mDevice.getType() == DeviceType.FRIDGE) {
             mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
             System.out.println(deviceReconfigured);
 
         }
-        if (mDevice.getDeviceType() == DeviceType.LAMP) {
+        if (mDevice.getType() == DeviceType.LAMP) {
             mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
             System.out.println(deviceReconfigured);
 
@@ -489,20 +489,20 @@ class RoomConfigurationUI {
         if (mRoom.addDevice(mDevice)) {
             System.out.println("\nYou have successfully changed the device name to " + mDeviceName + ". \n"
                 + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
-        if (mDevice.getDeviceType() == DeviceType.WATER_HEATER) {
+        if (mDevice.getType() == DeviceType.WATER_HEATER) {
             System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
                     mHotWaterTemperature + " ºC, and the Performance Ratio is: "
                     + mPerformanceRatio + ".");
         }
-        if (mDevice.getDeviceType() == DeviceType.WASHING_MACHINE || mDevice.getDeviceType() == DeviceType.DISHWASHER) {
+        if (mDevice.getType() == DeviceType.WASHING_MACHINE || mDevice.getType() == DeviceType.DISHWASHER) {
             System.out.println("The capacity is " + mCapacity + " Kg." + "\nThe following programs were reconfigured: "
                     + "\n" + mProgramList.buildProgramListStringForEach());
         }
-        if (mDevice.getDeviceType() == DeviceType.FRIDGE) {
+        if (mDevice.getType() == DeviceType.FRIDGE) {
             System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
                     " L and the " + mAnnualEnergyConsumption + " kWh.");
         }
-        if (mDevice.getDeviceType() == DeviceType.LAMP) {
+        if (mDevice.getType() == DeviceType.LAMP) {
             System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
         }
             mDevice.setmParentRoom(mRoom);

@@ -19,7 +19,7 @@ public class DeviceTest {
         Device d = new Device("WMOne", 12, new WashingMachine());
         DeviceType dT = DeviceType.WASHING_MACHINE;
         DeviceType expectedResult = dT;
-        DeviceType result = d.getDeviceType();
+        DeviceType result = d.getType();
         assertEquals(expectedResult, result);
     }
 

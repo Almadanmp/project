@@ -63,7 +63,7 @@ public class EnergyGrid implements Metered {
      */
     public DeviceList getDeviceListFromAllRooms() {
         DeviceList devices = new DeviceList();
-        for (Room r : mRoomList.getRoomList()) {
+        for (Room r : mRoomList.getList()) {
             for (int i = 0; i < r.getDeviceList().size(); i++) {
                 devices.addDevice(r.getDeviceList().get(i));
             }
@@ -77,7 +77,7 @@ public class EnergyGrid implements Metered {
      */
     public double getNominalPower() {
         double result = 0;
-        for (Room r : mRoomList.getRoomList()) {
+        for (Room r : mRoomList.getList()) {
             result += r.getNominalPower();
             mNominalPower = result;
         }
@@ -158,7 +158,7 @@ public class EnergyGrid implements Metered {
      * @return a list of rooms related to the energy grid.
      */
     public List<Room> getRoomList() {
-        return this.mRoomList.getRoomList();
+        return this.mRoomList.getList();
     }
 
     /**
@@ -183,7 +183,7 @@ public class EnergyGrid implements Metered {
         }
         List<Device> deviceList = this.getDeviceList();
         for (Device d : deviceList) {
-            result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getDeviceType().name()).append(", Power: ").append(d.getNominalPower()).append(".\n");
+            result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getType().name()).append(", Power: ").append(d.getNominalPower()).append(".\n");
             counter++;
         }
         return result.toString();
@@ -234,8 +234,8 @@ public class EnergyGrid implements Metered {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
         for (DeviceType d : DeviceType.values()) {
-            for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
-                Room r = energyGrid.getListOfRooms().getRoomList().get(i);
+            for (int i = 0; i < energyGrid.getListOfRooms().getList().size(); i++) {
+                Room r = energyGrid.getListOfRooms().getList().get(i);
                 if (r != null) {
                     result.append(buildDeviceListInGridString(r, d));
                 }
@@ -254,7 +254,7 @@ public class EnergyGrid implements Metered {
     private String buildDeviceListInGridString(Room r, DeviceType d) {
         StringBuilder result = new StringBuilder();
         for (int x = 0; x < r.getDeviceList().size(); x++) {
-            if (d == r.getDeviceList().get(x).getDeviceType()) {
+            if (d == r.getDeviceList().get(x).getType()) {
                 Device device = r.getDeviceList().get(x);
                 result.append("device type: ").append(d).append(" | ");
                 result.append(device.getName()).append(" | ");

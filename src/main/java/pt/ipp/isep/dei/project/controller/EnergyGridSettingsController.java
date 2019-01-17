@@ -111,11 +111,11 @@ public class EnergyGridSettingsController {
     String buildGridRoomsString(EnergyGrid energyGrid) {
         String mStringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringSpacer);
-        if (energyGrid.getListOfRooms().getRoomList().isEmpty()) {
+        if (energyGrid.getListOfRooms().getList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
-            Room aux = energyGrid.getListOfRooms().getRoomList().get(i);
+        for (int i = 0; i < energyGrid.getListOfRooms().getList().size(); i++) {
+            Room aux = energyGrid.getListOfRooms().getList().get(i);
             result.append(i).append(") Designation: ").append(aux.getRoomName()).append(" | ");
             result.append("House Floor: ").append(aux.getHouseFloor()).append(" | \n");
         }
@@ -217,10 +217,10 @@ public class EnergyGridSettingsController {
         if (energyGrid == null) {
             return "This energy grid is invalid\n";
         }
-        if (energyGrid.getListOfRooms() == null || energyGrid.getListOfRooms().getRoomList().isEmpty()) {
+        if (energyGrid.getListOfRooms() == null || energyGrid.getListOfRooms().getList().isEmpty()) {
             return "This energy grid has no rooms attached\n";
         }
-        if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty()) {
+        if (energyGrid.getDeviceListFromAllRooms().getList().isEmpty()) {
             return "This energy grid has no devices on it\n";
         }
         return energyGrid.buildListOfDeviceByTypeString(energyGrid);

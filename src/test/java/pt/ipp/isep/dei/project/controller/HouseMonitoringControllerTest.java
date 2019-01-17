@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.*;
 
-import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -733,7 +732,7 @@ public class HouseMonitoringControllerTest {
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
         //Act
         List<Integer> result = ctrl.matchRoomIndexByString("sala", house);
-        List<Integer> expectedResult = Collections.singletonList(roomList.getRoomList().indexOf(room1));
+        List<Integer> expectedResult = Collections.singletonList(roomList.getList().indexOf(room1));
         //Assert
         Assert.assertEquals(expectedResult, result);
     }

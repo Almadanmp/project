@@ -26,7 +26,7 @@ public class RoomList {
     }
 
     public boolean doesListOfRoomsContainRoomByName(String name) {
-        for (Room room : getRoomList()) {
+        for (Room room : getList()) {
             if ((room.getRoomName().equals(name))) {
                 return true;
             }
@@ -34,7 +34,7 @@ public class RoomList {
         return false;
     }
 
-    public List<Room> getRoomList() {
+    public List<Room> getList() {
         return this.mRoomList;
     }
 
@@ -99,7 +99,7 @@ public class RoomList {
 
     public List<Device> getDeviceList() {
         List<Device> result = new ArrayList<>();
-        for (Room r : this.getRoomList()) {
+        for (Room r : this.getList()) {
             result.addAll(r.getDeviceList());
         }
         return result;
@@ -124,11 +124,11 @@ public class RoomList {
 
     public String buildRoomsString() {
         StringBuilder result = new StringBuilder(this.mStringResult);
-        if (this.getRoomList().isEmpty()) {
+        if (this.getList().isEmpty()) {
             return this.mStringInvalidList;
         }
-        for (int i = 0; i < this.getRoomList().size(); i++) {
-            Room aux = this.getRoomList().get(i);
+        for (int i = 0; i < this.getList().size(); i++) {
+            Room aux = this.getList().get(i);
             result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
             result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
             result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
@@ -162,7 +162,7 @@ public class RoomList {
             return false;
         }
         RoomList list = (RoomList) testObject;
-        return Arrays.equals(this.getRoomList().toArray(), list.getRoomList().toArray());
+        return Arrays.equals(this.getList().toArray(), list.getList().toArray());
     }
 
     @Override

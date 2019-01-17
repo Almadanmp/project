@@ -127,7 +127,7 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return returns a list of water heaters from a house
      */
-    public List<Device> getWaterHeaterDeviceList(House house) {
+    public List<Device> getWHDeviceList(House house) {
         return house.getDevicesOfGivenType(DeviceType.WATER_HEATER);
     }
 
@@ -137,7 +137,7 @@ public class EnergyConsumptionController {
      * @param d water heater (device)
      * @return name(string)
      */
-    public String getWaterHeaterName(Device d) {
+    public String getWHName(Device d) {
         return d.getName();
     }
 
@@ -148,7 +148,7 @@ public class EnergyConsumptionController {
      * @param coldWaterTemperature value for the cold water temperature
      * @param volumeOfWaterToHeat  value for the amount of water to heat
      */
-    public boolean configureHeater(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
+    public boolean configureWH(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
         return (device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) &&
                 device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat));
     }
@@ -159,7 +159,8 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return estimate energy consumption on the water heaters
      */
-    public double getWaterHeaterEstimateConsumption(House house) {
+    //TODO Rename both methods to daily
+    public double getWHEstimateConsumption(House house) {
         return house.getEstimateDeviceConsumption(DeviceType.WATER_HEATER);
     }
 

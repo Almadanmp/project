@@ -85,7 +85,7 @@ public class Device implements Metered {
         return mDeviceSpecs.getConsumption();
     }
 
-    public DeviceType getDeviceType() {
+    public DeviceType getType() {
         return mDeviceSpecs.getType();
     }
 

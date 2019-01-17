@@ -73,7 +73,7 @@ public class House implements Metered {
 
     public double getNominalPower() {
         double result = 0;
-        for (Room r1 : mRoomList.getRoomList()) {
+        for (Room r1 : mRoomList.getList()) {
             result += r1.getNominalPower();
         }
         return result;
@@ -102,7 +102,7 @@ public class House implements Metered {
     }
 
     public List<Room> getRoomList() {
-        return this.mRoomList.getRoomList();
+        return this.mRoomList.getList();
     }
 
     public GeographicArea getMotherArea() {
@@ -120,7 +120,7 @@ public class House implements Metered {
 
     public boolean addRoomToRoomList(Room room) {
         String roomToAddName = room.getRoomName();
-        for (Room r : this.mRoomList.getRoomList()) {
+        for (Room r : this.mRoomList.getList()) {
             String roomNameTest = r.getRoomName();
             if (roomNameTest.equals(roomToAddName))
                 return false;
@@ -216,7 +216,7 @@ public class House implements Metered {
      */
     public List<Device> getDevicesOfGivenType(DeviceType deviceType) {
         List<Device> devicesOfGivenType = new ArrayList<>();
-        for (Room r : mRoomList.getRoomList()) {
+        for (Room r : mRoomList.getList()) {
             devicesOfGivenType.addAll(r.getDevicesOfGivenType(deviceType));
         }
         return devicesOfGivenType;
@@ -224,7 +224,7 @@ public class House implements Metered {
 
     List<Device> getAllHouseDevices() {
         List<Device>  allDevices = new ArrayList<>();
-        for (Room r : mRoomList.getRoomList()) {
+        for (Room r : mRoomList.getList()) {
             allDevices.addAll(r.getDeviceList());
         }
         return allDevices;
@@ -238,7 +238,7 @@ public class House implements Metered {
      */
     public double getEstimateDeviceConsumption(DeviceType deviceType) {
         double result = 0;
-        for (Room r : mRoomList.getRoomList()) {
+        for (Room r : mRoomList.getList()) {
             result += r.getDailyRoomConsumptionPerType(deviceType);
         }
         return result;

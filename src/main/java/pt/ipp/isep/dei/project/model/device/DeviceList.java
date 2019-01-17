@@ -16,7 +16,7 @@ public class DeviceList {
     }
 
 
-    public List<Device> getDeviceList() {
+    public List<Device> getList() {
         return this.mDeviceList;
     }
 
@@ -46,7 +46,7 @@ public class DeviceList {
 
     public double getNominalPower() {
         double result = 0;
-        for (Device d : this.getDeviceList()) {
+        for (Device d : this.getList()) {
             result += d.getNominalPower();
         }
         return result;
@@ -94,7 +94,7 @@ public class DeviceList {
             return false;
         }
         DeviceList list = (DeviceList) testObject;
-        return Arrays.equals(this.getDeviceList().toArray(), list.getDeviceList().toArray());
+        return Arrays.equals(this.getList().toArray(), list.getList().toArray());
     }
 
     @Override
