@@ -17,7 +17,7 @@ EnergyConsumptionUI -> EnergyConsumptionUI: run US752(house)
 EnergyConsumptionUI -> EnergyConsumptionController: getWaterHeaterDeviceList(house)
 EnergyConsumptionController -> House: getHouseDevicesOfGivenType(deviceType)
 House --> EnergyConsumptionController: return houseDevicesOfGivenType
-EnergyConsumptionController --> EnergyConsumptionUI: return houseDevicesOfGivenType
+EnergyConsumptionController --> EnergyConsumptionUI: return WaterHeaterDeviceList(
 
 loop all house water heaters
     EnergyConsumptionUI -> User: getColdWaterTemp(double)
@@ -27,6 +27,7 @@ loop all house water heaters
     User --> EnergyConsumptionUI: return VolumeOfWaterToHeat(double)
     EnergyConsumptionUI -> EnergyConsumptionUI: set VolumeOfWaterToHeat(double)
     EnergyConsumptionUI -> EnergyConsumptionController: configureOneHeater(Device, double, double)
+    participant Room
     EnergyConsumptionController -> Device: setAttributeValue(String, double)
 end
 EnergyConsumptionUI -> EnergyConsumptionController: getDailyHouseConsumptionWaterHeater(house)
