@@ -174,10 +174,7 @@ public class Room implements Metered {
      * @return the result of the operation (true if successful, false otherwise)
      */
     public boolean addDevice(Device device) {
-        String nome="";
-        for (Device d: mDeviceList.getDeviceList()){
-            nome=d.getName();}
-        if (!(mDeviceList.containsDevice(device)) && !(device.getName().equals(nome))) {
+        if (!(mDeviceList.containsDevice(device))) {
             mDeviceList.addDevice(device);
             return true;
         } else {
@@ -214,7 +211,6 @@ public class Room implements Metered {
      *
      * @param deviceType the device type
      * @return the list with all devices of a given type
-     *
      */
     List<Device> getRoomDevicesOfGivenType(DeviceType deviceType) {
         List<Device> devicesOfGivenType = new ArrayList<>();
@@ -275,7 +271,6 @@ public class Room implements Metered {
         Room room = (Room) o;
         return Objects.equals(mRoomName, room.mRoomName);
     }
-
 
 
     @Override
