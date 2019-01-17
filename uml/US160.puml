@@ -1,13 +1,28 @@
 @startuml
+title US160 - List all devices on an Energy Grid ordered by type
 actor PowerUser
-PowerUser -> MainUI: listDevicesOnSelectedGrid()
-MainUI -> RoomConfigurationUI: listDevicesOnSelectedGrid()
+PowerUser -> MainUI: run160(house)
+activate MainUI
+MainUI -> RoomConfigurationUI: run160(house)
+activate RoomConfigurationUI
 RoomConfigurationUI -> RoomConfigurationUI: validateHouse()
-RoomConfigurationUI --> PowerUser: Feedback message
+RoomConfigurationUI --> PowerUser: displayListOfGrids(house)
 PowerUser -> MainUI: matchEnergyGridByIndex()
+MainUI -> RoomConfigurationUI: matchEnergyGridByIndex()
 RoomConfigurationUI -> RoomConfigurationController: matchEnergyGridByIndex()
-RoomConfigurationController -> House: matchEnergyGridByIndex()
-House --> RoomConfigurationController: return EnergyGrid
-RoomConfigurationController -> EnergyGrid: printListOfDevicesByType()
-EnergyGrid --> PowerUser: return ListOfDevicesOrderedByType
+activate RoomConfigurationController
+RoomConfigurationController -> EnergyGridList: matchEnergyGridByIndex()
+activate EnergyGridList
+EnergyGridList --> RoomConfigurationController: return EnergyGrid
+RoomConfigurationController -> RoomConfigurationController: validate EnergyGrid
+RoomConfigurationController -> RoomConfigurationController: validate RoomList
+RoomConfigurationController -> RoomConfigurationController: validate DeviceList
+RoomConfigurationController -> EnergyGrid: buildListOfDevicesByType\n(EnergyGrid)
+activate EnergyGrid
+EnergyGrid --> PowerUser: Display ListOfDevices \nOrderedByType
+deactivate MainUI
+deactivate RoomConfigurationUI
+deactivate RoomConfigurationController
+deactivate EnergyGridList
+deactivate EnergyGrid
 @enduml
