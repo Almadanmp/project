@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Dishwasher tests class.
@@ -82,6 +83,19 @@ public class DishwasherTest {
         Dishwasher dishwasher = new Dishwasher(1,listProgram);
         boolean result = dishwasher.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
+    }
+
+    @Test
+    void seeIfSetAttributeValueTestTrueWorks() {
+        //Arrange
+        Program program1 = new Program("programa",2,2);
+        ProgramList listProgram= new ProgramList();
+        listProgram.addProgram(program1);
+        Dishwasher dishwasher = new Dishwasher(1,listProgram);
+        //Act
+        boolean actualResult = dishwasher.setAttributeValue("capacity", 12.0);
+        //Assert
+        assertTrue(actualResult);
     }
 
     @Test
