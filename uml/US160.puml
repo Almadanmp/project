@@ -3,26 +3,26 @@ title US160 - List all devices on an Energy Grid ordered by type
 actor PowerUser
 PowerUser -> MainUI: run160(house)
 activate MainUI
-MainUI -> RoomConfigurationUI: run160(house)
-activate RoomConfigurationUI
-RoomConfigurationUI -> RoomConfigurationUI: validateHouse()
-RoomConfigurationUI --> PowerUser: displayListOfGrids(house)
+MainUI -> EnergyGridSettingsUI: run160(house)
+activate EnergyGridSettingsUI
+EnergyGridSettingsUI -> EnergyGridSettingsUI: validateHouse()
+EnergyGridSettingsUI --> PowerUser: displayListOfGrids(house)
 PowerUser -> MainUI: matchEnergyGridByIndex()
-MainUI -> RoomConfigurationUI: matchEnergyGridByIndex()
-RoomConfigurationUI -> RoomConfigurationController: matchEnergyGridByIndex()
-activate RoomConfigurationController
-RoomConfigurationController -> EnergyGridList: matchEnergyGridByIndex()
+MainUI -> EnergyGridSettingsUI: matchEnergyGridByIndex()
+EnergyGridSettingsUI -> EnergyGridSettingsController: matchEnergyGridByIndex()
+activate EnergyGridSettingsController
+EnergyGridSettingsController -> EnergyGridList: matchEnergyGridByIndex()
 activate EnergyGridList
-EnergyGridList --> RoomConfigurationController: return EnergyGrid
-RoomConfigurationController -> RoomConfigurationController: validate EnergyGrid
-RoomConfigurationController -> RoomConfigurationController: validate RoomList
-RoomConfigurationController -> RoomConfigurationController: validate DeviceList
-RoomConfigurationController -> EnergyGrid: buildListOfDevicesByType\n(EnergyGrid)
+EnergyGridList --> EnergyGridSettingsController: return EnergyGrid
+EnergyGridSettingsController -> EnergyGridSettingsController: validate EnergyGrid
+EnergyGridSettingsController -> EnergyGridSettingsController: validate RoomList
+EnergyGridSettingsController -> EnergyGridSettingsController: validate DeviceList
+EnergyGridSettingsController -> EnergyGrid: buildListOfDevicesByType\n(EnergyGrid)
 activate EnergyGrid
 EnergyGrid --> PowerUser: Display ListOfDevices \nOrderedByType
 deactivate MainUI
-deactivate RoomConfigurationUI
-deactivate RoomConfigurationController
+deactivate EnergyGridSettingsUI
+deactivate EnergyGridSettingsController
 deactivate EnergyGridList
 deactivate EnergyGrid
 @enduml

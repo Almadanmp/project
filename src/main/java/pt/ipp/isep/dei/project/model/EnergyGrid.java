@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -18,7 +17,6 @@ public class EnergyGrid implements Metered {
     private double mNominalPower;
     private RoomList mRoomList;
     private PowerSourceList mListPowerSources;
-    private String mStringSpacer = "---------------\n";
 
     /**
      * Empty constructor to use on UIs.
@@ -233,7 +231,8 @@ public class EnergyGrid implements Metered {
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
     public String buildListOfDeviceByTypeString(EnergyGrid energyGrid) {
-        StringBuilder result = new StringBuilder(mStringSpacer);
+        String stringSpacer = "---------------\n";
+        StringBuilder result = new StringBuilder(stringSpacer);
         for (DeviceType d : DeviceType.values()) {
             for (int i = 0; i < energyGrid.getListOfRooms().getRoomList().size(); i++) {
                 Room r = energyGrid.getListOfRooms().getRoomList().get(i);
@@ -242,7 +241,7 @@ public class EnergyGrid implements Metered {
                 }
             }
         }
-        result.append(mStringSpacer);
+        result.append(stringSpacer);
         return result.toString();
     }
 
