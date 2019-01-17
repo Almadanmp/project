@@ -82,11 +82,34 @@ public class WaterHeaterTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    public void getConsumptionTestColdWaterMinorHotWater2() {
+        WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
+        Double coldT = 30.0;
+        Double waterV = 800.0;
+        waterHeater.setAttributeValue("coldWaterTemperature", coldT);
+        waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
+        double expectedResult = 0.0;
+        double result = waterHeater.getConsumption();
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void getConsumptionTestColdWaterMinorHotWater3() {
+        WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
+        Double coldT = 25.0;
+        Double waterV = 800.0;
+        waterHeater.setAttributeValue("coldWaterTemperature", coldT);
+        waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
+        double expectedResult = 0.0;
+        double result = waterHeater.getConsumption();
+        assertEquals(expectedResult, result);
+    }
+
 
     //Test Attributes
 
     @Test
-    void seeIfsetVolumeWaterWorks() {
+    void seeIfSetVolumeWaterWorks() {
         WaterHeater waterHeater = new WaterHeater();
         Double volumeOfWater = 12.0;
         waterHeater.setVolumeOfWater(volumeOfWater);
@@ -134,7 +157,7 @@ public class WaterHeaterTest {
     public void seeIfGetAttributeValueDefaultTest() {
         WaterHeater waterHeater = new WaterHeater();
         String attribute = "Lisboa";
-        int expectedResult = 0;
+        Double expectedResult = 0.0;
         Object getResult = waterHeater.getAttributeValue(attribute);
         assertEquals(expectedResult, getResult);
     }
@@ -209,6 +232,77 @@ public class WaterHeaterTest {
         attribute = "volumeOfWaterToHeat";
         attributeValue = 10;
         setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        assertFalse(setResult);
+    }
+    @Test
+    public void seeIFSetAttributeValuesFails2() {
+        WaterHeater waterHeater = new WaterHeater();
+        String attribute = "njfdjkndfk";
+        int attributeValue = 2;
+        boolean setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        assertFalse(setResult);
+
+        attribute = "htfcf";
+        attributeValue = 3;
+        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        assertFalse(setResult);
+
+        attribute = "fhj";
+        attributeValue = 4;
+        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        assertFalse(setResult);
+
+        attribute = "fhjg";
+        attributeValue = 5;
+        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        assertFalse(setResult);
+
+        attribute = "gfdjcktuyvuh";
+        attributeValue = 10;
+        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        assertFalse(setResult);
+    }
+    @Test
+    public void seeIfGetAndSetAttributeValues2() {
+        WaterHeater waterHeater = new WaterHeater();
+        String attribute = "sgddhfg";
+        Double expectedResult = 0.0;
+        Double attributeValue = 3.0;
+        boolean setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        Object getResult = waterHeater.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertFalse(setResult);
+
+        attribute = "dghetrft";
+        attributeValue = 3.0;
+        expectedResult = 0.0;
+        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        getResult = waterHeater.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertFalse(setResult);
+
+        attribute = "fhjhgj";
+        attributeValue= 2.0;
+        expectedResult = 0.0;
+        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        getResult = waterHeater.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertFalse(setResult);
+
+        attribute = "fcgh";
+        expectedResult = 0.0;
+        attributeValue = 5.0;
+        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        getResult = waterHeater.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertFalse(setResult);
+
+        attribute = "dfghj";
+        expectedResult = 0.0;
+        attributeValue = 5.0;
+        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
+        getResult = waterHeater.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
         assertFalse(setResult);
     }
 }
