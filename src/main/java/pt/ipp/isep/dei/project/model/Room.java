@@ -238,16 +238,21 @@ public class Room implements Metered {
         return result;
     }
 
+    /**
+     * Adds all of this room's devices to a given list. Skips duplicates.
+     * @param list is the list we want to add the room's devices to.
+     * @return is true if at least one device was added, false if no devices were added.
+     */
+
     public boolean addRoomDevicesToDeviceList(DeviceList list) {
+        int counter = 0;
         for (Device d : this.getDeviceList()) {
             if (!(list.containsDevice(d))) {
                 list.addDevice(d);
-                return true;
+                counter++;
             }
-            else {
-                return false;
-            }
-        } return false;
+        }
+        return counter != 0;
     }
 
     public boolean removeRoomDevicesFromDeviceList(DeviceList list) {

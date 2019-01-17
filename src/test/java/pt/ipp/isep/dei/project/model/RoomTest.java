@@ -510,6 +510,59 @@ public class RoomTest {
     }
 
     @Test
+    void seeIfAddRoomDevicesToDeviceListWorksWhenDeviceListAlreadyAddedToRoom() {
+        //Arrange
+        Device device1 = new Device("waterheater", 150, new WaterHeater());
+        Device device2 = new Device("skjsjk", 123, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        DeviceList dList = new DeviceList();
+        dList.addDevice(device1);
+        dList.addDevice(device2);
+        room.setDeviceList(dList);
+        //Act
+        boolean actualResult = room.addRoomDevicesToDeviceList(dList);
+        boolean expectedResult = false;
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomDevicesToDeviceListWorksAlreadyContained() {
+        //Arrange
+        Device device1 = new Device("waterheater", 150, new WaterHeater());
+        Device device2 = new Device("skjsjk", 123, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        DeviceList dList = new DeviceList();
+        dList.addDevice(device1);
+        dList.addDevice(device2);
+        DeviceList deviceList2 = new DeviceList();
+        deviceList2.addDevice(device1);
+        deviceList2.addDevice(device2);
+        room.setDeviceList(dList);
+        //Act
+        boolean actualResult = room.addRoomDevicesToDeviceList(deviceList2);
+        boolean expectedResult = false;
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomDevicesToDeviceListWorksWhenNotYetAddedToRoom() {
+        //Arrange
+        Device device1 = new Device("waterheater", 150, new WaterHeater());
+        Device device2 = new Device("skjsjk", 123, new WaterHeater());
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        DeviceList dList = new DeviceList();
+        dList.addDevice(device1);
+        dList.addDevice(device2);
+        //Act
+        boolean actualResult = room.addRoomDevicesToDeviceList(dList);
+        boolean expectedResult = false;
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetAllHouseDevices() {
         House house = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
