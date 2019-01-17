@@ -242,9 +242,12 @@ public class Room implements Metered {
         for (Device d : this.getDeviceList()) {
             if (!(list.containsDevice(d))) {
                 list.addDevice(d);
+                return true;
             }
-        }
-        return true;
+            else {
+                return false;
+            }
+        } return false;
     }
 
     public boolean removeRoomDevicesFromDeviceList(DeviceList list) {

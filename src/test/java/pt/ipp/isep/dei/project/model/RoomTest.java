@@ -510,51 +510,54 @@ public class RoomTest {
     }
 
     @Test
-    void seeIfAddRoomDevicesToDeviceListWorksWhenDeviceListAlreadyAddedToRoom() {
-        //Arrange
-        Device device1 = new Device("waterheater", 150, new WaterHeater());
-        Device device2 = new Device("skjsjk", 123, new WaterHeater());
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        DeviceList dList = new DeviceList();
-        dList.addDevice(device1);
-        dList.addDevice(device2);
-        room.setDeviceList(dList);
-        //Act
-        boolean actualResult = room.addRoomDevicesToDeviceList(dList);
-        boolean expectedResult = dList.containsDevice(device1) && dList.containsDevice(device2);
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfAddRoomDevicesToDeviceListWorksWhenNotYetAddedToRoom() {
-        //Arrange
-        Device device1 = new Device("waterheater", 150, new WaterHeater());
-        Device device2 = new Device("skjsjk", 123, new WaterHeater());
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        DeviceList dList = new DeviceList();
-        dList.addDevice(device1);
-        dList.addDevice(device2);
-        //Act
-        boolean actualResult = room.addRoomDevicesToDeviceList(dList);
-        boolean expectedResult = dList.containsDevice(device1) && dList.containsDevice(device2);
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfGetAllHouseDevices() {
-            House house = new House();
-            Room r1 = new Room("quarto", 1, 12, 12, 12);
-            Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
-            Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
-            r1.addDevice(d2);
-            r1.addDevice(d3);
-            house.addRoomToRoomList(r1);
-            List<Device> expectedResult = new ArrayList<>();
-            expectedResult.add(d2);
-            expectedResult.add(d3);
-            List<Device> result = house.getAllHouseDevices();
-            Assert.assertEquals(expectedResult, result);
-        }
+        House house = new House();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        r1.addDevice(d2);
+        r1.addDevice(d3);
+        house.addRoomToRoomList(r1);
+        List<Device> expectedResult = new ArrayList<>();
+        expectedResult.add(d2);
+        expectedResult.add(d3);
+        List<Device> result = house.getAllHouseDevices();
+        Assert.assertEquals(expectedResult, result);
     }
+
+    @Test
+    void ensureThatWeDoNotAddADeviceToADeviceList() {
+        DeviceList deviceList = new DeviceList();
+        Device device = new Device("WHeater",23,new WaterHeater());
+        Room room = new Room("Room",1,2,3,4);
+        deviceList.addDevice(device);
+        room.setDeviceList(deviceList);
+        boolean expectedResult = false;
+        boolean actualResult = room.addRoomDevicesToDeviceList(deviceList);
+        assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    void ensureThatWeDontAddADeviceToADeviceList() {
+        DeviceList deviceList = new DeviceList();
+        Device device = new Device("WHeater",23,new WaterHeater());
+        Room room = new Room("Room",1,2,3,4);
+        deviceList.addDevice(device);
+        boolean expectedResult = false;
+        boolean actualResult = room.addRoomDevicesToDeviceList(deviceList);
+        assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    void ensureThatWeAddADeviceToADeviceList() {
+        DeviceList deviceList = new DeviceList();
+        Device device = new Device("WHeater",23,new WaterHeater());
+        Room room = new Room("Room",1,2,3,4);
+        deviceList.addDevice(device);
+        room.setDeviceList(deviceList);
+        DeviceList deviceList1= new DeviceList();
+        Device device1 = new Device("WHeater2",23,new WaterHeater());
+        deviceList1.addDevice(device1);
+        boolean expectedResult = true;
+        boolean actualResult = room.addRoomDevicesToDeviceList(deviceList1);
+        assertEquals(expectedResult,actualResult);
+    }
+}
