@@ -194,6 +194,7 @@ class RoomConfigurationUI {
             this.mPerformanceRatio = inputUtils.getInputAsDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio));
         }
+
         if (this.mDeviceType == DeviceType.FRIDGE) {
             System.out.print("Please, type the Freezer Capacity in L for the Fridge:");
 
@@ -206,18 +207,39 @@ class RoomConfigurationUI {
             this.mAnnualEnergyConsumption = inputUtils.getInputAsDouble();
             mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity, mAnnualEnergyConsumption));
         }
+
         if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
             System.out.print("Please, type the Capacity in Kg for the Washing Machine: ");
-
             this.mCapacity = inputUtils.getInputAsDouble();
+            Program program;
+            System.out.println("Please, type the new Program name:");
+            this.mProgramName = scanner.nextLine();
+            System.out.println("Please, type the new Program duration:");
+            this.mDuration = inputUtils.getInputAsDouble();
+            System.out.println("Please, type the new Program Energy Consumption:");
+            this.mEnergyConsumption = inputUtils.getInputAsDouble();
+            program = new Program(mProgramName, mDuration, mEnergyConsumption);
+            mProgramList.addProgram(program);
+            loopForProgramsCreation();
             mDevice = new Device(mDeviceName, mNominalPower, new WashingMachine(mCapacity, mProgramList));
         }
+
         if (this.mDeviceType == DeviceType.DISHWASHER) {
             System.out.print("Please, type the Capacity in Kg for the Dishwasher:");
-
             this.mCapacity = inputUtils.getInputAsDouble();
+            Program program;
+            System.out.println("Please, type the new Program name:");
+            this.mProgramName = scanner.nextLine();
+            System.out.println("Please, type the new Program duration:");
+            this.mDuration = inputUtils.getInputAsDouble();
+            System.out.println("Please, type the new Program Energy Consumption:");
+            this.mEnergyConsumption = inputUtils.getInputAsDouble();
+            program = new Program(mProgramName, mDuration, mEnergyConsumption);
+            mProgramList.addProgram(program);
+            loopForProgramsCreation();
             mDevice = new Device(mDeviceName, mNominalPower, new Dishwasher(mCapacity, mProgramList));
         }
+
         if (this.mDeviceType == DeviceType.LAMP) {
             System.out.print("Please, type the new Luminous Flux in lm for the Lamp:");
 
@@ -226,6 +248,24 @@ class RoomConfigurationUI {
         }
     }
 
+    private void loopForProgramsCreation() {
+        InputUtils inputUtils = new InputUtils();
+        Program program1;
+        Scanner scanner = new Scanner(System.in);
+        if (mProgramList.getProgramList().size() > 0) {
+            System.out.println("Would you like to add a new Program? (y/n)");
+            while (inputUtils.yesOrNo(scanner.nextLine(),"Would you like to add a new Program? (y/n)")) {
+                System.out.println("Please, type the new Program name:");
+                this.mProgramName = scanner.nextLine();
+                System.out.println("Please, type the new Program duration:");
+                this.mDuration = inputUtils.getInputAsDouble();
+                System.out.println("Please, type the new Program Energy Consumption:");
+                this.mEnergyConsumption = inputUtils.getInputAsDouble();
+                program1 = new Program(mProgramName, mDuration, mEnergyConsumption);
+                mProgramList.addProgram(program1);
+            }
+        }
+    }
 
     /**
      * Displays a string with the new created device and its parameters.
@@ -233,7 +273,6 @@ class RoomConfigurationUI {
      */
 
     private void displayDeviceUS210() {
-
         if (mRoom.addDevice(mDevice)) {
             System.out.println("You have successfully created a " + mDeviceType.buildDeviceTypeString(mDeviceType) + " with the name " + mDeviceName + ". \n"
                     + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + ".");
@@ -378,7 +417,6 @@ class RoomConfigurationUI {
                 program1 = new Program(mProgramName, mDuration, mEnergyConsumption);
                 mProgramList.addProgram(program1);
             }
-            return;
         }
     }
 
