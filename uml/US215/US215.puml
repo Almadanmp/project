@@ -1,0 +1,36 @@
+@startuml
+title US215 \n As an Administrator, I want to edit the configuration of an existing device, \n so that I can reconfigure it.
+
+autonumber
+actor Admin
+Admin -> MainUI: I want to edit the configuration of an existing device \n run()
+MainUI -> RoomConfigurationUI: runUS215()
+activate RoomConfigurationUI
+
+RoomConfigurationUI --> Admin: displayRoomList()
+Admin -> RoomConfigurationUI: Select Room from Room list
+ref over RoomConfigurationUI
+Selecting a Room From the List of Rooms
+end
+RoomConfigurationUI --> Admin:displayDeviceListFromRoom()
+Admin -> RoomConfigurationUI: Select Device from Device list
+ref over RoomConfigurationUI
+Selecting a Device From the selected Room
+end
+RoomConfigurationUI --> Admin: getInputDeviceCharacteristicsUS215()
+Admin-> RoomConfigurationUI: Insert Device settings to configure according to \n Device Type (room, name, nominal Power)
+RoomConfigurationUI -> RoomConfigurationController: updateDeviceUS215(room, \n name, nominal Power)
+activate RoomConfigurationController
+RoomConfigurationController -> Device: setDeviceName(), setDeviceNominalPower(),\n removeDeviceFromRoom(),\n addDeviceFromRoom()
+activate Device
+Device -> Device: validate settings
+ref over Device
+DeviceType
+end
+Device--> Admin: displayDeviceUS215()
+deactivate RoomConfigurationUI
+deactivate RoomConfigurationController
+deactivate Device
+
+
+@enduml

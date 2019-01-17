@@ -110,4 +110,11 @@ public class WashingMachineTest {
         boolean result = washingMachine.setAttributeValue("lisboa", listProgram);
         assertEquals(false, result);
     }
+
+    @Test
+    public void setAttributeValueTestFalseAgain() {
+        WashingMachine washingMachine= new WashingMachine(1);
+        Object result = washingMachine.setAttributeValue("capacity",5);
+        assertEquals(false, result);
+    }
 }

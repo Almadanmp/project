@@ -1,0 +1,14 @@
+@startuml
+actor Admin
+loop all house water heaters
+    RoomConfigurationUI -> Admin: getColdWaterTemp(double)
+    Admin --> RoomConfigurationUI: return coldWaterTemp(double)
+    RoomConfigurationUI ->RoomConfigurationUI: set coldWaterTemp(double)
+    RoomConfigurationUI -> Admin: getVolumeOfWaterToHeat(double)
+    Admin --> RoomConfigurationUI: return VolumeOfWaterToHeat(double)
+    RoomConfigurationUI -> RoomConfigurationUI: set VolumeOfWaterToHeat(double)
+    RoomConfigurationUI -> RoomConfigurationController: configureOneHeater(Device, double, double)
+    participant Room
+    RoomConfigurationController -> Device: setAttributeValue(String, double)
+end
+@enduml
