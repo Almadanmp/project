@@ -278,6 +278,16 @@ public class RoomTest {
     }
 
     @Test
+    public void seeIfGetCurrentRoomTemperatureWorksMinute2() {
+        SensorList list = new SensorList();
+        Room room = new Room("quarto", 1, 80, 5, 3);
+        room.setRoomSensorList(list);
+        double result = room.getCurrentRoomTemperature();
+        double expectedResult = 0.0;
+        assertEquals(expectedResult, result, 0.01);
+    }
+
+    @Test
     public void seeIfDoesSensorListInARoomContainASensorByNameWorks() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
