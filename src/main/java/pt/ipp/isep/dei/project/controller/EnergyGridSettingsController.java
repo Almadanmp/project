@@ -49,7 +49,7 @@ public class EnergyGridSettingsController {
      */
 
     public String buildRoomsString(RoomList roomList) {
-        if(roomList ==  null){
+        if (roomList == null) {
             return "The Room List wasn't properly initialized. Please try again.";
         }
         return roomList.buildRoomsString();
@@ -217,10 +217,10 @@ public class EnergyGridSettingsController {
         if (energyGrid == null) {
             return "This energy grid is invalid\n";
         }
-        if (energyGrid.getListOfRooms().getRoomList().isEmpty() || energyGrid.getListOfRooms() == null) {
+        if (energyGrid.getListOfRooms() == null || energyGrid.getListOfRooms().getRoomList().isEmpty()) {
             return "This energy grid has no rooms attached\n";
         }
-        if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty() || energyGrid.getDeviceList() == null) {
+        if (energyGrid.getDeviceListFromAllRooms().getDeviceList().isEmpty()) {
             return "This energy grid has no devices on it\n";
         }
         return energyGrid.buildListOfDeviceByTypeString(energyGrid);
