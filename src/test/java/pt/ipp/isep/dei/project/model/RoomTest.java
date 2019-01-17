@@ -443,10 +443,20 @@ public class RoomTest {
     void addDeviceSucceeds2() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
-        boolean expectedResult = true;
-        boolean result = r1.addDevice(d2);
+        r1.addDevice(d3);
+        boolean result = r1.addDevice(d3);
         assertEquals(false, result);
+    }
+
+    @Test
+    void addDeviceSucceeds3() {
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        boolean expectedResult = true;
+        boolean result = r1.addDevice(d3);
+        assertEquals(expectedResult, result);
     }
 
     @Test
