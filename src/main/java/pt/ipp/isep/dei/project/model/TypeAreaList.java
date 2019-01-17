@@ -19,7 +19,7 @@ public class TypeAreaList {
      * This method prints all the Geographic Area Types in a TypeAreaList.
      * @return the types of geographic areas in a list
      */
-    public String buildTypeAreaListString() {
+    String buildTypeAreaListString() {
         StringBuilder finalString = new StringBuilder("\nArea Types List:\n");
         if(mTypeAreaList.isEmpty()) {
             finalString.append("\n|||| List is Empty ||||\nAdd types to list first");

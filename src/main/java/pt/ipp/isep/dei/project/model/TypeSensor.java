@@ -43,7 +43,7 @@ public class TypeSensor {
      *
      * @param units Unit measure of the type
      */
-    public void setUnits(String units) {
+    void setUnits(String units) {
         if (isNameValid(units)) {
             this.mUnits = units;
         } else {
@@ -101,8 +101,6 @@ public class TypeSensor {
 
     /**
      * Specific Method
-     *
-     * @return
      */
     @Override
     public int hashCode() {
