@@ -229,11 +229,12 @@ public class Room implements Metered {
      * @return the sum of all daily estimate consumptions of that type
      */
     double getDailyConsumptionByDeviceType(DeviceType deviceType) {
-             return mDeviceList.getDailyConsumptionByDeviceType(deviceType);
+        return mDeviceList.getDailyConsumptionByDeviceType(deviceType);
     }
 
     /**
      * Adds all of this room's devices to a given list. Skips duplicates.
+     *
      * @param list is the list we want to add the room's devices to.
      * @return is true if at least one device was added, false if no devices were added.
      */
@@ -254,9 +255,7 @@ public class Room implements Metered {
             return false;
         }
         for (Device d : this.getDeviceList()) {
-            if (list.containsDevice(d)) {
-                list.removeDevice(d);
-            }
+            list.removeDevice(d);
         }
         return true;
     }
