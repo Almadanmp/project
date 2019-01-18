@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Fridge tests class.
@@ -78,6 +76,7 @@ class FridgeTest {
         double expectedResult = 5;
         assertEquals(expectedResult, fridge.getAttributeValue("refrigeratorCapacity"));
     }
+
     @Test
     void seeIfGetAttributeNamesAnnual() {
         Fridge fridge = new Fridge(4, 5, 6);
@@ -129,6 +128,7 @@ class FridgeTest {
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
     }
+
     @Test
     void seeIfGetAndSetAttributeValue2() {
         Fridge fridge = new Fridge(4, 5, 1);
@@ -150,6 +150,7 @@ class FridgeTest {
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
     }
+
     @Test
     void seeIfSetAttributeValueInvalid() {
         Fridge fridge = new Fridge(4, 5, 1);
@@ -165,6 +166,7 @@ class FridgeTest {
         boolean result = fridge.setAttributeValue(attribute, 6);
         assertFalse(result);
     }
+
     @Test
     void seeIfSetAttributeValueInvalid3() {
         Fridge fridge = new Fridge(4, 5, 1);
@@ -172,19 +174,23 @@ class FridgeTest {
         boolean result = fridge.setAttributeValue(attribute, 6);
         assertFalse(result);
     }
+
     @Test
     void seeIfSetAttributeValueInvalid4() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "annualEnergyConsumption";
         boolean result = fridge.setAttributeValue(attribute, 6);
         assertFalse(result);
-    } @Test
+    }
+
+    @Test
     void seeIfSetAttributeValueInvalid5() {
         Fridge fridge = new Fridge(4, 5, 1);
         String attribute = "freezerCapacity";
         boolean result = fridge.setAttributeValue(attribute, "ljlkhg");
         assertFalse(result);
     }
+
     @Test
     void seeIfSetAttributeValueInvalid6() {
         Fridge fridge = new Fridge(4, 5, 1);
@@ -192,6 +198,7 @@ class FridgeTest {
         boolean result = fridge.setAttributeValue(attribute, "ljlkhg");
         assertFalse(result);
     }
+
     @Test
     void seeIfSetAttributeValueInvalid7() {
         Fridge fridge = new Fridge(4, 5, 1);
@@ -203,7 +210,7 @@ class FridgeTest {
     @Test
     void seeIfGetObjectAttributeValueTestWorks() {
         //Arrange
-        Fridge fridge = new Fridge(4,5,6);
+        Fridge fridge = new Fridge(4, 5, 6);
         //Act
         double expectedResult1 = 4;
         double expectedResult2 = 5;
@@ -215,5 +222,28 @@ class FridgeTest {
         assertEquals(expectedResult1, actualResult1);
         assertEquals(expectedResult2, actualResult2);
         assertEquals(expectedResult3, actualResult3);
+    }
+
+
+    @Test
+    public void itShouldThrowNullPointerExceptionWhenSetAttribute() {
+        assertThrows(NullPointerException.class,
+                () -> {
+                    //Arrange
+                    Fridge fridge = new Fridge(Double.NaN, Double.NaN,Double.NaN);
+                    //Act
+                   Object expectedResult1 = null;
+                    Object expectedResult2 = null;
+                    Object expectedResult3 = null;
+                    Object actualResult1 = fridge.getAttributeValue(null);
+                    Object actualResult2 = fridge.getAttributeValue(null);
+                    Object actualResult3 = fridge.getAttributeValue(null);
+                    //Assert
+                    assertEquals(expectedResult1, actualResult1);
+                    assertEquals(expectedResult2, actualResult2);
+                    assertEquals(expectedResult3, actualResult3);
+                    //do whatever you want to do here
+                    //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+                });
     }
 }
