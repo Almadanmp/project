@@ -1,6 +1,6 @@
 @startuml
 
-title US752 \n  I want to estimate the total energy used in heating water in a given day \n \n Loop on receive data from user for all water heaters on the house.
+title US752 \n  I want to estimate the total energy used in heating water in a given day \n \n Loop to receive data from user for all water heaters on the house.
 
 
 autonumber

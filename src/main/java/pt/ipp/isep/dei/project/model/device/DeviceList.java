@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+
 import java.util.*;
 
 /**
@@ -83,6 +85,22 @@ public class DeviceList {
             counter++;
         }
         return result.toString();
+    }
+
+    /**
+     * Returns the daily estimate consumption of all devices on this list.
+     *
+     * @param deviceType the device type
+     * @return the sum of all daily estimate consumptions of that type
+     */
+    public double getDailyConsumptionByDeviceType(DeviceType deviceType) {
+        double result = 0;
+        for (Device d : mDeviceList) {
+            if (d.getType() == deviceType) {
+                result += d.getDailyEstimateConsumption();
+            }
+        }
+        return result;
     }
 
     @Override

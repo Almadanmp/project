@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -150,6 +151,20 @@ public class RoomList {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Returns the daily estimate of the consumption of all devices of a given type, in all rooms on this list.
+     *
+     * @param deviceType the device type
+     * @return the sum of all daily estimate consumptions of that type
+     */
+    public double getDailyConsumptionByDeviceType(DeviceType deviceType) {
+        double result = 0;
+        for (Room r : mRoomList) {
+            result += r.getDailyConsumptionByDeviceType(deviceType);
+        }
+        return result;
     }
 
 
