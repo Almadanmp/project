@@ -207,18 +207,18 @@ public class MainUI {
 
         //Devices
 
-        Program program1 = new Program("programa",2,2);
-       ProgramList listProgram= new ProgramList();
-        Program program2 = new Program("programa",2,2);
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = new ProgramList();
+        Program program2 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
         listProgram.addProgram(program2);
-        Device device1 = new Device("maquina de lavar",23.0, new WashingMachine(100.0,listProgram));
+        Device device1 = new Device("maquina de lavar", 23.0, new WashingMachine(100.0, listProgram));
         Device device2 = new Device("FridgeOne", 4, new Fridge());
-        Device device3 = new Device("WH Main", 3, new WaterHeater(500.0,25.0,10.0));
+        Device device3 = new Device("WH Main", 3, new WaterHeater(500.0, 25.0, 10.0));
         Device device4 = new Device("Lamp", 4, new Lamp());
         device1.setmParentRoom(roomISEP2);
         device2.setmParentRoom(roomISEP2);
-       device3.setmParentRoom(roomISEP2);
+        device3.setmParentRoom(roomISEP2);
         device4.setmParentRoom(roomISEP2);
         DeviceList listDevices = new DeviceList();
         listDevices.addDevice(device1);
@@ -229,7 +229,7 @@ public class MainUI {
 
 
         Device device5 = new Device("FridgeOne1", 4, new Fridge());
-        Device device6 = new Device("WH Secondary", 3, new WaterHeater(500.0,25.0,10.0));
+        Device device6 = new Device("WH Secondary", 3, new WaterHeater(500.0, 25.0, 10.0));
         device5.setmParentRoom(roomISEP3);
         device6.setmParentRoom(roomISEP3);
         DeviceList listDevices1 = new DeviceList();
@@ -269,94 +269,283 @@ public class MainUI {
         RoomList roomList = new RoomList();
         House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
 
+        //DATASET_SPRINT02
+
+        GeographicAreaList geographicAreaListSP2 = new GeographicAreaList();
+        GeographicArea geographicAreaSP2 = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249, 0.261, new Local(41.178553, -8.608035, 111));
+        geographicAreaListSP2.addGeographicAreaToGeographicAreaList(geographicAreaSP2);
+        geographicAreaSP2.setDescription("Campus do ISEP");
+        RoomList roomListSP2 = new RoomList();
+        Room B107SP2 = new Room("B107", 1, 7, 11, 3.5);
+        roomListSP2.addRoom(B107SP2);
+        Room B109SP2 = new Room("B109", 1, 7, 11, 3.5);
+        roomListSP2.addRoom(B109SP2);
+        SensorList sensorListRoomB109SP2 = new SensorList();
+        B109SP2.setRoomSensorList(sensorListRoomB109SP2);
+        Sensor sensorTemperatureB109SP2 = new Sensor("Temperature B109", new TypeSensor("temperature", "celsius"), new GregorianCalendar(2018, 10, 15).getTime());
+        sensorListRoomB109SP2.addSensor(sensorTemperatureB109SP2);
+        ReadingList readingListSensorTemperatureB109SP2 = new ReadingList();
+        sensorTemperatureB109SP2.setReadingList(readingListSensorTemperatureB109SP2);
+        Reading reading1SensorTemperatureB109SP2 = new Reading(14, new GregorianCalendar(2018, 12, 30, 2, 0).getTime());
+        Reading reading2SensorTemperatureB109SP2 = new Reading(13.7, new GregorianCalendar(2018, 12, 30, 8, 0).getTime());
+        Reading reading3SensorTemperatureB109SP2 = new Reading(16.5, new GregorianCalendar(2018, 12, 30, 14, 0).getTime());
+        Reading reading4SensorTemperatureB109SP2 = new Reading(15.1, new GregorianCalendar(2018, 12, 30, 20, 0).getTime());
+        Reading reading5SensorTemperatureB109SP2 = new Reading(13.8, new GregorianCalendar(2018, 12, 31, 2, 0).getTime());
+        Reading reading6SensorTemperatureB109SP2 = new Reading(13.3, new GregorianCalendar(2018, 12, 31, 8, 0).getTime());
+        Reading reading7SensorTemperatureB109SP2 = new Reading(15.5, new GregorianCalendar(2018, 12, 31, 14, 0).getTime());
+        Reading reading8SensorTemperatureB109SP2 = new Reading(14.2, new GregorianCalendar(2018, 12, 31, 20, 0).getTime());
+        Reading reading9SensorTemperatureB109SP2 = new Reading(12.5, new GregorianCalendar(2019, 1, 1, 2, 0).getTime());
+        Reading reading10SensorTemperatureB109SP2 = new Reading(12.4, new GregorianCalendar(2019, 1, 1, 8, 0).getTime());
+        Reading reading11SensorTemperatureB109SP2 = new Reading(13.8, new GregorianCalendar(2019, 1, 1, 14, 0).getTime());
+        Reading reading12SensorTemperatureB109SP2 = new Reading(12.9, new GregorianCalendar(2019, 1, 1, 20, 0).getTime());
+        Reading reading13SensorTemperatureB109SP2 = new Reading(11.5, new GregorianCalendar(2019, 1, 2, 2, 0).getTime());
+        Reading reading14SensorTemperatureB109SP2 = new Reading(11.2, new GregorianCalendar(2019, 1, 2, 8, 0).getTime());
+        Reading reading15SensorTemperatureB109SP2 = new Reading(13.5, new GregorianCalendar(2019, 1, 2, 14, 0).getTime());
+        Reading reading16SensorTemperatureB109SP2 = new Reading(12.8, new GregorianCalendar(2019, 1, 2, 20, 0).getTime());
+        readingListSensorTemperatureB109SP2.addReading(reading1SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading2SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading3SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading4SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading5SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading6SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading7SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading8SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading9SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading10SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading11SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading12SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading13SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading14SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading15SensorTemperatureB109SP2);
+        readingListSensorTemperatureB109SP2.addReading(reading16SensorTemperatureB109SP2);
+        Sensor sensorHumidityB109SP2 = new Sensor("Humidity B109", new TypeSensor("humidity", "g/m3"), new GregorianCalendar(2018, 11, 22).getTime());
+        sensorListRoomB109SP2.addSensor(sensorHumidityB109SP2);
+        ReadingList readingListSensorHumidityB109SP2 = new ReadingList();
+        sensorHumidityB109SP2.setReadingList(readingListSensorHumidityB109SP2);
+        Reading reading1SensorHumidityB109SP2 = new Reading(84, new GregorianCalendar(2018, 12, 30, 2, 0).getTime());
+        Reading reading2SensorHumidityB109SP2 = new Reading(85.7, new GregorianCalendar(2018, 12, 30, 8, 0).getTime());
+        Reading reading3SensorHumidityB109SP2 = new Reading(76.5, new GregorianCalendar(2018, 12, 30, 14, 0).getTime());
+        Reading reading4SensorHumidityB109SP2 = new Reading(78.1, new GregorianCalendar(2018, 12, 30, 20, 0).getTime());
+        Reading reading5SensorHumidityB109SP2 = new Reading(83.8, new GregorianCalendar(2018, 12, 31, 2, 0).getTime());
+        Reading reading6SensorHumidityB109SP2 = new Reading(83.9, new GregorianCalendar(2018, 12, 31, 8, 0).getTime());
+        Reading reading7SensorHumidityB109SP2 = new Reading(75.5, new GregorianCalendar(2018, 12, 31, 14, 0).getTime());
+        Reading reading8SensorHumidityB109SP2 = new Reading(77.2, new GregorianCalendar(2018, 12, 31, 20, 0).getTime());
+        Reading reading9SensorHumidityB109SP2 = new Reading(82.5, new GregorianCalendar(2019, 1, 1, 2, 0).getTime());
+        Reading reading10SensorHumidityB109SP2 = new Reading(82.4, new GregorianCalendar(2019, 1, 1, 8, 0).getTime());
+        Reading reading11SensorHumidityB109SP2 = new Reading(73.8, new GregorianCalendar(2019, 1, 1, 14, 0).getTime());
+        Reading reading12SensorHumidityB109SP2 = new Reading(72.9, new GregorianCalendar(2019, 1, 1, 20, 0).getTime());
+        Reading reading13SensorHumidityB109SP2 = new Reading(80.5, new GregorianCalendar(2019, 1, 2, 2, 0).getTime());
+        Reading reading14SensorHumidityB109SP2 = new Reading(79.2, new GregorianCalendar(2019, 1, 2, 8, 0).getTime());
+        Reading reading15SensorHumidityB109SP2 = new Reading(71.5, new GregorianCalendar(2019, 1, 2, 14, 0).getTime());
+        Reading reading16SensorHumidityB109SP2 = new Reading(72.8, new GregorianCalendar(2019, 1, 2, 20, 0).getTime());
+        readingListSensorHumidityB109SP2.addReading(reading1SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading2SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading3SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading4SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading5SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading6SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading7SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading8SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading9SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading10SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading11SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading12SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading13SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading14SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading15SensorHumidityB109SP2);
+        readingListSensorHumidityB109SP2.addReading(reading16SensorHumidityB109SP2);
+        DeviceList deviceListRoomB109SP2 = new DeviceList();
+        B109SP2.setDeviceList(deviceListRoomB109SP2);
+        Device ehwB109SP2 = new Device("EHW B109", 1.5, new WaterHeater(100.0, 55.0, 0.91));
+        ProgramList programListDishWasherB109SP2 = new ProgramList();
+        Program glassesB109 = new Program("Glasses", 0, 0.9);
+        Program ecoB109 = new Program("Eco", 0, 1.3);
+        Program ecoTurboB109 = new Program("Eco Turbo", 0, 1.7);
+        Program dishesB109 = new Program("Dishes", 0, 2.1);
+        programListDishWasherB109SP2.addProgram(glassesB109);
+        programListDishWasherB109SP2.addProgram(ecoB109);
+        programListDishWasherB109SP2.addProgram(ecoTurboB109);
+        programListDishWasherB109SP2.addProgram(dishesB109);
+        Device dishWasherB109SP2 = new Device("Dishwasher B109", 1.5, new Dishwasher(0, programListDishWasherB109SP2));
+        ProgramList programListWashingMachineB109SP2 = new ProgramList();
+        Program wool = new Program("Wool", 0, 0.9);
+        Program fast = new Program("Fast", 0, 0.9);
+        Program fastPlus = new Program("Fast Plus", 0, 0.9);
+        Program synthetic30 = new Program("Synthetic 30º", 0, 0.9);
+        programListWashingMachineB109SP2.addProgram(wool);
+        programListWashingMachineB109SP2.addProgram(fast);
+        programListWashingMachineB109SP2.addProgram(fastPlus);
+        programListWashingMachineB109SP2.addProgram(synthetic30);
+        Device washingMachineB109SP2 = new Device("Washing Machine B109", 2.5, new WashingMachine(0, programListWashingMachineB109SP2));
+        deviceListRoomB109SP2.addDevice(ehwB109SP2);
+        deviceListRoomB109SP2.addDevice(dishWasherB109SP2);
+        deviceListRoomB109SP2.addDevice(washingMachineB109SP2);
+        Room roomB106SP2 = new Room("B106",1,7,13,3.5);
+        roomListSP2.addRoom(roomB106SP2);
+        DeviceList deviceListRoomB106SP2 = new DeviceList();
+        Device ehwB106SP2 = new Device("EHW B106",2.2,new WaterHeater(150.0,55.0,0.92));
+        ProgramList programDishWasherB106SP2 = new ProgramList();
+        Program glassesB106 = new Program("Glasses",0,0.8);
+        Program lightB106 = new Program("Light",0,1.3);
+        Program lightTurboB106 = new Program("Light Turbo",0,1.9);
+        Program dishesB106 = new Program("Dishes",0,2.3);
+        programDishWasherB106SP2.addProgram(glassesB106);
+        programDishWasherB106SP2.addProgram(lightB106);
+        programDishWasherB106SP2.addProgram(lightTurboB106);
+        programDishWasherB106SP2.addProgram(dishesB106);
+        Device dishWasherB106SP2 = new Device("Dishwasher B106",1.4,new Dishwasher(0,programDishWasherB106SP2));
+        deviceListRoomB106SP2.addDevice(ehwB106SP2);
+        deviceListRoomB106SP2.addDevice(dishWasherB106SP2);
+        roomB106SP2.setDeviceList(deviceListRoomB106SP2);
+        SensorList areaSensorSP2 = new SensorList();
+        Sensor meteoStationHumiditySP2 = new Sensor("Meteo station ISEP - rainfall",new TypeSensor("rainfall","l/m2"),new Local(41.179230,-8.606409,125),new GregorianCalendar(2016,11,15).getTime());
+        ReadingList readingListMeteoStationSP2 = new ReadingList();
+        meteoStationHumiditySP2.setReadingList(readingListMeteoStationSP2);
+        Reading reading1MeteoSationSP2 = new Reading(0.5,new GregorianCalendar(2018,12,29).getTime());
+        Reading reading2MeteoSationSP2 = new Reading(1.2,new GregorianCalendar(2018,12,30).getTime());
+        Reading reading3MeteoSationSP2 = new Reading(1.5,new GregorianCalendar(2018,12,31).getTime());
+        Reading reading4MeteoSationSP2 = new Reading(0.3,new GregorianCalendar(2019,1,1).getTime());
+        Reading reading5MeteoSationSP2 = new Reading(0.0,new GregorianCalendar(2019,1,2).getTime());
+        Reading reading6MeteoSationSP2 = new Reading(0.0,new GregorianCalendar(2019,1,2).getTime());
+        Reading reading7MeteoSationSP2 = new Reading(0.0,new GregorianCalendar(2019,1,3).getTime());
+        readingListMeteoStationSP2.addReading(reading1MeteoSationSP2);
+        readingListMeteoStationSP2.addReading(reading2MeteoSationSP2);
+        readingListMeteoStationSP2.addReading(reading3MeteoSationSP2);
+        readingListMeteoStationSP2.addReading(reading4MeteoSationSP2);
+        readingListMeteoStationSP2.addReading(reading5MeteoSationSP2);
+        readingListMeteoStationSP2.addReading(reading6MeteoSationSP2);
+        readingListMeteoStationSP2.addReading(reading7MeteoSationSP2);
+        areaSensorSP2.addSensor(meteoStationHumiditySP2);
+        Sensor meteoStationTemperatureSP2 = new Sensor("Meteo station ISEP - temperature",new TypeSensor("temperature","celsius"),new Local(41.179230,-8.606409,125),new GregorianCalendar(2016,11,15).getTime());
+        ReadingList readingListMeteoStationTemperatureSP2 = new ReadingList();
+        Reading reading1MeteoSationTSP2 = new Reading(8, new GregorianCalendar(2018, 12, 30, 2, 0).getTime());
+        Reading reading2MeteoSationTSP2 = new Reading(6.9, new GregorianCalendar(2018, 12, 30, 8, 0).getTime());
+        Reading reading3MeteoSationTSP2 = new Reading(16.5, new GregorianCalendar(2018, 12, 30, 14, 0).getTime());
+        Reading reading4MeteoSationTSP2 = new Reading(11.2, new GregorianCalendar(2018, 12, 30, 20, 0).getTime());
+        Reading reading5MeteoSationTSP2 = new Reading(7.2, new GregorianCalendar(2018, 12, 31, 2, 0).getTime());
+        Reading reading6MeteoSationTSP2 = new Reading(5.3, new GregorianCalendar(2018, 12, 31, 8, 0).getTime());
+        Reading reading7MeteoSationTSP2 = new Reading(15.1, new GregorianCalendar(2018, 12, 31, 14, 0).getTime());
+        Reading reading8MeteoSationTSP2 = new Reading(9.2, new GregorianCalendar(2018, 12, 31, 20, 0).getTime());
+        Reading reading9MeteoSationTSP2 = new Reading(6.5, new GregorianCalendar(2019, 1, 1, 2, 0).getTime());
+        Reading reading10MeteoSationTSP2 = new Reading(4.3, new GregorianCalendar(2019, 1, 1, 8, 0).getTime());
+        Reading reading11MeteoSationTSP2 = new Reading(14.8, new GregorianCalendar(2019, 1, 1, 14, 0).getTime());
+        Reading reading12MeteoSationTSP2 = new Reading(8.9, new GregorianCalendar(2019, 1, 1, 20, 0).getTime());
+        Reading reading13MeteoSationTSP2 = new Reading(6.1, new GregorianCalendar(2019, 1, 2, 2, 0).getTime());
+        Reading reading14MeteoSationTSP2 = new Reading(3.2, new GregorianCalendar(2019, 1, 2, 8, 0).getTime());
+        Reading reading15MeteoSationTSP2 = new Reading(14.1, new GregorianCalendar(2019, 1, 2, 14, 0).getTime());
+        Reading reading16MeteoSationTSP2 = new Reading(8.3, new GregorianCalendar(2019, 1, 2, 20, 0).getTime());
+        readingListMeteoStationTemperatureSP2.addReading(reading1MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading2MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading3MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading4MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading5MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading6MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading7MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading8MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading9MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading10MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading11MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading12MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading13MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading14MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading15MeteoSationTSP2);
+        readingListMeteoStationTemperatureSP2.addReading(reading16MeteoSationTSP2);
+        meteoStationTemperatureSP2.setReadingList(readingListMeteoStationTemperatureSP2);
+        areaSensorSP2.addSensor(meteoStationTemperatureSP2);
+        GeographicArea portoSP2 = new GeographicArea("Porto",new TypeArea("city"),3.30,10.09,new Local(41.164077,-8.620802,118));
+        portoSP2.setDescription("City of Porto");
+        geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
+        EnergyGrid mainGridSP2 = new EnergyGrid("main grid", 0);
+        mainGridSP2.setRoomList(roomListSP2);
+        House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto", new Local(41.177748, -8.607745, 112), geographicAreaSP2,roomListSP2);
+        houseSP2.setMotherArea(geographicAreaSP2);
 
 /**
-        // House - Empty RoomList - Without EnergyGrid
-        GeographicArea geographicArea4 = new GeographicArea();
-        RoomList roomList = new RoomList();
-        House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
+ // House - Empty RoomList - Without EnergyGrid
+ GeographicArea geographicArea4 = new GeographicArea();
+ RoomList roomList = new RoomList();
+ House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
 
 
-        //Empty TypeAreaList
+ //Empty TypeAreaList
 
-        TypeAreaList emptyTypeAreaList = new TypeAreaList();
+ TypeAreaList emptyTypeAreaList = new TypeAreaList();
 
-        // Empty Geo Area List
+ // Empty Geo Area List
 
-        GeographicAreaList emptyGeographicalAreaList = new GeographicAreaList();
+ GeographicAreaList emptyGeographicalAreaList = new GeographicAreaList();
 
-        // Geo Area List -  Geo Area without Sensor List
+ // Geo Area List -  Geo Area without Sensor List
 
-        GeographicAreaList geographicalAreaList1 = new GeographicAreaList();
-        GeographicArea geographicArea1 = new GeographicArea("GeoAreaNoSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
+ GeographicAreaList geographicalAreaList1 = new GeographicAreaList();
+ GeographicArea geographicArea1 = new GeographicArea("GeoAreaNoSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
 
-        geographicalAreaList1.addGeographicAreaToGeographicAreaList(geographicArea1);
+ geographicalAreaList1.addGeographicAreaToGeographicAreaList(geographicArea1);
 
-        // Geo Area List -  Geo Area with Empty Sensor List
+ // Geo Area List -  Geo Area with Empty Sensor List
 
-        GeographicAreaList geographicalAreaList2 = new GeographicAreaList();
-        GeographicArea geographicArea2 = new GeographicArea("GeoAreaEmptySensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
-        SensorList sensorList2 = new SensorList();
+ GeographicAreaList geographicalAreaList2 = new GeographicAreaList();
+ GeographicArea geographicArea2 = new GeographicArea("GeoAreaEmptySensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
+ SensorList sensorList2 = new SensorList();
 
-        geographicArea2.setSensorList(sensorList2);
-        geographicalAreaList2.addGeographicAreaToGeographicAreaList(geographicArea2);
+ geographicArea2.setSensorList(sensorList2);
+ geographicalAreaList2.addGeographicAreaToGeographicAreaList(geographicArea2);
 
-        // Geo Area List -  Geo Area with Sensor List
+ // Geo Area List -  Geo Area with Sensor List
 
-        GeographicAreaList geographicalAreaList3 = new GeographicAreaList();
-        GeographicArea geographicArea3 = new GeographicArea("GeoAreaWithSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
-        Sensor s3 = new Sensor("sensor", new TypeSensor("Temperatura", "Celsius"), new Local(2, 3, 4), new GregorianCalendar(2016, 11, 15).getTime());
-        SensorList sensorList3 = new SensorList();
-        sensorList3.addSensor(s3);
+ GeographicAreaList geographicalAreaList3 = new GeographicAreaList();
+ GeographicArea geographicArea3 = new GeographicArea("GeoAreaWithSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
+ Sensor s3 = new Sensor("sensor", new TypeSensor("Temperatura", "Celsius"), new Local(2, 3, 4), new GregorianCalendar(2016, 11, 15).getTime());
+ SensorList sensorList3 = new SensorList();
+ sensorList3.addSensor(s3);
 
-        geographicArea3.setSensorList(sensorList3);
-        geographicalAreaList3.addGeographicAreaToGeographicAreaList(geographicArea3);
+ geographicArea3.setSensorList(sensorList3);
+ geographicalAreaList3.addGeographicAreaToGeographicAreaList(geographicArea3);
 
-        // House - Empty RoomList - Without EnergyGrid
-        GeographicArea geographicArea4 = new GeographicArea();
-        RoomList roomList = new RoomList();
-        House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
+ // House - Empty RoomList - Without EnergyGrid
+ GeographicArea geographicArea4 = new GeographicArea();
+ RoomList roomList = new RoomList();
+ House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
 
-        // House - Empty RoomList - Empty EnergyGrid
-        RoomList roomList1 = new RoomList();
-        House house1 = new House("houseNoRoomsNoEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList1);
+ // House - Empty RoomList - Empty EnergyGrid
+ RoomList roomList1 = new RoomList();
+ House house1 = new House("houseNoRoomsNoEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList1);
 
-        // House - With RoomList - Without EnergyGrid
-        Room room2 = new Room("houseNoEG", 1, 23, 23, 23);
-        RoomList roomList2 = new RoomList();
-        roomList2.addRoom(room2);
-        House house2 = new House("h", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList2);
+ // House - With RoomList - Without EnergyGrid
+ Room room2 = new Room("houseNoEG", 1, 23, 23, 23);
+ RoomList roomList2 = new RoomList();
+ roomList2.addRoom(room2);
+ House house2 = new House("h", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList2);
 
-        // House - With RoomList - Empty EnergyGrid
-        Room room3 = new Room("room3", 1, 23, 23, 23);
-        RoomList roomList3 = new RoomList();
-        roomList3.addRoom(room3);
-        House house3 = new House("houseEmptyEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList3);
+ // House - With RoomList - Empty EnergyGrid
+ Room room3 = new Room("room3", 1, 23, 23, 23);
+ RoomList roomList3 = new RoomList();
+ roomList3.addRoom(room3);
+ House house3 = new House("houseEmptyEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList3);
 
-        // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
-        Room room4 = new Room("room1", 1, 33, 13, 23);
-        Room room5 = new Room("room2", 2, 13, 93, 23);
-        Room room6 = new Room("room3", 2, 73, 43, 23);
-        Room room7 = new Room("room4", 5, 63, 23, 23);
-        RoomList roomList4 = new RoomList();
-        roomList4.addRoom(room4);
-        roomList4.addRoom(room5);
-        House house4 = new House("houseRoomDifEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList4);
+ // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
+ Room room4 = new Room("room1", 1, 33, 13, 23);
+ Room room5 = new Room("room2", 2, 13, 93, 23);
+ Room room6 = new Room("room3", 2, 73, 43, 23);
+ Room room7 = new Room("room4", 5, 63, 23, 23);
+ RoomList roomList4 = new RoomList();
+ roomList4.addRoom(room4);
+ roomList4.addRoom(room5);
+ House house4 = new House("houseRoomDifEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList4);
 
-        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
-        energyGrid1.addRoomToAnEnergyGrid(room6);
-        energyGrid1.addRoomToAnEnergyGrid(room7);
+ EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
+ energyGrid1.addRoomToAnEnergyGrid(room6);
+ energyGrid1.addRoomToAnEnergyGrid(room7);
 
-        EnergyGridList energyGridList1 = new EnergyGridList();
-        energyGridList1.addGrid(energyGrid1);
-        house4.setEGList(energyGridList1);
+ EnergyGridList energyGridList1 = new EnergyGridList();
+ energyGridList1.addGrid(energyGrid1);
+ house4.setEGList(energyGridList1);
 
 
-        // **************************************************************************
-        // ******************* < / MOCK DATA FOR TESTING PURPOSES > ******************
-        // **************************************************************************
-
-         **/
+ // **************************************************************************
+ // ******************* < / MOCK DATA FOR TESTING PURPOSES > ******************
+ // **************************************************************************
+ **/
 
         //MAIN CODE
 
@@ -379,7 +568,7 @@ public class MainUI {
                     "5. Energy Grid Settings.\n",
                     "6. House Monitoring.\n",
                     "7. Energy Consumption Management.\n" +
-                    " 0. Exit Application\n"};
+                            " 0. Exit Application\n"};
 
             System.out.println("Select the task you want to do:");
 
@@ -413,7 +602,7 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(edificioB,deviceTypeList,typeSensorList);
+                        roomConfiguration.run(edificioB, deviceTypeList, typeSensorList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
