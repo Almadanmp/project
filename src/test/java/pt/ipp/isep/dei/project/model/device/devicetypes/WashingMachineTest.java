@@ -182,7 +182,7 @@ class WashingMachineTest {
     }
 
     @Test
-    void test() {
+    void testGetAttributeCoveringAllCases() {
         //Arrange
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = new ProgramList();
