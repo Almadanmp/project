@@ -247,14 +247,15 @@ class FridgeTest {
     void testSetAttributeCoveringAllCases() {
         //Arrange
         Fridge fridge = new Fridge(5,5,5);
-        fridge.setAttributeValue("freezerCapacity", 5);
-        fridge.setAttributeValue("refrigeratorCapacity", 5);
-        fridge.setAttributeValue("annualEnergyConsumption", 5);
+        Double attribute = 6.0;
+        fridge.setAttributeValue("freezerCapacity", attribute);
+        fridge.setAttributeValue("refrigeratorCapacity", attribute);
+        fridge.setAttributeValue("annualEnergyConsumption", attribute);
 
         // original strings:
-        assertEquals(5.0, fridge.getAttributeValue("freezerCapacity"));
-        assertEquals(5.0, fridge.getAttributeValue("refrigeratorCapacity"));
-        assertEquals(5.0, fridge.getAttributeValue("annualEnergyConsumption"));
+        assertEquals(6.0, fridge.getAttributeValue("freezerCapacity"));
+        assertEquals(6.0, fridge.getAttributeValue("refrigeratorCapacity"));
+        assertEquals(6.0, fridge.getAttributeValue("annualEnergyConsumption"));
 
         // same hash codes, but different strings:
         assertEquals(0, fridge.getAttributeValue("\0freezerCapacity"));
