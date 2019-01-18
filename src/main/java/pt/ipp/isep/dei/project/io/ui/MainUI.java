@@ -7,12 +7,13 @@ import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.*;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 public class MainUI {
 
     public static void main(String[] args) {
+        String temperature = "temperature";
+        String portoString = "Porto";
 
         //Program Variables
 
@@ -33,9 +34,8 @@ public class MainUI {
         isep.setLength(0.249);
         isep.setDescription("Campus do ISEP");
 
-        String msPorto = "Porto";
 
-        GeographicArea porto = new GeographicArea(msPorto, new TypeArea("city"), 31, 6, new Local(41.164077, -8.620802, 118));
+        GeographicArea porto = new GeographicArea(portoString, new TypeArea("city"), 31, 6, new Local(41.164077, -8.620802, 118));
         porto.setWidth(10.09);
         porto.setLength(10.09);
         porto.setDescription("City of Porto");
@@ -73,7 +73,7 @@ public class MainUI {
 
         // Houses (1 per Geographical Area!)
 
-        House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", msPorto, new Local(41.177748, -8.607745, 112), isep, roomListEdifB);
+        House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), isep, roomListEdifB);
         edificioB.setMotherArea(isep);
 
         // Sensor Readings
@@ -164,11 +164,11 @@ public class MainUI {
 
         // Sensors
 
-        Sensor sensorRoom109 = new Sensor("Temperature B109", new TypeSensor("temperature", "ºC"), new Local(0, 0, 0), new GregorianCalendar(2018, 10, 16).getTime());
+        Sensor sensorRoom109 = new Sensor("Temperature B109", new TypeSensor(temperature, "ºC"), new Local(0, 0, 0), new GregorianCalendar(2018, 10, 16).getTime());
         sensorRoom109.setReadingList(readingListSensorRoom109);
         Sensor sensorRainfallISEP = new Sensor("Meteo station ISEP - rainfall", new TypeSensor("rainfall", "mm"), new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
         sensorRainfallISEP.setReadingList(readingListISEPRainfall);
-        Sensor sensorTemperatureISEP = new Sensor("Meteo station ISEP - temperature", new TypeSensor("temperature", "ºC"), new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
+        Sensor sensorTemperatureISEP = new Sensor("Meteo station ISEP - temperature", new TypeSensor(temperature, "ºC"), new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
         sensorTemperatureISEP.setReadingList(readingListISEPtemperature);
 
         // Sensor Lists
@@ -204,7 +204,6 @@ public class MainUI {
 
         // Sensor Type List
 
-        List<TypeSensor> typeSensorList = new ArrayList<>();
 
         //Devices
 
@@ -255,7 +254,7 @@ public class MainUI {
         RoomList roomList4 = new RoomList();
         roomList4.addRoom(room4);
         roomList4.addRoom(room5);
-        House house4 = new House("houseRoomDifEG", "Street", "4230", msPorto, new Local(23, 23, 21), isep, roomList4);
+        House house4 = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, roomList4);
 
         EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
         energyGrid1.addRoomToAnEnergyGrid(room6);
@@ -268,7 +267,6 @@ public class MainUI {
         // House - Empty RoomList - Without EnergyGrid
         GeographicArea geographicArea4 = new GeographicArea();
         RoomList roomList = new RoomList();
-        House house = new House("houseNoRooms", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList);
 
         //DATASET_SPRINT02
 
@@ -286,7 +284,7 @@ public class MainUI {
         roomListSP2.addRoom(b109SP2);
 
         List<TypeSensor> typeSensorListSP2 = new ArrayList<>();
-        TypeSensor temperatureB109SP2 = new TypeSensor("temperature", "celsius");
+        TypeSensor temperatureB109SP2 = new TypeSensor(temperature, "celsius");
         SensorList sensorListRoomB109SP2 = new SensorList();
         b109SP2.setRoomSensorList(sensorListRoomB109SP2);
         Sensor sensorTemperatureB109SP2 = new Sensor("Temperature B109",temperatureB109SP2, new GregorianCalendar(2018, 10, 15).getTime());
@@ -440,7 +438,7 @@ public class MainUI {
         meteoStationHumiditySP2.setReadingList(readingListMeteoStationSP2);
         areaSensorSP2.addSensor(meteoStationHumiditySP2);
 
-        TypeSensor typeSensorMeteoStation = new TypeSensor("temperature","celsius");
+        TypeSensor typeSensorMeteoStation = new TypeSensor(temperature,"celsius");
         Sensor meteoStationTemperatureSP2 = new Sensor("Meteo station ISEP - temperature",typeSensorMeteoStation,new Local(41.179230,-8.606409,125),new GregorianCalendar(2016,11,15).getTime());
         ReadingList readingListMeteoStationTemperatureSP2 = new ReadingList();
         Reading reading1MeteoSationTSP2 = new Reading(8, new GregorianCalendar(2018, 11, 30, 2, 0).getTime());
@@ -480,13 +478,13 @@ public class MainUI {
 
 
         TypeArea citySP2 = new TypeArea("city");
-        GeographicArea portoSP2 = new GeographicArea("Porto",citySP2,3.30,10.09,new Local(41.164077,-8.620802,118));
+        GeographicArea portoSP2 = new GeographicArea(portoString,citySP2,3.30,10.09,new Local(41.164077,-8.620802,118));
         typeAreaListSP2.addTypeArea(citySP2);
         portoSP2.setDescription("City of Porto");
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
         EnergyGrid mainGridSP2 = new EnergyGrid("main grid", 0);
         mainGridSP2.setRoomList(roomListSP2);
-        House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto", new Local(41.177748, -8.607745, 112), geographicAreaSP2,roomListSP2);
+        House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2,roomListSP2);
         houseSP2.setMotherArea(geographicAreaSP2);
         EnergyGridList mainGridList = new EnergyGridList();
         mainGridList.addGrid(mainGridSP2);
