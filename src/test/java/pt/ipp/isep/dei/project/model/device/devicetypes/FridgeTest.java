@@ -243,4 +243,26 @@ class FridgeTest {
         assertEquals(0, fridge.getAttributeValue(""));
     }
 
+    @Test
+    void testSetAttributeCoveringAllCases() {
+        //Arrange
+        Fridge fridge = new Fridge(5,5,5);
+        fridge.setAttributeValue("freezerCapacity", 5);
+        fridge.setAttributeValue("refrigeratorCapacity", 5);
+        fridge.setAttributeValue("annualEnergyConsumption", 5);
+
+        // original strings:
+        assertEquals(5.0, fridge.getAttributeValue("freezerCapacity"));
+        assertEquals(5.0, fridge.getAttributeValue("refrigeratorCapacity"));
+        assertEquals(5.0, fridge.getAttributeValue("annualEnergyConsumption"));
+
+        // same hash codes, but different strings:
+        assertEquals(0, fridge.getAttributeValue("\0freezerCapacity"));
+        assertEquals(0, fridge.getAttributeValue("\0refrigeratorCapacity"));
+        assertEquals(0, fridge.getAttributeValue("\0annualEnergyConsumption"));
+
+        // distinct hash code to cover default cases of switches
+        assertEquals(0, fridge.getAttributeValue(""));
+    }
+
 }
