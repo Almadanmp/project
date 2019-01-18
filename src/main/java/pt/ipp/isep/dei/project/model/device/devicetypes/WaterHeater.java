@@ -57,11 +57,10 @@ public class WaterHeater implements DeviceSpecs {
     public double getConsumption() {
         if (mColdWaterTemperature >= mHotWaterTemperature) {
             return 0;
-        } else {
-            double specificHeatOfWater = 1.163;
-            double dT = mHotWaterTemperature - mColdWaterTemperature;
-            return Math.floor(specificHeatOfWater * mVolumeOfWaterToHeat * dT * mPerformanceRatio * 1000) / 1000;
         }
+        double specificHeatOfWater = 1.163;
+        double dT = mHotWaterTemperature - mColdWaterTemperature;
+        return Math.floor(specificHeatOfWater * mVolumeOfWaterToHeat * dT * mPerformanceRatio * 1000) / 1000;
 
     }
 
