@@ -276,12 +276,12 @@ public class MainUI {
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(geographicAreaSP2);
         geographicAreaSP2.setDescription("Campus do ISEP");
         RoomList roomListSP2 = new RoomList();
-        Room B107SP2 = new Room("B107", 1, 7, 11, 3.5);
-        roomListSP2.addRoom(B107SP2);
-        Room B109SP2 = new Room("B109", 1, 7, 11, 3.5);
-        roomListSP2.addRoom(B109SP2);
+        Room b107SP2 = new Room("B107", 1, 7, 11, 3.5);
+        roomListSP2.addRoom(b107SP2);
+        Room b109SP2 = new Room("B109", 1, 7, 11, 3.5);
+        roomListSP2.addRoom(b109SP2);
         SensorList sensorListRoomB109SP2 = new SensorList();
-        B109SP2.setRoomSensorList(sensorListRoomB109SP2);
+        b109SP2.setRoomSensorList(sensorListRoomB109SP2);
         Sensor sensorTemperatureB109SP2 = new Sensor("Temperature B109", new TypeSensor("temperature", "celsius"), new GregorianCalendar(2018, 10, 15).getTime());
         sensorListRoomB109SP2.addSensor(sensorTemperatureB109SP2);
         ReadingList readingListSensorTemperatureB109SP2 = new ReadingList();
@@ -355,7 +355,7 @@ public class MainUI {
         readingListSensorHumidityB109SP2.addReading(reading15SensorHumidityB109SP2);
         readingListSensorHumidityB109SP2.addReading(reading16SensorHumidityB109SP2);
         DeviceList deviceListRoomB109SP2 = new DeviceList();
-        B109SP2.setDeviceList(deviceListRoomB109SP2);
+        b109SP2.setDeviceList(deviceListRoomB109SP2);
         Device ehwB109SP2 = new Device("EHW B109", 1.5, new WaterHeater(100.0, 55.0, 0.91));
         ProgramList programListDishWasherB109SP2 = new ProgramList();
         Program glassesB109 = new Program("Glasses", 0, 0.9);
