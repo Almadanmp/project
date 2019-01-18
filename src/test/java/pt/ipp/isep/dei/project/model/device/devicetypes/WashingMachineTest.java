@@ -79,29 +79,6 @@ class WashingMachineTest {
         assertEquals(expectedResult, result);
     }
 
-    //Testing for missing coverage
-    @Test
-    void getAttributeValuesTest1A() {
-        Program program1 = new Program("programa", 2, 2);
-        ProgramList listProgram = new ProgramList();
-        listProgram.addProgram(program1);
-        WashingMachine washingMachine = new WashingMachine(5, listProgram);
-        int expectedResult = 0;
-        Object result = washingMachine.getAttributeValue("lol" + "programList");
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getAttributeValuesTest1B() {
-        Program program1 = new Program("programa", 2, 2);
-        ProgramList listProgram = new ProgramList();
-        listProgram.addProgram(program1);
-        WashingMachine washingMachine = new WashingMachine(5, listProgram);
-        int expectedResult = 0;
-        Object result = washingMachine.getAttributeValue("capacity" + "lol");
-        assertEquals(expectedResult, result);
-    }
-
     @Test
     void getAttributeValuesWithCapacityEmptyTest() {
         Program program1 = new Program("programa", 2, 2);
@@ -204,5 +181,23 @@ class WashingMachineTest {
         assertEquals(false, result);
     }
 
+    @Test
+    void test() {
+        //Arrange
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = new ProgramList();
+        listProgram.addProgram(program1);
+        WashingMachine washingMachine = new WashingMachine(5, listProgram);
 
+        // original strings:
+        assertEquals(5.0, washingMachine.getAttributeValue("capacity"));
+        assertEquals(listProgram, washingMachine.getAttributeValue("programList"));
+
+        // same hash codes, but different strings:
+        assertEquals(0, washingMachine.getAttributeValue("\0capacity"));
+        assertEquals(0, washingMachine.getAttributeValue("\0programList"));
+
+        // distinct hash code to cover default cases of switches
+        assertEquals(0, washingMachine.getAttributeValue(""));
+    }
 }
