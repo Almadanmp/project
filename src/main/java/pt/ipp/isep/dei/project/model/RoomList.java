@@ -164,7 +164,7 @@ public class RoomList {
         for (Room r : mRoomList) {
             result += r.getDailyConsumptionByDeviceType(deviceType);
         }
-        return result;
+        return Math.floor(result*10)/10;
     }
 
 

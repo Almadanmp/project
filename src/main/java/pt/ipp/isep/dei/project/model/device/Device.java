@@ -82,8 +82,10 @@ public class Device implements Metered {
      * @return the estimateConsumption/24 hours
      */
     public double getDailyEstimateConsumption() {
-        return mDeviceSpecs.getConsumption();
+        return (mDeviceSpecs.getConsumption())*24;
     }
+
+
 
     public DeviceType getType() {
         return mDeviceSpecs.getType();

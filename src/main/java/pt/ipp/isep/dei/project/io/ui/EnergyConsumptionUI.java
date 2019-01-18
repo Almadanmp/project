@@ -210,26 +210,26 @@ class EnergyConsumptionUI {
         InputUtils inputUtils = new InputUtils();
         List<Device> waterHeaters = controller.getWHDeviceList(house);
         if (waterHeaters.isEmpty()) {
-            System.out.println("Your house has no Water Heaters. Returning to Main Menu.");
+            System.out.println("Your house has no Electric Water Heaters. Returning to Main Menu.");
             return;
         }
-        System.out.println("You currently have " + waterHeaters.size() + " water heaters in your house:\n");
+        System.out.println("You currently have " + waterHeaters.size() + " electric water heaters in your house:\n");
 
         for (Device d : waterHeaters) {
             System.out.println("Water Heater name: " + controller.getWHName(d) + ".\n");
-            System.out.println("Please insert the cold water temperature for Water Heater: " + controller.getWHName(d) + ":");
+            System.out.println("Please insert the cold water temperature for Water Heater " + controller.getWHName(d) + ":");
             double coldWaterTemperature = inputUtils.getInputAsDouble();
-            System.out.println("Please insert the volume of water to heat for Water Heater: " + d.getName() + ":");
+            System.out.println("Please insert the volume of water to heat for Water Heater " + d.getName() + ":");
             double volumeWaterToHeat = inputUtils.getInputAsDouble();
             boolean configResult = controller.configureWH(d, coldWaterTemperature, volumeWaterToHeat);
             if (!configResult) {
                 System.out.println("Error: unable to set parameters. Returning to Main Menu.");
                 return;
             }
-            System.out.println("device " + controller.getWHName(d) + " options registered. \n");
+            System.out.println("Options registered for water heater: " + controller.getWHName(d) + ".\n---------------------------------------------\n");
         }
         double result = controller.getDailyWHConsumption(house);
-        System.out.println("The estimate total energy used in heating water in a day is: " + result + " kW.");
+        System.out.println("The estimated total energy used in heating water in a day is: " + result + " kW.");
     }
 
     // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
