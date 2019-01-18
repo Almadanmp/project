@@ -34,13 +34,13 @@ EnergyConsumptionController -> House: getDailyConsumptionByDeviceType(DeviceType
 activate House
 House -> Room: getDailyConsumptionByDeviceType(DeviceType)
 activate Room
-Room -> Device: getDailyConsumptionByDeviceType()
+Room -> Device: getDailyConsumption()
 activate Device
 Device --> Room: return dailyConsumption
 deactivate Device
 Room --> House: return dailyConsumption
 deactivate Room
-House --> EnergyConsumptionController: return dailyConsumptionByDeviceType
+House --> EnergyConsumptionController: return dailyConsumption
 deactivate House
 EnergyConsumptionController --> EnergyConsumptionUI: return dailyConsumptionOnWH
 deactivate EnergyConsumptionController

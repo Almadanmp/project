@@ -12,13 +12,11 @@ loop all house water heaters
     EnergyConsumptionUI --> User: request cold water temperature
         activate EnergyConsumptionUI
     User --> EnergyConsumptionUI: cold water temperature
-    EnergyConsumptionUI -> EnergyConsumptionUI: set coldWaterTemp(double)
     EnergyConsumptionUI --> User: request volume of water to heat
     User --> EnergyConsumptionUI: volume of water to heat
-    EnergyConsumptionUI -> EnergyConsumptionUI: set VolumeOfWaterToHeat(double)
     EnergyConsumptionUI -> EnergyConsumptionController: configureHeater(Device, double, double)
-    participant Room
         deactivate EnergyConsumptionUI
+    EnergyConsumptionController -> Device: setAttributeValue(String, double)
     EnergyConsumptionController -> Device: setAttributeValue(String, double)
 end
 @enduml
