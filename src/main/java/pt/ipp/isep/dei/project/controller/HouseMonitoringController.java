@@ -233,7 +233,7 @@ public class HouseMonitoringController {
     public double getTotalRainfallOnGivenDay(House house, Date day) {
         GeographicArea geoArea = house.getMotherArea();
         Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, "rainfall");
-        if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
+        if (closestSensor.getReadingList() == null) {
             return Double.NaN;
         }
         return closestSensor.getReadingList().getTotalValueOfReadingOnGivenDay(day);

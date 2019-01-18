@@ -444,6 +444,24 @@ public class RoomTest {
 
         assertTrue(r1.removeDevice(d2));
     }
+
+    @Test
+    void seeIfRemoveRoomDevicesFromDeviceListAssertTrueList(){
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
+        DeviceList dlist = new DeviceList();
+        dlist.addDevice(d2);
+        dlist.addDevice(d3);
+        r1.setDeviceList(dlist);
+        d3.setmParentRoom(r1);
+        d2.setAttributeValue("coldWaterTemperature", 5.0);
+        d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
+        d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
+        d3.setAttributeValue("coldWaterTemperature", 1.0);
+
+        assertTrue(r1.removeDevice(d2));
+    }
     @Test
     void seeIfRemoveRoomDevicesFromDeviceListAssertFalse(){
         Room r1 = new Room("quarto", 1, 12, 12, 12);

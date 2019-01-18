@@ -27,9 +27,24 @@ public class WaterHeaterTest {
         WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
         Double coldT = 12.0;
         Double waterV = 300.0;
+        Double hotT = 25.0;
+        waterHeater.setAttributeValue("hotWaterTemperature", hotT);
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
         Double expectedResult = 4082.13;
+        Double result = waterHeater.getConsumption();
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void getConsumptionTestNull() {
+        WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
+        Double coldT = null;
+        Double waterV = 300.0;
+        Double hotT = null;
+        waterHeater.setAttributeValue("hotWaterTemperature", hotT);
+        waterHeater.setAttributeValue("coldWaterTemperature", coldT);
+        waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
+        Double expectedResult = 7850.25;
         Double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
@@ -65,8 +80,10 @@ public class WaterHeaterTest {
         WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
         Double coldT = 25.0;
         Double waterV = 100.0;
+        Double hotT = 25.0;
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
+        waterHeater.setAttributeValue("hotWaterTemperature", hotT);
         double expectedResult = 0;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
@@ -77,8 +94,10 @@ public class WaterHeaterTest {
         WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
         Double coldT = 2.0;
         Double waterV = 100.0;
+        Double hotT = 25.0;
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
+        waterHeater.setAttributeValue("hotWaterTemperature", hotT);
         double expectedResult = 2407.41;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
@@ -89,8 +108,10 @@ public class WaterHeaterTest {
         WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
         Double coldT = 30.0;
         Double waterV = 800.0;
+        Double hotT = 25.0;
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
+        waterHeater.setAttributeValue("hotWaterTemperature", hotT);
         double expectedResult = 0.0;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
@@ -100,8 +121,10 @@ public class WaterHeaterTest {
         WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
         Double coldT = 25.0;
         Double waterV = 800.0;
+        Double hotT = 25.0;
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
+        waterHeater.setAttributeValue("hotWaterTemperature", hotT);
         double expectedResult = 0.0;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
