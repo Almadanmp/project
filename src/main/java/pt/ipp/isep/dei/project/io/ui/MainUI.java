@@ -264,9 +264,6 @@ public class MainUI {
         energyGridList1.addGrid(energyGrid1);
         house4.setEGList(energyGridList1);
 
-        // House - Empty RoomList - Without EnergyGrid
-        GeographicArea geographicArea4 = new GeographicArea();
-        RoomList roomList = new RoomList();
 
         //DATASET_SPRINT02
 
