@@ -192,21 +192,21 @@ class RoomConfigurationUI {
         Scanner scanner = new Scanner(System.in);
 
         // get device name
-        System.out.print("Please, type the new name of the device: ");
+        System.out.print("Please, type the name of the device: ");
         mDeviceName = scanner.nextLine();
         //get nominal power
-        System.out.print("Please, type the new Nominal Power: ");
+        System.out.print("Please, type the Nominal Power: ");
         InputUtils inputUtils = new InputUtils();
 
         this.mNominalPower = inputUtils.getInputAsDouble();
 
         //device Type
         if (this.mDeviceType == DeviceType.WATER_HEATER) {
-            System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
+            System.out.print("Please, type the water heater Volume: ");
 
             this.mVolumeOfWater = inputUtils.getInputAsDouble();
 
-            System.out.print("Please, type the Maximum Temperature of the water in the Water Heater: ");
+            System.out.print("Please, type Maximum Temperature of the water in the Water Heater: ");
 
             this.mHotWaterTemperature = inputUtils.getInputAsDouble();
             System.out.print("Please, type the Performance Ration of the Water Heater: ");

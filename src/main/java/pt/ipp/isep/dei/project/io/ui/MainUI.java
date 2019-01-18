@@ -487,6 +487,21 @@ public class MainUI {
         mainGridList.addGrid(mainGridSP2);
         houseSP2.setEGList(mainGridList);
 
+
+        // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
+        Room room1 = new Room("room1", 1, 33, 13, 23);
+        Room room2 = new Room("room2", 2, 13, 93, 23);
+        RoomList roomList3 = new RoomList();
+        roomList3.addRoom(room1);
+        roomList3.addRoom(room2);
+        House houseTest = new House("houseRoomDifEG", "Street", "4230", "Porto", new Local(23, 23, 21), isep, roomList3);
+
+
+
+
+
+
+
 /**
  // House - Empty RoomList - Without EnergyGrid
  GeographicArea geographicArea4 = new GeographicArea();
@@ -629,7 +644,7 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(houseSP2, deviceTypeListSP2, typeSensorListSP2);
+                        roomConfiguration.run(houseTest, deviceTypeListSP2, typeSensorListSP2);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
