@@ -248,9 +248,6 @@ class FridgeTest {
         //Arrange
         Fridge fridge = new Fridge(5,5,5);
         Double attribute = 6.0;
-        fridge.setAttributeValue("freezerCapacity", attribute);
-        fridge.setAttributeValue("refrigeratorCapacity", attribute);
-        fridge.setAttributeValue("annualEnergyConsumption", attribute);
 
         // original strings:
         assertTrue(fridge.setAttributeValue("freezerCapacity", attribute));
