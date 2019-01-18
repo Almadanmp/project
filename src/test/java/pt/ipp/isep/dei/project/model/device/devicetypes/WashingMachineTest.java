@@ -154,21 +154,6 @@ public class WashingMachineTest {
         assertEquals(expectedResult, result);
     }
 
-
-    @Test
-    public void itShouldThrowNullPointerExceptionWhenSetAttribute() {
-        assertThrows(NullPointerException.class,
-                ()->{
-                    WashingMachine washingMachine = new WashingMachine();
-                    Object result = washingMachine.getAttributeValue(null);
-                    Object expectedResult =null;
-                    assertEquals(expectedResult, result);
-                    //do whatever you want to do here
-                    //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
-                });
-    }
-
-
     @Test
     public void setAttributeValueTestFalse() {
         Program program1 = new Program("programa", 2, 2);

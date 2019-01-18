@@ -224,26 +224,4 @@ class FridgeTest {
         assertEquals(expectedResult3, actualResult3);
     }
 
-
-    @Test
-    public void itShouldThrowNullPointerExceptionWhenSetAttribute() {
-        assertThrows(NullPointerException.class,
-                () -> {
-                    //Arrange
-                    Fridge fridge = new Fridge(Double.NaN, Double.NaN,Double.NaN);
-                    //Act
-                   Object expectedResult1 = null;
-                    Object expectedResult2 = null;
-                    Object expectedResult3 = null;
-                    Object actualResult1 = fridge.getAttributeValue(null);
-                    Object actualResult2 = fridge.getAttributeValue(null);
-                    Object actualResult3 = fridge.getAttributeValue(null);
-                    //Assert
-                    assertEquals(expectedResult1, actualResult1);
-                    assertEquals(expectedResult2, actualResult2);
-                    assertEquals(expectedResult3, actualResult3);
-                    //do whatever you want to do here
-                    //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
-                });
-    }
 }

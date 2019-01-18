@@ -65,14 +65,7 @@ class DishwasherTest {
         Object result = dishwasher.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
     }
-    @Test
-    void seeIfGetAttributeValuesTestCapacityWorks2() {
-        Dishwasher dishwasher = new Dishwasher();
-        Double expectedResult = 0.0;
-        dishwasher.setAttributeValue("capacity",null);
-        Object result = dishwasher.getAttributeValue("capacity");
-        assertEquals(expectedResult, result);
-    }
+
     @Test
     void seeIfGetAttributeValuesTestListProgramWorks() {
         //Arrange
