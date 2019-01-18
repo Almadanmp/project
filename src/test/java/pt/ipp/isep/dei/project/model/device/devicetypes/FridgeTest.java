@@ -253,17 +253,17 @@ class FridgeTest {
         fridge.setAttributeValue("annualEnergyConsumption", attribute);
 
         // original strings:
-        assertEquals(6.0, fridge.getAttributeValue("freezerCapacity"));
-        assertEquals(6.0, fridge.getAttributeValue("refrigeratorCapacity"));
-        assertEquals(6.0, fridge.getAttributeValue("annualEnergyConsumption"));
+        assertTrue(fridge.setAttributeValue("freezerCapacity", attribute));
+        assertTrue(fridge.setAttributeValue("refrigeratorCapacity", attribute));
+        assertTrue(fridge.setAttributeValue("annualEnergyConsumption", attribute));
 
         // same hash codes, but different strings:
-        assertEquals(0, fridge.getAttributeValue("\0freezerCapacity"));
-        assertEquals(0, fridge.getAttributeValue("\0refrigeratorCapacity"));
-        assertEquals(0, fridge.getAttributeValue("\0annualEnergyConsumption"));
+        assertFalse(fridge.setAttributeValue("\0freezerCapacity", attribute));
+        assertFalse(fridge.setAttributeValue("\0refrigeratorCapacity", attribute));
+        assertFalse(fridge.setAttributeValue("\0annualEnergyConsumption", attribute));
 
         // distinct hash code to cover default cases of switches
-        assertEquals(0, fridge.getAttributeValue(""));
+        assertFalse(fridge.setAttributeValue("", attribute));
     }
 
 }
