@@ -56,7 +56,7 @@ public class WaterHeater implements DeviceSpecs {
      */
     public double getConsumption() {
         if (mColdWaterTemperature >= mHotWaterTemperature) {
-            return 0;
+            return -1;
         }
         double specificHeatOfWater = 1.163;
         double dT = mHotWaterTemperature - mColdWaterTemperature;
@@ -102,6 +102,9 @@ public class WaterHeater implements DeviceSpecs {
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
+        if (attributeName == null) {
+            return false;
+        }
         switch (attributeName) {
             case ATTRIBUTE_VOLUME_OF_WATER:
                 if (attributeValue instanceof Double) {

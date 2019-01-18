@@ -58,8 +58,8 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("hotWaterTemperature",hotT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
-        Double expectedResult = 0.0;
-        Double result = waterHeater.getConsumption();
+        double expectedResult = -1;
+        double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
 
@@ -70,7 +70,7 @@ public class WaterHeaterTest {
         Double waterV = 300.0;
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
-        double expectedResult = 0;
+        double expectedResult = -1;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
@@ -84,7 +84,7 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
         waterHeater.setAttributeValue("hotWaterTemperature", hotT);
-        double expectedResult = 0;
+        double expectedResult = -1;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
@@ -132,7 +132,7 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
         waterHeater.setAttributeValue("hotWaterTemperature", hotT);
-        double expectedResult = 0.0;
+        double expectedResult = -1;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
@@ -145,7 +145,7 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
         waterHeater.setAttributeValue("hotWaterTemperature", hotT);
-        double expectedResult = 0.0;
+        double expectedResult = -1;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
@@ -310,44 +310,8 @@ public class WaterHeaterTest {
     @Test
     public void seeIfGetAndSetAttributeValues2() {
         WaterHeater waterHeater = new WaterHeater();
-        String attribute = "sgddhfg";
-        Double expectedResult = 0.0;
         Double attributeValue = 3.0;
-        boolean setResult = waterHeater.setAttributeValue(attribute, attributeValue);
-        Object getResult = waterHeater.getAttributeValue(attribute);
-        assertEquals(expectedResult, getResult);
-        assertFalse(setResult);
-
-        attribute = "dghetrft";
-        attributeValue = 3.0;
-        expectedResult = 0.0;
-        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
-        getResult = waterHeater.getAttributeValue(attribute);
-        assertEquals(expectedResult, getResult);
-        assertFalse(setResult);
-
-        attribute = "fhjhgj";
-        attributeValue= 2.0;
-        expectedResult = 0.0;
-        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
-        getResult = waterHeater.getAttributeValue(attribute);
-        assertEquals(expectedResult, getResult);
-        assertFalse(setResult);
-
-        attribute = "fcgh";
-        expectedResult = 0.0;
-        attributeValue = 5.0;
-        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
-        getResult = waterHeater.getAttributeValue(attribute);
-        assertEquals(expectedResult, getResult);
-        assertFalse(setResult);
-
-        attribute = "dfghj";
-        expectedResult = 0.0;
-        attributeValue = 5.0;
-        setResult = waterHeater.setAttributeValue(attribute, attributeValue);
-        getResult = waterHeater.getAttributeValue(attribute);
-        assertEquals(expectedResult, getResult);
+        boolean setResult = waterHeater.setAttributeValue(null, attributeValue);
         assertFalse(setResult);
     }
 }
