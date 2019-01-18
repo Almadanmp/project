@@ -31,12 +31,13 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue("hotWaterTemperature", hotT);
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
-        Double expectedResult = 4082.13;
+        Double expectedResult = 0.17008875;
         Double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
+
     @Test
-    public void getConsumptionTestNull() {
+    public void getConsumptionTestNull() { //check this test later if it makes sense
         WaterHeater waterHeater = new WaterHeater(200.0, 25.0, 0.9);
         Double coldT = null;
         Double waterV = 300.0;
@@ -44,7 +45,7 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue("hotWaterTemperature", hotT);
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
-        Double expectedResult = 7850.25;
+        Double expectedResult = 0.32709374999999996;
         Double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
@@ -97,7 +98,7 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue("dgfhfjg", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
         waterHeater.setAttributeValue("adsdfgh", hotT);
-        double expectedResult = 2616.75;
+        double expectedResult = 0.10903124999999998;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }
@@ -111,7 +112,7 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue("coldWaterTemperature", coldT);
         waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
         waterHeater.setAttributeValue("hotWaterTemperature", hotT);
-        double expectedResult = 2407.41;
+        double expectedResult = 0.10030875;
         double result = waterHeater.getConsumption();
         assertEquals(expectedResult, result);
     }

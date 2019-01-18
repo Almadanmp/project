@@ -486,7 +486,7 @@ class HouseTest {
         d2.setAttributeValue("volumeOfWaterToHeat",100.0);
         d3.setAttributeValue("volumeOfWaterToHeat",100.0);
         d3.setAttributeValue("coldWaterTemperature",1.0);
-        double expectedResult = 4605.479;
+        double expectedResult = 4.6;
         double result = h1.getDailyConsumptionByDeviceType(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }

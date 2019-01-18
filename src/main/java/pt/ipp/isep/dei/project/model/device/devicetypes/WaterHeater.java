@@ -54,7 +54,7 @@ public class WaterHeater implements DeviceSpecs {
 
     public double getConsumption() {
         if (mColdWaterTemperature >= mHotWaterTemperature) {
-            return 0;
+            return -1;
         }
 
         double dT = mHotWaterTemperature - mColdWaterTemperature;
