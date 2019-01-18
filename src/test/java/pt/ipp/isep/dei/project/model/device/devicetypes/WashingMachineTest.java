@@ -7,10 +7,8 @@ import pt.ipp.isep.dei.project.model.device.ProgramList;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * WashingMachine tests class.
@@ -154,6 +152,20 @@ public class WashingMachineTest {
         Object result = washingMachine.getAttributeValue("capacity");
         Object expectedResult = 6.0;
         assertEquals(expectedResult, result);
+    }
+
+
+    @Test
+    public void itShouldThrowNullPointerExceptionWhenSetAttribute() {
+        assertThrows(NullPointerException.class,
+                ()->{
+                    WashingMachine washingMachine = new WashingMachine();
+                    Object result = washingMachine.getAttributeValue(null);
+                    Object expectedResult =null;
+                    assertEquals(expectedResult, result);
+                    //do whatever you want to do here
+                    //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+                });
     }
 
 
