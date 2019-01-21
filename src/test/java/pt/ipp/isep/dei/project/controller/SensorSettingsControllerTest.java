@@ -233,7 +233,7 @@ class SensorSettingsControllerTest {
 
     @Test
     void seeIfAddSensorToSensorListFalse() {
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 1, 1, new Local(1, 1, 1), new SensorList());
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 1, 1, new Local(1, 1, 1));
         Sensor sensor = new Sensor("coise", new TypeSensor("temp", "celsius"), new Local(1, 1, 1), new GregorianCalendar(1, 1, 1, 1, 1).getTime());
         Sensor sensor1 = new Sensor("coise1", new TypeSensor("temp", "celsius"), new Local(1, 1, 1), new GregorianCalendar(1, 1, 1, 1, 1).getTime());
         SensorList sensorList = new SensorList();
@@ -268,7 +268,7 @@ class SensorSettingsControllerTest {
     @Test
     void seeIfAddSensorToGeographicalArea() {
         SensorSettingsController ctrl = new SensorSettingsController();
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         Sensor sensor = new Sensor("Sensor 1",new TypeSensor("Temperature","Celsius"),new GregorianCalendar(2018,10,25).getTime());
         ctrl.setSensor(sensor);
         boolean result = ctrl.addSensorToGeographicalArea(ga);
@@ -279,7 +279,7 @@ class SensorSettingsControllerTest {
     @Test
     void seeIfAddSensorToGeographicalAreaFalse() {
         SensorSettingsController ctrl = new SensorSettingsController();
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         Sensor sensor = new Sensor("coise", new TypeSensor("temp", "celsius"), new Local(1, 1, 1), new GregorianCalendar(1, 1, 1, 1, 1).getTime());
         Sensor sensor1 = new Sensor("coise", new TypeSensor("temp", "celsius"), new Local(1, 1, 1), new GregorianCalendar(1, 1, 1, 1, 1).getTime());
         SensorList sensorList = new SensorList();
@@ -303,9 +303,9 @@ class SensorSettingsControllerTest {
     @Test
     void seeIfPrintGAList() {
         //Arrange
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5), new SensorList());
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5), new SensorList());
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5), new SensorList());
+        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
+        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
+        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
         GeographicAreaList gAL1 = new GeographicAreaList();
         gAL1.addGeographicAreaToGeographicAreaList(gA1);
         gAL1.addGeographicAreaToGeographicAreaList(gA2);

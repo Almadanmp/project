@@ -26,7 +26,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfIndexIsMatchedByString() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
@@ -49,7 +49,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfEnergyGridIsPrintedByIndex() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
@@ -73,7 +73,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfRoomsPrint() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
@@ -105,7 +105,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfRoomIsRemovedFromGrid() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
@@ -128,7 +128,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfRoomIsRemovedFromGridBreaks() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
@@ -149,7 +149,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfEnergyGridPrints() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
@@ -169,7 +169,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfGridListPrints() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
@@ -273,7 +273,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfRoomListIsPrintedByHouse() {
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList()), new RoomList());
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), new RoomList());
         RoomList roomList = new RoomList();
         Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         roomList.addRoom(room);
@@ -288,7 +288,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfRoomIndexIsMatchedByString() {
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList()), new RoomList());
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), new RoomList());
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
@@ -310,7 +310,7 @@ class EnergyGridSettingsControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100),new SensorList());
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
         Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
@@ -349,7 +349,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddEnergyGridToHouseWorks() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         RoomList roomList = new RoomList();
-        House house = new House("casa", "as", "as", "s", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1), new SensorList()), roomList);
+        House house = new House("casa", "as", "as", "s", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), roomList);
         ctrl.createEnergyGrid("grid", 400);
         ctrl.addEnergyGridToHouse(house);
         EnergyGrid result = house.getEGList().getEnergyGridList().get(0);
@@ -361,7 +361,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddEnergyGridToHouseWorksFalse() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         RoomList roomList = new RoomList();
-        House house = new House("casa", "as", "as", "s", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1), new SensorList()), roomList);
+        House house = new House("casa", "as", "as", "s", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), roomList);
         ctrl.addEnergyGridToHouse(house);
         EnergyGrid result = house.getEGList().getEnergyGridList().get(0);
         EnergyGrid expectedResult = null;

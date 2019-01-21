@@ -25,13 +25,13 @@ public class GeographicArea {
      * empty constructor to use on UIs
      */
 
-    public GeographicArea(String id, TypeArea typeArea, double length, double width, Local location, SensorList sensorList) {
+    public GeographicArea(String id, TypeArea typeArea, double length, double width, Local location) {
         setId(id);
         setTypeArea(typeArea);
         setLength(length);
         setWidth(width);
         setLocal(location);
-        setSensorList(sensorList);
+        this.mAreaSensors = new SensorList();
     }
 
     // Setters and Getters for all the parameters.

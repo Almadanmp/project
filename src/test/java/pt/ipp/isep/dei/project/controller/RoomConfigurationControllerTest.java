@@ -50,7 +50,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintsRoomList() {
         //Arrange
-        GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
+        GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
@@ -90,7 +90,7 @@ class RoomConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
+        GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
@@ -113,7 +113,7 @@ class RoomConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
+        GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
@@ -228,7 +228,7 @@ class RoomConfigurationControllerTest {
         SensorList sList = new SensorList();
         sList.addSensor(s1);
         sList.addSensor(s2);
-        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
+        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         gA1.setSensorList(sList);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
@@ -250,7 +250,7 @@ class RoomConfigurationControllerTest {
         SensorList sList = new SensorList();
         sList.addSensor(s1);
         sList.addSensor(s2);
-        GeographicArea ga1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());;
+        GeographicArea ga1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         ga1.setSensorList(sList);
         GeographicAreaList gList = new GeographicAreaList();
         gList.addGeographicAreaToGeographicAreaList(ga1);
@@ -273,7 +273,7 @@ class RoomConfigurationControllerTest {
         SensorList sList = new SensorList();
         sList.addSensor(s1);
         sList.addSensor(s2);
-        GeographicArea ga1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
+        GeographicArea ga1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         ga1.setSensorList(sList);
         GeographicAreaList gAList = new GeographicAreaList();
         gAList.addGeographicAreaToGeographicAreaList(ga1);
@@ -296,7 +296,7 @@ class RoomConfigurationControllerTest {
         SensorList sL1 = new SensorList();
         sL1.addSensor(s1);
         sL1.addSensor(s2);
-        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());;
+        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));;
         gA1.setSensorList(sL1);
         GeographicAreaList gList1 = new GeographicAreaList();
         gList1.addGeographicAreaToGeographicAreaList(gA1);

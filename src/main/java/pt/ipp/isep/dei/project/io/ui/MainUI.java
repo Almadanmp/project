@@ -33,23 +33,23 @@ public class MainUI {
 
         // Geo Areas (4)
 
-        GeographicArea isep = new GeographicArea("ISEP", new TypeArea("urban area"), 52, 5, new Local(41.178553, -8.608035, 111), new SensorList());
+        GeographicArea isep = new GeographicArea("ISEP", new TypeArea("urban area"), 52, 5, new Local(41.178553, -8.608035, 111));
         isep.setWidth(0.261);
         isep.setLength(0.249);
         isep.setDescription("Campus do ISEP");
 
 
-        GeographicArea porto = new GeographicArea(portoString, new TypeArea("city"), 31, 6, new Local(41.164077, -8.620802, 118), new SensorList());
+        GeographicArea porto = new GeographicArea(portoString, new TypeArea("city"), 31, 6, new Local(41.164077, -8.620802, 118));
         porto.setWidth(10.09);
         porto.setLength(10.09);
         porto.setDescription("City of Porto");
 
-        GeographicArea portugal = new GeographicArea("Portugal", new TypeArea("country"), 22, 9, new Local(60, 0, 110), new SensorList());
+        GeographicArea portugal = new GeographicArea("Portugal", new TypeArea("country"), 22, 9, new Local(60, 0, 110));
         portugal.setWidth(100);
         portugal.setLength(800);
         portugal.setDescription("Country of Portugal");
 
-        GeographicArea portoSanto = new GeographicArea("Porto Santo", new TypeArea("city"), 42, 12, new Local(-45, 67, 67), new SensorList());
+        GeographicArea portoSanto = new GeographicArea("Porto Santo", new TypeArea("city"), 42, 12, new Local(-45, 67, 67));
         portoSanto.setWidth(156);
         portoSanto.setLength(235);
         portoSanto.setDescription("City of Porto Santo");
@@ -266,7 +266,7 @@ public class MainUI {
 
         GeographicAreaList geographicAreaListSP2 = new GeographicAreaList();
         TypeArea urbanArea = new TypeArea("urban area");
-        GeographicArea geographicAreaSP2 = new GeographicArea("ISEP", urbanArea, 0.249, 0.261, new Local(41.178553, -8.608035, 111), new SensorList());
+        GeographicArea geographicAreaSP2 = new GeographicArea("ISEP", urbanArea, 0.249, 0.261, new Local(41.178553, -8.608035, 111));
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(geographicAreaSP2);
         TypeAreaList typeAreaListSP2 = new TypeAreaList();
         typeAreaListSP2.addTypeArea(urbanArea);
@@ -472,7 +472,7 @@ public class MainUI {
 
 
         TypeArea citySP2 = new TypeArea("city");
-        GeographicArea portoSP2 = new GeographicArea(portoString,citySP2,3.30,10.09,new Local(41.164077,-8.620802,118), new SensorList());
+        GeographicArea portoSP2 = new GeographicArea(portoString,citySP2,3.30,10.09,new Local(41.164077,-8.620802,118));
         typeAreaListSP2.addTypeArea(citySP2);
         portoSP2.setDescription("City of Porto");
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);

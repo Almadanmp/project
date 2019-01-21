@@ -81,7 +81,7 @@ public class RoomTest {
         Room room = new Room("quarto", 1, 80, 5, 3, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50), new SensorList()), roomList);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), roomList);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d2);
         double expectedResult = 30.0;
         assertEquals(expectedResult, result, 0.01);
@@ -106,7 +106,7 @@ public class RoomTest {
         Room room = new Room("quarto", 1, 80, 5, 3,list, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50), new SensorList()), roomList);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), roomList);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d2);
         double expectedResult = 20.0;
         assertEquals(expectedResult, result, 0.01);
@@ -133,7 +133,7 @@ public class RoomTest {
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50), new SensorList()), roomList);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), roomList);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d3);
         double expectedResult = 25.0;
         assertEquals(expectedResult, result, 0.01);
@@ -160,7 +160,7 @@ public class RoomTest {
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50), new SensorList()), roomList);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), roomList);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d3);
         double expectedResult = -25.0;
         assertEquals(expectedResult, result, 0.01);
