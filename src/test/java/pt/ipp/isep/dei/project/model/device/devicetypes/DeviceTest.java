@@ -59,7 +59,7 @@ public class DeviceTest {
 
     @Test
     void seeIfPrintDeviceWorks() {
-        Device d1 = new Device("frigo", 150, new Fridge());
+        Device d1 = new Device("frigo", 150, new Fridge(2,2,45));
         Room room = new Room("kitchen", 1, 1, 1, 1);
         String result = d1.buildDeviceString();
         String expectedResult = "The device Name is frigo, and its NominalPower is 150.0 kW.\n";
@@ -68,7 +68,7 @@ public class DeviceTest {
 
     @Test
     void seeIfSetNameWorks() {
-        Device d1 = new Device("frigo", 150, new Fridge());
+        Device d1 = new Device("frigo", 150, new Fridge(2,2,23));
         d1.setmName("frigorifico");
         String result = d1.getName();
         String expectedResult = "frigorifico";

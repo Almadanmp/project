@@ -15,7 +15,7 @@ class FridgeTest {
 
     @Test
     void getTypeTest() {
-        Fridge fridge = new Fridge();
+        Fridge fridge = new Fridge(5,7,56);
         DeviceType expectedResult = DeviceType.FRIDGE;
         DeviceType result = fridge.getType();
         assertEquals(expectedResult, result);
@@ -23,7 +23,7 @@ class FridgeTest {
 
     @Test
     void getConsumptionTest() {
-        Fridge fridge = new Fridge();
+        Fridge fridge = new Fridge(5,6,56);
         double expectedResult = 0;
         double result = fridge.getConsumption();
         assertEquals(expectedResult, result);

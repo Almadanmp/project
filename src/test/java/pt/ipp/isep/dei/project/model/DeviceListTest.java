@@ -57,8 +57,8 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("FridgeTwo", 12, new Fridge());
-        Device device2 = new Device("FridgeOne", 12, new Fridge());
+        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device device2 = new Device("FridgeOne", 12, new Fridge(5,6,345));
         deviceL1.addDevice(d1);
         //Act
         Boolean actualResult = deviceL1.addDevice(device2);
@@ -205,7 +205,7 @@ class DeviceListTest {
     @Test
     void SeeIfMatchDeviceIndexByStringWorks() {
         //Arrange
-        Device device = new Device("frigorifico", 200, new Fridge());
+        Device device = new Device("frigorifico", 200, new Fridge(4,7,45));
         DeviceList dlist = new DeviceList();
         dlist.addDevice(device);
         //Act
@@ -218,7 +218,7 @@ class DeviceListTest {
     @Test
     void SeeIfMatchDeviceIndexByStringFails() {
         //Arrange
-        Device device = new Device("frigorifico", 200, new Fridge());
+        Device device = new Device("frigorifico", 200, new Fridge(4,7,45));
         DeviceList dlist = new DeviceList();
         dlist.addDevice(device);
         //Act
@@ -233,7 +233,7 @@ class DeviceListTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Device d1 = new Device("frigorifico", 200, new Fridge(3,7,45));
         Device d2 = new Device("maquina de lavar", 150, new WashingMachine(34));
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
@@ -318,7 +318,7 @@ class DeviceListTest {
 
     @Test
     void seeIfPrintDevicesWorks() {
-        Device d1 = new Device("Fridge", 21, new Fridge());
+        Device d1 = new Device("Fridge", 21, new Fridge(4,6,45));
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         String expectedResult = "0) The device Name is Fridge, and its NominalPower is 21.0 kW.\n";
@@ -330,8 +330,8 @@ class DeviceListTest {
 
     @Test
     void seeIfPrintDevicesWorks2() {
-        Device d1 = new Device("Fridge", 21, new Fridge());
-        Device d2 = new Device("Frnidge", 21, new Fridge());
+        Device d1 = new Device("Fridge", 21, new Fridge(6,5,345));
+        Device d2 = new Device("Frnidge", 21, new Fridge(4,7,435));
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d2);
         deviceList.addDevice(d1);
