@@ -5,10 +5,7 @@ public class Program {
     private double mDuration;
     private double mEnergyConsumption;
 
-    public Program() {
-    }
-
-    public Program(String name, double duration, double energyConsumption) {
+     public Program(String name, double duration, double energyConsumption) {
         setDuration(duration);
         setProgramName(name);
         setEnergyConsumption(energyConsumption);

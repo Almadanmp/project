@@ -31,7 +31,7 @@ public class ProgramTest {
 
     @Test
     public void seeIfTestSetEnergyConsumption() {
-        Program program = new Program();
+        Program program = new Program("Eco", 130, 23);
         program.getEnergyConsumption();
         program.setEnergyConsumption(4);
         double expectedResult = 4;
