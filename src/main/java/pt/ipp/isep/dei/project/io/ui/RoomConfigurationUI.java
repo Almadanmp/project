@@ -49,10 +49,6 @@ class RoomConfigurationUI {
 
     void run(House house, List<DeviceType> deviceTypeList, List<TypeSensor> typeSensorList) {
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.houseIsNull(house)) {
-            System.out.println(utilsUI.invalidHouse);
-            return;
-        }
         this.mHouse = house;
         List<Room> roomList = mHouse.getRoomList();
         if (roomList == null || roomList.isEmpty()) {
