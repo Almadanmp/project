@@ -24,7 +24,7 @@ class EnergyGridTest {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device();
+        Device device = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
@@ -42,7 +42,7 @@ class EnergyGridTest {
         Reading r1 = new Reading(20,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device();
+        Device device = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         energyGrid.setRoomList(roomList);
@@ -235,7 +235,6 @@ class EnergyGridTest {
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
         EnergyGrid energyGrid = new EnergyGrid();
-
         Room r1 = new Room("Kitchen", 0, 21,31,10, sensorList, deviceList);
         r1.setDeviceList(deviceList);
         RoomList roomList = new RoomList();

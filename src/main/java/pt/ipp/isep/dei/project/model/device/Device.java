@@ -17,8 +17,6 @@ public class Device implements Metered {
     private DeviceSpecs mDeviceSpecs;
 
     //Empty constructor for test purposes
-    public Device() {
-    }
 
     public Device(String name, double nominalPower, DeviceSpecs deviceSpecs) {
         this.mName = name;

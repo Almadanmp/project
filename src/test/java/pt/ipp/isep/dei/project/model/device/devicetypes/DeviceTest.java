@@ -83,7 +83,7 @@ public class DeviceTest {
 
     @Test
     public void hashCodeDummyTest() {
-        Device d1 = new Device();
+        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         int expectedResult = 1;
         int actualResult = d1.hashCode();
         assertEquals(expectedResult, actualResult);

@@ -184,7 +184,6 @@ class RoomConfigurationUI {
      */
 
     private void createDevice() {
-        this.mDevice = new Device();
         Scanner scanner = new Scanner(System.in);
 
         // get device name
