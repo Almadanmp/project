@@ -26,8 +26,8 @@ public class RoomTest {
 
     @Test
     void seeIfRemoveDeviceFromRoomWorks() {
-        Device device = new Device("waterheater", 150, new WaterHeater());
-        Device device1 = new Device("skjsjk", 123, new WaterHeater());
+        Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device1 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("cozinha", 1, 1, 1, 1);
         room.addDevice(device);
         room.addDevice(device1);
@@ -42,7 +42,7 @@ public class RoomTest {
 
     @Test
     void seeIfRemoveDeviceFromRoomWorksFalse() {
-        Device device = new Device("waterheater", 150, new WaterHeater());
+        Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("cozinha", 1, 1, 1, 1);
         room.addDevice(device);
         room.removeDevice(device);
@@ -585,8 +585,8 @@ public class RoomTest {
     @Test
     void seeIfAddRoomDevicesToDeviceListWorksWhenDeviceListAlreadyAddedToRoom() {
         //Arrange
-        Device device1 = new Device("waterheater", 150, new WaterHeater());
-        Device device2 = new Device("skjsjk", 123, new WaterHeater());
+        Device device1 = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device2 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
@@ -602,8 +602,8 @@ public class RoomTest {
     @Test
     void seeIfAddRoomDevicesToDeviceListWorksAlreadyContained() {
         //Arrange
-        Device device1 = new Device("waterheater", 150, new WaterHeater());
-        Device device2 = new Device("skjsjk", 123, new WaterHeater());
+        Device device1 = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device2 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
@@ -622,8 +622,8 @@ public class RoomTest {
     @Test
     void seeIfAddRoomDevicesToDeviceListWorksWhenNotYetAddedToRoom() {
         //Arrange
-        Device device1 = new Device("waterheater", 150, new WaterHeater());
-        Device device2 = new Device("skjsjk", 123, new WaterHeater());
+        Device device1 = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device2 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
@@ -654,7 +654,7 @@ public class RoomTest {
     @Test
     void ensureThatWeDoNotAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
-        Device device = new Device("WHeater", 23, new WaterHeater());
+        Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("Room", 1, 2, 3, 4);
         deviceList.addDevice(device);
         room.setDeviceList(deviceList);
@@ -667,7 +667,7 @@ public class RoomTest {
     @Test
     void seeThatWeAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
-        Device device = new Device("WHeater", 23, new WaterHeater());
+        Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         DeviceList deviceList2 = new DeviceList();
         deviceList.addDevice(device);
         Room room = new Room("Room", 1, 2, 3, 4);
@@ -680,7 +680,7 @@ public class RoomTest {
     @Test
     void ensureThatWeDontAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
-        Device device = new Device("WHeater", 23, new WaterHeater());
+        Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("Room", 1, 2, 3, 4);
         deviceList.addDevice(device);
         boolean expectedResult = false;
@@ -691,12 +691,12 @@ public class RoomTest {
     @Test
     void ensureThatWeAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
-        Device device = new Device("WHeater", 23, new WaterHeater());
+        Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("Room", 1, 2, 3, 4);
         deviceList.addDevice(device);
         room.setDeviceList(deviceList);
         DeviceList deviceList1 = new DeviceList();
-        Device device1 = new Device("WHeater2", 23, new WaterHeater());
+        Device device1 = new Device("WHeater2", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         deviceList1.addDevice(device1);
         boolean expectedResult = true;
         boolean actualResult = room.addRoomDevicesToDeviceList(deviceList1);

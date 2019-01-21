@@ -194,7 +194,7 @@ class EnergyGridTest {
 
         Room r1 = new Room("Kitchen", 0,12,30,10);
         Room r2 = new Room("Sótão", 3, 30,40,12);
-        Device d1 = new Device("WaterHeater1", 30, new WaterHeater());
+        Device d1 = new Device("WaterHeater1", 30, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("Fridge", 50, new Fridge());
         DeviceList deviceList1 = new DeviceList();
         deviceList1.addDevice(d1);

@@ -159,9 +159,9 @@ class WaterHeaterTest {
 
     @Test
     void seeIfSetVolumeWaterWorks() {
-        WaterHeater waterHeater = new WaterHeater();
-        Double volumeOfWater = 12.0;
-        waterHeater.setVolumeOfWater(volumeOfWater);
+        WaterHeater waterHeater = new WaterHeater(12.0, 50., 0.9);
+        // Double volumeOfWater = 12.0;
+        //   waterHeater.setVolumeOfWater(volumeOfWater);
         Double result = waterHeater.getVolumeWater();
         Double expectedResult = 12.0;
         assertEquals(expectedResult, result);
@@ -170,7 +170,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIfGetAndSetAttributeValue() {
-        WaterHeater waterHeater = new WaterHeater();
+        WaterHeater waterHeater = new WaterHeater(new Double(0.6), new Double(30), new Double(0.9));
         Double volumeOfWater = 0.6;
         String attribute = "volumeOfWater";
         Double expectedResult = 0.6;
@@ -183,7 +183,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIfSetAttributeValueInvalid() {
-        WaterHeater waterHeater = new WaterHeater();
+        WaterHeater waterHeater = new WaterHeater(new Double(12), new Double(40), new Double (234));
         Double value = 0.6;
         String attribute = "invalid";
         boolean result = waterHeater.setAttributeValue(attribute, value);
@@ -192,7 +192,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIfGetAttributeNames() {
-        WaterHeater waterHeater = new WaterHeater();
+        WaterHeater waterHeater = new WaterHeater(new Double(12), new Double(40), new Double (234));
         List<String> result = waterHeater.getAttributeNames();
         assertTrue(result.contains("volumeOfWater"));
         assertTrue(result.contains("hotWaterTemperature"));
@@ -204,7 +204,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIfGetAttributeValueDefaultTest() {
-        WaterHeater waterHeater = new WaterHeater();
+        WaterHeater waterHeater = new WaterHeater(new Double(12), new Double(40), new Double (234));
         String attribute = "Lisboa";
         Double expectedResult = 0.0;
         Object getResult = waterHeater.getAttributeValue(attribute);
@@ -213,7 +213,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIfGetAndSetAttributeValues() {
-        WaterHeater waterHeater = new WaterHeater();
+        WaterHeater waterHeater = new WaterHeater(new Double(12), new Double(40), new Double (234));
         String attribute = "volumeOfWater";
         Double expectedResult = 2.0;
         Double attributeValue = 2.0;
@@ -257,7 +257,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIFSetAttributeValuesFails() {
-        WaterHeater waterHeater = new WaterHeater();
+        WaterHeater waterHeater = new WaterHeater(new Double(12), new Double(40), new Double (234));
         String attribute = "volumeOfWater";
         int attributeValue = 2;
         boolean setResult = waterHeater.setAttributeValue(attribute, attributeValue);
@@ -286,7 +286,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIFSetAttributeValuesFails2() {
-        WaterHeater waterHeater = new WaterHeater();
+        WaterHeater waterHeater = new WaterHeater(new Double(12), new Double(40), new Double (234));
         String attribute = "njfdjkndfk";
         int attributeValue = 2;
         boolean setResult = waterHeater.setAttributeValue(attribute, attributeValue);
@@ -315,7 +315,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIfGetAndSetAttributeValues2() {
-        WaterHeater waterHeater = new WaterHeater();
+        WaterHeater waterHeater = new WaterHeater(new Double(12), new Double(40), new Double (234));
         Double attributeValue = 3.0;
         boolean setResult = waterHeater.setAttributeValue(null, attributeValue);
         assertFalse(setResult);

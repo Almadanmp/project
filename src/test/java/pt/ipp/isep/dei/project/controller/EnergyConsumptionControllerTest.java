@@ -31,8 +31,8 @@ class EnergyConsumptionControllerTest {
 
         EnergyGrid grid = new EnergyGrid();
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
-        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
@@ -62,8 +62,8 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
-        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
@@ -88,8 +88,8 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
-        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
@@ -117,8 +117,8 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
-        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
@@ -143,8 +143,8 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
-        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
@@ -317,8 +317,8 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         EnergyGrid grid = new EnergyGrid();
-        Device d1 = new Device("WaterHeater", 21, new WaterHeater());
-        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater());
+        Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);

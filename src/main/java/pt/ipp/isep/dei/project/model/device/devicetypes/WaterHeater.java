@@ -19,11 +19,6 @@ public class WaterHeater implements DeviceSpecs {
     Double mColdWaterTemperature;
     Double mVolumeOfWaterToHeat;
 
-    public WaterHeater() {
-        mColdWaterTemperature = 0.0;
-        mVolumeOfWaterToHeat = 0.0;
-    }
-
     public WaterHeater(Double volumeOfWater, Double hotWaterTemperature, Double mPerformanceRatio) {
         this.mVolumeOfWater = volumeOfWater;
         this.mHotWaterTemperature = hotWaterTemperature;
