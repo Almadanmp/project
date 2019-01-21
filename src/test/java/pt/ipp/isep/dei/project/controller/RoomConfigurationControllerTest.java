@@ -139,7 +139,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeGetRoomNominalPower() {
         //ARRANGE
-        Fridge f1 = new Fridge();
+        Fridge f1 = new Fridge(4,4,56);
         Device d1 = new Device("d1", 12, f1);
         Device d2 = new Device("d2", 10, f1);
         Device d3 = new Device("d3", 1, f1);
@@ -367,7 +367,7 @@ class RoomConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Device d1 = new Device("frigorifico", 200, new Fridge(5,4,56));
         Device d2 = new Device("maquina de lavar", 150, new WashingMachine(1));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         DeviceList dlist = new DeviceList();
@@ -387,7 +387,7 @@ class RoomConfigurationControllerTest {
     void SeeIfMatchDeviceIndexByStringWorks() {
         //Arrange
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Device d1 = new Device("frigorifico", 200, new Fridge(4,5,45));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
@@ -402,7 +402,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Device d1 = new Device("frigorifico", 200, new Fridge(4,6,56));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
@@ -415,7 +415,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDeviceList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("frigorifico", 200, new Fridge());
+        Device d1 = new Device("frigorifico", 200, new Fridge(5,7,56));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);

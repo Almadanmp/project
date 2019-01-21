@@ -387,9 +387,9 @@ class EnergyGridSettingsControllerTest {
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
-        Device d1 = new Device("fridgeOne", 12, new Fridge());
+        Device d1 = new Device("fridgeOne", 12, new Fridge(4,5,45));
         Device d2 = new Device("DWOne", 13, new Dishwasher());
-        Device d3 = new Device("FridgeTwo", 14, new Fridge());
+        Device d3 = new Device("FridgeTwo", 14, new Fridge(5,6,45));
         d1.setName("uno");
         d2.setName("dos");
         d3.setName("tres");

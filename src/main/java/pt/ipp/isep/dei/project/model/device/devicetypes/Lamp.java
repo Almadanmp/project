@@ -9,9 +9,6 @@ public class Lamp implements DeviceSpecs {
     private double mLuminousFlux;
     private static final String FLUX = "LuminousFlux";
 
-    public Lamp() {
-    }
-
     public Lamp(double luminousFlux) {
         this.mLuminousFlux = luminousFlux;
     }

@@ -213,9 +213,9 @@ public class MainUI {
         listProgram.addProgram(program1);
         listProgram.addProgram(program2);
         Device device1 = new Device("maquina de lavar", 23.0, new WashingMachine(100.0, listProgram));
-        Device device2 = new Device("FridgeOne", 4, new Fridge());
+        Device device2 = new Device("FridgeOne", 4, new Fridge(2,2,45));
         Device device3 = new Device("WH Main", 3, new WaterHeater(500.0, 25.0, 10.0));
-        Device device4 = new Device("Lamp", 4, new Lamp());
+        Device device4 = new Device("Lamp", 4, new Lamp(23));
         DeviceList listDevices = new DeviceList();
         listDevices.addDevice(device1);
         listDevices.addDevice(device2);
@@ -224,7 +224,7 @@ public class MainUI {
         roomISEP2.setDeviceList(listDevices);
 
 
-        Device device5 = new Device("FridgeOne1", 4, new Fridge());
+        Device device5 = new Device("FridgeOne1", 4, new Fridge(1,1,100));
         Device device6 = new Device("WH Secondary", 3, new WaterHeater(500.0, 25.0, 10.0));
         DeviceList listDevices1 = new DeviceList();
         listDevices1.addDevice(device5);

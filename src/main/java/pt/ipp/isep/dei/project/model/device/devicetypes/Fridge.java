@@ -13,8 +13,6 @@ public class Fridge implements DeviceSpecs {
     private static final String REFRIGERATOR_CAPACITY_STRING = "refrigeratorCapacity";
     private static final String ANNUAL_CONSUMPTION_STRING = "annualEnergyConsumption";
 
-    public Fridge() {
-    }
 
     public Fridge(double mFreezerCapacity, double mRefrigeratorCapacity, double annualEnergyConsumption) {
         this.mFreezerCapacity = mFreezerCapacity;

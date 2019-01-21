@@ -172,7 +172,7 @@ public class RoomTest {
     @Test
     void SeeIfPrintListOfDevicesFromRoomWorks() {
         DeviceList deviceList = new DeviceList();
-        Device d1 = new Device("frigorifico", 230, new Fridge());
+        Device d1 = new Device("frigorifico", 230, new Fridge(1,1,34));
         deviceList.addDevice(d1);
         Room room = new Room("cozinha", 0, 1, 1, 1);
         room.setDeviceList(deviceList);
@@ -397,7 +397,7 @@ public class RoomTest {
     @Test
     void seeNominalPowerOfRoom() {
         //ARRANGE
-        Fridge f1 = new Fridge();
+        Fridge f1 = new Fridge(2,2,45);
         Device d1 = new Device("d1", 12, f1);
         Device d2 = new Device("d2", 10, f1);
         Device d3 = new Device("d3", 1, f1);
@@ -417,7 +417,7 @@ public class RoomTest {
     @Test
     void getDailyRoomConsumptionPerTypeTest() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device("fridgeOne", 12, new Fridge());
+        Device d1 = new Device("fridgeOne", 12, new Fridge(2,2,45));
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 0.9));
         r1.addDevice(d1);

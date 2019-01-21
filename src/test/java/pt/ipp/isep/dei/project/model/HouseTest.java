@@ -25,7 +25,7 @@ class HouseTest {
 
     @Test
     void seeIfGetListDevice() {
-        Device device = new Device("fridge", 5, new Fridge());
+        Device device = new Device("fridge", 5, new Fridge(34,34,65));
         Device device2 = new Device("washing", 5, new WashingMachine());
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         room1.addDevice(device);
@@ -384,7 +384,7 @@ class HouseTest {
         Room r1 = new Room("Kitchen", 0, 12, 30, 10);
         Room r2 = new Room("Sótão", 3, 30, 40, 12);
         Device d1 = new Device("WaterHeater1", 30, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Device d2 = new Device("Fridge", 50, new Fridge());
+        Device d2 = new Device("Fridge", 50, new Fridge(45,45,56));
         DeviceList deviceList1 = new DeviceList();
         deviceList1.addDevice(d1);
         r1.setDeviceList(deviceList1);
@@ -452,14 +452,14 @@ class HouseTest {
     public void getDailyHouseConsumptionPerTypeTest() {
         House h1 = new House();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device("fridgeOne", 12, new Fridge());
+        Device d1 = new Device("fridgeOne", 12, new Fridge(45,45,65));
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0,  0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
-        Device d4 = new Device("fridgeTwo", 12, new Fridge());
+        Device d4 = new Device("fridgeTwo", 12, new Fridge(4,5,45));
         Device d5 = new Device("wHeater3", 12, new WaterHeater(300.0, 15.0, 0.9));
         Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0,  0.9));
         r2.addDevice(d4);
