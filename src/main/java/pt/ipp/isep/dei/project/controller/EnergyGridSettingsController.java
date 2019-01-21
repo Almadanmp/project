@@ -4,6 +4,11 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.List;
 
+/**
+ * Controller class for Energy Grid Settings UI
+ */
+
+
 public class EnergyGridSettingsController {
     private EnergyGrid mEnergyGrid;
     private PowerSource mPowerSource;

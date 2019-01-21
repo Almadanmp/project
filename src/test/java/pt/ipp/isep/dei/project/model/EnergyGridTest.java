@@ -9,6 +9,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
+import java.util.GregorianCalendar;
 
 import static org.testng.Assert.assertEquals;
 
@@ -20,7 +21,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfPrintGridWorks() {
-        Reading r1 = new Reading(20);
+        Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
         Device device = new Device();
@@ -36,7 +37,7 @@ class EnergyGridTest {
         Room room = new Room("room1", 1, 1,2,2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        Reading r1 = new Reading(20);
+        Reading r1 = new Reading(20,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
         Device device = new Device();

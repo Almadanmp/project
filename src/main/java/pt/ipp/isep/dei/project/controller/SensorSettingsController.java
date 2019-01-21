@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * Controller class for Sensor Settings UI
+ */
+
 public class SensorSettingsController {
     private SensorList mSensorList;
     private Local mLocal;

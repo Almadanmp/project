@@ -7,6 +7,11 @@ import pt.ipp.isep.dei.project.model.device.ProgramList;
 
 import java.util.List;
 
+/**
+ * Controller class for Room Configuration UI
+ */
+
+
 public class RoomConfigurationController {
 
     private Room mRoom;

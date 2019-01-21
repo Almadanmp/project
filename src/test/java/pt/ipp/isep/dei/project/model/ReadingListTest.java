@@ -2327,7 +2327,7 @@ public class ReadingListTest {
     void ensureReadingListIsNotEmpty() {
         //Arrange
         ReadingList rl = new ReadingList();
-        Reading reading = new Reading(20);
+        Reading reading = new Reading(20,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         rl.addReading(reading);
         boolean expectedResult = false;
         //Act

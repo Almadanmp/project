@@ -4,6 +4,11 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.List;
 
+/**
+ * Controller class for House Configuration UI
+ */
+
+
 public class HouseConfigurationController {
     private Room mRoom;
 
