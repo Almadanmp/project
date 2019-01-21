@@ -13,6 +13,10 @@ public interface Programmable {
 
     List<Program> getProgramList();
 
-    Program getProgram();
+    Program getProgramByName(String name);
+
+    boolean addProgram(Program program);
+
+    boolean removeProgram(Program program);
 
 }

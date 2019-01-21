@@ -1,25 +1,66 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
+import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.Programmable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WashingMachine implements DeviceSpecs {
+public class WashingMachine implements DeviceSpecs, Programmable {
     private static final String CAPACITY = "capacity";
 
     private double mCapacity;
-    private ProgramList mProgramList;
+    private ProgramList mObjectProgramList;
+    private List<Program> mProgramList;
+
 
     public WashingMachine(double capacity) {
         this.mCapacity = capacity;
-        mProgramList = new ProgramList();
+        mProgramList = new ArrayList<>();
+        mProgramList=new ArrayList<>();
+    }
+
+    public WashingMachine(double capacity,List<Program> programList) {
+        this.mCapacity = capacity;
+        mProgramList = programList;
     }
 
     public WashingMachine(double capacity, ProgramList programList) {
         this.mCapacity = capacity;
-        mProgramList = programList;
+        mObjectProgramList = programList;
+    }
+
+    public List<Program> getProgramList() {
+        return mProgramList;
+    }
+
+    public Program getProgramByName(String name) {
+        for (Program p: mProgramList){
+            if (p.getProgramName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public boolean addProgram(Program program){
+        if (!(mProgramList.contains(program))) {
+            mProgramList.add(program);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean removeProgram(Program program){
+        if (mProgramList.contains(program)) {
+            mProgramList.remove(program);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public DeviceType getType() {
@@ -51,7 +92,7 @@ public class WashingMachine implements DeviceSpecs {
             case CAPACITY:
                 return mCapacity;
             case "programList":
-                return mProgramList;
+                return mObjectProgramList;
             default:
                 return 0;
         }

@@ -1,31 +1,69 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
+import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.Programmable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dishwasher implements DeviceSpecs {
+public class Dishwasher implements DeviceSpecs, Programmable {
 
     private double mCapacity;
-    private ProgramList mProgramList;
+    private List<Program> mProgramList;
+    private ProgramList mObjectProgramList;
     private static final String CAP = "capacity";
     private String mCapacityString = CAP;
     private String mProgramListString = "programList";
 
     public Dishwasher() {
-        mProgramList = new ProgramList();
+        mProgramList = new ArrayList<>();
     }
 
     public Dishwasher(double capacity) {
         this.mCapacity = capacity;
-        mProgramList = new ProgramList();
+        mProgramList = new ArrayList<>();
+    }
+
+    public Dishwasher(double capacity, List<Program> programList) {
+        this.mCapacity = capacity;
+        mProgramList = programList;
     }
 
     public Dishwasher(double capacity, ProgramList programList) {
         this.mCapacity = capacity;
-        mProgramList = programList;
+        mObjectProgramList = programList;
+    }
+    public List<Program> getProgramList() {
+        return mProgramList;
+    }
+
+    public Program getProgramByName(String name) {
+        for (Program p: mProgramList){
+            if (p.getProgramName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public boolean addProgram(Program program){
+        if (!(mProgramList.contains(program))) {
+            mProgramList.add(program);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean removeProgram(Program program){
+        if (mProgramList.contains(program)) {
+            mProgramList.remove(program);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -58,7 +96,7 @@ public class Dishwasher implements DeviceSpecs {
         if (attributeName.equals(CAP)) {
             return mCapacity;
         } else if ("programList".equals(attributeName)) {
-            return mProgramList;
+            return mObjectProgramList;
         }
         return 0;
     }

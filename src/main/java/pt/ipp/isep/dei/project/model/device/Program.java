@@ -40,4 +40,6 @@ public class Program {
     public double getEnergyConsumption(){
         return this.mEnergyConsumption;
     }
+
+
 }
