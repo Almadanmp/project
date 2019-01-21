@@ -18,14 +18,6 @@ class EnergyGridSettingsUI {
     void run(House house) {
         InputUtils inputs = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.houseIsNull(house) ) {
-            System.out.println(utilsUI.invalidHouse);
-            return;
-        }
-        if (utilsUI.houseEGListIsNull(house)){
-            System.out.println("The selected House has not a valid Energy Grid associated\nReturning to Main Menu");
-            return;
-        }
         InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
@@ -92,9 +84,8 @@ class EnergyGridSettingsUI {
     }
 
     private void updateHouse(House house) {
-            if (mController.addEnergyGridToHouse(house)) {
+            mController.addEnergyGridToHouse(house);
                 System.out.println("The energy grid was successfully created and added to the house.");
-            }
     }
 
     /* USER STORY 135 UI - As an Administrator, I want to add a power source to an energy grid, so that the produced

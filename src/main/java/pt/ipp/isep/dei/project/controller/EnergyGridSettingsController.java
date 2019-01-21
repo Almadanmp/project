@@ -4,6 +4,11 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.List;
 
+/**
+ * Controller class for Energy Grid Settings UI
+ */
+
+
 public class EnergyGridSettingsController {
     private EnergyGrid mEnergyGrid;
     private PowerSource mPowerSource;
@@ -131,13 +136,8 @@ public class EnergyGridSettingsController {
     /**
      * This method directly adds the desired energy grid to the energy grid list from a selected house;
      */
-    public boolean addEnergyGridToHouse(House programHouse) {
-        if (mEnergyGrid != null) {
-            programHouse.getEGList().addGrid(mEnergyGrid);
-            return true;
-        } else {
-            return false;
-        }
+    public void addEnergyGridToHouse(House programHouse) {
+            programHouse.addGrid(mEnergyGrid);
     }
 
     /**
@@ -214,10 +214,7 @@ public class EnergyGridSettingsController {
      */
 
     public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid) {
-        if (energyGrid == null) {
-            return "This energy grid is invalid\n";
-        }
-        if (energyGrid.getListOfRooms() == null || energyGrid.getListOfRooms().getList().isEmpty()) {
+        if (energyGrid.getRoomList().isEmpty()) {
             return "This energy grid has no rooms attached\n";
         }
         if (energyGrid.getDeviceListFromAllRooms().getList().isEmpty()) {

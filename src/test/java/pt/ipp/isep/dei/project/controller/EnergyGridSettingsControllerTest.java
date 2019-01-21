@@ -323,8 +323,9 @@ class EnergyGridSettingsControllerTest {
         RoomList roomList = new RoomList();
         House house = new House("casa", "as", "as", "s", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), roomList);
         ctrl.createEnergyGrid("grid", 400);
-        boolean result = ctrl.addEnergyGridToHouse(house);
-        boolean expectedResult = true;
+        ctrl.addEnergyGridToHouse(house);
+        EnergyGrid result = house.getEGList().getEnergyGridList().get(0);
+        EnergyGrid expectedResult = new EnergyGrid("grid", 400);
         assertEquals(expectedResult, result);
     }
 
@@ -333,8 +334,9 @@ class EnergyGridSettingsControllerTest {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         RoomList roomList = new RoomList();
         House house = new House("casa", "as", "as", "s", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), roomList);
-        boolean result = ctrl.addEnergyGridToHouse(house);
-        boolean expectedResult = false;
+        ctrl.addEnergyGridToHouse(house);
+        EnergyGrid result = house.getEGList().getEnergyGridList().get(0);
+        EnergyGrid expectedResult = null;
         assertEquals(expectedResult, result);
     }
 
@@ -419,18 +421,6 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    void seeIfDeviceListPrintsByTypeWithNullRoomList() {
-        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
-        RoomList rl = null;
-        eg.setRoomList(rl);
-        String expectedResult = "This energy grid has no rooms attached\n";
-        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
-        assertEquals(expectedResult, result);
-    }
-
-
-    @Test
     void seeIfDeviceListPrintsByTypeWithNoDevices() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
@@ -443,14 +433,5 @@ class EnergyGridSettingsControllerTest {
         String expectedResult = "This energy grid has no devices on it\n";
         String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
         assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void ensureThatNullEnergyGridReturnsMessage() {
-        EnergyGrid eg = null;
-        EnergyGridSettingsController energyGridSettingsController = new EnergyGridSettingsController();
-        String expectedResult = "This energy grid is invalid\n";
-        String actualResult = energyGridSettingsController.buildListOfDevicesOrderedByTypeString(eg);
-        assertEquals(expectedResult, actualResult);
     }
 }

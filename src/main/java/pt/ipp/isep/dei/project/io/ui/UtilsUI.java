@@ -18,16 +18,6 @@ class UtilsUI {
     String invalidGAList = "Invalid Geographic Area List - List is empty\n" + returningToMainMenu;
     String invalidGATypeList = "Invalid list of Geographic Area types. List is empty\n" + returningToMainMenu;
 
-    boolean houseIsNull(House house) {
-        return house == null;
-    }
-
-    boolean houseEGListIsNull(House house) {
-        return house.getEGList() == null;
-    }
-
-    boolean gridIsNull(EnergyGrid energyGrid) {return energyGrid == null;}
-
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
         return geographicAreaList != null && !geographicAreaList.getGeographicAreaList().isEmpty();
     }

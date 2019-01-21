@@ -33,10 +33,6 @@ public class HouseMonitoringUI {
     void run(House programHouse) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.houseIsNull(programHouse) || programHouse.getMotherArea() == null) {
-            System.out.println(utilsUI.invalidHouse);
-            return;
-        }
         this.mHouse = programHouse;
         boolean activeInput = false;
         int option;

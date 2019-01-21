@@ -23,10 +23,6 @@ class EnergyConsumptionUI {
     void run(House programHouse) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        if (utils.houseIsNull(programHouse)) {
-            System.out.println(utils.invalidHouse);
-            return;
-        }
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -67,9 +63,6 @@ class EnergyConsumptionUI {
         boolean active;
         InputUtils inputs = new InputUtils();
         EnergyGrid grid = inputs.getInputGridByList(programHouse);
-        if(utils.gridIsNull(grid)) {
-            return;
-        }
         RoomList selectedRooms = new RoomList();
         DeviceList selectedDevices = new DeviceList();
         while (true) {

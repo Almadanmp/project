@@ -43,7 +43,7 @@ public class ReadingTest{
     public void getmValueTest() {
         //Arrange
         double valor1 = 15.0;
-        Reading l1 = new Reading(valor1);
+        Reading l1 = new Reading(valor1,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         double expectedResult = valor1;
         //Act
         double result =l1.getmValue();
@@ -55,7 +55,7 @@ public class ReadingTest{
     public void setValueSeeIfItWorks() {
         //Arrange
         double valor1 = 15.0;
-        Reading l1 = new Reading(valor1);
+        Reading l1 = new Reading(valor1,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         double valor2 = 18.0;
         l1.setmValue(valor2);
         double expectedResult = valor2;

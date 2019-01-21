@@ -26,10 +26,6 @@ class HouseConfigurationUI {
     void run(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.houseIsNull(house)) {
-            System.out.println(utilsUI.invalidHouse);
-            return;
-        }
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");

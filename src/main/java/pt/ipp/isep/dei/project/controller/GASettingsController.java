@@ -4,6 +4,10 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.List;
 
+/**
+ * Controller class for Geographical Area Settings UI
+ */
+
 public class GASettingsController {
 
     private GeographicArea mMotherArea;

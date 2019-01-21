@@ -22,15 +22,6 @@ public class Reading {
     }
 
     /**
-     * Builder with 'value'.
-     *
-     * @param value of reading made
-     */
-    public Reading(double value) {
-        setmValue(value);
-    }
-
-    /**
      * getters e setters
      *
      * @param value of reading made

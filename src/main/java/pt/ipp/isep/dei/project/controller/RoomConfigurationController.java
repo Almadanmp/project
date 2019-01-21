@@ -7,6 +7,11 @@ import pt.ipp.isep.dei.project.model.device.ProgramList;
 
 import java.util.List;
 
+/**
+ * Controller class for Room Configuration UI
+ */
+
+
 public class RoomConfigurationController {
 
     private Room mRoom;
@@ -205,8 +210,8 @@ public class RoomConfigurationController {
      */
     public String buildDeviceTypeListString(List<DeviceType> deviceTypeList){
         DeviceType deviceType= DeviceType.WATER_HEATER;
-        for(int i=0;i<deviceTypeList.size();i++){
-            deviceType = deviceTypeList.get(i);
+        for (DeviceType deviceType1 : deviceTypeList) {
+            deviceType = deviceType1;
         }
 
         return deviceType.buildDeviceTypesByIndexString();
