@@ -105,7 +105,7 @@ class RoomConfigurationUI {
      */
     private void runUS210(List<DeviceType> deviceTypeList) {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
         if (getInputDeviceTypeByList(deviceTypeList)) {
             return;
         }
@@ -118,8 +118,8 @@ class RoomConfigurationUI {
      */
     private void runUS215() {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        this.mDevice = inputUtils.getInputDeviceByList(this.mRoom);
+        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
+        this.mDevice = inputUtils.oldGetInputDeviceByList(this.mRoom);
         getInputDeviceCharacteristicsUS215();
         updateDeviceUS215();
         displayDeviceUS215();
@@ -131,7 +131,7 @@ class RoomConfigurationUI {
      */
     private void runUS253( List<TypeSensor> typeSensorList){
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
         if (getInputTypeFromTypeListByList(typeSensorList)) {
             return;
         }
@@ -145,7 +145,7 @@ class RoomConfigurationUI {
      */
     private void runUS201(){
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
         printRoomDeviceList();
     }
     private void printRoomDeviceList() {
@@ -323,7 +323,7 @@ class RoomConfigurationUI {
         //get room
         mRoomConfigurationController.removeDeviceFromRoom(mRoom, mDevice);
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
 
         //get nominal power
         System.out.print("Please, type the new Nominal Power: ");
@@ -349,7 +349,7 @@ class RoomConfigurationUI {
 
 
             Program program;
-            program = inputUtils.getSelectedProgramFromDevice(mDevice);
+            program = inputUtils.oldGetSelectedProgramFromDevice(mDevice);
             mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(mDevice));
             if (program == null || mProgramList == null) {
                 System.out.println("There are no programs to edit.");
@@ -365,7 +365,7 @@ class RoomConfigurationUI {
 
             this.mCapacity = inputUtils.getInputAsDouble();
             Program program;
-            program = inputUtils.getSelectedProgramFromDevice(mDevice);
+            program = inputUtils.oldGetSelectedProgramFromDevice(mDevice);
             mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(mDevice));
             if (program == null || mProgramList == null) {
                 System.out.println("There are no programs to edit.");
@@ -420,7 +420,7 @@ class RoomConfigurationUI {
         if (mProgramList.getProgramList().size() > 1) {
             System.out.println("Would you like to edit another Program? (y/n)");
             while (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to edit another Program? (y/n)")) {
-                program1 = inputUtils.getSelectedProgramFromDevice(mDevice);
+                program1 = inputUtils.oldGetSelectedProgramFromDevice(mDevice);
                 mProgramList.removeProgram(program1);
                 System.out.println(requestProgramName);
                 this.mProgramName = scanner.nextLine();
@@ -511,7 +511,7 @@ class RoomConfigurationUI {
     room. - TERESA VARELA*/
     private void runUS230(){
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
         getRoomNominalPower();
     }
 
@@ -527,7 +527,7 @@ class RoomConfigurationUI {
     MIGUEL ORTIGAO*/
     private void runUS250(){
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
         displaySensorListUS250();
     }
 

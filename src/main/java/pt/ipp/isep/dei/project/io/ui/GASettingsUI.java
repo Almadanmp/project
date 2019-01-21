@@ -341,7 +341,7 @@ class GASettingsUI {
         }
         System.out.println("First you need to select the geographic area you wish to set as container.");
         InputUtils inputUtils = new InputUtils();
-        mGeoArea = inputUtils.getGeographicAreaByList(programGAList);
+        mGeoArea = inputUtils.oldGetGeographicAreaByList(programGAList);
     }
 
     private void getInputGeographicAreaForContained(GeographicAreaList programGAList) {
@@ -351,7 +351,7 @@ class GASettingsUI {
         }
         System.out.println("Second you need to select the geographic area you wish to set as contained.");
         InputUtils inputUtils = new InputUtils();
-        mGeoArea = inputUtils.getGeographicAreaByList(programGAList);
+        mGeoArea = inputUtils.oldGetGeographicAreaByList(programGAList);
     }
 
     /* US08 - As an Administrator, I want to find out if a geographical area is included, directly
@@ -371,7 +371,7 @@ class GASettingsUI {
         if (utils.geographicAreaListIsValid(geographicAreaList)) {
             System.out.println("First you need to select the geographic area you wish to test if contains another geographic area.");
             InputUtils inputUtils = new InputUtils();
-            mGeoArea = inputUtils.getGeographicAreaByList(geographicAreaList);
+            mGeoArea = inputUtils.oldGetGeographicAreaByList(geographicAreaList);
             this.mContainerAreaName = getGAId(mGeoArea);
         }
         else {
@@ -388,7 +388,7 @@ class GASettingsUI {
         if ((utils.geographicAreaListIsValid(geographicAreaList)) && (this.mContainerAreaName != null)) {
             System.out.println("Second you need to select the geographic area you wish to test if is contained in the first one.");
             InputUtils inputUtils = new InputUtils();
-            mGeoArea = inputUtils.getGeographicAreaByList(geographicAreaList);
+            mGeoArea = inputUtils.oldGetGeographicAreaByList(geographicAreaList);
             this.mContainedAreaName = getGAId(mGeoArea);
         }
     }

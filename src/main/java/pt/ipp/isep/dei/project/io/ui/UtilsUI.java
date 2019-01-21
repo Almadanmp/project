@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.TypeAreaList;
+import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.device.ProgramList;
 
 
 /**
@@ -30,7 +28,27 @@ class UtilsUI {
         return house.getDeviceList() != null && !house.getRoomList().isEmpty();
     }
 
+    boolean houseGridListIsValid(House house) {
+        return house.getEGList() != null && !house.getEGList().getEnergyGridList().isEmpty(); //TODO missing encapsulation
+    }
+
+    boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
+        return energyGrid.getDeviceList() != null && !energyGrid.getDeviceList().isEmpty();
+    }
+
+    boolean gridRoomListIsValid(EnergyGrid energyGrid) {
+        return energyGrid.getListOfRooms() != null && !energyGrid.getListOfRooms().getList().isEmpty(); //TODO missing encapsulation
+    }
+
     boolean typeAreaIsValid(TypeAreaList list) {
         return list != null && !list.getTypeAreaList().isEmpty();
+    }
+
+    boolean programListIsValid(ProgramList programList) {
+        return programList != null && !programList.getProgramList().isEmpty();
+    }
+
+    boolean roomDeviceListIsValid(Room room) {
+        return room.getDeviceList() != null && !room.getDeviceList().isEmpty();
     }
 }

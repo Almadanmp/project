@@ -87,7 +87,7 @@ class EnergyGridSettingsUI {
      */
     private void runUS135(House house){
         InputUtils inputs = new InputUtils();
-        mEnergyGrid = inputs.getInputGridByList(house);
+        mEnergyGrid = inputs.oldGetInputGridByList(house);
         getInputAndCreatePowerSource();
         updateGridAndDisplayState();
     }
@@ -119,7 +119,7 @@ class EnergyGridSettingsUI {
     // can attach/detach rooms from it - JOAO CACHADA.
     private void runUS145(House house){
         InputUtils inputs = new InputUtils();
-        mEnergyGrid = inputs.getInputGridByList(house);
+        mEnergyGrid = inputs.oldGetInputGridByList(house);
         displayRoomList(mEnergyGrid);
 
     }
@@ -134,7 +134,7 @@ class EnergyGridSettingsUI {
     // energy consumption is included in that grid. MIGUEL ORTIGAO
     private void runUS147(House house){
         InputUtils inputs = new InputUtils();
-        Room room = inputs.getHouseRoomByList(house);
+        Room room = inputs.oldGetHouseRoomByList(house);
         EnergyGrid energyGrid = getInputGrid(house, room);
         updateGridUS147(energyGrid, room);
     }
@@ -142,7 +142,7 @@ class EnergyGridSettingsUI {
     private EnergyGrid getInputGrid(House house, Room room) {
         if(room != null) {
         InputUtils inputUtils = new InputUtils();
-        return inputUtils.getInputGridByList(house);
+        return inputUtils.oldGetInputGridByList(house);
         }
         else {
             return null;
@@ -164,7 +164,7 @@ class EnergyGridSettingsUI {
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
     private void runUS149(House house){
         InputUtils inputs = new InputUtils();
-        EnergyGrid energyGrid = inputs.getInputGridByList(house);
+        EnergyGrid energyGrid = inputs.oldGetInputGridByList(house);
         Room room = getInputEnergyGridRoom(energyGrid);
         updateGridUS149(energyGrid, room);
     }
@@ -172,7 +172,7 @@ class EnergyGridSettingsUI {
     private Room getInputEnergyGridRoom(EnergyGrid energyGrid){
         if(energyGrid != null) {
             InputUtils inputUtils = new InputUtils();
-            return inputUtils.getGridRoomByList(energyGrid);
+            return inputUtils.oldGetGridRoomByList(energyGrid);
         }
         else{
             return null;
@@ -194,7 +194,7 @@ class EnergyGridSettingsUI {
     DANIEL OLIVEIRA*/
     private void runUS160(House house){
         InputUtils inputs = new InputUtils();
-        EnergyGrid energyGrid = inputs.getInputGridByList(house);
+        EnergyGrid energyGrid = inputs.oldGetInputGridByList(house);
         displayUS160(energyGrid);
     }
 

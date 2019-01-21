@@ -19,7 +19,8 @@ class InputUtils {
         scanner.nextLine();
     }
 
-    GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
+    //FIXME delete this method ONLY AFTER ALL US verifications are completed//
+    GeographicArea oldGetGeographicAreaByList(GeographicAreaList geographicAreaList) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (geographicAreaList.getGeographicAreaList().isEmpty()) {
@@ -41,7 +42,30 @@ class InputUtils {
         }
     }
 
-    Room getHouseRoomByList(House house) {
+    //TODO use this method in your US verifications
+    GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        while(true) {
+            System.out.println("Please select one of the existing geographic areas: ");
+            System.out.println(geographicAreaList.buildGaWholeListString(geographicAreaList));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < geographicAreaList.getGeographicAreaList().size()) {
+                GeographicArea result = geographicAreaList.getGeographicAreaList().get(aux);
+                String stringRequestGA = "You have chosen the following Geographic Area: ";
+                System.out.println(stringRequestGA);
+                System.out.println(result.buildGeographicAreaString());
+                return result;
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
+
+
+
+    //FIXME delete this method ONLY AFTER ALL US verifications are completed//
+    Room oldGetHouseRoomByList(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (house.getRoomList().isEmpty()) {
@@ -63,7 +87,28 @@ class InputUtils {
         }
     }
 
-    Room getGridRoomByList(EnergyGrid grid) {
+    //TODO use this method in your US verifications
+    Room getHouseRoomByList(House house) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        while(true) {
+            System.out.println("Please select one of the existing rooms in the house: ");
+            System.out.println(house.buildRoomListString());
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < house.getRoomList().size()) {
+                Room result = house.getRoomList().get(aux);
+                String stringRequestRoom = "You have chosen the following Room: ";
+                System.out.println(stringRequestRoom);
+                System.out.println(result.buildRoomString());
+                return result;
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
+
+    //FIXME delete this method ONLY AFTER ALL US verifications are completed//
+    Room oldGetGridRoomByList(EnergyGrid grid) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (grid.getRoomList().isEmpty()) {
@@ -85,7 +130,28 @@ class InputUtils {
         }
     }
 
-    Device getGridDevicesByList(EnergyGrid grid) {
+    //TODO use this method in your US verifications
+    Room getGridRoomByList(EnergyGrid grid) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        while(true) {
+            System.out.println("Please select one of the existing rooms in the house: ");
+            System.out.println(grid.buildRoomListString());
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < grid.getRoomList().size()) {
+                Room result = grid.getRoomList().get(aux);
+                String stringRequestRoom = "You have chosen the following Room: ";
+                System.out.println(stringRequestRoom);
+                System.out.println(result.buildRoomString());
+                return result;
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
+
+    //FIXME delete this method ONLY AFTER ALL US verifications are completed//
+    Device oldGetGridDevicesByList(EnergyGrid grid) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (grid.getDeviceList().isEmpty()) {
@@ -107,7 +173,28 @@ class InputUtils {
         }
     }
 
-    Program getSelectedProgramFromDevice(Device device) {
+    //TODO use this method in your US verifications
+    Device getGridDevicesByList(EnergyGrid grid) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        while(true) {
+            System.out.println("Please select one of the existing devices in the selected room: ");
+            System.out.println(grid.buildDeviceListString());
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < grid.getDeviceList().size()) {
+                Device result = grid.getDeviceList().get(aux);
+                String stringRequestDevice = "You have chosen the following device: ";
+                System.out.println(stringRequestDevice);
+                System.out.println(result.buildDeviceString());
+                return result;
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
+
+    //FIXME delete this method ONLY AFTER ALL US verifications are completed//
+    Program oldGetSelectedProgramFromDevice(Device device) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         ProgramList programList = (ProgramList)device.getAttributeValue("programList");
@@ -130,7 +217,29 @@ class InputUtils {
         }
     }
 
-    Device getInputDeviceByList(Room room) {
+    //TODO use this method in your US verifications
+    Program getSelectedProgramFromDevice(Device device) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        while(true) {
+            ProgramList programList = (ProgramList) device.getAttributeValue("programList");
+            System.out.println("Please select one of the existing Programs in the selected Program List to alter: ");
+            System.out.println(programList.buildProgramListString());
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < programList.getProgramList().size()) {
+                Program result = programList.getProgramList().get(aux);
+                String stringRequestProgram = "You have chosen the following Program: ";
+                System.out.println(stringRequestProgram);
+                System.out.println(result.buildProgramString());
+                return result;
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
+
+    //FIXME delete this method ONLY AFTER ALL US verifications are completed//
+    Device oldGetInputDeviceByList(Room room) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         if (room.getDeviceList().isEmpty()) {
@@ -150,10 +259,29 @@ class InputUtils {
                 return null;
             }
 
+    }
+
+    //TODO use this method in your US verifications
+    Device getInputRoomDevicesByList(Room room) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        while(true) {
+            System.out.println("Please select one of the existing Devices in the selected Room: ");
+            System.out.println(room.buildDeviceListString());
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < room.getDeviceList().size()) {
+                Device result = room.getDeviceList().get(aux);
+                System.out.println("You have chosen the following device:");
+                System.out.println(result.buildDeviceString());
+                return result;
+            } else {
+                System.out.println(utils.invalidOption);
+            }
         }
+    }
 
-
-    EnergyGrid getInputGridByList(House house) {
+    //FIXME delete this method ONLY AFTER ALL US verifications are completed//
+    EnergyGrid oldGetInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         UtilsUI utilsUI = new UtilsUI();
         if (house.getEGList().getEnergyGridList().isEmpty()) {
@@ -168,6 +296,22 @@ class InputUtils {
         } else {
             System.out.println(utilsUI.invalidOption);
             return null;
+        }
+    }
+
+    //TODO use this method in your US verifications
+    EnergyGrid getInputGridByList(House house) {
+        EnergyGridSettingsController controller = new EnergyGridSettingsController();
+        UtilsUI utilsUI = new UtilsUI();
+        while(true) {
+            System.out.println("Please select one of the existing grids on the selected house: ");
+            System.out.println(controller.buildGridListString(house));
+            int aux = this.readInputNumberAsInt();
+            if (aux >= 0 && aux < house.getEGList().getEnergyGridList().size()) {
+                return house.getEGList().getEnergyGridList().get(aux);
+            } else {
+                System.out.println(utilsUI.invalidOption);
+            }
         }
     }
 
