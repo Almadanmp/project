@@ -78,26 +78,23 @@ class GASettingsUI {
 
     // SHARED METHODS //
 
-    //GET INPUT TYPE AREA BY LIST//
+    //GET INPUT TYPE AREA BY LIST - SÓ É USADO NESTA CLASSE POR ISSO NAO ESTÁ EM INPUT UTILS//
     private TypeArea getInputTypeAreaByList(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        if (!(utils.typeAreaIsValid(typeAreaList))) {
-            System.out.print("Invalid Type Area List - List Is Empty\n");
-            return null;
-        }
-        System.out.println("Please select the Geographic Area Type from the list: ");
-        System.out.print(mController.buildGATypeListString(typeAreaList));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
-            this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
-            this.mTypeAreaName = typeAreaList.getTypeAreaList().get(aux).getTypeOfGeographicArea();
-            System.out.println("You have chosen the following Geographic Area Type:");
-            System.out.println(mController.buildTypeAreaString(this.mTypeArea));
-            return this.mTypeArea;
-        } else {
-            System.out.println(utils.invalidOption);
-            return null;
+        while(true) {
+            System.out.println("Please select the Geographic Area Type from the list: ");
+            System.out.print(mController.buildGATypeListString(typeAreaList));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
+                this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
+                this.mTypeAreaName = typeAreaList.getTypeAreaList().get(aux).getTypeOfGeographicArea();
+                System.out.println("You have chosen the following Geographic Area Type:");
+                System.out.println(mController.buildTypeAreaString(this.mTypeArea));
+                return this.mTypeArea;
+            } else {
+                System.out.println(utils.invalidOption);
+            }
         }
     }
 
@@ -150,7 +147,7 @@ class GASettingsUI {
 
     private void updateAndDisplayUS02(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
-        if (utils.typeAreaIsValid(typeAreaList)) {
+        if (utils.typeAreaListIsValid(typeAreaList)) {
             System.out.println(mController.getTypeAreaList(typeAreaList));
             System.out.println("\nList finished.");
         }
@@ -172,7 +169,7 @@ class GASettingsUI {
         if(geographicAreaList == null){
             System.out.println("The geographic area list is invalid.");
         }
-        else if (utils.typeAreaIsValid(typeAreaList)) {
+        else if (utils.typeAreaListIsValid(typeAreaList)) {
             this.nameOfGeoArea = readInputString("name");
             this.mGeoAreaLat = readInputNumber("Latitude");
             this.mGeoAreaLong = readInputNumber("Longitude");
@@ -184,7 +181,7 @@ class GASettingsUI {
 
     private void updateGeoAreaUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
-        if ((geographicAreaList != null) && (utils.typeAreaIsValid(typeAreaList))) {
+        if ((geographicAreaList != null) && (utils.typeAreaListIsValid(typeAreaList))) {
             System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + mTypeAreaName +
                     " and its " + "localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The geographic area size" +
                     " is " + this.mGeoAreaLength + " by " + this.mGeoAreaWidth + " kms\n");
@@ -194,7 +191,7 @@ class GASettingsUI {
 
     private void displayStateUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
-        if ((geographicAreaList != null) && (utils.typeAreaIsValid(typeAreaList))) {
+        if ((geographicAreaList != null) && (utils.typeAreaListIsValid(typeAreaList))) {
             if (mAreaAddedToList) {
                 System.out.print("The Geographic Area has been successfully added.");
             } else
@@ -239,37 +236,29 @@ class GASettingsUI {
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
     private void runUS04(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList){
+        UtilsUI utilsUI = new UtilsUI();
+        if(!utilsUI.typeAreaListIsValid(typeAreaList)){
+            System.out.println(utilsUI.invalidGATypeList);
+            return;
+        }
+        if(!utilsUI.geographicAreaListIsValid(geographicAreaList)){
+            System.out.println(utilsUI.invalidGAList);
+            return;
+        }
         mTypeArea = getInputTypeAreaByList(typeAreaList);
         mGeoAreaList = matchGAByTypeArea(geographicAreaList);
         displayGAListByTypeArea(geographicAreaList);
     }
 
     private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList) {
-        UtilsUI utils = new UtilsUI();
-        if (this.mTypeArea == null){
-            return null;
-        }
-        else if (!(utils.geographicAreaListIsValid(geographicAreaList))) {
-            System.out.print("The list of Geographic Areas is currently empty.\nPlease return to main menu and add a Geographic Area.");
-            return null;
-        } else {
-            this.mGeoAreaList = mController.matchGAByTypeArea(geographicAreaList, this.mTypeArea);
-            this.mTypeAreaName = mController.getTypeAreaName(this.mTypeArea);
-            return mGeoAreaList;
-        }
+        this.mGeoAreaList = mController.matchGAByTypeArea(geographicAreaList, this.mTypeArea);
+        this.mTypeAreaName = mController.getTypeAreaName(this.mTypeArea);
+        return mGeoAreaList;
     }
 
     private void displayGAListByTypeArea(GeographicAreaList geographicAreaList) {
-        UtilsUI utils = new UtilsUI();
-        if (this.mGeoAreaList == null || this.mTypeArea == null || (!(utils.geographicAreaListIsValid(geographicAreaList)))){
-            return;
-        }
-        if (this.mGeoAreaList.getGeographicAreaList().isEmpty()) {
-            System.out.println("There are no Geographic Areas of that Area Type.");
-        } else {
-            System.out.println("Geographic Areas of the type " + this.mTypeAreaName + ":\n");
-            System.out.println(mController.buildGAListString(this.mGeoAreaList));
-        }
+        System.out.println("Geographic Areas of the type " + this.mTypeAreaName + ":\n");
+        System.out.println(mController.buildGAListString(this.mGeoAreaList));
     }
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */

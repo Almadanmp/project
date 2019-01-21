@@ -231,6 +231,11 @@ class HouseConfigurationUI {
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
     * - MARIA MEIRELES, TERESA VARELA */
     private void runUS108(House house){
+        UtilsUI utilsUI = new UtilsUI();
+        if(!utilsUI.houseRoomListIsValid(house)){
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
         printRoomList(house);
     }
 

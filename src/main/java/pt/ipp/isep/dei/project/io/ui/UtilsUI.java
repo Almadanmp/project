@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.device.ProgramList;
 class UtilsUI {
 
     String invalidOption = "Please enter a valid option.";
-    String returningToMainMenu = "Returning to main menu -- \n";
+    String returningToMainMenu = "-- Returning to main menu -- \n";
     String invalidHouse = "The selected House is not a valid one.\n" + returningToMainMenu;
     String invalidRoomList = "Invalid Room List - List is empty.\n" + returningToMainMenu;
     String invalidGridList = "Invalid Grid List - List is empty.\n" + returningToMainMenu;
@@ -23,7 +23,7 @@ class UtilsUI {
         return geographicAreaList != null && !geographicAreaList.getGeographicAreaList().isEmpty();
     }
 
-    boolean houseRoomListInvalid(House house) {
+    boolean houseRoomListIsValid(House house) {
         return house.getRoomList() != null && !house.getRoomList().isEmpty();
     }
 
@@ -43,7 +43,7 @@ class UtilsUI {
         return energyGrid.getListOfRooms() != null && !energyGrid.getListOfRooms().getList().isEmpty(); //TODO missing encapsulation
     }
 
-    boolean typeAreaIsValid(TypeAreaList list) {
+    boolean typeAreaListIsValid(TypeAreaList list) {
         return list != null && !list.getTypeAreaList().isEmpty();
     }
 

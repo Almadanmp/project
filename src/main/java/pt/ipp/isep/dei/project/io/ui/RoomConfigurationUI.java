@@ -48,17 +48,15 @@ class RoomConfigurationUI {
     }
 
     void run(House house, List<DeviceType> deviceTypeList, List<TypeSensor> typeSensorList) {
+        UtilsUI utils = new UtilsUI();
         this.mHouse = house;
-        List<Room> roomList = mHouse.getRoomList();
-        if (roomList == null || roomList.isEmpty()) {
-            System.out.println("There are no available rooms in the house. Please add a room to continue.");
+        if(!utils.houseRoomListIsValid(this.mHouse)){
+            System.out.println(utils.invalidRoomList);
             return;
         }
-        UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
-
         System.out.println("--------------\n");
         System.out.println("Room Configuration\n");
         System.out.println("--------------\n");
@@ -511,7 +509,12 @@ class RoomConfigurationUI {
     room. - TERESA VARELA*/
     private void runUS230(){
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
+        UtilsUI utilsUI = new UtilsUI();
+        if(!utilsUI.houseRoomListIsValid(this.mHouse)) {
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         getRoomNominalPower();
     }
 
