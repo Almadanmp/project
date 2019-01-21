@@ -10,13 +10,6 @@ public class TypeSensor {
 
 
     /**
-     * Constructor to always create an object that names the Type of the Sensor.
-     */
-
-    public TypeSensor() {
-    }
-
-    /**
      * Constructor to always create an object that names the Type of the Sensor and the Units of the Sensor.
      */
 

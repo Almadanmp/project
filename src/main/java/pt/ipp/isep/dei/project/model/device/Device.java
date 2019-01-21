@@ -13,7 +13,6 @@ import java.util.Objects;
 
 public class Device implements Metered {
     private String mName;
-    //private Room mParentRoom;
     private double mNominalPower;
     private DeviceSpecs mDeviceSpecs;
 

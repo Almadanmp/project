@@ -586,7 +586,7 @@ public class SensorListTest {
     @Test
     void seeIfAnValidListIsAdded() {
         SensorList list = new SensorList();
-        Sensor sensor = new Sensor("Termometro", new TypeSensor(), new Local(1, 1, 50), new Date());
+        Sensor sensor = new Sensor("Termometro", new TypeSensor("Temperature", "Cº"), new Local(1, 1, 50), new Date());
         list.addSensor(sensor);
         boolean expectedResult = true;
         boolean actualResult = list.checkIfListIsValid();

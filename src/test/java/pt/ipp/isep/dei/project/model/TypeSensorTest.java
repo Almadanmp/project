@@ -60,7 +60,7 @@ public class TypeSensorTest {
 
     @Test
     public void seeIfSetNameWorks() {
-        TypeSensor t1 = new TypeSensor();
+        TypeSensor t1 = new TypeSensor("Density", "Density");
         t1.setName("Densidade");
         String expectedResult = "Densidade";
         String result = t1.getName();
@@ -195,7 +195,7 @@ public class TypeSensorTest {
     }
     @Test
     public void seeIfSetterForTypeSensorUnitsThrowsException(){
-        TypeSensor t1 = new TypeSensor();
+        TypeSensor t1 = new TypeSensor("Temperature", "Cº");
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             t1.setUnits("");
         });
