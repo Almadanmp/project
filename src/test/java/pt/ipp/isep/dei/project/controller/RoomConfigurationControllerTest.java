@@ -370,8 +370,6 @@ class RoomConfigurationControllerTest {
         Device d1 = new Device("frigorifico", 200, new Fridge());
         Device d2 = new Device("maquina de lavar", 150, new WashingMachine(1));
         Room room = new Room("kitchen", 1, 1, 2, 2);
-        d1.setmParentRoom(room);
-        d2.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         dlist.addDevice(d2);
@@ -379,10 +377,10 @@ class RoomConfigurationControllerTest {
 
         //Act
         String result = ctrl.buildDeviceElementsByIndexString(list, room);
-        String expectedResult = "1) maquina de lavar, kitchen, 150.0.\n";
+        String expectedResult = "1) maquina de lavar, 150.0.\n";
 
         //Assert
-        Assert.assertEquals(expectedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -391,7 +389,6 @@ class RoomConfigurationControllerTest {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("frigorifico", 200, new Fridge());
         Room room = new Room("kitchen", 1, 1, 2, 2);
-        d1.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         room.setDeviceList(dlist);
@@ -407,7 +404,6 @@ class RoomConfigurationControllerTest {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("frigorifico", 200, new Fridge());
         Room room = new Room("kitchen", 1, 1, 2, 2);
-        d1.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         room.setDeviceList(dlist);
@@ -421,7 +417,6 @@ class RoomConfigurationControllerTest {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("frigorifico", 200, new Fridge());
         Room room = new Room("kitchen", 1, 1, 2, 2);
-        d1.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         room.setDeviceList(dlist);

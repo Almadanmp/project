@@ -203,7 +203,7 @@ class DeviceListTest {
     }
 
     @Test
-    void SeeIfMatchDeviceIndexByStringWorks(){
+    void SeeIfMatchDeviceIndexByStringWorks() {
         //Arrange
         Device device = new Device("frigorifico", 200, new Fridge());
         DeviceList dlist = new DeviceList();
@@ -216,7 +216,7 @@ class DeviceListTest {
     }
 
     @Test
-    void SeeIfMatchDeviceIndexByStringFails(){
+    void SeeIfMatchDeviceIndexByStringFails() {
         //Arrange
         Device device = new Device("frigorifico", 200, new Fridge());
         DeviceList dlist = new DeviceList();
@@ -229,25 +229,22 @@ class DeviceListTest {
     }
 
     @Test
-    void SeeIfPrintElementsByIndexWorks(){
+    void SeeIfPrintElementsByIndexWorks() {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
         Device d1 = new Device("frigorifico", 200, new Fridge());
         Device d2 = new Device("maquina de lavar", 150, new WashingMachine());
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        d1.setmParentRoom(room);
-        d2.setmParentRoom(room);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         dlist.addDevice(d2);
 
         //Act
         String result = dlist.buildElementByIndexString(list);
-        String expectedResult = "1) maquina de lavar, kitchen, 150.0.\n";
+        String expectedResult = "1) maquina de lavar, 150.0.\n";
 
         //Assert
-        Assert.assertEquals(expectedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -320,7 +317,7 @@ class DeviceListTest {
     }
 
     @Test
-    void seeIfPrintDevicesWorks(){
+    void seeIfPrintDevicesWorks() {
         Device d1 = new Device("Fridge", 21, new Fridge());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
@@ -328,21 +325,21 @@ class DeviceListTest {
 
         String actualResult = deviceList.buildDevicesString();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfPrintDevicesWorks2(){
+    void seeIfPrintDevicesWorks2() {
         Device d1 = new Device("Fridge", 21, new Fridge());
         Device d2 = new Device("Frnidge", 21, new Fridge());
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d2);
         deviceList.addDevice(d1);
-        String expectedResult = "0) The device Name is Frnidge, and its NominalPower is 21.0 kW.\n"+
+        String expectedResult = "0) The device Name is Frnidge, and its NominalPower is 21.0 kW.\n" +
                 "1) The device Name is Fridge, and its NominalPower is 21.0 kW.\n";
 
         String actualResult = deviceList.buildDevicesString();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 }

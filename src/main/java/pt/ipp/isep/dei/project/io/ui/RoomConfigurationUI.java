@@ -304,7 +304,6 @@ class RoomConfigurationUI {
             if (mDevice.getType() == DeviceType.LAMP) {
                 System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
             }
-            mDevice.setmParentRoom(mRoom);
         } else {
             System.out.println("device already exists in the room. Please, try again.\n");
         }
@@ -505,7 +504,6 @@ class RoomConfigurationUI {
         if (mDevice.getType() == DeviceType.LAMP) {
             System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
         }
-            mDevice.setmParentRoom(mRoom);
         } else {
             mRoom.addDevice(mDevice);
             System.out.println("device already exists in the room. Please, try again.\n");

@@ -478,9 +478,7 @@ class HouseTest {
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0,  0.9));
         r1.addDevice(d2);
-        d2.setmParentRoom(r1);
         r1.addDevice(d3);
-        d3.setmParentRoom(r1);
         h1.addRoomToRoomList(r1);
         d2.setAttributeValue("coldWaterTemperature",5.0);
         d2.setAttributeValue("volumeOfWaterToHeat",100.0);

@@ -12,7 +12,7 @@ public class TypeArea {
      *
      */
     public TypeArea(String nameGiven) {
-        setTypeOfGeographicArea(nameGiven);
+        this.mName = nameGiven;
     }
 
     /**

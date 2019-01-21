@@ -216,10 +216,6 @@ public class MainUI {
         Device device2 = new Device("FridgeOne", 4, new Fridge());
         Device device3 = new Device("WH Main", 3, new WaterHeater(500.0, 25.0, 10.0));
         Device device4 = new Device("Lamp", 4, new Lamp());
-        device1.setmParentRoom(roomISEP2);
-        device2.setmParentRoom(roomISEP2);
-        device3.setmParentRoom(roomISEP2);
-        device4.setmParentRoom(roomISEP2);
         DeviceList listDevices = new DeviceList();
         listDevices.addDevice(device1);
         listDevices.addDevice(device2);
@@ -230,8 +226,6 @@ public class MainUI {
 
         Device device5 = new Device("FridgeOne1", 4, new Fridge());
         Device device6 = new Device("WH Secondary", 3, new WaterHeater(500.0, 25.0, 10.0));
-        device5.setmParentRoom(roomISEP3);
-        device6.setmParentRoom(roomISEP3);
         DeviceList listDevices1 = new DeviceList();
         listDevices1.addDevice(device5);
         listDevices1.addDevice(device6);
@@ -644,7 +638,7 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(houseTest, deviceTypeListSP2, typeSensorListSP2);
+                        roomConfiguration.run(houseSP2, deviceTypeListSP2, typeSensorListSP2);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

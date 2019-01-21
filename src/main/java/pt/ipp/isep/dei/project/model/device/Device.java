@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class Device implements Metered {
     private String mName;
-    private Room mParentRoom;
+    //private Room mParentRoom;
     private double mNominalPower;
     private DeviceSpecs mDeviceSpecs;
 
@@ -47,15 +47,6 @@ public class Device implements Metered {
     public String getName() {
         return this.mName;
     }
-
-    public void setmParentRoom(Room room) {
-        this.mParentRoom = room;
-    }
-
-    public Room getmParentRoom() {
-        return this.mParentRoom;
-    }
-
 
     public List<String> getAttributeNames() {
         return mDeviceSpecs.getAttributeNames();
