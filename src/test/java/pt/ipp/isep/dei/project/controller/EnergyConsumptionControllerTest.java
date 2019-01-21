@@ -25,17 +25,15 @@ class EnergyConsumptionControllerTest {
     void seeIfPrintRoomsAndDevices() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
+
         EnergyGrid grid = new EnergyGrid();
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10, sensorList, deviceList);
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge(5,3,456));
-        deviceList.addDevice(d1);
-        deviceList.addDevice(d2);
-        deviceList.addDevice(d3);
-        r1.setDeviceList(deviceList);
+        r1.addDevice(d1);
+        r1.addDevice(d2);
+        r1.addDevice(d3);
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
         grid.setRoomList(roomList);
@@ -57,16 +55,14 @@ class EnergyConsumptionControllerTest {
     void seeIfAddRoomDevicesToDeviceList() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge(5,7,67));
-        deviceList.addDevice(d1);
-        deviceList.addDevice(d2);
-        deviceList.addDevice(d3);
-        r1.setDeviceList(deviceList);
+        r1.addDevice(d1);
+        r1.addDevice(d2);
+        r1.addDevice(d3);
         DeviceList deviceList1 = new DeviceList();
         EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean expectedResult = true;
@@ -83,16 +79,14 @@ class EnergyConsumptionControllerTest {
     void seeIfRemoveRoomDevicesToDeviceListTrue() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge(5,7,56));
-        deviceList.addDevice(d1);
-        deviceList.addDevice(d2);
-        deviceList.addDevice(d3);
-        r1.setDeviceList(deviceList);
+        r1.addDevice(d1);
+        r1.addDevice(d2);
+        r1.addDevice(d3);
         DeviceList deviceList1 = new DeviceList();
         deviceList1.addDevice(d1);
         deviceList1.addDevice(d2);
@@ -112,16 +106,14 @@ class EnergyConsumptionControllerTest {
     void seeIfRemoveRoomDevicesToDeviceListFalse() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge(5,4,34));
-        deviceList.addDevice(d1);
-        deviceList.addDevice(d2);
-        deviceList.addDevice(d3);
-        r1.setDeviceList(deviceList);
+        r1.addDevice(d1);
+        r1.addDevice(d2);
+        r1.addDevice(d3);
         DeviceList deviceList1 = new DeviceList();
         EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean expectedResult = true;
@@ -138,16 +130,14 @@ class EnergyConsumptionControllerTest {
     void seeIfAddRoomDevicesToDeviceListFalse() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge(4,5,56));
-        deviceList.addDevice(d1);
-        deviceList.addDevice(d2);
-        deviceList.addDevice(d3);
-        r1.setDeviceList(deviceList);
+        r1.addDevice(d1);
+        r1.addDevice(d2);
+        r1.addDevice(d3);
         DeviceList deviceList1 = null;
         EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean expectedResult = false;
@@ -164,9 +154,8 @@ class EnergyConsumptionControllerTest {
     void seeIfAddRoomToListWorksTrue() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         RoomList roomList = new RoomList();
         boolean expectedResult = true;
         EnergyConsumptionController controller = new EnergyConsumptionController();
@@ -183,9 +172,8 @@ class EnergyConsumptionControllerTest {
     void seeIfRemoveRoomFromListWorksTrue() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
         boolean expectedResult = true;
@@ -203,9 +191,8 @@ class EnergyConsumptionControllerTest {
     void seeIfRemoveRoomFromListWorkFalse() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         RoomList roomList = new RoomList();
         boolean expectedResult = false;
         EnergyConsumptionController controller = new EnergyConsumptionController();
@@ -222,9 +209,8 @@ class EnergyConsumptionControllerTest {
     void seeIfAddRoomToListWorksFalse() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
         boolean expectedResult = false;
@@ -242,9 +228,9 @@ class EnergyConsumptionControllerTest {
     void seeIfAddDeviceToListWorksTrue() {
 
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
+
         Device d1 = new Device("Fridge", 20, new Fridge(5,7,56));
+        DeviceList deviceList = new DeviceList();
         boolean expectedResult = true;
         EnergyConsumptionController controller = new EnergyConsumptionController();
 
@@ -317,7 +303,6 @@ class EnergyConsumptionControllerTest {
     void seeIfGetSumNominalPowerFromListWorks() {
         //Arrange
 
-        EnergyGrid grid = new EnergyGrid();
         Device d1 = new Device("WaterHeater", 21, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("WaterHeaterTwo", 55, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d3 = new Device("Fridge", 10, new Fridge(5,7,45));
@@ -356,17 +341,15 @@ class EnergyConsumptionControllerTest {
     @Test
     void getDailyHouseConsumptionTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        House h1 = new House();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20,20,20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge(3,7,45));
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        Room r2 = new Room("kitchen", 2, 12, 12, 12, sensorList, deviceList);
+        Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device("fridgeTwo", 12, new Fridge(3,6,45));
         Device d5 = new Device("wHeater3", 12, new WaterHeater(300.0, 15.0, 0.9));
         Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
@@ -383,7 +366,7 @@ class EnergyConsumptionControllerTest {
     @Test
     void getDailyHouseConsumptionNoRoomsTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House h1 = new House();
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20,20,20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         double expectedResult = 0;
         double result = controller.getDailyWHConsumption(h1);
         assertEquals(expectedResult, result);
@@ -392,11 +375,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getDailyHouseConsumptionNoDevicesTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        House h1 = new House();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
-        Room r2 = new Room("kitchen", 2, 12, 12, 12, sensorList, deviceList);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20,20,20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Room r2 = new Room("kitchen", 2, 12, 12, 12);
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0;
@@ -407,13 +388,11 @@ class EnergyConsumptionControllerTest {
     @Test
     void getDailyHouseConsumptionNoHeaterDevicesTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        House h1 = new House();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20,20,20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge(3,6,45));
         r1.addDevice(d1);
-        Room r2 = new Room("kitchen", 2, 12, 12, 12, sensorList, deviceList);
+        Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device("fridgeTwo", 12, new Fridge(3,7,45));
         r2.addDevice(d4);
         h1.addRoomToRoomList(r1);
@@ -426,20 +405,20 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalNominalPowerFromGridTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        DeviceList deviceList1 = new DeviceList();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20,20,20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge(4,7,45));
         r1.addDevice(d1);
-        Room r2 = new Room("kitchen", 2, 12, 12, 12, sensorList, deviceList1);
+        Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device("fridgeTwo", 12, new Fridge(3,7,435));
-        r2.addDevice(d4);
         EnergyGrid grid1 = new EnergyGrid();
         RoomList rlist1 = new RoomList();
-        rlist1.addRoom(r1);
-        rlist1.addRoom(r2);
         grid1.setRoomList(rlist1);
+        rlist1.addRoom(r2);
+        rlist1.addRoom(r1);
+        r2.addDevice(d4);
+        h1.addRoomToRoomList(r1);
+        h1.addRoomToRoomList(r2);
         double expectedResult = 24;
         double result = controller.getTotalPowerFromGrid(grid1);
         assertEquals(expectedResult, result);
@@ -448,11 +427,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalNominalPowerFromGridNoDevicesTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        House h1 = new House();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
-        Room r2 = new Room("kitchen", 2, 12, 12, 12, sensorList, deviceList);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20,20,20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Room r2 = new Room("kitchen", 2, 12, 12, 12);
         EnergyGrid grid1 = new EnergyGrid();
         RoomList rlist1 = new RoomList();
         grid1.setRoomList(rlist1);
@@ -468,10 +445,8 @@ class EnergyConsumptionControllerTest {
     @Test
     void getWaterHeaterDeviceListTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House h1 = new House();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20,20,20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
         h1.addRoomToRoomList(r1);
         Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
         DeviceList d1 = new DeviceList();
@@ -486,10 +461,8 @@ class EnergyConsumptionControllerTest {
     @Test
     void getWaterHeaterDeviceListTest2() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House house = new House();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
+        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20,20,20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
         r1.addDevice(d2);

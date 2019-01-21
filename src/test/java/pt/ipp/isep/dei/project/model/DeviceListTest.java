@@ -21,10 +21,8 @@ class DeviceListTest {
     void seeIfAddDeviceWorksWithSameDevice() {
         //Arrange
         //Room List
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 9, 23456789, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("room1", 9, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -49,9 +47,7 @@ class DeviceListTest {
         //Arrange
         //Room List
         RoomList roomList1 = new RoomList();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room1 = new Room("room1", 9, 23456789, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("room1", 9, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -74,10 +70,8 @@ class DeviceListTest {
     void seeIfContainsDeviceWorks() {
         //Arrange --------------------------
         //Room List
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -99,10 +93,8 @@ class DeviceListTest {
     void seeIfContainsDeviceWorksForFalse() {
         //Arrange --------------------------
         //Room List
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -123,10 +115,8 @@ class DeviceListTest {
     void seeIfRemoveDeviceWorks() {
         //Arrange ------------------------
         //Room List
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -149,10 +139,8 @@ class DeviceListTest {
     void seeIfRemoveDeviceWorksForFalse() {
         //Arrange ------------------------
         //Room List
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -174,10 +162,8 @@ class DeviceListTest {
     void seeIfCheckIfListIsValidWorks() {
         //Arrange ------------------------------
         //Room List
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
@@ -199,10 +185,8 @@ class DeviceListTest {
     void seeIfCheckIfListIsValidWorksForFalse() {
         //Arrange ------------------------------
         //Room List
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();

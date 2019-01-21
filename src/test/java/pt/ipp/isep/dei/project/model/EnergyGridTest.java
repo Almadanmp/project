@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
@@ -24,27 +25,30 @@ class EnergyGridTest {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device device = new Device("device", 200, new Fridge(200,200,200));
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
-        EnergyGrid energyGrid = new EnergyGrid("grid", 0);
+        EnergyGrid energyGrid = new EnergyGrid();
+        energyGrid.setNominalPower(0);
+        energyGrid.setName("grid");
         String result = energyGrid.buildGridString();
         assertEquals("Energy Grid: grid, Max Power: 0.0", result);
     }
 
     @Test
     void seeIfGetListOfRoomsWorks() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("room1", 1, 1,2,2, sensorList, deviceList);
+        Room room = new Room("room1", 1, 1,2,2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         Reading r1 = new Reading(20,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device device = new Device("device", 200, new Fridge(200,200,200));
+        DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
-        EnergyGrid energyGrid = new EnergyGrid("grid", 0);
+        EnergyGrid energyGrid = new EnergyGrid();
+        energyGrid.setNominalPower(0);
+        energyGrid.setName("grid");
         energyGrid.setRoomList(roomList);
         String result = energyGrid.getListOfRooms().buildRoomsString();
         assertEquals("---------------\n" +
@@ -80,9 +84,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfRemovesRoom() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("room1", 1, 1,2,2, sensorList, deviceList);
+        Room room = new Room("room1", 1, 1,2,2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         PowerSourceList pWL1 = new PowerSourceList();
@@ -98,10 +100,8 @@ class EnergyGridTest {
 
     @Test
     void seeIfRemovesRoomFails() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("room1", 1, 1,2,2, sensorList, deviceList);
-        Room room2 = new Room("room2", 1, 1,2,2, sensorList, deviceList);
+        Room room = new Room("room1", 1, 1,2,2);
+        Room room2 = new Room("room2", 1, 1,2,2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         PowerSourceList pWL1 = new PowerSourceList();
@@ -154,13 +154,11 @@ class EnergyGridTest {
 
     @Test
     void testAddRoomToAnEnergyGrid(){
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         EnergyGrid energyGrid = new EnergyGrid();
         PowerSource powerSource = new PowerSource("PS1",400,400);
         PowerSourceList powerSourceList = new PowerSourceList();
         RoomList roomList = new RoomList();
-        Room room = new Room("Quarto", 2, 10, 20, 3, sensorList, deviceList);
+        Room room = new Room("Quarto", 2, 10, 20, 3);
         energyGrid.setListPowerSources(powerSourceList);
         energyGrid.addPowerSource(powerSource);
         energyGrid.setRoomList(roomList);
@@ -171,8 +169,12 @@ class EnergyGridTest {
 
     @Test
     void seeIfEqualsEnergyGridToSameObject() {
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
-        EnergyGrid energyGrid2 = new EnergyGrid("EG1", 400);
+        EnergyGrid energyGrid1 = new EnergyGrid();
+        energyGrid1.setNominalPower(400);
+        energyGrid1.setName("EG1");
+        EnergyGrid energyGrid2 = new EnergyGrid();
+        energyGrid2.setNominalPower(400);
+        energyGrid2.setName("EG1");
         boolean expectedResult = true;
         boolean actualResult = energyGrid1.equals(energyGrid2);
         assertEquals(expectedResult, actualResult);
@@ -180,7 +182,9 @@ class EnergyGridTest {
 
     @Test
     void seeIfEqualsEnergyGridToObject() {
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        EnergyGrid energyGrid1 = new EnergyGrid();
+        energyGrid1.setNominalPower(400);
+        energyGrid1.setName("EG1");
         boolean expectedResult = true;
         boolean actualResult = energyGrid1.equals(energyGrid1);
         assertEquals(expectedResult, actualResult);
@@ -188,10 +192,10 @@ class EnergyGridTest {
 
     @Test
     void seeIfFalseWhenObjectsAreDifferentWithDifferentContent() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("Quarto", 2, 10, 20, 2, sensorList, deviceList);
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        Room room = new Room("Quarto", 2, 10, 20, 2);
+        EnergyGrid energyGrid1 = new EnergyGrid();
+        energyGrid1.setNominalPower(400);
+        energyGrid1.setName("EG1");
         boolean expectedResult = false;
         boolean actualResult = energyGrid1.equals(room);
         assertEquals(expectedResult, actualResult);
@@ -199,11 +203,11 @@ class EnergyGridTest {
 
     @Test
     void seeIfGetNominalPowerWorksMultipleRooms(){
+
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0,12,30,10, sensorList, deviceList);
-        Room r2 = new Room("Sótão", 3, 30,40,12, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0,12,30,10);
+        Room r2 = new Room("Sótão", 3, 30,40,12);
         Device d1 = new Device("WaterHeater1", 30, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("Fridge", 50, new Fridge(3,3,45));
         DeviceList deviceList1 = new DeviceList();
@@ -220,7 +224,7 @@ class EnergyGridTest {
         double expectedResult = 80;
 
         //Act
-        double actualResult = grid.getNominalPower();
+        double actualResult = grid.getRoomListNominalPower();
 
         //Assert
         assertEquals(expectedResult,actualResult);
@@ -228,14 +232,13 @@ class EnergyGridTest {
 
     @Test
     void seeIfPrintDevicesWorks(){
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         Device d1 = new Device("Fridge", 21, new Fridge(2,2,34));
         Device d2 = new Device("WashingMachine", 30, new WashingMachine(23));
+        DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
         EnergyGrid energyGrid = new EnergyGrid();
-        Room r1 = new Room("Kitchen", 0, 21,31,10, sensorList, deviceList);
+        Room r1 = new Room("Kitchen", 0, 21,31,10);
         r1.setDeviceList(deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
@@ -257,7 +260,9 @@ class EnergyGridTest {
 
     @Test
     void seeIfFalseWhenObjectsAreNull() {
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        EnergyGrid energyGrid1 = new EnergyGrid();
+        energyGrid1.setNominalPower(400);
+        energyGrid1.setName("EG1");
         boolean expectedResult = false;
         boolean actualResult = energyGrid1.equals(null);
         assertEquals(expectedResult, actualResult);
@@ -273,11 +278,12 @@ class EnergyGridTest {
 
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room1EdC = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
-        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
+        EnergyGrid eg = new EnergyGrid();
+        eg.setNominalPower(333);
+        eg.setName("Main Energy Grid Edificio C");
         RoomList rl = new RoomList();
+        DeviceList deviceList = new DeviceList();
         room1EdC.setDeviceList(deviceList);
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
@@ -290,7 +296,9 @@ class EnergyGridTest {
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList2() {
         Room m = null;
-        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        EnergyGrid eg = new EnergyGrid();
+        eg.setNominalPower(333);
+        eg.setName("Main Energy Grid Edificio C");
         RoomList rl = new RoomList();
         rl.addRoom(m);
         eg.setRoomList(rl);

@@ -44,10 +44,8 @@ public class DeviceTest {
 
     @Test
     void seeEqualsToDifTypeObject() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         Device d = new Device("WMOne", 12, new WashingMachine(56));
-        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
+        Room room = new Room("quarto", 1, 80, 2, 2);
 
         boolean actualResult = d.equals(room);
         assertFalse(actualResult);
@@ -63,10 +61,8 @@ public class DeviceTest {
 
     @Test
     void seeIfPrintDeviceWorks() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         Device d1 = new Device("frigo", 150, new Fridge(2,2,45));
-        Room room = new Room("kitchen", 1, 1, 1, 1, sensorList, deviceList);
+        Room room = new Room("kitchen", 1, 1, 1, 1);
         String result = d1.buildDeviceString();
         String expectedResult = "The device Name is frigo, and its NominalPower is 150.0 kW.\n";
         assertEquals(expectedResult, result);

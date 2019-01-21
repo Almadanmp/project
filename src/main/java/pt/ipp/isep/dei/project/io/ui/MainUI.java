@@ -23,10 +23,6 @@ public class MainUI {
 
         // ******* MAIN MOCK *******************************************************
 
-        // Empty SensorList and DeviceList to use in Room Constructors
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-
         // Geo List (1)
 
         GeographicAreaList geographicalAreaList = new GeographicAreaList();
@@ -62,14 +58,9 @@ public class MainUI {
         //Rooms
 
         //Edificio B Rooms
-        Room roomISEP1 = new Room("B107", 1, 7, 11, 3.5,sensorList,deviceList);
-        Room roomISEP2 = new Room("B109", 1, 7, 11, 3.5,sensorList,deviceList);
-        Room roomISEP3 = new Room("B106", 1, 7, 13, 3.5,sensorList,deviceList);
-        RoomList roomListEdifB = new RoomList();
-
-        roomListEdifB.addRoom(roomISEP1);
-        roomListEdifB.addRoom(roomISEP2);
-        roomListEdifB.addRoom(roomISEP3);
+        Room roomISEP1 = new Room("B107", 1, 7, 11, 3.5);
+        Room roomISEP2 = new Room("B109", 1, 7, 11, 3.5);
+        Room roomISEP3 = new Room("B106", 1, 7, 13, 3.5);
 
         RoomList gridRoomList = new RoomList();
         gridRoomList.addRoom(roomISEP2);
@@ -77,8 +68,11 @@ public class MainUI {
 
         // Houses (1 per Geographical Area!)
 
-        House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), isep, roomListEdifB);
+        House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), isep);
         edificioB.setMotherArea(isep);
+        edificioB.addRoomToRoomList(roomISEP1);
+        edificioB.addRoomToRoomList(roomISEP2);
+        edificioB.addRoomToRoomList(roomISEP3);
 
         // Sensor Readings
 
@@ -191,7 +185,9 @@ public class MainUI {
 
         // Energy Grid
 
-        EnergyGrid mainGrid = new EnergyGrid("main grid", 0);
+        EnergyGrid mainGrid = new EnergyGrid();
+        mainGrid.setNominalPower(0);
+        mainGrid.setName("main grid");
         EnergyGridList energyGridListIsep = new EnergyGridList();
         energyGridListIsep.addGrid(mainGrid);
         mainGrid.setRoomList(gridRoomList);
@@ -235,7 +231,8 @@ public class MainUI {
         listDevices1.addDevice(device6);
         roomISEP3.setDeviceList(listDevices1);
 
-        // DEVICE TYPES
+        // ********* MOCKS EXTRA **********************************************
+
         List<DeviceType> deviceTypeList = new ArrayList<>();
         deviceTypeList.add(DeviceType.FRIDGE);
         deviceTypeList.add(DeviceType.WASHING_MACHINE);
@@ -244,16 +241,18 @@ public class MainUI {
         deviceTypeList.add(DeviceType.LAMP);
 
         // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
-        Room room4 = new Room("room1", 1, 33, 13, 23, sensorList, deviceList);
-        Room room5 = new Room("room2", 2, 13, 93, 23, sensorList, deviceList);
-        Room room6 = new Room("room3", 2, 73, 43, 23, sensorList, deviceList);
-        Room room7 = new Room("room4", 5, 63, 23, 23, sensorList, deviceList);
-        RoomList roomList4 = new RoomList();
-        roomList4.addRoom(room4);
-        roomList4.addRoom(room5);
-        House house4 = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, roomList4);
+        Room room4 = new Room("room1", 1, 33, 13, 23);
+        Room room5 = new Room("room2", 2, 13, 93, 23);
+        Room room6 = new Room("room3", 2, 73, 43, 23);
+        Room room7 = new Room("room4", 5, 63, 23, 23);
+        House house4 = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep);
+        house4.addRoomToRoomList(room4);
+        house4.addRoomToRoomList(room5);
 
-        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
+
+        EnergyGrid energyGrid1 = new EnergyGrid();
+        energyGrid1.setName("energyGrid1");
+        energyGrid1.setNominalPower(1233);
         energyGrid1.addRoomToAnEnergyGrid(room6);
         energyGrid1.addRoomToAnEnergyGrid(room7);
 
@@ -271,11 +270,10 @@ public class MainUI {
         TypeAreaList typeAreaListSP2 = new TypeAreaList();
         typeAreaListSP2.addTypeArea(urbanArea);
         geographicAreaSP2.setDescription("Campus do ISEP");
-        RoomList roomListSP2 = new RoomList();
-        Room b107SP2 = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
-        roomListSP2.addRoom(b107SP2);
-        Room b109SP2 = new Room("B109", 1, 7, 11, 3.5, sensorList, deviceList);
-        roomListSP2.addRoom(b109SP2);
+        Room b107SP2 = new Room("B107", 1, 7, 11, 3.5);
+        house4.addRoomToRoomList(b107SP2);
+        Room b109SP2 = new Room("B109", 1, 7, 11, 3.5);
+        house4.addRoomToRoomList(b109SP2);
 
         List<TypeSensor> typeSensorListSP2 = new ArrayList<>();
         TypeSensor temperatureB109SP2 = new TypeSensor(temperature, "celsius");
@@ -393,8 +391,8 @@ public class MainUI {
         deviceListRoomB109SP2.addDevice(washingMachineB109SP2);
         b109SP2.setDeviceList(deviceListRoomB109SP2);
 
-        Room roomB106SP2 = new Room("B106",1,7,13,3.5, sensorList, deviceList);
-        roomListSP2.addRoom(roomB106SP2);
+        Room roomB106SP2 = new Room("B106",1,7,13,3.5);
+        house4.addRoomToRoomList(roomB106SP2);
         DeviceList deviceListRoomB106SP2 = new DeviceList();
         Device ehwB106SP2 = new Device("EHW B106",2.2,new WaterHeater(150.0,55.0,0.92));
         ProgramList programDishWasherB106SP2 = new ProgramList();
@@ -476,13 +474,23 @@ public class MainUI {
         typeAreaListSP2.addTypeArea(citySP2);
         portoSP2.setDescription("City of Porto");
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
-        EnergyGrid mainGridSP2 = new EnergyGrid("main grid", 0);
-        mainGridSP2.setRoomList(roomListSP2);
-        House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2,roomListSP2);
+        EnergyGrid mainGridSP2 = new EnergyGrid();
+        mainGridSP2.setName("main grid");
+        mainGridSP2.setNominalPower(0);
+        House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2);
         houseSP2.setMotherArea(geographicAreaSP2);
         EnergyGridList mainGridList = new EnergyGridList();
         mainGridList.addGrid(mainGridSP2);
         houseSP2.setEGList(mainGridList);
+
+
+        // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
+        Room room1 = new Room("room1", 1, 33, 13, 23);
+        Room room2 = new Room("room2", 2, 13, 93, 23);
+
+        House houseTest = new House("houseRoomDifEG", "Street", "4230", "Porto", new Local(23, 23, 21), isep);
+        houseTest.addRoomToRoomList(room1);
+        houseTest.addRoomToRoomList(room2);
 
 
 

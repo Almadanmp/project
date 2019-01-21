@@ -18,27 +18,12 @@ public class EnergyGrid implements Metered {
     private RoomList mRoomList;
     private PowerSourceList mListPowerSources;
 
-    /**
-     * Empty constructor to use on UIs.
-     */
-
     public EnergyGrid() {
         this.mRoomList = new RoomList();
         this.mListPowerSources = new PowerSourceList();
-        mNominalPower = 0;
+        this.mNominalPower = 0;
     }
-    /**
-     * Builder EnergyGrid(), with all the parameters to define a grid.
-     * @param houseGridDesignation the name of the energy grid.
-     * @param maxContractedPower value of max nominal power a grid is able to sustain.
-     */
 
-    public EnergyGrid(String houseGridDesignation, double maxContractedPower) {
-        setName(houseGridDesignation);
-        setNominalPower(maxContractedPower);
-        this.mRoomList = new RoomList();
-        this.mListPowerSources = new PowerSourceList();
-    }
     /**
      * Getter for name of the energy grid.
      * @return returns attribute name of the energy grid.
@@ -75,13 +60,16 @@ public class EnergyGrid implements Metered {
      * Getter for the total nominal power value in every room contained in the grid.
      * @return a the total nominal power value in every room contained in the grid.
      */
-    public double getNominalPower() {
+    public double getRoomListNominalPower() {
         double result = 0;
         for (Room r : mRoomList.getList()) {
-            result += r.getNominalPower();
-            mNominalPower = result;
+            result += r.getRoomListNominalPower();
         }
-        return mNominalPower;
+        return result;
+    }
+
+    public double getNominalPower(){
+        return this.mNominalPower;
     }
 
     /**
@@ -124,7 +112,7 @@ public class EnergyGrid implements Metered {
      * Setter for the value of nominal power in the energy grid.
      * @param nominalPower value of nominal power in the energy grid.
      */
-    private void setNominalPower(double nominalPower) {
+    public void setNominalPower(double nominalPower) {
         this.mNominalPower = nominalPower;
     }
 
@@ -183,7 +171,7 @@ public class EnergyGrid implements Metered {
         }
         List<Device> deviceList = this.getDeviceList();
         for (Device d : deviceList) {
-            result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getType().name()).append(", Power: ").append(d.getNominalPower()).append(".\n");
+            result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getType().name()).append(", Power: ").append(d.getRoomListNominalPower()).append(".\n");
             counter++;
         }
         return result.toString();

@@ -24,14 +24,14 @@ public class Room implements Metered {
     private DeviceList mDeviceList;
 
 
-    public Room(String name, int houseFloor, double width, double length, double height, SensorList sensorList, DeviceList deviceList) {
+    public Room(String name, int houseFloor, double width, double length, double height) {
         setRoomName(name);
         setRoomHouseFloor(houseFloor);
         setRoomWidth(width);
         setRoomLength(length);
         setRoomHeight(height);
-        setRoomSensorList(sensorList);
-        setDeviceList(deviceList);
+        this.mRoomSensorList = new SensorList();
+        this.mDeviceList = new DeviceList();
     }
 
     public SensorList getSensorList() {
@@ -107,7 +107,7 @@ public class Room implements Metered {
             Device device = this.getDeviceList().get(i);
             result.append("\n" + i).append(") device Name: ").append(device.getName());
             result.append(", device Type: ").append(device.getType());
-            result.append(", device Nominal Power: ").append(device.getNominalPower());
+            result.append(", device Nominal Power: ").append(device.getRoomListNominalPower());
         }
         result.append("\n---------------\n");
         return result.toString();
@@ -123,10 +123,10 @@ public class Room implements Metered {
      *
      * @return room's total nominal power (double)
      */
-    public double getNominalPower() {
+    public double getRoomListNominalPower() {
         double result = 0;
         for (Device d : this.getDeviceList()) {
-            result += d.getNominalPower();
+            result += d.getRoomListNominalPower();
         }
         return result;
     }

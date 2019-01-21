@@ -748,9 +748,7 @@ public class SensorListTest {
 
     @Test
     void ensureThatSensorListIsPrintCorrectly() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -772,9 +770,7 @@ public class SensorListTest {
 
     @Test
     void ensureThatEmptySensorListIsPrintedWithWarningMessage() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         SensorList sensorList1 = new SensorList();
@@ -787,12 +783,10 @@ public class SensorListTest {
     @Test
     void seeIfMatchSensorIndexByString() {
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         List<Integer> list = new ArrayList<>();
         Integer i = 2;
         list.add(i);
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -812,12 +806,10 @@ public class SensorListTest {
     @Test
     void seeIfMatchSensorListIndexByString() {
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         List<Integer> list = new ArrayList<>();
         Integer i = 2;
         list.add(i);
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -837,12 +829,10 @@ public class SensorListTest {
     @Test
     void seeIfPrintElementsByIndex() {
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         List<Integer> list = new ArrayList<>();
         Integer i = 2;
         list.add(i);
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -864,9 +854,7 @@ public class SensorListTest {
 
     @Test
     void ensureThatSensorIsInSensorListByString() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -884,9 +872,7 @@ public class SensorListTest {
 
     @Test
     void ensureThatSensorIsNotInSensorListByString() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -904,9 +890,7 @@ public class SensorListTest {
 
     @Test
     public void seeIfPrintsSensorWholeList() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -928,9 +912,7 @@ public class SensorListTest {
 
     @Test
     public void seeIfPrintsEmptySensorWholeList() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         SensorList sensorList1 = new SensorList();

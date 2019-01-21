@@ -102,9 +102,7 @@ public class HouseConfigurationController {
      * @param height is the height of the room we're going to create.
      */
     public void createNewRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        this.mRoom = new Room(roomDesignation, roomHouseFloor, width, length, height, sensorList, deviceList);
+        this.mRoom = new Room(roomDesignation, roomHouseFloor, width, length, height);
     }
 
     /**

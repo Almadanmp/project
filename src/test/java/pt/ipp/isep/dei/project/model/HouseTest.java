@@ -25,11 +25,9 @@ class HouseTest {
 
     @Test
     void seeIfGetListDevice() {
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         Device device = new Device("fridge", 5, new Fridge(34,34,65));
         Device device2 = new Device("washing", 5, new WashingMachine(12));
-        Room room1 = new Room("room1", 19, 23456789, 5, 3, sensorList, deviceList);
+        Room room1 = new Room("room1", 19, 23456789, 5, 3);
         room1.addDevice(device);
         room1.addDevice(device2);
         RoomList roomList = new RoomList();
@@ -44,8 +42,7 @@ class HouseTest {
     @Test
     void seeDistanceToSensor() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga);
         Sensor s = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 5, 5), new GregorianCalendar(2018, 10, 1).getTime());
         double result = house.calculateDistanceToSensor(s);
         assertEquals(110.91871788829754, result, 0.01);
@@ -53,7 +50,6 @@ class HouseTest {
 
     @Test
     void seeMinDistanceToSensor() {
-        RoomList roomList = new RoomList();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 6, 5), new GregorianCalendar(2018, 10, 1).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura", "Celsius"), new Local(4, 8, 5), new GregorianCalendar(2018, 10, 1).getTime());
         SensorList sensorList = new SensorList();
@@ -61,14 +57,13 @@ class HouseTest {
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
         double result = house.getMinDistanceFromHouseToSensor(ga);
         assertEquals(110.91871788829754, result, 0.01);
     }
 
     @Test
     void seeMinDistanceToSensorInsideIf() {
-        RoomList roomList = new RoomList();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 6, 5), new GregorianCalendar(2018, 10, 1).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura", "Celsius"), new Local(4, 8, 5), new GregorianCalendar(2018, 10, 1).getTime());
         Sensor s3 = new Sensor("sensor2", new TypeSensor("temperatura", "Celsius"), new Local(4, 5, 5), new GregorianCalendar(2018, 10, 1).getTime());
@@ -80,7 +75,7 @@ class HouseTest {
         sensorList.addSensor(s4);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
         double result = house.getMinDistanceFromHouseToSensor(ga);
         assertEquals(110.91871788829754, result, 0.01);
     }
@@ -88,8 +83,7 @@ class HouseTest {
     @Test
     void ensureThatWeGetAltitude() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga);
         house.setLocation(23, 43, 4);
         double expectedResult = 4;
         double actualResult = house.getLocation().getAltitude();
@@ -98,7 +92,6 @@ class HouseTest {
 
     @Test
     void seeSensorWithMinDistance() {
-        RoomList roomList = new RoomList();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
@@ -106,7 +99,7 @@ class HouseTest {
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house, "temperature");
         assertEquals(s1, result);
     }
@@ -114,7 +107,6 @@ class HouseTest {
     @Test
     void seeSensorMinDistanceIfGAHasNoSensors() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
         SensorList sensorList1 = new SensorList();
         ga.setSensorList(sensorList1);
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
@@ -122,7 +114,7 @@ class HouseTest {
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house, "temperature");
         assertNull(result);
     }
@@ -130,9 +122,8 @@ class HouseTest {
     @Test
     void seeEqualToEqualObject() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        House house2 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
+        House house2 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
 
         boolean actualResult = house.equals(house2);
 
@@ -142,8 +133,7 @@ class HouseTest {
     @Test
     void seeEqualToSameObject() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
 
         boolean actualResult = house.equals(house);
 
@@ -153,9 +143,8 @@ class HouseTest {
     @Test
     void seeEqualsToDifObject() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        House house2 = new House("casa de campo", "Rua do Sol", "4516", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
+        House house2 = new House("casa de campo", "Rua do Sol", "4516", "Porto", new Local(4, 5, 50), ga);
 
         boolean actualResult = house.equals(house2);
         assertFalse(actualResult);
@@ -164,11 +153,8 @@ class HouseTest {
 
     @Test
     void seeEqualsToDifTypeObject() {
-        RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), roomList);
-        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room room = new Room("quarto", 1, 80, 2, 2);
 
         boolean actualResult = house.equals(room);
         assertFalse(actualResult);
@@ -177,8 +163,7 @@ class HouseTest {
     @Test
     void seeEqualsToNullObject() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
 
         boolean actualResult = house.equals(null);
 
@@ -188,11 +173,8 @@ class HouseTest {
     @Test
     void seeAddRoomToEmptyRoomList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
+        Room room = new Room("quarto", 1, 80, 2, 2);
         boolean result = house.addRoomToRoomList(room);
 
         assertTrue(result);
@@ -201,12 +183,9 @@ class HouseTest {
     @Test
     void seeAddRoomToRoomList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
-        Room room2 = new Room("sala", 1, 80, 2, 2, sensorList, deviceList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
+        Room room = new Room("quarto", 1, 80, 2, 2);
+        Room room2 = new Room("sala", 1, 80, 2, 2);
         house.addRoomToRoomList(room2);
         boolean result = house.addRoomToRoomList(room);
 
@@ -216,14 +195,11 @@ class HouseTest {
     @Test
     void seeAddRoomSameName() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
         RoomList rL1 = new RoomList();
         house.setRoomList(rL1);
-        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
-        Room room2 = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
+        Room room = new Room("quarto", 1, 80, 2, 2);
+        Room room2 = new Room("quarto", 1, 80, 2, 2);
         house.addRoomToRoomList(room2);
         boolean result = house.addRoomToRoomList(room);
 
@@ -233,8 +209,7 @@ class HouseTest {
     @Test
     void seeIfRecognizesEmptyGridList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
         EnergyGridList energyGridList = new EnergyGridList();
         house.setEGList(energyGridList);
         String expectedResult = "Invalid List - List is Empty\n";
@@ -245,10 +220,13 @@ class HouseTest {
     @Test
     void seePrintedGridList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        EnergyGrid eg1 = new EnergyGrid("Rede", 444);
-        EnergyGrid eg2 = new EnergyGrid("Rede 2", 555);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
+        EnergyGrid eg1 = new EnergyGrid();
+        EnergyGrid eg2 = new EnergyGrid();
+        eg1.setName("Rede");
+        eg1.setNominalPower(444);
+        eg2.setName("Rede 2");
+        eg2.setNominalPower(555);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(eg1);
         energyGridList.addGrid(eg2);
@@ -264,10 +242,9 @@ class HouseTest {
     @Test
     void seeSetId() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "Casa do Porto";
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
 
         //Act
         house.setId("Casa do Porto");
@@ -280,10 +257,9 @@ class HouseTest {
     @Test
     void seeSetStreet() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "Rua da Praia";
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
 
         //Act
         house.setStreet("Rua da Praia");
@@ -296,10 +272,9 @@ class HouseTest {
     @Test
     void seeSetZipCode() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "6327-09";
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
 
         //Act
         house.setZip("6327-09");
@@ -312,10 +287,9 @@ class HouseTest {
     @Test
     void seeSetTown() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "Lisboa";
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
 
         //Act
         house.setTown("Lisboa");
@@ -328,11 +302,10 @@ class HouseTest {
     @Test
     void seeSetHouseLocation() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
         //Arrange
         Local expectedResult = new Local(7, 78, 50);
 
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
 
         //Act
         house.setLocation(7, 78, 50);
@@ -345,11 +318,10 @@ class HouseTest {
     @Test
     void seeSetHouseLocation2() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
         //Arrange
         Local expectedResult = new Local(5, 35, 34);
         Local localHouse = new Local(8, 9, 1);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", localHouse, ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", localHouse, ga);
 
         //Act
         localHouse.setAltitude(34);
@@ -376,8 +348,7 @@ class HouseTest {
         ga1.setTypeArea(new TypeArea("Cidade"));
 
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga);
 
         //Act
         house.setMotherArea(ga1);
@@ -390,10 +361,9 @@ class HouseTest {
     @Test
     void seeIfGetNominalPowerWorks() {
         //Arrange
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("Kitchen", 0, 12, 30, 10, sensorList, deviceList);
-        Room r2 = new Room("Sótão", 3, 30, 40, 12, sensorList, deviceList);
+
+        Room r1 = new Room("Kitchen", 0, 12, 30, 10);
+        Room r2 = new Room("Sótão", 3, 30, 40, 12);
         Device d1 = new Device("WaterHeater1", 30, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("Fridge", 50, new Fridge(45,45,56));
         DeviceList deviceList1 = new DeviceList();
@@ -402,15 +372,13 @@ class HouseTest {
         DeviceList deviceList2 = new DeviceList();
         deviceList2.addDevice(d2);
         r2.setDeviceList(deviceList2);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(r1);
-        roomList.addRoom(r2);
-        House testHouse = new House();
-        testHouse.setRoomList(roomList);
+        House testHouse = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        testHouse.addRoomToRoomList(r1);
+        testHouse.addRoomToRoomList(r2);
         double expectedResult = 80;
 
         //Act
-        double actualResult = testHouse.getNominalPower();
+        double actualResult = testHouse.getRoomListNominalPower();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -419,15 +387,16 @@ class HouseTest {
     @Test
     void seeSetEnergyGridList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
-        EnergyGrid eg = new EnergyGrid("main grid", 25);
+        EnergyGrid eg = new EnergyGrid();
+        eg.setNominalPower(25);
+        eg.setName("main grid");
         energyGridList.addGrid(eg);
 
         //Arrange
         EnergyGridList expectedResult = new EnergyGridList();
         expectedResult.addGrid(eg);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga);
         //Act
         house.setEGList(energyGridList);
         EnergyGridList actualResult = house.getEGList();
@@ -440,8 +409,7 @@ class HouseTest {
     void seePrintHouse() {
         //ARRANGE
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga);
         String expectedResult = "casa de praia, Rua das Flores, 4512, Porto.\n";
         //ACT
         String actualResult = house.buildHouseString();
@@ -452,8 +420,7 @@ class HouseTest {
     @Test
     public void hashCodeDummyTest() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga);
         int expectedResult = 1;
         int actualResult = house.hashCode();
         assertEquals(expectedResult, actualResult);
@@ -461,17 +428,15 @@ class HouseTest {
 
     @Test
     public void getDailyHouseConsumptionPerTypeTest() {
-        House h1 = new House();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
+        House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, new Fridge(45,45,65));
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0,  0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        Room r2 = new Room("kitchen", 2, 12, 12, 12, sensorList, deviceList);
+        Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device("fridgeTwo", 12, new Fridge(4,5,45));
         Device d5 = new Device("wHeater3", 12, new WaterHeater(300.0, 15.0, 0.9));
         Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0,  0.9));
@@ -486,10 +451,8 @@ class HouseTest {
     }
     @Test
     public void getDailyHouseConsumptionPerTypeTest2() {
-        House h1 = new House();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
+        House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0,  0.9));
         r1.addDevice(d2);
@@ -505,10 +468,8 @@ class HouseTest {
     }
     @Test
     void getHouseDevicesOfGivenType(){
-        House house = new House();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
         r1.addDevice(d2);
@@ -523,10 +484,8 @@ class HouseTest {
 
     @Test
     void getDeviceListTest(){
-        House house = new House();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
-        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
         r1.addDevice(d2);

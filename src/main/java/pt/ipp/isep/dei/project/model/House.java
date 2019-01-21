@@ -20,19 +20,16 @@ public class House implements Metered {
     private RoomList mRoomList;
     private GeographicArea mMotherArea;
 
-    //CONSTRUCTORS
-    public House() {
-        this.mRoomList = new RoomList();
-    }
+    //CONSTRUCTOR
 
-    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea, RoomList mRoomList) {
+    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea) {
         this.mId = mId;
         this.mStreet = mStreet;
         this.mZip = mZip;
         this.mTown = mTown;
         this.mLocation = mLocation;
         this.mMotherArea = mMotherArea;
-        this.mRoomList = mRoomList;
+        this.mRoomList = new RoomList();
         this.mEGList = new EnergyGridList();
     }
 
@@ -71,10 +68,10 @@ public class House implements Metered {
         this.mTown = town;
     }
 
-    public double getNominalPower() {
+    public double getRoomListNominalPower() {
         double result = 0;
         for (Room r1 : mRoomList.getList()) {
-            result += r1.getNominalPower();
+            result += r1.getRoomListNominalPower();
         }
         return result;
     }

@@ -113,7 +113,7 @@ public class RoomConfigurationController {
      * @return room's total nominal power (double)
      */
     public double getRoomNominalPower(Room room) {
-        return room.getNominalPower();
+        return room.getRoomListNominalPower();
     }
 
 

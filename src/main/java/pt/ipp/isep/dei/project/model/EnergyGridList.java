@@ -66,7 +66,7 @@ public class EnergyGridList {
 
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < mEnergyGridList.size(); i++) {
-            if (mEnergyGridList.get(i).getName().equals(name)) {
+            if (getEnergyGridList().get(i).getName().equals(name)) {
                 result.add(i);
             }
         }

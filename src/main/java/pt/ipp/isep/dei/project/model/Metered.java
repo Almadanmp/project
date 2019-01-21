@@ -13,5 +13,5 @@ public interface Metered {
      * @return the nominal power of that object
      */
     
-    double getNominalPower();
+    double getRoomListNominalPower();
 }

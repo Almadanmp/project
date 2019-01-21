@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class Device implements Metered {
         this.mName = name;
     }
 
-    public double getNominalPower() {
+    public double getRoomListNominalPower() {
         return this.mNominalPower;
     }
 
@@ -60,7 +59,7 @@ public class Device implements Metered {
     public String buildDeviceString() {
         String result;
         result = "The device Name is " + this.mName + ", and its NominalPower is " +
-                getNominalPower() + " kW.\n";
+                getRoomListNominalPower() + " kW.\n";
         return result;
     }
 

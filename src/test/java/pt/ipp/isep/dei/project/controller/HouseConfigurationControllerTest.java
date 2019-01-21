@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.*;
 
@@ -87,8 +86,7 @@ class HouseConfigurationControllerTest {
     public void seeIfSetHouseAddress() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        RoomList roomList = new RoomList();
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga);
         //Act
         ctrl.setHouseAddress("rua da rua", house);
         String result = house.getStreet();
@@ -100,8 +98,7 @@ class HouseConfigurationControllerTest {
     public void seeIfSetHouseZipCode() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        RoomList roomList = new RoomList();
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga);
         //Act
         ctrl.setHouseZIPCode("3432", house);
         String result = house.getZip();
@@ -113,8 +110,7 @@ class HouseConfigurationControllerTest {
     public void seeIfSetHouseLocal() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        RoomList roomList = new RoomList();
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga);
         //Act
         Local local = new Local (34,56,5);
         ctrl.setHouseLocal(34,56,5, house);
@@ -130,8 +126,7 @@ class HouseConfigurationControllerTest {
     public void seeIfGetHouseName() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        RoomList roomList = new RoomList();
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga);
         //Act
 
         String result = ctrl.getHouseName(house);
@@ -142,15 +137,12 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAddRoomToHouseWorks() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Room room1 = new Room("quarto", 1, 1, 2, 2, sensorList, deviceList);
-        Room room2 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room1);
-        roomList.addRoom(room2);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
+        Room room1 = new Room("quarto", 1, 1, 2, 2);
+        Room room2 = new Room("sala", 1, 1, 2, 2);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga);
+        house.addRoomToRoomList(room1);
+        house.addRoomToRoomList(room2);
         boolean expectedResult = true;
         //ACT
         ctrl.createNewRoom("kitchen", 1, 1, 2, 2);
@@ -161,15 +153,11 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAddPowerToListSourceFails() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Room room1 = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
-        Room room2 = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room1);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
-        house.setRoomList(roomList);
+        Room room1 = new Room("kitchen", 1, 1, 2, 2);
+        Room room2 = new Room("kitchen", 1, 1, 2, 2);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga);
+        house.addRoomToRoomList(room1);
         house.addRoomToRoomList(room2);
         ctrl.createNewRoom("kitchen", 1, 1, 2, 2);
         boolean expectedResult = false;
@@ -241,15 +229,13 @@ class HouseConfigurationControllerTest {
     @Test
     public void seeIfPrintsRoomList() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
-        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
-        House house = new House();
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga);
         house.setRoomList(roomList);
         String expectedResult = "---------------\n" +
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +

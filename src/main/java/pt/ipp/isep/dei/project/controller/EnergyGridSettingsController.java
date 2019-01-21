@@ -13,7 +13,8 @@ public class EnergyGridSettingsController {
     private EnergyGrid mEnergyGrid;
     private PowerSource mPowerSource;
 
-    public EnergyGridSettingsController() { // Class controller doesn't need attributes to be initialized.
+    public EnergyGridSettingsController() {
+        this.mEnergyGrid = new EnergyGrid();
     }
 
     //SHARED METHODS THROUGH DIFFERENT UIS
@@ -145,7 +146,9 @@ public class EnergyGridSettingsController {
      * @param maxPower    is the new grid's maxPower.
      */
     public void createEnergyGrid(String designation, double maxPower) {
-        this.mEnergyGrid = new EnergyGrid(designation, maxPower);
+        this.mEnergyGrid = new EnergyGrid();
+        this.mEnergyGrid.setName(designation);
+        this.mEnergyGrid.setNominalPower(maxPower);
     }
 
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced
