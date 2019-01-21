@@ -9,12 +9,15 @@ import pt.ipp.isep.dei.project.model.device.ProgramList;
  */
 class UtilsUI {
 
-    String invalidOption = "Please enter a valid option";
-    String returningToMainMenu = "Returning to main menu\n";
-    String invalidHouse = "The selected House is not a valid one.\n" + returningToMainMenu; //Serão usados
-    String invalidGridList = "Invalid Grid List - List is empty.\n" + returningToMainMenu; //Serão usados
-    String invalidGAList = "Invalid Geographic Area List - List is empty\n" + returningToMainMenu;
-    String invalidGATypeList = "Invalid list of Geographic Area types. List is empty\n" + returningToMainMenu;
+    String invalidOption = "Please enter a valid option.";
+    String returningToMainMenu = "Returning to main menu -- \n";
+    String invalidHouse = "The selected House is not a valid one.\n" + returningToMainMenu;
+    String invalidRoomList = "Invalid Room List - List is empty.\n" + returningToMainMenu;
+    String invalidGridList = "Invalid Grid List - List is empty.\n" + returningToMainMenu;
+    String invalidDeviceList = "Invalid Device List - List is empty.\n" + returningToMainMenu;
+    String invalidGAList = "Invalid Geographic Area List - List is empty.\n" + returningToMainMenu;
+    String invalidGATypeList = "Invalid Geographic Area List - List is empty.\n" + returningToMainMenu;
+    String invalidProgramList = "Invalid Program List - List is empty.\n" + returningToMainMenu;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
         return geographicAreaList != null && !geographicAreaList.getGeographicAreaList().isEmpty();

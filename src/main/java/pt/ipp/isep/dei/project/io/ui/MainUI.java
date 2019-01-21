@@ -69,7 +69,6 @@ public class MainUI {
         // Houses (1 per Geographical Area!)
 
         House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), isep);
-        edificioB.setMotherArea(isep);
         edificioB.addRoomToRoomList(roomISEP1);
         edificioB.addRoomToRoomList(roomISEP2);
         edificioB.addRoomToRoomList(roomISEP3);
@@ -632,13 +631,13 @@ public class MainUI {
                         break;
                     case 2:
                         HouseConfigurationUI houseC = new HouseConfigurationUI();
-                        houseC.run(houseSP2);
+                        houseC.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(houseSP2, deviceTypeListSP2, typeSensorListSP2);
+                        roomConfiguration.run(edificioB, deviceTypeListSP2, typeSensorListSP2);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
