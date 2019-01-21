@@ -116,7 +116,7 @@ public class HouseMonitoringUI {
     private boolean getInputSensorByList() {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        if (mRoom.getmRoomSensorList().getSensorList().isEmpty()) {
+        if (mRoom.getSensorList().getSensorList().isEmpty()) {
             System.out.print("Invalid Sensor List - List Is Empty, or there are no Temperature Sensors in the " +
                     "selected Room.\n");
             return true;
@@ -124,8 +124,8 @@ public class HouseMonitoringUI {
         System.out.println("Please select one of the existing Sensors on the selected Room: ");
         System.out.println(houseMonitoringcontroller.buildRoomSensorListString(mRoom));
         int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < mRoom.getmRoomSensorList().getSensorList().size()) {
-            this.mSensor = mRoom.getmRoomSensorList().getSensorList().get(aux);
+        if (aux >= 0 && aux < mRoom.getSensorList().getSensorList().size()) {
+            this.mSensor = mRoom.getSensorList().getSensorList().get(aux);
             return false;
         } else {
             System.out.println(utils.invalidOption);

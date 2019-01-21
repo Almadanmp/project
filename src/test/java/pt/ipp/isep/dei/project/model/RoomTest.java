@@ -26,9 +26,11 @@ public class RoomTest {
 
     @Test
     void seeIfRemoveDeviceFromRoomWorks() {
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device device1 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
+        Room room = new Room("cozinha", 1, 1, 1, 1, sensorList, deviceList);
         room.addDevice(device);
         room.addDevice(device1);
         room.removeDevice(device1);
@@ -42,8 +44,10 @@ public class RoomTest {
 
     @Test
     void seeIfRemoveDeviceFromRoomWorksFalse() {
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
+        Room room = new Room("cozinha", 1, 1, 1, 1, sensorList, deviceList);
         room.addDevice(device);
         room.removeDevice(device);
         String result = room.buildDeviceListString();
@@ -53,7 +57,8 @@ public class RoomTest {
 
     @Test
     public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorks() {
-        SensorList list = new SensorList();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
@@ -65,17 +70,15 @@ public class RoomTest {
         listR.addReading(r2);
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
-        list.addSensor(s1);
+        sensorList.addSensor(s1);
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 5, 3);
+        Room room1 = new Room("room1", 19, 23456789, 5, 3, sensorList, deviceList);
         roomList1.addRoom(room1);
-        room1.setRoomSensorList(list);
         ReadingList rL1 = new ReadingList();
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
         DeviceList deviceL1 = new DeviceList();
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        Room room = new Room("quarto", 1, 80, 5, 3, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50), new SensorList()), roomList);
@@ -87,6 +90,7 @@ public class RoomTest {
     @Test
     public void seeIfgetMaxTemperatureInARoomOnAGivenDayWorksNegatives() {
         SensorList list = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
@@ -99,8 +103,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        Room room = new Room("quarto", 1, 80, 5, 3,list, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50), new SensorList()), roomList);
@@ -112,6 +115,7 @@ public class RoomTest {
     @Test
     public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
         SensorList list = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
@@ -125,7 +129,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
+        Room room = new Room("quarto", 1, 80, 5, 3, list, deviceList);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
@@ -138,6 +142,7 @@ public class RoomTest {
     @Test
     public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
         SensorList list = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
@@ -151,7 +156,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
+        Room room = new Room("quarto", 1, 80, 5, 3, list, deviceList);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
@@ -163,7 +168,9 @@ public class RoomTest {
 
     @Test
     void SeeIfPrintListOfDevicesFromRoomWorksNone() {
-        Room room = new Room("cozinha", 0, 1, 1, 1);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("cozinha", 0, 1, 1, 1, sensorList, deviceList);
         String result = room.buildDeviceListString();
         String expectedResult = "This room has no devices on it\n";
         assertEquals(expectedResult, result);
@@ -171,10 +178,11 @@ public class RoomTest {
 
     @Test
     void SeeIfPrintListOfDevicesFromRoomWorks() {
+        SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         Device d1 = new Device("frigorifico", 230, new Fridge(1,1,34));
         deviceList.addDevice(d1);
-        Room room = new Room("cozinha", 0, 1, 1, 1);
+        Room room = new Room("cozinha", 0, 1, 1, 1, sensorList, deviceList);
         room.setDeviceList(deviceList);
         String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
@@ -187,6 +195,7 @@ public class RoomTest {
     @Test
     public void seeIfGetCurrentRoomTemperatureWorks() {
         SensorList list = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d1 = new GregorianCalendar(2018, 2, 1, 16, 30).getTime();
@@ -208,8 +217,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        Room room = new Room("quarto", 1, 80, 5, 3,list,deviceList);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = 20.0;
         assertEquals(expectedResult, result, 0.01);
@@ -218,6 +226,7 @@ public class RoomTest {
     @Test
     public void seeIfGetCurrentRoomTemperatureWorksNegative() {
         SensorList list = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d1 = new GregorianCalendar(2018, 2, 1, 16, 30).getTime();
@@ -239,8 +248,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        Room room = new Room("quarto", 1, 80, 5, 3,list,deviceList);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = -20.0;
         assertEquals(expectedResult, result, 0.01);
@@ -249,6 +257,7 @@ public class RoomTest {
     @Test
     public void seeIfGetCurrentRoomTemperatureWorksMinute() {
         SensorList list = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d1 = new GregorianCalendar(2018, 2, 1, 20, 31).getTime();
@@ -271,7 +280,7 @@ public class RoomTest {
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
+        Room room = new Room("quarto", 1, 80, 5, 3, list, deviceList);
         room.setRoomSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = 30.0;
@@ -280,9 +289,9 @@ public class RoomTest {
 
     @Test
     public void seeIfGetCurrentRoomTemperatureWorksMinute2() {
-        SensorList list = new SensorList();
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("quarto", 1, 80, 5, 3, sensorList, deviceList);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = 0.0;
         assertEquals(expectedResult, result, 0.01);
@@ -290,42 +299,41 @@ public class RoomTest {
 
     @Test
     public void seeIfDoesSensorListInARoomContainASensorByNameWorks() {
-        SensorList list = new SensorList();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        sensorList.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, 5, 3, sensorList, deviceList);
         boolean result = room.doesSensorListInARoomContainASensorByName("sensor1");
         assertTrue(result);
     }
 
     @Test
     public void seeIfDoesSensorListInARoomContainASensorByNameWorksFalse() {
-        SensorList list = new SensorList();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 8, 5, 2);
-        room.setRoomSensorList(list);
+        sensorList.addSensor(s1);
+        Room room = new Room("quarto", 1, 8, 5, 2, sensorList, deviceList);
         boolean result = room.doesSensorListInARoomContainASensorByName("sensor89");
         assertEquals(false, result);
     }
 
     @Test
     public void seeIfAddSensorWorks() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature", "Celsius");
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 8, 5, 3);
-        room.setRoomSensorList(list);
+        sensorList.addSensor(s1);
+        Room room = new Room("quarto", 1, 8, 5, 3, sensorList, deviceList);
         Sensor s2 = new Sensor("sensor2", type, new Local(1, 1, 50), new Date());
         s2.setReadingList(listR);
         boolean result = room.addSensor(s2);
@@ -334,42 +342,46 @@ public class RoomTest {
 
     @Test
     public void seeIfAddSensorWorksFalse() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature", "Celsius");
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();        TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        sensorList.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, 5, 3, sensorList, deviceList);
         boolean result = room.addSensor(s1);
         assertEquals(false, result);
     }
 
     @Test
     public void seeIfEqualsWork() {
-        SensorList list = new SensorList();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
         s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
+        sensorList.addSensor(s1);
+        Room room = new Room("quarto", 1, 80, 5, 3, sensorList, deviceList);
         boolean result = room.equals(null);
         assertEquals(false, result);
     }
 
     @Test
     public void seeIfEqualsWorkDifClass() {
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
-        Room room = new Room("quarto", 1, 80, 5, 3);
+        Room room = new Room("quarto", 1, 80, 5, 3, sensorList, deviceList);
         boolean result = room.equals(type);
         assertEquals(false, result);
     }
 
     @Test
     void hashCodeDummyTest() {
-        Room room1 = new Room("room1", 19, 5, 3, 3);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room1 = new Room("room1", 19, 5, 3, 3, sensorList, deviceList);
         int expectedResult = 1;
         int actualResult = room1.hashCode();
         Assertions.assertEquals(expectedResult, actualResult);
@@ -377,7 +389,9 @@ public class RoomTest {
 
     @Test
     void seeIfPrintRoomWorks() {
-        Room room = new Room("room1", 1, 1, 2, 2);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("room1", 1, 1, 2, 2, sensorList, deviceList);
         String result = room.buildRoomString();
         assertEquals("room1, 1, 1.0, 2.0, 2.0.\n", result);
     }
@@ -386,7 +400,9 @@ public class RoomTest {
     @Test
     void seeNominalPowerOfRoomWithoutDevices() {
         //ARRANGE
-        Room room1 = new Room("room1", 19, 5, 3, 3);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room1 = new Room("room1", 19, 5, 3, 3, sensorList, deviceList);
         double expectedResult = 0;
         //ACT
         double actualResult = room1.getNominalPower();
@@ -397,16 +413,16 @@ public class RoomTest {
     @Test
     void seeNominalPowerOfRoom() {
         //ARRANGE
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Fridge f1 = new Fridge(2,2,45);
         Device d1 = new Device("d1", 12, f1);
         Device d2 = new Device("d2", 10, f1);
         Device d3 = new Device("d3", 1, f1);
-        DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
         deviceList.addDevice(d3);
-        Room room1 = new Room("room1", 19, 5, 3, 3);
-        room1.setDeviceList(deviceList);
+        Room room1 = new Room("room1", 19, 5, 3, 3, sensorList, deviceList);
         double expectedResult = 23;
         //ACT
         double actualResult = room1.getNominalPower();
@@ -416,7 +432,9 @@ public class RoomTest {
 
     @Test
     void getDailyRoomConsumptionPerTypeTest() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d1 = new Device("fridgeOne", 12, new Fridge(2,2,45));
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 0.9));
@@ -430,7 +448,9 @@ public class RoomTest {
 
     @Test
     void seeIfRemoveRoomDevicesFromDeviceListAssertTrue(){
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
         r1.addDevice(d2);
@@ -445,7 +465,9 @@ public class RoomTest {
 
     @Test
     void seeIfRemoveRoomDevicesFromDeviceListAssertTrueList(){
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
         DeviceList dlist = new DeviceList();
@@ -461,7 +483,9 @@ public class RoomTest {
     }
     @Test
     void seeIfRemoveRoomDevicesFromDeviceListAssertFalse(){
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d1 = new Device("wHeater4", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
@@ -476,7 +500,9 @@ public class RoomTest {
 }
     @Test
     void getDailyRoomConsumptionPerTypeTest2() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
         r1.addDevice(d2);
@@ -492,7 +518,9 @@ public class RoomTest {
 
     @Test
     void addDeviceFails() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
         Device d3 = new Device("wHeater1", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
@@ -503,7 +531,9 @@ public class RoomTest {
 
     @Test
     void addDeviceSucceeds() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
@@ -514,7 +544,9 @@ public class RoomTest {
 
     @Test
     void addDeviceSucceeds2() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
@@ -525,7 +557,9 @@ public class RoomTest {
 
     @Test
     void addDeviceSucceeds3() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         boolean expectedResult = true;
         boolean result = r1.addDevice(d3);
@@ -534,7 +568,9 @@ public class RoomTest {
 
     @Test
     void getRoomDevicesOfGivenTypeSuccess() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
@@ -548,7 +584,9 @@ public class RoomTest {
 
     @Test
     void getRoomDevicesOfGivenTypeFails() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
@@ -560,7 +598,9 @@ public class RoomTest {
 
     @Test
     void removeDeviceSucess() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
@@ -571,7 +611,9 @@ public class RoomTest {
 
     @Test
     void removeDeviceFails() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 2.0, 1.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 3.0, 1.0));
         Device d4 = new Device("wHeater4", 11, new WaterHeater(50.0, 3.0, 1.0));
@@ -585,9 +627,11 @@ public class RoomTest {
     @Test
     void seeIfAddRoomDevicesToDeviceListWorksWhenDeviceListAlreadyAddedToRoom() {
         //Arrange
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device device1 = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device device2 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
+        Room room = new Room("cozinha", 1, 1, 1, 1, sensorList, deviceList);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
         dList.addDevice(device2);
@@ -602,9 +646,11 @@ public class RoomTest {
     @Test
     void seeIfAddRoomDevicesToDeviceListWorksAlreadyContained() {
         //Arrange
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device device1 = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device device2 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
+        Room room = new Room("cozinha", 1, 1, 1, 1, sensorList, deviceList);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
         dList.addDevice(device2);
@@ -622,9 +668,11 @@ public class RoomTest {
     @Test
     void seeIfAddRoomDevicesToDeviceListWorksWhenNotYetAddedToRoom() {
         //Arrange
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device device1 = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device device2 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
+        Room room = new Room("cozinha", 1, 1, 1, 1, sensorList, deviceList);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
         dList.addDevice(device2);
@@ -638,7 +686,9 @@ public class RoomTest {
     @Test
     void seeIfGetAllHouseDevices() {
         House house = new House();
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
@@ -653,9 +703,10 @@ public class RoomTest {
 
     @Test
     void ensureThatWeDoNotAddADeviceToADeviceList() {
+        SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("Room", 1, 2, 3, 4);
+        Room room = new Room("Room", 1, 2, 3, 4, sensorList, deviceList);
         deviceList.addDevice(device);
         room.setDeviceList(deviceList);
         boolean expectedResult = false;
@@ -666,11 +717,12 @@ public class RoomTest {
 
     @Test
     void seeThatWeAddADeviceToADeviceList() {
+        SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         DeviceList deviceList2 = new DeviceList();
         deviceList.addDevice(device);
-        Room room = new Room("Room", 1, 2, 3, 4);
+        Room room = new Room("Room", 1, 2, 3, 4, sensorList, deviceList);
         room.setDeviceList(deviceList);
         boolean expectedResult = true;
         boolean actualResult = room.addRoomDevicesToDeviceList(deviceList2);
@@ -679,9 +731,10 @@ public class RoomTest {
 
     @Test
     void ensureThatWeDontAddADeviceToADeviceList() {
+        SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("Room", 1, 2, 3, 4);
+        Room room = new Room("Room", 1, 2, 3, 4, sensorList, deviceList);
         deviceList.addDevice(device);
         boolean expectedResult = false;
         boolean actualResult = room.addRoomDevicesToDeviceList(deviceList);
@@ -690,9 +743,10 @@ public class RoomTest {
 
     @Test
     void ensureThatWeAddADeviceToADeviceList() {
+        SensorList sensorList = new SensorList();
         DeviceList deviceList = new DeviceList();
         Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("Room", 1, 2, 3, 4);
+        Room room = new Room("Room", 1, 2, 3, 4, sensorList, deviceList);
         deviceList.addDevice(device);
         room.setDeviceList(deviceList);
         DeviceList deviceList1 = new DeviceList();

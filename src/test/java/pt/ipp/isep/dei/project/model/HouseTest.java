@@ -25,9 +25,11 @@ class HouseTest {
 
     @Test
     void seeIfGetListDevice() {
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device device = new Device("fridge", 5, new Fridge(34,34,65));
         Device device2 = new Device("washing", 5, new WashingMachine(12));
-        Room room1 = new Room("room1", 19, 23456789, 5, 3);
+        Room room1 = new Room("room1", 19, 23456789, 5, 3, sensorList, deviceList);
         room1.addDevice(device);
         room1.addDevice(device2);
         RoomList roomList = new RoomList();
@@ -163,8 +165,10 @@ class HouseTest {
     @Test
     void seeEqualsToDifTypeObject() {
         RoomList roomList = new RoomList();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList()), roomList);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
 
         boolean actualResult = house.equals(room);
         assertFalse(actualResult);
@@ -184,9 +188,11 @@ class HouseTest {
     @Test
     void seeAddRoomToEmptyRoomList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
         boolean result = house.addRoomToRoomList(room);
 
         assertTrue(result);
@@ -195,10 +201,12 @@ class HouseTest {
     @Test
     void seeAddRoomToRoomList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("quarto", 1, 80, 2, 2);
-        Room room2 = new Room("sala", 1, 80, 2, 2);
+        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
+        Room room2 = new Room("sala", 1, 80, 2, 2, sensorList, deviceList);
         house.addRoomToRoomList(room2);
         boolean result = house.addRoomToRoomList(room);
 
@@ -208,12 +216,14 @@ class HouseTest {
     @Test
     void seeAddRoomSameName() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         RoomList rL1 = new RoomList();
         house.setRoomList(rL1);
-        Room room = new Room("quarto", 1, 80, 2, 2);
-        Room room2 = new Room("quarto", 1, 80, 2, 2);
+        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
+        Room room2 = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
         house.addRoomToRoomList(room2);
         boolean result = house.addRoomToRoomList(room);
 
@@ -380,9 +390,10 @@ class HouseTest {
     @Test
     void seeIfGetNominalPowerWorks() {
         //Arrange
-
-        Room r1 = new Room("Kitchen", 0, 12, 30, 10);
-        Room r2 = new Room("Sótão", 3, 30, 40, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("Kitchen", 0, 12, 30, 10, sensorList, deviceList);
+        Room r2 = new Room("Sótão", 3, 30, 40, 12, sensorList, deviceList);
         Device d1 = new Device("WaterHeater1", 30, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device d2 = new Device("Fridge", 50, new Fridge(45,45,56));
         DeviceList deviceList1 = new DeviceList();
@@ -451,14 +462,16 @@ class HouseTest {
     @Test
     public void getDailyHouseConsumptionPerTypeTest() {
         House h1 = new House();
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d1 = new Device("fridgeOne", 12, new Fridge(45,45,65));
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0,  0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        Room r2 = new Room("kitchen", 2, 12, 12, 12);
+        Room r2 = new Room("kitchen", 2, 12, 12, 12, sensorList, deviceList);
         Device d4 = new Device("fridgeTwo", 12, new Fridge(4,5,45));
         Device d5 = new Device("wHeater3", 12, new WaterHeater(300.0, 15.0, 0.9));
         Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0,  0.9));
@@ -474,7 +487,9 @@ class HouseTest {
     @Test
     public void getDailyHouseConsumptionPerTypeTest2() {
         House h1 = new House();
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0,  0.9));
         r1.addDevice(d2);
@@ -491,7 +506,9 @@ class HouseTest {
     @Test
     void getHouseDevicesOfGivenType(){
         House house = new House();
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
         r1.addDevice(d2);
@@ -507,7 +524,9 @@ class HouseTest {
     @Test
     void getDeviceListTest(){
         House house = new House();
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room r1 = new Room("quarto", 1, 12, 12, 12, sensorList, deviceList);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
         Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
         r1.addDevice(d2);

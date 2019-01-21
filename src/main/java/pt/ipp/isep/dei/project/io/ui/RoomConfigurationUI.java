@@ -522,7 +522,7 @@ class RoomConfigurationUI {
     MIGUEL ORTIGAO*/
 
     private void displaySensorListUS250() {
-        SensorList sensorList = mRoom.getmRoomSensorList();
+        SensorList sensorList = mRoom.getSensorList();
         System.out.println(mRoomConfigurationController.buildSensorListString(sensorList));
     }
 

@@ -28,8 +28,10 @@ class EnergyGridSettingsControllerTest {
     void seeIfIndexIsMatchedByString() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("Quarto", 1, 20, 2, 2);
+        Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         EnergyGridList energyGridList = new EnergyGridList();
@@ -48,9 +50,11 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfEnergyGridIsPrintedByIndex() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("Quarto", 1, 20, 2, 2);
+        Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         EnergyGridList energyGridList = new EnergyGridList();
@@ -70,9 +74,11 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfRoomsPrint() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("Quarto", 1, 20, 2, 2);
+        Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(energyGrid1);
@@ -100,9 +106,11 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfRoomIsRemovedFromGrid() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("Quarto", 1, 20, 2, 2);
+        Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         EnergyGridList energyGridList = new EnergyGridList();
@@ -122,8 +130,10 @@ class EnergyGridSettingsControllerTest {
     void seeIfRoomIsRemovedFromGridBreaks() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("Quarto", 1, 20, 2, 2);
+        Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGrid energyGrid2 = new EnergyGrid("EG2", 200);
         EnergyGridList energyGridList = new EnergyGridList();
@@ -141,8 +151,10 @@ class EnergyGridSettingsControllerTest {
     void seeIfEnergyGridPrints() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("Quarto", 1, 20, 2, 2);
+        Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(energyGrid1);
@@ -159,8 +171,10 @@ class EnergyGridSettingsControllerTest {
     void seeIfGridListPrints() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
-        Room room = new Room("Quarto", 1, 20, 2, 2);
+        Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(energyGrid1);
@@ -178,9 +192,11 @@ class EnergyGridSettingsControllerTest {
     @Test
     void ensureThatWeRemoveRoomFromGrid() {
         EnergyGridSettingsController egsc = new EnergyGridSettingsController();
-        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
-        Room room2EdC = new Room("B109", 1, 7, 11, 3.5);
-        Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room2EdC = new Room("B109", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room3EdC = new Room("B106", 1, 7, 13, 3.5, sensorList, deviceList);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
@@ -196,10 +212,12 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void ensureThatWeDoNotRemoveRoomFromGrid() {
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         EnergyGridSettingsController egsc = new EnergyGridSettingsController();
-        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
-        Room room2EdC = new Room("B109", 1, 7, 11, 3.5);
-        Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room2EdC = new Room("B109", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room3EdC = new Room("B106", 1, 7, 13, 3.5, sensorList, deviceList);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
@@ -214,10 +232,12 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void ensureThatWeAddRoomToTheGrid() {
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         EnergyGridSettingsController egsc = new EnergyGridSettingsController();
-        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
-        Room room2EdC = new Room("B109", 1, 7, 11, 3.5);
-        Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room2EdC = new Room("B109", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room3EdC = new Room("B106", 1, 7, 13, 3.5, sensorList, deviceList);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
@@ -230,10 +250,12 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void ensureThatWeDoNotAddRoomToTheGrid() {
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         EnergyGridSettingsController egsc = new EnergyGridSettingsController();
-        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
-        Room room2EdC = new Room("B109", 1, 7, 11, 3.5);
-        Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room2EdC = new Room("B109", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room3EdC = new Room("B106", 1, 7, 13, 3.5, sensorList, deviceList);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
@@ -249,9 +271,11 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfRoomListIsPrintedByHouse() {
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList()), new RoomList());
         RoomList roomList = new RoomList();
-        Room room = new Room("Quarto", 1, 20, 2, 2);
+        Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         roomList.addRoom(room);
         house.setRoomList(roomList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
@@ -265,8 +289,10 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfRoomIndexIsMatchedByString() {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList()), new RoomList());
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
-        Room room = new Room("Quarto", 1, 20, 2, 2);
+        Room room = new Room("Quarto", 1, 20, 2, 2, sensorList, deviceList);
         roomList.addRoom(room);
         house.setRoomList(roomList);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
@@ -278,13 +304,15 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfPrintRoomElementsByIndex() {
         //Arrange
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100),new SensorList());
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -343,7 +371,9 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfPrintRoomWorks() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-        Room room = new Room("quarto1", 1, 2, 2, 2);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("quarto1", 1, 2, 2, 2, sensorList, deviceList);
         String result = ctrl.buildRoomString(room);
         String expectedResult = "quarto1, 1, 2.0, 2.0, 2.0.\n";
         assertEquals(expectedResult, result);
@@ -361,9 +391,11 @@ class EnergyGridSettingsControllerTest {
     @Test
     public void seeIfPrintsRoomList() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
-        Room room2EdC = new Room("B109", 1, 7, 11, 3.5);
-        Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room2EdC = new Room("B109", 1, 7, 11, 3.5, sensorList, deviceList);
+        Room room3EdC = new Room("B106", 1, 7, 13, 3.5, sensorList, deviceList);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
@@ -384,7 +416,9 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfDeviceListPrintsByType() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
         Device d1 = new Device("fridgeOne", 12, new Fridge(4,5,45));
@@ -393,7 +427,6 @@ class EnergyGridSettingsControllerTest {
         d1.setName("uno");
         d2.setName("dos");
         d3.setName("tres");
-        DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
         deviceList.addDevice(d3);
@@ -423,10 +456,11 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfDeviceListPrintsByTypeWithNoDevices() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
-        DeviceList deviceList = new DeviceList();
         room1EdC.setDeviceList(deviceList);
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);

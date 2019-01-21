@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.*;
 
@@ -141,9 +142,11 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAddRoomToHouseWorks() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
-        Room room1 = new Room("quarto", 1, 1, 2, 2);
-        Room room2 = new Room("sala", 1, 1, 2, 2);
+        Room room1 = new Room("quarto", 1, 1, 2, 2, sensorList, deviceList);
+        Room room2 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room1);
         roomList.addRoom(room2);
@@ -158,9 +161,11 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfAddPowerToListSourceFails() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
-        Room room1 = new Room("kitchen", 1, 1, 2, 2);
-        Room room2 = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room2 = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room1);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
@@ -171,17 +176,6 @@ class HouseConfigurationControllerTest {
         boolean result = ctrl.addRoomToHouse(house);
         assertEquals(expectedResult, result);
     }
-
-//    @Test
-//    void seeAddRoomToHouse() {
-//        HouseConfigurationController ctrl = new HouseConfigurationController();
-//        RoomList roomList = new RoomList();
-//        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga, roomList);
-//        boolean result = ctrl.addRoomToHouse(house);
-//        boolean expectedResult = false;
-//        Assertions.assertEquals(expectedResult,result);
-//    }
-
 
     // USER STORY 108
 
@@ -247,9 +241,11 @@ class HouseConfigurationControllerTest {
     @Test
     public void seeIfPrintsRoomList() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);

@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.List;
 
@@ -101,7 +102,9 @@ public class HouseConfigurationController {
      * @param height is the height of the room we're going to create.
      */
     public void createNewRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        this.mRoom = new Room(roomDesignation, roomHouseFloor, width, length, height);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        this.mRoom = new Room(roomDesignation, roomHouseFloor, width, length, height, sensorList, deviceList);
     }
 
     /**

@@ -191,11 +191,11 @@ public class SensorList {
 
     public String buildSensorListString(Room room) {
         StringBuilder result = new StringBuilder(mStringEnhancer);
-        if (room.getmRoomSensorList().getSensorList().isEmpty()) {
+        if (room.getSensorList().getSensorList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < room.getmRoomSensorList().getSensorList().size(); i++) {
-            Sensor aux = room.getmRoomSensorList().getSensorList().get(i);
+        for (int i = 0; i < room.getSensorList().getSensorList().size(); i++) {
+            Sensor aux = room.getSensorList().getSensorList().get(i);
             result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
             result.append("Sensor Type: ").append(aux.getTypeSensor().getName()).append("\n");
         }

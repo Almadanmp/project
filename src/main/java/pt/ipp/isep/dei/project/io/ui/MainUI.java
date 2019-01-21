@@ -23,6 +23,10 @@ public class MainUI {
 
         // ******* MAIN MOCK *******************************************************
 
+        // Empty SensorList and DeviceList to use in Room Constructors
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+
         // Geo List (1)
 
         GeographicAreaList geographicalAreaList = new GeographicAreaList();
@@ -58,9 +62,9 @@ public class MainUI {
         //Rooms
 
         //Edificio B Rooms
-        Room roomISEP1 = new Room("B107", 1, 7, 11, 3.5);
-        Room roomISEP2 = new Room("B109", 1, 7, 11, 3.5);
-        Room roomISEP3 = new Room("B106", 1, 7, 13, 3.5);
+        Room roomISEP1 = new Room("B107", 1, 7, 11, 3.5,sensorList,deviceList);
+        Room roomISEP2 = new Room("B109", 1, 7, 11, 3.5,sensorList,deviceList);
+        Room roomISEP3 = new Room("B106", 1, 7, 13, 3.5,sensorList,deviceList);
         RoomList roomListEdifB = new RoomList();
 
         roomListEdifB.addRoom(roomISEP1);
@@ -231,8 +235,7 @@ public class MainUI {
         listDevices1.addDevice(device6);
         roomISEP3.setDeviceList(listDevices1);
 
-        // ********* MOCKS EXTRA **********************************************
-
+        // DEVICE TYPES
         List<DeviceType> deviceTypeList = new ArrayList<>();
         deviceTypeList.add(DeviceType.FRIDGE);
         deviceTypeList.add(DeviceType.WASHING_MACHINE);
@@ -241,10 +244,10 @@ public class MainUI {
         deviceTypeList.add(DeviceType.LAMP);
 
         // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
-        Room room4 = new Room("room1", 1, 33, 13, 23);
-        Room room5 = new Room("room2", 2, 13, 93, 23);
-        Room room6 = new Room("room3", 2, 73, 43, 23);
-        Room room7 = new Room("room4", 5, 63, 23, 23);
+        Room room4 = new Room("room1", 1, 33, 13, 23, sensorList, deviceList);
+        Room room5 = new Room("room2", 2, 13, 93, 23, sensorList, deviceList);
+        Room room6 = new Room("room3", 2, 73, 43, 23, sensorList, deviceList);
+        Room room7 = new Room("room4", 5, 63, 23, 23, sensorList, deviceList);
         RoomList roomList4 = new RoomList();
         roomList4.addRoom(room4);
         roomList4.addRoom(room5);
@@ -269,9 +272,9 @@ public class MainUI {
         typeAreaListSP2.addTypeArea(urbanArea);
         geographicAreaSP2.setDescription("Campus do ISEP");
         RoomList roomListSP2 = new RoomList();
-        Room b107SP2 = new Room("B107", 1, 7, 11, 3.5);
+        Room b107SP2 = new Room("B107", 1, 7, 11, 3.5, sensorList, deviceList);
         roomListSP2.addRoom(b107SP2);
-        Room b109SP2 = new Room("B109", 1, 7, 11, 3.5);
+        Room b109SP2 = new Room("B109", 1, 7, 11, 3.5, sensorList, deviceList);
         roomListSP2.addRoom(b109SP2);
 
         List<TypeSensor> typeSensorListSP2 = new ArrayList<>();
@@ -390,7 +393,7 @@ public class MainUI {
         deviceListRoomB109SP2.addDevice(washingMachineB109SP2);
         b109SP2.setDeviceList(deviceListRoomB109SP2);
 
-        Room roomB106SP2 = new Room("B106",1,7,13,3.5);
+        Room roomB106SP2 = new Room("B106",1,7,13,3.5, sensorList, deviceList);
         roomListSP2.addRoom(roomB106SP2);
         DeviceList deviceListRoomB106SP2 = new DeviceList();
         Device ehwB106SP2 = new Device("EHW B106",2.2,new WaterHeater(150.0,55.0,0.92));
@@ -480,17 +483,6 @@ public class MainUI {
         EnergyGridList mainGridList = new EnergyGridList();
         mainGridList.addGrid(mainGridSP2);
         houseSP2.setEGList(mainGridList);
-
-
-        // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
-        Room room1 = new Room("room1", 1, 33, 13, 23);
-        Room room2 = new Room("room2", 2, 13, 93, 23);
-        RoomList roomList3 = new RoomList();
-        roomList3.addRoom(room1);
-        roomList3.addRoom(room2);
-        House houseTest = new House("houseRoomDifEG", "Street", "4230", "Porto", new Local(23, 23, 21), isep, roomList3);
-
-
 
 
 

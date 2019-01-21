@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.*;
 
@@ -57,11 +58,13 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfListContainRoomByName() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //Arrange
         //Room
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        Room room2 = new Room("kitchen", 8, 2, 2, 2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
+        Room room2 = new Room("kitchen", 8, 2, 2, 2, sensorList, deviceList);
         roomList1.addRoom(room2);
         roomList1.addRoom(room1);
 
@@ -75,18 +78,14 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfListContainRoomByNameFalse() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        //Arrange
-        //Room
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        Room room2 = new Room("kitchen", 8, 2, 2, 2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
+        Room room2 = new Room("kitchen", 8, 2, 2, 2, sensorList, deviceList);
         roomList1.addRoom(room2);
         roomList1.addRoom(room1);
-
-        //Act
         boolean result = ctrl.doesListContainRoomByName("room2", roomList1);
-
-        //Assert
         assertFalse(result);
     }
 
@@ -94,7 +93,8 @@ public class HouseMonitoringControllerTest {
     public void seeIfSensorListInARoomContainASensorByName() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
-
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //Sensor
         SensorList sensorList2 = new SensorList();
         Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature", "Celsius"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8).getTime());
@@ -104,9 +104,9 @@ public class HouseMonitoringControllerTest {
 
         //Room
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
         room1.setRoomSensorList(sensorList2);
-        Room room2 = new Room("kitchen", 8, 2, 2, 2);
+        Room room2 = new Room("kitchen", 8, 2, 2, 2, sensorList, deviceList);
         room2.setRoomSensorList(sensorList2);
         roomList1.addRoom(room2);
         roomList1.addRoom(room1);
@@ -122,7 +122,8 @@ public class HouseMonitoringControllerTest {
     public void seeIfSensorListInARoomContainASensorByNameFalse() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
-
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //Sensor
         SensorList sensorList2 = new SensorList();
         Sensor sensor1 = new Sensor("sensor", new TypeSensor("temperature", "Celsius"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8).getTime());
@@ -132,9 +133,9 @@ public class HouseMonitoringControllerTest {
 
         //Room
         RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
+        Room room1 = new Room("room1", 19, 23456789, 2, 2, sensorList, deviceList);
         room1.setRoomSensorList(sensorList2);
-        Room room2 = new Room("kitchen", 8, 2, 2, 2);
+        Room room2 = new Room("kitchen", 8, 2, 2, 2, sensorList, deviceList);
         room2.setRoomSensorList(sensorList2);
         roomList1.addRoom(room2);
         roomList1.addRoom(room1);
@@ -145,180 +146,12 @@ public class HouseMonitoringControllerTest {
         //Assert
         assertFalse(result);
     }
-/*
-    @Test
-    public void seeIfGetSumOfReadingInGivenDay() {
-        //Arrange
-        ReadingList rList1 = new ReadingList();
-        GregorianCalendar g0 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r0 = new Reading(5, g0.getTime());
-        Reading r1 = new Reading(25, g1.getTime());
-        rList1.addReading(r0);
-        rList1.addReading(r1);
 
-        ReadingList rList2 = new ReadingList();
-        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r2 = new Reading(1, g2.getTime());
-        Reading r3 = new Reading(20, g3.getTime());
-        rList2.addReading(r2);
-        rList2.addReading(r3);
-
-        ReadingList rList3 = new ReadingList();
-        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r4 = new Reading(1, g4.getTime());
-        Reading r5 = new Reading(20, g5.getTime());
-        rList3.addReading(r4);
-        rList3.addReading(r5);
-
-        ReadingList rList4 = new ReadingList();
-        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r6 = new Reading(1, g6.getTime());
-        Reading r7 = new Reading(30, g7.getTime());
-        rList4.addReading(r6);
-        rList4.addReading(r7);
-
-        ReadingList rList5 = new ReadingList();
-        GregorianCalendar g8 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g9 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r8 = new Reading(1, g8.getTime());
-        Reading r9 = new Reading(15, g9.getTime());
-        rList5.addReading(r8);
-        rList5.addReading(r9);
-
-        ReadingList rList6 = new ReadingList();
-        GregorianCalendar g10 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g11 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r10 = new Reading(5, g10.getTime());
-        Reading r11 = new Reading(25, g11.getTime());
-        rList6.addReading(r10);
-        rList6.addReading(r11);
-
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        GeographicArea ga1 = new GeographicArea("Portugal", t1, 2, 3, l1);
-
-        Sensor s1 = new Sensor("XV1", new TypeSensor("Atmosphere", "multiple units"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("XV2", new TypeSensor("Rain", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s3 = new Sensor("XV3", new TypeSensor("Rain", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s4 = new Sensor("XV4", new TypeSensor("Rain", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s5 = new Sensor("XV5", new TypeSensor("Rain", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        Sensor s6 = new Sensor("XV6", new TypeSensor("Motion", "m/s"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-
-        SensorList slist1 = new SensorList();
-        s1.setReadingList(rList1);
-        s2.setReadingList(rList2);
-        s3.setReadingList(rList3);
-        s4.setReadingList(rList4);
-        s5.setReadingList(rList5);
-        s6.setReadingList(rList6);
-        slist1.addSensor(s1);
-        slist1.addSensor(s2);
-        slist1.addSensor(s3);
-        slist1.addSensor(s4);
-        slist1.addSensor(s5);
-        slist1.addSensor(s6);
-        ga1.setSensorList(slist1);
-        House casa1 = new House();
-
-        //Act
-        double expectedResult = 1;
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        GregorianCalendar cal = new GregorianCalendar(2018, 10, 23);
-        Date dateToTest = cal.getTime();
-        double actualResult = ctrl.getTotalRainfallOnGivenDayHouseArea(casa1, ga1, dateToTest);
-        //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
-    }
-
-*/ /*
-    @Test
-    public void seeIfGetSumOfReadingInGivenDayReturn0() {
-        //In case sensor empty
-        //Arrange ---------------------------------------
-        ReadingList rList1 = new ReadingList();
-        GregorianCalendar g0 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r0 = new Reading(5, g0.getTime());
-        Reading r1 = new Reading(25, g1.getTime());
-        rList1.addReading(r0);
-        rList1.addReading(r1);
-
-        ReadingList rList2 = new ReadingList();
-        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r2 = new Reading(1, g2.getTime());
-        Reading r3 = new Reading(20, g3.getTime());
-        rList2.addReading(r2);
-        rList2.addReading(r3);
-
-        ReadingList rList3 = new ReadingList();
-        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r4 = new Reading(1, g4.getTime());
-        Reading r5 = new Reading(20, g5.getTime());
-        rList3.addReading(r4);
-        rList3.addReading(r5);
-
-        ReadingList rList4 = new ReadingList();
-        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r6 = new Reading(1, g6.getTime());
-        Reading r7 = new Reading(30, g7.getTime());
-        rList4.addReading(r6);
-        rList4.addReading(r7);
-
-        ReadingList rList5 = new ReadingList();
-        GregorianCalendar g8 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g9 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r8 = new Reading(1, g8.getTime());
-        Reading r9 = new Reading(15, g9.getTime());
-        rList5.addReading(r8);
-        rList5.addReading(r9);
-
-        ReadingList rList6 = new ReadingList();
-        GregorianCalendar g10 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g11 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        Reading r10 = new Reading(5, g10.getTime());
-        Reading r11 = new Reading(25, g11.getTime());
-        rList6.addReading(r10);
-        rList6.addReading(r11);
-
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        GeographicArea ga1 = new GeographicArea("Portugal", t1, 2, 3, l1);
-
-        SensorList sList1 = new SensorList();
-        ga1.setSensorList(sList1);
-        //Act -------------------------------------------
-        double expectedResult = 0;
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        GregorianCalendar cal = new GregorianCalendar(2018, 10, 23);
-        Date dateToTest = cal.getTime();
-        House casa1 = new House();
-        double actualResult = ctrl.getTotalRainfallOnGivenDayHouseArea(casa1, ga1, dateToTest);
-        //Assert ----------------------------------------
-        assertEquals(expectedResult, actualResult, 0.001);
-    }
-*/
     @Test
     public void SeeIfGetMaxTemperatureInARoomOnAGivenDay() {
         //Arrange
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
@@ -333,7 +166,7 @@ public class HouseMonitoringControllerTest {
         Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 100), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
@@ -348,6 +181,8 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksNegatives() {
         //Arrange
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         SensorList list = new SensorList();
         TypeSensor type1 = new TypeSensor("temperature", "Celsius");
@@ -362,7 +197,7 @@ public class HouseMonitoringControllerTest {
         Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
@@ -377,6 +212,8 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
         //Arrange -----------------------------------------------------------
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         SensorList list = new SensorList();
         TypeSensor type1 = new TypeSensor("temperature", "Celsius");
@@ -392,7 +229,7 @@ public class HouseMonitoringControllerTest {
         Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
@@ -408,6 +245,8 @@ public class HouseMonitoringControllerTest {
     public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
         //Arrange -----------------------------------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         SensorList list = new SensorList();
         TypeSensor type1 = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -422,7 +261,7 @@ public class HouseMonitoringControllerTest {
         Sensor s1 = new Sensor("sensor1", type1, new Local(1, 1, 100), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
         room.setRoomSensorList(list);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
@@ -438,11 +277,12 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks() {
         //Arrange --------------------------------------------------
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime());
-        SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
@@ -458,11 +298,12 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks2() {
         //Arrange ---------------------------------------------------
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
-        SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
@@ -477,6 +318,8 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetCurrentRoomTemperatureWorks() {
         //Arrange -------------------------------------
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //RoomList
         RoomList roomList = new RoomList();
         SensorList list = new SensorList();
@@ -498,7 +341,7 @@ public class HouseMonitoringControllerTest {
         Sensor s1 = new Sensor("Temp Sensor 1", tipo, new Local(1, 1, 100), new Date());
         s1.setReadingList(listR);
         list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+        Room room = new Room("quarto", 1, 80, 2, 2, sensorList, deviceList);
         room.setRoomSensorList(list);
         roomList.addRoom(room);
         HouseMonitoringController ctrl = new HouseMonitoringController();
@@ -512,6 +355,8 @@ public class HouseMonitoringControllerTest {
     @Test
     public void SeeIfGetCurrentTemperatureInTheHouseAreaWorks() {
         //Arrange -----------------------------------------------
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //RoomList
         RoomList roomList = new RoomList();
@@ -526,7 +371,6 @@ public class HouseMonitoringControllerTest {
         s1.setReadingList(readingList);
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
         s2.setReadingList(readingList);
-        SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         //Geo Area List
@@ -545,6 +389,8 @@ public class HouseMonitoringControllerTest {
     @Test
     public void SeeIfPrintGAWorks() {
         //Arrange -------------------
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
@@ -559,15 +405,16 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfDoesListOfRoomsContainRoomByName() {
         //Arrange ---------------------------------------
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Room List
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 100), new Date(21 / 11 / 2018)));
-        Room r1 = new Room("Cozinha", 1, 123, 2, 2);
+        Room r1 = new Room("Cozinha", 1, 123, 2, 2, sensorList, deviceList);
         r1.setRoomSensorList(sensorList);
-        Room r2 = new Room("Jardim", 1, 123, 2, 2);
+        Room r2 = new Room("Jardim", 1, 123, 2, 2, sensorList, deviceList);
         r2.setRoomSensorList(sensorList);
-        Room r3 = new Room("Quarto", 1, 123, 2, 2);
+        Room r3 = new Room("Quarto", 1, 123, 2, 2, sensorList, deviceList);
         r3.setRoomSensorList(sensorList);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -581,15 +428,16 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfDoesListOfRoomsContainRoomByNameFalse() {
         //Arrange --------------------------------------------
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Room List
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 100), new Date(21 / 11 / 2018)));
-        Room r1 = new Room("Cozinha", 1, 123, 2, 2);
+        Room r1 = new Room("Cozinha", 1, 123, 2, 2, sensorList, deviceList);
         r1.setRoomSensorList(sensorList);
-        Room r2 = new Room("Jardim", 1, 123, 2, 2);
+        Room r2 = new Room("Jardim", 1, 123, 2, 2, sensorList, deviceList);
         r2.setRoomSensorList(sensorList);
-        Room r3 = new Room("Quarto", 1, 123, 2, 2);
+        Room r3 = new Room("Quarto", 1, 123, 2, 2, sensorList, deviceList);
         r3.setRoomSensorList(sensorList);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -603,6 +451,8 @@ public class HouseMonitoringControllerTest {
     @Test
     void seeIfDoesSensorListInARoomContainASensorByName() {
         //Arrange -----------------------------------------
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Sensor List
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
@@ -615,7 +465,7 @@ public class HouseMonitoringControllerTest {
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
         //Room List
-        Room room = new Room("cozinha", 1, 2, 2, 2);
+        Room room = new Room("cozinha", 1, 2, 2, 2, sensorList, deviceList);
         room.setRoomSensorList(sensorList1);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
@@ -628,6 +478,8 @@ public class HouseMonitoringControllerTest {
     @Test
     void seeIfDoesSensorListInARoomContainASensorByNameFalse() {
         //Arrange ----------------------------------------------
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Sensor List
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
@@ -640,7 +492,7 @@ public class HouseMonitoringControllerTest {
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
         //Room List
-        Room room = new Room("cozinha", 1, 2, 2, 2);
+        Room room = new Room("cozinha", 1, 2, 2, 2, sensorList, deviceList);
         room.setRoomSensorList(sensorList1);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
@@ -694,14 +546,15 @@ public class HouseMonitoringControllerTest {
     @Test
     void seeIfMatcSensorIndexByStringWorks() {
         //Arrange -------------------------------------
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
-        SensorList sensorList = new SensorList();
         Sensor s1 = new Sensor("sensor", new TypeSensor("temperatura", "Celsius"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8, 8, 8).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura", "Celsius"), new Local(4, 4, 100), new GregorianCalendar(8, 8, 8, 8, 8).getTime());
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        Room room = new Room("cozinha", 1, 1, 2, 2);
+        Room room = new Room("cozinha", 1, 1, 2, 2, sensorList, deviceList);
         room.setRoomSensorList(sensorList);
         //Act -----------------------------------------
         List<Integer> result = ctrl.matchSensorIndexByString("sensor", room);
@@ -722,10 +575,12 @@ public class HouseMonitoringControllerTest {
     @Test
     void seeIfRoomAreaIndexMatchByString() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //Arrange
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -740,13 +595,15 @@ public class HouseMonitoringControllerTest {
     @Test
     void seeIfPrintRoomElementsByIndex() {
         //Arrange
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -764,11 +621,13 @@ public class HouseMonitoringControllerTest {
     void seeIfPrintSensorElementsByIndex() {
         //Arrange
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         List<Integer> list = new ArrayList<>();
         Integer i = 2;
         list.add(i);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
@@ -793,7 +652,9 @@ public class HouseMonitoringControllerTest {
     @Test
     void ensureThatSensorListIsPrintCorrectly() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("Quarto Miki", 1, 3, 3, 3, sensorList, deviceList);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -816,7 +677,9 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfPrintsRoom() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Room room = new Room("kitchen", 1, 1, 2, 2);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         String expectedResult = "kitchen, 1, 1.0, 2.0, 2.0.\n";
@@ -827,9 +690,11 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfPrintsRoomList() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -846,6 +711,8 @@ public class HouseMonitoringControllerTest {
     public void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
         //Arrange
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 7, 0, 0, 0);
@@ -890,8 +757,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -915,6 +782,8 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetAVGDailyRainfallOnGivenPeriodWorksEmptyReadingList(){
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
         Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
 
@@ -928,8 +797,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -943,6 +812,8 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetAVGDailyRainfallOnGivenPeriodWorksDoubleNan(){
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
         Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
         Reading r1 = new Reading(Double.NaN,d1);
@@ -957,8 +828,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -972,6 +843,8 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNull(){
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
         Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
@@ -982,8 +855,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -997,6 +870,8 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNulo(){
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
         Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
         ReadingList rList = null;
@@ -1009,8 +884,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -1024,6 +899,8 @@ public class HouseMonitoringControllerTest {
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDay() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //Arrange
         ReadingList rl = new ReadingList();
         Reading reading = new Reading(20, new GregorianCalendar(2018, 10, 3).getTime());
@@ -1044,8 +921,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -1060,6 +937,8 @@ public class HouseMonitoringControllerTest {
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDayNull() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //Arrange
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
@@ -1070,8 +949,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -1087,6 +966,8 @@ public class HouseMonitoringControllerTest {
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDay2() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //Arrange
         ReadingList rl = new ReadingList();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
@@ -1099,8 +980,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -1116,6 +997,8 @@ public class HouseMonitoringControllerTest {
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDay3() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //Arrange
         ReadingList readingList = null;
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
@@ -1128,8 +1011,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -1145,6 +1028,8 @@ public class HouseMonitoringControllerTest {
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDay4() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         //Arrange
         ReadingList readingList = new ReadingList();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
@@ -1157,8 +1042,8 @@ public class HouseMonitoringControllerTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1, new SensorList());
         ga.setSensorList(sensorList1);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);

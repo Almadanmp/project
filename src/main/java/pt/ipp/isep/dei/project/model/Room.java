@@ -24,17 +24,17 @@ public class Room implements Metered {
     private DeviceList mDeviceList;
 
 
-    public Room(String name, int houseFloor, double width, double length, double height) {
+    public Room(String name, int houseFloor, double width, double length, double height, SensorList sensorList, DeviceList deviceList) {
         setRoomName(name);
         setRoomHouseFloor(houseFloor);
         setRoomWidth(width);
         setRoomLength(length);
         setRoomHeight(height);
-        this.mRoomSensorList = new SensorList();
-        this.mDeviceList = new DeviceList();
+        setRoomSensorList(sensorList);
+        setDeviceList(deviceList);
     }
 
-    public SensorList getmRoomSensorList() {
+    public SensorList getSensorList() {
         return mRoomSensorList;
     }
 

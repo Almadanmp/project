@@ -31,8 +31,10 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfRoomIsContainedInRoomList() {
         //Arrange
-        Room room1 = new Room("Quarto", 1, 5, 1, 21);
-        Room room2 = new Room("Cozinha", 1, 9, 3, 5);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room1 = new Room("Quarto", 1, 5, 1, 21, sensorList, deviceList);
+        Room room2 = new Room("Cozinha", 1, 9, 3, 5, sensorList, deviceList);
         RoomList rList = new RoomList();
         House house1 = new House();
         house1.setRoomList(rList);
@@ -49,8 +51,10 @@ class RoomConfigurationControllerTest {
     void seeIfPrintsRoomList() {
         //Arrange
         GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -69,7 +73,9 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintRoomWorks() {
         //Arrange
-        Room room = new Room("room1", 1, 1, 2, 2);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("room1", 1, 1, 2, 2, sensorList, deviceList);
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
         String actualResult = ctrl.buildRoomString(room);
@@ -85,8 +91,10 @@ class RoomConfigurationControllerTest {
         Integer i = 1;
         list.add(i);
         GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -106,8 +114,10 @@ class RoomConfigurationControllerTest {
         Integer i = 1;
         list.add(i);
         GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
+        Room room1 = new Room("sala", 1, 1, 2, 2, sensorList, deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -127,7 +137,9 @@ class RoomConfigurationControllerTest {
     @Test
     void seeRoomWithoutDevicesNominalPower() {
         //ARRANGE
-        Room room1 = new Room("room1", 19, 5, 3, 3);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room1 = new Room("room1", 19, 5, 3, 3, sensorList, deviceList);
         double expectedResult = 0;
         RoomConfigurationController ctrl = new RoomConfigurationController();
         //ACT
@@ -139,15 +151,16 @@ class RoomConfigurationControllerTest {
     @Test
     void seeGetRoomNominalPower() {
         //ARRANGE
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Fridge f1 = new Fridge(4,4,56);
         Device d1 = new Device("d1", 12, f1);
         Device d2 = new Device("d2", 10, f1);
         Device d3 = new Device("d3", 1, f1);
-        DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
         deviceList.addDevice(d3);
-        Room room1 = new Room("room1", 19, 5, 3, 3);
+        Room room1 = new Room("room1", 19, 5, 3, 3, sensorList, deviceList);
         room1.setDeviceList(deviceList);
         double expectedResult = 23;
         RoomConfigurationController ctrl = new RoomConfigurationController();
@@ -364,12 +377,14 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDeviceElementsByIndex() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
         Device d1 = new Device("frigorifico", 200, new Fridge(5,4,56));
         Device d2 = new Device("maquina de lavar", 150, new WashingMachine(1));
-        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         dlist.addDevice(d2);
@@ -387,8 +402,10 @@ class RoomConfigurationControllerTest {
     void SeeIfMatchDeviceIndexByStringWorks() {
         //Arrange
         RoomConfigurationController ctrl = new RoomConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device d1 = new Device("frigorifico", 200, new Fridge(4,5,45));
-        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         room.setDeviceList(dlist);
@@ -402,8 +419,10 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device d1 = new Device("frigorifico", 200, new Fridge(4,6,56));
-        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         room.setDeviceList(dlist);
@@ -415,8 +434,10 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDeviceList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device d1 = new Device("frigorifico", 200, new Fridge(5,7,56));
-        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room = new Room("kitchen", 1, 1, 2, 2, sensorList, deviceList);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         room.setDeviceList(dlist);
@@ -431,7 +452,9 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfSensorIsAddedToRoom() {
         //Arrange
-        Room room1 = new Room("Quarto", 1, 5, 1, 21);
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
+        Room room1 = new Room("Quarto", 1, 5, 1, 21, sensorList, deviceList);
         Sensor sensor1 = new Sensor("coiso", new TypeSensor("rain", "mm"), new GregorianCalendar(2, 3, 4).getTime());
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
@@ -496,8 +519,10 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfAddDeviceToRoom() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
+        Room room = new Room("cozinha", 1, 1, 1, 1, sensorList, deviceList);
         ctrl.setDeviceName("daniel", device);
         ctrl.addDeviceToRoom(room, device);
         ctrl.setNominalPower(123.0, device);
@@ -512,9 +537,11 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfRemoveDeviceFromRoomWorks() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Device device1 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
+        Room room = new Room("cozinha", 1, 1, 1, 1, sensorList, deviceList);
         room.addDevice(device);
         room.addDevice(device1);
         ctrl.removeDeviceFromRoom(room, device1);
@@ -529,8 +556,10 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfSetParentRoomWorks() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
+        SensorList sensorList = new SensorList();
+        DeviceList deviceList = new DeviceList();
         Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
+        Room room = new Room("cozinha", 1, 1, 1, 1, sensorList, deviceList);
         ctrl.addDeviceToRoom(room, device);
         String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
