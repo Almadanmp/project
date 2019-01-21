@@ -48,7 +48,6 @@ class RoomConfigurationUI {
     }
 
     void run(House house, List<DeviceType> deviceTypeList, List<TypeSensor> typeSensorList) {
-        UtilsUI utilsUI = new UtilsUI();
         this.mHouse = house;
         List<Room> roomList = mHouse.getRoomList();
         if (roomList == null || roomList.isEmpty()) {
@@ -68,8 +67,7 @@ class RoomConfigurationUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1: //US201
-                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                    printRoomDeviceList();
+                    runUS201();
                     activeInput = false;
                     break;
                 case 2: //US210
@@ -81,13 +79,11 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 4: //US230
-                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                    getRoomNominalPower();
+                    runUS230();
                     activeInput = false;
                     break;
                 case 5: //US250
-                    this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-                    displaySensorListUS250();
+                    runUS250();
                     activeInput = false;
                     break;
                 case 6: //US253
@@ -147,6 +143,11 @@ class RoomConfigurationUI {
      * <p>
      * Prints device List in that room.
      */
+    private void runUS201(){
+        InputUtils inputUtils = new InputUtils();
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        printRoomDeviceList();
+    }
     private void printRoomDeviceList() {
         System.out.println("Available Devices in Room " + mRoom.getRoomName());
         System.out.println(mRoomConfigurationController.buildDeviceListString(mRoom));
@@ -508,6 +509,11 @@ class RoomConfigurationUI {
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
     nominal power of a room, i.e. the sum of the nominal power of all devices in the
     room. - TERESA VARELA*/
+    private void runUS230(){
+        InputUtils inputUtils = new InputUtils();
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        getRoomNominalPower();
+    }
 
     private void getRoomNominalPower() {
         if (this.mRoom != null) {
@@ -519,6 +525,11 @@ class RoomConfigurationUI {
 
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
+    private void runUS250(){
+        InputUtils inputUtils = new InputUtils();
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        displaySensorListUS250();
+    }
 
     private void displaySensorListUS250() {
         SensorList sensorList = mRoom.getSensorList();

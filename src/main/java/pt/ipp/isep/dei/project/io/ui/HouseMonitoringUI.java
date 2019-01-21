@@ -44,43 +44,24 @@ public class HouseMonitoringUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    if (getInputRoomByList()) {
-                        return;
-                    }
-                    if (getInputSensorByList()) {
-                        return;
-                    }
-                    getInputStartDate();
-                    updateModel610(programHouse);
-                    displayState610();
+                    runUS610(programHouse);
                     activeInput = true;
                     break;
 
                 case 2:
-                    if (getInputRoomByList()) {
-                        return;
-                    }
-                    if (getInputSensorByList()) {
-                        return;
-                    }
-                    updateModel605();
-                    displayState605();
+                    runUS605();
                     activeInput = true;
                     break;
                 case 3:
-                    updateModel600(programHouse);
-                    displayState600(programHouse);
+                    runUS600(programHouse);
                     activeInput = true;
                     break;
                 case 4:
-                    getInputStartDateWithValidSensorList(programHouse);
-                    updateAndDisplayModelUS620(programHouse);
+                    runUS620(programHouse);
                     activeInput = true;
                     break;
                 case 5:
-                    getInputStartDateWithValidSensorList(programHouse);
-                    getInputEndDate623(programHouse);
-                    updateAndDisplayUS623(programHouse);
+                    runUS623(programHouse);
                     activeInput = true;
                     break;
                 case 0:
@@ -133,45 +114,6 @@ public class HouseMonitoringUI {
         }
     }
 
-    private void getInputStartDate() {
-        InputUtils inputUtils = new InputUtils();
-        Scanner scan = new Scanner(System.in);
-
-        this.dataYear1 = inputUtils.getInputDateAsInt(scan, "year");
-        scan.nextLine();
-
-        this.dataMonth1 = inputUtils.getInputDateAsInt(scan, "month") - 1;
-        scan.nextLine();
-
-        this.dataDay1 = inputUtils.getInputDateAsInt(scan, "day");
-
-        System.out.println("You entered the date successfully!");
-        scan.nextLine();
-    }
-
-    private void getInputEndDate623(House house){
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
-            return;
-        }
-        getInputEndDate();
-    }
-
-
-    private void getInputEndDate() {
-        InputUtils inputUtils = new InputUtils();
-        Scanner scan = new Scanner(System.in);
-
-        this.dataYear2 = inputUtils.getInputDateAsInt(scan, "year");
-        scan.nextLine();
-
-        this.dataMonth2 = inputUtils.getInputDateAsInt(scan, "month") - 1;
-        scan.nextLine();
-
-        this.dataDay2 = inputUtils.getInputDateAsInt(scan, "day");
-
-        System.out.println("You entered the date successfully!");
-        scan.nextLine();
-    }
 
     /**
      * US600
@@ -180,6 +122,11 @@ public class HouseMonitoringUI {
      * includes the house, there is more than one temperature sensor, the nearest one
      * should be used.
      */
+    private void runUS600(House house){
+        updateModel600(house);
+        displayState600(house);
+
+    }
     private void updateModel600(House house) {
         if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
             System.out.println("The Geographic Area in which this House is inserted doesn't have a valid Sensor List.");
@@ -199,7 +146,17 @@ public class HouseMonitoringUI {
      * US605 As a Regular User, I want to get the current temperature in a room, in order to check
      * if it meets my personal comfort requirements.
      */
+    private void runUS605(){
+        if (getInputRoomByList()) {
+            return;
+        }
+        if (getInputSensorByList()) {
+            return;
+        }
+        updateModel605();
+        displayState605();
 
+    }
     private void updateModel605() {
         out.print("The room is " + this.mRoom.getRoomName() + " and the Temperature Sensor is " +
                 this.mSensor.getName() + "\n");
@@ -214,6 +171,18 @@ public class HouseMonitoringUI {
     /**
      * US610 - CARINA ALAS
      */
+    private void runUS610(House house){
+        if (getInputRoomByList()) {
+            return;
+        }
+        if (getInputSensorByList()) {
+            return;
+        }
+        getInputStartDate();
+        updateModel610(house);
+        displayState610();
+
+    }
     private void updateModel610(House house) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
@@ -238,9 +207,32 @@ public class HouseMonitoringUI {
         getInputStartDate();
     }
 
+    private void getInputStartDate() {
+        InputUtils inputUtils = new InputUtils();
+        Scanner scan = new Scanner(System.in);
+
+        this.dataYear1 = inputUtils.getInputDateAsInt(scan, "year");
+        scan.nextLine();
+
+        this.dataMonth1 = inputUtils.getInputDateAsInt(scan, "month") - 1;
+        scan.nextLine();
+
+        this.dataDay1 = inputUtils.getInputDateAsInt(scan, "day");
+
+        System.out.println("You entered the date successfully!");
+        scan.nextLine();
+    }
+
+
+
     /**
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
+    private void runUS620(House house){
+        getInputStartDateWithValidSensorList(house);
+        updateAndDisplayModelUS620(house);
+    }
+
     private void updateAndDisplayModelUS620(House house) {
         if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null){
             return;
@@ -263,6 +255,36 @@ public class HouseMonitoringUI {
      * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
+    private void runUS623(House house){
+        getInputStartDateWithValidSensorList(house);
+        getInputEndDate623(house);
+        updateAndDisplayUS623(house);
+    }
+
+    private void getInputEndDate623(House house){
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
+            return;
+        }
+        getInputEndDate();
+    }
+
+    private void getInputEndDate() {
+        InputUtils inputUtils = new InputUtils();
+        Scanner scan = new Scanner(System.in);
+
+        this.dataYear2 = inputUtils.getInputDateAsInt(scan, "year");
+        scan.nextLine();
+
+        this.dataMonth2 = inputUtils.getInputDateAsInt(scan, "month") - 1;
+        scan.nextLine();
+
+        this.dataDay2 = inputUtils.getInputDateAsInt(scan, "day");
+
+        System.out.println("You entered the date successfully!");
+        scan.nextLine();
+    }
+
+
     private void updateAndDisplayUS623(House house) {
         if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null){
             return;

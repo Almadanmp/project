@@ -25,7 +25,6 @@ class HouseConfigurationUI {
 
     void run(House house) {
         InputUtils inputUtils = new InputUtils();
-        UtilsUI utilsUI = new UtilsUI();
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -36,21 +35,16 @@ class HouseConfigurationUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    getInputHouseCharacteristicsUS101();
-                    updateHouseUS101(house);
-                    displayHouseUS101(house);
+                    runUS101(house);
                     activeInput = false;
                     break;
 
                 case 2:
-                    getInputRoomCharacteristics();
-                    updateInputRoom();
-                    displayStateRoom();
-                    updateRoomAndDisplayState(house);
+                    runUS105(house);
                     activeInput = false;
                     break;
                 case 3:
-                    printRoomList(house);
+                    runUS108(house);
                     activeInput = false;
                     break;
                 case 0:
@@ -106,6 +100,12 @@ class HouseConfigurationUI {
 
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
+    private void runUS101(House house){
+        getInputHouseCharacteristicsUS101();
+        updateHouseUS101(house);
+        displayHouseUS101(house);
+    }
+
     private void getInputHouseCharacteristicsUS101() {
 
         Scanner scanner = new Scanner(System.in);
@@ -175,6 +175,12 @@ class HouseConfigurationUI {
 
     // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
+    private void runUS105(House house){
+        getInputRoomCharacteristics();
+        updateInputRoom();
+        displayStateRoom();
+        updateRoomAndDisplayState(house);
+    }
 
     /**
      * Method creates a new room with the parameters previously provided by the user.
@@ -224,6 +230,9 @@ class HouseConfigurationUI {
 
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
     * - MARIA MEIRELES, TERESA VARELA */
+    private void runUS108(House house){
+        printRoomList(house);
+    }
 
     private void printRoomList(House house) {
         System.out.println(controller.buildRoomsString(house));

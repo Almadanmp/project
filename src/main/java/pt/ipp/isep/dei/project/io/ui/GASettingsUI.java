@@ -42,38 +42,28 @@ class GASettingsUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    getInputUS01(programTypeAreaList);
-                    updateModelUS01(programTypeAreaList);
-                    displayStateUS01(programTypeAreaList);
+                    runUS01(programTypeAreaList);
                     activeInput = false;
                     break;
 
                 case 2:
-                    updateAndDisplayUS02(programTypeAreaList);
+                    runUS02(programTypeAreaList);
                     activeInput = false;
                     break;
                 case 3:
-                    getAreaInputUS03(programGAList, programTypeAreaList);
-                    updateGeoAreaUS03(programGAList, programTypeAreaList);
-                    displayStateUS03(programGAList, programTypeAreaList);
+                    runUS03(programGAList, programTypeAreaList);
                     activeInput = false;
                     break;
                 case 4:
-                    mTypeArea = getInputTypeAreaByList(programTypeAreaList);
-                    mGeoAreaList = matchGAByTypeArea(programGAList);
-                    displayGAListByTypeArea(programGAList);
+                    runUS04(programGAList, programTypeAreaList);
                     activeInput = false;
                     break;
                 case 5:
-                    getInputDaughterGA(programGAList);
-                    updateStateUS07(programGAList);
-                    displayStateUS07(programGAList);
+                    runUS07(programGAList);
                     activeInput = false;
                     break;
                 case 6:
-                    getContainerArea(programGAList);
-                    getContainedArea(programGAList);
-                    checkIfContained(programGAList);
+                    runUS08(programGAList);
                     activeInput = false;
                     break;
                 case 0:
@@ -114,6 +104,11 @@ class GASettingsUI {
 
     /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
      classification of geographical areas.*/
+    private void runUS01(TypeAreaList typeAreaList){
+        getInputUS01(typeAreaList);
+        updateModelUS01(typeAreaList);
+        displayStateUS01(typeAreaList);
+    }
 
     private void getInputUS01(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
@@ -149,6 +144,10 @@ class GASettingsUI {
 
     /* USER STORY 002 - As a System Administrator I want to obtain a list of the types of Geographical Areas previously stated.
      * Class responsible for presenting the list. - NUNO AZEVEDO */
+    private void runUS02(TypeAreaList typeAreaList){
+        updateAndDisplayUS02(typeAreaList);
+    }
+
     private void updateAndDisplayUS02(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
         if (utils.typeAreaIsValid(typeAreaList)) {
@@ -161,6 +160,12 @@ class GASettingsUI {
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
+    private void runUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList){
+        getAreaInputUS03(geographicAreaList, typeAreaList);
+        updateGeoAreaUS03(geographicAreaList, typeAreaList);
+        displayStateUS03(geographicAreaList, typeAreaList);
+    }
+
     private void getAreaInputUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         getInputTypeAreaByList(typeAreaList);
         UtilsUI utils = new UtilsUI();
@@ -233,6 +238,11 @@ class GASettingsUI {
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
+    private void runUS04(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList){
+        mTypeArea = getInputTypeAreaByList(typeAreaList);
+        mGeoAreaList = matchGAByTypeArea(geographicAreaList);
+        displayGAListByTypeArea(geographicAreaList);
+    }
 
     private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList) {
         UtilsUI utils = new UtilsUI();
@@ -263,6 +273,12 @@ class GASettingsUI {
     }
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */
+    private void runUS07(GeographicAreaList geographicAreaList){
+        getInputDaughterGA(geographicAreaList);
+        updateStateUS07(geographicAreaList);
+        displayStateUS07(geographicAreaList);
+    }
+
     private void getInputMotherGA(GeographicAreaList programGAList) {
         UtilsUI utils = new UtilsUI();
         if (utils.geographicAreaListIsValid(programGAList)) {
@@ -340,6 +356,11 @@ class GASettingsUI {
 
     /* US08 - As an Administrator, I want to find out if a geographical area is included, directly
     or indirectly, in another one. */
+    private void runUS08(GeographicAreaList geographicAreaList){
+        getContainerArea(geographicAreaList);
+        getContainedArea(geographicAreaList);
+        checkIfContained(geographicAreaList);
+    }
 
     /**
      * getInputGeographicContainer()
