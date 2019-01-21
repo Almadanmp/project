@@ -436,7 +436,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(20, 20, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -456,7 +456,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20,5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -476,7 +476,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(30, 30, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -496,7 +496,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -516,7 +516,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 10,5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -536,7 +536,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20,5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(30, 10,5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -556,7 +556,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(35, 20, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -576,7 +576,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-35, 20,5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -596,7 +596,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(100, 100, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -616,7 +616,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(20, -35, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -636,7 +636,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, -5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -658,7 +658,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(0, 40,5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(10, 30, 5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -678,7 +678,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(40, 40, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(30, 30, 5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -698,7 +698,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(0, 40, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(10, 30, 5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -718,7 +718,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(0, 0, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(10, 10,5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -738,7 +738,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(40, 0,5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(30, 10,5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -758,7 +758,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(50, 20, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(35, 20, 5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -778,7 +778,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(-90, 20, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(-35, 20,5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -798,7 +798,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(180, 180, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(100, 100, 5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -818,7 +818,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(20, -90, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(20, -35, 5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -838,7 +838,7 @@ import static org.junit.jupiter.api.Assertions.*;
          //Arrange
          TypeArea t1 = new TypeArea("Pantano");
          Local l1 = new Local(-30, -30, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1, new SensorList());
          TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
          Local loc1 = new Local(-5, -5, -5);
          Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -931,7 +931,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @Test
     void ensureThatWeGetDistanceToHouse() {
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6,6),new GeographicArea(),new RoomList());
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6,6),new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList()),new RoomList());
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, -5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();

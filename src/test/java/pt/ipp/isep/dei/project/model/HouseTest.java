@@ -41,7 +41,7 @@ class HouseTest {
 
     @Test
     void seeDistanceToSensor() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
         Sensor s = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 5, 5), new GregorianCalendar(2018, 10, 1).getTime());
@@ -57,7 +57,7 @@ class HouseTest {
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 2, 3, new Local(4, 5, 50));
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         ga.setSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         double result = house.getMinDistanceFromHouseToSensor(ga);
@@ -76,7 +76,7 @@ class HouseTest {
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
         sensorList.addSensor(s4);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 2, 3, new Local(4, 5, 50));
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         ga.setSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         double result = house.getMinDistanceFromHouseToSensor(ga);
@@ -85,7 +85,7 @@ class HouseTest {
 
     @Test
     void ensureThatWeGetAltitude() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 2, 3, new Local(4, 5, 50));
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);
         house.setLocation(23, 43, 4);
@@ -102,7 +102,7 @@ class HouseTest {
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 2, 3, new Local(4, 5, 50));
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         ga.setSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house, "temperature");
@@ -111,7 +111,7 @@ class HouseTest {
 
     @Test
     void seeSensorMinDistanceIfGAHasNoSensors() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 2, 3, new Local(4, 5, 50));
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         SensorList sensorList1 = new SensorList();
         ga.setSensorList(sensorList1);
@@ -127,7 +127,7 @@ class HouseTest {
 
     @Test
     void seeEqualToEqualObject() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         House house2 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
@@ -139,7 +139,7 @@ class HouseTest {
 
     @Test
     void seeEqualToSameObject() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
 
@@ -150,7 +150,7 @@ class HouseTest {
 
     @Test
     void seeEqualsToDifObject() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         House house2 = new House("casa de campo", "Rua do Sol", "4516", "Porto", new Local(4, 5, 50), ga, roomList);
@@ -163,7 +163,7 @@ class HouseTest {
     @Test
     void seeEqualsToDifTypeObject() {
         RoomList roomList = new RoomList();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea(), roomList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList()), roomList);
         Room room = new Room("quarto", 1, 80, 2, 2);
 
         boolean actualResult = house.equals(room);
@@ -172,7 +172,7 @@ class HouseTest {
 
     @Test
     void seeEqualsToNullObject() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
 
@@ -183,7 +183,7 @@ class HouseTest {
 
     @Test
     void seeAddRoomToEmptyRoomList() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         Room room = new Room("quarto", 1, 80, 2, 2);
@@ -194,7 +194,7 @@ class HouseTest {
 
     @Test
     void seeAddRoomToRoomList() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         Room room = new Room("quarto", 1, 80, 2, 2);
@@ -207,7 +207,7 @@ class HouseTest {
 
     @Test
     void seeAddRoomSameName() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         RoomList rL1 = new RoomList();
@@ -222,7 +222,7 @@ class HouseTest {
 
     @Test
     void seeIfRecognizesEmptyGridList() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         EnergyGridList energyGridList = new EnergyGridList();
@@ -234,7 +234,7 @@ class HouseTest {
 
     @Test
     void seePrintedGridList() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, roomList);
         EnergyGrid eg1 = new EnergyGrid("Rede", 444);
@@ -253,7 +253,7 @@ class HouseTest {
 
     @Test
     void seeSetId() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "Casa do Porto";
@@ -269,7 +269,7 @@ class HouseTest {
 
     @Test
     void seeSetStreet() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "Rua da Praia";
@@ -285,7 +285,7 @@ class HouseTest {
 
     @Test
     void seeSetZipCode() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "6327-09";
@@ -301,7 +301,7 @@ class HouseTest {
 
     @Test
     void seeSetTown() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         //Arrange
         String expectedResult = "Lisboa";
@@ -317,7 +317,7 @@ class HouseTest {
 
     @Test
     void seeSetHouseLocation() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         //Arrange
         Local expectedResult = new Local(7, 78, 50);
@@ -334,7 +334,7 @@ class HouseTest {
 
     @Test
     void seeSetHouseLocation2() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         //Arrange
         Local expectedResult = new Local(5, 35, 34);
@@ -356,16 +356,16 @@ class HouseTest {
     void seeSetMotherArea() {
         //Arrange
 
-        GeographicArea expectedResult = new GeographicArea();
+        GeographicArea expectedResult = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         expectedResult.setId("Porto");
         expectedResult.setLocal(new Local(2, 3, 4));
         expectedResult.setTypeArea(new TypeArea("Cidade"));
-        GeographicArea ga1 = new GeographicArea();
+        GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         ga1.setId("Porto");
         ga1.setLocal(new Local(2, 3, 4));
         ga1.setTypeArea(new TypeArea("Cidade"));
 
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
 
@@ -407,7 +407,7 @@ class HouseTest {
 
     @Test
     void seeSetEnergyGridList() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         EnergyGridList energyGridList = new EnergyGridList();
         EnergyGrid eg = new EnergyGrid("main grid", 25);
@@ -428,7 +428,7 @@ class HouseTest {
     @Test
     void seePrintHouse() {
         //ARRANGE
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
         String expectedResult = "casa de praia, Rua das Flores, 4512, Porto.\n";
@@ -440,7 +440,7 @@ class HouseTest {
 
     @Test
     public void hashCodeDummyTest() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, roomList);
         int expectedResult = 1;

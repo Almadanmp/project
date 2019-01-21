@@ -11,7 +11,7 @@ public class WashingMachine implements DeviceSpecs {
 
     private double mCapacity;
     private ProgramList mProgramList;
-    
+
     public WashingMachine(double capacity) {
         this.mCapacity = capacity;
         mProgramList = new ProgramList();

@@ -184,7 +184,7 @@ public class RoomListTest {
 
     @Test
     public void seeIfPrintsRoomList() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
@@ -201,7 +201,7 @@ public class RoomListTest {
 
     @Test
     public void seeIfPrintsInvalidList() {
-        GeographicArea ga = new GeographicArea();
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
         RoomList roomList = new RoomList();
 
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, roomList);

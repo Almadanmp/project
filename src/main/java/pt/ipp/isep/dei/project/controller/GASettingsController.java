@@ -106,7 +106,7 @@ public class GASettingsController {
      */
 
     public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, double latitude, double longitude, double altitude, double length, double width) {
-        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea.getTypeOfGeographicArea()), length, width, new Local(latitude, longitude, altitude));
+        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea.getTypeOfGeographicArea()), length, width, new Local(latitude, longitude, altitude), new SensorList());
         return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
     }
 
