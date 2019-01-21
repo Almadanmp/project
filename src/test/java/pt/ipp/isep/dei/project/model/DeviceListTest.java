@@ -36,7 +36,7 @@ class DeviceListTest {
         double tP1 = 50;
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device();
+        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         deviceL1.addDevice(d1);
         //Act
         Boolean actualResult = deviceL1.addDevice(d1);
@@ -87,7 +87,7 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device();
+        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         deviceL1.addDevice(d1);
         //Act ------------------------------
         boolean result = deviceL1.containsDevice(d1);
@@ -112,7 +112,7 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device();
+        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         //Act ------------------------------
         boolean result = deviceL1.containsDevice(d1);
         //Assert ---------------------------
@@ -136,7 +136,7 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device();
+        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         deviceL1.addDevice(d1);
         //Act ----------------------------
         deviceL1.removeDevice(d1);
@@ -162,7 +162,7 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device();
+        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         deviceL1.addDevice(d1);
         //Act ----------------------------
         boolean result = deviceL1.containsDevice(d1);
@@ -187,7 +187,7 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device();
+        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         deviceL1.addDevice(d1);
         //Act ----------------------------------
         boolean result = deviceL1.checkIfListIsValid();
@@ -280,10 +280,10 @@ class DeviceListTest {
     void ensureThatAObjectIsAInstanceOf() {
         //Arrange
         DeviceList dList1 = new DeviceList();
-        Device device1 = new Device();
+        Device device1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         dList1.addDevice(device1);
         DeviceList dList2 = new DeviceList();
-        Device device2 = new Device();
+        Device device2 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         dList2.addDevice(device2);
         //Act
         Boolean actualResult = dList1.equals(dList1);
@@ -296,7 +296,7 @@ class DeviceListTest {
     void ensureThatAObjectIsAInstanceOf2() {
         //Arrange
         DeviceList dList1 = new DeviceList();
-        Device device1 = new Device();
+        Device device1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         dList1.addDevice(device1);
         DeviceList dList2 = new DeviceList();
         dList2.addDevice(device1);
@@ -310,7 +310,7 @@ class DeviceListTest {
     void ensureThatAObjectIsAInstanceOf3() {
         //Arrange
         DeviceList dList1 = new DeviceList();
-        Device device1 = new Device();
+        Device device1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         dList1.addDevice(device1);
         //Act
         boolean actualResult = dList1.equals(device1);
@@ -323,8 +323,8 @@ class DeviceListTest {
         //Arrange
         DeviceList dList1 = new DeviceList();
         DeviceList dList2 = new DeviceList();
-        Device device1 = new Device();
-        Device device2 = new Device();
+        Device device1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device device2 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
         dList1.addDevice(device1);
         dList2.addDevice(device2);
         //Act
