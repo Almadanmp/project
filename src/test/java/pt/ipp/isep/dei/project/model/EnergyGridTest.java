@@ -220,7 +220,7 @@ class EnergyGridTest {
     @Test
     void seeIfPrintDevicesWorks(){
         Device d1 = new Device("Fridge", 21, new Fridge());
-        Device d2 = new Device("WashingMachine", 30, new WashingMachine());
+        Device d2 = new Device("WashingMachine", 30, new WashingMachine(23));
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);

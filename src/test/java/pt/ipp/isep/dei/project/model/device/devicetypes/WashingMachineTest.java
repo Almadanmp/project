@@ -18,7 +18,7 @@ class WashingMachineTest {
 
     @Test
     void getTypeTest() {
-        WashingMachine washingMachine = new WashingMachine();
+        WashingMachine washingMachine = new WashingMachine(12);
         DeviceType expectedResult = DeviceType.WASHING_MACHINE;
         DeviceType result = washingMachine.getType();
         assertEquals(expectedResult, result);
@@ -26,7 +26,7 @@ class WashingMachineTest {
 
     @Test
     void getConsumptionTest() {
-        WashingMachine washingMachine = new WashingMachine();
+        WashingMachine washingMachine = new WashingMachine(12);
         double expectedResult = 0;
         double result = washingMachine.getConsumption();
         assertEquals(expectedResult, result);
@@ -84,8 +84,8 @@ class WashingMachineTest {
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = new ProgramList();
         listProgram.addProgram(program1);
-        WashingMachine washingMachine = new WashingMachine();
-        double expectedResult = 0.0;
+        WashingMachine washingMachine = new WashingMachine(34);
+        double expectedResult = 34.0;
         Object result = washingMachine.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
     }
@@ -100,9 +100,9 @@ class WashingMachineTest {
 
     @Test
     void setAttributeValueTestCapacity2() {
-        WashingMachine washingMachine = new WashingMachine();
+        WashingMachine washingMachine = new WashingMachine(23);
         Object result = washingMachine.getAttributeValue("capacity");
-        assertEquals(0.0, result);
+        assertEquals(23.0, result);
     }
 
     @Test

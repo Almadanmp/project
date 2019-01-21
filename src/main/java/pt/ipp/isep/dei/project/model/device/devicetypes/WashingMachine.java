@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
-import pt.ipp.isep.dei.project.model.device.Programmable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,17 +11,13 @@ public class WashingMachine implements DeviceSpecs {
 
     private double mCapacity;
     private ProgramList mProgramList;
-
-    public WashingMachine(){
-        mProgramList=new ProgramList();
-    }
-
+    
     public WashingMachine(double capacity) {
         this.mCapacity = capacity;
-        mProgramList=new ProgramList();
+        mProgramList = new ProgramList();
     }
 
-    public WashingMachine(double capacity,ProgramList programList) {
+    public WashingMachine(double capacity, ProgramList programList) {
         this.mCapacity = capacity;
         mProgramList = programList;
     }
@@ -42,8 +37,6 @@ public class WashingMachine implements DeviceSpecs {
     public void setCapacity(double capacity) {
         this.mCapacity = capacity;
     }
-
-
 
 
     public List<String> getAttributeNames() {

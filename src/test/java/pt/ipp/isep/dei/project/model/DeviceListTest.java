@@ -234,7 +234,7 @@ class DeviceListTest {
         Integer i = 1;
         list.add(i);
         Device d1 = new Device("frigorifico", 200, new Fridge());
-        Device d2 = new Device("maquina de lavar", 150, new WashingMachine());
+        Device d2 = new Device("maquina de lavar", 150, new WashingMachine(34));
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         dlist.addDevice(d2);
