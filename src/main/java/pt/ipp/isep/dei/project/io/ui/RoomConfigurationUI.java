@@ -130,11 +130,9 @@ class RoomConfigurationUI {
     private void runUS253( List<TypeSensor> typeSensorList){
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
-        if (getInputTypeFromTypeListByList(typeSensorList)) {
-            return;
-        }
+        TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
         getInput253();
-        updateAndDisplay253();
+        updateAndDisplay253(typeSensor);
     }
     /**
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
@@ -542,7 +540,7 @@ class RoomConfigurationUI {
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
 
-    private boolean getInputTypeFromTypeListByList(List<TypeSensor> typeSensorList) {
+    /* private boolean getInputTypeFromTypeListByList(List<TypeSensor> typeSensorList) {
         if (typeSensorList.isEmpty()) {
             System.out.println("There's no defined types of sensor available yet. Please define one first.");
             return true;
@@ -563,7 +561,7 @@ class RoomConfigurationUI {
             return true;
         }
     }
-
+*/
     private void getInput253() {
         Scanner input = new Scanner(System.in);
         // Name Getter
@@ -595,11 +593,11 @@ class RoomConfigurationUI {
         System.out.println("You entered the date successfully!");
     }
 
-    private void updateAndDisplay253() {
+    private void updateAndDisplay253(TypeSensor typeSensor) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         SensorSettingsController mController = new SensorSettingsController();
         Date mDate = mController.createDate(this.mDataYear, this.mDataMonth, this.mDataDay);
-        Sensor mSensor = mController.createRoomSensor(mSensorName, mTypeSensor, mDate);
+        Sensor mSensor = mController.createRoomSensor(mSensorName, typeSensor, mDate);
         if (ctrl.addSensorToRoom(mRoom, mSensor)) {
             System.out.println("\nSensor successfully added to the Room " + mRoom.getRoomName());
         } else System.out.println("\nSensor already exists in the room.");

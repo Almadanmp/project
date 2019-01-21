@@ -15,13 +15,13 @@ import java.util.Objects;
 public class EnergyGrid implements Metered {
     private String mName;
     private double mNominalPower;
-    private RoomList mRoomList;
-    private PowerSourceList mListPowerSources;
+        private RoomList mRoomList;
+        private PowerSourceList mListPowerSources;
 
     public EnergyGrid() {
-        this.mRoomList = new RoomList();
-        this.mListPowerSources = new PowerSourceList();
-        this.mNominalPower = 0;
+            this.mRoomList = new RoomList();
+            this.mListPowerSources = new PowerSourceList();
+            this.mNominalPower = 0;
     }
 
     /**

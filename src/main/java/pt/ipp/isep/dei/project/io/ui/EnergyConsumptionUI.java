@@ -229,7 +229,7 @@ class EnergyConsumptionUI {
 
     private void runUS172(House house) {
         InputUtils inputUtils = new InputUtils();
-        EnergyGrid mEnergyGrid = inputUtils.oldGetInputGridByList(house);
+        EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(house);
         double nominalPower = updateUS172(mEnergyGrid);
         displayUS172(nominalPower);
     }
@@ -246,7 +246,6 @@ class EnergyConsumptionUI {
         InputUtils inputs = new InputUtils();
         System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
         inputs.returnToMenu(returnToConsole);
-
     }
 
     private void printOptionMessage() {

@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
+import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -311,6 +313,26 @@ class InputUtils {
                 return house.getEGList().getEnergyGridList().get(aux);
             } else {
                 System.out.println(utilsUI.invalidOption);
+            }
+        }
+    }
+
+    TypeSensor getInputSensorTypeByList(List<TypeSensor> typeSensorList) {
+        if (typeSensorList.isEmpty()) {
+            System.out.println("There's no defined types of sensor available yet. Please define one first.");
+        }
+        while (true) {
+            UtilsUI utils = new UtilsUI();
+            InputUtils inputUtils = new InputUtils();
+            RoomConfigurationController ctrl = new RoomConfigurationController();
+            System.out.println("Please select a Type of Sensor from the list: ");
+            System.out.println(ctrl.buildTypeListString(typeSensorList));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < typeSensorList.size()) {
+                System.out.println("You have chosen the following Type: " + typeSensorList.get(aux).getName());
+                return typeSensorList.get(aux);
+            } else {
+                System.out.println(utils.invalidOption);
             }
         }
     }
