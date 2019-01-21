@@ -269,7 +269,7 @@ class SensorSettingsControllerTest {
     void seeIfAddSensorToGeographicalArea() {
         SensorSettingsController ctrl = new SensorSettingsController();
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18), new SensorList());
-        Sensor sensor = new Sensor();
+        Sensor sensor = new Sensor("Sensor 1",new TypeSensor("Temperature","Celsius"),new GregorianCalendar(2018,10,25).getTime());
         ctrl.setSensor(sensor);
         boolean result = ctrl.addSensorToGeographicalArea(ga);
         boolean expectedResult = true;

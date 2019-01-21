@@ -888,10 +888,7 @@ import static org.junit.jupiter.api.Assertions.*;
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         TypeSensor expectedResult = t1;
         TypeSensor actualResult;
-        Sensor c = new Sensor();
-        c.setTypeSensor(t1);
-        c.setName(name);
-        c.setDateStartedFunctioning(d1);
+        Sensor c = new Sensor(name,t1,d1);
         //Act
         actualResult = c.getTypeSensor();
 

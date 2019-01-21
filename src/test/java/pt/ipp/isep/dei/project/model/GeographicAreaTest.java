@@ -1292,7 +1292,7 @@ class GeographicAreaTest {
     @Test
     void seeIfAddSensorToSensorList() {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100), new SensorList());
-        Sensor sensor = new Sensor();
+        Sensor sensor = new Sensor("Sensor 1",new TypeSensor("Temperature","Celsius"),new GregorianCalendar(2018,10,25).getTime());
         boolean result = ga.addSensorToSensorList(sensor);
         boolean expectedResult = true;
         assertEquals(expectedResult, result);
