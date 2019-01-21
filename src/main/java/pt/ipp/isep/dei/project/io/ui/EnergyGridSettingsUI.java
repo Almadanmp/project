@@ -16,7 +16,6 @@ class EnergyGridSettingsUI {
     }
 
     void run(House house) {
-        InputUtils inputs = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
@@ -29,36 +28,27 @@ class EnergyGridSettingsUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1: //US130
-                    getInputUS130();
-                    updateHouse(house);
+                    runUS130(house);
                     activeInput = false;
                     break;
                 case 2: //US135
-                    mEnergyGrid = inputs.getInputGridByList(house);
-                    getInputAndCreatePowerSource();
-                    updateGridAndDisplayState();
+                    runUS135(house);
                     activeInput = false;
                     break;
                 case 3: //US145
-                    mEnergyGrid = inputs.getInputGridByList(house);
-                    displayRoomList(mEnergyGrid);
+                    runUS145(house);
                     activeInput = false;
                     break;
                 case 4: //US147
-                    Room room = inputs.getHouseRoomByList(house);
-                    EnergyGrid energyGrid = getInputGrid(house, room);
-                    updateGridUS147(energyGrid, room);
+                    runUS147(house);
                     activeInput = false;
                     break;
                 case 5: //US149
-                    energyGrid = inputs.getInputGridByList(house);
-                    room = getInputEnergyGridRoom(energyGrid);
-                    updateGridUS149(energyGrid, room);
+                    runUS149(house);
                     activeInput = false;
                     break;
                 case 6: //US160
-                    energyGrid = inputs.getInputGridByList(house);
-                    displayUS160(energyGrid);
+                    runUS160(house);
                     activeInput = false;
                     break;
                 case 0:
@@ -73,6 +63,10 @@ class EnergyGridSettingsUI {
 
     // USER STORY 130 UI -  As an Administrator, I want to create a house grid, so that I can define the rooms that are
     // attached to it and the contracted maximum power for that grid - DANIEL OLIVEIRA .
+    private void runUS130(House house){
+        getInputUS130();
+        updateHouse(house);
+    }
 
     private void getInputUS130() {
         Scanner scanner = new Scanner(System.in);
@@ -91,6 +85,12 @@ class EnergyGridSettingsUI {
     /* USER STORY 135 UI - As an Administrator, I want to add a power source to an energy grid, so that the produced
     energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
+    private void runUS135(House house){
+        InputUtils inputs = new InputUtils();
+        mEnergyGrid = inputs.getInputGridByList(house);
+        getInputAndCreatePowerSource();
+        updateGridAndDisplayState();
+    }
 
     private void getInputAndCreatePowerSource() {
         if (mEnergyGrid != null) {
@@ -117,6 +117,12 @@ class EnergyGridSettingsUI {
 
     // USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
     // can attach/detach rooms from it - JOAO CACHADA.
+    private void runUS145(House house){
+        InputUtils inputs = new InputUtils();
+        mEnergyGrid = inputs.getInputGridByList(house);
+        displayRoomList(mEnergyGrid);
+
+    }
 
     private void displayRoomList(EnergyGrid energyGrid) {
         if (mEnergyGrid != null) {
@@ -126,6 +132,12 @@ class EnergyGridSettingsUI {
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
+    private void runUS147(House house){
+        InputUtils inputs = new InputUtils();
+        Room room = inputs.getHouseRoomByList(house);
+        EnergyGrid energyGrid = getInputGrid(house, room);
+        updateGridUS147(energyGrid, room);
+    }
 
     private EnergyGrid getInputGrid(House house, Room room) {
         if(room != null) {
@@ -150,6 +162,12 @@ class EnergyGridSettingsUI {
 
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
+    private void runUS149(House house){
+        InputUtils inputs = new InputUtils();
+        EnergyGrid energyGrid = inputs.getInputGridByList(house);
+        Room room = getInputEnergyGridRoom(energyGrid);
+        updateGridUS149(energyGrid, room);
+    }
 
     private Room getInputEnergyGridRoom(EnergyGrid energyGrid){
         if(energyGrid != null) {
@@ -174,6 +192,11 @@ class EnergyGridSettingsUI {
     I want to get a list of all devices in a grid, grouped by device type.
     It must include device location
     DANIEL OLIVEIRA*/
+    private void runUS160(House house){
+        InputUtils inputs = new InputUtils();
+        EnergyGrid energyGrid = inputs.getInputGridByList(house);
+        displayUS160(energyGrid);
+    }
 
     private void displayUS160(EnergyGrid energyGrid) {
         if(energyGrid != null) {

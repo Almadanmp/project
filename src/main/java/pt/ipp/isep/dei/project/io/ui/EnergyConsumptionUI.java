@@ -33,9 +33,7 @@ class EnergyConsumptionUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(programHouse);
-                    double nominalPower = updateUS172(mEnergyGrid);
-                    displayUS172(nominalPower);
+                    runUS172(programHouse);
                     activeInput = false;
                     break;
                 case 2:
@@ -228,6 +226,13 @@ class EnergyConsumptionUI {
     // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
     //connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
     //in the grid.
+
+    private void runUS172(House house) {
+        InputUtils inputUtils = new InputUtils();
+        EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(house);
+        double nominalPower = updateUS172(mEnergyGrid);
+        displayUS172(nominalPower);
+    }
 
     private double updateUS172(EnergyGrid grid) {
         EnergyConsumptionController mController = new EnergyConsumptionController();
