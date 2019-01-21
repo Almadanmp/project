@@ -51,16 +51,11 @@ class SensorSettingsUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    getInput05();
-                    updateModel05();
-                    displayState05();
+                    runUS05();
                     activeInput = false;
                     break;
                 case 2:
-                    getInput06();
-                    updateUS06();
-                    displayUS06();
-                    getInputPart206();
+                    runUS06();
                     activeInput = false;
                     break;
                 case 3:
@@ -87,7 +82,11 @@ class SensorSettingsUI {
     }
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
-
+    private void runUS05(){
+        getInput05();
+        updateModel05();
+        displayState05();
+    }
     private void getInput05() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the new Type of Sensor you want to create: ");
@@ -117,7 +116,12 @@ class SensorSettingsUI {
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
-
+    private void runUS06(){
+        getInput06();
+        updateUS06();
+        displayUS06();
+        getInputPart206();
+    }
     private void getInput06() {
         Scanner input = new Scanner(System.in);
 
