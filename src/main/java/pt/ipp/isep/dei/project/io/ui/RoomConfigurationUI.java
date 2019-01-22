@@ -144,7 +144,7 @@ class RoomConfigurationUI {
      */
     private void runUS201() {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         printRoomDeviceList();
     }
 
