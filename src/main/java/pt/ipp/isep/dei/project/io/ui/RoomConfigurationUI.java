@@ -35,7 +35,6 @@ class RoomConfigurationUI {
     private double mDuration;
     private double mEnergyConsumption;
     private String mSensorName;
-    private TypeSensor mTypeSensor;
     private int mDataYear;
     private int mDataMonth;
     private int mDataDay;
@@ -131,10 +130,15 @@ class RoomConfigurationUI {
      */
     private void runUS253(List<TypeSensor> typeSensorList) {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
-        TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
-        getInput253();
-        updateAndDisplay253(typeSensor);
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.typeSensorListIsValid(typeSensorList)) {
+            System.out.println(utilsUI.invalidTypeSensorList);
+            return;
+        }
+            this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
+            TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
+            getInput253();
+            updateAndDisplay253(typeSensor);
     }
 
     /**

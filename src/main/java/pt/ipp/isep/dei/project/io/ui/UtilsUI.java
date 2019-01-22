@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
 
+import java.util.List;
+
 
 /**
  * Utility class that aggregates common methods used by the UI classes.
@@ -19,6 +21,7 @@ class UtilsUI {
     String invalidGATypeList = "Invalid Geographic Area Type List - List is empty.\n" + returningToMainMenu;
     String invalidProgramList = "Invalid Program List - List is empty.\n" + returningToMainMenu;
     String invalidSensorListRoom = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
+    String invalidTypeSensorList = "Invalid Type Sensor - List is empty.\n" + returningToMainMenu;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
         return geographicAreaList != null && !geographicAreaList.getGeographicAreaList().isEmpty();
@@ -58,5 +61,9 @@ class UtilsUI {
 
     boolean roomDeviceListIsValid(Room room) {
         return room.getDeviceList() != null && !room.getDeviceList().isEmpty();
+    }
+
+    boolean typeSensorListIsValid(List<TypeSensor> list) {
+        return list != null && !list.isEmpty();
     }
 }
