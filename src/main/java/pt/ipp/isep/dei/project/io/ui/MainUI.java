@@ -271,9 +271,8 @@ public class MainUI {
         typeAreaListSP2.addTypeArea(urbanArea);
         geographicAreaSP2.setDescription("Campus do ISEP");
         Room b107SP2 = new Room("B107", 1, 7, 11, 3.5);
-        house4.addRoomToRoomList(b107SP2);
         Room b109SP2 = new Room("B109", 1, 7, 11, 3.5);
-        house4.addRoomToRoomList(b109SP2);
+
 
         List<TypeSensor> typeSensorListSP2 = new ArrayList<>();
         TypeSensor temperatureB109SP2 = new TypeSensor(temperature, "celsius");
@@ -392,7 +391,6 @@ public class MainUI {
         b109SP2.setDeviceList(deviceListRoomB109SP2);
 
         Room roomB106SP2 = new Room("B106",1,7,13,3.5);
-        house4.addRoomToRoomList(roomB106SP2);
         DeviceList deviceListRoomB106SP2 = new DeviceList();
         Device ehwB106SP2 = new Device("EHW B106",2.2,new WaterHeater(150.0,55.0,0.92));
         ProgramList programDishWasherB106SP2 = new ProgramList();
@@ -482,7 +480,9 @@ public class MainUI {
         EnergyGridList mainGridList = new EnergyGridList();
         mainGridList.addGrid(mainGridSP2);
         houseSP2.setEGList(mainGridList);
-
+        houseSP2.addRoomToRoomList(b107SP2);
+        houseSP2.addRoomToRoomList(b109SP2);
+        houseSP2.addRoomToRoomList(roomB106SP2);
 
         // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
         Room room1 = new Room("room1", 1, 33, 13, 23);

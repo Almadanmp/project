@@ -50,7 +50,7 @@ class RoomConfigurationUI {
     void run(House house, List<DeviceType> deviceTypeList, List<TypeSensor> typeSensorList) {
         UtilsUI utils = new UtilsUI();
         this.mHouse = house;
-        if(!utils.houseRoomListIsValid(this.mHouse)){
+        if (!utils.houseRoomListIsValid(this.mHouse)) {
             System.out.println(utils.invalidRoomList);
             return;
         }
@@ -99,6 +99,7 @@ class RoomConfigurationUI {
 
     /**
      * runs US210, created to avoid having several lines in case 2.
+     *
      * @param deviceTypeList
      */
     private void runUS210(List<DeviceType> deviceTypeList) {
@@ -112,7 +113,7 @@ class RoomConfigurationUI {
     }
 
     /**
-     *runs US215, created to avoid having several lines in case 3.
+     * runs US215, created to avoid having several lines in case 3.
      */
     private void runUS215() {
         InputUtils inputUtils = new InputUtils();
@@ -125,25 +126,28 @@ class RoomConfigurationUI {
 
     /**
      * runs US253, created to avoid having several lines in case 6.
+     *
      * @param typeSensorList
      */
-    private void runUS253( List<TypeSensor> typeSensorList){
+    private void runUS253(List<TypeSensor> typeSensorList) {
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
         TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
         getInput253();
         updateAndDisplay253(typeSensor);
     }
+
     /**
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
      * <p>
      * Prints device List in that room.
      */
-    private void runUS201(){
+    private void runUS201() {
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
         printRoomDeviceList();
     }
+
     private void printRoomDeviceList() {
         System.out.println("Available Devices in Room " + mRoom.getRoomName());
         System.out.println(mRoomConfigurationController.buildDeviceListString(mRoom));
@@ -479,23 +483,23 @@ class RoomConfigurationUI {
         }
         if (mRoom.addDevice(mDevice)) {
             System.out.println("\nYou have successfully changed the device name to " + mDeviceName + ". \n"
-                + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
-        if (mDevice.getType() == DeviceType.WATER_HEATER) {
-            System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
-                    mHotWaterTemperature + " ºC, and the Performance Ratio is: "
-                    + mPerformanceRatio + ".");
-        }
-        if (mDevice.getType() == DeviceType.WASHING_MACHINE || mDevice.getType() == DeviceType.DISHWASHER) {
-            System.out.println("The capacity is " + mCapacity + " Kg." + "\nThe following programs were reconfigured: "
-                    + "\n" + mProgramList.buildProgramListStringForEach());
-        }
-        if (mDevice.getType() == DeviceType.FRIDGE) {
-            System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
-                    " L and the " + mAnnualEnergyConsumption + " kWh.");
-        }
-        if (mDevice.getType() == DeviceType.LAMP) {
-            System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
-        }
+                    + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
+            if (mDevice.getType() == DeviceType.WATER_HEATER) {
+                System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
+                        mHotWaterTemperature + " ºC, and the Performance Ratio is: "
+                        + mPerformanceRatio + ".");
+            }
+            if (mDevice.getType() == DeviceType.WASHING_MACHINE || mDevice.getType() == DeviceType.DISHWASHER) {
+                System.out.println("The capacity is " + mCapacity + " Kg." + "\nThe following programs were reconfigured: "
+                        + "\n" + mProgramList.buildProgramListStringForEach());
+            }
+            if (mDevice.getType() == DeviceType.FRIDGE) {
+                System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
+                        " L and the " + mAnnualEnergyConsumption + " kWh.");
+            }
+            if (mDevice.getType() == DeviceType.LAMP) {
+                System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
+            }
         } else {
             mRoom.addDevice(mDevice);
             System.out.println("device already exists in the room. Please, try again.\n");
@@ -505,10 +509,10 @@ class RoomConfigurationUI {
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
     nominal power of a room, i.e. the sum of the nominal power of all devices in the
     room. - TERESA VARELA*/
-    private void runUS230(){
+    private void runUS230() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if(!utilsUI.houseRoomListIsValid(this.mHouse)) {
+        if (!utilsUI.houseRoomListIsValid(this.mHouse)) {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
@@ -526,13 +530,23 @@ class RoomConfigurationUI {
 
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
-    private void runUS250(){
+    private void runUS250() {
+        UtilsUI utilsUI = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
+        if (!utilsUI.houseRoomListIsValid(this.mHouse)) {
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         displaySensorListUS250();
     }
 
     private void displaySensorListUS250() {
+        UtilsUI utilsUI = new UtilsUI();
+        if(!utilsUI.roomSensorListIsValid(mRoom)){
+            System.out.println(utilsUI.invalidSensorListRoom);
+            return;
+        }
         SensorList sensorList = mRoom.getSensorList();
         System.out.println(mRoomConfigurationController.buildSensorListString(sensorList));
     }
