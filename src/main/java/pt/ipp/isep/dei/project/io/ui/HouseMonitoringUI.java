@@ -121,11 +121,12 @@ public class HouseMonitoringUI {
      * includes the house, there is more than one temperature sensor, the nearest one
      * should be used.
      */
-    private void runUS600(House house){
+    private void runUS600(House house) {
         updateModel600(house);
         displayState600(house);
 
     }
+
     private void updateModel600(House house) {
         if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
             System.out.println("The Geographic Area in which this House is inserted doesn't have a valid Sensor List.");
@@ -145,7 +146,7 @@ public class HouseMonitoringUI {
      * US605 As a Regular User, I want to get the current temperature in a room, in order to check
      * if it meets my personal comfort requirements.
      */
-    private void runUS605(){
+    private void runUS605() {
         if (getInputRoomByList()) {
             return;
         }
@@ -156,6 +157,7 @@ public class HouseMonitoringUI {
         displayState605();
 
     }
+
     private void updateModel605() {
         out.print("The room is " + this.mRoom.getRoomName() + " and the Temperature Sensor is " +
                 this.mSensor.getName() + "\n");
@@ -170,7 +172,7 @@ public class HouseMonitoringUI {
     /**
      * US610 - CARINA ALAS
      */
-    private void runUS610(House house){
+    private void runUS610(House house) {
         if (getInputRoomByList()) {
             return;
         }
@@ -182,6 +184,7 @@ public class HouseMonitoringUI {
         displayState610();
 
     }
+
     private void updateModel610(House house) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
@@ -198,8 +201,8 @@ public class HouseMonitoringUI {
                 " was " + this.mMaxTemperature + "°C.");
     }
 
-    private void getInputStartDateWithValidSensorList(House house){
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null){
+    private void getInputStartDateWithValidSensorList(House house) {
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
             System.out.println("The Geographic Area in which this House is inserted doesn't have a valid Sensor List.");
             return;
         }
@@ -223,17 +226,16 @@ public class HouseMonitoringUI {
     }
 
 
-
     /**
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
-    private void runUS620(House house){
+    private void runUS620(House house) {
         getInputStartDateWithValidSensorList(house);
         updateAndDisplayModelUS620(house);
     }
 
     private void updateAndDisplayModelUS620(House house) {
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null){
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
             return;
         }
         Date mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
@@ -254,17 +256,16 @@ public class HouseMonitoringUI {
      * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
-    private void runUS623(House house){
-        getInputStartDateWithValidSensorList(house);
-        getInputEndDate623(house);
-        updateAndDisplayUS623(house);
-    }
-
-    private void getInputEndDate623(House house){
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
+    private void runUS623(House house) {
+        UtilsUI utils = new UtilsUI();
+        if (utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
+        } else {
+            System.out.println(utils.invalidSensorListRoom);
             return;
         }
+        getInputStartDate();
         getInputEndDate();
+        updateAndDisplayUS623(house);
     }
 
     private void getInputEndDate() {
@@ -285,9 +286,6 @@ public class HouseMonitoringUI {
 
 
     private void updateAndDisplayUS623(House house) {
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null){
-            return;
-        }
         Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
         Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
         double result623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, initialDate, endDate);

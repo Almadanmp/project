@@ -477,6 +477,7 @@ public class MainUI {
         mainGridSP2.setNominalPower(0);
         House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2);
         houseSP2.setMotherArea(geographicAreaSP2);
+        geographicAreaSP2.setSensorList(areaSensorSP2);
         EnergyGridList mainGridList = new EnergyGridList();
         mainGridList.addGrid(mainGridSP2);
         houseSP2.setEGList(mainGridList);
