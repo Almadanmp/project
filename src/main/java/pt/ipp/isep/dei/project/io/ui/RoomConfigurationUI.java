@@ -115,18 +115,6 @@ class RoomConfigurationUI {
     }
 
     /**
-     * runs US215, created to avoid having several lines in case 3.
-     */
-    private void runUS215() {
-        InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
-        this.mDevice = inputUtils.oldGetInputDeviceByList(this.mRoom);
-        getInputDeviceCharacteristicsUS215();
-        updateDeviceUS215();
-        displayDeviceUS215();
-    }
-
-    /**
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
      *     sensor types, in order to configure it.
      *
@@ -295,6 +283,26 @@ class RoomConfigurationUI {
 
     /* USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,
     so that I can reconfigure it.. - CARINA ALAS */
+
+    /**
+     * runs US215, As an Administrator, I want to edit the configuration of an existing device.
+     */
+    private void runUS215() {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
+        if(!utilsUI.houseRoomListIsValid(this.mHouse)){
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        if(!utilsUI.roomDeviceListIsValid(this.mRoom)) {
+            System.out.println(utilsUI.invalidDeviceList);
+        }
+        this.mDevice = inputUtils.getInputRoomDevicesByList(this.mRoom);
+        getInputDeviceCharacteristicsUS215();
+        updateDeviceUS215();
+        displayDeviceUS215();
+    }
 
     private void getInputDeviceCharacteristicsUS215() {
         Scanner scanner = new Scanner(System.in);

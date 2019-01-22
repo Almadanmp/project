@@ -154,7 +154,7 @@ class GASettingsUI {
         }
     }
 
-    /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
+    /* User Story - 03 As a System Administrator I want to create a new Geographic Area */
     private void runUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
         if (utils.typeAreaListIsValid(typeAreaList)) {
