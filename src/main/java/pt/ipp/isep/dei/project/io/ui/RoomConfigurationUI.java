@@ -127,7 +127,8 @@ class RoomConfigurationUI {
     }
 
     /**
-     * runs US253, created to avoid having several lines in case 6.
+     * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
+     *     sensor types, in order to configure it.
      *
      * @param typeSensorList
      */
@@ -138,7 +139,10 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
-            this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
+        if (!utilsUI.houseRoomListIsValid(mHouse)) {
+            System.out.println(utilsUI.invalidRoomList);
+        }
+            this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
             TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
             getInput253();
             updateAndDisplay253(typeSensor);
