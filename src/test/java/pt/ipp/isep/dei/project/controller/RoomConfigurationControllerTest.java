@@ -498,7 +498,7 @@ class RoomConfigurationControllerTest {
         Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("cozinha", 1, 1, 1, 1);
         ctrl.setDeviceName("daniel", device);
-        ctrl.addDeviceToRoom(room, device);
+       room.addDevice(device);
         ctrl.setNominalPower(123.0, device);
         String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
@@ -530,7 +530,7 @@ class RoomConfigurationControllerTest {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Room room = new Room("cozinha", 1, 1, 1, 1);
-        ctrl.addDeviceToRoom(room, device);
+        room.addDevice(device);
         String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +

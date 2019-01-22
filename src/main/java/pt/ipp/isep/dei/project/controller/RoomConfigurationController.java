@@ -226,21 +226,6 @@ public class RoomConfigurationController {
         room.removeDevice(device);
     }
 
-    /**
-     *
-     * @param room from which we want to remove the device.
-     * @param device device we want to remove.
-     */
-    public boolean addDeviceToRoom(Room room, Device device){
-        if(!(room.getDeviceList().contains(device.getName()))){
-            room.addDevice(device);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
    public void configureOneHeater(Device device, double coldWaterTemperature, double volumeOfWaterToHeat, double performanceRatio){
         device.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
         device.setAttributeValue("volumeOfWater", volumeOfWaterToHeat);
