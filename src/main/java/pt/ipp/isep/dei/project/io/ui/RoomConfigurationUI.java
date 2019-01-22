@@ -143,8 +143,12 @@ class RoomConfigurationUI {
      */
     private void runUS201() {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        printRoomDeviceList();
+        if (mHouse.getDeviceList().isEmpty()) {
+            System.out.println("The device list is empty.\nReturning to main menu.");
+        } else {
+            this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+            printRoomDeviceList();
+        }
     }
 
     private void printRoomDeviceList() {
@@ -539,7 +543,7 @@ class RoomConfigurationUI {
 
     private void displaySensorListUS250() {
         UtilsUI utilsUI = new UtilsUI();
-        if(!utilsUI.roomSensorListIsValid(mRoom)){
+        if (!utilsUI.roomSensorListIsValid(mRoom)) {
             System.out.println(utilsUI.invalidSensorListRoom);
             return;
         }
