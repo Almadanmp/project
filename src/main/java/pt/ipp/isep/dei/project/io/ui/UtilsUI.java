@@ -22,6 +22,7 @@ class UtilsUI {
     String invalidProgramList = "Invalid Program List - List is empty.\n" + returningToMainMenu;
     String invalidSensorList = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
     String invalidTypeSensorList = "Invalid Type Sensor - List is empty.\n" + returningToMainMenu;
+    String invalidMotherArea = "The selected House does not have a Geographical Area defined.\n" + returningToMainMenu;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
         return geographicAreaList != null && !geographicAreaList.getGeographicAreaList().isEmpty();
@@ -69,5 +70,8 @@ class UtilsUI {
 
     boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
         return geographicArea.getSensorList() != null && !geographicArea.getSensorList().getSensorList().isEmpty(); //TODO missing encapsulation
+    }
+    boolean houseMotherAreaIsValid(House house) {
+        return house.getMotherArea() != null;
     }
 }

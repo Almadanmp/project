@@ -233,20 +233,22 @@ public class HouseMonitoringUI {
     }
 
     private void getInputStartDateWithValidSensorList(House house) {
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
-            System.out.println("The Geographic Area in which this House is inserted doesn't have a valid Sensor List.");
+        UtilsUI utils = new UtilsUI();
+        if (!utils.houseMotherAreaIsValid(house)) {
+            System.out.println(utils.invalidMotherArea);
+        return;
+    }
+        if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
+            System.out.println(utils.invalidSensorList);
             return;
         }
         getInputStartDate();
     }
 
     private void updateAndDisplayModelUS620(House house) {
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
-            return;
-        }
         Date mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
-        double result620 = houseMonitoringcontroller.getTotalRainfallOnGivenDay(mHouse, mStartDate);
-        printResultMessageUS620(mHouse, mStartDate, result620);
+        double result620 = houseMonitoringcontroller.getTotalRainfallOnGivenDay(house, mStartDate);
+        printResultMessageUS620(house, mStartDate, result620);
     }
 
     private void printResultMessageUS620(House houseGiven, Date givenDate, double result) {

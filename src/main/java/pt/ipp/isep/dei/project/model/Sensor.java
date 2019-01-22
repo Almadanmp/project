@@ -100,7 +100,7 @@ public class Sensor {
      *
      * @return
      */
-    TypeSensor getTypeSensor() {
+    public TypeSensor getTypeSensor() {
         return (this.mTypeSensor);
     }
 

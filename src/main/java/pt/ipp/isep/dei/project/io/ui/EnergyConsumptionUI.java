@@ -237,15 +237,11 @@ class EnergyConsumptionUI {
         }
             double nominalPower = updateUS172(mEnergyGrid);
             displayUS172(nominalPower);
-
     }
 
     private double updateUS172(EnergyGrid grid) {
         EnergyConsumptionController mController = new EnergyConsumptionController();
-        if (grid != null) {
             return mController.getTotalPowerFromGrid(grid);
-        }
-        return 0;
     }
 
     private void displayUS172(Double nomPower) {

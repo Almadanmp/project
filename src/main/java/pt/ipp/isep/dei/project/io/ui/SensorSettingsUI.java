@@ -74,12 +74,14 @@ class SensorSettingsUI {
     /* LIST DISPLAY */
 
     private void displayList(List<TypeSensor> list) {
-        if (mTypeSensorList.isEmpty()) {
-            System.out.println("There are no Types of Sensor defined.");
-        } else {
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.typeSensorListIsValid(list)) {
+            System.out.println(utilsUI.invalidTypeSensorList);
+            return;
+        }
             System.out.println(mController.buildSensorTypesString(list));
         }
-    }
+
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
     private void runUS05(){
@@ -222,9 +224,14 @@ class SensorSettingsUI {
 
     private void getInputPart206() {
         Scanner input = new Scanner(System.in);
+        UtilsUI utilsUI = new UtilsUI();
         System.out.println("\n Add sensor to Geographic Area?\n");
         System.out.println("Yes/No:\t");
         if ("yes".equals(input.nextLine())) {
+            if (!utilsUI.geographicAreaListIsValid(mGeographicAreaList)) {
+                System.out.println(utilsUI.invalidGAList);
+                return;
+            }
             getInputPart306();
         }
     }

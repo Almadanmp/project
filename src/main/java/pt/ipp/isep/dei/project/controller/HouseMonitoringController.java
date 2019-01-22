@@ -236,12 +236,21 @@ public class HouseMonitoringController {
      */
 
     public double getTotalRainfallOnGivenDay(House house, Date day) {
+        int counter = 0;
         GeographicArea geoArea = house.getMotherArea();
-        Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, "rainfall");
-        if (closestSensor.getReadingList() == null) {
-            return Double.NaN;
+        for (Sensor s : geoArea.getSensorList().getSensorList()) {
+            if (s.getTypeSensor().getName().equals("rainfall")) {
+                counter++;
+            }
         }
-        return closestSensor.getReadingList().getTotalValueOfReadingOnGivenDay(day);
+        if (counter != 0) {
+            Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, "rainfall");
+            if (closestSensor.getReadingList() == null) {
+                return Double.NaN;
+            }
+            return closestSensor.getReadingList().getTotalValueOfReadingOnGivenDay(day);
+        }
+        return Double.NaN;
     }
 
 
