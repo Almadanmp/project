@@ -103,10 +103,13 @@ class RoomConfigurationUI {
      */
     private void runUS210(List<DeviceType> deviceTypeList) {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        if (getInputDeviceTypeByList(deviceTypeList)) {
+        UtilsUI utilsUI = new UtilsUI();
+        if(!utilsUI.houseRoomListIsValid(mHouse)){
+            System.out.println(utilsUI.invalidRoomList);
             return;
         }
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        this.mDeviceType = inputUtils.getInputDeviceTypeByList(deviceTypeList);
         createDevice();
         displayDeviceUS210();
     }
@@ -159,29 +162,6 @@ class RoomConfigurationUI {
 
      /* USER STORY 210 - As an Administrator, I want to add a new device to a room from the list of available
     device types, so that I can configure it. - MARIA MEIRELES */
-
-    /**
-     * @param deviceTypeList is a list of device types
-     * @return prints a list of available device types by index if the list of device types is not empty
-     */
-    private boolean getInputDeviceTypeByList(List<DeviceType> deviceTypeList) {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        if (deviceTypeList.isEmpty()) {
-            System.out.println("device types list is empty.");
-            return true;
-        }
-        System.out.println("Please select one of the device Types: ");
-        System.out.println(mRoomConfigurationController.buildDeviceTypeListString(deviceTypeList));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < DeviceType.values().length) {
-            this.mDeviceType = DeviceType.values()[aux];
-            return false;
-        } else {
-            System.out.println(utils.invalidOption);
-            return true;
-        }
-    }
 
     /**
      * Asks for input from the user in order to construct a new device with its parameters
@@ -305,7 +285,7 @@ class RoomConfigurationUI {
                 System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
             }
         } else {
-            System.out.println("device already exists in the room. Please, try again.\n");
+            System.out.println("Device already exists in the room. Please, try again.\n");
         }
     }
 
