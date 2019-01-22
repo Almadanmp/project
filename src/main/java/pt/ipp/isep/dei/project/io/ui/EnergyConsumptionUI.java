@@ -229,9 +229,15 @@ class EnergyConsumptionUI {
 
     private void runUS172(House house) {
         InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
         EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(house);
-        double nominalPower = updateUS172(mEnergyGrid);
-        displayUS172(nominalPower);
+        if (!utilsUI.gridRoomListIsValid(mEnergyGrid)) {
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
+            double nominalPower = updateUS172(mEnergyGrid);
+            displayUS172(nominalPower);
+
     }
 
     private double updateUS172(EnergyGrid grid) {
