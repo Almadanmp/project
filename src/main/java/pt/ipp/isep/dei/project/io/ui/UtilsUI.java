@@ -16,7 +16,7 @@ class UtilsUI {
     String invalidGridList = "Invalid Grid List - List is empty.\n" + returningToMainMenu;
     String invalidDeviceList = "Invalid Device List - List is empty.\n" + returningToMainMenu;
     String invalidGAList = "Invalid Geographic Area List - List is empty.\n" + returningToMainMenu;
-    String invalidGATypeList = "Invalid Geographic Area List - List is empty.\n" + returningToMainMenu;
+    String invalidGATypeList = "Invalid Geographic Area Type List - List is empty.\n" + returningToMainMenu;
     String invalidProgramList = "Invalid Program List - List is empty.\n" + returningToMainMenu;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
