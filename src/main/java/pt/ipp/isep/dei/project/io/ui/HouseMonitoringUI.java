@@ -47,7 +47,6 @@ public class HouseMonitoringUI {
                     runUS610(programHouse);
                     activeInput = true;
                     break;
-
                 case 2:
                     runUS605();
                     activeInput = true;

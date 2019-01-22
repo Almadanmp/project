@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
+import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -318,9 +319,6 @@ class InputUtils {
     }
 
     TypeSensor getInputSensorTypeByList(List<TypeSensor> typeSensorList) {
-        if (typeSensorList.isEmpty()) {
-            System.out.println("There's no defined types of sensor available yet. Please define one first.");
-        }
         while (true) {
             UtilsUI utils = new UtilsUI();
             InputUtils inputUtils = new InputUtils();
@@ -337,6 +335,21 @@ class InputUtils {
         }
     }
 
+    Sensor getInputRoomSensorByList(Room room) {
+        UtilsUI utils = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
+        HouseMonitoringController controller = new HouseMonitoringController();
+        while(true) {
+            System.out.println("Please select one of the existing Sensors on the selected Room: ");
+            System.out.println(controller.buildRoomSensorListString(room));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < room.getSensorList().getSensorList().size()) {
+                return room.getSensorList().getSensorList().get(aux);
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
     boolean yesOrNo(String answer, String question){
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
