@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.List;
 import java.util.Scanner;
@@ -329,6 +330,27 @@ class InputUtils {
             if (aux >= 0 && aux < typeSensorList.size()) {
                 System.out.println("You have chosen the following Type: " + typeSensorList.get(aux).getName());
                 return typeSensorList.get(aux);
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
+
+    /**
+     * @param deviceTypeList is a list of device types
+     * @return prints a list of available device types by index if the list of device types is not empty
+     */
+    DeviceType getInputDeviceTypeByList(List<DeviceType> deviceTypeList) {
+        InputUtils inputUtils = new InputUtils();
+        RoomConfigurationController controller = new RoomConfigurationController();
+        UtilsUI utils = new UtilsUI();
+        while (true) {
+            System.out.println("Please select one of the device Types: ");
+            System.out.println(controller.buildDeviceTypeListString(deviceTypeList));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < DeviceType.values().length) {
+                return DeviceType.values()[aux];
+
             } else {
                 System.out.println(utils.invalidOption);
             }
