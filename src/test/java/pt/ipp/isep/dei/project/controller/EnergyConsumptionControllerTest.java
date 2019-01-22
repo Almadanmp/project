@@ -359,7 +359,7 @@ class EnergyConsumptionControllerTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0.0;
-        double result = controller.getDailyWHConsumption(h1);
+        double result = controller.getDailyWaterHeaterConsumption(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -368,7 +368,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20,20,20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         double expectedResult = 0;
-        double result = controller.getDailyWHConsumption(h1);
+        double result = controller.getDailyWaterHeaterConsumption(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -381,7 +381,7 @@ class EnergyConsumptionControllerTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0;
-        double result = controller.getDailyWHConsumption(h1);
+        double result = controller.getDailyWaterHeaterConsumption(h1);
         assertEquals(expectedResult, result);
     }
 
@@ -398,7 +398,7 @@ class EnergyConsumptionControllerTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0;
-        double result = controller.getDailyWHConsumption(h1);
+        double result = controller.getDailyWaterHeaterConsumption(h1);
         assertEquals(expectedResult, result);
     }
 

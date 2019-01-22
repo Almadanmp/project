@@ -13,11 +13,11 @@ public class WaterHeater implements DeviceSpecs {
     private static final String ATTRIBUTE_PERFORMANCE_RATIO = "performanceRatio";
     private static final String ATTRIBUTE_VOLUME_OF_WATER_HEAT = "volumeOfWaterToHeat";
 
-    Double mVolumeOfWater;
-    Double mHotWaterTemperature;
-    Double mPerformanceRatio;
-    Double mColdWaterTemperature;
-    Double mVolumeOfWaterToHeat;
+    private Double mVolumeOfWater;
+    private Double mHotWaterTemperature;
+    private Double mPerformanceRatio;
+    private Double mColdWaterTemperature;
+    private Double mVolumeOfWaterToHeat;
 
     public WaterHeater(Double volumeOfWater, Double hotWaterTemperature, Double mPerformanceRatio) {
         this.mVolumeOfWater = volumeOfWater;
@@ -61,11 +61,6 @@ public class WaterHeater implements DeviceSpecs {
     public double getVolumeWater() {
         return this.mVolumeOfWater;
     }
-
-    public void setVolumeOfWater(double volumeOfWater) {
-        this.mVolumeOfWater = volumeOfWater;
-    }
-
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();

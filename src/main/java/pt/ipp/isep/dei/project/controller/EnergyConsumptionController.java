@@ -159,7 +159,7 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return estimate energy consumption on the water heaters
      */
-    public double getDailyWHConsumption(House house) {
+    public double getDailyWaterHeaterConsumption(House house) {
         return house.getDailyConsumptionByDeviceType(DeviceType.WATER_HEATER);
     }
 

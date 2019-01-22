@@ -17,6 +17,7 @@ public interface Programmable {
 
     boolean addProgram(Program program);
 
+    //como remover? por nome?
     boolean removeProgram(Program program);
 
 }
