@@ -66,4 +66,8 @@ class UtilsUI {
     boolean typeSensorListIsValid(List<TypeSensor> list) {
         return list != null && !list.isEmpty();
     }
+
+    boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
+        return geographicArea.getSensorList() != null && !geographicArea.getSensorList().getSensorList().isEmpty(); //TODO missing encapsulation
+    }
 }
