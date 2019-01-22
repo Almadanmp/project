@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
+import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.Sensor;
@@ -74,6 +75,23 @@ public class HouseMonitoringUI {
 
     //SHARED METHODS
 
+    private void getInputStartDate() {
+        InputUtils inputUtils = new InputUtils();
+        Scanner scan = new Scanner(System.in);
+
+        this.dataYear1 = inputUtils.getInputDateAsInt(scan, "year");
+        scan.nextLine();
+
+        this.dataMonth1 = inputUtils.getInputDateAsInt(scan, "month") - 1;
+        scan.nextLine();
+
+        this.dataDay1 = inputUtils.getInputDateAsInt(scan, "day");
+
+        System.out.println("You entered the date successfully!");
+        scan.nextLine();
+    }
+
+
     private boolean getInputRoomByList() {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
@@ -122,23 +140,21 @@ public class HouseMonitoringUI {
      * should be used.
      */
     private void runUS600(House house) {
-        updateModel600(house);
-        displayState600(house);
-
-    }
-
-    private void updateModel600(House house) {
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
-            System.out.println("The Geographic Area in which this House is inserted doesn't have a valid Sensor List.");
+        UtilsUI utilsUI = new UtilsUI();
+        GeographicArea motherArea = house.getMotherArea();
+        if(!utilsUI.geographicAreaSensorListIsValid(motherArea)){
+            System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        mCurrentHouseAreaTemperature = houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, house.getMotherArea());
+        updateModel600(house, motherArea);
+        displayState600();
     }
 
-    private void displayState600(House house) {
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
-            return;
-        }
+    private void updateModel600(House house, GeographicArea geographicArea) {
+        mCurrentHouseAreaTemperature = houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, geographicArea);
+    }
+
+    private void displayState600() {
         System.out.println("The current temperature in the house area is: " + mCurrentHouseAreaTemperature + "°C.");
     }
 
@@ -170,59 +186,41 @@ public class HouseMonitoringUI {
     }
 
     /**
-     * US610 - CARINA ALAS
+     * US610 - Get Max Temperature in a room in a specific day - CARINA ALAS
      */
     private void runUS610(House house) {
-        if (getInputRoomByList()) {
+        UtilsUI utilsUI = new UtilsUI();
+        InputUtils inputUtils = new InputUtils();
+        if (!(utilsUI.houseRoomListIsValid(house))) {
+            System.out.println(utilsUI.invalidRoomList);
             return;
         }
-        if (getInputSensorByList()) {
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!(utilsUI.roomSensorListIsValid(room))) {
+            System.out.println(utilsUI.invalidSensorList);
             return;
         }
+        Sensor sensor = inputUtils.getInputRoomSensorByList(room);
         getInputStartDate();
-        updateModel610(house);
-        displayState610();
+        updateModel610(house, room, sensor);
+        displayState610(room);
 
     }
 
-    private void updateModel610(House house) {
+    private void updateModel610(House house, Room room, Sensor sensor) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
-        out.print("The room is " + this.mRoom.getRoomName() + " the Temperature Sensor is " + this.mSensor.getName() +
+        out.print("The room is " + room.getRoomName() + " the Temperature Sensor is " + sensor.getName() +
                 " and the date is " + mDate + "\n");
-        this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate, house, this.mRoom);
+        this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate, house, room);
     }
 
-    private void displayState610() {
+    private void displayState610(Room room) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
-        out.println("The Maximum Temperature in the room " + this.mRoom.getRoomName() +
+        out.println("The Maximum Temperature in the room " + room.getRoomName() +
                 " on the day " + mDate +
                 " was " + this.mMaxTemperature + "°C.");
-    }
-
-    private void getInputStartDateWithValidSensorList(House house) {
-        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
-            System.out.println("The Geographic Area in which this House is inserted doesn't have a valid Sensor List.");
-            return;
-        }
-        getInputStartDate();
-    }
-
-    private void getInputStartDate() {
-        InputUtils inputUtils = new InputUtils();
-        Scanner scan = new Scanner(System.in);
-
-        this.dataYear1 = inputUtils.getInputDateAsInt(scan, "year");
-        scan.nextLine();
-
-        this.dataMonth1 = inputUtils.getInputDateAsInt(scan, "month") - 1;
-        scan.nextLine();
-
-        this.dataDay1 = inputUtils.getInputDateAsInt(scan, "day");
-
-        System.out.println("You entered the date successfully!");
-        scan.nextLine();
     }
 
 
@@ -232,6 +230,14 @@ public class HouseMonitoringUI {
     private void runUS620(House house) {
         getInputStartDateWithValidSensorList(house);
         updateAndDisplayModelUS620(house);
+    }
+
+    private void getInputStartDateWithValidSensorList(House house) {
+        if (house.getMotherArea().getSensorList().getSensorList().isEmpty() || house.getMotherArea().getSensorList() == null) {
+            System.out.println("The Geographic Area in which this House is inserted doesn't have a valid Sensor List.");
+            return;
+        }
+        getInputStartDate();
     }
 
     private void updateAndDisplayModelUS620(House house) {
@@ -260,7 +266,7 @@ public class HouseMonitoringUI {
         UtilsUI utils = new UtilsUI();
         if (utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
         } else {
-            System.out.println(utils.invalidSensorListRoom);
+            System.out.println(utils.invalidSensorList);
             return;
         }
         getInputStartDate();

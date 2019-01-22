@@ -301,6 +301,7 @@ class RoomConfigurationUI {
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         if(!utilsUI.roomDeviceListIsValid(this.mRoom)) {
             System.out.println(utilsUI.invalidDeviceList);
+            return;
         }
         this.mDevice = inputUtils.getInputRoomDevicesByList(this.mRoom);
         getInputDeviceCharacteristicsUS215();
@@ -544,7 +545,7 @@ class RoomConfigurationUI {
     private void displaySensorListUS250() {
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.roomSensorListIsValid(mRoom)) {
-            System.out.println(utilsUI.invalidSensorListRoom);
+            System.out.println(utilsUI.invalidSensorList);
             return;
         }
         SensorList sensorList = mRoom.getSensorList();
