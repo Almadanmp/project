@@ -263,7 +263,6 @@ class GASettingsUI {
     private void getInputMotherGA(GeographicAreaList programGAList) {
         UtilsUI utils = new UtilsUI();
         if (utils.geographicAreaListIsValid(programGAList)) {
-            this.mMotherAreaName = null;
             this.mGeoArea = setGeographicAreaContainer(programGAList);
             this.mMotherAreaName = getGAId(this.mGeoArea);
             if (mController.checkIfGAExistsInGAList(mMotherAreaName, programGAList)) {
@@ -280,7 +279,6 @@ class GASettingsUI {
         getInputMotherGA(programGAList);
         UtilsUI utils = new UtilsUI();
         if (utils.geographicAreaListIsValid(programGAList) && this.mMotherAreaName != null) {
-            this.mDaughterAreaName = null;
             this.mGeoArea = setGeographicAreaContained(programGAList);
             this.mDaughterAreaName = getGAId(this.mGeoArea);
             if (mController.checkIfGAExistsInGAList(mDaughterAreaName, programGAList)) {
@@ -318,7 +316,7 @@ class GASettingsUI {
     }
 
     private void getInputGeographicAreaForContainer(GeographicAreaList programGAList) {
-        if (programGAList == null || programGAList.getGeographicAreaList().isEmpty()) {
+        if (programGAList.getGeographicAreaList().isEmpty()) {
             System.out.println("The list of Geographic Areas is empty.");
             return;
         }

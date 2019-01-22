@@ -87,9 +87,12 @@ class EnergyGridSettingsUI {
      */
     private void runUS135(House house){
         InputUtils inputs = new InputUtils();
-        mEnergyGrid = inputs.oldGetInputGridByList(house);
-        getInputAndCreatePowerSource();
-        updateGridAndDisplayState();
+        UtilsUI check = new UtilsUI();
+        if (check.houseGridListIsValid(house)) {
+            mEnergyGrid = inputs.getInputGridByList(house);
+            getInputAndCreatePowerSource();
+            updateGridAndDisplayState();
+        }
     }
 
     private void getInputAndCreatePowerSource() {
