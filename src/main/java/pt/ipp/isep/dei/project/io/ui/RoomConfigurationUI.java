@@ -103,7 +103,7 @@ class RoomConfigurationUI {
      */
     private void runUS210(List<DeviceType> deviceTypeList) {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         if (getInputDeviceTypeByList(deviceTypeList)) {
             return;
         }
@@ -319,7 +319,7 @@ class RoomConfigurationUI {
         //get room
         mRoomConfigurationController.removeDeviceFromRoom(mRoom, mDevice);
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.oldGetHouseRoomByList(this.mHouse);
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
 
         //get nominal power
         System.out.print("Please, type the new Nominal Power: ");
@@ -345,7 +345,7 @@ class RoomConfigurationUI {
 
 
             Program program;
-            program = inputUtils.oldGetSelectedProgramFromDevice(mDevice);
+            program = inputUtils.getSelectedProgramFromDevice(mDevice);
             mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(mDevice));
             if (program == null || mProgramList == null) {
                 System.out.println("There are no programs to edit.");
