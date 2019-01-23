@@ -157,8 +157,7 @@ class GASettingsUI {
     /* User Story - 03 As a System Administrator I want to create a new Geographic Area */
     private void runUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
-        if (utils.typeAreaListIsValid(typeAreaList)) {
-        } else {
+        if (!utils.typeAreaListIsValid(typeAreaList)) {
             System.out.println(utils.invalidGATypeList);
             return;
         }
@@ -255,6 +254,11 @@ class GASettingsUI {
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */
     private void runUS07(GeographicAreaList geographicAreaList) {
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+            System.out.println(utilsUI.invalidGAList);
+            return;
+        }
         getInputDaughterGA(geographicAreaList);
         updateStateUS07(geographicAreaList);
         displayStateUS07(geographicAreaList);
@@ -342,6 +346,11 @@ class GASettingsUI {
     /* US08 - As an Administrator, I want to find out if a geographical area is included, directly
     or indirectly, in another one. */
     private void runUS08(GeographicAreaList geographicAreaList) {
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+            System.out.println(utilsUI.invalidGAList);
+            return;
+        }
         getContainerArea(geographicAreaList);
         getContainedArea(geographicAreaList);
         checkIfContained(geographicAreaList);
