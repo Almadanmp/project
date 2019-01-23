@@ -10,8 +10,6 @@ import java.util.Scanner;
 class EnergyGridSettingsUI {
     private EnergyGridSettingsController mController;
     private EnergyGrid mEnergyGrid;
-    private Room mRoom;
-    private House mHouse;
 
     EnergyGridSettingsUI() {
         this.mController = new EnergyGridSettingsController();
@@ -138,20 +136,19 @@ class EnergyGridSettingsUI {
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
     private void runUS147(House house) {
-        this.mHouse = house;
         UtilsUI utilsUI = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        if (!utilsUI.houseRoomListIsValid(this.mHouse)) {
+        if (!utilsUI.houseRoomListIsValid(house)) {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        if (!utilsUI.houseGridListIsValid(this.mHouse)) {
+        if (!utilsUI.houseGridListIsValid(house)) {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
-        this.mEnergyGrid = inputUtils.getInputGridByList(this.mHouse);
-        updateGridUS147(this.mEnergyGrid, this.mRoom);
+        Room room = inputUtils.getHouseRoomByList(house);
+        EnergyGrid energyGrid = inputUtils.getInputGridByList(house);
+        updateGridUS147(energyGrid, room);
     }
 
     private void updateGridUS147(EnergyGrid grid, Room room) {
