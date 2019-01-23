@@ -228,20 +228,20 @@ public class HouseMonitoringUI {
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
     private void runUS620(House house) {
-        getInputStartDateWithValidSensorList(house);
-        updateAndDisplayModelUS620(house);
-    }
-
-    private void getInputStartDateWithValidSensorList(House house) {
         UtilsUI utils = new UtilsUI();
         if (!utils.houseMotherAreaIsValid(house)) {
             System.out.println(utils.invalidMotherArea);
-        return;
-    }
+            return;
+        }
         if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
             System.out.println(utils.invalidSensorList);
             return;
         }
+        getInputStartDateWithValidSensorList();
+        updateAndDisplayModelUS620(house);
+    }
+
+    private void getInputStartDateWithValidSensorList() {
         getInputStartDate();
     }
 
@@ -266,8 +266,7 @@ public class HouseMonitoringUI {
      */
     private void runUS623(House house) {
         UtilsUI utils = new UtilsUI();
-        if (utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
-        } else {
+        if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
             System.out.println(utils.invalidSensorList);
             return;
         }
