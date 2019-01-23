@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ class UtilsUI {
     String invalidGATypeList = "Invalid Geographic Area Type List - List is empty.\n" + returningToMainMenu;
     String invalidProgramList = "Invalid Program List - List is empty.\n" + returningToMainMenu;
     String invalidSensorList = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
-    String invalidTypeSensorList = "Invalid Type Sensor - List is empty.\n" + returningToMainMenu;
+    String invalidTypeSensorList = "Invalid Type Sensor List - List is empty.\n" + returningToMainMenu;
+    String invalidDeviceTypeList = "Invalid Device Type List - List is empty.\n" + returningToMainMenu;
     String invalidMotherArea = "The selected House does not have a Geographical Area defined.\n" + returningToMainMenu;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
@@ -65,6 +67,10 @@ class UtilsUI {
     }
 
     boolean typeSensorListIsValid(List<TypeSensor> list) {
+        return list != null && !list.isEmpty();
+    }
+
+    boolean deviceTypeListIsValid(List<DeviceType> list) {
         return list != null && !list.isEmpty();
     }
 
