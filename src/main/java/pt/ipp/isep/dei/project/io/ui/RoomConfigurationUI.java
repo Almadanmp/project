@@ -271,7 +271,8 @@ class RoomConfigurationUI {
                         + mPerformanceRatio + ".");
             }
             if (mDevice.getType() == DeviceType.WASHING_MACHINE || mDevice.getType() == DeviceType.DISHWASHER) {
-                System.out.println("The Capacity is " + mCapacity + " Kg.");
+                System.out.println("The Capacity is " + mCapacity + " Kg."+ "\nThe following programs were reconfigured: "
+                        + "\n" + mProgramList.buildProgramListStringForEach());
             }
             if (mDevice.getType() == DeviceType.FRIDGE) {
                 System.out.println("The Freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
