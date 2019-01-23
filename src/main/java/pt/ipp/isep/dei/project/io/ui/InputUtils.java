@@ -23,7 +23,6 @@ class InputUtils {
         scanner.nextLine();
     }
 
-    //TODO use this method in your US verifications
     GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
@@ -43,7 +42,6 @@ class InputUtils {
         }
     }
 
-    //TODO use this method in your US verifications
     Room getHouseRoomByList(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
@@ -63,7 +61,6 @@ class InputUtils {
         }
     }
 
-    //TODO use this method in your US verifications
     Room getGridRoomByList(EnergyGrid grid) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
@@ -83,7 +80,6 @@ class InputUtils {
         }
     }
 
-    //TODO use this method in your US verifications
     Device getGridDevicesByList(EnergyGrid grid) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
@@ -103,7 +99,6 @@ class InputUtils {
         }
     }
 
-    //TODO use this method in your US verifications
     Program getSelectedProgramFromDevice(Device device) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
@@ -124,7 +119,6 @@ class InputUtils {
         }
     }
 
-    //TODO use this method in your US verifications
     Device getInputRoomDevicesByList(Room room) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
@@ -143,7 +137,6 @@ class InputUtils {
         }
     }
 
-    //TODO use this method in your US verifications
     EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         UtilsUI utilsUI = new UtilsUI();

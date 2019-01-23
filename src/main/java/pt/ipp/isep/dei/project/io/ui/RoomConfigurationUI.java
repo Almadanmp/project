@@ -108,10 +108,6 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidDeviceTypeList);
             return;
         }
-        if(!utilsUI.houseRoomListIsValid(mHouse)){
-            System.out.println(utilsUI.invalidRoomList);
-            return;
-        }
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         this.mDeviceType = inputUtils.getInputDeviceTypeByList(deviceTypeList);
         createDevice();
@@ -256,9 +252,6 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
-        if (!utilsUI.houseRoomListIsValid(mHouse)) {
-            System.out.println(utilsUI.invalidRoomList);
-        }
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
         getInput253();
@@ -341,10 +334,6 @@ class RoomConfigurationUI {
     private void runUS215() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if(!utilsUI.houseRoomListIsValid(this.mHouse)){
-            System.out.println(utilsUI.invalidRoomList);
-            return;
-        }
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         if(!utilsUI.roomDeviceListIsValid(this.mRoom)) {
             System.out.println(utilsUI.invalidDeviceList);
@@ -560,11 +549,6 @@ class RoomConfigurationUI {
      room.**/
     private void runUS230() {
         InputUtils inputUtils = new InputUtils();
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.houseRoomListIsValid(this.mHouse)) {
-            System.out.println(utilsUI.invalidRoomList);
-            return;
-        }
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         getRoomNominalPower();
     }
@@ -580,12 +564,7 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
     private void runUS250() {
-        UtilsUI utilsUI = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        if (!utilsUI.houseRoomListIsValid(this.mHouse)) {
-            System.out.println(utilsUI.invalidRoomList);
-            return;
-        }
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
         displaySensorListUS250();
     }
