@@ -29,13 +29,12 @@ class SensorSettingsUI {
         this.mController = new SensorSettingsController();
     }
 
-    void run(GeographicAreaList newGeoListUi, List<TypeSensor> typeList) {
-
-        this.mGeographicAreaList = newGeoListUi;
+    void run(GeographicAreaList geographicAreaList, List<TypeSensor> typeList) {
+        this.mGeographicAreaList = geographicAreaList;
         this.mTypeSensorList = typeList;
-
-        if (newGeoListUi == null || newGeoListUi.getGeographicAreaList().isEmpty()) {
-            System.out.println("Invalid Geographic Area List - List Is Empty");
+        UtilsUI utilsUI = new UtilsUI();
+        if (utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+            System.out.println(utilsUI.invalidGAList);
             return;
         }
 
@@ -119,6 +118,15 @@ class SensorSettingsUI {
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
     private void runUS06(){
+        UtilsUI utilsUI = new UtilsUI();
+        if (utilsUI.geographicAreaListIsValid(this.mGeographicAreaList)) {
+            System.out.println(utilsUI.invalidGAList);
+            return;
+        }
+        if(utilsUI.typeSensorListIsValid(this.mTypeSensorList)){
+            System.out.println(utilsUI.invalidTypeSensorList);
+            return;
+        }
         getInput06();
         updateUS06();
         displayUS06();
@@ -224,14 +232,9 @@ class SensorSettingsUI {
 
     private void getInputPart206() {
         Scanner input = new Scanner(System.in);
-        UtilsUI utilsUI = new UtilsUI();
         System.out.println("\n Add sensor to Geographic Area?\n");
         System.out.println("Yes/No:\t");
         if ("yes".equals(input.nextLine())) {
-            if (!utilsUI.geographicAreaListIsValid(mGeographicAreaList)) {
-                System.out.println(utilsUI.invalidGAList);
-                return;
-            }
             getInputPart306();
         }
     }
