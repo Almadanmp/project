@@ -10,6 +10,8 @@ import java.util.Scanner;
 class EnergyGridSettingsUI {
     private EnergyGridSettingsController mController;
     private EnergyGrid mEnergyGrid;
+    private Room mRoom;
+    private House mHouse;
 
     EnergyGridSettingsUI() {
         this.mController = new EnergyGridSettingsController();
@@ -63,7 +65,7 @@ class EnergyGridSettingsUI {
 
     // USER STORY 130 UI -  As an Administrator, I want to create a house grid, so that I can define the rooms that are
     // attached to it and the contracted maximum power for that grid - DANIEL OLIVEIRA .
-    private void runUS130(House house){
+    private void runUS130(House house) {
         getInputUS130();
         updateHouse(house);
     }
@@ -78,14 +80,14 @@ class EnergyGridSettingsUI {
     }
 
     private void updateHouse(House house) {
-            mController.addEnergyGridToHouse(house);
-                System.out.println("The energy grid was successfully created and added to the house.");
+        mController.addEnergyGridToHouse(house);
+        System.out.println("The energy grid was successfully created and added to the house.");
     }
 
     /* USER STORY 135 UI - As an Administrator, I want to add a power source to an energy grid, so that the produced
     energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
-    private void runUS135(House house){
+    private void runUS135(House house) {
         InputUtils inputs = new InputUtils();
         UtilsUI check = new UtilsUI();
         if (check.houseGridListIsValid(house)) {
@@ -120,7 +122,7 @@ class EnergyGridSettingsUI {
 
     // USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
     // can attach/detach rooms from it - JOAO CACHADA.
-    private void runUS145(House house){
+    private void runUS145(House house) {
         InputUtils inputs = new InputUtils();
         mEnergyGrid = inputs.oldGetInputGridByList(house);
         displayRoomList(mEnergyGrid);
@@ -135,27 +137,24 @@ class EnergyGridSettingsUI {
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
-    private void runUS147(House house){
-        InputUtils inputs = new InputUtils();
-        Room room = inputs.oldGetHouseRoomByList(house);
-        EnergyGrid energyGrid = getInputGrid(house, room);
-        updateGridUS147(energyGrid, room);
-    }
-
-    private EnergyGrid getInputGrid(House house, Room room) {
-        if(room != null) {
+    private void runUS147(House house) {
+        this.mHouse = house;
+        UtilsUI utilsUI = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        return inputUtils.oldGetInputGridByList(house);
+        if (!utilsUI.houseRoomListIsValid(this.mHouse)) {
+            System.out.println(utilsUI.invalidRoomList);
+            return;
         }
-        else {
-            return null;
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        if (!utilsUI.houseGridListIsValid(this.mHouse)) {
+            System.out.println(utilsUI.invalidGridList);
+            return;
         }
+        this.mEnergyGrid = inputUtils.getInputGridByList(this.mHouse);
+        updateGridUS147(this.mEnergyGrid, this.mRoom);
     }
 
     private void updateGridUS147(EnergyGrid grid, Room room) {
-        if (room == null || grid == null) {
-            return;
-        }
         if (mController.addRoomToGrid(grid, room)) {
             System.out.println("Room successfully added to the grid!");
         } else {
@@ -165,22 +164,22 @@ class EnergyGridSettingsUI {
 
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
-    private void runUS149(House house){
+    private void runUS149(House house) {
         InputUtils inputs = new InputUtils();
         EnergyGrid energyGrid = inputs.oldGetInputGridByList(house);
         Room room = getInputEnergyGridRoom(energyGrid);
         updateGridUS149(energyGrid, room);
     }
 
-    private Room getInputEnergyGridRoom(EnergyGrid energyGrid){
-        if(energyGrid != null) {
+    private Room getInputEnergyGridRoom(EnergyGrid energyGrid) {
+        if (energyGrid != null) {
             InputUtils inputUtils = new InputUtils();
             return inputUtils.oldGetGridRoomByList(energyGrid);
-        }
-        else{
+        } else {
             return null;
         }
     }
+
     private void updateGridUS149(EnergyGrid grid, Room room) {
         if (grid != null && room != null) {
             if (mController.removeRoomFromGrid(grid, room)) {
@@ -195,14 +194,14 @@ class EnergyGridSettingsUI {
     I want to get a list of all devices in a grid, grouped by device type.
     It must include device location
     DANIEL OLIVEIRA*/
-    private void runUS160(House house){
+    private void runUS160(House house) {
         InputUtils inputs = new InputUtils();
         EnergyGrid energyGrid = inputs.oldGetInputGridByList(house);
         displayUS160(energyGrid);
     }
 
     private void displayUS160(EnergyGrid energyGrid) {
-        if(energyGrid != null) {
+        if (energyGrid != null) {
             System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid));
         }
     }

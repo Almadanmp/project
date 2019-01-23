@@ -484,6 +484,9 @@ public class MainUI {
         houseSP2.addRoomToRoomList(b107SP2);
         houseSP2.addRoomToRoomList(b109SP2);
         houseSP2.addRoomToRoomList(roomB106SP2);
+        mainGridSP2.addRoomToAnEnergyGrid(roomB106SP2);
+        mainGridSP2.addRoomToAnEnergyGrid(b107SP2);
+        mainGridSP2.addRoomToAnEnergyGrid(b109SP2);
 
         // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
         Room room1 = new Room("room1", 1, 33, 13, 23);
