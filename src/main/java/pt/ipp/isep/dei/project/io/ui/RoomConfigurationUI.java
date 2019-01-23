@@ -508,9 +508,10 @@ class RoomConfigurationUI {
         }
     }
 
-    /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
-    nominal power of a room, i.e. the sum of the nominal power of all devices in the
-    room. - TERESA VARELA*/
+
+    /** USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
+     nominal power of a room, i.e. the sum of the nominal power of all devices in the
+     room.**/
     private void runUS230() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
