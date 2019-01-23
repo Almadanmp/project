@@ -143,12 +143,17 @@ class RoomConfigurationUI {
      */
     private void runUS201() {
         InputUtils inputUtils = new InputUtils();
-        if (mHouse.getDeviceList().isEmpty()) {
-            System.out.println("The device list is empty.\nReturning to main menu.");
-        } else {
-            this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-            printRoomDeviceList();
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.houseRoomListIsValid(this.mHouse)) {
+            System.out.println(utilsUI.invalidRoomList);
+            return;
         }
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        if (!utilsUI.roomDeviceListIsValid(this.mRoom)) {
+            System.out.println(utilsUI.invalidDeviceList);
+            return;
+        }
+        printRoomDeviceList();
     }
 
     private void printRoomDeviceList() {
