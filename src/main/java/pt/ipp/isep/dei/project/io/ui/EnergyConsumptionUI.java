@@ -60,7 +60,7 @@ class EnergyConsumptionUI {
         UtilsUI utils = new UtilsUI();
         boolean active;
         InputUtils inputs = new InputUtils();
-        EnergyGrid grid = inputs.oldGetInputGridByList(programHouse);
+        EnergyGrid grid = inputs.getInputGridByList(programHouse);
         RoomList selectedRooms = new RoomList();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
@@ -123,7 +123,7 @@ class EnergyConsumptionUI {
 
     private void selectRooms(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
         InputUtils inputs = new InputUtils();
-        Room r1 = inputs.oldGetGridRoomByList(grid);
+        Room r1 = inputs.getGridRoomByList(grid);
         Scanner scanner = new Scanner(System.in);
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to remove it from the list? (Y/N)\n";
@@ -149,7 +149,7 @@ class EnergyConsumptionUI {
 
     private void selectDevices(EnergyGrid grid, DeviceList selectedDevices) {
         InputUtils inputs = new InputUtils();
-        Device d1 = inputs.oldGetGridDevicesByList(grid);
+        Device d1 = inputs.getGridDevicesByList(grid);
         Scanner scanner = new Scanner(System.in);
         if (selectedDevices.contains(d1)) {
             String duplicateDevice = "That device is already on the list. Would you like to deselect the device? (Y/N)\n";

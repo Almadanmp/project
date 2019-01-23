@@ -241,7 +241,7 @@ class SensorSettingsUI {
 
     private void getInputPart306() {
         InputUtils inputUtils = new InputUtils();
-        mGeographicArea = inputUtils.oldGetGeographicAreaByList(mGeographicAreaList);
+        mGeographicArea = inputUtils.getGeographicAreaByList(mGeographicAreaList);
         updateAndDisplayUS06Part206();
     }
 

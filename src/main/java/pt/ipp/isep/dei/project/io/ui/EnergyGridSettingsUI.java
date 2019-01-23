@@ -122,7 +122,7 @@ class EnergyGridSettingsUI {
     // can attach/detach rooms from it - JOAO CACHADA.
     private void runUS145(House house) {
         InputUtils inputs = new InputUtils();
-        mEnergyGrid = inputs.oldGetInputGridByList(house);
+        mEnergyGrid = inputs.getInputGridByList(house);
         displayRoomList(mEnergyGrid);
 
     }
@@ -163,7 +163,7 @@ class EnergyGridSettingsUI {
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
     private void runUS149(House house) {
         InputUtils inputs = new InputUtils();
-        EnergyGrid energyGrid = inputs.oldGetInputGridByList(house);
+        EnergyGrid energyGrid = inputs.getInputGridByList(house);
         Room room = getInputEnergyGridRoom(energyGrid);
         updateGridUS149(energyGrid, room);
     }
@@ -171,7 +171,7 @@ class EnergyGridSettingsUI {
     private Room getInputEnergyGridRoom(EnergyGrid energyGrid) {
         if (energyGrid != null) {
             InputUtils inputUtils = new InputUtils();
-            return inputUtils.oldGetGridRoomByList(energyGrid);
+            return inputUtils.getGridRoomByList(energyGrid);
         } else {
             return null;
         }

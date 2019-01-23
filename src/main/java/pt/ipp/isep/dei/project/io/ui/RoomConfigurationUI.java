@@ -413,7 +413,7 @@ class RoomConfigurationUI {
 
             this.mCapacity = inputUtils.getInputAsDouble();
             Program program;
-            program = inputUtils.oldGetSelectedProgramFromDevice(mDevice);
+            program = inputUtils.getSelectedProgramFromDevice(mDevice);
             mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(mDevice));
             if (program == null || mProgramList == null) {
                 System.out.println("There are no programs to edit.");
@@ -468,7 +468,7 @@ class RoomConfigurationUI {
         if (mProgramList.getProgramList().size() > 1) {
             System.out.println("Would you like to edit another Program? (y/n)");
             while (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to edit another Program? (y/n)")) {
-                program1 = inputUtils.oldGetSelectedProgramFromDevice(mDevice);
+                program1 = inputUtils.getSelectedProgramFromDevice(mDevice);
                 mProgramList.removeProgram(program1);
                 System.out.println(requestProgramName);
                 this.mProgramName = scanner.nextLine();
