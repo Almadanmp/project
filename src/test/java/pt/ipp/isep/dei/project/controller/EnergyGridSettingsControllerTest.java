@@ -416,34 +416,4 @@ class EnergyGridSettingsControllerTest {
         String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
         assertEquals(expectedResult, result);
     }
-
-    @Test
-    void seeIfDeviceListPrintsByTypeWithEmptyRoomList() {
-        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-        EnergyGrid eg = new EnergyGrid();
-        eg.setNominalPower(333);
-        eg.setName("Main Energy Grid Edificio C");
-        RoomList rl = new RoomList();
-        eg.setRoomList(rl);
-        String expectedResult = "This energy grid has no rooms attached\n";
-        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfDeviceListPrintsByTypeWithNoDevices() {
-        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
-        EnergyGrid eg = new EnergyGrid();
-        eg.setNominalPower(333);
-        eg.setName("Main Energy Grid Edificio C");
-        RoomList rl = new RoomList();
-        DeviceList deviceList = new DeviceList();
-        room1EdC.setDeviceList(deviceList);
-        eg.setRoomList(rl);
-        rl.addRoom(room1EdC);
-        String expectedResult = "This energy grid has no devices on it\n";
-        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
-        assertEquals(expectedResult, result);
-    }
 }

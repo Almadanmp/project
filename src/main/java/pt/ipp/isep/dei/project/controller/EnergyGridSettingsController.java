@@ -217,12 +217,6 @@ public class EnergyGridSettingsController {
      */
 
     public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid) {
-        if (energyGrid.getRoomList().isEmpty()) {
-            return "This energy grid has no rooms attached\n";
-        }
-        if (energyGrid.getDeviceListFromAllRooms().getList().isEmpty()) {
-            return "This energy grid has no devices on it\n";
-        }
         return energyGrid.buildListOfDeviceByTypeString(energyGrid);
     }
 }

@@ -193,7 +193,20 @@ class EnergyGridSettingsUI {
     DANIEL OLIVEIRA*/
     private void runUS160(House house) {
         InputUtils inputs = new InputUtils();
-        EnergyGrid energyGrid = inputs.oldGetInputGridByList(house);
+        UtilsUI utilsUI = new UtilsUI();
+        if(utilsUI.houseGridListIsValid(house)){
+            System.out.println(utilsUI.invalidGridList);
+            return;
+        }
+        EnergyGrid energyGrid = inputs.getInputGridByList(house);
+        if(!utilsUI.gridRoomListIsValid(energyGrid)){
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
+        if(!utilsUI.gridDeviceListIsValid(energyGrid)){
+            System.out.println(utilsUI.invalidDeviceList);
+            return;
+        }
         displayUS160(energyGrid);
     }
 
