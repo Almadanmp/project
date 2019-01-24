@@ -16,7 +16,6 @@ public class Device implements Metered {
     private DeviceSpecs mDeviceSpecs;
 
     //Empty constructor for test purposes
-
     public Device(String name, double nominalPower, DeviceSpecs deviceSpecs) {
         this.mName = name;
         this.mDeviceSpecs = deviceSpecs;
@@ -53,7 +52,7 @@ public class Device implements Metered {
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-       return mDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return mDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public String buildDeviceString() {
@@ -63,21 +62,49 @@ public class Device implements Metered {
         return result;
     }
 
+    @Override
+    public double getEnergyConsumption(float time) {
+        return 0;
+    }
+
     /**
      * get daily estimate consumption on a day (24hours)
      *
      * @return the estimateConsumption/24 hours
      */
     public double getDailyEstimateConsumption() {
-        return (mDeviceSpecs.getConsumption())*24;
+        return (mDeviceSpecs.getConsumption()) * 24;
     }
 
 
+    /**
+     * //TODO incomplete
+     *
+     * @return
+     */
+    public boolean isProgrammable() {
+        return mDeviceSpecs instanceof Programmable;
+    }
+
+    /**
+     * //TODO describe usage of throw
+     *
+     * @return
+     * @throws NullPointerException
+     */
+    public ProgramList getProgramList() throws NullPointerException {
+        if (isProgrammable()) {
+            Programmable aux = (Programmable) mDeviceSpecs;
+            return aux.getProgramList();
+        } else {
+            //return null;
+            throw new NullPointerException("ERROR: Unable to get list. Device is not programmable.");
+        }
+    }
 
     public DeviceType getType() {
         return mDeviceSpecs.getType();
     }
-
 
     @Override
     public boolean equals(Object o) {

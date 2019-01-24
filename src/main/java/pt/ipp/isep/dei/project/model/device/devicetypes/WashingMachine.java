@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
-import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
 import pt.ipp.isep.dei.project.model.device.Programmable;
 
@@ -13,54 +12,19 @@ public class WashingMachine implements DeviceSpecs, Programmable {
 
     private double mCapacity;
     private ProgramList mObjectProgramList;
-    private List<Program> mProgramList;
 
+
+    public WashingMachine() {
+        mObjectProgramList = new ProgramList();
+    }
 
     public WashingMachine(double capacity) {
         this.mCapacity = capacity;
-        mProgramList = new ArrayList<>();
-        mProgramList=new ArrayList<>();
+        mObjectProgramList = new ProgramList();
     }
 
-    public WashingMachine(double capacity,List<Program> programList) {
-        this.mCapacity = capacity;
-        mProgramList = programList;
-    }
-
-    public WashingMachine(double capacity, ProgramList programList) {
-        this.mCapacity = capacity;
-        mObjectProgramList = programList;
-    }
-
-    public List<Program> getProgramList() {
-        return mProgramList;
-    }
-
-    public Program getProgramByName(String name) {
-        for (Program p: mProgramList){
-            if (p.getProgramName().equals(name)) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-    public boolean addProgram(Program program){
-        if (!(mProgramList.contains(program))) {
-            mProgramList.add(program);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean removeProgram(Program program){
-        if (mProgramList.contains(program)) {
-            mProgramList.remove(program);
-            return true;
-        } else {
-            return false;
-        }
+    public ProgramList getProgramList() {
+        return mObjectProgramList;
     }
 
     public DeviceType getType() {

@@ -275,6 +275,12 @@ public class Room implements Metered {
 
 
     @Override
+    public double getEnergyConsumption(float time) {
+        return 0;
+    }
+
+
+    @Override
     public int hashCode() {
         return 1;
     }

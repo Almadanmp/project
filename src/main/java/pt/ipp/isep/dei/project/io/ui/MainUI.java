@@ -212,12 +212,12 @@ public class MainUI {
         Program program2 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
         listProgram.addProgram(program2);
-        Device device1 = new Device("maquina de lavar", 23.0, new WashingMachine(100.0, listProgram));
+   //     Device device1 = new Device("maquina de lavar", 23.0, new WashingMachine(100.0, listProgram));
         Device device2 = new Device("FridgeOne", 4, new Fridge(2,2,45));
         Device device3 = new Device("WH Main", 3, new WaterHeater(500.0, 25.0, 10.0));
         Device device4 = new Device("Lamp", 4, new Lamp(23));
         DeviceList listDevices = new DeviceList();
-        listDevices.addDevice(device1);
+      //  listDevices.addDevice(device1);
         listDevices.addDevice(device2);
         listDevices.addDevice(device3);
         listDevices.addDevice(device4);
@@ -384,10 +384,10 @@ public class MainUI {
         programListWashingMachineB109SP2.addProgram(fast);
         programListWashingMachineB109SP2.addProgram(fastPlus);
         programListWashingMachineB109SP2.addProgram(synthetic30);
-        Device washingMachineB109SP2 = new Device("Washing Machine B109", 2.5, new WashingMachine(0, programListWashingMachineB109SP2));
+      //  Device washingMachineB109SP2 = new Device("Washing Machine B109", 2.5, new WashingMachine(0, programListWashingMachineB109SP2));
         deviceListRoomB109SP2.addDevice(ehwB109SP2);
         deviceListRoomB109SP2.addDevice(dishWasherB109SP2);
-        deviceListRoomB109SP2.addDevice(washingMachineB109SP2);
+       // deviceListRoomB109SP2.addDevice(washingMachineB109SP2);
         b109SP2.setDeviceList(deviceListRoomB109SP2);
 
         Room roomB106SP2 = new Room("B106",1,7,13,3.5);

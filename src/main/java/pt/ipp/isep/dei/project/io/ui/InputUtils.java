@@ -26,7 +26,7 @@ class InputUtils {
     GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        while(true) {
+        while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
             System.out.println(geographicAreaList.buildGaWholeListString(geographicAreaList));
             int aux = inputUtils.readInputNumberAsInt();
@@ -45,7 +45,7 @@ class InputUtils {
     Room getHouseRoomByList(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        while(true) {
+        while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(house.buildRoomListString());
             int aux = inputUtils.readInputNumberAsInt();
@@ -64,7 +64,7 @@ class InputUtils {
     Room getGridRoomByList(EnergyGrid grid) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        while(true) {
+        while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(grid.buildRoomListString());
             int aux = inputUtils.readInputNumberAsInt();
@@ -83,7 +83,7 @@ class InputUtils {
     Device getGridDevicesByList(EnergyGrid grid) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        while(true) {
+        while (true) {
             System.out.println("Please select one of the existing devices in the selected room: ");
             System.out.println(grid.buildDeviceListString());
             int aux = inputUtils.readInputNumberAsInt();
@@ -102,13 +102,13 @@ class InputUtils {
     Program getSelectedProgramFromDevice(Device device) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        while(true) {
-            ProgramList programList = (ProgramList) device.getAttributeValue("programList");
+        while (true) {
+            ProgramList deviceProgramList = device.getProgramList(); //getAttributeValue("programList");
             System.out.println("Please select one of the existing Programs in the selected Program List to alter: ");
-            System.out.println(programList.buildProgramListString());
+            System.out.println(deviceProgramList.buildProgramListString());
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < programList.getProgramList().size()) {
-                Program result = programList.getProgramList().get(aux);
+            if (aux >= 0 && aux < deviceProgramList.getProgramList().size()) {
+                Program result = deviceProgramList.getProgramList().get(aux);
                 String stringRequestProgram = "You have chosen the following Program: ";
                 System.out.println(stringRequestProgram);
                 System.out.println(result.buildProgramString());
@@ -122,7 +122,7 @@ class InputUtils {
     Device getInputRoomDevicesByList(Room room) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        while(true) {
+        while (true) {
             System.out.println("Please select one of the existing Devices in the selected Room: ");
             System.out.println(room.buildDeviceListString());
             int aux = inputUtils.readInputNumberAsInt();
@@ -140,7 +140,7 @@ class InputUtils {
     EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         UtilsUI utilsUI = new UtilsUI();
-        while(true) {
+        while (true) {
             System.out.println("Please select one of the existing grids on the selected house: ");
             System.out.println(controller.buildGridListString(house));
             int aux = this.readInputNumberAsInt();
@@ -194,7 +194,7 @@ class InputUtils {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         HouseMonitoringController controller = new HouseMonitoringController();
-        while(true) {
+        while (true) {
             System.out.println("Please select one of the existing Sensors on the selected Room: ");
             System.out.println(controller.buildRoomSensorListString(room));
             int aux = inputUtils.readInputNumberAsInt();
@@ -205,7 +205,8 @@ class InputUtils {
             }
         }
     }
-    boolean yesOrNo(String answer, String question){
+
+    boolean yesOrNo(String answer, String question) {
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
         while (!("y".equalsIgnoreCase(answer)) && !("n".equalsIgnoreCase(answer))) {
@@ -255,9 +256,10 @@ class InputUtils {
     /**
      * Method to read a double value from a user.
      * Will validate input is a double. if it isn't it will print an error message.
+     *
      * @return value read from user
      */
-    Double getInputAsDouble(){
+    Double getInputAsDouble() {
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextDouble()) {
             System.out.println("Please,try again. Only numbers this time:");

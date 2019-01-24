@@ -234,7 +234,7 @@ public class RoomConfigurationController {
    }
 
    public Object getAttributeValueWashingMachine(Device device){
-        return device.getAttributeValue("programList");
+        return device.getProgramList();//tgetAttributeValue("programList");
    }
 
 

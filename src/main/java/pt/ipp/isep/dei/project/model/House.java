@@ -244,6 +244,10 @@ public class House implements Metered {
         this.mEGList.addGrid(energyGrid);
     }
 
+    @Override
+    public double getEnergyConsumption(float time) {
+        return 0;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -569,14 +569,14 @@ class RoomConfigurationControllerTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
+   /* @Test
     void seeIfGetAttributeValueWashingMachine() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device d1 = new Device("heater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
         Object expectedResult = d1.getAttributeValue("programList");
         Object result = ctrl.getAttributeValueWashingMachine(d1);
         assertEquals(expectedResult, result);
-    }
+    }*/
 
     @Test
     void seeIfConfigureOneWashingMachineCapacity() {

@@ -16,7 +16,7 @@ import static org.testng.Assert.assertTrue;
 
 class DishwasherTest {
 
-    @Test
+ /*   @Test
     void seeIfGetTypeTestWorks() {
         Dishwasher dishwasher = new Dishwasher();
         DeviceType expectedResult = DeviceType.DISHWASHER;
@@ -149,4 +149,6 @@ class DishwasherTest {
     }
 
 
+}
+*/
 }

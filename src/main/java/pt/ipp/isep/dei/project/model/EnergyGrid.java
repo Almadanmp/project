@@ -252,6 +252,12 @@ public class EnergyGrid implements Metered {
         return result.toString();
     }
 
+
+    @Override
+    public double getEnergyConsumption(float time) {
+        return 0;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

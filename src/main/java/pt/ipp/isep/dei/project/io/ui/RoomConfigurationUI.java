@@ -158,10 +158,10 @@ class RoomConfigurationUI {
             mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity, mAnnualEnergyConsumption));
         }
 
-        if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
+       /* if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
             createAWashingMachineOrADishWasher();
             mDevice = new Device(mDeviceName, mNominalPower, new WashingMachine(mCapacity, mProgramList));
-        }
+        }*/
 
         if (this.mDeviceType == DeviceType.DISHWASHER) {
             createAWashingMachineOrADishWasher();
@@ -344,6 +344,7 @@ class RoomConfigurationUI {
         updateDeviceUS215();
         displayDeviceUS215();
     }
+
 
     private void getInputDeviceCharacteristicsUS215() {
         Scanner scanner = new Scanner(System.in);
