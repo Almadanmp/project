@@ -25,7 +25,7 @@ public class ProgramList {
         }
         for (int i = 0; i < getProgramList().size(); i++) {
             Program program = getProgramList().get(i);
-            result.append("\n" + i).append(") Program Name: ").append(program.getProgramName());
+            result.append("\n").append(i).append(") Program Name: ").append(program.getProgramName());
             result.append(", Duration: ").append(program.getDuration());
             result.append(", Energy Consumption: ").append(program.getEnergyConsumption());
         }
@@ -34,7 +34,7 @@ public class ProgramList {
     }
 
     public String buildProgramListStringForEach() {
-        StringBuilder result = new StringBuilder("");
+        StringBuilder result = new StringBuilder();
         if (getProgramList().isEmpty()) {
             return "This device has no programs\n";
         }

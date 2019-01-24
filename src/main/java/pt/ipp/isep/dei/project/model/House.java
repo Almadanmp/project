@@ -106,8 +106,12 @@ public class House implements Metered {
         return mMotherArea;
     }
 
-    public EnergyGridList getEGList() {
+    public EnergyGridList getEGListObject() {
         return this.mEGList;
+    }
+
+    public List<EnergyGrid> getEGList() {
+        return this.mEGList.getEnergyGridList();
     }
 
     public void setEGList(EnergyGridList energyGridList) {

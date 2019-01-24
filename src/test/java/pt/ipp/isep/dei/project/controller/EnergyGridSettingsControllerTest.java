@@ -61,7 +61,7 @@ class EnergyGridSettingsControllerTest {
         energyGrid1.addRoomToAnEnergyGrid(room);
         EnergyGridSettingsController ctrlUS145 = new EnergyGridSettingsController();
         List<Integer> list = ctrlUS145.matchGridIndexByString("EG1", house);
-        String actualResult = ctrlUS145.buildEnergyGridByIndexString(list, house.getEGList());
+        String actualResult = ctrlUS145.buildEnergyGridByIndexString(list, house.getEGListObject());
         String expectedResult = "0) EG1, 400.0, pt.ipp.isep.dei.project.model.PowerSourceList@1.\n";
         Assert.assertEquals(expectedResult, actualResult);
     }
@@ -335,7 +335,7 @@ class EnergyGridSettingsControllerTest {
         House house = new House("casa", "as", "as", "s", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)));
         ctrl.createEnergyGrid("grid", 400);
         ctrl.addEnergyGridToHouse(house);
-        EnergyGrid result = house.getEGList().getEnergyGridList().get(0);
+        EnergyGrid result = house.getEGListObject().getEnergyGridList().get(0);
         EnergyGrid expectedResult = new EnergyGrid();
         expectedResult.setNominalPower(400);
         expectedResult.setName("grid");

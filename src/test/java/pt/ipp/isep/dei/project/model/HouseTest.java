@@ -399,7 +399,7 @@ class HouseTest {
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga);
         //Act
         house.setEGList(energyGridList);
-        EnergyGridList actualResult = house.getEGList();
+        EnergyGridList actualResult = house.getEGListObject();
 
         //Assert
         assertEquals(expectedResult, actualResult);

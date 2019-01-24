@@ -27,7 +27,7 @@ public class EnergyGridSettingsController {
      */
 
     List<Integer> matchGridIndexByString(String gridName, House house) {
-        return house.getEGList().matchGridListElementsByString(gridName);
+        return house.getEGListObject().matchGridListElementsByString(gridName);
     }
 
     /**

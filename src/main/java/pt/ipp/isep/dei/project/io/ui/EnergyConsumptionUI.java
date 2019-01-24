@@ -57,6 +57,10 @@ class EnergyConsumptionUI {
     // and/or devices of my choosing connected to a grid.
 
     private void runUS705(House programHouse) {
+        if (programHouse.getEGListObject() == null || programHouse.getEGList().isEmpty()){
+            System.out.println("The house has no Energy Grids. Energy grids are required for this functionality.");
+            return;
+        }
         UtilsUI utils = new UtilsUI();
         boolean active;
         InputUtils inputs = new InputUtils();
@@ -205,7 +209,6 @@ class EnergyConsumptionUI {
             return;
         }
         System.out.println("You currently have " + waterHeaters.size() + " electric water heaters in your house:\n");
-
         for (Device d : waterHeaters) {
             System.out.println("Water Heater name: " + controller.getWHName(d) + ".\n");
             System.out.println("Please insert the cold water temperature for Water Heater " + controller.getWHName(d) + ":");
