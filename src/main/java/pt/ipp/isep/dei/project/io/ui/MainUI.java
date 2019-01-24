@@ -17,11 +17,11 @@ public class MainUI {
 
         //Program Variables
 
-        // ***************************************************************************
-        // ********************* < MOCK DATA FOR TESTING PURPOSES >*******************
-        // ***************************************************************************
+        // *************************
+        // ******* < MOCK DATA FOR TESTING PURPOSES >*******
+        // *************************
 
-        // ******* MAIN MOCK *******************************************************
+        // *** MAIN MOCK *******************
 
         // Geo List (1)
 
@@ -231,7 +231,7 @@ public class MainUI {
         listDevices1.addDevice(device6);
         roomISEP3.setDeviceList(listDevices1);
 
-        // ********* MOCKS EXTRA **********************************************
+        // *** MOCKS EXTRA ****************
 
         List<DeviceType> deviceTypeList = new ArrayList<>();
         deviceTypeList.add(DeviceType.FRIDGE);
@@ -583,9 +583,9 @@ public class MainUI {
  house4.setEGList(energyGridList1);
 
 
- // **************************************************************************
- // ******************* < / MOCK DATA FOR TESTING PURPOSES > ******************
- // **************************************************************************
+ // **************************
+ // ******* < / MOCK DATA FOR TESTING PURPOSES > ******
+ // **************************
  **/
 
         //MAIN CODE
@@ -594,10 +594,10 @@ public class MainUI {
         int option;
         while (true) {
 
-            System.out.println("\n**********************************\n" +
-                    "******** Smart Grid Menu *********\n" +
-                    "*********** sWitCh 2018 **********\n" +
-                    "**********************************\n");
+            System.out.println("\n************\n" +
+                    "*** Smart Grid Menu ****\n" +
+                    "**** sWitCh 2018 *****\n" +
+                    "************\n");
 
             // Submenus Input selection
 

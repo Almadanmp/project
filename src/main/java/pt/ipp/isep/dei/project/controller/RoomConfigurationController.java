@@ -202,12 +202,15 @@ public class RoomConfigurationController {
     public String buildDeviceListString(Room room){
         return room.buildDeviceListString();
     }
+/*
 
-    /**
+    */
+/**
      *
      * @param deviceTypeList is the list of DeviceTypes we want to turn into a list.
      * @return a string with the list of available device types by index
-     */
+     *//*
+
     public String buildDeviceTypeListString(List<DeviceType> deviceTypeList){
         DeviceType deviceType= DeviceType.WATER_HEATER;
         for (DeviceType deviceType1 : deviceTypeList) {
@@ -217,11 +220,13 @@ public class RoomConfigurationController {
         return deviceType.buildDeviceTypesByIndexString();
     }
 
-    /**
+    */
+/**
      *
      * @param room room from which we want to remove the device.
      * @param device device we want to remove.
-     */
+     *//*
+
     public void removeDeviceFromRoom(Room room, Device device){
         room.removeDevice(device);
     }
@@ -263,23 +268,28 @@ public class RoomConfigurationController {
         device.setAttributeValue("luminousFlux",luminousLux);
     }
 
-   /**
+   */
+/**
     *
     * @param input the new name we want to give to the device.
     * @param device the device we want to change the name from.
-    */
+    *//*
+
     public void setDeviceName(String input, Device device) {
         device.setmName(input);
     }
 
-    /**
+    */
+/**
      *
      * @param input the new nominal power we want to give to the device.
      * @param device the device we want to change the nominal power from.
-     */
+     *//*
+
     public void setNominalPower(Double input, Device device){
         device.setNominalPower(input);
     }
+*/
 
     /**
      *

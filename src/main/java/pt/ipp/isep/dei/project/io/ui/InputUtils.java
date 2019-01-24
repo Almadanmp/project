@@ -168,11 +168,14 @@ class InputUtils {
             }
         }
     }
+/*
 
-    /**
+    */
+/**
      * @param deviceTypeList is a list of device types
      * @return prints a list of available device types by index if the list of device types is not empty
-     */
+     *//*
+
     DeviceType getInputDeviceTypeByList(List<DeviceType> deviceTypeList) {
         InputUtils inputUtils = new InputUtils();
         RoomConfigurationController controller = new RoomConfigurationController();
@@ -189,6 +192,7 @@ class InputUtils {
             }
         }
     }
+*/
 
     Sensor getInputRoomSensorByList(Room room) {
         UtilsUI utils = new UtilsUI();

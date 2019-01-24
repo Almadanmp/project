@@ -211,7 +211,7 @@ public class SensorListTest {
 
         //Arrange
 
-        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25).getTime());
+        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 26).getTime());
         Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3).getTime());
         Reading reading3 = new Reading(15, new GregorianCalendar(113, 11, 25).getTime());
         Reading reading4 = new Reading(29, new GregorianCalendar(111, 9, 3).getTime());
@@ -230,17 +230,14 @@ public class SensorListTest {
                 new GregorianCalendar(118, 10, 4).getTime());
         s2.setReadingList(l2);
         SensorList list1 = new SensorList(new Sensor[]{s1, s2});
-        Sensor expectedResult = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
-        expectedResult.setReadingList(l1);
+
         Sensor actualResult;
 
         //Act
         actualResult = list1.getMostRecentlyUsedSensor();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(s1, actualResult);
     }
 
     @Test
@@ -249,7 +246,7 @@ public class SensorListTest {
         //Arrange
         Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25).getTime());
         Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3).getTime());
-        Reading reading3 = new Reading(15, new GregorianCalendar(113, 11, 25).getTime());
+        Reading reading3 = new Reading(15, new GregorianCalendar(113, 11, 28).getTime());
         Reading reading4 = new Reading(29, new GregorianCalendar(111, 9, 3).getTime());
         ReadingList l1 = new ReadingList();
         ReadingList l2 = new ReadingList();
@@ -266,17 +263,14 @@ public class SensorListTest {
                 new GregorianCalendar(118, 12, 4).getTime());
         s1.setReadingList(l2);
         SensorList list1 = new SensorList(new Sensor[]{s1, s2});
-        Sensor expectedResult = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
-        expectedResult.setReadingList(l1);
+
         Sensor actualResult;
 
         //Act
         actualResult = list1.getMostRecentlyUsedSensor();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(s2, actualResult);
     }
 
     @Test

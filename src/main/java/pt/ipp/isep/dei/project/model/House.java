@@ -137,11 +137,21 @@ public class House implements Metered {
         return result;
     }
 
+    /**
+     * calculates distance from the house to the sensor.
+     * @param sensor
+     * @return
+     */
     double calculateDistanceToSensor(Sensor sensor) {
         Local l = sensor.getLocal();
         return this.mLocation.getLinearDistanceBetweenLocalsInKm(l);
     }
 
+    /**
+     * calculates minimum distance from the house to a list of sensors
+     * @param ga
+     * @return
+     */
     double getMinDistanceFromHouseToSensor(GeographicArea ga) {
         Sensor firstSensor = ga.getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
@@ -154,6 +164,13 @@ public class House implements Metered {
         return distance;
     }
 
+    /**
+     * gets the sensor with minimum distance to the house.
+     * @param ga
+     * @param house
+     * @param sensorType
+     * @return
+     */
     public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house, String sensorType) {
         for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
             if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {

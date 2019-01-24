@@ -290,7 +290,8 @@ class GeographicAreaTest {
         s1.setReadingList(readingList);
         Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperatura", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime());
         s2.setReadingList(readingList2);
-        SensorList sensorList = new SensorList(s1);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 2, 3, new Local(16, 17, 18));
         ga1.setSensorList(sensorList);

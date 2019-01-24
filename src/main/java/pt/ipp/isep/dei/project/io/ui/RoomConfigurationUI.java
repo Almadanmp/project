@@ -3,10 +3,10 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.Device;
+/*import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.*;
+import pt.ipp.isep.dei.project.model.device.devicetypes.*;*/
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.Date;
@@ -18,7 +18,7 @@ class RoomConfigurationUI {
     private House mHouse;
     private RoomConfigurationController mRoomConfigurationController;
     private Room mRoom;
-    private Device mDevice;
+   /* private Device mDevice;
     private DeviceType mDeviceType;
     private double mNominalPower;
     private double mVolumeOfWater;
@@ -33,15 +33,15 @@ class RoomConfigurationUI {
     private ProgramList mProgramList = new ProgramList();
     private String mProgramName;
     private double mDuration;
-    private double mEnergyConsumption;
+    private double mEnergyConsumption;*/
     private String mSensorName;
     private int mDataYear;
     private int mDataMonth;
     private int mDataDay;
-    private String requestProgramName = "Please, type the new Program name:";
+  /*  private String requestProgramName = "Please, type the new Program name:";
     private String requestProgramEnergyConsumption = "Please, type the new Program Energy Consumption:";
     private String requestProgramDuration = "Please, type the new Program duration:";
-
+*/
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
     }
@@ -68,11 +68,11 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 2: //US210
-                    runUS210(deviceTypeList);
+                  //  runUS210(deviceTypeList);
                     activeInput = false;
                     break;
                 case 3: //US215
-                    runUS215();
+                   // runUS215();
                     activeInput = false;
                     break;
                 case 4: //US230
@@ -96,11 +96,11 @@ class RoomConfigurationUI {
         }
     }
 
-    /**
+/*    *//**
      * runs US210: Add a new device to the room from the list of device types.
      *
      * @param deviceTypeList
-     */
+     *//*
     private void runUS210(List<DeviceType> deviceTypeList) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
@@ -114,10 +114,10 @@ class RoomConfigurationUI {
         displayDeviceUS210();
     }
 
-    /**
+    *//**
      * Asks for input from the user in order to construct a new device with its parameters
      * (name, nominal power and device specs (according to the selected device Type)
-     */
+     *//*
     private void createDevice() {
         Scanner scanner = new Scanner(System.in);
 
@@ -158,10 +158,10 @@ class RoomConfigurationUI {
             mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity, mAnnualEnergyConsumption));
         }
 
-       /* if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
+       *//* if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
             createAWashingMachineOrADishWasher();
             mDevice = new Device(mDeviceName, mNominalPower, new WashingMachine(mCapacity, mProgramList));
-        }*/
+        }*//*
 
         if (this.mDeviceType == DeviceType.DISHWASHER) {
             createAWashingMachineOrADishWasher();
@@ -210,10 +210,10 @@ class RoomConfigurationUI {
         }
     }
 
-    /**
+    *//**
      * Displays a string with the new created device and its parameters.
      * Adds the new created device to the selected room
-     */
+     *//*
 
     private void displayDeviceUS210() {
         if (mRoom.addDevice(mDevice)) {
@@ -238,7 +238,7 @@ class RoomConfigurationUI {
         } else {
             System.out.println("Device already exists in the room. Please, try again.\n");
         }
-    }
+    }*/
     /**
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
      *     sensor types, in order to configure it.
@@ -328,9 +328,9 @@ class RoomConfigurationUI {
     /* USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,
     so that I can reconfigure it.. - CARINA ALAS */
 
-    /**
+   /* *//**
      * runs US215, As an Administrator, I want to edit the configuration of an existing device.
-     */
+     *//*
     private void runUS215() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
@@ -472,9 +472,9 @@ class RoomConfigurationUI {
         }
     }
 
-    /*
+    *//*
     US215 As an Administrator, I want to edit the configuration of an existing device, so that I
-    can reconfigure it.*/
+    can reconfigure it.*//*
     private void updateDeviceUS215() {
         if (mDevice == null || mRoom == null) {
             return;
@@ -512,8 +512,8 @@ class RoomConfigurationUI {
         }
     }
 
-    /* US215 As an Administrator, I want to edit the configuration of an existing device, so that I
-    can reconfigure it. - CARINA ALAS*/
+    *//* US215 As an Administrator, I want to edit the configuration of an existing device, so that I
+    can reconfigure it. - CARINA ALAS*//*
 
     private void displayDeviceUS215() {
         if (mDevice == null || mRoom == null) {
@@ -542,7 +542,7 @@ class RoomConfigurationUI {
             mRoom.addDevice(mDevice);
             System.out.println("device already exists in the room. Please, try again.\n");
         }
-    }
+    }*/
 
 
     /** USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
