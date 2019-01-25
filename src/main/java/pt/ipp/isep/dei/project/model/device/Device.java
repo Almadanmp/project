@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.device;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ public class Device implements Metered {
     private String mName;
     private double mNominalPower;
     private DeviceSpecs mDeviceSpecs;
+    private LogList mLogList;
     private int mMeteredPeriod;
 
     //Empty constructor for test purposes
@@ -22,6 +24,7 @@ public class Device implements Metered {
         this.mDeviceSpecs = deviceSpecs;
         this.mNominalPower = nominalPower;
         this.mMeteredPeriod = 0;
+        this.mLogList = new LogList();
     }
 
     //temporary before is gets moved to DeviceSpecs
@@ -112,6 +115,10 @@ public class Device implements Metered {
 
     public void setMeteredPeriod(int minutes){
         this.mMeteredPeriod = minutes;
+    }
+
+    public LogList getLogList() {
+        return this.mLogList;
     }
 
 
