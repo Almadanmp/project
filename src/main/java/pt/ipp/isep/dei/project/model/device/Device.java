@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -119,6 +120,15 @@ public class Device implements Metered {
 
     public LogList getLogList() {
         return this.mLogList;
+    }
+
+    public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime){
+        double result = 0;
+        for (Log l: mLogList.getLogList()) {
+            if(initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate()) && finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate())){
+                result += l.getValue();
+            }
+        }return result;
     }
 
 
