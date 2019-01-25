@@ -288,6 +288,39 @@ public class House implements Metered {
         return listOfDeviceTypes;
     }
 
+    /**
+     * Method to return the path to a selected Device Type Class by the user
+     * @param id - String with the identification of the device type selected
+     * @return string with the path to the class file
+     */
+    String getDeviceTypePathToClassById(String id) {
+        Properties props = new Properties();
+        String propFileName = "resources/devices.properties";
+        InputStream input = null;
+        String deviceTypePath = " ";
+        try {
+            input = new FileInputStream(propFileName);
+            if (input != null) {
+                props.load(input);
+                deviceTypePath = props.getProperty(id);
+
+            } else {
+                throw new FileNotFoundException("property file " + propFileName + "not found in the classpath.");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        }
+        return deviceTypePath;
+    }
 
     /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
@@ -303,9 +336,11 @@ public class House implements Metered {
         this.mEGList.addGrid(energyGrid);
     }
 
-    public int getMeteredPeriod(){return this.mMeteredPeriod;}
+    public int getMeteredPeriod() {
+        return this.mMeteredPeriod;
+    }
 
-    public void setMeteredPeriod(int minutes){
+    public void setMeteredPeriod(int minutes) {
         this.mMeteredPeriod = minutes;
     }
 

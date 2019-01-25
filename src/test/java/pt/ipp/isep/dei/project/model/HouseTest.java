@@ -513,6 +513,15 @@ class HouseTest {
         System.out.println(result);
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void getDeviceClassPathFromContigFile() {
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater";
+        String result = house.getDeviceTypePathToClassById("WaterHeater");
+        System.out.println(result);
+        assertEquals(expectedResult, result);
+    }
 }
 
 
