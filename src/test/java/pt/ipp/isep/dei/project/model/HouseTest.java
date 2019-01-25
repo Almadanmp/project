@@ -25,7 +25,7 @@ class HouseTest {
 
     @Test
     void seeIfGetListDevice() {
-        Device device = new Device("fridge", 5, new Fridge(34,34,65));
+        Device device = new Device("fridge", 5, new Fridge(34, 34, 65));
         Device device2 = new Device("washing", 5, new WashingMachine(12));
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         room1.addDevice(device);
@@ -364,8 +364,8 @@ class HouseTest {
 
         Room r1 = new Room("Kitchen", 0, 12, 30, 10);
         Room r2 = new Room("Sótão", 3, 30, 40, 12);
-        Device d1 = new Device("WaterHeater1", 30, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Device d2 = new Device("Fridge", 50, new Fridge(45,45,56));
+        Device d1 = new Device("WaterHeater1", 30, new WaterHeater(new Double(12), new Double(40), new Double(234)));
+        Device d2 = new Device("Fridge", 50, new Fridge(45, 45, 56));
         DeviceList deviceList1 = new DeviceList();
         deviceList1.addDevice(d1);
         r1.setDeviceList(deviceList1);
@@ -430,16 +430,16 @@ class HouseTest {
     public void getDailyHouseConsumptionPerTypeTest() {
         House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device("fridgeOne", 12, new Fridge(45,45,65));
+        Device d1 = new Device("fridgeOne", 12, new Fridge(45, 45, 65));
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0,  0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
-        Device d4 = new Device("fridgeTwo", 12, new Fridge(4,5,45));
+        Device d4 = new Device("fridgeTwo", 12, new Fridge(4, 5, 45));
         Device d5 = new Device("wHeater3", 12, new WaterHeater(300.0, 15.0, 0.9));
-        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0,  0.9));
+        Device d6 = new Device("wHeater4", 11, new WaterHeater(400.0, 20.0, 0.9));
         r2.addDevice(d4);
         r2.addDevice(d5);
         r2.addDevice(d6);
@@ -449,29 +449,31 @@ class HouseTest {
         double result = h1.getDailyConsumptionByDeviceType(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }
+
     @Test
     public void getDailyHouseConsumptionPerTypeTest2() {
         House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0,  0.9));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
         r1.addDevice(d2);
         r1.addDevice(d3);
         h1.addRoomToRoomList(r1);
-        d2.setAttributeValue("coldWaterTemperature",5.0);
-        d2.setAttributeValue("volumeOfWaterToHeat",100.0);
-        d3.setAttributeValue("volumeOfWaterToHeat",100.0);
-        d3.setAttributeValue("coldWaterTemperature",1.0);
+        d2.setAttributeValue("coldWaterTemperature", 5.0);
+        d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
+        d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
+        d3.setAttributeValue("coldWaterTemperature", 1.0);
         double expectedResult = 4.6;
         double result = h1.getDailyConsumptionByDeviceType(DeviceType.WATER_HEATER);
         assertEquals(expectedResult, result);
     }
+
     @Test
-    void getHouseDevicesOfGivenType(){
+    void getHouseDevicesOfGivenType() {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
         r1.addDevice(d3);
         house.addRoomToRoomList(r1);
@@ -483,11 +485,11 @@ class HouseTest {
     }
 
     @Test
-    void getDeviceListTest(){
+    void getDeviceListTest() {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0,20.0,10.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0,30.0,1.0));
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
         r1.addDevice(d2);
         r1.addDevice(d3);
         house.addRoomToRoomList(r1);
@@ -495,6 +497,20 @@ class HouseTest {
         expectedResult.add(d2);
         expectedResult.add(d3);
         List<Device> result = house.getDeviceList();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDeviceListFromConfigurationFile() {
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        List<String> expectedResult = new ArrayList<>();
+        expectedResult.add("Fridge");
+        expectedResult.add("Dishwasher");
+        expectedResult.add("WashingMachine");
+        expectedResult.add("WaterHeater");
+        expectedResult.add("Lamp");
+        List<String> result = house.getDeviceTypes();
+        System.out.println(result);
         assertEquals(expectedResult, result);
     }
 }

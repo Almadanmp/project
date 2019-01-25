@@ -18,6 +18,7 @@ public class WaterHeater implements DeviceSpecs {
     private Double mPerformanceRatio;
     private Double mColdWaterTemperature;
     private Double mVolumeOfWaterToHeat;
+    private String mDeviceType = "waterHeater";
 
     public WaterHeater(Double volumeOfWater, Double hotWaterTemperature, Double mPerformanceRatio) {
         this.mVolumeOfWater = volumeOfWater;

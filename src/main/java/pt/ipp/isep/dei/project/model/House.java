@@ -3,9 +3,11 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * House Class. Defines de House
@@ -141,6 +143,7 @@ public class House implements Metered {
 
     /**
      * calculates distance from the house to the sensor.
+     *
      * @param sensor
      * @return
      */
@@ -151,6 +154,7 @@ public class House implements Metered {
 
     /**
      * calculates minimum distance from the house to a list of sensors
+     *
      * @param ga
      * @return
      */
@@ -168,6 +172,7 @@ public class House implements Metered {
 
     /**
      * gets the sensor with minimum distance to the house.
+     *
      * @param ga
      * @param house
      * @param sensorType
@@ -221,7 +226,6 @@ public class House implements Metered {
      * @return is a list of integers, representing positions in the roomList, of rooms whose name matches
      * input string.
      */
-
     public List<Integer> matchRoomIndexByString(String input) {
         return this.mRoomList.matchRoomIndexByString(input);
     }
@@ -250,6 +254,42 @@ public class House implements Metered {
     }
 
     /**
+     * Method to get all available device Types from the Configuration File.
+     *
+     * @return string will all available device types
+     */
+    public List<String> getDeviceTypes() {
+        Properties props = new Properties();
+        String propFileName = "devices.properties";
+        InputStream input = null;
+        String deviceTypes = " ";
+        try {
+            input = new FileInputStream(propFileName);
+            if (input != null) {
+                props.load(input);
+                deviceTypes = props.getProperty("allDeviceTypes");
+
+            } else {
+                throw new FileNotFoundException("property file " + propFileName + "not found in the classpath.");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        }
+        List<String> listOfDeviceTypes = new ArrayList<>(Arrays.asList(deviceTypes.split(",")));
+        return listOfDeviceTypes;
+    }
+
+
+    /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
      *
      * @param deviceType the device type
@@ -259,7 +299,7 @@ public class House implements Metered {
         return mRoomList.getDailyConsumptionByDeviceType(deviceType);
     }
 
-    public void addGrid(EnergyGrid energyGrid){
+    public void addGrid(EnergyGrid energyGrid) {
         this.mEGList.addGrid(energyGrid);
     }
 
