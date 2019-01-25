@@ -384,7 +384,7 @@ public class RoomTest {
         Room room1 = new Room("room1", 19, 5, 3, 3);
         double expectedResult = 0;
         //ACT
-        double actualResult = room1.getRoomListNominalPower();
+        double actualResult = room1.getNominalPower();
         //ASSERT
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -404,7 +404,7 @@ public class RoomTest {
         room1.setDeviceList(deviceList);
         double expectedResult = 23;
         //ACT
-        double actualResult = room1.getRoomListNominalPower();
+        double actualResult = room1.getNominalPower();
         //ASSERT
         Assertions.assertEquals(expectedResult, actualResult);
     }

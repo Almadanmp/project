@@ -171,7 +171,7 @@ public class EnergyConsumptionController {
      */
 
     public double getTotalPowerFromGrid(EnergyGrid grid) {
-        return grid.getRoomListNominalPower();
+        return grid.getNominalPowerFromRoomList();
     }
 }
 

@@ -15,17 +15,20 @@ import java.util.Objects;
 public class EnergyGrid implements Metered {
     private String mName;
     private double mNominalPower;
-        private RoomList mRoomList;
-        private PowerSourceList mListPowerSources;
+    private RoomList mRoomList;
+    private PowerSourceList mListPowerSources;
+    private int mMeteredPeriod;
 
     public EnergyGrid() {
-            this.mRoomList = new RoomList();
-            this.mListPowerSources = new PowerSourceList();
-            this.mNominalPower = 0;
+        this.mRoomList = new RoomList();
+        this.mListPowerSources = new PowerSourceList();
+        this.mNominalPower = 0;
+        this.mMeteredPeriod = 0;
     }
 
     /**
      * Getter for name of the energy grid.
+     *
      * @return returns attribute name of the energy grid.
      */
 
@@ -35,6 +38,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Getter for list of rooms that are contained in the energy grid.
+     *
      * @return returns a list with all the rooms contained in this energy grid.
      */
 
@@ -44,6 +48,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Getter for list of devices that are contained in all the rooms of this energy grid.
+     *
      * @return a DeviceList containing all the devices in the energy grid list of rooms.
      */
     public DeviceList getDeviceListFromAllRooms() {
@@ -58,22 +63,30 @@ public class EnergyGrid implements Metered {
 
     /**
      * Getter for the total nominal power value in every room contained in the grid.
+     *
      * @return a the total nominal power value in every room contained in the grid.
      */
-    public double getRoomListNominalPower() {
+    public double getNominalPower() {
+        return this.mNominalPower;
+    }
+
+    public double getNominalPowerFromRoomList() {
         double result = 0;
         for (Room r : mRoomList.getList()) {
-            result += r.getRoomListNominalPower();
+            result += r.getNominalPower();
         }
         return result;
     }
 
-    public double getNominalPower(){
-        return this.mNominalPower;
+    public int getMeteredPeriod(){return this.mMeteredPeriod;}
+
+    public void setMeteredPeriod(int minutes){
+        this.mMeteredPeriod = minutes;
     }
 
     /**
      * Getter for the list of power sources connected to the energy grid.
+     *
      * @return the list of power sources connected to the energy grid.
      */
     PowerSourceList getListPowerSources() {
@@ -82,6 +95,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Setter for List of power sources connected to the energy grid.
+     *
      * @param mListPowerSources List of power sources.
      */
     void setListPowerSources(PowerSourceList mListPowerSources) {
@@ -90,6 +104,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Setter for the list of rooms connected the energy grid.
+     *
      * @param mListOfRooms List of rooms in the energy grid.
      */
     public void setRoomList(RoomList mListOfRooms) {
@@ -98,6 +113,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Setter for a power source to the energy grid.
+     *
      * @param powerSource power source to be added to the energy grid.
      * @return returns true case the power source to be added is already associated to the grid.
      */
@@ -110,6 +126,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Setter for the value of nominal power in the energy grid.
+     *
      * @param nominalPower value of nominal power in the energy grid.
      */
     public void setNominalPower(double nominalPower) {
@@ -118,6 +135,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Setter for the name of the energy grid.
+     *
      * @param mName name of the energy grid.
      */
     public void setName(String mName) {
@@ -126,6 +144,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Setter for a new room to be added to the energy grid.
+     *
      * @param room Room to be added to the list of rooms in the energy grid.
      * @return returns true if the room is actually added to the energy grid.
      */
@@ -135,6 +154,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Creates a string displaying the name of the grid and respective max nominal power.
+     *
      * @return returns a string displaying the name of the grid and respective max nominal power.
      */
     public String buildGridString() {
@@ -143,6 +163,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Getter for the list of rooms related to the energy grid as an array of rooms.
+     *
      * @return a list of rooms related to the energy grid.
      */
     public List<Room> getRoomList() {
@@ -151,6 +172,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Getter for the list of devices related to the energy grid as an array od devices.
+     *
      * @return a list of devices related to the energy grid.
      */
     public List<Device> getDeviceList() {
@@ -159,6 +181,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Creates a string displaying the name of the rooms and the devices connected to the energy grid.
+     *
      * @return returns a string displaying the name of the rooms and the devices connected to the energy grid.
      */
     public String buildRoomsAndDevicesString() {
@@ -171,7 +194,7 @@ public class EnergyGrid implements Metered {
         }
         List<Device> deviceList = this.getDeviceList();
         for (Device d : deviceList) {
-            result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getType().name()).append(", Power: ").append(d.getRoomListNominalPower()).append(".\n");
+            result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getType().name()).append(", Power: ").append(d.getNominalPower()).append(".\n");
             counter++;
         }
         return result.toString();
@@ -179,6 +202,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Method to remove a room from the energy grid.
+     *
      * @param room the room we want to remove from the energy grid.
      * @return returns true if the room is successfully removed from the energy grid.
      */
@@ -192,6 +216,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Creates a string displaying the name of the devices in the energy grid.
+     *
      * @return returns a string displaying the name of the devices in the energy grid.
      */
     public String buildDeviceListString() {
@@ -206,6 +231,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Creates a string displaying the rooms in the energy grid and the room's attributes.
+     *
      * @return returns a string displaying the rooms in the energy grid and the room's attributes.
      */
     public String buildRoomListString() {
@@ -215,6 +241,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Creates a String with the device index, device type, device name and the room in which the device is contained.
+     *
      * @param energyGrid energy grid that we want to see which devices will be printed.
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
@@ -235,6 +262,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Creates a string that displays the device type and in which room it is contained.
+     *
      * @param r room where we want to see the devices.
      * @param d type of the devices.
      * @return a string that displays the device type and in which room it is contained.

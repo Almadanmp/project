@@ -14,12 +14,14 @@ public class Device implements Metered {
     private String mName;
     private double mNominalPower;
     private DeviceSpecs mDeviceSpecs;
+    private int mMeteredPeriod;
 
     //Empty constructor for test purposes
     public Device(String name, double nominalPower, DeviceSpecs deviceSpecs) {
         this.mName = name;
         this.mDeviceSpecs = deviceSpecs;
         this.mNominalPower = nominalPower;
+        this.mMeteredPeriod = 0;
     }
 
     //temporary before is gets moved to DeviceSpecs
@@ -31,7 +33,7 @@ public class Device implements Metered {
         this.mName = name;
     }
 
-    public double getRoomListNominalPower() {
+    public double getNominalPower() {
         return this.mNominalPower;
     }
 
@@ -58,7 +60,7 @@ public class Device implements Metered {
     public String buildDeviceString() {
         String result;
         result = "The device Name is " + this.mName + ", and its NominalPower is " +
-                getRoomListNominalPower() + " kW.\n";
+                getNominalPower() + " kW.\n";
         return result;
     }
 
@@ -105,6 +107,13 @@ public class Device implements Metered {
     public DeviceType getType() {
         return mDeviceSpecs.getType();
     }
+
+    public int getMeteredPeriod(){return this.mMeteredPeriod;}
+
+    public void setMeteredPeriod(int minutes){
+        this.mMeteredPeriod = minutes;
+    }
+
 
     @Override
     public boolean equals(Object o) {

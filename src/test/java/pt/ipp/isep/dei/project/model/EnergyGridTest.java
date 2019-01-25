@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
@@ -224,7 +223,7 @@ class EnergyGridTest {
         double expectedResult = 80;
 
         //Act
-        double actualResult = grid.getRoomListNominalPower();
+        double actualResult = grid.getNominalPowerFromRoomList();
 
         //Assert
         assertEquals(expectedResult,actualResult);

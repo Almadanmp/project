@@ -14,7 +14,11 @@ public interface Metered {
      */
 
     //TODO method name changed from getConsumption??
-    double getRoomListNominalPower();
+    double getNominalPower();
 
     double getEnergyConsumption(float time);
+
+    int getMeteredPeriod();
+
+    void setMeteredPeriod(int minutes);
 }

@@ -49,7 +49,7 @@ public class DeviceList {
     public double getNominalPower() {
         double result = 0;
         for (Device d : this.getList()) {
-            result += d.getRoomListNominalPower();
+            result += d.getNominalPower();
         }
         return result;
     }
@@ -68,7 +68,7 @@ public class DeviceList {
         StringBuilder result = new StringBuilder();
         for (Integer indexe : indexes) {
             int pos = indexe;
-            result.append(indexe).append(") ").append(mDeviceList.get(pos).getName()).append(", ").append(mDeviceList.get(pos).getRoomListNominalPower()).append(".\n");
+            result.append(indexe).append(") ").append(mDeviceList.get(pos).getName()).append(", ").append(mDeviceList.get(pos).getNominalPower()).append(".\n");
         }
         return result.toString();
     }

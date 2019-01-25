@@ -378,7 +378,7 @@ class HouseTest {
         double expectedResult = 80;
 
         //Act
-        double actualResult = testHouse.getRoomListNominalPower();
+        double actualResult = testHouse.getNominalPower();
 
         //Assert
         assertEquals(expectedResult, actualResult);
