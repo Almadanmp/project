@@ -260,7 +260,7 @@ public class House implements Metered {
      */
     public List<String> getDeviceTypes() {
         Properties props = new Properties();
-        String propFileName = "devices.properties";
+        String propFileName = "resources/devices.properties";
         InputStream input = null;
         String deviceTypes = " ";
         try {
