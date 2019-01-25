@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.*;*/
+import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.Date;
@@ -18,8 +19,8 @@ class RoomConfigurationUI {
     private House mHouse;
     private RoomConfigurationController mRoomConfigurationController;
     private Room mRoom;
-   /* private Device mDevice;
-    private DeviceType mDeviceType;
+    private Device mDevice;
+    /* private DeviceType mDeviceType;
     private double mNominalPower;
     private double mVolumeOfWater;
     private double mHotWaterTemperature;
@@ -38,10 +39,11 @@ class RoomConfigurationUI {
     private int mDataYear;
     private int mDataMonth;
     private int mDataDay;
-  /*  private String requestProgramName = "Please, type the new Program name:";
-    private String requestProgramEnergyConsumption = "Please, type the new Program Energy Consumption:";
-    private String requestProgramDuration = "Please, type the new Program duration:";
-*/
+
+    /*  private String requestProgramName = "Please, type the new Program name:";
+      private String requestProgramEnergyConsumption = "Please, type the new Program Energy Consumption:";
+      private String requestProgramDuration = "Please, type the new Program duration:";
+  */
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
     }
@@ -68,11 +70,11 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 2: //US210
-                  //  runUS210(deviceTypeList);
+                    //  runUS210(deviceTypeList);
                     activeInput = false;
                     break;
                 case 3: //US215
-                   // runUS215();
+                    // runUS215();
                     activeInput = false;
                     break;
                 case 4: //US230
@@ -87,6 +89,10 @@ class RoomConfigurationUI {
                     runUS253(typeSensorList);
                     activeInput = false;
                     break;
+                case 7: //US220
+                    runUS220();
+                    activeInput = false;
+                    break;
                 case 0:
                     return;
                 default:
@@ -96,7 +102,7 @@ class RoomConfigurationUI {
         }
     }
 
-/*    *//**
+    /*    *//*
      * runs US210: Add a new device to the room from the list of device types.
      *
      * @param deviceTypeList
@@ -114,7 +120,7 @@ class RoomConfigurationUI {
         displayDeviceUS210();
     }
 
-    *//**
+    *//*
      * Asks for input from the user in order to construct a new device with its parameters
      * (name, nominal power and device specs (according to the selected device Type)
      *//*
@@ -210,7 +216,7 @@ class RoomConfigurationUI {
         }
     }
 
-    *//**
+    *//*
      * Displays a string with the new created device and its parameters.
      * Adds the new created device to the selected room
      *//*
@@ -239,11 +245,12 @@ class RoomConfigurationUI {
             System.out.println("Device already exists in the room. Please, try again.\n");
         }
     }*/
+
     /**
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
-     *     sensor types, in order to configure it.
+     * sensor types, in order to configure it.
      *
-     * @param typeSensorList
+     * @param typeSensorList is
      */
     private void runUS253(List<TypeSensor> typeSensorList) {
         InputUtils inputUtils = new InputUtils();
@@ -328,7 +335,7 @@ class RoomConfigurationUI {
     /* USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,
     so that I can reconfigure it.. - CARINA ALAS */
 
-   /* *//**
+    /* *//*
      * runs US215, As an Administrator, I want to edit the configuration of an existing device.
      *//*
     private void runUS215() {
@@ -545,9 +552,11 @@ class RoomConfigurationUI {
     }*/
 
 
-    /** USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
-     nominal power of a room, i.e. the sum of the nominal power of all devices in the
-     room.**/
+    /**
+     * USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
+     * nominal power of a room, i.e. the sum of the nominal power of all devices in the
+     * room.
+     **/
     private void runUS230() {
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
@@ -606,6 +615,28 @@ class RoomConfigurationUI {
     }
 */
 
+    private void runUS220() {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
+        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        if(!utilsUI.roomDeviceListIsValid(this.mRoom)) {
+            System.out.println(utilsUI.invalidDeviceList);
+            return;
+        }
+        this.mDevice = inputUtils.getInputRoomDevicesByList(this.mRoom);
+        removeDeviceUS220();
+    }
+
+    private void removeDeviceUS220() {
+        if (mDevice == null || mRoom == null) {
+            System.out.println("There are no devices in this room.");
+            return;
+        }
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+       ctrl.removeDevice(mRoom,mDevice);
+        System.out.println("The device " + mDevice.getName() + " on room " + mRoom.getRoomName() + " has ceased to be.");
+    }
+
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
 
     private void printRoomConfigMenu() {
@@ -616,6 +647,7 @@ class RoomConfigurationUI {
         System.out.println("4) Get the total nominal power of a room (US230)");
         System.out.println("5) Get a list of all sensors in a room (US250)");
         System.out.println("6) Add a sensor to a room from the list of sensor types (US253)");
+        System.out.println("7) Delete an existing device (US220)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

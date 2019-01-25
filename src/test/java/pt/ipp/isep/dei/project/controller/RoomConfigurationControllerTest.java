@@ -649,4 +649,30 @@ class RoomConfigurationControllerTest {
         Object result = d1.getAttributeValue("luminousFlux");
         assertEquals(expectedResult, result);
     }*/
+
+    @Test
+    void removeDeviceSucess() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        r1.addDevice(d2);
+        r1.addDevice(d3);
+        boolean result = ctrl.removeDevice(r1,d2);
+        assertEquals(true, result);
+    }
+
+    @Test
+    void removeDeviceFails() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 2.0, 1.0));
+        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 3.0, 1.0));
+        Device d4 = new Device("wHeater4", 11, new WaterHeater(50.0, 3.0, 1.0));
+        r1.addDevice(d2);
+        r1.addDevice(d3);
+        boolean result = ctrl.removeDevice(r1,d4);
+        assertEquals(false, result);
+
+    }
 }

@@ -205,6 +205,10 @@ public class RoomConfigurationController {
 /*
 
     */
+
+    public boolean removeDevice(Room room, Device device){
+        return room.removeDevice(device);
+    }
 /**
      *
      * @param deviceTypeList is the list of DeviceTypes we want to turn into a list.
