@@ -33,7 +33,7 @@ public class LampTest {
     public void getAttributeNamesTest() {
         Lamp lamp = new Lamp(23);
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add("LuminousFlux");
+        expectedResult.add("luminousFlux");
         List<String> result = lamp.getAttributeNames();
         assertEquals(expectedResult, result);
     }
@@ -48,7 +48,7 @@ public class LampTest {
     @Test
     public void setAttributeValueTestTrue2() {
         Lamp lamp = new Lamp(3);
-        boolean actualResult = lamp.setAttributeValue("LuminousFlux", 12.0);
+        boolean actualResult = lamp.setAttributeValue("luminousFlux", 12.0);
         assertTrue(actualResult);
     }
 
@@ -56,20 +56,20 @@ public class LampTest {
     public void getObjectAttributeValueTest() {
         Lamp lamp = new Lamp(4);
        double expectedResult = 4;
-        Object result = lamp.getAttributeValue("LuminousFlux");
+        Object result = lamp.getAttributeValue("luminousFlux");
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void setAttributeValueTestFalse() {
         Lamp lamp = new Lamp(4);
-        Object result = lamp.setAttributeValue("LuminousFlux",5);
+        Object result = lamp.setAttributeValue("luminousFlux",5);
         assertEquals(false, result);
     }
     @Test
     public void setAttributeValueTestDefault() {
         Lamp lamp = new Lamp(1);
-        lamp.setAttributeValue("LuminousFlux", 5.0);
+        lamp.setAttributeValue("luminousFlux", 5.0);
         Object result = lamp.getAttributeValue("lisbon");
         assertEquals(0, result);
     }
@@ -77,8 +77,8 @@ public class LampTest {
     @Test
     public void setAttributeValueTestTrue() {
         Lamp lamp = new Lamp(1);
-        lamp.setAttributeValue("LuminousFlux", 5.0);
-        Object result = lamp.getAttributeValue("LuminousFlux");
+        lamp.setAttributeValue("luminousFlux", 5.0);
+        Object result = lamp.getAttributeValue("luminousFlux");
         assertEquals(5.0, result);
     }
 

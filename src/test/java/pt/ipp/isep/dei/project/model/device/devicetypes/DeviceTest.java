@@ -18,7 +18,8 @@ public class DeviceTest {
 
     @Test
     public void getDeviceTypeTest() {
-        Device d = new Device("WMOne", 12, new WashingMachine(12));
+        Device d = new Device("WMOne", 12, new WashingMachine());
+        d.setAttributeValue("capacity", 12D);
         DeviceType dT = DeviceType.WASHING_MACHINE;
         DeviceType expectedResult = dT;
         DeviceType result = d.getType();
@@ -27,7 +28,8 @@ public class DeviceTest {
 
     @Test
     void seeEqualToSameObject() {
-        Device d = new Device("WMOne", 12, new WashingMachine(12));
+        Device d = new Device("WMOne", 12, new WashingMachine());
+        d.setAttributeValue("capacity", 12D);
         boolean actualResult = d.equals(d);
         assertTrue(actualResult);
     }

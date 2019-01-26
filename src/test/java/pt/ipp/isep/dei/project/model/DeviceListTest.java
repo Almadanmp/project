@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
+import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
@@ -34,7 +34,10 @@ class DeviceListTest {
         double tP1 = 50;
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         deviceL1.addDevice(d1);
         //Act
         Boolean actualResult = deviceL1.addDevice(d1);
@@ -57,8 +60,14 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
-        Device device2 = new Device("FridgeOne", 12, new Fridge(5,6,345));
+        Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
+        Device device2 = new Device("FridgeOne", 12, TestUtils.PATH_TO_FRIDGE);
+        device2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
+        device2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
+        device2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         deviceL1.addDevice(d1);
         //Act
         Boolean actualResult = deviceL1.addDevice(device2);
@@ -81,7 +90,10 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         deviceL1.addDevice(d1);
         //Act ------------------------------
         boolean result = deviceL1.containsDevice(d1);
@@ -104,7 +116,10 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         //Act ------------------------------
         boolean result = deviceL1.containsDevice(d1);
         //Assert ---------------------------
@@ -126,7 +141,10 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         deviceL1.addDevice(d1);
         //Act ----------------------------
         deviceL1.removeDevice(d1);
@@ -150,7 +168,10 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         deviceL1.addDevice(d1);
         //Act ----------------------------
         boolean result = deviceL1.containsDevice(d1);
@@ -173,7 +194,10 @@ class DeviceListTest {
         rL1.addReading(r1);
         //device List
         DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         deviceL1.addDevice(d1);
         //Act ----------------------------------
         boolean result = deviceL1.checkIfListIsValid();
@@ -205,11 +229,14 @@ class DeviceListTest {
     @Test
     void SeeIfMatchDeviceIndexByStringWorks() {
         //Arrange
-        Device device = new Device("frigorifico", 200, new Fridge(4,7,45));
+        Device device = new Device("fridge", 200, TestUtils.PATH_TO_FRIDGE);
+        device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
+        device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(device);
         //Act
-        List<Integer> result = dlist.matchDeviceIndexByString("frigorifico");
+        List<Integer> result = dlist.matchDeviceIndexByString("fridge");
         List<Integer> expectedResult = Collections.singletonList(dlist.getList().indexOf(device));
         //Assert
         assertEquals(expectedResult, result);
@@ -218,7 +245,10 @@ class DeviceListTest {
     @Test
     void SeeIfMatchDeviceIndexByStringFails() {
         //Arrange
-        Device device = new Device("frigorifico", 200, new Fridge(4,7,45));
+        Device device = new Device("fridge", 200, TestUtils.PATH_TO_FRIDGE);
+        device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
+        device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(device);
         //Act
@@ -233,8 +263,11 @@ class DeviceListTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        Device d1 = new Device("frigorifico", 200, new Fridge(3,7,45));
-        Device d2 = new Device("maquina de lavar", 150, new WashingMachine(34));
+        Device d1 = new Device("fridge", 200, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        Device d2 = new Device("maquina de lavar", 150, TestUtils.PATH_TO_WASHINGMACHINE);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
         dlist.addDevice(d2);
@@ -264,10 +297,16 @@ class DeviceListTest {
     void ensureThatAObjectIsAInstanceOf() {
         //Arrange
         DeviceList dList1 = new DeviceList();
-        Device device1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
-        dList1.addDevice(device1);
+        Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
+        dList1.addDevice(d1);
         DeviceList dList2 = new DeviceList();
-        Device device2 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device device2 = new Device("FridgeTwo", 12,TestUtils.PATH_TO_FRIDGE);
+        device2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        device2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        device2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         dList2.addDevice(device2);
         //Act
         Boolean actualResult = dList1.equals(dList1);
@@ -280,7 +319,10 @@ class DeviceListTest {
     void ensureThatAObjectIsAInstanceOf2() {
         //Arrange
         DeviceList dList1 = new DeviceList();
-        Device device1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device device1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        device1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        device1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        device1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         dList1.addDevice(device1);
         DeviceList dList2 = new DeviceList();
         dList2.addDevice(device1);
@@ -294,7 +336,10 @@ class DeviceListTest {
     void ensureThatAObjectIsAInstanceOf3() {
         //Arrange
         DeviceList dList1 = new DeviceList();
-        Device device1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device device1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        device1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        device1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        device1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         dList1.addDevice(device1);
         //Act
         boolean actualResult = dList1.equals(device1);
@@ -307,8 +352,14 @@ class DeviceListTest {
         //Arrange
         DeviceList dList1 = new DeviceList();
         DeviceList dList2 = new DeviceList();
-        Device device1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
-        Device device2 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device device1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        device1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        device1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        device1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
+        Device device2 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        device2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        device2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        device2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         dList1.addDevice(device1);
         dList2.addDevice(device2);
         //Act
@@ -318,7 +369,10 @@ class DeviceListTest {
 
     @Test
     void seeIfPrintDevicesWorks() {
-        Device d1 = new Device("Fridge", 21, new Fridge(4,6,45));
+        Device d1 = new Device("Fridge", 21, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 35D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         String expectedResult = "0) The device Name is Fridge, and its NominalPower is 21.0 kW.\n";
@@ -330,8 +384,14 @@ class DeviceListTest {
 
     @Test
     void seeIfPrintDevicesWorks2() {
-        Device d1 = new Device("Fridge", 21, new Fridge(6,5,345));
-        Device d2 = new Device("Frnidge", 21, new Fridge(4,7,435));
+        Device d1 = new Device("Fridge", 21, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 6D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
+        Device d2 = new Device("Frnidge", 21, TestUtils.PATH_TO_FRIDGE);
+        d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
+        d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 435D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d2);
         deviceList.addDevice(d1);

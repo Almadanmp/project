@@ -367,7 +367,7 @@ class RoomConfigurationControllerTest {
         Integer i = 1;
         list.add(i);
         Device d1 = new Device("frigorifico", 200, new Fridge(5,4,56));
-        Device d2 = new Device("maquina de lavar", 150, new WashingMachine(1));
+        Device d2 = new Device("maquina de lavar", 150, new WashingMachine());
         Room room = new Room("kitchen", 1, 1, 2, 2);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);

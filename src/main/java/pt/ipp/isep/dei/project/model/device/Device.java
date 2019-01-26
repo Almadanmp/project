@@ -34,6 +34,32 @@ public class Device implements Metered {
         }
     }
 
+    /**
+     * Constructor with path by configuration file approach
+     * @param name
+     * @param nominalPower
+     * @param deviceTypePath
+     * @throws IllegalArgumentException
+     */
+    public Device(String name, double nominalPower, String deviceTypePath) throws IllegalArgumentException {
+        this.mName = name;
+        this.mNominalPower = nominalPower;
+        this.mLogList = new LogList();
+        DeviceSpecs aux;
+        try {
+            aux = (DeviceSpecs) Class.forName(deviceTypePath).newInstance();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("ERROR: Unable to create device type from path - " + e.getMessage());
+        }
+
+        this.mDeviceSpecs = aux;
+
+        if (!setMeteringPeriod())
+        {
+            throw new IllegalArgumentException("Configuration file values are not supported.");
+        }
+    }
+
     public double getNominalPower() {
         return this.mNominalPower;
     }

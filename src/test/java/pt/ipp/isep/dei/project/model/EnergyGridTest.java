@@ -3,11 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
+import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
 import java.util.GregorianCalendar;
 
@@ -24,7 +22,10 @@ class EnergyGridTest {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("device", 200, new Fridge(200,200,200));
+        Device device = new Device("device", 200, TestUtils.PATH_TO_FRIDGE);
+        device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 200D);
+        device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 200D);
+        device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 200D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid();
@@ -36,13 +37,16 @@ class EnergyGridTest {
 
     @Test
     void seeIfGetListOfRoomsWorks() {
-        Room room = new Room("room1", 1, 1,2,2);
+        Room room = new Room("room1", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
-        Reading r1 = new Reading(20,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
+        Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("device", 200, new Fridge(200,200,200));
+        Device device = new Device("device", 200, TestUtils.PATH_TO_FRIDGE);
+        device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 200D);
+        device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 200D);
+        device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 200D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid();
@@ -83,7 +87,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfRemovesRoom() {
-        Room room = new Room("room1", 1, 1,2,2);
+        Room room = new Room("room1", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         PowerSourceList pWL1 = new PowerSourceList();
@@ -99,8 +103,8 @@ class EnergyGridTest {
 
     @Test
     void seeIfRemovesRoomFails() {
-        Room room = new Room("room1", 1, 1,2,2);
-        Room room2 = new Room("room2", 1, 1,2,2);
+        Room room = new Room("room1", 1, 1, 2, 2);
+        Room room2 = new Room("room2", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         PowerSourceList pWL1 = new PowerSourceList();
@@ -139,9 +143,9 @@ class EnergyGridTest {
     }
 
     @Test
-    void seeIfGetListPowerSourcesIsSuccessful(){
+    void seeIfGetListPowerSourcesIsSuccessful() {
         EnergyGrid energyGrid = new EnergyGrid();
-        PowerSource powerSource = new PowerSource("PS1",400,400);
+        PowerSource powerSource = new PowerSource("PS1", 400, 400);
         PowerSourceList powerSourceList = new PowerSourceList();
         energyGrid.setListPowerSources(powerSourceList);
         energyGrid.addPowerSource(powerSource);
@@ -152,9 +156,9 @@ class EnergyGridTest {
     }
 
     @Test
-    void testAddRoomToAnEnergyGrid(){
+    void testAddRoomToAnEnergyGrid() {
         EnergyGrid energyGrid = new EnergyGrid();
-        PowerSource powerSource = new PowerSource("PS1",400,400);
+        PowerSource powerSource = new PowerSource("PS1", 400, 400);
         PowerSourceList powerSourceList = new PowerSourceList();
         RoomList roomList = new RoomList();
         Room room = new Room("Quarto", 2, 10, 20, 3);
@@ -201,14 +205,19 @@ class EnergyGridTest {
     }
 
     @Test
-    void seeIfGetNominalPowerWorksMultipleRooms(){
+    void seeIfGetNominalPowerWorksMultipleRooms() {
 
         //Arrange
-
-        Room r1 = new Room("Kitchen", 0,12,30,10);
-        Room r2 = new Room("Sótão", 3, 30,40,12);
-        Device d1 = new Device("WaterHeater1", 30, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Device d2 = new Device("Fridge", 50, new Fridge(3,3,45));
+        Room r1 = new Room("Kitchen", 0, 12, 30, 10);
+        Room r2 = new Room("Sótão", 3, 30, 40, 12);
+        Device d1 = new Device("WaterHeater1", 30, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        Device d2 = new Device("Fridge", 200, TestUtils.PATH_TO_FRIDGE);
+        d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
+        d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 3D);
+        d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
         DeviceList deviceList1 = new DeviceList();
         deviceList1.addDevice(d1);
         r1.setDeviceList(deviceList1);
@@ -220,24 +229,28 @@ class EnergyGridTest {
         roomList.addRoom(r2);
         EnergyGrid grid = new EnergyGrid();
         grid.setRoomList(roomList);
-        double expectedResult = 80;
+        double expectedResult = 230;
 
         //Act
         double actualResult = grid.getNominalPowerFromRoomList();
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfPrintDevicesWorks(){
-        Device d1 = new Device("Fridge", 21, new Fridge(2,2,34));
-        Device d2 = new Device("WashingMachine", 30, new WashingMachine(23));
+    void seeIfPrintDevicesWorks() {
+        Device d1 = new Device("Fridge", 21, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 34D);
+        Device d2 = new Device("WashingMachine", 30, TestUtils.PATH_TO_WASHINGMACHINE);
+        d2.setAttributeValue("capacity", 24D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
         EnergyGrid energyGrid = new EnergyGrid();
-        Room r1 = new Room("Kitchen", 0, 21,31,10);
+        Room r1 = new Room("Kitchen", 0, 21, 31, 10);
         r1.setDeviceList(deviceList);
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
@@ -247,7 +260,7 @@ class EnergyGridTest {
 
         String actualResult = energyGrid.buildDeviceListString();
 
-        Assertions.assertEquals(expectedResult,actualResult);
+        Assertions.assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -268,7 +281,7 @@ class EnergyGridTest {
     }
 
     @Test
-    void hashCodeDummyTest(){
+    void hashCodeDummyTest() {
         EnergyGrid energyGrid = new EnergyGrid();
         int expectedResult = 1;
         int result = energyGrid.hashCode();
@@ -287,7 +300,7 @@ class EnergyGridTest {
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         deviceList = null;
-        String expectedResult = "---------------\n"+"---------------\n";
+        String expectedResult = "---------------\n" + "---------------\n";
         String result = eg.buildListOfDeviceByTypeString(eg);
         Assertions.assertEquals(expectedResult, result);
     }
@@ -301,7 +314,7 @@ class EnergyGridTest {
         RoomList rl = new RoomList();
         rl.addRoom(m);
         eg.setRoomList(rl);
-        String expectedResult = "---------------\n"+"---------------\n";
+        String expectedResult = "---------------\n" + "---------------\n";
         String result = eg.buildListOfDeviceByTypeString(eg);
         Assertions.assertEquals(expectedResult, result);
     }

@@ -291,7 +291,7 @@ public class House implements Metered {
      * @param id - String with the identification of the device type selected
      * @return string with the path to the class file
      */
-    String getDeviceTypePathToClassById(String id) {
+   public String getDeviceTypePathToClassById(String id) {
         Properties props = new Properties();
         String propFileName = "resources/devices.properties";
         InputStream input = null;

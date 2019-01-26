@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Dishwasher implements DeviceSpecs, Programmable {
 
-    private static final String CAP = "capacity";
+    private static final String CAPACITY = "capacity";
     private static final String PROGRAM_LIST = "programList";
 
     private double mCapacity;
@@ -47,20 +47,20 @@ public class Dishwasher implements DeviceSpecs, Programmable {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add(CAP);
+        result.add(CAPACITY);
         result.add(PROGRAM_LIST);
         return result;
     }
 
     public Object getAttributeValue(String attributeName) {
-        if (attributeName.equals(CAP)) {
+        if (attributeName.equals(CAPACITY)) {
             return mCapacity;
         }
         return 0;
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        if (attributeName.equals(CAP) && attributeValue instanceof Double) {
+        if (attributeName.equals(CAPACITY) && attributeValue instanceof Double) {
             this.mCapacity = (Double) attributeValue;
             return true;
         }

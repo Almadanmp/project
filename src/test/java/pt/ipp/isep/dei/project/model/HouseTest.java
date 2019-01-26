@@ -26,7 +26,7 @@ class HouseTest {
     @Test
     void seeIfGetListDevice() {
         Device device = new Device("fridge", 5, new Fridge(34, 34, 65));
-        Device device2 = new Device("washing", 5, new WashingMachine(12));
+        Device device2 = new Device("washing", 5, new WashingMachine());
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         room1.addDevice(device);
         room1.addDevice(device2);

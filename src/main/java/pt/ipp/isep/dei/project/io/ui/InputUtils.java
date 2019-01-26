@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -169,11 +168,11 @@ class InputUtils {
             }
         }
     }
-/*
+    /*
 
-    */
-/**
-     *
+     */
+
+    /**
      *
      *//*
 
@@ -285,7 +284,7 @@ class InputUtils {
         scan.nextLine();
         int minute = getInputDateAsInt(scan, "minute");
         scan.nextLine();
-        return new GregorianCalendar(year,month,day,hour,minute).getTime();
+        return new GregorianCalendar(year, month, day, hour, minute).getTime();
     }
 
 }

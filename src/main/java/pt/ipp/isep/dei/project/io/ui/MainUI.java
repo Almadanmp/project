@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.*;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.*;
 
@@ -206,26 +206,46 @@ public class MainUI {
 
 
         //Devices
+        String pathToFridge = edificioB.getDeviceTypePathToClassById("Fridge");
+        String pathToWaterHeater = edificioB.getDeviceTypePathToClassById("WaterHeater");
+        String pathToDishwasher = edificioB.getDeviceTypePathToClassById("Dishwasher");
+        String pathToWashingMachine = edificioB.getDeviceTypePathToClassById("WashingMachine");
+        String pathToLamp = edificioB.getDeviceTypePathToClassById("Lamp");
+
+        //Device WashingMachine
+
 
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = new ProgramList();
         Program program2 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
         listProgram.addProgram(program2);
-   //     Device device1 = new Device("maquina de lavar", 23.0, new WashingMachine(100.0, listProgram));
-        Device device2 = new Device("FridgeOne", 4, new Fridge(2,2,45));
-        Device device3 = new Device("WH Main", 3, new WaterHeater(500.0, 25.0, 10.0));
-        Device device4 = new Device("Lamp", 4, new Lamp(23));
+        Device device1 = new Device("washingMachine", 23.0, pathToWashingMachine);
+        device1.setAttributeValue("capacity", 100D);
+        Device device2 = new Device("FridgeOne", 4, pathToFridge);
+        device2.setAttributeValue("freezerCapacity", 2D);
+        device2.setAttributeValue("refrigeratorCapacity", 2D);
+        device2.setAttributeValue("annualEnergyConsumption", 45D);
+        Device device3 = new Device("WH Main", 3, pathToWaterHeater);
+        device3.setAttributeValue("volumeOfWater", 500D);
+        device3.setAttributeValue("hotWaterTemperature", 25D);
+        device3.setAttributeValue("performanceRatio", 10D);
+        Device device4 = new Device("Lamp", 4, pathToLamp);
+        device4.setAttributeValue("luminousFlux", 23D);
         DeviceList listDevices = new DeviceList();
-      //  listDevices.addDevice(device1);
+        listDevices.addDevice(device1);
         listDevices.addDevice(device2);
         listDevices.addDevice(device3);
         listDevices.addDevice(device4);
         roomISEP2.setDeviceList(listDevices);
-
-
-        Device device5 = new Device("FridgeOne1", 4, new Fridge(1,1,100));
-        Device device6 = new Device("WH Secondary", 3, new WaterHeater(500.0, 25.0, 10.0));
+        Device device5 = new Device("FridgeOne1", 4, pathToFridge);
+        device5.setAttributeValue("freezerCapacity", 1D);
+        device5.setAttributeValue("refrigeratorCapacity", 1D);
+        device5.setAttributeValue("annualEnergyConsumption", 100D);
+        Device device6 = new Device("WH Secondary", 3, pathToWaterHeater);
+        device6.setAttributeValue("volumeOfWater", 500D);
+        device6.setAttributeValue("hotWaterTemperature", 25D);
+        device6.setAttributeValue("performanceRatio", 10D);
         DeviceList listDevices1 = new DeviceList();
         listDevices1.addDevice(device5);
         listDevices1.addDevice(device6);
@@ -278,7 +298,7 @@ public class MainUI {
         TypeSensor temperatureB109SP2 = new TypeSensor(temperature, "celsius");
         SensorList sensorListRoomB109SP2 = new SensorList();
         b109SP2.setRoomSensorList(sensorListRoomB109SP2);
-        Sensor sensorTemperatureB109SP2 = new Sensor("Temperature B109",temperatureB109SP2, new GregorianCalendar(2018, 10, 15).getTime());
+        Sensor sensorTemperatureB109SP2 = new Sensor("Temperature B109", temperatureB109SP2, new GregorianCalendar(2018, 10, 15).getTime());
         sensorListRoomB109SP2.addSensor(sensorTemperatureB109SP2);
         ReadingList readingListSensorTemperatureB109SP2 = new ReadingList();
         sensorTemperatureB109SP2.setReadingList(readingListSensorTemperatureB109SP2);
@@ -316,10 +336,10 @@ public class MainUI {
         readingListSensorTemperatureB109SP2.addReading(reading16SensorTemperatureB109SP2);
 
 
-        TypeSensor humidityB109= new TypeSensor("humidity", "g/m3");
+        TypeSensor humidityB109 = new TypeSensor("humidity", "g/m3");
         typeSensorListSP2.add(humidityB109);
         typeSensorListSP2.add(temperatureB109SP2);
-        Sensor sensorHumidityB109SP2 = new Sensor("Humidity B109", humidityB109 , new GregorianCalendar(2018, 11, 22).getTime());
+        Sensor sensorHumidityB109SP2 = new Sensor("Humidity B109", humidityB109, new GregorianCalendar(2018, 11, 22).getTime());
         sensorListRoomB109SP2.addSensor(sensorHumidityB109SP2);
         ReadingList readingListSensorHumidityB109SP2 = new ReadingList();
         sensorHumidityB109SP2.setReadingList(readingListSensorHumidityB109SP2);
@@ -356,16 +376,15 @@ public class MainUI {
         readingListSensorHumidityB109SP2.addReading(reading15SensorHumidityB109SP2);
         readingListSensorHumidityB109SP2.addReading(reading16SensorHumidityB109SP2);
 
-        List<DeviceType> deviceTypeListSP2 = new ArrayList<>();
-        deviceTypeListSP2.add(DeviceType.FRIDGE);
-        deviceTypeListSP2.add(DeviceType.WASHING_MACHINE);
-        deviceTypeListSP2.add(DeviceType.WATER_HEATER);
-        deviceTypeListSP2.add(DeviceType.DISHWASHER);
-        deviceTypeListSP2.add(DeviceType.LAMP);
-
         DeviceList deviceListRoomB109SP2 = new DeviceList();
-        Device ehwB109SP2 = new Device("EHW B109", 1.5, new WaterHeater(100.0, 55.0, 0.91));
-        ProgramList programListDishWasherB109SP2 = new ProgramList();
+        Device ehwB109SP2 = new Device("EHW B109", 1.5, pathToWaterHeater);
+        ehwB109SP2.setAttributeValue("volumeOfWater", 100D);
+        ehwB109SP2.setAttributeValue("hotWaterTemperature", 55D);
+        ehwB109SP2.setAttributeValue("performanceRatio", 0.91D);
+
+        Device dishWasherB109SP2 = new Device("Dishwasher B109", 1.5, pathToDishwasher);
+        dishWasherB109SP2.setAttributeValue("capacity", 2D);
+        ProgramList programListDishWasherB109SP2 = dishWasherB109SP2.getProgramList();
         Program glassesB109 = new Program("Glasses", 0, 0.9);
         Program ecoB109 = new Program("Eco", 0, 1.3);
         Program ecoTurboB109 = new Program("Eco Turbo", 0, 1.7);
@@ -374,8 +393,10 @@ public class MainUI {
         programListDishWasherB109SP2.addProgram(ecoB109);
         programListDishWasherB109SP2.addProgram(ecoTurboB109);
         programListDishWasherB109SP2.addProgram(dishesB109);
-        Device dishWasherB109SP2 = new Device("Dishwasher B109", 1.5, new Dishwasher(0, programListDishWasherB109SP2));
-        ProgramList programListWashingMachineB109SP2 = new ProgramList();
+
+        Device washingMachineB109SP2 = new Device("Washing Machine B109", 2.5, pathToWashingMachine);
+        washingMachineB109SP2.setAttributeValue("capacity", 0D);
+        ProgramList programListWashingMachineB109SP2 = washingMachineB109SP2.getProgramList();
         Program wool = new Program("Wool", 0, 0.9);
         Program fast = new Program("Fast", 0, 1.3);
         Program fastPlus = new Program("Fast Plus", 0, 1.7);
@@ -384,40 +405,44 @@ public class MainUI {
         programListWashingMachineB109SP2.addProgram(fast);
         programListWashingMachineB109SP2.addProgram(fastPlus);
         programListWashingMachineB109SP2.addProgram(synthetic30);
-      //  Device washingMachineB109SP2 = new Device("Washing Machine B109", 2.5, new WashingMachine(0, programListWashingMachineB109SP2));
         deviceListRoomB109SP2.addDevice(ehwB109SP2);
         deviceListRoomB109SP2.addDevice(dishWasherB109SP2);
-       // deviceListRoomB109SP2.addDevice(washingMachineB109SP2);
+        deviceListRoomB109SP2.addDevice(washingMachineB109SP2);
         b109SP2.setDeviceList(deviceListRoomB109SP2);
 
-        Room roomB106SP2 = new Room("B106",1,7,13,3.5);
+        Room roomB106SP2 = new Room("B106", 1, 7, 13, 3.5);
         DeviceList deviceListRoomB106SP2 = new DeviceList();
-        Device ehwB106SP2 = new Device("EHW B106",2.2,new WaterHeater(150.0,55.0,0.92));
-        ProgramList programDishWasherB106SP2 = new ProgramList();
-        Program glassesB106 = new Program("Glasses",0,0.8);
-        Program lightB106 = new Program("Light",0,1.3);
-        Program lightTurboB106 = new Program("Light Turbo",0,1.9);
-        Program dishesB106 = new Program("Dishes",0,2.3);
+        Device ehwB106SP2 = new Device("EHW B106", 2.2, pathToWaterHeater);
+        device6.setAttributeValue("volumeOfWater", 150D);
+        device6.setAttributeValue("hotWaterTemperature", 55D);
+        device6.setAttributeValue("performanceRatio", 0.92D);
+
+        Device dishWasherB106SP2 = new Device("Dishwasher B106", 1.4, pathToDishwasher);
+        dishWasherB106SP2.setAttributeValue("capacity", 0D);
+        ProgramList programDishWasherB106SP2 = dishWasherB106SP2.getProgramList();
+        Program glassesB106 = new Program("Glasses", 0, 0.8);
+        Program lightB106 = new Program("Light", 0, 1.3);
+        Program lightTurboB106 = new Program("Light Turbo", 0, 1.9);
+        Program dishesB106 = new Program("Dishes", 0, 2.3);
         programDishWasherB106SP2.addProgram(glassesB106);
         programDishWasherB106SP2.addProgram(lightB106);
         programDishWasherB106SP2.addProgram(lightTurboB106);
         programDishWasherB106SP2.addProgram(dishesB106);
-        Device dishWasherB106SP2 = new Device("Dishwasher B106",1.4,new Dishwasher(0,programDishWasherB106SP2));
         deviceListRoomB106SP2.addDevice(ehwB106SP2);
         deviceListRoomB106SP2.addDevice(dishWasherB106SP2);
         roomB106SP2.setDeviceList(deviceListRoomB106SP2);
 
-        TypeSensor typeSensorRainFall = new TypeSensor("rainfall","l/m2");
+        TypeSensor typeSensorRainFall = new TypeSensor("rainfall", "l/m2");
         SensorList areaSensorSP2 = new SensorList();
-        Sensor meteoStationHumiditySP2 = new Sensor("Meteo station ISEP - rainfall",typeSensorRainFall,new Local(41.179230,-8.606409,125),new GregorianCalendar(2016,11,15).getTime());
+        Sensor meteoStationHumiditySP2 = new Sensor("Meteo station ISEP - rainfall", typeSensorRainFall, new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
         ReadingList readingListMeteoStationSP2 = new ReadingList();
-        Reading reading1MeteoSationSP2 = new Reading(0.5,new GregorianCalendar(2018,11,29).getTime());
-        Reading reading2MeteoSationSP2 = new Reading(1.2,new GregorianCalendar(2018,11,30).getTime());
-        Reading reading3MeteoSationSP2 = new Reading(1.5,new GregorianCalendar(2018,11,31).getTime());
-        Reading reading4MeteoSationSP2 = new Reading(0.3,new GregorianCalendar(2019,0,1).getTime());
-        Reading reading5MeteoSationSP2 = new Reading(0.0,new GregorianCalendar(2019,0,2).getTime());
-        Reading reading6MeteoSationSP2 = new Reading(0.0,new GregorianCalendar(2019,0,2).getTime());
-        Reading reading7MeteoSationSP2 = new Reading(0.0,new GregorianCalendar(2019,0,3).getTime());
+        Reading reading1MeteoSationSP2 = new Reading(0.5, new GregorianCalendar(2018, 11, 29).getTime());
+        Reading reading2MeteoSationSP2 = new Reading(1.2, new GregorianCalendar(2018, 11, 30).getTime());
+        Reading reading3MeteoSationSP2 = new Reading(1.5, new GregorianCalendar(2018, 11, 31).getTime());
+        Reading reading4MeteoSationSP2 = new Reading(0.3, new GregorianCalendar(2019, 0, 1).getTime());
+        Reading reading5MeteoSationSP2 = new Reading(0.0, new GregorianCalendar(2019, 0, 2).getTime());
+        Reading reading6MeteoSationSP2 = new Reading(0.0, new GregorianCalendar(2019, 0, 2).getTime());
+        Reading reading7MeteoSationSP2 = new Reading(0.0, new GregorianCalendar(2019, 0, 3).getTime());
         readingListMeteoStationSP2.addReading(reading1MeteoSationSP2);
         readingListMeteoStationSP2.addReading(reading2MeteoSationSP2);
         readingListMeteoStationSP2.addReading(reading3MeteoSationSP2);
@@ -428,8 +453,8 @@ public class MainUI {
         meteoStationHumiditySP2.setReadingList(readingListMeteoStationSP2);
         areaSensorSP2.addSensor(meteoStationHumiditySP2);
 
-        TypeSensor typeSensorMeteoStation = new TypeSensor(temperature,"celsius");
-        Sensor meteoStationTemperatureSP2 = new Sensor("Meteo station ISEP - temperature",typeSensorMeteoStation,new Local(41.179230,-8.606409,125),new GregorianCalendar(2016,11,15).getTime());
+        TypeSensor typeSensorMeteoStation = new TypeSensor(temperature, "celsius");
+        Sensor meteoStationTemperatureSP2 = new Sensor("Meteo station ISEP - temperature", typeSensorMeteoStation, new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
         ReadingList readingListMeteoStationTemperatureSP2 = new ReadingList();
         Reading reading1MeteoSationTSP2 = new Reading(8, new GregorianCalendar(2018, 11, 30, 2, 0).getTime());
         Reading reading2MeteoSationTSP2 = new Reading(6.9, new GregorianCalendar(2018, 11, 30, 8, 0).getTime());
@@ -468,7 +493,7 @@ public class MainUI {
 
 
         TypeArea citySP2 = new TypeArea("city");
-        GeographicArea portoSP2 = new GeographicArea(portoString,citySP2,3.30,10.09,new Local(41.164077,-8.620802,118));
+        GeographicArea portoSP2 = new GeographicArea(portoString, citySP2, 3.30, 10.09, new Local(41.164077, -8.620802, 118));
         typeAreaListSP2.addTypeArea(citySP2);
         portoSP2.setDescription("City of Porto");
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
@@ -495,10 +520,6 @@ public class MainUI {
         House houseTest = new House("houseRoomDifEG", "Street", "4230", "Porto", new Local(23, 23, 21), isep);
         houseTest.addRoomToRoomList(room1);
         houseTest.addRoomToRoomList(room2);
-
-
-
-
 
 
 /**
@@ -643,7 +664,7 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(houseSP2, deviceTypeListSP2, typeSensorListSP2);
+                        roomConfiguration.run(houseSP2, deviceTypeList, typeSensorListSP2);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
