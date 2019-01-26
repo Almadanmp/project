@@ -18,7 +18,4 @@ public interface Metered {
 
     double getEnergyConsumption(float time);
 
-    int getMeteringPeriod();
-
-    void setMeteringPeriod();
 }

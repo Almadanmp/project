@@ -21,7 +21,6 @@ public class House implements Metered {
     private EnergyGridList mEGList;
     private RoomList mRoomList;
     private GeographicArea mMotherArea;
-    private int mMeteredPeriod;
 
     //CONSTRUCTOR
 
@@ -34,7 +33,6 @@ public class House implements Metered {
         this.mMotherArea = mMotherArea;
         this.mRoomList = new RoomList();
         this.mEGList = new EnergyGridList();
-        this.mMeteredPeriod = 0;
     }
 
     //SETTERS AND GETTERS
@@ -336,13 +334,6 @@ public class House implements Metered {
         this.mEGList.addGrid(energyGrid);
     }
 
-    public int getMeteringPeriod() {
-        return this.mMeteredPeriod;
-    }
-
-    public void setMeteringPeriod() {
-
-    }
 
     @Override
     public double getEnergyConsumption(float time) {

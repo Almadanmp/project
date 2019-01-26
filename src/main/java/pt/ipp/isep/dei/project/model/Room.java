@@ -22,7 +22,6 @@ public class Room implements Metered {
     private double mRoomHeight;
     private SensorList mRoomSensorList;
     private DeviceList mDeviceList;
-    private int mMeteredPeriod;
 
 
     public Room(String name, int houseFloor, double width, double length, double height) {
@@ -33,7 +32,6 @@ public class Room implements Metered {
         setRoomHeight(height);
         this.mRoomSensorList = new SensorList();
         this.mDeviceList = new DeviceList();
-        this.mMeteredPeriod = 0;
     }
 
     public SensorList getSensorList() {
@@ -131,11 +129,6 @@ public class Room implements Metered {
             result += d.getNominalPower();
         }
         return result;
-    }
-
-    public int getMeteringPeriod(){return this.mMeteredPeriod;}
-
-    public void setMeteringPeriod(){
     }
 
     public double getMaxTemperatureInARoomOnAGivenDay(House house, Date day) {

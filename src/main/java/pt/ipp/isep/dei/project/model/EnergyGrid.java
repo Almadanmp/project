@@ -17,13 +17,11 @@ public class EnergyGrid implements Metered {
     private double mNominalPower;
     private RoomList mRoomList;
     private PowerSourceList mListPowerSources;
-    private int mMeteredPeriod;
 
     public EnergyGrid() {
         this.mRoomList = new RoomList();
         this.mListPowerSources = new PowerSourceList();
         this.mNominalPower = 0;
-        this.mMeteredPeriod = 0;
     }
 
     /**
@@ -76,11 +74,6 @@ public class EnergyGrid implements Metered {
             result += r.getNominalPower();
         }
         return result;
-    }
-
-    public int getMeteringPeriod(){return this.mMeteredPeriod;}
-
-    public void setMeteringPeriod(){
     }
 
     /**

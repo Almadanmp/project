@@ -28,6 +28,10 @@ public class Device implements Metered {
         this.mDeviceSpecs = deviceSpecs;
         this.mNominalPower = nominalPower;
         this.mLogList = new LogList();
+        if (!setMeteringPeriod())
+        {
+            throw new IllegalArgumentException("Configuration file values are not supported.");
+        }
     }
 
     public double getNominalPower() {
@@ -119,7 +123,7 @@ public class Device implements Metered {
     }
 
 
-    public void setMeteringPeriod() {
+    public boolean setMeteringPeriod() {
         String GridMeteringPeriod;
         String DeviceMeteringPeriod;
         Properties prop = new Properties();
@@ -129,20 +133,20 @@ public class Device implements Metered {
             DeviceMeteringPeriod = prop.getProperty("DevicesMeteringPeriod");
             GridMeteringPeriod = prop.getProperty("GridMeteringPeriod");
         } catch (FileNotFoundException fnfe) {
-            System.out.println("Ficheiro não encontrado.");
-            return;
+            System.out.println("File not found.");
+            return false;
         } catch (IOException ioe) {
             ioe.printStackTrace();
-            return;
+            return false;
         }
         Integer deviceMPValue = (Integer) Integer.parseInt(DeviceMeteringPeriod);
         Integer gridMPValue = (Integer) Integer.parseInt(GridMeteringPeriod);
         if (deviceMeteringPeriodValidation(deviceMPValue, gridMPValue)){
             this.mMeteringPeriod = deviceMPValue;
+            return true;
         }
-        else {
-            System.out.println("Configuration file values are not supported.");
-        }
+        System.out.println("Configuration file values are not supported.");
+        return false;
     }
 
     public boolean deviceMeteringPeriodValidation(int deviceValue, int gridValue) {
