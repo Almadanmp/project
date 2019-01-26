@@ -106,4 +106,13 @@ public class DeviceTest {
         assertEquals(result.size(), 5);
     }
 
+    @Test
+    void seeIfGetAndSetMeteringPeriod() {
+        Device d1 = new Device("heater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Integer expectedResult = 180;
+        d1.setMeteringPeriod();
+        Integer result = d1.getMeteringPeriod();
+        assertEquals(expectedResult, result);
+    }
+
 }

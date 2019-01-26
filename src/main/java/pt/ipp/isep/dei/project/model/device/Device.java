@@ -3,10 +3,10 @@ package pt.ipp.isep.dei.project.model.device;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Class that represents device present in a Room.
@@ -17,14 +17,13 @@ public class Device implements Metered {
     private double mNominalPower;
     private DeviceSpecs mDeviceSpecs;
     private LogList mLogList;
-    private int mMeteredPeriod;
+    private int mMeteringPeriod;
 
     //Empty constructor for test purposes
     public Device(String name, double nominalPower, DeviceSpecs deviceSpecs) {
         this.mName = name;
         this.mDeviceSpecs = deviceSpecs;
         this.mNominalPower = nominalPower;
-        this.mMeteredPeriod = 0;
         this.mLogList = new LogList();
     }
 
@@ -112,10 +111,25 @@ public class Device implements Metered {
         return mDeviceSpecs.getType();
     }
 
-    public int getMeteredPeriod(){return this.mMeteredPeriod;}
+    public int getMeteringPeriod() {
+        return this.mMeteringPeriod;}
 
-    public void setMeteredPeriod(int minutes){
-        this.mMeteredPeriod = minutes;
+
+    public void setMeteringPeriod(){
+        String ValorMetering;
+        Properties prop = new Properties();
+        try {
+            FileInputStream input = new FileInputStream("resources/meteringPeriods.properties");
+            prop.load(input);
+            ValorMetering = prop.getProperty("DevicesMeteringPeriod");
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Ficheiro não encontrado.");
+            return;
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return;
+        }
+        this.mMeteringPeriod = Integer.parseInt(ValorMetering);
     }
 
     public LogList getLogList() {

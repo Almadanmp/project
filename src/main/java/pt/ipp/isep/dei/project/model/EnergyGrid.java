@@ -78,10 +78,9 @@ public class EnergyGrid implements Metered {
         return result;
     }
 
-    public int getMeteredPeriod(){return this.mMeteredPeriod;}
+    public int getMeteringPeriod(){return this.mMeteredPeriod;}
 
-    public void setMeteredPeriod(int minutes){
-        this.mMeteredPeriod = minutes;
+    public void setMeteringPeriod(){
     }
 
     /**

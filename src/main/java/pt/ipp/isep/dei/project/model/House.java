@@ -336,12 +336,12 @@ public class House implements Metered {
         this.mEGList.addGrid(energyGrid);
     }
 
-    public int getMeteredPeriod() {
+    public int getMeteringPeriod() {
         return this.mMeteredPeriod;
     }
 
-    public void setMeteredPeriod(int minutes) {
-        this.mMeteredPeriod = minutes;
+    public void setMeteringPeriod() {
+
     }
 
     @Override
