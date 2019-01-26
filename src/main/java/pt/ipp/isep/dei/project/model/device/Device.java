@@ -6,7 +6,10 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.Properties;
 
 /**
  * Class that represents device present in a Room.
@@ -27,17 +30,13 @@ public class Device implements Metered {
         this.mLogList = new LogList();
     }
 
+    public double getNominalPower() {
+        return this.mNominalPower;
+    }
+
     //temporary before is gets moved to DeviceSpecs
     public void setNominalPower(Double nomPower) {
         this.mNominalPower = nomPower;
-    }
-
-    public void setName(String name) {
-        this.mName = name;
-    }
-
-    public double getNominalPower() {
-        return this.mNominalPower;
     }
 
     public void setmName(String name) {
@@ -46,6 +45,10 @@ public class Device implements Metered {
 
     public String getName() {
         return this.mName;
+    }
+
+    public void setName(String name) {
+        this.mName = name;
     }
 
     public List<String> getAttributeNames() {
@@ -112,16 +115,19 @@ public class Device implements Metered {
     }
 
     public int getMeteringPeriod() {
-        return this.mMeteringPeriod;}
+        return this.mMeteringPeriod;
+    }
 
 
-    public void setMeteringPeriod(){
-        String ValorMetering;
+    public void setMeteringPeriod() {
+        String GridMeteringPeriod;
+        String DeviceMeteringPeriod;
         Properties prop = new Properties();
         try {
             FileInputStream input = new FileInputStream("resources/meteringPeriods.properties");
             prop.load(input);
-            ValorMetering = prop.getProperty("DevicesMeteringPeriod");
+            DeviceMeteringPeriod = prop.getProperty("DevicesMeteringPeriod");
+            GridMeteringPeriod = prop.getProperty("GridMeteringPeriod");
         } catch (FileNotFoundException fnfe) {
             System.out.println("Ficheiro não encontrado.");
             return;
@@ -129,20 +135,37 @@ public class Device implements Metered {
             ioe.printStackTrace();
             return;
         }
-        this.mMeteringPeriod = Integer.parseInt(ValorMetering);
+        Integer deviceMPValue = (Integer) Integer.parseInt(DeviceMeteringPeriod);
+        Integer gridMPValue = (Integer) Integer.parseInt(GridMeteringPeriod);
+        if (deviceMeteringPeriodValidation(deviceMPValue, gridMPValue)){
+            this.mMeteringPeriod = deviceMPValue;
+        }
+        else {
+            System.out.println("Configuration file values are not supported.");
+        }
+    }
+
+    public boolean deviceMeteringPeriodValidation(int deviceValue, int gridValue) {
+        if (1440 % deviceValue != 0) {
+            return false;
+        } else if (deviceValue % gridValue != 0) {
+            return false;
+        }
+        return true;
     }
 
     public LogList getLogList() {
         return this.mLogList;
     }
 
-    public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime){
+    public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
         double result = 0;
-        for (Log l: mLogList.getLogList()) {
-            if(initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate()) && finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate())){
+        for (Log l : mLogList.getLogList()) {
+            if (initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate()) && finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate())) {
                 result += l.getValue();
             }
-        }return result;
+        }
+        return result;
     }
 
 
