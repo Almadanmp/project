@@ -6,8 +6,12 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Log;
+import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -116,6 +120,23 @@ public class EnergyConsumptionController {
         return deviceList.removeDevice(d);
     }
 
+
+    /*US720 As a Power User [or Administrator], I want to know the total metered energy consumption of a device in a
+     * given time interval, i.e. the sum of the energy consumption of the device in the interval.
+     * Only metering periods full contained in the interval will be included.
+     * One cannot know the exact energy consumption of devices not connected to an energy meter.
+     */
+
+    public boolean getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(Device device, Date initialTime, Date finalTime) {
+        if (device.meteringPeriodOcurrences(initialTime, finalTime) < 1) {
+            System.out.println("This device has no energy consumption logs in the given interval.");
+            return false;
+        }
+        System.out.println("Device: " + device.getName() +"\n" + "Between " + initialTime + " and " + finalTime + "\n" + "The total Energy Consumption is: " + device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.");
+        return true;
+    }
+
+
     /* US752
      * As a Regular User [or Power User], I want to estimate the total energy used in heating water in a given day,
      * given the cold-water temperature and the volume of water produced in each water heater.
@@ -173,5 +194,15 @@ public class EnergyConsumptionController {
     public double getTotalPowerFromGrid(EnergyGrid grid) {
         return grid.getNominalPowerFromRoomList();
     }
+
+    /**
+     * Returns the Log List for a Given device.
+     * @param device - given by UI
+     * @return LogList
+     */
+    public LogList getLogListFromDevice(Device device) {
+        return device.getLogList();
+    }
 }
+
 

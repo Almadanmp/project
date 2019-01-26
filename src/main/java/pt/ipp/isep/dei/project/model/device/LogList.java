@@ -16,28 +16,6 @@ public class LogList {
         this.mLogList = new ArrayList<>();
     }
 
-    boolean containsLog(Log log) {
-        return mLogList.contains(log);
-    }
-
-    boolean addLog(Log log) {
-        if (!(mLogList.contains(log))) {
-            mLogList.add(log);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    boolean removeLog(Log log) {
-        if (mLogList.contains(log)) {
-            mLogList.remove(log);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Getter (array of PowerSources)
      *
@@ -54,6 +32,10 @@ public class LogList {
 
     List<Log> getLogList() {
         return this.mLogList;
+    }
+
+    public boolean isEmpty() {
+        return this.mLogList.isEmpty();
     }
 
 

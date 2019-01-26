@@ -5,13 +5,17 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * EnergyConsumptionController tests class.
@@ -530,5 +534,33 @@ class EnergyConsumptionControllerTest {
         String expectedResult = "wHeater4";
         String result = d6.getName();
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForTrue(){
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018,10,20,10,2).getTime();
+        Date finalTime = new GregorianCalendar(2018,10,20,10,60).getTime();
+        Date periodBeginning = new GregorianCalendar(2018,10,20,10,10).getTime();
+        Date periodEnding = new GregorianCalendar(2018,10,20,10,50).getTime();
+        Device device = new Device("Washing machine",200, new WaterHeater(400.0,400.0,0.9));
+        Log log = new Log(56,periodBeginning, periodEnding);
+        device.addLogToLogList(log);
+        boolean result = ctrl.getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(device, initialTime, finalTime);
+        assertTrue(result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForEmptyList(){
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018,10,20,9,2).getTime();
+        Date finalTime = new GregorianCalendar(2018,10,20,9,60).getTime();
+        Date periodBeginning = new GregorianCalendar(2018,10,20,10,10).getTime();
+        Date periodEnding = new GregorianCalendar(2018,10,20,10,50).getTime();
+        Device device = new Device("Washing machine",200, new WaterHeater(400.0,400.0,0.9));
+        Log log = new Log(56,periodBeginning, periodEnding);
+        device.addLogToLogList(log);
+        boolean result = ctrl.getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(device, initialTime, finalTime);
+        assertTrue(!result);
     }
 }

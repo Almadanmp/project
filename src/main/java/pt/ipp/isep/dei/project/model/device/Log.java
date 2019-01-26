@@ -7,16 +7,14 @@ public class Log {
     private Date mInitialDate;
     private Date mFinalDate;
 
+    public Log(double value, Date initialDate, Date finalDate){
+        this.mValue = value;
+        this.mInitialDate = initialDate;
+        this.mFinalDate = finalDate;
+    }
+
     public void setValue(double value){
         this.mValue = value;
-    }
-
-    public void setInitialDate(Date date){
-        this.mInitialDate = date;
-    }
-
-    public void setFinalDate(Date date){
-        this.mFinalDate = date;
     }
 
     public double getValue(){return this.mValue;}

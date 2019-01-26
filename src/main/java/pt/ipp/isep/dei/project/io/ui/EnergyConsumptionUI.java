@@ -7,7 +7,11 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Log;
+import pt.ipp.isep.dei.project.model.device.LogList;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,6 +45,10 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 3:
+                    runUS720(programHouse);
+                    activeInput = false;
+                    break;
+                case 4:
                     runUS752(programHouse);
                     activeInput = false;
                     break;
@@ -194,6 +202,32 @@ class EnergyConsumptionUI {
         System.out.println("The total nominal power for the selected subset is " + totalPower + " kW/h.");
     }
 
+    /*US720 As a Power User [or Administrator], I want to know the total metered energy consumption of a device in a
+     * given time interval, i.e. the sum of the energy consumption of the device in the interval.
+     * Only metering periods full contained in the interval will be included.
+     * One cannot know the exact energy consumption of devices not connected to an energy meter.
+     */
+
+    private void runUS720(House house){
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room)) {
+            System.out.println(utilsUI.invalidDeviceList);
+            return;
+        }
+        Device device = inputUtils.getInputRoomDevicesByList(room);
+        if (device.getLogList().isEmpty()) {
+            System.out.println("This device has no energy consumption logs.");
+            return;
+        }
+        System.out.println("Insert the Date in which you want your consumption data gathering to begin: ");
+        Date initialTime = inputUtils.getInputDate();
+        System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
+        Date finalTime = inputUtils.getInputDate();
+        controller.getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(device,initialTime,finalTime);
+    }
+
 
     /*
      * US752
@@ -262,7 +296,8 @@ class EnergyConsumptionUI {
         System.out.println("1) Display total nominal power of one of the Energy Grids. (US172)");
         System.out.println("2) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
                 " (US705)");
-        System.out.println("3) Estimate the total energy used in heating water in a day. (US752)");
+        System.out.println("3) Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
+        System.out.println("4) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
     }
 

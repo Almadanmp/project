@@ -9,6 +9,8 @@ import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -123,7 +125,6 @@ class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
-            System.out.println("Please select one of the existing Devices in the selected Room: ");
             System.out.println(room.buildDeviceListString());
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < room.getDeviceList().size()) {
@@ -172,8 +173,8 @@ class InputUtils {
 
     */
 /**
-     * @param deviceTypeList is a list of device types
-     * @return prints a list of available device types by index if the list of device types is not empty
+     *
+     *
      *//*
 
     DeviceType getInputDeviceTypeByList(List<DeviceType> deviceTypeList) {
@@ -272,5 +273,19 @@ class InputUtils {
         return scanner.nextDouble();
     }
 
+    public Date getInputDate() {
+        Scanner scan = new Scanner(System.in);
+        int year = getInputDateAsInt(scan, "year");
+        scan.nextLine();
+        int month = getInputDateAsInt(scan, "month") - 1;
+        scan.nextLine();
+        int day = getInputDateAsInt(scan, "day");
+        scan.nextLine();
+        int hour = getInputDateAsInt(scan, "hour");
+        scan.nextLine();
+        int minute = getInputDateAsInt(scan, "minute");
+        scan.nextLine();
+        return new GregorianCalendar(year,month,day,hour,minute).getTime();
+    }
 
 }

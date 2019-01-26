@@ -41,17 +41,6 @@ public class RoomTest {
     }
 
     @Test
-    void seeIfRemoveDeviceFromRoomWorksFalse() {
-        Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        room.addDevice(device);
-        room.removeDevice(device);
-        String result = room.buildDeviceListString();
-        String expectedResult = "This room has no devices on it\n";
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorks() {
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
@@ -154,14 +143,6 @@ public class RoomTest {
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d3);
         double expectedResult = -25.0;
         assertEquals(expectedResult, result, 0.01);
-    }
-
-    @Test
-    void SeeIfPrintListOfDevicesFromRoomWorksNone() {
-        Room room = new Room("cozinha", 0, 1, 1, 1);
-        String result = room.buildDeviceListString();
-        String expectedResult = "This room has no devices on it\n";
-        assertEquals(expectedResult, result);
     }
 
     @Test

@@ -172,6 +172,25 @@ public class Device implements Metered {
         return result;
     }
 
+    public int meteringPeriodOcurrences(Date initialTime, Date finalTime){
+        int counter = 0;
+        for (Log l: mLogList.getLogList()){
+            if((initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate())) && (finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate()))){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public boolean addLogToLogList(Log log) {
+        if (!(mLogList.getLogList().contains(log))) {
+            mLogList.getLogList().add(log);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     @Override
     public boolean equals(Object o) {

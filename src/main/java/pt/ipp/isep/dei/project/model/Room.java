@@ -100,9 +100,7 @@ public class Room implements Metered {
 
     public String buildDeviceListString() {
         StringBuilder result = new StringBuilder("---------------\n");
-        if (this.getDeviceList().isEmpty()) {
-            return "This room has no devices on it\n";
-        }
+        System.out.println("Please select one of the existing Devices in the selected Room: ");
         for (int i = 0; i < this.getDeviceList().size(); i++) {
             Device device = this.getDeviceList().get(i);
             result.append("\n" + i).append(") device Name: ").append(device.getName());
