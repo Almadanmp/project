@@ -3,16 +3,16 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
-/*import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.Program;
-import pt.ipp.isep.dei.project.model.device.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.*;*/
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+/*import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.Program;
+import pt.ipp.isep.dei.project.model.device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.*;*/
 
 class RoomConfigurationUI {
 
@@ -48,7 +48,7 @@ class RoomConfigurationUI {
         this.mRoomConfigurationController = new RoomConfigurationController();
     }
 
-    void run(House house, List<DeviceType> deviceTypeList, List<TypeSensor> typeSensorList) {
+    void run(House house, List<TypeSensor> typeSensorList) {
         UtilsUI utils = new UtilsUI();
         this.mHouse = house;
         if (!utils.houseRoomListIsValid(this.mHouse)) {
@@ -619,7 +619,7 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        if(!utilsUI.roomDeviceListIsValid(this.mRoom)) {
+        if (!utilsUI.roomDeviceListIsValid(this.mRoom)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
@@ -633,7 +633,7 @@ class RoomConfigurationUI {
             return;
         }
         RoomConfigurationController ctrl = new RoomConfigurationController();
-       ctrl.removeDevice(mRoom,mDevice);
+        ctrl.removeDevice(mRoom, mDevice);
         System.out.println("The device " + mDevice.getName() + " on room " + mRoom.getRoomName() + " has ceased to be.");
     }
 

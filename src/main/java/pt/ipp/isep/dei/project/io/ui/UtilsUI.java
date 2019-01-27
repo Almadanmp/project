@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.List;
 
@@ -73,6 +72,7 @@ class UtilsUI {
     boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
         return geographicArea.getSensorList() != null && !geographicArea.getSensorList().getSensorList().isEmpty(); //TODO missing encapsulation
     }
+
     boolean houseMotherAreaIsValid(House house) {
         return house.getMotherArea() != null;
     }

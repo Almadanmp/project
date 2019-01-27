@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.*;
 
@@ -252,13 +251,6 @@ public class MainUI {
         roomISEP3.setDeviceList(listDevices1);
 
         // *** MOCKS EXTRA ****************
-
-        List<DeviceType> deviceTypeList = new ArrayList<>();
-        deviceTypeList.add(DeviceType.FRIDGE);
-        deviceTypeList.add(DeviceType.WASHING_MACHINE);
-        deviceTypeList.add(DeviceType.WATER_HEATER);
-        deviceTypeList.add(DeviceType.DISHWASHER);
-        deviceTypeList.add(DeviceType.LAMP);
 
         // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
         Room room4 = new Room("room1", 1, 33, 13, 23);
@@ -664,7 +656,7 @@ public class MainUI {
                         break;
                     case 3:
                         RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                        roomConfiguration.run(houseSP2, deviceTypeList, typeSensorListSP2);
+                        roomConfiguration.run(houseSP2, typeSensorListSP2);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
