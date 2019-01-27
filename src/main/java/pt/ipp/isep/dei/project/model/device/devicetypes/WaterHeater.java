@@ -26,15 +26,6 @@ public class WaterHeater implements DeviceSpecs {
         mVolumeOfWaterToHeat = 0.0;
     }
 
-    public WaterHeater(Double volumeOfWater, Double hotWaterTemperature, Double mPerformanceRatio) {
-        this.mVolumeOfWater = volumeOfWater;
-        this.mHotWaterTemperature = hotWaterTemperature;
-        this.mPerformanceRatio = mPerformanceRatio;
-        mColdWaterTemperature = 0.0;
-        mVolumeOfWaterToHeat = 0.0;
-    }
-
-
     public DeviceType getType() {
         return DeviceType.WATER_HEATER;
     }
@@ -63,10 +54,6 @@ public class WaterHeater implements DeviceSpecs {
         double volForMinute = mVolumeOfWaterToHeat / 1440; //calculate v in liters per minute
         double specificHeatOfWater = 1.163 / 1000;
         return specificHeatOfWater * volForMinute * dT * mPerformanceRatio * 60;
-    }
-
-    public double getVolumeWater() {
-        return this.mVolumeOfWater;
     }
 
     public List<String> getAttributeNames() {

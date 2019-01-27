@@ -13,16 +13,12 @@ public class Dishwasher implements DeviceSpecs, Programmable {
     private static final String PROGRAM_LIST = "programList";
 
     private double mCapacity;
-    private ProgramList mObjectProgramList;
+    private ProgramList mProgramList;
+    private String mType = "Dishwasher";
 
 
     public Dishwasher() {
-        this.mObjectProgramList = mObjectProgramList;
-    }
-
-    public Dishwasher(double capacity, ProgramList programList) {
-        this.mCapacity = capacity;
-        mObjectProgramList = programList;
+        this.mProgramList = new ProgramList();
     }
 
     public DeviceType getType() {
@@ -34,7 +30,7 @@ public class Dishwasher implements DeviceSpecs, Programmable {
     }
 
     public ProgramList getProgramList() {
-        return mObjectProgramList;
+        return mProgramList;
     }
 
     public double getCapacity() {

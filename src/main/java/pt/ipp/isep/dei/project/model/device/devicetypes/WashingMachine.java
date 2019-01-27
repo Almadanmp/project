@@ -18,11 +18,6 @@ public class WashingMachine implements DeviceSpecs, Programmable {
         mObjectProgramList = new ProgramList();
     }
 
-    public WashingMachine(double capacity) {
-        this.mCapacity = capacity;
-        mObjectProgramList = new ProgramList();
-    }
-
     public ProgramList getProgramList() {
         return mObjectProgramList;
     }

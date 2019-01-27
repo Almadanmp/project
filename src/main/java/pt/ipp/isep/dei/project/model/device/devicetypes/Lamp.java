@@ -6,14 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lamp implements DeviceSpecs {
-    private double mLuminousFlux;
+    private Double mLuminousFlux;
     private static final String FLUX = "luminousFlux";
 
     public Lamp() {
-    }
-
-    public Lamp(double luminousFlux) {
-        this.mLuminousFlux = luminousFlux;
     }
 
     public DeviceType getType() {

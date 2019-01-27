@@ -33,6 +33,6 @@ public class TestUtils {
     public static final String WM_CAPACITY = "capacity";
 
     //LAMP
-    public static final String FLUX = "LuminousFlux";
+    public static final String L_FLUX = "luminousFlux";
 
 }

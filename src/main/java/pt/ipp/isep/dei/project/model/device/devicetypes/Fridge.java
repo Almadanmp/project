@@ -17,12 +17,6 @@ public class Fridge implements DeviceSpecs {
     public Fridge() {
     }
 
-    public Fridge(double mFreezerCapacity, double mRefrigeratorCapacity, double annualEnergyConsumption) {
-        this.mFreezerCapacity = mFreezerCapacity;
-        this.mRefrigeratorCapacity = mRefrigeratorCapacity;
-        this.mAnnualEnergyConsumption = annualEnergyConsumption;
-    }
-
     public DeviceType getType() {
         return DeviceType.FRIDGE;
     }
@@ -77,19 +71,19 @@ public class Fridge implements DeviceSpecs {
                     this.mFreezerCapacity = (Double) attributeValue;
                     return true;
                 }
-                    return false;
+                return false;
             case "refrigeratorCapacity":
                 if (attributeValue instanceof Double) {
                     this.mRefrigeratorCapacity = (Double) attributeValue;
                     return true;
                 }
-                    return false;
+                return false;
             case "annualEnergyConsumption":
                 if (attributeValue instanceof Double) {
                     this.mAnnualEnergyConsumption = (Double) attributeValue;
                     return true;
                 }
-                    return false;
+                return false;
             default:
                 return false;
         }
