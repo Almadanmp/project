@@ -44,6 +44,9 @@ public class Dishwasher implements DeviceSpecs, Programmable {
         if (attributeName.equals(CAPACITY)) {
             return mCapacity;
         }
+        if (attributeName.equals(PROGRAM_LIST)) {
+            return mProgramList;
+        }
         return 0;
     }
 

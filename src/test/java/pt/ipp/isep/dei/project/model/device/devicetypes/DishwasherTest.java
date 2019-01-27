@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Program;
 import pt.ipp.isep.dei.project.model.device.ProgramList;
 
@@ -16,11 +17,11 @@ import static org.testng.Assert.assertTrue;
 
 class DishwasherTest {
 
- /*   @Test
+    @Test
     void seeIfGetTypeTestWorks() {
         Dishwasher dishwasher = new Dishwasher();
-        DeviceType expectedResult = DeviceType.DISHWASHER;
-        DeviceType result = dishwasher.getType();
+        String expectedResult = "Dishwasher";
+        String result = dishwasher.getType();
         assertEquals(expectedResult, result);
     }
 
@@ -33,24 +34,11 @@ class DishwasherTest {
     }
 
     @Test
-    void seeIfGetCapacityWorks() {
-        Program program1 = new Program("programa",2,2);
-        ProgramList listProgram= new ProgramList();
-        listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(4,listProgram);
-        double expectedResult = 6;
-        dishwasher.getCapacity();
-        dishwasher.setCapacity(6);
-        double result = dishwasher.getCapacity();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void seeIfGetAttributeNamesTestWorks() {
-        Program program1 = new Program("programa",2,2);
-        ProgramList listProgram= new ProgramList();
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = new ProgramList();
         listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1,listProgram);
+        Dishwasher dishwasher = new Dishwasher();
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("capacity");
         expectedResult.add("programList");
@@ -60,7 +48,8 @@ class DishwasherTest {
 
     @Test
     void seeIfGetAttributeValuesTestCapacityWorks() {
-        Dishwasher dishwasher = new Dishwasher(1.0);
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
         Double expectedResult = 1.0;
         Object result = dishwasher.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
@@ -69,10 +58,11 @@ class DishwasherTest {
     @Test
     void seeIfGetAttributeValuesTestListProgramWorks() {
         //Arrange
-        Program program1 = new Program("programa",2,2);
-        ProgramList expectedResult= new ProgramList();
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList expectedResult = dishwasher.getProgramList();
         expectedResult.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1.0,expectedResult);
         //Act
         Object result = dishwasher.getAttributeValue("programList");
         //Assert
@@ -82,10 +72,11 @@ class DishwasherTest {
     @Test
     void seeIfGetAttributeValuesTestReturn0Works() {
         //Arrange
-        Program program1 = new Program("programa",2,2);
-        ProgramList pList= new ProgramList();
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList pList = dishwasher.getProgramList();
         pList.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1.0,pList);
         //Act
         int expectedResult = 0;
         Object actualResult = dishwasher.getAttributeValue("cenas");
@@ -95,10 +86,11 @@ class DishwasherTest {
 
     @Test
     void setAttributeValueTest() {
-        Program program1 = new Program("programa",2,2);
-        ProgramList listProgram= new ProgramList();
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = dishwasher.getProgramList();
         listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1,listProgram);
         boolean result = dishwasher.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
     }
@@ -106,10 +98,11 @@ class DishwasherTest {
     @Test
     void seeIfSetAttributeValueTestTrueWorks() {
         //Arrange
-        Program program1 = new Program("programa",2,2);
-        ProgramList listProgram= new ProgramList();
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = dishwasher.getProgramList();
         listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1,listProgram);
         //Act
         boolean actualResult = dishwasher.setAttributeValue("capacity", 12.0);
         //Assert
@@ -118,24 +111,28 @@ class DishwasherTest {
 
     @Test
     void setAttributeValueTestFalse() {
-        Program program1 = new Program("programa",2,2);
-        ProgramList listProgram= new ProgramList();
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = dishwasher.getProgramList();
         listProgram.addProgram(program1);
-        Dishwasher dishwasher = new Dishwasher(1,listProgram);
         boolean result = dishwasher.setAttributeValue("lisboa", listProgram);
         assertEquals(false, result);
     }
 
     @Test
     void setAttributeValueTestCapacity() {
-        Dishwasher dishwasher = new Dishwasher(1);
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
         dishwasher.setAttributeValue("capacity", 5.0);
         Object result = dishwasher.getAttributeValue("capacity");
         assertEquals(5.0, result);
     }
+
     @Test
     void setAttributeValueTestDefault() {
-        Dishwasher dishwasher = new Dishwasher(1);
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
         dishwasher.setAttributeValue("capacity", 5.0);
         Object result = dishwasher.getAttributeValue("lisbon");
         assertEquals(0, result);
@@ -143,12 +140,9 @@ class DishwasherTest {
 
     @Test
     void setAttributeValueTestFalseAgain() {
-        Dishwasher dishwasher = new Dishwasher(1);
-        Object result = dishwasher.setAttributeValue("capacity",5);
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        Object result = dishwasher.setAttributeValue("capacity", 5);
         assertEquals(false, result);
     }
-
-
-}
-*/
 }
