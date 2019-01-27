@@ -3,11 +3,10 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
+import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,8 +25,14 @@ public class RoomTest {
 
     @Test
     void seeIfRemoveDeviceFromRoomWorks() {
-        Device device = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Device device1 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device = new Device("waterheater", 150, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        Device device1 = new Device("skjsjk", 123, TestUtils.PATH_TO_WATERHEATER);
+        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Room room = new Room("cozinha", 1, 1, 1, 1);
         room.addDevice(device);
         room.addDevice(device1);
@@ -148,7 +153,10 @@ public class RoomTest {
     @Test
     void SeeIfPrintListOfDevicesFromRoomWorks() {
         DeviceList deviceList = new DeviceList();
-        Device d1 = new Device("frigorifico", 230, new Fridge(1,1,34));
+        Device d1 = new Device("frigorifico", 230, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 1D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 1D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 34D);
         deviceList.addDevice(d1);
         Room room = new Room("cozinha", 0, 1, 1, 1);
         room.setDeviceList(deviceList);
@@ -373,10 +381,18 @@ public class RoomTest {
     @Test
     void seeNominalPowerOfRoom() {
         //ARRANGE
-        Fridge f1 = new Fridge(2,2,45);
-        Device d1 = new Device("d1", 12, f1);
-        Device d2 = new Device("d2", 10, f1);
-        Device d3 = new Device("d3", 1, f1);
+        Device d1 = new Device("d1", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        Device d2 = new Device("d2", 10, TestUtils.PATH_TO_FRIDGE);
+        d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
+        d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
+        d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        Device d3 = new Device("d3", 1, TestUtils.PATH_TO_FRIDGE);
+        d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
+        d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
+        d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
@@ -393,9 +409,18 @@ public class RoomTest {
     @Test
     void getDailyRoomConsumptionPerTypeTest() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device("fridgeOne", 12, new Fridge(2,2,45));
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 0.9));
+        Device d1 = new Device("fridgeOne", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
@@ -405,10 +430,16 @@ public class RoomTest {
     }
 
     @Test
-    void seeIfRemoveRoomDevicesFromDeviceListAssertTrue(){
+    void seeIfRemoveRoomDevicesFromDeviceListAssertTrue() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         d2.setAttributeValue("coldWaterTemperature", 5.0);
@@ -420,10 +451,16 @@ public class RoomTest {
     }
 
     @Test
-    void seeIfRemoveRoomDevicesFromDeviceListAssertTrueList(){
+    void seeIfRemoveRoomDevicesFromDeviceListAssertTrueList() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d2);
         dlist.addDevice(d3);
@@ -435,12 +472,22 @@ public class RoomTest {
 
         assertTrue(r1.removeDevice(d2));
     }
+
     @Test
-    void seeIfRemoveRoomDevicesFromDeviceListAssertFalse(){
+    void seeIfRemoveRoomDevicesFromDeviceListAssertFalse() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
-        Device d1 = new Device("wHeater4", 12, new WaterHeater(200.0, 30.0, 0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Device d1 = new Device("wHeater4", 12, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         d2.setAttributeValue("coldWaterTemperature", 5.0);
@@ -449,12 +496,19 @@ public class RoomTest {
         d3.setAttributeValue("coldWaterTemperature", 1.0);
 
         assertFalse(r1.removeDevice(d1));
-}
+    }
+
     @Test
     void getDailyRoomConsumptionPerTypeTest2() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 30.0, 0.9));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 20.0, 0.9));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         d2.setAttributeValue("coldWaterTemperature", 5.0);
@@ -469,8 +523,14 @@ public class RoomTest {
     @Test
     void addDeviceFails() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
-        Device d3 = new Device("wHeater1", 11, new WaterHeater(500.0, 30.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater1", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         boolean expectedResult = false;
         boolean result = r1.addDevice(d3);
@@ -480,8 +540,14 @@ public class RoomTest {
     @Test
     void addDeviceSucceeds() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         boolean expectedResult = true;
         boolean result = r1.addDevice(d3);
@@ -491,8 +557,14 @@ public class RoomTest {
     @Test
     void addDeviceSucceeds2() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.addDevice(d3);
@@ -502,7 +574,10 @@ public class RoomTest {
     @Test
     void addDeviceSucceeds3() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         boolean expectedResult = true;
         boolean result = r1.addDevice(d3);
         assertEquals(expectedResult, result);
@@ -511,8 +586,14 @@ public class RoomTest {
     @Test
     void getRoomDevicesOfGivenTypeSuccess() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         List<Device> expectedResult = new ArrayList<>();
@@ -525,8 +606,14 @@ public class RoomTest {
     @Test
     void getRoomDevicesOfGivenTypeFails() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         List<Device> expectedResult = new ArrayList<>();
@@ -537,8 +624,14 @@ public class RoomTest {
     @Test
     void removeDeviceSucess() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.removeDevice(d2);
@@ -548,9 +641,18 @@ public class RoomTest {
     @Test
     void removeDeviceFails() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 2.0, 1.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 3.0, 1.0));
-        Device d4 = new Device("wHeater4", 11, new WaterHeater(50.0, 3.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        Device d4 = new Device("wHeater4", 11, TestUtils.PATH_TO_WATERHEATER);
+        d4.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 50D);
+        d4.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 3D);
+        d4.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.removeDevice(d4);
@@ -561,8 +663,14 @@ public class RoomTest {
     @Test
     void seeIfAddRoomDevicesToDeviceListWorksWhenDeviceListAlreadyAddedToRoom() {
         //Arrange
-        Device device1 = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Device device2 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device1 = new Device("waterheater", 150, TestUtils.PATH_TO_WATERHEATER);
+        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        Device device2 = new Device("skjsjk", 123, TestUtils.PATH_TO_WATERHEATER);
+        device2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
@@ -578,8 +686,14 @@ public class RoomTest {
     @Test
     void seeIfAddRoomDevicesToDeviceListWorksAlreadyContained() {
         //Arrange
-        Device device1 = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Device device2 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device1 = new Device("waterheater", 150, TestUtils.PATH_TO_WATERHEATER);
+        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        Device device2 = new Device("skjsjk", 123, TestUtils.PATH_TO_WATERHEATER);
+        device2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
@@ -598,8 +712,14 @@ public class RoomTest {
     @Test
     void seeIfAddRoomDevicesToDeviceListWorksWhenNotYetAddedToRoom() {
         //Arrange
-        Device device1 = new Device("waterheater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
-        Device device2 = new Device("skjsjk", 123, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device1 = new Device("waterheater", 150, TestUtils.PATH_TO_WATERHEATER);
+        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        Device device2 = new Device("skjsjk", 123, TestUtils.PATH_TO_WATERHEATER);
+        device2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
@@ -615,8 +735,14 @@ public class RoomTest {
     void seeIfGetAllHouseDevices() {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         house.addRoomToRoomList(r1);
@@ -630,7 +756,10 @@ public class RoomTest {
     @Test
     void ensureThatWeDoNotAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
-        Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device = new Device("WHeater", 23, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Room room = new Room("Room", 1, 2, 3, 4);
         deviceList.addDevice(device);
         room.setDeviceList(deviceList);
@@ -643,7 +772,10 @@ public class RoomTest {
     @Test
     void seeThatWeAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
-        Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device = new Device("WHeater", 23, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         DeviceList deviceList2 = new DeviceList();
         deviceList.addDevice(device);
         Room room = new Room("Room", 1, 2, 3, 4);
@@ -656,7 +788,10 @@ public class RoomTest {
     @Test
     void ensureThatWeDontAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
-        Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device = new Device("WHeater", 23, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Room room = new Room("Room", 1, 2, 3, 4);
         deviceList.addDevice(device);
         boolean expectedResult = false;
@@ -667,12 +802,18 @@ public class RoomTest {
     @Test
     void ensureThatWeAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
-        Device device = new Device("WHeater", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device = new Device("WHeater", 23, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Room room = new Room("Room", 1, 2, 3, 4);
         deviceList.addDevice(device);
         room.setDeviceList(deviceList);
         DeviceList deviceList1 = new DeviceList();
-        Device device1 = new Device("WHeater2", 23, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device device1 = new Device("WHeater2", 23, TestUtils.PATH_TO_WATERHEATER);
+        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         deviceList1.addDevice(device1);
         boolean expectedResult = true;
         boolean actualResult = room.addRoomDevicesToDeviceList(deviceList1);

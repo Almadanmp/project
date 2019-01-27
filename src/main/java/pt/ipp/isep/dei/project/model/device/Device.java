@@ -22,18 +22,6 @@ public class Device implements Metered {
     private LogList mLogList;
     private int mMeteringPeriod;
 
-    //Empty constructor for test purposes
-    public Device(String name, double nominalPower, DeviceSpecs deviceSpecs) {
-        this.mName = name;
-        this.mDeviceSpecs = deviceSpecs;
-        this.mNominalPower = nominalPower;
-        this.mLogList = new LogList();
-        if (!setMeteringPeriod())
-        {
-            throw new IllegalArgumentException("Configuration file values are not supported.");
-        }
-    }
-
     /**
      * Constructor with path by configuration file approach
      * @param name

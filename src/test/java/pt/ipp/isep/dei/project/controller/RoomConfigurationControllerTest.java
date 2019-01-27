@@ -1,25 +1,17 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.testng.Assert;
-import pt.ipp.isep.dei.project.model.*;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.TestUtils;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Program;
-import pt.ipp.isep.dei.project.model.device.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * RoomConfigurationController tests class.
@@ -34,7 +26,7 @@ class RoomConfigurationControllerTest {
         Room room1 = new Room("Quarto", 1, 5, 1, 21);
         Room room2 = new Room("Cozinha", 1, 9, 3, 5);
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        House house1 = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga);
+        House house1 = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga);
         house1.addRoomToRoomList(room1);
         house1.addRoomToRoomList(room2);
         //Act
@@ -138,10 +130,18 @@ class RoomConfigurationControllerTest {
     @Test
     void seeGetRoomNominalPower() {
         //ARRANGE
-        Fridge f1 = new Fridge(4,4,56);
-        Device d1 = new Device("d1", 12, f1);
-        Device d2 = new Device("d2", 10, f1);
-        Device d3 = new Device("d3", 1, f1);
+        Device d1 = new Device("d1", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
+        Device d2 = new Device("d2", 10, TestUtils.PATH_TO_FRIDGE);
+        d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
+        d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
+        Device d3 = new Device("d3", 1, TestUtils.PATH_TO_FRIDGE);
+        d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
+        d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
@@ -282,7 +282,8 @@ class RoomConfigurationControllerTest {
         SensorList sL1 = new SensorList();
         sL1.addSensor(s1);
         sL1.addSensor(s2);
-        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));;
+        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
+        ;
         gA1.setSensorList(sL1);
         GeographicAreaList gList1 = new GeographicAreaList();
         gList1.addGeographicAreaToGeographicAreaList(gA1);
@@ -366,8 +367,11 @@ class RoomConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        Device d1 = new Device("frigorifico", 200, new Fridge(5,4,56));
-        Device d2 = new Device("maquina de lavar", 150, new WashingMachine());
+        Device d1 = new Device("frigorifico", 200, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
+        Device d2 = new Device("maquina de lavar", 150, TestUtils.PATH_TO_WASHINGMACHINE);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
@@ -386,7 +390,10 @@ class RoomConfigurationControllerTest {
     void SeeIfMatchDeviceIndexByStringWorks() {
         //Arrange
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("frigorifico", 200, new Fridge(4,5,45));
+        Device d1 = new Device("frigorifico", 200, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
@@ -401,7 +408,10 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("frigorifico", 200, new Fridge(4,6,56));
+        Device d1 = new Device("frigorifico", 200, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
@@ -414,7 +424,10 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDeviceList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("frigorifico", 200, new Fridge(5,7,56));
+        Device d1 = new Device("frigorifico", 200, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d1);
@@ -654,11 +667,17 @@ class RoomConfigurationControllerTest {
     void removeDeviceSucess() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 20.0, 10.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 30.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        boolean result = ctrl.removeDevice(r1,d2);
+        boolean result = ctrl.removeDevice(r1, d2);
         assertEquals(true, result);
     }
 
@@ -666,12 +685,21 @@ class RoomConfigurationControllerTest {
     void removeDeviceFails() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, new WaterHeater(200.0, 2.0, 1.0));
-        Device d3 = new Device("wHeater2", 11, new WaterHeater(500.0, 3.0, 1.0));
-        Device d4 = new Device("wHeater4", 11, new WaterHeater(50.0, 3.0, 1.0));
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 2);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 3D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        Device d4 = new Device("wHeater4", 11, TestUtils.PATH_TO_WATERHEATER);
+        d4.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 50D);
+        d4.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 3D);
+        d4.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        boolean result = ctrl.removeDevice(r1,d4);
+        boolean result = ctrl.removeDevice(r1, d4);
         assertEquals(false, result);
 
     }

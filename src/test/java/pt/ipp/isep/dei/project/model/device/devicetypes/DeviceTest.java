@@ -1,10 +1,9 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.SensorList;
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Device;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class DeviceTest {
 
     @Test
     public void getDeviceTypeTest() {
-        Device d = new Device("WMOne", 12, new WashingMachine());
+        Device d = new Device("WMOne", 12, TestUtils.PATH_TO_WASHINGMACHINE);
         d.setAttributeValue("capacity", 12D);
         DeviceType dT = DeviceType.WASHING_MACHINE;
         DeviceType expectedResult = dT;
@@ -28,7 +27,7 @@ public class DeviceTest {
 
     @Test
     void seeEqualToSameObject() {
-        Device d = new Device("WMOne", 12, new WashingMachine());
+        Device d = new Device("WMOne", 12, TestUtils.PATH_TO_WASHINGMACHINE);
         d.setAttributeValue("capacity", 12D);
         boolean actualResult = d.equals(d);
         assertTrue(actualResult);
@@ -36,8 +35,10 @@ public class DeviceTest {
 
     @Test
     void seeEqualsToDifObject() {
-        Device d = new Device("WMOne", 12, new WashingMachine(34));
-        Device d2 = new Device("WMTwo", 12, new WashingMachine(45));
+        Device d = new Device("WMOne", 12, TestUtils.PATH_TO_WASHINGMACHINE);
+        d.setAttributeValue(TestUtils.WM_CAPACITY, 34);
+        Device d2 = new Device("WMTwo", 12, TestUtils.PATH_TO_WASHINGMACHINE);
+        d.setAttributeValue(TestUtils.WM_CAPACITY, 45);
 
         boolean actualResult = d.equals(d2);
         assertFalse(actualResult);
@@ -46,7 +47,8 @@ public class DeviceTest {
 
     @Test
     void seeEqualsToDifTypeObject() {
-        Device d = new Device("WMOne", 12, new WashingMachine(56));
+        Device d = new Device("WMOne", 12, TestUtils.PATH_TO_WASHINGMACHINE);
+        d.setAttributeValue(TestUtils.WM_CAPACITY, 56);
         Room room = new Room("quarto", 1, 80, 2, 2);
 
         boolean actualResult = d.equals(room);
@@ -55,7 +57,8 @@ public class DeviceTest {
 
     @Test
     void seeEqualsToNullObject() {
-        Device d = new Device("WMOne", 12, new WashingMachine(23));
+        Device d = new Device("WMOne", 12, TestUtils.PATH_TO_WASHINGMACHINE);
+        d.setAttributeValue(TestUtils.WM_CAPACITY, 34);
         boolean actualResult = d.equals(null);
 
         assertFalse(actualResult);
@@ -63,7 +66,10 @@ public class DeviceTest {
 
     @Test
     void seeIfPrintDeviceWorks() {
-        Device d1 = new Device("frigo", 150, new Fridge(2,2,45));
+        Device d1 = new Device("frigo", 150, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
         Room room = new Room("kitchen", 1, 1, 1, 1);
         String result = d1.buildDeviceString();
         String expectedResult = "The device Name is frigo, and its NominalPower is 150.0 kW.\n";
@@ -72,7 +78,10 @@ public class DeviceTest {
 
     @Test
     void seeIfSetNameWorks() {
-        Device d1 = new Device("frigo", 150, new Fridge(2,2,23));
+        Device d1 = new Device("frigo", 150, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 23D);
         d1.setmName("frigorifico");
         String result = d1.getName();
         String expectedResult = "frigorifico";
@@ -81,7 +90,10 @@ public class DeviceTest {
 
     @Test
     public void hashCodeDummyTest() {
-        Device d1 = new Device("FridgeTwo", 12, new Fridge(4,56,345));
+        Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         int expectedResult = 1;
         int actualResult = d1.hashCode();
         assertEquals(expectedResult, actualResult);
@@ -89,7 +101,10 @@ public class DeviceTest {
 
     @Test
     void seeIfGetAndSetAttributeValue() {
-        Device d1 = new Device("heater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Double expectedResult = 33.3;
         d1.setAttributeValue("volumeOfWater", 33.3);
         Object result = d1.getAttributeValue("volumeOfWater");
@@ -98,7 +113,10 @@ public class DeviceTest {
 
     @Test
     void seeIfGetAttributeNames() {
-        Device d1 = new Device("heater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         List<String> result = d1.getAttributeNames();
         assertTrue(result.contains("volumeOfWater"));
         assertTrue(result.contains("hotWaterTemperature"));
@@ -110,7 +128,10 @@ public class DeviceTest {
 
     @Test
     void seeIfGetAndSetMeteringPeriod() {
-        Device d1 = new Device("heater", 150, new WaterHeater(new Double(12), new Double(40), new Double (234)));
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Integer expectedResult = 180;
         d1.setMeteringPeriod();
         Integer result = d1.getMeteringPeriod();

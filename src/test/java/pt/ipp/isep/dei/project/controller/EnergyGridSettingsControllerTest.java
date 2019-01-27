@@ -2,11 +2,10 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
+import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.Dishwasher;
-import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -395,9 +394,15 @@ class EnergyGridSettingsControllerTest {
         eg.setNominalPower(333);
         eg.setName("Main Energy Grid Edificio C");
         RoomList rl = new RoomList();
-        Device d1 = new Device("fridgeOne", 12, new Fridge(4,5,45));
-        Device d2 = new Device("DWOne", 13, new Dishwasher());
-        Device d3 = new Device("FridgeTwo", 14, new Fridge(5,6,45));
+        Device d1 = new Device("fridgeOne", 12, TestUtils.PATH_TO_FRIDGE);
+        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
+        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        Device d2 = new Device("DWOne", 13, TestUtils.PATH_TO_DISHWASHER);
+        Device d3 = new Device("FridgeTwo", 14, TestUtils.PATH_TO_FRIDGE);
+        d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
+        d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
+        d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
         d1.setName("uno");
         d2.setName("dos");
         d3.setName("tres");
