@@ -12,6 +12,7 @@ public class WashingMachine implements DeviceSpecs, Programmable {
 
     private double mCapacity;
     private ProgramList mObjectProgramList;
+    private String mType = "WashingMachine";
 
 
     public WashingMachine() {
@@ -22,8 +23,8 @@ public class WashingMachine implements DeviceSpecs, Programmable {
         return mObjectProgramList;
     }
 
-    public DeviceType getType() {
-        return DeviceType.WASHING_MACHINE;
+    public String getType() {
+        return mType;
     }
 
     public double getConsumption() {

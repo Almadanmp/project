@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.model.device;
 
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class that groups a number of Devices.
@@ -34,7 +34,7 @@ public class DeviceList {
         return false;
     }
 
-    public boolean removeDevice(Device device){
+    public boolean removeDevice(Device device) {
         if (this.contains(device)) {
             mDeviceList.remove(device);
             return true;
@@ -73,14 +73,14 @@ public class DeviceList {
         return result.toString();
     }
 
-    public boolean contains(Device device){
+    public boolean contains(Device device) {
         return this.mDeviceList.contains(device);
     }
 
-    public String buildDevicesString(){
+    public String buildDevicesString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (Device d : this.mDeviceList){
+        for (Device d : this.mDeviceList) {
             result.append(counter).append(") ").append(d.buildDeviceString());
             counter++;
         }
@@ -93,10 +93,10 @@ public class DeviceList {
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyConsumptionByDeviceType(DeviceType deviceType) {
+    public double getDailyConsumptionByDeviceType(String deviceType) {
         double result = 0;
         for (Device d : mDeviceList) {
-            if (d.getType() == deviceType) {
+            if (d.getType().equals(deviceType)) {
                 result += d.getDailyEstimateConsumption();
             }
         }

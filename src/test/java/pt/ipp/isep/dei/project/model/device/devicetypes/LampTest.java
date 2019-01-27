@@ -17,8 +17,8 @@ public class LampTest {
     @Test
     public void getTypeTest() {
         Lamp lamp = new Lamp();
-        DeviceType expectedResult = DeviceType.LAMP;
-        DeviceType result = lamp.getType();
+        String expectedResult = "Lamp";
+        String result = lamp.getType();
         assertEquals(expectedResult, result);
     }
 

@@ -388,6 +388,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfDeviceListPrintsByType() {
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid();
@@ -414,11 +415,11 @@ class EnergyGridSettingsControllerTest {
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         String expectedResult = "---------------\n" +
-                "device type: DISHWASHER | dos | Room: B107 | \n" +
-                "device type: FRIDGE | uno | Room: B107 | \n" +
-                "device type: FRIDGE | tres | Room: B107 | \n" +
+                "device type: Fridge | uno | Room: B107 | \n" +
+                "device type: Fridge | tres | Room: B107 | \n" +
+                "device type: Dishwasher | dos | Room: B107 | \n" +
                 "---------------\n";
-        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg);
+        String result = ctrl.buildListOfDevicesOrderedByTypeString(eg, house);
         assertEquals(expectedResult, result);
     }
 }

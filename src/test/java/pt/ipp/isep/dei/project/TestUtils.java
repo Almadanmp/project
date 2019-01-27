@@ -21,7 +21,7 @@ public class TestUtils {
     //WaterHeater attributes
     public static final String WH_VOLUME_OF_WATER = "volumeOfWater";
     public static final String WH_HOT_WATER_TEMP = "hotWaterTemperature";
-    public static final String WH_OLD_WATER_TEMP = "coldWaterTemperature";
+    public static final String WH_COLD_WATER_TEMP = "coldWaterTemperature";
     public static final String WH_PERFORMANCE_RATIO = "performanceRatio";
     public static final String WH_VOLUME_OF_WATER_HEAT = "volumeOfWaterToHeat";
 

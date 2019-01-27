@@ -70,10 +70,6 @@ class UtilsUI {
         return list != null && !list.isEmpty();
     }
 
-    boolean deviceTypeListIsValid(List<DeviceType> list) {
-        return list != null && !list.isEmpty();
-    }
-
     boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
         return geographicArea.getSensorList() != null && !geographicArea.getSensorList().getSensorList().isEmpty(); //TODO missing encapsulation
     }

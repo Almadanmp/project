@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -159,12 +158,12 @@ public class RoomList {
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyConsumptionByDeviceType(DeviceType deviceType) {
+    public double getDailyConsumptionByDeviceType(String deviceType) {
         double result = 0;
         for (Room r : mRoomList) {
             result += r.getDailyConsumptionByDeviceType(deviceType);
         }
-        return Math.floor(result*10)/10;
+        return Math.floor(result * 10) / 10;
     }
 
 

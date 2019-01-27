@@ -138,7 +138,7 @@ public class EnergyGridSettingsController {
      * This method directly adds the desired energy grid to the energy grid list from a selected house;
      */
     public void addEnergyGridToHouse(House programHouse) {
-            programHouse.addGrid(mEnergyGrid);
+        programHouse.addGrid(mEnergyGrid);
     }
 
     /**
@@ -216,7 +216,7 @@ public class EnergyGridSettingsController {
      * @param energyGrid - This will be the parameter in which we want to search all the devices
      */
 
-    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid) {
-        return energyGrid.buildListOfDeviceByTypeString(energyGrid);
+    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house) {
+        return energyGrid.buildListOfDeviceByTypeString(energyGrid, house);
     }
 }

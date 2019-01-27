@@ -7,8 +7,6 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Log;
-import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,9 +50,9 @@ class EnergyConsumptionControllerTest {
         roomList.addRoom(r1);
         grid.setRoomList(roomList);
         String expectedResult = "0) Kitchen.\n" +
-                "1) WaterHeater, Type: WATER_HEATER, Power: 21.0.\n" +
-                "2) WaterHeaterTwo, Type: WATER_HEATER, Power: 55.0.\n" +
-                "3) Fridge, Type: FRIDGE, Power: 10.0.\n";
+                "1) WaterHeater, Type: WaterHeater, Power: 21.0.\n" +
+                "2) WaterHeaterTwo, Type: WaterHeater, Power: 55.0.\n" +
+                "3) Fridge, Type: Fridge, Power: 10.0.\n";
         EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
@@ -478,7 +476,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device("fridgeOne", 12,  TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device("fridgeOne", 12, TestUtils.PATH_TO_FRIDGE);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
@@ -557,7 +555,7 @@ class EnergyConsumptionControllerTest {
         r1.setDeviceList(d1);
         List<Device> expecteResult = new ArrayList<>();
         expecteResult.add(d6);
-        List<Device> result = controller.getWHDeviceList(h1);
+        List<Device> result = controller.getWaterHeaterDeviceList(h1);
         Assertions.assertEquals(expecteResult, result);
     }
 
@@ -580,7 +578,7 @@ class EnergyConsumptionControllerTest {
         List<Device> expectedResult = new ArrayList<>();
         expectedResult.add(d2);
         expectedResult.add(d3);
-        List<Device> result = controller.getWHDeviceList(house);
+        List<Device> result = controller.getWaterHeaterDeviceList(house);
         Assertions.assertEquals(expectedResult, result);
     }
 

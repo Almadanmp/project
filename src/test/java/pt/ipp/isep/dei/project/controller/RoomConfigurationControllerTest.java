@@ -435,7 +435,7 @@ class RoomConfigurationControllerTest {
         String result = ctrl.buildDeviceListString(room);
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) device Name: frigorifico, device Type: FRIDGE, device Nominal Power: 200.0\n" +
+                "0) device Name: frigorifico, device Type: Fridge, device Nominal Power: 200.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }

@@ -17,8 +17,8 @@ class FridgeTest {
     @Test
     void getTypeTest() {
         Fridge fridge = new Fridge();
-        DeviceType expectedResult = DeviceType.FRIDGE;
-        DeviceType result = fridge.getType();
+        String expectedResult = "Fridge";
+        String result = fridge.getType();
         assertEquals(expectedResult, result);
     }
 

@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -235,7 +234,7 @@ public class House implements Metered {
      * @param deviceType the device type
      * @return the list with all devices of a given type
      */
-    public List<Device> getDevicesOfGivenType(DeviceType deviceType) {
+    public List<Device> getDevicesOfGivenType(String deviceType) {
         List<Device> devicesOfGivenType = new ArrayList<>();
         for (Room r : mRoomList.getList()) {
             devicesOfGivenType.addAll(r.getDevicesOfGivenType(deviceType));
@@ -288,10 +287,11 @@ public class House implements Metered {
 
     /**
      * Method to return the path to a selected Device Type Class by the user
+     *
      * @param id - String with the identification of the device type selected
      * @return string with the path to the class file
      */
-   public String getDeviceTypePathToClassById(String id) {
+    public String getDeviceTypePathToClassById(String id) {
         Properties props = new Properties();
         String propFileName = "resources/devices.properties";
         InputStream input = null;
@@ -326,7 +326,7 @@ public class House implements Metered {
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyConsumptionByDeviceType(DeviceType deviceType) {
+    public double getDailyConsumptionByDeviceType(String deviceType) {
         return mRoomList.getDailyConsumptionByDeviceType(deviceType);
     }
 

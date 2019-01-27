@@ -6,7 +6,6 @@ import org.testng.Assert;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +39,7 @@ public class RoomTest {
         String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) device Name: waterheater, device Type: WATER_HEATER, device Nominal Power: 150.0\n" +
+                "0) device Name: waterheater, device Type: WaterHeater, device Nominal Power: 150.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }
@@ -163,7 +162,7 @@ public class RoomTest {
         String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) device Name: frigorifico, device Type: FRIDGE, device Nominal Power: 230.0\n" +
+                "0) device Name: frigorifico, device Type: Fridge, device Nominal Power: 230.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }
@@ -425,7 +424,7 @@ public class RoomTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         Double expectedResult = 0.0;
-        Double result = r1.getDailyConsumptionByDeviceType(DeviceType.WATER_HEATER);
+        Double result = r1.getDailyConsumptionByDeviceType("WaterHeater");
         assertEquals(expectedResult, result);
     }
 
@@ -599,7 +598,7 @@ public class RoomTest {
         List<Device> expectedResult = new ArrayList<>();
         expectedResult.add(d2);
         expectedResult.add(d3);
-        List<Device> result = r1.getDevicesOfGivenType(DeviceType.WATER_HEATER);
+        List<Device> result = r1.getDevicesOfGivenType("WaterHeater");
         assertEquals(expectedResult, result);
     }
 
@@ -617,7 +616,7 @@ public class RoomTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         List<Device> expectedResult = new ArrayList<>();
-        List<Device> result = r1.getDevicesOfGivenType(DeviceType.FRIDGE);
+        List<Device> result = r1.getDevicesOfGivenType("Fridge");
         assertEquals(expectedResult, result);
     }
 

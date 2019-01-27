@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,6 +23,7 @@ public class Device implements Metered {
 
     /**
      * Constructor with path by configuration file approach
+     *
      * @param name
      * @param nominalPower
      * @param deviceTypePath
@@ -42,8 +42,7 @@ public class Device implements Metered {
 
         this.mDeviceSpecs = aux;
 
-        if (!setMeteringPeriod())
-        {
+        if (!setMeteringPeriod()) {
             throw new IllegalArgumentException("Configuration file values are not supported.");
         }
     }
@@ -128,7 +127,7 @@ public class Device implements Metered {
         }
     }
 
-    public DeviceType getType() {
+    public String getType() {
         return mDeviceSpecs.getType();
     }
 
@@ -155,7 +154,7 @@ public class Device implements Metered {
         }
         Integer deviceMPValue = (Integer) Integer.parseInt(DeviceMeteringPeriod);
         Integer gridMPValue = (Integer) Integer.parseInt(GridMeteringPeriod);
-        if (deviceMeteringPeriodValidation(deviceMPValue, gridMPValue)){
+        if (deviceMeteringPeriodValidation(deviceMPValue, gridMPValue)) {
             this.mMeteringPeriod = deviceMPValue;
             return true;
         }
@@ -186,10 +185,10 @@ public class Device implements Metered {
         return result;
     }
 
-    public int meteringPeriodOcurrences(Date initialTime, Date finalTime){
+    public int meteringPeriodOcurrences(Date initialTime, Date finalTime) {
         int counter = 0;
-        for (Log l: mLogList.getLogList()){
-            if((initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate())) && (finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate()))){
+        for (Log l : mLogList.getLogList()) {
+            if ((initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate())) && (finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate()))) {
                 counter++;
             }
         }

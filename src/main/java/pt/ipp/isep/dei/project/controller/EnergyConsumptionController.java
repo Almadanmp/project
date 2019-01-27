@@ -6,11 +6,8 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -132,7 +129,7 @@ public class EnergyConsumptionController {
             System.out.println("This device has no energy consumption logs in the given interval.");
             return false;
         }
-        System.out.println("Device: " + device.getName() +"\n" + "Between " + initialTime + " and " + finalTime + "\n" + "The total Energy Consumption is: " + device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.");
+        System.out.println("Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime + "\n" + "The total Energy Consumption is: " + device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.");
         return true;
     }
 
@@ -148,8 +145,8 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return returns a list of water heaters from a house
      */
-    public List<Device> getWHDeviceList(House house) {
-        return house.getDevicesOfGivenType(DeviceType.WATER_HEATER);
+    public List<Device> getWaterHeaterDeviceList(House house) {
+        return house.getDevicesOfGivenType("WaterHeater");
     }
 
     /**
@@ -181,7 +178,7 @@ public class EnergyConsumptionController {
      * @return estimate energy consumption on the water heaters
      */
     public double getDailyWaterHeaterConsumption(House house) {
-        return house.getDailyConsumptionByDeviceType(DeviceType.WATER_HEATER);
+        return house.getDailyConsumptionByDeviceType("WaterHeater");
     }
 
     /**
@@ -197,6 +194,7 @@ public class EnergyConsumptionController {
 
     /**
      * Returns the Log List for a Given device.
+     *
      * @param device - given by UI
      * @return LogList
      */

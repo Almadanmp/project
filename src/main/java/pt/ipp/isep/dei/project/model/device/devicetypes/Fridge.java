@@ -6,19 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Fridge implements DeviceSpecs {
-    private double mFreezerCapacity;
-    private double mRefrigeratorCapacity;
-    private double mAnnualEnergyConsumption;
     private static final String FREEZER_CAPACITY_STRING = "freezerCapacity";
     private static final String REFRIGERATOR_CAPACITY_STRING = "refrigeratorCapacity";
     private static final String ANNUAL_CONSUMPTION_STRING = "annualEnergyConsumption";
 
+    private double mFreezerCapacity;
+    private double mRefrigeratorCapacity;
+    private double mAnnualEnergyConsumption;
+    private String mType = "Fridge";
 
     public Fridge() {
     }
 
-    public DeviceType getType() {
-        return DeviceType.FRIDGE;
+    public String getType() {
+        return mType;
     }
 
     public double getConsumption() {

@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.model.device;
 
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-
 import java.util.List;
 
 /**
@@ -24,7 +22,7 @@ public interface DeviceSpecs {
      *
      * @return a device type
      */
-    DeviceType getType();
+    String getType();
 
     /**
      * Get a list with the attribute names of a device spec

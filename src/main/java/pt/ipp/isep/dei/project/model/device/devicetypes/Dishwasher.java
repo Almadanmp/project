@@ -21,8 +21,8 @@ public class Dishwasher implements DeviceSpecs, Programmable {
         this.mProgramList = new ProgramList();
     }
 
-    public DeviceType getType() {
-        return DeviceType.DISHWASHER;
+    public String getType() {
+        return mType;
     }
 
     public double getConsumption() {

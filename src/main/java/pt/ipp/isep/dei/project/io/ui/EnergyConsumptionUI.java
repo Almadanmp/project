@@ -7,11 +7,8 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Log;
-import pt.ipp.isep.dei.project.model.device.LogList;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -65,7 +62,7 @@ class EnergyConsumptionUI {
     // and/or devices of my choosing connected to a grid.
 
     private void runUS705(House programHouse) {
-        if (programHouse.getEGListObject() == null || programHouse.getEGList().isEmpty()){
+        if (programHouse.getEGListObject() == null || programHouse.getEGList().isEmpty()) {
             System.out.println("The house has no Energy Grids. Energy grids are required for this functionality.");
             return;
         }
@@ -208,7 +205,7 @@ class EnergyConsumptionUI {
      * One cannot know the exact energy consumption of devices not connected to an energy meter.
      */
 
-    private void runUS720(House house){
+    private void runUS720(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         Room room = inputUtils.getHouseRoomByList(house);
@@ -225,7 +222,7 @@ class EnergyConsumptionUI {
         Date initialTime = inputUtils.getInputDate();
         System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
         Date finalTime = inputUtils.getInputDate();
-        controller.getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(device,initialTime,finalTime);
+        controller.getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(device, initialTime, finalTime);
     }
 
 
@@ -237,7 +234,7 @@ class EnergyConsumptionUI {
 
     private void runUS752(House house) {
         InputUtils inputUtils = new InputUtils();
-        List<Device> waterHeaters = controller.getWHDeviceList(house);
+        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
         if (waterHeaters.isEmpty()) {
             System.out.println("Your house has no Electric Water Heaters. Returning to Main Menu.");
             return;
@@ -267,7 +264,7 @@ class EnergyConsumptionUI {
     private void runUS172(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if(!utilsUI.houseGridListIsValid(house)){
+        if (!utilsUI.houseGridListIsValid(house)) {
             System.out.println(utilsUI.invalidGridList);
             return;
         }

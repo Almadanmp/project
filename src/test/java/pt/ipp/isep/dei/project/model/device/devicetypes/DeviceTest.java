@@ -19,9 +19,9 @@ public class DeviceTest {
     public void getDeviceTypeTest() {
         Device d = new Device("WMOne", 12, TestUtils.PATH_TO_WASHINGMACHINE);
         d.setAttributeValue("capacity", 12D);
-        DeviceType dT = DeviceType.WASHING_MACHINE;
-        DeviceType expectedResult = dT;
-        DeviceType result = d.getType();
+        String dT = "WashingMachine";
+        String expectedResult = dT;
+        String result = d.getType();
         assertEquals(expectedResult, result);
     }
 

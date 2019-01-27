@@ -18,7 +18,7 @@ public class WaterHeater implements DeviceSpecs {
     private Double mPerformanceRatio;
     private Double mColdWaterTemperature;
     private Double mVolumeOfWaterToHeat;
-    private String mDeviceType = "waterHeater";
+    private String mType = "WaterHeater";
 
 
     public WaterHeater() {
@@ -26,8 +26,8 @@ public class WaterHeater implements DeviceSpecs {
         mVolumeOfWaterToHeat = 0.0;
     }
 
-    public DeviceType getType() {
-        return DeviceType.WATER_HEATER;
+    public String getType() {
+        return mType;
     }
 
     /**

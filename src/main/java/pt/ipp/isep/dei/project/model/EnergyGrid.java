@@ -1,11 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.util.List;
-
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -186,7 +184,7 @@ public class EnergyGrid implements Metered {
         }
         List<Device> deviceList = this.getDeviceList();
         for (Device d : deviceList) {
-            result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getType().name()).append(", Power: ").append(d.getNominalPower()).append(".\n");
+            result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getType()).append(", Power: ").append(d.getNominalPower()).append(".\n");
             counter++;
         }
         return result.toString();
@@ -237,10 +235,10 @@ public class EnergyGrid implements Metered {
      * @param energyGrid energy grid that we want to see which devices will be printed.
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
-    public String buildListOfDeviceByTypeString(EnergyGrid energyGrid) {
+    public String buildListOfDeviceByTypeString(EnergyGrid energyGrid, House house) {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
-        for (DeviceType d : DeviceType.values()) {
+        for (String d : house.getDeviceTypes()) {
             for (int i = 0; i < energyGrid.getListOfRooms().getList().size(); i++) {
                 Room r = energyGrid.getListOfRooms().getList().get(i);
                 if (r != null) {
@@ -259,10 +257,10 @@ public class EnergyGrid implements Metered {
      * @param d type of the devices.
      * @return a string that displays the device type and in which room it is contained.
      */
-    private String buildDeviceListInGridString(Room r, DeviceType d) {
+    private String buildDeviceListInGridString(Room r, String d) {
         StringBuilder result = new StringBuilder();
         for (int x = 0; x < r.getDeviceList().size(); x++) {
-            if (d == r.getDeviceList().get(x).getType()) {
+            if (d.equals(r.getDeviceList().get(x).getType())) {
                 Device device = r.getDeviceList().get(x);
                 result.append("device type: ").append(d).append(" | ");
                 result.append(device.getName()).append(" | ");

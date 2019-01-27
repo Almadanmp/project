@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -210,10 +209,10 @@ public class Room implements Metered {
      * @param deviceType the device type
      * @return the list with all devices of a given type
      */
-    List<Device> getDevicesOfGivenType(DeviceType deviceType) {
+    List<Device> getDevicesOfGivenType(String deviceType) {
         List<Device> devicesOfGivenType = new ArrayList<>();
         for (Device d : getDeviceList()) {
-            if (d.getType() == deviceType) {
+            if (d.getType().equals(deviceType)) {
                 devicesOfGivenType.add(d);
             }
         }
@@ -226,7 +225,7 @@ public class Room implements Metered {
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */
-    double getDailyConsumptionByDeviceType(DeviceType deviceType) {
+    double getDailyConsumptionByDeviceType(String deviceType) {
         return mDeviceList.getDailyConsumptionByDeviceType(deviceType);
     }
 

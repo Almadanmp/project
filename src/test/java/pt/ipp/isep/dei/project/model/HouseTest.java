@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -471,7 +470,7 @@ class HouseTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0.0;
-        double result = h1.getDailyConsumptionByDeviceType(DeviceType.WATER_HEATER);
+        double result = h1.getDailyConsumptionByDeviceType("WaterHeater");
         assertEquals(expectedResult, result);
     }
 
@@ -495,7 +494,7 @@ class HouseTest {
         d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
         d3.setAttributeValue("coldWaterTemperature", 1.0);
         double expectedResult = 4.6;
-        double result = h1.getDailyConsumptionByDeviceType(DeviceType.WATER_HEATER);
+        double result = h1.getDailyConsumptionByDeviceType("WaterHeater");
         assertEquals(expectedResult, result);
     }
 
@@ -517,7 +516,7 @@ class HouseTest {
         List<Device> expectedResult = new ArrayList<>();
         expectedResult.add(d2);
         expectedResult.add(d3);
-        List<Device> result = house.getDevicesOfGivenType(DeviceType.WATER_HEATER);
+        List<Device> result = house.getDevicesOfGivenType("WaterHeater");
         Assertions.assertEquals(expectedResult, result);
     }
 
