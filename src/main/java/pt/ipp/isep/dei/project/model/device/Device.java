@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
+import pt.ipp.isep.dei.project.model.device.devicePrograms.ProgramList;
+import pt.ipp.isep.dei.project.model.device.devicePrograms.Programmable;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

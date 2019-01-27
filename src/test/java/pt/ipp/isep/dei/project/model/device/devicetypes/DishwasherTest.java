@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
-import pt.ipp.isep.dei.project.model.device.Program;
-import pt.ipp.isep.dei.project.model.device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.devicePrograms.Program;
+import pt.ipp.isep.dei.project.model.device.devicePrograms.ProgramList;
 
 import java.util.ArrayList;
 import java.util.List;

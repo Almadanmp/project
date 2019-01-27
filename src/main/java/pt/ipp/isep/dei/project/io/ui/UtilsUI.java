@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.ProgramList;
+import pt.ipp.isep.dei.project.model.device.devicePrograms.ProgramList;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.device;
+package pt.ipp.isep.dei.project.model.device.devicePrograms;
 
 /**
  * Represents a programmable option for devices.

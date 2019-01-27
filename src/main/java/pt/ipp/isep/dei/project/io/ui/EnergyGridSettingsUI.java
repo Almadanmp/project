@@ -194,7 +194,7 @@ class EnergyGridSettingsUI {
     private void runUS160(House house) {
         InputUtils inputs = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.houseGridListIsValid(house)) {
+        if (!utilsUI.houseGridListIsValid(house)) {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
