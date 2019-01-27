@@ -251,7 +251,8 @@ class EnergyConsumptionUI {
                 System.out.println("Error: unable to set parameters. Returning to Main Menu.");
                 return;
             }
-            System.out.println("Options registered for water heater: " + controller.getWHName(d) + ".\n---------------------------------------------\n");
+            System.out.println("Options registered for water heater: " + controller.getWHName(d) + ".\n----------------" +
+                    "-----------------------------\n");
         }
         double result = controller.getDailyWaterHeaterConsumption(house);
         System.out.println("The estimated total energy used in heating water in a day is: " + result + " kW.");

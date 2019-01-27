@@ -405,9 +405,9 @@ public class MainUI {
         Room roomB106SP2 = new Room("B106", 1, 7, 13, 3.5);
         DeviceList deviceListRoomB106SP2 = new DeviceList();
         Device ehwB106SP2 = new Device("EHW B106", 2.2, pathToWaterHeater);
-        device6.setAttributeValue("volumeOfWater", 150D);
-        device6.setAttributeValue("hotWaterTemperature", 55D);
-        device6.setAttributeValue("performanceRatio", 0.92D);
+        ehwB106SP2.setAttributeValue("volumeOfWater", 150D);
+        ehwB106SP2.setAttributeValue("hotWaterTemperature", 55D);
+        ehwB106SP2.setAttributeValue("performanceRatio", 0.92D);
 
         Device dishWasherB106SP2 = new Device("Dishwasher B106", 1.4, pathToDishwasher);
         dishWasherB106SP2.setAttributeValue("capacity", 0D);

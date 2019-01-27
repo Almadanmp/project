@@ -15,6 +15,11 @@ public class Fridge implements DeviceSpecs {
     private double mAnnualEnergyConsumption;
     private String mType = "Fridge";
 
+    /**
+     * Empty Constructor.
+     * This class uses an empty constructor so we can create a device of this type and after it choose the values to the
+     * attributes.
+     */
     public Fridge() {
     }
 
