@@ -36,19 +36,6 @@ class WashingMachineTest {
     }
 
     @Test
-    void seeIfGetCapacity() {
-        WashingMachine washingMachine = new WashingMachine();
-        washingMachine.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
-        ProgramList listProgram = washingMachine.getProgramList();
-        Program program1 = new Program("programa", 2, 2);
-        listProgram.addProgram(program1);
-        double expectedResult = 6;
-        washingMachine.setCapacity(6);
-        double result = washingMachine.getCapacity();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void getAttributeNamesTest() {
         WashingMachine washingMachine = new WashingMachine();
         washingMachine.setAttributeValue(TestUtils.WM_CAPACITY, 5D);

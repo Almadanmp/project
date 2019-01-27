@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -262,15 +261,10 @@ public class House implements Metered {
         String deviceTypes = " ";
         try {
             input = new FileInputStream(propFileName);
-            if (input != null) {
-                props.load(input);
-                deviceTypes = props.getProperty("allDeviceTypes");
-
-            } else {
-                throw new FileNotFoundException("property file " + propFileName + "not found in the classpath.");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            props.load(input);
+            deviceTypes = props.getProperty("allDeviceTypes");
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             if (input != null) {
                 try {
@@ -298,15 +292,10 @@ public class House implements Metered {
         String deviceTypePath = " ";
         try {
             input = new FileInputStream(propFileName);
-            if (input != null) {
-                props.load(input);
-                deviceTypePath = props.getProperty(id);
-
-            } else {
-                throw new FileNotFoundException("property file " + propFileName + "not found in the classpath.");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            props.load(input);
+            deviceTypePath = props.getProperty(id);
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             if (input != null) {
                 try {

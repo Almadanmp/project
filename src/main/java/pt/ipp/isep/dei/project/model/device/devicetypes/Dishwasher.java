@@ -33,14 +33,6 @@ public class Dishwasher implements DeviceSpecs, Programmable {
         return mProgramList;
     }
 
-    public double getCapacity() {
-        return this.mCapacity;
-    }
-
-    public void setCapacity(double capacity) {
-        this.mCapacity = capacity;
-    }
-
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
         result.add(CAPACITY);

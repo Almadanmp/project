@@ -31,27 +31,6 @@ class FridgeTest {
     }
 
     @Test
-    void seeIfGetFreezerCapacity() {
-        Fridge fridge = new Fridge();
-        fridge.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
-        double expectedResult = 3;
-        fridge.setFreezerCapacity(3);
-        double result = fridge.getFreezerCapacity();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfGetRefrigeratorCapacity() {
-        Fridge fridge = new Fridge();
-        fridge.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 3D);
-        double expectedResult = 3;
-        fridge.setRefrigeratorCapacity(3);
-        double result = fridge.getRefrigeratorCapacity();
-        assertEquals(expectedResult, result);
-    }
-
-
-    @Test
     void getAttributeValuesTest() {
         Fridge fridge = new Fridge();
         fridge.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);

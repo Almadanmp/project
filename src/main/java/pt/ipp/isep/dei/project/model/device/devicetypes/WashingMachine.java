@@ -19,28 +19,19 @@ public class WashingMachine implements DeviceSpecs, Programmable {
         mObjectProgramList = new ProgramList();
     }
 
-    public ProgramList getProgramList() {
-        return mObjectProgramList;
-    }
-
     public String getType() {
         return mType;
     }
 
-    public double getConsumption() {
+    public ProgramList getProgramList() {
+        return mObjectProgramList;
+    }
+
+        public double getConsumption() {
         return 0.0; //To be implemented later, not yet specified
     }
 
-    public double getCapacity() {
-        return this.mCapacity;
-    }
-
-    public void setCapacity(double capacity) {
-        this.mCapacity = capacity;
-    }
-
-
-    public List<String> getAttributeNames() {
+      public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
         result.add(CAPACITY);
         result.add("programList");
@@ -57,7 +48,6 @@ public class WashingMachine implements DeviceSpecs, Programmable {
                 return 0;
         }
     }
-
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
         if (CAPACITY.equals(attributeName)) {

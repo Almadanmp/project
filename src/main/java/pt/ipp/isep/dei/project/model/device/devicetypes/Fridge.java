@@ -26,22 +26,6 @@ public class Fridge implements DeviceSpecs {
         return 0.0; //To be implemented later, not yet specified
     }
 
-    double getFreezerCapacity() {
-        return this.mFreezerCapacity;
-    }
-
-    void setFreezerCapacity(double freezerCapacity) {
-        this.mFreezerCapacity = freezerCapacity;
-    }
-
-    double getRefrigeratorCapacity() {
-        return this.mRefrigeratorCapacity;
-    }
-
-    void setRefrigeratorCapacity(double refrigeratorCapacity) {
-        this.mRefrigeratorCapacity = refrigeratorCapacity;
-    }
-
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
         result.add(FREEZER_CAPACITY_STRING);
