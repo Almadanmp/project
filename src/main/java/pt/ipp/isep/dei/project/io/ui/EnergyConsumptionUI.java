@@ -298,6 +298,4 @@ class EnergyConsumptionUI {
         System.out.println("4) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
     }
-
-
 }
