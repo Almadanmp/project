@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import pt.ipp.isep.dei.project.io.ui.FileInputUtils;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
@@ -43,6 +44,8 @@ public class Device implements Metered {
         }
 
         this.mDeviceSpecs = aux;
+
+        /* this.mMeteringPeriod = setMeteringPeriod2(); */
 
         if (!setMeteringPeriod()) {
             throw new IllegalArgumentException("Configuration file not valid.");
@@ -139,6 +142,13 @@ public class Device implements Metered {
      *
      * @return true if the value is possible of being set, false if it's not valid.
      */
+
+
+    /* private void setmMeteringPeriod2(){
+        FileInputUtils teste = new FileInputUtils();
+        this.mMeteringPeriod = teste.deviceMeteringPeriod;
+    }
+    */
 
     private boolean setMeteringPeriod() {
         String GridMeteringPeriod;
