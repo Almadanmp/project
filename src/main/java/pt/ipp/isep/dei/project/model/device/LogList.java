@@ -17,9 +17,9 @@ public class LogList {
     }
 
     /**
-     * Getter (array of PowerSources)
+     * Getter (array of Logs)
      *
-     * @return array of powerSources
+     * @return array of Logs
      */
     Log[] getLogs() {
         int sizeOfResultArray = mLogList.size();
@@ -30,9 +30,20 @@ public class LogList {
         return result;
     }
 
+    /**
+     * This method is used to get a List of objects of the class Log.
+     *
+     * @return List with Logs
+     */
     List<Log> getLogList() {
         return this.mLogList;
     }
+
+    /**
+     * This method checks if the LogList is empty.
+     *
+     * @return boolean
+     */
 
     public boolean isEmpty() {
         return this.mLogList.isEmpty();

@@ -124,6 +124,14 @@ public class EnergyConsumptionController {
      * One cannot know the exact energy consumption of devices not connected to an energy meter.
      */
 
+    /**
+     * This functionality checks if there are any Logs fully contained within the time interval defined by the user.
+     *
+     * @param device - Device that is being analyzed for Logs.
+     * @param initialTime - Beginning of the interval.
+     * @param finalTime - Ending of the interval.
+     * @return the total metered energy consumption for the given device and interval.
+     */
     public boolean getDeviceConsumptionInInterval(Device device, Date initialTime, Date finalTime) {
         if (device.countLogsInInterval(initialTime, finalTime) == 0) {
             System.out.println("This device has no energy consumption logs in the given interval.");

@@ -185,9 +185,22 @@ public class Device implements Metered {
         return true;
     }
 
+    /**
+     * This method returns the Device LogList.
+     *
+     * @return Device LogList.
+     */
     public LogList getLogList() {
         return this.mLogList;
     }
+
+    /**
+     * This method checks the Logs registered in a periods which are totally contained in the defined interval.
+     *
+     * @param initialTime - Beginning of the interval
+     * @param finalTime - Ending of the interval
+     * @return total consumption within the defined interval
+     */
 
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
         double result = 0;
@@ -218,6 +231,11 @@ public class Device implements Metered {
         }
         return counter;
     }
+
+    /**
+     * This method adds a Log to the device LogList, if the Log isn't already in the LogList.
+     * @param log - Parameter which will be used to add to the Device LogList.
+     */
 
     public void addLog(Log log) {
         if (!(mLogList.getLogList().contains(log))) {

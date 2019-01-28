@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.List;
@@ -63,6 +64,10 @@ class UtilsUI {
 
     boolean roomDeviceListIsValid(Room room) {
         return room.getDeviceList() != null && !room.getDeviceList().isEmpty();
+    }
+
+    boolean deviceLogListIsValid(Device device){
+        return (!device.getLogList().isEmpty());
     }
 
     boolean typeSensorListIsValid(List<TypeSensor> list) {

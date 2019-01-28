@@ -205,6 +205,13 @@ class EnergyConsumptionUI {
      * One cannot know the exact energy consumption of devices not connected to an energy meter.
      */
 
+    /**
+     * This run makes the validation of the Room Device List and the Device Log List.
+     * Then it calls the controller to get the total metered energy consumption for the given time interval.
+     *
+     * @param house - Is the parameter which is used to get all the parameters needed for this User Story (720)
+     */
+
     private void runUS720(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
@@ -214,7 +221,7 @@ class EnergyConsumptionUI {
             return;
         }
         Device device = inputUtils.getInputRoomDevicesByList(room);
-        if (device.getLogList().isEmpty()) {
+        if (!utilsUI.deviceLogListIsValid(device)) {
             System.out.println("This device has no energy consumption logs.");
             return;
         }
