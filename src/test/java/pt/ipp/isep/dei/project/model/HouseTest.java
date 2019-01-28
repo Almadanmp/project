@@ -93,7 +93,7 @@ class HouseTest {
 
     @Test
     void seeSensorWithMinDistance() {
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
@@ -105,20 +105,7 @@ class HouseTest {
         assertEquals(s1, result);
     }
 
-    @Test
-    void seeSensorMinDistanceIfGAHasNoSensors() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        SensorList sensorList1 = new SensorList();
-        ga.setSensorList(sensorList1);
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
-        Sensor result = house.getSensorWithMinDistanceToHouse(ga, house, "temperature");
-        assertNull(result);
-    }
+
 
     @Test
     void seeEqualToEqualObject() {
@@ -582,9 +569,87 @@ class HouseTest {
                     House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
                     house.getPropertyValueByKey("resources/dev.properties", "WaterHeater");
                 });
-
     }
 
+
+    @Test
+    void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed2(){
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018,11,12).getTime());
+        Reading r2 = new Reading(12, new GregorianCalendar(2018,10,1).getTime());
+        Reading r3 = new Reading(12, new GregorianCalendar(2018,12,25).getTime());
+        Reading r4 = new Reading(12, new GregorianCalendar(2018,10,1).getTime());
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        ReadingList readingList2 = new ReadingList();
+        readingList2.addReading(r3);
+        readingList2.addReading(r4);
+
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        s1.setReadingList(readingList);
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 15).getTime());
+        s2.setReadingList(readingList2);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        ga.setSensorList(sensorList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
+        Sensor result = house.getSensorWithMinDistanceToHouse(ga,house,"temperature");
+        assertEquals(s2,result);
+    }
+    @Test
+    void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed3(){
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018,1,24).getTime());
+        Reading r2 = new Reading(12, new GregorianCalendar(2018,1,1).getTime());
+        Reading r3 = new Reading(12, new GregorianCalendar(2018,1,25).getTime());
+        Reading r4 = new Reading(12, new GregorianCalendar(2018,1,1).getTime());
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        ReadingList readingList2 = new ReadingList();
+        readingList2.addReading(r3);
+        readingList2.addReading(r4);
+
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        s1.setReadingList(readingList2);
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 15).getTime());
+        s2.setReadingList(readingList);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        ga.setSensorList(sensorList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
+        Sensor result = house.getSensorWithMinDistanceToHouse(ga,house,"temperature");
+        assertEquals(s1,result);
+    }
+    @Test
+    void seeIfgetSensorWithMinDistanceAndMostRecentlyUsedWithDifDistance(){
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018,1,24).getTime());
+        Reading r2 = new Reading(12, new GregorianCalendar(2018,1,1).getTime());
+        Reading r3 = new Reading(12, new GregorianCalendar(2018,1,25).getTime());
+        Reading r4 = new Reading(12, new GregorianCalendar(2018,1,1).getTime());
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        ReadingList readingList2 = new ReadingList();
+        readingList2.addReading(r3);
+        readingList2.addReading(r4);
+
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 9, 50), new GregorianCalendar(4, 4, 9).getTime());
+        s1.setReadingList(readingList2);
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 15).getTime());
+        s2.setReadingList(readingList);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        ga.setSensorList(sensorList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga);
+        Sensor result = house.getSensorWithMinDistanceToHouse(ga,house,"temperature");
+        assertEquals(s2,result);
+    }
 }
 
 
