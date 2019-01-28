@@ -19,7 +19,7 @@ public class Log {
 
     public double getValue(){return this.mValue;}
 
-    public Date getInitialDate(){return this.mInitialDate;}
+    Date getInitialDate(){return this.mInitialDate;}
 
-    public Date getFinalDate(){return this.mFinalDate;}
+    Date getFinalDate(){return this.mFinalDate;}
 }

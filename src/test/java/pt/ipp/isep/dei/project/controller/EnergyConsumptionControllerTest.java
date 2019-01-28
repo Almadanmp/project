@@ -666,8 +666,8 @@ class EnergyConsumptionControllerTest {
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLogToLogList(log);
-        boolean result = ctrl.getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(device, initialTime, finalTime);
+        device.addLog(log);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
         assertTrue(result);
     }
 
@@ -683,8 +683,8 @@ class EnergyConsumptionControllerTest {
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLogToLogList(log);
-        boolean result = ctrl.getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(device, initialTime, finalTime);
+        device.addLog(log);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
         assertTrue(!result);
     }
 }

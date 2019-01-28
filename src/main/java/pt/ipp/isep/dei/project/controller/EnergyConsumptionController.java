@@ -120,16 +120,16 @@ public class EnergyConsumptionController {
 
     /*US720 As a Power User [or Administrator], I want to know the total metered energy consumption of a device in a
      * given time interval, i.e. the sum of the energy consumption of the device in the interval.
-     * Only metering periods full contained in the interval will be included.
+     * Only metering periods fully contained in the interval will be included.
      * One cannot know the exact energy consumption of devices not connected to an energy meter.
      */
 
-    public boolean getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(Device device, Date initialTime, Date finalTime) {
-        if (device.meteringPeriodOcurrences(initialTime, finalTime) < 1) {
+    public boolean getDeviceConsumptionInInterval(Device device, Date initialTime, Date finalTime) {
+        if (device.countLogsInInterval(initialTime, finalTime) == 0) {
             System.out.println("This device has no energy consumption logs in the given interval.");
             return false;
         }
-        System.out.println("Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime + "\n" + "The total Energy Consumption is: " + device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.");
+        System.out.println("Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime + "\n" + "The total Energy Consumption for the given device is: " + device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.");
         return true;
     }
 

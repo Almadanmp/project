@@ -201,7 +201,7 @@ class EnergyConsumptionUI {
 
     /*US720 As a Power User [or Administrator], I want to know the total metered energy consumption of a device in a
      * given time interval, i.e. the sum of the energy consumption of the device in the interval.
-     * Only metering periods full contained in the interval will be included.
+     * Only metering periods fully contained in the interval will be included.
      * One cannot know the exact energy consumption of devices not connected to an energy meter.
      */
 
@@ -222,7 +222,7 @@ class EnergyConsumptionUI {
         Date initialTime = inputUtils.getInputDate();
         System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
         Date finalTime = inputUtils.getInputDate();
-        controller.getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeInterval(device, initialTime, finalTime);
+        controller.getDeviceConsumptionInInterval(device, initialTime, finalTime);
     }
 
 

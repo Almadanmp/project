@@ -192,7 +192,15 @@ public class Device implements Metered {
         return result;
     }
 
-    public int meteringPeriodOcurrences(Date initialTime, Date finalTime) {
+    /**
+     * Method determines the amount of data logs that fall within a given time interval.
+     *
+     * @param initialTime is the start time of the interval.
+     * @param finalTime   is the end time of the interval.
+     * @return is the number of valid data logs in the given interval.
+     */
+
+    public int countLogsInInterval(Date initialTime, Date finalTime) {
         int counter = 0;
         for (Log l : mLogList.getLogList()) {
             if ((initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate())) &&
@@ -203,12 +211,9 @@ public class Device implements Metered {
         return counter;
     }
 
-    public boolean addLogToLogList(Log log) {
+    public void addLog(Log log) {
         if (!(mLogList.getLogList().contains(log))) {
             mLogList.getLogList().add(log);
-            return true;
-        } else {
-            return false;
         }
     }
 
