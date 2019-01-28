@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -265,15 +264,14 @@ public class House implements Metered {
     /**
      * Method to get all available device Types from the Configuration File.
      *
-     * @return string will all available device types
+     * @return string array will all available device types
      */
     public List<String> getDeviceTypes() throws IOException {
         String propFileName = "resources/devices.properties";
         String id = "allDeviceTypes";
         String deviceTypes = getPropertyValueByKey(propFileName, id);
 
-        List<String> listOfDeviceTypes = new ArrayList<>(Arrays.asList(deviceTypes.split(",")));
-        return listOfDeviceTypes;
+        return new ArrayList<>(Arrays.asList(deviceTypes.split(",")));
     }
 
     /**
@@ -288,8 +286,10 @@ public class House implements Metered {
     }
 
     //TODO Move to a common methods class?
+
     /**
      * Method to get a value from a key and a properties file name
+     *
      * @param propFileName
      * @param key
      * @return value
@@ -301,7 +301,7 @@ public class House implements Metered {
             props.load(input);
             value = props.getProperty(key);
         } catch (IOException e) {
-            throw new IOException("ERROR: Unable to process device configuration file.") ;
+            throw new IOException("ERROR: Unable to process " + propFileName + " configuration file.");
         }
         return value;
     }

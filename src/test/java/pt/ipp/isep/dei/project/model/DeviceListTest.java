@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.Fridge;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachine;
 
 import java.util.*;
 
@@ -303,7 +301,7 @@ class DeviceListTest {
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);
         dList1.addDevice(d1);
         DeviceList dList2 = new DeviceList();
-        Device device2 = new Device("FridgeTwo", 12,TestUtils.PATH_TO_FRIDGE);
+        Device device2 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
         device2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         device2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 56D);
         device2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 345D);

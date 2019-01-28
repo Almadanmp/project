@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.List;
 
@@ -16,7 +18,6 @@ public class HouseConfigurationController {
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
-     *
      * @param geoAreaList is the list we're going to print.
      * @return builds a striing of all the individual members of the geoArea list.
      */
@@ -26,9 +27,8 @@ public class HouseConfigurationController {
     }
 
     /**
-     *
      * @param address is the address of the house.
-     * @param house is the house we're going to set the address of.
+     * @param house   is the house we're going to set the address of.
      */
 
     public void setHouseAddress(String address, House house) {
@@ -36,8 +36,7 @@ public class HouseConfigurationController {
     }
 
     /**
-     *
-     * @param input is the string we're going to look for in the list of Geographic Areas.
+     * @param input       is the string we're going to look for in the list of Geographic Areas.
      * @param geoAreaList is the list of Geographic Areas we're going to look for the string in.
      * @return is a list of integers that contains the indexes of all the Geographic Areas in the given list whose name
      * matches the given string.
@@ -48,9 +47,8 @@ public class HouseConfigurationController {
     }
 
     /**
-     *
      * @param zipCode is the zip code we're going to set.
-     * @param house is the house we're going to change the zip code to.
+     * @param house   is the house we're going to change the zip code to.
      */
 
     public void setHouseZIPCode(String zipCode, House house) {
@@ -58,11 +56,10 @@ public class HouseConfigurationController {
     }
 
     /**
-     *
-     * @param latitude is the latitude we're going to set.
+     * @param latitude  is the latitude we're going to set.
      * @param longitude is the longitude we're going to set.
-     * @param altitude is the altitude we're going to set.
-     * @param house is the house we're going to change the zip code to.
+     * @param altitude  is the altitude we're going to set.
+     * @param house     is the house we're going to change the zip code to.
      */
 
     public void setHouseLocal(double latitude, double longitude, double altitude, House house) {
@@ -70,9 +67,8 @@ public class HouseConfigurationController {
     }
 
     /**
-     *
      * @param listOfIndexesGeographicAreas is a list of all the indexes in a list where relevant objects are.
-     * @param geoAreaList is the list from which we're getting the objects.
+     * @param geoAreaList                  is the list from which we're getting the objects.
      * @return builds a string of all the geoAreas contained in the list at the positions given in the list of indexes.
      */
 
@@ -81,7 +77,6 @@ public class HouseConfigurationController {
     }
 
     /**
-     *
      * @param geoArea is the area we're going to print.
      * @return builds a string with the given area.
      */
@@ -94,19 +89,17 @@ public class HouseConfigurationController {
      house floor and dimensions) */
 
     /**
-     *
      * @param roomDesignation is the name of the room we're going to create.
-     * @param roomHouseFloor is the floor of the room we're going to create.
-     * @param width is the width of the room we're going to create.
-     * @param length is the length of the room we're going to create.
-     * @param height is the height of the room we're going to create.
+     * @param roomHouseFloor  is the floor of the room we're going to create.
+     * @param width           is the width of the room we're going to create.
+     * @param length          is the length of the room we're going to create.
+     * @param height          is the height of the room we're going to create.
      */
     public void createNewRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
         this.mRoom = new Room(roomDesignation, roomHouseFloor, width, length, height);
     }
 
     /**
-     *
      * @param house is the house we're going to add a room to.
      * @return is true if the house was successfully added, false if it wasn't.
      */
@@ -116,7 +109,6 @@ public class HouseConfigurationController {
     }
 
     /**
-     *
      * @param house is the house we want to get the name from.
      * @return is the name of the given house.
      */
@@ -129,7 +121,6 @@ public class HouseConfigurationController {
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it. */
 
     /**
-     *
      * @param house is the house.
      * @return builds a string of all the individual members in the given list.
      */

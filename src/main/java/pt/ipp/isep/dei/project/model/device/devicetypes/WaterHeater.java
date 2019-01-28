@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class WaterHeater implements DeviceSpecs {
-    private static final String ATTRIBUTE_VOLUME_OF_WATER = "volumeOfWater";
+    public static final String ATTRIBUTE_VOLUME_OF_WATER = "volumeOfWater";
     private static final String ATTRIBUTE_HOT_WATER_TEMP = "hotWaterTemperature";
     private static final String ATTRIBUTE_COLD_WATER_TEMP = "coldWaterTemperature";
     private static final String ATTRIBUTE_PERFORMANCE_RATIO = "performanceRatio";

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -429,7 +430,7 @@ class HouseTest {
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 45D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 65D);
         Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeater.ATTRIBUTE_VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
