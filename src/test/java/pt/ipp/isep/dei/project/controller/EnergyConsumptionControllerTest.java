@@ -703,4 +703,29 @@ class EnergyConsumptionControllerTest {
         boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
         assertFalse(result);
     }
+
+    @Test
+    void seeIfGetTotalMeteredEnergyConsumptionInGridInTimeIntervalWorks() {
+        //Arrange
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        EnergyGrid eGrid = new EnergyGrid();
+        Room room = new Room("Kitchen", 0, 30, 50, 10);
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        room.addDevice(device);
+        eGrid.addRoomToAnEnergyGrid(room);
+        //Act
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 2).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 60).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
+        Log log = new Log(56, periodBeginning, periodEnding);
+        device.addLog(log);
+        double actualResult = ctrl.getGridConsumptionInInterval(eGrid, initialTime, finalTime);
+        double expectedResult = 56.0;
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 }

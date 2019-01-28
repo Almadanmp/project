@@ -156,6 +156,10 @@ public class EnergyConsumptionController {
         return programHouse.getRoomList();
     }
 
+    public List<EnergyGrid> getHouseGridList(House programHouse) {
+        return programHouse.getEGList();
+    }
+
     /**
      * Accesses model and returns a Room's Energy Consumption in a given interval.
      * @param room the room we want to access.
@@ -167,6 +171,14 @@ public class EnergyConsumptionController {
 
     public double getRoomConsumptionInInterval(Room room, Date initialDate, Date finalDate){
         return room.getConsumptionInInterval(initialDate,finalDate);
+    }
+
+    /*US722 As a Power User [or Administrator], I want to know the total metered energy consumption of a grid in a
+    given time interval, i.e. the sum of the energy consumption of all energy-metered rooms in the grid in the
+    interval.*/
+
+    public double getGridConsumptionInInterval(EnergyGrid eGrid, Date initialDate, Date finalDate) {
+        return eGrid.getGridConsumptionInInterval(initialDate, finalDate);
     }
 
 
