@@ -17,7 +17,12 @@ public class MainUI {
     public static void main(String[] args) {
 
         FileInputUtils fileUtils = new FileInputUtils();
-        fileUtils.testeMethod();
+        try {
+            fileUtils.testeMethod();
+        } catch (IllegalArgumentException il){
+            System.out.println("Adeus");
+            return;
+        }
 
         String temperature = "temperature";
         String portoString = "Porto";
