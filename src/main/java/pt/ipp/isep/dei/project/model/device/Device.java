@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.Programmable;
+import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -53,7 +53,6 @@ public class Device implements Metered {
         return this.mNominalPower;
     }
 
-    //temporary before is gets moved to DeviceSpecs
     public void setNominalPower(Double nomPower) {
         this.mNominalPower = nomPower;
     }
@@ -124,7 +123,6 @@ public class Device implements Metered {
             Programmable aux = (Programmable) mDeviceSpecs;
             return aux.getProgramList();
         } else {
-            //return null;
             throw new NullPointerException("ERROR: Unable to get list. Device is not programmable.");
         }
     }
@@ -180,7 +178,8 @@ public class Device implements Metered {
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
         double result = 0;
         for (Log l : mLogList.getLogList()) {
-            if (initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate()) && finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate())) {
+            if (initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate()) &&
+                    finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate())) {
                 result += l.getValue();
             }
         }
@@ -190,7 +189,8 @@ public class Device implements Metered {
     public int meteringPeriodOcurrences(Date initialTime, Date finalTime) {
         int counter = 0;
         for (Log l : mLogList.getLogList()) {
-            if ((initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate())) && (finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate()))) {
+            if ((initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate())) &&
+                    (finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate()))) {
                 counter++;
             }
         }

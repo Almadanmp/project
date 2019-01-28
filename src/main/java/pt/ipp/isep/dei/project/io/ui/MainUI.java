@@ -3,9 +3,10 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.Program;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Program;
+import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
+import java.io.IOException;
 import java.util.*;
 
 public class MainUI {
@@ -205,12 +206,22 @@ public class MainUI {
 
 
         //Devices
-        String pathToFridge = edificioB.getDeviceTypePathToClassById("Fridge");
-        String pathToWaterHeater = edificioB.getDeviceTypePathToClassById("WaterHeater");
-        String pathToDishwasher = edificioB.getDeviceTypePathToClassById("Dishwasher");
-        String pathToWashingMachine = edificioB.getDeviceTypePathToClassById("WashingMachine");
-        String pathToLamp = edificioB.getDeviceTypePathToClassById("Lamp");
-
+        String pathToFridge;
+        String pathToWaterHeater;
+        String pathToDishwasher;
+        String pathToWashingMachine;
+        String pathToLamp;
+        try {
+            pathToFridge = edificioB.getDeviceTypePathToClassById("Fridge");
+            pathToWaterHeater = edificioB.getDeviceTypePathToClassById("WaterHeater");
+            pathToDishwasher = edificioB.getDeviceTypePathToClassById("Dishwasher");
+            pathToWashingMachine = edificioB.getDeviceTypePathToClassById("WashingMachine");
+            pathToLamp = edificioB.getDeviceTypePathToClassById("Lamp");
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage() + "\n Program will shut down.");
+            return;
+        }
         //Device WashingMachine
 
 

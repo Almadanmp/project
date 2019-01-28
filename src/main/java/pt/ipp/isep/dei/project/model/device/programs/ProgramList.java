@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.device.devicePrograms;
+package pt.ipp.isep.dei.project.model.device.programs;
 
 
 import java.util.ArrayList;

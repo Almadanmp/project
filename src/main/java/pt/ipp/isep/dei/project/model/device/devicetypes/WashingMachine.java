@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.Programmable;
+import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.ArrayList;
 import java.util.List;

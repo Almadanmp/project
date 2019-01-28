@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 class EnergyGridSettingsUI {
@@ -212,7 +213,12 @@ class EnergyGridSettingsUI {
 
     private void displayUS160(EnergyGrid energyGrid, House house) {
         if (energyGrid != null) {
-            System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid, house));
+            try {
+                System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid, house));
+            }  catch (IOException e){
+                System.out.println(e.getMessage());
+                return;
+            }
         }
     }
 

@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /*import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.Program;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Program;
+import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.*;*/
 
 class RoomConfigurationUI {

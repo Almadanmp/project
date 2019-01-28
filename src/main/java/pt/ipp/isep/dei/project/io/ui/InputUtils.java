@@ -5,8 +5,8 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.Program;
-import pt.ipp.isep.dei.project.model.device.devicePrograms.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Program;
+import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.Date;
 import java.util.GregorianCalendar;

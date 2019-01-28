@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -387,7 +388,7 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    void seeIfDeviceListPrintsByType() {
+    void seeIfDeviceListPrintsByType() throws IOException {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);

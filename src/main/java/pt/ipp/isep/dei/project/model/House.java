@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -254,27 +255,11 @@ public class House implements Metered {
      *
      * @return string will all available device types
      */
-    public List<String> getDeviceTypes() {
-        Properties props = new Properties();
+    public List<String> getDeviceTypes() throws IOException {
         String propFileName = "resources/devices.properties";
-        InputStream input = null;
-        String deviceTypes = " ";
-        try {
-            input = new FileInputStream(propFileName);
-            props.load(input);
-            deviceTypes = props.getProperty("allDeviceTypes");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        String id = "allDeviceTypes";
+        String deviceTypes = getPropertyValueByKey(propFileName, id);
 
-                }
-            }
-        }
         List<String> listOfDeviceTypes = new ArrayList<>(Arrays.asList(deviceTypes.split(",")));
         return listOfDeviceTypes;
     }
@@ -285,28 +270,28 @@ public class House implements Metered {
      * @param id - String with the identification of the device type selected
      * @return string with the path to the class file
      */
-    public String getDeviceTypePathToClassById(String id) {
-        Properties props = new Properties();
+    public String getDeviceTypePathToClassById(String id) throws IOException {
         String propFileName = "resources/devices.properties";
-        InputStream input = null;
-        String deviceTypePath = " ";
-        try {
-            input = new FileInputStream(propFileName);
-            props.load(input);
-            deviceTypePath = props.getProperty(id);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        return getPropertyValueByKey(propFileName, id);
+    }
 
-                }
-            }
+    //TODO Move to a common methods class?
+    /**
+     * Method to get a value from a key and a properties file name
+     * @param propFileName
+     * @param key
+     * @return value
+     */
+    public String getPropertyValueByKey(String propFileName, String key) throws IOException {
+        Properties props = new Properties();
+        String value;
+        try (InputStream input = new FileInputStream(propFileName)) {
+            props.load(input);
+            value = props.getProperty(key);
+        } catch (IOException e) {
+            throw new IOException("ERROR: Unable to process device configuration file.") ;
         }
-        return deviceTypePath;
+        return value;
     }
 
     /**

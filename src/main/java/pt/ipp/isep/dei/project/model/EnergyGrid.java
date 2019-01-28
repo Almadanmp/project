@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -235,7 +236,7 @@ public class EnergyGrid implements Metered {
      * @param energyGrid energy grid that we want to see which devices will be printed.
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
-    public String buildListOfDeviceByTypeString(EnergyGrid energyGrid, House house) {
+    public String buildListOfDeviceByTypeString(EnergyGrid energyGrid, House house) throws IOException {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
         for (String d : house.getDeviceTypes()) {

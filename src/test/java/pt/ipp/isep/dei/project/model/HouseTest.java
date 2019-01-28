@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -543,7 +544,7 @@ class HouseTest {
     }
 
     @Test
-    void getDeviceListFromConfigurationFile() {
+    void getDeviceListFromConfigurationFile() throws IOException {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("Fridge");
@@ -557,13 +558,33 @@ class HouseTest {
     }
 
     @Test
-    void getDeviceClassPathFromContigFile() {
+    void getDeviceClassPathFromConfigFile() throws IOException {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater";
         String result = house.getDeviceTypePathToClassById("WaterHeater");
         System.out.println(result);
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void getPropertyValueByKey() throws IOException {
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater";
+        String result = house.getPropertyValueByKey("resources/devices.properties", "WaterHeater");
+        System.out.println(result);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getPropertyValueByKeyThrowsIOEx() {
+        assertThrows(IOException.class,
+                () -> {
+                    House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+                    house.getPropertyValueByKey("resources/dev.properties", "WaterHeater");
+                });
+
+    }
+
 }
 
 

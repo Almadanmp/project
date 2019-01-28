@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
+import java.io.IOException;
 import java.util.GregorianCalendar;
 
 import static org.testng.Assert.assertEquals;
@@ -289,7 +290,7 @@ class EnergyGridTest {
     }
 
     @Test
-    void seeIfDeviceListPrintsByTypeWithNullList() {
+    void seeIfDeviceListPrintsByTypeWithNullList() throws IOException {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid();
@@ -307,7 +308,7 @@ class EnergyGridTest {
     }
 
     @Test
-    void seeIfDeviceListPrintsByTypeWithNullList2() {
+    void seeIfDeviceListPrintsByTypeWithNullList2() throws IOException {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room m = null;
         EnergyGrid eg = new EnergyGrid();
