@@ -45,7 +45,7 @@ public class Device implements Metered {
         this.mDeviceSpecs = aux;
 
         if (!setMeteringPeriod()) {
-            throw new IllegalArgumentException("Configuration file values are not supported.");
+            throw new IllegalArgumentException("Configuration file not valid.");
         }
     }
 
@@ -152,12 +152,18 @@ public class Device implements Metered {
             ioe.printStackTrace();
             return false;
         }
-        Integer deviceMPValue = (Integer) Integer.parseInt(DeviceMeteringPeriod);
-        Integer gridMPValue = (Integer) Integer.parseInt(GridMeteringPeriod);
-        if (deviceMeteringPeriodValidation(deviceMPValue, gridMPValue)) {
-            this.mMeteringPeriod = deviceMPValue;
-            return true;
-        }
+        try {
+            Integer deviceMPValue = (Integer) Integer.parseInt(DeviceMeteringPeriod);
+            Integer gridMPValue = (Integer) Integer.parseInt(GridMeteringPeriod);
+            if (deviceMeteringPeriodValidation(deviceMPValue, gridMPValue)) {
+                this.mMeteringPeriod = deviceMPValue;
+                return true;
+            }
+            } catch (NumberFormatException nfe) {
+                System.out.println("Configuration file values are not numeric.");
+                return false;
+            }
+
         System.out.println("Configuration file values are not supported.");
         return false;
     }
