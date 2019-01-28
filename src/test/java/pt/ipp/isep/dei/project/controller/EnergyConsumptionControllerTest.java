@@ -13,8 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * EnergyConsumptionController tests class.
@@ -685,6 +684,23 @@ class EnergyConsumptionControllerTest {
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        assertTrue(!result);
+        assertFalse(result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBounds() {
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 55).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 5).getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log = new Log(56, periodBeginning, periodEnding);
+        device.addLog(log);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+        assertFalse(result);
     }
 }
