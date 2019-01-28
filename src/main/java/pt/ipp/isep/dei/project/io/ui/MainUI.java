@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
@@ -242,11 +243,16 @@ public class MainUI {
         device3.setAttributeValue("performanceRatio", 10D);
         Device device4 = new Device("Lamp", 4, pathToLamp);
         device4.setAttributeValue("luminousFlux", 23D);
+        Device deviceDark = new Device("Water Heater 3000", 200, pathToWaterHeater);
+        deviceDark.setAttributeValue("volumeOfWater", 400D);
+        deviceDark.setAttributeValue("hotWaterTemperature", 400D);
+        deviceDark.setAttributeValue("performanceRatio", 0.9D);
         DeviceList listDevices = new DeviceList();
         listDevices.addDevice(device1);
         listDevices.addDevice(device2);
         listDevices.addDevice(device3);
         listDevices.addDevice(device4);
+        listDevices.addDevice(deviceDark);
         roomISEP2.setDeviceList(listDevices);
         Device device5 = new Device("FridgeOne1", 4, pathToFridge);
         device5.setAttributeValue("freezerCapacity", 1D);
@@ -260,6 +266,15 @@ public class MainUI {
         listDevices1.addDevice(device5);
         listDevices1.addDevice(device6);
         roomISEP3.setDeviceList(listDevices1);
+
+        // Logs
+
+        // Log for deviceDark used for testing UI US720 US721 and US722
+        // Use "edificioB" in Run EnergyConsumption for testing
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
+        Log log = new Log(56, periodBeginning, periodEnding);
+        deviceDark.addLog(log);
 
         // *** MOCKS EXTRA ****************
 
