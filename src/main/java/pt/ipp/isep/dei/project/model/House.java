@@ -294,6 +294,7 @@ public class House implements Metered {
      * @param key
      * @return value
      */
+
     public String getPropertyValueByKey(String propFileName, String key) throws IOException {
         Properties props = new Properties();
         String value;
