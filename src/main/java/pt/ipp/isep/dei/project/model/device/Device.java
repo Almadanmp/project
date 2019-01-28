@@ -135,8 +135,12 @@ public class Device implements Metered {
         return this.mMeteringPeriod;
     }
 
+    /** Defines the value of the devices metering period using a configuration file as source.
+     *
+     * @return true if the value is possible of being set, false if it's not valid.
+     */
 
-    public boolean setMeteringPeriod() {
+    private boolean setMeteringPeriod() {
         String GridMeteringPeriod;
         String DeviceMeteringPeriod;
         Properties prop = new Properties();
@@ -163,12 +167,16 @@ public class Device implements Metered {
                 System.out.println("Configuration file values are not numeric.");
                 return false;
             }
-
         System.out.println("Configuration file values are not supported.");
         return false;
     }
 
-    public boolean deviceMeteringPeriodValidation(int deviceValue, int gridValue) {
+    /** Validates the device metering period to be a multiple of the energy grid metering period and perffectly contained
+     * in a 24 hour (1440 minutes) period.
+     *
+     * @return true if the value is possible of being set, false if it's not valid.
+     */
+    private boolean deviceMeteringPeriodValidation(int deviceValue, int gridValue) {
         if (1440 % deviceValue != 0) {
             return false;
         } else if (deviceValue % gridValue != 0) {

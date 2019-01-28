@@ -133,7 +133,6 @@ public class DeviceTest {
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Integer expectedResult = 180;
-        d1.setMeteringPeriod();
         Integer result = d1.getMeteringPeriod();
         assertEquals(expectedResult, result);
     }
