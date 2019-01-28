@@ -16,7 +16,7 @@ public int deviceMeteringPeriod;  //Public para ir buscar no Device
         return true;
     }
 
-    private boolean readMeteringPeriods() {
+    public boolean readMeteringPeriods() {
         String GridMeteringPeriod;
         String DeviceMeteringPeriod;
         Properties prop = new Properties();

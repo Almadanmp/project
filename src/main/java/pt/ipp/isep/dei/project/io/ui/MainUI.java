@@ -14,14 +14,18 @@ import java.util.*;
 
 public class MainUI {
 
+    public static int deviceMeteringPeriod;
+
     public static void main(String[] args) {
 
         FileInputUtils fileUtils = new FileInputUtils();
         try {
             fileUtils.testeMethod();
+            MainUI.deviceMeteringPeriod = fileUtils.deviceMeteringPeriod;
         } catch (IllegalArgumentException il){
             System.out.println("Adeus");
             return;
+
         }
 
         String temperature = "temperature";

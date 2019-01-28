@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.io.ui.FileInputUtils;
+import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
@@ -144,11 +145,10 @@ public class Device implements Metered {
      */
 
 
-    /* private void setmMeteringPeriod2(){
-        FileInputUtils teste = new FileInputUtils();
-        this.mMeteringPeriod = teste.deviceMeteringPeriod;
+     /* private void setmMeteringPeriod2(){
+        this.mMeteringPeriod = MainUI.deviceMeteringPeriod;
     }
-    */
+      */
 
     private boolean setMeteringPeriod() {
         String GridMeteringPeriod;
