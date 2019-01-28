@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -20,8 +21,9 @@ class RoomConfigurationUI {
     private RoomConfigurationController mRoomConfigurationController;
     private Room mRoom;
     private Device mDevice;
-    /* private DeviceType mDeviceType;
+    private String mDeviceName;
     private double mNominalPower;
+    /*
     private double mVolumeOfWater;
     private double mHotWaterTemperature;
     private double mPerformanceRatio;
@@ -70,7 +72,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 2: //US210
-                    //  runUS210(deviceTypeList);
+                    runUS210(house);
                     activeInput = false;
                     break;
                 case 3: //US215
@@ -102,149 +104,54 @@ class RoomConfigurationUI {
         }
     }
 
-    /*    *//*
-     * runs US210: Add a new device to the room from the list of device types.
-     *
-     * @param deviceTypeList
-     *//*
-    private void runUS210(List<DeviceType> deviceTypeList) {
+
+    private void runUS210(House house) {
         InputUtils inputUtils = new InputUtils();
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.deviceTypeListIsValid(deviceTypeList)) {
-            System.out.println(utilsUI.invalidDeviceTypeList);
+        this.mRoom = inputUtils.getHouseRoomByList(house);
+        String deviceType;
+        try {
+            deviceType = inputUtils.getInputDeviceTypeByList(house);
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + "\n Program will shut down.");
             return;
         }
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        this.mDeviceType = inputUtils.getInputDeviceTypeByList(deviceTypeList);
-        createDevice();
-        displayDeviceUS210();
+        createDevice(deviceType, house);
     }
 
-    *//*
-     * Asks for input from the user in order to construct a new device with its parameters
-     * (name, nominal power and device specs (according to the selected device Type)
-     *//*
-    private void createDevice() {
-        Scanner scanner = new Scanner(System.in);
 
+    private void createDevice(String deviceType, House house) {
+        Scanner scanner = new Scanner(System.in);
         // get device name
         System.out.print("Please, type the name of the device: ");
-        mDeviceName = scanner.nextLine();
+        String deviceName = scanner.nextLine();
         //get nominal power
         System.out.print("Please, type the Nominal Power: ");
         InputUtils inputUtils = new InputUtils();
-
-        this.mNominalPower = inputUtils.getInputAsDouble();
-
-        //device Type
-        if (this.mDeviceType == DeviceType.WATER_HEATER) {
-            System.out.print("Please, type the water heater Volume: ");
-
-            this.mVolumeOfWater = inputUtils.getInputAsDouble();
-
-            System.out.print("Please, type Maximum Temperature of the water in the Water Heater: ");
-
-            this.mHotWaterTemperature = inputUtils.getInputAsDouble();
-            System.out.print("Please, type the Performance Ration of the Water Heater: ");
-
-            this.mPerformanceRatio = inputUtils.getInputAsDouble();
-            mDevice = new Device(mDeviceName, mNominalPower, new WaterHeater(mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio));
+        double nominalPower = inputUtils.getInputAsDouble();
+        //get Device specs
+        String devicePath;
+        try {
+            devicePath = house.getDeviceTypePathToClassById(deviceType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + "\n Program will shut down.");
+            return;
         }
-
-        if (this.mDeviceType == DeviceType.FRIDGE) {
-            System.out.print("Please, type the Freezer Capacity in L for the Fridge:");
-
-            this.mFreezerCapacity = inputUtils.getInputAsDouble();
-            System.out.print("Please, type the Refrigerator Capacity in L for the Fridge:");
-
-            this.mRefrigeratorCapacity = inputUtils.getInputAsDouble();
-            System.out.print("Please, type the new Annual Energy Consumption in kWh:");
-
-            this.mAnnualEnergyConsumption = inputUtils.getInputAsDouble();
-            mDevice = new Device(mDeviceName, mNominalPower, new Fridge(mFreezerCapacity, mRefrigeratorCapacity, mAnnualEnergyConsumption));
+        Device device = new Device(deviceName, nominalPower, devicePath);
+        device.getAttributeNames();
+        for (int i = 0; i < device.getAttributeNames().size(); i++) {
+            System.out.println("Please insert value for: " + device.getAttributeNames().get(i));
+            double value = inputUtils.getInputAsDouble();
+            device.setAttributeValue(device.getAttributeNames().get(i), value);
         }
+        RoomConfigurationController ctrl = new RoomConfigurationController ();
+        if (ctrl.addDevice(this.mRoom, device)) {
+            System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
 
-       *//* if (this.mDeviceType == DeviceType.WASHING_MACHINE) {
-            createAWashingMachineOrADishWasher();
-            mDevice = new Device(mDeviceName, mNominalPower, new WashingMachine(mCapacity, mProgramList));
-        }*//*
-
-        if (this.mDeviceType == DeviceType.DISHWASHER) {
-            createAWashingMachineOrADishWasher();
-            mDevice = new Device(mDeviceName, mNominalPower, new Dishwasher(mCapacity, mProgramList));
-        }
-
-        if (this.mDeviceType == DeviceType.LAMP) {
-            System.out.print("Please, type the new Luminous Flux in lm for the Lamp:");
-
-            this.mLuminousFlux = inputUtils.getInputAsDouble();
-            mDevice = new Device(mDeviceName, mNominalPower, new Lamp(mLuminousFlux));
-        }
-    }
-
-    private void createAWashingMachineOrADishWasher() {
-        InputUtils inputUtils = new InputUtils();
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please, type the Capacity in Kg for the Washing Machine: ");
-        this.mCapacity = inputUtils.getInputAsDouble();
-        Program program;
-        System.out.println(requestProgramName);
-        this.mProgramName = scanner.nextLine();
-        System.out.println(requestProgramDuration);
-        this.mDuration = inputUtils.getInputAsDouble();
-        System.out.println(requestProgramEnergyConsumption);
-        this.mEnergyConsumption = inputUtils.getInputAsDouble();
-        program = new Program(mProgramName, mDuration, mEnergyConsumption);
-        mProgramList.addProgram(program);
-        loopForProgramsCreation();
-    }
-
-    private void loopForProgramsCreation() {
-        InputUtils inputUtils = new InputUtils();
-        Program program1;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Would you like to add a new Program? (y/n)");
-        while (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to add a new Program? (y/n)")) {
-            System.out.println(requestProgramName);
-            this.mProgramName = scanner.nextLine();
-            System.out.println(requestProgramDuration);
-            this.mDuration = inputUtils.getInputAsDouble();
-            System.out.println(requestProgramEnergyConsumption);
-            this.mEnergyConsumption = inputUtils.getInputAsDouble();
-            program1 = new Program(mProgramName, mDuration, mEnergyConsumption);
-            mProgramList.addProgram(program1);
-        }
-    }
-
-    *//*
-     * Displays a string with the new created device and its parameters.
-     * Adds the new created device to the selected room
-     *//*
-
-    private void displayDeviceUS210() {
-        if (mRoom.addDevice(mDevice)) {
-            System.out.println("You have successfully created a " + mDeviceType.buildDeviceTypeString(mDeviceType) + " with the name " + mDeviceName + ". \n"
-                    + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + ".");
-            if (mDevice.getType() == DeviceType.WATER_HEATER) {
-                System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
-                        mHotWaterTemperature + " ºC, and the Performance Ratio is: "
-                        + mPerformanceRatio + ".");
-            }
-            if (mDevice.getType() == DeviceType.WASHING_MACHINE || mDevice.getType() == DeviceType.DISHWASHER) {
-                System.out.println("The Capacity is " + mCapacity + " Kg."+ "\nThe following programs were reconfigured: "
-                        + "\n" + mProgramList.buildProgramListStringForEach());
-            }
-            if (mDevice.getType() == DeviceType.FRIDGE) {
-                System.out.println("The Freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
-                        " L and the " + mAnnualEnergyConsumption + " kWh.");
-            }
-            if (mDevice.getType() == DeviceType.LAMP) {
-                System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
-            }
         } else {
             System.out.println("Device already exists in the room. Please, try again.\n");
         }
-    }*/
+
+    }
 
     /**
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available

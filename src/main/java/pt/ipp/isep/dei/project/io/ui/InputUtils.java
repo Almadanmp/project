@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -168,31 +169,23 @@ class InputUtils {
             }
         }
     }
-    /*
 
-     */
-
-    /**
-     *
-     *//*
-
-    DeviceType getInputDeviceTypeByList(List<DeviceType> deviceTypeList) {
+    String getInputDeviceTypeByList(House house) throws IOException {
         InputUtils inputUtils = new InputUtils();
-        RoomConfigurationController controller = new RoomConfigurationController();
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the device Types: ");
-            System.out.println(controller.buildDeviceTypeListString(deviceTypeList));
+            System.out.println(house.getDeviceTypes());
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < DeviceType.values().length) {
-                return DeviceType.values()[aux];
+            if (aux >= 0 && aux < house.getDeviceTypes().size()) {
+                return house.getDeviceTypes().get(aux);
 
             } else {
                 System.out.println(utils.invalidOption);
             }
         }
     }
-*/
+
 
     Sensor getInputRoomSensorByList(Room room) {
         UtilsUI utils = new UtilsUI();

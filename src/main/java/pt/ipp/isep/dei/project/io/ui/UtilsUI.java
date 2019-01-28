@@ -42,6 +42,7 @@ class UtilsUI {
         return house.getDeviceList() != null && !house.getRoomList().isEmpty();
     }
 
+
     boolean houseGridListIsValid(House house) {
         return house.getEGListObject() != null && !house.getEGListObject().getEnergyGridList().isEmpty(); //TODO missing encapsulation
     }
