@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
@@ -50,6 +47,10 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 5:
+                    runUS722(programHouse);
+                    activeInput = false;
+                    break;
+                case 6:
                     runUS752(programHouse);
                     activeInput = false;
                     break;
@@ -272,9 +273,9 @@ class EnergyConsumptionUI {
        the interval.
      */
 
-    private void runUS721(House programHouse){
+    private void runUS721(House programHouse) {
         List<Room> roomList = controller.getHouseRoomList(programHouse);
-        if (roomList.isEmpty()){
+        if (roomList.isEmpty()) {
             System.out.println("Your househas no Rooms. Returning to Main Menu.");
         }
         InputUtils inputs = new InputUtils();
@@ -287,6 +288,25 @@ class EnergyConsumptionUI {
         System.out.println("The total energy consumption of the selected room in the selected interval is: " + result);
     }
 
+    /*US722 As a Power User [or Administrator], I want to know the total metered energy consumption of a grid in a
+    given time interval, i.e. the sum of the energy consumption of all energy-metered rooms in the grid in the
+    interval.*/
+
+    private void runUS722(House programHouse) {
+        InputUtils inputs = new InputUtils();
+        List<EnergyGrid> eGridList = controller.getHouseGridList(programHouse);
+        if (eGridList.isEmpty()) {
+            System.out.println("Your house has no Grids.\nReturning to main menu.");
+            return;
+        }
+        EnergyGrid eGrid = inputs.getInputGridByList(programHouse);
+        System.out.println("Please insert the date at which you want to start the interval.");
+        Date initialDate = inputs.getInputDate();
+        System.out.println("Please insert the date at which you want to end the interval.");
+        Date finalDate = inputs.getInputDate();
+        double result = controller.getGridConsumptionInInterval(eGrid, initialDate, finalDate);
+        System.out.println("The total energy consumption of the selected room in the selected interval is: " + result);
+    }
 
     /*
      * US752
@@ -327,7 +347,8 @@ class EnergyConsumptionUI {
                 " (US705)");
         System.out.println("3) Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
         System.out.println("4) Display total Metered Energy Consumption of a Room in a given time interval. (US721)");
-        System.out.println("5) Estimate the total energy used in heating water in a day. (US752)");
+        System.out.println("5) Display total Metered Energy Consumption of a Grid in a given time interval. (US722)");
+        System.out.println("6) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

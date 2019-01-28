@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
@@ -276,6 +277,21 @@ public class EnergyGrid implements Metered {
             }
         }
         return result.toString();
+    }
+
+    /**
+     * US722 As a Power User [or Administrator], I want the sum of the energy consumption of all energy-metered rooms
+     * in the grid in the interval.
+     * @param initialDate for metering period.
+     * @param finalDate for metering period.
+     * @return total metered energy consumption of a grid in a given time interval.
+     */
+    public double getGridConsumptionInInterval(Date initialDate, Date finalDate){
+        double gridConsumption = 0;
+        for(Room r: this.getRoomList()){
+            gridConsumption += r.getConsumptionInInterval(initialDate, finalDate);
+        }
+        return gridConsumption;
     }
 
     private boolean setMeteringPeriod(){
