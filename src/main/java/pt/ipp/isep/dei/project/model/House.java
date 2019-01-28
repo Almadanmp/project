@@ -168,22 +168,36 @@ public class House implements Metered {
     }
 
     /**
-     * gets the sensor with minimum distance to the house.
-     *
+     * This method returns the sensor closest to the house. If more than one sensor is close to it,
+     * the one with the most recent reading should be used.
      * @param ga
      * @param house
      * @param sensorType
      * @return
      */
+
     public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house, String sensorType) {
+        Sensor sensor;
+        SensorList sensorList = new SensorList();
         for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
             if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
-                return s;
+                sensorList.addSensor(s);
             }
         }
-        return null;
+        if(sensorList.getSensorList().size()>0){
+            sensor=sensorList.getMostRecentlyUsedSensor();
+            }
+            else{
+                sensor = sensorList.getSensorList().get(0);
+        }
+        return sensor;
     }
 
+
+    /**
+     * This method builds a String for the GridList in the house.
+     * @return
+     */
     public String buildGridListString() {
         String mStringEnhancer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringEnhancer);
@@ -202,8 +216,6 @@ public class House implements Metered {
     /**
      * @return builds a string from the House's room list.
      */
-
-
     public String buildRoomListString() {
         return this.mRoomList.buildRoomsString();
     }

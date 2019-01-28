@@ -246,7 +246,7 @@ public class SensorListTest {
         //Arrange
         Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25).getTime());
         Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3).getTime());
-        Reading reading3 = new Reading(15, new GregorianCalendar(113, 11, 28).getTime());
+        Reading reading3 = new Reading(15, new GregorianCalendar(118, 11, 28).getTime());
         Reading reading4 = new Reading(29, new GregorianCalendar(111, 9, 3).getTime());
         ReadingList l1 = new ReadingList();
         ReadingList l2 = new ReadingList();
@@ -270,7 +270,7 @@ public class SensorListTest {
         actualResult = list1.getMostRecentlyUsedSensor();
 
         //Assert
-        assertEquals(s2, actualResult);
+        assertEquals(s1, actualResult);
     }
 
     @Test
