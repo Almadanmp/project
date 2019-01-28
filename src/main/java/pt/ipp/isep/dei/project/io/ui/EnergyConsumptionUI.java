@@ -46,6 +46,10 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 4:
+                    runUS721(programHouse);
+                    activeInput = false;
+                    break;
+                case 5:
                     runUS752(programHouse);
                     activeInput = false;
                     break;
@@ -56,6 +60,37 @@ class EnergyConsumptionUI {
                     break;
             }
         }
+    }
+
+    // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
+    //connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
+    //in the grid.
+
+    private void runUS172(House house) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.houseGridListIsValid(house)) {
+            System.out.println(utilsUI.invalidGridList);
+            return;
+        }
+        EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(house);
+        if (!utilsUI.gridRoomListIsValid(mEnergyGrid)) {
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
+        double nominalPower = updateUS172(mEnergyGrid);
+        displayUS172(nominalPower);
+    }
+
+    private double updateUS172(EnergyGrid grid) {
+        EnergyConsumptionController mController = new EnergyConsumptionController();
+        return mController.getTotalPowerFromGrid(grid);
+    }
+
+    private void displayUS172(Double nomPower) {
+        InputUtils inputs = new InputUtils();
+        System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
+        inputs.returnToMenu(returnToConsole);
     }
 
     // US705 - As a Power User, I want to know the total nominal power of a subset of rooms
@@ -199,7 +234,7 @@ class EnergyConsumptionUI {
         System.out.println("The total nominal power for the selected subset is " + totalPower + " kW/h.");
     }
 
-    /*US720 As a Power User [or Administrator], I want to know the total metered energy consumption of a device in a
+    /* US720 As a Power User [or Administrator], I want to know the total metered energy consumption of a device in a
      * given time interval, i.e. the sum of the energy consumption of the device in the interval.
      * Only metering periods fully contained in the interval will be included.
      * One cannot know the exact energy consumption of devices not connected to an energy meter.
@@ -230,6 +265,26 @@ class EnergyConsumptionUI {
         System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
         Date finalTime = inputUtils.getInputDate();
         controller.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+    }
+
+    /* US721As a Power User [or Administrator], I want to know the total metered energy consumption of a room in a
+       given time interval, i.e. the sum of the energy consumption of all energy-metered devices in the room in
+       the interval.
+     */
+
+    private void runUS721(House programHouse){
+        List<Room> roomList = controller.getHouseRoomList(programHouse);
+        if (roomList.isEmpty()){
+            System.out.println("Your househas no Rooms. Returning to Main Menu.");
+        }
+        InputUtils inputs = new InputUtils();
+        Room room = inputs.getHouseRoomByList(programHouse);
+        System.out.println("Please insert the date at which you want to start the interval.");
+        Date initialDate = inputs.getInputDate();
+        System.out.println("Please insert the date at which you want to end the interval.");
+        Date finalDate = inputs.getInputDate();
+        double result = controller.getRoomConsumptionInInterval(room, initialDate, finalDate);
+        System.out.println("The total energy consumption of the selected room in the selected interval is: " + result);
     }
 
 
@@ -265,44 +320,14 @@ class EnergyConsumptionUI {
         System.out.println("The estimated total energy used in heating water in a day is: " + result + " kW.");
     }
 
-    // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
-    //connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
-    //in the grid.
-
-    private void runUS172(House house) {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.houseGridListIsValid(house)) {
-            System.out.println(utilsUI.invalidGridList);
-            return;
-        }
-        EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(house);
-        if (!utilsUI.gridRoomListIsValid(mEnergyGrid)) {
-            System.out.println(utilsUI.invalidRoomList);
-            return;
-        }
-        double nominalPower = updateUS172(mEnergyGrid);
-        displayUS172(nominalPower);
-    }
-
-    private double updateUS172(EnergyGrid grid) {
-        EnergyConsumptionController mController = new EnergyConsumptionController();
-        return mController.getTotalPowerFromGrid(grid);
-    }
-
-    private void displayUS172(Double nomPower) {
-        InputUtils inputs = new InputUtils();
-        System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
-        inputs.returnToMenu(returnToConsole);
-    }
-
     private void printOptionMessage() {
         System.out.println("Energy Consumption Management Options:\n");
         System.out.println("1) Display total nominal power of one of the Energy Grids. (US172)");
         System.out.println("2) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
                 " (US705)");
         System.out.println("3) Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
-        System.out.println("4) Estimate the total energy used in heating water in a day. (US752)");
+        System.out.println("4) Display total Metered Energy Consumption of a Room in a given time interval. (US721)");
+        System.out.println("5) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

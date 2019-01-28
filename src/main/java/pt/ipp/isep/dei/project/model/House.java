@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -294,6 +293,7 @@ public class House implements Metered {
      * @param key
      * @return value
      */
+
     public String getPropertyValueByKey(String propFileName, String key) throws IOException {
         Properties props = new Properties();
         String value;

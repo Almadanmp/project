@@ -141,6 +141,34 @@ public class EnergyConsumptionController {
         return true;
     }
 
+    /* US721As a Power User [or Administrator], I want to know the total metered energy consumption of a room in a
+       given time interval, i.e. the sum of the energy consumption of all energy-metered devices in the room in
+       the interval.
+     */
+
+    /**
+     * Accesses model and returns a House's list of rooms.
+     * @param programHouse the house we want to get the roomList from.
+     * @return returns the List of Rooms in the given house.
+     */
+
+    public List<Room> getHouseRoomList(House programHouse){
+        return programHouse.getRoomList();
+    }
+
+    /**
+     * Accesses model and returns a Room's Energy Consumption in a given interval.
+     * @param room the room we want to access.
+     * @param initialDate the start of the interval.
+     * @param finalDate the end of the interval.
+     * @return the energy consumption of all metered devices' logs that fall fully within the given interval.
+     */
+
+
+    public double getRoomConsumptionInInterval(Room room, Date initialDate, Date finalDate){
+        return room.getConsumptionInInterval(initialDate,finalDate);
+    }
+
 
     /* US752
      * As a Regular User [or Power User], I want to estimate the total energy used in heating water in a given day,

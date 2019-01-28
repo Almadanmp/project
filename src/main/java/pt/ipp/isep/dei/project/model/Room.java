@@ -120,10 +120,27 @@ public class Room implements Metered {
      *
      * @return room's total nominal power (double)
      */
+
     public double getNominalPower() {
         double result = 0;
         for (Device d : this.getDeviceList()) {
             result += d.getNominalPower();
+        }
+        return result;
+    }
+
+    /**
+     * Returns the energy consumption in a given time interval, that is, the sum of the energy consumption
+     * of all metered devices' logs in the room that are fully within the given time interval.
+     * @param initialDate defines the start of the interval.
+     * @param finalDate defines the end of the interval.
+     * @return is the energy consumption.
+     */
+
+    public double getConsumptionInInterval(Date initialDate, Date finalDate){
+        double result = 0;
+        for (Device d : this.getDeviceList()){
+            result += d.getConsumptionWithinGivenInterval(initialDate,finalDate);
         }
         return result;
     }
@@ -246,6 +263,12 @@ public class Room implements Metered {
         }
         return counter != 0;
     }
+
+    /**
+     * Removes all of the room's devices from a given list.
+     * @param list is the list we want to remove devices from.
+     * @return false if the list is invalid (null), true otherwise.
+     */
 
     public boolean removeRoomDevicesFromDeviceList(DeviceList list) {
         if (list == null) {
