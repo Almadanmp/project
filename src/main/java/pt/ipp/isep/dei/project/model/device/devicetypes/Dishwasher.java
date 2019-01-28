@@ -36,7 +36,7 @@ public class Dishwasher implements DeviceSpecs, Programmable {
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
         result.add(CAPACITY);
-        result.add(PROGRAM_LIST);
+       // result.add(PROGRAM_LIST);
         return result;
     }
 

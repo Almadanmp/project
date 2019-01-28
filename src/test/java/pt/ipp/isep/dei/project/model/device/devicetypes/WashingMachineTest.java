@@ -44,7 +44,6 @@ class WashingMachineTest {
         listProgram.addProgram(program1);
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("capacity");
-        expectedResult.add("programList");
         List<String> result = washingMachine.getAttributeNames();
         assertEquals(expectedResult, result);
     }

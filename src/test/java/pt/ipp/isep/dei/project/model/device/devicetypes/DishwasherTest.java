@@ -41,7 +41,6 @@ class DishwasherTest {
         Dishwasher dishwasher = new Dishwasher();
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("capacity");
-        expectedResult.add("programList");
         List<String> result = dishwasher.getAttributeNames();
         assertEquals(expectedResult, result);
     }

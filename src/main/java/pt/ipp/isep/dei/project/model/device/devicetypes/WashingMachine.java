@@ -9,6 +9,7 @@ import java.util.List;
 
 public class WashingMachine implements DeviceSpecs, Programmable {
     private static final String CAPACITY = "capacity";
+    private static final String PROGRAM_LIST = "programList";
 
     private double mCapacity;
     private ProgramList mObjectProgramList;
@@ -34,7 +35,6 @@ public class WashingMachine implements DeviceSpecs, Programmable {
       public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
         result.add(CAPACITY);
-        result.add("programList");
         return result;
     }
 
@@ -42,7 +42,7 @@ public class WashingMachine implements DeviceSpecs, Programmable {
         switch (attributeName) {
             case CAPACITY:
                 return mCapacity;
-            case "programList":
+            case PROGRAM_LIST:
                 return mObjectProgramList;
             default:
                 return 0;

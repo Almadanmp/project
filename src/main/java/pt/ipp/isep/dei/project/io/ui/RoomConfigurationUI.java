@@ -4,6 +4,8 @@ import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.programs.Program;
+import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.io.IOException;
 import java.util.Date;
@@ -143,14 +145,29 @@ class RoomConfigurationUI {
             double value = inputUtils.getInputAsDouble();
             device.setAttributeValue(device.getAttributeNames().get(i), value);
         }
-        RoomConfigurationController ctrl = new RoomConfigurationController ();
-        if (ctrl.addDevice(this.mRoom, device)) {
-            System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
-
-        } else {
-            System.out.println("Device already exists in the room. Please, try again.\n");
+        //todo create a way to use the same logic as used above
+        if (device.isProgrammable()){
+            System.out.println("This device is programmable.");
+            ProgramList pList = device.getProgramList();
+            System.out.println("Please insert program name: ");
+            String programName = scanner.nextLine();
+            System.out.println("Please insert program duration: ");
+            double duration = inputUtils.getInputAsDouble();
+            System.out.println("Please insert program duration: ");
+            double energyConsumption = inputUtils.getInputAsDouble();
+            //todo move the program creation to controller to avoid model access on UI
+            Program newProgram = new Program(programName, duration, energyConsumption);
+            pList.addProgram(newProgram);
         }
+        else{
+            RoomConfigurationController ctrl = new RoomConfigurationController ();
+            if (ctrl.addDevice(this.mRoom, device)) {
+                System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
 
+            } else {
+                System.out.println("Device already exists in the room. Please, try again.\n");
+            }
+        }
     }
 
     /**
