@@ -23,7 +23,7 @@ public class MainUI {
             fileUtils.testeMethod();
             MainUI.deviceMeteringPeriod = fileUtils.deviceMeteringPeriod;
         } catch (IllegalArgumentException il){
-            System.out.println("Adeus");
+            System.out.println("Adeus e um queijo");
             return;
 
         }
