@@ -11,7 +11,7 @@ public class FileInputUtils {
     public int mGridMeteringPeriod;
 
 
-    public boolean validGridMetering() throws IOException, NumberFormatException{
+    public boolean validGridMetering() throws IOException {
         int gridMeteringPeriod = readGridMeteringPeriods();
         if(gridMeteringPeriodValidation(gridMeteringPeriod)){
             this.mGridMeteringPeriod = gridMeteringPeriod;
@@ -22,7 +22,7 @@ public class FileInputUtils {
         return false;
     }
 
-    private int readGridMeteringPeriods() throws IOException, NumberFormatException {
+    private int readGridMeteringPeriods() throws IOException {
         String gridMeteringPeriod;
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream("resources/meteringPeriods.properties")){
