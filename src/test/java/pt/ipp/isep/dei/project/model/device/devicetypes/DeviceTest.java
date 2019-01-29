@@ -137,4 +137,26 @@ public class DeviceTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void ensureThatWeDeactivateADevice(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        boolean expectedResult = true;
+        boolean actualResult = d1.deactivate();
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void ensureThatWeDoNotDeactivate(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        d1.deactivate();
+        boolean expectedResult = false;
+        boolean actualResult = d1.deactivate();
+        assertEquals(expectedResult,actualResult);
+    }
 }

@@ -24,6 +24,7 @@ public class Device implements Metered {
     private DeviceSpecs mDeviceSpecs;
     private LogList mLogList;
     private int mMeteringPeriod;
+    private boolean mActive;
 
     /**
      * Constructor with path by configuration file approach
@@ -37,6 +38,7 @@ public class Device implements Metered {
         this.mName = name;
         this.mNominalPower = nominalPower;
         this.mLogList = new LogList();
+        this.mActive = true;
         DeviceSpecs aux;
         try {
             aux = (DeviceSpecs) Class.forName(deviceTypePath).newInstance();
@@ -55,6 +57,18 @@ public class Device implements Metered {
 
     public double getNominalPower() {
         return this.mNominalPower;
+    }
+
+    /**
+     * Boolean to get Device Status. Either if is Active or Not.
+     * @return
+     */
+    public boolean isActive(){
+        if(this.mActive){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setNominalPower(Double nomPower) {
@@ -139,7 +153,8 @@ public class Device implements Metered {
         return this.mMeteringPeriod;
     }
 
-    /** Defines the value of the devices metering period using a configuration file as source.
+    /**
+     * Defines the value of the devices metering period using a configuration file as source.
      *
      * @return true if the value is possible of being set, false if it's not valid.
      */
@@ -173,15 +188,16 @@ public class Device implements Metered {
                 this.mMeteringPeriod = deviceMPValue;
                 return true;
             }
-            } catch (NumberFormatException nfe) {
-                System.out.println("Configuration file values are not numeric.");
-                return false;
-            }
+        } catch (NumberFormatException nfe) {
+            System.out.println("Configuration file values are not numeric.");
+            return false;
+        }
         System.out.println("Configuration file values are not supported.");
         return false;
     }
 
-    /** Validates the device metering period to be a multiple of the energy grid metering period and perffectly contained
+    /**
+     * Validates the device metering period to be a multiple of the energy grid metering period and perffectly contained
      * in a 24 hour (1440 minutes) period.
      *
      * @return true if the value is possible of being set, false if it's not valid.
@@ -208,7 +224,7 @@ public class Device implements Metered {
      * This method checks the Logs registered in a periods which are totally contained in the defined interval.
      *
      * @param initialTime - Beginning of the interval
-     * @param finalTime - Ending of the interval
+     * @param finalTime   - Ending of the interval
      * @return total consumption within the defined interval
      */
 
@@ -245,11 +261,28 @@ public class Device implements Metered {
     /**
      * This method adds a Log to the device LogList, if the Log isn't already in the LogList.
      * @param log - Parameter which will be used to add to the Device LogList.
+     * @return
      */
 
-    public void addLog(Log log) {
-        if (!(mLogList.getLogList().contains(log))) {
+    public boolean addLog(Log log) {
+        if (!(mLogList.getLogList().contains(log)) && this.mActive) {
             mLogList.getLogList().add(log);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * This method deactivates the device so it no longer accepts logs.
+     * @return
+     */
+    public boolean deactivate() {
+        if (isActive()) {
+            this.mActive = false;
+            return true;
+        } else {
+            return false;
         }
     }
 

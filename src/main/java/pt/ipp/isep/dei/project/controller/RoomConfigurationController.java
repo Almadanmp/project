@@ -30,7 +30,6 @@ public class RoomConfigurationController {
     //  SHARED METHODS
 
     /**
-     *
      * @param roomName is the name of the room we want to look for.
      * @param house    is the house where we want to look for the room.
      * @return is the room in the House with the name that matches given string. Is null if no Room matches.
@@ -46,7 +45,6 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param house is the house we want to print the roomList from.
      * @return builds a string from the House's room list.
      */
@@ -56,7 +54,6 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param room is the room we want to print.
      * @return builds a string from given room.
      */
@@ -66,9 +63,8 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param listOfIndexesOfRoom is a list of integers that represent positions in a list.
-     * @param house is the house where we want to get lists from.
+     * @param house               is the house where we want to get lists from.
      * @return builds a string from the individual elements in the House's RoomList that are contained in the positions
      * given by the list of indexes.
      */
@@ -78,9 +74,8 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param listOfIndexesOfDevice is a list of integers that represent positions in a list.
-     * @param room is the room where we want to get the device list from.
+     * @param room                  is the room where we want to get the device list from.
      * @return builds a string from the individual elements in the DeviceList that are contained in the positions
      * given by the list of indexes.
      */
@@ -90,7 +85,6 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param input is the name of room we want to look for.
      * @param house is the house where we want to look for rooms.
      * @return is a list of integers representing positions in the house's roomList of rooms whose name matches
@@ -102,11 +96,25 @@ public class RoomConfigurationController {
     }
 
 
+    /*US222 As a Power User, I want to deactivate a device, so that it is no longer used.
+    Nevertheless, it should be possible to access its configuration and activity log.*/
+
+    /**
+     * This method receives the chosen device and returns a boolean true if it deactivates the device or false if it doesn't.
+     * @param device is the chosen device
+     * @return
+     */
+    public boolean deactivateDevice(Device device) {
+        return device.deactivate();
+    }
+
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
     nominal power of a room, i.e. the sum of the nominal power of all devices in the
     room. - TERESA VARELA */
 
-    /** This method receives a room and returns that room's total nominal power as a double
+    /**
+     * This method receives a room and returns that room's total nominal power as a double
+     *
      * @param room is the room to be tested
      * @return room's total nominal power (double)
      */
@@ -134,9 +142,8 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param sensorName is the name of the sensor we want to look for
-     * @param ga is the ga we want to look for the sensor in.
+     * @param ga         is the ga we want to look for the sensor in.
      * @return is the sensor in the Geo Area with the name that matches given string. Is null if no sensor matches.
      */
 
@@ -149,7 +156,6 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param input is the name of sensor we want to look for.
      * @param slist is the sensorlist where we want to look for sensors.
      * @return is a list of integers representing positions in the sensorlist of sensors whose name matches
@@ -160,11 +166,11 @@ public class RoomConfigurationController {
         return slist.matchSensorListIndexByString(input);
     }
 
-    List<Integer> matchDeviceIndexByString(String input, Room room ){
+    List<Integer> matchDeviceIndexByString(String input, Room room) {
         return room.getObjectDeviceList().matchDeviceIndexByString(input);
     }
+
     /**
-     *
      * @param sensorList is the sensor list to print.
      * @return builds a string from given sensor list.
      */
@@ -174,7 +180,6 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param sensor is sensor we want to print.
      * @return builds a string from given sensor.
      */
@@ -184,7 +189,6 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param device the device we want to print.
      * @return string with the given device.
      */
@@ -193,33 +197,32 @@ public class RoomConfigurationController {
     }
 
     /**
-     *
      * @param room the room we want to print the list of devices from.
      * @return string with all the devices in the given room.
      */
-    public String buildDeviceListString(Room room){
+    public String buildDeviceListString(Room room) {
         return room.buildDeviceListString();
     }
-/*
+    /*
 
-    */
+     */
 
-    public boolean removeDevice(Room room, Device device){
+    public boolean removeDevice(Room room, Device device) {
         return room.removeDevice(device);
     }
 
-    public boolean addDevice(Room room, Device device){
+    public boolean addDevice(Room room, Device device) {
         return room.addDevice(device);
     }
 
-    public String getType(Device device){
+    public String getType(Device device) {
         return device.getType();
     }
 /**
-     *
-     * @param deviceTypeList is the list of DeviceTypes we want to turn into a list.
-     * @return a string with the list of available device types by index
-     *//*
+ *
+ * @param deviceTypeList is the list of DeviceTypes we want to turn into a list.
+ * @return a string with the list of available device types by index
+ *//*
 
     public String buildDeviceTypeListString(List<DeviceType> deviceTypeList){
         DeviceType deviceType= DeviceType.WATER_HEATER;
@@ -232,10 +235,10 @@ public class RoomConfigurationController {
 
     */
 /**
-     *
-     * @param room room from which we want to remove the device.
-     * @param device device we want to remove.
-     *//*
+ *
+ * @param room room from which we want to remove the device.
+ * @param device device we want to remove.
+ *//*
 
     public void removeDeviceFromRoom(Room room, Device device){
         room.removeDevice(device);
@@ -280,10 +283,10 @@ public class RoomConfigurationController {
 
    */
 /**
-    *
-    * @param input the new name we want to give to the device.
-    * @param device the device we want to change the name from.
-    *//*
+ *
+ * @param input the new name we want to give to the device.
+ * @param device the device we want to change the name from.
+ *//*
 
     public void setDeviceName(String input, Device device) {
         device.setmName(input);
@@ -291,10 +294,10 @@ public class RoomConfigurationController {
 
     */
 /**
-     *
-     * @param input the new nominal power we want to give to the device.
-     * @param device the device we want to change the nominal power from.
-     *//*
+ *
+ * @param input the new nominal power we want to give to the device.
+ * @param device the device we want to change the nominal power from.
+ *//*
 
     public void setNominalPower(Double input, Device device){
         device.setNominalPower(input);
@@ -302,9 +305,8 @@ public class RoomConfigurationController {
 */
 
     /**
-     *
      * @param listOfIndexesOfSensor is a list of integers that represent positions in a list.
-     * @param sensorList is the sensorList where we want to get sensors from.
+     * @param sensorList            is the sensorList where we want to get sensors from.
      * @return builds a string from the individual elements in the SensorList that are contained in the positions
      * given by the list of indexes.
      */
@@ -312,6 +314,7 @@ public class RoomConfigurationController {
     String buildSensorElementsByIndexString(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
         return sensorList.buildElementsByIndexString(listOfIndexesOfSensor);
     }
+
     public String buildTypeListString(List<TypeSensor> typeList) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
         if (typeList.isEmpty()) {
@@ -326,7 +329,7 @@ public class RoomConfigurationController {
         return result.toString();
     }
 
-    public boolean addSensorToRoom(Room room,Sensor sensor) {
+    public boolean addSensorToRoom(Room room, Sensor sensor) {
         return (room.addSensor(sensor));
     }
 }
