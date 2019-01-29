@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
@@ -20,15 +21,11 @@ public class EnergyGrid implements Metered {
     private double mNominalPower;
     private RoomList mRoomList;
     private PowerSourceList mListPowerSources;
-    private int mMeteringPeriod;
 
-    public EnergyGrid() throws IllegalArgumentException {
+    public EnergyGrid(){
         this.mRoomList = new RoomList();
         this.mListPowerSources = new PowerSourceList();
         this.mNominalPower = 0;
-        if(!setMeteringPeriod()){
-            throw new IllegalArgumentException("ERROR: Unable to create Energy Grid due to Configurafion File problems.");
-        }
     }
 
     /**
@@ -293,38 +290,6 @@ public class EnergyGrid implements Metered {
         }
         return gridConsumption;
     }
-
-    private boolean setMeteringPeriod(){
-        String gridMeteringPeriod;
-        Properties prop = new Properties();
-        try {
-            FileInputStream input = new FileInputStream("resources/meteringPeriods.properties");
-            prop.load(input);
-            gridMeteringPeriod = prop.getProperty("GridMeteringPeriod");
-        } catch (FileNotFoundException fnfe) {
-            System.out.println("File not found.");
-            return false;
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return false;
-        }
-        Integer gridMPValue = Integer.parseInt(gridMeteringPeriod);
-        if (gridMeteringPeriodValidation(gridMPValue)) {
-            this.mMeteringPeriod = gridMPValue;
-            return true;
-        }
-        System.out.println("Configuration file values are not supported.");
-        return false;
-
-    }
-
-    private boolean gridMeteringPeriodValidation(int meteringPeriod) {
-        if(1440 % meteringPeriod != 0){
-            return false;
-        }
-        return true;
-    }
-
 
     @Override
     public double getEnergyConsumption(float time) {

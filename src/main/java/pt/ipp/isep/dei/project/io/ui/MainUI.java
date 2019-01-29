@@ -7,8 +7,6 @@ import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -19,14 +17,34 @@ public class MainUI {
     public static void main(String[] args) {
 
         FileInputUtils fileUtils = new FileInputUtils();
+        int gridMeteringPeriod = 0;
         try {
-            fileUtils.testeMethod();
+            if(fileUtils.validGridMetering()){
+                gridMeteringPeriod = fileUtils.mGridMeteringPeriod;
+            }
+            else {
+                System.out.println("ERROR: Configuration File values are incorrect. Energy Grids cannot be created.\n" +
+                        "Please fix Configuration File before continuing.");
+                return;
+            }
+        }
+        catch (IOException ioe){
+            System.out.println("Please fix Configuration File before continuing.");
+            return;
+        }
+        catch (NumberFormatException nfe){
+            System.out.println("Please fix Configuration File before continuing");
+            return;
+        }
+
+        try {
+            fileUtils.validDeviceMetering();
             MainUI.deviceMeteringPeriod = fileUtils.deviceMeteringPeriod;
         } catch (IllegalArgumentException il){
             System.out.println("Adeus e um queijo");
             return;
-
         }
+
 
         String temperature = "temperature";
         String portoString = "Porto";

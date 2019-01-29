@@ -7,16 +7,53 @@ import java.util.Properties;
 
 public class FileInputUtils {
 
-public int deviceMeteringPeriod;  //Public para ir buscar no Device
+    public int deviceMeteringPeriod;  //Public para ir buscar no Device
+    public int mGridMeteringPeriod;
 
-    public boolean testeMethod() throws  IllegalArgumentException{
-        if (!readMeteringPeriods()) {
+
+    public boolean validGridMetering() throws IOException, NumberFormatException{
+        int gridMeteringPeriod = readGridMeteringPeriods();
+        if(gridMeteringPeriodValidation(gridMeteringPeriod)){
+            this.mGridMeteringPeriod = gridMeteringPeriod;
+            return true;
+        }
+        System.out.println("ERROR: Configuration File values are incorrect. Energy Grids cannot be created.\n" +
+                    "Please fix Configuration File before continuing.");
+        return false;
+    }
+
+    private int readGridMeteringPeriods() throws IOException, NumberFormatException {
+        String gridMeteringPeriod;
+        Properties prop = new Properties();
+        try (FileInputStream input = new FileInputStream("resources/meteringPeriods.properties")){
+            prop.load(input);
+            gridMeteringPeriod = prop.getProperty("GridMeteringPeriod");
+        } catch (IOException ioe) {
+            throw new IOException("ERROR: Unable to process configuration file.");
+        }
+        try {
+            return Integer.parseInt(gridMeteringPeriod);
+        }
+        catch (NumberFormatException nfe){
+            throw new NumberFormatException("ERROR: Configuration File value is not a numeric value.");
+        }
+    }
+
+    private boolean gridMeteringPeriodValidation(int gridMeteringPeriod) {
+        if(1440 % gridMeteringPeriod != 0){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validDeviceMetering() throws  IllegalArgumentException{
+        if (!readDeviceMeteringPeriods()) {
             throw new IllegalArgumentException("Teste");
         }
         return true;
     }
 
-    public boolean readMeteringPeriods() {
+    public boolean readDeviceMeteringPeriods() {
         String GridMeteringPeriod;
         String DeviceMeteringPeriod;
         Properties prop = new Properties();
