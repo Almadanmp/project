@@ -29,11 +29,13 @@ public class MainUI {
             }
         }
         catch (IOException ioe){
-            System.out.println("Please fix Configuration File before continuing.");
+            System.out.println("ERROR: Unable to process configuration file.\n" +
+                    "Please fix Configuration File before continuing.");
             return;
         }
         catch (NumberFormatException nfe){
-            System.out.println("Please fix Configuration File before continuing");
+            System.out.println("ERROR: Configuration File value is not a numeric value.\n" +
+                    "Please fix Configuration File before continuing.");
             return;
         }
 
