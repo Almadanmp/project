@@ -703,4 +703,29 @@ class RoomConfigurationControllerTest {
         assertEquals(false, result);
 
     }
+
+    @Test
+    void ensureThatWeDeactivateDevice(){
+        RoomConfigurationController roomConfigurationController = new RoomConfigurationController();
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 2);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        boolean expectedResult = true;
+        boolean actualResult = roomConfigurationController.deactivateDevice(d2);
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void ensureThatWeDoNotDeactivateDevice(){
+        RoomConfigurationController roomConfigurationController = new RoomConfigurationController();
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 2);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        roomConfigurationController.deactivateDevice(d2);
+        boolean expectedResult = false;
+        boolean actualResult = roomConfigurationController.deactivateDevice(d2);
+        assertEquals(expectedResult,actualResult);
+    }
 }
