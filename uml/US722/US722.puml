@@ -13,7 +13,9 @@ getInputEndDate
 end ref
 EnergyConsumptionUI -> EnergyConsumptionController: getGridConsumptionInInterval (grid, startDate, endDate)
 EnergyConsumptionController -> Grid: getConsumptionInInterval (startDate, endDate)
-Grid -> DeviceList: getConsumptionInInterval (starDate, endDate)
+Grid -> RoomList: getConsumptionInInterval (startDate, endDate)
+loop get consumption for each room
+RoomList -> DeviceList: getConsumptionInInterval (startDate, endDate)
 loop get consumption for each device in interval
 DeviceList -> Device: getConsumptionInInterval (startDate, endDate)
 end
