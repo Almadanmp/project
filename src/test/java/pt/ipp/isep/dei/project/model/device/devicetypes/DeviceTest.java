@@ -123,7 +123,7 @@ public class DeviceTest {
         assertTrue(result.contains("performanceRatio"));
         assertEquals(result.size(), 3);
     }
-    
+
     @Test
     void ensureThatWeDeactivateADevice(){
         Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
