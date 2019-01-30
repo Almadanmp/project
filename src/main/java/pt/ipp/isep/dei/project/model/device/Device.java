@@ -1,8 +1,7 @@
 package pt.ipp.isep.dei.project.model.device;
 
-import pt.ipp.isep.dei.project.io.ui.FileInputUtils;
-import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.Metered;
+import pt.ipp.isep.dei.project.model.device.deviceSpecs.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 

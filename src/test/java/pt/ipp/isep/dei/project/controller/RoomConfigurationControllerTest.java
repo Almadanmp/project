@@ -163,7 +163,7 @@ class RoomConfigurationControllerTest {
    /* @Test
     void seeIfPrintDeviceTypeList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        List<DeviceType> listD = new ArrayList<>();
+        List<DeviceTypeToBeDeleted> listD = new ArrayList<>();
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
@@ -180,9 +180,9 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDeviceTypeList2() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceType dishwasher = DeviceType.DISHWASHER;
-        DeviceType fridge = DeviceType.FRIDGE;
-        List<DeviceType> listD = new ArrayList<>();
+        DeviceTypeToBeDeleted dishwasher = DeviceTypeToBeDeleted.DISHWASHER;
+        DeviceTypeToBeDeleted fridge = DeviceTypeToBeDeleted.FRIDGE;
+        List<DeviceTypeToBeDeleted> listD = new ArrayList<>();
         listD.add(fridge);
         listD.add(dishwasher);
         List<Integer> list = new ArrayList<>();

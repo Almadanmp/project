@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -548,7 +548,7 @@ class HouseTest {
     @Test
     void getDeviceClassPathFromConfigFile() throws IOException {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
-        String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater";
+        String expectedResult = "pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater";
         String result = house.getDeviceTypePathToClassById("WaterHeater");
         System.out.println(result);
         assertEquals(expectedResult, result);
@@ -557,7 +557,7 @@ class HouseTest {
     @Test
     void getPropertyValueByKey() throws IOException {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
-        String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeater";
+        String expectedResult = "pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater";
         String result = house.getPropertyValueByKey("resources/devices.properties", "WaterHeater");
         System.out.println(result);
         assertEquals(expectedResult, result);

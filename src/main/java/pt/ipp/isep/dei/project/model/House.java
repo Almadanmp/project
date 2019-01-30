@@ -21,6 +21,7 @@ public class House implements Metered {
     private GeographicArea mMotherArea;
     private int mGridMeteringPeriod;
     private int mDeviceMeteringPeriod;
+    private Properties props;
 
     //CONSTRUCTOR
 
@@ -299,8 +300,6 @@ public class House implements Metered {
         return getPropertyValueByKey(propFileName, id);
     }
 
-    //TODO Move to a common methods class?
-
     /**
      * Method to get a value from a key and a properties file name
      *
@@ -317,6 +316,29 @@ public class House implements Metered {
             value = props.getProperty(key);
         } catch (IOException e) {
             throw new IOException("ERROR: Unable to process " + propFileName + " configuration file.");
+        }
+        if (value == null) {
+            throw new IOException("ERROR: Unable to read " + key + " property value from configuration file" + propFileName + ".");
+        }
+        return value;
+    }
+
+    @SuppressWarnings("Duplicates") //TODO remove after only one place for method is discussed
+    public String getPropertyValueByKeyWithoutRuntimeSupport(String propFileName, String key) throws IOException {
+        propFileName = "resources/devices.properties";
+        String value;
+        try {
+            if (props == null) { //file is not yet opened
+                props = new Properties();
+               InputStream input = new FileInputStream(propFileName);
+                props.load(input);
+            }
+            value = props.getProperty(key);
+        } catch (IOException e) {
+            throw new IOException("ERROR: Unable to process " + propFileName + " configuration file.");
+        }
+        if (value == null) {
+            throw new IOException("ERROR: Unable to read " + key + " property value from configuration file" + propFileName + ".");
         }
         return value;
     }
