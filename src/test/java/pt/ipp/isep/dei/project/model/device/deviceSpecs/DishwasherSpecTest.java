@@ -1,8 +1,7 @@
-package pt.ipp.isep.dei.project.model.device.devicetypes;
+package pt.ipp.isep.dei.project.model.device.deviceSpecs;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.DishwasherSpec;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
