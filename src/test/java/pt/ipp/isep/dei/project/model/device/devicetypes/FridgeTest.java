@@ -96,6 +96,22 @@ class FridgeTest {
         Object result = fridge.getAttributeValue("freezerCapacity");
         assertEquals(expectedResult, result);
     }
+    @Test
+    void seeIfGetAttributeUnitTest() {
+        Fridge fridge = new Fridge();
+        String expectedResult = "Kg";
+        Object result = fridge.getAttributeUnit("freezerCapacity");
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    void seeIfGetAttributeUnitTest2() {
+        Fridge fridge = new Fridge();
+        String expectedResult = "Kg";
+        Object result = fridge.getAttributeUnit("refrigeratorCapacity");
+        assertEquals(expectedResult, result);
+        assertEquals(0, fridge.getAttributeUnit(""));
+
+    }
 
     @Test
     void seeIfGetAttributeValuesTest2() {

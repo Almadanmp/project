@@ -107,7 +107,31 @@ class DishwasherTest {
         //Assert
         assertTrue(actualResult);
     }
+    @Test
+    void getAttributeUnitTest() {
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        ProgramList listProgram = dishwasher.getProgramList();
+        Program program1 = new Program("programa", 2, 2);
+        listProgram.addProgram(program1);
+        String expectedResult = "Kg";
+        Object result = dishwasher.getAttributeUnit("capacity");
+        assertEquals(expectedResult, result);
+    }
 
+    @Test
+    void getAttributeUnitTest2() {
+        Dishwasher dishwasher = new Dishwasher();
+        dishwasher.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        ProgramList listProgram = dishwasher.getProgramList();
+        Program program1 = new Program("programa", 2, 2);
+        listProgram.addProgram(program1);
+        String expectedResult = " ";
+        Object result = dishwasher.getAttributeUnit("programList");
+        assertEquals(expectedResult, result);
+        assertEquals(0, dishwasher.getAttributeUnit(""));
+
+    }
     @Test
     void setAttributeValueTestFalse() {
         Dishwasher dishwasher = new Dishwasher();

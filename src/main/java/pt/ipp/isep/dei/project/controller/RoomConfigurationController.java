@@ -207,9 +207,7 @@ public class RoomConfigurationController {
     public String buildDeviceListString(Room room) {
         return room.buildDeviceListString();
     }
-    /*
 
-     */
 
     public boolean removeDevice(Room room, Device device) {
         return room.removeDevice(device);
@@ -245,80 +243,15 @@ public class RoomConfigurationController {
     public String getType(Device device) {
         return device.getType();
     }
-/**
- *
-     * @param
-     * @return a string with the list of available device types by index
-     *//*
 
-
-    public String buildDeviceTypeListString(List<deviceType> deviceTypeList){
-        deviceType deviceType= deviceType.WATER_HEATER;
-        for (DeviceType deviceType1 : deviceTypeList) {
-            deviceType = deviceType1;
-        }
-
-        return deviceType.buildDeviceTypesByIndexString();
-    }
-*/
-
-   public void configureOneHeater(Device device, double coldWaterTemperature, double volumeOfWaterToHeat, double performanceRatio){
-        device.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
-        device.setAttributeValue("volumeOfWater", volumeOfWaterToHeat);
-       device.setAttributeValue("performanceRatio", performanceRatio);
-
-   }
 
    public Object getAttributeValueWashingMachine(Device device){
         return device.getProgramList();//getAttributeValue("programList");
    }
 
 
-    public void  configureOneWashingMachineCapacity(Device device, double capacity ){
-    device.setAttributeValue("capacity", capacity);
-    }
-
     public void  configureOneWashingMachineProgram(Device device, ProgramList program ){
         device.setAttributeValue(mProgramList, program);
-    }
-
-   public void  configureOneDishWasherCapacity(Device device, double capacity ){
-    device.setAttributeValue("capacity", capacity);
-    }
-
-    public void  configureOneDishWasherProgram(Device device, ProgramList program ){
-        device.setAttributeValue(mProgramList, program);
-    }
-
-    public void  configureOneFridge(Device device, double freezerCapacity, double refrigeratorCapacity ){
-    device.setAttributeValue("freezerCapacity", freezerCapacity);
-        device.setAttributeValue("refrigeratorCapacity", refrigeratorCapacity);
-    }
-
-    public void configureOneLamp(Device device, double luminousLux){
-        device.setAttributeValue("luminousFlux",luminousLux);
-    }
-
-
-/**
-    *
-    * @param input the new name we want to give to the device.
-    * @param device the device we want to change the name from.
-    */
-
-    public void setDeviceName(String input, Device device) {
-        device.setmName(input);
-    }
-
-
-/**
-     *
-     * @param input the new nominal power we want to give to the device.
-     * @param device the device we want to change the nominal power from.
-     */
-
-    public void setNominalPower(Double input, Device device){
-        device.setNominalPower(input);
     }
 
 

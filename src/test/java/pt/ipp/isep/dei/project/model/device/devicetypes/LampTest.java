@@ -61,6 +61,15 @@ public class LampTest {
         Object result = lamp.getAttributeValue(TestUtils.L_FLUX);
         assertEquals(expectedResult, result);
     }
+    @Test
+    public void getObjectAttributeUnitTest() {
+        Lamp lamp = new Lamp();
+        String expectedResult = "lm";
+        Object result = lamp.getAttributeUnit(TestUtils.L_FLUX);
+        assertEquals(expectedResult, result);
+        assertEquals(0, lamp.getAttributeUnit(""));
+
+    }
 
     @Test
     public void setAttributeValueTestFalse() {

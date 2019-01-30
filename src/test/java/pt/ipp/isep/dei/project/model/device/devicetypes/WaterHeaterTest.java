@@ -209,6 +209,7 @@ class WaterHeaterTest {
         assertEquals(expectedResult, getResult);
     }
 
+
     @Test
     void seeIfGetAndSetAttributeValues() {
         WaterHeater waterHeater = new WaterHeater();
@@ -332,6 +333,7 @@ class WaterHeaterTest {
         assertFalse(setResult);
     }
 
+
     @Test
     void testGetAttributeCoveringAllCases() {
         //Arrange
@@ -356,6 +358,30 @@ class WaterHeaterTest {
 
         // distinct hash code to cover default cases of switches
         assertEquals(0.0, waterHeater.getAttributeValue(""));
+    } @Test
+    void testGetAttributeUnitCoveringAllCases() {
+        //Arrange
+        WaterHeater waterHeater = new WaterHeater();
+        waterHeater.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 5D);
+        waterHeater.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 5D);
+        waterHeater.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 5D);
+
+        // original strings:
+        assertEquals("L", waterHeater.getAttributeUnit("volumeOfWater"));
+        assertEquals("ºC", waterHeater.getAttributeUnit("hotWaterTemperature"));
+        assertEquals("ºC", waterHeater.getAttributeUnit("coldWaterTemperature"));
+        assertEquals("", waterHeater.getAttributeUnit("performanceRatio"));
+        assertEquals("L", waterHeater.getAttributeUnit("volumeOfWaterToHeat"));
+
+        // same hash codes, but different strings:
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0volumeOfWater"));
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0hotWaterTemperature"));
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0coldWaterTemperature"));
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0performanceRatio"));
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0volumeOfWaterToHeat"));
+
+        // distinct hash code to cover default cases of switches
+        assertEquals(0.0, waterHeater.getAttributeUnit(""));
     }
 
     @Test

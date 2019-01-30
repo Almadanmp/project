@@ -312,71 +312,7 @@ class RoomConfigurationUI {
         }
         displayDeviceUS215(device);
 
-     /*   if (mDevice.getType().equals("WaterHeater")) {
-            System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
 
-            this.mVolumeOfWater = inputUtils.getInputAsDouble();
-
-            System.out.print("Please, type the Maximum Temperature of the water in the Water Heater: ");
-
-            this.mHotWaterTemperature = inputUtils.getInputAsDouble();
-            System.out.println("Please type the new Performance Ratio");
-            this.mPerformanceRatio = inputUtils.getInputAsDouble();
-
-        }
-        if (mDevice.getType().equals("WashingMachine")) {
-            System.out.print("Please, type the new Capacity in Kg for the Washing Machine: ");
-
-            this.mCapacity = inputUtils.getInputAsDouble();
-
-
-            Program program;
-            program = inputUtils.getSelectedProgramFromDevice(mDevice);
-            mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(mDevice));
-            if (program == null || mProgramList == null) {
-                System.out.println("There are no programs to edit.");
-                return;
-            }
-            updateDishWasherOrWashingMachine(program);
-            mRoomConfigurationController.configureOneWashingMachineProgram(mDevice, mProgramList);
-
-
-        }
-        if (mDevice.getType().equals("Dishwasher")) {
-            System.out.print("Please, type the new Capacity in Kg for the Dishwasher:");
-
-            this.mCapacity = inputUtils.getInputAsDouble();
-            Program program;
-            program = inputUtils.getSelectedProgramFromDevice(mDevice);
-            mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(mDevice));
-            if (program == null || mProgramList == null) {
-                System.out.println("There are no programs to edit.");
-                return;
-            }
-            updateDishWasherOrWashingMachine(program);
-            mRoomConfigurationController.configureOneDishWasherProgram(mDevice, mProgramList);
-
-        }
-
-        if (mDevice.getType().equals("Fridge")) {
-            System.out.print("Please, type the new Freezer Capacity in L for the Fridge:");
-
-            this.mFreezerCapacity = inputUtils.getInputAsDouble();
-
-            System.out.print("Please, type the new Refrigerator Capacity in L for the Fridge:");
-
-            this.mRefrigeratorCapacity = inputUtils.getInputAsDouble();
-
-            System.out.print("Please, type the new Annual Energy Consumption in kWh:");
-
-            this.mAnnualEnergyConsumption = inputUtils.getInputAsDouble();
-        }
-        if (mDevice.getType().equals("Lamp")) {
-            System.out.print("Please, type the new Luminous Flux in lm for the Lamp:");
-
-            this.mLuminousFlux = inputUtils.getInputAsDouble();
-        }
-*/
     }
 
     private void updateDishWasherOrWashingMachine(Program program) {
@@ -417,43 +353,6 @@ class RoomConfigurationUI {
     }
 
 
-    // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it.
-  /*  private void updateDeviceUS215() {
-        if (mDevice == null || mRoom == null) {
-            return;
-        }
-        mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
-        mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
-
-        if (mDevice.getType().equals("WaterHeater")) {
-
-            mRoomConfigurationController.configureOneHeater(mDevice, mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
-            System.out.println("device Configured.\n");
-        }
-        if (mDevice.getType().equals("WashingMachine")) {
-            mRoomConfigurationController.configureOneWashingMachineCapacity(mDevice, mCapacity);
-            mRoomConfigurationController.configureOneWashingMachineProgram(mDevice, mProgramList);
-            System.out.println("device Configured.\n");
-
-        }
-        String deviceReconfigured = "Device reconfigured.\n";
-        if (mDevice.getType().equals("Dishwasher")) {
-            mRoomConfigurationController.configureOneDishWasherProgram(mDevice, mProgramList);
-            mRoomConfigurationController.configureOneDishWasherCapacity(mDevice, mCapacity);
-            System.out.println(deviceReconfigured);
-
-        }
-        if (mDevice.getType().equals("Fridge")) {
-            mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
-            System.out.println(deviceReconfigured);
-
-        }
-        if (mDevice.getType().equals("Lamp")) {
-            mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
-            System.out.println(deviceReconfigured);
-
-        }
-    }*/
 
     // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it. - CARINA ALAS
 

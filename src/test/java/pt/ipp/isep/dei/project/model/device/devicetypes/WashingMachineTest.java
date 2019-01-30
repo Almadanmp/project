@@ -59,6 +59,31 @@ class WashingMachineTest {
         Object result = washingMachine.getAttributeValue("capacity");
         assertEquals(expectedResult, result);
     }
+    @Test
+    void getAttributeUnitTest() {
+        WashingMachine washingMachine = new WashingMachine();
+        washingMachine.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        ProgramList listProgram = washingMachine.getProgramList();
+        Program program1 = new Program("programa", 2, 2);
+        listProgram.addProgram(program1);
+        String expectedResult = "Kg";
+        Object result = washingMachine.getAttributeUnit("capacity");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getAttributeUnitTest2() {
+        WashingMachine washingMachine = new WashingMachine();
+        washingMachine.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        ProgramList listProgram = washingMachine.getProgramList();
+        Program program1 = new Program("programa", 2, 2);
+        listProgram.addProgram(program1);
+        String expectedResult = "";
+        Object result = washingMachine.getAttributeUnit("programList");
+        assertEquals(expectedResult, result);
+        assertEquals(0, washingMachine.getAttributeUnit(""));
+
+    }
 
     @Test
     void getAttributeValuesTest1() {
