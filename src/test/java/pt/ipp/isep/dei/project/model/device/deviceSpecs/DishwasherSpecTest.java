@@ -50,8 +50,17 @@ class DishwasherSpecTest {
     void seeIfGetAttributeValuesTestCapacityWorks() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 1D);
         Double expectedResult = 1.0;
         Object result = dishwasherSpec.getAttributeValue("Capacity");
+        assertEquals(expectedResult, result);
+    }@Test
+    void seeIfGetAttributeValuesTestNPWorks() {
+        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+        dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 1D);
+        Double expectedResult = 1.0;
+        Object result = dishwasherSpec.getAttributeValue("nominal power");
         assertEquals(expectedResult, result);
     }
 
@@ -74,6 +83,7 @@ class DishwasherSpecTest {
         //Arrange
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 1D);
         Program program1 = new Program("programa", 2, 2);
         ProgramList pList = dishwasherSpec.getProgramList();
         pList.addProgram(program1);
@@ -88,6 +98,7 @@ class DishwasherSpecTest {
     void setAttributeValueTest() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 1D);
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = dishwasherSpec.getProgramList();
         listProgram.addProgram(program1);
@@ -112,11 +123,23 @@ class DishwasherSpecTest {
     void getAttributeUnitTest() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
         ProgramList listProgram = dishwasherSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
         String expectedResult = "Kg";
         Object result = dishwasherSpec.getAttributeUnit("Capacity");
+        assertEquals(expectedResult, result);
+    } @Test
+    void getAttributeUnitTestNP() {
+        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+        dishwasherSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        ProgramList listProgram = dishwasherSpec.getProgramList();
+        Program program1 = new Program("programa", 2, 2);
+        listProgram.addProgram(program1);
+        String expectedResult = "kW";
+        Object result = dishwasherSpec.getAttributeUnit("nominal power");
         assertEquals(expectedResult, result);
     }
 
@@ -151,6 +174,13 @@ class DishwasherSpecTest {
         dishwasherSpec.setAttributeValue("Capacity", 5.0);
         Object result = dishwasherSpec.getAttributeValue("Capacity");
         assertEquals(5.0, result);
+    } @Test
+    void setAttributeValueTestNP() {
+        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+        dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 1D);
+        dishwasherSpec.setAttributeValue("nominal power", 5.0);
+        Object result = dishwasherSpec.getAttributeValue("nominal power");
+        assertEquals(5.0, result);
     }
 
     @Test
@@ -167,6 +197,12 @@ class DishwasherSpecTest {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
         Object result = dishwasherSpec.setAttributeValue("Capacity", 5);
+        assertEquals(false, result);
+    }@Test
+    void setAttributeValueTestFalseAgain1() {
+        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+        dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 1D);
+        Object result = dishwasherSpec.setAttributeValue("nominal power", 5);
         assertEquals(false, result);
     }
 }
