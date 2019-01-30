@@ -431,32 +431,6 @@ class RoomConfigurationUI {
         System.out.println(mRoomConfigurationController.buildSensorListString(sensorList));
     }
 
-    /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
-    sensor types, in order to configure it. - ANDRÉ RUA */
-
-    /* private boolean getInputTypeFromTypeListByList(List<TypeSensor> typeSensorList) {
-        if (typeSensorList.isEmpty()) {
-            System.out.println("There's no defined types of sensor available yet. Please define one first.");
-            return true;
-        }
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        System.out.println("Please select a Type of Sensor from the list: ");
-        System.out.println(ctrl.buildTypeListString(typeSensorList));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < typeSensorList.size()) {
-            this.mTypeSensor = typeSensorList.get(aux);
-            String typeSensorName = mTypeSensor.getName();
-            System.out.println("You have chosen the following Type: " + typeSensorName);
-            return false;
-        } else {
-            System.out.println(utils.invalidOption);
-            return true;
-        }
-    }
-*/
-
     /*US220 - As an Administrator, I want to remove a device from a room, so that it is no longer used.
     Its activity log is also removed.
     MARIA MEIRELES*/
