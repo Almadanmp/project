@@ -274,6 +274,16 @@ public class House implements Metered {
         return new ArrayList<>(Arrays.asList(deviceTypes.split(",")));
     }
 
+    public String buildTypeListString(List<String> list) {
+        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        if (list.isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < list.size(); i++) {
+            result.append(i).append(") DeviceType: ").append(list.get(i)).append("\n");
+        }
+        return result.toString();
+    }
     /**
      * Method to return the path to a selected Device Type Class by the user
      *

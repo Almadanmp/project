@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.deviceType;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -103,6 +104,7 @@ public class RoomConfigurationController {
 
     /**
      * This method receives the chosen device and returns a boolean true if it deactivates the device or false if it doesn't.
+     *
      * @param device is the chosen device
      * @return
      */
@@ -215,6 +217,29 @@ public class RoomConfigurationController {
 
     public boolean addDevice(Room room, Device device) {
         return room.addDevice(device);
+    }
+
+    public String getDeviceTypePathToClassId(House house, String deviceType) {
+        String devicePath = "";
+        try {
+            devicePath = house.getDeviceTypePathToClassById(deviceType);
+        } catch (IOException e) {
+            return e.getMessage() + "\n Program will shut down.";
+        }
+        return devicePath;
+    }
+
+    public Device createDevice(String deviceName, double nominalPower, String devicePath) {
+        Device device = new Device(deviceName, nominalPower, devicePath);
+        return device;
+    }
+
+    public List<String> getAttributeName(Device device) {
+        return device.getAttributeNames();
+    }
+
+    public boolean setAttributeValue(Device device, String attributeName, Object attributeValue) {
+        return device.setAttributeValue(attributeName, attributeValue);
     }
 
     public String getType(Device device) {

@@ -118,6 +118,7 @@ class RoomConfigurationUI {
 
 
     private void createDevice(String deviceType, House house) {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         // get device name
         System.out.print("Please, type the name of the device: ");
@@ -127,23 +128,19 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         double nominalPower = inputUtils.getInputAsDouble();
         //get Device specs
-        String devicePath;
-        try {
-            devicePath = house.getDeviceTypePathToClassById(deviceType);
-        } catch (IOException e) {
-            System.out.println(e.getMessage() + "\n Program will shut down.");
-            return;
-        }
-        Device device = new Device(deviceName, nominalPower, devicePath);
-        device.getAttributeNames();
-        for (int i = 0; i < device.getAttributeNames().size(); i++) {
-            System.out.println("Please insert value for: " + device.getAttributeNames().get(i));
+        String devicePath = ctrl.getDeviceTypePathToClassId(house, deviceType);
+        Device device = ctrl.createDevice(deviceName, nominalPower, devicePath);
+        ctrl.getAttributeName(device);
+        for (int i = 0; i < ctrl.getAttributeName(device).size(); i++) {
+            System.out.println("Please insert value for: " + ctrl.getAttributeName(device).get(i));
             double value = inputUtils.getInputAsDouble();
-            device.setAttributeValue(device.getAttributeNames().get(i), value);
+            ctrl.setAttributeValue(device, ctrl.getAttributeName(device).get(i), value);
         }
+
         //todo create a way to use the same logic as used above
         if (device.isProgrammable()) {
             System.out.println("This device is programmable.");
+            //TODO ask user if he wants to add a program, if not, fisnish
             ProgramList pList = device.getProgramList();
             System.out.println("Please insert program name: ");
             String programName = scanner.nextLine();
@@ -151,19 +148,22 @@ class RoomConfigurationUI {
             double duration = inputUtils.getInputAsDouble();
             System.out.println("Please insert program duration: ");
             double energyConsumption = inputUtils.getInputAsDouble();
+            //TODO ask user if he wishes to add another program
             //todo move the program creation to controller to avoid model access on UI
+
             Program newProgram = new Program(programName, duration, energyConsumption);
             pList.addProgram(newProgram);
-        } else {
-            RoomConfigurationController ctrl = new RoomConfigurationController();
-            if (ctrl.addDevice(this.mRoom, device)) {
-                System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
 
-            } else {
-                System.out.println("Device already exists in the room. Please, try again.\n");
-            }
+        }
+
+        if (ctrl.addDevice(this.mRoom, device)) {
+            System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
+
+        } else {
+            System.out.println("Device already exists in the room. Please, try again.\n");
         }
     }
+
 
     /**
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
