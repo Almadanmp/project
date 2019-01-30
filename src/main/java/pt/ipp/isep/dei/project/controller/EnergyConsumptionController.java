@@ -137,7 +137,9 @@ public class EnergyConsumptionController {
             System.out.println("This device has no energy consumption logs in the given interval.");
             return false;
         }
-        System.out.println("Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime + "\n" + "The total Energy Consumption for the given device is: " + device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.");
+        System.out.println("Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
+                "\n" + "The total Energy Consumption for the given device is: " +
+                device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.");
         return true;
     }
 
