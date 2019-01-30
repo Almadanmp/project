@@ -119,6 +119,13 @@ public class LampSpecTest {
     }
 
     @Test
+    public void setAttributeValueTestFalseFlux() {
+        LampSpec lampSpec = new LampSpec();
+        Object result = lampSpec.setAttributeValue(TestUtils.L_FLUX, 5);
+        assertEquals(false, result);
+    }
+
+    @Test
     public void setAttributeValueTestDefaultNominalPower() {
         LampSpec lampSpec = new LampSpec();
         lampSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5.0);
@@ -133,5 +140,14 @@ public class LampSpecTest {
         Object result = lampSpec.getAttributeValue("nominal power");
         assertEquals(5.0, result);
     }
+    @Test
+    public void setAttributeValueTestTrueFlux() {
+        LampSpec lampSpec = new LampSpec();
+        lampSpec.setAttributeValue(TestUtils.L_FLUX, 5.0);
+        Object result = lampSpec.getAttributeValue("Luminous Flux");
+        assertEquals(5.0, result);
+    }
+
+
 
 }

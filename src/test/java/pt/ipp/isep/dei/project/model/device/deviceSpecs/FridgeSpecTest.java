@@ -115,6 +115,23 @@ class FridgeSpecTest {
     }
 
     @Test
+    void seeIfGetAttributeUnitTest3() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        String expectedResult = "kWh";
+        Object result = fridgeSpec.getAttributeUnit("Annual Energy Consumption");
+        assertEquals(expectedResult, result);
+
+    } @Test
+    void seeIfGetAttributeUnitTest4() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        String expectedResult = "kW";
+        Object result = fridgeSpec.getAttributeUnit("nominal power");
+        assertEquals(expectedResult, result);
+        assertEquals(0, fridgeSpec.getAttributeUnit(""));
+
+    }
+
+    @Test
     void seeIfGetAttributeValuesTest2() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         int expectedResult = 0;
