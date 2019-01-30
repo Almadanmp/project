@@ -292,9 +292,11 @@ class RoomConfigurationUI {
 
         this.mNominalPower = inputUtils.getInputAsDouble();
 
+        mRoomConfigurationController.setNominalPowerDevice(device,mNominalPower);
         device.getAttributeNames();
         for (int i = 0; i < device.getAttributeNames().size(); i++) {
-            System.out.println("Please insert the value for: " + device.getAttributeNames().get(i));
+            System.out.println("Please insert the value for: " + device.getAttributeNames().get(i)
+                    + " ("+device.getAttributeUnit(device.getAttributeNames().get(i))+")");
             Double value = inputUtils.getInputAsDouble();
             device.setAttributeValue(device.getAttributeNames().get(i), value);
             if (device.isProgrammable()) {
@@ -306,7 +308,7 @@ class RoomConfigurationUI {
                     System.out.println("There are no programs to edit.");
                     return;
                 }
-                updateDishWasherOrWashingMachine(program);
+                updateAProgrammableDevice(program);
                 mRoomConfigurationController.configureOneWashingMachineProgram(device, mProgramList);
             }
         }
@@ -315,7 +317,7 @@ class RoomConfigurationUI {
 
     }
 
-    private void updateDishWasherOrWashingMachine(Program program) {
+    private void updateAProgrammableDevice(Program program) {
         Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
         mProgramList.removeProgram(program);

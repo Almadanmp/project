@@ -5,11 +5,11 @@ import java.util.List;
 
 
 public class WaterHeater implements DeviceSpecs {
-    public static final String ATTRIBUTE_VOLUME_OF_WATER = "volumeOfWater";
-    private static final String ATTRIBUTE_HOT_WATER_TEMP = "hotWaterTemperature";
-    private static final String ATTRIBUTE_COLD_WATER_TEMP = "coldWaterTemperature";
-    private static final String ATTRIBUTE_PERFORMANCE_RATIO = "performanceRatio";
-    private static final String ATTRIBUTE_VOLUME_OF_WATER_HEAT = "volumeOfWaterToHeat";
+    public static final String ATTRIBUTE_VOLUME_OF_WATER = "Volume Of Water";
+    private static final String ATTRIBUTE_HOT_WATER_TEMP = "Hot Water Temperature";
+    private static final String ATTRIBUTE_COLD_WATER_TEMP = "Cold Water Temperature";
+    private static final String ATTRIBUTE_PERFORMANCE_RATIO = "Performance Ratio";
+    private static final String ATTRIBUTE_VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
 
     private Double mVolumeOfWater;
     private Double mHotWaterTemperature;

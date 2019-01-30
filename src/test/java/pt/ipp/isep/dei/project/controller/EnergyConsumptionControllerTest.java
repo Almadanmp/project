@@ -724,7 +724,7 @@ class EnergyConsumptionControllerTest {
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = true;
+        boolean expectedResult = false;
         assertEquals(expectedResult, result);
     }
 

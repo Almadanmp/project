@@ -478,10 +478,10 @@ class HouseTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         h1.addRoomToRoomList(r1);
-        d2.setAttributeValue("coldWaterTemperature", 5.0);
-        d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("coldWaterTemperature", 1.0);
+        d2.setAttributeValue("Cold Water Temperature", 5.0);
+        d2.setAttributeValue("Volume Of Water To Heat", 100.0);
+        d3.setAttributeValue("Volume Of Water To Heat", 100.0);
+        d3.setAttributeValue("Cold Water Temperature", 1.0);
         double expectedResult = 4.6;
         double result = h1.getDailyConsumptionByDeviceType("WaterHeater");
         assertEquals(expectedResult, result);
@@ -652,6 +652,29 @@ class HouseTest {
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
         sensorList.addSensor(s4);
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        ga.setSensorList(sensorList);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga,60,180);
+        Sensor result = house.getSensorWithMinDistanceToHouse(ga,house,"temperature");
+        assertEquals(s1,result);
+    }
+    @Test
+    void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed5(){
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018,1,24).getTime());
+        Reading r2 = new Reading(12, new GregorianCalendar(2018,1,1).getTime());
+        Reading r3 = new Reading(12, new GregorianCalendar(2018,1,25).getTime());
+        Reading r4 = new Reading(12, new GregorianCalendar(2018,1,1).getTime());
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        ReadingList readingList2 = new ReadingList();
+        readingList2.addReading(r3);
+        readingList2.addReading(r4);
+
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        s1.setReadingList(readingList2);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga,60,180);

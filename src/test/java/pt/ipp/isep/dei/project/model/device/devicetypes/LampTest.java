@@ -35,7 +35,7 @@ public class LampTest {
     public void getAttributeNamesTest() {
         Lamp lamp = new Lamp();
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add("luminousFlux");
+        expectedResult.add("Luminous Flux");
         List<String> result = lamp.getAttributeNames();
         assertEquals(expectedResult, result);
     }
@@ -50,7 +50,7 @@ public class LampTest {
     @Test
     public void setAttributeValueTestTrue2() {
         Lamp lamp = new Lamp();
-        boolean actualResult = lamp.setAttributeValue("luminousFlux", 12.0);
+        boolean actualResult = lamp.setAttributeValue("Luminous Flux", 12.0);
         assertTrue(actualResult);
     }
 
@@ -90,8 +90,8 @@ public class LampTest {
     @Test
     public void setAttributeValueTestTrue() {
         Lamp lamp = new Lamp();
-        lamp.setAttributeValue("luminousFlux", 5.0);
-        Object result = lamp.getAttributeValue("luminousFlux");
+        lamp.setAttributeValue("Luminous Flux", 5.0);
+        Object result = lamp.getAttributeValue("Luminous Flux");
         assertEquals(5.0, result);
     }
 

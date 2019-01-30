@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Fridge implements DeviceSpecs {
-    private static final String FREEZER_CAPACITY_STRING = "freezerCapacity";
-    private static final String REFRIGERATOR_CAPACITY_STRING = "refrigeratorCapacity";
-    private static final String ANNUAL_CONSUMPTION_STRING = "annualEnergyConsumption";
+    private static final String FREEZER_CAPACITY_STRING = "Freezer Capacity";
+    private static final String REFRIGERATOR_CAPACITY_STRING = "Refrigerator Capacity";
+    private static final String ANNUAL_CONSUMPTION_STRING = "Annual Energy Consumption";
 
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
@@ -66,19 +66,19 @@ public class Fridge implements DeviceSpecs {
 
         public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
-            case "freezerCapacity":
+            case "Freezer Capacity":
                 if (attributeValue instanceof Double) {
                     this.mFreezerCapacity = (Double) attributeValue;
                     return true;
                 }
                 return false;
-            case "refrigeratorCapacity":
+            case "Refrigerator Capacity":
                 if (attributeValue instanceof Double) {
                     this.mRefrigeratorCapacity = (Double) attributeValue;
                     return true;
                 }
                 return false;
-            case "annualEnergyConsumption":
+            case "Annual Energy Consumption":
                 if (attributeValue instanceof Double) {
                     this.mAnnualEnergyConsumption = (Double) attributeValue;
                     return true;

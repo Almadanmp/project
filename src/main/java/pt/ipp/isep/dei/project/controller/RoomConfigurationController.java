@@ -207,6 +207,9 @@ public class RoomConfigurationController {
         return room.buildDeviceListString();
     }
 
+    public void setNominalPowerDevice(Device device, double nominalPower){
+        device.setNominalPower(nominalPower);
+    }
 
     public boolean removeDevice(Room room, Device device) {
         return room.removeDevice(device);

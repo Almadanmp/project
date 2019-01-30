@@ -14,25 +14,25 @@ public class TestUtils {
     public static final String PATH_TO_LAMP = "pt.ipp.isep.dei.project.model.device.deviceSpecs.Lamp";
 
     //Fridge attributes
-    public static final String F_FREEZER_CAPACITY = "freezerCapacity";
-    public static final String F_REFRIGERATOR_CAPACITY = "refrigeratorCapacity";
-    public static final String F_ANNUAL_CONSUMPTION = "annualEnergyConsumption";
+    public static final String F_FREEZER_CAPACITY = "Freezer Capacity";
+    public static final String F_REFRIGERATOR_CAPACITY = "Refrigerator Capacity";
+    public static final String F_ANNUAL_CONSUMPTION = "Annual Energy Consumption";
 
     //WaterHeater attributes
-    public static final String WH_VOLUME_OF_WATER = "volumeOfWater";
-    public static final String WH_HOT_WATER_TEMP = "hotWaterTemperature";
-    public static final String WH_COLD_WATER_TEMP = "coldWaterTemperature";
-    public static final String WH_PERFORMANCE_RATIO = "performanceRatio";
-    public static final String WH_VOLUME_OF_WATER_HEAT = "volumeOfWaterToHeat";
+    public static final String WH_VOLUME_OF_WATER = "Volume Of Water";
+    public static final String WH_HOT_WATER_TEMP = "Hot Water Temperature";
+    public static final String WH_COLD_WATER_TEMP = "Cold Water Temperature";
+    public static final String WH_PERFORMANCE_RATIO = "Performance Ratio";
+    public static final String WH_VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
 
     //Dishwasher attributes
-    public static final String DW_CAPACITY = "capacity";
+    public static final String DW_CAPACITY = "Capacity";
     public static final String DW_PROGRAM_LIST = "programList";
 
     //WashingMachine attributes
-    public static final String WM_CAPACITY = "capacity";
+    public static final String WM_CAPACITY = "Capacity";
 
     //LAMP
-    public static final String L_FLUX = "luminousFlux";
+    public static final String L_FLUX = "Luminous Flux";
 
 }

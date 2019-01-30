@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lamp implements DeviceSpecs {
-    private static final String FLUX = "luminousFlux";
+    private static final String FLUX = "Luminous Flux";
 
     private Double mLuminousFlux;
     private String mType = "Lamp";
