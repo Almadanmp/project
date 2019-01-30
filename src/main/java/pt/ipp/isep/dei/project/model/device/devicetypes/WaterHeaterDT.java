@@ -2,12 +2,12 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.deviceSpecs.DeviceSpecs;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.Dishwasher;
+import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater;
 
-public class DishwasherDT implements DeviceType {
+public class WaterHeaterDT implements DeviceType {
 
     public Device createDevice() {
-        DeviceSpecs ds = new Dishwasher();
+        DeviceSpecs ds = new WaterHeater();
         Device device = new Device(ds);
         return device;
     }
