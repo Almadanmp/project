@@ -2,12 +2,12 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.deviceSpecs.DeviceSpecs;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.Lamp;
+import pt.ipp.isep.dei.project.model.device.deviceSpecs.LampSpec;
 
 public class LampDT implements DeviceType {
 
     public Device createDevice() {
-        DeviceSpecs ds = new Lamp();
+        DeviceSpecs ds = new LampSpec();
         Device device = new Device(ds);
         return device;
     }

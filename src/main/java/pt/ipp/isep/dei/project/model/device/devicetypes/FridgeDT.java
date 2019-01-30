@@ -2,13 +2,12 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.deviceSpecs.DeviceSpecs;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.Fridge;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.deviceSpecs.FridgeSpec;
 
 public class FridgeDT implements DeviceType {
 
     public Device createDevice() {
-        DeviceSpecs ds = new Fridge();
+        DeviceSpecs ds = new FridgeSpec();
         Device device = new Device(ds);
         return device;
     }

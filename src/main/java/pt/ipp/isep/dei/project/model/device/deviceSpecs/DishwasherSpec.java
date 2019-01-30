@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dishwasher implements DeviceSpecs, Programmable {
+public class DishwasherSpec implements DeviceSpecs, Programmable {
 
     public static final String CAPACITY = "Capacity";
     public static final String PROGRAM_LIST = "programList";
@@ -17,7 +17,7 @@ public class Dishwasher implements DeviceSpecs, Programmable {
     private String mType = "Dishwasher";
     private Double mNominalPower;
 
-    public Dishwasher() {
+    public DishwasherSpec() {
         this.mProgramList = new ProgramList();
     }
 

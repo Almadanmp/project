@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WaterHeater implements DeviceSpecs {
+public class WaterHeaterSpec implements DeviceSpecs {
     public static final String ATTRIBUTE_VOLUME_OF_WATER = "Volume Of Water";
     public static final String ATTRIBUTE_HOT_WATER_TEMP = "Hot Water Temperature";
     public static final String ATTRIBUTE_COLD_WATER_TEMP = "Cold Water Temperature";
@@ -21,7 +21,7 @@ public class WaterHeater implements DeviceSpecs {
     private Double mNominalPower;
 
 
-    public WaterHeater() {
+    public WaterHeaterSpec() {
         mColdWaterTemperature = 0.0;
         mVolumeOfWaterToHeat = 0.0;
     }

@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.Lamp;
+import pt.ipp.isep.dei.project.model.device.deviceSpecs.LampSpec;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,87 +11,87 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 /**
- * Lamp tests class.
+ * LampSpec tests class.
  */
 
-public class LampTest {
+public class LampSpecTest {
     @Test
     public void getTypeTest() {
-        Lamp lamp = new Lamp();
+        LampSpec lampSpec = new LampSpec();
         String expectedResult = "Lamp";
-        String result = lamp.getType();
+        String result = lampSpec.getType();
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void getConsumptionTest() {
-        Lamp lamp = new Lamp();
+        LampSpec lampSpec = new LampSpec();
         double expectedResult = 0;
-        double result = lamp.getConsumption();
+        double result = lampSpec.getConsumption();
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void getAttributeNamesTest() {
-        Lamp lamp = new Lamp();
+        LampSpec lampSpec = new LampSpec();
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("Luminous Flux");
-        List<String> result = lamp.getAttributeNames();
+        List<String> result = lampSpec.getAttributeNames();
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void setAttributeValueTest() {
-        Lamp lamp = new Lamp();
-        boolean result = lamp.setAttributeValue("lisboa", 12);
+        LampSpec lampSpec = new LampSpec();
+        boolean result = lampSpec.setAttributeValue("lisboa", 12);
         assertEquals(false, result);
     }
 
     @Test
     public void setAttributeValueTestTrue2() {
-        Lamp lamp = new Lamp();
-        boolean actualResult = lamp.setAttributeValue("Luminous Flux", 12.0);
+        LampSpec lampSpec = new LampSpec();
+        boolean actualResult = lampSpec.setAttributeValue("Luminous Flux", 12.0);
         assertTrue(actualResult);
     }
 
     @Test
     public void getObjectAttributeValueTest() {
-        Lamp lamp = new Lamp();
-        lamp.setAttributeValue(TestUtils.L_FLUX, 4D);
+        LampSpec lampSpec = new LampSpec();
+        lampSpec.setAttributeValue(TestUtils.L_FLUX, 4D);
         Double expectedResult = 4.0;
-        Object result = lamp.getAttributeValue(TestUtils.L_FLUX);
+        Object result = lampSpec.getAttributeValue(TestUtils.L_FLUX);
         assertEquals(expectedResult, result);
     }
     @Test
     public void getObjectAttributeUnitTest() {
-        Lamp lamp = new Lamp();
+        LampSpec lampSpec = new LampSpec();
         String expectedResult = "lm";
-        Object result = lamp.getAttributeUnit(TestUtils.L_FLUX);
+        Object result = lampSpec.getAttributeUnit(TestUtils.L_FLUX);
         assertEquals(expectedResult, result);
-        assertEquals(false, lamp.getAttributeUnit(""));
+        assertEquals(false, lampSpec.getAttributeUnit(""));
 
     }
 
     @Test
     public void setAttributeValueTestFalse() {
-        Lamp lamp = new Lamp();
-        Object result = lamp.setAttributeValue("luminousFlux", 5);
+        LampSpec lampSpec = new LampSpec();
+        Object result = lampSpec.setAttributeValue("luminousFlux", 5);
         assertEquals(false, result);
     }
 
     @Test
     public void setAttributeValueTestDefault() {
-        Lamp lamp = new Lamp();
-        lamp.setAttributeValue("luminousFlux", 5.0);
-        Object result = lamp.getAttributeValue("lisbon");
+        LampSpec lampSpec = new LampSpec();
+        lampSpec.setAttributeValue("luminousFlux", 5.0);
+        Object result = lampSpec.getAttributeValue("lisbon");
         assertEquals(false, result);
     }
 
     @Test
     public void setAttributeValueTestTrue() {
-        Lamp lamp = new Lamp();
-        lamp.setAttributeValue("Luminous Flux", 5.0);
-        Object result = lamp.getAttributeValue("Luminous Flux");
+        LampSpec lampSpec = new LampSpec();
+        lampSpec.setAttributeValue("Luminous Flux", 5.0);
+        Object result = lampSpec.getAttributeValue("Luminous Flux");
         assertEquals(5.0, result);
     }
 

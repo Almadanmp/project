@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeaterSpec;
 
 import java.util.List;
 
@@ -115,15 +115,15 @@ public class DeviceTest {
     @Test
     void seeIfGetAttributeNames() {
         Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
-        d1.setAttributeValue(WaterHeater.ATTRIBUTE_VOLUME_OF_WATER, 12D);
-        d1.setAttributeValue(WaterHeater.ATTRIBUTE_HOT_WATER_TEMP, 40D);
-        d1.setAttributeValue(WaterHeater.ATTRIBUTE_PERFORMANCE_RATIO, 234D);
-        d1.setAttributeValue(WaterHeater.NOMINAL_POWER, 234D);
+        d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_PERFORMANCE_RATIO, 234D);
+        d1.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 234D);
         List<String> result = d1.getAttributeNames();
-        assertTrue(result.contains(WaterHeater.ATTRIBUTE_VOLUME_OF_WATER));
-        assertTrue(result.contains(WaterHeater.ATTRIBUTE_HOT_WATER_TEMP));
-        assertTrue(result.contains(WaterHeater.ATTRIBUTE_PERFORMANCE_RATIO));
-        assertTrue(result.contains(WaterHeater.NOMINAL_POWER));
+        assertTrue(result.contains(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER));
+        assertTrue(result.contains(WaterHeaterSpec.ATTRIBUTE_HOT_WATER_TEMP));
+        assertTrue(result.contains(WaterHeaterSpec.ATTRIBUTE_PERFORMANCE_RATIO));
+        assertTrue(result.contains(WaterHeaterSpec.NOMINAL_POWER));
         assertEquals(result.size(), 4);
     }
 

@@ -258,7 +258,7 @@ public class MainUI {
             System.out.println(e.getMessage() + "\n Program will shut down.");
             return;
         }
-        //Device WashingMachine
+        //Device WashingMachineSpec
 
 
         Program program1 = new Program("programa", 2, 2);
@@ -435,7 +435,7 @@ public class MainUI {
         ehwB109SP2.setAttributeValue("hotWaterTemperature", 55D);
         ehwB109SP2.setAttributeValue("performanceRatio", 0.91D);
 
-        Device dishWasherB109SP2 = new Device("Dishwasher B109", 1.5, pathToDishwasher);
+        Device dishWasherB109SP2 = new Device("DishwasherSpec B109", 1.5, pathToDishwasher);
         dishWasherB109SP2.setAttributeValue("capacity", 2D);
         ProgramList programListDishWasherB109SP2 = dishWasherB109SP2.getProgramList();
         Program glassesB109 = new Program("Glasses", 0, 0.9);
@@ -470,7 +470,7 @@ public class MainUI {
         ehwB106SP2.setAttributeValue("hotWaterTemperature", 55D);
         ehwB106SP2.setAttributeValue("performanceRatio", 0.92D);
 
-        Device dishWasherB106SP2 = new Device("Dishwasher B106", 1.4, pathToDishwasher);
+        Device dishWasherB106SP2 = new Device("DishwasherSpec B106", 1.4, pathToDishwasher);
         dishWasherB106SP2.setAttributeValue("capacity", 0D);
         ProgramList programDishWasherB106SP2 = dishWasherB106SP2.getProgramList();
         Program glassesB106 = new Program("Glasses", 0, 0.8);

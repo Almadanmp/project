@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model.device.deviceSpecs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fridge implements DeviceSpecs {
+public class FridgeSpec implements DeviceSpecs {
     public static final String FREEZER_CAPACITY = "Freezer Capacity";
     public static final String REFRIGERATOR_CAPACITY = "Refrigerator Capacity";
     public static final String ANNUAL_CONSUMPTION = "Annual Energy Consumption";
@@ -20,7 +20,7 @@ public class Fridge implements DeviceSpecs {
      * This class uses an empty constructor so we can create a device of this type and after it choose the values to the
      * attributes.
      */
-    public Fridge() {
+    public FridgeSpec() {
     }
 
     public String getType() {

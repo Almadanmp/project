@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WashingMachine implements DeviceSpecs, Programmable {
+public class WashingMachineSpec implements DeviceSpecs, Programmable {
     public static final String CAPACITY = "Capacity";
     public static final String PROGRAM_LIST = "programList";
     public static final String NOMINAL_POWER = "nominal power";
@@ -17,7 +17,7 @@ public class WashingMachine implements DeviceSpecs, Programmable {
     public Double mNominalPower;
 
 
-    public WashingMachine() {
+    public WashingMachineSpec() {
         mObjectProgramList = new ProgramList();
     }
 

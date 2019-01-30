@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model.device.deviceSpecs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lamp implements DeviceSpecs {
+public class LampSpec implements DeviceSpecs {
     public static final String FLUX = "Luminous Flux";
     public static final String NOMINAL_POWER = "nominal power";
 
@@ -11,7 +11,7 @@ public class Lamp implements DeviceSpecs {
     private String mType = "Lamp";
     private Double mNominalPower;
 
-    public Lamp() {
+    public LampSpec() {
     }
 
     public String getType() {

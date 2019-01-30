@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeaterSpec;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -430,7 +430,7 @@ class HouseTest {
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 45D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 65D);
         Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
-        d2.setAttributeValue(WaterHeater.ATTRIBUTE_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device("wHeater2", 11, TestUtils.PATH_TO_WATERHEATER);
@@ -548,7 +548,7 @@ class HouseTest {
     @Test
     void getDeviceClassPathFromConfigFile() throws IOException {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
-        String expectedResult = "pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater";
+        String expectedResult = "pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeaterSpec";
         String result = house.getDeviceTypePathToClassById("WaterHeater");
         System.out.println(result);
         assertEquals(expectedResult, result);
@@ -557,7 +557,7 @@ class HouseTest {
     @Test
     void getPropertyValueByKey() throws IOException {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
-        String expectedResult = "pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater";
+        String expectedResult = "pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeaterSpec";
         String result = house.getPropertyValueByKey("resources/devices.properties", "WaterHeater");
         System.out.println(result);
         assertEquals(expectedResult, result);
