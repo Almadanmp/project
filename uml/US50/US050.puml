@@ -51,11 +51,11 @@ MainUI -> Administrator: Error message
 end
 
 
-else catch Exception
+else catch Exceptions
 MainUI -> Administrator: Error message
-else catch NumberFormatException
+
 deactivate MainUI
 
 
-
+end
 @enduml
