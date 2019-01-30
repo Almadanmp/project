@@ -8,10 +8,11 @@ activate FileInputUtils
 MainUI -> FileInputUtils: fileUtils = new FileInputUtils()
 
 alt try
-MainUI -> FileInputUtils: validGridMetering()
+MainUI -> FileInputUtils: validGridMeteringPeriod()
 
 ref over FileInputUtils
-file value validation
+grid metering period
+validation
 end ref
 
 alt valid configuration value

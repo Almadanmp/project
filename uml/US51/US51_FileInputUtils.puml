@@ -6,7 +6,7 @@ activate FileInputUtils
 
 FileInputUtils -> FileInputUtils: int gridMeteringPeriod = readGridMeteringPeriod()
 ref over FileInputUtils
-read configuration file
+read grid metering period
 end ref
 FileInputUtils -> FileInputUtils: gridMeteringPeriodValidation(gridMeteringPeriod)
 

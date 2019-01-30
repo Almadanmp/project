@@ -2,7 +2,7 @@ US051 As an Administrator, I want to define the metering period for grids (in mi
 
 @startuml
 activate FileInputUtils
-FileInputUtils -> FileInputUtils: readGridMeteringPeriod()
+-> FileInputUtils: readGridMeteringPeriod()
 activate Properties
 FileInputUtils -> Properties: prop = new Properties()
 
@@ -16,9 +16,12 @@ else catch
 FileInputUtils -> FileInputUtils: IOException
 
 end
-
+activate Integer
 alt try
-FileInputUtils -> FileInputUtils: parseInt(gridMeteringPeriod)
+FileInputUtils -> Integer: parseInt(gridMeteringPeriod)
+Integer --> FileInputUtils: return gridMeteringPeriod
+<-- FileInputUtils: return gridMeteringPeriod
+
 
 else catch
 FileInputUtils -> FileInputUtils: NumberFormatException

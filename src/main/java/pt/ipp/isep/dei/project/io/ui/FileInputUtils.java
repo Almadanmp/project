@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-public class FileInputUtils {
+class FileInputUtils {
 
     int mDeviceMeteringPeriod;
     int mGridMeteringPeriod;
@@ -43,13 +43,11 @@ public class FileInputUtils {
 
     //Device
 
-
     boolean validDeviceMetering() throws  IllegalArgumentException{
-        int localGridMeteringPeriod = readDeviceMeteringPeriod2();
-        int localDeviceMeteringPeriod = readDeviceMeteringPeriod1();
+        int deviceMeteringPeriod = readDeviceMeteringPeriod();
 
-        if(deviceMeteringPeriodValidation(localDeviceMeteringPeriod,localGridMeteringPeriod)){
-            this.mDeviceMeteringPeriod = localDeviceMeteringPeriod;
+        if(deviceMeteringPeriodValidation(deviceMeteringPeriod)){
+            this.mDeviceMeteringPeriod = deviceMeteringPeriod;
             return true;
         }
         System.out.println("ERROR: Configuration File values are incorrect. Devices cannot be created.\n" +
@@ -57,7 +55,7 @@ public class FileInputUtils {
         return false;
     }
 
-    int readDeviceMeteringPeriod1() {
+    private int readDeviceMeteringPeriod() {
         String deviceMeteringPeriod = "";
         Properties prop = new Properties();
         try {
@@ -78,38 +76,16 @@ public class FileInputUtils {
         }
         return deviceMPvalue;
     }
-    int readDeviceMeteringPeriod2() {
-        String gridMeteringPeriod = "";
-        Properties prop = new Properties();
-        try {
-            FileInputStream input = new FileInputStream("resources/meteringPeriods.properties");
-            prop.load(input);
-            gridMeteringPeriod = prop.getProperty("GridMeteringPeriod");
-        } catch (FileNotFoundException fnfe) {
-            System.out.println("File not found.");
-        } catch (IOException ioe) {
-            System.out.println("ERROR: Unable to process configuration file.");
-        }
-        int gridMPValue = 0;
-        try {
-            gridMPValue = (Integer) Integer.parseInt(gridMeteringPeriod);
-        } catch (NumberFormatException nfe) {
-            System.out.println("Configuration file values are not numeric.");
-        }
-        return gridMPValue;
-    }
 
-    private boolean deviceMeteringPeriodValidation(int deviceValue, int gridValue) {
-        if (deviceValue == 0 || gridValue == 0) {
+    private boolean deviceMeteringPeriodValidation(int deviceValue) {
+        if (deviceValue == 0 || this.mGridMeteringPeriod == 0) {
             System.out.println("Values must be greater than 0");
             return false;
         }
         if (1440 % deviceValue != 0) {
             return false;
-        } else if (deviceValue % gridValue != 0) {
-            return false;
         }
-        return true;
+        return deviceValue % this.mGridMeteringPeriod == 0;
     }
 
 
