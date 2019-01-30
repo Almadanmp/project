@@ -1,0 +1,55 @@
+@startuml
+title US220\n  As an Administrator, I want to remove a device from a room, so that it is no longer used. Its activity log is also removed.
+
+autonumber
+activate Administrator
+Administrator -> MainUI: I want to remove a device
+activate MainUI
+MainUI -> RoomConfigurationUI: runUS222(house)
+activate RoomConfigurationUI
+RoomConfigurationUI -> InputUtils: getHouseRoomByList(house)
+activate InputUtils
+InputUtils -> House: buildRoomListString()
+activate House
+House --> Administrator: Print Room List
+deactivate House
+deactivate InputUtils
+deactivate RoomConfigurationUI
+deactivate MainUI
+Administrator -> RoomConfigurationUI: Select room
+activate MainUI
+activate RoomConfigurationUI
+RoomConfigurationUI -> InputUtils: Select room
+activate InputUtils
+InputUtils -> RoomList: get(room)
+activate RoomList
+RoomList --> InputUtils: return room
+deactivate RoomList
+InputUtils --> RoomConfigurationUI: return room
+deactivate InputUtils
+RoomConfigurationUI --> InputUtils: getInputRoomDevicesByList(room)
+activate InputUtils
+InputUtils -> Room: buildDeviceListString()
+activate Room
+Room --> Administrator: Print Device List
+deactivate MainUI
+deactivate InputUtils
+deactivate Room
+deactivate RoomConfigurationUI
+Administrator-> RoomConfigurationUI: Select device
+activate MainUI
+activate RoomConfigurationUI
+RoomConfigurationUI -> RoomConfigurationController: removeDevice()
+activate RoomConfigurationController
+RoomConfigurationController -> Room: removeDevice()
+activate Room
+Room --> RoomConfigurationController: return device
+deactivate Room
+RoomConfigurationController --> RoomConfigurationUI: return device
+deactivate RoomConfigurationController
+RoomConfigurationUI --> MainUI: displayUS220();
+deactivate RoomConfigurationUI
+MainUI --> Administrator: Successful Feedback Message
+deactivate MainUI
+deactivate Administrator
+@enduml
