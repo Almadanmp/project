@@ -1,0 +1,41 @@
+@startuml
+title US722\nAs a Power User [or Administrator], I want to know the total metered energy consumption of a grid\nin agiven time interval,\ni.e. the sum of the energy consumption of all energy-metered rooms in the grid in the interval.
+actor PowerUser
+activate PowerUser
+activate ":MainUI"
+PowerUser ->":MainUI": run722(:House)
+":MainUI" ->":EnergyConsumptionUI": run722(:House)
+activate ":EnergyConsumptionUI"
+":EnergyConsumptionUI" -> PowerUser: display options
+PowerUser -> ":EnergyConsumptionUI": selectGrid
+ref over ":EnergyConsumptionUI"
+selectGrid
+end ref
+":EnergyConsumptionUI" -> PowerUser: request time \n input
+PowerUser -> ":EnergyConsumptionUI": setInitialTime()
+ref over ":EnergyConsumptionUI"
+selectTime
+end ref
+":EnergyConsumptionUI" -> PowerUser: request time \n input
+PowerUser -> ":EnergyConsumptionUI": setFinalTime()
+ref over ":EnergyConsumptionUI"
+selectTime
+end ref
+":EnergyConsumptionUI" -> ":EnergyConsumptionController": getGridConsumptionInInterval(grid, initialTime, finalTime)
+deactivate ":EnergyConsumptionUI"
+activate ":EnergyConsumptionController"
+deactivate ":EnergyConsumptionController"
+":EnergyConsumptionController" -> ":Grid": countLogsInInterval(initialTime, finalTime)
+activate ":Grid"
+":Grid" --> ":EnergyConsumptionController": return logCount
+deactivate ":Grid"
+":EnergyConsumptionController" -> ":EnergyConsumptionController": check if logCount > 0
+":EnergyConsumptionController" -> ":Grid": getConsumptionWithinGivenInterval(initialTime, finalTime)
+activate ":Grid"
+":Grid" --> ":EnergyConsumptionController": return double
+deactivate ":Grid"
+":EnergyConsumptionController" -> ":EnergyConsumptionController": build feedback String
+":EnergyConsumptionController" -> PowerUser: Display the Total\n Metered Energy \n Consumption
+deactivate ":EnergyConsumptionController"
+deactivate ":MainUI"
+@enduml
