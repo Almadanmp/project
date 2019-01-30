@@ -12,7 +12,7 @@ public class LogList {
 
     private List<Log> mLogList;
 
-    LogList() {
+    public LogList() {
         this.mLogList = new ArrayList<>();
     }
 

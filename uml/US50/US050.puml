@@ -1,0 +1,61 @@
+@startuml
+
+skinparam titleBorderRoundCorner 25
+skinparam titleBorderThickness 3
+skinparam titleBorderColor salmon
+skinparam titleBackgroundColor lightsalmon-lightpink
+skinparam FontName Verdana
+
+title US050 \n  I want to define the metering period for energy-metered devices using a configuration file.
+
+skinparam actor {
+	BorderColor salmon
+	}
+
+skinparam sequence {
+	LifeLineBackgroundColor salmon
+	ParticipantBackgroundColor PeachPuff
+}
+
+skinparam roundcorner 20
+
+skinparam component {
+  arrowThickness 2
+  ArrowFontName Verdana
+  ArrowColor salmon
+  ArrowFontColor darkslategrey
+}
+
+actor Administrator
+Administrator -> MainUI:run()
+activate MainUI
+MainUI -->> FileInputUtils: fileInputUtils = new FileInputUtils()
+activate FileInputUtils
+
+alt try
+MainUI -> FileInputUtils: validGridMeteringPeriod()
+
+ref over FileInputUtils
+grid metering period
+validation
+end ref
+
+alt valid configuration value
+FileInputUtils --> MainUI: true
+MainUI -> FileInputUtils: int deviceMeteringPeriod = this.mGridMeteringPeriod()
+
+else invalid configuration value
+FileInputUtils --> MainUI: false
+deactivate FileInputUtils
+MainUI -> Administrator: Error message
+end
+
+
+else catch Exception
+MainUI -> Administrator: Error message
+else catch NumberFormatException
+deactivate MainUI
+
+
+
+@enduml

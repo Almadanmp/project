@@ -1,0 +1,49 @@
+@startuml
+
+skinparam titleBorderRoundCorner 25
+skinparam titleBorderThickness 3
+skinparam titleBorderColor salmon
+skinparam titleBackgroundColor lightsalmon-lightpink
+skinparam FontName Verdana
+
+title   Ref
+
+skinparam actor {
+	BorderColor salmon
+	}
+
+skinparam sequence {
+	LifeLineBackgroundColor salmon
+	ParticipantBackgroundColor PeachPuff
+}
+
+skinparam roundcorner 20
+
+skinparam component {
+  arrowThickness 2
+  ArrowFontName Verdana
+  ArrowColor salmon
+  ArrowFontColor darkslategrey
+}
+
+
+MainUI -> FileInputUtils: validDeviceMetering()
+activate FileInputUtils
+
+FileInputUtils -> FileInputUtils: int deviceMeteringPeriod = readDeviceMeteringPeriod()
+FileInputUtils -> FileInputUtils: int gridMeteringPeriod = readGridMeteringPeriod()
+ref over FileInputUtils
+  Read metering periods
+end ref
+FileInputUtils -> FileInputUtils: deviceMeteringPeriodValidation(deviceMeteringPeriod,gridMeteringPeriod)
+
+alt valid metering period
+FileInputUtils --> MainUI: return true
+
+else      invalid metering period
+FileInputUtils --> MainUI: return false
+
+end
+
+
+@enduml
