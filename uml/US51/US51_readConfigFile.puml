@@ -1,0 +1,28 @@
+US051 As an Administrator, I want to define the metering period for grids (in minutes) using a configuration file. It is assumed the first metering period starts at 00:00. The sum of all periods in the day must be 24:00.
+
+@startuml
+activate FileInputUtils
+FileInputUtils -> FileInputUtils: readGridMeteringPeriod()
+activate Properties
+FileInputUtils -> Properties: prop = new Properties()
+
+alt try
+activate FileInputStream
+FileInputUtils -> FileInputStream: input = new FileInputStream("resources/meteringPeriods.properties")
+FileInputUtils -> Properties: load(input)
+FileInputUtils -> Properties: gridMetering = prop.getProperty("GridMeteringPeriod")
+
+else catch
+FileInputUtils -> FileInputUtils: IOException
+
+end
+
+alt try
+FileInputUtils -> FileInputUtils: parseInt(gridMeteringPeriod)
+
+else catch
+FileInputUtils -> FileInputUtils: NumberFormatException
+
+end
+
+@enduml

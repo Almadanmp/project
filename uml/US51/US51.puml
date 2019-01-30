@@ -1,0 +1,32 @@
+US051 As an Administrator, I want to define the metering period for grids (in minutes) using a configuration file. It is assumed the first metering period starts at 00:00. The sum of all periods in the day must be 24:00.
+
+@startuml
+actor user
+activate MainUI
+user -> MainUI: runMainUI()
+activate FileInputUtils
+MainUI -> FileInputUtils: fileUtils = new FileInputUtils()
+
+alt try
+MainUI -> FileInputUtils: validGridMetering()
+
+ref over FileInputUtils
+file value validation
+end ref
+
+alt valid configuration value
+FileInputUtils --> MainUI: true
+MainUI -> FileInputUtils: int gridMeteringPeriod = this.mGridMeteringPeriod()
+
+else invalid configuration value
+FileInputUtils --> MainUI: false
+MainUI -> user: Error message
+end
+
+else catch IOException
+MainUI -> user: Error message
+else catch NumberFormatException
+MainUI -> user: Error message
+
+end
+@enduml
