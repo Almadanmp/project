@@ -36,7 +36,15 @@ public class Lamp implements DeviceSpecs {
         }
     }
 
-    public boolean setAttributeValue(String attributeName, Object attributeValue) {
+    public Object getAttributeUnit(String attributeName) {
+        if (attributeName.equals(FLUX)) {
+            return "lm";
+        } else {
+            return 0;
+        }
+    }
+
+        public boolean setAttributeValue(String attributeName, Object attributeValue) {
         if (attributeName.equals(FLUX) && attributeValue instanceof Double) {
             this.mLuminousFlux = (Double) attributeValue;
             return true;

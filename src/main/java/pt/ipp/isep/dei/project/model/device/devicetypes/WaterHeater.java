@@ -61,8 +61,6 @@ public class WaterHeater implements DeviceSpecs {
         result.add(ATTRIBUTE_VOLUME_OF_WATER);
         result.add(ATTRIBUTE_HOT_WATER_TEMP);
         result.add(ATTRIBUTE_PERFORMANCE_RATIO);
-        result.add(ATTRIBUTE_COLD_WATER_TEMP);
-        result.add(ATTRIBUTE_VOLUME_OF_WATER_HEAT);
 
         return result;
     }
@@ -79,6 +77,23 @@ public class WaterHeater implements DeviceSpecs {
                 return mColdWaterTemperature;
             case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
                 return mVolumeOfWaterToHeat;
+            default:
+                return 0.0;
+        }
+    }
+
+    public Object getAttributeUnit(String attributeName) {
+        switch (attributeName) {
+            case ATTRIBUTE_VOLUME_OF_WATER:
+                return "L";
+            case ATTRIBUTE_HOT_WATER_TEMP:
+                return "ºC";
+            case ATTRIBUTE_PERFORMANCE_RATIO:
+                return "";
+            case ATTRIBUTE_COLD_WATER_TEMP:
+                return "ºC";
+            case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
+                return "L";
             default:
                 return 0.0;
         }

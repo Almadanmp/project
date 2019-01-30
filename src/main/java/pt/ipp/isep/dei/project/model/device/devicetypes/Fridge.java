@@ -53,8 +53,20 @@ public class Fridge implements DeviceSpecs {
                 return 0;
         }
     }
+    public Object getAttributeUnit(String attributeName) {
+        switch (attributeName) {
+            case FREEZER_CAPACITY_STRING:
+                return "Kg";
+            case REFRIGERATOR_CAPACITY_STRING:
+                return "Kg";
+            case ANNUAL_CONSUMPTION_STRING:
+                return "kWh";
+            default:
+                return 0;
+        }
+    }
 
-    public boolean setAttributeValue(String attributeName, Object attributeValue) {
+        public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
             case "freezerCapacity":
                 if (attributeValue instanceof Double) {

@@ -50,6 +50,17 @@ public class Dishwasher implements DeviceSpecs, Programmable {
         return 0;
     }
 
+    public Object getAttributeUnit(String attributeName) {
+        switch (attributeName) {
+            case CAPACITY:
+                return "Kg";
+            case PROGRAM_LIST:
+                return " ";
+            default:
+                return 0;
+        }
+    }
+
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
         if (attributeName.equals(CAPACITY) && attributeValue instanceof Double) {
             this.mCapacity = (Double) attributeValue;

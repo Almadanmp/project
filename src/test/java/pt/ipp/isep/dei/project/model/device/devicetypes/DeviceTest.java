@@ -120,10 +120,8 @@ public class DeviceTest {
         List<String> result = d1.getAttributeNames();
         assertTrue(result.contains("volumeOfWater"));
         assertTrue(result.contains("hotWaterTemperature"));
-        assertTrue(result.contains("coldWaterTemperature"));
         assertTrue(result.contains("performanceRatio"));
-        assertTrue(result.contains("volumeOfWaterToHeat"));
-        assertEquals(result.size(), 5);
+        assertEquals(result.size(), 3);
     }
 
     @Test

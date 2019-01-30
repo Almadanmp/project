@@ -47,4 +47,11 @@ public interface DeviceSpecs {
      * @return false if the attribute value fails (if attribute value name inputted doesn't exist on attributes.
      */
     boolean setAttributeValue(String attributeName, Object attributeValue);
+
+    /**
+     *  get the unity of the attribute.
+     * @param attributeName attribute name that we want to get the unit from.
+     * @return
+     */
+    Object getAttributeUnit(String attributeName);
 }

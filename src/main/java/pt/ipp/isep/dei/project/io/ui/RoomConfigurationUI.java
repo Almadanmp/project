@@ -25,29 +25,21 @@ class RoomConfigurationUI {
     private Device mDevice;
     private String mDeviceName;
     private double mNominalPower;
-    /*
-    private double mVolumeOfWater;
-    private double mHotWaterTemperature;
-    private double mPerformanceRatio;
-    private double mFreezerCapacity;
-    private double mRefrigeratorCapacity;
-    private double mAnnualEnergyConsumption;
-    private double mCapacity;
-    private double mLuminousFlux;
-    private String mDeviceName;
+
+
     private ProgramList mProgramList = new ProgramList();
     private String mProgramName;
     private double mDuration;
-    private double mEnergyConsumption;*/
+    private double mEnergyConsumption;
     private String mSensorName;
     private int mDataYear;
     private int mDataMonth;
     private int mDataDay;
 
-    /*  private String requestProgramName = "Please, type the new Program name:";
-      private String requestProgramEnergyConsumption = "Please, type the new Program Energy Consumption:";
-      private String requestProgramDuration = "Please, type the new Program duration:";
-  */
+    private String requestProgramName = "Please, type the new Program name:";
+    private String requestProgramEnergyConsumption = "Please, type the new Program Energy Consumption:";
+    private String requestProgramDuration = "Please, type the new Program duration:";
+
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
     }
@@ -78,7 +70,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //US215
-                    // runUS215();
+                    runUS215(house);
                     activeInput = false;
                     break;
                 case 4: //US222
@@ -150,7 +142,7 @@ class RoomConfigurationUI {
             device.setAttributeValue(device.getAttributeNames().get(i), value);
         }
         //todo create a way to use the same logic as used above
-        if (device.isProgrammable()){
+        if (device.isProgrammable()) {
             System.out.println("This device is programmable.");
             ProgramList pList = device.getProgramList();
             System.out.println("Please insert program name: ");
@@ -162,9 +154,8 @@ class RoomConfigurationUI {
             //todo move the program creation to controller to avoid model access on UI
             Program newProgram = new Program(programName, duration, energyConsumption);
             pList.addProgram(newProgram);
-        }
-        else{
-            RoomConfigurationController ctrl = new RoomConfigurationController ();
+        } else {
+            RoomConfigurationController ctrl = new RoomConfigurationController();
             if (ctrl.addDevice(this.mRoom, device)) {
                 System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
 
@@ -260,31 +251,29 @@ class RoomConfigurationUI {
     }
 
 
-    /* USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,
-    so that I can reconfigure it.. - CARINA ALAS */
+    // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
 
-    /* *//*
-     * runs US215, As an Administrator, I want to edit the configuration of an existing device.
-     *//*
-    private void runUS215() {
+
+    //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
+
+    private void runUS215(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        if(!utilsUI.roomDeviceListIsValid(this.mRoom)) {
+        this.mRoom = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(this.mRoom)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        this.mDevice = inputUtils.getInputRoomDevicesByList(this.mRoom);
-        getInputDeviceCharacteristicsUS215();
-        updateDeviceUS215();
-        displayDeviceUS215();
+        Device device = inputUtils.getInputRoomDevicesByList(this.mRoom);
+        getInputDeviceCharacteristicsUS215(device);
+       // updateDeviceUS215();
     }
 
 
-    private void getInputDeviceCharacteristicsUS215() {
+    private void getInputDeviceCharacteristicsUS215( Device device) {
         Scanner scanner = new Scanner(System.in);
 
-        if (mDevice == null || mRoom == null) {
+        if (device == null || mRoom == null) {
             System.out.println("There are no devices in this room.");
             return;
         }
@@ -294,7 +283,7 @@ class RoomConfigurationUI {
         this.mDeviceName = scanner.nextLine();
 
         //get room
-        mRoomConfigurationController.removeDeviceFromRoom(mRoom, mDevice);
+        mRoomConfigurationController.removeDevice(mRoom, device);
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
 
@@ -303,7 +292,27 @@ class RoomConfigurationUI {
 
         this.mNominalPower = inputUtils.getInputAsDouble();
 
-        if (mDevice.getType() == DeviceType.WATER_HEATER) {
+        device.getAttributeNames();
+        for (int i = 0; i < device.getAttributeNames().size(); i++) {
+            System.out.println("Please insert the value for: " + device.getAttributeNames().get(i));
+            Double value = inputUtils.getInputAsDouble();
+            device.setAttributeValue(device.getAttributeNames().get(i), value);
+            if (device.isProgrammable()) {
+                System.out.println("This device is programmable.");
+                Program program;
+                program = inputUtils.getSelectedProgramFromDevice(device);
+                mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(device));
+                if (program == null || mProgramList == null) {
+                    System.out.println("There are no programs to edit.");
+                    return;
+                }
+                updateDishWasherOrWashingMachine(program);
+                mRoomConfigurationController.configureOneWashingMachineProgram(device, mProgramList);
+            }
+        }
+        displayDeviceUS215(device);
+
+     /*   if (mDevice.getType().equals("WaterHeater")) {
             System.out.print("Please, type the new Water Volume that the Water Heater will heat: ");
 
             this.mVolumeOfWater = inputUtils.getInputAsDouble();
@@ -315,7 +324,7 @@ class RoomConfigurationUI {
             this.mPerformanceRatio = inputUtils.getInputAsDouble();
 
         }
-        if (mDevice.getType() == DeviceType.WASHING_MACHINE) {
+        if (mDevice.getType().equals("WashingMachine")) {
             System.out.print("Please, type the new Capacity in Kg for the Washing Machine: ");
 
             this.mCapacity = inputUtils.getInputAsDouble();
@@ -333,7 +342,7 @@ class RoomConfigurationUI {
 
 
         }
-        if (mDevice.getType() == DeviceType.DISHWASHER) {
+        if (mDevice.getType().equals("Dishwasher")) {
             System.out.print("Please, type the new Capacity in Kg for the Dishwasher:");
 
             this.mCapacity = inputUtils.getInputAsDouble();
@@ -349,7 +358,7 @@ class RoomConfigurationUI {
 
         }
 
-        if (mDevice.getType() == DeviceType.FRIDGE) {
+        if (mDevice.getType().equals("Fridge")) {
             System.out.print("Please, type the new Freezer Capacity in L for the Fridge:");
 
             this.mFreezerCapacity = inputUtils.getInputAsDouble();
@@ -362,12 +371,12 @@ class RoomConfigurationUI {
 
             this.mAnnualEnergyConsumption = inputUtils.getInputAsDouble();
         }
-        if (mDevice.getType() == DeviceType.LAMP) {
+        if (mDevice.getType().equals("Lamp")) {
             System.out.print("Please, type the new Luminous Flux in lm for the Lamp:");
 
             this.mLuminousFlux = inputUtils.getInputAsDouble();
         }
-
+*/
     }
 
     private void updateDishWasherOrWashingMachine(Program program) {
@@ -407,86 +416,74 @@ class RoomConfigurationUI {
         }
     }
 
-    *//*
-    US215 As an Administrator, I want to edit the configuration of an existing device, so that I
-    can reconfigure it.*//*
-    private void updateDeviceUS215() {
+
+    // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it.
+  /*  private void updateDeviceUS215() {
         if (mDevice == null || mRoom == null) {
             return;
         }
         mRoomConfigurationController.setDeviceName(mDeviceName, mDevice);
         mRoomConfigurationController.setNominalPower(mNominalPower, mDevice);
 
-        if (mDevice.getType() == DeviceType.WATER_HEATER) {
+        if (mDevice.getType().equals("WaterHeater")) {
 
             mRoomConfigurationController.configureOneHeater(mDevice, mVolumeOfWater, mHotWaterTemperature, mPerformanceRatio);
             System.out.println("device Configured.\n");
         }
-        if (mDevice.getType() == DeviceType.WASHING_MACHINE) {
+        if (mDevice.getType().equals("WashingMachine")) {
             mRoomConfigurationController.configureOneWashingMachineCapacity(mDevice, mCapacity);
             mRoomConfigurationController.configureOneWashingMachineProgram(mDevice, mProgramList);
             System.out.println("device Configured.\n");
 
         }
         String deviceReconfigured = "Device reconfigured.\n";
-        if (mDevice.getType() == DeviceType.DISHWASHER) {
+        if (mDevice.getType().equals("Dishwasher")) {
             mRoomConfigurationController.configureOneDishWasherProgram(mDevice, mProgramList);
             mRoomConfigurationController.configureOneDishWasherCapacity(mDevice, mCapacity);
             System.out.println(deviceReconfigured);
 
         }
-        if (mDevice.getType() == DeviceType.FRIDGE) {
+        if (mDevice.getType().equals("Fridge")) {
             mRoomConfigurationController.configureOneFridge(mDevice, mFreezerCapacity, mRefrigeratorCapacity);
             System.out.println(deviceReconfigured);
 
         }
-        if (mDevice.getType() == DeviceType.LAMP) {
+        if (mDevice.getType().equals("Lamp")) {
             mRoomConfigurationController.configureOneLamp(mDevice, mLuminousFlux);
             System.out.println(deviceReconfigured);
 
         }
-    }
+    }*/
 
-    *//* US215 As an Administrator, I want to edit the configuration of an existing device, so that I
-    can reconfigure it. - CARINA ALAS*//*
+    // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it. - CARINA ALAS
 
-    private void displayDeviceUS215() {
-        if (mDevice == null || mRoom == null) {
+    private void displayDeviceUS215(Device device) {
+        if (device == null || mRoom == null) {
             return;
         }
-        if (mRoom.addDevice(mDevice)) {
+        if (mRoom.addDevice(device)) {
+            for (int i = 0; i < device.getAttributeNames().size(); i++) {
+                System.out.println("You have changed the : " + device.getAttributeNames().get(i) + " to: "
+                        + device.getAttributeValue(device.getAttributeNames().get(i)) + " "
+                        + device.getAttributeUnit(device.getAttributeNames().get(i)) + ".");
+            }
             System.out.println("\nYou have successfully changed the device name to " + mDeviceName + ". \n"
                     + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
-            if (mDevice.getType() == DeviceType.WATER_HEATER) {
-                System.out.println("The volume of water is " + mVolumeOfWater + " L, the Max Water Temperature " +
-                        mHotWaterTemperature + " ºC, and the Performance Ratio is: "
-                        + mPerformanceRatio + ".");
-            }
-            if (mDevice.getType() == DeviceType.WASHING_MACHINE || mDevice.getType() == DeviceType.DISHWASHER) {
-                System.out.println("The capacity is " + mCapacity + " Kg." + "\nThe following programs were reconfigured: "
-                        + "\n" + mProgramList.buildProgramListStringForEach());
-            }
-            if (mDevice.getType() == DeviceType.FRIDGE) {
-                System.out.println("The freezer Capacity is  " + mFreezerCapacity + " L, the Refrigerator Capacity is " + mRefrigeratorCapacity +
-                        " L and the " + mAnnualEnergyConsumption + " kWh.");
-            }
-            if (mDevice.getType() == DeviceType.LAMP) {
-                System.out.println("The Luminous Flux is " + mLuminousFlux + " lm.");
-            }
+
         } else {
-            mRoom.addDevice(mDevice);
+            mRoom.addDevice(device);
             System.out.println("device already exists in the room. Please, try again.\n");
         }
-    }*/
+    }
 
     /*US222 As a Power User, I want to deactivate a device, so that it is no longer used.
      Nevertheless, it should be possible to access its configuration and activity log.*/
 
-    private void runUS222(House house){
+    private void runUS222(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         Room room = inputUtils.getHouseRoomByList(house);
-        if(!utilsUI.roomDeviceListIsValid(room)){
+        if (!utilsUI.roomDeviceListIsValid(room)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }

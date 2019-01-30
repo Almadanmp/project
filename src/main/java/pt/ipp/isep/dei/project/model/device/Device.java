@@ -99,6 +99,10 @@ public class Device implements Metered {
         return mDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
+    public Object getAttributeUnit(String attributeName){
+        return mDeviceSpecs.getAttributeUnit(attributeName);
+    }
+
     public String buildDeviceString() {
         String result;
         result = "The device Name is " + this.mName + ", and its NominalPower is " +

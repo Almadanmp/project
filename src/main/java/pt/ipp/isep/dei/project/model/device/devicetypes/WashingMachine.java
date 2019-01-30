@@ -49,7 +49,18 @@ public class WashingMachine implements DeviceSpecs, Programmable {
         }
     }
 
-    public boolean setAttributeValue(String attributeName, Object attributeValue) {
+    public Object getAttributeUnit(String attributeName) {
+        switch (attributeName) {
+            case CAPACITY:
+                return "Kg";
+            case PROGRAM_LIST:
+                return "";
+            default:
+                return 0;
+        }
+    }
+
+        public boolean setAttributeValue(String attributeName, Object attributeValue) {
         if (CAPACITY.equals(attributeName)) {
             if (attributeValue instanceof Double) {
                 this.mCapacity = (Double) attributeValue;

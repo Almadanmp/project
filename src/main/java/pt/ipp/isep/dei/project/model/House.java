@@ -169,12 +169,12 @@ public class House implements Metered {
     /**
      * This method returns the sensor closest to the house. If more than one sensor is close to it,
      * the one with the most recent reading should be used.
+     *
      * @param ga
      * @param house
      * @param sensorType
      * @return
      */
-
     public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house, String sensorType) {
         Sensor sensor;
         SensorList sensorList = new SensorList();
@@ -183,11 +183,10 @@ public class House implements Metered {
                 sensorList.addSensor(s);
             }
         }
-        if(sensorList.getSensorList().size()>0){
-            sensor=sensorList.getMostRecentlyUsedSensor();
-            }
-            else{
-                sensor = sensorList.getSensorList().get(0);
+        if (sensorList.getSensorList().size() > 1) {
+            sensor = sensorList.getMostRecentlyUsedSensor();
+        } else {
+            sensor = sensorList.getSensorList().get(0);
         }
         return sensor;
     }
@@ -195,6 +194,7 @@ public class House implements Metered {
 
     /**
      * This method builds a String for the GridList in the house.
+     *
      * @return
      */
     public String buildGridListString() {
@@ -309,7 +309,6 @@ public class House implements Metered {
 
     /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
-     *
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */

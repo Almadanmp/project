@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.devicetypes.deviceType;
+import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.List;
 
@@ -220,29 +222,20 @@ public class RoomConfigurationController {
     }
 /**
  *
- * @param deviceTypeList is the list of DeviceTypes we want to turn into a list.
- * @return a string with the list of available device types by index
- *//*
+     * @param
+     * @return a string with the list of available device types by index
+     *//*
 
-    public String buildDeviceTypeListString(List<DeviceType> deviceTypeList){
-        DeviceType deviceType= DeviceType.WATER_HEATER;
+
+    public String buildDeviceTypeListString(List<deviceType> deviceTypeList){
+        deviceType deviceType= deviceType.WATER_HEATER;
         for (DeviceType deviceType1 : deviceTypeList) {
             deviceType = deviceType1;
         }
 
         return deviceType.buildDeviceTypesByIndexString();
     }
-
-    */
-/**
- *
- * @param room room from which we want to remove the device.
- * @param device device we want to remove.
- *//*
-
-    public void removeDeviceFromRoom(Room room, Device device){
-        room.removeDevice(device);
-    }
+*/
 
    public void configureOneHeater(Device device, double coldWaterTemperature, double volumeOfWaterToHeat, double performanceRatio){
         device.setAttributeValue("coldWaterTemperature", coldWaterTemperature);
@@ -252,7 +245,7 @@ public class RoomConfigurationController {
    }
 
    public Object getAttributeValueWashingMachine(Device device){
-        return device.getProgramList();//tgetAttributeValue("programList");
+        return device.getProgramList();//getAttributeValue("programList");
    }
 
 
@@ -281,28 +274,28 @@ public class RoomConfigurationController {
         device.setAttributeValue("luminousFlux",luminousLux);
     }
 
-   */
+
 /**
- *
- * @param input the new name we want to give to the device.
- * @param device the device we want to change the name from.
- *//*
+    *
+    * @param input the new name we want to give to the device.
+    * @param device the device we want to change the name from.
+    */
 
     public void setDeviceName(String input, Device device) {
         device.setmName(input);
     }
 
-    */
+
 /**
- *
- * @param input the new nominal power we want to give to the device.
- * @param device the device we want to change the nominal power from.
- *//*
+     *
+     * @param input the new nominal power we want to give to the device.
+     * @param device the device we want to change the nominal power from.
+     */
 
     public void setNominalPower(Double input, Device device){
         device.setNominalPower(input);
     }
-*/
+
 
     /**
      * @param listOfIndexesOfSensor is a list of integers that represent positions in a list.
