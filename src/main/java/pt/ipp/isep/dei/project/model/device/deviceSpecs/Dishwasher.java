@@ -1,6 +1,5 @@
-package pt.ipp.isep.dei.project.model.device.devicetypes;
+package pt.ipp.isep.dei.project.model.device.deviceSpecs;
 
-import pt.ipp.isep.dei.project.model.device.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 

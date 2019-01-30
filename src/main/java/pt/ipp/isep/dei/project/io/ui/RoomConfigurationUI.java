@@ -133,7 +133,7 @@ class RoomConfigurationUI {
         ctrl.getAttributeName(device);
         for (int i = 0; i < ctrl.getAttributeName(device).size(); i++) {
             System.out.println("Please insert value for: " + ctrl.getAttributeName(device).get(i));
-            double value = inputUtils.getInputAsDouble();
+            Double value = inputUtils.getInputAsDouble();
             ctrl.setAttributeValue(device, ctrl.getAttributeName(device).get(i), value);
         }
 

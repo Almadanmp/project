@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.devicetypes.deviceType;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.io.IOException;
@@ -245,9 +244,9 @@ public class RoomConfigurationController {
     }
 
 
-   public Object getAttributeValueWashingMachine(Device device){
+    public Object getAttributeValueWashingMachine(Device device) {
         return device.getProgramList();//getAttributeValue("programList");
-   }
+    }
 
 
     public void  configureOneWashingMachineProgram(Device device, ProgramList program ){
