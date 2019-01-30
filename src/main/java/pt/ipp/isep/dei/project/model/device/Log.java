@@ -13,13 +13,9 @@ public class Log {
         this.mFinalDate = finalDate;
     }
 
-    public void setValue(double value){
-        this.mValue = value;
-    }
-
     public double getValue(){return this.mValue;}
 
-    Date getInitialDate(){return this.mInitialDate;}
+    public Date getInitialDate(){return this.mInitialDate;}
 
     Date getFinalDate(){return this.mFinalDate;}
 }
