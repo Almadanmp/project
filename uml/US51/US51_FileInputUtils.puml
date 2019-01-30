@@ -1,0 +1,20 @@
+US051 As an Administrator, I want to define the metering period for grids (in minutes) using a configuration file. It is assumed the first metering period starts at 00:00. The sum of all periods in the day must be 24:00.
+
+@startuml
+MainUI -> FileInputUtils: validGridMetering()
+activate FileInputUtils
+
+FileInputUtils -> FileInputUtils: int gridMeteringPeriod = readGridMeteringPeriod()
+ref over FileInputUtils
+read configuration file
+end ref
+FileInputUtils -> FileInputUtils: gridMeteringPeriodValidation(gridMeteringPeriod)
+
+alt valid metering period
+FileInputUtils --> MainUI: return true
+
+else invalid metering period
+FileInputUtils --> MainUI: return false
+
+end
+@enduml

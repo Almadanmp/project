@@ -12,17 +12,15 @@ public class FileInputUtils {
 
 
     boolean validGridMetering() throws IOException {
-        int gridMeteringPeriod = readGridMeteringPeriods();
+        int gridMeteringPeriod = readGridMeteringPeriod();
         if(gridMeteringPeriodValidation(gridMeteringPeriod)){
             this.mGridMeteringPeriod = gridMeteringPeriod;
             return true;
         }
-        System.out.println("ERROR: Configuration File values are incorrect. Energy Grids cannot be created.\n" +
-                    "Please fix Configuration File before continuing.");
         return false;
     }
 
-    private int readGridMeteringPeriods() throws IOException {
+    private int readGridMeteringPeriod() throws IOException {
         String gridMeteringPeriod;
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream("resources/meteringPeriods.properties")){
