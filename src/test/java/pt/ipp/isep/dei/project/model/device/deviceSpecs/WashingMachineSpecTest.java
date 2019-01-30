@@ -38,14 +38,14 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeNamesTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
         washingMachineSpec.setAttributeValue(WashingMachineSpec.NOMINAL_POWER, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add(WashingMachineSpec.CAPACITY);
         expectedResult.add(WashingMachineSpec.NOMINAL_POWER);
+        expectedResult.add(WashingMachineSpec.CAPACITY);
         List<String> result = washingMachineSpec.getAttributeNames();
         assertEquals(expectedResult, result);
     }
