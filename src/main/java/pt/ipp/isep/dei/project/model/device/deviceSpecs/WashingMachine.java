@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WashingMachine implements DeviceSpecs, Programmable {
-    private static final String CAPACITY = "Capacity";
-    private static final String PROGRAM_LIST = "programList";
+    public static final String CAPACITY = "Capacity";
+    public static final String PROGRAM_LIST = "programList";
+    public static final String NOMINAL_POWER = "nominal power";
 
-    private double mCapacity;
-    private ProgramList mObjectProgramList;
-    private String mType = "WashingMachine";
+    public double mCapacity;
+    public ProgramList mObjectProgramList;
+    public String mType = "WashingMachine";
+    public Double mNominalPower;
 
 
     public WashingMachine() {
@@ -27,13 +29,14 @@ public class WashingMachine implements DeviceSpecs, Programmable {
         return mObjectProgramList;
     }
 
-        public double getConsumption() {
+    public double getConsumption() {
         return 0.0; //To be implemented later, not yet specified
     }
 
-      public List<String> getAttributeNames() {
+    public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
         result.add(CAPACITY);
+        result.add(NOMINAL_POWER);
         return result;
     }
 
@@ -43,6 +46,8 @@ public class WashingMachine implements DeviceSpecs, Programmable {
                 return mCapacity;
             case PROGRAM_LIST:
                 return mObjectProgramList;
+            case NOMINAL_POWER:
+                return mNominalPower;
             default:
                 return 0;
         }
@@ -52,21 +57,30 @@ public class WashingMachine implements DeviceSpecs, Programmable {
         switch (attributeName) {
             case CAPACITY:
                 return "Kg";
-            case PROGRAM_LIST:
-                return "";
+            case NOMINAL_POWER:
+                return "kW";
             default:
-                return 0;
+                return false;
         }
     }
 
-        public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        if (CAPACITY.equals(attributeName)) {
-            if (attributeValue instanceof Double) {
-                this.mCapacity = (Double) attributeValue;
-                return true;
-            }
-            return false;
+    public boolean setAttributeValue(String attributeName, Object attributeValue) {
+        switch (attributeName) {
+            case CAPACITY:
+                if (attributeValue instanceof Double) {
+                    this.mCapacity = (Double) attributeValue;
+                    return true;
+                }
+                return false;
+            case NOMINAL_POWER:
+                if (attributeValue instanceof Double) {
+                    this.mNominalPower = (Double) attributeValue;
+                    return true;
+                }
+                return false;
+            default:
+                return false;
         }
-        return false;
     }
 }
+

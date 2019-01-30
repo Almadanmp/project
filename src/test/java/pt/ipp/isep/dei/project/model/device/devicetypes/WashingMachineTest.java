@@ -39,12 +39,14 @@ class WashingMachineTest {
     @Test
     void getAttributeNamesTest() {
         WashingMachine washingMachine = new WashingMachine();
-        washingMachine.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        washingMachine.setAttributeValue(WashingMachine.CAPACITY, 5D);
+        washingMachine.setAttributeValue(WashingMachine.NOMINAL_POWER, 5D);
         ProgramList listProgram = washingMachine.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add("Capacity");
+        expectedResult.add(WashingMachine.CAPACITY);
+        expectedResult.add(WashingMachine.NOMINAL_POWER);
         List<String> result = washingMachine.getAttributeNames();
         assertEquals(expectedResult, result);
     }
@@ -60,6 +62,7 @@ class WashingMachineTest {
         Object result = washingMachine.getAttributeValue("Capacity");
         assertEquals(expectedResult, result);
     }
+
     @Test
     void getAttributeUnitTest() {
         WashingMachine washingMachine = new WashingMachine();
@@ -79,10 +82,9 @@ class WashingMachineTest {
         ProgramList listProgram = washingMachine.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
-        String expectedResult = "";
         Object result = washingMachine.getAttributeUnit("programList");
-        assertEquals(expectedResult, result);
-        assertEquals(0, washingMachine.getAttributeUnit(""));
+        assertEquals(false, result);
+        assertEquals(false, washingMachine.getAttributeUnit(""));
 
     }
 

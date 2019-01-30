@@ -6,10 +6,11 @@ import java.util.List;
 
 public class WaterHeater implements DeviceSpecs {
     public static final String ATTRIBUTE_VOLUME_OF_WATER = "Volume Of Water";
-    private static final String ATTRIBUTE_HOT_WATER_TEMP = "Hot Water Temperature";
-    private static final String ATTRIBUTE_COLD_WATER_TEMP = "Cold Water Temperature";
-    private static final String ATTRIBUTE_PERFORMANCE_RATIO = "Performance Ratio";
-    private static final String ATTRIBUTE_VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
+    public static final String ATTRIBUTE_HOT_WATER_TEMP = "Hot Water Temperature";
+    public static final String ATTRIBUTE_COLD_WATER_TEMP = "Cold Water Temperature";
+    public static final String ATTRIBUTE_PERFORMANCE_RATIO = "Performance Ratio";
+    public static final String ATTRIBUTE_VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
+    public static final String NOMINAL_POWER = "nominal power";
 
     private Double mVolumeOfWater;
     private Double mHotWaterTemperature;
@@ -17,6 +18,7 @@ public class WaterHeater implements DeviceSpecs {
     private Double mColdWaterTemperature;
     private Double mVolumeOfWaterToHeat;
     private String mType = "WaterHeater";
+    private Double mNominalPower;
 
 
     public WaterHeater() {
@@ -59,6 +61,7 @@ public class WaterHeater implements DeviceSpecs {
         result.add(ATTRIBUTE_VOLUME_OF_WATER);
         result.add(ATTRIBUTE_HOT_WATER_TEMP);
         result.add(ATTRIBUTE_PERFORMANCE_RATIO);
+        result.add(NOMINAL_POWER);
 
         return result;
     }
@@ -74,6 +77,8 @@ public class WaterHeater implements DeviceSpecs {
             case ATTRIBUTE_COLD_WATER_TEMP:
                 return mColdWaterTemperature;
             case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
+                return mVolumeOfWaterToHeat;
+            case NOMINAL_POWER:
                 return mVolumeOfWaterToHeat;
             default:
                 return 0.0;
@@ -92,8 +97,10 @@ public class WaterHeater implements DeviceSpecs {
                 return "ºC";
             case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
                 return "L";
+            case NOMINAL_POWER:
+                return "kW";
             default:
-                return 0.0;
+                return false;
         }
     }
 
@@ -129,6 +136,12 @@ public class WaterHeater implements DeviceSpecs {
             case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
                 if (attributeValue instanceof Double) {
                     this.mVolumeOfWaterToHeat = (Double) attributeValue;
+                    return true;
+                }
+                return false;
+            case NOMINAL_POWER:
+                if (attributeValue instanceof Double) {
+                    this.mNominalPower = (Double) attributeValue;
                     return true;
                 }
                 return false;

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeater;
 
 import java.util.List;
 
@@ -114,29 +115,31 @@ public class DeviceTest {
     @Test
     void seeIfGetAttributeNames() {
         Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
-        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        d1.setAttributeValue(WaterHeater.ATTRIBUTE_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(WaterHeater.ATTRIBUTE_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(WaterHeater.ATTRIBUTE_PERFORMANCE_RATIO, 234D);
+        d1.setAttributeValue(WaterHeater.NOMINAL_POWER, 234D);
         List<String> result = d1.getAttributeNames();
-        assertTrue(result.contains("Volume Of Water"));
-        assertTrue(result.contains("Hot Water Temperature"));
-        assertTrue(result.contains("Performance Ratio"));
-        assertEquals(result.size(), 3);
+        assertTrue(result.contains(WaterHeater.ATTRIBUTE_VOLUME_OF_WATER));
+        assertTrue(result.contains(WaterHeater.ATTRIBUTE_HOT_WATER_TEMP));
+        assertTrue(result.contains(WaterHeater.ATTRIBUTE_PERFORMANCE_RATIO));
+        assertTrue(result.contains(WaterHeater.NOMINAL_POWER));
+        assertEquals(result.size(), 4);
     }
 
     @Test
-    void ensureThatWeDeactivateADevice(){
+    void ensureThatWeDeactivateADevice() {
         Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         boolean expectedResult = true;
         boolean actualResult = d1.deactivate();
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void ensureThatWeDoNotDeactivate(){
+    void ensureThatWeDoNotDeactivate() {
         Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
@@ -144,6 +147,6 @@ public class DeviceTest {
         d1.deactivate();
         boolean expectedResult = false;
         boolean actualResult = d1.deactivate();
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 }
