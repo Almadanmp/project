@@ -1,0 +1,43 @@
+@startuml
+autonumber
+activate PowerUser
+PowerUser -> MainUI: I want to\ndeactivate a device
+activate MainUI
+MainUI -> RoomConfigurationUI: runUS222(house)
+activate RoomConfigurationUI
+RoomConfigurationUI -> InputUtils: getHouseRoomByList(house)
+activate InputUtils
+InputUtils -> House: buildRoomListString()
+activate House
+House --> PowerUser: Print Room List
+deactivate House
+PowerUser -> RoomConfigurationUI: Select room
+RoomConfigurationUI -> InputUtils: Select room
+InputUtils -> RoomList: get(room)
+activate RoomList
+RoomList --> InputUtils: return room
+deactivate RoomList
+InputUtils --> RoomConfigurationUI: return room
+RoomConfigurationUI --> InputUtils: getInputRoomDevicesByList(room)
+InputUtils -> Room: buildDeviceListString()
+activate Room
+Room --> PowerUser: Print Device List
+deactivate Room
+PowerUser -> RoomConfigurationUI: Select device
+RoomConfigurationUI -> InputUtils: Select Device
+InputUtils -> DeviceList: get(device)
+activate DeviceList
+DeviceList --> InputUtils: return device
+deactivate DeviceList
+InputUtils --> RoomConfigurationUI: return device
+deactivate InputUtils
+RoomConfigurationUI -> RoomConfigurationController: deactivateDevice(device)
+activate RoomConfigurationController
+RoomConfigurationController --> RoomConfigurationUI: return true
+deactivate RoomConfigurationController
+RoomConfigurationUI --> MainUI: return
+deactivate RoomConfigurationUI
+MainUI -> PowerUser: Successful Feedback Message
+deactivate MainUI
+deactivate PowerUser
+@enduml
