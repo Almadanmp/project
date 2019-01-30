@@ -46,15 +46,15 @@ public class Device implements Metered {
 
     }
 
-    public void setNominalPower(Double nomPower) {
-        this.mNominalPower = nomPower;
-    }
-
     /**
      * @param deviceSpecs
      */
     public Device(DeviceSpecs deviceSpecs) {
         this.mDeviceSpecs = deviceSpecs;
+    }
+
+    public void setNominalPower(Double nomPower) {
+        this.mNominalPower = nomPower;
     }
 
     public double getNominalPower() {
@@ -68,6 +68,10 @@ public class Device implements Metered {
      */
     private boolean isActive() {
         return this.mActive;
+    }
+
+    void setAsInactive() {
+        this.mActive = false;
     }
 
     public void setmName(String name) {

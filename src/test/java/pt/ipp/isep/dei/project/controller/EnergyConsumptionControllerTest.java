@@ -774,7 +774,7 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBounds() {
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition1() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
         Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
@@ -790,6 +790,107 @@ class EnergyConsumptionControllerTest {
         assertFalse(result);
     }
 
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition2() {
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 5).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 5).getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log = new Log(56, periodBeginning, periodEnding);
+        device.addLog(log);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+        assertFalse(result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition3() {
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 55).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 55).getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log = new Log(56, periodBeginning, periodEnding);
+        device.addLog(log);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+        assertFalse(result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition4() {
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 5).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 55).getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log = new Log(56, periodBeginning, periodEnding);
+        device.addLog(log);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+        assertTrue(result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition5() {
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 5).getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log = new Log(56, periodBeginning, periodEnding);
+        device.addLog(log);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+        assertFalse(result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition6() {
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 55).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log = new Log(56, periodBeginning, periodEnding);
+        device.addLog(log);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+        assertFalse(result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition7() {
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log = new Log(56, periodBeginning, periodEnding);
+        device.addLog(log);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+        assertTrue(result);
+    }
     @Test
     void seeIfGetTotalMeteredEnergyConsumptionInGridInTimeIntervalWorks() {
         //Arrange
