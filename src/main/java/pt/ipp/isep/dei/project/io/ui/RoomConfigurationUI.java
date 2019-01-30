@@ -287,18 +287,12 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
 
-        //get nominal power
-        System.out.print("Please, type the new Nominal Power: ");
-
-        this.mNominalPower = inputUtils.getInputAsDouble();
-
-        mRoomConfigurationController.setNominalPowerDevice(device,mNominalPower);
         device.getAttributeNames();
         for (int i = 0; i < device.getAttributeNames().size(); i++) {
             System.out.println("Please insert the value for: " + device.getAttributeNames().get(i)
                     + " ("+device.getAttributeUnit(device.getAttributeNames().get(i))+")");
             Double value = inputUtils.getInputAsDouble();
-            device.setAttributeValue(device.getAttributeNames().get(i), value);
+            device.setAttributeValue(device.getAttributeNames().get(i), value);}
             if (device.isProgrammable()) {
                 System.out.println("This device is programmable.");
                 Program program;
@@ -311,7 +305,7 @@ class RoomConfigurationUI {
                 updateAProgrammableDevice(program);
                 mRoomConfigurationController.configureOneWashingMachineProgram(device, mProgramList);
             }
-        }
+
         displayDeviceUS215(device);
 
 
@@ -368,8 +362,8 @@ class RoomConfigurationUI {
                         + device.getAttributeValue(device.getAttributeNames().get(i)) + " "
                         + device.getAttributeUnit(device.getAttributeNames().get(i)) + ".");
             }
-            System.out.println("\nYou have successfully changed the device name to " + mDeviceName + ". \n"
-                    + "The Nominal Power is: " + mNominalPower + " kW. \n" + "And the room is " + mRoom.getRoomName() + "\n");
+            System.out.println("\nYou have successfully changed the device name to " + mDeviceName +"." +
+                    "\nThe room is " + mRoom.getRoomName() + "\n");
 
         } else {
             mRoom.addDevice(device);
@@ -463,7 +457,10 @@ class RoomConfigurationUI {
     }
 */
 
-    private void runUS220() {
+    /*US220 - As an Administrator, I want to remove a device from a room, so that it is no longer used.
+    Its activity log is also removed.
+    MARIA MEIRELES*/
+    private void runUS220( ) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);

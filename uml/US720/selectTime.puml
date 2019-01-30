@@ -1,0 +1,17 @@
+@startuml
+
+actor PowerUser
+
+-> ":EnergyConsumptionUI": selectTime
+activate PowerUser
+activate ":EnergyConsumptionUI"
+":EnergyConsumptionUI" -> ":InputUtils": getInputTime()
+activate ":InputUtils"
+":InputUtils" -> PowerUser: Request time input
+PowerUser -> ":InputUtils": setTime()
+":InputUtils" -> ":EnergyConsumptionUI": return double Time
+<-- ":EnergyConsumptionUI": return double Time
+deactivate PowerUser
+deactivate ":EnergyConsumptionUI"
+deactivate ":InputUtils"
+@enduml

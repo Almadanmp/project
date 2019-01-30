@@ -230,8 +230,7 @@ public class RoomConfigurationController {
     }
 
     public Device createDevice(String deviceName, double nominalPower, String devicePath) {
-        Device device = new Device(deviceName, nominalPower, devicePath);
-        return device;
+        return new Device(deviceName, nominalPower, devicePath);
     }
 
     public List<String> getAttributeName(Device device) {
