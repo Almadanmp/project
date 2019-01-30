@@ -11,6 +11,6 @@ public class DishwasherDTTest {
     @Test
     public void createDishwasherType() {
         DishwasherDT dt = new DishwasherDT();
-        dt.createDevice();
+        dt.createDeviceType();
     }
 }

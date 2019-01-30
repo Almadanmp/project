@@ -11,6 +11,6 @@ public class WashingMachineDTTest {
     @Test
     public void createWashingMachineType() {
         WashingMachineDT dt = new WashingMachineDT();
-        dt.createDevice();
+        dt.createDeviceType();
     }
 }

@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.DeviceSpecs;
+import pt.ipp.isep.dei.project.model.device.devicespecs.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 

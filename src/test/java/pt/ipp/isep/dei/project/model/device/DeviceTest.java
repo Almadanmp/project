@@ -3,8 +3,7 @@ package pt.ipp.isep.dei.project.model.device;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 

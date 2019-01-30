@@ -11,6 +11,6 @@ public class FridgeDTTest {
     @Test
     public void createFridgeType() {
         FridgeDT dt = new FridgeDT();
-        dt.createDevice();
+        dt.createDeviceType();
     }
 }

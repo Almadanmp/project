@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 class FileInputUtils {
@@ -87,6 +88,4 @@ class FileInputUtils {
         }
         return deviceValue % this.mGridMeteringPeriod == 0;
     }
-
-
 }

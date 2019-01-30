@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,10 +23,12 @@ public class House implements Metered {
     private int mGridMeteringPeriod;
     private int mDeviceMeteringPeriod;
     private Properties props;
+    private List<DeviceType> mDeviceTypeList;
 
     //CONSTRUCTOR
 
-    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea, int gridMeteringPeriod, int deviceMeteringPeriod) {
+    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea,
+                 int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypePaths) {
         this.mId = mId;
         this.mStreet = mStreet;
         this.mZip = mZip;
@@ -36,7 +39,39 @@ public class House implements Metered {
         this.mEGList = new EnergyGridList();
         this.mGridMeteringPeriod = gridMeteringPeriod;
         this.mDeviceMeteringPeriod = deviceMeteringPeriod;
+        buildDeviceTypeList(deviceTypePaths);
+
     }
+
+//TODO remove this constructor after correcting tests
+    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea,
+                 int gridMeteringPeriod, int deviceMeteringPeriod) {
+        this.mId = mId;
+        this.mStreet = mStreet;
+        this.mZip = mZip;
+        this.mTown = mTown;
+        this.mLocation = mLocation;
+        this.mMotherArea = mMotherArea;
+        this.mRoomList = new RoomList();
+        this.mEGList = new EnergyGridList();
+        this.mGridMeteringPeriod = gridMeteringPeriod;
+        this.mDeviceMeteringPeriod = deviceMeteringPeriod;
+        this.mDeviceTypeList = new ArrayList<>();
+    }
+
+    private void buildDeviceTypeList(List<String> deviceTypePaths) {
+        this.mDeviceTypeList = new ArrayList<>();
+        for (String s : deviceTypePaths) {
+            DeviceType aux;
+            try {
+                aux = (DeviceType) Class.forName(s).newInstance();
+            } catch (Exception e) {
+                throw new IllegalArgumentException("ERROR: Unable to create device type from path - " + e.getMessage());
+            }
+            mDeviceTypeList.add(aux);
+        }
+    }
+
 
     //SETTERS AND GETTERS
 
@@ -123,7 +158,9 @@ public class House implements Metered {
         this.mEGList = energyGridList;
     }
 
-
+    public List<DeviceType> getmDeviceTypeList() {
+        return mDeviceTypeList;
+    }
     public boolean addRoomToRoomList(Room room) {
         String roomToAddName = room.getRoomName();
         for (Room r : this.mRoomList.getList()) {
@@ -289,6 +326,7 @@ public class House implements Metered {
         }
         return result.toString();
     }
+
     /**
      * Method to return the path to a selected Device Type Class by the user
      *
@@ -323,28 +361,9 @@ public class House implements Metered {
         return value;
     }
 
-    @SuppressWarnings("Duplicates") //TODO remove after only one place for method is discussed
-    public String getPropertyValueByKeyWithoutRuntimeSupport(String propFileName, String key) throws IOException {
-        propFileName = "resources/devices.properties";
-        String value;
-        try {
-            if (props == null) { //file is not yet opened
-                props = new Properties();
-               InputStream input = new FileInputStream(propFileName);
-                props.load(input);
-            }
-            value = props.getProperty(key);
-        } catch (IOException e) {
-            throw new IOException("ERROR: Unable to process " + propFileName + " configuration file.");
-        }
-        if (value == null) {
-            throw new IOException("ERROR: Unable to read " + key + " property value from configuration file" + propFileName + ".");
-        }
-        return value;
-    }
-
     /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
+     *
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */

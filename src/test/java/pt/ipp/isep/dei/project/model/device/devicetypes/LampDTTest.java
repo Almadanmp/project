@@ -11,6 +11,6 @@ public class LampDTTest {
     @Test
     public void createLampType() {
         LampDT dt = new LampDT();
-        dt.createDevice();
+        dt.createDeviceType();
     }
 }
