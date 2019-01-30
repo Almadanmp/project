@@ -106,8 +106,8 @@ public class DeviceTest {
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         Double expectedResult = 33.3;
-        d1.setAttributeValue("volumeOfWater", 33.3);
-        Object result = d1.getAttributeValue("volumeOfWater");
+        d1.setAttributeValue("Volume Of Water", 33.3);
+        Object result = d1.getAttributeValue("Volume Of Water");
         assertEquals(expectedResult, result);
     }
 
@@ -118,21 +118,10 @@ public class DeviceTest {
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         List<String> result = d1.getAttributeNames();
-        assertTrue(result.contains("volumeOfWater"));
-        assertTrue(result.contains("hotWaterTemperature"));
-        assertTrue(result.contains("performanceRatio"));
+        assertTrue(result.contains("Volume Of Water"));
+        assertTrue(result.contains("Hot Water Temperature"));
+        assertTrue(result.contains("Performance Ratio"));
         assertEquals(result.size(), 3);
-    }
-
-    @Test
-    void seeIfGetAndSetMeteringPeriod() {
-        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
-        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Integer expectedResult = 180;
-        Integer result = d1.getMeteringPeriod();
-        assertEquals(expectedResult, result);
     }
 
     @Test

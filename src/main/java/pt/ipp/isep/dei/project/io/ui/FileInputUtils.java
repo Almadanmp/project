@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class FileInputUtils {
 
-    int deviceMeteringPeriod;  //Public para ir buscar no Device
+    int mDeviceMeteringPeriod;
     int mGridMeteringPeriod;
 
 
@@ -43,44 +43,69 @@ public class FileInputUtils {
         return 1440 % gridMeteringPeriod == 0;
     }
 
+    //Device
+
+
     boolean validDeviceMetering() throws  IllegalArgumentException{
-        if (!readDeviceMeteringPeriods()) {
-            throw new IllegalArgumentException("Teste");
+        int localGridMeteringPeriod = readDeviceMeteringPeriod2();
+        int localDeviceMeteringPeriod = readDeviceMeteringPeriod1();
+
+        if(deviceMeteringPeriodValidation(localDeviceMeteringPeriod,localGridMeteringPeriod)){
+            this.mDeviceMeteringPeriod = localDeviceMeteringPeriod;
+            return true;
         }
-        return true;
+        System.out.println("ERROR: Configuration File values are incorrect. Devices cannot be created.\n" +
+                "Please fix the configuration file before continuing.");
+        return false;
     }
 
-    boolean readDeviceMeteringPeriods() {
-        String GridMeteringPeriod;
-        String DeviceMeteringPeriod;
+    int readDeviceMeteringPeriod1() {
+        String deviceMeteringPeriod = "";
         Properties prop = new Properties();
         try {
             FileInputStream input = new FileInputStream("resources/meteringPeriods.properties");
             prop.load(input);
-            DeviceMeteringPeriod = prop.getProperty("DevicesMeteringPeriod");
-            GridMeteringPeriod = prop.getProperty("GridMeteringPeriod");
+            deviceMeteringPeriod = prop.getProperty("DevicesMeteringPeriod");
+
         } catch (FileNotFoundException fnfe) {
             System.out.println("File not found.");
-            return false;
         } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return false;
+            System.out.println("ERROR: Unable to process configuration file.");
         }
+        int deviceMPvalue = 0;
         try {
-            Integer deviceMPValue = (Integer) Integer.parseInt(DeviceMeteringPeriod);
-            Integer gridMPValue = (Integer) Integer.parseInt(GridMeteringPeriod);
-            if (deviceMeteringPeriodValidation(deviceMPValue, gridMPValue)) {
-                this.deviceMeteringPeriod = deviceMPValue;
-                return true;
-            }
+            deviceMPvalue = (Integer) Integer.parseInt(deviceMeteringPeriod);
         } catch (NumberFormatException nfe) {
             System.out.println("Configuration file values are not numeric.");
+        }
+        return deviceMPvalue;
+    }
+    int readDeviceMeteringPeriod2() {
+        String gridMeteringPeriod = "";
+        Properties prop = new Properties();
+        try {
+            FileInputStream input = new FileInputStream("resources/meteringPeriods.properties");
+            prop.load(input);
+            gridMeteringPeriod = prop.getProperty("GridMeteringPeriod");
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("File not found.");
+        } catch (IOException ioe) {
+            System.out.println("ERROR: Unable to process configuration file.");
+        }
+        int gridMPValue = 0;
+        try {
+            gridMPValue = (Integer) Integer.parseInt(gridMeteringPeriod);
+        } catch (NumberFormatException nfe) {
+            System.out.println("Configuration file values are not numeric.");
+        }
+        return gridMPValue;
+    }
+
+    private boolean deviceMeteringPeriodValidation(int deviceValue, int gridValue) {
+        if (deviceValue == 0 || gridValue == 0) {
+            System.out.println("Values must be greater than 0");
             return false;
         }
-        System.out.println("Configuration file values are not supported.");
-        return false;
-    }
-    private boolean deviceMeteringPeriodValidation(int deviceValue, int gridValue) {
         if (1440 % deviceValue != 0) {
             return false;
         } else if (deviceValue % gridValue != 0) {

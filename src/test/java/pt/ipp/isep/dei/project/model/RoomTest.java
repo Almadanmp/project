@@ -510,10 +510,10 @@ class RoomTest {
         d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        d2.setAttributeValue("coldWaterTemperature", 5.0);
-        d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("coldWaterTemperature", 1.0);
+        d2.setAttributeValue("Cold Water Temperature", 5.0);
+        d2.setAttributeValue("Volume Of Water To Heat", 100.0);
+        d3.setAttributeValue("Volume Of Water To Heat", 100.0);
+        d3.setAttributeValue("Cold Water Temperature", 1.0);
         double expectedResult = 4.60548;
         double result = r1.getDailyConsumptionByDeviceType(d2.getType());
         assertEquals(expectedResult, result);

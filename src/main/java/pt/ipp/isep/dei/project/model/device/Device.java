@@ -5,13 +5,9 @@ import pt.ipp.isep.dei.project.model.device.deviceSpecs.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Properties;
 
 /**
  * Class that represents device present in a Room.
@@ -22,7 +18,6 @@ public class Device implements Metered {
     private double mNominalPower;
     private DeviceSpecs mDeviceSpecs;
     private LogList mLogList;
-    private int mMeteringPeriod;
     private boolean mActive;
 
 
@@ -48,11 +43,6 @@ public class Device implements Metered {
 
         this.mDeviceSpecs = aux;
 
-        /* this.mMeteringPeriod = setMeteringPeriod2(); */
-
-        if (!setMeteringPeriod()) {
-            throw new IllegalArgumentException("Configuration file not valid.");
-        }
     }
 
     public void setNominalPower(Double nomPower) {
@@ -154,68 +144,6 @@ public class Device implements Metered {
 
     public String getType() {
         return mDeviceSpecs.getType();
-    }
-
-    public int getMeteringPeriod() {
-        return this.mMeteringPeriod;
-    }
-
-    /**
-     * Defines the value of the devices metering period using a configuration file as source.
-     *
-     * @return true if the value is possible of being set, false if it's not valid.
-     */
-
-
-     /* private void setmMeteringPeriod2(){
-        this.mMeteringPeriod = MainUI.deviceMeteringPeriod;
-    }
-      */
-
-    private boolean setMeteringPeriod() {
-        String GridMeteringPeriod;
-        String DeviceMeteringPeriod;
-        Properties prop = new Properties();
-        try {
-            FileInputStream input = new FileInputStream("resources/meteringPeriods.properties");
-            prop.load(input);
-            DeviceMeteringPeriod = prop.getProperty("DevicesMeteringPeriod");
-            GridMeteringPeriod = prop.getProperty("GridMeteringPeriod");
-        } catch (FileNotFoundException fnfe) {
-            System.out.println("File not found.");
-            return false;
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return false;
-        }
-        try {
-            Integer deviceMPValue = (Integer) Integer.parseInt(DeviceMeteringPeriod);
-            Integer gridMPValue = (Integer) Integer.parseInt(GridMeteringPeriod);
-            if (deviceMeteringPeriodValidation(deviceMPValue, gridMPValue)) {
-                this.mMeteringPeriod = deviceMPValue;
-                return true;
-            }
-        } catch (NumberFormatException nfe) {
-            System.out.println("Configuration file values are not numeric.");
-            return false;
-        }
-        System.out.println("Configuration file values are not supported.");
-        return false;
-    }
-
-    /**
-     * Validates the device metering period to be a multiple of the energy grid metering period and perffectly contained
-     * in a 24 hour (1440 minutes) period.
-     *
-     * @return true if the value is possible of being set, false if it's not valid.
-     */
-    private boolean deviceMeteringPeriodValidation(int deviceValue, int gridValue) {
-        if (1440 % deviceValue != 0) {
-            return false;
-        } else if (deviceValue % gridValue != 0) {
-            return false;
-        }
-        return true;
     }
 
     /**

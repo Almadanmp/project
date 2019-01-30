@@ -12,8 +12,6 @@ import java.util.*;
 
 public class MainUI {
 
-    public static int deviceMeteringPeriod;
-
     public static void main(String[] args) {
 
         FileInputUtils fileUtils = new FileInputUtils();
@@ -39,11 +37,13 @@ public class MainUI {
             return;
         }
 
+        int deviceMeteringPeriod = 0;
         try {
-            fileUtils.validDeviceMetering();
-            MainUI.deviceMeteringPeriod = fileUtils.deviceMeteringPeriod;
+            if (fileUtils.validDeviceMetering()) {
+                deviceMeteringPeriod = fileUtils.mDeviceMeteringPeriod;
+            }
+            else return;
         } catch (IllegalArgumentException il){
-            System.out.println("Adeus e um queijo");
             return;
         }
 

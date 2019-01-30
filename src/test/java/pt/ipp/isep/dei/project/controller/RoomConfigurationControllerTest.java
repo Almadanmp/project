@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static pt.ipp.isep.dei.project.TestUtils.PATH_TO_FRIDGE;
 
 /**
  * RoomConfigurationController tests class.
@@ -130,15 +131,15 @@ class RoomConfigurationControllerTest {
     @Test
     void seeGetRoomNominalPower() {
         //ARRANGE
-        Device d1 = new Device("d1", 12, TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device("d1", 12, PATH_TO_FRIDGE);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
-        Device d2 = new Device("d2", 10, TestUtils.PATH_TO_FRIDGE);
+        Device d2 = new Device("d2", 10, PATH_TO_FRIDGE);
         d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
         d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
-        Device d3 = new Device("d3", 1, TestUtils.PATH_TO_FRIDGE);
+        Device d3 = new Device("d3", 1, PATH_TO_FRIDGE);
         d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
         d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
@@ -362,7 +363,7 @@ class RoomConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        Device d1 = new Device("frigorifico", 200, TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device("frigorifico", 200, PATH_TO_FRIDGE);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
@@ -385,7 +386,7 @@ class RoomConfigurationControllerTest {
     void SeeIfMatchDeviceIndexByStringWorks() {
         //Arrange
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("frigorifico", 200, TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device("frigorifico", 200, PATH_TO_FRIDGE);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
@@ -403,7 +404,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("frigorifico", 200, TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device("frigorifico", 200, PATH_TO_FRIDGE);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
@@ -419,7 +420,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDeviceList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("frigorifico", 200, TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device("frigorifico", 200, PATH_TO_FRIDGE);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
@@ -457,6 +458,15 @@ class RoomConfigurationControllerTest {
         String actualResult = ctrl.buildTypeListString(list1);
         //Assert
         assertEquals(result, actualResult);
+    }
+
+    @Test
+    void setNominalPowerDevice(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device device = new Device("skjdhdkj",3,PATH_TO_FRIDGE);
+        ctrl.setNominalPowerDevice(device,5);
+        double result = device.getNominalPower();
+        assertEquals(5.0,result);
     }
 
     @Test

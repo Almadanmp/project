@@ -94,7 +94,7 @@ class WaterHeaterTest {
         Double waterV = 100.0;
         Double hotT = 25.0;
         waterHeater.setAttributeValue("dgfhfjg", coldT);
-        waterHeater.setAttributeValue("volumeOfWaterToHeat", waterV);
+        waterHeater.setAttributeValue("Volume Of Water To Heat", waterV);
         waterHeater.setAttributeValue("adsdfgh", hotT);
         double expectedResult = 0.1308375;
         double result = waterHeater.getConsumption();
@@ -167,7 +167,7 @@ class WaterHeaterTest {
         waterHeater.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         waterHeater.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         Double volumeOfWater = 0.6;
-        String attribute = "volumeOfWater";
+        String attribute = "Volume Of Water";
         Double expectedResult = 0.6;
         boolean setResult = waterHeater.setAttributeValue(attribute, volumeOfWater);
         Object getResult = waterHeater.getAttributeValue(attribute);
@@ -195,9 +195,9 @@ class WaterHeaterTest {
         waterHeater.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         waterHeater.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         List<String> result = waterHeater.getAttributeNames();
-        assertTrue(result.contains("volumeOfWater"));
-        assertTrue(result.contains("hotWaterTemperature"));
-        assertTrue(result.contains("performanceRatio"));
+        assertTrue(result.contains("Volume Of Water"));
+        assertTrue(result.contains("Hot Water Temperature"));
+        assertTrue(result.contains("Performance Ratio"));
         assertEquals(result.size(), 3);
     }
 
@@ -217,7 +217,7 @@ class WaterHeaterTest {
         waterHeater.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         waterHeater.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         waterHeater.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        String attribute = "volumeOfWater";
+        String attribute = "Volume Of Water";
         Double expectedResult = 2.0;
         Double attributeValue = 2.0;
         boolean setResult = waterHeater.setAttributeValue(attribute, attributeValue);
@@ -225,7 +225,7 @@ class WaterHeaterTest {
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 
-        attribute = "hotWaterTemperature";
+        attribute = "Hot Water Temperature";
         attributeValue = 3.0;
         expectedResult = 3.0;
         setResult = waterHeater.setAttributeValue(attribute, attributeValue);
@@ -233,7 +233,7 @@ class WaterHeaterTest {
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 
-        attribute = "coldWaterTemperature";
+        attribute = "Cold Water Temperature";
         attributeValue = 4.0;
         expectedResult = 4.0;
         setResult = waterHeater.setAttributeValue(attribute, attributeValue);
@@ -241,7 +241,7 @@ class WaterHeaterTest {
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 
-        attribute = "performanceRatio";
+        attribute = "Performance Ratio";
         expectedResult = 5.0;
         attributeValue = 5.0;
         setResult = waterHeater.setAttributeValue(attribute, attributeValue);
@@ -249,7 +249,7 @@ class WaterHeaterTest {
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 
-        attribute = "volumeOfWaterToHeat";
+        attribute = "Volume Of Water To Heat";
         expectedResult = 10.0;
         attributeValue = 10.0;
         setResult = waterHeater.setAttributeValue(attribute, attributeValue);
@@ -344,18 +344,18 @@ class WaterHeaterTest {
         waterHeater.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 5D);
 
         // original strings:
-        assertEquals(5.0, waterHeater.getAttributeValue("volumeOfWater"));
-        assertEquals(5.0, waterHeater.getAttributeValue("hotWaterTemperature"));
-        assertEquals(0.0, waterHeater.getAttributeValue("coldWaterTemperature"));
-        assertEquals(5.0, waterHeater.getAttributeValue("performanceRatio"));
-        assertEquals(0.0, waterHeater.getAttributeValue("volumeOfWaterToHeat"));
+        assertEquals(5.0, waterHeater.getAttributeValue("Volume Of Water"));
+        assertEquals(5.0, waterHeater.getAttributeValue("Hot Water Temperature"));
+        assertEquals(0.0, waterHeater.getAttributeValue("Cold Water Temperature"));
+        assertEquals(5.0, waterHeater.getAttributeValue("Performance Ratio"));
+        assertEquals(0.0, waterHeater.getAttributeValue("Volume Of Water To Heat"));
 
         // same hash codes, but different strings:
-        assertEquals(0.0, waterHeater.getAttributeValue("\0volumeOfWater"));
-        assertEquals(0.0, waterHeater.getAttributeValue("\0hotWaterTemperature"));
-        assertEquals(0.0, waterHeater.getAttributeValue("\0coldWaterTemperature"));
-        assertEquals(0.0, waterHeater.getAttributeValue("\0performanceRatio"));
-        assertEquals(0.0, waterHeater.getAttributeValue("\0volumeOfWaterToHeat"));
+        assertEquals(0.0, waterHeater.getAttributeValue("\0Volume Of Water"));
+        assertEquals(0.0, waterHeater.getAttributeValue("\0Hot Water Temperature"));
+        assertEquals(0.0, waterHeater.getAttributeValue("\0Cold Water Temperature"));
+        assertEquals(0.0, waterHeater.getAttributeValue("\0Performance Ratio"));
+        assertEquals(0.0, waterHeater.getAttributeValue("\0Volume Of Water To Heat"));
 
         // distinct hash code to cover default cases of switches
         assertEquals(0.0, waterHeater.getAttributeValue(""));
@@ -368,18 +368,18 @@ class WaterHeaterTest {
         waterHeater.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 5D);
 
         // original strings:
-        assertEquals("L", waterHeater.getAttributeUnit("volumeOfWater"));
-        assertEquals("ºC", waterHeater.getAttributeUnit("hotWaterTemperature"));
-        assertEquals("ºC", waterHeater.getAttributeUnit("coldWaterTemperature"));
-        assertEquals("", waterHeater.getAttributeUnit("performanceRatio"));
-        assertEquals("L", waterHeater.getAttributeUnit("volumeOfWaterToHeat"));
+        assertEquals("L", waterHeater.getAttributeUnit("Volume Of Water"));
+        assertEquals("ºC", waterHeater.getAttributeUnit("Hot Water Temperature"));
+        assertEquals("ºC", waterHeater.getAttributeUnit("Cold Water Temperature"));
+        assertEquals("", waterHeater.getAttributeUnit("Performance Ratio"));
+        assertEquals("L", waterHeater.getAttributeUnit("Volume Of Water To Heat"));
 
         // same hash codes, but different strings:
-        assertEquals(0.0, waterHeater.getAttributeUnit("\0volumeOfWater"));
-        assertEquals(0.0, waterHeater.getAttributeUnit("\0hotWaterTemperature"));
-        assertEquals(0.0, waterHeater.getAttributeUnit("\0coldWaterTemperature"));
-        assertEquals(0.0, waterHeater.getAttributeUnit("\0performanceRatio"));
-        assertEquals(0.0, waterHeater.getAttributeUnit("\0volumeOfWaterToHeat"));
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0VolumeOfWater"));
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0HotWaterTemperature"));
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0ColdWaterTemperature"));
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0PerformanceRatio"));
+        assertEquals(0.0, waterHeater.getAttributeUnit("\0VolumeOfWaterToHeat"));
 
         // distinct hash code to cover default cases of switches
         assertEquals(0.0, waterHeater.getAttributeUnit(""));
@@ -392,18 +392,18 @@ class WaterHeaterTest {
         Double attribute = 6.0;
 
         // original strings:
-        assertTrue(waterHeater.setAttributeValue("volumeOfWater", attribute));
-        assertTrue(waterHeater.setAttributeValue("hotWaterTemperature", attribute));
-        assertTrue(waterHeater.setAttributeValue("coldWaterTemperature", attribute));
-        assertTrue(waterHeater.setAttributeValue("performanceRatio", attribute));
-        assertTrue(waterHeater.setAttributeValue("volumeOfWaterToHeat", attribute));
+        assertTrue(waterHeater.setAttributeValue("Volume Of Water", attribute));
+        assertTrue(waterHeater.setAttributeValue("Hot Water Temperature", attribute));
+        assertTrue(waterHeater.setAttributeValue("Cold Water Temperature", attribute));
+        assertTrue(waterHeater.setAttributeValue("Performance Ratio", attribute));
+        assertTrue(waterHeater.setAttributeValue("Volume Of Water To Heat", attribute));
 
         // same hash codes, but different strings:
-        assertFalse(waterHeater.setAttributeValue("\0volumeOfWater", attribute));
-        assertFalse(waterHeater.setAttributeValue("\0hotWaterTemperature", attribute));
-        assertFalse(waterHeater.setAttributeValue("\0coldWaterTemperature", attribute));
-        assertFalse(waterHeater.setAttributeValue("\0performanceRatio", attribute));
-        assertFalse(waterHeater.setAttributeValue("\0volumeOfWaterToHeat", attribute));
+        assertFalse(waterHeater.setAttributeValue("\0Volume Of Water", attribute));
+        assertFalse(waterHeater.setAttributeValue("\0Hot Water Temperature", attribute));
+        assertFalse(waterHeater.setAttributeValue("\0Cold Water Temperature", attribute));
+        assertFalse(waterHeater.setAttributeValue("\0Performance Ratio", attribute));
+        assertFalse(waterHeater.setAttributeValue("\0Volume Of Water To Heat", attribute));
 
         // distinct hash code to cover default cases of switches
         assertFalse(waterHeater.setAttributeValue("", attribute));

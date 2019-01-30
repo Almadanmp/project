@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Fridge implements DeviceSpecs {
-    public static final String FREEZER_CAPACITY = "freezerCapacity";
-    public static final String REFRIGERATOR_CAPACITY = "refrigeratorCapacity";
-    public static final String ANNUAL_CONSUMPTION = "annualEnergyConsumption";
+    public static final String FREEZER_CAPACITY = "Freezer Capacity";
+    public static final String REFRIGERATOR_CAPACITY = "Refrigerator Capacity";
+    public static final String ANNUAL_CONSUMPTION = "Annual Energy Consumption";
     public static final String NOMINAL_POWER = "nominal power";
 
     private double mFreezerCapacity;

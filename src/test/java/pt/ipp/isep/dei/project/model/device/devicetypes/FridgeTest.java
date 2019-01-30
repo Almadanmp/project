@@ -36,7 +36,7 @@ class FridgeTest {
         Fridge fridge = new Fridge();
         fridge.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         double expectedResult = 4.0;
-        Object result = fridge.getAttributeValue("freezerCapacity");
+        Object result = fridge.getAttributeValue("Freezer Capacity");
         assertEquals(expectedResult, result);
     }
 
@@ -52,7 +52,7 @@ class FridgeTest {
         Fridge fridge = new Fridge();
         fridge.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         double expectedResult = 4;
-        assertEquals(expectedResult, fridge.getAttributeValue("freezerCapacity"));
+        assertEquals(expectedResult, fridge.getAttributeValue("Freezer Capacity"));
     }
 
     @Test
@@ -68,13 +68,13 @@ class FridgeTest {
         Fridge fridge = new Fridge();
         fridge.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 6D);
         double expectedResult = 6;
-        assertEquals(expectedResult, fridge.getAttributeValue("annualEnergyConsumption"));
+        assertEquals(expectedResult, fridge.getAttributeValue("Annual Energy Consumption"));
     }
 
     @Test
     void seeIfSetAttributeValuesTest() {
         Fridge fridge = new Fridge();
-        Object result = fridge.setAttributeValue("freezerCapacity", fridge);
+        Object result = fridge.setAttributeValue("Freezer Capacity", fridge);
         assertEquals(false, result);
     }
 
@@ -95,21 +95,21 @@ class FridgeTest {
         Fridge fridge = new Fridge();
         double expectedResult = 4;
         fridge.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
-        Object result = fridge.getAttributeValue("freezerCapacity");
+        Object result = fridge.getAttributeValue("Freezer Capacity");
         assertEquals(expectedResult, result);
     }
     @Test
     void seeIfGetAttributeUnitTest() {
         Fridge fridge = new Fridge();
         String expectedResult = "Kg";
-        Object result = fridge.getAttributeUnit("freezerCapacity");
+        Object result = fridge.getAttributeUnit("Freezer Capacity");
         assertEquals(expectedResult, result);
     }
     @Test
     void seeIfGetAttributeUnitTest2() {
         Fridge fridge = new Fridge();
         String expectedResult = "Kg";
-        Object result = fridge.getAttributeUnit("refrigeratorCapacity");
+        Object result = fridge.getAttributeUnit("Refrigerator Capacity");
         assertEquals(expectedResult, result);
         assertEquals(0, fridge.getAttributeUnit(""));
 
@@ -126,8 +126,8 @@ class FridgeTest {
     @Test
     void seeIfGetAndSetAttributeValue() {
         Fridge fridge = new Fridge();
-        String attribute = "freezerCapacity";
-        fridge.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6);
+        String attribute = "Freezer Capacity";
+        fridge.setAttributeValue(attribute, 6);
         Double expectedResult = 6.0;
         boolean setResult = fridge.setAttributeValue(attribute, 6.0);
         Object getResult = fridge.getAttributeValue(attribute);
@@ -138,7 +138,7 @@ class FridgeTest {
     @Test
     void seeIfGetAndSetAttributeValue2() {
         Fridge fridge = new Fridge();
-        String attribute = "refrigeratorCapacity";
+        String attribute = "Refrigerator Capacity";
         Double expectedResult = 6.0;
         fridge.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6);
         boolean setResult = fridge.setAttributeValue(attribute, 6.0);
@@ -150,7 +150,7 @@ class FridgeTest {
     @Test
     void seeIfGetAndSetAttributeValue3() {
         Fridge fridge = new Fridge();
-        String attribute = "annualEnergyConsumption";
+        String attribute = "Annual Energy Consumption";
         fridge.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 6);
         Double expectedResult = 6.0;
         boolean setResult = fridge.setAttributeValue(attribute, 6.0);
@@ -226,9 +226,9 @@ class FridgeTest {
         double expectedResult1 = 4;
         double expectedResult2 = 5;
         double expectedResult3 = 6;
-        Object actualResult1 = fridge.getAttributeValue("freezerCapacity");
-        Object actualResult2 = fridge.getAttributeValue("refrigeratorCapacity");
-        Object actualResult3 = fridge.getAttributeValue("annualEnergyConsumption");
+        Object actualResult1 = fridge.getAttributeValue("Freezer Capacity");
+        Object actualResult2 = fridge.getAttributeValue("Refrigerator Capacity");
+        Object actualResult3 = fridge.getAttributeValue("Annual Energy Consumption");
         //Assert
         assertEquals(expectedResult1, actualResult1);
         assertEquals(expectedResult2, actualResult2);
@@ -244,14 +244,14 @@ class FridgeTest {
         fridge.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 5D);
 
         // original strings:
-        assertEquals(5.0, fridge.getAttributeValue("freezerCapacity"));
-        assertEquals(5.0, fridge.getAttributeValue("refrigeratorCapacity"));
-        assertEquals(5.0, fridge.getAttributeValue("annualEnergyConsumption"));
+        assertEquals(5.0, fridge.getAttributeValue("Freezer Capacity"));
+        assertEquals(5.0, fridge.getAttributeValue("Refrigerator Capacity"));
+        assertEquals(5.0, fridge.getAttributeValue("Annual Energy Consumption"));
 
         // same hash codes, but different strings:
-        assertEquals(0, fridge.getAttributeValue("\0freezerCapacity"));
-        assertEquals(0, fridge.getAttributeValue("\0refrigeratorCapacity"));
-        assertEquals(0, fridge.getAttributeValue("\0annualEnergyConsumption"));
+        assertEquals(0, fridge.getAttributeValue("\0Freezer Capacity"));
+        assertEquals(0, fridge.getAttributeValue("\0Refrigerator Capacity"));
+        assertEquals(0, fridge.getAttributeValue("\0Annual Energy Consumption"));
 
         // distinct hash code to cover default cases of switches
         assertEquals(0, fridge.getAttributeValue(""));
@@ -264,14 +264,14 @@ class FridgeTest {
         Double attribute = 6.0;
 
         // original strings:
-        assertTrue(fridge.setAttributeValue("freezerCapacity", attribute));
-        assertTrue(fridge.setAttributeValue("refrigeratorCapacity", attribute));
-        assertTrue(fridge.setAttributeValue("annualEnergyConsumption", attribute));
+        assertTrue(fridge.setAttributeValue("Freezer Capacity", attribute));
+        assertTrue(fridge.setAttributeValue("Refrigerator Capacity", attribute));
+        assertTrue(fridge.setAttributeValue("Annual Energy Consumption", attribute));
 
         // same hash codes, but different strings:
-        assertFalse(fridge.setAttributeValue("\0freezerCapacity", attribute));
-        assertFalse(fridge.setAttributeValue("\0refrigeratorCapacity", attribute));
-        assertFalse(fridge.setAttributeValue("\0annualEnergyConsumption", attribute));
+        assertFalse(fridge.setAttributeValue("\0Freezer Capacity", attribute));
+        assertFalse(fridge.setAttributeValue("\0Refrigerator Capacity", attribute));
+        assertFalse(fridge.setAttributeValue("\0Annual Energy Consumption", attribute));
 
         // distinct hash code to cover default cases of switches
         assertFalse(fridge.setAttributeValue("", attribute));
