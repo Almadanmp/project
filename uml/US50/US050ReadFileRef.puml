@@ -1,0 +1,65 @@
+@startuml
+
+skinparam titleBorderRoundCorner 25
+skinparam titleBorderThickness 3
+skinparam titleBorderColor salmon
+skinparam titleBackgroundColor lightsalmon-lightpink
+skinparam FontName Verdana
+
+title   Ref - Read metering periods
+
+skinparam actor {
+	BorderColor salmon
+	}
+
+skinparam sequence {
+	LifeLineBackgroundColor salmon
+	ParticipantBackgroundColor PeachPuff
+}
+
+skinparam roundcorner 20
+
+skinparam component {
+  arrowThickness 2
+  ArrowFontName Verdana
+  ArrowColor salmon
+  ArrowFontColor darkslategrey
+}
+
+
+
+-> FileInputUtils: readDeviceMeteringPeriod()
+activate FileInputUtils
+FileInputUtils -->> Properties: props = new Properties()
+activate Properties
+
+alt try
+
+FileInputUtils -->> FileInputStream: input = new FileInputStream(file location)
+activate FileInputStream
+FileInputUtils -> Properties: load(input)
+FileInputUtils -> Properties: deviceMetering = props.getProperty("DeviceMeteringPeriod")
+FileInputUtils --x FileInputStream: input.close()
+deactivate FileInputStream
+deactivate Properties
+
+else catch
+FileInputUtils -> FileInputUtils: IOException
+
+end
+
+alt try
+FileInputUtils -> Integer: parseInt(deviceMeteringPeriod)
+activate Integer
+Integer --> FileInputUtils: return deviceMeteringPeriod
+deactivate Integer
+<-- FileInputUtils: return deviceMeteringPeriod
+
+
+else catch
+FileInputUtils -> FileInputUtils: NumberFormatException
+
+end
+
+
+@enduml
