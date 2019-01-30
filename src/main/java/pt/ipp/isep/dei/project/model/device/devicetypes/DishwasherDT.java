@@ -8,7 +8,6 @@ public class DishwasherDT implements DeviceType {
 
     public Device createDevice() {
         DeviceSpecs ds = new DishwasherSpec();
-        Device device = new Device(ds);
-        return device;
+        return new Device(ds);
     }
 }

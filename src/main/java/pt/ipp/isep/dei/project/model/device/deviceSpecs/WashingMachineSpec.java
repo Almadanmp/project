@@ -11,14 +11,14 @@ public class WashingMachineSpec implements DeviceSpecs, Programmable {
     public static final String PROGRAM_LIST = "programList";
     public static final String NOMINAL_POWER = "nominal power";
 
-    public double mCapacity;
-    public ProgramList mObjectProgramList;
-    public String mType = "WashingMachine";
-    public Double mNominalPower;
+    private double mCapacity;
+    private ProgramList mProgramList;
+    private String mType = "WashingMachine";
+    private Double mNominalPower;
 
 
     public WashingMachineSpec() {
-        mObjectProgramList = new ProgramList();
+        mProgramList = new ProgramList();
     }
 
     public String getType() {
@@ -26,7 +26,7 @@ public class WashingMachineSpec implements DeviceSpecs, Programmable {
     }
 
     public ProgramList getProgramList() {
-        return mObjectProgramList;
+        return mProgramList;
     }
 
     public double getConsumption() {
@@ -45,7 +45,7 @@ public class WashingMachineSpec implements DeviceSpecs, Programmable {
             case CAPACITY:
                 return mCapacity;
             case PROGRAM_LIST:
-                return mObjectProgramList;
+                return mProgramList;
             case NOMINAL_POWER:
                 return mNominalPower;
             default:

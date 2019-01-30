@@ -22,11 +22,12 @@ public class Device implements Metered {
 
 
     //TODO delete nominalpower from constructor and as an attribut after changes are made (moving nominal power to each spec)
+
     /**
      * Constructor with path by configuration file approach
      *
-     * @param name name
-     * @param nominalPower nominal power
+     * @param name           name
+     * @param nominalPower   nominal power
      * @param deviceTypePath device type path
      */
     public Device(String name, double nominalPower, String deviceTypePath) throws IllegalArgumentException {
@@ -52,7 +53,7 @@ public class Device implements Metered {
     /**
      * @param deviceSpecs
      */
-    public Device (DeviceSpecs deviceSpecs) {
+    public Device(DeviceSpecs deviceSpecs) {
         this.mDeviceSpecs = deviceSpecs;
     }
 
@@ -62,9 +63,10 @@ public class Device implements Metered {
 
     /**
      * Boolean to get Device Status. Either if is Active or Not.
+     *
      * @return true if device is active
      */
-    private boolean isActive(){
+    private boolean isActive() {
         return this.mActive;
     }
 
@@ -92,7 +94,7 @@ public class Device implements Metered {
         return mDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
-    public Object getAttributeUnit(String attributeName){
+    public Object getAttributeUnit(String attributeName) {
         return mDeviceSpecs.getAttributeUnit(attributeName);
     }
 
@@ -195,6 +197,7 @@ public class Device implements Metered {
 
     /**
      * This method adds a Log to the device LogList, if the Log isn't already in the LogList.
+     *
      * @param log - Parameter which will be used to add to the Device LogList.
      * @return true if log was added
      */
@@ -210,6 +213,7 @@ public class Device implements Metered {
 
     /**
      * This method deactivates the device so it no longer accepts logs.
+     *
      * @return true if deactivated
      */
     public boolean deactivate() {

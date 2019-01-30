@@ -8,7 +8,6 @@ public class LampDT implements DeviceType {
 
     public Device createDevice() {
         DeviceSpecs ds = new LampSpec();
-        Device device = new Device(ds);
-        return device;
+        return new Device(ds);
     }
 }

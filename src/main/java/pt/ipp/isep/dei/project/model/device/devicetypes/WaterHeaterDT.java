@@ -8,7 +8,6 @@ public class WaterHeaterDT implements DeviceType {
 
     public Device createDevice() {
         DeviceSpecs ds = new WaterHeaterSpec();
-        Device device = new Device(ds);
-        return device;
+        return new Device(ds);
     }
 }

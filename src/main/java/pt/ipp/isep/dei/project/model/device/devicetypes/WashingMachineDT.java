@@ -8,7 +8,6 @@ public class WashingMachineDT implements DeviceType {
 
     public Device createDevice() {
         DeviceSpecs ds = new WashingMachineSpec();
-        Device device = new Device(ds);
-        return device;
+        return new Device(ds);
     }
 }

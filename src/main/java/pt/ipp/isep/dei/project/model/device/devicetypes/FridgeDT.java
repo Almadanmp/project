@@ -8,7 +8,6 @@ public class FridgeDT implements DeviceType {
 
     public Device createDevice() {
         DeviceSpecs ds = new FridgeSpec();
-        Device device = new Device(ds);
-        return device;
+        return new Device(ds);
     }
 }
