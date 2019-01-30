@@ -3,17 +3,16 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * TypeArea tests class.
  */
 
-public class TypeAreaTest {
+class TypeAreaTest {
 
     @Test
-    public void seeTypeOfGeographicAreaConstructor(){
+    void seeTypeOfGeographicAreaConstructor(){
         //Arrange
         String expectedResult = "Rua";
         String actualResult;
@@ -26,7 +25,7 @@ public class TypeAreaTest {
     }
 
     @Test
-    public void seeSetGeographicAreaTypeWithSameDesignationFromConstructor(){
+    void seeSetGeographicAreaTypeWithSameDesignationFromConstructor(){
         //Arrange
         String expectedResult = "Rua";
         String actualResult;
@@ -40,7 +39,7 @@ public class TypeAreaTest {
         assertEquals(expectedResult,actualResult);
     }
     @Test
-    public void seeSetGeographicAreaTypeWithDifferentDesignationFromConstructor(){
+    void seeSetGeographicAreaTypeWithDifferentDesignationFromConstructor(){
         //Arrange
         String expectedResult = "Freguesia";
         String actualResult;
@@ -55,7 +54,7 @@ public class TypeAreaTest {
     }
 
     @Test
-    public void seeGetGeographicAreaTypeAfterSet(){
+    void seeGetGeographicAreaTypeAfterSet(){
         //Arrange
         String expectedResult = "Porto";
         String actualResult;
@@ -70,10 +69,10 @@ public class TypeAreaTest {
     }
 
     @Test
-    public void seeEqualsBetweenTwoGeographicAreaTypesWithSameDesignation(){
+    void seeEqualsBetweenTwoGeographicAreaTypesWithSameDesignation(){
         //Arrange
-        Boolean expectedResult = true;
-        Boolean actualResult;
+        boolean expectedResult = true;
+        boolean actualResult;
         TypeArea typeArea1 = new TypeArea("Rua");
         TypeArea typeArea2 = new TypeArea("Rua");
         //Act
@@ -82,10 +81,10 @@ public class TypeAreaTest {
         assertEquals(expectedResult,actualResult);
     }
     @Test
-    public void seeEqualsBetweenTwoGeographicAreaTypesWithDifferentDesignation(){
+    void seeEqualsBetweenTwoGeographicAreaTypesWithDifferentDesignation(){
         //Arrange
-        Boolean expectedResult = false;
-        Boolean actualResult;
+        boolean expectedResult = false;
+        boolean actualResult;
         TypeArea typeArea1 = new TypeArea("Rua");
         TypeArea typeArea2 = new TypeArea("Freguesia");
         //Act
@@ -94,31 +93,29 @@ public class TypeAreaTest {
         assertEquals(expectedResult,actualResult);
     }
     @Test
-    public void seeEqualsBetweenSameObject(){
+    void seeEqualsBetweenSameObject(){
         //Arrange
-        Boolean expectedResult = true;
-        Boolean actualResult;
+        boolean actualResult;
         TypeArea typeArea1 = new TypeArea("Rua");
         //Act
         actualResult = typeArea1.equals(typeArea1);
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertTrue(actualResult);
     }
     @Test
-    public void seeEqualsBetweenObjectsFromDifferentClasses(){
+    void seeEqualsBetweenObjectsFromDifferentClasses(){
         //Arrange
-        Boolean expectedResult = false;
-        Boolean actualResult;
+        boolean actualResult;
         TypeArea typeArea1 = new TypeArea("Rua");
         int number = 1;
         //Act
         actualResult = typeArea1.equals(number);
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         TypeArea t1 = new TypeArea("Rua");
         int expectedResult = 1;
         int actualResult = t1.hashCode();
@@ -126,7 +123,7 @@ public class TypeAreaTest {
     }
 
     @Test
-    public void seeIfNameValid() {
+    void seeIfNameValid() {
         //Arrange
         TypeArea a1 = new TypeArea("Humidade");
 
@@ -138,7 +135,7 @@ public class TypeAreaTest {
     }
 
     @Test
-    public void seeIfNameInvalidNameEmpty() {
+    void seeIfNameInvalidNameEmpty() {
 
         //Arrange
         TypeArea a1 = new TypeArea("Humidade");
@@ -150,7 +147,7 @@ public class TypeAreaTest {
                 });
     }
     @Test
-    public void seeIfNameInvalidNameWithNumbers() {
+    void seeIfNameInvalidNameWithNumbers() {
 
         //Arrange
         TypeArea a1 = new TypeArea("Humidade");
@@ -162,7 +159,7 @@ public class TypeAreaTest {
         });
     }
     @Test
-    public void seeIfNameInvalidNameNull() {
+    void seeIfNameInvalidNameNull() {
 
         //Arrange
         TypeArea a1 = new TypeArea("Humidade");
@@ -175,7 +172,7 @@ public class TypeAreaTest {
     }
 
     @Test
-    public void seeIfPrintTypeGA(){
+    void seeIfPrintTypeGA(){
         TypeArea a1 = new TypeArea("Humidade");
         String result = a1.buildTypeGeographicAreaString();
         Assertions.assertEquals("Type Area: Humidade\n", result);

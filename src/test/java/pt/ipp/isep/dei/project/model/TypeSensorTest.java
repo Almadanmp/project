@@ -1,20 +1,17 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * TypeSensor tests class.
  */
 
-public class TypeSensorTest {
+class TypeSensorTest {
 
     @Test
-    public void constructorTypeSensorTest() {
+    void constructorTypeSensorTest() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         String actualResult = "Humidade";
@@ -27,7 +24,7 @@ public class TypeSensorTest {
     }
 
     @Test
-    public void constructorTypeSensorTestSameObject() {
+    void constructorTypeSensorTestSameObject() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
@@ -43,7 +40,7 @@ public class TypeSensorTest {
     }
 
     @Test
-    public void seeIfSetNameWorksNull() {
+    void seeIfSetNameWorksNull() {
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         assertThrows(IllegalArgumentException.class, () -> {
             t1.setName(null);
@@ -51,7 +48,7 @@ public class TypeSensorTest {
     }
 
     @Test
-    public void seeIfSetNameWorksEmpty() {
+    void seeIfSetNameWorksEmpty() {
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         assertThrows(IllegalArgumentException.class, () -> {
             t1.setName("");
@@ -59,7 +56,7 @@ public class TypeSensorTest {
     }
 
     @Test
-    public void seeIfSetNameWorks() {
+    void seeIfSetNameWorks() {
         TypeSensor t1 = new TypeSensor("Density", "Density");
         t1.setName("Densidade");
         String expectedResult = "Densidade";
@@ -68,7 +65,7 @@ public class TypeSensorTest {
     }
 
     @Test
-    public void testTypeSensorGetAndSet() {
+    void testTypeSensorGetAndSet() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         t1.setName("Movimento");
@@ -82,7 +79,7 @@ public class TypeSensorTest {
     }
 
     @Test
-    public void testTypeSensorGetAndSetPartII() {
+    void testTypeSensorGetAndSetPartII() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         t1.setName("Movimento");
@@ -97,7 +94,7 @@ public class TypeSensorTest {
     }
 
     @Test
-    public void seeIfEqualsWorksDifferentObject() {
+    void seeIfEqualsWorksDifferentObject() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         TypeSensor t2 = new TypeSensor("Pluviosidade", "l/m2");
@@ -112,89 +109,84 @@ public class TypeSensorTest {
     }
 
     @Test
-    public void seeIfEqualsWorksObject() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Movimento", "m/s");
-        TypeSensor t2 = t1;
-        boolean expectedResult = true;
-        boolean actualResult;
-
-        //Act
-        actualResult = t1.equals(t2);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void seeIfEqualsWorksSameObject() {
+    void seeIfEqualsWorksObject() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Movimento", "m/s");
         TypeSensor t2 = new TypeSensor("Movimento", "m/s");
-        boolean expectedResult = true;
         boolean actualResult;
 
         //Act
         actualResult = t1.equals(t2);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
-    public void seeIfEqualsFalseWorksSameODifUnits() {
+    void seeIfEqualsWorksSameObject() {
+        //Arrange
+        TypeSensor t1 = new TypeSensor("Movimento", "m/s");
+        TypeSensor t2 = new TypeSensor("Movimento", "m/s");
+        boolean actualResult;
+
+        //Act
+        actualResult = t1.equals(t2);
+
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsFalseWorksSameODifUnits() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Movimento", "m");
         TypeSensor t2 = new TypeSensor("Movimento", "m/s");
-        boolean expectedResult = false;
         boolean actualResult;
 
         //Act
         actualResult = t1.equals(t2);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void seeIfEqualsFalseWorksSameObjectDifName() {
+    void seeIfEqualsFalseWorksSameObjectDifName() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Coisa", "m/s");
         TypeSensor t2 = new TypeSensor("Movimento", "m/s");
-        boolean expectedResult = false;
         boolean actualResult;
 
         //Act
         actualResult = t1.equals(t2);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void seeIfEqualsWorksNotAnInstance() {
+    void seeIfEqualsWorksNotAnInstance() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Movimento", "m/s");
         Local l1 = new Local(21, 3, 55);
-        boolean expectedResult = false;
         boolean actualResult;
 
         //Act
         actualResult = t1.equals(l1);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         int expectedResult = 1;
         int actualResult = t1.hashCode();
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfSetterForTypeSensorUnitsThrowsException(){
+    void seeIfSetterForTypeSensorUnitsThrowsException(){
         TypeSensor t1 = new TypeSensor("Temperature", "Cº");
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             t1.setUnits("");
