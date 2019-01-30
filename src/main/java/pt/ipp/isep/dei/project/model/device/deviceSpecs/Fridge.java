@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Fridge implements DeviceSpecs {
-    private static final String FREEZER_CAPACITY_STRING = "freezerCapacity";
-    private static final String REFRIGERATOR_CAPACITY_STRING = "refrigeratorCapacity";
-    private static final String ANNUAL_CONSUMPTION_STRING = "annualEnergyConsumption";
+    public static final String FREEZER_CAPACITY = "freezerCapacity";
+    public static final String REFRIGERATOR_CAPACITY = "refrigeratorCapacity";
+    public static final String ANNUAL_CONSUMPTION = "annualEnergyConsumption";
+    public static final String NOMINAL_POWER = "nominal power";
 
     private double mFreezerCapacity;
     private double mRefrigeratorCapacity;
     private double mAnnualEnergyConsumption;
+    private double mNominalPower;
     private String mType = "Fridge";
 
     /**
@@ -31,9 +33,10 @@ public class Fridge implements DeviceSpecs {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add(FREEZER_CAPACITY_STRING);
-        result.add(REFRIGERATOR_CAPACITY_STRING);
-        result.add(ANNUAL_CONSUMPTION_STRING);
+        result.add(FREEZER_CAPACITY);
+        result.add(REFRIGERATOR_CAPACITY);
+        result.add(ANNUAL_CONSUMPTION);
+        result.add(NOMINAL_POWER);
 
         return result;
     }
@@ -41,11 +44,11 @@ public class Fridge implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case FREEZER_CAPACITY_STRING:
+            case FREEZER_CAPACITY:
                 return mFreezerCapacity;
-            case REFRIGERATOR_CAPACITY_STRING:
+            case REFRIGERATOR_CAPACITY:
                 return mRefrigeratorCapacity;
-            case ANNUAL_CONSUMPTION_STRING:
+            case ANNUAL_CONSUMPTION:
                 return mAnnualEnergyConsumption;
             default:
                 return 0;
@@ -53,12 +56,14 @@ public class Fridge implements DeviceSpecs {
     }
     public Object getAttributeUnit(String attributeName) {
         switch (attributeName) {
-            case FREEZER_CAPACITY_STRING:
+            case FREEZER_CAPACITY:
                 return "Kg";
-            case REFRIGERATOR_CAPACITY_STRING:
+            case REFRIGERATOR_CAPACITY:
                 return "Kg";
-            case ANNUAL_CONSUMPTION_STRING:
+            case ANNUAL_CONSUMPTION:
                 return "kWh";
+            case NOMINAL_POWER:
+                return "kW";
             default:
                 return 0;
         }
@@ -66,21 +71,27 @@ public class Fridge implements DeviceSpecs {
 
         public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
-            case "freezerCapacity":
+            case FREEZER_CAPACITY:
                 if (attributeValue instanceof Double) {
                     this.mFreezerCapacity = (Double) attributeValue;
                     return true;
                 }
                 return false;
-            case "refrigeratorCapacity":
+            case REFRIGERATOR_CAPACITY:
                 if (attributeValue instanceof Double) {
                     this.mRefrigeratorCapacity = (Double) attributeValue;
                     return true;
                 }
                 return false;
-            case "annualEnergyConsumption":
+            case ANNUAL_CONSUMPTION:
                 if (attributeValue instanceof Double) {
                     this.mAnnualEnergyConsumption = (Double) attributeValue;
+                    return true;
+                }
+                return false;
+            case NOMINAL_POWER:
+                if (attributeValue instanceof Double) {
+                    this.mNominalPower = (Double) attributeValue;
                     return true;
                 }
                 return false;

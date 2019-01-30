@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Dishwasher implements DeviceSpecs, Programmable {
 
-    private static final String CAPACITY = "capacity";
-    private static final String PROGRAM_LIST = "programList";
-    private static final String NOMINAL_POWER = "nominal power";
+    public static final String CAPACITY = "capacity";
+    public static final String PROGRAM_LIST = "programList";
+    public static final String NOMINAL_POWER = "nominal power";
 
     private Double mCapacity;
     private ProgramList mProgramList;

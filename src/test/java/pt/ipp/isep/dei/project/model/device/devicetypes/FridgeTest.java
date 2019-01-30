@@ -82,9 +82,10 @@ class FridgeTest {
     void seeIfGetAttributeNamesTest() {
         Fridge fridge = new Fridge();
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add("freezerCapacity");
-        expectedResult.add("refrigeratorCapacity");
-        expectedResult.add("annualEnergyConsumption");
+        expectedResult.add(Fridge.FREEZER_CAPACITY);
+        expectedResult.add(Fridge.REFRIGERATOR_CAPACITY);
+        expectedResult.add(Fridge.ANNUAL_CONSUMPTION);
+        expectedResult.add(Fridge.NOMINAL_POWER);
         List<String> result = fridge.getAttributeNames();
         assertEquals(expectedResult, result);
     }

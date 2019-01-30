@@ -5,9 +5,11 @@ import java.util.List;
 
 public class Lamp implements DeviceSpecs {
     private static final String FLUX = "luminousFlux";
+    public static final String NOMINAL_POWER = "nominal power";
 
     private Double mLuminousFlux;
     private String mType = "Lamp";
+    private Double mNominalPower;
 
     public Lamp() {
     }
@@ -27,26 +29,60 @@ public class Lamp implements DeviceSpecs {
     }
 
     public Object getAttributeValue(String attributeName) {
-        if (attributeName.equals(FLUX)) {
-            return mLuminousFlux;
-        } else {
-            return 0;
+        switch (attributeName) {
+            case FLUX:
+                if (attributeName.equals(FLUX)) {
+                    return mLuminousFlux;
+                } else {
+                    return 0;
+                }
+            case NOMINAL_POWER:
+                if (attributeName.equals(NOMINAL_POWER)) {
+                    return mNominalPower;
+                } else {
+                    return false;
+                }
+            default:
+                return false;
         }
     }
 
     public Object getAttributeUnit(String attributeName) {
-        if (attributeName.equals(FLUX)) {
-            return "lm";
-        } else {
-            return 0;
+        switch (attributeName) {
+            case FLUX:
+                if (attributeName.equals(FLUX)) {
+                    return "lm";
+                } else {
+                    return false;
+                }
+            case NOMINAL_POWER:
+                if (attributeName.equals(NOMINAL_POWER)) {
+                    return "kW";
+                } else {
+                    return false;
+                }
+            default:
+                return false;
         }
     }
 
-        public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        if (attributeName.equals(FLUX) && attributeValue instanceof Double) {
-            this.mLuminousFlux = (Double) attributeValue;
-            return true;
+    public boolean setAttributeValue(String attributeName, Object attributeValue) {
+        switch (attributeName) {
+            case FLUX:
+                if (attributeName.equals(FLUX) && attributeValue instanceof Double) {
+                    this.mLuminousFlux = (Double) attributeValue;
+                    return true;
+                }
+                return false;
+            case NOMINAL_POWER:
+                if (attributeName.equals(NOMINAL_POWER) && attributeValue instanceof Double) {
+                    this.mNominalPower = (Double) attributeValue;
+                    return true;
+                }
+                return false;
+            default:
+                return false;
         }
-        return false;
+
     }
 }
