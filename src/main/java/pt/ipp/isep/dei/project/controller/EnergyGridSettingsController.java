@@ -149,7 +149,7 @@ public class EnergyGridSettingsController {
     public void createEnergyGrid(String designation, double maxPower) {
         this.mEnergyGrid = new EnergyGrid();
         this.mEnergyGrid.setName(designation);
-        this.mEnergyGrid.setNominalPower(maxPower);
+        this.mEnergyGrid.setMaxContractedPower(maxPower);
     }
 
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced

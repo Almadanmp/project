@@ -30,7 +30,7 @@ class EnergyGridTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid();
-        energyGrid.setNominalPower(0);
+        energyGrid.setMaxContractedPower(0);
         energyGrid.setName("grid");
         String result = energyGrid.buildGridString();
         assertEquals("Energy Grid: grid, Max Power: 0.0", result);
@@ -51,7 +51,7 @@ class EnergyGridTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid();
-        energyGrid.setNominalPower(0);
+        energyGrid.setMaxContractedPower(0);
         energyGrid.setName("grid");
         energyGrid.setRoomList(roomList);
         String result = energyGrid.getListOfRooms().buildRoomsString();
@@ -174,10 +174,10 @@ class EnergyGridTest {
     @Test
     void seeIfEqualsEnergyGridToSameObject() {
         EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         energyGrid1.setName("EG1");
         EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid2.setNominalPower(400);
+        energyGrid2.setMaxContractedPower(400);
         energyGrid2.setName("EG1");
         boolean expectedResult = true;
         boolean actualResult = energyGrid1.equals(energyGrid2);
@@ -187,7 +187,7 @@ class EnergyGridTest {
     @Test
     void seeIfEqualsEnergyGridToObject() {
         EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         energyGrid1.setName("EG1");
         boolean expectedResult = true;
         boolean actualResult = energyGrid1.equals(energyGrid1);
@@ -198,7 +198,7 @@ class EnergyGridTest {
     void seeIfFalseWhenObjectsAreDifferentWithDifferentContent() {
         Room room = new Room("Quarto", 2, 10, 20, 2);
         EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         energyGrid1.setName("EG1");
         boolean expectedResult = false;
         boolean actualResult = energyGrid1.equals(room);
@@ -274,7 +274,7 @@ class EnergyGridTest {
     @Test
     void seeIfFalseWhenObjectsAreNull() {
         EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         energyGrid1.setName("EG1");
         boolean expectedResult = false;
         boolean actualResult = energyGrid1.equals(null);
@@ -294,7 +294,7 @@ class EnergyGridTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid();
-        eg.setNominalPower(333);
+        eg.setMaxContractedPower(333);
         eg.setName("Main Energy Grid Edificio C");
         RoomList rl = new RoomList();
         DeviceList deviceList = new DeviceList();
@@ -312,7 +312,7 @@ class EnergyGridTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room m = null;
         EnergyGrid eg = new EnergyGrid();
-        eg.setNominalPower(333);
+        eg.setMaxContractedPower(333);
         eg.setName("Main Energy Grid Edificio C");
         RoomList rl = new RoomList();
         rl.addRoom(m);

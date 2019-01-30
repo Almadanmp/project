@@ -206,7 +206,7 @@ public class House implements Metered {
         for (int i = 0; i < this.mEGList.getEnergyGridList().size(); i++) {
             EnergyGrid aux = this.mEGList.getEnergyGridList().get(i);
             result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
-            result.append("Max Power: ").append(aux.getNominalPower()).append("\n");
+            result.append("Max Power: ").append(aux.getMaxContractedPower()).append("\n");
         }
         result.append(mStringEnhancer);
         return result.toString();

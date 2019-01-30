@@ -156,6 +156,12 @@ public class EnergyConsumptionController {
         return programHouse.getRoomList();
     }
 
+    /**
+     * Acesses model and returns a House's list of grids.
+     * @param programHouse the house we want to get the roomList from.
+     * @return returns the List of Grids in the given house.
+     */
+
     public List<EnergyGrid> getHouseGridList(House programHouse) {
         return programHouse.getEGList();
     }
@@ -243,8 +249,8 @@ public class EnergyConsumptionController {
     /**
      * Returns the Log List for a Given device.
      *
-     * @param device - given by UI
-     * @return LogList
+     * @param device Is the device we want the loglist from.
+     * @return LogList is the given device's log list.
      */
     public LogList getLogListFromDevice(Device device) {
         return device.getLogList();

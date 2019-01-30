@@ -15,7 +15,7 @@ public class EnergyGridListTest {
     public void seeIfAddEnergyGridToEnergyGridListTrue() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setNominalPower(0);
+        energyGrid1.setMaxContractedPower(0);
         energyGrid1.setName("Secundary Grid");
 
         Boolean expectedResult = true;
@@ -29,9 +29,9 @@ public class EnergyGridListTest {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid1.setNominalPower(0);
+        energyGrid1.setMaxContractedPower(0);
         energyGrid1.setName("Secundary Grid");
-        energyGrid2.setNominalPower(0);
+        energyGrid2.setMaxContractedPower(0);
         energyGrid2.setName("Secundary Grid");
         pList1.addGrid(energyGrid1);
 
@@ -46,9 +46,9 @@ public class EnergyGridListTest {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid1.setNominalPower(0);
+        energyGrid1.setMaxContractedPower(0);
         energyGrid1.setName("Secundary Grid");
-        energyGrid2.setNominalPower(0);
+        energyGrid2.setMaxContractedPower(0);
         energyGrid2.setName("Secundary Grid");
         pList1.addGrid(energyGrid1);
         pList1.addGrid(energyGrid2);
@@ -74,9 +74,9 @@ public class EnergyGridListTest {
         pList1.addGrid(energyGrid1);
         EnergyGridList pList2 = new EnergyGridList();
         EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid1.setNominalPower(0);
+        energyGrid1.setMaxContractedPower(0);
         energyGrid1.setName("Grid");
-        energyGrid2.setNominalPower(0);
+        energyGrid2.setMaxContractedPower(0);
         energyGrid2.setName("Grid");
         pList2.addGrid(energyGrid2);
         Boolean expectedResult = true;
@@ -91,7 +91,7 @@ public class EnergyGridListTest {
     public void ensureThatAObjectIsAInstanceOf2() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setNominalPower(0);
+        energyGrid1.setMaxContractedPower(0);
         energyGrid1.setName("Grid");
         pList1.addGrid(energyGrid1);
         EnergyGridList pList2 = new EnergyGridList();
@@ -107,7 +107,7 @@ public class EnergyGridListTest {
     public void ensureThatAObjectIsAInstanceOf4() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setNominalPower(0);
+        energyGrid1.setMaxContractedPower(0);
         energyGrid1.setName("Grid");
         pList1.addGrid(energyGrid1);
         Boolean expectedResult = true;
@@ -121,7 +121,7 @@ public class EnergyGridListTest {
     public void ensureThatAObjectIsAInstanceOf3() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setNominalPower(0);
+        energyGrid1.setMaxContractedPower(0);
         energyGrid1.setName("Grid");
         pList1.addGrid(energyGrid1);
         Boolean expectedResult = false;
@@ -136,9 +136,9 @@ public class EnergyGridListTest {
         EnergyGridList pList2 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid1.setNominalPower(0);
+        energyGrid1.setMaxContractedPower(0);
         energyGrid1.setName("Secundary Grid");
-        energyGrid2.setNominalPower(0);
+        energyGrid2.setMaxContractedPower(0);
         energyGrid2.setName("Main Grid");
         pList1.addGrid(energyGrid1);
         pList2.addGrid(energyGrid2);
@@ -153,7 +153,7 @@ public class EnergyGridListTest {
     public void hashCodeDummyTest() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setNominalPower(0);
+        energyGrid1.setMaxContractedPower(0);
         energyGrid1.setName("Main Grid");
         pList1.addGrid(energyGrid1);
         int expectedResult = 1;

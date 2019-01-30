@@ -402,6 +402,92 @@ class EnergyConsumptionControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    //US721 TESTS
+
+    @Test
+    void seeIfGetHouseRoomListWorks() {
+
+        //Arrange
+
+        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room firstRoom = new Room("Quarto", 2, 20, 25, 10);
+        Room secondRoom = new Room("Cozinha", 0, 30, 50, 15);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(firstRoom);
+        roomList.addRoom(secondRoom);
+        house.setRoomList(roomList);
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        List<Room> expectedResult = new ArrayList<>();
+        expectedResult.add(firstRoom);
+        expectedResult.add(secondRoom);
+
+        //Act
+
+        List<Room> actualResult = controller.getHouseRoomList(house);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetHouseGridListWorks() {
+
+        //Arrange
+
+        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        Room firstRoom = new Room("Quarto", 2, 20, 25, 10);
+        Room secondRoom = new Room("Cozinha", 0, 30, 50, 15);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(firstRoom);
+        roomList.addRoom(secondRoom);
+        EnergyGrid firstGrid = new EnergyGrid("GridOne", 300);
+        firstGrid.setRoomList(roomList);
+        EnergyGridList gridList = new EnergyGridList();
+        gridList.addGrid(firstGrid);
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        house.setEGList(gridList);
+        List<EnergyGrid> expectedResult = new ArrayList<>();
+        expectedResult.add(firstGrid);
+
+        //Act
+
+        List<EnergyGrid> actualResult = controller.getHouseGridList(house);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomConsumptionInIntervalWorks(){
+        //Arrange
+
+        Room firstRoom = new Room("Quarto", 2, 20, 25, 10);
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 2).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 60).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log = new Log(56, periodBeginning, periodEnding);
+        device.addLog(log);
+        DeviceList deviceList =  new DeviceList();
+        deviceList.addDevice(device);
+        firstRoom.setDeviceList(deviceList);
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        double expectedResult = 56;
+
+        //Act
+        double actualResult = controller.getRoomConsumptionInInterval(firstRoom,initialTime,finalTime);
+
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+
 
     //US752 TESTS
 

@@ -81,7 +81,7 @@ public class EnergyGridList {
     public String buildElementsByIndexString(List<Integer> indexes) {
         StringBuilder result = new StringBuilder();
         for (int pos : indexes) {
-            result.append(pos).append(") ").append(mEnergyGridList.get(pos).getName()).append(", ").append(mEnergyGridList.get(pos).getNominalPower()).append(", ").append(mEnergyGridList.get(pos).getListPowerSources()).append(".\n");
+            result.append(pos).append(") ").append(mEnergyGridList.get(pos).getName()).append(", ").append(mEnergyGridList.get(pos).getMaxContractedPower()).append(", ").append(mEnergyGridList.get(pos).getListPowerSources()).append(".\n");
         }
         return result.toString();
     }

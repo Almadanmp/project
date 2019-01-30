@@ -213,9 +213,9 @@ class HouseTest {
         EnergyGrid eg1 = new EnergyGrid();
         EnergyGrid eg2 = new EnergyGrid();
         eg1.setName("Rede");
-        eg1.setNominalPower(444);
+        eg1.setMaxContractedPower(444);
         eg2.setName("Rede 2");
-        eg2.setNominalPower(555);
+        eg2.setMaxContractedPower(555);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(eg1);
         energyGridList.addGrid(eg2);
@@ -384,7 +384,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         EnergyGridList energyGridList = new EnergyGridList();
         EnergyGrid eg = new EnergyGrid();
-        eg.setNominalPower(25);
+        eg.setMaxContractedPower(25);
         eg.setName("main grid");
         energyGridList.addGrid(eg);
 

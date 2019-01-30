@@ -32,9 +32,9 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid energyGrid1 = new EnergyGrid();
         EnergyGrid energyGrid2 = new EnergyGrid();
         energyGrid1.setName("EG1");
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         energyGrid2.setName("EG2");
-        energyGrid2.setNominalPower(400);
+        energyGrid2.setMaxContractedPower(400);
         house.addGrid(energyGrid1);
         house.addGrid(energyGrid2);
         energyGrid2.addRoomToAnEnergyGrid(room);
@@ -53,9 +53,9 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid energyGrid1 = new EnergyGrid();
         EnergyGrid energyGrid2 = new EnergyGrid();
         energyGrid1.setName("EG1");
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         energyGrid2.setName("EG2");
-        energyGrid2.setNominalPower(400);
+        energyGrid2.setMaxContractedPower(400);
         house.addGrid(energyGrid1);
         house.addGrid(energyGrid2);
         energyGrid1.addRoomToAnEnergyGrid(room);
@@ -77,7 +77,7 @@ class EnergyGridSettingsControllerTest {
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setName("EG1");
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(energyGrid1);
         roomList.addRoom(room);
@@ -109,9 +109,9 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid energyGrid1 = new EnergyGrid();
         EnergyGrid energyGrid2 = new EnergyGrid();
         energyGrid1.setName("EG1");
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         energyGrid1.setName("EG1");
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(energyGrid1);
         energyGridList.addGrid(energyGrid2);
@@ -132,9 +132,9 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid energyGrid1 = new EnergyGrid();
         EnergyGrid energyGrid2 = new EnergyGrid();
         energyGrid1.setName("EG1");
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         energyGrid2.setName("EG2");
-        energyGrid2.setNominalPower(400);
+        energyGrid2.setMaxContractedPower(400);
         house.addGrid(energyGrid1);
         house.addGrid(energyGrid2);
         energyGrid1.addRoomToAnEnergyGrid(room);
@@ -150,7 +150,7 @@ class EnergyGridSettingsControllerTest {
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setName("EG1");
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(energyGrid1);
         house.addRoomToRoomList(room);
@@ -168,7 +168,7 @@ class EnergyGridSettingsControllerTest {
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setName("EG1");
-        energyGrid1.setNominalPower(400);
+        energyGrid1.setMaxContractedPower(400);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(energyGrid1);
         house.addRoomToRoomList(room);
@@ -189,7 +189,7 @@ class EnergyGridSettingsControllerTest {
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid();
         eg.setName("Main Energy Grid Edificio C");
-        eg.setNominalPower(333);
+        eg.setMaxContractedPower(333);
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
         RoomList rl = new RoomList();
@@ -210,7 +210,7 @@ class EnergyGridSettingsControllerTest {
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid();
         eg.setName("Main Energy Grid Edificio C");
-        eg.setNominalPower(333);
+        eg.setMaxContractedPower(333);
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
         RoomList rl = new RoomList();
@@ -230,7 +230,7 @@ class EnergyGridSettingsControllerTest {
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid();
         eg.setName("Main Energy Grid Edificio C");
-        eg.setNominalPower(333);
+        eg.setMaxContractedPower(333);
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
         RoomList rl = new RoomList();
@@ -248,7 +248,7 @@ class EnergyGridSettingsControllerTest {
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid();
         eg.setName("Main Energy Grid Edificio C");
-        eg.setNominalPower(333);
+        eg.setMaxContractedPower(333);
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
         RoomList rl = new RoomList();
@@ -310,7 +310,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddPowerSourceToEnergyGridWorks() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         EnergyGrid grid = new EnergyGrid();
-        grid.setNominalPower(400);
+        grid.setMaxContractedPower(400);
         grid.setName("grid");
         ctrl.createPowerSource("pw", 10, 10);
         boolean result = ctrl.addPowerSourceToGrid(grid);
@@ -322,7 +322,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddPowerSourceToEnergyGridWorksFalse() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         EnergyGrid grid = new EnergyGrid();
-        grid.setNominalPower(400);
+        grid.setMaxContractedPower(400);
         grid.setName("grid");
         boolean result = ctrl.addPowerSourceToGrid(grid);
         boolean expectedResult = false;
@@ -337,7 +337,7 @@ class EnergyGridSettingsControllerTest {
         ctrl.addEnergyGridToHouse(house);
         EnergyGrid result = house.getEGListObject().getEnergyGridList().get(0);
         EnergyGrid expectedResult = new EnergyGrid();
-        expectedResult.setNominalPower(400);
+        expectedResult.setMaxContractedPower(400);
         expectedResult.setName("grid");
         assertEquals(expectedResult, result);
     }
@@ -355,7 +355,7 @@ class EnergyGridSettingsControllerTest {
     public void seeIfPrintsInvalidList() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         EnergyGrid grid = new EnergyGrid();
-        grid.setNominalPower(400);
+        grid.setMaxContractedPower(400);
         grid.setName("grid");
         String expectedResult = "Invalid List - List is Empty\n";
         String result = ctrl.buildGridRoomsString(grid);
@@ -369,7 +369,7 @@ class EnergyGridSettingsControllerTest {
         Room room2EdC = new Room("B109", 1, 7, 11, 3.5);
         Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid();
-        eg.setNominalPower(333);
+        eg.setMaxContractedPower(333);
         eg.setName("Main Energy Grid Edificio C");
         EnergyGridList egl = new EnergyGridList();
         egl.addGrid(eg);
@@ -393,7 +393,7 @@ class EnergyGridSettingsControllerTest {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid();
-        eg.setNominalPower(333);
+        eg.setMaxContractedPower(333);
         eg.setName("Main Energy Grid Edificio C");
         RoomList rl = new RoomList();
         Device d1 = new Device("fridgeOne", 12, TestUtils.PATH_TO_FRIDGE);

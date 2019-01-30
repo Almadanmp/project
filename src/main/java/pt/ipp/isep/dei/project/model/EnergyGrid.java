@@ -18,14 +18,20 @@ import java.util.Properties;
 
 public class EnergyGrid implements Metered {
     private String mName;
-    private double mNominalPower;
     private RoomList mRoomList;
     private PowerSourceList mListPowerSources;
+    private double mMaxContractedPower;
 
-    public EnergyGrid(){
+    public EnergyGrid() {
         this.mRoomList = new RoomList();
         this.mListPowerSources = new PowerSourceList();
-        this.mNominalPower = 0;
+    }
+
+    public EnergyGrid(String name, double maxContractedPower) {
+        this.mRoomList = new RoomList();
+        this.mListPowerSources = new PowerSourceList();
+        this.setName(name);
+        this.setMaxContractedPower(maxContractedPower);
     }
 
     /**
@@ -63,13 +69,22 @@ public class EnergyGrid implements Metered {
         return devices;
     }
 
+    public double getMaxContractedPower() {
+        return mMaxContractedPower;
+    }
+
     /**
-     * Getter for the total nominal power value in every room contained in the grid.
+     * Method accesses the sum of nominal powers of all rooms and devices connected to a grid..
      *
-     * @return a the total nominal power value in every room contained in the grid.
+     * @return is the sum of nominal powers of all rooms and devices connected to a grid.
      */
+
     public double getNominalPower() {
-        return this.mNominalPower;
+        double result = 0;
+        for (Room r : this.getRoomList()) {
+            result += r.getNominalPower();
+        }
+        return result;
     }
 
     public double getNominalPowerFromRoomList() {
@@ -98,6 +113,10 @@ public class EnergyGrid implements Metered {
         this.mListPowerSources = mListPowerSources;
     }
 
+    public void setMaxContractedPower(double power){
+        this.mMaxContractedPower = power;
+    }
+
     /**
      * Setter for the list of rooms connected the energy grid.
      *
@@ -121,19 +140,11 @@ public class EnergyGrid implements Metered {
     }
 
     /**
-     * Setter for the value of nominal power in the energy grid.
-     *
-     * @param nominalPower value of nominal power in the energy grid.
-     */
-    public void setNominalPower(double nominalPower) {
-        this.mNominalPower = nominalPower;
-    }
-
-    /**
      * Setter for the name of the energy grid.
      *
      * @param mName name of the energy grid.
      */
+
     public void setName(String mName) {
         this.mName = mName;
     }
@@ -154,7 +165,7 @@ public class EnergyGrid implements Metered {
      * @return returns a string displaying the name of the grid and respective max nominal power.
      */
     public String buildGridString() {
-        return "Energy Grid: " + this.mName + ", Max Power: " + this.getNominalPower();
+        return "Energy Grid: " + this.mName + ", Max Power: " + this.getMaxContractedPower();
     }
 
     /**
@@ -279,13 +290,14 @@ public class EnergyGrid implements Metered {
     /**
      * US722 As a Power User [or Administrator], I want the sum of the energy consumption of all energy-metered rooms
      * in the grid in the interval.
+     *
      * @param initialDate for metering period.
-     * @param finalDate for metering period.
+     * @param finalDate   for metering period.
      * @return total metered energy consumption of a grid in a given time interval.
      */
-    public double getGridConsumptionInInterval(Date initialDate, Date finalDate){
+    public double getGridConsumptionInInterval(Date initialDate, Date finalDate) {
         double gridConsumption = 0;
-        for(Room r: this.getRoomList()){
+        for (Room r : this.getRoomList()) {
             gridConsumption += r.getConsumptionInInterval(initialDate, finalDate);
         }
         return gridConsumption;
