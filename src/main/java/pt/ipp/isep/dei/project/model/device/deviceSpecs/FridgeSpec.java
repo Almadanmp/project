@@ -50,6 +50,8 @@ public class FridgeSpec implements DeviceSpecs {
                 return mRefrigeratorCapacity;
             case ANNUAL_CONSUMPTION:
                 return mAnnualEnergyConsumption;
+            case NOMINAL_POWER:
+                return mNominalPower;
             default:
                 return 0;
         }

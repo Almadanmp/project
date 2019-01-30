@@ -60,6 +60,16 @@ class WashingMachineSpecTest {
         double expectedResult = 5.0;
         Object result = washingMachineSpec.getAttributeValue("Capacity");
         assertEquals(expectedResult, result);
+    } @Test
+    void getAttributeValuesTestNp() {
+        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
+        washingMachineSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        ProgramList listProgram = washingMachineSpec.getProgramList();
+        Program program1 = new Program("programa", 2, 2);
+        listProgram.addProgram(program1);
+        double expectedResult = 5.0;
+        Object result = washingMachineSpec.getAttributeValue("nominal power");
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -84,6 +94,16 @@ class WashingMachineSpecTest {
         Object result = washingMachineSpec.getAttributeUnit("programList");
         assertEquals(false, result);
         assertEquals(false, washingMachineSpec.getAttributeUnit(""));
+
+    } @Test
+    void getAttributeUnitTest3() {
+        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
+        washingMachineSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        ProgramList listProgram = washingMachineSpec.getProgramList();
+        Program program1 = new Program("programa", 2, 2);
+        listProgram.addProgram(program1);
+        Object result = washingMachineSpec.getAttributeUnit("nominal power");
+        assertEquals("kW", result);
 
     }
 
@@ -171,9 +191,20 @@ class WashingMachineSpecTest {
     void setAttributeValueTestDefault3() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
         washingMachineSpec.setAttributeValue("programList", 5.0);
+        washingMachineSpec.setAttributeValue("nominal power", 5.0);
         washingMachineSpec.setAttributeValue("Capacity", 6.0);
         Object result = washingMachineSpec.getAttributeValue("Capacity");
         Object expectedResult = 6.0;
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    void setAttributeValueTestDefault4() {
+        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
+        washingMachineSpec.setAttributeValue("programList", 5.0);
+        washingMachineSpec.setAttributeValue("nominal power", 5.0);
+        washingMachineSpec.setAttributeValue("Capacity", 6.0);
+        Object result = washingMachineSpec.getAttributeValue("nominal power");
+        Object expectedResult = 5.0;
         assertEquals(expectedResult, result);
     }
 
@@ -209,15 +240,18 @@ class WashingMachineSpecTest {
         //Arrange
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
         washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         listProgram.addProgram(program1);
         // original strings:
         assertEquals(5.0, washingMachineSpec.getAttributeValue("Capacity"));
+        assertEquals(5.0, washingMachineSpec.getAttributeValue("nominal power"));
         assertEquals(listProgram, washingMachineSpec.getAttributeValue("programList"));
 
         // same hash codes, but different strings:
         assertEquals(0, washingMachineSpec.getAttributeValue("\0Capacity"));
+        assertEquals(0, washingMachineSpec.getAttributeValue("\0nominal power"));
         assertEquals(0, washingMachineSpec.getAttributeValue("\0programList"));
 
         // distinct hash code to cover default cases of switches

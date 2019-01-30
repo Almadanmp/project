@@ -13,6 +13,7 @@ public class TestUtils {
     public static final String PATH_TO_WASHINGMACHINE = "pt.ipp.isep.dei.project.model.device.deviceSpecs.WashingMachineSpec";
     public static final String PATH_TO_LAMP = "pt.ipp.isep.dei.project.model.device.deviceSpecs.LampSpec";
 
+    public static final String NOMINAL_POWER = "nominal power";
     //FridgeSpec attributes
     public static final String F_FREEZER_CAPACITY = "Freezer Capacity";
     public static final String F_REFRIGERATOR_CAPACITY = "Refrigerator Capacity";

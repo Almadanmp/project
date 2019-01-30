@@ -93,6 +93,45 @@ public class LampSpecTest {
         lampSpec.setAttributeValue("Luminous Flux", 5.0);
         Object result = lampSpec.getAttributeValue("Luminous Flux");
         assertEquals(5.0, result);
+    }@Test
+    public void getObjectAttributeValueTestNominalPower() {
+        LampSpec lampSpec = new LampSpec();
+        lampSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 4D);
+        Double expectedResult = 4.0;
+        Object result = lampSpec.getAttributeValue(TestUtils.NOMINAL_POWER);
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void getObjectAttributeUnitTestNominalPower() {
+        LampSpec lampSpec = new LampSpec();
+        String expectedResult = "kW";
+        Object result = lampSpec.getAttributeUnit(TestUtils.NOMINAL_POWER);
+        assertEquals(expectedResult, result);
+        assertEquals(false, lampSpec.getAttributeUnit(""));
+
+    }
+
+    @Test
+    public void setAttributeValueTestFalseNominalPower() {
+        LampSpec lampSpec = new LampSpec();
+        Object result = lampSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5);
+        assertEquals(false, result);
+    }
+
+    @Test
+    public void setAttributeValueTestDefaultNominalPower() {
+        LampSpec lampSpec = new LampSpec();
+        lampSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5.0);
+        Object result = lampSpec.getAttributeValue("lisbon");
+        assertEquals(false, result);
+    }
+
+    @Test
+    public void setAttributeValueTestTrueNominalPower() {
+        LampSpec lampSpec = new LampSpec();
+        lampSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5.0);
+        Object result = lampSpec.getAttributeValue("nominal power");
+        assertEquals(5.0, result);
     }
 
 }
