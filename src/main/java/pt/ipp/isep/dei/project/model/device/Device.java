@@ -25,6 +25,8 @@ public class Device implements Metered {
     private int mMeteringPeriod;
     private boolean mActive;
 
+
+    //TODO delete nominalpower from constructor and as an attribut after changes are made (moving nominal power to each spec)
     /**
      * Constructor with path by configuration file approach
      *
@@ -52,6 +54,13 @@ public class Device implements Metered {
         if (!setMeteringPeriod()) {
             throw new IllegalArgumentException("Configuration file not valid.");
         }
+    }
+
+    /**
+     * @param deviceSpecs
+     */
+    public Device (DeviceSpecs deviceSpecs) {
+        this.mDeviceSpecs = deviceSpecs;
     }
 
     public double getNominalPower() {

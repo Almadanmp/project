@@ -10,11 +10,12 @@ public class Dishwasher implements DeviceSpecs, Programmable {
 
     private static final String CAPACITY = "capacity";
     private static final String PROGRAM_LIST = "programList";
+    private static final String NOMINAL_POWER = "nominal power";
 
-    private double mCapacity;
+    private Double mCapacity;
     private ProgramList mProgramList;
     private String mType = "Dishwasher";
-
+    private Double mNominalPower;
 
     public Dishwasher() {
         this.mProgramList = new ProgramList();
@@ -35,7 +36,7 @@ public class Dishwasher implements DeviceSpecs, Programmable {
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
         result.add(CAPACITY);
-       // result.add(PROGRAM_LIST);
+        result.add(NOMINAL_POWER);
         return result;
     }
 
@@ -46,6 +47,9 @@ public class Dishwasher implements DeviceSpecs, Programmable {
         if (attributeName.equals(PROGRAM_LIST)) {
             return mProgramList;
         }
+        if (attributeName.equals(NOMINAL_POWER)) {
+            return mNominalPower;
+        }
         return 0;
     }
 
@@ -55,16 +59,32 @@ public class Dishwasher implements DeviceSpecs, Programmable {
                 return "Kg";
             case PROGRAM_LIST:
                 return " ";
+            case NOMINAL_POWER:
+                return "kW";
             default:
                 return 0;
         }
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        if (attributeName.equals(CAPACITY) && attributeValue instanceof Double) {
-            this.mCapacity = (Double) attributeValue;
-            return true;
+        if (attributeName == null) {
+            return false;
         }
-        return false;
+        switch (attributeName) {
+            case CAPACITY:
+                if (attributeName.equals(CAPACITY) && attributeValue instanceof Double) {
+                    this.mCapacity = (Double) attributeValue;
+                    return true;
+                }
+                return false;
+            case NOMINAL_POWER:
+                if (attributeValue instanceof Double) {
+                    this.mNominalPower = (Double) attributeValue;
+                    return true;
+                }
+                return false;
+            default:
+                return false;
+        }
     }
 }
