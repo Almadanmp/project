@@ -11,33 +11,49 @@ InputUtils -> House: buildRoomListString()
 activate House
 House --> PowerUser: Print Room List
 deactivate House
+deactivate InputUtils
+deactivate RoomConfigurationUI
+deactivate MainUI
 PowerUser -> RoomConfigurationUI: Select room
+activate MainUI
+activate RoomConfigurationUI
 RoomConfigurationUI -> InputUtils: Select room
+activate InputUtils
 InputUtils -> RoomList: get(room)
 activate RoomList
 RoomList --> InputUtils: return room
 deactivate RoomList
 InputUtils --> RoomConfigurationUI: return room
+deactivate InputUtils
 RoomConfigurationUI --> InputUtils: getInputRoomDevicesByList(room)
+activate InputUtils
 InputUtils -> Room: buildDeviceListString()
 activate Room
 Room --> PowerUser: Print Device List
+deactivate MainUI
+deactivate InputUtils
 deactivate Room
+deactivate RoomConfigurationUI
 PowerUser -> RoomConfigurationUI: Select device
+activate MainUI
+activate RoomConfigurationUI
 RoomConfigurationUI -> InputUtils: Select Device
+activate InputUtils
 InputUtils -> DeviceList: get(device)
 activate DeviceList
 DeviceList --> InputUtils: return device
 deactivate DeviceList
 InputUtils --> RoomConfigurationUI: return device
+deactivate RoomConfigurationUI
 deactivate InputUtils
 RoomConfigurationUI -> RoomConfigurationController: deactivateDevice(device)
+activate RoomConfigurationUI
 activate RoomConfigurationController
 RoomConfigurationController --> RoomConfigurationUI: return true
 deactivate RoomConfigurationController
-RoomConfigurationUI --> MainUI: return
+RoomConfigurationUI --> MainUI: return true
 deactivate RoomConfigurationUI
-MainUI -> PowerUser: Successful Feedback Message
+MainUI --> PowerUser: Successful Feedback Message
 deactivate MainUI
 deactivate PowerUser
 @enduml
