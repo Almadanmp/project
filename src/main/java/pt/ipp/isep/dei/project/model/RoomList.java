@@ -97,7 +97,7 @@ public class RoomList {
         return result.toString();
     }
 
-    public List<Device> getDeviceList() {
+    List<Device> getDeviceList() {
         List<Device> result = new ArrayList<>();
         for (Room r : this.getList()) {
             result.addAll(r.getDeviceList());
@@ -158,7 +158,7 @@ public class RoomList {
      * @param deviceType the device type
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyConsumptionByDeviceType(String deviceType) {
+    double getDailyConsumptionByDeviceType(String deviceType) {
         double result = 0;
         for (Room r : mRoomList) {
             result += r.getDailyConsumptionByDeviceType(deviceType);

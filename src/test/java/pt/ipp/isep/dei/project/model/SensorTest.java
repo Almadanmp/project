@@ -21,14 +21,13 @@ import static org.junit.jupiter.api.Assertions.*;
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Local l1 = new Local(38, 7, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-        TypeSensor expectedResult = t1;
         TypeSensor actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
         //Act
         actualResult = c.getTypeSensor();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(t1, actualResult);
     }
 
     @Test
@@ -38,14 +37,13 @@ import static org.junit.jupiter.api.Assertions.*;
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Local l1 = new Local(38, 7,5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-        Date expectedResult = d1;
         Date actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
         //Act
         actualResult = c.getDateStartedFunctioning();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(d1, actualResult);
     }
 
     @Test
@@ -56,7 +54,6 @@ import static org.junit.jupiter.api.Assertions.*;
         Local l1 = new Local(38, 7, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         ReadingList rl1 = new ReadingList();
-        TypeSensor expectedResult = t1;
         TypeSensor actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
         c.setReadingList(rl1);
@@ -64,7 +61,7 @@ import static org.junit.jupiter.api.Assertions.*;
         actualResult = c.getTypeSensor();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(t1, actualResult);
     }
 
     @Test
@@ -74,7 +71,6 @@ import static org.junit.jupiter.api.Assertions.*;
         Local l1 = new Local(38, 7, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         ReadingList rl1 = new ReadingList();
-        Date expectedResult = d1;
         Date actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
         c.setReadingList(rl1);
@@ -82,7 +78,7 @@ import static org.junit.jupiter.api.Assertions.*;
         actualResult = c.getDateStartedFunctioning();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(d1, actualResult);
     }
 
     @Test
@@ -92,7 +88,6 @@ import static org.junit.jupiter.api.Assertions.*;
         Local l1 = new Local(38, 7, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         ReadingList rl1 = new ReadingList();
-        Local expectedResult = l1;
         Local actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
         c.setReadingList(rl1);
@@ -100,7 +95,7 @@ import static org.junit.jupiter.api.Assertions.*;
         actualResult = c.getLocal();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(l1, actualResult);
     }
 
     @Test
@@ -279,11 +274,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
         //Act
         c.setReadingList(rl1);
-        ReadingList expectedResult = rl1;
         ReadingList result = c.getReadingList();
 
         //Assert
-        assertEquals(expectedResult, result);
+        assertEquals(rl1, result);
     }
 
     @Test
@@ -292,14 +286,13 @@ import static org.junit.jupiter.api.Assertions.*;
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21), new Date());
         Local l1 = new Local(21, 23, 1);
-        boolean expectedResult = false;
         boolean actualResult;
 
         //Act
         actualResult = s1.equals(l1);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -402,7 +395,7 @@ import static org.junit.jupiter.api.Assertions.*;
         GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
         GregorianCalendar g6 = new GregorianCalendar(2018, 10, 28, 12, 12, 12);
         GregorianCalendar g7 = new GregorianCalendar(2018, 10, 30, 23, 59, 59);
-        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 01, 00, 00, 00);
+        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 1, 0, 0, 0);
         Reading r0 = new Reading(23, g0.getTime());
         Reading r1 = new Reading(23, g1.getTime());
         Reading r2 = new Reading(24, g2.getTime());
@@ -870,14 +863,13 @@ import static org.junit.jupiter.api.Assertions.*;
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-        TypeSensor expectedResult = t1;
         TypeSensor actualResult;
         Sensor c = new Sensor(name, t1, d1);
         //Act
         actualResult = c.getTypeSensor();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(t1, actualResult);
     }
 
     @Test
@@ -886,7 +878,6 @@ import static org.junit.jupiter.api.Assertions.*;
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-        TypeSensor expectedResult = t1;
         TypeSensor actualResult;
         Sensor c = new Sensor("Sensor", new TypeSensor("tiposensor", "unidades"), new Local(5,5,5), new Date());
         c.setTypeSensor(t1);
@@ -896,7 +887,7 @@ import static org.junit.jupiter.api.Assertions.*;
         actualResult = c.getTypeSensor();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(t1, actualResult);
     }
 
     @Test
@@ -948,10 +939,8 @@ import static org.junit.jupiter.api.Assertions.*;
         Local loc1 = new Local(100, 100, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
-        boolean expectedResult = true;
         boolean actualResult = s1.equals(s1);
-
-        assertEquals(expectedResult,actualResult);
+        assertTrue(actualResult);
     }
 
 }

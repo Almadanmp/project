@@ -608,7 +608,7 @@ public class ReadingList {
      *
      * @return returns the average of all values contained within that ArrayList
      */
-    public double getTotalFromGivenList(List<Double> valueList) {
+    double getTotalFromGivenList(List<Double> valueList) {
         double sum = 0;
         if (valueList.isEmpty()) {
             return NaN;

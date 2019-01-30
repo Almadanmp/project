@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
-
-import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * PowerSource tests class.
  */
 
-public class PowerSourceTest {
+class PowerSourceTest {
 
     @Test
-    public void seeHashCodeDummyTest() {
+    void seeHashCodeDummyTest() {
         PowerSource pS1 = new PowerSource("Energia", 1, 1);
         int expectedResult = 1;
         int actualResult = pS1.hashCode();
@@ -22,7 +19,7 @@ public class PowerSourceTest {
     }
 
     @Test
-    public void seeIfEqualsPowerSourceWithDifferentObject() {
+    void seeIfEqualsPowerSourceWithDifferentObject() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         int teste = 3;
         boolean actualResult = pS1.equals(teste);
@@ -31,7 +28,7 @@ public class PowerSourceTest {
     }
 
     @Test
-    public void seeIfEqualsPowerSourceWithDifferentContent() {
+    void seeIfEqualsPowerSourceWithDifferentContent() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         boolean actualResult = pS1.equals(pS2);
@@ -40,7 +37,7 @@ public class PowerSourceTest {
     }
 
     @Test
-    public void seeIfEqualsPowerSourceWithSameContent() {
+    void seeIfEqualsPowerSourceWithSameContent() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Energia", 50, 50);
         boolean actualResult = pS1.equals(pS2);
@@ -49,7 +46,7 @@ public class PowerSourceTest {
     }
 
     @Test
-    public void seeIfEqualsSameObject() {
+    void seeIfEqualsSameObject() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         boolean actualResult = pS1.equals(pS1);
         boolean expectedResult = true;
@@ -58,7 +55,7 @@ public class PowerSourceTest {
     }
 
     @Test
-    public void seeIfEqualsNotAInstanceOfNull() {
+    void seeIfEqualsNotAInstanceOfNull() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
 
         Boolean expectedResult = false;
@@ -69,7 +66,7 @@ public class PowerSourceTest {
     }
 
     @Test
-    public void seeIfEqualsNotAInstanceOfGetClass() {
+    void seeIfEqualsNotAInstanceOfGetClass() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
 
         Boolean expectedResult = false;

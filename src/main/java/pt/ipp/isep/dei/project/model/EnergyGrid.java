@@ -3,14 +3,10 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Properties;
 
 /**
  * Class that represents an Energy Grid present in a House.
@@ -69,7 +65,7 @@ public class EnergyGrid implements Metered {
         return devices;
     }
 
-    public double getMaxContractedPower() {
+    double getMaxContractedPower() {
         return mMaxContractedPower;
     }
 

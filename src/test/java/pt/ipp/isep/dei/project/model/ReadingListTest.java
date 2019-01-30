@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * ReadingList tests class.
  */
 
-public class ReadingListTest {
+class ReadingListTest {
 
     @Test
-    public void seeAddReadingIfListIsEmpty() {
+    void seeAddReadingIfListIsEmpty() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
@@ -29,7 +29,7 @@ public class ReadingListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfGetTotalFromGivenList() {
+    void seeIfGetTotalFromGivenList() {
         //Arrange
         ReadingList readingList = new ReadingList();
         List<Double> list =new ArrayList<>();
@@ -44,7 +44,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeAddReadingIfListHasDifferentReading() {
+    void seeAddReadingIfListHasDifferentReading() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
@@ -62,7 +62,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeAddReadingIfListHasSameReading() {
+    void seeAddReadingIfListHasSameReading() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
@@ -79,7 +79,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeThatWeAddAReading1ToAList() {
+    void seeThatWeAddAReading1ToAList() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
@@ -98,7 +98,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeThatWeAddAReading2ToAList() {
+    void seeThatWeAddAReading2ToAList() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
@@ -117,7 +117,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeThatWeGetAValueFromAReading1InsideAList() {
+    void seeThatWeGetAValueFromAReading1InsideAList() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
@@ -136,7 +136,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeThatWeGetAValueFromAReading2InsideAList() {
+    void seeThatWeGetAValueFromAReading2InsideAList() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
@@ -155,7 +155,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeThatAReadingListDoesNotContainAReading() {
+    void seeThatAReadingListDoesNotContainAReading() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
@@ -173,7 +173,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeThatAReadingDoesNotAddBecauseItIsAlreadyContained() {
+    void seeThatAReadingDoesNotAddBecauseItIsAlreadyContained() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
@@ -193,7 +193,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetMostRecentReading() {
+    void seeIfGetMostRecentReading() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
@@ -213,7 +213,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetMostRecentReadingSwitchedDates() {
+    void seeIfGetMostRecentReadingSwitchedDates() {
         //Arrange
         ReadingList readingList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
@@ -233,7 +233,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMonth() {
+    void seeIfGetAverageOfMonth() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
@@ -274,7 +274,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfAverageReturnsZeroWhenEmptyList() {
+    void seeIfAverageReturnsZeroWhenEmptyList() {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
@@ -287,7 +287,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfAverageReturnsZeroWhenReadingListHasValuesFromDifferentMonthThanGiven() {
+    void seeIfAverageReturnsZeroWhenReadingListHasValuesFromDifferentMonthThanGiven() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
@@ -327,7 +327,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetDatesOfTheMonthWithReadingsInMonthLimits() {
+    void seeIfGetDatesOfTheMonthWithReadingsInMonthLimits() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
@@ -373,7 +373,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetDatesOfTheMonthWithReadingsWithLimitsOfFebruary() {
+    void seeIfGetDatesOfTheMonthWithReadingsWithLimitsOfFebruary() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 0, 31, 23, 59, 59);
@@ -419,7 +419,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetDatesWithReadingsBetweenTwoGivenDates() {
+    void seeIfGetDatesWithReadingsBetweenTwoGivenDates() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
@@ -467,7 +467,7 @@ public class ReadingListTest {
 
 
     @Test
-    public void seeIfGetEmptyListWhenReadingListHasValuesFromDifferentMonthThanMonthGiven() {
+    void seeIfGetEmptyListWhenReadingListHasValuesFromDifferentMonthThanMonthGiven() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 0, 31, 23, 59, 59);
@@ -505,7 +505,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetFirstDateOfMonthIfDateGivenInMiddleOfMonth() {
+    void seeIfGetFirstDateOfMonthIfDateGivenInMiddleOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 7, 4, 5, 7);
@@ -518,7 +518,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetFirstDateOfMonthIfDateGivenIsStartOfMonth() {
+    void seeIfGetFirstDateOfMonthIfDateGivenIsStartOfMonth() {
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
         Date d1 = cal.getTime();
@@ -530,7 +530,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetFirstDateOfMonthIfDateGivenIsEndOfMonth() {
+    void seeIfGetFirstDateOfMonthIfDateGivenIsEndOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 11, 31, 23, 59, 59);
@@ -543,7 +543,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetFirstDateOfMonthIfDateGivenIsEndOfFebruary() {
+    void seeIfGetFirstDateOfMonthIfDateGivenIsEndOfFebruary() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 1, 28, 23, 59, 59);
@@ -557,7 +557,7 @@ public class ReadingListTest {
 
 
     @Test
-    public void seeIfGetLastDayOfMonthIfDateGivenInMiddleOfMonth() {
+    void seeIfGetLastDayOfMonthIfDateGivenInMiddleOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 11, 7, 6, 32, 32);
@@ -570,7 +570,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLastDayOfMonthIfDateGivenIsStartOfMonth() {
+    void seeIfGetLastDayOfMonthIfDateGivenIsStartOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 2, 1, 0, 0, 0);
@@ -583,7 +583,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLastDayOfMonthIfDateGivenIsEndOfMonth() {
+    void seeIfGetLastDayOfMonthIfDateGivenIsEndOfMonth() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 2, 31, 23, 59, 59);
@@ -596,7 +596,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLastDayOfMonthIfMiddleOfFebruary() {
+    void seeIfGetLastDayOfMonthIfMiddleOfFebruary() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 1, 4, 23, 59, 59);
@@ -609,7 +609,7 @@ public class ReadingListTest {
 
 
     @Test
-    public void seeIfGetAverageMinimumOfMonthGivenValueReadings() {
+    void seeIfGetAverageMinimumOfMonthGivenValueReadings() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -651,7 +651,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMinusOneWhenValuesReadingsAreFromDifferentMonth() {
+    void seeIfGetAverageOfMinusOneWhenValuesReadingsAreFromDifferentMonth() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -693,7 +693,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMinusOneWhenValuesReadingsAreFromDifferentYear() {
+    void seeIfGetAverageOfMinusOneWhenValuesReadingsAreFromDifferentYear() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -735,7 +735,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMinusOneWhenValuesReadingsAreFromDifferentMonthAndYear() {
+    void seeIfGetAverageOfMinusOneWhenValuesReadingsAreFromDifferentMonthAndYear() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -777,7 +777,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMinusOneWhenEmptyList() {
+    void seeIfGetAverageOfMinusOneWhenEmptyList() {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
@@ -791,7 +791,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfRemovesReadingsFromDifferentMonthThenGivenWhenReadingsAreOnLimitsOfMonth() {
+    void seeIfRemovesReadingsFromDifferentMonthThenGivenWhenReadingsAreOnLimitsOfMonth() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -840,7 +840,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfWillNotRemoveReadingsWhenListHasSameMonthAndYearGiven() {
+    void seeIfWillNotRemoveReadingsWhenListHasSameMonthAndYearGiven() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
@@ -883,7 +883,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfRemovesAllReadingsWhenListHasDifferentMonthAndYearThenGiven() {
+    void seeIfRemovesAllReadingsWhenListHasDifferentMonthAndYearThenGiven() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
@@ -919,7 +919,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfRemovesAllReadingsWhenListHasDifferentMonthThenGiven() {
+    void seeIfRemovesAllReadingsWhenListHasDifferentMonthThenGiven() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
@@ -955,7 +955,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfRemovesAllReadingsWhenListHasDifferentYearSameMonthThenGiven() {
+    void seeIfRemovesAllReadingsWhenListHasDifferentYearSameMonthThenGiven() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
@@ -992,7 +992,7 @@ public class ReadingListTest {
 
 
     @Test
-    public void seeIfGetDaysOfTheMonthWithReadingsWhenInLimitsOfMonth() {
+    void seeIfGetDaysOfTheMonthWithReadingsWhenInLimitsOfMonth() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
@@ -1037,7 +1037,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfEmptyListWhenDateDifferentThenDateOfReadings() {
+    void seeIfEmptyListWhenDateDifferentThenDateOfReadings() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
@@ -1078,7 +1078,7 @@ public class ReadingListTest {
 
 
     @Test
-    public void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsAllFromSameDay() {
+    void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsAllFromSameDay() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 3, 0, 0, 0);
@@ -1104,7 +1104,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsWhenDayIsInBeginning() {
+    void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsWhenDayIsInBeginning() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 3, 0, 0, 0);
@@ -1126,7 +1126,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsWhenDayIsInEnd() {
+    void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsWhenDayIsInEnd() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 3, 0, 0, 0);
@@ -1148,7 +1148,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsWhenDayIsMiddle() {
+    void seeIfGetValueReadingsFromGivenDayFromListOfOneMonthReadingsWhenDayIsMiddle() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 3, 0, 0, 0);
@@ -1170,7 +1170,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLowestValueFromEndOfList() {
+    void seeIfGetLowestValueFromEndOfList() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 2;
@@ -1187,7 +1187,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLowestValueFromEndOfListOutOfOrder() {
+    void seeIfGetLowestValueFromEndOfListOutOfOrder() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 2;
@@ -1207,7 +1207,7 @@ public class ReadingListTest {
 
 
     @Test
-    public void seeIfGetLowestValueFromListIfValuesEqual() {
+    void seeIfGetLowestValueFromListIfValuesEqual() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 2;
@@ -1230,7 +1230,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLowestValueFromMiddleOfList() {
+    void seeIfGetLowestValueFromMiddleOfList() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 2;
@@ -1253,7 +1253,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLowestValueFromBeginningOfList() {
+    void seeIfGetLowestValueFromBeginningOfList() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = -2;
@@ -1276,7 +1276,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLowestValueEmptyAndThrowsStringException() {
+    void seeIfGetLowestValueEmptyAndThrowsStringException() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         ReadingList rl1 = new ReadingList();
@@ -1290,7 +1290,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetLowestValueNullAndThrowsStringException() {
+    void seeIfGetLowestValueNullAndThrowsStringException() {
 //Arrange
         ReadingList rl1 = new ReadingList();
 
@@ -1303,7 +1303,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetsAverageFromList() {
+    void seeIfGetsAverageFromList() {
         //Arrange
         List<Double> doubleList = new ArrayList<>();
         ReadingList rList = new ReadingList();
@@ -1322,7 +1322,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfAverageIsMinusOneWhenListIsEmpty() {
+    void seeIfAverageIsMinusOneWhenListIsEmpty() {
         //Arrange
         List<Double> doubleList = new ArrayList<>();
         ReadingList rList = new ReadingList();
@@ -1335,7 +1335,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMaximumValueReadingsInMonthWhenListIsinLimitsOfMonth() {
+    void seeIfGetAverageOfMaximumValueReadingsInMonthWhenListIsinLimitsOfMonth() {
         //Arrange
         //Arrange
         ReadingList rList = new ReadingList();
@@ -1378,7 +1378,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMinusOneMaximumWhenListIsEmpty() {
+    void seeIfGetAverageOfMinusOneMaximumWhenListIsEmpty() {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
@@ -1392,7 +1392,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfAverageOfMinusOneWhenGivenDateIsFromDifferentMonthThenList() {
+    void seeIfAverageOfMinusOneWhenGivenDateIsFromDifferentMonthThenList() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -1434,7 +1434,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfAverageOfMinusOneWhenGivenDateIsFromDifferentYearThenList() {
+    void seeIfAverageOfMinusOneWhenGivenDateIsFromDifferentYearThenList() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -1476,7 +1476,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfAverageOfMinusOneWhenGivenDateIsFromDifferentMonthAndYearThenList() {
+    void seeIfAverageOfMinusOneWhenGivenDateIsFromDifferentMonthAndYearThenList() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -1518,7 +1518,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetHighestValueFromEndOfList() {
+    void seeIfGetHighestValueFromEndOfList() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 2;
@@ -1541,7 +1541,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetHighestValueFromMiddleOfList() {
+    void seeIfGetHighestValueFromMiddleOfList() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 2;
@@ -1565,7 +1565,7 @@ public class ReadingListTest {
 
 
     @Test
-    public void seeIfGetHighestValueFromBeginningOfList() {
+    void seeIfGetHighestValueFromBeginningOfList() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         double value1 = 16;
@@ -1588,7 +1588,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetHighestValueEmptyAndThrowsStringException() {
+    void seeIfGetHighestValueEmptyAndThrowsStringException() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
         ReadingList rl1 = new ReadingList();
@@ -1602,7 +1602,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetHighestValueNullAndThrowsStringException() {
+    void seeIfGetHighestValueNullAndThrowsStringException() {
 //Arrange
         ReadingList rl1 = new ReadingList();
 
@@ -1615,7 +1615,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfGivenDayValueReadingsWhenReadigsInLimitsOfDay() {
+    void seeIfGetAverageOfGivenDayValueReadingsWhenReadigsInLimitsOfDay() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -1655,7 +1655,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfGivenDayValueReadingsWhenReadigsInLimitsOfDayExtra() {
+    void seeIfGetAverageOfGivenDayValueReadingsWhenReadigsInLimitsOfDayExtra() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -1695,7 +1695,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMinusOneWhenDateGivenIsNotInList() {
+    void seeIfGetAverageOfMinusOneWhenDateGivenIsNotInList() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -1735,7 +1735,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMinusOneWhenDateGivenIsFromSameDayDifferentMonth() {
+    void seeIfGetAverageOfMinusOneWhenDateGivenIsFromSameDayDifferentMonth() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -1775,7 +1775,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMinusOneWhenDateGivenIsFromSameDaySameMonthDifferentYear() {
+    void seeIfGetAverageOfMinusOneWhenDateGivenIsFromSameDaySameMonthDifferentYear() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -1815,7 +1815,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetListOfDatesFromWeekWithReadingsWhenReadingsAreInLimitsOfWeek() {
+    void seeIfGetListOfDatesFromWeekWithReadingsWhenReadingsAreInLimitsOfWeek() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 3, 9, 59);
@@ -1857,7 +1857,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetEmptyListWhenDateGivenIsFromDifferentMonthThenInList() {
+    void seeIfGetEmptyListWhenDateGivenIsFromDifferentMonthThenInList() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 3, 9, 59);
@@ -1896,7 +1896,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetEmptyListWhenDateGivenIsFromDifferentYear() {
+    void seeIfGetEmptyListWhenDateGivenIsFromDifferentYear() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 3, 9, 59);
@@ -1935,7 +1935,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetFirstDateOfWeekIfMiddleOfWeek() {
+    void seeIfGetFirstDateOfWeekIfMiddleOfWeek() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 7, 2, 12, 6);
@@ -1948,7 +1948,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetFirstDateOfWeekIfDateGivenIsAlreadyFirstDateOfWeek() {
+    void seeIfGetFirstDateOfWeekIfDateGivenIsAlreadyFirstDateOfWeek() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 4, 0, 0, 0);
@@ -1961,7 +1961,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetFirstDateOfWeekIfDateGivenIsLastDateOfWeek() {
+    void seeIfGetFirstDateOfWeekIfDateGivenIsLastDateOfWeek() {
         //Arrange
         ReadingList rl1 = new ReadingList();
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 9, 0, 0, 0);
@@ -1974,7 +1974,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfMinusDifferentWeek() {
+    void seeIfGetAverageOfMinusDifferentWeek() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -2015,7 +2015,7 @@ public class ReadingListTest {
 
 
     @Test
-    public void seeIfGetAverageOfMaxDifferentWeek() {
+    void seeIfGetAverageOfMaxDifferentWeek() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -2055,7 +2055,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfListNullThrowsException() {
+    void seeIfListNullThrowsException() {
         ReadingList rList = new ReadingList();
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -2066,7 +2066,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfListEmptyThrowsException() {
+    void seeIfListEmptyThrowsException() {
         //Arrange
         ReadingList rList = new ReadingList();
         List<Double> valuesOfDay = new ArrayList<>();
@@ -2080,7 +2080,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfTrueIfListIsValid() {
+    void seeIfTrueIfListIsValid() {
         //Arrange
         ReadingList rList = new ReadingList();
         List<Double> valuesOfDay = new ArrayList<>();
@@ -2094,7 +2094,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetMaximumValueOnGivenDateWorks() {
+    void seeIfGetMaximumValueOnGivenDateWorks() {
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
         GregorianCalendar g1 = new GregorianCalendar(2018, 10, 24, 0, 0, 0);
@@ -2132,7 +2132,7 @@ public class ReadingListTest {
 
 
     @Test
-    public void seeIfGetMaximumValueOnGivenDateWorksTestCalendar() {
+    void seeIfGetMaximumValueOnGivenDateWorksTestCalendar() {
         ReadingList list = new ReadingList();
         Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2, 4, 20, 1).getTime();
         Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2, 23, 59, 59).getTime();
@@ -2146,7 +2146,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetMaximumValueOnGivenDateWorksTestCalendarLowerLimit() {
+    void seeIfGetMaximumValueOnGivenDateWorksTestCalendarLowerLimit() {
         ReadingList list = new ReadingList();
         Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 1, 23, 59, 59).getTime();
         Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2, 23, 59, 59).getTime();
@@ -2160,7 +2160,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetMaximumValueOnGivenDateWorksTestCalendarHigherLimit() {
+    void seeIfGetMaximumValueOnGivenDateWorksTestCalendarHigherLimit() {
         ReadingList list = new ReadingList();
         Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 3, 0, 0, 0).getTime();
         Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2, 23, 59, 59).getTime();
@@ -2174,7 +2174,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetMaximumValueOnGivenDateWorksWithNegatives() {
+    void seeIfGetMaximumValueOnGivenDateWorksWithNegatives() {
         ReadingList list = new ReadingList();
         Date d1 = new GregorianCalendar(2015, 11, 2).getTime();
         Reading r1 = new Reading(-15, d1);
@@ -2187,7 +2187,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetMaximumValueOnGivenDateWorksWithDifDays() {
+    void seeIfGetMaximumValueOnGivenDateWorksWithDifDays() {
         ReadingList list = new ReadingList();
         Date d1 = new GregorianCalendar(2015, 11, 2).getTime();
         Date d2 = new GregorianCalendar(2015, 11, 3).getTime();
@@ -2201,7 +2201,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetMostRecentValueOfReadingWorks() {
+    void seeIfGetMostRecentValueOfReadingWorks() {
         ReadingList list = new ReadingList();
         Date d1 = new GregorianCalendar(2015, 11, 2).getTime();
         Date d2 = new GregorianCalendar(2015, 11, 3).getTime();
@@ -2216,7 +2216,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetMostRecentValueOfReadingWorksSameDay() {
+    void seeIfGetMostRecentValueOfReadingWorksSameDay() {
         ReadingList list = new ReadingList();
         Date d1 = new GregorianCalendar(2015, 11, 2, 20, 0).getTime();
         Date d2 = new GregorianCalendar(2015, 11, 2, 5, 0).getTime();
@@ -2231,7 +2231,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetSumOfGivenDayValueReadingsWhenReadigsInLimitsOfDay() {
+    void seeIfGetSumOfGivenDayValueReadingsWhenReadigsInLimitsOfDay() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 1, 23, 59, 59);
@@ -2271,7 +2271,7 @@ public class ReadingListTest {
     }
 
     @Test
-    public void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
+    void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
         //Arrange
         ReadingList rList = new ReadingList();
         GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
@@ -2359,10 +2359,9 @@ public class ReadingListTest {
     void ensureThatWeGetNaNInGetTotalValueFromGivenList() {
         //Arrange
         ReadingList rl = new ReadingList();
-        double expectedResult = NaN;
         //Act
         double actualResult = rl.getTotalValueOfReadingOnGivenDay(new GregorianCalendar(2018, 10, 3).getTime());
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(NaN, actualResult);
     }
 }

@@ -51,7 +51,7 @@ public interface DeviceSpecs {
     /**
      *  get the unity of the attribute.
      * @param attributeName attribute name that we want to get the unit from.
-     * @return
+     * @return returns the attribute unit
      */
     Object getAttributeUnit(String attributeName);
 }

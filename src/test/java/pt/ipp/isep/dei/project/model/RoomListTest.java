@@ -17,10 +17,10 @@ import static org.testng.Assert.assertTrue;
  * RoomList tests class.
  */
 
-public class RoomListTest {
+class RoomListTest {
 
     @Test
-    public void seeIfGetRoomByNameFromList() {
+    void seeIfGetRoomByNameFromList() {
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
@@ -33,14 +33,13 @@ public class RoomListTest {
         roomList.addRoom(r2);
         roomList.addRoom(r3);
 
-        Room expectedResult = r1;
         Room actualResult = roomList.getRoomByName("Cozinha");
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(r1, actualResult);
     }
 
     @Test
-    public void seeIfGetRoomByNameIfNull() {
+    void seeIfGetRoomByNameIfNull() {
         RoomList roomList = new RoomList();
         Room r3 = new Room("Quarto", 1, 123, 2, 2);
         roomList.addRoom(r3);
@@ -51,7 +50,7 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeIfDoesListOfRoomsContainRoomByName() {
+    void seeIfDoesListOfRoomsContainRoomByName() {
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
@@ -71,7 +70,7 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeIfDoesListOfRoomsContainRoomByNameFalse() {
+    void seeIfDoesListOfRoomsContainRoomByNameFalse() {
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
@@ -91,7 +90,7 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeIfAddRoomFails() {
+    void seeIfAddRoomFails() {
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
@@ -107,7 +106,7 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeIfAddRoomPasses() {
+    void seeIfAddRoomPasses() {
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
@@ -123,7 +122,7 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeifmatchRoomWorks() {
+    void seeifmatchRoomWorks() {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
@@ -134,7 +133,7 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeifmatchRoomWorksFalse() {
+    void seeifmatchRoomWorksFalse() {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
@@ -183,7 +182,7 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeIfPrintsRoomList() {
+    void seeIfPrintsRoomList() {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
@@ -200,7 +199,7 @@ public class RoomListTest {
     }
 
     @Test
-    public void seeIfPrintsInvalidList() {
+    void seeIfPrintsInvalidList() {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
 
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga,60,180);
@@ -218,7 +217,7 @@ public class RoomListTest {
 
 
     @Test
-    public void ensureThatAObjectIsAInstanceOf() {
+    void ensureThatAObjectIsAInstanceOf() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         Room room2 = new Room("room1", 19, 23456789, 2, 2);
@@ -228,37 +227,36 @@ public class RoomListTest {
         roomList2.addRoom(room1);
         roomList2.addRoom(room2);
 
-        Boolean actualResult = roomList1.equals(roomList2);
+        boolean actualResult = roomList1.equals(roomList2);
 
         assertTrue(actualResult);
     }
 
     @Test
-    public void ensureThatAObjectIsAInstanceOf2() {
+    void ensureThatAObjectIsAInstanceOf2() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         Room room2 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
-        ;
         RoomList roomList2 = new RoomList();
         roomList2.addRoom(room2);
 
-        Boolean actualResult = roomList1.equals(roomList2);
+        boolean actualResult = roomList1.equals(roomList2);
 
         assertTrue(actualResult);
     }
 
     @Test
-    public void ensureThatAObjectIsAInstanceOf3() {
+    void ensureThatAObjectIsAInstanceOf3() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
-        Boolean actualResult = roomList1.equals(roomList1);
+        boolean actualResult = roomList1.equals(roomList1);
         assertTrue(actualResult);
     }
 
     @Test
-    public void ensureThatAObjectIsNotAInstanceOf() {
+    void ensureThatAObjectIsNotAInstanceOf() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         Room room2 = new Room("room2", 19, 23456789, 2, 2);
@@ -267,33 +265,32 @@ public class RoomListTest {
         RoomList roomList2 = new RoomList();
         roomList2.addRoom(room1);
 
-        Boolean actualResult = roomList1.equals(roomList2);
+        boolean actualResult = roomList1.equals(roomList2);
 
         assertFalse(actualResult);
     }
 
     @Test
-    public void ensureThatAObjectIsNotAInstanceOf2() {
+    void ensureThatAObjectIsNotAInstanceOf2() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         Room room2 = new Room("room2", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
-        Boolean actualResult = roomList1.equals(room2);
+        boolean actualResult = roomList1.equals(room2);
         assertFalse(actualResult);
     }
 
     @Test
-    public void ensureThatAObjectIsNotAInstanceOf3() {
+    void ensureThatAObjectIsNotAInstanceOf3() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);
-        RoomList roomList2 = new RoomList();
-        Boolean actualResult = roomList1.equals(room1);
+        boolean actualResult = roomList1.equals(room1);
         assertFalse(actualResult);
     }
 
     @Test
-    public void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         roomList1.addRoom(room1);

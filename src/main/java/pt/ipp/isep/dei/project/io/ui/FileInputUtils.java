@@ -7,11 +7,11 @@ import java.util.Properties;
 
 public class FileInputUtils {
 
-    public int deviceMeteringPeriod;  //Public para ir buscar no Device
-    public int mGridMeteringPeriod;
+    int deviceMeteringPeriod;  //Public para ir buscar no Device
+    int mGridMeteringPeriod;
 
 
-    public boolean validGridMetering() throws IOException {
+    boolean validGridMetering() throws IOException {
         int gridMeteringPeriod = readGridMeteringPeriods();
         if(gridMeteringPeriodValidation(gridMeteringPeriod)){
             this.mGridMeteringPeriod = gridMeteringPeriod;
@@ -40,20 +40,17 @@ public class FileInputUtils {
     }
 
     private boolean gridMeteringPeriodValidation(int gridMeteringPeriod) {
-        if(1440 % gridMeteringPeriod != 0){
-            return false;
-        }
-        return true;
+        return 1440 % gridMeteringPeriod == 0;
     }
 
-    public boolean validDeviceMetering() throws  IllegalArgumentException{
+    boolean validDeviceMetering() throws  IllegalArgumentException{
         if (!readDeviceMeteringPeriods()) {
             throw new IllegalArgumentException("Teste");
         }
         return true;
     }
 
-    public boolean readDeviceMeteringPeriods() {
+    boolean readDeviceMeteringPeriods() {
         String GridMeteringPeriod;
         String DeviceMeteringPeriod;
         Properties prop = new Properties();

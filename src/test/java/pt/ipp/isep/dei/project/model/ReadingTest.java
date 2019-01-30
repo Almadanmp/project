@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Reading tests class.
  */
 
-public class ReadingTest{
+class ReadingTest{
 
     @Test
-    public void getmDateTest() {
+    void getmDateTest() {
         //Arrange
         GregorianCalendar date1 = new GregorianCalendar(110,5,11,15,30,26);
         Reading l1 = new Reading(15.0,date1.getTime());
@@ -27,7 +27,7 @@ public class ReadingTest{
     }
 
     @Test
-    public void setDateSeeIfItWorks() {
+    void setDateSeeIfItWorks() {
         //Arrange
         GregorianCalendar date1 = new GregorianCalendar(110,5,11,15,30,26);
         Reading l1 = new Reading(15,date1.getTime());
@@ -40,32 +40,30 @@ public class ReadingTest{
         assertEquals(expectedResult,result);
     }
     @Test
-    public void getmValueTest() {
+    void getmValueTest() {
         //Arrange
         double valor1 = 15.0;
         Reading l1 = new Reading(valor1,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
-        double expectedResult = valor1;
         //Act
         double result =l1.getmValue();
         //Assert
-        assertEquals(expectedResult,result,0.01);
+        assertEquals(valor1,result,0.01);
     }
 
     @Test
-    public void setValueSeeIfItWorks() {
+    void setValueSeeIfItWorks() {
         //Arrange
         double valor1 = 15.0;
         Reading l1 = new Reading(valor1,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         double valor2 = 18.0;
         l1.setmValue(valor2);
-        double expectedResult = valor2;
         //Act
         double result = l1.getmValue();
         //Assert
-        assertEquals(expectedResult,result,0.01);
+        assertEquals(valor2,result,0.01);
     }
     @Test
-    public void testSetEGetValueOfReading(){
+    void testSetEGetValueOfReading(){
         //Arrange
         GregorianCalendar date1 = new GregorianCalendar(118,10,26);
         ReadingList listal = new ReadingList();
@@ -81,7 +79,7 @@ public class ReadingTest{
 
 
     @Test
-    public void testEqualsReturnFalse(){
+    void testEqualsReturnFalse(){
         //Arrange
         GregorianCalendar g1 = new GregorianCalendar(110,10,12);
         Reading r1 = new Reading(15,g1.getTime());
@@ -92,7 +90,7 @@ public class ReadingTest{
     }
 
     @Test
-    public void testEqualsReturnTrue(){
+    void testEqualsReturnTrue(){
         //Arrange
         GregorianCalendar g1 = new GregorianCalendar(110,10,12);
         Reading r1 = new Reading(15,g1.getTime());
@@ -103,7 +101,7 @@ public class ReadingTest{
     }
 
     @Test
-    public void hashCodeDummyTest(){
+    void hashCodeDummyTest(){
         Reading r1 = new Reading(2, new GregorianCalendar(2010,9,3,5,6,7).getTime());
         int expectedResult = 1;
         int actualResult = r1.hashCode();

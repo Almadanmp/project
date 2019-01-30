@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.*;
 
 /**
@@ -14,7 +15,7 @@ import static org.testng.Assert.*;
 public class PowerSourceListTest {
 
     @Test
-    public void seeIfContainsPowerWorksTrue() {
+    void seeIfContainsPowerWorksTrue() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
@@ -26,7 +27,7 @@ public class PowerSourceListTest {
     }
 
     @Test
-    public void seeIfContainsPowerWorksFalse() {
+    void seeIfContainsPowerWorksFalse() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
@@ -37,7 +38,7 @@ public class PowerSourceListTest {
     }
 
     @Test
-    public void seeIfAddPowerSourceWorks() {
+    void seeIfAddPowerSourceWorks() {
         //Arrange
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
@@ -48,7 +49,7 @@ public class PowerSourceListTest {
     }
 
     @Test
-    public void seeIfAddPowerSourceWorks2() {
+    void seeIfAddPowerSourceWorks2() {
         //Arrange
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
@@ -61,7 +62,7 @@ public class PowerSourceListTest {
     }
 
     @Test
-    public void seeIfAddPowerSourceWorksForFalse() {
+    void seeIfAddPowerSourceWorksForFalse() {
         //Arrange
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Energia", 50, 50);
@@ -75,7 +76,7 @@ public class PowerSourceListTest {
 
 
     @Test
-    public void seeIfAddPowerSourceWorksForFalse2() {
+    void seeIfAddPowerSourceWorksForFalse2() {
         //Arrange
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
@@ -88,7 +89,7 @@ public class PowerSourceListTest {
 
 
     @Test
-    public void seeHashCodeDummyTest() {
+    void seeHashCodeDummyTest() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
         pSList1.addPowerSource(pS1);
@@ -98,18 +99,17 @@ public class PowerSourceListTest {
     }
 
     @Test
-    public void seeIfEqualsPowerSourceWithDifferentObject() {
+    void seeIfEqualsPowerSourceWithDifferentObject() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         int teste = 3;
         PowerSourceList pSList1 = new PowerSourceList();
         pSList1.addPowerSource(pS1);
         boolean actualResult = pSList1.equals(teste);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void seeIfEqualsPowerSourceWithDifferentContent() {
+    void seeIfEqualsPowerSourceWithDifferentContent() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
@@ -117,23 +117,21 @@ public class PowerSourceListTest {
         pSList1.addPowerSource(pS1);
         pSList2.addPowerSource(pS2);
         boolean actualResult = pSList1.equals(pSList2);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void seeIfEqualsPowerSourceWithDifferentContent2() {
+    void seeIfEqualsPowerSourceWithDifferentContent2() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
         pSList1.addPowerSource(pS1);
         boolean actualResult = pSList1.equals(pS2);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void seeIfEqualsPowerSourceWithSameContent() {
+    void seeIfEqualsPowerSourceWithSameContent() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
@@ -141,18 +139,17 @@ public class PowerSourceListTest {
         pSList1.addPowerSource(pS1);
         pSList2.addPowerSource(pS2);
         boolean actualResult = pSList1.equals(pSList2);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, actualResult);
+        assertEquals(true, actualResult);
     }
 
     @Test
-    public void seeIfEqualsSameObject() {
+    void seeIfEqualsSameObject() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
         pSList1.addPowerSource(pS1);
         boolean actualResult = pSList1.equals(pSList1);
         boolean expectedResult = true;
-        assertEquals(expectedResult, actualResult);
+        assertEquals(true, actualResult);
     }
 
 }

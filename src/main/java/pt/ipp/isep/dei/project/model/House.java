@@ -145,8 +145,8 @@ public class House implements Metered {
     /**
      * calculates distance from the house to the sensor.
      *
-     * @param sensor
-     * @return
+     * @param sensor sensor from where to calculate the distance
+     * @return returns the distance between sensor and the house
      */
     double calculateDistanceToSensor(Sensor sensor) {
         Local l = sensor.getLocal();

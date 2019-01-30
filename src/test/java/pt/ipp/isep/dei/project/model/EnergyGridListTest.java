@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EnergyGridListTest {
 
     @Test
-    public void seeIfAddEnergyGridToEnergyGridListTrue() {
+    void seeIfAddEnergyGridToEnergyGridListTrue() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setMaxContractedPower(0);
@@ -25,7 +25,7 @@ public class EnergyGridListTest {
     }
 
     @Test
-    public void seeIfAddEnergyGridToEnergyGridListFalse() {
+    void seeIfAddEnergyGridToEnergyGridListFalse() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         EnergyGrid energyGrid2 = new EnergyGrid();
@@ -42,7 +42,7 @@ public class EnergyGridListTest {
     }
 
     @Test
-    public void seeIfPrintsEnergyGridList() {
+    void seeIfPrintsEnergyGridList() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         EnergyGrid energyGrid2 = new EnergyGrid();
@@ -59,7 +59,7 @@ public class EnergyGridListTest {
     }
 
     @Test
-    public void seeIfPrintsInvalidList() {
+    void seeIfPrintsInvalidList() {
         EnergyGridList pList1 = new EnergyGridList();
 
         String expectedResult = "The list is empty.";
@@ -68,7 +68,7 @@ public class EnergyGridListTest {
     }
 
     @Test
-    public void ensureThatAObjectIsAInstanceOf() {
+    void ensureThatAObjectIsAInstanceOf() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         pList1.addGrid(energyGrid1);
@@ -88,7 +88,7 @@ public class EnergyGridListTest {
 
 
     @Test
-    public void ensureThatAObjectIsAInstanceOf2() {
+    void ensureThatAObjectIsAInstanceOf2() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setMaxContractedPower(0);
@@ -104,7 +104,7 @@ public class EnergyGridListTest {
     }
 
     @Test
-    public void ensureThatAObjectIsAInstanceOf4() {
+    void ensureThatAObjectIsAInstanceOf4() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setMaxContractedPower(0);
@@ -118,7 +118,7 @@ public class EnergyGridListTest {
     }
 
     @Test
-    public void ensureThatAObjectIsAInstanceOf3() {
+    void ensureThatAObjectIsAInstanceOf3() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setMaxContractedPower(0);
@@ -131,7 +131,7 @@ public class EnergyGridListTest {
 
 
     @Test
-    public void ensureThatAObjectIsNotAInstanceOf() {
+    void ensureThatAObjectIsNotAInstanceOf() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGridList pList2 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
@@ -150,7 +150,7 @@ public class EnergyGridListTest {
     }
 
     @Test
-    public void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setMaxContractedPower(0);
