@@ -21,7 +21,7 @@ public class LogList {
      *
      * @return array of Logs
      */
-    private Log[] getLogs() {
+    public Log[] getLogs() {
         int sizeOfResultArray = mLogList.size();
         Log[] result = new Log[sizeOfResultArray];
         for (int i = 0; i < mLogList.size(); i++) {
