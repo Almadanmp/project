@@ -1,0 +1,23 @@
+@startuml
+
+actor PowerUser
+PowerUser -> EnergyConsumptionUI: runUS721
+ref over EnergyConsumptionUI
+selectRoom
+end ref
+ref over EnergyConsumptionUI
+getInputStartDate
+end ref
+ref over EnergyConsumptionUI
+getInputEndDate
+end ref
+EnergyConsumptionUI -> EnergyConsumptionController: getRoomConsumptionInInterval (startDate, endDate, room)
+EnergyConsumptionController -> Room: getConsumptionInInterval (startDate, endDate)
+Room -> DeviceList: getConsumptionInInterval (startDate, endDate)
+loop get consumption for each device in interval
+DeviceList -> Device: getConsumptionInInterval (startDate, endDate)
+end
+DeviceList --> Room: return sum
+Room --> EnergyConsumptionUI: return consumptionInInterval
+EnergyConsumptionUI -> PowerUser: display total consumption in given interval
+@enduml
