@@ -219,9 +219,8 @@ class RoomConfigurationControllerTest {
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Sensor actualResult = ctrl.getSensorFromGAByName("Vento1", gA1);
-        Sensor expectedResult = s1;
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(s1, actualResult);
     }
 
     @Test
@@ -283,7 +282,6 @@ class RoomConfigurationControllerTest {
         sL1.addSensor(s1);
         sL1.addSensor(s2);
         GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        ;
         gA1.setSensorList(sL1);
         GeographicAreaList gList1 = new GeographicAreaList();
         gList1.addGeographicAreaToGeographicAreaList(gA1);
@@ -323,9 +321,6 @@ class RoomConfigurationControllerTest {
     void seeIfPrintSensorWorks() {
         //String buildSensorString(Sensor sensor) {
         //Assert
-        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
         Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
                 new Local(10, 30, 20),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -456,8 +451,6 @@ class RoomConfigurationControllerTest {
     void seeIfTypeListIsPrintedEmptyList() {
         //Arrange
         List<TypeSensor> list1 = new ArrayList<>();
-        TypeSensor t1 = new TypeSensor("rain", "mm");
-        TypeSensor t2 = new TypeSensor("wind", "km/h");
         //Act
         RoomConfigurationController ctrl = new RoomConfigurationController();
         String result = "Invalid List - List is Empty\n";

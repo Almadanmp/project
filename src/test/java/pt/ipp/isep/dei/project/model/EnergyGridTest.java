@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 /**
  * EnergyGrid tests class.
@@ -179,9 +179,8 @@ class EnergyGridTest {
         EnergyGrid energyGrid2 = new EnergyGrid();
         energyGrid2.setMaxContractedPower(400);
         energyGrid2.setName("EG1");
-        boolean expectedResult = true;
         boolean actualResult = energyGrid1.equals(energyGrid2);
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -189,9 +188,8 @@ class EnergyGridTest {
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setMaxContractedPower(400);
         energyGrid1.setName("EG1");
-        boolean expectedResult = true;
         boolean actualResult = energyGrid1.equals(energyGrid1);
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -200,9 +198,8 @@ class EnergyGridTest {
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setMaxContractedPower(400);
         energyGrid1.setName("EG1");
-        boolean expectedResult = false;
         boolean actualResult = energyGrid1.equals(room);
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -276,9 +273,8 @@ class EnergyGridTest {
         EnergyGrid energyGrid1 = new EnergyGrid();
         energyGrid1.setMaxContractedPower(400);
         energyGrid1.setName("EG1");
-        boolean expectedResult = false;
         boolean actualResult = energyGrid1.equals(null);
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -301,7 +297,6 @@ class EnergyGridTest {
         room1EdC.setDeviceList(deviceList);
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
-        deviceList = null;
         String expectedResult = "---------------\n" + "---------------\n";
         String result = eg.buildListOfDeviceByTypeString(eg, house);
         Assertions.assertEquals(expectedResult, result);

@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * GeographicAreaList tests class.
  */
 
-public class GeographicAreaListTest {
+class GeographicAreaListTest {
 
     @Test
-    public void seeIfConstructorGeographicAreaListWorks() {
+    void seeIfConstructorGeographicAreaListWorks() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
@@ -31,7 +31,7 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfAddsGeographicAreaToGeographicAreaListIfSameAsConstructor() {
+    void seeIfAddsGeographicAreaToGeographicAreaListIfSameAsConstructor() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
@@ -46,7 +46,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfAddsGeographicAreaToGeographicAreaListIfDifferentFromConstructor() {
+    void seeIfAddsGeographicAreaToGeographicAreaListIfDifferentFromConstructor() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
@@ -64,7 +64,7 @@ public class GeographicAreaListTest {
 
 
     @Test
-    public void seeIfGetNameThatMatchesNameFromFirstGeoAreaInList() {
+    void seeIfGetNameThatMatchesNameFromFirstGeoAreaInList() {
         //Arrange
         String stringToTest = "Porto";
 
@@ -97,7 +97,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfGetNameThatMatchesNameFromMiddleGeoAreaInList() {
+    void seeIfGetNameThatMatchesNameFromMiddleGeoAreaInList() {
         //Arrange
         String stringToTest = "Braga";
 
@@ -127,7 +127,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfGetNameThatMatchesNameFromLastGeoAreaInList() {
+    void seeIfGetNameThatMatchesNameFromLastGeoAreaInList() {
         //Arrange
         String stringToTest = "Lisboa";
 
@@ -157,7 +157,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfGetsNullWhenListIsEmpty() {
+    void seeIfGetsNullWhenListIsEmpty() {
         //Arrange
         String stringToTest = "Lisboa";
         GeographicAreaList geographicAreaList = new GeographicAreaList();
@@ -170,7 +170,7 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfTrueWhenGeographicAreaWithNameGivenIsFirstInGeographicAreaList() {
+    void seeIfTrueWhenGeographicAreaWithNameGivenIsFirstInGeographicAreaList() {
         //Arrange
         String stringToTest = "Porto";
         boolean expectedResult = true;
@@ -199,7 +199,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfTrueWhenGeographicAreaWithNameGivenIsSecondInGeographicAreaList() {
+    void seeIfTrueWhenGeographicAreaWithNameGivenIsSecondInGeographicAreaList() {
         //Arrange
         String stringToTest = "Braga";
         boolean expectedResult = true;
@@ -228,7 +228,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfTrueWhenGeographicAreaWithNameGivenIsLastInGeographicAreaList() {
+    void seeIfTrueWhenGeographicAreaWithNameGivenIsLastInGeographicAreaList() {
         //Arrange
         String stringToTest = "Lisboa";
         boolean expectedResult = true;
@@ -257,7 +257,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfFalseWhenGANameGivenIsNotPresentInGeographicAreaList() {
+    void seeIfFalseWhenGANameGivenIsNotPresentInGeographicAreaList() {
         //Arrange
         String stringToTest = "Madrid";
         boolean expectedResult = false;
@@ -289,7 +289,7 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfTrueWhenGivenGeoAreaIsFirstInGeographicAreaList() {
+    void seeIfTrueWhenGivenGeoAreaIsFirstInGeographicAreaList() {
         //Arrange
         boolean expectedResult = true;
         boolean actualResult;
@@ -320,7 +320,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfTrueWhenGivenGeoAreaIsInMiddleOfGeographicAreaList() {
+    void seeIfTrueWhenGivenGeoAreaIsInMiddleOfGeographicAreaList() {
         //Arrange
         boolean expectedResult = true;
         boolean actualResult;
@@ -353,7 +353,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfTrueWhenGivenGeoAreaIsInLastOfGeographicAreaList() {
+    void seeIfTrueWhenGivenGeoAreaIsInLastOfGeographicAreaList() {
         //Arrange
         boolean expectedResult = true;
         boolean actualResult;
@@ -384,7 +384,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfFalseWhenGivenGeoAreaIsNotContainedInGeographicAreaList() {
+    void seeIfFalseWhenGivenGeoAreaIsNotContainedInGeographicAreaList() {
         //Arrange
         boolean expectedResult = false;
         boolean actualResult;
@@ -418,7 +418,7 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfGetGeographicAreaList() {
+    void seeIfGetGeographicAreaList() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
@@ -434,7 +434,7 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfGetGeographicAreaListOfSameTypeAsLastGeoAreaInList() {
+    void seeIfGetGeographicAreaListOfSameTypeAsLastGeoAreaInList() {
         //Arrange
         String typeToTest = "Freguesia";
         TypeArea t1 = new TypeArea("Rua");
@@ -463,7 +463,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfGetGeographicAreaListOfSameTypeAsFirstGeoAreaInList() {
+    void seeIfGetGeographicAreaListOfSameTypeAsFirstGeoAreaInList() {
         //Arrange
         String typeToTest = "Rua";
         TypeArea t1 = new TypeArea("Rua");
@@ -492,7 +492,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfGetGeographicAreaListOfSameTypeAsGeoAreaInMiddleOfList() {
+    void seeIfGetGeographicAreaListOfSameTypeAsGeoAreaInMiddleOfList() {
         //Arrange
         String typeToTest = "País";
         TypeArea t1 = new TypeArea("Rua");
@@ -521,7 +521,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfGetEmptyGeographicAreaListFromTypeDifferentOfTypeInList() {
+    void seeIfGetEmptyGeographicAreaListFromTypeDifferentOfTypeInList() {
         //Arrange
         String typeToTest = "Cidade";
         TypeArea t1 = new TypeArea("Rua");
@@ -543,7 +543,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfGetEmptyGeographicAreaListFromEmptyStartingList() {
+    void seeIfGetEmptyGeographicAreaListFromEmptyStartingList() {
         //Arrange
         String typeToTest = "Cidade";
 
@@ -558,7 +558,7 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfEqualsWhenObjectsAreDifferentButWithSameContent() {
+    void seeIfEqualsWhenObjectsAreDifferentButWithSameContent() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
@@ -583,7 +583,7 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfEqualsToSameObject() {
+    void seeIfEqualsToSameObject() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
@@ -599,15 +599,14 @@ public class GeographicAreaListTest {
         GeographicAreaList geographicAreaList2 = new GeographicAreaList(ga1);
         geographicAreaList2.addGeographicAreaToGeographicAreaList(ga2);
 
-        boolean expectedResult = true;
         boolean actualResult;
         //Act
         actualResult = geographicAreaList1.equals(geographicAreaList1);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
     @Test
-    public void seeIfFalseWhenObjectsAreDifferentWithDifferentContent() {
+    void seeIfFalseWhenObjectsAreDifferentWithDifferentContent() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
@@ -641,7 +640,7 @@ public class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    public void seeIfFalseWhenObjectsAreFromDifferentClass() {
+    void seeIfFalseWhenObjectsAreFromDifferentClass() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
@@ -656,25 +655,22 @@ public class GeographicAreaListTest {
         geographicAreaList1.addGeographicAreaToGeographicAreaList(ga2);
 
 
-        boolean expectedResult = false;
         boolean actualResult;
         //Act
         actualResult = geographicAreaList1.equals(l2);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void seeIfAnInvalidListIsAdded(){
+    void seeIfAnInvalidListIsAdded(){
         GeographicAreaList list = new GeographicAreaList();
-        boolean expectedResult = false;
         boolean actualResult = list.checkIfListIsValid();
-
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void seeIfPrintsGeoAList() {
+    void seeIfPrintsGeoAList() {
         GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 10, 20, new Local(21, 33, 18));
         GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 10, 20, new Local(14, 14, 18));
         GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 10, 20, new Local(3, 3, 18));
@@ -693,7 +689,7 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void seeIfPrintsGeoAListIfEmpty() {
+    void seeIfPrintsGeoAListIfEmpty() {
         GeographicAreaList gAL1 = new GeographicAreaList();
          String expectedResult = "Invalid List - List is Empty\n";
         String result = gAL1.buildGaWholeListString(gAL1);
@@ -701,7 +697,7 @@ public class GeographicAreaListTest {
     }
 
     @Test
-    public void hashCodeDummyTest(){
+    void hashCodeDummyTest(){
         GeographicAreaList gAL1 = new GeographicAreaList();
         int expectedResult = 1;
         int actualResult = gAL1.hashCode();

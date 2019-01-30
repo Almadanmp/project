@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.*;
 
@@ -12,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * SensorList tests class.
  */
 
-public class SensorListTest {
+class SensorListTest {
 
     @Test
-    public void seeIfConstructorWorks() {
+    void seeIfConstructorWorks() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
@@ -30,13 +29,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfConstructorWorksNoSensor() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
+    void seeIfConstructorWorksNoSensor() {
         Sensor[] expectedResult = new Sensor[]{};
         Sensor[] result;
         SensorList lc = new SensorList(new Sensor[]{});
@@ -45,7 +38,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfAddSensorsWorks_true() {
+    void seeIfAddSensorsWorks_true() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 9, 4).getTime());
@@ -62,7 +55,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfAddSensorWorks_false() {
+    void seeIfAddSensorWorks_false() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
@@ -77,7 +70,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfAddSensorThatExistsWorks_false() {
+    void seeIfAddSensorThatExistsWorks_false() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 10, 4).getTime());
@@ -97,7 +90,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfRemoveSensor_true() {
+    void seeIfRemoveSensor_true() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -113,7 +106,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfRemoveSensor_false() {
+    void seeIfRemoveSensor_false() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -129,7 +122,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfArrayGetSensors() {
+    void seeIfArrayGetSensors() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -145,7 +138,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfGetSensorsList() {
+    void seeIfGetSensorsList() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -163,14 +156,13 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfequalsSameObject() {
+    void seeIfequalsSameObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
         SensorList sl = new SensorList(s1);
         boolean actualResult = sl.equals(sl);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
 
     }
 
@@ -191,7 +183,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfequalsSensorListWithDifferentContent() {
+    void seeIfequalsSensorListWithDifferentContent() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -274,20 +266,19 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfequalsSensorListWithDifferentObject() {
+    void seeIfequalsSensorListWithDifferentObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
         int teste = 3;
         SensorList sl1 = new SensorList(s1);
         boolean actualResult = sl1.equals(teste);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
 
     }
 
     @Test
-    public void seeHashCodeDummyTest() {
+    void seeHashCodeDummyTest() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
                 new GregorianCalendar(118, 12, 4).getTime());
@@ -419,8 +410,6 @@ public class SensorListTest {
         Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
         GeographicArea ga1 = new GeographicArea("Portugal", ta1, 10, 20, l1);
-        Local l2 = new Local(10, 30, 50);
-        Local l3 = new Local(30, 10, 50);
 
         //Act
         ga1.setWidth(20);
@@ -484,11 +473,10 @@ public class SensorListTest {
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
         sl.addSensor(s1);
-        Sensor expectedResult = s1;
 
         Sensor actualResult = sl.getMostRecentlyUsedSensor();
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(s1, actualResult);
     }
 
     @Test
@@ -553,12 +541,6 @@ public class SensorListTest {
     @Test
     void seeIfSetTypeWorksEmptyList() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
         SensorList lc = new SensorList();
         boolean expectedResult = false;
 
@@ -765,8 +747,6 @@ public class SensorListTest {
     @Test
     void ensureThatEmptySensorListIsPrintedWithWarningMessage() {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
-        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
-        TypeSensor t2 = new TypeSensor("Vento", "km/h");
         SensorList sensorList1 = new SensorList();
         room.setRoomSensorList(sensorList1);
         String expectedResult = "Invalid List - List is Empty\n";
@@ -883,7 +863,7 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfPrintsSensorWholeList() {
+    void seeIfPrintsSensorWholeList() {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
@@ -905,10 +885,8 @@ public class SensorListTest {
     }
 
     @Test
-    public void seeIfPrintsEmptySensorWholeList() {
+    void seeIfPrintsEmptySensorWholeList() {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
-        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
-        TypeSensor t2 = new TypeSensor("Vento", "km/h");
         SensorList sensorList1 = new SensorList();
         room.setRoomSensorList(sensorList1);
         String expectedResult = "Invalid List - List is Empty\n";

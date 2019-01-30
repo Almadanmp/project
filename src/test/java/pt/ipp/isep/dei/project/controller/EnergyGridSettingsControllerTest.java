@@ -70,8 +70,6 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfRoomsPrint() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        SensorList sensorList = new SensorList();
-        DeviceList deviceList = new DeviceList();
         RoomList roomList = new RoomList();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga,60,180);
         Room room = new Room("Quarto", 1, 20, 2, 2);
@@ -226,8 +224,6 @@ class EnergyGridSettingsControllerTest {
     void ensureThatWeAddRoomToTheGrid() {
         EnergyGridSettingsController egsc = new EnergyGridSettingsController();
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
-        Room room2EdC = new Room("B109", 1, 7, 11, 3.5);
-        Room room3EdC = new Room("B106", 1, 7, 13, 3.5);
         EnergyGrid eg = new EnergyGrid();
         eg.setName("Main Energy Grid Edificio C");
         eg.setMaxContractedPower(333);
@@ -352,7 +348,7 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    public void seeIfPrintsInvalidList() {
+    void seeIfPrintsInvalidList() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         EnergyGrid grid = new EnergyGrid();
         grid.setMaxContractedPower(400);
@@ -363,7 +359,7 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    public void seeIfPrintsRoomList() {
+    void seeIfPrintsRoomList() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         Room room2EdC = new Room("B109", 1, 7, 11, 3.5);

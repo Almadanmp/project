@@ -250,8 +250,7 @@ class SensorSettingsControllerTest {
         SensorList sensorList = new SensorList();
         ctrl.setSensorList(sensorList);
         SensorList result = ctrl.getSensorList();
-        SensorList expectedResult = sensorList;
-        assertEquals(expectedResult, result);
+        assertEquals(sensorList, result);
     }
 
     @Test

@@ -2,17 +2,15 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Local tests class.
  */
 
-public class LocalTest {
+class LocalTest {
     @Test
-    public void seeIfGetSetLatitudeWorks() {
+    void seeIfGetSetLatitudeWorks() {
         //Arrange
         double expectedResult = 21;
         double actualResult;
@@ -26,7 +24,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfGetSetLongitudeWorks() {
+    void seeIfGetSetLongitudeWorks() {
         //Arrange
         double expectedResult = 3;
         double actualResult;
@@ -40,7 +38,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfGetSetAltitudeWorks() {
+    void seeIfGetSetAltitudeWorks() {
         //Arrange
         double expectedResult = 57;
         double actualResult;
@@ -55,7 +53,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfGetAltitudeBuilderWorks() {
+    void seeIfGetAltitudeBuilderWorks() {
         //Arrange
         double expectedResult = 210;
         double actualResult;
@@ -69,37 +67,35 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfEqualsWorksSameObjects() {
+    void seeIfEqualsWorksSameObjects() {
         //Arrange
         Local l1 = new Local(23, 42, 2);
-        Local l2 = l1;
-        boolean expectedResult = true;
+        Local l2 = new Local(23, 42, 2);
         boolean actualResult;
 
         //Act
         actualResult = l1.equals(l2);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
-    public void seeIfEqualsWorksNotInstance() {
+    void seeIfEqualsWorksNotInstance() {
         //Arrange
         Local l1 = new Local(23, 42, 2);
         TypeSensor t1 = new TypeSensor("temperature", "celsius");
-        boolean expectedResult = false;
         boolean actualResult;
 
         //Act
         actualResult = l1.equals(t1);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
-    public void seeIfEqualsWorksDifferentObject() {
+    void seeIfEqualsWorksDifferentObject() {
         //Arrange
         Local l1 = new Local(23, 42, 2);
         Local l2 = new Local(21, 21, 5);
@@ -114,7 +110,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfEqualsWorksDifferentLatitude() {
+    void seeIfEqualsWorksDifferentLatitude() {
         //Arrange
         Local l1 = new Local(23, 21, 5);
         Local l2 = new Local(21, 21, 5);
@@ -129,7 +125,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfEqualsWorksDifferentLongitude() {
+    void seeIfEqualsWorksDifferentLongitude() {
         //Arrange
         Local l1 = new Local(21, 23, 5);
         Local l2 = new Local(21, 21, 5);
@@ -144,7 +140,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfEqualsWorksDifferentAltitude() {
+    void seeIfEqualsWorksDifferentAltitude() {
         //Arrange
         Local l1 = new Local(21, 21, 6);
         Local l2 = new Local(21, 21, 5);
@@ -159,7 +155,7 @@ public class LocalTest {
     }
 
     @Test
-    public void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         Local l1 = new Local(21, 21, 5);
         int expectedResult = 1;
         int actualResult = l1.hashCode();
@@ -167,7 +163,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfWeGetLinearDistanceInKmBetweenTwoLocations() {
+    void seeIfWeGetLinearDistanceInKmBetweenTwoLocations() {
         //Arrange
         Local porto = new Local(41.1496100,-8.6109900, 50);
         Local sidney = new Local(-33.865143,151.209900, 50);
@@ -181,7 +177,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfWeDoNotGetLinearDistanceInKmBetweenTwoLocations() {
+    void seeIfWeDoNotGetLinearDistanceInKmBetweenTwoLocations() {
         //Arrange
         Local porto = new Local(41.1496100,-8.6109900, 45);
         Local lisboa = new Local(38.7166700,-9.1333300,45);
@@ -195,7 +191,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsWithConstructorWith3Parameters() {
+    void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsWithConstructorWith3Parameters() {
         //Arrange
         Local porto = new Local(41.1496100, -8.6109900, 97);
         Local lisboa = new Local(38.7166700, -9.1333300, 45);
@@ -209,7 +205,7 @@ public class LocalTest {
     }
 
     @Test
-    public void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsChangingTheLatitude() {
+    void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsChangingTheLatitude() {
         //Arrange
         Local porto = new Local(30, -8.6109900, 97);
         Local lisboa = new Local(38.7166700, -9.1333300, 45);

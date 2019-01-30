@@ -20,7 +20,7 @@ import static org.testng.Assert.assertTrue;
  * Room tests class.
  */
 
-public class RoomTest {
+class RoomTest {
 
     @Test
     void seeIfRemoveDeviceFromRoomWorks() {
@@ -45,7 +45,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorks() {
+    void seeIfGetMaxTemperatureInARoomOnAGivenDayWorks() {
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -76,7 +76,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfgetMaxTemperatureInARoomOnAGivenDayWorksNegatives() {
+    void seeIfgetMaxTemperatureInARoomOnAGivenDayWorksNegatives() {
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -100,7 +100,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
+    void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -125,7 +125,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
+    void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -168,7 +168,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfGetCurrentRoomTemperatureWorks() {
+    void seeIfGetCurrentRoomTemperatureWorks() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -199,7 +199,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfGetCurrentRoomTemperatureWorksNegative() {
+    void seeIfGetCurrentRoomTemperatureWorksNegative() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -230,7 +230,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfGetCurrentRoomTemperatureWorksMinute() {
+    void seeIfGetCurrentRoomTemperatureWorksMinute() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -262,7 +262,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfGetCurrentRoomTemperatureWorksMinute2() {
+    void seeIfGetCurrentRoomTemperatureWorksMinute2() {
         SensorList list = new SensorList();
         Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
@@ -272,7 +272,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfDoesSensorListInARoomContainASensorByNameWorks() {
+    void seeIfDoesSensorListInARoomContainASensorByNameWorks() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -286,7 +286,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfDoesSensorListInARoomContainASensorByNameWorksFalse() {
+    void seeIfDoesSensorListInARoomContainASensorByNameWorksFalse() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -300,7 +300,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfAddSensorWorks() {
+    void seeIfAddSensorWorks() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -316,7 +316,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfAddSensorWorksFalse() {
+    void seeIfAddSensorWorksFalse() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -330,7 +330,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfEqualsWork() {
+    void seeIfEqualsWork() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
@@ -343,7 +343,7 @@ public class RoomTest {
     }
 
     @Test
-    public void seeIfEqualsWorkDifClass() {
+    void seeIfEqualsWorkDifClass() {
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         Room room = new Room("quarto", 1, 80, 5, 3);
         boolean result = room.equals(type);
@@ -567,7 +567,7 @@ public class RoomTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.addDevice(d3);
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test

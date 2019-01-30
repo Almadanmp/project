@@ -7,8 +7,6 @@ import pt.ipp.isep.dei.project.model.*;
 import java.util.*;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 
 /**
  * HouseConfigurationController tests class.
@@ -83,7 +81,7 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfSetHouseAddress() {
+    void seeIfSetHouseAddress() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180);
@@ -95,7 +93,7 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfSetHouseZipCode() {
+    void seeIfSetHouseZipCode() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180);
@@ -107,7 +105,7 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfSetHouseLocal() {
+    void seeIfSetHouseLocal() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180);
@@ -123,7 +121,7 @@ class HouseConfigurationControllerTest {
 
 
     @Test
-    public void seeIfGetHouseName() {
+    void seeIfGetHouseName() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180);
@@ -186,7 +184,7 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    public void seeIfPrintGeoGraphicAreaElementsByIndex2() {
+    void seeIfPrintGeoGraphicAreaElementsByIndex2() {
         //Arrange -----------------------------------------
         HouseConfigurationController ctrl = new HouseConfigurationController();
         //Geo Area List
@@ -227,7 +225,7 @@ class HouseConfigurationControllerTest {
 
     //US108
     @Test
-    public void seeIfPrintsRoomList() {
+    void seeIfPrintsRoomList() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2);

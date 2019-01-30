@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * House Monitoring - controller Tests
  */
 
-public class HouseMonitoringControllerTest {
+class HouseMonitoringControllerTest {
 
     @Test
-    public void seeIfPrintsGeoAList() {
+    void seeIfPrintsGeoAList() {
         HouseMonitoringController US623 = new HouseMonitoringController();
         GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 10, 20, new Local(21, 33, 18));
         GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 10, 20, new Local(14, 14, 18));
@@ -35,7 +35,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfPrintsGeoAListIfEmpty() {
+    void seeIfPrintsGeoAListIfEmpty() {
         HouseMonitoringController US623 = new HouseMonitoringController();
         GeographicAreaList gAL1 = new GeographicAreaList();
         String expectedResult = "Invalid List - List is Empty\n";
@@ -44,7 +44,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeCreateDate() {
+    void seeCreateDate() {
         HouseMonitoringController US623 = new HouseMonitoringController();
         int year = 2018;
         int month = 1;
@@ -55,7 +55,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfListContainRoomByName() {
+    void seeIfListContainRoomByName() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
         //Room
@@ -73,7 +73,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfListContainRoomByNameFalse() {
+    void seeIfListContainRoomByNameFalse() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
         //Room
@@ -87,7 +87,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfSensorListInARoomContainASensorByName() {
+    void seeIfSensorListInARoomContainASensorByName() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
 
@@ -115,7 +115,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfSensorListInARoomContainASensorByNameFalse() {
+    void seeIfSensorListInARoomContainASensorByNameFalse() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
 
@@ -143,7 +143,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void SeeIfGetMaxTemperatureInARoomOnAGivenDay() {
+    void SeeIfGetMaxTemperatureInARoomOnAGivenDay() {
         //Arrange
         HouseMonitoringController ctrl = new HouseMonitoringController();
         SensorList list = new SensorList();
@@ -172,7 +172,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksNegatives() {
+    void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksNegatives() {
         //Arrange
         HouseMonitoringController ctrl = new HouseMonitoringController();
         SensorList list = new SensorList();
@@ -200,7 +200,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
+    void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
         //Arrange -----------------------------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         SensorList list = new SensorList();
@@ -229,7 +229,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
+    void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
         //Arrange -----------------------------------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         SensorList list = new SensorList();
@@ -259,7 +259,7 @@ public class HouseMonitoringControllerTest {
 
 
     @Test
-    public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks() {
+    void seeIfGetSensorWithTheMinimumDistanceToHouseWorks() {
         //Arrange --------------------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
@@ -278,9 +278,8 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetSensorWithTheMinimumDistanceToHouseWorks2() {
+    void seeIfGetSensorWithTheMinimumDistanceToHouseWorks2() {
         //Arrange ---------------------------------------------------
-        RoomList roomList = new RoomList();
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
@@ -297,14 +296,13 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetCurrentRoomTemperatureWorks() {
+    void seeIfGetCurrentRoomTemperatureWorks() {
         //Arrange -------------------------------------
         //RoomList
         RoomList roomList = new RoomList();
         SensorList list = new SensorList();
         TypeSensor tipo = new TypeSensor("Temperature", "Celsius");
         ReadingList listR = new ReadingList();
-        Date d = new GregorianCalendar(2018, 3, 1).getTime();
         Date d1 = new GregorianCalendar(2018, 3, 1, 15, 0, 0).getTime();
         Date d2 = new GregorianCalendar(2018, 3, 1, 17, 0, 0).getTime();
         Date d3 = new GregorianCalendar(2018, 3, 1, 16, 0, 0).getTime();
@@ -332,7 +330,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void SeeIfGetCurrentTemperatureInTheHouseAreaWorks() {
+    void SeeIfGetCurrentTemperatureInTheHouseAreaWorks() {
         //Arrange -----------------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Reading List
@@ -363,7 +361,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void SeeIfPrintGAWorks() {
+    void SeeIfPrintGAWorks() {
         //Arrange -------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
@@ -377,7 +375,7 @@ public class HouseMonitoringControllerTest {
 
 
     @Test
-    public void seeIfDoesListOfRoomsContainRoomByName() {
+    void seeIfDoesListOfRoomsContainRoomByName() {
         //Arrange ---------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Room List
@@ -399,7 +397,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfDoesListOfRoomsContainRoomByNameFalse() {
+    void seeIfDoesListOfRoomsContainRoomByNameFalse() {
         //Arrange --------------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Room List
@@ -489,7 +487,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfPrintGeoGraphicAreaElementsByIndex() {
+    void seeIfPrintGeoGraphicAreaElementsByIndex() {
         //Arrange -----------------------------------------
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Geo Area List
@@ -531,7 +529,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfprintSensorWorks() {
+    void seeIfprintSensorWorks() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Sensor s1 = new Sensor("sensor", new TypeSensor("temperatura", "Celsius"), new Local(4, 4, 100), new GregorianCalendar(7, 7, 7).getTime());
         String result = ctrl.buildSensorString(s1);
@@ -586,7 +584,6 @@ public class HouseMonitoringControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 2;
         list.add(i);
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
@@ -632,7 +629,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfPrintsRoom() {
+    void seeIfPrintsRoom() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Room room = new Room("kitchen", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
@@ -643,7 +640,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfPrintsRoomList() {
+    void seeIfPrintsRoomList() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         Room room = new Room("kitchen", 1, 1, 2, 2);
@@ -661,7 +658,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
+    void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
         //Arrange
         HouseMonitoringController ctrl = new HouseMonitoringController();
         ReadingList rList = new ReadingList();
@@ -722,7 +719,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetHouseInfoOutputMessage() {
+    void seeIfGetHouseInfoOutputMessage() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
         String expectedResult = "The Average Rainfall on the house area of casa de praia";
@@ -731,7 +728,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetAVGDailyRainfallOnGivenPeriodWorksEmptyReadingList(){
+    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksEmptyReadingList(){
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
         Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
@@ -758,7 +755,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetAVGDailyRainfallOnGivenPeriodWorksDoubleNan(){
+    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksDoubleNan(){
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
         Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
@@ -786,7 +783,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNull(){
+    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNull(){
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
         Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
@@ -810,7 +807,7 @@ public class HouseMonitoringControllerTest {
     }
 
     @Test
-    public void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNulo(){
+    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNulo(){
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
         Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();

@@ -413,7 +413,7 @@ class HouseTest {
     }
 
     @Test
-    public void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga,60,180);
         int expectedResult = 1;
@@ -422,7 +422,7 @@ class HouseTest {
     }
 
     @Test
-    public void getDailyHouseConsumptionPerTypeTest() {
+    void getDailyHouseConsumptionPerTypeTest() {
         House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device("fridgeOne", 12, TestUtils.PATH_TO_FRIDGE);
@@ -464,7 +464,7 @@ class HouseTest {
     }
 
     @Test
-    public void getDailyHouseConsumptionPerTypeTest2() {
+    void getDailyHouseConsumptionPerTypeTest2() {
         House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);

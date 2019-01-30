@@ -29,7 +29,6 @@ class DeviceListTest {
         r1 = new Reading(30, d2);
         rL1.addReading(r1);
         //Total Power
-        double tP1 = 50;
         //device List
         DeviceList deviceL1 = new DeviceList();
         Device d1 = new Device("FridgeTwo", 12, TestUtils.PATH_TO_FRIDGE);
