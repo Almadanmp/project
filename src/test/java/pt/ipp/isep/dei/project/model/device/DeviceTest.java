@@ -293,6 +293,14 @@ public class DeviceTest {
         d1.setAsInactive();
         boolean result = d1.addLog(log);
         assertFalse(result);
+    }
 
+    @Test
+    void addLogTrue(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        Log log = new Log(1,new GregorianCalendar(2019,1,1).getTime(),
+                new GregorianCalendar(2019,1,1).getTime());
+        boolean result = d1.addLog(log);
+        assertTrue(result);
     }
 }
