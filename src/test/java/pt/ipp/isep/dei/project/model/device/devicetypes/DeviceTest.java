@@ -123,18 +123,7 @@ public class DeviceTest {
         assertTrue(result.contains("performanceRatio"));
         assertEquals(result.size(), 3);
     }
-
-    @Test
-    void seeIfGetAndSetMeteringPeriod() {
-        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
-        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Integer expectedResult = 180;
-        Integer result = d1.getMeteringPeriod();
-        assertEquals(expectedResult, result);
-    }
-
+    
     @Test
     void ensureThatWeDeactivateADevice(){
         Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
