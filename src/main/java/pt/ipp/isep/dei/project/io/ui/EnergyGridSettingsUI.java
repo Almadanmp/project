@@ -217,7 +217,6 @@ class EnergyGridSettingsUI {
                 System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid, house));
             }  catch (IOException e){
                 System.out.println(e.getMessage());
-                return;
             }
         }
     }

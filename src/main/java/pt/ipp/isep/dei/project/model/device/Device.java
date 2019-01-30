@@ -28,10 +28,9 @@ public class Device implements Metered {
     /**
      * Constructor with path by configuration file approach
      *
-     * @param name
-     * @param nominalPower
-     * @param deviceTypePath
-     * @throws IllegalArgumentException
+     * @param name name
+     * @param nominalPower nominal power
+     * @param deviceTypePath device type path
      */
     public Device(String name, double nominalPower, String deviceTypePath) throws IllegalArgumentException {
         this.mName = name;
@@ -54,24 +53,20 @@ public class Device implements Metered {
         }
     }
 
+    public void setNominalPower(Double nomPower) {
+        this.mNominalPower = nomPower;
+    }
+
     public double getNominalPower() {
         return this.mNominalPower;
     }
 
     /**
      * Boolean to get Device Status. Either if is Active or Not.
-     * @return
+     * @return true if device is active
      */
-    public boolean isActive(){
-        if(this.mActive){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void setNominalPower(Double nomPower) {
-        this.mNominalPower = nomPower;
+    private boolean isActive(){
+        return this.mActive;
     }
 
     public void setmName(String name) {
@@ -119,7 +114,7 @@ public class Device implements Metered {
      *
      * @return the estimateConsumption/24 hours
      */
-    public double getDailyEstimateConsumption() {
+    double getDailyEstimateConsumption() {
         return (mDeviceSpecs.getConsumption()) * 24;
     }
 
@@ -264,7 +259,7 @@ public class Device implements Metered {
     /**
      * This method adds a Log to the device LogList, if the Log isn't already in the LogList.
      * @param log - Parameter which will be used to add to the Device LogList.
-     * @return
+     * @return true if log was added
      */
 
     public boolean addLog(Log log) {
@@ -278,7 +273,7 @@ public class Device implements Metered {
 
     /**
      * This method deactivates the device so it no longer accepts logs.
-     * @return
+     * @return true if deactivated
      */
     public boolean deactivate() {
         if (isActive()) {
