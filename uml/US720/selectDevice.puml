@@ -22,11 +22,8 @@ PowerUser -> ":InputUtils": selectDeviceByIndex()
 activate ":Room"
 ":Room" -> ":DeviceList": getDevice()
 activate ":DeviceList"
-":DeviceList" -> ":Device":getDevice()
-activate ":Device"
-<-- ":Device": return :Device
+<-- ":DeviceList": return :Device
 deactivate ":DeviceList"
 deactivate ":Room"
-deactivate ":Device"
 deactivate PowerUser
 @enduml

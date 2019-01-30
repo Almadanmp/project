@@ -22,11 +22,8 @@ PowerUser -> ":InputUtils": selectRoomByIndex()
 activate ":House"
 ":House" -> ":RoomList": getRoom()
 activate ":RoomList"
-":RoomList" -> ":Room":getRoom()
-activate ":Room"
-<-- ":Room": return :Room
+<-- ":RoomList": return :Room
 deactivate ":RoomList"
 deactivate ":House"
-deactivate ":Room"
 deactivate PowerUser
 @enduml

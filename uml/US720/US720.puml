@@ -3,71 +3,43 @@ title US720 - As a Power User [or Administrator], I want to know the total meter
 actor PowerUser
 activate PowerUser
 activate ":MainUI"
-PowerUser ->":EnergyConsumptionUI": run720(:House)
+PowerUser ->":MainUI": run720(:House)
+":MainUI" ->":EnergyConsumptionUI": run720(:House)
 activate ":EnergyConsumptionUI"
-":EnergyConsumptionUI" -> ":InputUtils": getHouseRoomByList(:House)
-deactivate ":EnergyConsumptionUI"
-activate ":InputUtils"
-":InputUtils" -> ":House": get List of rooms
-activate ":House"
-":House" -> ":InputUtils": buildRoomListString()
-deactivate ":House"
-":InputUtils" -> PowerUser: requestRoomFromList()
-PowerUser -> ":InputUtils": Select Room from :House by index
-":InputUtils" -> ":House": getRoomFromRoomList
-activate ":House"
-":House" -> ":Room": getRoom
-deactivate ":House"
-activate ":Room"
-":Room" -> ":InputUtils": return :Room
-deactivate ":Room"
-":InputUtils" -> ":EnergyConsumptionUI": setRoom(:Room)
-activate ":EnergyConsumptionUI"
-deactivate ":InputUtils"
-":EnergyConsumptionUI" -> ":InputUtils": requestRoomDeviceFromList(:Room)
-deactivate ":EnergyConsumptionUI"
-activate ":InputUtils"
-":InputUtils" -> ":Room": get List of devices
-activate ":Room"
-":Room" -> ":InputUtils": buildDeviceListString()
-deactivate ":Room"
-":InputUtils" -> PowerUser: requestDeviceFromList()
-PowerUser -> ":InputUtils": Select Device from :Room by index
-":InputUtils" -> ":Room": getDevice()
-activate ":Room"
-":Room" -> ":Device": getDevice()
-deactivate ":Room"
-activate ":Device"
-":Device" -> ":InputUtils": return :Device
-deactivate ":Device"
-":InputUtils" -> ":EnergyConsumptionUI": setDevice(:Device)
-activate ":EnergyConsumptionUI"
-":EnergyConsumptionUI" -> ":InputUtils": getInputDate()
-deactivate ":EnergyConsumptionUI"
-":InputUtils" -> PowerUser: requestDateByInput()
-PowerUser -> ":InputUtils": Define Date
-":InputUtils" -> ":EnergyConsumptionUI": setInitialTime()
-activate ":EnergyConsumptionUI"
-":EnergyConsumptionUI" -> ":InputUtils": getInputDate()
-deactivate ":EnergyConsumptionUI"
-":InputUtils" -> PowerUser: requestDateByInput()
-PowerUser -> ":InputUtils": Define Date
-":InputUtils" -> ":EnergyConsumptionUI": setFinalTime()
-deactivate ":InputUtils"
-activate ":EnergyConsumptionUI"
+":EnergyConsumptionUI" -> PowerUser: display selection \n options
+PowerUser -> ":EnergyConsumptionUI": selectRoom
+ref over ":EnergyConsumptionUI"
+selectRoom
+end ref
+PowerUser -> ":EnergyConsumptionUI": selectDevice
+ref over ":EnergyConsumptionUI"
+selectDevice
+end ref
+":EnergyConsumptionUI" -> PowerUser: request time \n input
+PowerUser -> ":EnergyConsumptionUI": setInitialTime()
+ref over ":EnergyConsumptionUI"
+selectTime
+end ref
+":EnergyConsumptionUI" -> PowerUser: request time \n input
+PowerUser -> ":EnergyConsumptionUI": setFinalTime()
+ref over ":EnergyConsumptionUI"
+selectTime
+end ref
 ":EnergyConsumptionUI" -> ":EnergyConsumptionController": getDeviceConsumptionInInterval(device, initialTime, finalTime)
-activate ":Device"
 deactivate ":EnergyConsumptionUI"
 activate ":EnergyConsumptionController"
-":EnergyConsumptionController" -> ":Device": getConsumptionWithinGivenInterval(initialTime, finalTime)
 deactivate ":EnergyConsumptionController"
-":Device" -> ":Device": check if countLogsInInterval is > 0
-":Device" -> ":Device": getConsumptionWithinGivenInterval(initialTime, finalTime)
-":Device" -> ":EnergyConsumptionController": return double
+":EnergyConsumptionController" -> ":Device": countLogsInInterval(initialTime, finalTime)
+activate ":Device"
+":Device" --> ":EnergyConsumptionController": return logCount
 deactivate ":Device"
-activate ":EnergyConsumptionController"
+":EnergyConsumptionController" -> ":EnergyConsumptionController": check if logCount > 0
+":EnergyConsumptionController" -> ":Device": getConsumptionWithinGivenInterval(initialTime, finalTime)
+activate ":Device"
+":Device" --> ":EnergyConsumptionController": return double
+deactivate ":Device"
 ":EnergyConsumptionController" -> ":EnergyConsumptionController": build feedback String
-":EnergyConsumptionController" -> PowerUser: Display the Total Metered Energy Consumption
+":EnergyConsumptionController" -> PowerUser: Display the Total\n Metered Energy \n Consumption
 deactivate ":EnergyConsumptionController"
 deactivate ":MainUI"
 @enduml
