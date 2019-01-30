@@ -5,13 +5,17 @@ import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.programs.Program;
+import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertEquals;
 import static pt.ipp.isep.dei.project.TestUtils.PATH_TO_FRIDGE;
 
 /**
@@ -131,18 +135,20 @@ class RoomConfigurationControllerTest {
     @Test
     void seeGetRoomNominalPower() {
         //ARRANGE
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+
         Device d1 = new Device("d1", 12, PATH_TO_FRIDGE);
-        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
-        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
+        ctrl.setAttributeValue(d1,TestUtils.F_FREEZER_CAPACITY, 4D);
+        ctrl.setAttributeValue(d1,TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
+        ctrl.setAttributeValue(d1,TestUtils.F_ANNUAL_CONSUMPTION, 56D);
         Device d2 = new Device("d2", 10, PATH_TO_FRIDGE);
-        d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
-        d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
-        d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
+        ctrl.setAttributeValue(d2,TestUtils.F_FREEZER_CAPACITY, 4D);
+        ctrl.setAttributeValue(d2,TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
+        ctrl.setAttributeValue(d2,TestUtils.F_ANNUAL_CONSUMPTION, 56D);
         Device d3 = new Device("d3", 1, PATH_TO_FRIDGE);
-        d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
-        d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
-        d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
+        ctrl.setAttributeValue(d3,TestUtils.F_FREEZER_CAPACITY, 4D);
+        ctrl.setAttributeValue(d3,TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
+        ctrl.setAttributeValue(d3,TestUtils.F_ANNUAL_CONSUMPTION, 56D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
@@ -150,7 +156,6 @@ class RoomConfigurationControllerTest {
         Room room1 = new Room("room1", 19, 5, 3, 3);
         room1.setDeviceList(deviceList);
         double expectedResult = 23;
-        RoomConfigurationController ctrl = new RoomConfigurationController();
         //ACT
         double actualResult = ctrl.getRoomNominalPower(room1);
         //ASSERT
@@ -508,21 +513,7 @@ class RoomConfigurationControllerTest {
     }
 
 /*
-    @Test
-    void seeIfAddDeviceToRoom() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device device = new Device("waterheater", 150, new WaterHeaterSpec(new Double(12), new Double(40), new Double (234)));
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        ctrl.setDeviceName("daniel", device);
-       room.addDevice(device);
-        ctrl.setNominalPower(123.0, device);
-        String result = ctrl.buildDeviceListString(room);
-        String expectedResult = "---------------\n" +
-                "\n" +
-                "0) device Name: daniel, device Type: WATER_HEATER, device Nominal Power: 123.0\n" +
-                "---------------\n";
-        assertEquals(expectedResult, result);
-    }
+
 
     @Test
     void seeIfRemoveDeviceFromRoomWorks() {
@@ -605,19 +596,7 @@ class RoomConfigurationControllerTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    void seeIfConfigureOneWashingMachineProgram() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Device("heater", 150, new WaterHeaterSpec(new Double(12), new Double(40), new Double (234)));
-        Object expectedResult = 0.0;
-        Program program = new Program("rep", 22, 23);
-        ProgramList programList = new ProgramList();
-        programList.addProgram(program);
-        ctrl.configureOneWashingMachineProgram(d1, programList);
-        d1.setAttributeValue("programList", program);
-        Object result = d1.getAttributeValue("programlist");
-        assertEquals(expectedResult, result);
-    }
+
 
     @Test
     void seeIfConfigureOneDishWasherCapacity() {
@@ -730,5 +709,63 @@ class RoomConfigurationControllerTest {
         boolean expectedResult = false;
         boolean actualResult = roomConfigurationController.deactivateDevice(d2);
         assertEquals(expectedResult,actualResult);
+    }
+    @Test
+    void seeIfGetAttributeValueWashingMachine() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WASHINGMACHINE);
+        Object expectedResult = d1.getAttributeValue("programList");
+        Object result = ctrl.getAttributeValueWashingMachine(d1);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfConfigureOneWashingMachineProgram() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150,TestUtils.PATH_TO_WASHINGMACHINE);
+        Program program = new Program("rep", 22, 23);
+        ProgramList programList = new ProgramList();
+        programList.addProgram(program);
+        ctrl.configureOneWashingMachineProgram(d1, programList);
+        Object result = d1.getAttributeValue("programList");
+        assertEquals(d1.getAttributeValue("programList"), result);
+    }
+    @Test
+    public void getAttributeNamesTest() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150,TestUtils.PATH_TO_LAMP);
+        List<String> expectedResult = new ArrayList<>();
+        expectedResult.add("Luminous Flux");
+        List<String> result = ctrl.getAttributeName(d1);
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void getAttributeNamesTest1() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device d1 = new Device("heater", 150,TestUtils.PATH_TO_LAMP);
+        String expectedResult = "Lamp";
+        String result = ctrl.getType(d1);
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    void seeIfAddDeviceToRoom() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Device device = new Device("waterheater", 150,TestUtils.PATH_TO_WATERHEATER);
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        ctrl.addDevice(room,device);
+        String result = ctrl.buildDeviceListString(room);
+        String expectedResult = "---------------\n" +
+                "\n" +
+                "0) device Name: waterheater, device Type: WaterHeater, device Nominal Power: 150.0\n" +
+                "---------------\n";
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    void getDeviceClassPathFromConfigFile() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
+        String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT";
+        String result = ctrl.getDeviceTypePathToClassId(house,"WaterHeater");
+        assertEquals(expectedResult, result);
     }
 }

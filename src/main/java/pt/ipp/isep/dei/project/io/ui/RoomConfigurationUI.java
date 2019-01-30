@@ -367,7 +367,7 @@ class RoomConfigurationUI {
 
         } else {
             mRoom.addDevice(device);
-            System.out.println("device already exists in the room. Please, try again.\n");
+            System.out.println("Device already exists in the room. Please, try again.\n");
         }
     }
 
