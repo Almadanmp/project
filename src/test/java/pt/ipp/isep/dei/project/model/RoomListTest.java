@@ -187,7 +187,7 @@ public class RoomListTest {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -203,7 +203,7 @@ public class RoomListTest {
     public void seeIfPrintsInvalidList() {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
 
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga,60,180);
         String expectedResult = "Invalid List - List is Empty\n";
         String result = house.buildRoomListString();
         assertEquals(expectedResult, result);

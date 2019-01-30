@@ -19,10 +19,12 @@ public class House implements Metered {
     private EnergyGridList mEGList;
     private RoomList mRoomList;
     private GeographicArea mMotherArea;
+    private int mGridMeteringPeriod;
+    private int mDeviceMeteringPeriod;
 
     //CONSTRUCTOR
 
-    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea) {
+    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea, int gridMeteringPeriod, int deviceMeteringPeriod) {
         this.mId = mId;
         this.mStreet = mStreet;
         this.mZip = mZip;
@@ -31,6 +33,8 @@ public class House implements Metered {
         this.mMotherArea = mMotherArea;
         this.mRoomList = new RoomList();
         this.mEGList = new EnergyGridList();
+        this.mGridMeteringPeriod = gridMeteringPeriod;
+        this.mDeviceMeteringPeriod = deviceMeteringPeriod;
     }
 
     //SETTERS AND GETTERS

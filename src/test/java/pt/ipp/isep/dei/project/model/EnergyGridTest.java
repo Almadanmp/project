@@ -291,7 +291,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList() throws IOException {
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid();
         eg.setMaxContractedPower(333);
@@ -309,7 +309,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList2() throws IOException {
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
         Room m = null;
         EnergyGrid eg = new EnergyGrid();
         eg.setMaxContractedPower(333);

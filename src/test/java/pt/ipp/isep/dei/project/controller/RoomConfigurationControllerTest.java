@@ -26,7 +26,7 @@ class RoomConfigurationControllerTest {
         Room room1 = new Room("Quarto", 1, 5, 1, 21);
         Room room2 = new Room("Cozinha", 1, 9, 3, 5);
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        House house1 = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga);
+        House house1 = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga,60,180);
         house1.addRoomToRoomList(room1);
         house1.addRoomToRoomList(room2);
         //Act
@@ -42,7 +42,7 @@ class RoomConfigurationControllerTest {
         GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -78,7 +78,7 @@ class RoomConfigurationControllerTest {
         GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -99,7 +99,7 @@ class RoomConfigurationControllerTest {
         GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 

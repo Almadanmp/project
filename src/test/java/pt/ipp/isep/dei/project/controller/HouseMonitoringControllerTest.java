@@ -161,7 +161,7 @@ public class HouseMonitoringControllerTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 2, 2);
         room.setRoomSensorList(list);
-        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)));
+        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)),60,180);
         house.addRoomToRoomList(room);
 
         //Act
@@ -190,7 +190,7 @@ public class HouseMonitoringControllerTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 2, 2);
         room.setRoomSensorList(list);
-        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)));
+        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)),60,180);
         house.addRoomToRoomList(room);
         //Act
         double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d2, house, room);
@@ -219,7 +219,7 @@ public class HouseMonitoringControllerTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 2, 2);
         room.setRoomSensorList(list);
-        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)));
+        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)),60,180);
         house.addRoomToRoomList(room);
         //Act ---------------------------------------------------------------
         double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d3, house, room);
@@ -248,7 +248,7 @@ public class HouseMonitoringControllerTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 2, 2);
         room.setRoomSensorList(list);
-        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)));
+        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)),60,180);
         house.addRoomToRoomList(room);
         //Act ---------------------------------------------------------------------
         double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d3, house, room);
@@ -269,7 +269,7 @@ public class HouseMonitoringControllerTest {
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga,60,180);
 
         //Act ------------------------------------------------------
         Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature");
@@ -289,7 +289,7 @@ public class HouseMonitoringControllerTest {
         sensorList.addSensor(s2);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga,60,180);
         //Act -------------------------------------------------------
         Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature");
         //Assert ----------------------------------------------------
@@ -353,7 +353,7 @@ public class HouseMonitoringControllerTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         //House List
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga,60,180);
 
         //Act ---------------------------------------------------
         double result = ctrl.getCurrentTemperatureInTheHouseArea(house, ga);
@@ -546,7 +546,7 @@ public class HouseMonitoringControllerTest {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -567,7 +567,7 @@ public class HouseMonitoringControllerTest {
         list.add(i);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -648,7 +648,7 @@ public class HouseMonitoringControllerTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -710,7 +710,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -724,7 +724,7 @@ public class HouseMonitoringControllerTest {
     @Test
     public void seeIfGetHouseInfoOutputMessage() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
         String expectedResult = "The Average Rainfall on the house area of casa de praia";
         String result = ctrl.getHouseInfoForOutputMessage(house);
         assertEquals(expectedResult, result);
@@ -748,7 +748,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -776,7 +776,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -800,7 +800,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -826,7 +826,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -860,7 +860,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -885,7 +885,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -913,7 +913,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -941,7 +941,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -969,7 +969,7 @@ public class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList1);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga);
+        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
