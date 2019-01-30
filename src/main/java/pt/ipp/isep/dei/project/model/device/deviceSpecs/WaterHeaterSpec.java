@@ -79,7 +79,7 @@ public class WaterHeaterSpec implements DeviceSpecs {
             case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
                 return mVolumeOfWaterToHeat;
             case NOMINAL_POWER:
-                return mVolumeOfWaterToHeat;
+                return mNominalPower;
             default:
                 return 0.0;
         }
