@@ -3,9 +3,11 @@ package pt.ipp.isep.dei.project.model.device;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.programs.Program;
+import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -113,6 +115,55 @@ public class DeviceTest {
     }
 
     @Test
+    void seeIfGetAndSetAttributeUnit() {
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        String expectedResult = "L";
+        d1.setAttributeValue("Volume Of Water", 33.3);
+        Object result = d1.getAttributeUnit("Volume Of Water");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetAndSetAttributeUnit2() {
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        String expectedResult = "ºC";
+        d1.setAttributeValue("Hot Water Temperature", 33.3);
+        Object result = d1.getAttributeUnit("Hot Water Temperature");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetAndSetAttributeUnit3() {
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        String expectedResult = "";
+        d1.setAttributeValue("Performance Ratio", 33.3);
+        Object result = d1.getAttributeUnit("Performance Ratio");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetAndSetAttributeUnit4() {
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        d1.setAttributeValue(TestUtils.NOMINAL_POWER, 234D);
+        String expectedResult = "kW";
+        d1.setAttributeValue("nominal power", 33.3);
+        Object result = d1.getAttributeUnit("nominal power");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfGetAttributeNames() {
         Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
         d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER, 12D);
@@ -148,5 +199,108 @@ public class DeviceTest {
         boolean expectedResult = false;
         boolean actualResult = d1.deactivate();
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatDeviceIsNotProg() {
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        d1.deactivate();
+        boolean expectedResult = false;
+        boolean actualResult = d1.isProgrammable();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatDeviceIsProg() {
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WASHINGMACHINE);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        d1.deactivate();
+        boolean expectedResult = true;
+        boolean actualResult = d1.isProgrammable();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetEnergyConsumption() {
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        d1.deactivate();
+        double expectedResult = 0;
+        double actualResult = d1.getEnergyConsumption(2);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getProgramList() {
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WASHINGMACHINE);
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = d1.getProgramList();
+        listProgram.addProgram(program1);
+        ProgramList result = d1.getProgramList();
+        assertEquals(listProgram, result);
+    }
+
+    @Test
+    void getProgramListFalse() {
+
+        assertThrows(NullPointerException.class,
+                () -> {
+                    Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+                    d1.getProgramList();
+                });
+    }
+
+    @Test
+    void getLogList(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        Log log = new Log(1,new GregorianCalendar(2019,1,1).getTime(),
+                new GregorianCalendar(2019,1,1).getTime());
+        LogList logList = d1.getLogList();
+        d1.addLog(log);
+        LogList result = d1.getLogList();
+        assertEquals(logList,result);
+    }
+
+    @Test
+    void getLogListBreakTest(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        LogList logList = new LogList();
+        LogList result = d1.getLogList();
+        assertEquals(logList,result);
+    }
+
+    @Test
+    void addLogListFalse(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        Log log = new Log(1,new GregorianCalendar(2019,1,1).getTime(),
+                new GregorianCalendar(2019,1,1).getTime());
+        d1.addLog(log);
+        assertFalse(d1.addLog(log));
+    }
+
+    @Test
+    void addLogToInactive(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        Log log = new Log(1,new GregorianCalendar(2019,1,1).getTime(),
+                new GregorianCalendar(2019,1,1).getTime());
+        d1.setAsInactive();
+        boolean result = d1.addLog(log);
+        assertFalse(result);
+    }
+
+    @Test
+    void addLogTrue(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        Log log = new Log(1,new GregorianCalendar(2019,1,1).getTime(),
+                new GregorianCalendar(2019,1,1).getTime());
+        boolean result = d1.addLog(log);
+        assertTrue(result);
     }
 }

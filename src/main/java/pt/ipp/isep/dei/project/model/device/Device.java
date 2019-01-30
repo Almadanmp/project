@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.deviceSpecs.DeviceSpecs;
+import pt.ipp.isep.dei.project.model.device.devicespecs.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
@@ -46,15 +46,15 @@ public class Device implements Metered {
 
     }
 
-    public void setNominalPower(Double nomPower) {
-        this.mNominalPower = nomPower;
-    }
-
     /**
      * @param deviceSpecs
      */
     public Device(DeviceSpecs deviceSpecs) {
         this.mDeviceSpecs = deviceSpecs;
+    }
+
+    public void setNominalPower(Double nomPower) {
+        this.mNominalPower = nomPower;
     }
 
     public double getNominalPower() {
@@ -68,6 +68,10 @@ public class Device implements Metered {
      */
     private boolean isActive() {
         return this.mActive;
+    }
+
+    void setAsInactive() {
+        this.mActive = false;
     }
 
     public void setmName(String name) {

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.device.deviceSpecs;
+package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
@@ -109,6 +109,23 @@ class FridgeSpecTest {
         FridgeSpec fridgeSpec = new FridgeSpec();
         String expectedResult = "Kg";
         Object result = fridgeSpec.getAttributeUnit("Refrigerator Capacity");
+        assertEquals(expectedResult, result);
+        assertEquals(0, fridgeSpec.getAttributeUnit(""));
+
+    }
+
+    @Test
+    void seeIfGetAttributeUnitTest3() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        String expectedResult = "kWh";
+        Object result = fridgeSpec.getAttributeUnit("Annual Energy Consumption");
+        assertEquals(expectedResult, result);
+
+    } @Test
+    void seeIfGetAttributeUnitTest4() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        String expectedResult = "kW";
+        Object result = fridgeSpec.getAttributeUnit("nominal power");
         assertEquals(expectedResult, result);
         assertEquals(0, fridgeSpec.getAttributeUnit(""));
 

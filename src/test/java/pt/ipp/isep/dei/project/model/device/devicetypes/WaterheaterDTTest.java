@@ -11,6 +11,6 @@ public class WaterheaterDTTest {
     @Test
     public void createWaterheaterType() {
         WaterHeaterDT dt = new WaterHeaterDT();
-        dt.createDevice();
+        dt.createDeviceType();
     }
 }

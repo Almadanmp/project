@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.device.deviceSpecs;
+package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,17 +31,11 @@ public class LampSpec implements DeviceSpecs {
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case FLUX:
-                if (attributeName.equals(FLUX)) {
-                    return mLuminousFlux;
-                } else {
-                    return 0;
-                }
+                return mLuminousFlux;
+
             case NOMINAL_POWER:
-                if (attributeName.equals(NOMINAL_POWER)) {
-                    return mNominalPower;
-                } else {
-                    return false;
-                }
+                return mNominalPower;
+
             default:
                 return false;
         }
@@ -50,17 +44,11 @@ public class LampSpec implements DeviceSpecs {
     public Object getAttributeUnit(String attributeName) {
         switch (attributeName) {
             case FLUX:
-                if (attributeName.equals(FLUX)) {
-                    return "lm";
-                } else {
-                    return false;
-                }
+                return "lm";
+
             case NOMINAL_POWER:
-                if (attributeName.equals(NOMINAL_POWER)) {
-                    return "kW";
-                } else {
-                    return false;
-                }
+                return "kW";
+
             default:
                 return false;
         }

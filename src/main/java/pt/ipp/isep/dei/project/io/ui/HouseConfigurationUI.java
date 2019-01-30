@@ -243,6 +243,15 @@ class HouseConfigurationUI {
         System.out.println(controller.buildRoomsString(house));
     }
 
+    /* USER STORY 70 - US070 As an Administrator, I want to configure the available device types for each instance of
+     the system (i.e. each house) using a configuration file, so that the types of devices can be updated without
+     compilation and redeployment of the software.
+      */
+
+
+
+
+
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
