@@ -257,6 +257,7 @@ public class DeviceTest {
                     d1.getProgramList();
                 });
     }
+
     @Test
     void getLogList(){
         Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
@@ -267,6 +268,15 @@ public class DeviceTest {
         LogList result = d1.getLogList();
         assertEquals(logList,result);
     }
+
+    @Test
+    void getLogListBreakTest(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        LogList logList = new LogList();
+        LogList result = d1.getLogList();
+        assertEquals(logList,result);
+    }
+
     @Test
     void addLogListFalse(){
         Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
@@ -274,5 +284,16 @@ public class DeviceTest {
                 new GregorianCalendar(2019,1,1).getTime());
         d1.addLog(log);
         assertFalse(d1.addLog(log));
+    }
+
+    @Test
+    void addLogToInactive(){
+        Device d1 = new Device("heater", 150, TestUtils.PATH_TO_WATERHEATER);
+        Log log = new Log(1,new GregorianCalendar(2019,1,1).getTime(),
+                new GregorianCalendar(2019,1,1).getTime());
+        d1.setAsInactive();
+        boolean result = d1.addLog(log);
+        assertFalse(result);
+
     }
 }
