@@ -98,7 +98,6 @@ class RoomConfigurationUI {
 
 
     private void runUS210(House house) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(house);
         DeviceType deviceType;
@@ -128,7 +127,6 @@ class RoomConfigurationUI {
             ctrl.setAttributeValue(device, deviceAttributes.get(i), value);
         }
 
-        //todo create a way to use the same logic as used above
         if (device.isProgrammable()) {
             System.out.println("This device is programmable.");
             ProgramList pList = device.getProgramList();
@@ -254,7 +252,6 @@ class RoomConfigurationUI {
         }
         Device device = inputUtils.getInputRoomDevicesByList(this.mRoom);
         getInputDeviceCharacteristicsUS215(device);
-        // updateDeviceUS215();
     }
 
 
@@ -310,8 +307,8 @@ class RoomConfigurationUI {
         this.mDuration = inputUtils.getInputAsDouble();
         System.out.println(requestProgramEnergyConsumption);
         this.mEnergyConsumption = inputUtils.getInputAsDouble();
-        program = new Program(mProgramName, mDuration, mEnergyConsumption);
-        mProgramList.addProgram(program);
+        Program newProgram = new Program(mProgramName, mDuration, mEnergyConsumption);
+        mProgramList.addProgram(newProgram);
         loopForPrograms();
 
     }
