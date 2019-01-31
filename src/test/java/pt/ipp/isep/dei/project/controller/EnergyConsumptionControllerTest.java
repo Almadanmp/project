@@ -969,14 +969,43 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestSameTime2()
+    {
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+        assertFalse(result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestSameTime3()
+    {
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        Date initialTime = new GregorianCalendar().getTime();
+        Date finalTime = new GregorianCalendar().getTime();
+        Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+        assertFalse(result);
+    }
+
+
+    @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTesDifferentTime() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 12).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 13).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 14).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
+        Date initialTime = new GregorianCalendar().getTime();
+        Date finalTime = new GregorianCalendar().getTime();
+        Date periodBeginning1 = new GregorianCalendar().getTime();
+        Date periodEnding1 = new GregorianCalendar().getTime();
+        Date periodBeginning2 = new GregorianCalendar().getTime();
+        Date periodEnding2 = new GregorianCalendar().getTime();
         Device device = new Device("Washing machine", 200, TestUtils.PATH_TO_WATERHEATER);
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -986,7 +1015,7 @@ class EnergyConsumptionControllerTest {
         device.addLog(log1);
         device.addLog(log2);
         boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        assertFalse(result);
+        assertTrue(result);
     }
 
     @Test
