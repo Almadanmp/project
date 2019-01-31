@@ -50,7 +50,7 @@ public class Device implements Metered {
      *
      * @return true if device is active
      */
-    private boolean isActive() {
+    boolean isActive() {
         return this.mActive;
     }
 
