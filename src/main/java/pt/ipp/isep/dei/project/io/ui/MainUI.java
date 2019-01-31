@@ -354,6 +354,56 @@ public class MainUI {
         Room b109SP2 = new Room("B109", 1, 7, 11, 3.5);
 
 
+        DeviceList deviceListRoomB107SP3 = new DeviceList();
+        b107SP2.setDeviceList(deviceListRoomB107SP3);
+        Device ehwB107SP3 = new Device(new WaterHeaterSpec());
+        ehwB107SP3.setNominalPower(1.5);
+        ehwB107SP3.setName("EHW B109");
+        ehwB107SP3.setAttributeValue(volumeWater, 100D);
+        ehwB107SP3.setAttributeValue(hotWaterT, 55D);
+        ehwB107SP3.setAttributeValue(performanceRatio, 0.91D);
+        deviceListRoomB107SP3.addDevice(ehwB107SP3);
+
+        Log log10732 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 7, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 0).getTime());
+        Log log10733 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 15).getTime());
+        Log log10734 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 30).getTime());
+        Log log10735 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 45).getTime());
+        Log log10736 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 9, 0).getTime());
+        Log log10737 = new Log(0.25, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 9, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 9, 15).getTime());
+        Log log10742 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 30).getTime());
+        Log log10743 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 45).getTime());
+        Log log10748 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 11, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 0).getTime());
+        Log log10749 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 15).getTime());
+        Log log10750 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 30).getTime());
+        Log log10751 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 45).getTime());
+        Log log10752 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 0).getTime());
+        Log log10753 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 15).getTime());
+        Log log10781 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 15).getTime());
+        Log log10782 = new Log(0.1, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 30).getTime());
+        Log log10783 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 45).getTime());
+        Log log10784 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 0).getTime());
+        Log log10785 = new Log(0.15, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 15).getTime());
+        ehwB107SP3.addLog(log10732);
+        ehwB107SP3.addLog(log10733);
+        ehwB107SP3.addLog(log10734);
+        ehwB107SP3.addLog(log10735);
+        ehwB107SP3.addLog(log10736);
+        ehwB107SP3.addLog(log10737);
+        ehwB107SP3.addLog(log10742);
+        ehwB107SP3.addLog(log10743);
+        ehwB107SP3.addLog(log10748);
+        ehwB107SP3.addLog(log10749);
+        ehwB107SP3.addLog(log10750);
+        ehwB107SP3.addLog(log10751);
+        ehwB107SP3.addLog(log10752);
+        ehwB107SP3.addLog(log10753);
+        ehwB107SP3.addLog(log10781);
+        ehwB107SP3.addLog(log10782);
+        ehwB107SP3.addLog(log10783);
+        ehwB107SP3.addLog(log10784);
+        ehwB107SP3.addLog(log10785);
+
+
         List<TypeSensor> typeSensorListSP2 = new ArrayList<>();
         TypeSensor temperatureB109SP2 = new TypeSensor(temperature, "celsius");
         SensorList sensorListRoomB109SP2 = new SensorList();
