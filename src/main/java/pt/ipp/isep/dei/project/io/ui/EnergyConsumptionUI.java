@@ -15,6 +15,8 @@ import java.util.Scanner;
 class EnergyConsumptionUI {
     private EnergyConsumptionController controller;
     private Scanner returnToConsole = new Scanner(System.in);
+    private static final String INSERT_START_DATE = "PLEASE INSERT THE START OF THE INTERVAL:";
+    private static final String INSERT_END_DATE = "PLEASE INSERT THE END OF THE INTERVAL:";
 
     EnergyConsumptionUI() {
         this.controller = new EnergyConsumptionController();
@@ -319,27 +321,27 @@ class EnergyConsumptionUI {
      *  consumption chart of the metered energy consumption of a device/room/grid in a given time interval.
      */
 
-    private void runUS730(House programHouse){
-        InputUtils  inputs = new InputUtils();
-        Date startDate = new Date();
-        Date endDate = new Date();
+    private void runUS730(House programHouse) {
+        InputUtils inputs = new InputUtils();
+        Date startDate;
+        Date endDate;
         this.printUS730Menu();
         int option = inputs.readInputNumberAsInt();
-        switch (option){
+        switch (option) {
             case 1:
                 EnergyGrid grid = inputs.getInputGridByList(programHouse);
-                System.out.println("PLEASE INSERT THE START OF THE INTERVAL:");
+                System.out.println(INSERT_START_DATE);
                 startDate = inputs.getInputDate();
-                System.out.println("PLEASE INSERT THE END OF THE INTERVAL:");
+                System.out.println(INSERT_END_DATE);
                 endDate = inputs.getInputDate();
                 LogList gridLogs = controller.getGridLogsInInterval(grid, startDate, endDate);
                 System.out.println(controller.buildLogListString(gridLogs));
                 break;
             case 2:
                 Room case2Room = inputs.getHouseRoomByList(programHouse);
-                System.out.println("PLEASE INSERT THE START OF THE INTERVAL:");
+                System.out.println(INSERT_START_DATE);
                 startDate = inputs.getInputDate();
-                System.out.println("PLEASE INSERT THE END OF THE INTERVAL:");
+                System.out.println(INSERT_END_DATE);
                 endDate = inputs.getInputDate();
                 LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate);
                 System.out.println(controller.buildLogListString(roomLogs));
@@ -347,13 +349,17 @@ class EnergyConsumptionUI {
             case 3:
                 Room case3Room = inputs.getHouseRoomByList(programHouse);
                 Device device = inputs.getInputRoomDevicesByList(case3Room);
-                System.out.println("PLEASE INSERT THE START OF THE INTERVAL:");
+                System.out.println(INSERT_START_DATE);
                 startDate = inputs.getInputDate();
-                System.out.println("PLEASE INSERT THE END OF THE INTERVAL:");
+                System.out.println(INSERT_END_DATE);
                 endDate = inputs.getInputDate();
                 LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);
                 System.out.println(controller.buildLogListString(deviceLogs));
                 break;
+            default:
+                System.out.println("Invalid option. Please try again.");
+                break;
+
         }
     }
 
