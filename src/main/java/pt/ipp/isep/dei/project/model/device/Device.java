@@ -155,8 +155,8 @@ public class Device implements Metered {
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
         double result = 0;
         for (Log l : mLogList.getLogList()) {
-            if (initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate()) &&
-                    finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate())) {
+            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
+                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
                 result += l.getValue();
             }
         }
