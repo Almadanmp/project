@@ -189,7 +189,7 @@ public class InputUtils {
         }
     }
 
-    public DeviceType getInputDeviceTypeByList(House house) throws IOException {
+    DeviceType getInputDeviceTypeByList(House house) throws IOException {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
@@ -264,7 +264,7 @@ public class InputUtils {
         return new GregorianCalendar(year, month, day, hour, minute).getTime();
     }
 
-    int getInputYear(){
+    private int getInputYear(){
         Scanner scan = new Scanner(System.in);
         int year = -1;
         while(year<0) {
@@ -273,7 +273,8 @@ public class InputUtils {
         }
         return year;
     }
-    int getInputMonth(){
+
+    private int getInputMonth(){
         Scanner scan = new Scanner(System.in);
         int month = -1;
         while(month<=-1 || month>11) { // -1 e 11 porque depois se subtrai um valor
@@ -283,7 +284,7 @@ public class InputUtils {
         return month;
     }
 
-    int getInputDay(){
+    private int getInputDay(){
         Scanner scan = new Scanner(System.in);
         int day = -1;
         while(day<1 || day>31) {
@@ -293,7 +294,7 @@ public class InputUtils {
         return day;
     }
 
-    int getInputHour(){
+    private int getInputHour(){
         Scanner scan = new Scanner(System.in);
         int hour = -1;
         while(hour<0 || hour >23) {
@@ -303,7 +304,7 @@ public class InputUtils {
         return hour;
     }
 
-    int getInputMinute(){
+    private int getInputMinute(){
         Scanner scan = new Scanner(System.in);
         int minute = -1;
         while(minute<0 || minute>59) {
