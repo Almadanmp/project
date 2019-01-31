@@ -174,8 +174,8 @@ public class Device implements Metered {
     public int countLogsInInterval(Date initialTime, Date finalTime) {
         int counter = 0;
         for (Log l : mLogList.getLogList()) {
-            if ((initialTime.before(l.getInitialDate()) || initialTime.equals(l.getInitialDate())) &&
-                    (finalTime.after(l.getFinalDate()) || finalTime.equals(l.getFinalDate()))) {
+            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
+                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
                 counter++;
             }
         }

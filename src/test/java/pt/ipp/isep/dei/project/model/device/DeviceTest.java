@@ -378,4 +378,31 @@ public class DeviceTest {
         double result = device.getConsumptionWithinGivenInterval(initialTime, finalTime);
         assertEquals(0.0, result);
     }
+
+    @Test
+    void testCountLogsInInterval() {
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
+        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
+        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
+        Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
+        Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Device device = new Device(new WaterHeaterSpec());
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log1 = new Log(56, periodBeginning1, periodEnding1);
+        Log log2 = new Log(55, periodBeginning2, periodEnding2);
+        Log log3 = new Log(55, periodBeginning3, periodEnding3);
+        device.addLog(log1);
+        device.addLog(log2);
+        device.addLog(log3);
+        //Act
+        Integer expectedResult = 3;
+        Integer actualResult = device.countLogsInInterval(initialTime, finalTime);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 }
