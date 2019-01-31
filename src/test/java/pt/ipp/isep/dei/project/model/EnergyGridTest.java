@@ -316,5 +316,12 @@ class EnergyGridTest {
         String result = eg.buildListOfDeviceByTypeString(eg, house);
         Assertions.assertEquals(expectedResult, result);
     }
+
+    @Test
+    void energyConsumptionDummyTest(){
+        EnergyGrid eg = new EnergyGrid();
+        double result = eg.getEnergyConsumption(10);
+        assertEquals(result,0);
+    }
 }
 
