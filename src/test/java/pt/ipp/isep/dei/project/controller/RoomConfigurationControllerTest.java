@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.*;
@@ -767,5 +768,60 @@ class RoomConfigurationControllerTest {
         String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT";
         String result = ctrl.getDeviceTypePathToClassId(house,"WaterHeater");
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDeviceClassPathFromConfigFile2() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
+        String expectedResult = "ERROR: Unable to read  property value from configuration fileresources/devices.properties.\n" +
+                " Program will shut down.";
+        String result = ctrl.getDeviceTypePathToClassId(house,"");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void addDeviceFails() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        Device d3 = new Device("wHeater1", 11, TestUtils.PATH_TO_WATERHEATER);
+        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        r1.addDevice(d2);
+        boolean expectedResult = false;
+        boolean result = ctrl.addDevice(r1,d3);
+        Assertions.assertEquals(expectedResult, result);
+    }
+    @Test
+    void addDeviceTrue() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        r1.addDevice(d2);
+        boolean expectedResult = false;
+        boolean result = ctrl.addDevice(r1,d2);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void createDevice() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Room r1 = new Room("quarto", 1, 12, 12, 12);
+        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        r1.addDevice(d2);
+        Device expectedResult = d2;
+        Device result = ctrl.createDevice("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        Assertions.assertEquals(expectedResult, result);
     }
 }
