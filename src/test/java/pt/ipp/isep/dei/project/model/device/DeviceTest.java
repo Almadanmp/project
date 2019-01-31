@@ -416,6 +416,10 @@ public class DeviceTest {
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
         Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
         Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning4 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodEnding4 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
+        Date periodBeginning5 = new GregorianCalendar(2018, 10, 20, 9, 40).getTime();
+        Date periodEnding5 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -423,9 +427,13 @@ public class DeviceTest {
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         Log log3 = new Log(55, periodBeginning3, periodEnding3);
+        Log log4 = new Log(55, periodBeginning4, periodEnding4);
+        Log log5 = new Log(55, periodBeginning5, periodEnding5);
         device.addLog(log1);
         device.addLog(log2);
         device.addLog(log3);
+        device.addLog(log4);
+        device.addLog(log5);
         //Act
         LogList expectedResult = new LogList();
         expectedResult.addLog(log1);
