@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,7 +43,7 @@ class LogListTest {
     @Test
     void seeEqualsToDifObject() {
         LogList list1 = new LogList();
-        Log log = new Log(300, new Date(), new Date());
+        Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
         Device d = new Device(new WashingMachineSpec());
         d.setNominalPower(12.0);
         d.addLog(log);
