@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DeviceTypeConfigTest {
 
     @Test
-    public void getPropertyValueFromKeySucess() throws IOException {
+    public void getPropertyValueFromKeySuccess() throws IOException {
         Properties props = new Properties();
         DeviceTypeConfig dtc = new DeviceTypeConfig();
         String propFileName = "resources/devices.properties";
@@ -109,6 +109,15 @@ public class DeviceTypeConfigTest {
                     InputStream input = new FileInputStream("");
                     props.load(input);
                     dtc.getDeviceTypeConfig();
+                });
+    }
+
+    @Test
+    public void getDeviceTypeConfigInvalidFileIOException() {
+        assertThrows(IOException.class,
+                () -> {
+                    DeviceTypeConfig dtc = new DeviceTypeConfig();
+                    dtc.getDeviceTypeConfigFromSpecificFile( "resources/devices_TEST.properties");
                 });
     }
 }

@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT;
 
 import java.io.IOException;
@@ -17,8 +18,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -807,14 +807,30 @@ class HouseTest {
     @Test
     void buildTypeListSuccess() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        List<String> test = new ArrayList<>();
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, test);
-        List<DeviceType> dtList = new ArrayList<>();
-        dtList.add(new WaterHeaterDT());
-        List<DeviceType> expectedResult = new ArrayList<>();
-        house.buildDeviceTypeList(test);
-        house.getmDeviceTypeList();
-        assertEquals(expectedResult, house.getmDeviceTypeList());
+        List<String> deviceTypePaths = new ArrayList<>();
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypePaths);
+        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT");
+        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
+
+        house.buildDeviceTypeList(deviceTypePaths);
+
+        List<DeviceType> dtList = house.getmDeviceTypeList();
+        assertEquals(dtList.size(), 2);
+        assertTrue(dtList.get(0) instanceof DishwasherDT);
+        assertTrue(dtList.get(1)instanceof WaterHeaterDT);
+    }
+
+    @Test
+    void buildTypeListFails() {
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+                    List<String> deviceTypePaths = new ArrayList<>();
+                    House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypePaths);
+                    deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.Dish");
+
+                    house.buildDeviceTypeList(deviceTypePaths);
+                });
     }
 
     @Test
