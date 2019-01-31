@@ -1,45 +1,49 @@
 @startuml
 title US720 - As a Power User [or Administrator], I want to know the total metered energy consumption of a device in a given time interval
 actor PowerUser
-activate PowerUser
-activate ":MainUI"
-PowerUser ->":MainUI": run720(:House)
-":MainUI" ->":EnergyConsumptionUI": run720(:House)
+PowerUser -> ":EnergyConsumptionUI": runUS720();
 activate ":EnergyConsumptionUI"
-":EnergyConsumptionUI" -> PowerUser: display selection \n options
-PowerUser -> ":EnergyConsumptionUI": selectRoom
 ref over ":EnergyConsumptionUI"
 selectRoom
 end ref
-PowerUser -> ":EnergyConsumptionUI": selectDevice
 ref over ":EnergyConsumptionUI"
 selectDevice
 end ref
-":EnergyConsumptionUI" -> PowerUser: request time \n input
-PowerUser -> ":EnergyConsumptionUI": setInitialTime()
 ref over ":EnergyConsumptionUI"
-selectTime
+selectIntervalStart
 end ref
-":EnergyConsumptionUI" -> PowerUser: request time \n input
-PowerUser -> ":EnergyConsumptionUI": setFinalTime()
 ref over ":EnergyConsumptionUI"
-selectTime
+selectIntervalEnd
 end ref
 ":EnergyConsumptionUI" -> ":EnergyConsumptionController": getDeviceConsumptionInInterval(device, initialTime, finalTime)
 deactivate ":EnergyConsumptionUI"
 activate ":EnergyConsumptionController"
 deactivate ":EnergyConsumptionController"
 ":EnergyConsumptionController" -> ":Device": countLogsInInterval(initialTime, finalTime)
-activate ":Device"
+activate ":LogList"
+":Device" -> ":LogList": countLogsInInterval (initialTime, finalTime)
+loop
+":LogList" -> ":Log": inInterval(initialTime, finalTime)
+":Log" --> ":LogList": return true
+end
 ":Device" --> ":EnergyConsumptionController": return logCount
-deactivate ":Device"
-":EnergyConsumptionController" -> ":EnergyConsumptionController": check if logCount > 0
-":EnergyConsumptionController" -> ":Device": getConsumptionWithinGivenInterval(initialTime, finalTime)
+":EnergyConsumptionController" -> ":EnergyConsumptionUI": return logCount
 activate ":Device"
-":Device" --> ":EnergyConsumptionController": return double
+deactivate ":LogList"
 deactivate ":Device"
-":EnergyConsumptionController" -> ":EnergyConsumptionController": build feedback String
-":EnergyConsumptionController" -> PowerUser: Display the Total\n Metered Energy \n Consumption
+":EnergyConsumptionUI" -> ":EnergyConsumptionUI": check if logCount > 0
+alt if log count = 0
+":EnergyConsumptionUI" -> PowerUser: display error message
+else if log count > 0
+":EnergyConsumptionController" -> ":Device": getConsumptionInGivenInterval(initialTime, finalTime)
+":Device" -> ":LogList": getConsumptionInInterval (initialTime, finalTime)
+activate ":LogList"
+activate ":Device"
+":LogList" --> ":EnergyConsumptionController": return double
+deactivate ":Device"
+deactivate ":LogList"
+":EnergyConsumptionController" -> ":EnergyConsumptionUI": build feedback String
+":EnergyConsumptionUI" -> PowerUser: Display the Total\n Metered Energy \n Consumption
 deactivate ":EnergyConsumptionController"
-deactivate ":MainUI"
+end alt
 @enduml
