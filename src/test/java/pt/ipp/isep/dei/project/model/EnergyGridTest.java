@@ -230,7 +230,7 @@ class EnergyGridTest {
         double expectedResult = 230;
 
         //Act
-        double actualResult = grid.getNominalPowerFromRoomList();
+        double actualResult = grid.getNominalPower();
 
         //Assert
         assertEquals(expectedResult, actualResult);

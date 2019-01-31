@@ -50,21 +50,6 @@ public class EnergyGrid implements Metered {
         return mRoomList;
     }
 
-    /**
-     * Getter for list of devices that are contained in all the rooms of this energy grid.
-     *
-     * @return a DeviceList containing all the devices in the energy grid list of rooms.
-     */
-    public DeviceList getDeviceListFromAllRooms() {
-        DeviceList devices = new DeviceList();
-        for (Room r : mRoomList.getList()) {
-            for (int i = 0; i < r.getDeviceList().size(); i++) {
-                devices.addDevice(r.getDeviceList().get(i));
-            }
-        }
-        return devices;
-    }
-
     double getMaxContractedPower() {
         return mMaxContractedPower;
     }
@@ -76,14 +61,6 @@ public class EnergyGrid implements Metered {
      */
 
     public double getNominalPower() {
-        double result = 0;
-        for (Room r : this.getRoomList()) {
-            result += r.getNominalPower();
-        }
-        return result;
-    }
-
-    public double getNominalPowerFromRoomList() {
         double result = 0;
         for (Room r : mRoomList.getList()) {
             result += r.getNominalPower();
