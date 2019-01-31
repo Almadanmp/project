@@ -71,9 +71,12 @@ public class LogList {
     public String toString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (Log log : this.getLogList()){
+        for (Log log : this.getLogList()) {
             result.append("\n").append(counter).append(") ").append("Start Date: ").append(log.getInitialDate()).append(" | End Date: ").append(log.getFinalDate()).append(" | Value: ").append(log.getValue());
             counter++;
+        }
+        if (counter == 0) {
+            return "There's no valid logs within that interval.";
         }
         return result.toString();
     }

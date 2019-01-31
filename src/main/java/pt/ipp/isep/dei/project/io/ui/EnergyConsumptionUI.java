@@ -397,7 +397,7 @@ class EnergyConsumptionUI {
         System.out.println("3) Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
         System.out.println("4) Display total Metered Energy Consumption of a Room in a given time interval. (US721)");
         System.out.println("5) Display total Metered Energy Consumption of a Grid in a given time interval. (US722)");
-        System.out.println("6) Show data series necessary to design an energy consumption chart of the metered energy consumption of a device/room/grid in a given time interval.");
+        System.out.println("6) Show data series necessary to design an energy consumption chart of the metered energy consumption of a device/room/grid in a given time interval. (US730)");
         System.out.println("7) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
     }
