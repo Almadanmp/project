@@ -1357,8 +1357,10 @@ class EnergyConsumptionControllerTest {
     void seeIfBuildLogListString(){
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
         LogList list = new LogList();
+        Log log = new Log(10, new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 20).getTime());
+        list.addLog(log);
         String result = ctrl.buildLogListString(list);
-        String expectedResult = "There's no valid logs within that interval.";
-        assertEquals(result,expectedResult);
+        String expectedResult = "\n0) Start Date: 20/11/2018 10:02:00 | End Date: 20/11/2018 10:20:00 | Value: 10.0";
+        assertEquals(result, expectedResult);
     }
 }
