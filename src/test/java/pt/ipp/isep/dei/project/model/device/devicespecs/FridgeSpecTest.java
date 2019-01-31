@@ -334,27 +334,20 @@ class FridgeSpecTest {
     }
 
     @Test
-    void testSetAttributeCoveringAllCases() {
+    void testSetAttributeValueCoveringAllCases() {
         //Arrange
         FridgeSpec fridgeSpec = new FridgeSpec();
         Double attribute = 6.0;
-        fridgeSpec.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, null);
-        fridgeSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, null);
-        fridgeSpec.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, null);
-        fridgeSpec.setAttributeValue(TestUtils.NOMINAL_POWER, null);
-
         // original strings:
-        assertTrue(fridgeSpec.setAttributeValue("Freezer Capacity", attribute));
-        assertTrue(fridgeSpec.setAttributeValue("Refrigerator Capacity", attribute));
-        assertTrue(fridgeSpec.setAttributeValue("Annual Energy Consumption", attribute));
-        assertTrue(fridgeSpec.setAttributeValue("nominal power", attribute));
-
+        assertTrue(fridgeSpec.setAttributeValue(FREEZER_CAPACITY, attribute));
+        assertTrue(fridgeSpec.setAttributeValue(REFRIGERATOR_CAPACITY, attribute));
+        assertTrue(fridgeSpec.setAttributeValue(ANNUAL_CONSUMPTION, attribute));
+        assertTrue(fridgeSpec.setAttributeValue(NOMINAL_POWER, attribute));
         // same hash codes, but different strings:
-        assertFalse(fridgeSpec.setAttributeValue("\0Freezer Capacity", attribute));
-        assertFalse(fridgeSpec.setAttributeValue("\0Refrigerator Capacity", attribute));
-        assertFalse(fridgeSpec.setAttributeValue("\0Annual Energy Consumption", attribute));
-        assertFalse(fridgeSpec.setAttributeValue("\0nominal power", attribute));
-
+        assertFalse(fridgeSpec.setAttributeValue(notFREEZER_CAPACITY, attribute));
+        assertFalse(fridgeSpec.setAttributeValue(notREFRIGERATOR_CAPACITY, attribute));
+        assertFalse(fridgeSpec.setAttributeValue(notANNUAL_CONSUMPTION, attribute));
+        assertFalse(fridgeSpec.setAttributeValue(notNOMINAL_POWER, attribute));
         // distinct hash code to cover default cases of switches
         assertFalse(fridgeSpec.setAttributeValue("", attribute));
     }
@@ -371,13 +364,11 @@ class FridgeSpecTest {
         assertEquals(attributeKg, fridgeSpec.getAttributeUnit(REFRIGERATOR_CAPACITY));
         assertEquals(attributeKWh, fridgeSpec.getAttributeUnit(ANNUAL_CONSUMPTION));
         assertEquals(attributeKW, fridgeSpec.getAttributeUnit(NOMINAL_POWER));
-
         // same hash codes, but different strings:
         assertEquals(0, fridgeSpec.getAttributeUnit(notFREEZER_CAPACITY));
         assertEquals(0, fridgeSpec.getAttributeUnit(notREFRIGERATOR_CAPACITY));
         assertEquals(0, fridgeSpec.getAttributeUnit(notANNUAL_CONSUMPTION));
         assertEquals(0, fridgeSpec.getAttributeUnit(notNOMINAL_POWER));
-
         // distinct hash code to cover default cases of switches
         assertEquals(0, fridgeSpec.getAttributeUnit(""));
     }
