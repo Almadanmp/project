@@ -1,0 +1,47 @@
+@startuml
+
+title US70 - Part 1 \n I want to configure the available device types for each instance of the system (i.e. each house) using a configuration file
+
+autonumber
+
+actor Admin
+activate MainUI
+Admin -> MainUI: start program
+
+alt try
+activate DeviceTypeConfig
+MainUI -> DeviceTypeConfig: getDeviceTypeConfig()
+ref over DeviceTypeConfig
+Get Device Types
+from Configuration File
+end ref
+
+DeviceTypeConfig --> MainUI: return deviceTypeConfig
+deactivate DeviceTypeConfig
+
+activate House
+MainUI -> House: create(deviceTypeConfig)
+
+House -> House: buildDeviceTypeList(deviceTypeConfig)
+
+loop for each DT path in deviceTypeConfig
+House -> DeviceType: dt = create(String)
+activate DeviceType
+deactivate DeviceType
+
+House -> House: mDeviceTypeList.add(dt)
+
+end
+deactivate House
+
+
+MainUI -> Admin: show option menu
+
+else catch IOException
+MainUI -> Admin: Error message
+
+end
+deactivate MainUI
+
+
+@enduml
