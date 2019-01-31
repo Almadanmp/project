@@ -177,5 +177,19 @@ public class LampSpecTest {
         assertEquals(false, lSpec.getAttributeValue(""));
     }
 
-
+    @Test
+    void testGetAttributeUnitForAllCases() {
+        //Arrange
+        LampSpec lSpec = new LampSpec();
+        String attributeLm = "lm";
+        String attributeKW = "kW";
+        // original strings:
+        assertEquals(attributeLm, lSpec.getAttributeUnit(FLUX));
+        assertEquals(attributeKW, lSpec.getAttributeUnit(NOMINAL_POWER));
+        // same hash codes, but different strings:
+        assertEquals(false, lSpec.getAttributeUnit(notFLUX));
+        assertEquals(false, lSpec.getAttributeUnit(notNOMINAL_POWER));
+        // distinct hash code to cover default cases of switches
+        assertEquals(false, lSpec.getAttributeUnit(""));
+    }
 }
