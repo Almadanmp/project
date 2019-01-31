@@ -1,0 +1,28 @@
+@startuml
+
+actor PowerUser
+
+-> ":EnergyConsumptionUI": selectDevice
+activate ":EnergyConsumptionUI"
+":EnergyConsumptionUI" -> ":InputUtils": getInputDevice(:Room)
+activate ":InputUtils"
+":InputUtils" -> ":Room": getDeviceList()
+activate ":Room"
+":Room" -> ":DeviceList": getDeviceList()
+activate ":DeviceList"
+":DeviceList" --> ":InputUtils": return :DeviceList
+deactivate ":DeviceList"
+deactivate ":Room"
+":InputUtils" -> ":InputUtils": buildDeviceListString()
+":InputUtils" -> PowerUser: display available devices
+PowerUser -> ":InputUtils":  select index of device
+":InputUtils" -> ":Room": getDeviceByIndex(index)
+activate ":Room"
+":Room" -> ":DeviceList": getDeviceByIndex(index)
+activate ":DeviceList"
+<-- ":DeviceList": return :Device
+deactivate ":DeviceList"
+deactivate ":Room"
+deactivate ":EnergyConsumptionUI"
+deactivate ":InputUtils"
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+
+actor PowerUser
+
+activate PowerUser
+-> ":EnergyConsumptionUI": selectRoom
+activate ":EnergyConsumptionUI"
+":EnergyConsumptionUI" -> ":InputUtils": getInputRoom(:House)
+activate ":InputUtils"
+":InputUtils" -> ":House": getRoomList()
+activate ":House"
+":House" -> ":RoomList": getRoomList()
+activate ":RoomList"
+":RoomList" --> ":InputUtils": return :RoomList
+deactivate ":RoomList"
+deactivate ":House"
+":InputUtils" -> ":InputUtils": buildRoomListString()
+":InputUtils" -> PowerUser: display list of available rooms
+PowerUser -> ":InputUtils": select room by index
+":InputUtils" -> ":House": getRoomByIndex()
+activate ":House"
+":House" -> ":RoomList": getRoomByIndex()
+activate ":RoomList"
+":RoomList" --> ":EnergyConsumptionUI" : return :Room
+deactivate ":RoomList"
+deactivate ":House"
+deactivate PowerUser
+deactivate ":EnergyConsumptionUI"
+deactivate ":InputUtils"
+@enduml
