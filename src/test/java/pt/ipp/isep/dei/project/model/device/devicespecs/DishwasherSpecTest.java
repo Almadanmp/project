@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -16,6 +18,13 @@ import static org.testng.Assert.assertTrue;
  */
 
 class DishwasherSpecTest {
+
+    static final String CAPACITY = "Capacity";
+    static final String PROGRAM_LIST = "programList";
+    static final String NOMINAL_POWER = "nominal power";
+    static final String notCAPACITY = "\0Capacity";
+    static final String notPROGRAM_LIST = "\0programList";
+    static final String notNOMINAL_POWER = "\0nominal power";
 
     @Test
     void seeIfGetTypeTestWorks() {
@@ -54,7 +63,9 @@ class DishwasherSpecTest {
         Double expectedResult = 1.0;
         Object result = dishwasherSpec.getAttributeValue("Capacity");
         assertEquals(expectedResult, result);
-    }@Test
+    }
+
+    @Test
     void seeIfGetAttributeValuesTestNPWorks() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
@@ -119,6 +130,7 @@ class DishwasherSpecTest {
         //Assert
         assertTrue(actualResult);
     }
+
     @Test
     void getAttributeUnitTest() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
@@ -130,7 +142,9 @@ class DishwasherSpecTest {
         String expectedResult = "Kg";
         Object result = dishwasherSpec.getAttributeUnit("Capacity");
         assertEquals(expectedResult, result);
-    } @Test
+    }
+
+    @Test
     void getAttributeUnitTestNP() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
@@ -156,6 +170,7 @@ class DishwasherSpecTest {
         assertEquals(0, dishwasherSpec.getAttributeUnit(""));
 
     }
+
     @Test
     void setAttributeValueTestFalse() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
@@ -185,7 +200,9 @@ class DishwasherSpecTest {
         dishwasherSpec.setAttributeValue("Capacity", 5.0);
         Object result = dishwasherSpec.getAttributeValue("Capacity");
         assertEquals(5.0, result);
-    } @Test
+    }
+
+    @Test
     void setAttributeValueTestNP() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 1D);
@@ -209,11 +226,47 @@ class DishwasherSpecTest {
         dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
         Object result = dishwasherSpec.setAttributeValue("Capacity", 5);
         assertEquals(false, result);
-    }@Test
+    }
+
+    @Test
     void setAttributeValueTestFalseAgain1() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 1D);
         Object result = dishwasherSpec.setAttributeValue("nominal power", 5);
         assertEquals(false, result);
+    }
+
+    @Test
+    void testSetAttributeValueCoveringAllCases() {
+        //Arrange
+        DishwasherSpec dWasherSpec = new DishwasherSpec();
+        Double attribute = 6.0;
+        // original strings:
+        assertTrue(dWasherSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        assertTrue(dWasherSpec.setAttributeValue(CAPACITY, attribute));
+        // same hash codes, but different strings:
+        assertFalse(dWasherSpec.setAttributeValue(notNOMINAL_POWER, attribute));
+        assertFalse(dWasherSpec.setAttributeValue(notCAPACITY, attribute));
+        // distinct hash code to cover default cases of switches
+        assertFalse(dWasherSpec.setAttributeValue("", attribute));
+    }
+
+    @Test
+    void seeIfGetAttributeUnitWorksInAllCases() {
+        //Arrange
+        DishwasherSpec dWasherSpec = new DishwasherSpec();
+        String attributeKg = "Kg";
+        String attributePl = " ";
+        String attributeKW = "kW";
+        // original strings:
+        assertEquals(attributeKg, dWasherSpec.getAttributeUnit(CAPACITY));
+        assertEquals(attributePl, dWasherSpec.getAttributeUnit(PROGRAM_LIST));
+        assertEquals(attributeKW, dWasherSpec.getAttributeUnit(NOMINAL_POWER));
+        // same hash codes, but different strings:
+        assertEquals(0, dWasherSpec.getAttributeUnit(notCAPACITY));
+        assertEquals(0, dWasherSpec.getAttributeUnit(notPROGRAM_LIST));
+        assertEquals(0, dWasherSpec.getAttributeUnit(notNOMINAL_POWER));
+        // distinct hash code to cover default cases of switches
+        assertEquals(0, dWasherSpec.getAttributeUnit(""));
     }
 }
