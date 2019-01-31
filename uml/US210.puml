@@ -14,5 +14,4 @@ RoomConfigurationUI -> RoomConfigurationController: create new Device
 RoomConfigurationController -> Room: add Device to DeviceList in Room
 Room -> Room: validate Device
 Room--> Admin: display Device added to Device List
-
 @endumlΩ

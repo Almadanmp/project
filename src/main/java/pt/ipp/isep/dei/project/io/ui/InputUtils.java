@@ -18,7 +18,7 @@ import java.util.Scanner;
 /**
  * Utility class that aggregates common INPUT methods used by the UI classes.
  */
-class InputUtils {
+public class InputUtils {
 
     void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
@@ -171,25 +171,6 @@ class InputUtils {
         }
     }
 
-    DeviceType getInputDeviceTypeByList(House house) throws IOException {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
-        while (true) {
-            System.out.println("Please select one of the device Types: ");
-
-            System.out.println(house.getDeviceTypes());
-            System.out.println(house.buildTypeListString(deviceTypeList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getDeviceTypes().size()) {
-
-                return deviceTypeList.get(aux);
-
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        }
-    }
 
 
     Sensor getInputRoomSensorByList(Room room) {
@@ -228,7 +209,7 @@ class InputUtils {
      *
      * @return value read from the user
      */
-    int readInputNumberAsInt() {
+    public int readInputNumberAsInt() {
         UtilsUI utils = new UtilsUI();
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {

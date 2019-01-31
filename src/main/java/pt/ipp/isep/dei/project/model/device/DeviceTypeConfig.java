@@ -14,7 +14,7 @@ import java.util.Properties;
 
 public class DeviceTypeConfig {
 
-    public static List<String> getDeviceTypeConfiguration() throws IOException {
+    public static List<String> getDeviceTypeConfig() throws IOException {
         String propFileName = "resources/devices.properties";
         String allDevicesKey = "allDeviceTypes";
         Properties props = new Properties();

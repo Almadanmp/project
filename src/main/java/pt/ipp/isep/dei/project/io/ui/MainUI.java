@@ -15,7 +15,7 @@ import java.util.*;
 public class MainUI {
 
     public static void main(String[] args) {
-        List<String> availableDeviceTypes;
+        List<String> deviceTypeConfig;
         FileInputUtils fileUtils = new FileInputUtils();
         int gridMeteringPeriod = 0;
         try {
@@ -48,7 +48,7 @@ public class MainUI {
         //DeviceTypeConfiguration - US70
 
         try {
-            availableDeviceTypes = DeviceTypeConfig.getDeviceTypeConfiguration();
+            deviceTypeConfig = DeviceTypeConfig.getDeviceTypeConfig();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return;
@@ -111,7 +111,7 @@ public class MainUI {
 
         // Houses (1 per Geographical Area!)
 
-        House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), isep, gridMeteringPeriod, deviceMeteringPeriod, availableDeviceTypes);
+        House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         edificioB.setMotherArea(isep);
         edificioB.addRoomToRoomList(roomISEP1);
         edificioB.addRoomToRoomList(roomISEP2);
@@ -329,7 +329,7 @@ public class MainUI {
         Room room5 = new Room("room2", 2, 13, 93, 23);
         Room room6 = new Room("room3", 2, 73, 43, 23);
         Room room7 = new Room("room4", 5, 63, 23, 23);
-        House house4 = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, availableDeviceTypes);
+        House house4 = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         house4.addRoomToRoomList(room4);
         house4.addRoomToRoomList(room5);
 
@@ -574,7 +574,7 @@ public class MainUI {
         EnergyGrid mainGridSP2 = new EnergyGrid();
         mainGridSP2.setName("main grid");
         mainGridSP2.setMaxContractedPower(0);
-        House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, availableDeviceTypes);
+        House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseSP2.setMotherArea(geographicAreaSP2);
         geographicAreaSP2.setSensorList(areaSensorSP2);
         EnergyGridList mainGridList = new EnergyGridList();
@@ -591,7 +591,7 @@ public class MainUI {
         Room room1 = new Room("room1", 1, 33, 13, 23);
         Room room2 = new Room("room2", 2, 13, 93, 23);
 
-        House houseTest = new House("houseRoomDifEG", "Street", "4230", "Porto", new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, availableDeviceTypes);
+        House houseTest = new House("houseRoomDifEG", "Street", "4230", "Porto", new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseTest.addRoomToRoomList(room1);
         houseTest.addRoomToRoomList(room2);
 

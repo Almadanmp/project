@@ -27,7 +27,7 @@ public class House implements Metered {
     //CONSTRUCTOR
 
     public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea,
-                 int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypePaths) {
+                 int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
         this.mId = mId;
         this.mStreet = mStreet;
         this.mZip = mZip;
@@ -38,7 +38,7 @@ public class House implements Metered {
         this.mEGList = new EnergyGridList();
         this.mGridMeteringPeriod = gridMeteringPeriod;
         this.mDeviceMeteringPeriod = deviceMeteringPeriod;
-        buildDeviceTypeList(deviceTypePaths);
+        buildDeviceTypeList(deviceTypeConfig);
 
     }
 

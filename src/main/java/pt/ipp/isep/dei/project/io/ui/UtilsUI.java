@@ -10,9 +10,9 @@ import java.util.List;
 /**
  * Utility class that aggregates common methods used by the UI classes.
  */
-class UtilsUI {
+public class UtilsUI {
 
-    String invalidOption = "Please enter a valid option.";
+    public String invalidOption = "Please enter a valid option.";
     String returningToMainMenu = "-- Returning to main menu -- \n";
     String invalidHouse = "The selected House is not a valid one.\n" + returningToMainMenu;
     String invalidRoomList = "Invalid Room List - List is empty.\n" + returningToMainMenu;

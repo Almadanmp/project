@@ -98,29 +98,27 @@ class RoomConfigurationUI {
 
 
     private void runUS210(House house) {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(house);
         DeviceType deviceType;
         try {
-            deviceType = inputUtils.getInputDeviceTypeByList(house);
+            deviceType = ctrl.getInputDeviceTypeByList(house);
         } catch (IOException e) {
             System.out.println(e.getMessage() + "\n Program will shut down.");
             return;
         }
-        createDevice(deviceType, house);
+        createDevice(deviceType);
     }
 
 
-    private void createDevice(DeviceType deviceType, House house) {
+    private void createDevice(DeviceType deviceType) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         // get device name
         System.out.print("Please, type the name of the device: ");
         String deviceName = scanner.nextLine();
-        //get nominal power
-        System.out.print("Please, type the Nominal Power: ");
         InputUtils inputUtils = new InputUtils();
-        double nominalPower = inputUtils.getInputAsDouble();
         //get Device specs
         Device device = ctrl.createDevice(deviceType);
         List<String> deviceAttributes = ctrl.getAttributeNames(device);
