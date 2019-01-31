@@ -1352,15 +1352,4 @@ class EnergyConsumptionControllerTest {
         LogList expectedResult = room.getLogsInInterval(initialTime, finalTime);
         assertEquals(actualResult, expectedResult);
     }
-
-    @Test
-    void seeIfBuildLogListString(){
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        LogList list = new LogList();
-        Log log = new Log(10, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 20).getTime());
-        list.addLog(log);
-        String result = ctrl.buildLogListString(list);
-        String expectedResult = "\n0) Start Date: Tue Nov 20 10:02:00 GMT 2018 | End Date: Tue Nov 20 10:20:00 GMT 2018 | Value: 10.0";
-        assertEquals(result, expectedResult);
-    }
 }
