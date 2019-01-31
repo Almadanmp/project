@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
+
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,8 +42,9 @@ class LogListTest {
     @Test
     void seeEqualsToDifObject() {
         LogList list1 = new LogList();
-        Log log = new Log(300,new Date(), new Date());
-        Device d = new Device("WMOne", 12, TestUtils.PATH_TO_WASHINGMACHINE);
+        Log log = new Log(300, new Date(), new Date());
+        Device d = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        d.setNominalPower(12.0);
         d.addLog(log);
         boolean actualResult = list1.equals(d.getLogList());
         assertFalse(actualResult);

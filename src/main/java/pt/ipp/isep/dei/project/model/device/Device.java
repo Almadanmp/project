@@ -21,18 +21,15 @@ public class Device implements Metered {
     private boolean mActive;
 
 
-    //TODO delete nominalpower from constructor and as an attribut after changes are made (moving nominal power to each spec)
+    //TODO delete nominalpower from constructor and as an attribute after changes are made (moving nominal power to each spec)
 
     /**
      * Constructor with path by configuration file approach
+     * parameters (ex. name) are not received. setter methods must be called after constructor
      *
-     * @param name           name
-     * @param nominalPower   nominal power
      * @param deviceTypePath device type path
      */
-    public Device(String name, double nominalPower, String deviceTypePath) throws IllegalArgumentException {
-        this.mName = name;
-        this.mNominalPower = nominalPower;
+    public Device(String deviceTypePath) throws IllegalArgumentException {
         this.mLogList = new LogList();
         this.mActive = true;
         DeviceSpecs aux;

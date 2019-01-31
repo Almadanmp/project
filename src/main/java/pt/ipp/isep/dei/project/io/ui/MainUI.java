@@ -262,19 +262,29 @@ public class MainUI {
         Program program2 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
         listProgram.addProgram(program2);
-        Device device1 = new Device("washingMachine", 23.0, pathToWashingMachine);
+        Device device1 = new Device(pathToWashingMachine);
+        device1.setNominalPower(23.0);
+        device1.setName("washingMachine");
         device1.setAttributeValue("capacity", 100D);
-        Device device2 = new Device("FridgeOne", 4, pathToFridge);
+        Device device2 = new Device(pathToFridge);
+        device2.setNominalPower(4.0);
+        device2.setName("FridgeOne");
         device2.setAttributeValue("freezerCapacity", 2D);
         device2.setAttributeValue("refrigeratorCapacity", 2D);
         device2.setAttributeValue("annualEnergyConsumption", 45D);
-        Device device3 = new Device("WH Main", 3, pathToWaterHeater);
+        Device device3 = new Device(pathToWaterHeater);
+        device3.setNominalPower(3.0);
+        device3.setName("WH Main");
         device3.setAttributeValue("volumeOfWater", 500D);
         device3.setAttributeValue("hotWaterTemperature", 25D);
         device3.setAttributeValue("performanceRatio", 10D);
-        Device device4 = new Device("Lamp", 4, pathToLamp);
+        Device device4 = new Device(pathToLamp);
+        device4.setNominalPower(4.0);
+        device4.setName("Lamp");
         device4.setAttributeValue("luminousFlux", 23D);
-        Device deviceDark = new Device("Water Heater 3000", 200, pathToWaterHeater);
+        Device deviceDark = new Device(pathToWaterHeater);
+        deviceDark.setNominalPower(200.0);
+        deviceDark.setName("Water Heater 3000");
         deviceDark.setAttributeValue("volumeOfWater", 400D);
         deviceDark.setAttributeValue("hotWaterTemperature", 400D);
         deviceDark.setAttributeValue("performanceRatio", 0.9D);
@@ -285,11 +295,15 @@ public class MainUI {
         listDevices.addDevice(device4);
         listDevices.addDevice(deviceDark);
         roomISEP2.setDeviceList(listDevices);
-        Device device5 = new Device("FridgeOne1", 4, pathToFridge);
+        Device device5 = new Device(pathToFridge);
+        device5.setNominalPower(4.0);
+        device5.setName("FridgeOne1");
         device5.setAttributeValue("freezerCapacity", 1D);
         device5.setAttributeValue("refrigeratorCapacity", 1D);
         device5.setAttributeValue("annualEnergyConsumption", 100D);
-        Device device6 = new Device("WH Secondary", 3, pathToWaterHeater);
+        Device device6 = new Device(pathToWaterHeater);
+        device6.setNominalPower(3.0);
+        device6.setName("WH Secondary");
         device6.setAttributeValue("volumeOfWater", 500D);
         device6.setAttributeValue("hotWaterTemperature", 25D);
         device6.setAttributeValue("performanceRatio", 10D);
@@ -426,12 +440,16 @@ public class MainUI {
         readingListSensorHumidityB109SP2.addReading(reading16SensorHumidityB109SP2);
 
         DeviceList deviceListRoomB109SP2 = new DeviceList();
-        Device ehwB109SP2 = new Device("EHW B109", 1.5, pathToWaterHeater);
+        Device ehwB109SP2 = new Device(pathToWaterHeater);
+        ehwB109SP2.setNominalPower(1.5);
+        ehwB109SP2.setName("EHW B109");
         ehwB109SP2.setAttributeValue("volumeOfWater", 100D);
         ehwB109SP2.setAttributeValue("hotWaterTemperature", 55D);
         ehwB109SP2.setAttributeValue("performanceRatio", 0.91D);
 
-        Device dishWasherB109SP2 = new Device("DishwasherSpec B109", 1.5, pathToDishwasher);
+        Device dishWasherB109SP2 = new Device(pathToDishwasher);
+        dishWasherB109SP2.setNominalPower(1.5);
+        dishWasherB109SP2.setName("DishwasherSpec B109");
         dishWasherB109SP2.setAttributeValue("capacity", 2D);
         ProgramList programListDishWasherB109SP2 = dishWasherB109SP2.getProgramList();
         Program glassesB109 = new Program("Glasses", 0, 0.9);
@@ -443,7 +461,9 @@ public class MainUI {
         programListDishWasherB109SP2.addProgram(ecoTurboB109);
         programListDishWasherB109SP2.addProgram(dishesB109);
 
-        Device washingMachineB109SP2 = new Device("Washing Machine B109", 2.5, pathToWashingMachine);
+        Device washingMachineB109SP2 = new Device(pathToWashingMachine);
+        washingMachineB109SP2.setNominalPower(2.5);
+        washingMachineB109SP2.setName("Washing Machine B109");
         washingMachineB109SP2.setAttributeValue("capacity", 0D);
         ProgramList programListWashingMachineB109SP2 = washingMachineB109SP2.getProgramList();
         Program wool = new Program("Wool", 0, 0.9);
@@ -461,12 +481,16 @@ public class MainUI {
 
         Room roomB106SP2 = new Room("B106", 1, 7, 13, 3.5);
         DeviceList deviceListRoomB106SP2 = new DeviceList();
-        Device ehwB106SP2 = new Device("EHW B106", 2.2, pathToWaterHeater);
+        Device ehwB106SP2 = new Device(pathToWaterHeater);
+        ehwB106SP2.setNominalPower(2.2);
+        ehwB106SP2.setName("EHW B106");
         ehwB106SP2.setAttributeValue("volumeOfWater", 150D);
         ehwB106SP2.setAttributeValue("hotWaterTemperature", 55D);
         ehwB106SP2.setAttributeValue("performanceRatio", 0.92D);
 
-        Device dishWasherB106SP2 = new Device("DishwasherSpec B106", 1.4, pathToDishwasher);
+        Device dishWasherB106SP2 = new Device(pathToDishwasher);
+        dishWasherB106SP2.setNominalPower(1.4);
+        dishWasherB106SP2.setName("DishwasherSpec B106");
         dishWasherB106SP2.setAttributeValue("capacity", 0D);
         ProgramList programDishWasherB106SP2 = dishWasherB106SP2.getProgramList();
         Program glassesB106 = new Program("Glasses", 0, 0.8);

@@ -122,16 +122,18 @@ class RoomConfigurationUI {
         double nominalPower = inputUtils.getInputAsDouble();
         //get Device specs
         String devicePath = ctrl.getDeviceTypePathToClassId(house, deviceType);
-        Device device = ctrl.createDevice(deviceName, nominalPower, devicePath);
-        ctrl.getAttributeName(device);
-        for (int i = 0; i < ctrl.getAttributeName(device).size(); i++) {
-            System.out.println("Please insert value for: " + ctrl.getAttributeName(device).get(i));
+        Device device = ctrl.createDevice(devicePath);
+        List<String> deviceAttributes = ctrl.getAttributeNames(device);
+        for (int i = 0; i < deviceAttributes.size(); i++) {
+            System.out.println("Please insert value for: " + deviceAttributes.get(i));
             Double value = inputUtils.getInputAsDouble();
-            ctrl.setAttributeValue(device, ctrl.getAttributeName(device).get(i), value);
+            ctrl.setAttributeValue(device, deviceAttributes.get(i), value);
         }
 
+        //todo create a way to use the same logic as used above
         if (device.isProgrammable()) {
             System.out.println("This device is programmable.");
+            //TODO ask user if he wants to add a program, if not, fisnish
             ProgramList pList = device.getProgramList();
             System.out.println("Please insert program name: ");
             String programName = scanner.nextLine();
@@ -139,6 +141,8 @@ class RoomConfigurationUI {
             double duration = inputUtils.getInputAsDouble();
             System.out.println("Please insert program duration: ");
             double energyConsumption = inputUtils.getInputAsDouble();
+            //TODO ask user if he wishes to add another program
+            //todo move the program creation to controller to avoid model access on UI
 
             Program newProgram = new Program(programName, duration, energyConsumption);
             pList.addProgram(newProgram);
@@ -255,6 +259,7 @@ class RoomConfigurationUI {
         }
         Device device = inputUtils.getInputRoomDevicesByList(this.mRoom);
         getInputDeviceCharacteristicsUS215(device);
+        // updateDeviceUS215();
     }
 
 

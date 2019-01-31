@@ -24,7 +24,8 @@ class EnergyGridTest {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("device", 200, TestUtils.PATH_TO_FRIDGE);
+        Device device = new Device(TestUtils.PATH_TO_FRIDGE);
+        device.setNominalPower(200.0);
         device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 200D);
         device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 200D);
         device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 200D);
@@ -45,7 +46,8 @@ class EnergyGridTest {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device("device", 200, TestUtils.PATH_TO_FRIDGE);
+        Device device = new Device(TestUtils.PATH_TO_FRIDGE);
+        device.setNominalPower(200.0);
         device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 200D);
         device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 200D);
         device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 200D);
@@ -209,11 +211,13 @@ class EnergyGridTest {
         //Arrange
         Room r1 = new Room("Kitchen", 0, 12, 30, 10);
         Room r2 = new Room("Sótão", 3, 30, 40, 12);
-        Device d1 = new Device("WaterHeater1", 30, TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        d1.setNominalPower(30.0);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d2 = new Device("Fridge", 200, TestUtils.PATH_TO_FRIDGE);
+        Device d2 = new Device(TestUtils.PATH_TO_FRIDGE);
+        d2.setNominalPower(200.0);
         d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 3D);
         d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
@@ -239,12 +243,18 @@ class EnergyGridTest {
 
     @Test
     void seeIfPrintDevicesWorks() {
-        Device d1 = new Device("Fridge", 21, TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        d1.setNominalPower(21.0);
+        d1.setName("Fridge");
+        d1.setNominalPower(21.0);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 34D);
-        Device d2 = new Device("WashingMachine", 30, TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d2 = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        d2.setNominalPower(30.0);
         d2.setAttributeValue("capacity", 24D);
+        d2.setName("WashingMachine");
+        d2.setNominalPower(30.0);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
@@ -288,7 +298,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList() throws IOException {
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid();
         eg.setMaxContractedPower(333);
@@ -305,7 +315,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList2() throws IOException {
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room m = null;
         EnergyGrid eg = new EnergyGrid();
         eg.setMaxContractedPower(333);
@@ -319,23 +329,23 @@ class EnergyGridTest {
     }
 
     @Test
-    void energyConsumptionDummyTest(){
+    void energyConsumptionDummyTest() {
         EnergyGrid eg = new EnergyGrid();
         double result = eg.getEnergyConsumption(10);
-        assertEquals(result,0);
+        assertEquals(result, 0);
     }
 
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList3() {
-        Room m = new Room("room",2,2,2,2);
+        Room m = new Room("room", 2, 2, 2, 2);
         EnergyGrid eg = new EnergyGrid();
         eg.setMaxContractedPower(333);
         eg.setName("Main Energy Grid Edificio C");
         RoomList rl = new RoomList();
         rl.addRoom(m);
         eg.setRoomList(rl);
-        List<Device> dlist =eg.getDeviceList();
-        Device d1 = new Device("device", 200, TestUtils.PATH_TO_FRIDGE);
+        List<Device> dlist = eg.getDeviceList();
+        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
         dlist.add(d1);
         List<Device> expectedResult = eg.getDeviceList();
         List<Device> result = eg.getDeviceList();
@@ -343,11 +353,11 @@ class EnergyGridTest {
     }
 
     @Test
-    void seeIfGetEnergyConsumption(){
+    void seeIfGetEnergyConsumption() {
         EnergyGrid eg = new EnergyGrid();
         double expectedResult = 0;
         double value = eg.getEnergyConsumption(21);
-        assertEquals(expectedResult,value);
+        assertEquals(expectedResult, value);
     }
 }
 

@@ -207,7 +207,7 @@ public class RoomConfigurationController {
         return room.buildDeviceListString();
     }
 
-    public void setNominalPowerDevice(Device device, double nominalPower){
+    public void setNominalPowerDevice(Device device, double nominalPower) {
         device.setNominalPower(nominalPower);
     }
 
@@ -229,11 +229,11 @@ public class RoomConfigurationController {
         return devicePath;
     }
 
-    public Device createDevice(String deviceName, double nominalPower, String devicePath) {
-        return new Device(deviceName, nominalPower, devicePath);
+    public Device createDevice(String devicePath) {
+        return new Device(devicePath);
     }
 
-    public List<String> getAttributeName(Device device) {
+    public List<String> getAttributeNames(Device device) {
         return device.getAttributeNames();
     }
 
@@ -251,7 +251,7 @@ public class RoomConfigurationController {
     }
 
 
-    public void  configureOneWashingMachineProgram(Device device, ProgramList program ){
+    public void configureOneWashingMachineProgram(Device device, ProgramList program) {
         device.setAttributeValue(mProgramList, program);
     }
 
