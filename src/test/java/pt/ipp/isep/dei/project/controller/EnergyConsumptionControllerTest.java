@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
@@ -761,13 +760,13 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTest1() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 60).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
+        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
+        Date periodBeginning = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
+        Date periodEnding = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
         Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400.0D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400.0D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
@@ -781,10 +780,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForEmptyList() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 9, 2).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 9, 60).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 0).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 9, 2);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 9, 60);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 9, 0);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 10);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -799,10 +806,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition1() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 55).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 5).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 9, 55);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 5);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -817,10 +832,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition2() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 5).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 55).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 9, 5);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 55);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -835,10 +858,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition3() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 5).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 55).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 5);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 55);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -853,10 +884,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition4() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 5).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 55).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 5);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 55);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -873,10 +912,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition5() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 5).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 5);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -891,10 +938,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition6() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 55).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 9, 55);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -909,10 +964,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition7() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -929,10 +992,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition8() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -949,10 +1020,18 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition10() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 5).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 5);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -969,12 +1048,24 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition11() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 55).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning1 = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 55);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding1 = cal4.getTime();
+        GregorianCalendar cal5 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal5.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning2 = cal5.getTime();
+        GregorianCalendar cal6 = new GregorianCalendar(2018, 10, 20, 10, 30);
+        cal6.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding2 = cal6.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -993,12 +1084,24 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestSameTime() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning1 = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding1 = cal4.getTime();
+        GregorianCalendar cal5 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal5.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning2 = cal5.getTime();
+        GregorianCalendar cal6 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal6.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding2 = cal6.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -1017,8 +1120,12 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestSameTime2() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 0);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -1034,12 +1141,24 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTesDifferentTime() {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning1 = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding1 = cal4.getTime();
+        GregorianCalendar cal5 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10);
+        cal5.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning2 = cal5.getTime();
+        GregorianCalendar cal6 = new GregorianCalendar(2018, Calendar.NOVEMBER,10,10,10);
+        cal6.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding2 = cal6.getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -1068,10 +1187,18 @@ class EnergyConsumptionControllerTest {
         room.addDevice(device);
         eGrid.addRoomToAnEnergyGrid(room);
         //Act
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 60).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 2);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 60);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         double actualResult = ctrl.getGridConsumptionInInterval(eGrid, initialTime, finalTime);
@@ -1093,10 +1220,18 @@ class EnergyConsumptionControllerTest {
         room.addDevice(device);
         eGrid.addRoomToAnEnergyGrid(room);
         //Act
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 60).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 2);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 60);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         LogList actualResult = ctrl.getGridLogsInInterval(eGrid, initialTime, finalTime);
@@ -1117,11 +1252,19 @@ class EnergyConsumptionControllerTest {
         room.addDevice(device);
         eGrid.addRoomToAnEnergyGrid(room);
         //Act
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 60).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
-        Log log = new Log(56, periodBeginning, periodEnding);
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 2);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 60);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
+         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         LogList actualResult = ctrl.getRoomLogsInInterval(room, initialTime, finalTime);
         LogList expectedResult = room.getLogsInInterval(initialTime, finalTime);
@@ -1141,10 +1284,18 @@ class EnergyConsumptionControllerTest {
         room.addDevice(device);
         eGrid.addRoomToAnEnergyGrid(room);
         //Act
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 60).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
+        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 2);
+        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date initialTime = cal1.getTime();
+        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 60);
+        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date finalTime = cal2.getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         LogList actualResult = ctrl.getDeviceLogsInInterval(device, initialTime, finalTime);
@@ -1165,8 +1316,12 @@ class EnergyConsumptionControllerTest {
         room.addDevice(device);
         eGrid.addRoomToAnEnergyGrid(room);
         //Act
-        Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
+        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
+        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodBeginning = cal3.getTime();
+        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
+        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date periodEnding = cal4.getTime();
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         String actualResult = ctrl.buildLogListString(device.getLogList());
