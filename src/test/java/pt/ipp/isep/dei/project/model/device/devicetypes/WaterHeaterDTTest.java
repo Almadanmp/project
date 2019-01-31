@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import static org.testng.Assert.assertEquals;
 
@@ -11,21 +11,21 @@ import static org.testng.Assert.assertEquals;
  * device tests class.
  */
 
-class LampDTTest {
+class WaterHeaterDTTest {
 
     @Test
-    void createLampType() {
-        LampDT dt = new LampDT();
+    void createWaterHeaterType() {
+        WaterHeaterDT dt = new WaterHeaterDT();
         Device result = dt.createDeviceType();
-        Device expectedResult = new Device(new LampSpec());
+        Device expectedResult = new Device(new WaterHeaterSpec());
         assertEquals(result, expectedResult);
     }
 
     @Test
     void getDeviceType() {
-        LampDT dt = new LampDT();
+        WaterHeaterDT dt = new WaterHeaterDT();
         String result = dt.getDeviceType();
-        String expectedResult = "Lamp";
+        String expectedResult = "Water Heater";
         assertEquals(result, expectedResult);
     }
 }
