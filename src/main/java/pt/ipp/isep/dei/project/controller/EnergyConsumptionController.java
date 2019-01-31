@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.model.device.LogList;
 
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Controller class for Energy Consumption UI
@@ -133,15 +134,13 @@ public class EnergyConsumptionController {
      * @param finalTime   - Ending of the interval.
      * @return the total metered energy consumption for the given device and interval.
      */
-    public boolean getDeviceConsumptionInInterval(Device device, Date initialTime, Date finalTime) {
+    public String getDeviceConsumptionInInterval(Device device, Date initialTime, Date finalTime) {
         if (device.countLogsInInterval(initialTime, finalTime) == 0) {
-            System.out.println("This device has no energy consumption logs in the given interval.");
-            return false;
+            return "This device has no energy consumption logs in the given interval.";
         }
-        System.out.println("Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
+        return "Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
                 "\n" + "The total Energy Consumption for the given device is: " +
-                device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.");
-        return true;
+                device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.";
     }
 
     /* US721As a Power User [or Administrator], I want to know the total metered energy consumption of a room in a
@@ -199,9 +198,10 @@ public class EnergyConsumptionController {
 
     /**
      * Method accesses model and gets the logs associated to the devices in a grid's room that are within an interval.
-     * @param grid the grid we want to get logs from.
+     *
+     * @param grid      the grid we want to get logs from.
      * @param startDate the start of the interval.
-     * @param endDate the end of the interval.
+     * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
 
@@ -211,9 +211,10 @@ public class EnergyConsumptionController {
 
     /**
      * Method accesses model and gets the logs associated to the devices in a selected room.
-     * @param room is the room we want to get logs from.
+     *
+     * @param room      is the room we want to get logs from.
      * @param startDate the start of the interval.
-     * @param endDate the end of the interval.
+     * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
 
@@ -223,9 +224,10 @@ public class EnergyConsumptionController {
 
     /**
      * Method accesses model and gets the logs associated to the device.
-     * @param device is the device we want to get logs from.
+     *
+     * @param device    is the device we want to get logs from.
      * @param startDate the start of the interval.
-     * @param endDate the end of the interval.
+     * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
 
@@ -235,6 +237,7 @@ public class EnergyConsumptionController {
 
     /**
      * Accesses model and asks a loglist to convert itself into a string.
+     *
      * @param logList is the logList we want to query.
      * @return is the LogList converted into a string.
      */
