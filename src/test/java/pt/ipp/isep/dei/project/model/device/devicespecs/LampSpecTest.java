@@ -14,6 +14,12 @@ import static org.testng.Assert.assertTrue;
  */
 
 public class LampSpecTest {
+
+    public static final String FLUX = "Luminous Flux";
+    public static final String NOMINAL_POWER = "nominal power";
+    public static final String notFLUX = "\0Luminous Flux";
+    public static final String notNOMINAL_POWER = "\0nominal power";
+
     @Test
     public void getTypeTest() {
         LampSpec lampSpec = new LampSpec();
@@ -154,6 +160,22 @@ public class LampSpecTest {
         assertEquals(5.0, result);
     }
 
+    @Test
+    void testGetAttributeValueForAllCases() {
+        //Arrange
+        LampSpec lSpec = new LampSpec();
+        Double attribute = 6.0;
+        lSpec.setAttributeValue(FLUX, attribute);
+        lSpec.setAttributeValue(NOMINAL_POWER, attribute);
+        // original strings:
+        assertEquals(attribute, lSpec.getAttributeValue(FLUX));
+        assertEquals(attribute, lSpec.getAttributeValue(NOMINAL_POWER));
+        // same hash codes, but different strings:
+        assertEquals(false, lSpec.getAttributeValue(notFLUX));
+        assertEquals(false, lSpec.getAttributeValue(notNOMINAL_POWER));
+        // distinct hash code to cover default cases of switches
+        assertEquals(false, lSpec.getAttributeValue(""));
+    }
 
 
 }
