@@ -210,4 +210,21 @@ public class LampSpecTest {
         // distinct hash code to cover default cases of switches
         assertFalse(lSpec.setAttributeValue("", attribute));
     }
+
+    @Test
+    public void testSetAttributeValueForNotDouble() {
+        //Arrange
+        LampSpec lSpec = new LampSpec();
+        Integer attribute = 6;
+        lSpec.setAttributeValue(FLUX, attribute);
+        lSpec.setAttributeValue(NOMINAL_POWER, attribute);
+        // original strings:
+        assertFalse(lSpec.setAttributeValue(FLUX, attribute));
+        assertFalse(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        // same hash codes, but different strings:
+        assertFalse(lSpec.setAttributeValue(FLUX, attribute));
+        assertFalse(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        // distinct hash code to cover default cases of switches
+        assertFalse(lSpec.setAttributeValue("", attribute));
+    }
 }
