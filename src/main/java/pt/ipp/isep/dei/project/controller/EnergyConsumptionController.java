@@ -280,8 +280,7 @@ public class EnergyConsumptionController {
      * @param volumeOfWaterToHeat  value for the amount of water to heat
      */
     public boolean configureWH(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
-        return (device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) &&
-                device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat));
+        return (device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) && device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat));
     }
 
     /**
@@ -290,6 +289,7 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return estimate energy consumption on the water heaters
      */
+
     public double getDailyWaterHeaterConsumption(House house) {
         return house.getDailyConsumptionByDeviceType("WaterHeater");
     }
@@ -305,15 +305,6 @@ public class EnergyConsumptionController {
         return grid.getNominalPower();
     }
 
-    /**
-     * Returns the Log List for a Given device.
-     *
-     * @param device Is the device we want the loglist from.
-     * @return LogList is the given device's log list.
-     */
-    public LogList getLogListFromDevice(Device device) {
-        return device.getLogList();
-    }
 }
 
 
