@@ -167,7 +167,7 @@ public class RoomConfigurationController {
      */
 
     List<Integer> matchSensorIndexByString(String input, SensorList slist) {
-        return slist.matchSensorListIndexByString(input);
+        return slist.matchSensorIndexByString(input);
     }
 
     List<Integer> matchDeviceIndexByString(String input, Room room) {

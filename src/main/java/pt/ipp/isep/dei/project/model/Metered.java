@@ -13,7 +13,6 @@ public interface Metered {
      * @return the nominal power of that object
      */
 
-    //TODO method name changed from getConsumption??
     double getNominalPower();
 
     double getEnergyConsumption(float time);

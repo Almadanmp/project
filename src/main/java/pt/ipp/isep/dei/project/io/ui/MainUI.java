@@ -358,16 +358,17 @@ public class MainUI {
 
         DeviceList deviceListRoomB107SP3 = new DeviceList();
         b107SP2.setDeviceList(deviceListRoomB107SP3);
-
+        final String GLASSES = "GLASSES";
+        final String DISHES = "Dishes";
         Device dishWasherB107SP3 = new Device(new DishwasherSpec());
         dishWasherB107SP3.setNominalPower(1.5);
         dishWasherB107SP3.setName("DishwasherSpec B107");
         dishWasherB107SP3.setAttributeValue(capacity, 2D);
         ProgramList programListDishWasherB107SP3 = dishWasherB107SP3.getProgramList();
-        Program glassesB107 = new Program("Glasses", 0, 0.9);
+        Program glassesB107 = new Program(GLASSES, 0, 0.9);
         Program ecoB107 = new Program("Eco", 0, 1.3);
         Program ecoTurboB107 = new Program("Eco Turbo", 0, 1.7);
-        Program dishesB107 = new Program("Dishes", 0, 2.1);
+        Program dishesB107 = new Program(DISHES, 0, 2.1);
         programListDishWasherB107SP3.addProgram(glassesB107);
         programListDishWasherB107SP3.addProgram(ecoB107);
         programListDishWasherB107SP3.addProgram(ecoTurboB107);
@@ -603,10 +604,10 @@ public class MainUI {
         dishWasherB109SP2.setName("DishwasherSpec B109");
         dishWasherB109SP2.setAttributeValue(capacity, 2D);
         ProgramList programListDishWasherB109SP2 = dishWasherB109SP2.getProgramList();
-        Program glassesB109 = new Program("Glasses", 0, 0.9);
+        Program glassesB109 = new Program(GLASSES, 0, 0.9);
         Program ecoB109 = new Program("Eco", 0, 1.3);
         Program ecoTurboB109 = new Program("Eco Turbo", 0, 1.7);
-        Program dishesB109 = new Program("Dishes", 0, 2.1);
+        Program dishesB109 = new Program(DISHES, 0, 2.1);
         programListDishWasherB109SP2.addProgram(glassesB109);
         programListDishWasherB109SP2.addProgram(ecoB109);
         programListDishWasherB109SP2.addProgram(ecoTurboB109);
@@ -653,10 +654,10 @@ public class MainUI {
         dishWasherB106SP2.setName("DishwasherSpec B106");
         dishWasherB106SP2.setAttributeValue(capacity, 0D);
         ProgramList programDishWasherB106SP2 = dishWasherB106SP2.getProgramList();
-        Program glassesB106 = new Program("Glasses", 0, 0.8);
+        Program glassesB106 = new Program(GLASSES, 0, 0.8);
         Program lightB106 = new Program("Light", 0, 1.3);
         Program lightTurboB106 = new Program("Light Turbo", 0, 1.9);
-        Program dishesB106 = new Program("Dishes", 0, 2.3);
+        Program dishesB106 = new Program(DISHES, 0, 2.3);
         programDishWasherB106SP2.addProgram(glassesB106);
         programDishWasherB106SP2.addProgram(lightB106);
         programDishWasherB106SP2.addProgram(lightTurboB106);
