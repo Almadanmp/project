@@ -195,36 +195,35 @@ public class LampSpecTest {
     }
 
     @Test
-    public void testSetAttributeValueForAllCases() {
+    void testSetAttributeValueForAllCases() {
         //Arrange
         LampSpec lSpec = new LampSpec();
         Double attribute = 6.0;
-        lSpec.setAttributeValue(FLUX, attribute);
-        lSpec.setAttributeValue(NOMINAL_POWER, attribute);
-        // original strings:
+        // original strings + double:
         assertTrue(lSpec.setAttributeValue(FLUX, attribute));
         assertTrue(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
-        // same hash codes, but different strings:
+        // same hash codes, but different strings + double:
         assertFalse(lSpec.setAttributeValue(notFLUX, attribute));
         assertFalse(lSpec.setAttributeValue(notNOMINAL_POWER, attribute));
-        // distinct hash code to cover default cases of switches
+        // distinct hash code to cover default cases of switches + double
         assertFalse(lSpec.setAttributeValue("", attribute));
     }
 
     @Test
-    public void testSetAttributeValueForNotDouble() {
+    void testSetAttributeValueForNotDouble() {
         //Arrange
         LampSpec lSpec = new LampSpec();
+        Double attributeD = 6.0;
         Integer attribute = 6;
-        lSpec.setAttributeValue(FLUX, attribute);
-        lSpec.setAttributeValue(NOMINAL_POWER, attribute);
-        // original strings:
+        lSpec.setAttributeValue(FLUX, attributeD);
+        lSpec.setAttributeValue(NOMINAL_POWER, attributeD);
+        // original strings + not double:
         assertFalse(lSpec.setAttributeValue(FLUX, attribute));
         assertFalse(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
-        // same hash codes, but different strings:
+        // same hash codes, but different strings + not double:
         assertFalse(lSpec.setAttributeValue(notFLUX, attribute));
         assertFalse(lSpec.setAttributeValue(notNOMINAL_POWER, attribute));
-        // distinct hash code to cover default cases of switches
+        // distinct hash code to cover default cases of switches + not double
         assertFalse(lSpec.setAttributeValue("", attribute));
     }
 }
