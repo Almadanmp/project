@@ -1352,4 +1352,13 @@ class EnergyConsumptionControllerTest {
         LogList expectedResult = room.getLogsInInterval(initialTime, finalTime);
         assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    void seeIfBuildLogListString(){
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        LogList list = new LogList();
+        String result = ctrl.buildLogListString(list);
+        String expectedResult = "There's no valid logs within that interval.";
+        assertEquals(result,expectedResult);
+    }
 }
