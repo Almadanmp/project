@@ -155,19 +155,11 @@ class RoomTest {
     @Test
     void SeeIfPrintListOfDevicesFromRoomWorks() {
         DeviceList deviceList = new DeviceList();
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
-        d1.setName("frigorifico");
-        d1.setNominalPower(230.0);
-        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 1D);
-        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 1D);
-        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 34D);
-        deviceList.addDevice(d1);
         Room room = new Room("cozinha", 0, 1, 1, 1);
         room.setDeviceList(deviceList);
         String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) device Name: frigorifico, device Type: Fridge, device Nominal Power: 230.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
     }
@@ -844,5 +836,13 @@ class RoomTest {
         boolean expectedResult = true;
         boolean actualResult = room.addRoomDevicesToDeviceList(deviceList1);
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetEnergyConsumption(){
+        Room room = new Room("Room", 1, 2, 3, 4);
+        double expectedResult = 0;
+        double value = room.getEnergyConsumption(21);
+        Assert.assertEquals(expectedResult,value);
     }
 }
