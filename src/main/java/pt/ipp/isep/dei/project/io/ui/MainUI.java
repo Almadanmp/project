@@ -245,17 +245,12 @@ public class MainUI {
         mTypeAreaList.addTypeArea(typeAreaA);
         mTypeAreaList.addTypeArea(typeAreaB);
 
-        // Sensor Type List
-
-
-        //Devices
-        String pathToFridge = "pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec";
-        String pathToWaterHeater = "pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec";
-        String pathToDishwasher = "pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec";
-        String pathToWashingMachine = "pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec";
-        String pathToLamp = "pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec";
 
         //Device WashingMachineSpec
+        String capacity = "capacity";
+        String volumeWater = "volumeOfWater";
+        String hotWaterT= "hotWaterTemperature";
+        String performanceRatio = "performanceRatio";
 
 
         Program program1 = new Program("programa", 2, 2);
@@ -266,7 +261,7 @@ public class MainUI {
         Device device1 = new Device(new WashingMachineSpec());
         device1.setNominalPower(23.0);
         device1.setName("washingMachine");
-        device1.setAttributeValue("capacity", 100D);
+        device1.setAttributeValue(capacity, 100D);
         Device device2 = new Device(new FridgeSpec());
         device2.setNominalPower(4.0);
         device2.setName("FridgeOne");
@@ -276,9 +271,9 @@ public class MainUI {
         Device device3 = new Device(new WaterHeaterSpec());
         device3.setNominalPower(3.0);
         device3.setName("WH Main");
-        device3.setAttributeValue("volumeOfWater", 500D);
-        device3.setAttributeValue("hotWaterTemperature", 25D);
-        device3.setAttributeValue("performanceRatio", 10D);
+        device3.setAttributeValue(volumeWater, 500D);
+        device3.setAttributeValue(hotWaterT, 25D);
+        device3.setAttributeValue(performanceRatio, 10D);
         Device device4 = new Device(new LampSpec());
         device4.setNominalPower(4.0);
         device4.setName("Lamp");
@@ -286,9 +281,9 @@ public class MainUI {
         Device deviceDark = new Device(new WaterHeaterSpec());
         deviceDark.setNominalPower(200.0);
         deviceDark.setName("Water Heater 3000");
-        deviceDark.setAttributeValue("volumeOfWater", 400D);
-        deviceDark.setAttributeValue("hotWaterTemperature", 400D);
-        deviceDark.setAttributeValue("performanceRatio", 0.9D);
+        deviceDark.setAttributeValue(volumeWater, 400D);
+        deviceDark.setAttributeValue(hotWaterT, 400D);
+        deviceDark.setAttributeValue(performanceRatio, 0.9D);
         DeviceList listDevices = new DeviceList();
         listDevices.addDevice(device1);
         listDevices.addDevice(device2);
@@ -305,9 +300,9 @@ public class MainUI {
         Device device6 = new Device(new WaterHeaterSpec());
         device6.setNominalPower(3.0);
         device6.setName("WH Secondary");
-        device6.setAttributeValue("volumeOfWater", 500D);
-        device6.setAttributeValue("hotWaterTemperature", 25D);
-        device6.setAttributeValue("performanceRatio", 10D);
+        device6.setAttributeValue(volumeWater, 500D);
+        device6.setAttributeValue(hotWaterT, 25D);
+        device6.setAttributeValue(performanceRatio, 10D);
         DeviceList listDevices1 = new DeviceList();
         listDevices1.addDevice(device5);
         listDevices1.addDevice(device6);
@@ -444,14 +439,14 @@ public class MainUI {
         Device ehwB109SP2 = new Device(new WaterHeaterSpec());
         ehwB109SP2.setNominalPower(1.5);
         ehwB109SP2.setName("EHW B109");
-        ehwB109SP2.setAttributeValue("volumeOfWater", 100D);
-        ehwB109SP2.setAttributeValue("hotWaterTemperature", 55D);
-        ehwB109SP2.setAttributeValue("performanceRatio", 0.91D);
+        ehwB109SP2.setAttributeValue(volumeWater, 100D);
+        ehwB109SP2.setAttributeValue(hotWaterT, 55D);
+        ehwB109SP2.setAttributeValue(performanceRatio, 0.91D);
 
         Device dishWasherB109SP2 = new Device(new DishwasherSpec());
         dishWasherB109SP2.setNominalPower(1.5);
         dishWasherB109SP2.setName("DishwasherSpec B109");
-        dishWasherB109SP2.setAttributeValue("capacity", 2D);
+        dishWasherB109SP2.setAttributeValue(capacity, 2D);
         ProgramList programListDishWasherB109SP2 = dishWasherB109SP2.getProgramList();
         Program glassesB109 = new Program("Glasses", 0, 0.9);
         Program ecoB109 = new Program("Eco", 0, 1.3);
@@ -465,7 +460,7 @@ public class MainUI {
         Device washingMachineB109SP2 = new Device(new WashingMachineSpec());
         washingMachineB109SP2.setNominalPower(2.5);
         washingMachineB109SP2.setName("Washing Machine B109");
-        washingMachineB109SP2.setAttributeValue("capacity", 0D);
+        washingMachineB109SP2.setAttributeValue(capacity, 0D);
         ProgramList programListWashingMachineB109SP2 = washingMachineB109SP2.getProgramList();
         Program wool = new Program("Wool", 0, 0.9);
         Program fast = new Program("Fast", 0, 1.3);
@@ -485,14 +480,14 @@ public class MainUI {
         Device ehwB106SP2 = new Device(new WaterHeaterSpec());
         ehwB106SP2.setNominalPower(2.2);
         ehwB106SP2.setName("EHW B106");
-        ehwB106SP2.setAttributeValue("volumeOfWater", 150D);
-        ehwB106SP2.setAttributeValue("hotWaterTemperature", 55D);
-        ehwB106SP2.setAttributeValue("performanceRatio", 0.92D);
+        ehwB106SP2.setAttributeValue(volumeWater, 150D);
+        ehwB106SP2.setAttributeValue(hotWaterT, 55D);
+        ehwB106SP2.setAttributeValue(performanceRatio, 0.92D);
 
         Device dishWasherB106SP2 = new Device(new DishwasherSpec());
         dishWasherB106SP2.setNominalPower(1.4);
         dishWasherB106SP2.setName("DishwasherSpec B106");
-        dishWasherB106SP2.setAttributeValue("capacity", 0D);
+        dishWasherB106SP2.setAttributeValue(capacity, 0D);
         ProgramList programDishWasherB106SP2 = dishWasherB106SP2.getProgramList();
         Program glassesB106 = new Program("Glasses", 0, 0.8);
         Program lightB106 = new Program("Light", 0, 1.3);
