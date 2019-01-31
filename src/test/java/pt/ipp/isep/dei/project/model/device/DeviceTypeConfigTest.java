@@ -22,11 +22,12 @@ public class DeviceTypeConfigTest {
     @Test
     public void getPropertyValueFromKeySucess() throws IOException {
         Properties props = new Properties();
+        DeviceTypeConfig dtc = new DeviceTypeConfig();
         String propFileName = "resources/devices.properties";
         InputStream input = new FileInputStream(propFileName);
         props.load(input);
         String key = "WaterHeater";
-        String result = DeviceTypeConfig.getPropertyValueFromKey(props, key);
+        String result = dtc.getPropertyValueFromKey(props, key);
         String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT";
         assertEquals(expectedResult, result);
     }
@@ -36,8 +37,9 @@ public class DeviceTypeConfigTest {
         assertThrows(IOException.class,
                 () -> {
                     Properties props = new Properties();
+                    DeviceTypeConfig dtc = new DeviceTypeConfig();
                     String key = "WaterHeater";
-                    DeviceTypeConfig.getPropertyValueFromKey(props, key);
+                    dtc.getPropertyValueFromKey(props, key);
                 });
     }
 
@@ -47,7 +49,8 @@ public class DeviceTypeConfigTest {
         String propFileName = "resources/devices.properties";
         InputStream input = new FileInputStream(propFileName);
         props.load(input);
-        List<String> result = DeviceTypeConfig.getDeviceTypeConfig();
+        DeviceTypeConfig dtc = new DeviceTypeConfig();
+        List<String> result = dtc.getDeviceTypeConfig();
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT");
@@ -62,11 +65,12 @@ public class DeviceTypeConfigTest {
     public void getDeviceTypeConfigWrongFileName() {
         assertThrows(IOException.class,
                 () -> {
+                    DeviceTypeConfig dtc = new DeviceTypeConfig();
                     Properties props = new Properties();
                     String propFileName = "resources/deces.properties";
                     InputStream input = new FileInputStream(propFileName);
                     props.load(input);
-                    DeviceTypeConfig.getDeviceTypeConfig();
+                    dtc.getDeviceTypeConfig();
                 });
     }
 
@@ -75,10 +79,11 @@ public class DeviceTypeConfigTest {
         assertThrows(IOException.class,
                 () -> {
                     Properties props = null;
+                    DeviceTypeConfig dtc = new DeviceTypeConfig();
                     String propFileName = "resources/deces.properties";
                     InputStream input = new FileInputStream(propFileName);
                     props.load(input);
-                    DeviceTypeConfig.getDeviceTypeConfig();
+                    dtc.getDeviceTypeConfig();
                 });
     }
 
@@ -87,10 +92,11 @@ public class DeviceTypeConfigTest {
         assertThrows(NullPointerException.class,
                 () -> {
                     Properties props = new Properties();
+                    DeviceTypeConfig dtc = new DeviceTypeConfig();
                     String propFileName = null;
                     InputStream input = new FileInputStream(propFileName);
                     props.load(input);
-                    DeviceTypeConfig.getDeviceTypeConfig();
+                    dtc.getDeviceTypeConfig();
                 });
     }
 
@@ -99,9 +105,10 @@ public class DeviceTypeConfigTest {
         assertThrows(FileNotFoundException.class,
                 () -> {
                     Properties props = new Properties();
+                    DeviceTypeConfig dtc = new DeviceTypeConfig();
                     InputStream input = new FileInputStream("");
                     props.load(input);
-                    DeviceTypeConfig.getDeviceTypeConfig();
+                    dtc.getDeviceTypeConfig();
                 });
     }
 }

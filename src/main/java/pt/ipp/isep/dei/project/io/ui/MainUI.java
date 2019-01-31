@@ -49,7 +49,8 @@ public class MainUI {
         //DeviceTypeConfiguration - US70
 
         try {
-            deviceTypeConfig = DeviceTypeConfig.getDeviceTypeConfig();
+            DeviceTypeConfig devTConfig = new DeviceTypeConfig();
+            deviceTypeConfig = devTConfig.getDeviceTypeConfig();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return;

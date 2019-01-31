@@ -14,11 +14,10 @@ import java.util.Properties;
 
 public class DeviceTypeConfig {
 
-    private DeviceTypeConfig(){
-
+    public DeviceTypeConfig(){
     }
 
-    public static List<String> getDeviceTypeConfig() throws IOException {
+    public List<String> getDeviceTypeConfig() throws IOException {
         String propFileName = "resources/devices.properties";
         String allDevicesKey = "allDeviceTypes";
         Properties props = new Properties();
@@ -41,7 +40,7 @@ public class DeviceTypeConfig {
         return deviceTypeConfig;
     }
 
-    public static String getPropertyValueFromKey(Properties p, String key) throws IOException {
+  public String getPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
             throw new IOException("Could not read " + key + " property value.");
