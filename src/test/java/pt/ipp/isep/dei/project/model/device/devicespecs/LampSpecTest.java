@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -191,5 +192,22 @@ public class LampSpecTest {
         assertEquals(false, lSpec.getAttributeUnit(notNOMINAL_POWER));
         // distinct hash code to cover default cases of switches
         assertEquals(false, lSpec.getAttributeUnit(""));
+    }
+
+    @Test
+    public void testSetAttributeValueForAllCases() {
+        //Arrange
+        LampSpec lSpec = new LampSpec();
+        Double attribute = 6.0;
+        lSpec.setAttributeValue(FLUX, attribute);
+        lSpec.setAttributeValue(NOMINAL_POWER, attribute);
+        // original strings:
+        assertTrue(lSpec.setAttributeValue(FLUX, attribute));
+        assertTrue(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        // same hash codes, but different strings:
+        assertFalse(lSpec.setAttributeValue(notFLUX, attribute));
+        assertFalse(lSpec.setAttributeValue(notNOMINAL_POWER, attribute));
+        // distinct hash code to cover default cases of switches
+        assertFalse(lSpec.setAttributeValue("", attribute));
     }
 }
