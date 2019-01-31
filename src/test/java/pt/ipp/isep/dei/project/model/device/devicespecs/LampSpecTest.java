@@ -222,8 +222,8 @@ public class LampSpecTest {
         assertFalse(lSpec.setAttributeValue(FLUX, attribute));
         assertFalse(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
         // same hash codes, but different strings:
-        assertFalse(lSpec.setAttributeValue(FLUX, attribute));
-        assertFalse(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        assertFalse(lSpec.setAttributeValue(notFLUX, attribute));
+        assertFalse(lSpec.setAttributeValue(notNOMINAL_POWER, attribute));
         // distinct hash code to cover default cases of switches
         assertFalse(lSpec.setAttributeValue("", attribute));
     }
