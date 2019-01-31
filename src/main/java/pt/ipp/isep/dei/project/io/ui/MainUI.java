@@ -18,21 +18,22 @@ public class MainUI {
         List<String> deviceTypeConfig;
         FileInputUtils fileUtils = new FileInputUtils();
         int gridMeteringPeriod = 0;
+        String fixConfigFile = "Please fix Configuration File before continuing.";
         try {
             if (fileUtils.validGridMetering()) {
                 gridMeteringPeriod = fileUtils.mGridMeteringPeriod;
             } else {
                 System.out.println("ERROR: Configuration File values are incorrect. Energy Grids cannot be created.\n" +
-                        "Please fix Configuration File before continuing.");
+                        fixConfigFile);
                 return;
             }
         } catch (IOException ioe) {
             System.out.println("ERROR: Unable to process configuration file.\n" +
-                    "Please fix Configuration File before continuing.");
+                    fixConfigFile);
             return;
         } catch (NumberFormatException nfe) {
             System.out.println("ERROR: Configuration File value is not a numeric value.\n" +
-                    "Please fix Configuration File before continuing.");
+                    fixConfigFile);
             return;
         }
 
