@@ -154,6 +154,7 @@ public class EnergyGrid implements Metered {
      *
      * @return a list of devices related to the energy grid.
      */
+
     public List<Device> getDeviceList() {
         return this.mRoomList.getDeviceList();
     }
