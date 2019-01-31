@@ -356,6 +356,42 @@ public class MainUI {
         DeviceList deviceListRoomB107SP3 = new DeviceList();
         b107SP2.setDeviceList(deviceListRoomB107SP3);
 
+        Device dishWasherB107SP3 = new Device(new DishwasherSpec());
+        dishWasherB107SP3.setNominalPower(1.5);
+        dishWasherB107SP3.setName("DishwasherSpec B107");
+        dishWasherB107SP3.setAttributeValue(capacity, 2D);
+        ProgramList programListDishWasherB107SP3 = dishWasherB107SP3.getProgramList();
+        Program glassesB107 = new Program("Glasses", 0, 0.9);
+        Program ecoB107 = new Program("Eco", 0, 1.3);
+        Program ecoTurboB107 = new Program("Eco Turbo", 0, 1.7);
+        Program dishesB107 = new Program("Dishes", 0, 2.1);
+        programListDishWasherB107SP3.addProgram(glassesB107);
+        programListDishWasherB107SP3.addProgram(ecoB107);
+        programListDishWasherB107SP3.addProgram(ecoTurboB107);
+        programListDishWasherB107SP3.addProgram(dishesB107);
+
+        Log logB107DW52 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 0).getTime());
+        Log logB107DW53 = new Log(0.3, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 15).getTime());
+        Log logB107DW54 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 30).getTime());
+        Log logB107DW55 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 45).getTime());
+        Log logB107DW81 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 15).getTime());
+        Log logB107DW85 = new Log(0.1, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 15).getTime());
+        Log logB107DW86 = new Log(0.1, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 30).getTime());
+        Log logB107DW87 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 45).getTime());
+        Log logB107DW88 = new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 22, 0).getTime());
+        Log logB107DW89 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 22, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 22, 15).getTime());
+
+        dishWasherB107SP3.addLog(logB107DW52);
+        dishWasherB107SP3.addLog(logB107DW53);
+        dishWasherB107SP3.addLog(logB107DW54);
+        dishWasherB107SP3.addLog(logB107DW55);
+        dishWasherB107SP3.addLog(logB107DW81);
+        dishWasherB107SP3.addLog(logB107DW85);
+        dishWasherB107SP3.addLog(logB107DW86);
+        dishWasherB107SP3.addLog(logB107DW87);
+        dishWasherB107SP3.addLog(logB107DW88);
+        dishWasherB107SP3.addLog(logB107DW89);
+
         Device washingMachineB107SP3 = new Device(new WashingMachineSpec());
         washingMachineB107SP3.setNominalPower(3.5);
         washingMachineB107SP3.setName("Washing Machine B107");
