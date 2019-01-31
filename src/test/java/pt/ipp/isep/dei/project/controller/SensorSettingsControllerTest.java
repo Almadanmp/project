@@ -483,7 +483,6 @@ class SensorSettingsControllerTest {
     }*/
 
 
-    //TODO REVIEW TEST AND METHOD - Sensor List is not being used and test is still working even without sensors
    /*
     @Test
     void seeIfSetTypeWorksFalse() {
@@ -508,7 +507,6 @@ class SensorSettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//TODO REVIEW TEST AND METHOD
 /*
 @Test
 void seeIfSetTypeWorks() {

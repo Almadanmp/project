@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class UtilsUI {
 
-    public String invalidOption = "Please enter a valid option.";
-    String returningToMainMenu = "-- Returning to main menu -- \n";
+    String invalidOption = "Please enter a valid option.";
+    private String returningToMainMenu = "-- Returning to main menu -- \n";
     String invalidHouse = "The selected House is not a valid one.\n" + returningToMainMenu;
     String invalidRoomList = "Invalid Room List - List is empty.\n" + returningToMainMenu;
     String invalidGridList = "Invalid Grid List - List is empty.\n" + returningToMainMenu;
@@ -44,7 +44,7 @@ public class UtilsUI {
 
 
     boolean houseGridListIsValid(House house) {
-        return house.getEGListObject() != null && !house.getEGListObject().getEnergyGridList().isEmpty(); //TODO missing encapsulation
+        return house.getEGListObject() != null && !house.getEGListObject().getEnergyGridList().isEmpty();
     }
 
     boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
@@ -52,7 +52,7 @@ public class UtilsUI {
     }
 
     boolean gridRoomListIsValid(EnergyGrid energyGrid) {
-        return energyGrid.getListOfRooms() != null && !energyGrid.getListOfRooms().getList().isEmpty(); //TODO missing encapsulation
+        return energyGrid.getListOfRooms() != null && !energyGrid.getListOfRooms().getList().isEmpty();
     }
 
     boolean typeAreaListIsValid(TypeAreaList list) {
@@ -76,7 +76,7 @@ public class UtilsUI {
     }
 
     boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
-        return geographicArea.getSensorList() != null && !geographicArea.getSensorList().getSensorList().isEmpty(); //TODO missing encapsulation
+        return geographicArea.getSensorList() != null && !geographicArea.getSensorList().getSensorList().isEmpty();
     }
 
     boolean houseMotherAreaIsValid(House house) {

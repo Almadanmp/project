@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -22,13 +21,12 @@ public class Device implements Metered {
     private boolean mActive;
 
 
-    //TODO delete nominalpower from constructor and as an attribute after changes are made (moving nominal power to each spec)
 
     /**
      * Constructor with path by configuration file approach
      * parameters (ex. name) are not received. setter methods must be called after constructor
      *
-     * @param deviceSpecs
+     * @param deviceSpecs device specs
      */
     public Device(DeviceSpecs deviceSpecs) {
         this.mLogList = new LogList();
@@ -50,7 +48,7 @@ public class Device implements Metered {
      *
      * @return true if device is active
      */
-    boolean isActive() {
+    private boolean isActive() {
         return this.mActive;
     }
 
@@ -220,7 +218,7 @@ public class Device implements Metered {
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
-        for (Log l : this.getLogList().getLogList()) { //TODO fix getLogList method so it returns List<Logs>. Improper encapsulation (task: DANIEL OLIVEIRA)
+        for (Log l : this.getLogList().getLogList()) {
             if ((l.getInitialDate().after(startDate) || l.getInitialDate().equals(startDate)) &&
                     ((l.getFinalDate().before(endDate)) || l.getFinalDate().equals(endDate))) {
                result.addLog(l);

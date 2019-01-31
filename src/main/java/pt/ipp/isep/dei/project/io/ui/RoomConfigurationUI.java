@@ -131,7 +131,6 @@ class RoomConfigurationUI {
         //todo create a way to use the same logic as used above
         if (device.isProgrammable()) {
             System.out.println("This device is programmable.");
-            //TODO ask user if he wants to add a program, if not, fisnish
             ProgramList pList = device.getProgramList();
             System.out.println("Please insert program name: ");
             String programName = scanner.nextLine();
@@ -139,8 +138,6 @@ class RoomConfigurationUI {
             double duration = inputUtils.getInputAsDouble();
             System.out.println("Please insert program duration: ");
             double energyConsumption = inputUtils.getInputAsDouble();
-            //TODO ask user if he wishes to add another program
-            //todo move the program creation to controller to avoid model access on UI
 
             Program newProgram = new Program(programName, duration, energyConsumption);
             pList.addProgram(newProgram);

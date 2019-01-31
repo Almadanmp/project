@@ -662,7 +662,8 @@ class RoomConfigurationControllerTest {
         d1.setAttributeValue("luminousFlux", 3);
         Object result = d1.getAttributeValue("luminousFlux");
         assertEquals(expectedResult, result);
-    }*/ // TODO - Test should not be commented..
+    }*/ //
+
 
     @Test
     void removeDeviceSucess() {

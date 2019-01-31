@@ -209,7 +209,7 @@ public class InputUtils {
      *
      * @return value read from the user
      */
-    public int readInputNumberAsInt() {
+    int readInputNumberAsInt() {
         UtilsUI utils = new UtilsUI();
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
@@ -269,7 +269,6 @@ public class InputUtils {
     public DeviceType getInputDeviceTypeByList(House house) throws IOException {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        //TODO the print part should be on UI
         List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device Types: ");

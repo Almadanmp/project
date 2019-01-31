@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.io.ui;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
 class FileInputUtils {
@@ -39,6 +38,10 @@ class FileInputUtils {
     }
 
     private boolean gridMeteringPeriodValidation(int gridMeteringPeriod) {
+        if (gridMeteringPeriod == 0) {
+            System.out.println("Grid metering value must be greater than 0.");
+            return false;
+        }
         return 1440 % gridMeteringPeriod == 0;
     }
 
@@ -79,8 +82,8 @@ class FileInputUtils {
     }
 
     private boolean deviceMeteringPeriodValidation(int deviceValue) {
-        if (deviceValue == 0 || this.mGridMeteringPeriod == 0) {
-            System.out.println("Values must be greater than 0");
+        if (deviceValue == 0) {
+            System.out.println("Device metering value must be greater than 0.");
             return false;
         }
         if (1440 % deviceValue != 0) {
