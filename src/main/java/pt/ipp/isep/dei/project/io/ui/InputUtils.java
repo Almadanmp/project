@@ -251,7 +251,7 @@ public class InputUtils {
         return scanner.nextDouble();
     }
 
-    public Date getInputDate() {
+    Date getInputDate() {
         Scanner scan = new Scanner(System.in);
         int year = getInputDateAsInt(scan, "year");
         scan.nextLine();
