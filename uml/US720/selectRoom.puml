@@ -6,7 +6,6 @@ activate PowerUser
 -> ":EnergyConsumptionUI": selectRoom
 activate ":EnergyConsumptionUI"
 ":EnergyConsumptionUI" -> ":InputUtils": getInputRoom(:House)
-deactivate ":EnergyConsumptionUI"
 activate ":InputUtils"
 ":InputUtils" -> ":House": getRoomList()
 activate ":House"
@@ -16,14 +15,16 @@ activate ":RoomList"
 deactivate ":RoomList"
 deactivate ":House"
 ":InputUtils" -> ":InputUtils": buildRoomListString()
-":InputUtils" -> PowerUser: Get input
-PowerUser -> ":InputUtils": selectRoomByIndex()
-":InputUtils" -> ":House": getRoom()
+":InputUtils" -> PowerUser: display list of available rooms
+PowerUser -> ":InputUtils": select room by index
+":InputUtils" -> ":House": getRoomByIndex()
 activate ":House"
-":House" -> ":RoomList": getRoom()
+":House" -> ":RoomList": getRoomByIndex()
 activate ":RoomList"
-<-- ":RoomList": return :Room
+":RoomList" --> ":EnergyConsumptionUI" : return :Room
 deactivate ":RoomList"
 deactivate ":House"
 deactivate PowerUser
+deactivate ":EnergyConsumptionUI"
+deactivate ":InputUtils"
 @enduml
