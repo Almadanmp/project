@@ -250,7 +250,7 @@ public class MainUI {
         //Device WashingMachineSpec
         String capacity = "capacity";
         String volumeWater = "volumeOfWater";
-        String hotWaterT= "hotWaterTemperature";
+        String hotWaterT = "hotWaterTemperature";
         String performanceRatio = "performanceRatio";
 
 
@@ -353,9 +353,34 @@ public class MainUI {
         Room b107SP2 = new Room("B107", 1, 7, 11, 3.5);
         Room b109SP2 = new Room("B109", 1, 7, 11, 3.5);
 
-
         DeviceList deviceListRoomB107SP3 = new DeviceList();
         b107SP2.setDeviceList(deviceListRoomB107SP3);
+
+        Device washingMachineB107SP3 = new Device(new WashingMachineSpec());
+        washingMachineB107SP3.setNominalPower(3.5);
+        washingMachineB107SP3.setName("Washing Machine B107");
+        washingMachineB107SP3.setAttributeValue(capacity, 0D);
+        ProgramList programListWashingMachineB107SP3 = washingMachineB107SP3.getProgramList();
+        Program wool = new Program("Wool", 0, 1.1);
+        Program fast = new Program("Fast", 0, 1.8);
+        Program fastPlus = new Program("Fast Plus", 0, 2.7);
+        Program synthetic30 = new Program("Synthetic 30º", 0, 2.8);
+        programListWashingMachineB107SP3.addProgram(wool);
+        programListWashingMachineB107SP3.addProgram(fast);
+        programListWashingMachineB107SP3.addProgram(fastPlus);
+        programListWashingMachineB107SP3.addProgram(synthetic30);
+        deviceListRoomB107SP3.addDevice(washingMachineB107SP3);
+        b107SP2.setDeviceList(deviceListRoomB107SP3);
+
+        Log logB107WM42 = new Log(0.4, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 30).getTime());
+        Log logB107WM43 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 45).getTime());
+        Log logB107WM44 = new Log(0.25, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 11, 0).getTime());
+        Log logB107WM45 = new Log(0.25, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 11, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 11, 15).getTime());
+        washingMachineB107SP3.addLog(logB107WM42);
+        washingMachineB107SP3.addLog(logB107WM43);
+        washingMachineB107SP3.addLog(logB107WM44);
+        washingMachineB107SP3.addLog(logB107WM45);
+
         Device ehwB107SP3 = new Device(new WaterHeaterSpec());
         ehwB107SP3.setNominalPower(1.5);
         ehwB107SP3.setName("EHW B109");
@@ -488,11 +513,51 @@ public class MainUI {
 
         DeviceList deviceListRoomB109SP2 = new DeviceList();
         Device ehwB109SP2 = new Device(new WaterHeaterSpec());
-        ehwB109SP2.setNominalPower(1.5);
+        ehwB109SP2.setNominalPower(2.0);
         ehwB109SP2.setName("EHW B109");
         ehwB109SP2.setAttributeValue(volumeWater, 100D);
         ehwB109SP2.setAttributeValue(hotWaterT, 55D);
         ehwB109SP2.setAttributeValue(performanceRatio, 0.91D);
+
+
+        Log log32 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 7, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 0).getTime());
+        Log log33 = new Log(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 15).getTime());
+        Log log34 = new Log(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 30).getTime());
+        Log log35 = new Log(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 45).getTime());
+        Log log36 = new Log(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 9, 0).getTime());
+        Log log37 = new Log(0.25, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 9, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 9, 15).getTime());
+        Log log42 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 30).getTime());
+        Log log43 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 45).getTime());
+        Log log48 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 11, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 0).getTime());
+        Log log49 = new Log(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 15).getTime());
+        Log log50 = new Log(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 30).getTime());
+        Log log51 = new Log(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 45).getTime());
+        Log log52 = new Log(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 0).getTime());
+        Log log53 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 15).getTime());
+        Log log81 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 15).getTime());
+        Log log82 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 30).getTime());
+        Log log83 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 45).getTime());
+        Log log84 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 0).getTime());
+        Log log85 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 21, 15).getTime());
+        ehwB109SP2.addLog(log32);
+        ehwB109SP2.addLog(log33);
+        ehwB109SP2.addLog(log34);
+        ehwB109SP2.addLog(log35);
+        ehwB109SP2.addLog(log36);
+        ehwB109SP2.addLog(log37);
+        ehwB109SP2.addLog(log42);
+        ehwB109SP2.addLog(log43);
+        ehwB109SP2.addLog(log48);
+        ehwB109SP2.addLog(log49);
+        ehwB109SP2.addLog(log50);
+        ehwB109SP2.addLog(log51);
+        ehwB109SP2.addLog(log52);
+        ehwB109SP2.addLog(log53);
+        ehwB109SP2.addLog(log81);
+        ehwB109SP2.addLog(log82);
+        ehwB109SP2.addLog(log83);
+        ehwB109SP2.addLog(log84);
+        ehwB109SP2.addLog(log85);
 
         Device dishWasherB109SP2 = new Device(new DishwasherSpec());
         dishWasherB109SP2.setNominalPower(1.5);
@@ -513,18 +578,27 @@ public class MainUI {
         washingMachineB109SP2.setName("Washing Machine B109");
         washingMachineB109SP2.setAttributeValue(capacity, 0D);
         ProgramList programListWashingMachineB109SP2 = washingMachineB109SP2.getProgramList();
-        Program wool = new Program("Wool", 0, 0.9);
-        Program fast = new Program("Fast", 0, 1.3);
-        Program fastPlus = new Program("Fast Plus", 0, 1.7);
-        Program synthetic30 = new Program("Synthetic 30º", 0, 2.1);
-        programListWashingMachineB109SP2.addProgram(wool);
-        programListWashingMachineB109SP2.addProgram(fast);
-        programListWashingMachineB109SP2.addProgram(fastPlus);
-        programListWashingMachineB109SP2.addProgram(synthetic30);
+        Program B109wool = new Program("Wool", 0, 0.9);
+        Program B109fast = new Program("Fast", 0, 1.3);
+        Program B109fastPlus = new Program("Fast Plus", 0, 1.7);
+        Program B109synthetic30 = new Program("Synthetic 30º", 0, 2.1);
+        programListWashingMachineB109SP2.addProgram(B109wool);
+        programListWashingMachineB109SP2.addProgram(B109fast);
+        programListWashingMachineB109SP2.addProgram(B109fastPlus);
+        programListWashingMachineB109SP2.addProgram(B109synthetic30);
         deviceListRoomB109SP2.addDevice(ehwB109SP2);
         deviceListRoomB109SP2.addDevice(dishWasherB109SP2);
         deviceListRoomB109SP2.addDevice(washingMachineB109SP2);
         b109SP2.setDeviceList(deviceListRoomB109SP2);
+
+        Log logWM41 = new Log(0.4, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 15).getTime());
+        Log logWM42 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 30).getTime());
+        Log logWM43 = new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 45).getTime());
+        Log logWM44 = new Log(0.25, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 11, 0).getTime());
+        washingMachineB109SP2.addLog(logWM41);
+        washingMachineB109SP2.addLog(logWM42);
+        washingMachineB109SP2.addLog(logWM43);
+        washingMachineB109SP2.addLog(logWM44);
 
         Room roomB106SP2 = new Room("B106", 1, 7, 13, 3.5);
         DeviceList deviceListRoomB106SP2 = new DeviceList();
@@ -808,7 +882,7 @@ public class MainUI {
                         break;
                     case 7:
                         EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                        energyConsumptionUI.run(houseSP2);
+                        energyConsumptionUI.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
