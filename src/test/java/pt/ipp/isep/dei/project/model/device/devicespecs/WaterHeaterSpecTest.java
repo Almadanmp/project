@@ -353,6 +353,37 @@ class WaterHeaterSpecTest {
     }
 
     @Test
+    void testSetAttributeCoveringAllCasesFalse() {
+        //Arrange
+        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
+        Double attribute = 6.0;
+        waterHeaterSpec.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, null);
+        waterHeaterSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, null);
+        waterHeaterSpec.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, null);
+        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, null);
+
+        // original strings:
+        assertTrue(waterHeaterSpec.setAttributeValue("Volume Of Water", attribute));
+        assertTrue(waterHeaterSpec.setAttributeValue("Cold Water Temperature", attribute));
+        assertTrue(waterHeaterSpec.setAttributeValue("Hot Water Temperature", attribute));
+        assertTrue(waterHeaterSpec.setAttributeValue("Performance Ratio", attribute));
+        assertTrue(waterHeaterSpec.setAttributeValue("Volume Of Water To Heat", attribute));
+        assertTrue(waterHeaterSpec.setAttributeValue("nominal power", attribute));
+
+        // same hash codes, but different strings:
+        assertFalse(waterHeaterSpec.setAttributeValue("\0Volume Of Water", attribute));
+        assertFalse(waterHeaterSpec.setAttributeValue("\0Cold Water Temperature", attribute));
+        assertFalse(waterHeaterSpec.setAttributeValue("\0Hot Water Temperature", attribute));
+        assertFalse(waterHeaterSpec.setAttributeValue("\0Performance Ratio", attribute));
+        assertFalse(waterHeaterSpec.setAttributeValue("\0Volume Of Water To Heat", attribute));
+        assertFalse(waterHeaterSpec.setAttributeValue("\0nominal power", attribute));
+
+        // distinct hash code to cover default cases of switches
+        assertFalse(waterHeaterSpec.setAttributeValue("", attribute));
+    }
+
+
+    @Test
     void seeIfGetAndSetAttributeValues2() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
         waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);

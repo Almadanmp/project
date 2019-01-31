@@ -113,6 +113,7 @@ class FridgeSpecTest {
         String expectedResult = "Kg";
         Object result = fridgeSpec.getAttributeUnit("Freezer Capacity");
         assertEquals(expectedResult, result);
+        assertEquals(0, fridgeSpec.getAttributeUnit(""));
     }
     @Test
     void seeIfGetAttributeUnitTest2() {
@@ -130,6 +131,7 @@ class FridgeSpecTest {
         String expectedResult = "kWh";
         Object result = fridgeSpec.getAttributeUnit("Annual Energy Consumption");
         assertEquals(expectedResult, result);
+        assertEquals(0, fridgeSpec.getAttributeUnit(""));
 
     } @Test
     void seeIfGetAttributeUnitTest4() {
@@ -321,6 +323,10 @@ class FridgeSpecTest {
         //Arrange
         FridgeSpec fridgeSpec = new FridgeSpec();
         Double attribute = 6.0;
+        fridgeSpec.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, null);
+        fridgeSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, null);
+        fridgeSpec.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, null);
+        fridgeSpec.setAttributeValue(TestUtils.NOMINAL_POWER, null);
 
         // original strings:
         assertTrue(fridgeSpec.setAttributeValue("Freezer Capacity", attribute));
