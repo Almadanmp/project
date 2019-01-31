@@ -1,5 +1,6 @@
 @startuml
 Title US222 As a Power User, I want to deactivate a device, so that it is no longer used.\nNevertheless, it should be possible to access its configuration and activity log.
+actor PowerUser
 autonumber
 PowerUser -> ":RoomConfigurationUI": runUS222(house)
 activate PowerUser
