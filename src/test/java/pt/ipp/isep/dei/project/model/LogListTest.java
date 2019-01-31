@@ -83,6 +83,32 @@ class LogListTest {
         assertTrue(actualResult);
     }
 
+    @Test
+    void seeIfAddsLogTrue() {
+        LogList list1 = new LogList();
+        Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        boolean actualResult =list1.addLog(log);
+        assertTrue(actualResult);
+    }
+    @Test
+    void seeIfAddsLogFalse() {
+        LogList list1 = new LogList();
+        Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        list1.addLog(log);
+        boolean actualResult =list1.addLog(log);
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddsLogListFalse() {
+        LogList list1 = new LogList();
+        Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        list1.addLog(log);
+        boolean actualResult =list1.addLogList(list1);
+        assertFalse(actualResult);
+    }
+
+
 
     @Test
     void seeEqualsToDifTypeObject() {
