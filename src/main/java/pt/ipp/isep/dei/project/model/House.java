@@ -228,7 +228,7 @@ public class House implements Metered {
                 sensorList.addSensor(s);
             }
         }
-        if (!(sensorList.getSensorList().isEmpty())) {
+        if (sensorList.getSensorList().size()>1) {
             sensor = sensorList.getMostRecentlyUsedSensor();
         } else {
             sensor = sensorList.getSensorList().get(0);
