@@ -205,13 +205,16 @@ public class Device implements Metered {
      */
     public boolean deactivate() {
         if (isActive()) {
-            this.mActive = false;
+            setmActiveFalse();
             return true;
         } else {
             return false;
         }
     }
 
+    public void setmActiveFalse() {
+        this.mActive = false;
+    }
 
     @Override
     public boolean equals(Object o) {
