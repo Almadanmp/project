@@ -332,9 +332,7 @@ class EnergyGridSettingsControllerTest {
         ctrl.createEnergyGrid("grid", 400);
         ctrl.addEnergyGridToHouse(house);
         EnergyGrid result = house.getEGListObject().getEnergyGridList().get(0);
-        EnergyGrid expectedResult = new EnergyGrid();
-        expectedResult.setMaxContractedPower(400);
-        expectedResult.setName("grid");
+        EnergyGrid expectedResult = new EnergyGrid("grid", 400);
         assertEquals(expectedResult, result);
     }
 

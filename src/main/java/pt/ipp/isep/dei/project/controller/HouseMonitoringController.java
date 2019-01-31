@@ -13,6 +13,8 @@ import java.util.List;
 
 public class HouseMonitoringController {
 
+    private String rainfall = "rainfall";
+
     /**
      *
      * @param room is the room we want to get the temperature from.
@@ -221,7 +223,7 @@ public class HouseMonitoringController {
 
     public double getAVGDailyRainfallOnGivenPeriod(House house, Date initialDate, Date endDate) {
         GeographicArea geoArea = house.getMotherArea();
-        Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, "rainfall");
+        Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, rainfall);
         if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
             return Double.NaN;
         }
@@ -239,12 +241,12 @@ public class HouseMonitoringController {
         int counter = 0;
         GeographicArea geoArea = house.getMotherArea();
         for (Sensor s : geoArea.getSensorList().getSensorList()) {
-            if (s.getTypeSensor().getName().equals("rainfall")) {
+            if (s.getTypeSensor().getName().equals(rainfall)) {
                 counter++;
             }
         }
         if (counter != 0) {
-            Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, "rainfall");
+            Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, rainfall);
             if (closestSensor.getReadingList() == null) {
                 return Double.NaN;
             }
