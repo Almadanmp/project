@@ -27,7 +27,6 @@ public class DeviceTypeConfig {
         try (InputStream input = new FileInputStream(propFileName)) {
             props.load(input);
             String deviceTypes = getPropertyValueFromKey(props, allDevicesKey);
-
             List<String> deviceTypeList = Arrays.asList(deviceTypes.split(","));
             for (String s : deviceTypeList) {
                 String aux = getPropertyValueFromKey(props, s);

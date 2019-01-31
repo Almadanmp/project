@@ -236,7 +236,6 @@ public class House implements Metered {
         return sensor;
     }
 
-
     /**
      * This method builds a String for the GridList in the house.
      *
