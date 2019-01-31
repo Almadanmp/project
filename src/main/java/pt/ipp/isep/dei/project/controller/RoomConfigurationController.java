@@ -236,26 +236,6 @@ public class RoomConfigurationController {
         return deviceType.createDeviceType();
     }
 
-   public DeviceType getInputDeviceTypeByList(House house) throws IOException {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        //TODO the print part should be on UI
-        List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
-        while (true) {
-            System.out.println("Please select one of the device Types: ");
-
-            System.out.println(house.getDeviceTypes());
-            System.out.println(house.buildTypeListString(deviceTypeList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getDeviceTypes().size()) {
-
-                return deviceTypeList.get(aux);
-
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        }
-    }
 
 
     public List<String> getAttributeNames(Device device) {

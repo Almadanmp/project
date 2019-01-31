@@ -103,7 +103,7 @@ class RoomConfigurationUI {
         this.mRoom = inputUtils.getHouseRoomByList(house);
         DeviceType deviceType;
         try {
-            deviceType = ctrl.getInputDeviceTypeByList(house);
+            deviceType = inputUtils.getInputDeviceTypeByList(house);
         } catch (IOException e) {
             System.out.println(e.getMessage() + "\n Program will shut down.");
             return;

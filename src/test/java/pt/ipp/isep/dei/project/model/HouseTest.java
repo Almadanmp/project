@@ -9,6 +9,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -694,6 +695,7 @@ class HouseTest {
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house, "temperature");
         assertEquals(s2, result);
     }
+
 }
 
 
