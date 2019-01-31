@@ -39,11 +39,10 @@ public class House implements Metered {
         setGridMeteringPeriod(gridMeteringPeriod);
         setDeviceMeteringPeriod(deviceMeteringPeriod);
         buildDeviceTypeList(deviceTypeConfig);
-
     }
 
 
-    private void buildDeviceTypeList(List<String> deviceTypePaths) {
+    public void buildDeviceTypeList(List<String> deviceTypePaths) {
         this.mDeviceTypeList = new ArrayList<>();
         for (String s : deviceTypePaths) {
             DeviceType aux;
@@ -103,17 +102,18 @@ public class House implements Metered {
         this.mGridMeteringPeriod = meteringPeriod;
     }
 
-    public double getGridMeteringPeriod(){
+    public double getGridMeteringPeriod() {
         return mGridMeteringPeriod;
     }
 
-    public void setDeviceMeteringPeriod(int meteringPeriod){
+    public void setDeviceMeteringPeriod(int meteringPeriod) {
         this.mDeviceMeteringPeriod = meteringPeriod;
     }
 
-    public double getDeviceMeteringPeriod(){
+    public double getDeviceMeteringPeriod() {
         return mDeviceMeteringPeriod;
     }
+
     public Local getLocation() {
         return mLocation;
     }
@@ -316,12 +316,12 @@ public class House implements Metered {
     }
 
     public String buildTypeListString(List<DeviceType> list) {
-        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        StringBuilder result = new StringBuilder(new StringBuilder());
         if (list.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < list.size(); i++) {
-            result.append(i).append(") DeviceType: ").append(list.get(i).getDeviceType()).append("\n");
+            result.append(i).append(") DeviceType: ").append(list.get(i).getDeviceType());
         }
         return result.toString();
     }
@@ -375,7 +375,6 @@ public class House implements Metered {
     }
 
 
-    @Override
     public double getEnergyConsumption(float time) {
         return 0;
     }

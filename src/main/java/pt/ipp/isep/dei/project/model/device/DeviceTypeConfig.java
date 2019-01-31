@@ -37,7 +37,7 @@ public class DeviceTypeConfig {
         return deviceTypeConfig;
     }
 
-    static String getPropertyValueFromKey(Properties p, String key) throws IOException {
+    public static String getPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
             throw new IOException("Could not read " + key + " property value.");

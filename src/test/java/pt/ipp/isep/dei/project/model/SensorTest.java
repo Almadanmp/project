@@ -1,7 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 
 import java.util.*;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Sensor tests class.
  */
 
- class SensorTest {
+class SensorTest {
     @Test
     void seeIfFirstConstructorSetsTypeArea() {
         //Arrange
@@ -34,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Local l1 = new Local(38, 7,5);
+        Local l1 = new Local(38, 7, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Date actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
@@ -371,7 +372,7 @@ import static org.junit.jupiter.api.Assertions.*;
     @Test
     void seeIfcalculateDistanceToSensorWorks() {
         Local l1 = new Local(23, 46, 5);
-        Local l2 = new Local(25, 47,5);
+        Local l2 = new Local(25, 47, 5);
         TypeSensor t1 = new TypeSensor("Termometro", "Celsius");
         TypeSensor t2 = new TypeSensor("Lololometro", "looool");
         Sensor s1 = new Sensor("Sensor1", t1, l1, new Date());
@@ -428,7 +429,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(20, 20, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -447,8 +448,8 @@ import static org.junit.jupiter.api.Assertions.*;
     void seeIfSensorIsContainedOnTheEdge() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20,5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -468,7 +469,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(30, 30, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -488,7 +489,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -508,9 +509,9 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(10, 10,5);
+        Local loc1 = new Local(10, 10, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -527,10 +528,10 @@ import static org.junit.jupiter.api.Assertions.*;
     void seeIfSensorIsContainedOnBottomRightVertex() {
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20,5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(30, 10,5);
+        Local loc1 = new Local(30, 10, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -548,7 +549,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(35, 20, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -568,9 +569,9 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(-35, 20,5);
+        Local loc1 = new Local(-35, 20, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
@@ -588,7 +589,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(100, 100, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -608,7 +609,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(20, -35, 5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -628,7 +629,7 @@ import static org.junit.jupiter.api.Assertions.*;
         //Arrange
         TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, -5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -643,208 +644,208 @@ import static org.junit.jupiter.api.Assertions.*;
         assertTrue(result);
     }
 
-     //Testing latLongVert and longBotVert
-     //Estes testes são o contrário dos acima, daí o nome com a posição estará invertido
-     @Test
-     void seeIfSensorIsContainedOnTheEdge2() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(0, 40,5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(10, 30, 5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    //Testing latLongVert and longBotVert
+    //Estes testes são o contrário dos acima, daí o nome com a posição estará invertido
+    @Test
+    void seeIfSensorIsContainedOnTheEdge2() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(0, 40, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(10, 30, 5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setWidth(20);
-         a1.setLength(30);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setWidth(20);
+        a1.setLength(30);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertTrue(result);
-     }
+        //Assert
+        assertTrue(result);
+    }
 
-     @Test
-     void seeIfSensorIsContainedOnUpperRightVertex2() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(40, 40, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(30, 30, 5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    @Test
+    void seeIfSensorIsContainedOnUpperRightVertex2() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(40, 40, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(30, 30, 5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setWidth(20);
-         a1.setLength(30);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setWidth(20);
+        a1.setLength(30);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertTrue(result);
-     }
+        //Assert
+        assertTrue(result);
+    }
 
-     @Test
-     void seeIfSensorIsContainedOnUpperLeftVertex2() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(0, 40, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(10, 30, 5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    @Test
+    void seeIfSensorIsContainedOnUpperLeftVertex2() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(0, 40, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(10, 30, 5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setWidth(21);
-         a1.setLength(30);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setWidth(21);
+        a1.setLength(30);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertTrue(result);
-     }
+        //Assert
+        assertTrue(result);
+    }
 
-     @Test
-     void seeIfSensorIsContainedOnBottomLeftVertex2() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(0, 0, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(10, 10,5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    @Test
+    void seeIfSensorIsContainedOnBottomLeftVertex2() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(0, 0, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(10, 10, 5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setWidth(25);
-         a1.setLength(35);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setWidth(25);
+        a1.setLength(35);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertTrue(result);
-     }
+        //Assert
+        assertTrue(result);
+    }
 
-     @Test
-     void seeIfSensorIsContainedOnBottomRightVertex2() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(40, 0,5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(30, 10,5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    @Test
+    void seeIfSensorIsContainedOnBottomRightVertex2() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(40, 0, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(30, 10, 5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setWidth(23);
-         a1.setLength(32);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setWidth(23);
+        a1.setLength(32);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertTrue(result);
-     }
+        //Assert
+        assertTrue(result);
+    }
 
-     @Test
-     void seeIfSensorIsNotContainedInAreaWrongLatitude3() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(50, 20, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(35, 20, 5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLatitude3() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(50, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(35, 20, 5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setWidth(21);
-         a1.setLength(32);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setWidth(21);
+        a1.setLength(32);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertFalse(result);
-     }
+        //Assert
+        assertFalse(result);
+    }
 
-     @Test
-     void seeIfSensorIsNotContainedInAreaWrongLatitude4() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(-90, 20, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(-35, 20,5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLatitude4() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(-90, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(-35, 20, 5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setLength(20);
-         a1.setWidth(25);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setLength(20);
+        a1.setWidth(25);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertFalse(result);
-     }
+        //Assert
+        assertFalse(result);
+    }
 
-     @Test
-     void seeIfSensorIsNotContainedInAreaWrongLongitude3() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(180, 180, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(100, 100, 5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLongitude3() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(180, 180, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(100, 100, 5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setWidth(10);
-         a1.setLength(10);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setWidth(10);
+        a1.setLength(10);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertFalse(result);
-     }
+        //Assert
+        assertFalse(result);
+    }
 
-     @Test
-     void seeIfSensorIsNotContainedInAreaWrongLongitude4() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(20, -90, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(20, -35, 5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLongitude4() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(20, -90, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(20, -35, 5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setWidth(100);
-         a1.setLength(100);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setWidth(100);
+        a1.setLength(100);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertFalse(result);
-     }
+        //Assert
+        assertFalse(result);
+    }
 
-     @Test
-     void seeIfSensorIsContainedInAreaNegativeCoords2() {
-         //Arrange
-         TypeArea t1 = new TypeArea("Pantano");
-         Local l1 = new Local(-30, -30, 5);
-         GeographicArea a1 = new GeographicArea("Portugal", t1,10,20,l1);
-         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-         Local loc1 = new Local(-5, -5, -5);
-         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+    @Test
+    void seeIfSensorIsContainedInAreaNegativeCoords2() {
+        //Arrange
+        TypeArea t1 = new TypeArea("Pantano");
+        Local l1 = new Local(-30, -30, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
+        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        Local loc1 = new Local(-5, -5, -5);
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
-         //Act
-         a1.setWidth(50);
-         a1.setLength(50);
-         boolean result = s1.isSensorContainedInArea(a1);
+        //Act
+        a1.setWidth(50);
+        a1.setLength(50);
+        boolean result = s1.isSensorContainedInArea(a1);
 
-         //Assert
-         assertTrue(result);
-     }
-     //FIM de testes isSensorContainedInArea
+        //Assert
+        assertTrue(result);
+    }
+    //FIM de testes isSensorContainedInArea
 
     @Test
     void seeIfPrintSensor() {
@@ -878,7 +879,7 @@ import static org.junit.jupiter.api.Assertions.*;
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
         TypeSensor actualResult;
-        Sensor c = new Sensor("Sensor", new TypeSensor("tiposensor", "unidades"), new Local(5,5,5), new Date());
+        Sensor c = new Sensor("Sensor", new TypeSensor("tiposensor", "unidades"), new Local(5, 5, 5), new Date());
         c.setTypeSensor(t1);
         c.setName(name);
         c.setDateStartedFunctioning(d1);
@@ -923,7 +924,8 @@ import static org.junit.jupiter.api.Assertions.*;
     void ensureThatWeGetDistanceToHouse() {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6,6),new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180,deviceTypeString);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 6), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        List<String> test = new ArrayList<>();
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, -5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
@@ -931,7 +933,7 @@ import static org.junit.jupiter.api.Assertions.*;
         double expectedResult = 1579.28;
 
         double actualResult = s1.getDistanceToHouse(house);
-        assertEquals(expectedResult, actualResult,0.01);
+        assertEquals(expectedResult, actualResult, 0.01);
     }
 
     @Test
