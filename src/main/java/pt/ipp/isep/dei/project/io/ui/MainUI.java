@@ -59,6 +59,7 @@ public class MainUI {
 
         String temperature = "temperature";
         String portoString = "Porto";
+        String mainGridString = "main grid";
 
         //Program Variables
 
@@ -232,7 +233,7 @@ public class MainUI {
 
         EnergyGrid mainGrid = new EnergyGrid();
         mainGrid.setMaxContractedPower(0);
-        mainGrid.setName("main grid");
+        mainGrid.setName(mainGridString);
         EnergyGridList energyGridListIsep = new EnergyGridList();
         energyGridListIsep.addGrid(mainGrid);
         mainGrid.setRoomList(gridRoomList);
@@ -359,17 +360,17 @@ public class MainUI {
 
         DeviceList deviceListRoomB107SP3 = new DeviceList();
         b107SP2.setDeviceList(deviceListRoomB107SP3);
-        final String GLASSES = "GLASSES";
-        final String DISHES = "Dishes";
+        final String Glasses = "GLASSES";
+        final String Dishes = "Dishes";
         Device dishWasherB107SP3 = new Device(new DishwasherSpec());
         dishWasherB107SP3.setNominalPower(1.5);
         dishWasherB107SP3.setName("DishwasherSpec B107");
         dishWasherB107SP3.setAttributeValue(capacity, 2D);
         ProgramList programListDishWasherB107SP3 = dishWasherB107SP3.getProgramList();
-        Program glassesB107 = new Program(GLASSES, 0, 0.9);
+        Program glassesB107 = new Program(Glasses, 0, 0.9);
         Program ecoB107 = new Program("Eco", 0, 1.3);
         Program ecoTurboB107 = new Program("Eco Turbo", 0, 1.7);
-        Program dishesB107 = new Program(DISHES, 0, 2.1);
+        Program dishesB107 = new Program(Dishes, 0, 2.1);
         programListDishWasherB107SP3.addProgram(glassesB107);
         programListDishWasherB107SP3.addProgram(ecoB107);
         programListDishWasherB107SP3.addProgram(ecoTurboB107);
@@ -605,10 +606,10 @@ public class MainUI {
         dishWasherB109SP2.setName("DishwasherSpec B109");
         dishWasherB109SP2.setAttributeValue(capacity, 2D);
         ProgramList programListDishWasherB109SP2 = dishWasherB109SP2.getProgramList();
-        Program glassesB109 = new Program(GLASSES, 0, 0.9);
+        Program glassesB109 = new Program(Glasses, 0, 0.9);
         Program ecoB109 = new Program("Eco", 0, 1.3);
         Program ecoTurboB109 = new Program("Eco Turbo", 0, 1.7);
-        Program dishesB109 = new Program(DISHES, 0, 2.1);
+        Program dishesB109 = new Program(Dishes, 0, 2.1);
         programListDishWasherB109SP2.addProgram(glassesB109);
         programListDishWasherB109SP2.addProgram(ecoB109);
         programListDishWasherB109SP2.addProgram(ecoTurboB109);
@@ -655,10 +656,10 @@ public class MainUI {
         dishWasherB106SP2.setName("DishwasherSpec B106");
         dishWasherB106SP2.setAttributeValue(capacity, 0D);
         ProgramList programDishWasherB106SP2 = dishWasherB106SP2.getProgramList();
-        Program glassesB106 = new Program(GLASSES, 0, 0.8);
+        Program glassesB106 = new Program(Glasses, 0, 0.8);
         Program lightB106 = new Program("Light", 0, 1.3);
         Program lightTurboB106 = new Program("Light Turbo", 0, 1.9);
-        Program dishesB106 = new Program(DISHES, 0, 2.3);
+        Program dishesB106 = new Program(Dishes, 0, 2.3);
         programDishWasherB106SP2.addProgram(glassesB106);
         programDishWasherB106SP2.addProgram(lightB106);
         programDishWasherB106SP2.addProgram(lightTurboB106);
@@ -733,7 +734,7 @@ public class MainUI {
         portoSP2.setDescription("City of Porto");
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
         EnergyGrid mainGridSP2 = new EnergyGrid();
-        mainGridSP2.setName("main grid");
+        mainGridSP2.setName(mainGridString);
         mainGridSP2.setMaxContractedPower(0);
         House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseSP2.setMotherArea(geographicAreaSP2);
@@ -752,14 +753,14 @@ public class MainUI {
         Room room1 = new Room("room1", 1, 33, 13, 23);
         Room room2 = new Room("room2", 2, 13, 93, 23);
 
-        House houseTest = new House("houseRoomDifEG", "Street", "4230", "Porto", new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        House houseTest = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseTest.addRoomToRoomList(room1);
         houseTest.addRoomToRoomList(room2);
 
         //LOGS
-        House hhhhh = new House("Iseperino", "Rua dos tones", "4535", "Porto", new Local(45,45,45), new GeographicArea("Porto", new TypeArea("coise"), 45, 45, new Local(50,50,50)),
+        House hhhhh = new House("Iseperino", "Rua dos tones", "4535", portoString, new Local(45,45,45), new GeographicArea(portoString, new TypeArea("coise"), 45, 45, new Local(50,50,50)),
                 10, 10, deviceTypeConfig);
-        EnergyGrid energyGrid = new EnergyGrid("main grid", 500);
+        EnergyGrid energyGrid = new EnergyGrid(mainGridString, 500);
         hhhhh.addGrid(energyGrid);
         Room room10 = new Room("Quarto", 3, 10,10,10);
         energyGrid.addRoomToAnEnergyGrid(room10);

@@ -47,7 +47,7 @@ class FileInputUtils {
 
     //Device
 
-    boolean validDeviceMetering() throws  IllegalArgumentException{
+    boolean validDeviceMetering() {
         int deviceMeteringPeriod = readDeviceMeteringPeriod();
 
         if(deviceMeteringPeriodValidation(deviceMeteringPeriod)){
