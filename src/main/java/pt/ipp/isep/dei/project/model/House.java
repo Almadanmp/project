@@ -76,7 +76,6 @@ public class House implements Metered {
 
     public String getHouseId() {
         return mId;
-
     }
 
     void setId(String id) {

@@ -1,0 +1,25 @@
+@startuml
+
+actor PowerUser
+
+-> ":EnergyConsumptionUI": selectTime
+activate PowerUser
+activate ":EnergyConsumptionUI"
+":EnergyConsumptionUI" -> ":InputUtils": getInputTime()
+activate ":InputUtils"
+":InputUtils" -> PowerUser: request year input
+PowerUser -> ":InputUtils": insert year
+":InputUtils" -> PowerUser: request month input
+PowerUser -> ":InputUtils": insert month
+":InputUtils" -> PowerUser: request day input
+PowerUser -> ":InputUtils": insert day
+":InputUtils" -> PowerUser: request hour input
+PowerUser -> ":InputUtils": insert hour
+":InputUtils" -> PowerUser: request minute input
+PowerUser -> ":InputUtils": insert minute
+":InputUtils" -> ":InputUtils": createDate(year, month, day, hour, minute)
+":InputUtils" --> ":EnergyConsumptionUI": return date
+deactivate PowerUser
+deactivate ":EnergyConsumptionUI"
+deactivate ":InputUtils"
+@enduml
