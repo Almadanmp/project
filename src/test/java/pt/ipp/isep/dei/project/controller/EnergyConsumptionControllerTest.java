@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Log;
+import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
@@ -1014,28 +1015,6 @@ class EnergyConsumptionControllerTest {
         assertFalse(result);
     }
 
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTesDifferentTime() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar().getTime();
-        Date finalTime = new GregorianCalendar().getTime();
-        Date periodBeginning1 = new GregorianCalendar().getTime();
-        Date periodEnding1 = new GregorianCalendar().getTime();
-        Date periodBeginning2 = new GregorianCalendar().getTime();
-        Date periodEnding2 = new GregorianCalendar().getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        boolean result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        assertTrue(result);
-    }
-
     @Test
     void seeIfGetTotalMeteredEnergyConsumptionInGridInTimeIntervalWorks() {
         //Arrange
@@ -1059,5 +1038,123 @@ class EnergyConsumptionControllerTest {
         double expectedResult = 56.0;
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetGridLogsInInterval() {
+        //Arrange
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        EnergyGrid eGrid = new EnergyGrid();
+        Room room = new Room("Kitchen", 0, 30, 50, 10);
+        Device device = new Device(new WaterHeaterSpec());
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        room.addDevice(device);
+        eGrid.addRoomToAnEnergyGrid(room);
+        //Act
+        Date periodBeginning = new GregorianCalendar(2018, 10, 10, 10, 10).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 10, 10, 50).getTime();
+        Log log = new Log(56, periodBeginning, periodEnding);
+        Log log2 = new Log(55,new GregorianCalendar(2018,10,10,10,30).getTime(),new GregorianCalendar(2018,10,10,10,20).getTime());
+        Log log3 = new Log (100,new GregorianCalendar(2018,10,10,11,30).getTime(),new GregorianCalendar(2018,10,10,12,30).getTime());
+        device.addLog(log);
+        device.addLog(log2);
+        device.addLog(log3);
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(log);
+        expectedResult.addLog(log2);
+        LogList actualResult = ctrl.getGridLogsInInterval(eGrid,new GregorianCalendar(2018,10,10,10,00).getTime(),new GregorianCalendar(2018,10,10,11,00).getTime());
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetRoomLogsInInterval() {
+        //Arrange
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        EnergyGrid eGrid = new EnergyGrid();
+        Room room = new Room("Kitchen", 0, 30, 50, 10);
+        Device device = new Device(new WaterHeaterSpec());
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        room.addDevice(device);
+        eGrid.addRoomToAnEnergyGrid(room);
+        //Act
+        Date periodBeginning = new GregorianCalendar(2018, 10, 10, 10, 10).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 10, 10, 50).getTime();
+        Log log = new Log(56, periodBeginning, periodEnding);
+        Log log2 = new Log(55,new GregorianCalendar(2018,10,10,10,30).getTime(),new GregorianCalendar(2018,10,10,10,20).getTime());
+        Log log3 = new Log (100,new GregorianCalendar(2018,10,10,11,30).getTime(),new GregorianCalendar(2018,10,10,12,30).getTime());
+        device.addLog(log);
+        device.addLog(log2);
+        device.addLog(log3);
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(log);
+        expectedResult.addLog(log2);
+        LogList actualResult = ctrl.getRoomLogsInInterval(room,new GregorianCalendar(2018,10,10,10,00).getTime(),new GregorianCalendar(2018,10,10,11,00).getTime());
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetDeviceLogsInInterval() {
+        //Arrange
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        EnergyGrid eGrid = new EnergyGrid();
+        Room room = new Room("Kitchen", 0, 30, 50, 10);
+        Device device = new Device(new WaterHeaterSpec());
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        room.addDevice(device);
+        eGrid.addRoomToAnEnergyGrid(room);
+        //Act
+        Date periodBeginning = new GregorianCalendar(2018, 10, 10, 10, 10).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 10, 10, 50).getTime();
+        Log log = new Log(56, periodBeginning, periodEnding);
+        Log log2 = new Log(55,new GregorianCalendar(2018,10,10,10,30).getTime(),new GregorianCalendar(2018,10,10,10,20).getTime());
+        Log log3 = new Log (100,new GregorianCalendar(2018,10,10,11,30).getTime(),new GregorianCalendar(2018,10,10,12,30).getTime());
+        device.addLog(log);
+        device.addLog(log2);
+        device.addLog(log3);
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(log);
+        expectedResult.addLog(log2);
+        LogList actualResult = ctrl.getDeviceLogsInInterval(device,new GregorianCalendar(2018,10,10,10,00).getTime(),new GregorianCalendar(2018,10,10,11,00).getTime());
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void ensureThatWeBuildLogListString() {
+        //Arrange
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        EnergyGrid eGrid = new EnergyGrid();
+        Room room = new Room("Kitchen", 0, 30, 50, 10);
+        Device device = new Device(new WaterHeaterSpec());
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        room.addDevice(device);
+        eGrid.addRoomToAnEnergyGrid(room);
+        //Act
+        Date periodBeginning = new GregorianCalendar(2018, 10, 10, 10, 10).getTime();
+        Date periodEnding = new GregorianCalendar(2018, 10, 10, 10, 50).getTime();
+        Log log = new Log(56, periodBeginning, periodEnding);
+        Log log2 = new Log(55,new GregorianCalendar(2018,10,10,10,30).getTime(),new GregorianCalendar(2018,10,10,10,20).getTime());
+        Log log3 = new Log (100,new GregorianCalendar(2018,10,10,11,30).getTime(),new GregorianCalendar(2018,10,10,12,30).getTime());
+        device.addLog(log);
+        device.addLog(log2);
+        device.addLog(log3);
+        LogList logList = new LogList();
+        logList.addLog(log);
+        logList.addLog(log2);
+        String expectedResult = "\n0) Start Date: Sat Nov 10 10:10:00 GMT 2018 | End Date: Sat Nov 10 10:50:00 GMT 2018 | Value: 56.0\n" +
+                "1) Start Date: Sat Nov 10 10:30:00 GMT 2018 | End Date: Sat Nov 10 10:20:00 GMT 2018 | Value: 55.0";
+        String actualResult = ctrl.buildLogListString(logList);
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 }

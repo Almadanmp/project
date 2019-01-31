@@ -199,9 +199,10 @@ public class EnergyConsumptionController {
 
     /**
      * Method accesses model and gets the logs associated to the devices in a grid's room that are within an interval.
-     * @param grid the grid we want to get logs from.
+     *
+     * @param grid      the grid we want to get logs from.
      * @param startDate the start of the interval.
-     * @param endDate the end of the interval.
+     * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
 
@@ -211,9 +212,10 @@ public class EnergyConsumptionController {
 
     /**
      * Method accesses model and gets the logs associated to the devices in a selected room.
-     * @param room is the room we want to get logs from.
+     *
+     * @param room      is the room we want to get logs from.
      * @param startDate the start of the interval.
-     * @param endDate the end of the interval.
+     * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
 
@@ -223,9 +225,10 @@ public class EnergyConsumptionController {
 
     /**
      * Method accesses model and gets the logs associated to the device.
-     * @param device is the device we want to get logs from.
+     *
+     * @param device    is the device we want to get logs from.
      * @param startDate the start of the interval.
-     * @param endDate the end of the interval.
+     * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
 
@@ -235,6 +238,7 @@ public class EnergyConsumptionController {
 
     /**
      * Accesses model and asks a loglist to convert itself into a string.
+     *
      * @param logList is the logList we want to query.
      * @return is the LogList converted into a string.
      */
@@ -277,8 +281,7 @@ public class EnergyConsumptionController {
      * @param volumeOfWaterToHeat  value for the amount of water to heat
      */
     public boolean configureWH(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
-        return (device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) &&
-                device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat));
+        return (device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) && device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat));
     }
 
     /**
@@ -287,6 +290,7 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return estimate energy consumption on the water heaters
      */
+
     public double getDailyWaterHeaterConsumption(House house) {
         return house.getDailyConsumptionByDeviceType("WaterHeater");
     }
@@ -302,15 +306,6 @@ public class EnergyConsumptionController {
         return grid.getNominalPower();
     }
 
-    /**
-     * Returns the Log List for a Given device.
-     *
-     * @param device Is the device we want the loglist from.
-     * @return LogList is the given device's log list.
-     */
-    public LogList getLogListFromDevice(Device device) {
-        return device.getLogList();
-    }
 }
 
 
