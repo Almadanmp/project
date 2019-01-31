@@ -1,16 +1,31 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * device tests class.
  */
 
-public class WashingMachineDTTest {
+class WashingMachineDTTest {
 
     @Test
-    public void createWashingMachineType() {
+    void createWashingMachineType() {
         WashingMachineDT dt = new WashingMachineDT();
-        dt.createDeviceType();
+        Device result = dt.createDeviceType();
+        Device expectedResult = new Device(new WashingMachineSpec());
+        assertEquals(result, expectedResult);
+    }
+
+    @Test
+    void getDeviceType() {
+        WashingMachineDT dt = new WashingMachineDT();
+        String result = dt.getDeviceType();
+        String expectedResult = "Washing Machine";
+        assertEquals(result, expectedResult);
     }
 }

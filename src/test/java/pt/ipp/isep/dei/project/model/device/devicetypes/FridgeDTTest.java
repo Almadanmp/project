@@ -1,16 +1,30 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * device tests class.
  */
 
-public class FridgeDTTest {
+class FridgeDTTest {
 
     @Test
-    public void createFridgeType() {
+    void createFridgeType() {
         FridgeDT dt = new FridgeDT();
-        dt.createDeviceType();
+        Device result = dt.createDeviceType();
+        Device expectedResult = new Device(new FridgeSpec());
+        assertEquals(result, expectedResult);
+    }
+
+    @Test
+    void getDeviceType() {
+        FridgeDT dt = new FridgeDT();
+        String result = dt.getDeviceType();
+        String expectedResult = "Fridge";
+        assertEquals(result, expectedResult);
     }
 }
