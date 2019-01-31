@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class LogTest {
-
+//TODO test is randomly failing
     @Test
     void getValueTest() {
         Log log = new Log(300,new Date(), new Date());
