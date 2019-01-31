@@ -138,8 +138,7 @@ public class EnergyConsumptionController {
         if (device.countLogsInInterval(initialTime, finalTime) == 0) {
             return "This device has no energy consumption logs in the given interval.";
         }
-        return "Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
-                "\n" + "The total Energy Consumption for the given device is: " +
+        return "The total Energy Consumption for the given device is: " +
                 device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.";
     }
 

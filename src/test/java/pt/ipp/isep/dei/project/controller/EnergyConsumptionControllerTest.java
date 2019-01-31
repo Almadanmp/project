@@ -771,9 +771,7 @@ class EnergyConsumptionControllerTest {
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "Device: null\n" +
-                "Between Tue Nov 20 10:02:00 GMT 2018 and Tue Nov 20 11:00:00 GMT 2018\n" +
-                "The total Energy Consumption for the given device is: 56.0 kW/h.";
+        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
         assertEquals(result, expectedResult);
     }
 
@@ -903,9 +901,7 @@ class EnergyConsumptionControllerTest {
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "Device: null\n" +
-                "Between Tue Nov 20 10:00:00 GMT 2018 and Tue Nov 20 11:00:00 GMT 2018\n" +
-                "The total Energy Consumption for the given device is: 56.0 kW/h.";
+        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
         assertEquals(result, expectedResult);
     }
 
@@ -983,9 +979,7 @@ class EnergyConsumptionControllerTest {
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "Device: null\n" +
-                "Between Tue Nov 20 10:00:00 GMT 2018 and Tue Nov 20 11:00:00 GMT 2018\n" +
-                "The total Energy Consumption for the given device is: 56.0 kW/h.";
+        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
         assertEquals(result, expectedResult);
     }
 
@@ -1011,9 +1005,7 @@ class EnergyConsumptionControllerTest {
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "Device: null\n" +
-                "Between Tue Nov 20 10:00:00 GMT 2018 and Tue Nov 20 11:00:00 GMT 2018\n" +
-                "The total Energy Consumption for the given device is: 56.0 kW/h.";
+        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
         assertEquals(result, expectedResult);
     }
 
@@ -1039,9 +1031,7 @@ class EnergyConsumptionControllerTest {
         Log log = new Log(56, periodBeginning, periodEnding);
         device.addLog(log);
         String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "Device: null\n" +
-                "Between Tue Nov 20 10:00:00 GMT 2018 and Tue Nov 20 11:00:00 GMT 2018\n" +
-                "The total Energy Consumption for the given device is: 56.0 kW/h.";
+        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
         assertEquals(result, expectedResult);
     }
 
@@ -1075,9 +1065,7 @@ class EnergyConsumptionControllerTest {
         device.addLog(log1);
         device.addLog(log2);
         String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "Device: null\n" +
-                "Between Tue Nov 20 10:00:00 GMT 2018 and Tue Nov 20 11:00:00 GMT 2018\n" +
-                "The total Energy Consumption for the given device is: 111.0 kW/h.";
+        String expectedResult = "The total Energy Consumption for the given device is: 111.0 kW/h.";
         assertEquals(result, expectedResult);
     }
 
@@ -1111,9 +1099,7 @@ class EnergyConsumptionControllerTest {
         device.addLog(log1);
         device.addLog(log2);
         String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "Device: null\n" +
-                "Between Tue Nov 20 10:00:00 GMT 2018 and Tue Nov 20 10:00:00 GMT 2018\n" +
-                "The total Energy Consumption for the given device is: 111.0 kW/h.";
+        String expectedResult = "The total Energy Consumption for the given device is: 111.0 kW/h.";
         assertEquals(result, expectedResult);
     }
 
@@ -1134,9 +1120,6 @@ class EnergyConsumptionControllerTest {
         String expectedResult = "This device has no energy consumption logs in the given interval.";
         assertEquals(result, expectedResult);
     }
-
-
-
 
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTesDifferentTime() {
@@ -1168,9 +1151,7 @@ class EnergyConsumptionControllerTest {
         device.addLog(log1);
         device.addLog(log2);
         String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "Device: null\n" +
-                "Between Sat Nov 10 10:10:00 GMT 2018 and Sat Nov 10 10:10:00 GMT 2018\n" +
-                "The total Energy Consumption for the given device is: 111.0 kW/h.";
+        String expectedResult = "The total Energy Consumption for the given device is: 111.0 kW/h.";
         assertEquals(result, expectedResult);
     }
 

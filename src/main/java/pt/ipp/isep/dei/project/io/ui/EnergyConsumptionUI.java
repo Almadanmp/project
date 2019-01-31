@@ -273,6 +273,8 @@ class EnergyConsumptionUI {
         Date initialTime = inputUtils.getInputDate();
         System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
         Date finalTime = inputUtils.getInputDate();
+        System.out.println("Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
+                "\n" +"");
         controller.getDeviceConsumptionInInterval(device, initialTime, finalTime);
     }
 
