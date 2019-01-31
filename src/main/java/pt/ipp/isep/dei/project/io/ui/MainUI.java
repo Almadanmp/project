@@ -341,7 +341,7 @@ public class MainUI {
         house4.setEGList(energyGridList1);
 
 
-        //DATASET_SPRINT02
+        //DATASET_SPRINT02 e 03
 
         GeographicAreaList geographicAreaListSP2 = new GeographicAreaList();
         TypeArea urbanArea = new TypeArea("urban area");
@@ -352,6 +352,9 @@ public class MainUI {
         geographicAreaSP2.setDescription("Campus do ISEP");
         Room b107SP2 = new Room("B107", 1, 7, 11, 3.5);
         Room b109SP2 = new Room("B109", 1, 7, 11, 3.5);
+
+        gridRoomList.addRoom(b107SP2);
+        gridRoomList.addRoom(b109SP2);
 
         DeviceList deviceListRoomB107SP3 = new DeviceList();
         b107SP2.setDeviceList(deviceListRoomB107SP3);
