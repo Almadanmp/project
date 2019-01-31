@@ -90,6 +90,15 @@ class FridgeSpecTest {
     }
 
     @Test
+    void seeIfGetAttributeValuesTest1() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        double expectedResult = 4;
+        fridgeSpec.setAttributeValue(FridgeSpec.NOMINAL_POWER, 4D);
+        Object result = fridgeSpec.getAttributeValue("nominal power");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfGetAttributeValuesTest() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         double expectedResult = 4;
@@ -97,6 +106,7 @@ class FridgeSpecTest {
         Object result = fridgeSpec.getAttributeValue("Freezer Capacity");
         assertEquals(expectedResult, result);
     }
+
     @Test
     void seeIfGetAttributeUnitTest() {
         FridgeSpec fridgeSpec = new FridgeSpec();
@@ -218,6 +228,13 @@ class FridgeSpecTest {
         boolean result = fridgeSpec.setAttributeValue(attribute, 6);
         assertFalse(result);
     }
+    @Test
+    void seeIfSetAttributeValueInvalid9() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        String attribute = "nominal power";
+        boolean result = fridgeSpec.setAttributeValue(attribute, 89);
+        assertFalse(result);
+    }
 
     @Test
     void seeIfSetAttributeValueInvalid5() {
@@ -314,6 +331,7 @@ class FridgeSpecTest {
         // same hash codes, but different strings:
         assertFalse(fridgeSpec.setAttributeValue("\0Freezer Capacity", attribute));
         assertFalse(fridgeSpec.setAttributeValue("\0Refrigerator Capacity", attribute));
+        assertFalse(fridgeSpec.setAttributeValue("\0Annual Energy Consumption", attribute));
         assertFalse(fridgeSpec.setAttributeValue("\0nominal power", attribute));
 
         // distinct hash code to cover default cases of switches
