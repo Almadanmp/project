@@ -1,6 +1,6 @@
 @startuml
 
-title US70 - Part 1 \n I want to configure the available device types for each instance of the system (i.e. each house) using a configuration file
+title US70 \n I want to configure the available device types for each instance of the system (i.e. each house) using a configuration file
 
 autonumber
 

@@ -50,7 +50,7 @@ public class Device implements Metered {
      *
      * @return true if device is active
      */
-    private boolean isActive() {
+    boolean isActive() {
         return this.mActive;
     }
 
@@ -109,19 +109,20 @@ public class Device implements Metered {
 
 
     /**
-     * //TODO incomplete
+     * Method that will check if a Device is Programmable
      *
-     * @return
+     * @return true if programmable, false if not programmable
      */
     public boolean isProgrammable() {
         return mDeviceSpecs instanceof Programmable;
     }
 
     /**
-     * //TODO describe usage of throw
+     * Method to get the programList if a Device is programmable
      *
-     * @return
-     * @throws NullPointerException
+     * @return program list
+     * @throws NullPointerException - if a Device is not programmable, it will throw an exception so we can handle
+     * with the exception on the ui and return choose a specific response.
      */
     public ProgramList getProgramList() throws NullPointerException {
         if (isProgrammable()) {
