@@ -808,11 +808,13 @@ class RoomConfigurationControllerTest {
     void addDeviceFails() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        d2.setName("wHeater1");
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
-        Device d3 = new Device("wHeater1", 11, TestUtils.PATH_TO_WATERHEATER);
+        Device d3 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        d3.setName("wHeater1");
         d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
         d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
@@ -825,7 +827,8 @@ class RoomConfigurationControllerTest {
     void addDeviceTrue() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        d2.setName("sadffdg");
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
@@ -839,13 +842,15 @@ class RoomConfigurationControllerTest {
     void createDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        d2.setName("wHeater1");
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
         r1.addDevice(d2);
         Device expectedResult = d2;
-        Device result = ctrl.createDevice("wHeater1", 12, TestUtils.PATH_TO_WATERHEATER);
+        Device result = ctrl.createDevice(TestUtils.PATH_TO_WATERHEATER);
+        result.setName("wHeater1");
         Assertions.assertEquals(expectedResult, result);
     }
 }

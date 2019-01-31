@@ -22,7 +22,6 @@ public class House implements Metered {
     private GeographicArea mMotherArea;
     private int mGridMeteringPeriod;
     private int mDeviceMeteringPeriod;
-    private Properties props;
     private List<DeviceType> mDeviceTypeList;
 
     //CONSTRUCTOR
