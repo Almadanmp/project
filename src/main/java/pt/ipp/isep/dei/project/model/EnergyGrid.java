@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.io.IOException;
 import java.util.Date;
@@ -26,8 +25,8 @@ public class EnergyGrid implements Metered {
     public EnergyGrid(String name, double maxContractedPower) {
         this.mRoomList = new RoomList();
         this.mListPowerSources = new PowerSourceList();
-        this.setName(name);
-        this.setMaxContractedPower(maxContractedPower);
+        this.mName = name;
+        this.mMaxContractedPower = maxContractedPower;
     }
 
     /**
