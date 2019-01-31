@@ -14,6 +14,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FridgeSpecTest {
 
+    public static final String FREEZER_CAPACITY = "Freezer Capacity";
+    public static final String REFRIGERATOR_CAPACITY = "Refrigerator Capacity";
+    public static final String ANNUAL_CONSUMPTION = "Annual Energy Consumption";
+    public static final String NOMINAL_POWER = "nominal power";
+    public static final String notFREEZER_CAPACITY = "\0Freezer Capacity";
+    public static final String notREFRIGERATOR_CAPACITY = "\0Refrigerator Capacity";
+    public static final String notANNUAL_CONSUMPTION = "\0Annual Energy Consumption";
+    public static final String notNOMINAL_POWER = "\0nominal power";
+
     @Test
     void getTypeTest() {
         FridgeSpec fridgeSpec = new FridgeSpec();
@@ -115,6 +124,7 @@ class FridgeSpecTest {
         assertEquals(expectedResult, result);
         assertEquals(0, fridgeSpec.getAttributeUnit(""));
     }
+
     @Test
     void seeIfGetAttributeUnitTest2() {
         FridgeSpec fridgeSpec = new FridgeSpec();
@@ -133,7 +143,9 @@ class FridgeSpecTest {
         assertEquals(expectedResult, result);
         assertEquals(0, fridgeSpec.getAttributeUnit(""));
 
-    } @Test
+    }
+
+    @Test
     void seeIfGetAttributeUnitTest4() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         String expectedResult = "kW";
@@ -230,6 +242,7 @@ class FridgeSpecTest {
         boolean result = fridgeSpec.setAttributeValue(attribute, 6);
         assertFalse(result);
     }
+
     @Test
     void seeIfSetAttributeValueInvalid9() {
         FridgeSpec fridgeSpec = new FridgeSpec();
@@ -260,7 +273,9 @@ class FridgeSpecTest {
         String attribute = "annualEnergyConsumption";
         boolean result = fridgeSpec.setAttributeValue(attribute, "ljlkhg");
         assertFalse(result);
-    } @Test
+    }
+
+    @Test
     void seeIfSetAttributeValueInvalid8() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         String attribute = "nominal power";
@@ -344,4 +359,26 @@ class FridgeSpecTest {
         assertFalse(fridgeSpec.setAttributeValue("", attribute));
     }
 
+    @Test
+    void seeIfGetAttributeUnitWorksInAllCases() {
+        //Arrange
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        String attributeKg = "Kg";
+        String attributeKWh = "kWh";
+        String attributeKW = "kW";
+        // original strings:
+        assertEquals(attributeKg, fridgeSpec.getAttributeUnit(FREEZER_CAPACITY));
+        assertEquals(attributeKg, fridgeSpec.getAttributeUnit(REFRIGERATOR_CAPACITY));
+        assertEquals(attributeKWh, fridgeSpec.getAttributeUnit(ANNUAL_CONSUMPTION));
+        assertEquals(attributeKW, fridgeSpec.getAttributeUnit(NOMINAL_POWER));
+
+        // same hash codes, but different strings:
+        assertEquals(0, fridgeSpec.getAttributeUnit(notFREEZER_CAPACITY));
+        assertEquals(0, fridgeSpec.getAttributeUnit(notREFRIGERATOR_CAPACITY));
+        assertEquals(0, fridgeSpec.getAttributeUnit(notANNUAL_CONSUMPTION));
+        assertEquals(0, fridgeSpec.getAttributeUnit(notNOMINAL_POWER));
+
+        // distinct hash code to cover default cases of switches
+        assertEquals(0, fridgeSpec.getAttributeUnit(""));
+    }
 }
