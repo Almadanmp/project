@@ -2,6 +2,7 @@
 title US722\nAs a Power User [or Administrator], I want to know the total metered energy consumption of a grid\nin agiven time interval,\ni.e. the sum of the energy consumption of all energy-metered rooms in the grid in the interval.
 actor PowerUser
 PowerUser -> EnergyConsumptionUI: runUS722
+activate EnergyConsumptionUI
 ref over EnergyConsumptionUI
 selectGrid
 end ref
@@ -12,14 +13,22 @@ ref over EnergyConsumptionUI
 getInputEndDate
 end ref
 EnergyConsumptionUI -> EnergyConsumptionController: getGridConsumptionInInterval (grid, startDate, endDate)
+activate EnergyConsumptionController
 EnergyConsumptionController -> Grid: getConsumptionInInterval (startDate, endDate)
+activate Grid
 Grid -> RoomList: getConsumptionInInterval (startDate, endDate)
+activate RoomList
 loop get consumption for each room
-RoomList -> DeviceList: getConsumptionInInterval (startDate, endDate)
-loop get consumption for each device in interval
-DeviceList -> Device: getConsumptionInInterval (startDate, endDate)
+RoomList -> Room: getConsumptionInInterval (startDate, endDate)
+activate Room
+Room --> RoomList: return double
+deactivate Room
 end
-DeviceList --> Grid: return sum
+RoomList --> Grid: return sum
+deactivate RoomList
 Grid --> EnergyConsumptionUI: return consumptionInInterval
+deactivate Grid
+deactivate EnergyConsumptionController
 EnergyConsumptionUI -> PowerUser: display total consumption in given interval
+deactivate EnergyConsumptionUI
 @enduml

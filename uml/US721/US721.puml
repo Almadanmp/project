@@ -5,6 +5,7 @@ PowerUser -> EnergyConsumptionUI: runUS721
 ref over EnergyConsumptionUI
 selectRoom
 end ref
+activate EnergyConsumptionUI
 ref over EnergyConsumptionUI
 getInputStartDate
 end ref
@@ -12,12 +13,23 @@ ref over EnergyConsumptionUI
 getInputEndDate
 end ref
 EnergyConsumptionUI -> EnergyConsumptionController: getRoomConsumptionInInterval (startDate, endDate, room)
+activate EnergyConsumptionController
 EnergyConsumptionController -> Room: getConsumptionInInterval (startDate, endDate)
+activate Room
 Room -> DeviceList: getConsumptionInInterval (startDate, endDate)
+activate DeviceList
 loop get consumption for each device in interval
 DeviceList -> Device: getConsumptionInInterval (startDate, endDate)
+activate Device
+Device --> DeviceList: return double
+deactivate Device
 end
 DeviceList --> Room: return sum
-Room --> EnergyConsumptionUI: return consumptionInInterval
+deactivate DeviceList
+Room --> EnergyConsumptionController: return sum
+deactivate Room
+EnergyConsumptionController --> EnergyConsumptionUI: return consumptionInInterval
+deactivate EnergyConsumptionController
 EnergyConsumptionUI -> PowerUser: display total consumption in given interval
+deactivate EnergyConsumptionUI
 @enduml
