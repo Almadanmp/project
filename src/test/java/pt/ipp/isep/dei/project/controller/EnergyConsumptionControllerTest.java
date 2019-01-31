@@ -1283,30 +1283,4 @@ class EnergyConsumptionControllerTest {
         LogList expectedResult = room.getLogsInInterval(initialTime, finalTime);
         assertEquals(actualResult, expectedResult);
     }
-
-    @Test
-    void seeIfBuildListLogsIn() {
-        //Arrange
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        EnergyGrid eGrid = new EnergyGrid();
-        Room room = new Room("Kitchen", 0, 30, 50, 10);
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        room.addDevice(device);
-        eGrid.addRoomToAnEnergyGrid(room);
-        //Act
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String actualResult = ctrl.buildLogListString(device.getLogList());
-        String expectedResult = "\n0) Start Date: Tue Nov 20 10:10:00 GMT 2018 | End Date: Tue Nov 20 10:50:00 GMT 2018 | Value: 56.0";
-        assertEquals(actualResult, expectedResult);
-    }
 }
