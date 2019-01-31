@@ -320,13 +320,13 @@ public class DeviceTest {
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTesDifferentTime() {
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
         Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 12).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 1).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 11).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 9, 50).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
+        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
+        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -336,7 +336,46 @@ public class DeviceTest {
         device.addLog(log1);
         device.addLog(log2);
         double result = device.getConsumptionWithinGivenInterval(initialTime, finalTime);
-        assertEquals(56, result);
+        assertEquals(111, result);
     }
 
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBefore() {
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 1).getTime();
+        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
+        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
+        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 59).getTime();
+        Device device = new Device(new WaterHeaterSpec());
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log1 = new Log(56, periodBeginning1, periodEnding1);
+        Log log2 = new Log(55, periodBeginning2, periodEnding2);
+        device.addLog(log1);
+        device.addLog(log2);
+        double result = device.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        assertEquals(111, result);
+    }
+
+    @Test
+    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBeforeReverseOutOfBounds() {
+        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
+        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
+        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 0).getTime();
+        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
+        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
+        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
+        Device device = new Device(new WaterHeaterSpec());
+        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
+        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        Log log1 = new Log(56, periodBeginning1, periodEnding1);
+        Log log2 = new Log(55, periodBeginning2, periodEnding2);
+        device.addLog(log1);
+        device.addLog(log2);
+        double result = device.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        assertEquals(0.0, result);
+    }
 }
