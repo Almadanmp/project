@@ -249,7 +249,7 @@ class GASettingsUI {
 
     private void displayGAListByTypeArea(GeographicAreaList geographicAreaList) {
         System.out.println("Geographic Areas of the type " + this.mTypeAreaName + ":\n");
-        System.out.println(mController.buildGAListString(this.mGeoAreaList));
+        System.out.println(mController.buildGAListString(geographicAreaList));
     }
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */
