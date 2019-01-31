@@ -2,11 +2,10 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Log;
+import pt.ipp.isep.dei.project.model.device.LogList;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Class that represents a Room of a House.
@@ -280,6 +279,14 @@ public class Room implements Metered {
         return true;
     }
 
+    public LogList getLogsInInterval(Date startDate, Date endDate){
+        LogList result = new LogList();
+        for (Device d: this.getDeviceList()){
+            LogList tempList = d.getLogsInInterval(startDate,endDate);
+            result.addLogList(tempList);
+        }
+        return result;
+    }
 
     @Override
     public boolean equals(Object o) {

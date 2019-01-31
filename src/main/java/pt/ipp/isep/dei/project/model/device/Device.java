@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.DeviceSpecs;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -57,7 +58,7 @@ public class Device implements Metered {
         this.mActive = false;
     }
 
-    public void setmName(String name) {
+    void setmName(String name) {
         this.mName = name;
     }
 
@@ -212,8 +213,19 @@ public class Device implements Metered {
         }
     }
 
-    public void setmActiveFalse() {
+    private void setmActiveFalse() {
         this.mActive = false;
+    }
+
+    public LogList getLogsInInterval(Date startDate, Date endDate) {
+        LogList result = new LogList();
+        for (Log l : this.getLogList().getLogList()) { //TODO fix getLogList method so it returns List<Logs>. Improper encapsulation (task: DANIEL OLIVEIRA)
+            if ((l.getInitialDate().after(startDate) || l.getInitialDate().equals(startDate)) &&
+                    ((l.getFinalDate().before(endDate)) || l.getFinalDate().equals(endDate))) {
+               result.addLog(l);
+            }
+        }
+        return result;
     }
 
     @Override
