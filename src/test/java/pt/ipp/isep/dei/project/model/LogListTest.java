@@ -124,4 +124,29 @@ class LogListTest {
         int result = list1.hashCode();
         assertEquals(result, 1);
     }
+
+    @Test
+    void testToString() {
+        //Arrange
+        LogList list1 = new LogList();
+        Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        list1.addLog(log);
+        //Act
+        String expectedResult = "\n" +
+                "0) Start Date: Tue Nov 20 10:02:00 GMT 2018 | End Date: Tue Nov 20 10:10:00 GMT 2018 | Value: 300.0";
+        String actualResult = list1.toString();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void testToStringEmpty() {
+        //Arrange
+        LogList list1 = new LogList();
+        //Act
+        String expectedResult = "There's no valid logs within that interval.";
+        String actualResult = list1.toString();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 }
