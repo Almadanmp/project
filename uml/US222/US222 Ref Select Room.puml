@@ -2,10 +2,9 @@
 
 actor PowerUser
 
-activate PowerUser
--> ":EnergyConsumptionUI": selectRoom
-activate ":EnergyConsumptionUI"
-":EnergyConsumptionUI" -> ":InputUtils": getInputRoom(:House)
+-> ":RoomConfigurationUI": selectRoom
+activate ":RoomConfigurationUI"
+":RoomConfigurationUI" -> ":InputUtils": getInputRoom(:House)
 activate ":InputUtils"
 ":InputUtils" -> ":House": getRoomList()
 activate ":House"
@@ -21,10 +20,9 @@ PowerUser -> ":InputUtils": select room by index
 activate ":House"
 ":House" -> ":RoomList": getRoomByIndex()
 activate ":RoomList"
-":RoomList" --> ":EnergyConsumptionUI" : return :Room
+":RoomList" --> ":RoomConfigurationUI" : return :Room
 deactivate ":RoomList"
 deactivate ":House"
-deactivate PowerUser
-deactivate ":EnergyConsumptionUI"
+deactivate ":RoomConfigurationUI"
 deactivate ":InputUtils"
 @enduml

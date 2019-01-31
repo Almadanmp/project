@@ -2,9 +2,9 @@
 
 actor PowerUser
 
--> ":EnergyConsumptionUI": selectDevice
-activate ":EnergyConsumptionUI"
-":EnergyConsumptionUI" -> ":InputUtils": getInputDevice(:Room)
+-> ":RoomConfigurationUI": selectDevice
+activate ":RoomConfigurationUI"
+":RoomConfigurationUI" -> ":InputUtils": getInputDevice(:Room)
 activate ":InputUtils"
 ":InputUtils" -> ":Room": getDeviceList()
 activate ":Room"
@@ -20,9 +20,9 @@ PowerUser -> ":InputUtils":  select index of device
 activate ":Room"
 ":Room" -> ":DeviceList": getDeviceByIndex(index)
 activate ":DeviceList"
-<-- ":DeviceList": return :Device
+":DeviceList" --> ":RoomConfigurationUI": return :Device
 deactivate ":DeviceList"
 deactivate ":Room"
-deactivate ":EnergyConsumptionUI"
+deactivate ":RoomConfigurationUI"
 deactivate ":InputUtils"
 @enduml
