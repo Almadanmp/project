@@ -1028,19 +1028,7 @@ class EnergyConsumptionControllerTest {
         assertEquals(result, expectedResult);
     }
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestSameTime3() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Date initialTime = new GregorianCalendar().getTime();
-        Date finalTime = new GregorianCalendar().getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "This device has no energy consumption logs in the given interval.";
-        assertEquals(result, expectedResult);
-    }
+
 
 
     @Test
