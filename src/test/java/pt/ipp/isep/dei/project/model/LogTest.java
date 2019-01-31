@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class LogTest {
-//TODO test is randomly failing
     @Test
     void getValueTest() {
         Log log = new Log(300,new Date(), new Date());
@@ -27,9 +26,11 @@ class LogTest {
 
     @Test
     void getInitialDateTest() {
-        Log log = new Log(200,new Date(), new Date());
+        Date testDate = new Date();
+
+        Log log = new Log(200, testDate, new Date());
         Date result = log.getInitialDate();
-        Date expectedResult = new Date();
+        Date expectedResult = testDate;
         assertEquals(result, expectedResult);
     }
 }

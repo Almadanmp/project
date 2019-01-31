@@ -1,0 +1,28 @@
+@startuml
+Title US222 As a Power User, I want to deactivate a device, so that it is no longer used.\nNevertheless, it should be possible to access its configuration and activity log.
+actor PowerUser
+autonumber
+PowerUser -> ":RoomConfigurationUI": runUS222(house)
+activate PowerUser
+activate ":RoomConfigurationUI"
+ref over ":RoomConfigurationUI"
+Select Room
+end ref
+ref over ":RoomConfigurationUI"
+Select Device
+end ref
+":RoomConfigurationUI" -> ":RoomConfigurationController": deactivateDevice(device)
+activate ":RoomConfigurationController"
+":RoomConfigurationController" -> ":Device": deactivate()
+alt if isActive()
+":Device" -> ":Device": setmActiveFalse()
+":Device" --> ":RoomConfigurationController": return true
+else if else
+":Device" -> ":RoomConfigurationController": return false
+end
+":RoomConfigurationController" --> ":RoomConfigurationUI": return true
+deactivate ":RoomConfigurationController"
+":RoomConfigurationUI" --> PowerUser: Successful feedback message
+deactivate ":RoomConfigurationUI"
+deactivate PowerUser
+@enduml
