@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.io.IOException;
@@ -229,8 +230,8 @@ public class RoomConfigurationController {
         return devicePath;
     }
 
-    public Device createDevice(String devicePath) {
-        return new Device(devicePath);
+    public Device createDevice(DeviceType deviceType) {
+        return deviceType.createDeviceType();
     }
 
     public List<String> getAttributeNames(Device device) {

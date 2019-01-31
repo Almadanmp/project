@@ -10,4 +10,8 @@ public class DishwasherDT implements DeviceType {
         DeviceSpecs ds = new DishwasherSpec();
         return new Device(ds);
     }
+
+    public String getDeviceType() {
+        return "Dishwasher";
+    }
 }

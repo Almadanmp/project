@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import java.io.IOException;
@@ -25,12 +27,12 @@ class HouseTest {
 
     @Test
     void seeIfGetListDevice() {
-        Device device = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device device = new Device(new FridgeSpec());
         device.setName("sdgfsg");
         device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 34D);
         device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 34D);
         device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 65D);
-        Device device2 = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device device2 = new Device(new WashingMachineSpec());
         device2.setName("dsfgds");
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         room1.addDevice(device);
@@ -355,12 +357,12 @@ class HouseTest {
 
         Room r1 = new Room("Kitchen", 0, 12, 30, 10);
         Room r2 = new Room("Sótão", 3, 30, 40, 12);
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setNominalPower(30.0);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d2 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d2 = new Device(new FridgeSpec());
         d2.setNominalPower(50.0);
         d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 45D);
         d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 45D);
@@ -429,15 +431,15 @@ class HouseTest {
     void getDailyHouseConsumptionPerTypeTest() {
         House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 45D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 45D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 65D);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Device d3 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d3 = new Device(new WaterHeaterSpec());
         d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
         d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
         d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -445,15 +447,15 @@ class HouseTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
-        Device d4 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d4 = new Device(new FridgeSpec());
         d4.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d4.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
         d4.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
-        Device d5 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d5 = new Device(new WaterHeaterSpec());
         d5.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 300D);
         d5.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 15D);
         d5.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Device d6 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d6 = new Device(new WaterHeaterSpec());
         d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 300D);
         d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 15D);
         d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -471,12 +473,12 @@ class HouseTest {
     void getDailyHouseConsumptionPerTypeTest2() {
         House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("ghfg");
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Device d3 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("jytjd");
         d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
         d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
@@ -497,12 +499,12 @@ class HouseTest {
     void getHouseDevicesOfGivenType() {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("hgfhjf");
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
-        Device d3 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("hfjf");
         d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
         d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
@@ -521,12 +523,12 @@ class HouseTest {
     void getDeviceListTest() {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("hfjfd");
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
-        Device d3 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("ghfghd");
         d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
         d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);

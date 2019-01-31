@@ -42,7 +42,7 @@ public class House implements Metered {
 
     }
 
-//TODO remove this constructor after correcting tests
+    //TODO remove this constructor after correcting tests
     public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea,
                  int gridMeteringPeriod, int deviceMeteringPeriod) {
         this.mId = mId;
@@ -160,6 +160,7 @@ public class House implements Metered {
     public List<DeviceType> getmDeviceTypeList() {
         return mDeviceTypeList;
     }
+
     public boolean addRoomToRoomList(Room room) {
         String roomToAddName = room.getRoomName();
         for (Room r : this.mRoomList.getList()) {
@@ -315,13 +316,13 @@ public class House implements Metered {
         return new ArrayList<>(Arrays.asList(deviceTypes.split(",")));
     }
 
-    public String buildTypeListString(List<String> list) {
+    public String buildTypeListString(List<DeviceType> list) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
         if (list.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < list.size(); i++) {
-            result.append(i).append(") DeviceType: ").append(list.get(i)).append("\n");
+            result.append(i).append(") DeviceType: ").append(list.get(i).getDeviceType()).append("\n");
         }
         return result.toString();
     }

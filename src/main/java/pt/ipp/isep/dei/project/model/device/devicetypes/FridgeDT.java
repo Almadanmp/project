@@ -10,4 +10,8 @@ public class FridgeDT implements DeviceType {
         DeviceSpecs ds = new FridgeSpec();
         return new Device(ds);
     }
+
+    public String getDeviceType() {
+        return "Fridge";
+    }
 }

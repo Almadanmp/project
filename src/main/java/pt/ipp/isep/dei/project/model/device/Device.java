@@ -27,27 +27,13 @@ public class Device implements Metered {
      * Constructor with path by configuration file approach
      * parameters (ex. name) are not received. setter methods must be called after constructor
      *
-     * @param deviceTypePath device type path
-     */
-    public Device(String deviceTypePath) throws IllegalArgumentException {
-        this.mLogList = new LogList();
-        this.mActive = true;
-        DeviceSpecs aux;
-        try {
-            aux = (DeviceSpecs) Class.forName(deviceTypePath).newInstance();
-        } catch (Exception e) {
-            throw new IllegalArgumentException("ERROR: Unable to create device type from path - " + e.getMessage());
-        }
-
-        this.mDeviceSpecs = aux;
-
-    }
-
-    /**
      * @param deviceSpecs
      */
     public Device(DeviceSpecs deviceSpecs) {
+        this.mLogList = new LogList();
+        this.mActive = true;
         this.mDeviceSpecs = deviceSpecs;
+
     }
 
     public void setNominalPower(Double nomPower) {

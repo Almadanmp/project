@@ -10,4 +10,8 @@ public class WashingMachineDT implements DeviceType {
         DeviceSpecs ds = new WashingMachineSpec();
         return new Device(ds);
     }
+
+    public String getDeviceType() {
+        return "Washing Machine";
+    }
 }

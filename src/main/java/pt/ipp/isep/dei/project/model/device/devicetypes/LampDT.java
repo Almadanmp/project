@@ -10,4 +10,8 @@ public class LampDT implements DeviceType {
         DeviceSpecs ds = new LampSpec();
         return new Device(ds);
     }
+
+    public String getDeviceType() {
+        return "Lamp";
+    }
 }

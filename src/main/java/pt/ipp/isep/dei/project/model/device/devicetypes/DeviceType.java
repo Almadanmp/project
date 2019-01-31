@@ -5,4 +5,6 @@ import pt.ipp.isep.dei.project.model.device.Device;
 public interface DeviceType {
 
     Device createDeviceType();
+
+    String getDeviceType();
 }

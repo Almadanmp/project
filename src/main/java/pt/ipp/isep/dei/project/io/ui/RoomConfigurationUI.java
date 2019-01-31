@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
@@ -99,7 +100,7 @@ class RoomConfigurationUI {
     private void runUS210(House house) {
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(house);
-        String deviceType;
+        DeviceType deviceType;
         try {
             deviceType = inputUtils.getInputDeviceTypeByList(house);
         } catch (IOException e) {
@@ -110,7 +111,7 @@ class RoomConfigurationUI {
     }
 
 
-    private void createDevice(String deviceType, House house) {
+    private void createDevice(DeviceType deviceType, House house) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         // get device name
@@ -121,8 +122,7 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         double nominalPower = inputUtils.getInputAsDouble();
         //get Device specs
-        String devicePath = ctrl.getDeviceTypePathToClassId(house, deviceType);
-        Device device = ctrl.createDevice(devicePath);
+        Device device = ctrl.createDevice(deviceType);
         List<String> deviceAttributes = ctrl.getAttributeNames(device);
         for (int i = 0; i < deviceAttributes.size(); i++) {
             System.out.println("Please insert value for: " + deviceAttributes.get(i));

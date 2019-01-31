@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.model.device;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
@@ -21,7 +23,7 @@ public class DeviceTest {
 
     @Test
     public void getDeviceTypeTest() {
-        Device d = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d = new Device(new WashingMachineSpec());
         d.setAttributeValue("capacity", 12D);
         String dT = "WashingMachine";
         String expectedResult = dT;
@@ -31,7 +33,7 @@ public class DeviceTest {
 
     @Test
     void seeEqualToSameObject() {
-        Device d = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d = new Device(new WashingMachineSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
         d.setAttributeValue("capacity", 12D);
@@ -41,11 +43,11 @@ public class DeviceTest {
 
     @Test
     void seeEqualsToDifObject() {
-        Device d = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d = new Device(new WashingMachineSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
         d.setAttributeValue(TestUtils.WM_CAPACITY, 34);
-        Device d2 = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d2 = new Device(new WashingMachineSpec());
         d2.setName("WMTwo");
         d2.setNominalPower(12.0);
         d.setAttributeValue(TestUtils.WM_CAPACITY, 45);
@@ -57,7 +59,7 @@ public class DeviceTest {
 
     @Test
     void seeEqualsToDifTypeObject() {
-        Device d = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d = new Device(new WashingMachineSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
         d.setAttributeValue(TestUtils.WM_CAPACITY, 56);
@@ -69,7 +71,7 @@ public class DeviceTest {
 
     @Test
     void seeEqualsToNullObject() {
-        Device d = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d = new Device(new WashingMachineSpec());
         d.setAttributeValue(TestUtils.WM_CAPACITY, 34);
         boolean actualResult = d.equals(null);
 
@@ -78,7 +80,7 @@ public class DeviceTest {
 
     @Test
     void seeIfPrintDeviceWorks() {
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
@@ -91,7 +93,7 @@ public class DeviceTest {
 
     @Test
     void seeIfSetNameWorks() {
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setName("frigo");
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
@@ -104,7 +106,7 @@ public class DeviceTest {
 
     @Test
     public void hashCodeDummyTest() {
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setName("FridgeTwo");
         d1.setNominalPower(12.0);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
@@ -117,7 +119,7 @@ public class DeviceTest {
 
     @Test
     void seeIfGetAndSetAttributeValue() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -129,7 +131,7 @@ public class DeviceTest {
 
     @Test
     void seeIfGetAndSetAttributeUnit() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -141,7 +143,7 @@ public class DeviceTest {
 
     @Test
     void seeIfGetAndSetAttributeUnit2() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -153,7 +155,7 @@ public class DeviceTest {
 
     @Test
     void seeIfGetAndSetAttributeUnit3() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -165,7 +167,7 @@ public class DeviceTest {
 
     @Test
     void seeIfGetAndSetAttributeUnit4() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -178,7 +180,7 @@ public class DeviceTest {
 
     @Test
     void seeIfGetAttributeNames() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_PERFORMANCE_RATIO, 234D);
@@ -193,7 +195,7 @@ public class DeviceTest {
 
     @Test
     void ensureThatWeDeactivateADevice() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -204,7 +206,7 @@ public class DeviceTest {
 
     @Test
     void ensureThatWeDoNotDeactivate() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -216,7 +218,7 @@ public class DeviceTest {
 
     @Test
     void ensureThatDeviceIsNotProg() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -228,7 +230,7 @@ public class DeviceTest {
 
     @Test
     void ensureThatDeviceIsProg() {
-        Device d1 = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d1 = new Device(new WashingMachineSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -240,7 +242,7 @@ public class DeviceTest {
 
     @Test
     void seeIfGetEnergyConsumption() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
@@ -252,7 +254,7 @@ public class DeviceTest {
 
     @Test
     void getProgramList() {
-        Device d1 = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d1 = new Device(new WashingMachineSpec());
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = d1.getProgramList();
         listProgram.addProgram(program1);
@@ -265,14 +267,14 @@ public class DeviceTest {
 
         assertThrows(NullPointerException.class,
                 () -> {
-                    Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+                    Device d1 = new Device(new WaterHeaterSpec());
                     d1.getProgramList();
                 });
     }
 
     @Test
     void getLogList() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         LogList logList = d1.getLogList();
@@ -283,7 +285,7 @@ public class DeviceTest {
 
     @Test
     void getLogListBreakTest() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         LogList logList = new LogList();
         LogList result = d1.getLogList();
         assertEquals(logList, result);
@@ -291,7 +293,7 @@ public class DeviceTest {
 
     @Test
     void addLogListFalse() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         d1.addLog(log);
@@ -300,7 +302,7 @@ public class DeviceTest {
 
     @Test
     void addLogToInactive() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         d1.setAsInactive();
@@ -310,7 +312,7 @@ public class DeviceTest {
 
     @Test
     void addLogTrue() {
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         boolean result = d1.addLog(log);
@@ -325,7 +327,7 @@ public class DeviceTest {
         Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 14).getTime();
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);

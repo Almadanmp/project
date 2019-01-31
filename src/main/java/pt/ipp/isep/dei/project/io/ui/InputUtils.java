@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
@@ -170,17 +171,19 @@ class InputUtils {
         }
     }
 
-    String getInputDeviceTypeByList(House house) throws IOException {
+    DeviceType getInputDeviceTypeByList(House house) throws IOException {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
+        List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device Types: ");
+
             System.out.println(house.getDeviceTypes());
-            System.out.println(house.buildTypeListString(house.getDeviceTypes()));
+            System.out.println(house.buildTypeListString(deviceTypeList));
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getDeviceTypes().size()) {
 
-                return house.getDeviceTypes().get(aux);
+                return deviceTypeList.get(aux);
 
             } else {
                 System.out.println(utils.invalidOption);

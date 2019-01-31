@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.device.Log;
+import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
@@ -262,27 +263,27 @@ public class MainUI {
         Program program2 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
         listProgram.addProgram(program2);
-        Device device1 = new Device(pathToWashingMachine);
+        Device device1 = new Device(new WashingMachineSpec());
         device1.setNominalPower(23.0);
         device1.setName("washingMachine");
         device1.setAttributeValue("capacity", 100D);
-        Device device2 = new Device(pathToFridge);
+        Device device2 = new Device(new FridgeSpec());
         device2.setNominalPower(4.0);
         device2.setName("FridgeOne");
         device2.setAttributeValue("freezerCapacity", 2D);
         device2.setAttributeValue("refrigeratorCapacity", 2D);
         device2.setAttributeValue("annualEnergyConsumption", 45D);
-        Device device3 = new Device(pathToWaterHeater);
+        Device device3 = new Device(new WaterHeaterSpec());
         device3.setNominalPower(3.0);
         device3.setName("WH Main");
         device3.setAttributeValue("volumeOfWater", 500D);
         device3.setAttributeValue("hotWaterTemperature", 25D);
         device3.setAttributeValue("performanceRatio", 10D);
-        Device device4 = new Device(pathToLamp);
+        Device device4 = new Device(new LampSpec());
         device4.setNominalPower(4.0);
         device4.setName("Lamp");
         device4.setAttributeValue("luminousFlux", 23D);
-        Device deviceDark = new Device(pathToWaterHeater);
+        Device deviceDark = new Device(new WaterHeaterSpec());
         deviceDark.setNominalPower(200.0);
         deviceDark.setName("Water Heater 3000");
         deviceDark.setAttributeValue("volumeOfWater", 400D);
@@ -295,13 +296,13 @@ public class MainUI {
         listDevices.addDevice(device4);
         listDevices.addDevice(deviceDark);
         roomISEP2.setDeviceList(listDevices);
-        Device device5 = new Device(pathToFridge);
+        Device device5 = new Device(new FridgeSpec());
         device5.setNominalPower(4.0);
         device5.setName("FridgeOne1");
         device5.setAttributeValue("freezerCapacity", 1D);
         device5.setAttributeValue("refrigeratorCapacity", 1D);
         device5.setAttributeValue("annualEnergyConsumption", 100D);
-        Device device6 = new Device(pathToWaterHeater);
+        Device device6 = new Device(new WaterHeaterSpec());
         device6.setNominalPower(3.0);
         device6.setName("WH Secondary");
         device6.setAttributeValue("volumeOfWater", 500D);
@@ -440,14 +441,14 @@ public class MainUI {
         readingListSensorHumidityB109SP2.addReading(reading16SensorHumidityB109SP2);
 
         DeviceList deviceListRoomB109SP2 = new DeviceList();
-        Device ehwB109SP2 = new Device(pathToWaterHeater);
+        Device ehwB109SP2 = new Device(new WaterHeaterSpec());
         ehwB109SP2.setNominalPower(1.5);
         ehwB109SP2.setName("EHW B109");
         ehwB109SP2.setAttributeValue("volumeOfWater", 100D);
         ehwB109SP2.setAttributeValue("hotWaterTemperature", 55D);
         ehwB109SP2.setAttributeValue("performanceRatio", 0.91D);
 
-        Device dishWasherB109SP2 = new Device(pathToDishwasher);
+        Device dishWasherB109SP2 = new Device(new DishwasherSpec());
         dishWasherB109SP2.setNominalPower(1.5);
         dishWasherB109SP2.setName("DishwasherSpec B109");
         dishWasherB109SP2.setAttributeValue("capacity", 2D);
@@ -461,7 +462,7 @@ public class MainUI {
         programListDishWasherB109SP2.addProgram(ecoTurboB109);
         programListDishWasherB109SP2.addProgram(dishesB109);
 
-        Device washingMachineB109SP2 = new Device(pathToWashingMachine);
+        Device washingMachineB109SP2 = new Device(new WashingMachineSpec());
         washingMachineB109SP2.setNominalPower(2.5);
         washingMachineB109SP2.setName("Washing Machine B109");
         washingMachineB109SP2.setAttributeValue("capacity", 0D);
@@ -481,14 +482,14 @@ public class MainUI {
 
         Room roomB106SP2 = new Room("B106", 1, 7, 13, 3.5);
         DeviceList deviceListRoomB106SP2 = new DeviceList();
-        Device ehwB106SP2 = new Device(pathToWaterHeater);
+        Device ehwB106SP2 = new Device(new WaterHeaterSpec());
         ehwB106SP2.setNominalPower(2.2);
         ehwB106SP2.setName("EHW B106");
         ehwB106SP2.setAttributeValue("volumeOfWater", 150D);
         ehwB106SP2.setAttributeValue("hotWaterTemperature", 55D);
         ehwB106SP2.setAttributeValue("performanceRatio", 0.92D);
 
-        Device dishWasherB106SP2 = new Device(pathToDishwasher);
+        Device dishWasherB106SP2 = new Device(new DishwasherSpec());
         dishWasherB106SP2.setNominalPower(1.4);
         dishWasherB106SP2.setName("DishwasherSpec B106");
         dishWasherB106SP2.setAttributeValue("capacity", 0D);

@@ -2,10 +2,10 @@ package pt.ipp.isep.dei.project.model;
 
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 
 import java.util.Date;
 
@@ -43,7 +43,7 @@ class LogListTest {
     void seeEqualsToDifObject() {
         LogList list1 = new LogList();
         Log log = new Log(300, new Date(), new Date());
-        Device d = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d = new Device(new WashingMachineSpec());
         d.setNominalPower(12.0);
         d.addLog(log);
         boolean actualResult = list1.equals(d.getLogList());

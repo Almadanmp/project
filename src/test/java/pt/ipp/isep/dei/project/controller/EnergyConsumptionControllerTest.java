@@ -7,6 +7,8 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Log;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,19 +32,19 @@ class EnergyConsumptionControllerTest {
 
         EnergyGrid grid = new EnergyGrid();
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setName("WaterHeater");
         d1.setNominalPower(21.0);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("WaterHeaterTwo");
         d2.setNominalPower(55.0);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d3 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d3 = new Device(new FridgeSpec());
         d3.setName("Fridge");
         d3.setNominalPower(10.0);
         d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
@@ -74,15 +76,15 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d3 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d3 = new Device(new FridgeSpec());
         d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
         d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
         d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 67D);
@@ -107,15 +109,15 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d3 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d3 = new Device(new FridgeSpec());
         d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
         d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
         d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
@@ -143,15 +145,15 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d3 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d3 = new Device(new FridgeSpec());
         d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
         d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 4D);
         d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 34D);
@@ -176,15 +178,15 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         Room r1 = new Room("Kitchen", 0, 30, 50, 10);
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d3 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d3 = new Device(new FridgeSpec());
         d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
         d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
@@ -282,7 +284,7 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
 
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
@@ -303,7 +305,7 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
 
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
@@ -325,7 +327,7 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
 
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 564D);
@@ -346,7 +348,7 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
 
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
@@ -367,19 +369,19 @@ class EnergyConsumptionControllerTest {
     @Test
     void seeIfGetSumNominalPowerFromListWorks() {
         //Arrange
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setName("asd");
         d1.setNominalPower(21.0);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setNominalPower(55.0);
         d2.setName("sadfg");
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d3 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d3 = new Device(new FridgeSpec());
         d3.setNominalPower(10.0);
         d3.setName("asdg");
         d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
@@ -480,7 +482,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 60).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -508,15 +510,15 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 200D);
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 30D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Device d3 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d3 = new Device(new WaterHeaterSpec());
         d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 500D);
         d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
         d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -524,15 +526,15 @@ class EnergyConsumptionControllerTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
-        Device d4 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d4 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
-        Device d5 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d5 = new Device(new WaterHeaterSpec());
         d5.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 300D);
         d5.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 15D);
         d5.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Device d6 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d6 = new Device(new WaterHeaterSpec());
         d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
         d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -573,13 +575,13 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
         r1.addDevice(d1);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
-        Device d4 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d4 = new Device(new FridgeSpec());
         d4.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d4.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
         d4.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
@@ -596,14 +598,14 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setNominalPower(12.0);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
         r1.addDevice(d1);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
-        Device d4 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d4 = new Device(new FridgeSpec());
         d4.setNominalPower(12.0);
         d4.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d4.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
@@ -645,7 +647,7 @@ class EnergyConsumptionControllerTest {
         House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         h1.addRoomToRoomList(r1);
-        Device d6 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d6 = new Device(new WaterHeaterSpec());
         d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
         d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -663,12 +665,12 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("asdfgdsa");
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 200D);
         d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
-        Device d3 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d3 = new Device(new WaterHeaterSpec());
         d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 500D);
         d3.setName("dsfgrws");
         d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 30D);
@@ -686,7 +688,7 @@ class EnergyConsumptionControllerTest {
     @Test
     void getHouseDevicesOfGivenType() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        Device d = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d = new Device(new WaterHeaterSpec());
         d.setName("wHeater2");
         d.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 500D);
         d.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 30D);
@@ -697,7 +699,7 @@ class EnergyConsumptionControllerTest {
 
     @Test
     void configureOneHeaterTestFalse() {
-        Device d6 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d6 = new Device(new WaterHeaterSpec());
         d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
         d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -714,7 +716,7 @@ class EnergyConsumptionControllerTest {
 
     @Test
     void configureOneHeaterTestFalseSecondElement() {
-        Device d6 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d6 = new Device(new WaterHeaterSpec());
         d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
         d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -731,7 +733,7 @@ class EnergyConsumptionControllerTest {
 
     @Test
     void configureOneHeaterTestTrue() {
-        Device d6 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d6 = new Device(new WaterHeaterSpec());
         d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
         d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -747,7 +749,7 @@ class EnergyConsumptionControllerTest {
 
     @Test
     void getWaterHeaterNameTest() {
-        Device d6 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d6 = new Device(new WaterHeaterSpec());
         d6.setName("wHeater4");
         d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
         d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -764,7 +766,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 60).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -781,7 +783,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 9, 60).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 0).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -798,7 +800,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 55).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 5).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -815,7 +817,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 5).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 55).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -832,7 +834,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 5).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 55).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -849,7 +851,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 5).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 55).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -866,7 +868,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 5).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -883,7 +885,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 9, 55).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -900,7 +902,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -917,7 +919,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -934,7 +936,7 @@ class EnergyConsumptionControllerTest {
         Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Date periodBeginning = new GregorianCalendar(2018, 10, 20, 10, 5).getTime();
         Date periodEnding = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -953,7 +955,7 @@ class EnergyConsumptionControllerTest {
         Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 55).getTime();
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -974,7 +976,7 @@ class EnergyConsumptionControllerTest {
         Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -991,7 +993,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
         Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         Date finalTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -1004,7 +1006,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
         Date initialTime = new GregorianCalendar().getTime();
         Date finalTime = new GregorianCalendar().getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -1022,7 +1024,7 @@ class EnergyConsumptionControllerTest {
         Date periodEnding1 = new GregorianCalendar().getTime();
         Date periodBeginning2 = new GregorianCalendar().getTime();
         Date periodEnding2 = new GregorianCalendar().getTime();
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
@@ -1040,7 +1042,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController ctrl = new EnergyConsumptionController();
         EnergyGrid eGrid = new EnergyGrid();
         Room room = new Room("Kitchen", 0, 30, 50, 10);
-        Device device = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device device = new Device(new WaterHeaterSpec());
         device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
         device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
         device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);

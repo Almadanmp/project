@@ -10,4 +10,8 @@ public class WaterHeaterDT implements DeviceType {
         DeviceSpecs ds = new WaterHeaterSpec();
         return new Device(ds);
     }
+
+    public String getDeviceType() {
+        return "Water Heater";
+    }
 }

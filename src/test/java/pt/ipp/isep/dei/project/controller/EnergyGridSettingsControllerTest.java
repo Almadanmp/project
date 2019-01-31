@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -390,14 +392,14 @@ class EnergyGridSettingsControllerTest {
         eg.setMaxContractedPower(333);
         eg.setName("Main Energy Grid Edificio C");
         RoomList rl = new RoomList();
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setNominalPower(12.0);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
-        Device d2 = new Device(TestUtils.PATH_TO_DISHWASHER);
+        Device d2 = new Device(new DishwasherSpec());
         d2.setNominalPower(13.0);
-        Device d3 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d3 = new Device(new FridgeSpec());
         d3.setNominalPower(14.0);
         d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
         d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);

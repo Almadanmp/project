@@ -6,6 +6,9 @@ import org.testng.Assert;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
@@ -24,7 +27,7 @@ class EnergyGridTest {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device device = new Device(new FridgeSpec());
         device.setNominalPower(200.0);
         device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 200D);
         device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 200D);
@@ -46,7 +49,7 @@ class EnergyGridTest {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        Device device = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device device = new Device(new FridgeSpec());
         device.setNominalPower(200.0);
         device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 200D);
         device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 200D);
@@ -211,12 +214,12 @@ class EnergyGridTest {
         //Arrange
         Room r1 = new Room("Kitchen", 0, 12, 30, 10);
         Room r2 = new Room("Sótão", 3, 30, 40, 12);
-        Device d1 = new Device(TestUtils.PATH_TO_WATERHEATER);
+        Device d1 = new Device(new WaterHeaterSpec());
         d1.setNominalPower(30.0);
         d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
         d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
         d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        Device d2 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d2 = new Device(new FridgeSpec());
         d2.setNominalPower(200.0);
         d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
         d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 3D);
@@ -243,14 +246,14 @@ class EnergyGridTest {
 
     @Test
     void seeIfPrintDevicesWorks() {
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         d1.setNominalPower(21.0);
         d1.setName("Fridge");
         d1.setNominalPower(21.0);
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 34D);
-        Device d2 = new Device(TestUtils.PATH_TO_WASHINGMACHINE);
+        Device d2 = new Device(new WashingMachineSpec());
         d2.setNominalPower(30.0);
         d2.setAttributeValue("capacity", 24D);
         d2.setName("WashingMachine");
@@ -345,7 +348,7 @@ class EnergyGridTest {
         rl.addRoom(m);
         eg.setRoomList(rl);
         List<Device> dlist = eg.getDeviceList();
-        Device d1 = new Device(TestUtils.PATH_TO_FRIDGE);
+        Device d1 = new Device(new FridgeSpec());
         dlist.add(d1);
         List<Device> expectedResult = eg.getDeviceList();
         List<Device> result = eg.getDeviceList();
