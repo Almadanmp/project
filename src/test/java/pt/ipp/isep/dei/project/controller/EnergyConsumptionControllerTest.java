@@ -756,7 +756,7 @@ class EnergyConsumptionControllerTest {
         d6.setAttributeValue("blowUp", 12);
         d6.setAttributeValue("blabla", 60);
         Double attributeValue = null;
-        Double attributeValue2 = null;
+        Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
         controller.configureWH(d6, attributeValue, attributeValue2);
         boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
