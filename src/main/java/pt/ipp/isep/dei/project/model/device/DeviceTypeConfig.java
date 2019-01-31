@@ -14,6 +14,10 @@ import java.util.Properties;
 
 public class DeviceTypeConfig {
 
+    private DeviceTypeConfig(){
+
+    }
+
     public static List<String> getDeviceTypeConfig() throws IOException {
         String propFileName = "resources/devices.properties";
         String allDevicesKey = "allDeviceTypes";

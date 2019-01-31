@@ -6,12 +6,10 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
 
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Controller class for Energy Consumption UI

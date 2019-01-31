@@ -11,9 +11,6 @@ public class LampSpec implements DeviceSpecs {
     private String mType = "Lamp";
     private Double mNominalPower;
 
-    public LampSpec() {
-    }
-
     public String getType() {
         return mType;
     }

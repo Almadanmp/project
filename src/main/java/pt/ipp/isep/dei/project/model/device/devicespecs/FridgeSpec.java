@@ -20,8 +20,6 @@ public class FridgeSpec implements DeviceSpecs {
      * This class uses an empty constructor so we can create a device of this type and after it choose the values to the
      * attributes.
      */
-    public FridgeSpec() {
-    }
 
     public String getType() {
         return mType;

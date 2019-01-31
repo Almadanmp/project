@@ -122,12 +122,12 @@ public class Device implements Metered {
      * @throws NullPointerException - if a Device is not programmable, it will throw an exception so we can handle
      * with the exception on the ui and return choose a specific response.
      */
-    public ProgramList getProgramList() throws NullPointerException {
+    public ProgramList getProgramList()throws IncompatibleClassChangeError {
         if (isProgrammable()) {
             Programmable aux = (Programmable) mDeviceSpecs;
             return aux.getProgramList();
         } else {
-            throw new NullPointerException("ERROR: Unable to get list. Device is not programmable.");
+            throw new IncompatibleClassChangeError("ERROR: Unable to get list. Device is not programmable.");
         }
     }
 

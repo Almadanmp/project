@@ -265,7 +265,7 @@ public class DeviceTest {
     @Test
     void getProgramListFalse() {
 
-        assertThrows(NullPointerException.class,
+        assertThrows(IncompatibleClassChangeError.class,
                 () -> {
                     Device d1 = new Device(new WaterHeaterSpec());
                     d1.getProgramList();

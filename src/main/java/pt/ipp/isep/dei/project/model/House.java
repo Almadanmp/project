@@ -41,7 +41,11 @@ public class House implements Metered {
         buildDeviceTypeList(deviceTypeConfig);
     }
 
-
+    /**
+     * Method that will instantiate an object from each device Type path in device.properties file
+     * and add it to the List<DeviceType> attribute in House class.
+     * @param deviceTypePaths List of Strings with all the device paths (values) from device.properties file
+     */
     public void buildDeviceTypeList(List<String> deviceTypePaths) {
         this.mDeviceTypeList = new ArrayList<>();
         for (String s : deviceTypePaths) {

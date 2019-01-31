@@ -106,7 +106,7 @@ public class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
-            ProgramList deviceProgramList = device.getProgramList(); //getAttributeValue("programList");
+            ProgramList deviceProgramList = device.getProgramList();
             System.out.println("Please select one of the existing Programs in the selected Program List to alter: ");
             System.out.println(deviceProgramList.buildProgramListString());
             int aux = inputUtils.readInputNumberAsInt();

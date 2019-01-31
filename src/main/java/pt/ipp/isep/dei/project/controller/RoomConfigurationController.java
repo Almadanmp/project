@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.io.ui.InputUtils;
-import pt.ipp.isep.dei.project.io.ui.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
@@ -235,7 +233,6 @@ public class RoomConfigurationController {
     public Device createDevice(DeviceType deviceType) {
         return deviceType.createDeviceType();
     }
-
 
 
     public List<String> getAttributeNames(Device device) {
