@@ -653,6 +653,7 @@ class HouseTest {
         Sensor result = house.getSensorWithMinDistanceToHouse(ga,house,"temperature");
         assertEquals(s1,result);
     }
+
     @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsedWithDifDistance(){
         ReadingList readingList = new ReadingList();

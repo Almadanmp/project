@@ -9,6 +9,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.testng.Assert.*;
 
@@ -322,6 +323,31 @@ class EnergyGridTest {
         EnergyGrid eg = new EnergyGrid();
         double result = eg.getEnergyConsumption(10);
         assertEquals(result,0);
+    }
+
+    @Test
+    void seeIfDeviceListPrintsByTypeWithNullList3() {
+        Room m = new Room("room",2,2,2,2);
+        EnergyGrid eg = new EnergyGrid();
+        eg.setMaxContractedPower(333);
+        eg.setName("Main Energy Grid Edificio C");
+        RoomList rl = new RoomList();
+        rl.addRoom(m);
+        eg.setRoomList(rl);
+        List<Device> dlist =eg.getDeviceList();
+        Device d1 = new Device("device", 200, TestUtils.PATH_TO_FRIDGE);
+        dlist.add(d1);
+        List<Device> expectedResult = eg.getDeviceList();
+        List<Device> result = eg.getDeviceList();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetEnergyConsumption(){
+        EnergyGrid eg = new EnergyGrid();
+        double expectedResult = 0;
+        double value = eg.getEnergyConsumption(21);
+        assertEquals(expectedResult,value);
     }
 }
 

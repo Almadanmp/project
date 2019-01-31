@@ -12,10 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-/*import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.programs.Program;
-import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.*;*/
 
 class RoomConfigurationUI {
 
@@ -24,9 +20,6 @@ class RoomConfigurationUI {
     private Room mRoom;
     private Device mDevice;
     private String mDeviceName;
-    private double mNominalPower;
-
-
     private ProgramList mProgramList = new ProgramList();
     private String mProgramName;
     private double mDuration;
@@ -137,10 +130,8 @@ class RoomConfigurationUI {
             ctrl.setAttributeValue(device, ctrl.getAttributeName(device).get(i), value);
         }
 
-        //todo create a way to use the same logic as used above
         if (device.isProgrammable()) {
             System.out.println("This device is programmable.");
-            //TODO ask user if he wants to add a program, if not, fisnish
             ProgramList pList = device.getProgramList();
             System.out.println("Please insert program name: ");
             String programName = scanner.nextLine();
@@ -148,8 +139,6 @@ class RoomConfigurationUI {
             double duration = inputUtils.getInputAsDouble();
             System.out.println("Please insert program duration: ");
             double energyConsumption = inputUtils.getInputAsDouble();
-            //TODO ask user if he wishes to add another program
-            //todo move the program creation to controller to avoid model access on UI
 
             Program newProgram = new Program(programName, duration, energyConsumption);
             pList.addProgram(newProgram);
@@ -266,11 +255,10 @@ class RoomConfigurationUI {
         }
         Device device = inputUtils.getInputRoomDevicesByList(this.mRoom);
         getInputDeviceCharacteristicsUS215(device);
-       // updateDeviceUS215();
     }
 
 
-    private void getInputDeviceCharacteristicsUS215( Device device) {
+    private void getInputDeviceCharacteristicsUS215(Device device) {
         Scanner scanner = new Scanner(System.in);
 
         if (device == null || mRoom == null) {
@@ -290,21 +278,22 @@ class RoomConfigurationUI {
         device.getAttributeNames();
         for (int i = 0; i < device.getAttributeNames().size(); i++) {
             System.out.println("Please insert the value for: " + device.getAttributeNames().get(i)
-                    + " ("+device.getAttributeUnit(device.getAttributeNames().get(i))+")");
+                    + " (" + device.getAttributeUnit(device.getAttributeNames().get(i)) + ")");
             Double value = inputUtils.getInputAsDouble();
-            device.setAttributeValue(device.getAttributeNames().get(i), value);}
-            if (device.isProgrammable()) {
-                System.out.println("This device is programmable.");
-                Program program;
-                program = inputUtils.getSelectedProgramFromDevice(device);
-                mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(device));
-                if (program == null || mProgramList == null) {
-                    System.out.println("There are no programs to edit.");
-                    return;
-                }
-                updateAProgrammableDevice(program);
-                mRoomConfigurationController.configureOneWashingMachineProgram(device, mProgramList);
+            device.setAttributeValue(device.getAttributeNames().get(i), value);
+        }
+        if (device.isProgrammable()) {
+            System.out.println("This device is programmable.");
+            Program program;
+            program = inputUtils.getSelectedProgramFromDevice(device);
+            mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(device));
+            if (program == null || mProgramList == null) {
+                System.out.println("There are no programs to edit.");
+                return;
             }
+            updateAProgrammableDevice(program);
+            mRoomConfigurationController.configureOneWashingMachineProgram(device, mProgramList);
+        }
 
         displayDeviceUS215(device);
 
@@ -349,7 +338,6 @@ class RoomConfigurationUI {
     }
 
 
-
     // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it. - CARINA ALAS
 
     private void displayDeviceUS215(Device device) {
@@ -362,7 +350,7 @@ class RoomConfigurationUI {
                         + device.getAttributeValue(device.getAttributeNames().get(i)) + " "
                         + device.getAttributeUnit(device.getAttributeNames().get(i)) + ".");
             }
-            System.out.println("\nYou have successfully changed the device name to " + mDeviceName +"." +
+            System.out.println("\nYou have successfully changed the device name to " + mDeviceName + "." +
                     "\nThe room is " + mRoom.getRoomName() + "\n");
 
         } else {
@@ -434,7 +422,7 @@ class RoomConfigurationUI {
     /*US220 - As an Administrator, I want to remove a device from a room, so that it is no longer used.
     Its activity log is also removed.
     MARIA MEIRELES*/
-    private void runUS220( ) {
+    private void runUS220() {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);

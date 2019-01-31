@@ -182,6 +182,33 @@ class RoomListTest {
     }
 
     @Test
+    void seeIfBuildRoomListString() {
+        //Arrange
+        List<Integer> list = new ArrayList<>();
+        Integer i = 1;
+        list.add(i);
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga,60,180);
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(room);
+        roomList.addRoom(room1);
+        house.addRoomToRoomList(room);
+        house.addRoomToRoomList(room1);
+
+        //Act
+        String result = roomList.buildRoomListString(house);
+        String expectedResult = "---------------\n" +
+                "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
+                "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
+                "---------------\n";
+
+        //Assert
+        Assert.assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfPrintsRoomList() {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2);
