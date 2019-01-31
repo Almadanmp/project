@@ -10,7 +10,7 @@ import java.util.List;
  * Class that groups a number of Rooms in a House.
  */
 
-public class RoomList {
+public class   RoomList {
     private List<Room> mRoomList;
     private String mStringResult = "---------------\n";
     private String mStringInvalidList = "Invalid List - List is Empty\n";
