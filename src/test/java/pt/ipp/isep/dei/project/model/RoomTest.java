@@ -73,7 +73,9 @@ class RoomTest {
         rL1.addReading(r1);
         Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180,deviceTypeString);
         house.addRoomToRoomList(room);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d2);
         double expectedResult = 30.0;
@@ -97,7 +99,9 @@ class RoomTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180,deviceTypeString);
         house.addRoomToRoomList(room);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d2);
         double expectedResult = 20.0;
@@ -122,7 +126,9 @@ class RoomTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180,deviceTypeString);
         house.addRoomToRoomList(room);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d3);
         double expectedResult = 25.0;
@@ -147,7 +153,9 @@ class RoomTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180,deviceTypeString);
         house.addRoomToRoomList(room);
         double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d3);
         double expectedResult = -25.0;
@@ -757,7 +765,9 @@ class RoomTest {
 
     @Test
     void seeIfGetAllHouseDevices() {
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("ghfghfg");

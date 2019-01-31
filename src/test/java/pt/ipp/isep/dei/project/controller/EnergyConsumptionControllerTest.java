@@ -420,8 +420,9 @@ class EnergyConsumptionControllerTest {
     void seeIfGetHouseRoomListWorks() {
 
         //Arrange
-
-        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room firstRoom = new Room("Quarto", 2, 20, 25, 10);
         Room secondRoom = new Room("Cozinha", 0, 30, 50, 15);
         RoomList roomList = new RoomList();
@@ -446,8 +447,9 @@ class EnergyConsumptionControllerTest {
     void seeIfGetHouseGridListWorks() {
 
         //Arrange
-
-        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room firstRoom = new Room("Quarto", 2, 20, 25, 10);
         Room secondRoom = new Room("Cozinha", 0, 30, 50, 15);
         RoomList roomList = new RoomList();
@@ -506,7 +508,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getDailyHouseConsumptionTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
@@ -549,7 +553,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getDailyHouseConsumptionNoRoomsTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         double expectedResult = 0;
         double result = controller.getDailyWaterHeaterConsumption(h1);
         assertEquals(expectedResult, result);
@@ -558,7 +564,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getDailyHouseConsumptionNoDevicesTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
         h1.addRoomToRoomList(r1);
@@ -571,7 +579,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getDailyHouseConsumptionNoHeaterDevicesTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device(new FridgeSpec());
         d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
@@ -594,7 +604,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalNominalPowerFromGridTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device(new FridgeSpec());
         d1.setNominalPower(12.0);
@@ -624,7 +636,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getTotalNominalPowerFromGridNoDevicesTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
         EnergyGrid grid1 = new EnergyGrid();
@@ -642,7 +656,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getWaterHeaterDeviceListTest() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         h1.addRoomToRoomList(r1);
         Device d6 = new Device(new WaterHeaterSpec());
@@ -661,7 +677,9 @@ class EnergyConsumptionControllerTest {
     @Test
     void getWaterHeaterDeviceListTest2() {
         EnergyConsumptionController controller = new EnergyConsumptionController();
-        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("asdfgdsa");

@@ -50,6 +50,38 @@ class LogListTest {
         boolean actualResult = list1.equals(d.getLogList());
         assertFalse(actualResult);
     }
+    @Test
+    void addLog() {
+        LogList list1 = new LogList();
+        Log log = new Log(300, new Date(), new Date());
+        Device d = new Device(new WashingMachineSpec());
+        d.setNominalPower(12.0);
+        boolean actualResult = list1.addLog(log);
+        assertTrue(actualResult);
+    }
+    @Test
+    void addLogList() {
+        LogList list1 = new LogList();
+        LogList list2 = new LogList();
+        Log log = new Log(300, new Date(), new Date());
+        list1.addLog(log);
+        Device d = new Device(new WashingMachineSpec());
+        d.setNominalPower(12.0);
+        boolean actualResult = list1.addLogList(list2);
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void addLogList2() {
+        LogList list1 = new LogList();
+        LogList list2 = new LogList();
+        Log log = new Log(300, new Date(), new Date());
+        list1.addLog(log);
+        Device d = new Device(new WashingMachineSpec());
+        d.setNominalPower(12.0);
+        boolean actualResult = list2.addLogList(list1);
+        assertTrue(actualResult);
+    }
 
 
     @Test

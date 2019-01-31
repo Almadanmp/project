@@ -2,10 +2,9 @@ package pt.ipp.isep.dei.project.model;
 
 
 import org.junit.jupiter.api.*;
+import pt.ipp.isep.dei.project.TestUtils;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -922,7 +921,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @Test
     void ensureThatWeGetDistanceToHouse() {
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6,6),new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6,6),new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180,deviceTypeString);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, -5);
         Date d1 = new GregorianCalendar(2018, 8, 9).getTime();

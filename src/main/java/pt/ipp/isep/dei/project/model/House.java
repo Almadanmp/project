@@ -36,27 +36,12 @@ public class House implements Metered {
         this.mMotherArea = mMotherArea;
         this.mRoomList = new RoomList();
         this.mEGList = new EnergyGridList();
-        this.mGridMeteringPeriod = gridMeteringPeriod;
-        this.mDeviceMeteringPeriod = deviceMeteringPeriod;
+        setGridMeteringPeriod(gridMeteringPeriod);
+        setDeviceMeteringPeriod(deviceMeteringPeriod);
         buildDeviceTypeList(deviceTypeConfig);
 
     }
 
-    //TODO remove this constructor after correcting tests
-    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea,
-                 int gridMeteringPeriod, int deviceMeteringPeriod) {
-        this.mId = mId;
-        this.mStreet = mStreet;
-        this.mZip = mZip;
-        this.mTown = mTown;
-        this.mLocation = mLocation;
-        this.mMotherArea = mMotherArea;
-        this.mRoomList = new RoomList();
-        this.mEGList = new EnergyGridList();
-        this.mGridMeteringPeriod = gridMeteringPeriod;
-        this.mDeviceMeteringPeriod = deviceMeteringPeriod;
-        this.mDeviceTypeList = new ArrayList<>();
-    }
 
     private void buildDeviceTypeList(List<String> deviceTypePaths) {
         this.mDeviceTypeList = new ArrayList<>();
@@ -114,6 +99,21 @@ public class House implements Metered {
         return result;
     }
 
+    public void setGridMeteringPeriod(int meteringPeriod) {
+        this.mGridMeteringPeriod = meteringPeriod;
+    }
+
+    public double getGridMeteringPeriod(){
+        return mGridMeteringPeriod;
+    }
+
+    public void setDeviceMeteringPeriod(int meteringPeriod){
+        this.mDeviceMeteringPeriod = meteringPeriod;
+    }
+
+    public double getDeviceMeteringPeriod(){
+        return mDeviceMeteringPeriod;
+    }
     public Local getLocation() {
         return mLocation;
     }
@@ -224,7 +224,7 @@ public class House implements Metered {
                 sensorList.addSensor(s);
             }
         }
-        if (sensorList.getSensorList().size() > 1) {
+        if (!(sensorList.getSensorList().isEmpty())) {
             sensor = sensorList.getMostRecentlyUsedSensor();
         } else {
             sensor = sensorList.getSensorList().get(0);

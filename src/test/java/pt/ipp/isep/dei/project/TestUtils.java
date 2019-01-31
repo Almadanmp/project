@@ -7,11 +7,11 @@ public class TestUtils {
      */
 
     //Devices
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec";
-    public static final String PATH_TO_WATERHEATER = "pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec";
-    public static final String PATH_TO_DISHWASHER = "pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec";
-    public static final String PATH_TO_WASHINGMACHINE = "pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec";
-    public static final String PATH_TO_LAMP = "pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec";
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    public static final String PATH_TO_WATERHEATER = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT";
+    public static final String PATH_TO_DISHWASHER = "pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT";
+    public static final String PATH_TO_WASHINGMACHINE = "pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachineDT";
+    public static final String PATH_TO_LAMP = "pt.ipp.isep.dei.project.model.device.devicetypes.LampDT";
 
     public static final String NOMINAL_POWER = "nominal power";
     //FridgeSpec attributes
