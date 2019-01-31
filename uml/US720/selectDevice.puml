@@ -5,7 +5,6 @@ actor PowerUser
 -> ":EnergyConsumptionUI": selectDevice
 activate ":EnergyConsumptionUI"
 ":EnergyConsumptionUI" -> ":InputUtils": getInputDevice(:Room)
-deactivate ":EnergyConsumptionUI"
 activate ":InputUtils"
 ":InputUtils" -> ":Room": getDeviceList()
 activate ":Room"
@@ -24,4 +23,6 @@ activate ":DeviceList"
 <-- ":DeviceList": return :Device
 deactivate ":DeviceList"
 deactivate ":Room"
+deactivate ":EnergyConsumptionUI"
+deactivate ":InputUtils"
 @enduml
