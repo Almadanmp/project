@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -14,6 +15,12 @@ import static org.testng.Assert.assertTrue;
  */
 
 public class LampSpecTest {
+
+    public static final String FLUX = "Luminous Flux";
+    public static final String NOMINAL_POWER = "nominal power";
+    public static final String notFLUX = "\0Luminous Flux";
+    public static final String notNOMINAL_POWER = "\0nominal power";
+
     @Test
     public void getTypeTest() {
         LampSpec lampSpec = new LampSpec();
@@ -154,6 +161,70 @@ public class LampSpecTest {
         assertEquals(5.0, result);
     }
 
+    @Test
+    void testGetAttributeValueForAllCases() {
+        //Arrange
+        LampSpec lSpec = new LampSpec();
+        Double attribute = 6.0;
+        lSpec.setAttributeValue(FLUX, attribute);
+        lSpec.setAttributeValue(NOMINAL_POWER, attribute);
+        // original strings:
+        assertEquals(attribute, lSpec.getAttributeValue(FLUX));
+        assertEquals(attribute, lSpec.getAttributeValue(NOMINAL_POWER));
+        // same hash codes, but different strings:
+        assertEquals(false, lSpec.getAttributeValue(notFLUX));
+        assertEquals(false, lSpec.getAttributeValue(notNOMINAL_POWER));
+        // distinct hash code to cover default cases of switches
+        assertEquals(false, lSpec.getAttributeValue(""));
+    }
 
+    @Test
+    void testGetAttributeUnitForAllCases() {
+        //Arrange
+        LampSpec lSpec = new LampSpec();
+        String attributeLm = "lm";
+        String attributeKW = "kW";
+        // original strings:
+        assertEquals(attributeLm, lSpec.getAttributeUnit(FLUX));
+        assertEquals(attributeKW, lSpec.getAttributeUnit(NOMINAL_POWER));
+        // same hash codes, but different strings:
+        assertEquals(false, lSpec.getAttributeUnit(notFLUX));
+        assertEquals(false, lSpec.getAttributeUnit(notNOMINAL_POWER));
+        // distinct hash code to cover default cases of switches
+        assertEquals(false, lSpec.getAttributeUnit(""));
+    }
 
+    @Test
+    public void testSetAttributeValueForAllCases() {
+        //Arrange
+        LampSpec lSpec = new LampSpec();
+        Double attribute = 6.0;
+        lSpec.setAttributeValue(FLUX, attribute);
+        lSpec.setAttributeValue(NOMINAL_POWER, attribute);
+        // original strings:
+        assertTrue(lSpec.setAttributeValue(FLUX, attribute));
+        assertTrue(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        // same hash codes, but different strings:
+        assertFalse(lSpec.setAttributeValue(notFLUX, attribute));
+        assertFalse(lSpec.setAttributeValue(notNOMINAL_POWER, attribute));
+        // distinct hash code to cover default cases of switches
+        assertFalse(lSpec.setAttributeValue("", attribute));
+    }
+
+    @Test
+    public void testSetAttributeValueForNotDouble() {
+        //Arrange
+        LampSpec lSpec = new LampSpec();
+        Integer attribute = 6;
+        lSpec.setAttributeValue(FLUX, attribute);
+        lSpec.setAttributeValue(NOMINAL_POWER, attribute);
+        // original strings:
+        assertFalse(lSpec.setAttributeValue(FLUX, attribute));
+        assertFalse(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        // same hash codes, but different strings:
+        assertFalse(lSpec.setAttributeValue(notFLUX, attribute));
+        assertFalse(lSpec.setAttributeValue(notNOMINAL_POWER, attribute));
+        // distinct hash code to cover default cases of switches
+        assertFalse(lSpec.setAttributeValue("", attribute));
+    }
 }

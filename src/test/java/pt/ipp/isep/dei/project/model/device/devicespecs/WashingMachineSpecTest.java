@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * WashingMachineSpec tests class.
@@ -17,6 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class WashingMachineSpecTest {
+
+    static final String CAPACITY = "Capacity";
+    static final String NOMINAL_POWER = "nominal power";
+    static final String notCAPACITY = "\0Capacity";
+    static final String notNOMINAL_POWER = "\0nominal power";
 
     @Test
     void getTypeTest() {
@@ -288,5 +295,36 @@ class WashingMachineSpecTest {
 
         // distinct hash code to cover default cases of switches
         assertEquals(0, washingMachineSpec.getAttributeValue(""));
+    }
+
+    @Test
+    void testSetAttributeValueCoveringAllCases() {
+        //Arrange
+        WashingMachineSpec wMachineSpec = new WashingMachineSpec();
+        Double attribute = 6.0;
+        // original strings:
+        assertTrue(wMachineSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        assertTrue(wMachineSpec.setAttributeValue(CAPACITY, attribute));
+        // same hash codes, but different strings:
+        assertFalse(wMachineSpec.setAttributeValue(notNOMINAL_POWER, attribute));
+        assertFalse(wMachineSpec.setAttributeValue(notCAPACITY, attribute));
+        // distinct hash code to cover default cases of switches
+        assertFalse(wMachineSpec.setAttributeValue("", attribute));
+    }
+
+    @Test
+    void seeIfGetAttributeUnitWorksInAllCases() {
+        //Arrange
+        WashingMachineSpec wMachineSpec = new WashingMachineSpec();
+        String attributeKg = "Kg";
+        String attributeKW = "kW";
+        // original strings:
+        assertEquals(attributeKW, wMachineSpec.getAttributeUnit(NOMINAL_POWER));
+        assertEquals(attributeKg, wMachineSpec.getAttributeUnit(CAPACITY));
+        // same hash codes, but different strings:
+        assertEquals(false, wMachineSpec.getAttributeUnit(notNOMINAL_POWER));
+        assertEquals(false, wMachineSpec.getAttributeUnit(notCAPACITY));
+        // distinct hash code to cover default cases of switches
+        assertEquals(false, wMachineSpec.getAttributeUnit(""));
     }
 }

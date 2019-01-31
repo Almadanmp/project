@@ -1,0 +1,88 @@
+@startuml
+
+actor PowerUser
+PowerUser -> EnergyConsumptionUI: runUS730
+alt EnergyGrid
+activate EnergyConsumptionUI
+EnergyConsumptionUI -> inputUtils
+ref over inputUtils
+selectGrid
+end ref
+activate inputUtils
+ref over inputUtils
+selectInitialTime
+end ref
+ref over inputUtils
+selectFinalTime
+end ref
+EnergyConsumptionUI -> EnergyConsumptionController: getGridLogsInInterval(grid)
+deactivate inputUtils
+activate EnergyConsumptionController
+EnergyConsumptionController -> EnergyGrid: getLogsInInterval
+activate EnergyGrid
+ref over EnergyGrid
+getLogsInInterval
+end ref
+EnergyGrid --> EnergyConsumptionUI: return LogList
+deactivate EnergyGrid
+deactivate EnergyConsumptionController
+else Room
+EnergyConsumptionUI -> inputUtils
+activate inputUtils
+ref over inputUtils
+select Room
+end ref
+ref over inputUtils
+selectInitialTime
+end ref
+ref over inputUtils
+selectFinalTime
+end ref
+EnergyConsumptionUI -> EnergyConsumptionController: getRoomLogsInInterval(room)
+deactivate inputUtils
+activate EnergyConsumptionController
+EnergyConsumptionController -> Room: getLogsInInterval;
+activate Room
+ref over Room
+getLogsInInterval
+end ref
+Room --> EnergyConsumptionUI: return LogList;
+deactivate EnergyConsumptionController
+deactivate Room
+else Device
+EnergyConsumptionUI -> inputUtils
+activate inputUtils
+ref over inputUtils
+selectRoom
+end ref
+ref over inputUtils
+selectDevice
+end ref
+ref over inputUtils
+selectInitialTime
+end ref
+ref over inputUtils
+selectFinalTime
+end ref
+EnergyConsumptionUI -> EnergyConsumptionController: getDeviceLogsInInterval(device)
+deactivate inputUtils
+activate EnergyConsumptionController
+EnergyConsumptionController -> Device: getLogsInInterval
+activate Device
+ref over Device
+getLogsInInterval
+end ref
+Device --> EnergyConsumptionUI: return LogList
+deactivate Device
+deactivate EnergyConsumptionController
+end
+EnergyConsumptionUI -> EnergyConsumptionController: buildString(LogList)
+activate EnergyConsumptionController
+EnergyConsumptionController -> LogList: toString()
+activate LogList
+LogList --> EnergyConsumptionUI: return String
+deactivate LogList
+deactivate EnergyConsumptionController
+EnergyConsumptionUI -> PowerUser: display logs as list with date and value
+deactivate EnergyConsumptionUI
+@enduml

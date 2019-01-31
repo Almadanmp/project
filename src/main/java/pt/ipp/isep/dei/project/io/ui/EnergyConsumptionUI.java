@@ -4,6 +4,8 @@ import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Log;
+import pt.ipp.isep.dei.project.model.device.LogList;
 
 import java.util.Date;
 import java.util.List;
@@ -51,6 +53,10 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 6:
+                    runUS730(programHouse);
+                    activeInput = false;
+                    break;
+                case 7:
                     runUS752(programHouse);
                     activeInput = false;
                     break;
@@ -308,6 +314,49 @@ class EnergyConsumptionUI {
         System.out.println("The total energy consumption of the selected room in the selected interval is: " + result);
     }
 
+    /* US730
+     *  As a Power User [or Administrator], I want to have the data series necessary to design an energy
+     *  consumption chart of the metered energy consumption of a device/room/grid in a given time interval.
+     */
+
+    private void runUS730(House programHouse){
+        InputUtils  inputs = new InputUtils();
+        Date startDate = new Date();
+        Date endDate = new Date();
+        this.printUS730Menu();
+        int option = inputs.readInputNumberAsInt();
+        switch (option){
+            case 1:
+                EnergyGrid grid = inputs.getInputGridByList(programHouse);
+                System.out.println("PLEASE INSERT THE START OF THE INTERVAL:");
+                startDate = inputs.getInputDate();
+                System.out.println("PLEASE INSERT THE END OF THE INTERVAL:");
+                endDate = inputs.getInputDate();
+                LogList gridLogs = controller.getGridLogsInInterval(grid, startDate, endDate);
+                System.out.println(controller.buildLogListString(gridLogs));
+                break;
+            case 2:
+                Room case2Room = inputs.getHouseRoomByList(programHouse);
+                System.out.println("PLEASE INSERT THE START OF THE INTERVAL:");
+                startDate = inputs.getInputDate();
+                System.out.println("PLEASE INSERT THE END OF THE INTERVAL:");
+                endDate = inputs.getInputDate();
+                LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate);
+                System.out.println(controller.buildLogListString(roomLogs));
+                break;
+            case 3:
+                Room case3Room = inputs.getHouseRoomByList(programHouse);
+                Device device = inputs.getInputRoomDevicesByList(case3Room);
+                System.out.println("PLEASE INSERT THE START OF THE INTERVAL:");
+                startDate = inputs.getInputDate();
+                System.out.println("PLEASE INSERT THE END OF THE INTERVAL:");
+                endDate = inputs.getInputDate();
+                LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);
+                System.out.println(controller.buildLogListString(deviceLogs));
+                break;
+        }
+    }
+
     /*
      * US752
      * As a Regular User [or Power User], I want to estimate the total energy used in heating water in a given day,
@@ -348,7 +397,15 @@ class EnergyConsumptionUI {
         System.out.println("3) Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
         System.out.println("4) Display total Metered Energy Consumption of a Room in a given time interval. (US721)");
         System.out.println("5) Display total Metered Energy Consumption of a Grid in a given time interval. (US722)");
-        System.out.println("6) Estimate the total energy used in heating water in a day. (US752)");
+        System.out.println("6) Show data series necessary to design an energy consumption chart of the metered energy consumption of a device/room/grid in a given time interval.");
+        System.out.println("7) Estimate the total energy used in heating water in a day. (US752)");
         System.out.println("0) (Return to main menu)\n");
+    }
+
+    private void printUS730Menu() {
+        System.out.println("Choose the type of data to access:");
+        System.out.println("1) Grid data.");
+        System.out.println("2) Room data.");
+        System.out.println("3) Device data.");
     }
 }
