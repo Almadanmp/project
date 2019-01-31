@@ -777,7 +777,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         controller.configureWH(d6, attributeValue, attributeValue2);
         boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = false;
+        boolean expectedResult = true;
         assertEquals(expectedResult, result);
     }
 
@@ -793,7 +793,7 @@ class EnergyConsumptionControllerTest {
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = false;
+        boolean expectedResult = true;
         assertEquals(expectedResult, result);
     }
 
@@ -810,7 +810,7 @@ class EnergyConsumptionControllerTest {
         EnergyConsumptionController controller = new EnergyConsumptionController();
         controller.configureWH(d6, attributeValue, attributeValue2);
         boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = false;
+        boolean expectedResult = true;
         assertEquals(expectedResult, result);
     }
 
