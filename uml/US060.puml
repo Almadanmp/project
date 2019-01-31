@@ -5,7 +5,7 @@ actor Admin
 activate Admin
 Admin -> ":MainUI": run(house,\n geographicArea)
 activate ":MainUI"
-":MainUI" --> ":HouseMonitoringUI": runUS600(house,\n geographicArea)
+":MainUI" -> ":HouseMonitoringUI": runUS600(house,\n geographicArea)
 activate ":HouseMonitoringUI"
 ":HouseMonitoringUI" -> ":HouseMonitoringController": getCurrentTemperatureInTheHouseArea(house,\n geographicArea, sensorType: "temperature")
 activate ":HouseMonitoringController"

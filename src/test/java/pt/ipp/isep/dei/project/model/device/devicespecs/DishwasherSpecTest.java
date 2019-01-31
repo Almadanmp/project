@@ -168,6 +168,17 @@ class DishwasherSpecTest {
     }
 
     @Test
+    void setAttributeValueTestNull() {
+        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+        dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        Program program1 = new Program("programa", 2, 2);
+        ProgramList listProgram = dishwasherSpec.getProgramList();
+        listProgram.addProgram(program1);
+        boolean result = dishwasherSpec.setAttributeValue(null, listProgram);
+        assertEquals(false, result);
+    }
+
+    @Test
     void setAttributeValueTestCapacity() {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);

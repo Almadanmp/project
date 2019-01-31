@@ -54,6 +54,13 @@ public class LampSpecTest {
     }
 
     @Test
+    public void setAttributeValueTestTrue3() {
+        LampSpec lampSpec = new LampSpec();
+        boolean actualResult = lampSpec.setAttributeValue("nominal power", 12.0);
+        assertTrue(actualResult);
+    }
+
+    @Test
     public void getObjectAttributeValueTest() {
         LampSpec lampSpec = new LampSpec();
         lampSpec.setAttributeValue(TestUtils.L_FLUX, 4D);
