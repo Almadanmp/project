@@ -287,27 +287,27 @@ class WaterHeaterSpecTest {
         waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
         waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
         waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 234D);
-        String attribute = "volumeOfWater";
+        String attribute = "Volume Of Water";
         int attributeValue = 2;
         boolean setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
 
-        attribute = "hotWaterTemperature";
+        attribute = "Hot Water Temperature";
         attributeValue = 3;
         setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
 
-        attribute = "coldWaterTemperature";
+        attribute = "Cold Water Temperature";
         attributeValue = 4;
         setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
 
-        attribute = "performanceRatio";
+        attribute = "Performance Ratio";
         attributeValue = 5;
         setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
 
-        attribute = "volumeOfWaterToHeat";
+        attribute = "Volume Of Water To Heat";
         attributeValue = 10;
         setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);

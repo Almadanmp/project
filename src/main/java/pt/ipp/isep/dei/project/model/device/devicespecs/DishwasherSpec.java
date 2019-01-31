@@ -72,7 +72,7 @@ public class DishwasherSpec implements DeviceSpecs, Programmable {
         }
         switch (attributeName) {
             case CAPACITY:
-                if (attributeName.equals(CAPACITY) && attributeValue instanceof Double) {
+                if (attributeValue instanceof Double) {
                     this.mCapacity = (Double) attributeValue;
                     return true;
                 }

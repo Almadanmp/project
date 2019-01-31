@@ -94,8 +94,9 @@ class WashingMachineSpecTest {
         Object result = washingMachineSpec.getAttributeUnit("programList");
         assertEquals(false, result);
         assertEquals(false, washingMachineSpec.getAttributeUnit(""));
+    }
 
-    } @Test
+    @Test
     void getAttributeUnitTest3() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
         washingMachineSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
@@ -104,7 +105,17 @@ class WashingMachineSpecTest {
         listProgram.addProgram(program1);
         Object result = washingMachineSpec.getAttributeUnit("nominal power");
         assertEquals("kW", result);
+    }
 
+    @Test
+    void getAttributeUnitTest4() {
+        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
+        washingMachineSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        ProgramList listProgram = washingMachineSpec.getProgramList();
+        Program program1 = new Program("programa", 2, 2);
+        listProgram.addProgram(program1);
+        Object result = washingMachineSpec.getAttributeUnit("Capacity");
+        assertEquals("Kg", result);
     }
 
     @Test
@@ -222,6 +233,27 @@ class WashingMachineSpecTest {
     void setAttributeValueTestFalseAgain() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
         Object result = washingMachineSpec.setAttributeValue("capacity", 5);
+        assertEquals(false, result);
+    }
+
+    @Test
+    void setAttributeValueTestFalseAgain2() {
+        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
+        Object result = washingMachineSpec.setAttributeValue("nominal power", "sjfhbfhfh");
+        assertEquals(false, result);
+    }
+
+    @Test
+    void setAttributeValueTestTrue() {
+        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
+        Object result = washingMachineSpec.setAttributeValue("nominal power", 5.0);
+        assertEquals(true, result);
+    }
+
+    @Test
+    void setAttributeValueTestFalseCap() {
+        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
+        Object result = washingMachineSpec.setAttributeValue("Capacity", "sjfhbfhfh");
         assertEquals(false, result);
     }
 
