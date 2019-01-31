@@ -1,5 +1,27 @@
 @startuml
-title US722\nAs a Power User [or Administrator], I want to know the total metered energy consumption of a grid\nin agiven time interval,\ni.e. the sum of the energy consumption of all energy-metered rooms in the grid in the interval.
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+ }
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+title US722 As a Power User [or Administrator], I want to know the total metered energy consumption of a grid in agiven time interval.
 actor PowerUser
 PowerUser -> EnergyConsumptionUI: runUS722
 activate EnergyConsumptionUI
@@ -12,14 +34,14 @@ end ref
 ref over EnergyConsumptionUI
 getInputEndDate
 end ref
-EnergyConsumptionUI -> EnergyConsumptionController: getGridConsumptionInInterval (grid, startDate, endDate)
+EnergyConsumptionUI -> EnergyConsumptionController: getGridConsumptionInInterval \n(grid, startDate, endDate)
 activate EnergyConsumptionController
-EnergyConsumptionController -> Grid: getConsumptionInInterval (startDate, endDate)
+EnergyConsumptionController -> Grid: getConsumptionInInterval \n(startDate, endDate)
 activate Grid
-Grid -> RoomList: getConsumptionInInterval (startDate, endDate)
+Grid -> RoomList: getConsumptionInInterval \n(startDate, endDate)
 activate RoomList
 loop get consumption for each room
-RoomList -> Room: getConsumptionInInterval (startDate, endDate)
+RoomList -> Room: getConsumptionInInterval \n(startDate, endDate)
 activate Room
 Room --> RoomList: return double
 deactivate Room

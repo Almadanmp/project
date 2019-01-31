@@ -1,30 +1,30 @@
 @startuml
 
-skinparam titleBorderRoundCorner 25
+skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
-skinparam titleBorderColor salmon
-skinparam titleBackgroundColor lightsalmon-lightpink
-skinparam FontName Verdana
-
-title US050 \n  I want to define the metering period for energy-metered devices using a configuration file.
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
 
 skinparam actor {
-	BorderColor salmon
-	}
+ 	BorderColor indianred
+ 	}
 
-skinparam sequence {
-	LifeLineBackgroundColor salmon
-	ParticipantBackgroundColor PeachPuff
-}
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+ }
 
-skinparam roundcorner 20
+ skinparam roundcorner 10
 
-skinparam component {
-  arrowThickness 2
-  ArrowFontName Verdana
-  ArrowColor salmon
-  ArrowFontColor darkslategrey
-}
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+title US050 \n  I want to define the metering period for energy-metered devices using a configuration file.
+
 
 actor Administrator
 Administrator -> MainUI:run()

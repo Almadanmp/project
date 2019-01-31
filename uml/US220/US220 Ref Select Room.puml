@@ -22,12 +22,11 @@ skinparam actor {
    ArrowColor indianred
    ArrowFontColor darkslategrey
  }
-actor PowerUser
+actor Administrator
 
-activate PowerUser
--> ":EnergyConsumptionUI": selectRoom
-activate ":EnergyConsumptionUI"
-":EnergyConsumptionUI" -> ":InputUtils": getInputRoom(:House)
+-> ":RoomConfigurationUI": selectRoom
+activate ":RoomConfigurationUI"
+":RoomConfigurationUI" -> ":InputUtils": getInputRoom(:House)
 activate ":InputUtils"
 ":InputUtils" -> ":House": getRoomList()
 activate ":House"
@@ -37,16 +36,15 @@ activate ":RoomList"
 deactivate ":RoomList"
 deactivate ":House"
 ":InputUtils" -> ":InputUtils": buildRoomListString()
-":InputUtils" -> PowerUser: display list of available rooms
-PowerUser -> ":InputUtils": select room by index
+":InputUtils" -> Administrator: display list of available rooms
+Administrator -> ":InputUtils": select room by index
 ":InputUtils" -> ":House": getRoomByIndex()
 activate ":House"
 ":House" -> ":RoomList": getRoomByIndex()
 activate ":RoomList"
-":RoomList" --> ":EnergyConsumptionUI" : return :Room
+":RoomList" --> ":RoomConfigurationUI" : return :Room
 deactivate ":RoomList"
 deactivate ":House"
-deactivate PowerUser
-deactivate ":EnergyConsumptionUI"
+deactivate ":RoomConfigurationUI"
 deactivate ":InputUtils"
 @enduml

@@ -1,6 +1,28 @@
-US051 As an Administrator, I want to define the metering period for grids (in minutes) using a configuration file. It is assumed the first metering period starts at 00:00. The sum of all periods in the day must be 24:00.
-
 @startuml
+title US051 As an Administrator, I want to define the metering period for grids (in minutes) using a configuration file.
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+ }
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
 MainUI -> FileInputUtils: validGridMetering()
 activate FileInputUtils
 
