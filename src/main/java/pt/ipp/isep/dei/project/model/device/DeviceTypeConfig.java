@@ -18,7 +18,7 @@ public class DeviceTypeConfig {
         return getDeviceTypeConfigFromSpecificFile("resources/devices.properties");
     }
 
-    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
+/*    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
         String allDevicesKey = "allDeviceTypes";
         Properties props = new Properties();
 
@@ -36,9 +36,9 @@ public class DeviceTypeConfig {
             throw new IOException("ERROR: Unable to process device configuration file - " + e.getMessage());
         }
         return deviceTypeConfig;
-    }
+    }*/
 
-  /*  public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
+    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
         String allDevicesKey = "allDeviceTypes";
         Properties props = new Properties();
 
@@ -62,7 +62,7 @@ public class DeviceTypeConfig {
             }
         }
         return deviceTypeConfig;
-    }*/
+    }
 
     public String getPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
