@@ -61,6 +61,8 @@ public class DeviceTypeConfigTest {
         assertEquals(expectedResult, result);
     }
 
+
+
     @Test
     public void getDeviceTypeConfigWrongFileName() {
         assertThrows(IOException.class,
@@ -113,12 +115,58 @@ public class DeviceTypeConfigTest {
                 });
     }
 
+    //DEVICETYPECONFIG SPECIF FILE METHOD
+
+    @Test
+    public void getDeviceTypeConfigSpecificSuccess() throws IOException {
+        Properties props = new Properties();
+        String propFileName = "resources/devices.properties";
+        InputStream input = new FileInputStream(propFileName);
+        props.load(input);
+        DeviceTypeConfig dtc = new DeviceTypeConfig();
+        List<String> result = dtc.getDeviceTypeConfigFromSpecificFile("resources/devices.properties");
+        List<String> expectedResult = new ArrayList<>();
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachineDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.LampDT");
+
+        assertEquals(expectedResult, result);
+    }
+
     @Test
     public void getDeviceTypeConfigInvalidFileIOException() {
         assertThrows(IOException.class,
                 () -> {
                     DeviceTypeConfig dtc = new DeviceTypeConfig();
                     dtc.getDeviceTypeConfigFromSpecificFile("resources/devices_test.properties");
+                });
+    }
+
+    @Test
+    public void getDeviceTypeConfigSpecificFileWrongPropFileName() {
+        assertThrows(IOException.class,
+                () -> {
+                    Properties props = null;
+                    DeviceTypeConfig dtc = new DeviceTypeConfig();
+                    String propFileName = "resources/deces.properties";
+                    InputStream input = new FileInputStream(propFileName);
+                    props.load(input);
+                    dtc.getDeviceTypeConfigFromSpecificFile(propFileName);
+                });
+    }
+
+    @Test
+    public void getDeviceTypeSpecificFileRightPropFileNameButWithNoValuesInside() {
+        assertThrows(FileNotFoundException.class,
+                () -> {
+                    Properties props = new Properties();
+                    DeviceTypeConfig dtc = new DeviceTypeConfig();
+                    String propFileName = "resources/devices_test.properties";
+                    InputStream input = new FileInputStream(propFileName);
+                    props.load(input);
+                    dtc.getDeviceTypeConfigFromSpecificFile(propFileName);
                 });
     }
 }
