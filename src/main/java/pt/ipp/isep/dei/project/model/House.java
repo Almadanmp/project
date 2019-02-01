@@ -3,7 +3,10 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * House Class. Defines de House
@@ -41,6 +44,7 @@ public class House implements Metered {
     /**
      * Method that will instantiate an object from each device Type path in device.properties file
      * and add it to the List<DeviceType> attribute in House class.
+     *
      * @param deviceTypePaths List of Strings with all the device paths (values) from device.properties file
      */
     public void buildDeviceTypeList(List<String> deviceTypePaths) {
@@ -226,10 +230,10 @@ public class House implements Metered {
                 sensorList.addSensor(s);
             }
         }
-        if (sensorList.getSensorList().isEmpty()){
+
+if (sensorList.getSensorList().isEmpty()){
             return sensorError;
-        }
-        if (sensorList.getSensorList().size()>=2) {
+        }        if (sensorList.getSensorList().size() >=2) {
             sensor = sensorList.getMostRecentlyUsedSensor();
         } else {
             sensor = sensorList.getSensorList().get(0);

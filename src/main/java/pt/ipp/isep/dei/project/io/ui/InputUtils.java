@@ -171,7 +171,6 @@ public class InputUtils {
     }
 
 
-
     Sensor getInputRoomSensorByList(Room room) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
@@ -188,7 +187,7 @@ public class InputUtils {
         }
     }
 
-    DeviceType getInputDeviceTypeByList(House house){
+    DeviceType getInputDeviceTypeByList(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
@@ -263,50 +262,50 @@ public class InputUtils {
         return new GregorianCalendar(year, month, day, hour, minute).getTime();
     }
 
-    private int getInputYear(){
+    private int getInputYear() {
         Scanner scan = new Scanner(System.in);
         int year = -1;
-        while(year<0) {
+        while (year < 0) {
             year = getInputDateAsInt(scan, "year");
             scan.nextLine();
         }
         return year;
     }
 
-    private int getInputMonth(){
+    private int getInputMonth() {
         Scanner scan = new Scanner(System.in);
         int month = -1;
-        while(month<=-1 || month>11) { // -1 e 11 porque depois se subtrai um valor
+        while (month <= -1 || month > 11) { // -1 e 11 porque depois se subtrai um valor
             month = getInputDateAsInt(scan, "month") - 1;
             scan.nextLine();
         }
         return month;
     }
 
-    private int getInputDay(){
+    private int getInputDay() {
         Scanner scan = new Scanner(System.in);
         int day = -1;
-        while(day<1 || day>31) {
+        while (day < 1 || day > 31) {
             day = getInputDateAsInt(scan, "day");
             scan.nextLine();
         }
         return day;
     }
 
-    private int getInputHour(){
+    private int getInputHour() {
         Scanner scan = new Scanner(System.in);
         int hour = -1;
-        while(hour<0 || hour >23) {
+        while (hour < 0 || hour > 23) {
             hour = getInputDateAsInt(scan, "hour");
             scan.nextLine();
         }
         return hour;
     }
 
-    private int getInputMinute(){
+    private int getInputMinute() {
         Scanner scan = new Scanner(System.in);
         int minute = -1;
-        while(minute<0 || minute>59) {
+        while (minute < 0 || minute > 59) {
             minute = getInputDateAsInt(scan, "minute");
             scan.nextLine();
         }

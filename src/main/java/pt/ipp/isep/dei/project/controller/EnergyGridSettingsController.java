@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
-
 import java.util.List;
 
 /**
@@ -217,7 +216,7 @@ public class EnergyGridSettingsController {
      * @param energyGrid - This will be the parameter in which we want to search all the devices
      */
 
-    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house){
+    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house) {
         return energyGrid.buildListOfDeviceByTypeString(energyGrid, house);
     }
 }

@@ -13,14 +13,12 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
-import static org.testng.AssertJUnit.assertNull;
 
 /**
  * House tests class.
@@ -665,7 +663,6 @@ class HouseTest {
 
     @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsednull() {
-
         SensorList sensorList = new SensorList();
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
@@ -673,7 +670,7 @@ class HouseTest {
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house, "temperature");
-        Sensor sensorError = new Sensor("EmptyList",new TypeSensor("temperature"," "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
+        Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         assertEquals(sensorError.getName(), result.getName());
     }
 
@@ -768,7 +765,6 @@ class HouseTest {
     }
 
 
-
     @Test
     void getDeviceListSuccess() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
@@ -818,7 +814,7 @@ class HouseTest {
         List<DeviceType> dtList = house.getmDeviceTypeList();
         assertEquals(dtList.size(), 2);
         assertTrue(dtList.get(0) instanceof DishwasherDT);
-        assertTrue(dtList.get(1)instanceof WaterHeaterDT);
+        assertTrue(dtList.get(1) instanceof WaterHeaterDT);
     }
 
     @Test

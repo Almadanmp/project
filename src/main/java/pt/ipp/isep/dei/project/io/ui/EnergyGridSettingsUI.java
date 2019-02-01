@@ -212,7 +212,7 @@ class EnergyGridSettingsUI {
 
     private void displayUS160(EnergyGrid energyGrid, House house) {
         if (energyGrid != null) {
-                System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid, house));
+            System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid, house));
 
         }
     }

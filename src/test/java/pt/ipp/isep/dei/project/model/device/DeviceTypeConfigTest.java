@@ -117,7 +117,7 @@ public class DeviceTypeConfigTest {
         assertThrows(IOException.class,
                 () -> {
                     DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    dtc.getDeviceTypeConfigFromSpecificFile("resources/devices_TEST.properties");
+                    dtc.getDeviceTypeConfigFromSpecificFile("resources/devices_test.properties");
                 });
     }
 }
