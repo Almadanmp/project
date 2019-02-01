@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
-import java.io.IOException;
+
 import java.util.List;
 
 /**

@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 class EnergyGridSettingsUI {

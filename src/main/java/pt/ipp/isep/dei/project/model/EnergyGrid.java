@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
