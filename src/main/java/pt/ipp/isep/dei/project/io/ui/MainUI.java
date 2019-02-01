@@ -946,7 +946,7 @@ public class MainUI {
                         break;
                     case 7:
                         EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                        energyConsumptionUI.run(hhhhh);
+                        energyConsumptionUI.run(edificioB);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
