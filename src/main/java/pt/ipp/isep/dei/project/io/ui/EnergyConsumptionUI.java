@@ -315,7 +315,7 @@ class EnergyConsumptionUI {
         System.out.println("Please insert the date at which you want to end the interval.");
         Date finalDate = inputs.getInputDate();
         double result = controller.getGridConsumptionInInterval(eGrid, initialDate, finalDate);
-        System.out.println("The total energy consumption of the selected room in the selected interval is: " + result);
+        System.out.println("The total energy consumption of the selected room in the selected interval is: " + result + "kW");
     }
 
     /* US730
