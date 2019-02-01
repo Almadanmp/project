@@ -101,12 +101,13 @@ public class DeviceTypeConfigTest {
     }
 
     @Test
-    public void getDeviceTypeInputStreamNull() {
+    public void getDeviceTypeRightPropFileNameButWithNoValuesInside() {
         assertThrows(FileNotFoundException.class,
                 () -> {
                     Properties props = new Properties();
                     DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    InputStream input = new FileInputStream("");
+                    String propFileName = "resources/devices_test.properties";
+                    InputStream input = new FileInputStream(propFileName);
                     props.load(input);
                     dtc.getDeviceTypeConfig();
                 });

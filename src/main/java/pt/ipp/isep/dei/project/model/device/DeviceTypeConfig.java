@@ -35,7 +35,6 @@ public class DeviceTypeConfig {
         } catch (IOException e) {
             throw new IOException("ERROR: Unable to process device configuration file - " + e.getMessage());
         }
-
         return deviceTypeConfig;
     }
 
