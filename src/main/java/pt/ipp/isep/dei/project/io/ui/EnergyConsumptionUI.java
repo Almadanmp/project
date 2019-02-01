@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.LogList;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -309,12 +311,15 @@ class EnergyConsumptionUI {
             return;
         }
         EnergyGrid eGrid = inputs.getInputGridByList(programHouse);
+        DecimalFormat df = new DecimalFormat("#.###");
+        df.setRoundingMode(RoundingMode.CEILING);
         System.out.println("Please insert the date at which you want to start the interval.");
         Date initialDate = inputs.getInputDate();
         System.out.println("Please insert the date at which you want to end the interval.");
         Date finalDate = inputs.getInputDate();
         double result = controller.getGridConsumptionInInterval(eGrid, initialDate, finalDate);
-        System.out.println("The total energy consumption of the selected grid in the selected interval is: " + result + "kW");
+        System.out.println("\n" + "Between " + initialDate + " and " + finalDate +
+                "\n" + "The total energy consumption of the " + eGrid.getName() + " in the selected interval is: " + df.format(result) + " kW");
     }
 
     /* US730
