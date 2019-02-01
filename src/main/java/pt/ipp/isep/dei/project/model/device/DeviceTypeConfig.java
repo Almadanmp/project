@@ -18,7 +18,7 @@ public class DeviceTypeConfig {
         return getDeviceTypeConfigFromSpecificFile("resources/devices.properties");
     }
 
-/*    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
+    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
         String allDevicesKey = "allDeviceTypes";
         Properties props = new Properties();
 
@@ -32,34 +32,8 @@ public class DeviceTypeConfig {
                 String aux = getPropertyValueFromKey(props, s);
                 deviceTypeConfig.add(aux);
             }
-        } catch (IOException e) {
+        } catch (IOException e) { //NOSONAR
             throw new IOException("ERROR: Unable to process device configuration file - " + e.getMessage());
-        }
-        return deviceTypeConfig;
-    }*/
-
-    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
-        String allDevicesKey = "allDeviceTypes";
-        Properties props = new Properties();
-
-        List<String> deviceTypeConfig = new ArrayList<>();
-        InputStream input = null;
-
-        try {
-            input = new FileInputStream(propFileName);
-            props.load(input);
-            String deviceTypes = getPropertyValueFromKey(props, allDevicesKey);
-            List<String> deviceTypeList = Arrays.asList(deviceTypes.split(","));
-            for (String s : deviceTypeList) {
-                String aux = getPropertyValueFromKey(props, s);
-                deviceTypeConfig.add(aux);
-            }
-        } catch (IOException e) {
-            throw new IOException("ERROR: Unable to process device configuration file - " + e.getMessage());
-        } finally {
-            if (input != null) {
-                input.close();
-            }
         }
         return deviceTypeConfig;
     }
