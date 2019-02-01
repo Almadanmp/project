@@ -245,7 +245,7 @@ public class HouseMonitoringController {
                 counter++;
             }
         }
-        if (counter > 0) {
+        if (counter >= 1) {
             Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, rainfall);
             if (closestSensor.getReadingList() == null) {
                 return Double.NaN;
