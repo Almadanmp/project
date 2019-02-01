@@ -369,7 +369,7 @@ class RoomConfigurationUI {
         if (this.mRoomConfigurationController.deactivateDevice(device)) {
             System.out.println("Device successfully deactivated!");
         } else {
-            System.out.println("It wasn't possible to deactivate the device.");
+            System.out.println("It wasn't possible to deactivate the device. The device is already deactivated.");
         }
     }
 
