@@ -82,14 +82,14 @@ class FridgeSpecTest {
     @Test
     void seeIfSetAttributeValuesTest() {
         FridgeSpec fridgeSpec = new FridgeSpec();
-        Object result = fridgeSpec.setAttributeValue("Freezer Capacity", fridgeSpec);
+        Object result = fridgeSpec.setAttributeValue("Freezer Capacity", "Fail");
         assertEquals(false, result);
     }
 
     @Test
     void seeIfSetAttributeValuesTestRefrigeratorCapacity() {
         FridgeSpec fridgeSpec = new FridgeSpec();
-        Object result = fridgeSpec.setAttributeValue("Refrigerator Capacity", fridgeSpec);
+        Object result = fridgeSpec.setAttributeValue("Refrigerator Capacity", "Fail");
         assertEquals(false, result);
     }
 
@@ -97,6 +97,12 @@ class FridgeSpecTest {
     void seeIfSetAttributeValuesTestAnnualConsumption() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         boolean result = fridgeSpec.setAttributeValue("Annual Consumption", "Fail");
+        assertFalse(result);
+    }
+    @Test
+    void seeIfSetAttributeValuesTestNominalPower() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        boolean result = fridgeSpec.setAttributeValue("nominal power", "Fail");
         assertFalse(result);
     }
 

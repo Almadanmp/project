@@ -10,7 +10,11 @@ class FileInputUtils {
     int mDeviceMeteringPeriod;
     int mGridMeteringPeriod;
 
-
+    /** This method will read the configuration file and validate the value that corresponds
+     * to the grid metering period. In case of a valid value, the value will be stored has a
+     * class attribute
+     * @return it will return true in case the value is valid and false if not
+     * **/
     boolean validGridMetering() throws IOException {
         int gridMeteringPeriod = readGridMeteringPeriod();
         if(gridMeteringPeriodValidation(gridMeteringPeriod)){
@@ -20,6 +24,10 @@ class FileInputUtils {
         return false;
     }
 
+    /** This method will read the configuration file, get the string that corresponds to the
+     * grid metering period and turn it into an integer
+     * @return the integer that corresponds to the grid metering period
+     * **/
     private int readGridMeteringPeriod() throws IOException {
         String gridMeteringPeriod;
         Properties prop = new Properties();
@@ -37,6 +45,11 @@ class FileInputUtils {
         }
     }
 
+    /** This method will receive an integer and check if the value is valid. The sum of
+     * all metering periods in a day should be 24 hours (1440 minutes)
+     * @param gridMeteringPeriod integer to be tested
+     * @return true in case the value is valid, false if not
+     * **/
     private boolean gridMeteringPeriodValidation(int gridMeteringPeriod) {
         if (gridMeteringPeriod == 0) {
             System.out.println("Grid metering value must be greater than 0.");
