@@ -48,7 +48,7 @@ public class EnergyGrid implements Metered {
         return mRoomList;
     }
 
-    double getMaxContractedPower() {
+    public double getMaxContractedPower() {
         return mMaxContractedPower;
     }
 
