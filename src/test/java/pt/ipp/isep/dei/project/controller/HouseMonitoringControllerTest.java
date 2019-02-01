@@ -935,7 +935,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = s1.getReadingList().getTotalValueOfReadingOnGivenDay(d1);
+        double expectedResult = Double.NaN;
         //Act
         double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
