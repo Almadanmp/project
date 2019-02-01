@@ -54,13 +54,13 @@ public class LampSpec implements DeviceSpecs {
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
         switch (attributeName) {
             case FLUX:
-                if (attributeName.equals(FLUX) && attributeValue instanceof Double) {
+                if (attributeValue instanceof Double) {
                     this.mLuminousFlux = (Double) attributeValue;
                     return true;
                 }
                 return false;
             case NOMINAL_POWER:
-                if (attributeName.equals(NOMINAL_POWER) && attributeValue instanceof Double) {
+                if (attributeValue instanceof Double) {
                     this.mNominalPower = (Double) attributeValue;
                     return true;
                 }
