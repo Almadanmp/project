@@ -202,6 +202,18 @@ class FridgeSpecTest {
     }
 
     @Test
+    void seeIfSetAttributeFalse() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        String attribute = "Refrigerator Capacity";
+        Double expectedResult = 6.0;
+        fridgeSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6);
+        boolean setResult = fridgeSpec.setAttributeValue(attribute, 6.0);
+        Object getResult = fridgeSpec.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertTrue(setResult);
+    }
+
+    @Test
     void seeIfGetAndSetAttributeValue3() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         String attribute = "Annual Energy Consumption";

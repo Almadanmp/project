@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.TestUtils;
+import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
@@ -60,6 +60,16 @@ class DishwasherSpecTest {
         DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
         dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 1D);
+        Double expectedResult = 1.0;
+        Object result = dishwasherSpec.getAttributeValue("Capacity");
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetAttributeValuesTestCapacityWorksFalse() {
+        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+        dishwasherSpec.setAttributeValue(TestUtils.DW_CAPACITY, 1D);
+        dishwasherSpec.setAttributeValue(TestUtils.NOMINAL_POWER, "Error");
         Double expectedResult = 1.0;
         Object result = dishwasherSpec.getAttributeValue("Capacity");
         assertEquals(expectedResult, result);
@@ -249,6 +259,22 @@ class DishwasherSpecTest {
         assertFalse(dWasherSpec.setAttributeValue(notCAPACITY, attribute));
         // distinct hash code to cover default cases of switches
         assertFalse(dWasherSpec.setAttributeValue("", attribute));
+    }
+
+    @Test
+    void testSetAttributeValueDeviceCoveringAllCases() {
+        //Arrange
+        DishwasherSpec dWasherSpec = new DishwasherSpec();
+        Device device = new Device(dWasherSpec);
+        Double attribute = 6.0;
+        // original strings:
+        assertTrue(device.setAttributeValue(NOMINAL_POWER, attribute));
+        assertTrue(device.setAttributeValue(CAPACITY, attribute));
+        // same hash codes, but different strings:
+        assertFalse(device.setAttributeValue(notNOMINAL_POWER, attribute));
+        assertFalse(device.setAttributeValue(notCAPACITY, attribute));
+        // distinct hash code to cover default cases of switches
+        assertFalse(device.setAttributeValue("", attribute));
     }
 
     @Test
