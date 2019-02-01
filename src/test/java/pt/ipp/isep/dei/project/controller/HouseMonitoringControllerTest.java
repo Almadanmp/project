@@ -975,7 +975,9 @@ class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
         ReadingList rl = new ReadingList();
-        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
+        Reading reading1 = new Reading(30, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 2, 1).getTime());
+        rl.addReading(reading1);
+        Date d1 = new GregorianCalendar(2018, Calendar.DECEMBER, 31, 2, 1, 1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
         s1.setReadingList(rl);
@@ -993,7 +995,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = s1.getReadingList().getTotalValueOfReadingOnGivenDay(d1);
+        double expectedResult = 30;
         //Act
         double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
