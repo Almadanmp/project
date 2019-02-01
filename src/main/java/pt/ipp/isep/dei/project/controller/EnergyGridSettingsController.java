@@ -151,6 +151,8 @@ public class EnergyGridSettingsController {
         this.mEnergyGrid.setMaxContractedPower(maxPower);
     }
 
+    public double getGridMaxContractedPower(){return this.mEnergyGrid.getMaxContractedPower();}
+
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced
     energy may be used by all devices on that grid. */
 

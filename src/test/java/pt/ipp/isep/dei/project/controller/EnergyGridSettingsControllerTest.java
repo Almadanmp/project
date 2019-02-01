@@ -361,9 +361,10 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeIfEnergyGridMaxContractedPowerBreaksMutations(){
-        EnergyGrid energyGrid = new EnergyGrid("EG1", 400);
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        ctrl.createEnergyGrid("EG1", 400);
 
-        double actualResult = energyGrid.getMaxContractedPower();
+        double actualResult = ctrl.getGridMaxContractedPower();
         double expectedResult = 400;
 
         assertEquals(expectedResult, actualResult);
