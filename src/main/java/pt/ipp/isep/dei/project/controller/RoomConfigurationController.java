@@ -1,13 +1,10 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.io.ui.InputUtils;
-import pt.ipp.isep.dei.project.io.ui.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -169,7 +166,7 @@ public class RoomConfigurationController {
      */
 
     List<Integer> matchSensorIndexByString(String input, SensorList slist) {
-        return slist.matchSensorListIndexByString(input);
+        return slist.matchSensorIndexByString(input);
     }
 
     List<Integer> matchDeviceIndexByString(String input, Room room) {
@@ -222,20 +219,9 @@ public class RoomConfigurationController {
         return room.addDevice(device);
     }
 
-    public String getDeviceTypePathToClassId(House house, String deviceType) {
-        String devicePath = "";
-        try {
-            devicePath = house.getDeviceTypePathToClassById(deviceType);
-        } catch (IOException e) {
-            return e.getMessage() + "\n Program will shut down.";
-        }
-        return devicePath;
-    }
-
     public Device createDevice(DeviceType deviceType) {
         return deviceType.createDeviceType();
     }
-
 
 
     public List<String> getAttributeNames(Device device) {

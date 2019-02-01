@@ -83,6 +83,32 @@ class LogListTest {
         assertTrue(actualResult);
     }
 
+    @Test
+    void seeIfAddsLogTrue() {
+        LogList list1 = new LogList();
+        Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        boolean actualResult =list1.addLog(log);
+        assertTrue(actualResult);
+    }
+    @Test
+    void seeIfAddsLogFalse() {
+        LogList list1 = new LogList();
+        Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        list1.addLog(log);
+        boolean actualResult =list1.addLog(log);
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddsLogListFalse() {
+        LogList list1 = new LogList();
+        Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        list1.addLog(log);
+        boolean actualResult =list1.addLogList(list1);
+        assertFalse(actualResult);
+    }
+
+
 
     @Test
     void seeEqualsToDifTypeObject() {
@@ -97,5 +123,39 @@ class LogListTest {
         LogList list1 = new LogList();
         int result = list1.hashCode();
         assertEquals(result, 1);
+    }
+
+    @Test
+    void testToStringEmpty() {
+        //Arrange
+        LogList list1 = new LogList();
+        //Act
+        String expectedResult = "There's no valid logs within that interval.";
+        String actualResult = list1.toString();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void testToStringWithLogs() {
+
+        //Arrange
+
+        LogList list1 = new LogList();
+        Log log1 = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        Log log2 = new Log(300, new GregorianCalendar(2019, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        list1.addLog(log1);
+        list1.addLog(log2);
+
+        //Act
+
+        String expectedResult = "\n" +
+                "0) Start Date: 20/11/2018 10:02:00 | End Date: 20/11/2018 10:10:00 | Value: 300.0\n" +
+                "1) Start Date: 20/11/2019 10:02:00 | End Date: 20/11/2018 10:10:00 | Value: 300.0";
+        String actualResult = list1.toString();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }

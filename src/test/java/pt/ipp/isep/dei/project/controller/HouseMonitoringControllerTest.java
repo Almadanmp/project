@@ -164,7 +164,7 @@ class HouseMonitoringControllerTest {
         room.setRoomSensorList(list);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)),60,180,deviceTypeString);
+        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
 
         //Act
@@ -195,7 +195,7 @@ class HouseMonitoringControllerTest {
         room.setRoomSensorList(list);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)),60,180,deviceTypeString);
+        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         //Act
         double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d2, house, room);
@@ -226,7 +226,7 @@ class HouseMonitoringControllerTest {
         room.setRoomSensorList(list);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)),60,180,deviceTypeString);
+        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         //Act ---------------------------------------------------------------
         double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d3, house, room);
@@ -255,9 +255,10 @@ class HouseMonitoringControllerTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 2, 2);
         room.setRoomSensorList(list);
+        List<String> test = new ArrayList<>();
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)),60,180,deviceTypeString);
+        House house = new House("casa", "rua", "123", "coisa", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         //Act ---------------------------------------------------------------------
         double result = ctrl.getMaxTemperatureInARoomOnAGivenDay(d3, house, room);
@@ -280,7 +281,7 @@ class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga,60,180,deviceTypeString);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga, 60, 180, deviceTypeString);
 
         //Act ------------------------------------------------------
         Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature");
@@ -301,7 +302,7 @@ class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga,60,180,deviceTypeString);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga, 60, 180, deviceTypeString);
         //Act -------------------------------------------------------
         Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature");
         //Assert ----------------------------------------------------
@@ -366,7 +367,7 @@ class HouseMonitoringControllerTest {
         //House List
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga,60,180,deviceTypeString);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga, 60, 180, deviceTypeString);
 
         //Act ---------------------------------------------------
         double result = ctrl.getCurrentTemperatureInTheHouseArea(house, ga);
@@ -561,7 +562,7 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga,60,180,deviceTypeString);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -584,7 +585,7 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga,60,180,deviceTypeString);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -666,7 +667,7 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga,60,180,deviceTypeString);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -730,7 +731,7 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga,60,180,deviceTypeString);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -746,17 +747,17 @@ class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)),60,180,deviceTypeString);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         String expectedResult = "The Average Rainfall on the house area of casa de praia";
         String result = ctrl.getHouseInfoForOutputMessage(house);
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksEmptyReadingList(){
+    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksEmptyReadingList() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
-        Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
+        Date d2 = new GregorianCalendar(2019, 1, 2, 2, 1, 1).getTime();
 
         ReadingList rList = new ReadingList();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
@@ -772,21 +773,21 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house,d1,d2);
+        double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house, d1, d2);
         double expectedResult = Double.NaN;
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksDoubleNan(){
+    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksDoubleNan() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
-        Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
-        Reading r1 = new Reading(Double.NaN,d1);
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
+        Date d2 = new GregorianCalendar(2019, 1, 2, 2, 1, 1).getTime();
+        Reading r1 = new Reading(Double.NaN, d1);
         ReadingList rList = new ReadingList();
         rList.addReading(r1);
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
@@ -802,20 +803,20 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house,d1,d2);
+        double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house, d1, d2);
         double expectedResult = Double.NaN;
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNull(){
+    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNull() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
-        Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
+        Date d2 = new GregorianCalendar(2019, 1, 2, 2, 1, 1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
         SensorList sensorList1 = new SensorList(s1);
@@ -828,20 +829,20 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house,d1,d2);
+        double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house, d1, d2);
         double expectedResult = Double.NaN;
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNulo(){
+    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksNulo() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
-        Date d2 = new GregorianCalendar(2019,1,2,2,1,1).getTime();
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
+        Date d2 = new GregorianCalendar(2019, 1, 2, 2, 1, 1).getTime();
         ReadingList rList = null;
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
@@ -856,13 +857,13 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house,d1,d2);
+        double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house, d1, d2);
         double expectedResult = Double.NaN;
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -878,7 +879,7 @@ class HouseMonitoringControllerTest {
         rl.addReading(reading2);
         rl.addReading(reading3);
         rl.addReading(reading4);
-        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
         s1.setReadingList(rl);
@@ -892,21 +893,60 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
         double expectedResult = s1.getReadingList().getTotalValueOfReadingOnGivenDay(d1);
         //Act
-        double actualResult = ctrl.getTotalRainfallOnGivenDay(house,d1);
+        double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void ensureThatWeGetTotalReadingsOnGivenDayNotRainfall() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Arrange
+        ReadingList rl = new ReadingList();
+        Reading reading = new Reading(20, new GregorianCalendar(2018, 10, 3).getTime());
+        Reading reading2 = new Reading(20, new GregorianCalendar(2018, 10, 3).getTime());
+        Reading reading3 = new Reading(20, new GregorianCalendar(2018, 10, 4).getTime());
+        Reading reading4 = new Reading(20, new GregorianCalendar(2018, 10, 2).getTime());
+        rl.addReading(reading);
+        rl.addReading(reading2);
+        rl.addReading(reading3);
+        rl.addReading(reading4);
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
+        TypeSensor ti1 = new TypeSensor("temperature", "l/m2");
+        Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        s1.setReadingList(rl);
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1);
+        ga.setSensorList(sensorList1);
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        house.addRoomToRoomList(room);
+        house.addRoomToRoomList(room1);
+        house.setMotherArea(ga);
+        double expectedResult = Double.NaN;
+        //Act
+        double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDayNull() {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
-        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
         SensorList sensorList1 = new SensorList(s1);
@@ -919,13 +959,13 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
         double expectedResult = Double.NaN;
         //Act
-        double actualResult = ctrl.getTotalRainfallOnGivenDay(house,d1);
+        double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -935,7 +975,9 @@ class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
         ReadingList rl = new ReadingList();
-        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
+        Reading reading1 = new Reading(30, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 2, 1).getTime());
+        rl.addReading(reading1);
+        Date d1 = new GregorianCalendar(2018, Calendar.DECEMBER, 31, 2, 1, 1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
         s1.setReadingList(rl);
@@ -949,13 +991,13 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = s1.getReadingList().getTotalValueOfReadingOnGivenDay(d1);
+        double expectedResult = 30;
         //Act
-        double actualResult = ctrl.getTotalRainfallOnGivenDay(house,d1);
+        double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -965,7 +1007,7 @@ class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
         ReadingList readingList = null;
-        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
         s1.setReadingList(readingList);
@@ -979,13 +1021,13 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
         double expectedResult = Double.NaN;
         //Act
-        double actualResult = ctrl.getTotalRainfallOnGivenDay(house,d1);
+        double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -995,7 +1037,7 @@ class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         //Arrange
         ReadingList readingList = new ReadingList();
-        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
         s1.setReadingList(readingList);
@@ -1009,13 +1051,13 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
         double expectedResult = Double.NaN;
         //Act
-        double actualResult = ctrl.getTotalRainfallOnGivenDay(house,d1);
+        double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -1032,7 +1074,8 @@ class HouseMonitoringControllerTest {
         rl.addReading(reading);
         rl.addReading(reading2);
         rl.addReading(reading3);
-        rl.addReading(reading4);        Date d1 = new GregorianCalendar(2018,12,31,2,1,1).getTime();
+        rl.addReading(reading4);
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
         TypeSensor ti1 = new TypeSensor("adsjhgfkhjsgdk", "asdfhg");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
         s1.setReadingList(rl);
@@ -1046,13 +1089,13 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa","street","zip","town",new Local(1,1,1),ga,60,180,deviceTypeString);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
         double expectedResult = Double.NaN;
         //Act
-        double actualResult = ctrl.getTotalRainfallOnGivenDay(house,d1);
+        double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
         assertEquals(expectedResult, actualResult);
     }

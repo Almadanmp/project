@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -146,10 +145,10 @@ public class EnergyGridSettingsController {
      * @param designation is the name we're going to give to the new EnergyGrid.
      * @param maxPower    is the new grid's maxPower.
      */
-    public void createEnergyGrid(String designation, double maxPower) {
+    public boolean createEnergyGrid(String designation, double maxPower) {
         this.mEnergyGrid = new EnergyGrid();
         this.mEnergyGrid.setName(designation);
-        this.mEnergyGrid.setMaxContractedPower(maxPower);
+        return this.mEnergyGrid.setMaxContractedPower(maxPower);
     }
 
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced
@@ -217,7 +216,7 @@ public class EnergyGridSettingsController {
      * @param energyGrid - This will be the parameter in which we want to search all the devices
      */
 
-    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house) throws IOException {
+    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house) {
         return energyGrid.buildListOfDeviceByTypeString(energyGrid, house);
     }
 }

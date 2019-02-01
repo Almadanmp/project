@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,13 +73,19 @@ public class LogList {
         int counter = 0;
         StringBuilder result = new StringBuilder();
         for (Log log : this.getLogList()) {
-            result.append("\n").append(counter).append(") ").append("Start Date: ").append(log.getInitialDate()).append(" | End Date: ").append(log.getFinalDate()).append(" | Value: ").append(log.getValue());
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String startDateString = format.format(log.getInitialDate());
+            String endDateString = format.format(log.getFinalDate());
+            result.append("\n").append(counter).append(") ").append("Start Date: ").append(startDateString).append(" | End Date: ").append(endDateString).append(" | Value: ").append(log.getValue());
             counter++;
         }
         if (counter == 0) {
             return "There's no valid logs within that interval.";
         }
-        return result.toString();
+        String resultString = result.toString();
+        resultString = resultString.replaceAll("\\bGMT\\b", "");
+        resultString = resultString.replaceAll("\\bWET\\b", "");
+        return resultString;
     }
 
     @Override

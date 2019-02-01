@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.LogList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -48,7 +48,7 @@ public class EnergyGrid implements Metered {
         return mRoomList;
     }
 
-    double getMaxContractedPower() {
+    public double getMaxContractedPower() {
         return mMaxContractedPower;
     }
 
@@ -84,8 +84,12 @@ public class EnergyGrid implements Metered {
         this.mListPowerSources = mListPowerSources;
     }
 
-    public void setMaxContractedPower(double power){
+    public boolean setMaxContractedPower(double power){
+        if (power < 0){
+            return false;
+        }
         this.mMaxContractedPower = power;
+        return true;
     }
 
     /**
@@ -224,14 +228,14 @@ public class EnergyGrid implements Metered {
      * @param energyGrid energy grid that we want to see which devices will be printed.
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
-    public String buildListOfDeviceByTypeString(EnergyGrid energyGrid, House house) throws IOException {
+    public String buildListOfDeviceByTypeString(EnergyGrid energyGrid, House house) {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
-        for (String d : house.getDeviceTypes()) {
+        for (DeviceType d : house.getmDeviceTypeList()) {
             for (int i = 0; i < energyGrid.getListOfRooms().getList().size(); i++) {
                 Room r = energyGrid.getListOfRooms().getList().get(i);
                 if (r != null) {
-                    result.append(buildDeviceListInGridString(r, d));
+                    result.append(buildDeviceListInGridString(r, d.getDeviceType()));
                 }
             }
         }

@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
 
 import java.util.Date;
@@ -286,7 +285,7 @@ class EnergyConsumptionUI {
     private void runUS721(House programHouse) {
         List<Room> roomList = controller.getHouseRoomList(programHouse);
         if (roomList.isEmpty()) {
-            System.out.println("Your househas no Rooms. Returning to Main Menu.");
+            System.out.println("Your house has no Rooms. Returning to Main Menu.");
         }
         InputUtils inputs = new InputUtils();
         Room room = inputs.getHouseRoomByList(programHouse);
@@ -315,7 +314,7 @@ class EnergyConsumptionUI {
         System.out.println("Please insert the date at which you want to end the interval.");
         Date finalDate = inputs.getInputDate();
         double result = controller.getGridConsumptionInInterval(eGrid, initialDate, finalDate);
-        System.out.println("The total energy consumption of the selected room in the selected interval is: " + result + "kW");
+        System.out.println("The total energy consumption of the selected grid in the selected interval is: " + result);
     }
 
     /* US730

@@ -49,7 +49,8 @@ public class MainUI {
         //DeviceTypeConfiguration - US70
 
         try {
-            deviceTypeConfig = DeviceTypeConfig.getDeviceTypeConfig();
+            DeviceTypeConfig devTConfig = new DeviceTypeConfig();
+            deviceTypeConfig = devTConfig.getDeviceTypeConfig();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return;
@@ -58,6 +59,7 @@ public class MainUI {
 
         String temperature = "temperature";
         String portoString = "Porto";
+        String mainGridString = "main grid";
 
         //Program Variables
 
@@ -231,7 +233,7 @@ public class MainUI {
 
         EnergyGrid mainGrid = new EnergyGrid();
         mainGrid.setMaxContractedPower(0);
-        mainGrid.setName("main grid");
+        mainGrid.setName(mainGridString);
         EnergyGridList energyGridListIsep = new EnergyGridList();
         energyGridListIsep.addGrid(mainGrid);
         mainGrid.setRoomList(gridRoomList);
@@ -341,7 +343,7 @@ public class MainUI {
         house4.setEGList(energyGridList1);
 
 
-        //DATASET_SPRINT02
+        //DATASET_SPRINT02 e 03
 
         GeographicAreaList geographicAreaListSP2 = new GeographicAreaList();
         TypeArea urbanArea = new TypeArea("urban area");
@@ -353,18 +355,22 @@ public class MainUI {
         Room b107SP2 = new Room("B107", 1, 7, 11, 3.5);
         Room b109SP2 = new Room("B109", 1, 7, 11, 3.5);
 
+        gridRoomList.addRoom(b107SP2);
+        gridRoomList.addRoom(b109SP2);
+
         DeviceList deviceListRoomB107SP3 = new DeviceList();
         b107SP2.setDeviceList(deviceListRoomB107SP3);
-
+        final String classes = "GLASSES";
+        final String dishes = "Dishes";
         Device dishWasherB107SP3 = new Device(new DishwasherSpec());
         dishWasherB107SP3.setNominalPower(1.5);
         dishWasherB107SP3.setName("DishwasherSpec B107");
         dishWasherB107SP3.setAttributeValue(capacity, 2D);
         ProgramList programListDishWasherB107SP3 = dishWasherB107SP3.getProgramList();
-        Program glassesB107 = new Program("Glasses", 0, 0.9);
+        Program glassesB107 = new Program(classes, 0, 0.9);
         Program ecoB107 = new Program("Eco", 0, 1.3);
         Program ecoTurboB107 = new Program("Eco Turbo", 0, 1.7);
-        Program dishesB107 = new Program("Dishes", 0, 2.1);
+        Program dishesB107 = new Program(dishes, 0, 2.1);
         programListDishWasherB107SP3.addProgram(glassesB107);
         programListDishWasherB107SP3.addProgram(ecoB107);
         programListDishWasherB107SP3.addProgram(ecoTurboB107);
@@ -600,10 +606,10 @@ public class MainUI {
         dishWasherB109SP2.setName("DishwasherSpec B109");
         dishWasherB109SP2.setAttributeValue(capacity, 2D);
         ProgramList programListDishWasherB109SP2 = dishWasherB109SP2.getProgramList();
-        Program glassesB109 = new Program("Glasses", 0, 0.9);
+        Program glassesB109 = new Program(classes, 0, 0.9);
         Program ecoB109 = new Program("Eco", 0, 1.3);
         Program ecoTurboB109 = new Program("Eco Turbo", 0, 1.7);
-        Program dishesB109 = new Program("Dishes", 0, 2.1);
+        Program dishesB109 = new Program(dishes, 0, 2.1);
         programListDishWasherB109SP2.addProgram(glassesB109);
         programListDishWasherB109SP2.addProgram(ecoB109);
         programListDishWasherB109SP2.addProgram(ecoTurboB109);
@@ -614,14 +620,14 @@ public class MainUI {
         washingMachineB109SP2.setName("Washing Machine B109");
         washingMachineB109SP2.setAttributeValue(capacity, 0D);
         ProgramList programListWashingMachineB109SP2 = washingMachineB109SP2.getProgramList();
-        Program B109wool = new Program("Wool", 0, 0.9);
-        Program B109fast = new Program("Fast", 0, 1.3);
-        Program B109fastPlus = new Program("Fast Plus", 0, 1.7);
-        Program B109synthetic30 = new Program("Synthetic 30º", 0, 2.1);
-        programListWashingMachineB109SP2.addProgram(B109wool);
-        programListWashingMachineB109SP2.addProgram(B109fast);
-        programListWashingMachineB109SP2.addProgram(B109fastPlus);
-        programListWashingMachineB109SP2.addProgram(B109synthetic30);
+        Program b109wool = new Program("Wool", 0, 0.9);
+        Program b109fast = new Program("Fast", 0, 1.3);
+        Program b109fastPlus = new Program("Fast Plus", 0, 1.7);
+        Program b109synthetic30 = new Program("Synthetic 30º", 0, 2.1);
+        programListWashingMachineB109SP2.addProgram(b109wool);
+        programListWashingMachineB109SP2.addProgram(b109fast);
+        programListWashingMachineB109SP2.addProgram(b109fastPlus);
+        programListWashingMachineB109SP2.addProgram(b109synthetic30);
         deviceListRoomB109SP2.addDevice(ehwB109SP2);
         deviceListRoomB109SP2.addDevice(dishWasherB109SP2);
         deviceListRoomB109SP2.addDevice(washingMachineB109SP2);
@@ -650,10 +656,10 @@ public class MainUI {
         dishWasherB106SP2.setName("DishwasherSpec B106");
         dishWasherB106SP2.setAttributeValue(capacity, 0D);
         ProgramList programDishWasherB106SP2 = dishWasherB106SP2.getProgramList();
-        Program glassesB106 = new Program("Glasses", 0, 0.8);
+        Program glassesB106 = new Program(classes, 0, 0.8);
         Program lightB106 = new Program("Light", 0, 1.3);
         Program lightTurboB106 = new Program("Light Turbo", 0, 1.9);
-        Program dishesB106 = new Program("Dishes", 0, 2.3);
+        Program dishesB106 = new Program(dishes, 0, 2.3);
         programDishWasherB106SP2.addProgram(glassesB106);
         programDishWasherB106SP2.addProgram(lightB106);
         programDishWasherB106SP2.addProgram(lightTurboB106);
@@ -728,7 +734,7 @@ public class MainUI {
         portoSP2.setDescription("City of Porto");
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
         EnergyGrid mainGridSP2 = new EnergyGrid();
-        mainGridSP2.setName("main grid");
+        mainGridSP2.setName(mainGridString);
         mainGridSP2.setMaxContractedPower(0);
         House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseSP2.setMotherArea(geographicAreaSP2);
@@ -747,9 +753,31 @@ public class MainUI {
         Room room1 = new Room("room1", 1, 33, 13, 23);
         Room room2 = new Room("room2", 2, 13, 93, 23);
 
-        House houseTest = new House("houseRoomDifEG", "Street", "4230", "Porto", new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        House houseTest = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseTest.addRoomToRoomList(room1);
         houseTest.addRoomToRoomList(room2);
+
+        //LOGS
+        House hhhhh = new House("Iseperino", "Rua dos tones", "4535", portoString, new Local(45,45,45), new GeographicArea(portoString, new TypeArea("coise"), 45, 45, new Local(50,50,50)),
+                10, 10, deviceTypeConfig);
+        EnergyGrid energyGrid = new EnergyGrid(mainGridString, 500);
+        hhhhh.addGrid(energyGrid);
+        Room room10 = new Room("Quarto", 3, 10,10,10);
+        energyGrid.addRoomToAnEnergyGrid(room10);
+        Device d1 = new Device(new WaterHeaterSpec());
+        room10.addDevice(d1);
+        Log log1 = new Log(200,new GregorianCalendar(2018,Calendar.NOVEMBER,10,5,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,6,0).getTime());
+        Log log2 = new Log(200,new GregorianCalendar(2018,Calendar.NOVEMBER,10,7,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,8,0).getTime());
+        Log log3 = new Log(300,new GregorianCalendar(2018,Calendar.NOVEMBER,10,9,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,10,0).getTime());
+        Log log4 = new Log(100,new GregorianCalendar(2018,Calendar.NOVEMBER,10,11,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,12,0).getTime());
+        Log log5 = new Log(200,new GregorianCalendar(2018,Calendar.NOVEMBER,10,13,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,14,0).getTime());
+        Log log6 = new Log(200,new GregorianCalendar(2018,Calendar.NOVEMBER,10,15,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,16,0).getTime());
+        d1.addLog(log1);
+        d1.addLog(log2);
+        d1.addLog(log3);
+        d1.addLog(log4);
+        d1.addLog(log5);
+        d1.addLog(log6);
 
 
 /**
@@ -853,7 +881,7 @@ public class MainUI {
             // Submenus Input selection
 
             String[] menu = {
-                    " 1. Geographic Area Settings\n",
+                    "1. Geographic Area Settings\n",
                     "2. House Settings.\n",
                     "3. Room Settings.\n",
                     "4. Sensor Settings.\n",
@@ -918,7 +946,7 @@ public class MainUI {
                         break;
                     case 7:
                         EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                        energyConsumptionUI.run(edificioB);
+                        energyConsumptionUI.run(hhhhh);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

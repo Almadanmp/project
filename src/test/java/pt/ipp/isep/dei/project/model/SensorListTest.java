@@ -794,7 +794,7 @@ class SensorListTest {
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
         room.setRoomSensorList(sensorList1);
-        List<Integer> result = sensorList1.matchSensorListIndexByString("s3");
+        List<Integer> result = sensorList1.matchSensorIndexByString("s3");
         List<Integer> expectedResult = Collections.singletonList(2);
         assertEquals(expectedResult, result);
 

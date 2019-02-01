@@ -14,8 +14,11 @@ import java.util.Properties;
 
 public class DeviceTypeConfig {
 
-    public static List<String> getDeviceTypeConfig() throws IOException {
-        String propFileName = "resources/devices.properties";
+    public List<String> getDeviceTypeConfig() throws IOException {
+        return getDeviceTypeConfigFromSpecificFile("resources/devices.properties");
+    }
+
+    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
         String allDevicesKey = "allDeviceTypes";
         Properties props = new Properties();
 
@@ -24,7 +27,6 @@ public class DeviceTypeConfig {
         try (InputStream input = new FileInputStream(propFileName)) {
             props.load(input);
             String deviceTypes = getPropertyValueFromKey(props, allDevicesKey);
-
             List<String> deviceTypeList = Arrays.asList(deviceTypes.split(","));
             for (String s : deviceTypeList) {
                 String aux = getPropertyValueFromKey(props, s);
@@ -33,11 +35,10 @@ public class DeviceTypeConfig {
         } catch (IOException e) {
             throw new IOException("ERROR: Unable to process device configuration file - " + e.getMessage());
         }
-
         return deviceTypeConfig;
     }
 
-    static String getPropertyValueFromKey(Properties p, String key) throws IOException {
+    public String getPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
             throw new IOException("Could not read " + key + " property value.");

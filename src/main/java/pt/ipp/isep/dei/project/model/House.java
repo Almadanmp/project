@@ -3,10 +3,10 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * House Class. Defines de House
@@ -36,14 +36,18 @@ public class House implements Metered {
         this.mMotherArea = mMotherArea;
         this.mRoomList = new RoomList();
         this.mEGList = new EnergyGridList();
-        setGridMeteringPeriod(gridMeteringPeriod);
-        setDeviceMeteringPeriod(deviceMeteringPeriod);
+        this.mGridMeteringPeriod = gridMeteringPeriod;
+        this.mDeviceMeteringPeriod = deviceMeteringPeriod;
         buildDeviceTypeList(deviceTypeConfig);
-
     }
 
-
-    private void buildDeviceTypeList(List<String> deviceTypePaths) {
+    /**
+     * Method that will instantiate an object from each device Type path in device.properties file
+     * and add it to the List<DeviceType> attribute in House class.
+     *
+     * @param deviceTypePaths List of Strings with all the device paths (values) from device.properties file
+     */
+    public void buildDeviceTypeList(List<String> deviceTypePaths) {
         this.mDeviceTypeList = new ArrayList<>();
         for (String s : deviceTypePaths) {
             DeviceType aux;
@@ -103,17 +107,18 @@ public class House implements Metered {
         this.mGridMeteringPeriod = meteringPeriod;
     }
 
-    public double getGridMeteringPeriod(){
+    public double getGridMeteringPeriod() {
         return mGridMeteringPeriod;
     }
 
-    public void setDeviceMeteringPeriod(int meteringPeriod){
+    public void setDeviceMeteringPeriod(int meteringPeriod) {
         this.mDeviceMeteringPeriod = meteringPeriod;
     }
 
-    public double getDeviceMeteringPeriod(){
+    public double getDeviceMeteringPeriod() {
         return mDeviceMeteringPeriod;
     }
+
     public Local getLocation() {
         return mLocation;
     }
@@ -199,9 +204,9 @@ public class House implements Metered {
         Sensor firstSensor = ga.getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
-            Sensor copo = ga.getSensorList().getSensors()[i];
-            if (distance > calculateDistanceToSensor(copo)) {
-                distance = calculateDistanceToSensor(copo);
+            Sensor sensor = ga.getSensorList().getSensors()[i];
+            if (distance > calculateDistanceToSensor(sensor)) {
+                distance = calculateDistanceToSensor(sensor);
             }
         }
         return distance;
@@ -219,12 +224,17 @@ public class House implements Metered {
     public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house, String sensorType) {
         Sensor sensor;
         SensorList sensorList = new SensorList();
+        Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
             if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
                 sensorList.addSensor(s);
             }
         }
-        if (!(sensorList.getSensorList().isEmpty())) {
+
+        if (sensorList.getSensorList().isEmpty()) {
+            return sensorError;
+        }
+        if (sensorList.getSensorList().size() >= 2) {
             sensor = sensorList.getMostRecentlyUsedSensor();
         } else {
             sensor = sensorList.getSensorList().get(0);
@@ -302,62 +312,16 @@ public class House implements Metered {
         return allDevices;
     }
 
-    /**
-     * Method to get all available device Types from the Configuration File.
-     *
-     * @return string array will all available device types
-     */
-    public List<String> getDeviceTypes() throws IOException {
-        String propFileName = "resources/devices.properties";
-        String id = "allDeviceTypes";
-        String deviceTypes = getPropertyValueByKey(propFileName, id);
-
-        return new ArrayList<>(Arrays.asList(deviceTypes.split(",")));
-    }
 
     public String buildTypeListString(List<DeviceType> list) {
-        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        StringBuilder result = new StringBuilder(new StringBuilder());
         if (list.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < list.size(); i++) {
-            result.append(i).append(") DeviceType: ").append(list.get(i).getDeviceType()).append("\n");
+            result.append(i).append(") DeviceType: ").append(list.get(i).getDeviceType());
         }
         return result.toString();
-    }
-
-    /**
-     * Method to return the path to a selected Device Type Class by the user
-     *
-     * @param id - String with the identification of the device type selected
-     * @return string with the path to the class file
-     */
-    public String getDeviceTypePathToClassById(String id) throws IOException {
-        String propFileName = "resources/devices.properties";
-        return getPropertyValueByKey(propFileName, id);
-    }
-
-    /**
-     * Method to get a value from a key and a properties file name
-     *
-     * @param propFileName
-     * @param key
-     * @return value
-     */
-
-    public String getPropertyValueByKey(String propFileName, String key) throws IOException {
-        Properties props = new Properties();
-        String value;
-        try (InputStream input = new FileInputStream(propFileName)) {
-            props.load(input);
-            value = props.getProperty(key);
-        } catch (IOException e) {
-            throw new IOException("ERROR: Unable to process " + propFileName + " configuration file.");
-        }
-        if (value == null) {
-            throw new IOException("ERROR: Unable to read " + key + " property value from configuration file" + propFileName + ".");
-        }
-        return value;
     }
 
     /**
@@ -375,7 +339,6 @@ public class House implements Metered {
     }
 
 
-    @Override
     public double getEnergyConsumption(float time) {
         return 0;
     }

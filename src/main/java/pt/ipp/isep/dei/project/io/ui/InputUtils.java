@@ -9,7 +9,6 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -106,7 +105,7 @@ public class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
-            ProgramList deviceProgramList = device.getProgramList(); //getAttributeValue("programList");
+            ProgramList deviceProgramList = device.getProgramList();
             System.out.println("Please select one of the existing Programs in the selected Program List to alter: ");
             System.out.println(deviceProgramList.buildProgramListString());
             int aux = inputUtils.readInputNumberAsInt();
@@ -172,7 +171,6 @@ public class InputUtils {
     }
 
 
-
     Sensor getInputRoomSensorByList(Room room) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
@@ -183,6 +181,26 @@ public class InputUtils {
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < room.getSensorList().getSensorList().size()) {
                 return room.getSensorList().getSensorList().get(aux);
+            } else {
+                System.out.println(utils.invalidOption);
+            }
+        }
+    }
+
+    DeviceType getInputDeviceTypeByList(House house) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utils = new UtilsUI();
+        List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
+        while (true) {
+            System.out.println("Please select one of the device Types: ");
+
+            System.out.println(house.getmDeviceTypeList());
+            System.out.println(house.buildTypeListString(deviceTypeList));
+            int aux = inputUtils.readInputNumberAsInt();
+            if (aux >= 0 && aux < house.getmDeviceTypeList().size()) {
+
+                return deviceTypeList.get(aux);
+
             } else {
                 System.out.println(utils.invalidOption);
             }
@@ -221,22 +239,6 @@ public class InputUtils {
     }
 
     /**
-     * Method to get a date as an int.
-     *
-     * @param scan     the scanner to read input
-     * @param dataType the type of date to read (year, month or day)
-     * @return value read from the user
-     */
-    int getInputDateAsInt(Scanner scan, String dataType) {
-        System.out.println("Enter the " + dataType + ":");
-        while (!scan.hasNextInt()) {
-            scan.next();
-            System.out.println("Not a valid " + dataType + ". Try again");
-        }
-        return scan.nextInt();
-    }
-
-    /**
      * Method to read a double value from a user.
      * Will validate input is a double. if it isn't it will print an error message.
      *
@@ -252,39 +254,77 @@ public class InputUtils {
     }
 
     Date getInputDate() {
-        Scanner scan = new Scanner(System.in);
-        int year = getInputDateAsInt(scan, "year");
-        scan.nextLine();
-        int month = getInputDateAsInt(scan, "month") - 1;
-        scan.nextLine();
-        int day = getInputDateAsInt(scan, "day");
-        scan.nextLine();
-        int hour = getInputDateAsInt(scan, "hour");
-        scan.nextLine();
-        int minute = getInputDateAsInt(scan, "minute");
-        scan.nextLine();
+        int year = getInputYear();
+        int month = getInputMonth();
+        int day = getInputDay();
+        int hour = getInputHour();
+        int minute = getInputMinute();
         return new GregorianCalendar(year, month, day, hour, minute).getTime();
     }
 
-    public DeviceType getInputDeviceTypeByList(House house) throws IOException {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
-        List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
-        while (true) {
-            System.out.println("Please select one of the device Types: ");
-
-            System.out.println(house.getDeviceTypes());
-            System.out.println(house.buildTypeListString(deviceTypeList));
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getDeviceTypes().size()) {
-
-                return deviceTypeList.get(aux);
-
-            } else {
-                System.out.println(utils.invalidOption);
-            }
+    private int getInputYear() {
+        Scanner scan = new Scanner(System.in);
+        int year = -1;
+        while (year < 0) {
+            year = getInputDateAsInt(scan, "year");
+            scan.nextLine();
         }
+        return year;
     }
 
+    private int getInputMonth() {
+        Scanner scan = new Scanner(System.in);
+        int month = -1;
+        while (month <= -1 || month > 11) { // -1 e 11 porque depois se subtrai um valor
+            month = getInputDateAsInt(scan, "month") - 1;
+            scan.nextLine();
+        }
+        return month;
+    }
 
+    private int getInputDay() {
+        Scanner scan = new Scanner(System.in);
+        int day = -1;
+        while (day < 1 || day > 31) {
+            day = getInputDateAsInt(scan, "day");
+            scan.nextLine();
+        }
+        return day;
+    }
+
+    private int getInputHour() {
+        Scanner scan = new Scanner(System.in);
+        int hour = -1;
+        while (hour < 0 || hour > 23) {
+            hour = getInputDateAsInt(scan, "hour");
+            scan.nextLine();
+        }
+        return hour;
+    }
+
+    private int getInputMinute() {
+        Scanner scan = new Scanner(System.in);
+        int minute = -1;
+        while (minute < 0 || minute > 59) {
+            minute = getInputDateAsInt(scan, "minute");
+            scan.nextLine();
+        }
+        return minute;
+    }
+
+    /**
+     * Method to get a date as an int.
+     *
+     * @param scan     the scanner to read input
+     * @param dataType the type of date to read (year, month or day)
+     * @return value read from the user
+     */
+    int getInputDateAsInt(Scanner scan, String dataType) {
+        System.out.println("Enter a valid " + dataType + ":");
+        while (!scan.hasNextInt()) {
+            scan.next();
+            System.out.println("Not a valid " + dataType + ". Try again");
+        }
+        return scan.nextInt();
+    }
 }

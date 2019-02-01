@@ -265,20 +265,6 @@ public class SensorList {
         return false;
     }
 
-
-    /**
-     * Method to Match a Sensor By Name,
-     * @return a list of Sensors with the input name.
-     */
-    public List<Integer> matchSensorListIndexByString(String input) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < mSensorList.size(); i++) {
-            if (mSensorList.get(i).getName().equals(input)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
     /**
      * Method to print a Whole Sensor List.
      * It will print the attributes needed to check if a Sensor is different from another Sensor

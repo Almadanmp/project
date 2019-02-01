@@ -6,12 +6,11 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Controller class for Energy Consumption UI
@@ -279,7 +278,7 @@ public class EnergyConsumptionController {
      * @param volumeOfWaterToHeat  value for the amount of water to heat
      */
     public boolean configureWH(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
-        return (device.setAttributeValue("coldWaterTemperature", coldWaterTemperature) && device.setAttributeValue("volumeOfWaterToHeat", volumeOfWaterToHeat));
+        return (device.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_COLD_WATER_TEMP, coldWaterTemperature) && device.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER_HEAT, volumeOfWaterToHeat));
     }
 
     /**

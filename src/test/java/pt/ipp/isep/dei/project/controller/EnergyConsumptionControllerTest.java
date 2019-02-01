@@ -748,6 +748,40 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
+    void configureOneHeaterTestFalseBothElement() {
+        Device d6 = new Device(new WaterHeaterSpec());
+        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
+        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d6.setAttributeValue("blowUp", 12);
+        d6.setAttributeValue("blabla", 60);
+        Double attributeValue = null;
+        Double attributeValue2 = 30.0;
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        controller.configureWH(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
+        boolean expectedResult = false;
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void configureOneHeaterTestNegative() {
+        Device d6 = new Device(new WaterHeaterSpec());
+        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
+        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d6.setAttributeValue("blowUp", 12);
+        d6.setAttributeValue("blabla", 60);
+        Double attributeValue = -2.0;
+        Double attributeValue2 = -2.5;
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        controller.configureWH(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
+        boolean expectedResult = true;
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void configureOneHeaterTestTrue() {
         Device d6 = new Device(new WaterHeaterSpec());
         d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
@@ -759,7 +793,24 @@ class EnergyConsumptionControllerTest {
         Double attributeValue2 = 30.0;
         EnergyConsumptionController controller = new EnergyConsumptionController();
         boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = false;
+        boolean expectedResult = true;
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void configureOneHeaterTestTrue2() {
+        Device d6 = new Device(new WaterHeaterSpec());
+        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
+        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
+        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d6.setAttributeValue("Porto", 12);
+        d6.setAttributeValue("Lisboa", 60);
+        Double attributeValue = 2.0;
+        Double attributeValue2 = 30.0;
+        EnergyConsumptionController controller = new EnergyConsumptionController();
+        controller.configureWH(d6, attributeValue, attributeValue2);
+        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
+        boolean expectedResult = true;
         assertEquals(expectedResult, result);
     }
 
@@ -1300,5 +1351,16 @@ class EnergyConsumptionControllerTest {
         LogList actualResult = ctrl.getDeviceLogsInInterval(device, initialTime, finalTime);
         LogList expectedResult = room.getLogsInInterval(initialTime, finalTime);
         assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void seeIfBuildLogListString(){
+        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        LogList list = new LogList();
+        Log log = new Log(10, new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 20).getTime());
+        list.addLog(log);
+        String result = ctrl.buildLogListString(list);
+        String expectedResult = "\n0) Start Date: 20/11/2018 10:02:00 | End Date: 20/11/2018 10:20:00 | Value: 10.0";
+        assertEquals(result, expectedResult);
     }
 }
