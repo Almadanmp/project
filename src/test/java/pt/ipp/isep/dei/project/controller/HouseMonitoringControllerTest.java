@@ -1151,4 +1151,27 @@ class HouseMonitoringControllerTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void ensureThatWeGetTotalReadingsWithoutSensors() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Arrange
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1);
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        house.addRoomToRoomList(room);
+        house.addRoomToRoomList(room1);
+        house.setMotherArea(ga);
+        double expectedResult = Double.NaN;
+        //Act
+        double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 }
