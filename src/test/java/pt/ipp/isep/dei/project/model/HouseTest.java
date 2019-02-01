@@ -20,6 +20,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
+import static org.testng.AssertJUnit.assertNull;
 
 /**
  * House tests class.
@@ -679,6 +680,20 @@ class HouseTest {
     }
 
     @Test
+    void seeIfgetSensorWithMinDistanceAndMostRecentlyUsednull() {
+
+        SensorList sensorList = new SensorList();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        ga.setSensorList(sensorList);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
+        Sensor result = house.getSensorWithMinDistanceToHouse(ga, house, "temperature");
+        Sensor sensorError = new Sensor("EmptyList",new TypeSensor("temperature"," "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
+        assertEquals(sensorError.getName(), result.getName());
+    }
+
+    @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed4() {
         ReadingList readingList = new ReadingList();
         Reading r1 = new Reading(15, new GregorianCalendar(2018, 1, 24).getTime());
@@ -767,6 +782,8 @@ class HouseTest {
         Sensor result = house.getSensorWithMinDistanceToHouse(ga, house, "temperature");
         assertEquals(s2, result);
     }
+
+
 
     @Test
     void getDeviceListSuccess() {

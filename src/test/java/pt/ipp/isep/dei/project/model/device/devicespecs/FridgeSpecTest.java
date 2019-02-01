@@ -87,6 +87,20 @@ class FridgeSpecTest {
     }
 
     @Test
+    void seeIfSetAttributeValuesTestRefrigeratorCapacity() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        Object result = fridgeSpec.setAttributeValue("Refrigerator Capacity", fridgeSpec);
+        assertEquals(false, result);
+    }
+
+    @Test
+    void seeIfSetAttributeValuesTestAnnualConsumption() {
+        FridgeSpec fridgeSpec = new FridgeSpec();
+        Object result = fridgeSpec.setAttributeValue("Annual Consumption", fridgeSpec);
+        assertEquals(false, result);
+    }
+
+    @Test
     void seeIfGetAttributeNamesTest() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         List<String> expectedResult = new ArrayList<>();

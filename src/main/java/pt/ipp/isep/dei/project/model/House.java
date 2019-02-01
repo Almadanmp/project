@@ -203,9 +203,9 @@ public class House implements Metered {
         Sensor firstSensor = ga.getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
-            Sensor copo = ga.getSensorList().getSensors()[i];
-            if (distance > calculateDistanceToSensor(copo)) {
-                distance = calculateDistanceToSensor(copo);
+            Sensor sensor = ga.getSensorList().getSensors()[i];
+            if (distance > calculateDistanceToSensor(sensor)) {
+                distance = calculateDistanceToSensor(sensor);
             }
         }
         return distance;
@@ -223,19 +223,25 @@ public class House implements Metered {
     public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house, String sensorType) {
         Sensor sensor;
         SensorList sensorList = new SensorList();
+        Sensor sensorError = new Sensor("EmptyList",new TypeSensor("temperature"," "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
+
         for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
             if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
                 sensorList.addSensor(s);
             }
         }
-        if (sensorList.getSensorList().size()>1) {
+        if (sensorList.getSensorList().isEmpty()){
+            return sensorError;
+        }
+        if (sensorList.getSensorList().size()>=2) {
             sensor = sensorList.getMostRecentlyUsedSensor();
         } else {
             sensor = sensorList.getSensorList().get(0);
         }
+
+
         return sensor;
     }
-
 
     /**
      * This method builds a String for the GridList in the house.
