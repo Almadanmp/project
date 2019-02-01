@@ -449,6 +449,57 @@ class EnergyGridTest {
     }
 
     @Test
+    void seeIfSetsNegativeMaxContractedPower2(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(-2);
+        assertFalse(result);
+    }
+    @Test
+    void seeIfSetsNegativeMaxContractedPower3(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(-3);
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSetsNegativeMaxContractedPower4(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(-56);
+        assertFalse(result);
+    }
+    @Test
+    void seeIfSetsNegativeMaxContractedPower5(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(-3456);
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSetsNegativeMaxContractedPower6(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(-452);
+        assertFalse(result);
+    }
+    @Test
+    void seeIfSetsNegativeMaxContractedPower7(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(-3453);
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSetsNegativeMaxContractedPower8(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(-34556);
+        assertFalse(result);
+    }
+    @Test
+    void seeIfSetsNegativeMaxContractedPower9(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(-3434556);
+        assertFalse(result);
+    }
+    @Test
     void seeIfGetEnergyConsumption() {
         EnergyGrid eg = new EnergyGrid();
         double expectedResult = 0;

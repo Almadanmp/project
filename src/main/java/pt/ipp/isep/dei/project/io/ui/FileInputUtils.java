@@ -66,7 +66,7 @@ class FileInputUtils {
             FileInputStream input = new FileInputStream("resources/meteringPeriods.properties");
             prop.load(input);
             deviceMeteringPeriod = prop.getProperty("DevicesMeteringPeriod");
-
+            input.close();
         } catch (FileNotFoundException fnfe) {
             System.out.println("File not found.");
         } catch (IOException ioe) {
