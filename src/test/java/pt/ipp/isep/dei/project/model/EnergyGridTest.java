@@ -6,15 +6,17 @@ import org.testng.Assert;
 import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Log;
+import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testng.Assert.*;
 
 /**
@@ -358,6 +360,79 @@ class EnergyGridTest {
         List<Device> expectedResult = eg.getDeviceList();
         List<Device> result = eg.getDeviceList();
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetsLogInInterval() {
+        EnergyGrid eg = new EnergyGrid();
+        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY,11,15,30,26).getTime();
+        Date date2 = new GregorianCalendar(2018,Calendar.MARCH,11,15,30,26).getTime();
+        Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
+
+        Device device4 = new Device(new LampSpec());
+        device4.setNominalPower(4.0);
+        device4.setName("Lamp");
+        device4.setAttributeValue("luminousFlux", 23D);
+        device4.addLog(log);
+        Room room1 = new Room("wc",2,2,2,2);
+        eg.addRoomToAnEnergyGrid(room1);
+        room1.addDevice(device4);
+        LogList logList = new LogList();
+        logList.addLog(log);
+
+        LogList result = eg.getLogsInInterval(date1,date2);
+        LogList actualResult = logList;
+        assertEquals(result, actualResult);
+    }
+
+    @Test
+    void seeIfDoesntGetLogInInterval() {
+        EnergyGrid eg = new EnergyGrid();
+        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY,11,15,30,26).getTime();
+        Date date2 = new GregorianCalendar(2018,Calendar.MARCH,11,15,30,26).getTime();
+        Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
+
+        Device device4 = new Device(new LampSpec());
+        device4.setNominalPower(4.0);
+        device4.setName("Lamp");
+        device4.addLog(log);
+        device4.setAttributeValue("luminousFlux", 23D);
+        Room room1 = new Room("wc",2,2,2,2);
+        eg.addRoomToAnEnergyGrid(room1);
+        room1.addDevice(device4);
+        LogList listTest = new LogList();
+        Log logTest = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
+        listTest.addLog(logTest);
+
+
+        LogList result = eg.getLogsInInterval(date1,date2);
+        LogList actualResult = listTest;
+        assertNotEquals(result, actualResult);
+    }
+
+    @Test
+    void seeIfGetsLogInInterval2() {
+        EnergyGrid eg = new EnergyGrid();
+        Date date1 = new GregorianCalendar(2019, Calendar.JANUARY,11,15,30,26).getTime();
+        Date date2 = new GregorianCalendar(2018,Calendar.MARCH,11,15,30,26).getTime();
+        Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
+
+        Device device4 = new Device(new LampSpec());
+        device4.setNominalPower(4.0);
+        device4.setName("Lamp");
+        device4.addLog(log);
+        device4.setAttributeValue("luminousFlux", 23D);
+        Room room1 = new Room("wc",2,2,2,2);
+        eg.addRoomToAnEnergyGrid(room1);
+        room1.addDevice(device4);
+        LogList listTest = new LogList();
+        Log logTest = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
+        listTest.addLog(logTest);
+
+
+        LogList result = eg.getLogsInInterval(date1,date2);
+        LogList actualResult = listTest;
+        assertNotEquals(result, actualResult);
     }
 
     @Test
