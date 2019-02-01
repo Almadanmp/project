@@ -181,6 +181,61 @@ class RoomConfigurationControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeSetAttributeValues() {
+        //ARRANGE
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+
+        Device d1 = new Device(new FridgeSpec());
+        d1.setNominalPower(12.0);
+        assertTrue(ctrl.setAttributeValue(d1, TestUtils.F_FREEZER_CAPACITY, 4D));
+        assertTrue(ctrl.setAttributeValue(d1, TestUtils.F_REFRIGERATOR_CAPACITY, 4D));
+        assertTrue(ctrl.setAttributeValue(d1, TestUtils.F_ANNUAL_CONSUMPTION, 56D));
+        d1.setName("hgsdsg");
+        Device d2 = new Device(new FridgeSpec());
+        d2.setName("fdshht");
+        d2.setNominalPower(10.0);
+        assertTrue(ctrl.setAttributeValue(d2, TestUtils.F_FREEZER_CAPACITY, 4D));
+        assertTrue(ctrl.setAttributeValue(d2, TestUtils.F_REFRIGERATOR_CAPACITY, 4D));
+        assertTrue(ctrl.setAttributeValue(d2, TestUtils.F_ANNUAL_CONSUMPTION, 56D));
+        Device d3 = new Device(new FridgeSpec());
+        d3.setName("hfsh");
+        d3.setNominalPower(1.0);
+        assertTrue(ctrl.setAttributeValue(d3, TestUtils.F_FREEZER_CAPACITY, 4D));
+        assertTrue(ctrl.setAttributeValue(d3, TestUtils.F_REFRIGERATOR_CAPACITY, 4D));
+        assertTrue(ctrl.setAttributeValue(d3, TestUtils.F_ANNUAL_CONSUMPTION, 56D));
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        deviceList.addDevice(d3);
+        Room room1 = new Room("room1", 19, 5, 3, 3);
+    }
+
+    @Test
+    void seeSetAttributeValuesFalse() {
+        //ARRANGE
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+
+        Device d1 = new Device(new FridgeSpec());
+        d1.setNominalPower(12.0);
+        assertFalse(ctrl.setAttributeValue(d1, TestUtils.F_FREEZER_CAPACITY, "Fail"));
+        assertFalse(ctrl.setAttributeValue(d1, TestUtils.F_REFRIGERATOR_CAPACITY, "Fail"));
+        assertFalse(ctrl.setAttributeValue(d1, TestUtils.F_ANNUAL_CONSUMPTION, "Fail"));
+        d1.setName("hgsdsg");
+        Device d2 = new Device(new FridgeSpec());
+        d2.setName("fdshht");
+        d2.setNominalPower(10.0);
+        assertFalse(ctrl.setAttributeValue(d2, TestUtils.F_FREEZER_CAPACITY, "Fail"));
+        assertFalse(ctrl.setAttributeValue(d2, TestUtils.F_REFRIGERATOR_CAPACITY, "Fail"));
+        assertFalse(ctrl.setAttributeValue(d2, TestUtils.F_ANNUAL_CONSUMPTION, "Fail"));
+        Device d3 = new Device(new FridgeSpec());
+        d3.setName("hfsh");
+        d3.setNominalPower(1.0);
+        assertFalse(ctrl.setAttributeValue(d3, TestUtils.F_FREEZER_CAPACITY, "Fail"));
+        assertFalse(ctrl.setAttributeValue(d3, TestUtils.F_REFRIGERATOR_CAPACITY, "Fail"));
+        assertFalse(ctrl.setAttributeValue(d3, TestUtils.F_ANNUAL_CONSUMPTION, "Fail"));
+    }
+
     /*
     USER STORY 210 -
      */
