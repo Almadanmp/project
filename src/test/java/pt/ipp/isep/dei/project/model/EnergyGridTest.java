@@ -436,6 +436,19 @@ class EnergyGridTest {
     }
 
     @Test
+    void seeIfSetsNegativeMaxContractedPower(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(-1);
+        assertFalse(result);
+    }
+    @Test
+    void seeIfSetsMaxContractedPowerZero(){
+        EnergyGrid eg = new EnergyGrid();
+        boolean result = eg.setMaxContractedPower(0);
+        assertTrue(result);
+    }
+
+    @Test
     void seeIfGetEnergyConsumption() {
         EnergyGrid eg = new EnergyGrid();
         double expectedResult = 0;
