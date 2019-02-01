@@ -799,29 +799,6 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void getDeviceClassPathFromConfigFile() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
-        String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT";
-        String result = ctrl.getDeviceTypePathToClassId(house, "WaterHeater");
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getDeviceClassPathFromConfigFile2() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
-        String expectedResult = "ERROR: Unable to read  property value from configuration fileresources/devices.properties.\n" +
-                " Program will shut down.";
-        String result = ctrl.getDeviceTypePathToClassId(house, "");
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void addDeviceFails() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);

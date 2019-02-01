@@ -217,7 +217,7 @@ public class EnergyGridSettingsController {
      * @param energyGrid - This will be the parameter in which we want to search all the devices
      */
 
-    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house) throws IOException {
+    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house){
         return energyGrid.buildListOfDeviceByTypeString(energyGrid, house);
     }
 }

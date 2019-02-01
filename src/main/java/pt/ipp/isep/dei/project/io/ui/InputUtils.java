@@ -189,17 +189,17 @@ public class InputUtils {
         }
     }
 
-    DeviceType getInputDeviceTypeByList(House house) throws IOException {
+    DeviceType getInputDeviceTypeByList(House house){
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device Types: ");
 
-            System.out.println(house.getDeviceTypes());
+            System.out.println(house.getmDeviceTypeList());
             System.out.println(house.buildTypeListString(deviceTypeList));
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < house.getDeviceTypes().size()) {
+            if (aux >= 0 && aux < house.getmDeviceTypeList().size()) {
 
                 return deviceTypeList.get(aux);
 

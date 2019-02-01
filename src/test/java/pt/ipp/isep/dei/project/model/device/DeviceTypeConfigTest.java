@@ -67,7 +67,7 @@ public class DeviceTypeConfigTest {
                 () -> {
                     DeviceTypeConfig dtc = new DeviceTypeConfig();
                     Properties props = new Properties();
-                    String propFileName = "resources/deces.properties";
+                    String propFileName = "res/deces.prrties";
                     InputStream input = new FileInputStream(propFileName);
                     props.load(input);
                     dtc.getDeviceTypeConfig();
@@ -117,7 +117,7 @@ public class DeviceTypeConfigTest {
         assertThrows(IOException.class,
                 () -> {
                     DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    dtc.getDeviceTypeConfigFromSpecificFile( "resources/devices_TEST.properties");
+                    dtc.getDeviceTypeConfigFromSpecificFile("resources/devices_TEST.properties");
                 });
     }
 }

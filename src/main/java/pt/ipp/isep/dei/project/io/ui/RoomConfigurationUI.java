@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -101,12 +100,7 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         this.mRoom = inputUtils.getHouseRoomByList(house);
         DeviceType deviceType;
-        try {
-            deviceType = inputUtils.getInputDeviceTypeByList(house);
-        } catch (IOException e) {
-            System.out.println(e.getMessage() + "\n Program will shut down.");
-            return;
-        }
+        deviceType = inputUtils.getInputDeviceTypeByList(house);
         createDevice(deviceType);
     }
 

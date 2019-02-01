@@ -220,16 +220,6 @@ public class RoomConfigurationController {
         return room.addDevice(device);
     }
 
-    public String getDeviceTypePathToClassId(House house, String deviceType) {
-        String devicePath = "";
-        try {
-            devicePath = house.getDeviceTypePathToClassById(deviceType);
-        } catch (IOException e) {
-            return e.getMessage() + "\n Program will shut down.";
-        }
-        return devicePath;
-    }
-
     public Device createDevice(DeviceType deviceType) {
         return deviceType.createDeviceType();
     }

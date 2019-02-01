@@ -406,7 +406,7 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    void seeIfDeviceListPrintsByType() throws IOException {
+    void seeIfDeviceListPrintsByType(){
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
@@ -441,7 +441,6 @@ class EnergyGridSettingsControllerTest {
         String expectedResult = "---------------\n" +
                 "device type: Fridge | uno | Room: B107 | \n" +
                 "device type: Fridge | tres | Room: B107 | \n" +
-                "device type: Dishwasher | dos | Room: B107 | \n" +
                 "---------------\n";
         String result = ctrl.buildListOfDevicesOrderedByTypeString(eg, house);
         assertEquals(expectedResult, result);

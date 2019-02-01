@@ -312,18 +312,6 @@ public class House implements Metered {
         return allDevices;
     }
 
-    /**
-     * Method to get all available device Types from the Configuration File.
-     *
-     * @return string array will all available device types
-     */
-    public List<String> getDeviceTypes() throws IOException {
-        String propFileName = "resources/devices.properties";
-        String id = "allDeviceTypes";
-        String deviceTypes = getPropertyValueByKey(propFileName, id);
-
-        return new ArrayList<>(Arrays.asList(deviceTypes.split(",")));
-    }
 
     public String buildTypeListString(List<DeviceType> list) {
         StringBuilder result = new StringBuilder(new StringBuilder());
@@ -334,40 +322,6 @@ public class House implements Metered {
             result.append(i).append(") DeviceType: ").append(list.get(i).getDeviceType());
         }
         return result.toString();
-    }
-
-    /**
-     * Method to return the path to a selected Device Type Class by the user
-     *
-     * @param id - String with the identification of the device type selected
-     * @return string with the path to the class file
-     */
-    public String getDeviceTypePathToClassById(String id) throws IOException {
-        String propFileName = "resources/devices.properties";
-        return getPropertyValueByKey(propFileName, id);
-    }
-
-    /**
-     * Method to get a value from a key and a properties file name
-     *
-     * @param propFileName
-     * @param key
-     * @return value
-     */
-
-    public String getPropertyValueByKey(String propFileName, String key) throws IOException {
-        Properties props = new Properties();
-        String value;
-        try (InputStream input = new FileInputStream(propFileName)) {
-            props.load(input);
-            value = props.getProperty(key);
-        } catch (IOException e) {
-            throw new IOException("ERROR: Unable to process " + propFileName + " configuration file.");
-        }
-        if (value == null) {
-            throw new IOException("ERROR: Unable to read " + key + " property value from configuration file" + propFileName + ".");
-        }
-        return value;
     }
 
     /**

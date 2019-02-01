@@ -606,22 +606,6 @@ class HouseTest {
     }
 
     @Test
-    void getDeviceListFromConfigurationFile() throws IOException {
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        List<String> expectedResult = new ArrayList<>();
-        expectedResult.add("Fridge");
-        expectedResult.add("Dishwasher");
-        expectedResult.add("WashingMachine");
-        expectedResult.add("WaterHeater");
-        expectedResult.add("Lamp");
-        List<String> result = house.getDeviceTypes();
-        System.out.println(result);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed2() {
         ReadingList readingList = new ReadingList();
         Reading r1 = new Reading(15, new GregorianCalendar(2018, 11, 12).getTime());
