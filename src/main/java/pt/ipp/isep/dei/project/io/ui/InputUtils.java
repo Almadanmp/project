@@ -125,6 +125,7 @@ public class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
+            System.out.println("Please select one of the existing Devices in the selected Room: ");
             System.out.println(room.buildDeviceListString());
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < room.getDeviceList().size()) {
