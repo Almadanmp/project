@@ -360,14 +360,23 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    void seeIfEnergyGridMaxContractedPowerBreaksMutations(){
+    void seeIfCreateDeviceTrue(){
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-        ctrl.createEnergyGrid("EG1", 400);
 
-        double actualResult = ctrl.getGridMaxContractedPower();
-        double expectedResult = 400;
+        boolean actualResult = ctrl.createEnergyGrid("EG1", 400);
+        boolean expectedResult = true;
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfCreateDeviceFalse(){
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+
+        boolean actualResult = ctrl.createEnergyGrid("EG1", 0);
+        boolean expectedResult = true;
+
+        assertEquals(expectedResult,actualResult);
     }
 
     @Test

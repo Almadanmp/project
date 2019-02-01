@@ -84,8 +84,12 @@ public class EnergyGrid implements Metered {
         this.mListPowerSources = mListPowerSources;
     }
 
-    public void setMaxContractedPower(double power){
+    public boolean setMaxContractedPower(double power){
+        if (power < 0){
+            return false;
+        }
         this.mMaxContractedPower = power;
+        return true;
     }
 
     /**
