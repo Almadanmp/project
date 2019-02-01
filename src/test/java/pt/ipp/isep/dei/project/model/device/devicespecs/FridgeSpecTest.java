@@ -96,8 +96,8 @@ class FridgeSpecTest {
     @Test
     void seeIfSetAttributeValuesTestAnnualConsumption() {
         FridgeSpec fridgeSpec = new FridgeSpec();
-        Object result = fridgeSpec.setAttributeValue("Annual Consumption", fridgeSpec);
-        assertEquals(false, result);
+        boolean result = fridgeSpec.setAttributeValue("Annual Consumption", "Fail");
+        assertFalse(result);
     }
 
     @Test

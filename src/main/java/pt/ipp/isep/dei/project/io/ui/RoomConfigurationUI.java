@@ -66,24 +66,24 @@ class RoomConfigurationUI {
                     runUS215(house);
                     activeInput = false;
                     break;
-                case 4: //US222
+                case 4: //US220
+                    runUS220();
+                    activeInput = false;
+                    break;
+                case 5: //US222
                     runUS222(house);
                     activeInput = false;
                     break;
-                case 5: //US230
+                case 6: //US230
                     runUS230();
                     activeInput = false;
                     break;
-                case 6: //US250
+                case 7: //US250
                     runUS250();
                     activeInput = false;
                     break;
-                case 7: //US253
+                case 8: //US253
                     runUS253(typeSensorList);
-                    activeInput = false;
-                    break;
-                case 8: //US220
-                    runUS220();
                     activeInput = false;
                     break;
                 case 0:
@@ -227,6 +227,7 @@ class RoomConfigurationUI {
 
     private void printRoomDeviceList() {
         System.out.println("Available Devices in Room " + mRoom.getRoomName());
+        System.out.println("Please select one of the existing Devices in the selected Room: ");
         System.out.println(mRoomConfigurationController.buildDeviceListString(mRoom));
     }
 
@@ -442,11 +443,11 @@ class RoomConfigurationUI {
         System.out.println("1) Get a list of all devices in a room. (US201)");
         System.out.println("2) Add a new device to the room from the list of device types (US210)");
         System.out.println("3) Edit the configuration of an existing device (US215)");
-        System.out.println("4) I want do deactivate a device (US222)");
-        System.out.println("5) Get the total nominal power of a room (US230)");
-        System.out.println("6) Get a list of all sensors in a room (US250)");
-        System.out.println("7) Add a sensor to a room from the list of sensor types (US253)");
-        System.out.println("8) Delete an existing device (US220)");
+        System.out.println("4) Delete an existing device (US220)");
+        System.out.println("5) I want do deactivate a device (US222)");
+        System.out.println("6) Get the total nominal power of a room (US230)");
+        System.out.println("7) Get a list of all sensors in a room (US250)");
+        System.out.println("8) Add a sensor to a room from the list of sensor types (US253)");
         System.out.println("0) (Return to main menu)\n");
     }
 }
