@@ -1100,5 +1100,55 @@ class HouseMonitoringControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void ensureThatWeGetTotalReadingsWithTwoSensors() {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        //Arrange
+        ReadingList rl = new ReadingList();
+        Reading reading = new Reading(20, new GregorianCalendar(2018, 10, 3).getTime());
+        Reading reading2 = new Reading(20, new GregorianCalendar(2018, 10, 3).getTime());
+        Reading reading3 = new Reading(20, new GregorianCalendar(2018, 10, 4).getTime());
+        Reading reading4 = new Reading(20, new GregorianCalendar(2018, 10, 2).getTime());
+        rl.addReading(reading);
+        rl.addReading(reading2);
+        rl.addReading(reading3);
+        rl.addReading(reading4);
 
+        ReadingList r2 = new ReadingList();
+        Reading reading5 = new Reading(20, new GregorianCalendar(2018, 10, 3).getTime());
+        Reading reading6 = new Reading(20, new GregorianCalendar(2018, 10, 3).getTime());
+        Reading reading7 = new Reading(20, new GregorianCalendar(2018, 10, 4).getTime());
+        Reading reading8 = new Reading(20, new GregorianCalendar(2018, 10, 2).getTime());
+        r2.addReading(reading5);
+        r2.addReading(reading6);
+        r2.addReading(reading7);
+        r2.addReading(reading8);
+
+        Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
+        TypeSensor ti1 = new TypeSensor("rainfall", "asdfhg");
+        Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Sensor s2 = new Sensor("s2", ti1, new Local(10,10,20),new GregorianCalendar(2000, 10, 7).getTime());
+        s1.setReadingList(rl);
+        s2.setReadingList(r2);
+        SensorList sensorList1 = new SensorList(s1);
+        sensorList1.addSensor(s1);
+        sensorList1.addSensor(s2);
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea ga = new GeographicArea("Porto", t1, 2, 3, l1);
+        ga.setSensorList(sensorList1);
+        Room room = new Room("kitchen", 1, 1, 2, 2);
+        Room room1 = new Room("sala", 1, 1, 2, 2);
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        house.addRoomToRoomList(room);
+        house.addRoomToRoomList(room1);
+        house.setMotherArea(ga);
+        double expectedResult = Double.NaN;
+        //Act
+        double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 }
