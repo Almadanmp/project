@@ -23,8 +23,10 @@ public class DeviceTypeConfig {
         Properties props = new Properties();
 
         List<String> deviceTypeConfig = new ArrayList<>();
+        InputStream input;
 
-        try (InputStream input = new FileInputStream(propFileName)) {
+        try {
+            input = new FileInputStream(propFileName);
             props.load(input);
             String deviceTypes = getPropertyValueFromKey(props, allDevicesKey);
             List<String> deviceTypeList = Arrays.asList(deviceTypes.split(","));
@@ -32,7 +34,7 @@ public class DeviceTypeConfig {
                 String aux = getPropertyValueFromKey(props, s);
                 deviceTypeConfig.add(aux);
             }
-        } catch (IOException e) { //NOSONAR
+        } catch (IOException e) {
             throw new IOException("ERROR: Unable to process device configuration file - " + e.getMessage());
         }
         return deviceTypeConfig;
