@@ -266,7 +266,7 @@ public class InputUtils {
     private int getInputYear() {
         Scanner scan = new Scanner(System.in);
         int year = -1;
-        while (year < 0) {
+        while (year <= 0) {
             year = getInputDateAsInt(scan, "year");
             scan.nextLine();
         }
