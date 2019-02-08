@@ -663,13 +663,6 @@ class GeographicAreaListTest {
     }
 
     @Test
-    void seeIfAnInvalidListIsAdded(){
-        GeographicAreaList list = new GeographicAreaList();
-        boolean actualResult = list.checkIfListIsValid();
-        assertFalse(actualResult);
-    }
-
-    @Test
     void seeIfPrintsGeoAList() {
         GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 10, 20, new Local(21, 33, 18));
         GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 10, 20, new Local(14, 14, 18));

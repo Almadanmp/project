@@ -510,4 +510,14 @@ class GASettingsControllerTest {
         assertFalse(actualResult);
     }
 
+    @Test
+    public void seeGAId() {
+        //Arrange
+        GASettingsController ctrl = new GASettingsController();
+        GeographicArea geographicArea = new GeographicArea("Portugal", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        //Act
+        String actualResult = ctrl.getGeographicAreaId(geographicArea);
+        //Assert
+        assertEquals(actualResult, "Portugal");
+    }
 }

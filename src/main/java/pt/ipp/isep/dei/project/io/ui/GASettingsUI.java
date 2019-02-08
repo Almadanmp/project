@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 class GASettingsUI {
     private GASettingsController mController;
-    private GeographicArea mGeoArea;
     private GeographicAreaList mGeoAreaList;
     private String mTypeAreaName;
     private TypeArea mTypeArea;
@@ -22,10 +21,6 @@ class GASettingsUI {
     private double mGeoAreaWidth;
     private boolean mAreaAddedToList;
     private String nameOfGeoArea;
-    private String mDaughterAreaName;
-    private String mMotherAreaName;
-    private String mContainedAreaName;
-    private String mContainerAreaName;
 
     GASettingsUI() {
         this.mController = new GASettingsController();

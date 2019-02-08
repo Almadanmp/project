@@ -15,7 +15,7 @@ class FileInputUtils {
      * class attribute
      * @return it will return true in case the value is valid and false if not
      * **/
-    boolean validGridMetering() throws IOException, NumberFormatException {
+    boolean validGridMetering() throws IOException {
         int gridMeteringPeriod = readGridMeteringPeriod();
         if(gridMeteringPeriodValidation(gridMeteringPeriod)){
             this.mGridMeteringPeriod = gridMeteringPeriod;
@@ -28,7 +28,7 @@ class FileInputUtils {
      * grid metering period and turn it into an integer
      * @return the integer that corresponds to the grid metering period
      * **/
-    private int readGridMeteringPeriod() throws IOException, NumberFormatException {
+    private int readGridMeteringPeriod() throws IOException {
         String gridMeteringPeriod;
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream("resources/meteringPeriods.properties")){
