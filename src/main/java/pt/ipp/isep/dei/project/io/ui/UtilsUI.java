@@ -38,7 +38,7 @@ public class UtilsUI {
         return room.getSensorList() != null && !room.getSensorList().getSensorList().isEmpty();
     }
 
-    boolean houseDeviceListInvalid(House house) {
+    boolean houseDeviceListValid(House house) {
         return house.getDeviceList() != null && !house.getRoomList().isEmpty();
     }
 
