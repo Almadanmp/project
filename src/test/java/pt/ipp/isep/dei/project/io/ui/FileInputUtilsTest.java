@@ -2,9 +2,47 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import org.testng.annotations.Test;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testng.Assert.*;
 
 public class FileInputUtilsTest {
+
+    @Test
+    public void validGridMetering() throws IOException, NumberFormatException {
+        FileInputUtils fileInputUtils = new FileInputUtils();
+        //ACT
+        boolean result1 = fileInputUtils.validGridMetering();
+        //ASSERT
+        assertTrue(result1);
+    }
+
+    @Test
+    public void readInvalidFile() {
+        assertThrows(IOException.class,
+                () -> {
+                    Properties props = new Properties();
+                    String propFileName = "resources/abcd.efgh";
+                    FileInputStream input = new FileInputStream(propFileName);
+                    props.load(input);
+                });
+    }
+
+    @Test
+    public void readInvalidNumber() {
+        assertThrows(NumberFormatException.class,
+                () -> {
+                    Properties props = new Properties();
+                    String propFileName = "resources/meteringPeriods.properties";
+                    FileInputStream input = new FileInputStream(propFileName);
+                    props.load(input);
+                    String testNumber = props.getProperty("NumberFormatTest");
+                    Integer.parseInt(testNumber);
+                });
+    }
 
     @Test
     public void validGridMeteringPeriod() {
@@ -36,5 +74,20 @@ public class FileInputUtilsTest {
         assertFalse(result1);
         assertFalse(result2);
         assertFalse(result3);
+    }
+
+    @Test
+    public void validFileGridMeteringPeriod() throws IOException {
+        Properties props = new Properties();
+        String propFileName = "resources/meteringPeriods.properties";
+        FileInputStream input = new FileInputStream(propFileName);
+        props.load(input);
+        String gridMP = props.getProperty("GridMeteringPeriod");
+        FileInputUtils fileInputUtils = new FileInputUtils();
+        //ACT
+        int fileNumber = Integer.parseInt(gridMP);
+        boolean result1 = fileInputUtils.gridMeteringPeriodValidation(fileNumber);
+        //ASSERT
+        assertTrue(result1);
     }
 }
