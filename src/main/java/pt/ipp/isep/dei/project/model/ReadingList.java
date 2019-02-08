@@ -362,7 +362,6 @@ public class ReadingList {
         return highestValue;
     }
 
-
     /**
      * Method that receives a date and will return the average of all recorded value readings
      * from the given date's day.
@@ -619,7 +618,6 @@ public class ReadingList {
         }
         return sum;
     }
-
 }
 
 

@@ -50,7 +50,7 @@ class FileInputUtils {
      * @param gridMeteringPeriod integer to be tested
      * @return true in case the value is valid, false if not
      * **/
-    private boolean gridMeteringPeriodValidation(int gridMeteringPeriod) {
+    public boolean gridMeteringPeriodValidation(int gridMeteringPeriod) {
         if (gridMeteringPeriod == 0) {
             System.out.println("Grid metering value must be greater than 0.");
             return false;
