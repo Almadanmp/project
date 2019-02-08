@@ -344,7 +344,7 @@ public class InputUtils {
     int getInputNotFebruaryDay(int month){
         Scanner scan = new Scanner(System.in);
         int day = -1;
-        if(month == 0 || month ==2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11){
+        if(isJanuaryMarchMay(month)|| isJulyAugust(month) || isOctoberDecember(month)){
             while (day < 1 || day > 31) {
                 day = getInputDateAsInt(scan, "day");
                 scan.nextLine();
@@ -356,6 +356,34 @@ public class InputUtils {
             scan.nextLine();
         }
         return day;
+    }
+
+    //The next three methods were created because of a code smell
+    /**
+     * Method that checks if the month given is January, March or May, returning
+     * true in case it is, false in case it is not.
+     * @param month month to test
+     */
+    boolean isJanuaryMarchMay(int month) {
+        return month == 0 || month ==2 || month == 4;
+    }
+
+    /**
+     * Method that checks if the month given is July or August, returning
+     * true in case it is, false in case it is not.
+     * @param month month to test
+     */
+    boolean isJulyAugust(int month) {
+        return month == 6 || month == 7;
+    }
+
+    /**
+     * Method that checks if the month given is October or December, returning
+     * true in case it is, false in case it is not.
+     * @param month month to test
+     */
+    boolean isOctoberDecember(int month) {
+        return month == 9 || month == 11;
     }
 
     /**
