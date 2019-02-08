@@ -10,10 +10,6 @@ import java.util.List;
 
 public class GASettingsController {
 
-    private GeographicArea mMotherArea;
-    private GeographicArea mGeoAreaContained;
-    private GeographicArea mGeoAreaContainer;
-
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
     /**
@@ -135,82 +131,32 @@ public class GASettingsController {
     /*USER STORY 07 - As an Administrator, I want to add an existing geographical area to another one (e.g. add city of
     Porto to the district of Porto). */
 
-    /**
-     * @param nameArea           is the name of the area we want to look for in the list.
-     * @param geographicAreaList is the list where we're going to search for objects of a given name.
-     * @return is a geographic area with a name that matches the given name.
-     */
 
-    public GeographicArea matchGeoAreaByName(String nameArea, GeographicAreaList geographicAreaList) {
-        return geographicAreaList.matchGeoArea(nameArea);
+    /**Method that gets a Geographic Area and returns its Id.
+     * @param geographicArea that method will use
+     * @return geographic area id as a string
+     */
+    public String getGeographicAreaId(GeographicArea geographicArea){
+        return geographicArea.getId();
     }
 
     /**
      * @param daughterArea is the area that is contained in another.
      * @param motherArea   is the area that contains another.
      */
-
     public boolean setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
-        if(daughterArea.setMotherArea(motherArea)) {
-            this.mMotherArea = motherArea;
-            return true;
-        }else return false;
-    }
-
-    /**
-     * @return is the area that contains another.
-     */
-
-    GeographicArea getMotherArea() {
-        return this.mMotherArea;
-
-    }
-
-
-    /**
-     * @param ga                 is the name of the geographic area we're going to check is contained in the list.
-     * @param geographicAreaList is the list we're going to check the elements from.
-     * @return is true if the list contains a geoArea with given name, false if it doesn't.
-     */
-
-    boolean checkIfListContainsGeoArea(String ga, GeographicAreaList geographicAreaList) {
-        return geographicAreaList.checkIfContainsGAByString(ga);
-    }
-
-    public boolean checkIfGAExistsInGAList(String name, GeographicAreaList newGeoListUi) {
-        return checkIfListContainsGeoArea(name, newGeoListUi);
+        return daughterArea.setMotherArea(motherArea);
     }
 
     /*USER STORY 08 - As an Administrator, I want to find out if a geographical area is included, directly
     or indirectly, in another one. */
 
     /**
-     * @param nameOfAreaContained is the name of the area contained in another area.
-     * @param nameOfAreaContainer is the name of the area that contains another area.
-     * @param geographicAreaList  is the list where we're going to check if the Geographic Areas exist.
-     * @return is true if the list contains an area with each of the names provided, false if it doesn't.
-     */
-
-    public boolean seeIfGAListContainsAreasByName(String nameOfAreaContained, String nameOfAreaContainer, GeographicAreaList geographicAreaList) {
-        if (geographicAreaList.checkIfListIsValid()) {
-            for (GeographicArea ga : geographicAreaList.getGeographicAreaList()) {
-                if (ga.getId().equals(nameOfAreaContained)) {
-                    mGeoAreaContained = ga;
-                }
-                if (ga.getId().equals(nameOfAreaContainer)) {
-                    mGeoAreaContainer = ga;
-                }
-            }
-        }
-        return mGeoAreaContained != null && mGeoAreaContainer != null;
-    }
-
-    /**
      * @return returns true if one area is contained in the other, false if it isn't.
      */
 
-    public boolean seeIfItsContained() {
-        return mGeoAreaContained.checkIfAreaIsContained(mGeoAreaContained, mGeoAreaContainer);
+    public boolean seeIfItsContained(GeographicArea motherGA, GeographicArea daughterGA) {
+        return daughterGA.checkIfAreaIsContained(daughterGA, motherGA);
     }
 
 }

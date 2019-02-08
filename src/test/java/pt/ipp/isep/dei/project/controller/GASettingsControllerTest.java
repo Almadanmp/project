@@ -439,47 +439,6 @@ class GASettingsControllerTest {
     }
 
     @Test
-    void seeIfMatchGeoArea() {
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        GeographicArea ga1 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
-        GASettingsController ctrl = new GASettingsController();
-
-        GeographicArea actualResult = ctrl.matchGeoAreaByName("Oporto", geographicAreaList);
-
-        assertEquals(ga1, actualResult);
-    }
-
-    @Test
-    void seeIfMatchGeoAreaNull() {
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        GeographicArea ga1 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
-        GASettingsController ctrl = new GASettingsController();
-
-        GeographicArea actualResult = ctrl.matchGeoAreaByName("Gaia", geographicAreaList);
-
-        assertNull(actualResult);
-    }
-
-    @Test
-    void seeIfSetMotherArea() {
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        GeographicArea ga1 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        GeographicArea ga2 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
-
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        GASettingsController ctrl = new GASettingsController();
-
-        ctrl.setMotherArea(ga1, ga2);
-
-        GeographicArea result = ctrl.getMotherArea();
-
-        assertEquals(ga2, result);
-    }
-
-    @Test
     void seeIfSetMotherAreaWorks() {
         GeographicAreaList geographicAreaList = new GeographicAreaList();
         GeographicArea ga1 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
@@ -506,191 +465,49 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, result);
     }
 
-//USER STORY 007 Tests
-
-    @Test
-    void seeIfMatchGeoAreaWorks() {
-        //Arrange
-        GASettingsController ctrl = new GASettingsController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
-        //Act
-        GeographicArea actualResult = ctrl.matchGeoAreaByName("Portugal", gAL1);
-        //Assert
-        assertEquals(gA1, actualResult);
-    }
-
-    @Test
-    void seeIfSetAndGetMotherAreaWorks() {
-        //Arrange
-        GASettingsController ctrl = new GASettingsController();
-        GeographicArea motherA = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        GeographicArea daughterA = new GeographicArea("Valongo", new TypeArea("City"), 1, 1, new Local(15, 13, 5));
-        //Act
-        ctrl.setMotherArea(daughterA, motherA);
-        GeographicArea actualResult = ctrl.getMotherArea();
-        //Assert
-        assertEquals(motherA, actualResult);
-    }
-
-    @Test
-    void seeIfValidateGeoAreaWorks() {
-        //Arrange
-        GASettingsController ctrl = new GASettingsController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
-        //Act
-        boolean actualResult = ctrl.checkIfListContainsGeoArea("Oporto", gAL1);
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    //public void checkIfGAExistsInGAList(String name, GeographicAreaList newGeoListUi) {
-    @Test
-    void seeIfPrintAreaByNameWorks() {
-        //Arrange
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
-        //Act
-        GASettingsController ctrl = new GASettingsController();
-        String name = "Oporto";
-        boolean actualResult = ctrl.checkIfGAExistsInGAList(name, gAL1);
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfPrintAreaByNameWorksFalse() {
-        //Arrange
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
-        //Act
-        GASettingsController ctrl = new GASettingsController();
-        String name = "Valongo";
-        boolean actualResult = ctrl.checkIfGAExistsInGAList(name, gAL1);
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfMatchGeographicAreasWorks() {
-        //Arrange
-        GASettingsController ctrl = new GASettingsController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 40, 20, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(21, 33, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
-        //Act
-        boolean actualResult = ctrl.seeIfGAListContainsAreasByName("Oporto", "Portugal", gAL1);
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfMatchGeographicAreasWorksBreakFirstIf() {
-        //Arrange
-        GASettingsController ctrl = new GASettingsController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 40, 20, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(21, 33, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
-        //Act
-        boolean actualResult = ctrl.seeIfGAListContainsAreasByName("Bragança", "Portugal", gAL1);
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfMatchGeographicAreasWorksBreakSecondIf() {
-        //Arrange
-        GASettingsController ctrl = new GASettingsController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 40, 20, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(21, 33, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
-        //Act
-        boolean actualResult = ctrl.seeIfGAListContainsAreasByName("Oporto", "Londres", gAL1);
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfMatchGeographicAreasWorksBreakThirdIf() {
-        //Arrange
-        GASettingsController ctrl = new GASettingsController();
-         GeographicAreaList gAL1 = new GeographicAreaList();
-
-        //Act
-        boolean actualResult = ctrl.seeIfGAListContainsAreasByName("Oporto", "Londres", gAL1);
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-    public void seeIfItsNotContained() {
-        //Arrange
-        GASettingsController ctrl = new GASettingsController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        ctrl.setMotherArea(gA1,gA2);
-        gA1.checkIfAreaIsContained(gA1,gA2);
-        ctrl.getMotherArea();
-        ctrl.seeIfGAListContainsAreasByName("Oporto", "Portugal",gAL1);
-        //Act
-        boolean actualResult = ctrl.seeIfItsContained();
-        //Assert
-        assertFalse(actualResult);
-    }
+//USER STORY 008 Tests
 
     @Test
     public void seeIfItsContained() {
         //Arrange
         GASettingsController ctrl = new GASettingsController();
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        ctrl.setMotherArea(gA1,gA2);
-        gA1.checkIfAreaIsContained(gA1,gA2);
-        ctrl.getMotherArea();
-        ctrl.seeIfGAListContainsAreasByName("Portugal", "Oporto",gAL1);
+        GeographicArea motherGA = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
+        GeographicArea daughterGA = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
+        daughterGA.setMotherArea(motherGA);
         //Act
-        boolean actualResult = ctrl.seeIfItsContained();
+        boolean actualResult = ctrl.seeIfItsContained(motherGA,daughterGA);
         //Assert
         assertTrue(actualResult);
+    }
+
+    @Test
+    public void seeIfIndirectlyContained() {
+        //Arrange
+        GASettingsController ctrl = new GASettingsController();
+        GeographicArea motherGA = new GeographicArea("Portugal", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        GeographicArea daughterGA = new GeographicArea("Oporto", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        GeographicArea grandDaughterGA = new GeographicArea("Oporto", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        grandDaughterGA.setMotherArea(daughterGA);
+        daughterGA.setMotherArea(motherGA);
+        //Act
+        boolean actualResult = ctrl.seeIfItsContained(motherGA,grandDaughterGA);
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    public void seeIfNotContained() {
+        //Arrange
+        GASettingsController ctrl = new GASettingsController();
+        GeographicArea motherGA = new GeographicArea("Portugal", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        GeographicArea daughterGA = new GeographicArea("Oporto", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        GeographicArea grandDaughterGA = new GeographicArea("Oporto", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        grandDaughterGA.setMotherArea(daughterGA);
+        daughterGA.setMotherArea(motherGA);
+        //Act
+        boolean actualResult = ctrl.seeIfItsContained(grandDaughterGA,motherGA);
+        //Assert
+        assertFalse(actualResult);
     }
 
 }
