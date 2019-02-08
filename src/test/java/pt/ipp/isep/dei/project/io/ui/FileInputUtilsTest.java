@@ -42,6 +42,15 @@ public class FileInputUtilsTest {
                     String testNumber = props.getProperty("NumberFormatTest");
                     Integer.parseInt(testNumber);
                 });
+        assertThrows(NumberFormatException.class,
+                () -> {
+                    Properties props = new Properties();
+                    String propFileName = "resources/meteringPeriods.properties";
+                    FileInputStream input = new FileInputStream(propFileName);
+                    props.load(input);
+                    String testNumber = props.getProperty("NullTest");
+                    Integer.parseInt(testNumber);
+                });
     }
 
     @Test
