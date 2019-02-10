@@ -12,13 +12,11 @@ class GASettingsUI {
     private GASettingsController mController;
     private String mTypeAreaName;
     private TypeArea mTypeArea;
-    private boolean mListWasCreated;
     private double mGeoAreaLat;
     private double mGeoAreaLong;
     private double mGeoAreaAlt;
     private double mGeoAreaLength;
     private double mGeoAreaWidth;
-    private boolean mAreaAddedToList;
     private String nameOfGeoArea;
 
     GASettingsUI() {
@@ -96,40 +94,37 @@ class GASettingsUI {
     /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
      classification of geographical areas.*/
     private void runUS01(TypeAreaList typeAreaList) {
-        getInputUS01(typeAreaList);
-        updateModelUS01(typeAreaList);
-        displayStateUS01(typeAreaList);
+        UtilsUI utils = new UtilsUI();
+        if(typeAreaList == null){
+            System.out.println(utils.invalidGATypeList);
+            return;
+        }
+        String typeAreaName = getInputUS01();
+        boolean created = updateModelUS01(typeAreaList, typeAreaName);
+        displayStateUS01(created);
     }
 
-    private void getInputUS01(TypeAreaList typeAreaList) {
-        UtilsUI utils = new UtilsUI();
-        if (typeAreaList != null) {
+    private String getInputUS01() {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Please insert the name of the new Geographic Area Type: ");
             while (!scanner.hasNext("[a-zA-Z_]+")) {
                 System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
                 scanner.next();
             }
-            this.mTypeAreaName = scanner.next();
+            return scanner.next();
+    }
+
+    private boolean updateModelUS01(TypeAreaList typeAreaList, String typeAreaName) {
+        return mController.createAndAddTypeAreaToList(typeAreaName, typeAreaList);
+    }
+
+    private void displayStateUS01(boolean created) {
+        if (created) {
+            System.out.println("Success, you have inserted a new Type of Geographic Area.");
         } else {
-            System.out.println(utils.invalidGATypeList);
+            System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
         }
-    }
 
-    private void updateModelUS01(TypeAreaList typeAreaList) {
-        if (typeAreaList != null) {
-            this.mListWasCreated = mController.createAndAddTypeAreaToList(mTypeAreaName, typeAreaList);
-        }
-    }
-
-    private void displayStateUS01(TypeAreaList typeAreaList) {
-        if (typeAreaList != null) {
-            if (mListWasCreated) {
-                System.out.println("Success, you have inserted a new Type of Geographic Area.");
-            } else {
-                System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
-            }
-        }
     }
 
     /* USER STORY 002 - As a System Administrator I want to obtain a list of the types of Geographical Areas previously stated.
@@ -156,8 +151,8 @@ class GASettingsUI {
             return;
         }
         getAreaInputUS03(typeAreaList);
-        updateGeoAreaUS03(geographicAreaList);
-        displayStateUS03();
+        boolean created = updateGeoAreaUS03(geographicAreaList);
+        displayStateUS03(created);
     }
 
     private void getAreaInputUS03(TypeAreaList typeAreaList) {
@@ -170,15 +165,15 @@ class GASettingsUI {
         this.mGeoAreaWidth = readInputNumber("Width");
     }
 
-    private void updateGeoAreaUS03(GeographicAreaList geographicAreaList) {
+    private boolean updateGeoAreaUS03(GeographicAreaList geographicAreaList) {
         System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + mTypeAreaName +
                 " and its " + "localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The geographic area size" +
                 " is " + this.mGeoAreaLength + " by " + this.mGeoAreaWidth + " kms\n");
-        this.mAreaAddedToList = mController.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, mTypeArea, mGeoAreaLat, mGeoAreaLong, mGeoAreaAlt, mGeoAreaLength, mGeoAreaWidth);
+        return mController.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, mTypeArea, mGeoAreaLat, mGeoAreaLong, mGeoAreaAlt, mGeoAreaLength, mGeoAreaWidth);
     }
 
-    private void displayStateUS03() {
-        if (mAreaAddedToList) {
+    private void displayStateUS03(boolean created) {
+        if (created) {
             System.out.print("The Geographic Area has been successfully added.");
         } else
             System.out.print("The Geographic Area hasn't been added to the list. " +

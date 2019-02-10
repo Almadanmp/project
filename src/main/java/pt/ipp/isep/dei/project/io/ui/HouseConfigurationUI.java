@@ -56,49 +56,6 @@ class HouseConfigurationUI {
         }
     }
 
-    //  SHARED METHODS
-
-
-    /**
-     * Method gets input from user to save as the characteristics of a room.
-     */
-
-    private void getInputRoomCharacteristics() {
-        String insertValidNumber = "Please insert a valid number.";
-        Scanner input = new Scanner(System.in);
-
-        //GET ROOM DESIGNATION
-        System.out.println("Please insert the room name: ");
-        this.mRoomName = input.nextLine();
-
-        //GET ROOM HOUSE FLOOR
-        System.out.println("Please insert your room's house floor: ");
-        while (!input.hasNextInt()) {
-            System.out.println(insertValidNumber);
-        }
-        this.mRoomHouseFloor = input.nextInt();
-
-        //GET ROOM DIMENSIONS
-        System.out.println("Please insert your room's width in meters: ");
-        while (!input.hasNextDouble()) {
-            System.out.println(insertValidNumber);
-        }
-        this.mRoomWidth = input.nextDouble();
-
-        System.out.println("Please insert your room's length in meters: ");
-        while (!input.hasNextDouble()) {
-            System.out.println(insertValidNumber);
-        }
-        this.mRoomLength = input.nextDouble();
-
-        System.out.println("Please insert your room's height in meters: ");
-        while (!input.hasNextDouble()) {
-            System.out.println(insertValidNumber);
-        }
-        this.mRoomHeight = input.nextDouble();
-    }
-
-
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
     private void runUS101(House house){
         getInputHouseCharacteristicsUS101();
@@ -150,7 +107,6 @@ class HouseConfigurationUI {
 
     /**
      * Method updates the house using the input previously stored.
-     *
      * @param house receives the house the program is managing, so its parameters get changed.
      */
 
@@ -162,12 +118,12 @@ class HouseConfigurationUI {
 
     /**
      * Method displays the house after all the changes have happened.
-     *
      * @param house receives the house the program is managing, so its new parameters get displayed.
      */
 
     private void displayHouseUS101(House house) {
-        System.out.println("You have successfully changed the location of the house " + house.getHouseId() + ". \n" + "Address: " +
+        String houseId = controller.getHouseName(house);
+        System.out.println("You have successfully changed the location of the house " + houseId + ". \n" + "Address: " +
                 mHouseAddress + ". \n" + "ZipCode: " + mHouseZipCode + ". \n" + "Latitude: " + mHouseLat + ". \n" +
                 "Longitude: " + mHouseLon + ". \n" + "Altitude: " + mHouseAlt + ". \n");
     }
@@ -183,9 +139,46 @@ class HouseConfigurationUI {
     }
 
     /**
+     * Method gets input from user to save as the characteristics of a room.
+     */
+    private void getInputRoomCharacteristics() {
+        String insertValidNumber = "Please insert a valid number.";
+        Scanner input = new Scanner(System.in);
+
+        //GET ROOM DESIGNATION
+        System.out.println("Please insert the room name: ");
+        this.mRoomName = input.nextLine();
+
+        //GET ROOM HOUSE FLOOR
+        System.out.println("Please insert your room's house floor: ");
+        while (!input.hasNextInt()) {
+            System.out.println(insertValidNumber);
+        }
+        this.mRoomHouseFloor = input.nextInt();
+
+        //GET ROOM DIMENSIONS
+        System.out.println("Please insert your room's width in meters: ");
+        while (!input.hasNextDouble()) {
+            System.out.println(insertValidNumber);
+        }
+        this.mRoomWidth = input.nextDouble();
+
+        System.out.println("Please insert your room's length in meters: ");
+        while (!input.hasNextDouble()) {
+            System.out.println(insertValidNumber);
+        }
+        this.mRoomLength = input.nextDouble();
+
+        System.out.println("Please insert your room's height in meters: ");
+        while (!input.hasNextDouble()) {
+            System.out.println(insertValidNumber);
+        }
+        this.mRoomHeight = input.nextDouble();
+    }
+
+    /**
      * Method creates a new room with the parameters previously provided by the user.
      */
-
     private void updateInputRoom() {
         this.controller.createNewRoom(mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight);
     }
@@ -193,7 +186,6 @@ class HouseConfigurationUI {
     /**
      * Method displays the Room and its characteristics.
      */
-
     private void displayStateRoom() {
         String yourNewRoom = "Your new room is called ";
         String located = ", it is located on the ";
@@ -214,16 +206,15 @@ class HouseConfigurationUI {
 
     /**
      * Method calls on controller to add the created room to the house the program manages.
-     *
      * @param house receives the house the program manages so the room can be added to it.
      */
 
     private void updateRoomAndDisplayState(House house) {
-        String mHouseName = controller.getHouseName(house);
+        String houseName = controller.getHouseName(house);
         if (controller.addRoomToHouse(house)) {
-            System.out.println("The room " + this.mRoomName + " has been added to house " + mHouseName + ".");
+            System.out.println("The room " + this.mRoomName + " has been added to house " + houseName + ".");
         } else {
-            System.out.println("The room you entered already exists in house " + mHouseName + ". Please try again.");
+            System.out.println("The room you entered already exists in house " + houseName + ". Please try again.");
         }
     }
 
@@ -242,12 +233,6 @@ class HouseConfigurationUI {
     private void printRoomList(House house) {
         System.out.println(controller.buildRoomsString(house));
     }
-
-    /* USER STORY 70 - US070 As an Administrator, I want to configure the available device types for each instance of
-     the system (i.e. each house) using a configuration file, so that the types of devices can be updated without
-     compilation and redeployment of the software.
-      */
-
 
 
 

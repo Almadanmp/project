@@ -107,11 +107,11 @@ class EnergyConsumptionUI {
     // and/or devices of my choosing connected to a grid.
 
     private void runUS705(House programHouse) {
-        if (programHouse.getEGListObject() == null || programHouse.getEGList().isEmpty()) {
-            System.out.println("The house has no Energy Grids. Energy grids are required for this functionality.");
+        UtilsUI utils = new UtilsUI();
+        if(!utils.houseGridListIsValid(programHouse)){
+            System.out.println(utils.invalidGridList);
             return;
         }
-        UtilsUI utils = new UtilsUI();
         boolean active;
         InputUtils inputs = new InputUtils();
         EnergyGrid grid = inputs.getInputGridByList(programHouse);
