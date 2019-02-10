@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 class GASettingsUI {
     private GASettingsController mController;
-    private GeographicAreaList mGeoAreaList;
     private String mTypeAreaName;
     private TypeArea mTypeArea;
     private boolean mListWasCreated;
@@ -231,20 +230,19 @@ class GASettingsUI {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
-        mTypeArea = getInputTypeAreaByList(typeAreaList);
-        mGeoAreaList = matchGAByTypeArea(geographicAreaList);
-        displayGAListByTypeArea(geographicAreaList);
+        TypeArea typeArea = getInputTypeAreaByList(typeAreaList);
+        GeographicAreaList gaFinalList = matchGAByTypeArea(geographicAreaList, typeArea);
+        displayGAListByTypeArea(gaFinalList, typeArea);
     }
 
-    private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList) {
-        this.mGeoAreaList = mController.matchGAByTypeArea(geographicAreaList, this.mTypeArea);
-        this.mTypeAreaName = mController.getTypeAreaName(this.mTypeArea);
-        return mGeoAreaList;
+    private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeArea typeArea) {
+        return mController.matchGAByTypeArea(geographicAreaList, typeArea);
     }
 
-    private void displayGAListByTypeArea(GeographicAreaList geographicAreaList) {
-        System.out.println("Geographic Areas of the type " + this.mTypeAreaName + ":\n");
-        System.out.println(mController.buildGAListString(geographicAreaList));
+    private void displayGAListByTypeArea(GeographicAreaList gaFinalList, TypeArea typeArea) {
+        String taName = mController.getTypeAreaName(typeArea);
+        System.out.println("Geographic Areas of the type " + taName + ":\n");
+        System.out.println(mController.buildGAListString(gaFinalList));
     }
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */

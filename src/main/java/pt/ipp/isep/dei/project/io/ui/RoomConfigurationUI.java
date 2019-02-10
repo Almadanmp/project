@@ -75,7 +75,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 6: //US230
-                    runUS230();
+                    runUS230(house);
                     activeInput = false;
                     break;
                 case 7: //US250
@@ -379,18 +379,16 @@ class RoomConfigurationUI {
      * nominal power of a room, i.e. the sum of the nominal power of all devices in the
      * room.
      **/
-    private void runUS230() {
+    private void runUS230(House house) {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        getRoomNominalPower();
+        Room room = inputUtils.getHouseRoomByList(house);
+        getRoomNominalPower(room);
     }
 
-    private void getRoomNominalPower() {
-        if (this.mRoom != null) {
-            double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(this.mRoom);
-            System.out.println("This room has a total nominal power of " + roomNominalPower + " kW.\nThis results " +
+    private void getRoomNominalPower(Room room) {
+        double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(room);
+        System.out.println("This room has a total nominal power of " + roomNominalPower + " kW.\nThis results " +
                     "from the sum of the nominal power of all devices in the room.");
-        }
     }
 
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
