@@ -10,11 +10,8 @@ import java.util.List;
 
 
 public class EnergyGridSettingsController {
-    private EnergyGrid mEnergyGrid;
-    private PowerSource mPowerSource;
 
     public EnergyGridSettingsController() {
-        this.mEnergyGrid = new EnergyGrid();
     }
 
     //SHARED METHODS THROUGH DIFFERENT UIS
@@ -137,18 +134,19 @@ public class EnergyGridSettingsController {
     /**
      * This method directly adds the desired energy grid to the energy grid list from a selected house;
      */
-    public void addEnergyGridToHouse(House programHouse) {
-        programHouse.addGrid(mEnergyGrid);
+    public boolean addEnergyGridToHouse(House programHouse, EnergyGrid energyGrid) {
+        return programHouse.addGrid(energyGrid);
     }
 
     /**
      * @param designation is the name we're going to give to the new EnergyGrid.
      * @param maxPower    is the new grid's maxPower.
      */
-    public boolean createEnergyGrid(String designation, double maxPower) {
-        this.mEnergyGrid = new EnergyGrid();
-        this.mEnergyGrid.setName(designation);
-        return this.mEnergyGrid.setMaxContractedPower(maxPower);
+    public EnergyGrid createEnergyGrid(String designation, double maxPower) {
+        EnergyGrid energyGrid = new EnergyGrid();
+        energyGrid.setName(designation);
+        energyGrid.setMaxContractedPower(maxPower);
+        return energyGrid;
     }
 
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced
@@ -160,8 +158,8 @@ public class EnergyGridSettingsController {
      * @param maxEnergyStorage is the new power source's maximum capacity.
      */
 
-    public void createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
-        this.mPowerSource = new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
+        return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
     /**
@@ -169,14 +167,8 @@ public class EnergyGridSettingsController {
      * @return is true if the power source is added successfully, false if it isn't.
      */
 
-    public boolean addPowerSourceToGrid(EnergyGrid grid) {
-        if (mPowerSource != null) {
-            grid.addPowerSource(mPowerSource);
-            return true;
-
-        } else {
-            return false;
-        }
+    public boolean addPowerSourceToGrid(EnergyGrid grid, PowerSource powerSource) {
+        return grid.addPowerSource(powerSource);
     }
     /* USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     energy consumption is included in that grid. MIGUEL ORTIGAO*/

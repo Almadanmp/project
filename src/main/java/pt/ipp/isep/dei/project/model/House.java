@@ -334,8 +334,8 @@ public class House implements Metered {
         return mRoomList.getDailyConsumptionByDeviceType(deviceType);
     }
 
-    public void addGrid(EnergyGrid energyGrid) {
-        this.mEGList.addGrid(energyGrid);
+    public boolean addGrid(EnergyGrid energyGrid) {
+        return this.mEGList.addGrid(energyGrid);
     }
 
 

@@ -329,8 +329,9 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid grid = new EnergyGrid();
         grid.setMaxContractedPower(400);
         grid.setName("grid");
-        ctrl.createPowerSource("pw", 10, 10);
-        boolean result = ctrl.addPowerSourceToGrid(grid);
+        PowerSource powerSource = new PowerSource("pw", 10, 10);
+        //ACT
+        boolean result = ctrl.addPowerSourceToGrid(grid, powerSource);
         boolean expectedResult = true;
         assertEquals(expectedResult, result);
     }
@@ -341,7 +342,11 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid grid = new EnergyGrid();
         grid.setMaxContractedPower(400);
         grid.setName("grid");
-        boolean result = ctrl.addPowerSourceToGrid(grid);
+        PowerSource powerSource1 = new PowerSource("ps1",20,20);
+        PowerSource powerSource2 = new PowerSource("ps1",20,20);
+        grid.addPowerSource(powerSource1);
+        //ACT
+        boolean result = ctrl.addPowerSourceToGrid(grid, powerSource2);
         boolean expectedResult = false;
         assertEquals(expectedResult, result);
     }
@@ -352,29 +357,19 @@ class EnergyGridSettingsControllerTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
         House house = new House("casa", "as", "as", "s", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), 60, 180, deviceTypeString);
-        ctrl.createEnergyGrid("grid", 400);
-        ctrl.addEnergyGridToHouse(house);
+        EnergyGrid energyGrid = ctrl.createEnergyGrid("grid", 400);
+        ctrl.addEnergyGridToHouse(house, energyGrid);
         EnergyGrid result = house.getEGListObject().getEnergyGridList().get(0);
         EnergyGrid expectedResult = new EnergyGrid("grid", 400);
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfCreateDeviceTrue(){
+    void seeIfCreateGridTrue(){
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
 
-        boolean actualResult = ctrl.createEnergyGrid("EG1", 400);
-        boolean expectedResult = true;
-
-        assertEquals(expectedResult,actualResult);
-    }
-
-    @Test
-    void seeIfCreateDeviceFalse(){
-        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-
-        boolean actualResult = ctrl.createEnergyGrid("EG1", 0);
-        boolean expectedResult = true;
+        EnergyGrid actualResult = ctrl.createEnergyGrid("EG1", 400);
+        EnergyGrid expectedResult = new EnergyGrid("EG1",400);
 
         assertEquals(expectedResult,actualResult);
     }

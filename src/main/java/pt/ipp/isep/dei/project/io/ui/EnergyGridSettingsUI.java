@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.PowerSource;
 import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.Scanner;
@@ -64,22 +65,47 @@ class EnergyGridSettingsUI {
     // USER STORY 130 UI -  As an Administrator, I want to create a house grid, so that I can define the rooms that are
     // attached to it and the contracted maximum power for that grid - DANIEL OLIVEIRA .
     private void runUS130(House house) {
-        getInputUS130();
-        updateHouse(house);
+        EnergyGrid energyGrid = getInputUS130();
+        updateHouse(house, energyGrid);
     }
 
-    private void getInputUS130() {
+    private EnergyGrid getInputUS130() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
-        System.out.println("Set the maximum potency of this energy grid: ");
-        double maxPower = scanner.nextDouble();
-        mController.createEnergyGrid(name, maxPower);
+        System.out.println("Now let's set the maximum contracted power for this energy grid.");
+        double power = getInputMaxPower();
+        return mController.createEnergyGrid(name, power);
     }
 
-    private void updateHouse(House house) {
-        mController.addEnergyGridToHouse(house);
-        System.out.println("The energy grid was successfully created and added to the house.");
+    private double getInputMaxPower(){
+        Scanner scan = new Scanner(System.in);
+        double power = -1;
+        while (power < 0) {
+            power = getInputDouble(scan);
+            scan.nextLine();
+        }
+        return power;
+    }
+
+    private double getInputDouble(Scanner scan){
+        System.out.println("Please enter a valid number: ");
+        while (!scan.hasNextDouble()) {
+            scan.next();
+            System.out.println("Not a valid number. Try again.");
+        }
+        return scan.nextDouble();
+    }
+
+
+    private void updateHouse(House house, EnergyGrid energyGrid) {
+        if(mController.addEnergyGridToHouse(house, energyGrid)){
+            System.out.println("The energy grid was successfully created and added to the house.");
+        }
+        else {
+            System.out.println("The energy grid wasn't added to the house. There is already an energy grid with " +
+                    "that name.");
+        }
     }
 
     /* USER STORY 135 UI - As an Administrator, I want to add a power source to an energy grid, so that the produced
@@ -89,32 +115,34 @@ class EnergyGridSettingsUI {
         InputUtils inputs = new InputUtils();
         UtilsUI check = new UtilsUI();
         if (check.houseGridListIsValid(house)) {
-            mEnergyGrid = inputs.getInputGridByList(house);
-            getInputAndCreatePowerSource();
-            updateGridAndDisplayState();
+            EnergyGrid energyGrid = inputs.getInputGridByList(house);
+            PowerSource powerSource = getInputAndCreatePowerSource();
+            updateGridAndDisplayState(energyGrid, powerSource);
+        }
+        else {
+            System.out.println(check.invalidGridList);
         }
     }
 
-    private void getInputAndCreatePowerSource() {
-        if (mEnergyGrid != null) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Type the designation of the power source you want to add: ");
-            String name = scanner.next();
-            System.out.println("Type the maximum power output of the power source you want to add: ");
-            double maxPowerOutput = scanner.nextDouble();
-            System.out.println("Type the maximum energy storage of the power source you want to add (type 0 if the power source can't storage energy.): ");
-            double maxEnergyStorage = scanner.nextDouble();
-            mController.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
-        }
+    private PowerSource getInputAndCreatePowerSource() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type the designation of the power source you want to add: ");
+        String name = scanner.next();
+        System.out.println("Now let's set the maximum power output of this power source.");
+        double maxPowerOutput = getInputMaxPower();
+        System.out.println("Now let's set the maximum energy storage of this power source (it should be 0 in case the " +
+                "power source can't storage any energy).");
+        double maxEnergyStorage = getInputMaxPower();
+        return mController.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
+
     }
 
-    private void updateGridAndDisplayState() {
-        if (mEnergyGrid != null) {
-            if (mController.addPowerSourceToGrid(mEnergyGrid)) {
-                System.out.println("The power source was added with success!");
-            } else {
-                System.out.println("The power source was NOT added to the energy grid!");
-            }
+    private void updateGridAndDisplayState(EnergyGrid energyGrid, PowerSource powerSource) {
+        if (mController.addPowerSourceToGrid(energyGrid, powerSource)) {
+            System.out.println("The power source was successfully added to the energy grid.");
+        } else {
+            System.out.println("The power source wasn't added to the energy grid. The energy grid already has a power source " +
+                    "with that name.");
         }
     }
 
