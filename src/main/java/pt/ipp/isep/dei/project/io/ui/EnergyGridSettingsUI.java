@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 class EnergyGridSettingsUI {
     private EnergyGridSettingsController mController;
-    private EnergyGrid mEnergyGrid;
 
     EnergyGridSettingsUI() {
         this.mController = new EnergyGridSettingsController();
@@ -78,25 +77,6 @@ class EnergyGridSettingsUI {
         return mController.createEnergyGrid(name, power);
     }
 
-    private double getInputMaxPower(){
-        Scanner scan = new Scanner(System.in);
-        double power = -1;
-        while (power < 0) {
-            power = getInputDouble(scan);
-            scan.nextLine();
-        }
-        return power;
-    }
-
-    private double getInputDouble(Scanner scan){
-        System.out.println("Please enter a valid number: ");
-        while (!scan.hasNextDouble()) {
-            scan.next();
-            System.out.println("Not a valid number. Try again.");
-        }
-        return scan.nextDouble();
-    }
-
 
     private void updateHouse(House house, EnergyGrid energyGrid) {
         if(mController.addEnergyGridToHouse(house, energyGrid)){
@@ -146,19 +126,43 @@ class EnergyGridSettingsUI {
         }
     }
 
+    //US130 and US135 SHARED METHODS
+
+    private double getInputMaxPower(){
+        Scanner scan = new Scanner(System.in);
+        double power = -1;
+        while (power < 0) {
+            power = getInputDouble(scan);
+            scan.nextLine();
+        }
+        return power;
+    }
+
+    private double getInputDouble(Scanner scan){
+        System.out.println("Please enter a valid number: ");
+        while (!scan.hasNextDouble()) {
+            scan.next();
+            System.out.println("Not a valid number. Try again.");
+        }
+        return scan.nextDouble();
+    }
+
     // USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
     // can attach/detach rooms from it - JOAO CACHADA.
     private void runUS145(House house) {
+        UtilsUI utilsUI = new UtilsUI();
+        if(!utilsUI.houseGridListIsValid(house)){
+            System.out.println(utilsUI.invalidGridList);
+            return;
+        }
         InputUtils inputs = new InputUtils();
-        mEnergyGrid = inputs.getInputGridByList(house);
-        displayRoomList(mEnergyGrid);
+        EnergyGrid energyGrid = inputs.getInputGridByList(house);
+        displayRoomList(energyGrid);
 
     }
 
     private void displayRoomList(EnergyGrid energyGrid) {
-        if (mEnergyGrid != null) {
-            System.out.println(mController.buildRoomsString(energyGrid.getListOfRooms()));
-        }
+        System.out.println(mController.buildRoomsString(energyGrid.getListOfRooms()));
     }
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
@@ -190,28 +194,26 @@ class EnergyGridSettingsUI {
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
     private void runUS149(House house) {
+        UtilsUI utilsUI = new UtilsUI();
+        if(!utilsUI.houseGridListIsValid(house)){
+            System.out.println(utilsUI.invalidGridList);
+            return;
+        }
         InputUtils inputs = new InputUtils();
         EnergyGrid energyGrid = inputs.getInputGridByList(house);
-        Room room = getInputEnergyGridRoom(energyGrid);
+        if(!utilsUI.gridRoomListIsValid(energyGrid)){
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
+        Room room = inputs.getGridRoomByList(energyGrid);
         updateGridUS149(energyGrid, room);
     }
 
-    private Room getInputEnergyGridRoom(EnergyGrid energyGrid) {
-        if (energyGrid != null) {
-            InputUtils inputUtils = new InputUtils();
-            return inputUtils.getGridRoomByList(energyGrid);
-        } else {
-            return null;
-        }
-    }
-
     private void updateGridUS149(EnergyGrid grid, Room room) {
-        if (grid != null && room != null) {
-            if (mController.removeRoomFromGrid(grid, room)) {
-                System.out.println("Room successfully removed from grid!");
-            } else {
-                System.out.println("It wasn't possible to remove the room. Please try again.");
-            }
+        if (mController.removeRoomFromGrid(grid, room)) {
+            System.out.println("Room successfully removed from grid!");
+        } else {
+            System.out.println("It wasn't possible to remove the room. Please try again.");
         }
     }
 
