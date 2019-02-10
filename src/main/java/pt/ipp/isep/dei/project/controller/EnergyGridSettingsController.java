@@ -11,9 +11,6 @@ import java.util.List;
 
 public class EnergyGridSettingsController {
 
-    public EnergyGridSettingsController() {
-    }
-
     //SHARED METHODS THROUGH DIFFERENT UIS
 
     /**
