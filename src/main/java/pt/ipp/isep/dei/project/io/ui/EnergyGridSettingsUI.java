@@ -222,12 +222,12 @@ class EnergyGridSettingsUI {
     It must include device location
     DANIEL OLIVEIRA*/
     private void runUS160(House house) {
-        InputUtils inputs = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.houseGridListIsValid(house)) {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
+        InputUtils inputs = new InputUtils();
         EnergyGrid energyGrid = inputs.getInputGridByList(house);
         if (!utilsUI.gridRoomListIsValid(energyGrid)) {
             System.out.println(utilsUI.invalidRoomList);
@@ -241,10 +241,7 @@ class EnergyGridSettingsUI {
     }
 
     private void displayUS160(EnergyGrid energyGrid, House house) {
-        if (energyGrid != null) {
-            System.out.println(mController.buildListOfDevicesOrderedByTypeString(energyGrid, house));
-
-        }
+        System.out.println("\nList of device(s) by type:\n" + mController.buildListOfDevicesOrderedByTypeString(energyGrid, house));
     }
 
 

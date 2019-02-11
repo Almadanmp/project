@@ -234,7 +234,6 @@ class RoomConfigurationUI {
 
     // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
 
-
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
 
     private void runUS215(House house) {

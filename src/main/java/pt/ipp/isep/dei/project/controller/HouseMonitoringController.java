@@ -28,13 +28,20 @@ public class HouseMonitoringController {
     /**
      *
      * @param day is the day we want to check the temperature in.
-     * @param house is the house that contains the room we want to check the temperature in.
      * @param room is the room we want to check the temperature in.
-     * @return is the most recent temperature recorded in a room.
+     * @return is the max temperature recorded in a room
      */
 
-    public double getMaxTemperatureInARoomOnAGivenDay(Date day, House house, Room room) {
-        return room.getMaxTemperatureInARoomOnAGivenDay(house, day);
+    public double getMaxTemperatureInARoomOnAGivenDay(Room room, Date day) {
+        return room.getMaxTemperatureOnGivenDay(day);
+    }
+
+    /**
+     * This method receives a room and return the room's name
+     * @return room's name as a string
+     * **/
+    public String getRoomName(Room room) {
+        return room.getRoomName();
     }
 
     /**

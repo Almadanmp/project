@@ -9,6 +9,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -47,119 +48,6 @@ class RoomTest {
                 "0) device Name: waterheater, device Type: WaterHeater, device Nominal Power: 150.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfGetMaxTemperatureInARoomOnAGivenDayWorks() {
-        SensorList list = new SensorList();
-        TypeSensor tipo = new TypeSensor("temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Reading r1;
-        Reading r2;
-        r1 = new Reading(30, d2);
-        r2 = new Reading(20, d2);
-        listR.addReading(r1);
-        listR.addReading(r2);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 5, 3);
-        roomList1.addRoom(room1);
-        room1.setRoomSensorList(list);
-        ReadingList rL1 = new ReadingList();
-        r1 = new Reading(30, d2);
-        rL1.addReading(r1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180,deviceTypeString);
-        house.addRoomToRoomList(room);
-        double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d2);
-        double expectedResult = 30.0;
-        assertEquals(expectedResult, result, 0.01);
-    }
-
-    @Test
-    void seeIfgetMaxTemperatureInARoomOnAGivenDayWorksNegatives() {
-        SensorList list = new SensorList();
-        TypeSensor tipo = new TypeSensor("temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Reading r1;
-        Reading r2;
-        r1 = new Reading(-30, d2);
-        r2 = new Reading(20, d2);
-        listR.addReading(r1);
-        listR.addReading(r2);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180,deviceTypeString);
-        house.addRoomToRoomList(room);
-        double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d2);
-        double expectedResult = 20.0;
-        assertEquals(expectedResult, result, 0.01);
-    }
-
-    @Test
-    void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDates() {
-        SensorList list = new SensorList();
-        TypeSensor tipo = new TypeSensor("temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Date d3 = new GregorianCalendar(2018, 2, 3).getTime();
-        Reading r1 = new Reading(-30, d2);
-        Reading r2 = new Reading(20, d2);
-        Reading r3 = new Reading(25, d3);
-        listR.addReading(r1);
-        listR.addReading(r2);
-        listR.addReading(r3);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180,deviceTypeString);
-        house.addRoomToRoomList(room);
-        double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d3);
-        double expectedResult = 25.0;
-        assertEquals(expectedResult, result, 0.01);
-    }
-
-    @Test
-    void seeIfGetMaxTemperatureInARoomOnAGivenDayWorksWithTwoDatesAndNeg() {
-        SensorList list = new SensorList();
-        TypeSensor tipo = new TypeSensor("temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Date d3 = new GregorianCalendar(2018, 2, 3).getTime();
-        Reading r1 = new Reading(-30, d2);
-        Reading r2 = new Reading(-20, d2);
-        Reading r3 = new Reading(-25, d3);
-        listR.addReading(r1);
-        listR.addReading(r2);
-        listR.addReading(r3);
-        Sensor s1 = new Sensor("sensor1", tipo, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa", "ss", "ss", "sss", new Local(1, 1, 50), new GeographicArea("porto", new TypeArea("sksks"), 1, 1, new Local(1, 1, 50)), 60, 180,deviceTypeString);
-        house.addRoomToRoomList(room);
-        double result = room.getMaxTemperatureInARoomOnAGivenDay(house, d3);
-        double expectedResult = -25.0;
-        assertEquals(expectedResult, result, 0.01);
     }
 
     @Test
@@ -864,5 +752,168 @@ class RoomTest {
         double expectedResult = 0;
         double value = room.getEnergyConsumption(21);
         Assert.assertEquals(expectedResult, value);
+    }
+
+    @Test
+    void getTemperatureSensors() {
+        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
+        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS
+        Room room3 = new Room("room3", 1, 2, 3, 4); //ONE HUMIDITY SENSOR
+        Room room4 = new Room("room4", 1, 2, 3, 4); //TWO TEMP + ONE HUMIDITY
+
+        GregorianCalendar gregorianCalendar = new GregorianCalendar(2018,1,1);
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar.getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar.getTime());
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), gregorianCalendar.getTime());
+
+        room2.addSensor(sensor1);
+        room2.addSensor(sensor3);
+        room3.addSensor(sensor2);
+        room4.addSensor(sensor1);
+        room4.addSensor(sensor2);
+        room4.addSensor(sensor3);
+
+        SensorList expectedResult1 = new SensorList();
+        SensorList expectedResult2 = new SensorList();
+        SensorList expectedResult3 = new SensorList();
+        SensorList expectedResult4 = new SensorList();
+        expectedResult2.addSensor(sensor1);
+        expectedResult2.addSensor(sensor3);
+        expectedResult4.addSensor(sensor1);
+        expectedResult4.addSensor(sensor3);
+
+        //ACT
+        SensorList actualResult1 = room1.getTemperatureSensors();
+        SensorList actualResult2 = room2.getTemperatureSensors();
+        SensorList actualResult3 = room3.getTemperatureSensors();
+        SensorList actualResult4 = room4.getTemperatureSensors();
+        //ASSERT
+        assertEquals(actualResult1,expectedResult1);
+        assertEquals(actualResult2,expectedResult2);
+        assertEquals(actualResult3,expectedResult3);
+        assertEquals(actualResult4,expectedResult4);
+    }
+
+    @Test
+    void getMaxTemperatureOnGivenDay() {
+        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
+        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
+        Room room3 = new Room("room3", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH READINGS SAME VALUE ON DAY TESTED + ONE HUMIDITY
+        Room room4 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MAX IN FIRST SENSOR + ONE HUMIDITY
+        Room room5 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MAX IN SECOND SENSOR + ONE HUMIDITY
+        Room room6 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN FIRST READING) + ONE HUMIDITY
+        Room room7 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN SECOND READING) + ONE HUMIDITY
+        Room room8 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN THIRD READING) + ONE HUMIDITY
+
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018,1,1,23,59);
+        GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018,1,2,0,0);
+        GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2018,1,2,1,1);
+        GregorianCalendar gregorianCalendar4 = new GregorianCalendar(2018,1,2,12,12);
+
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+
+        room2.addSensor(sensor1);
+        room2.addSensor(sensor2);
+        room2.addSensor(sensor3);
+
+        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Reading reading1 = new Reading(20,gregorianCalendar2.getTime());
+        sensor4.addReading(reading1);
+        sensor5.addReading(reading1);
+        sensor6.addReading(reading1);
+
+        room3.addSensor(sensor4);
+        room3.addSensor(sensor5);
+        room3.addSensor(sensor6);
+
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Reading reading2 = new Reading(24,gregorianCalendar2.getTime());
+        Reading reading3 = new Reading(20,gregorianCalendar3.getTime());
+        sensor7.addReading(reading2);
+        sensor8.addReading(reading3);
+
+        room4.addSensor(sensor5);
+        room4.addSensor(sensor7);
+        room4.addSensor(sensor8);
+
+        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Reading reading4 = new Reading(20,gregorianCalendar2.getTime());
+        Reading reading5 = new Reading(25,gregorianCalendar3.getTime());
+        sensor9.addReading(reading4);
+        sensor10.addReading(reading5);
+
+        room5.addSensor(sensor5);
+        room5.addSensor(sensor9);
+        room5.addSensor(sensor10);
+
+        Sensor sensor11 = new Sensor("sensor11", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor12 = new Sensor("sensor12", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Reading reading6 = new Reading(26,gregorianCalendar2.getTime());
+        Reading reading7 = new Reading(21,gregorianCalendar3.getTime());
+        Reading reading8 = new Reading(20,gregorianCalendar4.getTime());
+        sensor11.addReading(reading6);
+        sensor11.addReading(reading7);
+        sensor11.addReading(reading8);
+        sensor12.addReading(reading8);
+
+        room6.addSensor(sensor5);
+        room6.addSensor(sensor11);
+        room6.addSensor(sensor12);
+
+        Sensor sensor13 = new Sensor("sensor13", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor14 = new Sensor("sensor14", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Reading reading9 = new Reading(21,gregorianCalendar2.getTime());
+        Reading reading10 = new Reading(27,gregorianCalendar3.getTime());
+        Reading reading11 = new Reading(20,gregorianCalendar4.getTime());
+        sensor13.addReading(reading9);
+        sensor13.addReading(reading10);
+        sensor13.addReading(reading11);
+        sensor14.addReading(reading11);
+
+        room7.addSensor(sensor5);
+        room7.addSensor(sensor13);
+        room7.addSensor(sensor14);
+
+
+        Sensor sensor15 = new Sensor("sensor15", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor16 = new Sensor("sensor16", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Reading reading12 = new Reading(21,gregorianCalendar2.getTime());
+        Reading reading13 = new Reading(20,gregorianCalendar3.getTime());
+        Reading reading14 = new Reading(28,gregorianCalendar4.getTime());
+        sensor15.addReading(reading12);
+        sensor15.addReading(reading13);
+        sensor15.addReading(reading14);
+        sensor16.addReading(reading12);
+
+        room8.addSensor(sensor5);
+        room8.addSensor(sensor15);
+        room8.addSensor(sensor16);
+
+        //ACT
+        double actualResult1 = room1.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
+        double actualResult2 = room2.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
+        double actualResult3 = room3.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
+        double actualResult4 = room4.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
+        double actualResult5 = room5.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
+        double actualResult6 = room6.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
+        double actualResult7 = room7.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
+        double actualResult8 = room8.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
+
+
+        //ASSERT
+        assertEquals(actualResult1,-10000,0.01);
+        assertEquals(actualResult2,-10000,0.01);
+        assertEquals(actualResult3,20,0.01);
+        assertEquals(actualResult4,24,0.01);
+        assertEquals(actualResult5,25,0.01);
+        assertEquals(actualResult6,26,0.01);
+        assertEquals(actualResult7,27,0.01);
+        assertEquals(actualResult8,28,0.01);
     }
 }

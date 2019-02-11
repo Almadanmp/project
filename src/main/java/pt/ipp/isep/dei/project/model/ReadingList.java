@@ -505,7 +505,7 @@ public class ReadingList {
         cal.set(Calendar.HOUR_OF_DAY, 0);
         Date endDay = cal.getTime();
 
-        double maxValue = mReadings.get(0).getmValue();
+        double maxValue = -10000;
         for (Reading mReading : mReadings) {
             Date currentReadingDate = mReading.getmDate();
             if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue < mReading.getmValue()) {

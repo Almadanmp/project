@@ -939,6 +939,10 @@ public class MainUI {
                         activeInput = false;
                         break;
                     case 6:
+                        Room room12 = new Room("test",1,1,1,1);
+                        Sensor sensor12 = new Sensor("sensorTest", new TypeSensor("temperature","C"),new GregorianCalendar(2018,10,10).getTime());
+                        room12.addSensor(sensor12);
+                        edificioB.addRoomToRoomList(room12);
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
                         houseM.run(edificioB);
                         returnToMenu(enterToReturnToConsole);

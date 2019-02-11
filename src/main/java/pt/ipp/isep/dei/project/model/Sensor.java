@@ -140,6 +140,22 @@ public class Sensor {
         this.mReadingList = readingList;
     }
 
+
+    /**
+     * Checks if reading already exists in reading list and in case the
+     * reading is new, adds it to the reading list.
+     * @return true in case the reading is new and it is added
+     * or false in case the reading already exists**/
+    public boolean addReading(Reading reading){
+        for(Reading r : this.mReadingList.getListOfReadings()){
+            if(r.equals(reading)){
+                return false;
+            }
+        }
+        this.mReadingList.addReading(reading);
+        return true;
+    }
+
     /**
      * Method to calculate distance to sensor from a sensor to a local
      *

@@ -2149,13 +2149,13 @@ class ReadingListTest {
     void seeIfGetMaximumValueOnGivenDateWorksTestCalendarLowerLimit() {
         ReadingList list = new ReadingList();
         Date d1 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 1, 23, 59, 59).getTime();
-        Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2, 23, 59, 59).getTime();
+        Date d2 = new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 2, 0, 0, 0).getTime();
         Reading r1 = new Reading(31, d1);
         Reading r2 = new Reading(30, d2);
         list.addReading(r1);
         list.addReading(r2);
         double result = list.getMaximumOfGivenDayValueReadings(d2);
-        double expectedResult = 31.0;
+        double expectedResult = 30.0;
         assertEquals(expectedResult, result, 0.01);
     }
 
@@ -2169,7 +2169,7 @@ class ReadingListTest {
         list.addReading(r1);
         list.addReading(r2);
         double result = list.getMaximumOfGivenDayValueReadings(d2);
-        double expectedResult = 33.0;
+        double expectedResult = 30.0;
         assertEquals(expectedResult, result, 0.01);
     }
 

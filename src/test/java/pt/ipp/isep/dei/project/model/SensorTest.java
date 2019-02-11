@@ -946,5 +946,32 @@ class SensorTest {
         assertTrue(actualResult);
     }
 
+    @Test
+    void addReadings() {
+        TypeSensor ty1 = new TypeSensor("temperature", "Celsius");
+        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d2 = new GregorianCalendar(2018, 8, 12).getTime();
+        Sensor sensor1 = new Sensor("sensor1", ty1, d1);
+
+        Reading reading1 = new Reading(20,d1);
+        Reading reading2 = new Reading(20,d2);
+        Reading reading3 = new Reading(25,d1);
+        Reading reading4 = new Reading(20,d1);
+        //ACT
+        boolean actualResult1 = sensor1.addReading(reading1);
+        boolean actualResult2 = sensor1.addReading(reading2);
+        boolean actualResult3 = sensor1.addReading(reading3);
+        boolean actualResult4 = sensor1.addReading(reading4);
+        //ASSERT
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertTrue(actualResult3);
+        assertFalse(actualResult4);
+    }
+
+
+
+
+
 }
 

@@ -255,8 +255,9 @@ public class EnergyGrid implements Metered {
         for (int x = 0; x < r.getDeviceList().size(); x++) {
             if (d.equals(r.getDeviceList().get(x).getType())) {
                 Device device = r.getDeviceList().get(x);
-                result.append("device type: ").append(d).append(" | ");
-                result.append(device.getName()).append(" | ");
+                result.append("Device type: ").append(d).append(" | ");
+                result.append("Device name: ").append(device.getName()).append(" | ");
+                result.append("Nominal power: ").append(device.getNominalPower()).append(" | ");
                 result.append("Room: ").append(r.getRoomName()).append(" | \n");
             }
         }

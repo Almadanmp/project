@@ -893,6 +893,4 @@ class SensorListTest {
         String result = sensorList1.buildSensorWholeListString(sensorList1);
         assertEquals(expectedResult, result);
     }
-
-
 }

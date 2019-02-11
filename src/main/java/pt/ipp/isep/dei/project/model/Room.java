@@ -142,13 +142,40 @@ public class Room implements Metered {
         return result;
     }
 
-    public double getMaxTemperatureInARoomOnAGivenDay(House house, Date day) {
-        TypeSensor type = new TypeSensor("temperature", "Celsius");
-        Sensor s = new Sensor("sensor1", type, house.getLocation(), new Date());
-        for (int i = 0; i < mRoomSensorList.getSensors().length; i++) {
-            s = mRoomSensorList.getSensors()[i];
+    /**Method receives a date of a given day and looks for the max temperature
+     * recorded in every sensor that measure temperature, in the room.
+     * @date day where we want to look for max temperature
+     * @return the max temperature recorded in a sensor that measures temperature or
+     * -10000 in case there are no readings in the given day or
+     * in case the room has no readings whatsoever
+     * **/
+    public double getMaxTemperatureOnGivenDay(Date day){
+        double maxTemp = -10000;
+        SensorList tempSensors = getTemperatureSensors();
+        for(Sensor s: tempSensors.getSensorList()) {
+            ReadingList readingList = s.getReadingList();
+            double sensorMax = readingList.getMaximumOfGivenDayValueReadings(day);
+            if(sensorMax > maxTemp){
+                maxTemp = sensorMax;
+            }
         }
-        return s.getReadingList().getMaximumOfGivenDayValueReadings(day);
+        return maxTemp;
+    }
+
+    /**Method that looks for sensor that measure temperature and returns a list of
+     * those sensors. Method will look at the sensor's type.
+     * @return a sensor list that contains sensors that measure only temperature**/
+    public SensorList getTemperatureSensors(){
+        String type = "temperature";
+        SensorList tempSensors = new SensorList();
+        for(Sensor s : this.mRoomSensorList.getSensorList()){
+            String typeTest = s.getTypeSensor().getName();
+            if(typeTest.equals(type)){
+                tempSensors.addSensor(s);
+            }
+        }
+        return tempSensors;
+
     }
 
     boolean doesSensorListInARoomContainASensorByName(String name) {

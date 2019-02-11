@@ -446,6 +446,9 @@ class EnergyGridSettingsControllerTest {
         d1.setName("uno");
         d2.setName("dos");
         d3.setName("tres");
+        d1.setNominalPower(2D);
+        d2.setNominalPower(2D);
+        d3.setNominalPower(2D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
@@ -454,8 +457,8 @@ class EnergyGridSettingsControllerTest {
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         String expectedResult = "---------------\n" +
-                "device type: Fridge | uno | Room: B107 | \n" +
-                "device type: Fridge | tres | Room: B107 | \n" +
+                "Device type: Fridge | Device name: uno | Nominal power: 2.0 | Room: B107 | \n" +
+                "Device type: Fridge | Device name: tres | Nominal power: 2.0 | Room: B107 | \n" +
                 "---------------\n";
         String result = ctrl.buildListOfDevicesOrderedByTypeString(eg, house);
         assertEquals(expectedResult, result);

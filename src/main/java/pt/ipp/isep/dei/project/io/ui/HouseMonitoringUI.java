@@ -24,7 +24,6 @@ public class HouseMonitoringUI {
     private double mCurrentHouseAreaTemperature;
     private Sensor mSensor;
     private Room mRoom;
-    private double mMaxTemperature;
     private double mCurrentTemperature;
 
     public HouseMonitoringUI() {
@@ -75,7 +74,7 @@ public class HouseMonitoringUI {
 
     //SHARED METHODS
 
-    private void getInputStartDate() {
+    private Date getInputStartDate() {
         InputUtils inputUtils = new InputUtils();
         Scanner scan = new Scanner(System.in);
 
@@ -89,6 +88,8 @@ public class HouseMonitoringUI {
 
         System.out.println("You entered the date successfully!");
         scan.nextLine();
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        return ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
     }
 
 
@@ -190,37 +191,36 @@ public class HouseMonitoringUI {
      */
     private void runUS610(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
         if (!(utilsUI.houseRoomListIsValid(house))) {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
+        InputUtils inputUtils = new InputUtils();
         Room room = inputUtils.getHouseRoomByList(house);
         if (!(utilsUI.roomSensorListIsValid(room))) {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        Sensor sensor = inputUtils.getInputRoomSensorByList(room);
-        getInputStartDate();
-        updateModel610(house, room, sensor);
-        displayState610(room);
-
+        Date date = getInputStartDate();
+        double maxTemp = updateModel610(room, date);
+        displayState610(room, date, maxTemp);
     }
 
-    private void updateModel610(House house, Room room, Sensor sensor) {
+    private double updateModel610(Room room, Date date) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
-        out.print("The room is " + room.getRoomName() + " the Temperature Sensor is " + sensor.getName() +
-                " and the date is " + mDate + "\n");
-        this.mMaxTemperature = ctrl.getMaxTemperatureInARoomOnAGivenDay(mDate, house, room);
+        System.out.print("You selected the room " + room.getRoomName() + " and the date " + date + "\n");
+        return ctrl.getMaxTemperatureInARoomOnAGivenDay(room, date);
     }
 
-    private void displayState610(Room room) {
+    private void displayState610(Room room,  Date date, double maxTemperature) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        Date mDate = ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
-        out.println("The Maximum Temperature in the room " + room.getRoomName() +
-                " on the day " + mDate +
-                " was " + this.mMaxTemperature + "°C.");
+        if(maxTemperature == -10000.0){
+            System.out.println("The room you selected has no temperature readings.");
+            return;
+        }
+        out.println("The maximum temperature in the room " + ctrl.getRoomName(room) +
+                " on the day " + date +
+                " was " + maxTemperature + "°C.");
     }
 
 

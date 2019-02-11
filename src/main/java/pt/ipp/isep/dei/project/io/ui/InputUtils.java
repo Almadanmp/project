@@ -272,7 +272,7 @@ public class InputUtils {
      * values from the gregorian calendar
      * @return int of the year introduced by user
      */
-    private int getInputYear() {
+    public int getInputYear() {
         Scanner scan = new Scanner(System.in);
         int year = -1;
         while (year <= 1581) { //Gregorian Calendar was introduced in 1582, so was the concept of leap year
@@ -286,7 +286,7 @@ public class InputUtils {
      * Method will ask the user for a month and will return an int of that value subtracted by one
      * @return int of the month introduced by user
      */
-    private int getInputMonth() {
+    public int getInputMonth() {
         Scanner scan = new Scanner(System.in);
         int month = -1;
         while (month <= -1 || month > 11) { // -1 e 11 porque depois se subtrai um valor
@@ -302,7 +302,7 @@ public class InputUtils {
      * valid values
      * @return int of the day introduced by user
      */
-    private int getInputDay(boolean isLeapyear, int month) {
+    public int getInputDay(boolean isLeapyear, int month) {
         if(month == 1) {
             return getInputFebruaryDay(isLeapyear);
         }
