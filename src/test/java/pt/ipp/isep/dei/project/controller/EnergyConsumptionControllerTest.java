@@ -25,8 +25,8 @@ class EnergyConsumptionControllerTest {
     // Common artifacts for testing in this class.
 
     private EnergyGrid validGrid = new EnergyGrid("validGrid", 300);
-    private Room validRoom1 = new Room("Kitchen", 0, 35, 40, 20);
-    private Room validRoom2 = new Room("Upstairs Bathroom", 2, 15, 20, 10);
+    private Room validRoom1; // Is a room with 3 valid devices.
+    private Room validRoom2; // Is a room without devices.
     private Device validDevice1 = new Device(new WaterHeaterSpec());
     private Device validDevice2 = new Device(new WaterHeaterSpec());
     private Device validDevice3 = new Device(new FridgeSpec());
@@ -37,6 +37,8 @@ class EnergyConsumptionControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
+        validRoom1 = new Room("Kitchen", 0, 35, 40, 20);
+        validRoom2 = new Room("Upstairs Bathroom", 2, 15, 20, 10);
         validDevice1.setName("WaterHeater");
         validDevice1.setNominalPower(21.0);
         validDevice1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
@@ -169,12 +171,11 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
 
-        Room r1 = new Room("Kitchen", 0, 30, 50, 10);
         RoomList roomList = new RoomList();
         EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
-        boolean actualResult = controller.removeRoomFromList(r1, roomList);
+        boolean actualResult = controller.removeRoomFromList(validRoom1, roomList);
 
         //Assert
         assertFalse(actualResult);
@@ -305,7 +306,6 @@ class EnergyConsumptionControllerTest {
         roomList.addRoom(validRoom1);
         roomList.addRoom(validRoom2);
         house.setRoomList(roomList);
-        EnergyConsumptionController controller = new EnergyConsumptionController();
         List<Room> expectedResult = new ArrayList<>();
         expectedResult.add(validRoom1);
         expectedResult.add(validRoom2);
@@ -325,7 +325,10 @@ class EnergyConsumptionControllerTest {
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto", new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto",
+                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)), 60, 180,
+                deviceTypeString);
         EnergyGrid testGrid = new EnergyGrid("GridOne", 300);
         EnergyGridList houseGrid = new EnergyGridList();
         houseGrid.addGrid(testGrid);
@@ -421,7 +424,10 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto", new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
+                "Porto", new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea
+                ("Cidade"), 2, 3, new Local(4, 4, 100)), 60,
+                180, deviceTypeString);
         house.addRoomToRoomList(validRoom1);
         house.addRoomToRoomList(validRoom2);
         double expectedResult = 0;
@@ -442,7 +448,10 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto", new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
+                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+                60, 180, deviceTypeString);
         validRoom1.addDevice(validDevice1);
         validRoom2.addDevice(validDevice2);
         house.addRoomToRoomList(validRoom1);
@@ -460,758 +469,400 @@ class EnergyConsumptionControllerTest {
 
     @Test
     void getTotalNominalPowerFromGridTest() {
-        EnergyConsumptionController controller = new EnergyConsumptionController();
+
+        //Arrange
+
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Device(new FridgeSpec());
-        d1.setNominalPower(12.0);
-        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
-        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
-        r1.addDevice(d1);
-        Room r2 = new Room("kitchen", 2, 12, 12, 12);
-        Device d4 = new Device(new FridgeSpec());
-        d4.setNominalPower(12.0);
-        d4.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
-        d4.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 7D);
-        d4.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 435D);
-        RoomList rlist1 = new RoomList();
-        validGrid.setRoomList(rlist1);
-        rlist1.addRoom(r2);
-        rlist1.addRoom(r1);
-        r2.addDevice(d4);
-        h1.addRoomToRoomList(r1);
-        h1.addRoomToRoomList(r2);
-        double expectedResult = 24;
+        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
+                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+                60, 180, deviceTypeString);
+        RoomList roomList = new RoomList();
+        validGrid.setRoomList(roomList);
+        roomList.addRoom(validRoom2);
+        roomList.addRoom(validRoom1);
+        house.addRoomToRoomList(validRoom1);
+        house.addRoomToRoomList(validRoom2);
+        double expectedResult = 86;
+
+        //Act
+
         double result = controller.getTotalPowerFromGrid(validGrid);
+
+        //Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
     void getTotalNominalPowerFromGridNoDevicesTest() {
-        EnergyConsumptionController controller = new EnergyConsumptionController();
+
+        //Arrange
+
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Room r2 = new Room("kitchen", 2, 12, 12, 12);
-        RoomList rlist1 = new RoomList();
-        validGrid.setRoomList(rlist1);
-        rlist1.addRoom(r2);
-        rlist1.addRoom(r1);
-        h1.addRoomToRoomList(r1);
-        h1.addRoomToRoomList(r2);
+        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
+                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+                60, 180, deviceTypeString);
+        RoomList roomList = new RoomList();
+        validGrid.setRoomList(roomList);
+        house.addRoomToRoomList(validRoom2);
         double expectedResult = 0;
+
+        //Act
+
         double result = controller.getTotalPowerFromGrid(validGrid);
+
+        //Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
     void getWaterHeaterDeviceListTest() {
-        EnergyConsumptionController controller = new EnergyConsumptionController();
+
+        //Arrange
+
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House h1 = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        h1.addRoomToRoomList(r1);
-        Device d6 = new Device(new WaterHeaterSpec());
-        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
-        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        DeviceList d1 = new DeviceList();
-        d1.addDevice(d6);
-        r1.setDeviceList(d1);
+        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
+                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+                60, 180, deviceTypeString);
+        house.addRoomToRoomList(validRoom1);
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(validDevice1);
+        validRoom1.setDeviceList(deviceList);
         List<Device> expecteResult = new ArrayList<>();
-        expecteResult.add(d6);
-        List<Device> result = controller.getWaterHeaterDeviceList(h1);
+        expecteResult.add(validDevice1);
+
+        //Act
+
+        List<Device> result = controller.getWaterHeaterDeviceList(house);
+
+        //Assert
+
         Assertions.assertEquals(expecteResult, result);
     }
 
     @Test
-    void getWaterHeaterDeviceListTest2() {
-        EnergyConsumptionController controller = new EnergyConsumptionController();
+    void getWaterHeaterDeviceListTestTwoDevices() {
+
+        //Arrange
+
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("house1", "Rua Carlos Peixoto", "4535", "Santa Maria de Lamas", new Local(20, 20, 20), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new Device(new WaterHeaterSpec());
-        d2.setName("asdfgdsa");
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 200D);
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
-        Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 500D);
-        d3.setName("dsfgrws");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        house.addRoomToRoomList(r1);
+        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
+                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+                60, 180, deviceTypeString);
+        validRoom1.addDevice(validDevice1);
+        validRoom1.addDevice(validDevice2);
+        house.addRoomToRoomList(validRoom1);
         List<Device> expectedResult = new ArrayList<>();
-        expectedResult.add(d2);
-        expectedResult.add(d3);
+        expectedResult.add(validDevice1);
+        expectedResult.add(validDevice2);
+
+        //Act
+
         List<Device> result = controller.getWaterHeaterDeviceList(house);
+
+        //Assert
+
         Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
-    void getHouseDevicesOfGivenType() {
-        EnergyConsumptionController controller = new EnergyConsumptionController();
-        Device d = new Device(new WaterHeaterSpec());
-        d.setName("wHeater2");
-        d.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 500D);
-        d.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 30D);
-        d.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
-        String result = controller.getWHName(d);
-        Assertions.assertEquals("wHeater2", result);
+    void seeIfGetWHNameWorks() {
+
+        //Act
+
+        String result = controller.getWHName(validDevice1);
+
+        //Assert
+
+        Assertions.assertEquals("WaterHeater", result);
     }
 
     @Test
     void configureOneHeaterTestFalse() {
-        Device d6 = new Device(new WaterHeaterSpec());
-        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
-        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        d6.setAttributeValue("energy", 12);
-        d6.setAttributeValue("water", 60);
-        Double attributeValue = null;
+
+        //Arrange
+
         Double attributeValue2 = 30.0;
-        EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, result);
+
+        //Act
+
+        boolean result = controller.configureWH(validDevice1, null, attributeValue2);
+
+        //Assert
+
+        assertFalse(result);
     }
 
     @Test
     void configureOneHeaterTestFalseSecondElement() {
-        Device d6 = new Device(new WaterHeaterSpec());
-        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
-        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        d6.setAttributeValue("blowUp", 12);
-        d6.setAttributeValue("blabla", 60);
-        Double attributeValue = 2.0;
-        Double attributeValue2 = null;
-        EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, result);
+
+        //Arrange
+
+        Double attributeValue2 = 30.0;
+
+        //Act
+
+        boolean result = controller.configureWH(validDevice1, attributeValue2, null);
+
+        //Assert
+
+        assertFalse(result);
     }
 
     @Test
     void configureOneHeaterTestFalseBothElement() {
-        Device d6 = new Device(new WaterHeaterSpec());
-        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
-        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        d6.setAttributeValue("blowUp", 12);
-        d6.setAttributeValue("blabla", 60);
-        Double attributeValue = null;
-        Double attributeValue2 = 30.0;
-        EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, result);
+
+        //Act
+
+        boolean result = controller.configureWH(validDevice1, null, null);
+
+        //Assert
+
+        assertFalse(result);
     }
 
     @Test
     void configureOneHeaterTestNegative() {
-        Device d6 = new Device(new WaterHeaterSpec());
-        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
-        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        d6.setAttributeValue("blowUp", 12);
-        d6.setAttributeValue("blabla", 60);
-        Double attributeValue = -2.0;
-        Double attributeValue2 = -2.5;
-        EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, result);
+
+        //Act
+
+        boolean result = controller.configureWH(validDevice1, -2D, -2.5);
+
+        //Assert
+
+        assertTrue(result);
     }
 
     @Test
     void configureOneHeaterTestTrue() {
-        Device d6 = new Device(new WaterHeaterSpec());
-        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
-        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        d6.setAttributeValue("Porto", 12);
-        d6.setAttributeValue("Lisboa", 60);
-        Double attributeValue = 2.0;
-        Double attributeValue2 = 30.0;
-        EnergyConsumptionController controller = new EnergyConsumptionController();
-        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, result);
+
+        //Act
+
+        boolean result = controller.configureWH(validDevice1, 2D, 30D);
+
+        //Assert
+
+        assertTrue(result);
     }
 
     @Test
-    void configureOneHeaterTestTrue2() {
-        Device d6 = new Device(new WaterHeaterSpec());
-        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
-        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        d6.setAttributeValue("Porto", 12);
-        d6.setAttributeValue("Lisboa", 60);
-        Double attributeValue = 2.0;
-        Double attributeValue2 = 30.0;
-        EnergyConsumptionController controller = new EnergyConsumptionController();
-        controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean result = controller.configureWH(d6, attributeValue, attributeValue2);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, result);
-    }
+    void getDeviceConsumptionInIntervalTest() {
 
-    @Test
-    void getWaterHeaterNameTest() {
-        Device d6 = new Device(new WaterHeaterSpec());
-        d6.setName("wHeater4");
-        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 20D);
-        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        String expectedResult = "wHeater4";
-        String result = d6.getName();
-        assertEquals(expectedResult, result);
-    }
+        //Arrange
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTest1() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
         Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
         Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
-        Date periodBeginning = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
-        Date periodEnding = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400.0D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400.0D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
-        assertEquals(result, expectedResult);
-    }
+        validDevice1.addLog(validLog1);
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForEmptyList() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 9, 2);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 9, 60);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 9, 0);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 10);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "This device has no energy consumption logs in the given interval.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition1() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 9, 55);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 5);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "This device has no energy consumption logs in the given interval.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition2() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 9, 5);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 55);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "This device has no energy consumption logs in the given interval.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition3() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 5);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 55);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "This device has no energy consumption logs in the given interval.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition4() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 5);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 55);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition5() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 5);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "This device has no energy consumption logs in the given interval.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition6() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 9, 55);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "This device has no energy consumption logs in the given interval.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition7() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition8() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition10() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 5);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestForFalseOutOfBoundsCondition11() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 11, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning1 = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 55);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding1 = cal4.getTime();
-        GregorianCalendar cal5 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal5.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning2 = cal5.getTime();
-        GregorianCalendar cal6 = new GregorianCalendar(2018, 10, 20, 10, 30);
-        cal6.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding2 = cal6.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "The total Energy Consumption for the given device is: 111.0 kW/h.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestSameTime() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning1 = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding1 = cal4.getTime();
-        GregorianCalendar cal5 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal5.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning2 = cal5.getTime();
-        GregorianCalendar cal6 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal6.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding2 = cal6.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "The total Energy Consumption for the given device is: 111.0 kW/h.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTestSameTime2() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 0);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "This device has no energy consumption logs in the given interval.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalTesDifferentTime() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        GregorianCalendar cal1 = new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 10, 10);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 10, 10);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 10, 10);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning1 = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 10, 10);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding1 = cal4.getTime();
-        GregorianCalendar cal5 = new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 10, 10);
-        cal5.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning2 = cal5.getTime();
-        GregorianCalendar cal6 = new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 10, 10);
-        cal6.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding2 = cal6.getTime();
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        String result = ctrl.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        String expectedResult = "The total Energy Consumption for the given device is: 111.0 kW/h.";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void seeIfGetTotalMeteredEnergyConsumptionInGridInTimeIntervalWorks() {
-        //Arrange
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Room room = new Room("Kitchen", 0, 30, 50, 10);
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        room.addDevice(device);
-        validGrid.addRoomToAnEnergyGrid(room);
         //Act
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 2);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 60);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        double actualResult = ctrl.getGridConsumptionInInterval(validGrid, initialTime, finalTime);
-        double expectedResult = 56.0;
+
+        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+
+
         //Assert
+
+        assertEquals(result, expectedResult);
+    }
+
+    @Test
+    void getDeviceConsumptionInIntervalEmptyLogListTest() {
+
+        //Arrange
+        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
+        String expectedResult = "This device has no energy consumption logs in the given interval.";
+
+        //Act
+
+        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+
+
+        //Assert
+        assertEquals(result, expectedResult);
+    }
+
+    @Test
+    void getDeviceConsumptionInIntervalOutsideIntervalBeforeTest() {
+
+        //Arrange
+        Date initialTime = new GregorianCalendar(2013, Calendar.NOVEMBER, 20, 10, 2).getTime();
+        Date finalTime = new GregorianCalendar(2014, Calendar.NOVEMBER, 20, 10, 60).getTime();
+        validDevice1.addLog(validLog1);
+        String expectedResult = "This device has no energy consumption logs in the given interval.";
+
+        //Act
+
+        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+
+
+        //Assert
+        assertEquals(result, expectedResult);
+
+    }
+
+    @Test
+    void getDeviceConsumptionInIntervalOutsideIntervalAfterTest() {
+
+        //Arrange
+        Date initialTime = new GregorianCalendar(2020, Calendar.NOVEMBER, 20, 10, 2).getTime();
+        Date finalTime = new GregorianCalendar(2020, Calendar.NOVEMBER, 20, 10, 60).getTime();
+        validDevice1.addLog(validLog1);
+        String expectedResult = "This device has no energy consumption logs in the given interval.";
+
+        //Act
+
+        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+
+
+        //Assert
+        assertEquals(result, expectedResult);
+    }
+
+    @Test
+    void getDeviceConsumptionInIntervalSameTime() {
+
+        //Arrange
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
+        validDevice1.addLog(validLog1);
+        String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
+
+        //Act
+
+        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+
+
+        //Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDeviceConsumptionInIntervalSameTimeNoLogs() {
+
+        //Arrange
+
+        Date time = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
+        validDevice1.addLog(validLog1);
+        String expectedResult = "This device has no energy consumption logs in the given interval.";
+
+        //Act
+
+        String result = controller.getDeviceConsumptionInInterval(validDevice1, time, time);
+
+
+        //Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetGridConsumptionInIntervalWorks() {
+
+        //Arrange
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
+        validGrid.addRoomToAnEnergyGrid(validRoom1);
+        double expectedResult = 56.0;
+
+        //Act
+
+        validDevice1.addLog(validLog1);
+        double actualResult = controller.getGridConsumptionInInterval(validGrid, initialTime, finalTime);
+
+
+        //Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetGridLogsInInterval() {
+
         //Arrange
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Room room = new Room("Kitchen", 0, 30, 50, 10);
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        room.addDevice(device);
-        validGrid.addRoomToAnEnergyGrid(room);
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
+        validGrid.addRoomToAnEnergyGrid(validRoom1);
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog1);
+
         //Act
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 2);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 60);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        LogList actualResult = ctrl.getGridLogsInInterval(validGrid, initialTime, finalTime);
-        LogList expectedResult = validGrid.getLogsInInterval(initialTime, finalTime);
-        assertEquals(actualResult, expectedResult);
+
+        validDevice1.addLog(validLog1);
+        LogList actualResult = controller.getGridLogsInInterval(validGrid, initialTime, finalTime);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetRoomLogsInInterval() {
         //Arrange
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Room room = new Room("Kitchen", 0, 30, 50, 10);
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        room.addDevice(device);
-        validGrid.addRoomToAnEnergyGrid(room);
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog1);
+
         //Act
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 2);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 60);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        LogList actualResult = ctrl.getRoomLogsInInterval(room, initialTime, finalTime);
-        LogList expectedResult = room.getLogsInInterval(initialTime, finalTime);
-        assertEquals(actualResult, expectedResult);
+
+        validDevice1.addLog(validLog1);
+        LogList actualResult = controller.getRoomLogsInInterval(validRoom1, initialTime, finalTime);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetDeviceLogsInInterval() {
+
         //Arrange
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
-        Room room = new Room("Kitchen", 0, 30, 50, 10);
-        Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 400D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 400D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        room.addDevice(device);
-        validGrid.addRoomToAnEnergyGrid(room);
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog1);
+
         //Act
-        GregorianCalendar cal1 = new GregorianCalendar(2018, 10, 20, 10, 2);
-        cal1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date initialTime = cal1.getTime();
-        GregorianCalendar cal2 = new GregorianCalendar(2018, 10, 20, 10, 60);
-        cal2.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date finalTime = cal2.getTime();
-        GregorianCalendar cal3 = new GregorianCalendar(2018, 10, 20, 10, 10);
-        cal3.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodBeginning = cal3.getTime();
-        GregorianCalendar cal4 = new GregorianCalendar(2018, 10, 20, 10, 50);
-        cal4.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date periodEnding = cal4.getTime();
-        Log log = new Log(56, periodBeginning, periodEnding);
-        device.addLog(log);
-        LogList actualResult = ctrl.getDeviceLogsInInterval(device, initialTime, finalTime);
-        LogList expectedResult = room.getLogsInInterval(initialTime, finalTime);
-        assertEquals(actualResult, expectedResult);
+
+        validDevice1.addLog(validLog1);
+        LogList actualResult = controller.getDeviceLogsInInterval(validDevice1, initialTime, finalTime);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfBuildLogListString() {
-        EnergyConsumptionController ctrl = new EnergyConsumptionController();
+    void seeIfBuildLogListStringWorks() {
+
+        //Arrange
+
         LogList list = new LogList();
-        Log log = new Log(10, new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 20).getTime());
-        list.addLog(log);
-        String result = ctrl.buildLogListString(list);
-        String expectedResult = "\n0) Start Date: 20/11/2018 10:02:00 | End Date: 20/11/2018 10:20:00 | Value: 10.0";
-        assertEquals(result, expectedResult);
+        list.addLog(validLog1);
+        String expectedResult = "\n0) Start Date: 20/11/2018 10:10:00 | End Date: 20/11/2018 10:50:00 | Value: 56.0";
+
+        //Act
+
+        String result = controller.buildLogListString(list);
+
+        //Assert
+
+        assertEquals(expectedResult, result);
     }
 }
