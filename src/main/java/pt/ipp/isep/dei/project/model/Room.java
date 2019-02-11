@@ -155,9 +155,7 @@ public class Room implements Metered {
         for(Sensor s: tempSensors.getSensorList()) {
             ReadingList readingList = s.getReadingList();
             double sensorMax = readingList.getMaximumOfGivenDayValueReadings(day);
-            if(sensorMax > maxTemp){
-                maxTemp = sensorMax;
-            }
+            maxTemp = Math.max(sensorMax,maxTemp);
         }
         return maxTemp;
     }
