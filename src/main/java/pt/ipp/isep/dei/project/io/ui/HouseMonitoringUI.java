@@ -214,7 +214,7 @@ public class HouseMonitoringUI {
 
     private void displayState610(Room room,  Date date, double maxTemperature) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        if(maxTemperature == -10000.0){
+        if(maxTemperature < -1000){
             System.out.println("The room you selected has no temperature readings.");
             return;
         }
