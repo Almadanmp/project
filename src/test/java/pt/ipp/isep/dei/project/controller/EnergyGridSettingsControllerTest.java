@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -458,5 +459,27 @@ class EnergyGridSettingsControllerTest {
                 "---------------\n";
         String result = ctrl.buildListOfDevicesOrderedByTypeString(eg, house);
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeAddGridToHouse() {
+        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        EnergyGrid eg1 = new EnergyGrid("eg1", 65);
+        EnergyGrid eg2 = new EnergyGrid("eg2", 55);
+        EnergyGrid eg3 = new EnergyGrid("eg1", 65);
+        //Act
+        boolean actualResult1 = ctrl.addEnergyGridToHouse(house, eg1);
+        boolean actualResult2 = ctrl.addEnergyGridToHouse(house, eg2);
+        boolean actualResult3 = ctrl.addEnergyGridToHouse(house, eg3);
+        boolean actualResult4 = ctrl.addEnergyGridToHouse(house, eg1);
+        //Assert
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertFalse(actualResult3);
+        assertFalse(actualResult4);
     }
 }

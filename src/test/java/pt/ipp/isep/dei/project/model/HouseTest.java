@@ -854,6 +854,27 @@ class HouseTest {
         assertEquals(10, result1);
     }
 
+    @Test
+    void seeAddGridToHouse() {
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        EnergyGrid eg1 = new EnergyGrid("eg1",25);
+        EnergyGrid eg2 = new EnergyGrid("eg2",55);
+        EnergyGrid eg3 = new EnergyGrid("eg1",25);
+        //Act
+        boolean actualResult1 = house.addGrid(eg1);
+        boolean actualResult2 = house.addGrid(eg2);
+        boolean actualResult3 = house.addGrid(eg3);
+        boolean actualResult4 = house.addGrid(eg1);
+        //Assert
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertFalse(actualResult3);
+        assertFalse(actualResult4);
+    }
+
 }
 
 
