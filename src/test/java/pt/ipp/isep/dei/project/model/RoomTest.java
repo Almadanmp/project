@@ -9,7 +9,6 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -782,10 +781,10 @@ class RoomTest {
         expectedResult4.addSensor(sensor3);
 
         //ACT
-        SensorList actualResult1 = room1.getTemperatureSensors();
-        SensorList actualResult2 = room2.getTemperatureSensors();
-        SensorList actualResult3 = room3.getTemperatureSensors();
-        SensorList actualResult4 = room4.getTemperatureSensors();
+        SensorList actualResult1 = room1.getSensorsOfGivenType("temperature");
+        SensorList actualResult2 = room2.getSensorsOfGivenType("temperature");
+        SensorList actualResult3 = room3.getSensorsOfGivenType("temperature");
+        SensorList actualResult4 = room4.getSensorsOfGivenType("temperature");
         //ASSERT
         assertEquals(actualResult1,expectedResult1);
         assertEquals(actualResult2,expectedResult2);

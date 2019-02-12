@@ -94,22 +94,39 @@ public class SensorList {
         mSensorList.remove(sensorToRemove);
     }
 
+
     /**
-     * Method to find the most recently used sensor in the sensor list
+     * Method that goes through the sensor list and looks for the sensor
+     * that was most recently used (that as the most recent reading).
+     * @return the sensor that was most recently used
      *
      * @return the most recently used sensor
      */
-    Sensor getMostRecentlyUsedSensor() {
-        List<Sensor> listToTest = this.mSensorList;
-        int indexMostRecentlyUsedSensor = 0;
-        for (int i = 0; i < listToTest.size() - 1; i++) {
-            Date firstDate = listToTest.get(i).getReadingList().getMostRecentReading().getmDate();
-            Date secondDate = listToTest.get(i + 1).getReadingList().getMostRecentReading().getmDate();
-            if (firstDate.before(secondDate)) {
-                indexMostRecentlyUsedSensor = i + 1;
+    public Sensor getMostRecentlyUsedSensor(){
+        Sensor error = new Sensor("emptySensor",new TypeSensor("type"," "),new GregorianCalendar(1900,0,1).getTime());
+        if(this.mSensorList.isEmpty() || !this.hasReadings()){
+            return error;
+        }
+        Sensor mostRecent = this.mSensorList.get(0);
+        Date recent = mostRecent.getReadingList().getMostRecentReading().getmDate();
+        for (Sensor s : this.mSensorList){
+            Date test = s.getReadingList().getMostRecentReading().getmDate();
+            if(recent.before(test)){
+                recent = test;
+                mostRecent = s;
             }
         }
-        return listToTest.get(indexMostRecentlyUsedSensor);
+        return mostRecent;
+    }
+
+    public boolean hasReadings(){
+        for (Sensor s : this.mSensorList){
+            ReadingList readingList = s.getReadingList();
+            if(!readingList.isEmpty()){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

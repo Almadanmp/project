@@ -144,47 +144,6 @@ class HouseMonitoringControllerTest {
     }
 
     @Test
-    void seeIfGetSensorWithTheMinimumDistanceToHouseWorks() {
-        //Arrange --------------------------------------------------
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime());
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga.setSensorList(sensorList);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga, 60, 180, deviceTypeString);
-
-        //Act ------------------------------------------------------
-        Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature");
-        //Assert ---------------------------------------------------
-        assertEquals(s1, result);
-    }
-
-    @Test
-    void seeIfGetSensorWithTheMinimumDistanceToHouseWorks2() {
-        //Arrange ---------------------------------------------------
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 100), new GregorianCalendar(4, 4, 4).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 100), new GregorianCalendar(4, 4, 4).getTime());
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga.setSensorList(sensorList);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga, 60, 180, deviceTypeString);
-        //Act -------------------------------------------------------
-        Sensor result = ctrl.getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature");
-        //Assert ----------------------------------------------------
-        assertEquals(s2, result);
-    }
-
-    @Test
     void seeIfGetCurrentRoomTemperatureWorks() {
         //Arrange -------------------------------------
         //RoomList

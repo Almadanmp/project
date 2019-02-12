@@ -230,7 +230,7 @@ public class HouseMonitoringController {
 
     public double getAVGDailyRainfallOnGivenPeriod(House house, Date initialDate, Date endDate) {
         GeographicArea geoArea = house.getMotherArea();
-        Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, rainfall);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea, "rainfall");
         if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
             return Double.NaN;
         }
@@ -248,31 +248,18 @@ public class HouseMonitoringController {
         int counter = 0;
         GeographicArea geoArea = house.getMotherArea();
         for (Sensor s : geoArea.getSensorList().getSensorList()) {
-            if (s.getTypeSensor().getName().equals(rainfall)) {
+            if (s.getTypeSensor().getName().equals("rainfall")) {
                 counter++;
             }
         }
         if (counter >= 1) {
-            Sensor closestSensor = house.getSensorWithMinDistanceToHouse(geoArea, house, rainfall);
+            Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea,"rainfall");
             if (closestSensor.getReadingList() == null) {
                 return Double.NaN;
             }
             return closestSensor.getReadingList().getTotalValueOfReadingOnGivenDay(day);
         }
         return Double.NaN;
-    }
-
-
-    /**
-     *
-     * @param house is the house we want to get the closest sensor to.
-     * @param ga is the geographic area the house is contained in.
-     * @param sensorType is the type of sensor we want to look for.
-     * @return is the closest sensor of the given type to the house.
-     */
-
-    Sensor getSensorWithTheMinimumDistanceToHouse(House house, GeographicArea ga, String sensorType) {
-        return house.getSensorWithMinDistanceToHouse(ga, house, sensorType);
     }
 
     /**
@@ -283,7 +270,9 @@ public class HouseMonitoringController {
      */
 
     public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {
-        return getSensorWithTheMinimumDistanceToHouse(house, ga, "temperature").getReadingList().getMostRecentValueOfReading();
+        Sensor closest = house.getClosestSensorOfGivenType(ga,"temperature");
+        ReadingList readingList = closest.getReadingList();
+        return readingList.getMostRecentValueOfReading();
     }
 
     /**

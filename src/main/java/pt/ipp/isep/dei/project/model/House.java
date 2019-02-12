@@ -217,16 +217,15 @@ public class House implements Metered {
      * the one with the most recent reading should be used.
      *
      * @param ga
-     * @param house
      * @param sensorType
      * @return
      */
-    public Sensor getSensorWithMinDistanceToHouse(GeographicArea ga, House house, String sensorType) {
+    public Sensor getClosestSensorOfGivenType(GeographicArea ga, String sensorType) {
         Sensor sensor;
         SensorList sensorList = new SensorList();
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
-            if (Double.compare(house.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(house)) == 0) {
+            if (Double.compare(this.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(this)) == 0) {
                 sensorList.addSensor(s);
             }
         }
@@ -241,6 +240,7 @@ public class House implements Metered {
         }
         return sensor;
     }
+
 
 
     /**

@@ -18,7 +18,6 @@ public class HouseMonitoringUI {
     private int dataYear2;
     private int dataMonth2;
     private int dataDay2;
-    private double mCurrentHouseAreaTemperature;
 
     public HouseMonitoringUI() {
         this.houseMonitoringcontroller = new HouseMonitoringController();
@@ -100,16 +99,20 @@ public class HouseMonitoringUI {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        updateModel600(house, motherArea);
-        displayState600();
+        double currentTemp = updateModel600(house, motherArea);
+        displayState600(currentTemp);
     }
 
-    private void updateModel600(House house, GeographicArea geographicArea) {
-        mCurrentHouseAreaTemperature = houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, geographicArea);
+    private double updateModel600(House house, GeographicArea geographicArea) {
+        return houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, geographicArea);
     }
 
-    private void displayState600() {
-        System.out.println("The current temperature in the house area is: " + mCurrentHouseAreaTemperature + "°C.");
+    private void displayState600(double temperature) {
+        if(temperature < -100){
+            System.out.println("The house area has no temperature readings.");
+            return;
+        }
+        System.out.println("The current temperature in the house area is: " + temperature + "°C.");
     }
 
     /**
@@ -139,7 +142,7 @@ public class HouseMonitoringUI {
     }
 
     private void displayState605(Room room, double temperature) {
-        if(temperature < -1000){
+        if(temperature < -100){
             System.out.println("The room you selected has no temperature readings.");
             return;
         }
@@ -173,15 +176,15 @@ public class HouseMonitoringUI {
         return ctrl.getMaxTemperatureInARoomOnAGivenDay(room, date);
     }
 
-    private void displayState610(Room room,  Date date, double maxTemperature) {
+    private void displayState610(Room room,  Date date, double temperature) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        if(maxTemperature < -1000){
+        if(temperature < -100){
             System.out.println("The room you selected has no temperature readings.");
             return;
         }
         out.println("The maximum temperature in the room " + ctrl.getRoomName(room) +
                 " on the day " + date +
-                " was " + maxTemperature + "°C.");
+                " was " + temperature + "°C.");
     }
 
 

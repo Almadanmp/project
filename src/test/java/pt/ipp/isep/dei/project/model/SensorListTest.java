@@ -199,73 +199,6 @@ class SensorListTest {
     }
 
     @Test
-    void seeIfGetMostRecentlyUsedSensorWorks() {
-
-        //Arrange
-
-        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 26).getTime());
-        Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3).getTime());
-        Reading reading3 = new Reading(15, new GregorianCalendar(113, 11, 25).getTime());
-        Reading reading4 = new Reading(29, new GregorianCalendar(111, 9, 3).getTime());
-        ReadingList l1 = new ReadingList();
-        ReadingList l2 = new ReadingList();
-        l1.addReading(reading1);
-        l1.addReading(reading2);
-        l2.addReading(reading3);
-        l2.addReading(reading4);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
-        s1.setReadingList(l1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 10, 4).getTime());
-        s2.setReadingList(l2);
-        SensorList list1 = new SensorList(new Sensor[]{s1, s2});
-
-        Sensor actualResult;
-
-        //Act
-        actualResult = list1.getMostRecentlyUsedSensor();
-
-        //Assert
-        assertEquals(s1, actualResult);
-    }
-
-    @Test
-    void seeIfGetMostRecentlyUsedSensorWorksSwitchedSensors() {
-
-        //Arrange
-        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25).getTime());
-        Reading reading2 = new Reading(29, new GregorianCalendar(118, 9, 3).getTime());
-        Reading reading3 = new Reading(15, new GregorianCalendar(118, 11, 28).getTime());
-        Reading reading4 = new Reading(29, new GregorianCalendar(111, 9, 3).getTime());
-        ReadingList l1 = new ReadingList();
-        ReadingList l2 = new ReadingList();
-        l1.addReading(reading1);
-        l1.addReading(reading2);
-        l2.addReading(reading3);
-        l2.addReading(reading4);
-        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
-        s2.setReadingList(l1);
-        Sensor s1 = new Sensor("Movimento", new TypeSensor("Atmosphere", "m/s"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        s1.setReadingList(l2);
-        SensorList list1 = new SensorList(new Sensor[]{s1, s2});
-
-        Sensor actualResult;
-
-        //Act
-        actualResult = list1.getMostRecentlyUsedSensor();
-
-        //Assert
-        assertEquals(s1, actualResult);
-    }
-
-    @Test
     void seeIfequalsSensorListWithDifferentObject() {
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21),
@@ -465,18 +398,6 @@ class SensorListTest {
 
         //Assert
         assertNull(actualResult);
-    }
-
-    @Test
-    void ensureThatWeTestEmptyConstructor() {
-        SensorList sl = new SensorList();
-        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        sl.addSensor(s1);
-
-        Sensor actualResult = sl.getMostRecentlyUsedSensor();
-
-        assertEquals(s1, actualResult);
     }
 
     @Test
@@ -962,5 +883,131 @@ class SensorListTest {
         assertEquals(actualResult5, expectedResult5);
     }
 
+    @Test
+    void mostRecentlyUsedSensor() {
+        GregorianCalendar date1 = new GregorianCalendar(2018, 10, 5,23,57);
+        GregorianCalendar date2 = new GregorianCalendar(2018, 10, 5,23,58);
+        GregorianCalendar date3 = new GregorianCalendar(2018, 10, 5,23,59);
 
+        SensorList sensorList1 = new SensorList(); //EMPTY LIST
+        SensorList sensorList2 = new SensorList(); //ONE SENSOR WITH NO READINGS
+        SensorList sensorList3 = new SensorList(); //THREE SENSORS: FIRST MOST RECENT
+        SensorList sensorList4 = new SensorList(); //THREE SENSORS: SECOND MOST RECENT
+        SensorList sensorList5 = new SensorList(); //THREE SENSORS: THIRD MOST RECENT
+
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature","ºC"),date1.getTime());
+        sensorList2.addSensor(sensor1);
+
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature","ºC"),date1.getTime());
+        Reading reading1 = new Reading(20,date3.getTime());
+        Reading reading2 = new Reading(21,date1.getTime());
+        Reading reading3 = new Reading(32,date2.getTime());
+
+        sensor2.addReading(reading1);
+        sensor3.addReading(reading2);
+        sensor4.addReading(reading3);
+        sensorList3.addSensor(sensor2);
+        sensorList3.addSensor(sensor3);
+        sensorList3.addSensor(sensor4);
+
+
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature","ºC"),date1.getTime());
+        Reading reading4 = new Reading(20,date1.getTime());
+        Reading reading5 = new Reading(21,date3.getTime());
+        Reading reading6 = new Reading(32,date2.getTime());
+
+        sensor5.addReading(reading4);
+        sensor6.addReading(reading5);
+        sensor7.addReading(reading6);
+        sensorList4.addSensor(sensor5);
+        sensorList4.addSensor(sensor6);
+        sensorList4.addSensor(sensor7);
+
+        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature","ºC"),date1.getTime());
+        Reading reading7 = new Reading(20,date2.getTime());
+        Reading reading8 = new Reading(21,date1.getTime());
+        Reading reading9 = new Reading(32,date3.getTime());
+
+        sensor8.addReading(reading7);
+        sensor9.addReading(reading8);
+        sensor10.addReading(reading9);
+        sensorList5.addSensor(sensor8);
+        sensorList5.addSensor(sensor9);
+        sensorList5.addSensor(sensor10);
+
+
+        Sensor expectedResult1 = new Sensor("emptySensor",new TypeSensor("type"," "),new GregorianCalendar(1900,0,1).getTime());
+        Sensor expectedResult2 = new Sensor("emptySensor",new TypeSensor("type"," "),new GregorianCalendar(1900,0,1).getTime());
+        Sensor expectedResult3 = sensor2;
+        Sensor expectedResult4 = sensor6;
+        Sensor expectedResult5 = sensor10;
+
+        //ACT
+        Sensor actualResult1 = sensorList1.getMostRecentlyUsedSensor();
+        Sensor actualResult2 = sensorList2.getMostRecentlyUsedSensor();
+        Sensor actualResult3 = sensorList3.getMostRecentlyUsedSensor();
+        Sensor actualResult4 = sensorList4.getMostRecentlyUsedSensor();
+        Sensor actualResult5 = sensorList5.getMostRecentlyUsedSensor();
+        //ASSERT
+        assertEquals(actualResult1, expectedResult1);
+        assertEquals(actualResult2, expectedResult2);
+        assertEquals(actualResult3, expectedResult3);
+        assertEquals(actualResult4, expectedResult4);
+        assertEquals(actualResult5, expectedResult5);
+    }
+
+    @Test
+    void hasReadings() {
+        GregorianCalendar date1 = new GregorianCalendar(2018, 10, 5,23,57);
+
+        SensorList sensorList1 = new SensorList(); //EMPTY LIST
+        SensorList sensorList2 = new SensorList(); //ONE SENSOR WITHOUT READINGS
+        SensorList sensorList3 = new SensorList(); //TWO SENSORS WITHOUT READINGS
+        SensorList sensorList4 = new SensorList(); //THREE SENSORS: FIRST HAS READINGS
+        SensorList sensorList5 = new SensorList(); //THREE SENSORS: LAST HAS READINGS
+
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature","ºC"),date1.getTime());
+        sensorList2.addSensor(sensor1);
+
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature","ºC"),date1.getTime());
+        sensorList3.addSensor(sensor2);
+        sensorList3.addSensor(sensor3);
+
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature","ºC"),date1.getTime());
+        Reading reading4 = new Reading(20,date1.getTime());
+        sensor5.addReading(reading4);
+        sensorList4.addSensor(sensor5);
+        sensorList4.addSensor(sensor6);
+        sensorList4.addSensor(sensor7);
+
+        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature","ºC"),date1.getTime());
+        Reading reading7 = new Reading(26,date1.getTime());
+        sensor10.addReading(reading7);
+        sensorList5.addSensor(sensor8);
+        sensorList5.addSensor(sensor9);
+        sensorList5.addSensor(sensor10);
+        //ACT
+        boolean actualResult1 = sensorList1.hasReadings();
+        boolean actualResult2 = sensorList2.hasReadings();
+        boolean actualResult3 = sensorList3.hasReadings();
+        boolean actualResult4 = sensorList4.hasReadings();
+        boolean actualResult5 = sensorList4.hasReadings();
+        //ASSERT
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+        assertTrue(actualResult4);
+        assertTrue(actualResult5);
+    }
 }

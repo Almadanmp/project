@@ -151,7 +151,7 @@ public class Room implements Metered {
      * **/
     public double getMaxTemperatureOnGivenDay(Date day){
         double maxTemp = -10000;
-        SensorList tempSensors = getTemperatureSensors();
+        SensorList tempSensors = getSensorsOfGivenType("temperature");
         for(Sensor s: tempSensors.getSensorList()) {
             ReadingList readingList = s.getReadingList();
             double sensorMax = readingList.getMaximumOfGivenDayValueReadings(day);
@@ -160,11 +160,11 @@ public class Room implements Metered {
         return maxTemp;
     }
 
-    /**Method that looks for sensor that measure temperature and returns a list of
+    /**Method that looks in sensor list for sensors of given type and returns a list of
      * those sensors. Method will look at the sensor's type.
-     * @return a sensor list that contains sensors that measure only temperature**/
-    public SensorList getTemperatureSensors(){
-        String type = "temperature";
+     * @return a sensor list that contains sensors of given type
+     * **/
+    public SensorList getSensorsOfGivenType(String type){
         SensorList tempSensors = new SensorList();
         for(Sensor s : this.mRoomSensorList.getSensorList()){
             String typeTest = s.getTypeSensor().getName();
@@ -226,7 +226,7 @@ public class Room implements Metered {
 
     public double getCurrentRoomTemperature() {
         double currentT = -10000;
-        SensorList tempSensors = getTemperatureSensors();
+        SensorList tempSensors = getSensorsOfGivenType("temperature");
         if(!tempSensors.getSensorList().isEmpty()){
             ReadingList readingList = tempSensors.getReadings();
             currentT = readingList.getMostRecentValueOfReading();
