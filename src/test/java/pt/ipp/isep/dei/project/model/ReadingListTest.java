@@ -2159,6 +2159,14 @@ class ReadingListTest {
         double expectedResult = 15.0;
         assertEquals(expectedResult, result, 0.01);
     }
+    @Test
+    void seeMaxValueWithEmptyList() {
+        ReadingList list = new ReadingList();
+        Date d1 = new GregorianCalendar(2015, 11, 2).getTime();
+        double result = list.getMaximumOfGivenDayValueReadings(d1);
+        double expectedResult = NaN;
+        assertEquals(expectedResult, result, 0.01);
+    }
 
     @Test
     void seeIfGetMostRecentValueOfReadingWorks() {
@@ -2340,6 +2348,7 @@ class ReadingListTest {
         ReadingList readingList2 = new ReadingList(); //MOST RECENT SECOND
         ReadingList readingList3 = new ReadingList(); //MOST RECENT THIRD
         ReadingList readingList4 = new ReadingList(); //TWO READINGS WITH SAME DATE
+        ReadingList readingList5 = new ReadingList(); //NO READINGS
 
         Reading reading1 = new Reading(22, new GregorianCalendar(2018, 10, 2,23,59).getTime());
         Reading reading2 = new Reading(25, new GregorianCalendar(2018, 10, 3,0,0).getTime());
@@ -2361,17 +2370,21 @@ class ReadingListTest {
         readingList4.addReading(reading1);
         readingList4.addReading(reading3);
 
-        Reading expectedResult = reading3;
+        Reading expectedResult1 = reading3;
+        Reading expectedResult2 = new Reading(NaN, new GregorianCalendar(1900,0,1).getTime());
+
         //Act
         Reading actualResult1 = readingList1.getMostRecentReading();
         Reading actualResult2 = readingList2.getMostRecentReading();
         Reading actualResult3 = readingList3.getMostRecentReading();
         Reading actualResult4 = readingList4.getMostRecentReading();
+        Reading actualResult5 = readingList5.getMostRecentReading();
         //Assert
-        assertEquals(expectedResult, actualResult1);
-        assertEquals(expectedResult, actualResult2);
-        assertEquals(expectedResult, actualResult3);
-        assertEquals(expectedResult, actualResult4);
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult1, actualResult2);
+        assertEquals(expectedResult1, actualResult3);
+        assertEquals(expectedResult1, actualResult4);
+        assertEquals(expectedResult2, actualResult5);
     }
 
     @Test
