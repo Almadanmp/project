@@ -2374,4 +2374,45 @@ class ReadingListTest {
         assertEquals(expectedResult, actualResult4);
     }
 
+    @Test
+    void equals() {
+        ReadingList readingList1 = new ReadingList();
+        ReadingList readingList2 = new ReadingList();
+        ReadingList readingList3 = new ReadingList();
+        ReadingList readingList4 = new ReadingList();
+
+        Reading reading1 = new Reading(22, new GregorianCalendar(2018, 10, 2,23,59).getTime());
+        Reading reading2 = new Reading(25, new GregorianCalendar(2018, 10, 3,0,0).getTime());
+
+        readingList1.addReading(reading1);
+        readingList1.addReading(reading2);
+
+        readingList2.addReading(reading1);
+        readingList2.addReading(reading2);
+
+        readingList3.addReading(reading2);
+        readingList3.addReading(reading1);
+        //Act
+        boolean actualResult1 = readingList1.equals(readingList2);
+        boolean actualResult2 = readingList1.equals(readingList1);
+        boolean actualResult3 = readingList1.equals(readingList3);
+        boolean actualResult4 = readingList1.equals(2D);
+        //Assert
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertFalse(actualResult3);
+        assertFalse(actualResult4);
+    }
+
+    @Test
+    void hashcode() {
+        ReadingList readingList1 = new ReadingList();
+        Reading reading1 = new Reading(22, new GregorianCalendar(2018, 10, 2,23,59).getTime());
+        readingList1.addReading(reading1);
+        //Act
+        int actualResult1 = readingList1.hashCode();
+        //Assert
+        assertEquals(actualResult1, 1);
+    }
+
 }

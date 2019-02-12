@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.Sensor;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -13,7 +12,6 @@ import static java.lang.System.out;
 
 public class HouseMonitoringUI {
     private HouseMonitoringController houseMonitoringcontroller;
-    private House mHouse;
     private int dataYear1;
     private int dataMonth1;
     private int dataDay1;
@@ -21,8 +19,6 @@ public class HouseMonitoringUI {
     private int dataMonth2;
     private int dataDay2;
     private double mCurrentHouseAreaTemperature;
-    private Sensor mSensor;
-    private Room mRoom;
 
     public HouseMonitoringUI() {
         this.houseMonitoringcontroller = new HouseMonitoringController();
@@ -31,7 +27,6 @@ public class HouseMonitoringUI {
     void run(House programHouse) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        this.mHouse = programHouse;
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -91,46 +86,6 @@ public class HouseMonitoringUI {
     }
 
 
-    private boolean getInputRoomByList() {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        if (this.mHouse.getRoomList().isEmpty()) {
-            System.out.print("Invalid Room List - List Is Empty\n");
-            return true;
-        }
-        System.out.println("Please select one of the existing rooms on the selected House: ");
-        System.out.println(houseMonitoringcontroller.buildHouseRoomListString(this.mHouse));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < this.mHouse.getRoomList().size()) {
-            this.mRoom = this.mHouse.getRoomList().get(aux);
-            return false;
-        } else {
-            System.out.println(utils.invalidOption);
-            return true;
-        }
-    }
-
-    private boolean getInputSensorByList() {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        if (mRoom.getSensorList().getSensorList().isEmpty()) {
-            System.out.print("Invalid Sensor List - List Is Empty, or there are no Temperature Sensors in the " +
-                    "selected Room.\n");
-            return true;
-        }
-        System.out.println("Please select one of the existing Sensors on the selected Room: ");
-        System.out.println(houseMonitoringcontroller.buildRoomSensorListString(mRoom));
-        int aux = inputUtils.readInputNumberAsInt();
-        if (aux >= 0 && aux < mRoom.getSensorList().getSensorList().size()) {
-            this.mSensor = mRoom.getSensorList().getSensorList().get(aux);
-            return false;
-        } else {
-            System.out.println(utils.invalidOption);
-            return true;
-        }
-    }
-
-
     /**
      * US600
      * As a Regular User, I want to get the current temperature in the house area. If, in the
@@ -179,18 +134,16 @@ public class HouseMonitoringUI {
     }
 
     private double updateModel605(Room room) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        out.print("You selected the room " + ctrl.getRoomName(room));
-        return houseMonitoringcontroller.getCurrentRoomTemperature(mRoom);
+        out.print("You selected the room " + houseMonitoringcontroller.getRoomName(room));
+        return houseMonitoringcontroller.getCurrentRoomTemperature(room);
     }
 
     private void displayState605(Room room, double temperature) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
         if(temperature < -1000){
             System.out.println("The room you selected has no temperature readings.");
             return;
         }
-        out.println("The Current Temperature in the room " + ctrl.getRoomName(room) +
+        out.println("The current temperature in the room " + houseMonitoringcontroller.getRoomName(room) +
                 " is " + temperature + "°C.");
     }
 
