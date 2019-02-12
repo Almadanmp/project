@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.project.model.Sensor;
 
 import java.util.Date;
 import java.util.Scanner;
-
 import static java.lang.System.out;
 
 
@@ -24,7 +23,6 @@ public class HouseMonitoringUI {
     private double mCurrentHouseAreaTemperature;
     private Sensor mSensor;
     private Room mRoom;
-    private double mCurrentTemperature;
 
     public HouseMonitoringUI() {
         this.houseMonitoringcontroller = new HouseMonitoringController();
@@ -48,7 +46,7 @@ public class HouseMonitoringUI {
                     activeInput = true;
                     break;
                 case 2:
-                    runUS605();
+                    runUS605(programHouse);
                     activeInput = true;
                     break;
                 case 3:
@@ -163,27 +161,34 @@ public class HouseMonitoringUI {
      * US605 As a Regular User, I want to get the current temperature in a room, in order to check
      * if it meets my personal comfort requirements.
      */
-    private void runUS605() {
-        if (getInputRoomByList()) {
+    private void runUS605(House house) {
+        UtilsUI utilsUI = new UtilsUI();
+        if(!utilsUI.houseRoomListIsValid(house)){
+            System.out.println(utilsUI.invalidRoomList);
             return;
         }
-        if (getInputSensorByList()) {
+        InputUtils inputUtils = new InputUtils();
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomSensorListIsValid(room)) {
+            System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        updateModel605();
-        displayState605();
+        double currentTemp = updateModel605(room);
+        displayState605(room, currentTemp);
 
     }
 
-    private void updateModel605() {
-        out.print("The room is " + this.mRoom.getRoomName() + " and the Temperature Sensor is " +
+    private double updateModel605(Room room) {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        out.print("The room is " + ctrl.getRoomName(room) + " and the Temperature Sensor is " +
                 this.mSensor.getName() + "\n");
-        this.mCurrentTemperature = houseMonitoringcontroller.getCurrentRoomTemperature(mRoom);
+        return houseMonitoringcontroller.getCurrentRoomTemperature(mRoom);
     }
 
-    private void displayState605() {
-        out.println("The Current Temperature in the room " + this.mRoom.getRoomName() +
-                " is " + this.mCurrentTemperature + "°C.");
+    private void displayState605(Room room, double temperature) {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        out.println("The Current Temperature in the room " + ctrl.getRoomName(room) +
+                " is " + temperature + "°C.");
     }
 
     /**

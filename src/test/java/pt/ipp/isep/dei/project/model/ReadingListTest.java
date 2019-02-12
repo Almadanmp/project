@@ -2214,6 +2214,15 @@ class ReadingListTest {
         assertEquals(expectedResult, result, 0.01);
 
     }
+    @Test
+    void seeMostRecentValueWithEmptyList() {
+        ReadingList list = new ReadingList();
+        //ACT
+        double result = list.getMostRecentValueOfReading();
+        double expectedResult = -10000.0;
+        //ASSERT
+        assertEquals(expectedResult, result, 0.01);
+    }
 
     @Test
     void seeIfGetMostRecentValueOfReadingWorksSameDay() {

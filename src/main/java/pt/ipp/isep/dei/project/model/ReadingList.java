@@ -66,7 +66,9 @@ public class ReadingList {
      * @return most recent reading value
      */
     public double getMostRecentValueOfReading() {
-
+        if(this.mReadings.isEmpty()){
+            return -10000;
+        }
         return getMostRecentReading().getmValue();
     }
 
