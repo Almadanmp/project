@@ -180,8 +180,7 @@ public class HouseMonitoringUI {
 
     private double updateModel605(Room room) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        out.print("The room is " + ctrl.getRoomName(room) + " and the Temperature Sensor is " +
-                this.mSensor.getName() + "\n");
+        out.print("You selected the room " + ctrl.getRoomName(room));
         return houseMonitoringcontroller.getCurrentRoomTemperature(mRoom);
     }
 

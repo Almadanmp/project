@@ -170,7 +170,7 @@ class RoomTest {
         Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         double result = room.getCurrentRoomTemperature();
-        double expectedResult = 0.0;
+        double expectedResult = -10000;
         assertEquals(expectedResult, result, 0.01);
     }
 

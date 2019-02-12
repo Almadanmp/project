@@ -893,4 +893,74 @@ class SensorListTest {
         String result = sensorList1.buildSensorWholeListString(sensorList1);
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void seeReadings() {
+        GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
+
+        SensorList sensorList1 = new SensorList(); //EMPTY LIST
+        SensorList sensorList2 = new SensorList(); //ONE SENSOR WITH NO READINGS
+        SensorList sensorList3 = new SensorList(); //TWO SENSORS: FIRST WITH READINGS
+        SensorList sensorList4 = new SensorList(); //TWO SENSORS: SECOND WITH READINGS
+        SensorList sensorList5 = new SensorList(); //TWO SENSORS: BOTH WITH READINGS
+
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature","ºC"),date1.getTime());
+        sensorList2.addSensor(sensor1);
+
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature","ºC"),date1.getTime());
+        Reading reading1 = new Reading(20,date1.getTime());
+        Reading reading2 = new Reading(21,date1.getTime());
+        sensor2.addReading(reading1);
+        sensor2.addReading(reading2);
+        sensorList3.addSensor(sensor2);
+        sensorList3.addSensor(sensor3);
+
+        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature","ºC"),date1.getTime());
+        sensor5.addReading(reading1);
+        sensor5.addReading(reading2);
+        sensorList4.addSensor(sensor4);
+        sensorList4.addSensor(sensor5);
+
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature","ºC"),date1.getTime());
+        Reading reading3 = new Reading(32,date1.getTime());
+        Reading reading4 = new Reading(12,date1.getTime());
+        sensor6.addReading(reading1);
+        sensor6.addReading(reading2);
+        sensor7.addReading(reading3);
+        sensor7.addReading(reading4);
+        sensorList5.addSensor(sensor6);
+        sensorList5.addSensor(sensor7);
+
+
+        ReadingList expectedResult1 = new ReadingList();
+        ReadingList expectedResult2 = new ReadingList();
+        ReadingList expectedResult3 = new ReadingList();
+        ReadingList expectedResult4 = new ReadingList();
+        ReadingList expectedResult5 = new ReadingList();
+        expectedResult3.addReading(reading1);
+        expectedResult3.addReading(reading2);
+        expectedResult4.addReading(reading1);
+        expectedResult4.addReading(reading2);
+        expectedResult5.addReading(reading1);
+        expectedResult5.addReading(reading2);
+        expectedResult5.addReading(reading3);
+        expectedResult5.addReading(reading4);
+        //ACT
+        ReadingList actualResult1 = sensorList1.getReadings();
+        ReadingList actualResult2 = sensorList2.getReadings();
+        ReadingList actualResult3 = sensorList3.getReadings();
+        ReadingList actualResult4 = sensorList4.getReadings();
+        ReadingList actualResult5 = sensorList5.getReadings();
+        //ASSERT
+        assertEquals(actualResult1, expectedResult1);
+        assertEquals(actualResult2, expectedResult2);
+        assertEquals(actualResult3, expectedResult3);
+        assertEquals(actualResult4, expectedResult4);
+        assertEquals(actualResult5, expectedResult5);
+    }
+
+
 }

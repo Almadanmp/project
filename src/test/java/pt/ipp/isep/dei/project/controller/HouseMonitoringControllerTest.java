@@ -190,7 +190,7 @@ class HouseMonitoringControllerTest {
         //RoomList
         RoomList roomList = new RoomList();
         SensorList list = new SensorList();
-        TypeSensor tipo = new TypeSensor("Temperature", "Celsius");
+        TypeSensor tipo = new TypeSensor("temperature", "Celsius");
         ReadingList listR = new ReadingList();
         Date d1 = new GregorianCalendar(2018, 3, 1, 15, 0, 0).getTime();
         Date d2 = new GregorianCalendar(2018, 3, 1, 17, 0, 0).getTime();

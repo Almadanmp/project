@@ -225,14 +225,15 @@ public class Room implements Metered {
      */
 
     public double getCurrentRoomTemperature() {
-        double currentT = 0.0;
-        int i = mRoomSensorList.getSensors().length - 1;
-        if (i >= 0) {
-            Sensor s = mRoomSensorList.getSensors()[i];
-            currentT = s.getReadingList().getMostRecentValueOfReading();
+        double currentT = -10000;
+        SensorList tempSensors = getTemperatureSensors();
+        if(!tempSensors.getSensorList().isEmpty()){
+            ReadingList readingList = tempSensors.getReadings();
+            currentT = readingList.getMostRecentValueOfReading();
         }
         return currentT;
     }
+
 
     public String buildRoomString() {
         String result;

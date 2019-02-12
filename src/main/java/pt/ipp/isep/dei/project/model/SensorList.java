@@ -299,11 +299,30 @@ public class SensorList {
         return !mSensorList.isEmpty();
     }
 
+    /**Method that goes through every sensor in the sensor list and gets
+     * every reading within that sensor. In the end we will get a Reading list
+     * that contains every reading from every sensor of the sensor list.
+     * @return a list with all readings from sensor list
+     * **/
+    public ReadingList getReadings(){
+        ReadingList finalList = new ReadingList();
+        if(this.mSensorList.isEmpty()){
+            return finalList;
+        }
+        for(Sensor s : this.mSensorList){
+            for(Reading r : s.getReadingList().getListOfReadings()){
+                finalList.addReading(r);
+            }
+        }
+        return finalList;
+    }
+
     /**
      * Method 'equals' for comparisson between objects of the same class
      * @param testObject
      * @return boolean
      */
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {

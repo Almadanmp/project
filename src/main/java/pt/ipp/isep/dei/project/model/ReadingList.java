@@ -620,6 +620,23 @@ public class ReadingList {
         }
         return sum;
     }
+
+    @Override
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof ReadingList)) {
+            return false;
+        }
+        ReadingList list = (ReadingList) testObject;
+        return Arrays.equals(this.getListOfReadings().toArray(), list.getListOfReadings().toArray());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }
 
 
