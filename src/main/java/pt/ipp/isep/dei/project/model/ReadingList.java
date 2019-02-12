@@ -45,19 +45,24 @@ public class ReadingList {
         return this.mReadings;
     }
 
-    /**
-     * @return returns the reading with the most recent date, that is, the date closest to now.
-     */
-    Reading getMostRecentReading() {
-        int mostRecentReadingIndex = 0;
-        for (int i = 0; i < mReadings.size() - 1; i++) {
-            Date firstDate = mReadings.get(i).getmDate();
-            Date secondDate = mReadings.get(i + 1).getmDate();
-            if (firstDate.before(secondDate)) {
-                mostRecentReadingIndex = i + 1;
+
+    //THIS METHOD DOES NOT CONSIDER THAT A LIST MIGHT BE EMPTY, USE THROW EXCEPTION?
+
+    /**Method that goes through every Reading in the list and
+     * returns the reading with the most recent Date.
+     * @return most recent reading
+     * **/
+    Reading getMostRecentReading(){
+        Reading recentReading = this.mReadings.get(0);
+        Date mostRecent = recentReading.getmDate();
+        for(Reading r : this.mReadings){
+            Date testDate = r.getmDate();
+            if(mostRecent.before(testDate)){
+                mostRecent = testDate;
+                recentReading = r;
             }
         }
-        return mReadings.get(mostRecentReadingIndex);
+        return recentReading;
     }
 
     /**

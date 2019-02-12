@@ -186,6 +186,10 @@ public class HouseMonitoringUI {
 
     private void displayState605(Room room, double temperature) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
+        if(temperature < -1000){
+            System.out.println("The room you selected has no temperature readings.");
+            return;
+        }
         out.println("The Current Temperature in the room " + ctrl.getRoomName(room) +
                 " is " + temperature + "°C.");
     }

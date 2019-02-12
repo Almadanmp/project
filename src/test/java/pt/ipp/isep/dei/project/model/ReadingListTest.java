@@ -193,46 +193,6 @@ class ReadingListTest {
     }
 
     @Test
-    void seeIfGetMostRecentReading() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(15, g1.getTime());
-        GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
-        Reading reading2 = new Reading(29, g2.getTime());
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        Reading expectedResult = new Reading(15, g1.getTime());
-        Reading actualResult;
-
-        //Act
-        actualResult = readingList.getMostRecentReading();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetMostRecentReadingSwitchedDates() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
-        Reading reading2 = new Reading(16, g1.getTime());
-        GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
-        Reading reading1 = new Reading(29, g2.getTime());
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        Reading expectedResult = new Reading(16, g1.getTime());
-        Reading actualResult;
-
-        //Act
-        actualResult = readingList.getMostRecentReading();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfGetAverageOfMonth() {
         //Arrange
         ReadingList rList = new ReadingList();
@@ -2373,4 +2333,45 @@ class ReadingListTest {
         //Assert
         assertEquals(NaN, actualResult);
     }
+
+    @Test
+    void getMostRecentReading() {
+        ReadingList readingList1 = new ReadingList(); //MOST RECENT FIRST
+        ReadingList readingList2 = new ReadingList(); //MOST RECENT SECOND
+        ReadingList readingList3 = new ReadingList(); //MOST RECENT THIRD
+        ReadingList readingList4 = new ReadingList(); //TWO READINGS WITH SAME DATE
+
+        Reading reading1 = new Reading(22, new GregorianCalendar(2018, 10, 2,23,59).getTime());
+        Reading reading2 = new Reading(25, new GregorianCalendar(2018, 10, 3,0,0).getTime());
+        Reading reading3 = new Reading(27, new GregorianCalendar(2018, 10, 3,0,1).getTime());
+
+        readingList1.addReading(reading3);
+        readingList1.addReading(reading1);
+        readingList1.addReading(reading2);
+
+        readingList2.addReading(reading2);
+        readingList2.addReading(reading3);
+        readingList2.addReading(reading1);
+
+        readingList3.addReading(reading2);
+        readingList3.addReading(reading1);
+        readingList3.addReading(reading3);
+
+        readingList4.addReading(reading3);
+        readingList4.addReading(reading1);
+        readingList4.addReading(reading3);
+
+        Reading expectedResult = reading3;
+        //Act
+        Reading actualResult1 = readingList1.getMostRecentReading();
+        Reading actualResult2 = readingList2.getMostRecentReading();
+        Reading actualResult3 = readingList3.getMostRecentReading();
+        Reading actualResult4 = readingList4.getMostRecentReading();
+        //Assert
+        assertEquals(expectedResult, actualResult1);
+        assertEquals(expectedResult, actualResult2);
+        assertEquals(expectedResult, actualResult3);
+        assertEquals(expectedResult, actualResult4);
+    }
+
 }
