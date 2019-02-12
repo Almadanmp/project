@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -168,7 +169,7 @@ class RoomTest {
         Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         double result = room.getCurrentRoomTemperature();
-        double expectedResult = -10000;
+        double expectedResult = NaN;
         assertEquals(expectedResult, result, 0.01);
     }
 
@@ -905,8 +906,8 @@ class RoomTest {
 
 
         //ASSERT
-        assertEquals(actualResult1,-10000,0.01);
-        assertEquals(actualResult2,-10000,0.01);
+        assertEquals(actualResult1,NaN,0.01);
+        assertEquals(actualResult2,NaN,0.01);
         assertEquals(actualResult3,20,0.01);
         assertEquals(actualResult4,24,0.01);
         assertEquals(actualResult5,25,0.01);
@@ -1027,8 +1028,8 @@ class RoomTest {
 
 
         //ASSERT
-        assertEquals(actualResult1,-10000,0.01);
-        assertEquals(actualResult2,-10000,0.01);
+        assertEquals(actualResult1,NaN,0.01);
+        assertEquals(actualResult2,NaN,0.01);
         assertEquals(actualResult3,20,0.01);
         assertEquals(actualResult4,24,0.01);
         assertEquals(actualResult5,25,0.01);

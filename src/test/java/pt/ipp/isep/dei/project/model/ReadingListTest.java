@@ -2179,7 +2179,7 @@ class ReadingListTest {
         ReadingList list = new ReadingList();
         //ACT
         double result = list.getMostRecentValueOfReading();
-        double expectedResult = -10000.0;
+        double expectedResult = NaN;
         //ASSERT
         assertEquals(expectedResult, result, 0.01);
     }

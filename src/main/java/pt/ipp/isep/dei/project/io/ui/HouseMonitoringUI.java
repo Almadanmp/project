@@ -108,7 +108,7 @@ public class HouseMonitoringUI {
     }
 
     private void displayState600(double temperature) {
-        if(temperature < -100){
+        if(Double.isNaN(temperature)){
             System.out.println("The house area has no temperature readings.");
             return;
         }
@@ -142,7 +142,7 @@ public class HouseMonitoringUI {
     }
 
     private void displayState605(Room room, double temperature) {
-        if(temperature < -100){
+        if(Double.isNaN(temperature)){
             System.out.println("The room you selected has no temperature readings.");
             return;
         }
@@ -178,7 +178,7 @@ public class HouseMonitoringUI {
 
     private void displayState610(Room room,  Date date, double temperature) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        if(temperature < -100){
+        if(Double.isNaN(temperature)){
             System.out.println("The room you selected has no temperature readings.");
             return;
         }

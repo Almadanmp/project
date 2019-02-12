@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.*;
 
+import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -612,7 +613,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
         double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house, d1, d2);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         assertEquals(expectedResult, result);
     }
 
@@ -621,7 +622,7 @@ class HouseMonitoringControllerTest {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
         Date d2 = new GregorianCalendar(2019, 1, 2, 2, 1, 1).getTime();
-        Reading r1 = new Reading(Double.NaN, d1);
+        Reading r1 = new Reading(NaN, d1);
         ReadingList rList = new ReadingList();
         rList.addReading(r1);
         TypeSensor ti1 = new TypeSensor("rainfall", "l/m2");
@@ -642,7 +643,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
         double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house, d1, d2);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         assertEquals(expectedResult, result);
     }
 
@@ -668,7 +669,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
         double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house, d1, d2);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         assertEquals(expectedResult, result);
     }
 
@@ -696,7 +697,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
         double result = ctrl.getAVGDailyRainfallOnGivenPeriod(house, d1, d2);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         assertEquals(expectedResult, result);
     }
 
@@ -769,7 +770,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         //Act
         double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
@@ -797,7 +798,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         //Act
         double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
@@ -859,7 +860,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         //Act
         double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
@@ -889,7 +890,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         //Act
         double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
@@ -927,7 +928,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         //Act
         double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
@@ -979,7 +980,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         //Act
         double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
@@ -1002,7 +1003,7 @@ class HouseMonitoringControllerTest {
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
-        double expectedResult = Double.NaN;
+        double expectedResult = NaN;
         //Act
         double actualResult = ctrl.getTotalRainfallOnGivenDay(house, d1);
         //Assert
@@ -1122,8 +1123,8 @@ class HouseMonitoringControllerTest {
         double actualResult8 = ctrl.getMaxTemperatureInARoomOnAGivenDay(room8, gregorianCalendar3.getTime());
 
         //ASSERT
-        assertEquals(actualResult1,-10000,0.01);
-        assertEquals(actualResult2,-10000,0.01);
+        assertEquals(actualResult1,NaN,0.01);
+        assertEquals(actualResult2,NaN,0.01);
         assertEquals(actualResult3,20,0.01);
         assertEquals(actualResult4,24,0.01);
         assertEquals(actualResult5,25,0.01);

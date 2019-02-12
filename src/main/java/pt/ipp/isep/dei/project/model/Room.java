@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.project.model.device.LogList;
 
 import java.util.*;
 
+import static java.lang.Double.NaN;
+
 /**
  * Class that represents a Room of a House.
  */
@@ -146,12 +148,15 @@ public class Room implements Metered {
      * recorded in every sensor that measure temperature, in the room.
      * @date day where we want to look for max temperature
      * @return the max temperature recorded in a sensor that measures temperature or
-     * -10000 in case there are no readings in the given day or
+     * NaN in case there are no readings in the given day or
      * in case the room has no readings whatsoever
      * **/
     public double getMaxTemperatureOnGivenDay(Date day){
-        double maxTemp = -10000;
+        double maxTemp = -1000;
         SensorList tempSensors = getSensorsOfGivenType("temperature");
+        if(tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()){
+            return NaN;
+        }
         for(Sensor s: tempSensors.getSensorList()) {
             ReadingList readingList = s.getReadingList();
             double sensorMax = readingList.getMaximumOfGivenDayValueReadings(day);
@@ -219,13 +224,15 @@ public class Room implements Metered {
     }
 
     /**
-     * Gets most recent reading for current temperature.
+     * Method that goes through every Sensor in the room of the type "temperature" returning
+     * the value of the most recent reading.
      *
-     * @return 1
+     * @return the most recent temperature reading or NaN in case the room has no temperature
+     * sensors and/or when temperature sensors have no readings
      */
 
     public double getCurrentRoomTemperature() {
-        double currentT = -10000;
+        double currentT = NaN;
         SensorList tempSensors = getSensorsOfGivenType("temperature");
         if(!tempSensors.getSensorList().isEmpty()){
             ReadingList readingList = tempSensors.getReadings();

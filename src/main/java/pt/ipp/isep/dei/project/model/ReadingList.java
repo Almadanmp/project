@@ -46,13 +46,16 @@ public class ReadingList {
     }
 
 
-    //THIS METHOD DOES NOT CONSIDER THAT A LIST MIGHT BE EMPTY, USE THROW EXCEPTION?
-
+    //THIS METHOD DOES NOT CONSIDER THAT A LIST MIGHT BE EMPTY
     /**Method that goes through every Reading in the list and
      * returns the reading with the most recent Date.
      * @return most recent reading
      * **/
     Reading getMostRecentReading(){
+        Reading error = new Reading(NaN, new GregorianCalendar(1900,0,1).getTime());
+        if(isEmpty()){
+            return error;
+        }
         Reading recentReading = this.mReadings.get(0);
         Date mostRecent = recentReading.getmDate();
         for(Reading r : this.mReadings){
@@ -66,13 +69,12 @@ public class ReadingList {
     }
 
     /**
-     * This method returns the most recent value of Reading within a Reading List.
-     *
-     * @return most recent reading value
+     * This method returns the most recent reading value a Reading List.
+     * @return the most recent reading value or NaN when the Reading List is empty
      */
     public double getMostRecentValueOfReading() {
         if(this.mReadings.isEmpty()){
-            return -10000;
+            return NaN;
         }
         return getMostRecentReading().getmValue();
     }
@@ -511,8 +513,10 @@ public class ReadingList {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         Date endDay = cal.getTime();
-
-        double maxValue = -10000;
+        if(mReadings.isEmpty()){
+            return NaN;
+        }
+        double maxValue = -100;
         for (Reading mReading : mReadings) {
             Date currentReadingDate = mReading.getmDate();
             if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue < mReading.getmValue()) {
@@ -619,7 +623,6 @@ public class ReadingList {
         if (valueList.isEmpty()) {
             return NaN;
         }
-
         for (Double aValueList : valueList) {
             sum = sum + aValueList;
         }

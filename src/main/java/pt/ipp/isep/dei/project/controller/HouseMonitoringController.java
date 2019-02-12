@@ -230,7 +230,7 @@ public class HouseMonitoringController {
 
     public double getAVGDailyRainfallOnGivenPeriod(House house, Date initialDate, Date endDate) {
         GeographicArea geoArea = house.getMotherArea();
-        Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea, "rainfall");
+        Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea, rainfall);
         if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
             return Double.NaN;
         }
@@ -248,12 +248,12 @@ public class HouseMonitoringController {
         int counter = 0;
         GeographicArea geoArea = house.getMotherArea();
         for (Sensor s : geoArea.getSensorList().getSensorList()) {
-            if (s.getTypeSensor().getName().equals("rainfall")) {
+            if (rainfall.equals(s.getTypeSensor().getName())) {
                 counter++;
             }
         }
         if (counter >= 1) {
-            Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea,"rainfall");
+            Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea,rainfall);
             if (closestSensor.getReadingList() == null) {
                 return Double.NaN;
             }
