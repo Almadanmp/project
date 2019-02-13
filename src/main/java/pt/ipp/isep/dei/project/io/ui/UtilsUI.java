@@ -4,9 +4,6 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
-import java.util.List;
-
-
 /**
  * Utility class that aggregates common methods used by the UI classes.
  */

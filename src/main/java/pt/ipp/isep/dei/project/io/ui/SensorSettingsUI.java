@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 class SensorSettingsUI {

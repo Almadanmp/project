@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
-import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
-import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
@@ -153,7 +151,6 @@ public class InputUtils {
         while (true) {
             UtilsUI utils = new UtilsUI();
             InputUtils inputUtils = new InputUtils();
-            RoomConfigurationController ctrl = new RoomConfigurationController();
             System.out.println("Please select a type of sensor from the list:");
             System.out.println(typeSensorList.buildString());
             int aux = inputUtils.readInputNumberAsInt();
@@ -167,7 +164,6 @@ public class InputUtils {
             }
         }
     }
-
 
     Sensor getInputSensorFromRoomByList(Room room) {
         UtilsUI utils = new UtilsUI();
@@ -298,7 +294,7 @@ public class InputUtils {
         Scanner scan = new Scanner(System.in);
         int year = -1;
         while (year <= 1581) { //Gregorian Calendar was introduced in 1582, so was the concept of leap year
-            year = getInputDateAsInt(scan, "year");
+            year = getInputDateParameter(scan, "year");
             scan.nextLine();
         }
         return year;
@@ -312,7 +308,7 @@ public class InputUtils {
         Scanner scan = new Scanner(System.in);
         int month = -1;
         while (month <= -1 || month > 11) { // -1 e 11 porque depois se subtrai um valor
-            month = getInputDateAsInt(scan, "month") - 1;
+            month = getInputDateParameter(scan, "month") - 1;
             scan.nextLine();
         }
         return month;
@@ -345,13 +341,13 @@ public class InputUtils {
         int day = -1;
         if(isLeapyear){
             while (day < 1 || day > 29) {
-                day = getInputDateAsInt(scan, "day");
+                day = getInputDateParameter(scan, "day");
                 scan.nextLine();
             }
             return day;
         }
         while (day < 1 || day > 28) {
-            day = getInputDateAsInt(scan, "day");
+            day = getInputDateParameter(scan, "day");
             scan.nextLine();
         }
         return day;
@@ -368,13 +364,13 @@ public class InputUtils {
         int day = -1;
         if(isJanuaryMarchMay(month)|| isJulyAugust(month) || isOctoberDecember(month)){
             while (day < 1 || day > 31) {
-                day = getInputDateAsInt(scan, "day");
+                day = getInputDateParameter(scan, "day");
                 scan.nextLine();
             }
             return day;
         }
         while (day < 1 || day > 30) {
-            day = getInputDateAsInt(scan, "day");
+            day = getInputDateParameter(scan, "day");
             scan.nextLine();
         }
         return day;
@@ -418,7 +414,7 @@ public class InputUtils {
         Scanner scan = new Scanner(System.in);
         int hour = -1;
         while (hour < 0 || hour > 23) {
-            hour = getInputDateAsInt(scan, "hour");
+            hour = getInputDateParameter(scan, "hour");
             scan.nextLine();
         }
         return hour;
@@ -434,7 +430,7 @@ public class InputUtils {
         Scanner scan = new Scanner(System.in);
         int minute = -1;
         while (minute < 0 || minute > 59) {
-            minute = getInputDateAsInt(scan, "minute");
+            minute = getInputDateParameter(scan, "minute");
             scan.nextLine();
         }
         return minute;
@@ -447,7 +443,7 @@ public class InputUtils {
      * @param dataType the type of date to read (year, month or day)
      * @return value read from the user
      */
-    private int getInputDateAsInt(Scanner scan, String dataType) {
+    private int getInputDateParameter(Scanner scan, String dataType) {
         System.out.println("Enter a valid " + dataType + ":");
         while (!scan.hasNextInt()) {
             scan.next();

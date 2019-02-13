@@ -169,8 +169,7 @@ class RoomTest {
         Room room = new Room("quarto", 1, 80, 5, 3);
         room.setRoomSensorList(list);
         double result = room.getCurrentRoomTemperature();
-        double expectedResult = NaN;
-        assertEquals(expectedResult, result, 0.01);
+        assertEquals(NaN, result, 0.01);
     }
 
     @Test
@@ -1036,5 +1035,35 @@ class RoomTest {
         assertEquals(actualResult6,26,0.01);
         assertEquals(actualResult7,27,0.01);
         assertEquals(actualResult8,28,0.01);
+    }
+
+    @Test
+    void getSensorList() {
+        Room room1 = new Room("room1", 0, 1, 1, 1); //NO SENSORS
+        Room room2 = new Room("room2", 0, 1, 1, 1); //ONE SENSOR
+        Room room3 = new Room("room3", 0, 1, 1, 1); //TWO SENSORS
+
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018,1,1,23,59);
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
+
+        room2.addSensor(sensor1);
+        room3.addSensor(sensor1);
+        room3.addSensor(sensor2);
+
+        SensorList expectedResult1 = new SensorList();
+        SensorList expectedResult2 = new SensorList();
+        SensorList expectedResult3 = new SensorList();
+        expectedResult2.addSensor(sensor1);
+        expectedResult3.addSensor(sensor1);
+        expectedResult3.addSensor(sensor2);
+        //ACT
+        SensorList actualResult1 = room1.getSensorList();
+        SensorList actualResult2 = room2.getSensorList();
+        SensorList actualResult3 = room3.getSensorList();
+        //ASSERT
+        assertEquals(actualResult1,expectedResult1);
+        assertEquals(actualResult2,expectedResult2);
+        assertEquals(actualResult3,expectedResult3);
     }
 }
