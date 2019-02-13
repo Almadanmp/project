@@ -10,16 +10,10 @@ import java.util.GregorianCalendar;
  */
 
 public class SensorSettingsController {
-    private SensorList mSensorList;
-    private Local mLocal;
-    private Date mDate;
-    private Sensor mSensor;
-    private TypeSensor mSensorType;
 
     public SensorSettingsController() {
-        this.mSensorList = new SensorList();
-    }
 
+    }
 
     //SHARED METHODS THROUGH DIFFERENT UIS
 
@@ -61,8 +55,7 @@ public class SensorSettingsController {
      */
 
     public Local createLocal(Double latitude, Double longitude, Double altitude) {
-        this.mLocal = new Local(latitude, longitude, altitude);
-        return this.mLocal;
+        return new Local(latitude, longitude, altitude);
     }
 
     /**
@@ -73,8 +66,7 @@ public class SensorSettingsController {
      */
 
     public Date createDate(int year, int month, int day) {
-        this.mDate = new GregorianCalendar(year, month, day).getTime();
-        return this.mDate;
+        return new GregorianCalendar(year, month, day).getTime();
     }
 
     /**
@@ -84,8 +76,7 @@ public class SensorSettingsController {
      */
 
     public TypeSensor createType(String sensorType, String sensorUnits) {
-        this.mSensorType = new TypeSensor(sensorType, sensorUnits);
-        return mSensorType;
+        return new TypeSensor(sensorType, sensorUnits);
     }
 
 
@@ -117,8 +108,8 @@ public class SensorSettingsController {
      * @return is true if successfully added, false if not.
      */
 
-    public boolean addSensorToGeographicalArea(GeographicArea geoArea) {
-        return (geoArea.addSensorToSensorList(this.mSensor));
+    public boolean addSensorToGeographicArea(Sensor sensor, GeographicArea geoArea) {
+        return (geoArea.addSensorToSensorList(sensor));
     }
 
 

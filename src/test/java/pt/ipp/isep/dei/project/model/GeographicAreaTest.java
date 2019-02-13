@@ -1291,25 +1291,19 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfAddSensorToSensorList() {
+    void seeAddSensorToGA() {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Sensor sensor = new Sensor("Sensor 1",new TypeSensor("Temperature","Celsius"),new GregorianCalendar(2018,10,25).getTime());
-        boolean result = ga.addSensorToSensorList(sensor);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, result);
-    }
+        Sensor sensor1 = new Sensor("Sensor 1",new TypeSensor("Temperature","Celsius"),new GregorianCalendar(2018,10,25).getTime());
+        Sensor sensor2 = new Sensor("Sensor 1",new TypeSensor("Temperature","Celsius"),new GregorianCalendar(2018,10,25).getTime());
+        Sensor sensor3 = new Sensor("Sensor 3",new TypeSensor("Temperature","Celsius"),new GregorianCalendar(2018,10,25).getTime());
 
-    @Test
-    void seeIfAddSensorToSensorListFalse() {
-        GeographicArea ga = new GeographicArea("porto",new TypeArea("cidade"),1,1,new Local(1,1,1));
-        Sensor sensor = new Sensor("coise",new TypeSensor("temp","celsius"),new Local(1,1,1),new GregorianCalendar(1,1,1,1,1).getTime());
-        Sensor sensor1 = new Sensor("coise1",new TypeSensor("temp","celsius"),new Local(1,1,1),new GregorianCalendar(1,1,1,1,1).getTime());
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(sensor);
-        ga.setSensorList(sensorList);
-        boolean result = ga.addSensorToSensorList(sensor1);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, result);
+        boolean result1 = ga.addSensorToSensorList(sensor1);
+        boolean result2 = ga.addSensorToSensorList(sensor2);
+        boolean result3 = ga.addSensorToSensorList(sensor3);
+
+        assertTrue(result1);
+        assertFalse(result2);
+        assertTrue(result3);
     }
 
 

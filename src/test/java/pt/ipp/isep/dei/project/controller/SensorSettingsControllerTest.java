@@ -102,7 +102,7 @@ class SensorSettingsControllerTest {
 //        GeographicArea ga = new GeographicArea();
 //        Sensor sensor = new Sensor();
 //        ga.addSensorToSensorList(sensor);
-//        boolean result = ctrl.addSensorToGeographicalArea(ga);
+//        boolean result = ctrl.addSensorToGeographicArea(ga);
 //        boolean expectedResult = true;
 //        assertEquals(expectedResult, result);
 //    }
@@ -225,6 +225,24 @@ class SensorSettingsControllerTest {
         assertFalse(actualResult3);
         assertTrue(actualResult4);
     }
+    @Test
+    void addSensorToGeographicArea() {
+        SensorSettingsController ctrl = new SensorSettingsController();
+        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1), new GregorianCalendar(1, 1, 1, 1, 1).getTime());
+        Sensor sensor2 = new Sensor("sensor1", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1), new GregorianCalendar(1, 1, 1, 1, 1).getTime());
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1), new GregorianCalendar(1, 1, 1, 1, 1).getTime());
+
+        //ACT
+        boolean actualResult1 = ctrl.addSensorToGeographicArea(sensor1, ga1);
+        boolean actualResult2 = ctrl.addSensorToGeographicArea(sensor2, ga1);
+        boolean actualResult3 = ctrl.addSensorToGeographicArea(sensor3, ga1);
+
+        //ASSERT
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertTrue(actualResult3);
+    }
 
 
 //    @Test
@@ -268,7 +286,7 @@ class SensorSettingsControllerTest {
         xgaList.addGeographicAreaToGeographicAreaList(areaG);
 
         //Act
-        boolean actualResult = ctrl.addSensorToGeographicalArea(areaG);
+        boolean actualResult = ctrl.addSensorToGeographicArea(areaG);
         //Assert
         assertTrue(actualResult);
     }
@@ -301,7 +319,7 @@ class SensorSettingsControllerTest {
         xgaList.addGeographicAreaToGeographicAreaList(areaG);
 
         //Act
-        boolean actualResult = ctrl.addSensorToGeographicalArea(areaG);
+        boolean actualResult = ctrl.addSensorToGeographicArea(areaG);
 
         //Assert
         assertFalse(actualResult);
@@ -317,7 +335,7 @@ class SensorSettingsControllerTest {
         GeographicArea areaG = new GeographicArea("Porto", t1, 2, 3, l1);
 
         //Act
-        boolean actualResult = ctrl.addSensorToGeographicalArea(areaG);
+        boolean actualResult = ctrl.addSensorToGeographicArea(areaG);
 
         //Assert
         assertFalse(actualResult);

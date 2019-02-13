@@ -108,7 +108,7 @@ class SensorSettingsUI {
         if(!getConfirmation(sensor)){
             return;
         }
-        addSensor(geographicAreaList);
+        addSensor(sensor, geographicAreaList);
     }
 
     private Sensor createSensor() {
@@ -167,10 +167,10 @@ class SensorSettingsUI {
         return "yes".equals(input.nextLine());
     }
 
-    private void addSensor(GeographicAreaList geographicAreaList) {
+    private void addSensor(Sensor sensor, GeographicAreaList geographicAreaList) {
         InputUtils inputUtils = new InputUtils();
         GeographicArea geographicArea = inputUtils.getGeographicAreaByList(geographicAreaList);
-        if (mController.addSensorToGeographicalArea(geographicArea)) {
+        if (mController.addSensorToGeographicArea(sensor, geographicArea)) {
             System.out.println("\nSensor has been successfully added to the geographic area.");
         } else {
             System.out.println("\nSensor wasn't added to the selected geographic area.");
@@ -182,7 +182,7 @@ class SensorSettingsUI {
         System.out.println("Sensor Settings Options:\n");
         System.out.println("1) Define a new sensor type. (US05)");
         System.out.println("2) Add a new sensor and associate it to a geographical area. (US006)");
-        System.out.println("3) Display Sensor Types already defined");
+        System.out.println("3) Display already defined sensor types.");
         System.out.println("0) (Return to main menu)\n");
     }
 
