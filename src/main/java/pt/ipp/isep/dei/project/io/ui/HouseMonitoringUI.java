@@ -137,7 +137,6 @@ public class HouseMonitoringUI {
     }
 
     private double updateModel605(Room room) {
-        out.print("You selected the room " + houseMonitoringcontroller.getRoomName(room));
         return houseMonitoringcontroller.getCurrentRoomTemperature(room);
     }
 
@@ -172,7 +171,6 @@ public class HouseMonitoringUI {
 
     private double updateModel610(Room room, Date date) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        System.out.print("You selected the room " + room.getRoomName() + " and the date " + date + "\n");
         return ctrl.getMaxTemperatureInARoomOnAGivenDay(room, date);
     }
 
