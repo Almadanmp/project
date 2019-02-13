@@ -8,18 +8,6 @@ import java.util.Scanner;
 
 class SensorSettingsUI {
     private SensorSettingsController mController;
-    private String mSensorName;
-    private String mSensorTypeName;
-    private String mSensorUnits;
-    private double sensorLat;
-    private double sensorLong;
-    private double sensorAlt;
-    private int dataYear;
-    private int dataMonth;
-    private int dataDay;
-    private Sensor mSensor;
-    private GeographicArea mGeographicArea;
-
 
     SensorSettingsUI() {
         this.mController = new SensorSettingsController();
@@ -41,7 +29,7 @@ class SensorSettingsUI {
             printOptionMessage();
             InputUtils inputUtils = new InputUtils();
             UtilsUI utils = new UtilsUI();
-            option = inputUtils.readInputNumberAsInt();
+            option = inputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS05(typeList);
@@ -82,20 +70,13 @@ class SensorSettingsUI {
         boolean added = updateModel05(typeSensor, typeList);
         displayState05(added);
     }
+
     private TypeSensor getInput05() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Type the new Type of Sensor you want to create: ");
-        while (!scanner.hasNext("[a-zA-Z_]+")) {
-            System.out.println("That's not a valid Type. Please insert only Alphabetic Characters");
-            scanner.next();
-        }
-        String name = scanner.next();
-        System.out.print("Type the Unit of Measurement used for this type: ");
-        while (!scanner.hasNext("[a-zA-Z_]+")) {
-            System.out.println("That's not a valid Unit of Measurement. Please insert only Alphabetic Characters");
-            scanner.next();
-        }
-        String unit = scanner.next();
+        InputUtils inputUtils = new InputUtils();
+        System.out.print("Enter the sensor type's name: ");
+        String name = inputUtils.getInputStringAlphabetCharOnly();
+        System.out.print("Type the sensor type's unit of measurement: ");
+        String unit = inputUtils.getInputStringAlphabetCharOnly();
         return mController.createType(name, unit);
     }
 
@@ -115,140 +96,86 @@ class SensorSettingsUI {
      one can get measurements of that type in that area */
     private void runUS06(GeographicAreaList geographicAreaList, TypeSensorList typeSensorList){
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+        if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
-        if(utilsUI.typeSensorListIsValid(typeSensorList)){
+        if(!utilsUI.typeSensorListIsValid(typeSensorList)){
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
-        getInput06();
-        updateUS06();
-        displayUS06();
-        getInputPart206(geographicAreaList);
+        Sensor sensor = createSensor();
+        if(!getConfirmation(sensor)){
+            return;
+        }
+        addSensor(geographicAreaList);
     }
-    private void getInput06() {
+
+    private Sensor createSensor() {
+        String name = getInputSensorName();
+        TypeSensor typeSensor = getInputTypeSensor();
+        Local local = getInputSensorLocal();
+        Date startDate = getInputStartDate();
+        return mController.createSensor(name, typeSensor, local, startDate);
+    }
+
+    private String getInputSensorName() {
         Scanner input = new Scanner(System.in);
-
-        //Console title
-        System.out.println("***************************************************\n" +
-                "************** Sensor Addition Menu ***************\n" +
-                "****************** sWitCh 2018 ********************\n" +
-                "***************************************************\n");
-
-        System.out.println("**********  New Sensor Input  ***********\n");
-
-        // Name Getter
-        System.out.println("\nEnter Sensor Name:\t");
-        this.mSensorName = input.nextLine();
-        System.out.println("You entered sensor " + mSensorName);
-
-        // Type Getter
-        System.out.println("\nEnter Sensor type:\t");
-
-        while (!input.hasNext("[a-zA-Z]+")) {
-            input.next();
-            System.out.println("Not a valid type. Try again");
-        }
-
-        this.mSensorTypeName = input.nextLine();
-        System.out.println("You entered type " + mSensorTypeName);
-
-        System.out.println("\nEnter Sensor units:\t");
-        this.mSensorUnits = input.nextLine();
-        System.out.println("You entered units " + mSensorUnits);
-
-
-        // Local Getter
-        System.out.println("\nEnter Sensor Localization:\t");
-        System.out.println("\nEnter Latitude:\t");
-        while (!input.hasNextDouble()) {
-            input.nextLine();
-            System.out.println("Not a valid latitude. Try again");
-        }
-        this.sensorLat = input.nextDouble();
-        input.nextLine();
-        System.out.println("\nEnter Longitude:\t");
-        while (!input.hasNextDouble()) {
-            input.nextLine();
-            System.out.println("Not a valid longitude. Try again");
-        }
-        this.sensorLong = input.nextDouble();
-        System.out.println("\nEnter Altitude:\t");
-        while (!input.hasNextDouble()) {
-            input.nextLine();
-            System.out.println("Not a valid altitude. Try again");
-        }
-        this.sensorAlt = input.nextDouble();
-        input.nextLine();
-        System.out.println("You entered sensor on coordinates  " + sensorLat + "  ,  " + sensorLong + "  ,  " + sensorAlt);
-
-        // Date Getter
-
-        System.out.println("\nEnter Sensor starting date:\t");
-        System.out.println("\nEnter the year:\t");
-        while (!input.hasNextInt()) {
-            input.nextLine();
-            System.out.println("Not a valid year. Try again");
-        }
-        this.dataYear = input.nextInt();
-        input.nextLine();
-        System.out.println("\nEnter the Month:\t");
-        while (!input.hasNextInt()) {
-            input.nextLine();
-            System.out.println("Not a valid month. Try again");
-        }
-        this.dataMonth = input.nextInt();
-        input.nextLine();
-        System.out.println("\nEnter the Day:\t");
-        while (!input.hasNextInt()) {
-            input.nextLine();
-            System.out.println("Not a valid day. Try again");
-        }
-        this.dataDay = input.nextInt();
-        System.out.println("You entered the date successfully!");
-        input.nextLine();
+        System.out.println("\nEnter the sensor's name:\t");
+        return input.nextLine();
     }
 
-    private void updateUS06() {
-        Local mLocal = mController.createLocal(this.sensorLat, this.sensorLong, this.sensorAlt);
-        TypeSensor mType = mController.createType(this.mSensorTypeName, this.mSensorUnits);
-        Date mDate = mController.createDate(this.dataYear, this.dataMonth, this.dataDay);
-        this.mSensor = mController.createSensor(this.mSensorName, mType, mLocal, mDate);
-    }
-
-    private void displayUS06() {
-        if (mSensor != null) {
-            System.out.println("\n \n Sensor has been successfully created.");
-        } else {
-            System.out.println("\n \nSensor could not be created.");
-        }
-    }
-
-    private void getInputPart206(GeographicAreaList geographicAreaList) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("\n Add sensor to Geographic Area?\n");
-        System.out.println("Yes/No:\t");
-        if ("yes".equals(input.nextLine())) {
-            getInputPart306(geographicAreaList);
-        }
-    }
-
-    private void getInputPart306(GeographicAreaList geographicAreaList) {
+    private TypeSensor getInputTypeSensor(){
         InputUtils inputUtils = new InputUtils();
-        mGeographicArea = inputUtils.getGeographicAreaByList(geographicAreaList);
-        updateAndDisplayUS06Part206();
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("\nEnter the sensor type's name:\t");
+        String name = inputUtils.getInputStringAlphabetCharOnly();
+
+        System.out.println("\nEnter the sensor type's unit of measurement:\t");
+        String unit = input.nextLine();
+
+        return mController.createType(name, unit);
     }
 
-    private void updateAndDisplayUS06Part206() {
-        if (mController.addSensorToGeographicalArea(mGeographicArea)) {
-            System.out.println("\nSensor has been successfully added to the Geographic Area");
+    private Local getInputSensorLocal(){
+        InputUtils inputUtils = new InputUtils();
+        System.out.println("\nNow let's set its GPS localization\n");
+        System.out.println("\nEnter the latitude:\t");
+        double latitude = inputUtils.getInputAsDouble();
+
+        System.out.println("\nEnter Longitude:\t");
+        double longitude = inputUtils.getInputAsDouble();
+
+        System.out.println("\nEnter Altitude:\t");
+        double altitude = inputUtils.getInputAsDouble();
+
+        return mController.createLocal(latitude, longitude, altitude);
+    }
+
+    private Date getInputStartDate(){
+        InputUtils inputUtils = new InputUtils();
+        System.out.println("\nEnter the sensor's starting date:\t");
+        return inputUtils.getInputYearMonthDay();
+    }
+
+    private boolean getConfirmation(Sensor sensor) {
+        System.out.println("You have created the following sensor:\n" + mController.buildSensorString(sensor));
+        Scanner input = new Scanner(System.in);
+        System.out.println("\n Do you wish to add this sensor to a geographic area?\n");
+        System.out.println("Yes/No:\t");
+        return "yes".equals(input.nextLine());
+    }
+
+    private void addSensor(GeographicAreaList geographicAreaList) {
+        InputUtils inputUtils = new InputUtils();
+        GeographicArea geographicArea = inputUtils.getGeographicAreaByList(geographicAreaList);
+        if (mController.addSensorToGeographicalArea(geographicArea)) {
+            System.out.println("\nSensor has been successfully added to the geographic area.");
         } else {
-            System.out.println("\nSensor could not be added to the Area.");
+            System.out.println("\nSensor wasn't added to the selected geographic area.");
         }
     }
-
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printOptionMessage() {

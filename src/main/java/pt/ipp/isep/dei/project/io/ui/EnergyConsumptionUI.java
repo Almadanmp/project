@@ -33,7 +33,7 @@ class EnergyConsumptionUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printOptionMessage();
-            option = inputUtils.readInputNumberAsInt();
+            option = inputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS172(programHouse);
@@ -121,7 +121,7 @@ class EnergyConsumptionUI {
             printSelection(selectedDevices, selectedRooms);
             System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); \n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; \n 4) Return to main menu;\n ");
             int option;
-            option = inputs.readInputNumberAsInt();
+            option = inputs.getInputAsInt();
             switch (option) {
                 case 1:
                     active = true;
@@ -332,7 +332,7 @@ class EnergyConsumptionUI {
         Date startDate;
         Date endDate;
         this.printUS730Menu();
-        int option = inputs.readInputNumberAsInt();
+        int option = inputs.getInputAsInt();
         switch (option) {
             case 1:
                 EnergyGrid grid = inputs.getInputGridByList(programHouse);

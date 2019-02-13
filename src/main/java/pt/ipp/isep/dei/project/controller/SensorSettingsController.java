@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * Controller class for Sensor Settings UI
@@ -46,19 +45,6 @@ public class SensorSettingsController {
      */
     public boolean addTypeSensorToList(TypeSensor typeSensor, TypeSensorList typeSensorList){
         return typeSensorList.add(typeSensor);
-    }
-
-
-    /**
-     * @return is the sensorList stored as attribute.
-     */
-
-    public SensorList getSensorList() {
-        return this.mSensorList;
-    }
-
-    public void setSensorList(SensorList sensorList) {
-        this.mSensorList = sensorList;
     }
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
@@ -113,31 +99,17 @@ public class SensorSettingsController {
 
 
     public Sensor createSensor(String name, TypeSensor type, Local local, Date date) {
-        this.mSensor = new Sensor(name, type, local, date);
-        return mSensor;
+        return new Sensor(name, type, local, date);
+    }
+
+    /**This method receives a sensor and returns a string with the sensor's parameters
+     * @return String with sensor parameters**/
+    public String buildSensorString(Sensor sensor){
+        return sensor.buildSensorString();
     }
 
     public Sensor createRoomSensor(String name, TypeSensor type, Date date) {
-        this.mSensor = new Sensor(name, type, date);
-        return mSensor;
-    }
-
-    /**
-     * @param sensor     is the sensor to add to the list.
-     * @param sensorList is the list to add the sensor to.
-     * @return is true if successfully added, false if not.
-     */
-
-    public boolean addSensor(Sensor sensor, SensorList sensorList) {
-        if (sensorList.containsSensor(sensor)) {
-            sensorList.getSensorList().add(sensor);
-            return false;
-        }
-        return true;
-    }
-
-    public void setSensor(Sensor sensor) {
-        this.mSensor = sensor;
+        return new Sensor(name, type, date);
     }
 
     /**
@@ -149,37 +121,5 @@ public class SensorSettingsController {
         return (geoArea.addSensorToSensorList(this.mSensor));
     }
 
-    /**
-     * @return is currently stored local.
-     */
-
-
-    public Local getLocal() {
-        return this.mLocal;
-    }
-
-    /**
-     * @return is currently stored type.
-     */
-
-    public TypeSensor getType() {
-        return this.mSensorType;
-    }
-
-    /**
-     * @return is currently stored date of start of functioning.
-     */
-
-    public Date getDate() {
-        return this.mDate;
-    }
-
-    /**
-     * @return is currently stored sensor.
-     */
-
-    public Sensor getSensor() {
-        return this.mSensor;
-    }
 
 }

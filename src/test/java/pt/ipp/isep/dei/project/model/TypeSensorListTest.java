@@ -48,9 +48,9 @@ public class TypeSensorListTest {
         expectedResult3.add(typeSensor1);
         expectedResult3.add(typeSensor2);
         //ACT
-        List<TypeSensor> actualResult1 = typeList1.getSensorList();
-        List<TypeSensor> actualResult2 = typeList2.getSensorList();
-        List<TypeSensor> actualResult3 = typeList3.getSensorList();
+        List<TypeSensor> actualResult1 = typeList1.getTypeSensorList();
+        List<TypeSensor> actualResult2 = typeList2.getTypeSensorList();
+        List<TypeSensor> actualResult3 = typeList3.getTypeSensorList();
         //ASSERT
         assertEquals(actualResult1,expectedResult1);
         assertEquals(actualResult2,expectedResult2);

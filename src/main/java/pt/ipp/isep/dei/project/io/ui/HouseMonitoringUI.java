@@ -27,7 +27,7 @@ public class HouseMonitoringUI {
         System.out.println("--------------\n");
         while (!activeInput) {
             printOptionMessage();
-            option = inputUtils.readInputNumberAsInt();
+            option = inputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS610(programHouse);

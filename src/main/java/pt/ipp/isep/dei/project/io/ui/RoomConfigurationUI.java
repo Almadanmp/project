@@ -52,7 +52,7 @@ class RoomConfigurationUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printRoomConfigMenu();
-            option = inputUtils.readInputNumberAsInt();
+            option = inputUtils.getInputAsInt();
             switch (option) {
                 case 1: //US201
                     runUS201();

@@ -26,7 +26,7 @@ public class InputUtils {
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
             System.out.println(geographicAreaList.buildGaWholeListString(geographicAreaList));
-            int aux = inputUtils.readInputNumberAsInt();
+            int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < geographicAreaList.getGeographicAreaList().size()) {
                 GeographicArea result = geographicAreaList.getGeographicAreaList().get(aux);
                 System.out.println("You have chosen the following geographic area: ");
@@ -44,7 +44,7 @@ public class InputUtils {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(house.buildRoomListString());
-            int aux = inputUtils.readInputNumberAsInt();
+            int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < house.getRoomList().size()) {
                 Room result = house.getRoomList().get(aux);
                 System.out.println("You have chosen the following room: ");
@@ -62,7 +62,7 @@ public class InputUtils {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(grid.buildRoomListString());
-            int aux = inputUtils.readInputNumberAsInt();
+            int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < grid.getRoomList().size()) {
                 Room result = grid.getRoomList().get(aux);
                 System.out.println("You have chosen the following room: ");
@@ -80,7 +80,7 @@ public class InputUtils {
         while (true) {
             System.out.println("Please select one of the existing devices in the selected room: ");
             System.out.println(grid.buildDeviceListString());
-            int aux = inputUtils.readInputNumberAsInt();
+            int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < grid.getDeviceList().size()) {
                 Device result = grid.getDeviceList().get(aux);
                 System.out.println("You have chosen the following device: ");
@@ -99,7 +99,7 @@ public class InputUtils {
             ProgramList deviceProgramList = device.getProgramList();
             System.out.println("Please select one of the existing programs in the selected program List: ");
             System.out.println(deviceProgramList.buildProgramListString());
-            int aux = inputUtils.readInputNumberAsInt();
+            int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < deviceProgramList.getProgramList().size()) {
                 Program result = deviceProgramList.getProgramList().get(aux);
                 System.out.println("You have chosen the following program: ");
@@ -117,7 +117,7 @@ public class InputUtils {
         while (true) {
             System.out.println("Please select one of the existing devices in the selected room: ");
             System.out.println(room.buildDeviceListString());
-            int aux = inputUtils.readInputNumberAsInt();
+            int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < room.getDeviceList().size()) {
                 Device result = room.getDeviceList().get(aux);
                 System.out.println("You have chosen the following device:");
@@ -135,7 +135,7 @@ public class InputUtils {
         while (true) {
             System.out.println("Please select one of the existing grids on the selected house: ");
             System.out.println(controller.buildGridListString(house));
-            int aux = this.readInputNumberAsInt();
+            int aux = this.getInputAsInt();
             if (aux >= 0 && aux < house.getEGListObject().getEnergyGridList().size()) {
                 EnergyGrid result = house.getEGListObject().getEnergyGridList().get(aux);
                 System.out.println("You have chosen the following grid:");
@@ -153,9 +153,9 @@ public class InputUtils {
             InputUtils inputUtils = new InputUtils();
             System.out.println("Please select a type of sensor from the list:");
             System.out.println(typeSensorList.buildString());
-            int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < typeSensorList.getSensorList().size()) {
-                TypeSensor result = typeSensorList.getSensorList().get(aux);
+            int aux = inputUtils.getInputAsInt();
+            if (aux >= 0 && aux < typeSensorList.getTypeSensorList().size()) {
+                TypeSensor result = typeSensorList.getTypeSensorList().get(aux);
                 System.out.println("You have chosen the following sensor type:");
                 System.out.println(result.buildString() + "\n");
                 return result;
@@ -171,7 +171,7 @@ public class InputUtils {
         while (true) {
             System.out.println("Please select one of the existing Sensors on the selected Room: ");
             System.out.println(room.getSensorList().buildSensorListString());
-            int aux = inputUtils.readInputNumberAsInt();
+            int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < room.getSensorList().getSensorList().size()) {
                 Sensor result = room.getSensorList().getSensorList().get(aux);
                 System.out.println("You have chosen the following sensor:");
@@ -192,7 +192,7 @@ public class InputUtils {
 
             System.out.println(house.getmDeviceTypeList());
             System.out.println(house.buildTypeListString(deviceTypeList));
-            int aux = inputUtils.readInputNumberAsInt();
+            int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < house.getmDeviceTypeList().size()) {
                 DeviceType result = deviceTypeList.get(aux);
                 System.out.println("You have chosen the following device type:");
@@ -219,13 +219,27 @@ public class InputUtils {
     }
 
     /**
+     * Method that asks user for string input
+     * If user character input isn't alphabetic, the user is asked to type again.
+     * @return String with user input
+     */
+    public String getInputStringAlphabetCharOnly() {
+        Scanner scan = new Scanner(System.in);
+        while (!scan.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid option. Please enter alphabetic characters only.");
+            scan.next();
+        }
+        return scan.next();
+    }
+
+    /**
      * Method to read the user input as an Int
      * If its not an int it will print an invalid option message
      * If its a double it will convert it to an int
      *
      * @return value read from the user
      */
-    int readInputNumberAsInt() {
+    int getInputAsInt() {
         UtilsUI utils = new UtilsUI();
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {

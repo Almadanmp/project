@@ -32,7 +32,7 @@ class HouseConfigurationUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printHouseConfigMenu();
-            option = inputUtils.readInputNumberAsInt();
+            option = inputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS101(house);

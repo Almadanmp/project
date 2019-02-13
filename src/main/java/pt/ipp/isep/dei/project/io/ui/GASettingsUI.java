@@ -31,7 +31,7 @@ class GASettingsUI {
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
         while (activeInput) {
             printOptionMessage();
-            option = inputUtils.readInputNumberAsInt();
+            option = inputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS01(programTypeAreaList);
@@ -77,7 +77,7 @@ class GASettingsUI {
         while (true) {
             System.out.println("Please select the Geographic Area Type from the list: ");
             System.out.print(mController.buildGATypeListString(typeAreaList));
-            int aux = inputUtils.readInputNumberAsInt();
+            int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
                 this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
                 this.mTypeAreaName = typeAreaList.getTypeAreaList().get(aux).getTypeOfGeographicArea();

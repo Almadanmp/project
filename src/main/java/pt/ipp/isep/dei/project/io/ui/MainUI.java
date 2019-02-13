@@ -904,7 +904,7 @@ public class MainUI {
             while (activeInput) {
                 InputUtils inputUtils = new InputUtils();
                 UtilsUI utilsUI = new UtilsUI();
-                option = inputUtils.readInputNumberAsInt();
+                option = inputUtils.getInputAsInt();
                 switch (option) {
                     case 0:
                         return;

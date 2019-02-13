@@ -25,7 +25,7 @@ class EnergyGridSettingsUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printEnergyGridMenu();
-            option = inputUtils.readInputNumberAsInt();
+            option = inputUtils.getInputAsInt();
             switch (option) {
                 case 1: //US130
                     runUS130(house);

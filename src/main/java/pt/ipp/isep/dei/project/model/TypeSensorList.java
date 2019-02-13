@@ -26,7 +26,7 @@ public class TypeSensorList {
     /**Method returns a list with all sensor types.
      * @return List that contains sensor types
      * **/
-    public List<TypeSensor> getSensorList(){
+    public List<TypeSensor> getTypeSensorList(){
         return this.mTypeSensorList;
     }
 
