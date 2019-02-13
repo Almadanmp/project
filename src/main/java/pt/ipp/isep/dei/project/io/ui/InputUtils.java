@@ -262,7 +262,22 @@ public class InputUtils {
      * minute). It will only accept valid numbers.
      * @return date introduced by user
      */
-    Date getInputDate() {
+    public Date getInputYearMonthDay() {
+        int year = getInputYear();
+        boolean isLeapyear = new GregorianCalendar().isLeapYear(year);
+        int month = getInputMonth();
+        int day = getInputDay(isLeapyear,month);
+        Date date = new GregorianCalendar(year, month, day).getTime();
+        System.out.println(("You have chosen the following date:\n") + date.toString() + "\n");
+        return date;
+    }
+
+    /**
+     * Method will read a group of values from user and return a date (year, month, day, hour and
+     * minute). It will only accept valid numbers.
+     * @return date introduced by user
+     */
+    public Date getInputYearMonthDayHourMin() {
         int year = getInputYear();
         boolean isLeapyear = new GregorianCalendar().isLeapYear(year);
         int month = getInputMonth();
@@ -433,7 +448,7 @@ public class InputUtils {
      * @param dataType the type of date to read (year, month or day)
      * @return value read from the user
      */
-    int getInputDateAsInt(Scanner scan, String dataType) {
+    private int getInputDateAsInt(Scanner scan, String dataType) {
         System.out.println("Enter a valid " + dataType + ":");
         while (!scan.hasNextInt()) {
             scan.next();

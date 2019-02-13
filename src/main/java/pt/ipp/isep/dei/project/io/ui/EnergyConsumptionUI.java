@@ -271,9 +271,9 @@ class EnergyConsumptionUI {
             return;
         }
         System.out.println("Insert the Date in which you want your consumption data gathering to begin: ");
-        Date initialTime = inputUtils.getInputDate();
+        Date initialTime = inputUtils.getInputYearMonthDayHourMin();
         System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
-        Date finalTime = inputUtils.getInputDate();
+        Date finalTime = inputUtils.getInputYearMonthDayHourMin();
         System.out.println("Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
                 "\n" +"");
         controller.getDeviceConsumptionInInterval(device, initialTime, finalTime);
@@ -292,9 +292,9 @@ class EnergyConsumptionUI {
         InputUtils inputs = new InputUtils();
         Room room = inputs.getHouseRoomByList(programHouse);
         System.out.println("Please insert the date at which you want to start the interval.");
-        Date initialDate = inputs.getInputDate();
+        Date initialDate = inputs.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
-        Date finalDate = inputs.getInputDate();
+        Date finalDate = inputs.getInputYearMonthDayHourMin();
         double result = controller.getRoomConsumptionInInterval(room, initialDate, finalDate);
         System.out.println("The total energy consumption of the selected room in the selected interval is: " + result);
     }
@@ -314,9 +314,9 @@ class EnergyConsumptionUI {
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.CEILING);
         System.out.println("Please insert the date at which you want to start the interval.");
-        Date initialDate = inputs.getInputDate();
+        Date initialDate = inputs.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
-        Date finalDate = inputs.getInputDate();
+        Date finalDate = inputs.getInputYearMonthDayHourMin();
         double result = controller.getGridConsumptionInInterval(eGrid, initialDate, finalDate);
         System.out.println("\n" + "Between " + initialDate + " and " + finalDate +
                 "\n" + "The total energy consumption of the " + eGrid.getName() + " in the selected interval is: " + df.format(result) + " kW");
@@ -337,18 +337,18 @@ class EnergyConsumptionUI {
             case 1:
                 EnergyGrid grid = inputs.getInputGridByList(programHouse);
                 System.out.println(INSERT_START_DATE);
-                startDate = inputs.getInputDate();
+                startDate = inputs.getInputYearMonthDayHourMin();
                 System.out.println(INSERT_END_DATE);
-                endDate = inputs.getInputDate();
+                endDate = inputs.getInputYearMonthDayHourMin();
                 LogList gridLogs = controller.getGridLogsInInterval(grid, startDate, endDate);
                 System.out.println(controller.buildLogListString(gridLogs));
                 break;
             case 2:
                 Room case2Room = inputs.getHouseRoomByList(programHouse);
                 System.out.println(INSERT_START_DATE);
-                startDate = inputs.getInputDate();
+                startDate = inputs.getInputYearMonthDayHourMin();
                 System.out.println(INSERT_END_DATE);
-                endDate = inputs.getInputDate();
+                endDate = inputs.getInputYearMonthDayHourMin();
                 LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate);
                 System.out.println(controller.buildLogListString(roomLogs));
                 break;
@@ -356,9 +356,9 @@ class EnergyConsumptionUI {
                 Room case3Room = inputs.getHouseRoomByList(programHouse);
                 Device device = inputs.getInputRoomDevicesByList(case3Room);
                 System.out.println(INSERT_START_DATE);
-                startDate = inputs.getInputDate();
+                startDate = inputs.getInputYearMonthDayHourMin();
                 System.out.println(INSERT_END_DATE);
-                endDate = inputs.getInputDate();
+                endDate = inputs.getInputYearMonthDayHourMin();
                 LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);
                 System.out.println(controller.buildLogListString(deviceLogs));
                 break;

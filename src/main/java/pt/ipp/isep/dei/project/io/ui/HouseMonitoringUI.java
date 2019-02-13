@@ -6,18 +6,11 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.Date;
-import java.util.Scanner;
 import static java.lang.System.out;
 
 
 public class HouseMonitoringUI {
     private HouseMonitoringController houseMonitoringcontroller;
-    private int dataYear1;
-    private int dataMonth1;
-    private int dataDay1;
-    private int dataYear2;
-    private int dataMonth2;
-    private int dataDay2;
 
     public HouseMonitoringUI() {
         this.houseMonitoringcontroller = new HouseMonitoringController();
@@ -63,27 +56,6 @@ public class HouseMonitoringUI {
             }
         }
     }
-
-    //SHARED METHODS
-
-    private Date getInputStartDate() {
-        InputUtils inputUtils = new InputUtils();
-        Scanner scan = new Scanner(System.in);
-
-        this.dataYear1 = inputUtils.getInputDateAsInt(scan, "year");
-        scan.nextLine();
-
-        this.dataMonth1 = inputUtils.getInputDateAsInt(scan, "month") - 1;
-        scan.nextLine();
-
-        this.dataDay1 = inputUtils.getInputDateAsInt(scan, "day");
-
-        System.out.println("You entered the date successfully!");
-        scan.nextLine();
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        return ctrl.createDate(this.dataYear1, this.dataMonth1, this.dataDay1);
-    }
-
 
     /**
      * US600
@@ -164,7 +136,7 @@ public class HouseMonitoringUI {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        Date date = getInputStartDate();
+        Date date = inputUtils.getInputYearMonthDay();
         double maxTemp = updateModel610(room, date);
         displayState610(room, date, maxTemp);
     }
@@ -199,26 +171,21 @@ public class HouseMonitoringUI {
             System.out.println(utils.invalidSensorList);
             return;
         }
-        getInputStartDateWithValidSensorList();
-        updateAndDisplayModelUS620(house);
+        InputUtils inputUtils = new InputUtils();
+        Date date = inputUtils.getInputYearMonthDay();
+        updateAndDisplayModelUS620(house, date);
     }
 
-    private void getInputStartDateWithValidSensorList() {
-        getInputStartDate();
+    private void updateAndDisplayModelUS620(House house, Date date) {
+        double result = houseMonitoringcontroller.getTotalRainfallOnGivenDay(house, date);
+        printResultMessageUS620(date, result);
     }
 
-    private void updateAndDisplayModelUS620(House house) {
-        Date mStartDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
-        double result620 = houseMonitoringcontroller.getTotalRainfallOnGivenDay(house, mStartDate);
-        printResultMessageUS620(house, mStartDate, result620);
-    }
-
-    private void printResultMessageUS620(House houseGiven, Date givenDate, double result) {
+    private void printResultMessageUS620(Date date, double result) {
         if (Double.isNaN(result)) {
             System.out.println("Warning: average value not calculated - no readings available.");
         } else {
-            System.out.println(houseMonitoringcontroller.getHouseInfoForOutputMessage(houseGiven) + " on " + givenDate
-                    + " is " + result + "%.");
+            System.out.println("The average rainfall on " + date + " was " + result + "%.");
         }
     }
 
@@ -232,41 +199,34 @@ public class HouseMonitoringUI {
             System.out.println(utils.invalidSensorList);
             return;
         }
-        getInputStartDate();
-        getInputEndDate();
-        updateAndDisplayUS623(house);
+        Date startDate = getInputStartDate();
+        Date endDate = getInputEndDate();
+        updateAndDisplayUS623(house, startDate, endDate);
     }
 
-    private void getInputEndDate() {
+    private Date getInputStartDate() {
         InputUtils inputUtils = new InputUtils();
-        Scanner scan = new Scanner(System.in);
-
-        this.dataYear2 = inputUtils.getInputDateAsInt(scan, "year");
-        scan.nextLine();
-
-        this.dataMonth2 = inputUtils.getInputDateAsInt(scan, "month") - 1;
-        scan.nextLine();
-
-        this.dataDay2 = inputUtils.getInputDateAsInt(scan, "day");
-
-        System.out.println("You entered the date successfully!");
-        scan.nextLine();
+        System.out.println("Please enter the start date.");
+        return inputUtils.getInputYearMonthDay();
     }
 
-
-    private void updateAndDisplayUS623(House house) {
-        Date initialDate = houseMonitoringcontroller.createDate(dataYear1, dataMonth1, dataDay1);
-        Date endDate = houseMonitoringcontroller.createDate(dataYear2, dataMonth2, dataDay2);
-        double result623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, initialDate, endDate);
-        printResultMessageUS623(house, initialDate, endDate, result623);
+    private Date getInputEndDate() {
+        InputUtils inputUtils = new InputUtils();
+        System.out.println("Please enter the end date.");
+        return inputUtils.getInputYearMonthDay();
     }
 
-    private void printResultMessageUS623(House house, Date initialDate, Date endDate, double result623) {
+    private void updateAndDisplayUS623(House house, Date startDate, Date endDate) {
+        double result623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, startDate, endDate);
+        printResultMessageUS623(startDate, endDate, result623);
+    }
+
+    private void printResultMessageUS623(Date initialDate, Date endDate, double result623) {
         if (Double.isNaN(result623)) {
             System.out.println("Warning: average value not calculated - no readings available.");
         } else {
-            System.out.println(houseMonitoringcontroller.getHouseInfoForOutputMessage(house) + " between " + initialDate
-                    + " and " + endDate + " is " + result623 + "%.");
+            System.out.println("The average rainfall between " + initialDate + " and " + endDate + " was "
+                    + result623 + "%.");
         }
     }
 
