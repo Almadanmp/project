@@ -37,7 +37,7 @@ class RoomConfigurationUI {
         this.mRoomConfigurationController = new RoomConfigurationController();
     }
 
-    void run(House house, List<TypeSensor> typeSensorList) {
+    void run(House house, TypeSensorList typeSensorList) {
         UtilsUI utils = new UtilsUI();
         this.mHouse = house;
         if (!utils.houseRoomListIsValid(this.mHouse)) {
@@ -151,7 +151,7 @@ class RoomConfigurationUI {
      *
      * @param typeSensorList is
      */
-    private void runUS253(List<TypeSensor> typeSensorList) {
+    private void runUS253(TypeSensorList typeSensorList) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.typeSensorListIsValid(typeSensorList)) {

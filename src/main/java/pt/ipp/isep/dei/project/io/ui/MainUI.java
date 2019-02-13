@@ -471,7 +471,7 @@ public class MainUI {
         ehwB107SP3.addLog(log10785);
 
 
-        List<TypeSensor> typeSensorListSP2 = new ArrayList<>();
+        TypeSensorList typeSensorListSP2 = new TypeSensorList();
         TypeSensor temperatureB109SP2 = new TypeSensor(temperature, "celsius");
         SensorList sensorListRoomB109SP2 = new SensorList();
         b109SP2.setRoomSensorList(sensorListRoomB109SP2);

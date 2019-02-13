@@ -12,7 +12,6 @@ class SensorSettingsUI {
     private String mSensorName;
     private String mSensorTypeName;
     private String mSensorUnits;
-    private TypeSensor mTypeAdded;
     private double sensorLat;
     private double sensorLong;
     private double sensorAlt;
@@ -21,17 +20,13 @@ class SensorSettingsUI {
     private int dataDay;
     private Sensor mSensor;
     private GeographicArea mGeographicArea;
-    private GeographicAreaList mGeographicAreaList;
-    private List<TypeSensor> mTypeSensorList;
 
 
     SensorSettingsUI() {
         this.mController = new SensorSettingsController();
     }
 
-    void run(GeographicAreaList geographicAreaList, List<TypeSensor> typeList) {
-        this.mGeographicAreaList = geographicAreaList;
-        this.mTypeSensorList = typeList;
+    void run(GeographicAreaList geographicAreaList, TypeSensorList typeList) {
         UtilsUI utilsUI = new UtilsUI();
         if (utilsUI.geographicAreaListIsValid(geographicAreaList)) {
             System.out.println(utilsUI.invalidGAList);
@@ -50,15 +45,15 @@ class SensorSettingsUI {
             option = inputUtils.readInputNumberAsInt();
             switch (option) {
                 case 1:
-                    runUS05();
+                    runUS05(typeList);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS06();
+                    runUS06(geographicAreaList, typeList);
                     activeInput = false;
                     break;
                 case 3:
-                    displayList(mTypeSensorList);
+                    displayList(typeList);
                     activeInput = false;
                     break;
                 case 0:
@@ -72,7 +67,7 @@ class SensorSettingsUI {
 
     /* LIST DISPLAY */
 
-    private void displayList(List<TypeSensor> list) {
+    private void displayList(TypeSensorList list) {
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.typeSensorListIsValid(list)) {
             System.out.println(utilsUI.invalidTypeSensorList);
@@ -83,54 +78,56 @@ class SensorSettingsUI {
 
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
-    private void runUS05(){
-        getInput05();
-        updateModel05();
-        displayState05();
+    private void runUS05(TypeSensorList typeList){
+        TypeSensor typeSensor = getInput05();
+        boolean added = updateModel05(typeSensor, typeList);
+        displayState05(added);
     }
-    private void getInput05() {
+    private TypeSensor getInput05() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Type the new Type of Sensor you want to create: ");
         while (!scanner.hasNext("[a-zA-Z_]+")) {
             System.out.println("That's not a valid Type. Please insert only Alphabetic Characters");
             scanner.next();
         }
-        this.mSensorTypeName = scanner.next();
+        String name = scanner.next();
         System.out.print("Type the Unit of Measurement used for this type: ");
         while (!scanner.hasNext("[a-zA-Z_]+")) {
             System.out.println("That's not a valid Unit of Measurement. Please insert only Alphabetic Characters");
             scanner.next();
         }
-        this.mSensorUnits = scanner.next();
+        String unit = scanner.next();
+        return mController.createType(name, unit);
     }
 
-    private void updateModel05() {
-        this.mTypeAdded = mController.createType(mSensorTypeName, mSensorUnits);
-        this.mTypeSensorList.add(mTypeAdded);
+    private boolean updateModel05(TypeSensor typeSensor, TypeSensorList typeSensorList) {
+        return mController.addTypeSensorToList(typeSensor, typeSensorList);
     }
 
-    private void displayState05() {
-        if (this.mTypeAdded != null && !this.mTypeSensorList.isEmpty()) {
-            System.out.print("The type has been successfully created.");
-        } else System.out.print("The type of sensor wasn't added. Please ry again.");
+    private void displayState05(boolean added) {
+        if(added){
+            System.out.print("The sensor type has been successfully created.");
+        } else {
+            System.out.print("The sensor type you are trying to create already exists. Please try again.");
+        }
     }
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
-    private void runUS06(){
+    private void runUS06(GeographicAreaList geographicAreaList, TypeSensorList typeSensorList){
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.geographicAreaListIsValid(this.mGeographicAreaList)) {
+        if (utilsUI.geographicAreaListIsValid(geographicAreaList)) {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
-        if(utilsUI.typeSensorListIsValid(this.mTypeSensorList)){
+        if(utilsUI.typeSensorListIsValid(typeSensorList)){
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
         getInput06();
         updateUS06();
         displayUS06();
-        getInputPart206();
+        getInputPart206(geographicAreaList);
     }
     private void getInput06() {
         Scanner input = new Scanner(System.in);
@@ -230,18 +227,18 @@ class SensorSettingsUI {
         }
     }
 
-    private void getInputPart206() {
+    private void getInputPart206(GeographicAreaList geographicAreaList) {
         Scanner input = new Scanner(System.in);
         System.out.println("\n Add sensor to Geographic Area?\n");
         System.out.println("Yes/No:\t");
         if ("yes".equals(input.nextLine())) {
-            getInputPart306();
+            getInputPart306(geographicAreaList);
         }
     }
 
-    private void getInputPart306() {
+    private void getInputPart306(GeographicAreaList geographicAreaList) {
         InputUtils inputUtils = new InputUtils();
-        mGeographicArea = inputUtils.getGeographicAreaByList(mGeographicAreaList);
+        mGeographicArea = inputUtils.getGeographicAreaByList(geographicAreaList);
         updateAndDisplayUS06Part206();
     }
 

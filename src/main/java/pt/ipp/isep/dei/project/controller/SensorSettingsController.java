@@ -36,15 +36,16 @@ public class SensorSettingsController {
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    public String buildSensorTypesString(List<TypeSensor> typeList) {
-        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
-        for (int i = 0; i < typeList.size(); i++) {
-            TypeSensor aux = typeList.get(i);
-            result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
-            result.append("Units: ").append(aux.getUnits()).append("\n");
-        }
-        result.append("---------------\n");
-        return result.toString();
+    public String buildSensorTypesString(TypeSensorList typeSensorList) {
+        return typeSensorList.buildString();
+    }
+
+    /** This method receives a list and a type sensor and tries to add the type sensor
+     * to the list. The type sensor will not be added in case the list already contains it.
+     * @return true in case the type sensor is added to the list, false otherwise
+     */
+    public boolean addTypeSensorToList(TypeSensor typeSensor, TypeSensorList typeSensorList){
+        return typeSensorList.add(typeSensor);
     }
 
 

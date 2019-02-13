@@ -149,16 +149,16 @@ public class InputUtils {
         }
     }
 
-    TypeSensor getInputSensorTypeByList(List<TypeSensor> typeSensorList) {
+    TypeSensor getInputSensorTypeByList(TypeSensorList typeSensorList) {
         while (true) {
             UtilsUI utils = new UtilsUI();
             InputUtils inputUtils = new InputUtils();
             RoomConfigurationController ctrl = new RoomConfigurationController();
             System.out.println("Please select a type of sensor from the list:");
-            System.out.println(ctrl.buildTypeListString(typeSensorList));
+            System.out.println(typeSensorList.buildString());
             int aux = inputUtils.readInputNumberAsInt();
-            if (aux >= 0 && aux < typeSensorList.size()) {
-                TypeSensor result = typeSensorList.get(aux);
+            if (aux >= 0 && aux < typeSensorList.getSensorList().size()) {
+                TypeSensor result = typeSensorList.getSensorList().get(aux);
                 System.out.println("You have chosen the following sensor type:");
                 System.out.println(result.buildString() + "\n");
                 return result;

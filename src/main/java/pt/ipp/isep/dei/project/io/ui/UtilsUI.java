@@ -71,8 +71,8 @@ public class UtilsUI {
         return (!device.getLogList().isEmpty());
     }
 
-    boolean typeSensorListIsValid(List<TypeSensor> list) {
-        return list != null && !list.isEmpty();
+    boolean typeSensorListIsValid(TypeSensorList typeSensorList) {
+        return typeSensorList != null && !typeSensorList.getSensorList().isEmpty();
     }
 
     boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {

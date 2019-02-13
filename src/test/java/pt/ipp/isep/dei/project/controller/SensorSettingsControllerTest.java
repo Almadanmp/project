@@ -3,10 +3,8 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
@@ -326,7 +324,7 @@ class SensorSettingsControllerTest {
     @Test
     void seeIfTypeListIsPrinted() {
         //Arrange
-        List<TypeSensor> list1 = new ArrayList<>();
+        TypeSensorList list1 = new TypeSensorList();
         TypeSensor t1 = new TypeSensor("rain", "mm");
         TypeSensor t2 = new TypeSensor("wind", "km/h");
         list1.add(t1);
@@ -334,8 +332,8 @@ class SensorSettingsControllerTest {
         //Act
         SensorSettingsController ctrl = new SensorSettingsController();
         String result = "---------------\n" +
-                "0) Name: rain | Units: mm\n" +
-                "1) Name: wind | Units: km/h\n" +
+                "0) Name: rain | Unit: mm\n" +
+                "1) Name: wind | Unit: km/h\n" +
                 "---------------\n";
         String actualResult = ctrl.buildSensorTypesString(list1);
         //Assert
@@ -345,7 +343,7 @@ class SensorSettingsControllerTest {
     @Test
     void seeIfItSetsNominalPower() {
         //Arrange
-        List<TypeSensor> list1 = new ArrayList<>();
+        TypeSensorList list1 = new TypeSensorList();
         TypeSensor t1 = new TypeSensor("rain", "mm");
         TypeSensor t2 = new TypeSensor("wind", "km/h");
         list1.add(t1);
@@ -353,8 +351,8 @@ class SensorSettingsControllerTest {
         //Act
         SensorSettingsController ctrl = new SensorSettingsController();
         String result = "---------------\n" +
-                "0) Name: rain | Units: mm\n" +
-                "1) Name: wind | Units: km/h\n" +
+                "0) Name: rain | Unit: mm\n" +
+                "1) Name: wind | Unit: km/h\n" +
                 "---------------\n";
         String actualResult = ctrl.buildSensorTypesString(list1);
         //Assert
@@ -383,6 +381,26 @@ class SensorSettingsControllerTest {
 
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void addTypeSensorToList() {
+        SensorSettingsController ctrl = new SensorSettingsController();
+        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
+        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
+        TypeSensor typeSensor3 = new TypeSensor("temperature", "celsius");
+        TypeSensor typeSensor4 = new TypeSensor("humidity", "percentage");
+        TypeSensorList typeList = new TypeSensorList();
+        //ACT
+        boolean actualResult1 = ctrl.addTypeSensorToList(typeSensor1, typeList);
+        boolean actualResult2 = ctrl.addTypeSensorToList(typeSensor2, typeList);
+        boolean actualResult3 = ctrl.addTypeSensorToList(typeSensor3, typeList);
+        boolean actualResult4 = ctrl.addTypeSensorToList(typeSensor4, typeList);
+
+        //ASSERT
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertFalse(actualResult3);
+        assertTrue(actualResult4);
     }
 
 

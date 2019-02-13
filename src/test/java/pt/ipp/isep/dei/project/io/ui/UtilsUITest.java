@@ -228,7 +228,7 @@ public class UtilsUITest {
 
     @Test
     public void typeSensorListIsInvalid() {
-        List<TypeSensor> typeSensors = new ArrayList<>();
+        TypeSensorList typeSensors = new TypeSensorList();
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.typeSensorListIsValid(typeSensors);
@@ -237,7 +237,7 @@ public class UtilsUITest {
     }
     @Test
     public void typeSensorListIsValid() {
-        List<TypeSensor> typeSensors = new ArrayList<>();
+        TypeSensorList typeSensors = new TypeSensorList();
         TypeSensor typeSensor = new TypeSensor("typeSensor","celsius");
         typeSensors.add(typeSensor);
         UtilsUI utilsUI = new UtilsUI();
