@@ -31,9 +31,8 @@ public class InputUtils {
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < geographicAreaList.getGeographicAreaList().size()) {
                 GeographicArea result = geographicAreaList.getGeographicAreaList().get(aux);
-                String stringRequestGA = "You have chosen the following Geographic Area: ";
-                System.out.println(stringRequestGA);
-                System.out.println(result.buildGeographicAreaString());
+                System.out.println("You have chosen the following geographic area: ");
+                System.out.println(result.buildGeographicAreaString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -50,9 +49,8 @@ public class InputUtils {
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getRoomList().size()) {
                 Room result = house.getRoomList().get(aux);
-                String stringRequestRoom = "You have chosen the following Room: ";
-                System.out.println(stringRequestRoom);
-                System.out.println(result.buildRoomString());
+                System.out.println("You have chosen the following room: ");
+                System.out.println(result.buildRoomString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -69,9 +67,8 @@ public class InputUtils {
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < grid.getRoomList().size()) {
                 Room result = grid.getRoomList().get(aux);
-                String stringRequestRoom = "You have chosen the following Room: ";
-                System.out.println(stringRequestRoom);
-                System.out.println(result.buildRoomString());
+                System.out.println("You have chosen the following room: ");
+                System.out.println(result.buildRoomString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -88,9 +85,8 @@ public class InputUtils {
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < grid.getDeviceList().size()) {
                 Device result = grid.getDeviceList().get(aux);
-                String stringRequestDevice = "You have chosen the following device: ";
-                System.out.println(stringRequestDevice);
-                System.out.println(result.buildDeviceString());
+                System.out.println("You have chosen the following device: ");
+                System.out.println(result.buildDeviceString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -103,14 +99,13 @@ public class InputUtils {
         UtilsUI utils = new UtilsUI();
         while (true) {
             ProgramList deviceProgramList = device.getProgramList();
-            System.out.println("Please select one of the existing Programs in the selected Program List to alter: ");
+            System.out.println("Please select one of the existing programs in the selected program List: ");
             System.out.println(deviceProgramList.buildProgramListString());
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < deviceProgramList.getProgramList().size()) {
                 Program result = deviceProgramList.getProgramList().get(aux);
-                String stringRequestProgram = "You have chosen the following Program: ";
-                System.out.println(stringRequestProgram);
-                System.out.println(result.buildProgramString());
+                System.out.println("You have chosen the following program: ");
+                System.out.println(result.buildProgramString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -122,13 +117,13 @@ public class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
-            System.out.println("Please select one of the existing Devices in the selected Room: ");
+            System.out.println("Please select one of the existing devices in the selected room: ");
             System.out.println(room.buildDeviceListString());
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < room.getDeviceList().size()) {
                 Device result = room.getDeviceList().get(aux);
                 System.out.println("You have chosen the following device:");
-                System.out.println(result.buildDeviceString());
+                System.out.println(result.buildDeviceString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -144,7 +139,10 @@ public class InputUtils {
             System.out.println(controller.buildGridListString(house));
             int aux = this.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getEGListObject().getEnergyGridList().size()) {
-                return house.getEGListObject().getEnergyGridList().get(aux);
+                EnergyGrid result = house.getEGListObject().getEnergyGridList().get(aux);
+                System.out.println("You have chosen the following grid:");
+                System.out.println(result.buildGridString() + "\n");
+                return result;
             } else {
                 System.out.println(utilsUI.invalidOption);
             }
@@ -156,12 +154,14 @@ public class InputUtils {
             UtilsUI utils = new UtilsUI();
             InputUtils inputUtils = new InputUtils();
             RoomConfigurationController ctrl = new RoomConfigurationController();
-            System.out.println("Please select a Type of Sensor from the list: ");
+            System.out.println("Please select a type of sensor from the list:");
             System.out.println(ctrl.buildTypeListString(typeSensorList));
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < typeSensorList.size()) {
-                System.out.println("You have chosen the following Type: " + typeSensorList.get(aux).getName());
-                return typeSensorList.get(aux);
+                TypeSensor result = typeSensorList.get(aux);
+                System.out.println("You have chosen the following sensor type:");
+                System.out.println(result.buildString() + "\n");
+                return result;
             } else {
                 System.out.println(utils.invalidOption);
             }
@@ -169,7 +169,7 @@ public class InputUtils {
     }
 
 
-    Sensor getInputRoomSensorByList(Room room) {
+    Sensor getInputSensorFromRoomByList(Room room) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
         HouseMonitoringController controller = new HouseMonitoringController();
@@ -178,7 +178,10 @@ public class InputUtils {
             System.out.println(controller.buildRoomSensorListString(room));
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < room.getSensorList().getSensorList().size()) {
-                return room.getSensorList().getSensorList().get(aux);
+                Sensor result = room.getSensorList().getSensorList().get(aux);
+                System.out.println("You have chosen the following sensor:");
+                System.out.println(result.buildSensorString() + "\n");
+                return result;
             } else {
                 System.out.println(utils.invalidOption);
             }
@@ -190,14 +193,16 @@ public class InputUtils {
         UtilsUI utils = new UtilsUI();
         List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
         while (true) {
-            System.out.println("Please select one of the device Types: ");
+            System.out.println("Please select one of the device types: ");
 
             System.out.println(house.getmDeviceTypeList());
             System.out.println(house.buildTypeListString(deviceTypeList));
             int aux = inputUtils.readInputNumberAsInt();
             if (aux >= 0 && aux < house.getmDeviceTypeList().size()) {
-
-                return deviceTypeList.get(aux);
+                DeviceType result = deviceTypeList.get(aux);
+                System.out.println("You have chosen the following device type:");
+                System.out.println(result.getDeviceType() + "\n");
+                return result;
 
             } else {
                 System.out.println(utils.invalidOption);
@@ -243,9 +248,10 @@ public class InputUtils {
      * @return value read from user
      */
     Double getInputAsDouble() {
+        UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextDouble()) {
-            System.out.println("Please,try again. Only numbers this time:");
+            System.out.println(utils.invalidOption);
             scanner.next();
         }
         return scanner.nextDouble();
@@ -263,7 +269,9 @@ public class InputUtils {
         int day = getInputDay(isLeapyear,month);
         int hour = getInputHour();
         int minute = getInputMinute();
-        return new GregorianCalendar(year, month, day, hour, minute).getTime();
+        Date date = new GregorianCalendar(year, month, day, hour, minute).getTime();
+        System.out.println(("You have chosen the following date:\n") + date.toString() + "\n");
+        return date;
     }
 
     /**
@@ -272,7 +280,7 @@ public class InputUtils {
      * values from the gregorian calendar
      * @return int of the year introduced by user
      */
-    public int getInputYear() {
+    private int getInputYear() {
         Scanner scan = new Scanner(System.in);
         int year = -1;
         while (year <= 1581) { //Gregorian Calendar was introduced in 1582, so was the concept of leap year
@@ -286,7 +294,7 @@ public class InputUtils {
      * Method will ask the user for a month and will return an int of that value subtracted by one
      * @return int of the month introduced by user
      */
-    public int getInputMonth() {
+    private int getInputMonth() {
         Scanner scan = new Scanner(System.in);
         int month = -1;
         while (month <= -1 || month > 11) { // -1 e 11 porque depois se subtrai um valor
@@ -302,7 +310,7 @@ public class InputUtils {
      * valid values
      * @return int of the day introduced by user
      */
-    public int getInputDay(boolean isLeapyear, int month) {
+    private int getInputDay(boolean isLeapyear, int month) {
         if(month == 1) {
             return getInputFebruaryDay(isLeapyear);
         }
@@ -318,7 +326,7 @@ public class InputUtils {
      * from 0 to 28.
      * @return int of the day introduced by user
      */
-    int getInputFebruaryDay(boolean isLeapyear){
+    private int getInputFebruaryDay(boolean isLeapyear){
         Scanner scan = new Scanner(System.in);
         int day = -1;
         if(isLeapyear){
@@ -341,7 +349,7 @@ public class InputUtils {
      * for that month (January - 0 to 31, April - 0 to 30).
      * @return int of the day introduced by user
      */
-    int getInputNotFebruaryDay(int month){
+    private int getInputNotFebruaryDay(int month){
         Scanner scan = new Scanner(System.in);
         int day = -1;
         if(isJanuaryMarchMay(month)|| isJulyAugust(month) || isOctoberDecember(month)){
@@ -364,7 +372,7 @@ public class InputUtils {
      * true in case it is, false in case it is not.
      * @param month month to test
      */
-    boolean isJanuaryMarchMay(int month) {
+    private boolean isJanuaryMarchMay(int month) {
         return month == 0 || month ==2 || month == 4;
     }
 
@@ -373,7 +381,7 @@ public class InputUtils {
      * true in case it is, false in case it is not.
      * @param month month to test
      */
-    boolean isJulyAugust(int month) {
+    private boolean isJulyAugust(int month) {
         return month == 6 || month == 7;
     }
 
@@ -382,7 +390,7 @@ public class InputUtils {
      * true in case it is, false in case it is not.
      * @param month month to test
      */
-    boolean isOctoberDecember(int month) {
+    private boolean isOctoberDecember(int month) {
         return month == 9 || month == 11;
     }
 

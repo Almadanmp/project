@@ -73,13 +73,21 @@ public class TypeSensor {
         return (name != null && !name.isEmpty());
     }
 
-    /**
-     * Specific Method
-     *
-     * @param testSensor Receives an object to verify if it matches current instance of TypeSensor.
-     * @return boolean returns true if equal, false if they are not equal.
-     */
 
+    /**This method will return a string with the type sensor information (name and unit of measure)
+     * @ string of name and unit of measure **/
+    public String buildString(){
+        String result;
+        result = "The type sensor is " + this.mName + ", and the unit of measure is " + this.mUnits + ".";
+        return result;
+    }
+
+    /**
+            * Specific Method
+     *
+             * @param testSensor Receives an object to verify if it matches current instance of TypeSensor.
+            * @return boolean returns true if equal, false if they are not equal.
+            */
     @Override
     public boolean equals(Object testSensor) {
         if (this == testSensor) {
