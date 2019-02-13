@@ -11,10 +11,6 @@ import java.util.GregorianCalendar;
 
 public class SensorSettingsController {
 
-    public SensorSettingsController() {
-
-    }
-
     //SHARED METHODS THROUGH DIFFERENT UIS
 
     /**
