@@ -705,10 +705,4 @@ class HouseMonitoringControllerTest {
         assertEquals("kitchen", actualResult1);
         assertEquals("living room", actualResult2);
     }
-
-
-
-
-
-
 }

@@ -193,4 +193,13 @@ class TypeSensorTest {
         });
         assertEquals("Please Insert Valid String for Units of The Sensor",exception.getMessage());
     }
+
+    @Test
+    void buildTypeSensorString(){
+        TypeSensor t1 = new TypeSensor("temperature", "celsius");
+        String expectedResult = "The type sensor is temperature, and the unit of measure is celsius.";
+        //ACT
+        String actualResult = t1.buildString();
+        assertEquals(expectedResult, actualResult);
+    }
 }

@@ -661,7 +661,7 @@ class SensorListTest {
                 "1) Designation: s2 | Sensor Type: Vento\n" +
                 "2) Designation: s3 | Sensor Type: Rain\n" +
                 "---------------\n";
-        String actualResult = sensorList1.buildSensorListString(room);
+        String actualResult = sensorList1.buildSensorListString();
         assertEquals(expectedResult, actualResult);
     }
 
@@ -671,7 +671,7 @@ class SensorListTest {
         SensorList sensorList1 = new SensorList();
         room.setRoomSensorList(sensorList1);
         String expectedResult = "Invalid List - List is Empty\n";
-        String actualResult = sensorList1.buildSensorListString(room);
+        String actualResult = sensorList1.buildSensorListString();
         assertEquals(expectedResult, actualResult);
     }
 

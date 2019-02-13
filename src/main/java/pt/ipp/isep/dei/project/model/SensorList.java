@@ -202,17 +202,16 @@ public class SensorList {
 
     /**
      *
-     * @param room is the Room from which we want to get a list of the sensors of.
      * @return builds a string of all the individual members of the list of sensors of the Room.
      */
 
-    public String buildSensorListString(Room room) {
+    public String buildSensorListString() {
         StringBuilder result = new StringBuilder(mStringEnhancer);
-        if (room.getSensorList().getSensorList().isEmpty()) {
+        if (this.mSensorList.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < room.getSensorList().getSensorList().size(); i++) {
-            Sensor aux = room.getSensorList().getSensorList().get(i);
+        for (int i = 0; i < this.mSensorList.size(); i++) {
+            Sensor aux = this.mSensorList.get(i);
             result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
             result.append("Sensor Type: ").append(aux.getTypeSensor().getName()).append("\n");
         }

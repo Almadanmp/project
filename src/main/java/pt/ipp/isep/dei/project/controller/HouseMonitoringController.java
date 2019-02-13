@@ -43,20 +43,6 @@ public class HouseMonitoringController {
     }
 
 
-    /* Common Methods to House Monitoring UI
-     */
-
-    /**
-     *
-     * @param room is the room that we want to print the list from.
-     * @return builds a string from the individual elements of the room's sensor list.
-     */
-
-    public String buildRoomSensorListString(Room room) {
-        return room.getSensorList().buildSensorListString(room);
-    }
-
-
     /**
      *
      * @param house is the house we want to get the average rainfall from.
