@@ -15,9 +15,6 @@ import static org.testng.Assert.*;
 
 class SensorSettingsControllerTest {
 
-    //user 005
-
-
     //USER STORY 006 TESTS
 
     @Test

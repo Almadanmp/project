@@ -172,7 +172,6 @@ public class InputUtils {
     Sensor getInputSensorFromRoomByList(Room room) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();
-        HouseMonitoringController controller = new HouseMonitoringController();
         while (true) {
             System.out.println("Please select one of the existing Sensors on the selected Room: ");
             System.out.println(room.getSensorList().buildSensorListString());
