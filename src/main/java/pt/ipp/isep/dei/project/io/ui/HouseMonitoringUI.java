@@ -144,7 +144,7 @@ public class HouseMonitoringUI {
 
     private double updateModel610(Room room, Date date) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        slowPrint("You selected the room " + room.getRoomName() + " and the date " + date + "\n", 25);
+        ctrl.slowPrint("You selected the room " + room.getRoomName() + " and the date " + date + "\n", 25);
         return ctrl.getMaxTemperatureInARoomOnAGivenDay(room, date);
     }
 
@@ -157,27 +157,10 @@ public class HouseMonitoringUI {
         String message = "The maximum temperature in the room " + ctrl.getRoomName(room) +
                 " on the day " + date +
                 mWas + temperature + "°C.";
-        slowPrint(message, 25);
+        ctrl.slowPrint(message, 25);
 
     }
 
-    /**
-     * Function to print each character in a string with a delay (a "typewriter" effect)
-     *
-     * @param message       The string to print
-     * @param millisPerChar Milliseconds that it takes to print each character
-     */
-    public void slowPrint(String message, long millisPerChar) {
-        for (int i = 0; i < message.length(); i++) {
-            System.out.print(message.charAt(i));
-
-            try {
-                Thread.sleep(millisPerChar);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 
     /**

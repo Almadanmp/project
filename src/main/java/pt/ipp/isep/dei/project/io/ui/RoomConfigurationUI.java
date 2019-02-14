@@ -129,7 +129,7 @@ class RoomConfigurationUI {
 
             Program newProgram = ctrl.createProgram (programName, duration, energyConsumption);
             ctrl.addProgramToProgramList(pList,newProgram);
-            loopForPrograms(pList);
+            loopForPrograms(pList, "Would you like to add another Program? (y/n)",device);
 
         }
 
@@ -278,7 +278,7 @@ class RoomConfigurationUI {
                 System.out.println("There are no programs to edit.");
                 return;
             }
-            updateAProgrammableDevice(program, programList);
+            updateAProgrammableDevice(program, programList, device);
             mRoomConfigurationController.configureOneWashingMachineProgram(device, programList);
         }
 
@@ -287,7 +287,7 @@ class RoomConfigurationUI {
 
     }
 
-    private void updateAProgrammableDevice(Program program, ProgramList programList) {
+    private void updateAProgrammableDevice(Program program, ProgramList programList, Device device) {
         Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
         programList.removeProgram(program);
@@ -299,18 +299,20 @@ class RoomConfigurationUI {
         double energyConsumption = inputUtils.getInputAsDouble();
         Program newProgram = new Program(programName, duration, energyConsumption);
         mRoomConfigurationController.addProgramToProgramList(programList,newProgram);
-        loopForPrograms(programList);
+        System.out.println("The edited Program is now called "+programName+", has the Duration of "+duration+
+                " minutes, and the Energy Consumption of "+energyConsumption+ " kWh.");
+        loopForPrograms(programList,"Would you like to edit another Program? (y/n)", device);
 
     }
 
-    private void loopForPrograms(ProgramList programList) {
+    private void loopForPrograms(ProgramList programList, String message, Device device) {
         InputUtils inputUtils = new InputUtils();
         Program program1;
         Scanner scanner = new Scanner(System.in);
         if (programList.getProgramList().size() > 1) {
-            System.out.println("Would you like to edit another Program? (y/n)");
-            while (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to edit another Program? (y/n)")) {
-                program1 = inputUtils.getSelectedProgramFromDevice(mDevice);
+            System.out.println(message);
+            while (inputUtils.yesOrNo(scanner.nextLine(), message)) {
+                program1 = inputUtils.getSelectedProgramFromDevice(device);
                 programList.removeProgram(program1);
                 System.out.println(requestProgramName);
                 String programName = scanner.nextLine();
@@ -320,13 +322,11 @@ class RoomConfigurationUI {
                 double energyConsumption = inputUtils.getInputAsDouble();
                 program1 = new Program(programName, duration, energyConsumption);
                 programList.addProgram(program1);
-            }
+              }
         }
     }
 
-
     // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it. - CARINA ALAS
-
     private void displayDeviceUS215(Device device, Room room, String deviceName) {
         if (device == null || room == null) {
             return;

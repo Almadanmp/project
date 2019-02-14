@@ -101,5 +101,24 @@ public class HouseMonitoringController {
         ReadingList readingList = closest.getReadingList();
         return readingList.getMostRecentValueOfReading();
     }
+
+
+    /**
+     * Function to print each character in a string with a delay (a "typewriter" effect)
+     *
+     * @param message       The string to print
+     * @param millisPerChar Milliseconds that it takes to print each character
+     */
+    public void slowPrint(String message, long millisPerChar) {
+        for (int i = 0; i < message.length(); i++) {
+            System.out.print(message.charAt(i));
+
+            try {
+                Thread.sleep(millisPerChar);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
