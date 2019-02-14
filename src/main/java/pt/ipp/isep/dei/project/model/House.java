@@ -319,7 +319,7 @@ public class House implements Metered {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < list.size(); i++) {
-            result.append(i).append(") DeviceType: ").append(list.get(i).getDeviceType());
+            result.append(i).append(") DeviceType: ").append(list.get(i).getDeviceType()).append("\n");
         }
         return result.toString();
     }

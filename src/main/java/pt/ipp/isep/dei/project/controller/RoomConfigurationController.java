@@ -208,8 +208,9 @@ public class RoomConfigurationController {
         return room.buildDeviceListString();
     }
 
-    public void addProgramToProgramList(ProgramList programList, Program newProgram){
-            programList.addProgram(newProgram);}
+    public void addProgramToProgramList(ProgramList programList, Program newProgram) {
+        programList.addProgram(newProgram);
+    }
 
 
     public void setNominalPowerDevice(Device device, double nominalPower) {
@@ -226,6 +227,10 @@ public class RoomConfigurationController {
 
     public Device createDevice(DeviceType deviceType) {
         return deviceType.createDeviceType();
+    }
+
+    public Program createProgram(String programName, double duration, double energyConsumption) {
+        return new Program(programName, duration, energyConsumption);
     }
 
 

@@ -781,7 +781,7 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, test);
         List<DeviceType> dtList = new ArrayList<>();
         dtList.add(new WaterHeaterDT());
-        String expectedResult = "0) DeviceType: Water Heater";
+        String expectedResult = "0) DeviceType: Water Heater\n";
         String result = house.buildTypeListString(dtList);
         assertEquals(expectedResult, result);
     }

@@ -189,8 +189,6 @@ public class InputUtils {
         List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device types: ");
-
-            System.out.println(house.getmDeviceTypeList());
             System.out.println(house.buildTypeListString(deviceTypeList));
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < house.getmDeviceTypeList().size()) {

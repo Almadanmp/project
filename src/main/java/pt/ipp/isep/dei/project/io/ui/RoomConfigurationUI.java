@@ -93,14 +93,14 @@ class RoomConfigurationUI {
 
     private void runUS210(House house) {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(house);
+        Room room = inputUtils.getHouseRoomByList(house);
         DeviceType deviceType;
         deviceType = inputUtils.getInputDeviceTypeByList(house);
-        createDevice(deviceType);
+        createDevice(room, deviceType);
     }
 
 
-    private void createDevice(DeviceType deviceType) {
+    private void createDevice(Room room, DeviceType deviceType) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         // get device name
@@ -109,6 +109,7 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         //get Device specs
         Device device = ctrl.createDevice(deviceType);
+        device.setName(deviceName);
         List<String> deviceAttributes = ctrl.getAttributeNames(device);
         for (int i = 0; i < deviceAttributes.size(); i++) {
             System.out.println("Please insert value for: " + deviceAttributes.get(i));
@@ -126,14 +127,14 @@ class RoomConfigurationUI {
             System.out.println("Please insert program duration: ");
             double energyConsumption = inputUtils.getInputAsDouble();
 
-            Program newProgram = new Program(programName, duration, energyConsumption);
-            mRoomConfigurationController.addProgramToProgramList(pList,newProgram);
+            Program newProgram = ctrl.createProgram (programName, duration, energyConsumption);
+            ctrl.addProgramToProgramList(pList,newProgram);
+            loopForPrograms(pList);
 
         }
 
-        if (ctrl.addDevice(this.mRoom, device)) {
+        if (ctrl.addDevice(room, device)) {
             System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
-
         } else {
             System.out.println("Device already exists in the room. Please, try again.\n");
         }
