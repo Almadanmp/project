@@ -164,25 +164,6 @@ class SensorSettingsControllerTest {
     }
 
     @Test
-    void seeIfItSetsNominalPower() {
-        //Arrange
-        TypeSensorList list1 = new TypeSensorList();
-        TypeSensor t1 = new TypeSensor("rain", "mm");
-        TypeSensor t2 = new TypeSensor("wind", "km/h");
-        list1.add(t1);
-        list1.add(t2);
-        //Act
-        SensorSettingsController ctrl = new SensorSettingsController();
-        String result = "---------------\n" +
-                "0) Name: rain | Unit: mm\n" +
-                "1) Name: wind | Unit: km/h\n" +
-                "---------------\n";
-        String actualResult = ctrl.buildSensorTypesString(list1);
-        //Assert
-        assertEquals(result, actualResult);
-    }
-
-    @Test
     void ensureThatWeCreateARoomSensor() {
 
         //Arrange

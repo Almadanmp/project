@@ -13,16 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FridgeSpecTest {
 
-    public static final String FREEZER_CAPACITY = "Freezer Capacity";
-    public static final String REFRIGERATOR_CAPACITY = "Refrigerator Capacity";
-    public static final String ANNUAL_CONSUMPTION = "Annual Energy Consumption";
-    public static final String NOMINAL_POWER = "nominal power";
-    public static final String notFREEZER_CAPACITY = "\0Freezer Capacity";
-    public static final String notREFRIGERATOR_CAPACITY = "\0Refrigerator Capacity";
-    public static final String notANNUAL_CONSUMPTION = "\0Annual Energy Consumption";
-    public static final String notNOMINAL_POWER = "\0nominal power";
-
-    @Test
+     @Test
     void getTypeTest() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         String expectedResult = "Fridge";
@@ -371,15 +362,15 @@ class FridgeSpecTest {
         FridgeSpec fridgeSpec = new FridgeSpec();
         Double attribute = 6.0;
         // original strings:
-        assertTrue(fridgeSpec.setAttributeValue(FREEZER_CAPACITY, attribute));
-        assertTrue(fridgeSpec.setAttributeValue(REFRIGERATOR_CAPACITY, attribute));
-        assertTrue(fridgeSpec.setAttributeValue(ANNUAL_CONSUMPTION, attribute));
-        assertTrue(fridgeSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        assertTrue(fridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, attribute));
+        assertTrue(fridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, attribute));
+        assertTrue(fridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, attribute));
+        assertTrue(fridgeSpec.setAttributeValue(FridgeSpec.NOMINAL_POWER, attribute));
         // same hash codes, but different strings:
-        assertFalse(fridgeSpec.setAttributeValue(notFREEZER_CAPACITY, attribute));
-        assertFalse(fridgeSpec.setAttributeValue(notREFRIGERATOR_CAPACITY, attribute));
-        assertFalse(fridgeSpec.setAttributeValue(notANNUAL_CONSUMPTION, attribute));
-        assertFalse(fridgeSpec.setAttributeValue(notNOMINAL_POWER, attribute));
+        assertFalse(fridgeSpec.setAttributeValue("notFREEZER_CAPACITY", attribute));
+        assertFalse(fridgeSpec.setAttributeValue("notREFRIGERATOR_CAPACITY", attribute));
+        assertFalse(fridgeSpec.setAttributeValue("notANNUAL_CONSUMPTION", attribute));
+        assertFalse(fridgeSpec.setAttributeValue("notNOMINAL_POWER", attribute));
         // distinct hash code to cover default cases of switches
         assertFalse(fridgeSpec.setAttributeValue("", attribute));
     }
@@ -392,15 +383,15 @@ class FridgeSpecTest {
         String attributeKWh = "kWh";
         String attributeKW = "kW";
         // original strings:
-        assertEquals(attributeKg, fridgeSpec.getAttributeUnit(FREEZER_CAPACITY));
-        assertEquals(attributeKg, fridgeSpec.getAttributeUnit(REFRIGERATOR_CAPACITY));
-        assertEquals(attributeKWh, fridgeSpec.getAttributeUnit(ANNUAL_CONSUMPTION));
-        assertEquals(attributeKW, fridgeSpec.getAttributeUnit(NOMINAL_POWER));
+        assertEquals(attributeKg, fridgeSpec.getAttributeUnit(FridgeSpec.FREEZER_CAPACITY));
+        assertEquals(attributeKg, fridgeSpec.getAttributeUnit(FridgeSpec.REFRIGERATOR_CAPACITY));
+        assertEquals(attributeKWh, fridgeSpec.getAttributeUnit(FridgeSpec.ANNUAL_CONSUMPTION));
+        assertEquals(attributeKW, fridgeSpec.getAttributeUnit(FridgeSpec.NOMINAL_POWER));
         // same hash codes, but different strings:
-        assertEquals(0, fridgeSpec.getAttributeUnit(notFREEZER_CAPACITY));
-        assertEquals(0, fridgeSpec.getAttributeUnit(notREFRIGERATOR_CAPACITY));
-        assertEquals(0, fridgeSpec.getAttributeUnit(notANNUAL_CONSUMPTION));
-        assertEquals(0, fridgeSpec.getAttributeUnit(notNOMINAL_POWER));
+        assertEquals(0, fridgeSpec.getAttributeUnit("notFREEZER_CAPACITY"));
+        assertEquals(0, fridgeSpec.getAttributeUnit("notREFRIGERATOR_CAPACITY"));
+        assertEquals(0, fridgeSpec.getAttributeUnit("notANNUAL_CONSUMPTION"));
+        assertEquals(0, fridgeSpec.getAttributeUnit("notNOMINAL_POWER"));
         // distinct hash code to cover default cases of switches
         assertEquals(0, fridgeSpec.getAttributeUnit(""));
     }

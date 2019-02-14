@@ -352,6 +352,7 @@ class GeographicAreaListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void seeIfTrueWhenGivenGeoAreaIsInLastOfGeographicAreaList() {
         //Arrange
@@ -383,6 +384,7 @@ class GeographicAreaListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void seeIfFalseWhenGivenGeoAreaIsNotContainedInGeographicAreaList() {
         //Arrange
@@ -417,21 +419,6 @@ class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfGetGeographicAreaList() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        GeographicArea ga = new GeographicArea("Porto",t1,2,3,l1);
-        GeographicAreaList geographicAreaList = new GeographicAreaList(ga);
-        List<GeographicArea> expectedResult = new ArrayList<>();
-        List<GeographicArea> actualResult;
-        //Act
-        expectedResult.add(ga);
-        actualResult = geographicAreaList.getGeographicAreaList();
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void seeIfGetGeographicAreaListOfSameTypeAsLastGeoAreaInList() {
