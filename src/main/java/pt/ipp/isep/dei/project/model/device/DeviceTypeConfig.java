@@ -18,7 +18,7 @@ public class DeviceTypeConfig {
         return getDeviceTypeConfigFromSpecificFile("resources/devices.properties");
     }
 
-    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
+    List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
         String allDevicesKey = "allDeviceTypes";
         Properties props = new Properties();
 
@@ -40,7 +40,7 @@ public class DeviceTypeConfig {
         return deviceTypeConfig;
     }
 
-    public String getPropertyValueFromKey(Properties p, String key) throws IOException {
+    String getPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
             throw new IOException("Could not read " + key + " property value.");

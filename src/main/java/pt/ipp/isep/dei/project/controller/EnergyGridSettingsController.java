@@ -140,10 +140,7 @@ public class EnergyGridSettingsController {
      * @param maxPower    is the new grid's maxPower.
      */
     public EnergyGrid createEnergyGrid(String designation, double maxPower) {
-        EnergyGrid energyGrid = new EnergyGrid();
-        energyGrid.setName(designation);
-        energyGrid.setMaxContractedPower(maxPower);
-        return energyGrid;
+        return new EnergyGrid(designation, maxPower);
     }
 
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced

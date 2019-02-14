@@ -14,9 +14,7 @@ public class EnergyGridListTest {
     @Test
     void seeIfAddEnergyGridToEnergyGridListTrue() {
         EnergyGridList pList1 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(0);
-        energyGrid1.setName("Secundary Grid");
+        EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
 
         Boolean expectedResult = true;
         Boolean actualResult = pList1.addGrid(energyGrid1);
@@ -27,12 +25,8 @@ public class EnergyGridListTest {
     @Test
     void seeIfAddEnergyGridToEnergyGridListFalse() {
         EnergyGridList pList1 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(0);
-        energyGrid1.setName("Secundary Grid");
-        energyGrid2.setMaxContractedPower(0);
-        energyGrid2.setName("Secundary Grid");
+        EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
+        EnergyGrid energyGrid2 = new EnergyGrid("Secundary Grid", 0);
         pList1.addGrid(energyGrid1);
 
         Boolean expectedResult = false;
@@ -44,12 +38,8 @@ public class EnergyGridListTest {
     @Test
     void seeIfPrintsEnergyGridList() {
         EnergyGridList pList1 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(0);
-        energyGrid1.setName("Secundary Grid");
-        energyGrid2.setMaxContractedPower(0);
-        energyGrid2.setName("Secundary Grid");
+        EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
+        EnergyGrid energyGrid2 = new EnergyGrid("Secundary Grid", 0);
         pList1.addGrid(energyGrid1);
         pList1.addGrid(energyGrid2);
         String expectedResult = "Energy grid list: \n" +
@@ -70,14 +60,10 @@ public class EnergyGridListTest {
     @Test
     void ensureThatAObjectIsAInstanceOf() {
         EnergyGridList pList1 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid();
+        EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
         pList1.addGrid(energyGrid1);
         EnergyGridList pList2 = new EnergyGridList();
-        EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(0);
-        energyGrid1.setName("Grid");
-        energyGrid2.setMaxContractedPower(0);
-        energyGrid2.setName("Grid");
+        EnergyGrid energyGrid2 = new EnergyGrid("Grid", 0);
         pList2.addGrid(energyGrid2);
         Boolean expectedResult = true;
 
@@ -90,9 +76,7 @@ public class EnergyGridListTest {
     @Test
     void ensureThatAObjectIsAInstanceOf2() {
         EnergyGridList pList1 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(0);
-        energyGrid1.setName("Grid");
+        EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
         pList1.addGrid(energyGrid1);
         EnergyGridList pList2 = new EnergyGridList();
         pList2.addGrid(energyGrid1);
@@ -106,9 +90,7 @@ public class EnergyGridListTest {
     @Test
     void ensureThatAObjectIsAInstanceOf4() {
         EnergyGridList pList1 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(0);
-        energyGrid1.setName("Grid");
+        EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
         pList1.addGrid(energyGrid1);
         Boolean expectedResult = true;
 
@@ -120,9 +102,7 @@ public class EnergyGridListTest {
     @Test
     void ensureThatAObjectIsAInstanceOf3() {
         EnergyGridList pList1 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(0);
-        energyGrid1.setName("Grid");
+        EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
         pList1.addGrid(energyGrid1);
         Boolean expectedResult = false;
         Boolean actualResult = pList1.equals(energyGrid1);
@@ -134,12 +114,8 @@ public class EnergyGridListTest {
     void ensureThatAObjectIsNotAInstanceOf() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGridList pList2 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(0);
-        energyGrid1.setName("Secundary Grid");
-        energyGrid2.setMaxContractedPower(0);
-        energyGrid2.setName("Main Grid");
+        EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
+        EnergyGrid energyGrid2 = new EnergyGrid("Main Grid", 0);
         pList1.addGrid(energyGrid1);
         pList2.addGrid(energyGrid2);
         Boolean expectedResult = false;
@@ -152,9 +128,7 @@ public class EnergyGridListTest {
     @Test
     void hashCodeDummyTest() {
         EnergyGridList pList1 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(0);
-        energyGrid1.setName("Main Grid");
+        EnergyGrid energyGrid1 = new EnergyGrid("Main Grid", 0);
         pList1.addGrid(energyGrid1);
         int expectedResult = 1;
         int actualResult = pList1.hashCode();

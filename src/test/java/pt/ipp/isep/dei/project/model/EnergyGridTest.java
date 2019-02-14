@@ -37,9 +37,7 @@ class EnergyGridTest {
         device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 200D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
-        EnergyGrid energyGrid = new EnergyGrid();
-        energyGrid.setMaxContractedPower(0);
-        energyGrid.setName("grid");
+        EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         String result = energyGrid.buildGridString();
         assertEquals("Energy Grid: grid, Max Power: 0.0", result);
     }
@@ -59,9 +57,7 @@ class EnergyGridTest {
         device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 200D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
-        EnergyGrid energyGrid = new EnergyGrid();
-        energyGrid.setMaxContractedPower(0);
-        energyGrid.setName("grid");
+        EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         energyGrid.setRoomList(roomList);
         String result = energyGrid.getListOfRooms().buildRoomsString();
         assertEquals("---------------\n" +
@@ -74,7 +70,7 @@ class EnergyGridTest {
         PowerSourceList pWL1 = new PowerSourceList();
         PowerSource pS1 = new PowerSource("topfloor", 22, 15);
         PowerSource pS2 = new PowerSource("downfloor", 22, 15);
-        EnergyGrid energyGrid = new EnergyGrid();
+        EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         energyGrid.setListPowerSources(pWL1);
         pWL1.addPowerSource(pS1);
         boolean expectedResult = true;
@@ -87,7 +83,7 @@ class EnergyGridTest {
         PowerSourceList pWL1 = new PowerSourceList();
         PowerSource pS1 = new PowerSource("downfloor", 22, 15);
         PowerSource pS2 = new PowerSource("downfloor", 22, 15);
-        EnergyGrid energyGrid = new EnergyGrid();
+        EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         energyGrid.setListPowerSources(pWL1);
         pWL1.addPowerSource(pS1);
         boolean expectedResult = false;
@@ -102,7 +98,7 @@ class EnergyGridTest {
         roomList.addRoom(room);
         PowerSourceList pWL1 = new PowerSourceList();
         PowerSource pS1 = new PowerSource("downfloor", 22, 15);
-        EnergyGrid energyGrid = new EnergyGrid();
+        EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         energyGrid.setRoomList(roomList);
         energyGrid.setListPowerSources(pWL1);
         pWL1.addPowerSource(pS1);
@@ -119,7 +115,7 @@ class EnergyGridTest {
         roomList.addRoom(room);
         PowerSourceList pWL1 = new PowerSourceList();
         PowerSource pS1 = new PowerSource("downfloor", 22, 15);
-        EnergyGrid energyGrid = new EnergyGrid();
+        EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         energyGrid.setRoomList(roomList);
         energyGrid.setListPowerSources(pWL1);
         pWL1.addPowerSource(pS1);
@@ -130,10 +126,8 @@ class EnergyGridTest {
 
     @Test
     void ensureThatAObjectIsAInstanceOf() {
-        EnergyGrid energyGrid = new EnergyGrid();
-        energyGrid.setName("topFloor");
-        EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid2.setName("topFloor");
+        EnergyGrid energyGrid = new EnergyGrid("topFloor", 0);
+        EnergyGrid energyGrid2 = new EnergyGrid("topFloor", 0);
         Boolean expectedResult = true;
         Boolean actualResult = energyGrid.equals(energyGrid2);
 
@@ -142,10 +136,8 @@ class EnergyGridTest {
 
     @Test
     void ensureThatAnObjectIsNotAInstanceOf() {
-        EnergyGrid energyGrid = new EnergyGrid();
-        energyGrid.setName("topFloor");
-        EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid2.setName("downFloor");
+        EnergyGrid energyGrid = new EnergyGrid("topFloor", 0);
+        EnergyGrid energyGrid2 = new EnergyGrid("downFloor", 0);
         Boolean expectedResult = false;
         Boolean actualResult = energyGrid.equals(energyGrid2);
 
@@ -154,7 +146,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfGetListPowerSourcesIsSuccessful() {
-        EnergyGrid energyGrid = new EnergyGrid();
+        EnergyGrid energyGrid = new EnergyGrid("topFloor", 0);
         PowerSource powerSource = new PowerSource("PS1", 400, 400);
         PowerSourceList powerSourceList = new PowerSourceList();
         energyGrid.setListPowerSources(powerSourceList);
@@ -167,7 +159,7 @@ class EnergyGridTest {
 
     @Test
     void testAddRoomToAnEnergyGrid() {
-        EnergyGrid energyGrid = new EnergyGrid();
+        EnergyGrid energyGrid = new EnergyGrid("topFloor", 0);
         PowerSource powerSource = new PowerSource("PS1", 400, 400);
         PowerSourceList powerSourceList = new PowerSourceList();
         RoomList roomList = new RoomList();
@@ -182,21 +174,15 @@ class EnergyGridTest {
 
     @Test
     void seeIfEqualsEnergyGridToSameObject() {
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(400);
-        energyGrid1.setName("EG1");
-        EnergyGrid energyGrid2 = new EnergyGrid();
-        energyGrid2.setMaxContractedPower(400);
-        energyGrid2.setName("EG1");
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1" , 400);
+        EnergyGrid energyGrid2 = new EnergyGrid("EG1" , 400);
         boolean actualResult = energyGrid1.equals(energyGrid2);
         assertTrue(actualResult);
     }
 
     @Test
     void seeIfEqualsEnergyGridToObject() {
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(400);
-        energyGrid1.setName("EG1");
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1" , 400);
         boolean actualResult = energyGrid1.equals(energyGrid1);
         assertTrue(actualResult);
     }
@@ -204,9 +190,7 @@ class EnergyGridTest {
     @Test
     void seeIfFalseWhenObjectsAreDifferentWithDifferentContent() {
         Room room = new Room("Quarto", 2, 10, 20, 2);
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(400);
-        energyGrid1.setName("EG1");
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1" , 400);
         boolean actualResult = energyGrid1.equals(room);
         assertFalse(actualResult);
     }
@@ -236,7 +220,7 @@ class EnergyGridTest {
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
         roomList.addRoom(r2);
-        EnergyGrid grid = new EnergyGrid();
+        EnergyGrid grid = new EnergyGrid("EG1" , 400);
         grid.setRoomList(roomList);
         double expectedResult = 230;
 
@@ -264,7 +248,7 @@ class EnergyGridTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
-        EnergyGrid energyGrid = new EnergyGrid();
+        EnergyGrid energyGrid = new EnergyGrid("EG1" , 400);
         Room r1 = new Room("Kitchen", 0, 21, 31, 10);
         r1.setDeviceList(deviceList);
         RoomList roomList = new RoomList();
@@ -280,23 +264,21 @@ class EnergyGridTest {
 
     @Test
     void seeIfPrintRoomListWorks() {
-        EnergyGrid grid = new EnergyGrid();
+        EnergyGrid grid = new EnergyGrid("Main Energy Grid Edificio C", 333);
         String result = grid.buildRoomListString();
         Assert.assertEquals("Invalid List - List is Empty\n", result);
     }
 
     @Test
     void seeIfFalseWhenObjectsAreNull() {
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setMaxContractedPower(400);
-        energyGrid1.setName("EG1");
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1" , 400);
         boolean actualResult = energyGrid1.equals(null);
         assertFalse(actualResult);
     }
 
     @Test
     void hashCodeDummyTest() {
-        EnergyGrid energyGrid = new EnergyGrid();
+        EnergyGrid energyGrid = new EnergyGrid("EG1" , 400);
         int expectedResult = 1;
         int result = energyGrid.hashCode();
         assertEquals(expectedResult, result);
@@ -308,9 +290,7 @@ class EnergyGridTest {
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
-        EnergyGrid eg = new EnergyGrid();
-        eg.setMaxContractedPower(333);
-        eg.setName("Main Energy Grid Edificio C");
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
         DeviceList deviceList = new DeviceList();
         room1EdC.setDeviceList(deviceList);
@@ -327,9 +307,7 @@ class EnergyGridTest {
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
         Room m = null;
-        EnergyGrid eg = new EnergyGrid();
-        eg.setMaxContractedPower(333);
-        eg.setName("Main Energy Grid Edificio C");
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
         rl.addRoom(m);
         eg.setRoomList(rl);
@@ -340,7 +318,7 @@ class EnergyGridTest {
 
     @Test
     void energyConsumptionDummyTest() {
-        EnergyGrid eg = new EnergyGrid();
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         double result = eg.getEnergyConsumption(10);
         assertEquals(result, 0);
     }
@@ -348,9 +326,7 @@ class EnergyGridTest {
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList3() {
         Room m = new Room("room", 2, 2, 2, 2);
-        EnergyGrid eg = new EnergyGrid();
-        eg.setMaxContractedPower(333);
-        eg.setName("Main Energy Grid Edificio C");
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
         rl.addRoom(m);
         eg.setRoomList(rl);
@@ -364,7 +340,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfGetsLogInInterval() {
-        EnergyGrid eg = new EnergyGrid();
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         Date date1 = new GregorianCalendar(2018, Calendar.JANUARY,11,15,30,26).getTime();
         Date date2 = new GregorianCalendar(2018,Calendar.MARCH,11,15,30,26).getTime();
         Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
@@ -386,8 +362,8 @@ class EnergyGridTest {
     }
 
     @Test
-    void seeIfDoesntGetLogInInterval() {
-        EnergyGrid eg = new EnergyGrid();
+    void seeIfDoesNotGetLogInInterval() {
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         Date date1 = new GregorianCalendar(2018, Calendar.JANUARY,11,15,30,26).getTime();
         Date date2 = new GregorianCalendar(2018,Calendar.MARCH,11,15,30,26).getTime();
         Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
@@ -412,7 +388,7 @@ class EnergyGridTest {
 
     @Test
     void seeIfGetsLogInInterval2() {
-        EnergyGrid eg = new EnergyGrid();
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         Date date1 = new GregorianCalendar(2019, Calendar.JANUARY,11,15,30,26).getTime();
         Date date2 = new GregorianCalendar(2018,Calendar.MARCH,11,15,30,26).getTime();
         Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
@@ -429,7 +405,6 @@ class EnergyGridTest {
         Log logTest = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
         listTest.addLog(logTest);
 
-
         LogList result = eg.getLogsInInterval(date1,date2);
         LogList actualResult = listTest;
         assertNotEquals(result, actualResult);
@@ -437,74 +412,22 @@ class EnergyGridTest {
 
     @Test
     void seeIfSetsNegativeMaxContractedPower(){
-        EnergyGrid eg = new EnergyGrid();
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 0);
         boolean result = eg.setMaxContractedPower(-1);
         assertFalse(result);
     }
     @Test
     void seeIfSetsMaxContractedPowerZero(){
-        EnergyGrid eg = new EnergyGrid();
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 5);
         boolean result = eg.setMaxContractedPower(0);
         assertTrue(result);
     }
 
     @Test
-    void seeIfSetsNegativeMaxContractedPower2(){
-        EnergyGrid eg = new EnergyGrid();
-        boolean result = eg.setMaxContractedPower(-2);
-        assertFalse(result);
-    }
-    @Test
-    void seeIfSetsNegativeMaxContractedPower3(){
-        EnergyGrid eg = new EnergyGrid();
-        boolean result = eg.setMaxContractedPower(-3);
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfSetsNegativeMaxContractedPower4(){
-        EnergyGrid eg = new EnergyGrid();
-        boolean result = eg.setMaxContractedPower(-56);
-        assertFalse(result);
-    }
-    @Test
-    void seeIfSetsNegativeMaxContractedPower5(){
-        EnergyGrid eg = new EnergyGrid();
-        boolean result = eg.setMaxContractedPower(-3456);
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfSetsNegativeMaxContractedPower6(){
-        EnergyGrid eg = new EnergyGrid();
-        boolean result = eg.setMaxContractedPower(-452);
-        assertFalse(result);
-    }
-    @Test
-    void seeIfSetsNegativeMaxContractedPower7(){
-        EnergyGrid eg = new EnergyGrid();
-        boolean result = eg.setMaxContractedPower(-3453);
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfSetsNegativeMaxContractedPower8(){
-        EnergyGrid eg = new EnergyGrid();
-        boolean result = eg.setMaxContractedPower(-34556);
-        assertFalse(result);
-    }
-    @Test
-    void seeIfSetsNegativeMaxContractedPower9(){
-        EnergyGrid eg = new EnergyGrid();
-        boolean result = eg.setMaxContractedPower(-3434556);
-        assertFalse(result);
-    }
-    @Test
     void seeIfGetEnergyConsumption() {
-        EnergyGrid eg = new EnergyGrid();
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         double expectedResult = 0;
         double value = eg.getEnergyConsumption(21);
         assertEquals(expectedResult, value);
     }
 }
-

@@ -231,9 +231,7 @@ public class MainUI {
 
         // Energy Grid
 
-        EnergyGrid mainGrid = new EnergyGrid();
-        mainGrid.setMaxContractedPower(0);
-        mainGrid.setName(mainGridString);
+        EnergyGrid mainGrid = new EnergyGrid(mainGridString, 0);
         EnergyGridList energyGridListIsep = new EnergyGridList();
         energyGridListIsep.addGrid(mainGrid);
         mainGrid.setRoomList(gridRoomList);
@@ -332,9 +330,7 @@ public class MainUI {
         house4.addRoomToRoomList(room5);
 
 
-        EnergyGrid energyGrid1 = new EnergyGrid();
-        energyGrid1.setName("energyGrid1");
-        energyGrid1.setMaxContractedPower(1233);
+        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
         energyGrid1.addRoomToAnEnergyGrid(room6);
         energyGrid1.addRoomToAnEnergyGrid(room7);
 
@@ -733,9 +729,7 @@ public class MainUI {
         typeAreaListSP2.addTypeArea(citySP2);
         portoSP2.setDescription("City of Porto");
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
-        EnergyGrid mainGridSP2 = new EnergyGrid();
-        mainGridSP2.setName(mainGridString);
-        mainGridSP2.setMaxContractedPower(0);
+        EnergyGrid mainGridSP2 = new EnergyGrid(mainGridString, 0);
         House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseSP2.setMotherArea(geographicAreaSP2);
         geographicAreaSP2.setSensorList(areaSensorSP2);

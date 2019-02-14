@@ -16,11 +16,6 @@ public class EnergyGrid implements Metered {
     private PowerSourceList mListPowerSources;
     private double mMaxContractedPower;
 
-    public EnergyGrid() {
-        this.mRoomList = new RoomList();
-        this.mListPowerSources = new PowerSourceList();
-    }
-
     public EnergyGrid(String name, double maxContractedPower) {
         this.mRoomList = new RoomList();
         this.mListPowerSources = new PowerSourceList();

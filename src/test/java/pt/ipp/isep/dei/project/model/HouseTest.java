@@ -245,12 +245,8 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        EnergyGrid eg1 = new EnergyGrid();
-        EnergyGrid eg2 = new EnergyGrid();
-        eg1.setName("Rede");
-        eg1.setMaxContractedPower(444);
-        eg2.setName("Rede 2");
-        eg2.setMaxContractedPower(555);
+        EnergyGrid eg1 = new EnergyGrid("Rede", 444);
+        EnergyGrid eg2 = new EnergyGrid("Rede 2", 555);
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(eg1);
         energyGridList.addGrid(eg2);
@@ -435,9 +431,7 @@ class HouseTest {
     void seeSetEnergyGridList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         EnergyGridList energyGridList = new EnergyGridList();
-        EnergyGrid eg = new EnergyGrid();
-        eg.setMaxContractedPower(25);
-        eg.setName("main grid");
+        EnergyGrid eg = new EnergyGrid("main grid", 25);
         energyGridList.addGrid(eg);
 
         //Arrange
