@@ -132,11 +132,13 @@ public class GASettingsController {
     Porto to the district of Porto). */
 
 
-    /**Method that gets a Geographic Area and returns its Id.
+    /**
+     * Method that gets a Geographic Area and returns its Id.
+     *
      * @param geographicArea that method will use
      * @return geographic area id as a string
      */
-    public String getGeographicAreaId(GeographicArea geographicArea){
+    public String getGeographicAreaId(GeographicArea geographicArea) {
         return geographicArea.getId();
     }
 

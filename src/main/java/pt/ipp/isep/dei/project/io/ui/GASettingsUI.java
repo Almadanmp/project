@@ -12,12 +12,6 @@ class GASettingsUI {
     private GASettingsController mController;
     private String mTypeAreaName;
     private TypeArea mTypeArea;
-    private double mGeoAreaLat;
-    private double mGeoAreaLong;
-    private double mGeoAreaAlt;
-    private double mGeoAreaLength;
-    private double mGeoAreaWidth;
-    private String nameOfGeoArea;
 
     GASettingsUI() {
         this.mController = new GASettingsController();
@@ -95,7 +89,7 @@ class GASettingsUI {
      classification of geographical areas.*/
     private void runUS01(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
-        if(typeAreaList == null){
+        if (typeAreaList == null) {
             System.out.println(utils.invalidGATypeList);
             return;
         }
@@ -105,13 +99,13 @@ class GASettingsUI {
     }
 
     private String getInputUS01() {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Please insert the name of the new Geographic Area Type: ");
-            while (!scanner.hasNext("[a-zA-Z_]+")) {
-                System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
-                scanner.next();
-            }
-            return scanner.next();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please insert the name of the new Geographic Area Type: ");
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
+            scanner.next();
+        }
+        return scanner.next();
     }
 
     private boolean updateModelUS01(TypeAreaList typeAreaList, String typeAreaName) {
@@ -150,26 +144,32 @@ class GASettingsUI {
             System.out.println(utils.invalidGATypeList);
             return;
         }
-        getAreaInputUS03(typeAreaList);
-        boolean created = updateGeoAreaUS03(geographicAreaList);
+        boolean created = getAreaInputUS03(geographicAreaList, typeAreaList);
         displayStateUS03(created);
     }
 
-    private void getAreaInputUS03(TypeAreaList typeAreaList) {
+    private boolean getAreaInputUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
+        InputUtils inputUtils = new InputUtils();
+        Scanner scanner = new Scanner(System.in);
         getInputTypeAreaByList(typeAreaList);
-        this.nameOfGeoArea = readInputString("name");
-        this.mGeoAreaLat = readInputNumber("Latitude");
-        this.mGeoAreaLong = readInputNumber("Longitude");
-        this.mGeoAreaAlt = readInputNumber("Altitude");
-        this.mGeoAreaLength = readInputNumber("Length");
-        this.mGeoAreaWidth = readInputNumber("Width");
-    }
-
-    private boolean updateGeoAreaUS03(GeographicAreaList geographicAreaList) {
+        String nameOfGeoArea = readInputString("name");
+        double geoAreaLat = readInputNumber("Latitude");
+        double geoAreaLong = readInputNumber("Longitude");
+        double geoAreaAlt = readInputNumber("Altitude");
+        double geoAreaLength = readInputNumber("Length");
+        double geoAreaWidth = readInputNumber("Width");
+        String geoAreDescription = null;
+        if (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to add a description to the new geographic area? (y/n)")) {
+            System.out.println("Please insert the geographic area description:");
+            geoAreDescription = scanner.nextLine();
+        }
         System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + mTypeAreaName +
-                " and its " + "localization is on " + mGeoAreaLat + " latitude " + mGeoAreaLong + " longitude. The geographic area size" +
-                " is " + this.mGeoAreaLength + " by " + this.mGeoAreaWidth + " kms\n");
-        return mController.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, mTypeArea, mGeoAreaLat, mGeoAreaLong, mGeoAreaAlt, mGeoAreaLength, mGeoAreaWidth);
+                " and its " + "localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The geographic area size" +
+                " is " + geoAreaLength + " by " + geoAreaWidth + " kms\n");
+        if (geoAreDescription != null) {
+            System.out.println("And has the following description: " + geoAreDescription);
+        }
+        return mController.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, mTypeArea, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
     }
 
     private void displayStateUS03(boolean created) {
@@ -247,8 +247,8 @@ class GASettingsUI {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
-        GeographicArea motherGA =  getInputMotherGeographicArea(geographicAreaList);
-        GeographicArea daughterGA =  getInputDaughterGeographicArea(geographicAreaList);
+        GeographicArea motherGA = getInputMotherGeographicArea(geographicAreaList);
+        GeographicArea daughterGA = getInputDaughterGeographicArea(geographicAreaList);
         updateStateUS07(motherGA, daughterGA);
         displayStateUS07(motherGA, daughterGA);
     }
@@ -319,8 +319,7 @@ class GASettingsUI {
 
         if (!(mController.seeIfItsContained(motherGA, daughterGA))) {
             System.out.println(daughterGAName + " is NOT contained in " + motherGAName);
-        }
-        else {
+        } else {
             System.out.println(daughterGAName + " is contained in " + motherGAName);
         }
     }

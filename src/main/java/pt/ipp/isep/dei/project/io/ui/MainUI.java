@@ -752,20 +752,20 @@ public class MainUI {
         houseTest.addRoomToRoomList(room2);
 
         //LOGS
-        House hhhhh = new House("Iseperino", "Rua dos tones", "4535", portoString, new Local(45,45,45), new GeographicArea(portoString, new TypeArea("coise"), 45, 45, new Local(50,50,50)),
+        House hhhhh = new House("Iseperino", "Rua dos tones", "4535", portoString, new Local(45, 45, 45), new GeographicArea(portoString, new TypeArea("coise"), 45, 45, new Local(50, 50, 50)),
                 10, 10, deviceTypeConfig);
         EnergyGrid energyGrid = new EnergyGrid(mainGridString, 500);
         hhhhh.addGrid(energyGrid);
-        Room room10 = new Room("Quarto", 3, 10,10,10);
+        Room room10 = new Room("Quarto", 3, 10, 10, 10);
         energyGrid.addRoomToAnEnergyGrid(room10);
         Device d1 = new Device(new WaterHeaterSpec());
         room10.addDevice(d1);
-        Log log1 = new Log(200,new GregorianCalendar(2018,Calendar.NOVEMBER,10,5,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,6,0).getTime());
-        Log log2 = new Log(200,new GregorianCalendar(2018,Calendar.NOVEMBER,10,7,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,8,0).getTime());
-        Log log3 = new Log(300,new GregorianCalendar(2018,Calendar.NOVEMBER,10,9,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,10,0).getTime());
-        Log log4 = new Log(100,new GregorianCalendar(2018,Calendar.NOVEMBER,10,11,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,12,0).getTime());
-        Log log5 = new Log(200,new GregorianCalendar(2018,Calendar.NOVEMBER,10,13,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,14,0).getTime());
-        Log log6 = new Log(200,new GregorianCalendar(2018,Calendar.NOVEMBER,10,15,0).getTime(), new GregorianCalendar(2018,Calendar.NOVEMBER,10,16,0).getTime());
+        Log log1 = new Log(200, new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 6, 0).getTime());
+        Log log2 = new Log(200, new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 7, 0).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 8, 0).getTime());
+        Log log3 = new Log(300, new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 9, 0).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 10, 0).getTime());
+        Log log4 = new Log(100, new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 11, 0).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 12, 0).getTime());
+        Log log5 = new Log(200, new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 13, 0).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 14, 0).getTime());
+        Log log6 = new Log(200, new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 15, 0).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 16, 0).getTime());
         d1.addLog(log1);
         d1.addLog(log2);
         d1.addLog(log3);
@@ -869,14 +869,14 @@ public class MainUI {
 
             System.out.println(
                     "*************************\n" +
-                    "**** Smart Grid Menu ****\n" +
-                    "****** sWitCh 2018 ******\n" +
-                    "*************************\n");
+                            "**** Smart Grid Menu ****\n" +
+                            "****** sWitCh 2018 ******\n" +
+                            "*************************\n");
 
             // Submenus Input selection
 
             String[] menu = {
-                    "1. Geographic Area Settings\n",
+                    " 1. Geographic Area Settings\n",
                     "2. House Settings.\n",
                     "3. Room Settings.\n",
                     "4. Sensor Settings.\n",
