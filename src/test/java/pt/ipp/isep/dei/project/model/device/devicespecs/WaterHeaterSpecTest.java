@@ -12,20 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WaterHeaterSpecTest {
 
-    public static final String ATTRIBUTE_VOLUME_OF_WATER = "Volume Of Water";
-    public static final String ATTRIBUTE_HOT_WATER_TEMP = "Hot Water Temperature";
-    public static final String ATTRIBUTE_COLD_WATER_TEMP = "Cold Water Temperature";
-    public static final String ATTRIBUTE_PERFORMANCE_RATIO = "Performance Ratio";
-    public static final String ATTRIBUTE_VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
-    public static final String NOMINAL_POWER = "nominal power";
-
-    public static final String notATTRIBUTE_VOLUME_OF_WATER = "\0Volume Of Water";
-    public static final String notATTRIBUTE_HOT_WATER_TEMP = "\0Hot Water Temperature";
-    public static final String notATTRIBUTE_COLD_WATER_TEMP = "\0Cold Water Temperature";
-    public static final String notATTRIBUTE_PERFORMANCE_RATIO = "\0Performance Ratio";
-    public static final String notATTRIBUTE_VOLUME_OF_WATER_HEAT = "\0Volume Of Water To Heat";
-    public static final String notNOMINAL_POWER = "\0nominal power";
-
     @Test
     void getTypeTest() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
@@ -502,19 +488,19 @@ class WaterHeaterSpecTest {
         String attribute = "";
         String attributeKW = "kW";
         // original strings:
-        assertEquals(attributeL, wHeaterSpec.getAttributeUnit(ATTRIBUTE_VOLUME_OF_WATER));
-        assertEquals(attributeC, wHeaterSpec.getAttributeUnit(ATTRIBUTE_HOT_WATER_TEMP));
-        assertEquals(attributeC, wHeaterSpec.getAttributeUnit(ATTRIBUTE_COLD_WATER_TEMP));
-        assertEquals(attribute, wHeaterSpec.getAttributeUnit(ATTRIBUTE_PERFORMANCE_RATIO));
-        assertEquals(attributeL, wHeaterSpec.getAttributeUnit(ATTRIBUTE_VOLUME_OF_WATER_HEAT));
-        assertEquals(attributeKW, wHeaterSpec.getAttributeUnit(NOMINAL_POWER));
+        assertEquals(attributeL, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER));
+        assertEquals(attributeC, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP));
+        assertEquals(attributeC, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP));
+        assertEquals(attribute, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO));
+        assertEquals(attributeL, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER_HEAT));
+        assertEquals(attributeKW, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.NOMINAL_POWER));
         // same hash codes, but different strings:
-        assertEquals(false, wHeaterSpec.getAttributeUnit(notATTRIBUTE_VOLUME_OF_WATER));
-        assertEquals(false, wHeaterSpec.getAttributeUnit(notATTRIBUTE_HOT_WATER_TEMP));
-        assertEquals(false, wHeaterSpec.getAttributeUnit(notATTRIBUTE_COLD_WATER_TEMP));
-        assertEquals(false, wHeaterSpec.getAttributeUnit(notATTRIBUTE_PERFORMANCE_RATIO));
-        assertEquals(false, wHeaterSpec.getAttributeUnit(notATTRIBUTE_VOLUME_OF_WATER_HEAT));
-        assertEquals(false, wHeaterSpec.getAttributeUnit(notNOMINAL_POWER));
+        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_VOLUME_OF_WATER"));
+        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_HOT_WATER_TEMP"));
+        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_COLD_WATER_TEMP"));
+        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_PERFORMANCE_RATIO"));
+        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_VOLUME_OF_WATER_HEAT"));
+        assertEquals(false, wHeaterSpec.getAttributeUnit("notNOMINAL_POWER"));
         // distinct hash code to cover default cases of switches
         assertEquals(false, wHeaterSpec.getAttributeUnit(""));
     }
