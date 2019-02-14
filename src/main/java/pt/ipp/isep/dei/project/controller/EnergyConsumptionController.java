@@ -278,7 +278,7 @@ public class EnergyConsumptionController {
      * @param volumeOfWaterToHeat  value for the amount of water to heat
      */
     public boolean configureWH(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
-        return (device.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_COLD_WATER_TEMP, coldWaterTemperature) && device.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER_HEAT, volumeOfWaterToHeat));
+        return (device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldWaterTemperature) && device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, volumeOfWaterToHeat));
     }
 
     /**

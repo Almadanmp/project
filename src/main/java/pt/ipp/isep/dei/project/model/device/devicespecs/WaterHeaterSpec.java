@@ -5,11 +5,11 @@ import java.util.List;
 
 
 public class WaterHeaterSpec implements DeviceSpecs {
-    public static final String ATTRIBUTE_VOLUME_OF_WATER = "Volume Of Water";
-    public static final String ATTRIBUTE_HOT_WATER_TEMP = "Hot Water Temperature";
-    public static final String ATTRIBUTE_COLD_WATER_TEMP = "Cold Water Temperature";
-    public static final String ATTRIBUTE_PERFORMANCE_RATIO = "Performance Ratio";
-    public static final String ATTRIBUTE_VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
+    public static final String VOLUME_OF_WATER = "Volume Of Water";
+    public static final String HOT_WATER_TEMP = "Hot Water Temperature";
+    public static final String COLD_WATER_TEMP = "Cold Water Temperature";
+    public static final String PERFORMANCE_RATIO = "Performance Ratio";
+    public static final String VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
     public static final String NOMINAL_POWER = "nominal power";
 
     private Double mVolumeOfWater;
@@ -58,9 +58,9 @@ public class WaterHeaterSpec implements DeviceSpecs {
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add(ATTRIBUTE_VOLUME_OF_WATER);
-        result.add(ATTRIBUTE_HOT_WATER_TEMP);
-        result.add(ATTRIBUTE_PERFORMANCE_RATIO);
+        result.add(VOLUME_OF_WATER);
+        result.add(HOT_WATER_TEMP);
+        result.add(PERFORMANCE_RATIO);
         result.add(NOMINAL_POWER);
 
         return result;
@@ -68,15 +68,15 @@ public class WaterHeaterSpec implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
-            case ATTRIBUTE_VOLUME_OF_WATER:
+            case VOLUME_OF_WATER:
                 return mVolumeOfWater;
-            case ATTRIBUTE_HOT_WATER_TEMP:
+            case HOT_WATER_TEMP:
                 return mHotWaterTemperature;
-            case ATTRIBUTE_PERFORMANCE_RATIO:
+            case PERFORMANCE_RATIO:
                 return mPerformanceRatio;
-            case ATTRIBUTE_COLD_WATER_TEMP:
+            case COLD_WATER_TEMP:
                 return mColdWaterTemperature;
-            case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
+            case VOLUME_OF_WATER_HEAT:
                 return mVolumeOfWaterToHeat;
             case NOMINAL_POWER:
                 return mNominalPower;
@@ -87,15 +87,15 @@ public class WaterHeaterSpec implements DeviceSpecs {
 
     public Object getAttributeUnit(String attributeName) {
         switch (attributeName) {
-            case ATTRIBUTE_VOLUME_OF_WATER:
+            case VOLUME_OF_WATER:
                 return "L";
-            case ATTRIBUTE_HOT_WATER_TEMP:
+            case HOT_WATER_TEMP:
                 return "ºC";
-            case ATTRIBUTE_PERFORMANCE_RATIO:
+            case PERFORMANCE_RATIO:
                 return "";
-            case ATTRIBUTE_COLD_WATER_TEMP:
+            case COLD_WATER_TEMP:
                 return "ºC";
-            case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
+            case VOLUME_OF_WATER_HEAT:
                 return "L";
             case NOMINAL_POWER:
                 return "kW";
@@ -109,31 +109,31 @@ public class WaterHeaterSpec implements DeviceSpecs {
             return false;
         }
         switch (attributeName) {
-            case ATTRIBUTE_VOLUME_OF_WATER:
+            case VOLUME_OF_WATER:
                 if (attributeValue instanceof Double) {
                     this.mVolumeOfWater = (Double) attributeValue;
                     return true;
                 }
                 return false;
-            case ATTRIBUTE_HOT_WATER_TEMP:
+            case HOT_WATER_TEMP:
                 if (attributeValue instanceof Double) {
                     this.mHotWaterTemperature = (Double) attributeValue;
                     return true;
                 }
                 return false;
-            case ATTRIBUTE_PERFORMANCE_RATIO:
+            case PERFORMANCE_RATIO:
                 if (attributeValue instanceof Double) {
                     this.mPerformanceRatio = (Double) attributeValue;
                     return true;
                 }
                 return false;
-            case ATTRIBUTE_COLD_WATER_TEMP:
+            case COLD_WATER_TEMP:
                 if (attributeValue instanceof Double) {
                     this.mColdWaterTemperature = (Double) attributeValue;
                     return true;
                 }
                 return false;
-            case ATTRIBUTE_VOLUME_OF_WATER_HEAT:
+            case VOLUME_OF_WATER_HEAT:
                 if (attributeValue instanceof Double) {
                     this.mVolumeOfWaterToHeat = (Double) attributeValue;
                     return true;

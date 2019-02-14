@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +14,6 @@ import static org.testng.Assert.assertTrue;
  */
 
 public class LampSpecTest {
-
-    public static final String FLUX = "Luminous Flux";
-    public static final String NOMINAL_POWER = "nominal power";
-    public static final String notFLUX = "\0Luminous Flux";
-    public static final String notNOMINAL_POWER = "\0nominal power";
 
     @Test
     public void getTypeTest() {
@@ -70,16 +64,16 @@ public class LampSpecTest {
     @Test
     public void getObjectAttributeValueTest() {
         LampSpec lampSpec = new LampSpec();
-        lampSpec.setAttributeValue(TestUtils.L_FLUX, 4D);
+        lampSpec.setAttributeValue(LampSpec.FLUX, 4D);
         Double expectedResult = 4.0;
-        Object result = lampSpec.getAttributeValue(TestUtils.L_FLUX);
+        Object result = lampSpec.getAttributeValue(LampSpec.FLUX);
         assertEquals(expectedResult, result);
     }
     @Test
     public void getObjectAttributeUnitTest() {
         LampSpec lampSpec = new LampSpec();
         String expectedResult = "lm";
-        Object result = lampSpec.getAttributeUnit(TestUtils.L_FLUX);
+        Object result = lampSpec.getAttributeUnit(LampSpec.FLUX);
         assertEquals(expectedResult, result);
         assertEquals(false, lampSpec.getAttributeUnit(""));
 
@@ -109,16 +103,16 @@ public class LampSpecTest {
     }@Test
     public void getObjectAttributeValueTestNominalPower() {
         LampSpec lampSpec = new LampSpec();
-        lampSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 4D);
+        lampSpec.setAttributeValue(LampSpec.NOMINAL_POWER, 4D);
         Double expectedResult = 4.0;
-        Object result = lampSpec.getAttributeValue(TestUtils.NOMINAL_POWER);
+        Object result = lampSpec.getAttributeValue(LampSpec.NOMINAL_POWER);
         assertEquals(expectedResult, result);
     }
     @Test
     public void getObjectAttributeUnitTestNominalPower() {
         LampSpec lampSpec = new LampSpec();
         String expectedResult = "kW";
-        Object result = lampSpec.getAttributeUnit(TestUtils.NOMINAL_POWER);
+        Object result = lampSpec.getAttributeUnit(LampSpec.NOMINAL_POWER);
         assertEquals(expectedResult, result);
         assertEquals(false, lampSpec.getAttributeUnit(""));
 
@@ -127,21 +121,21 @@ public class LampSpecTest {
     @Test
     public void setAttributeValueTestFalseNominalPower() {
         LampSpec lampSpec = new LampSpec();
-        Object result = lampSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5);
+        Object result = lampSpec.setAttributeValue(LampSpec.NOMINAL_POWER, 5);
         assertEquals(false, result);
     }
 
     @Test
     public void setAttributeValueTestFalseFlux() {
         LampSpec lampSpec = new LampSpec();
-        Object result = lampSpec.setAttributeValue(TestUtils.L_FLUX, 5);
+        Object result = lampSpec.setAttributeValue(LampSpec.FLUX, 5);
         assertEquals(false, result);
     }
 
     @Test
     public void setAttributeValueTestDefaultNominalPower() {
         LampSpec lampSpec = new LampSpec();
-        lampSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5.0);
+        lampSpec.setAttributeValue(LampSpec.NOMINAL_POWER, 5.0);
         Object result = lampSpec.getAttributeValue("lisbon");
         assertEquals(false, result);
     }
@@ -149,14 +143,14 @@ public class LampSpecTest {
     @Test
     public void setAttributeValueTestTrueNominalPower() {
         LampSpec lampSpec = new LampSpec();
-        lampSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5.0);
+        lampSpec.setAttributeValue(LampSpec.NOMINAL_POWER, 5.0);
         Object result = lampSpec.getAttributeValue("nominal power");
         assertEquals(5.0, result);
     }
     @Test
     public void setAttributeValueTestTrueFlux() {
         LampSpec lampSpec = new LampSpec();
-        lampSpec.setAttributeValue(TestUtils.L_FLUX, 5.0);
+        lampSpec.setAttributeValue(LampSpec.FLUX, 5.0);
         Object result = lampSpec.getAttributeValue("Luminous Flux");
         assertEquals(5.0, result);
     }
@@ -166,14 +160,14 @@ public class LampSpecTest {
         //Arrange
         LampSpec lSpec = new LampSpec();
         Double attribute = 6.0;
-        lSpec.setAttributeValue(FLUX, attribute);
-        lSpec.setAttributeValue(NOMINAL_POWER, attribute);
+        lSpec.setAttributeValue(LampSpec.FLUX, attribute);
+        lSpec.setAttributeValue(LampSpec.NOMINAL_POWER, attribute);
         // original strings:
-        assertEquals(attribute, lSpec.getAttributeValue(FLUX));
-        assertEquals(attribute, lSpec.getAttributeValue(NOMINAL_POWER));
+        assertEquals(attribute, lSpec.getAttributeValue(LampSpec.FLUX));
+        assertEquals(attribute, lSpec.getAttributeValue(LampSpec.NOMINAL_POWER));
         // same hash codes, but different strings:
-        assertEquals(false, lSpec.getAttributeValue(notFLUX));
-        assertEquals(false, lSpec.getAttributeValue(notNOMINAL_POWER));
+        assertEquals(false, lSpec.getAttributeValue("notFLUX"));
+        assertEquals(false, lSpec.getAttributeValue("notNOMINAL_POWER"));
         // distinct hash code to cover default cases of switches
         assertEquals(false, lSpec.getAttributeValue(""));
     }
@@ -185,11 +179,11 @@ public class LampSpecTest {
         String attributeLm = "lm";
         String attributeKW = "kW";
         // original strings:
-        assertEquals(attributeLm, lSpec.getAttributeUnit(FLUX));
-        assertEquals(attributeKW, lSpec.getAttributeUnit(NOMINAL_POWER));
+        assertEquals(attributeLm, lSpec.getAttributeUnit(LampSpec.FLUX));
+        assertEquals(attributeKW, lSpec.getAttributeUnit(LampSpec.NOMINAL_POWER));
         // same hash codes, but different strings:
-        assertEquals(false, lSpec.getAttributeUnit(notFLUX));
-        assertEquals(false, lSpec.getAttributeUnit(notNOMINAL_POWER));
+        assertEquals(false, lSpec.getAttributeUnit("notFLUX"));
+        assertEquals(false, lSpec.getAttributeUnit("notNOMINAL_POWER"));
         // distinct hash code to cover default cases of switches
         assertEquals(false, lSpec.getAttributeUnit(""));
     }
@@ -200,11 +194,11 @@ public class LampSpecTest {
         LampSpec lSpec = new LampSpec();
         Double attribute = 6.0;
         // original strings + double:
-        assertTrue(lSpec.setAttributeValue(FLUX, attribute));
-        assertTrue(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        assertTrue(lSpec.setAttributeValue(LampSpec.FLUX, attribute));
+        assertTrue(lSpec.setAttributeValue(LampSpec.NOMINAL_POWER, attribute));
         // same hash codes, but different strings + double:
-        assertFalse(lSpec.setAttributeValue(notFLUX, attribute));
-        assertFalse(lSpec.setAttributeValue(notNOMINAL_POWER, attribute));
+        assertFalse(lSpec.setAttributeValue("notFLUX", attribute));
+        assertFalse(lSpec.setAttributeValue("notNOMINAL_POWER", attribute));
         // distinct hash code to cover default cases of switches + double
         assertFalse(lSpec.setAttributeValue("", attribute));
     }
@@ -215,14 +209,14 @@ public class LampSpecTest {
         LampSpec lSpec = new LampSpec();
         Double attributeD = 6.0;
         Integer attribute = 6;
-        lSpec.setAttributeValue(FLUX, attributeD);
-        lSpec.setAttributeValue(NOMINAL_POWER, attributeD);
+        lSpec.setAttributeValue(LampSpec.FLUX, attributeD);
+        lSpec.setAttributeValue(LampSpec.NOMINAL_POWER, attributeD);
         // original strings + not double:
-        assertFalse(lSpec.setAttributeValue(FLUX, attribute));
-        assertFalse(lSpec.setAttributeValue(NOMINAL_POWER, attribute));
+        assertFalse(lSpec.setAttributeValue(LampSpec.FLUX, attribute));
+        assertFalse(lSpec.setAttributeValue(LampSpec.NOMINAL_POWER, attribute));
         // same hash codes, but different strings + not double:
-        assertFalse(lSpec.setAttributeValue(notFLUX, attribute));
-        assertFalse(lSpec.setAttributeValue(notNOMINAL_POWER, attribute));
+        assertFalse(lSpec.setAttributeValue("notFLUX", attribute));
+        assertFalse(lSpec.setAttributeValue("notNOMINAL_POWER", attribute));
         // distinct hash code to cover default cases of switches + not double
         assertFalse(lSpec.setAttributeValue("", attribute));
     }

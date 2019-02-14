@@ -216,14 +216,14 @@ class WaterHeaterSpecTest {
     @Test
     void seeIfGetAttributeNames() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_PERFORMANCE_RATIO, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 23D);
         List<String> result = waterHeaterSpec.getAttributeNames();
-        assertTrue(result.contains(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER));
-        assertTrue(result.contains(WaterHeaterSpec.ATTRIBUTE_HOT_WATER_TEMP));
-        assertTrue(result.contains(WaterHeaterSpec.ATTRIBUTE_PERFORMANCE_RATIO));
+        assertTrue(result.contains(WaterHeaterSpec.VOLUME_OF_WATER));
+        assertTrue(result.contains(WaterHeaterSpec.HOT_WATER_TEMP));
+        assertTrue(result.contains(WaterHeaterSpec.PERFORMANCE_RATIO));
         assertTrue(result.contains(WaterHeaterSpec.NOMINAL_POWER));
         assertEquals(result.size(), 4);
     }

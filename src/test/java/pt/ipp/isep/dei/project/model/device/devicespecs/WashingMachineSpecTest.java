@@ -2,7 +2,6 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
@@ -20,11 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WashingMachineSpecTest {
 
-    static final String CAPACITY = "Capacity";
-    static final String NOMINAL_POWER = "nominal power";
-    static final String notCAPACITY = "\0Capacity";
-    static final String notNOMINAL_POWER = "\0nominal power";
-
     @Test
     void getTypeTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
@@ -36,7 +30,7 @@ class WashingMachineSpecTest {
     @Test
     void getConsumptionTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 0D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 0D);
         double expectedResult = 0;
         double result = washingMachineSpec.getConsumption();
         assertEquals(expectedResult, result);
@@ -60,7 +54,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeValuesTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
@@ -70,7 +64,7 @@ class WashingMachineSpecTest {
     } @Test
     void getAttributeValuesTestNp() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.NOMINAL_POWER, 5D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
@@ -82,7 +76,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeUnitTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
@@ -94,7 +88,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeUnitTest2() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
@@ -106,7 +100,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeUnitTest3() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.NOMINAL_POWER, 5D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
@@ -117,7 +111,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeUnitTest4() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.NOMINAL_POWER, 5D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
@@ -128,7 +122,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeValuesTest1() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
@@ -140,7 +134,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeValuesWithCapacityEmptyTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 34D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 34D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
@@ -160,7 +154,7 @@ class WashingMachineSpecTest {
     @Test
     void setAttributeValueTestCapacity2() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 23D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 23D);
         Object result = washingMachineSpec.getAttributeValue("Capacity");
         assertEquals(23.0, result);
     }
@@ -169,7 +163,7 @@ class WashingMachineSpecTest {
     void seeIfSetAttributeValueTestTrueWorks() {
         //Arrange
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         Program program1 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
@@ -218,10 +212,10 @@ class WashingMachineSpecTest {
     @Test
     void setAttributeValueTestDefault4() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue("programList", 5.0);
-        washingMachineSpec.setAttributeValue("nominal power", 5.0);
-        washingMachineSpec.setAttributeValue("Capacity", 6.0);
-        Object result = washingMachineSpec.getAttributeValue("nominal power");
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.PROGRAM_LIST, 5.0);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.NOMINAL_POWER, 5.0);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 6.0);
+        Object result = washingMachineSpec.getAttributeValue(WashingMachineSpec.NOMINAL_POWER);
         Object expectedResult = 5.0;
         assertEquals(expectedResult, result);
     }
@@ -239,28 +233,28 @@ class WashingMachineSpecTest {
     @Test
     void setAttributeValueTestFalseAgain() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        Object result = washingMachineSpec.setAttributeValue("capacity", 5);
+        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5);
         assertEquals(false, result);
     }
 
     @Test
     void setAttributeValueTestFalseAgain2() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        Object result = washingMachineSpec.setAttributeValue("nominal power", "sjfhbfhfh");
+        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.NOMINAL_POWER, "sjfhbfhfh");
         assertEquals(false, result);
     }
 
     @Test
     void setAttributeValueTestTrue() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        Object result = washingMachineSpec.setAttributeValue("nominal power", 5.0);
+        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.NOMINAL_POWER, 5.0);
         assertEquals(true, result);
     }
 
     @Test
     void setAttributeValueTestFalseCap() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        Object result = washingMachineSpec.setAttributeValue("Capacity", "sjfhbfhfh");
+        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, "sjfhbfhfh");
         assertEquals(false, result);
     }
 
@@ -278,15 +272,15 @@ class WashingMachineSpecTest {
     void testGetAttributeCoveringAllCases() {
         //Arrange
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(TestUtils.WM_CAPACITY, 5D);
-        washingMachineSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.NOMINAL_POWER, 5D);
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = washingMachineSpec.getProgramList();
         listProgram.addProgram(program1);
         // original strings:
-        assertEquals(5.0, washingMachineSpec.getAttributeValue("Capacity"));
-        assertEquals(5.0, washingMachineSpec.getAttributeValue("nominal power"));
-        assertEquals(listProgram, washingMachineSpec.getAttributeValue("programList"));
+        assertEquals(5.0, washingMachineSpec.getAttributeValue(WashingMachineSpec.CAPACITY));
+        assertEquals(5.0, washingMachineSpec.getAttributeValue(WashingMachineSpec.NOMINAL_POWER));
+        assertEquals(listProgram, washingMachineSpec.getAttributeValue(WashingMachineSpec.PROGRAM_LIST));
 
         // same hash codes, but different strings:
         assertEquals(0, washingMachineSpec.getAttributeValue("\0Capacity"));
@@ -303,11 +297,11 @@ class WashingMachineSpecTest {
         WashingMachineSpec wMachineSpec = new WashingMachineSpec();
         Double attribute = 6.0;
         // original strings:
-        assertTrue(wMachineSpec.setAttributeValue(NOMINAL_POWER, attribute));
-        assertTrue(wMachineSpec.setAttributeValue(CAPACITY, attribute));
+        assertTrue(wMachineSpec.setAttributeValue(WashingMachineSpec.NOMINAL_POWER, attribute));
+        assertTrue(wMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, attribute));
         // same hash codes, but different strings:
-        assertFalse(wMachineSpec.setAttributeValue(notNOMINAL_POWER, attribute));
-        assertFalse(wMachineSpec.setAttributeValue(notCAPACITY, attribute));
+        assertFalse(wMachineSpec.setAttributeValue("notNominalPower", attribute));
+        assertFalse(wMachineSpec.setAttributeValue("notCapacity", attribute));
         // distinct hash code to cover default cases of switches
         assertFalse(wMachineSpec.setAttributeValue("", attribute));
     }
@@ -319,11 +313,11 @@ class WashingMachineSpecTest {
         String attributeKg = "Kg";
         String attributeKW = "kW";
         // original strings:
-        assertEquals(attributeKW, wMachineSpec.getAttributeUnit(NOMINAL_POWER));
-        assertEquals(attributeKg, wMachineSpec.getAttributeUnit(CAPACITY));
+        assertEquals(attributeKW, wMachineSpec.getAttributeUnit(WashingMachineSpec.NOMINAL_POWER));
+        assertEquals(attributeKg, wMachineSpec.getAttributeUnit(WashingMachineSpec.CAPACITY));
         // same hash codes, but different strings:
-        assertEquals(false, wMachineSpec.getAttributeUnit(notNOMINAL_POWER));
-        assertEquals(false, wMachineSpec.getAttributeUnit(notCAPACITY));
+        assertEquals(false, wMachineSpec.getAttributeUnit("notNominalPower"));
+        assertEquals(false, wMachineSpec.getAttributeUnit("notCapacity"));
         // distinct hash code to cover default cases of switches
         assertEquals(false, wMachineSpec.getAttributeUnit(""));
     }

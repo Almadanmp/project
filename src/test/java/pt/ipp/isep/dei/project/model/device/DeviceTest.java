@@ -46,11 +46,11 @@ public class DeviceTest {
         Device d = new Device(new WashingMachineSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
-        d.setAttributeValue(TestUtils.WM_CAPACITY, 34);
+        d.setAttributeValue(WashingMachineSpec.CAPACITY, 34);
         Device d2 = new Device(new WashingMachineSpec());
         d2.setName("WMTwo");
         d2.setNominalPower(12.0);
-        d.setAttributeValue(TestUtils.WM_CAPACITY, 45);
+        d.setAttributeValue(WashingMachineSpec.CAPACITY, 45);
 
         boolean actualResult = d.equals(d2);
         assertFalse(actualResult);
@@ -62,7 +62,7 @@ public class DeviceTest {
         Device d = new Device(new WashingMachineSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
-        d.setAttributeValue(TestUtils.WM_CAPACITY, 56);
+        d.setAttributeValue(WashingMachineSpec.CAPACITY, 56);
         Room room = new Room("quarto", 1, 80, 2, 2);
 
         boolean actualResult = d.equals(room);
@@ -72,7 +72,7 @@ public class DeviceTest {
     @Test
     void seeEqualsToNullObject() {
         Device d = new Device(new WashingMachineSpec());
-        d.setAttributeValue(TestUtils.WM_CAPACITY, 34);
+        d.setAttributeValue(WashingMachineSpec.CAPACITY, 34);
         boolean actualResult = d.equals(null);
 
         assertFalse(actualResult);
@@ -181,14 +181,14 @@ public class DeviceTest {
     @Test
     void seeIfGetAttributeNames() {
         Device d1 = new Device(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER, 12D);
-        d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_HOT_WATER_TEMP, 40D);
-        d1.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_PERFORMANCE_RATIO, 234D);
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         d1.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 234D);
         List<String> result = d1.getAttributeNames();
-        assertTrue(result.contains(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER));
-        assertTrue(result.contains(WaterHeaterSpec.ATTRIBUTE_HOT_WATER_TEMP));
-        assertTrue(result.contains(WaterHeaterSpec.ATTRIBUTE_PERFORMANCE_RATIO));
+        assertTrue(result.contains(WaterHeaterSpec.VOLUME_OF_WATER));
+        assertTrue(result.contains(WaterHeaterSpec.HOT_WATER_TEMP));
+        assertTrue(result.contains(WaterHeaterSpec.PERFORMANCE_RATIO));
         assertTrue(result.contains(WaterHeaterSpec.NOMINAL_POWER));
         assertEquals(result.size(), 4);
     }

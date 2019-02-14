@@ -11,6 +11,7 @@ public class TestUtils {
 
 
     public static final String NOMINAL_POWER = "nominal power";
+
     //FridgeSpec attributes
     public static final String F_FREEZER_CAPACITY = "Freezer Capacity";
     public static final String F_REFRIGERATOR_CAPACITY = "Refrigerator Capacity";
@@ -22,15 +23,5 @@ public class TestUtils {
     public static final String WH_COLD_WATER_TEMP = "Cold Water Temperature";
     public static final String WH_PERFORMANCE_RATIO = "Performance Ratio";
     public static final String WH_VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
-
-    //DishwasherSpec attributes
-    public static final String DW_CAPACITY = "Capacity";
-    public static final String DW_PROGRAM_LIST = "programList";
-
-    //WashingMachineSpec attributes
-    public static final String WM_CAPACITY = "Capacity";
-
-    //LAMP
-    public static final String L_FLUX = "Luminous Flux";
 
 }

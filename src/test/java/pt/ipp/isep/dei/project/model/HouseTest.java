@@ -490,7 +490,7 @@ class HouseTest {
         d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 45D);
         d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 65D);
         Device d2 = new Device(new WaterHeaterSpec());
-        d2.setAttributeValue(WaterHeaterSpec.ATTRIBUTE_VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device(new WaterHeaterSpec());

@@ -43,6 +43,10 @@ public class HouseMonitoringController {
     }
 
 
+
+    /* US 623 - Controller Methods
+    As a Regular User, I want to get the average daily rainfall in the house area for a given period (days),as it
+    is needed to assess the garden’s watering needs. */
     /**
      *
      * @param house is the house we want to get the average rainfall from.
