@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.TestUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +18,10 @@ import static org.testng.Assert.assertTrue;
  */
 
 class RoomListTest {
+
+    // Common artifacts for testing in this class.
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+
 
     @Test
     void seeIfGetRoomByNameFromList() {
@@ -190,8 +193,8 @@ class RoomListTest {
         list.add(i);
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
@@ -219,8 +222,8 @@ class RoomListTest {
         list.add(i);
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         RoomList roomList = new RoomList();
 
         //Act
@@ -236,8 +239,8 @@ class RoomListTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -253,8 +256,8 @@ class RoomListTest {
     void seeIfPrintsInvalidList() {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         String expectedResult = "Invalid List - List is Empty\n";
         String result = house.buildRoomListString();
         assertEquals(expectedResult, result);

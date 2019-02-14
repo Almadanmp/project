@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
 
 import java.util.*;
 
@@ -14,6 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class SensorTest {
+
+    // Common artifacts for testing in this class.
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+
+
     @Test
     void seeIfFirstConstructorSetsTypeArea() {
         //Arrange
@@ -923,7 +927,7 @@ class SensorTest {
     @Test
     void ensureThatWeGetDistanceToHouse() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 6), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         List<String> test = new ArrayList<>();
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
@@ -953,10 +957,10 @@ class SensorTest {
         Date d2 = new GregorianCalendar(2018, 8, 12).getTime();
         Sensor sensor1 = new Sensor("sensor1", ty1, d1);
 
-        Reading reading1 = new Reading(20,d1);
-        Reading reading2 = new Reading(20,d2);
-        Reading reading3 = new Reading(25,d1);
-        Reading reading4 = new Reading(20,d1);
+        Reading reading1 = new Reading(20, d1);
+        Reading reading2 = new Reading(20, d2);
+        Reading reading3 = new Reading(25, d1);
+        Reading reading4 = new Reading(20, d1);
         //ACT
         boolean actualResult1 = sensor1.addReading(reading1);
         boolean actualResult2 = sensor1.addReading(reading2);
@@ -968,9 +972,6 @@ class SensorTest {
         assertTrue(actualResult3);
         assertFalse(actualResult4);
     }
-
-
-
 
 
 }

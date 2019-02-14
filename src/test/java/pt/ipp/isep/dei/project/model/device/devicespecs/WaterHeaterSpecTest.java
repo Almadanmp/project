@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
 
 import java.util.List;
 
@@ -40,16 +39,16 @@ class WaterHeaterSpecTest {
     @Test
     void getConsumptionTest() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 0.6D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Double coldT = 12.0;
         Double waterV = 300.0;
         Double hotT = 25.0;
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, hotT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_COLD_WATER_TEMP, coldT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER_HEAT, waterV);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, waterV);
         Double expectedResult = 0.17008875;
         Double result = waterHeaterSpec.getConsumption();
         assertEquals(expectedResult, result);
@@ -61,10 +60,10 @@ class WaterHeaterSpecTest {
         Double coldT = 30.0;
         Double waterV = 200.0;
         Double hotT = 25.0;
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, hotT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_COLD_WATER_TEMP, coldT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER_HEAT, waterV);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, waterV);
         double expectedResult = -1;
         double result = waterHeaterSpec.getConsumption();
         assertEquals(expectedResult, result);
@@ -73,14 +72,14 @@ class WaterHeaterSpecTest {
     @Test
     void getConsumptionTestFails() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 0.6D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Double coldT = 200.0;
         Double waterV = 300.0;
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_COLD_WATER_TEMP, coldT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER_HEAT, waterV);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, waterV);
         double expectedResult = -1;
         double result = waterHeaterSpec.getConsumption();
         assertEquals(expectedResult, result);
@@ -92,10 +91,10 @@ class WaterHeaterSpecTest {
         Double coldT = 25.0;
         Double waterV = 100.0;
         Double hotT = 25.0;
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, hotT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_COLD_WATER_TEMP, coldT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER_HEAT, waterV);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, waterV);
         double expectedResult = -1;
         double result = waterHeaterSpec.getConsumption();
         assertEquals(expectedResult, result);
@@ -104,10 +103,10 @@ class WaterHeaterSpecTest {
     @Test
     void getConsumptionTestColdWaterEqualsHotWaterDifString() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 0.6D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 0.9D);
         Double coldT = 25.0;
         Double waterV = 100.0;
         Double hotT = 25.0;
@@ -122,17 +121,17 @@ class WaterHeaterSpecTest {
     @Test
     void getConsumptionTestColdWaterMinorHotWater() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 0.6D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 0.9D);
         Double coldT = 2.0;
         Double waterV = 100.0;
         Double hotT = 25.0;
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, hotT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_COLD_WATER_TEMP, coldT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER_HEAT, waterV);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, waterV);
         double expectedResult = 0.10030875;
         double result = waterHeaterSpec.getConsumption();
         assertEquals(expectedResult, result);
@@ -141,10 +140,10 @@ class WaterHeaterSpecTest {
     @Test
     void getConsumptionTestColdWaterMinorHotWaterDifferentString() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 0.6D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 0.9D);
         double expectedResult = 0.0;
         double result = waterHeaterSpec.getConsumption();
         assertEquals(expectedResult, result);
@@ -156,10 +155,10 @@ class WaterHeaterSpecTest {
         Double coldT = 30.0;
         Double waterV = 800.0;
         Double hotT = 25.0;
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, hotT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_COLD_WATER_TEMP, coldT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER_HEAT, waterV);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, waterV);
         double expectedResult = -1;
         double result = waterHeaterSpec.getConsumption();
         assertEquals(expectedResult, result);
@@ -171,10 +170,10 @@ class WaterHeaterSpecTest {
         Double coldT = 25.0;
         Double waterV = 800.0;
         Double hotT = 25.0;
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, hotT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_COLD_WATER_TEMP, coldT);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER_HEAT, waterV);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, waterV);
         double expectedResult = -1;
         double result = waterHeaterSpec.getConsumption();
         assertEquals(expectedResult, result);
@@ -186,10 +185,10 @@ class WaterHeaterSpecTest {
     @Test
     void seeIfGetAndSetAttributeValue() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 0.6D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 0.9D);
         Double volumeOfWater = 0.6;
         String attribute = "Volume Of Water";
         Double expectedResult = 0.6;
@@ -203,10 +202,10 @@ class WaterHeaterSpecTest {
     @Test
     void seeIfSetAttributeValueInvalid() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 234D);
         Double value = 0.6;
         String attribute = "invalid";
         boolean result = waterHeaterSpec.setAttributeValue(attribute, value);
@@ -241,10 +240,10 @@ class WaterHeaterSpecTest {
     @Test
     void seeIfGetAndSetAttributeValues() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 234D);
         String attribute = "Volume Of Water";
         Double expectedResult = 2.0;
         Double attributeValue = 2.0;
@@ -297,10 +296,10 @@ class WaterHeaterSpecTest {
     @Test
     void seeIFSetAttributeValuesFails() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 234D);
         String attribute = "Volume Of Water";
         int attributeValue = 2;
         boolean setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
@@ -335,10 +334,10 @@ class WaterHeaterSpecTest {
     @Test
     void seeIFSetAttributeValuesFails2() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 234D);
 
         String attribute = "njfdjkndfk";
         int attributeValue = 2;
@@ -371,10 +370,10 @@ class WaterHeaterSpecTest {
         //Arrange
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
         Double attribute = 6.0;
-        waterHeaterSpec.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, null);
-        waterHeaterSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, null);
-        waterHeaterSpec.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, null);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, null);
+        waterHeaterSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, null);
+        waterHeaterSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, null);
+        waterHeaterSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, null);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, null);
 
         // original strings:
         assertTrue(waterHeaterSpec.setAttributeValue("Volume Of Water", attribute));
@@ -400,10 +399,10 @@ class WaterHeaterSpecTest {
     @Test
     void seeIfGetAndSetAttributeValues2() {
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 234D);
         Double attributeValue = 3.0;
         boolean setResult = waterHeaterSpec.setAttributeValue(null, attributeValue);
         assertFalse(setResult);
@@ -414,10 +413,10 @@ class WaterHeaterSpecTest {
     void testGetAttributeCoveringAllCases() {
         //Arrange
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 5D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 5D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 5D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 5D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 5D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 5D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 5D);
 
         // original strings:
         assertEquals(5.0, waterHeaterSpec.getAttributeValue("Volume Of Water"));
@@ -443,10 +442,10 @@ class WaterHeaterSpecTest {
     void testGetAttributeUnitCoveringAllCases() {
         //Arrange
         WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 5D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 5D);
-        waterHeaterSpec.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 5D);
-        waterHeaterSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 5D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 5D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 5D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 5D);
+        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.NOMINAL_POWER, 5D);
 
         // original strings:
         assertEquals("L", waterHeaterSpec.getAttributeUnit("Volume Of Water"));

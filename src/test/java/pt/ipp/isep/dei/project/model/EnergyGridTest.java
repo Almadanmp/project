@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Log;
@@ -25,6 +24,10 @@ import static org.testng.Assert.*;
 
 class EnergyGridTest {
 
+    // Common artifacts for testing in this class.
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+
+
     @Test
     void seeIfPrintGridWorks() {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
@@ -32,9 +35,9 @@ class EnergyGridTest {
         readingList.addReading(r1);
         Device device = new Device(new FridgeSpec());
         device.setNominalPower(200.0);
-        device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 200D);
-        device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 200D);
-        device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 200D);
+        device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
+        device.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 200D);
+        device.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 200D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
@@ -52,9 +55,9 @@ class EnergyGridTest {
         readingList.addReading(r1);
         Device device = new Device(new FridgeSpec());
         device.setNominalPower(200.0);
-        device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 200D);
-        device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 200D);
-        device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 200D);
+        device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
+        device.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 200D);
+        device.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 200D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
@@ -174,15 +177,15 @@ class EnergyGridTest {
 
     @Test
     void seeIfEqualsEnergyGridToSameObject() {
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1" , 400);
-        EnergyGrid energyGrid2 = new EnergyGrid("EG1" , 400);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
+        EnergyGrid energyGrid2 = new EnergyGrid("EG1", 400);
         boolean actualResult = energyGrid1.equals(energyGrid2);
         assertTrue(actualResult);
     }
 
     @Test
     void seeIfEqualsEnergyGridToObject() {
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1" , 400);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         boolean actualResult = energyGrid1.equals(energyGrid1);
         assertTrue(actualResult);
     }
@@ -190,7 +193,7 @@ class EnergyGridTest {
     @Test
     void seeIfFalseWhenObjectsAreDifferentWithDifferentContent() {
         Room room = new Room("Quarto", 2, 10, 20, 2);
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1" , 400);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         boolean actualResult = energyGrid1.equals(room);
         assertFalse(actualResult);
     }
@@ -203,14 +206,14 @@ class EnergyGridTest {
         Room r2 = new Room("Sótão", 3, 30, 40, 12);
         Device d1 = new Device(new WaterHeaterSpec());
         d1.setNominalPower(30.0);
-        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
-        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
-        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 40D);
+        d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Device d2 = new Device(new FridgeSpec());
         d2.setNominalPower(200.0);
-        d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 3D);
-        d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 3D);
-        d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 3D);
+        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 3D);
+        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
         DeviceList deviceList1 = new DeviceList();
         deviceList1.addDevice(d1);
         r1.setDeviceList(deviceList1);
@@ -220,7 +223,7 @@ class EnergyGridTest {
         RoomList roomList = new RoomList();
         roomList.addRoom(r1);
         roomList.addRoom(r2);
-        EnergyGrid grid = new EnergyGrid("EG1" , 400);
+        EnergyGrid grid = new EnergyGrid("EG1", 400);
         grid.setRoomList(roomList);
         double expectedResult = 230;
 
@@ -237,9 +240,9 @@ class EnergyGridTest {
         d1.setNominalPower(21.0);
         d1.setName("Fridge");
         d1.setNominalPower(21.0);
-        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
-        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
-        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 34D);
+        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
+        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
+        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 34D);
         Device d2 = new Device(new WashingMachineSpec());
         d2.setNominalPower(30.0);
         d2.setAttributeValue("capacity", 24D);
@@ -248,7 +251,7 @@ class EnergyGridTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
-        EnergyGrid energyGrid = new EnergyGrid("EG1" , 400);
+        EnergyGrid energyGrid = new EnergyGrid("EG1", 400);
         Room r1 = new Room("Kitchen", 0, 21, 31, 10);
         r1.setDeviceList(deviceList);
         RoomList roomList = new RoomList();
@@ -271,14 +274,14 @@ class EnergyGridTest {
 
     @Test
     void seeIfFalseWhenObjectsAreNull() {
-        EnergyGrid energyGrid1 = new EnergyGrid("EG1" , 400);
+        EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
         boolean actualResult = energyGrid1.equals(null);
         assertFalse(actualResult);
     }
 
     @Test
     void hashCodeDummyTest() {
-        EnergyGrid energyGrid = new EnergyGrid("EG1" , 400);
+        EnergyGrid energyGrid = new EnergyGrid("EG1", 400);
         int expectedResult = 1;
         int result = energyGrid.hashCode();
         assertEquals(expectedResult, result);
@@ -287,8 +290,8 @@ class EnergyGridTest {
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList() throws IOException {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
@@ -304,8 +307,8 @@ class EnergyGridTest {
     @Test
     void seeIfDeviceListPrintsByTypeWithNullList2() throws IOException {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room m = null;
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
@@ -341,8 +344,8 @@ class EnergyGridTest {
     @Test
     void seeIfGetsLogInInterval() {
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
-        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY,11,15,30,26).getTime();
-        Date date2 = new GregorianCalendar(2018,Calendar.MARCH,11,15,30,26).getTime();
+        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 11, 15, 30, 26).getTime();
+        Date date2 = new GregorianCalendar(2018, Calendar.MARCH, 11, 15, 30, 26).getTime();
         Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
 
         Device device4 = new Device(new LampSpec());
@@ -350,13 +353,13 @@ class EnergyGridTest {
         device4.setName("Lamp");
         device4.setAttributeValue("luminousFlux", 23D);
         device4.addLog(log);
-        Room room1 = new Room("wc",2,2,2,2);
+        Room room1 = new Room("wc", 2, 2, 2, 2);
         eg.addRoomToAnEnergyGrid(room1);
         room1.addDevice(device4);
         LogList logList = new LogList();
         logList.addLog(log);
 
-        LogList result = eg.getLogsInInterval(date1,date2);
+        LogList result = eg.getLogsInInterval(date1, date2);
         LogList actualResult = logList;
         assertEquals(result, actualResult);
     }
@@ -364,8 +367,8 @@ class EnergyGridTest {
     @Test
     void seeIfDoesNotGetLogInInterval() {
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
-        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY,11,15,30,26).getTime();
-        Date date2 = new GregorianCalendar(2018,Calendar.MARCH,11,15,30,26).getTime();
+        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 11, 15, 30, 26).getTime();
+        Date date2 = new GregorianCalendar(2018, Calendar.MARCH, 11, 15, 30, 26).getTime();
         Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
 
         Device device4 = new Device(new LampSpec());
@@ -373,7 +376,7 @@ class EnergyGridTest {
         device4.setName("Lamp");
         device4.addLog(log);
         device4.setAttributeValue("luminousFlux", 23D);
-        Room room1 = new Room("wc",2,2,2,2);
+        Room room1 = new Room("wc", 2, 2, 2, 2);
         eg.addRoomToAnEnergyGrid(room1);
         room1.addDevice(device4);
         LogList listTest = new LogList();
@@ -381,7 +384,7 @@ class EnergyGridTest {
         listTest.addLog(logTest);
 
 
-        LogList result = eg.getLogsInInterval(date1,date2);
+        LogList result = eg.getLogsInInterval(date1, date2);
         LogList actualResult = listTest;
         assertNotEquals(result, actualResult);
     }
@@ -389,8 +392,8 @@ class EnergyGridTest {
     @Test
     void seeIfGetsLogInInterval2() {
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
-        Date date1 = new GregorianCalendar(2019, Calendar.JANUARY,11,15,30,26).getTime();
-        Date date2 = new GregorianCalendar(2018,Calendar.MARCH,11,15,30,26).getTime();
+        Date date1 = new GregorianCalendar(2019, Calendar.JANUARY, 11, 15, 30, 26).getTime();
+        Date date2 = new GregorianCalendar(2018, Calendar.MARCH, 11, 15, 30, 26).getTime();
         Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
 
         Device device4 = new Device(new LampSpec());
@@ -398,26 +401,27 @@ class EnergyGridTest {
         device4.setName("Lamp");
         device4.addLog(log);
         device4.setAttributeValue("luminousFlux", 23D);
-        Room room1 = new Room("wc",2,2,2,2);
+        Room room1 = new Room("wc", 2, 2, 2, 2);
         eg.addRoomToAnEnergyGrid(room1);
         room1.addDevice(device4);
         LogList listTest = new LogList();
         Log logTest = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
         listTest.addLog(logTest);
 
-        LogList result = eg.getLogsInInterval(date1,date2);
+        LogList result = eg.getLogsInInterval(date1, date2);
         LogList actualResult = listTest;
         assertNotEquals(result, actualResult);
     }
 
     @Test
-    void seeIfSetsNegativeMaxContractedPower(){
+    void seeIfSetsNegativeMaxContractedPower() {
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 0);
         boolean result = eg.setMaxContractedPower(-1);
         assertFalse(result);
     }
+
     @Test
-    void seeIfSetsMaxContractedPowerZero(){
+    void seeIfSetsMaxContractedPowerZero() {
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 5);
         boolean result = eg.setMaxContractedPower(0);
         assertTrue(result);

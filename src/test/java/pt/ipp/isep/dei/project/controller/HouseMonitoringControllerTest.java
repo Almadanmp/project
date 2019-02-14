@@ -1,20 +1,21 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
-import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.util.*;
 
 import static java.lang.Double.NaN;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * House Monitoring - controller Tests
  */
 
 class HouseMonitoringControllerTest {
+
+    // Common artifacts for testing in this class.
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
     @Test
     void seeIfGetCurrentRoomTemperatureWorks() {
@@ -73,7 +74,7 @@ class HouseMonitoringControllerTest {
         ga.setSensorList(sensorList);
         //House List
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga, 60, 180, deviceTypeString);
 
         //Act ---------------------------------------------------
@@ -134,7 +135,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -165,7 +166,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -195,7 +196,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -221,7 +222,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -249,7 +250,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -285,7 +286,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -323,7 +324,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -351,7 +352,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -383,7 +384,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -413,7 +414,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -443,7 +444,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -481,7 +482,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -520,7 +521,7 @@ class HouseMonitoringControllerTest {
         Date d1 = new GregorianCalendar(2018, 12, 31, 2, 1, 1).getTime();
         TypeSensor ti1 = new TypeSensor("rainfall", "asdfhg");
         Sensor s1 = new Sensor("s1", ti1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", ti1, new Local(10,10,20),new GregorianCalendar(2000, 10, 7).getTime());
+        Sensor s2 = new Sensor("s2", ti1, new Local(10, 10, 20), new GregorianCalendar(2000, 10, 7).getTime());
         s1.setReadingList(rl);
         s2.setReadingList(r2);
         SensorList sensorList1 = new SensorList(s1);
@@ -533,7 +534,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -556,7 +557,7 @@ class HouseMonitoringControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -580,10 +581,10 @@ class HouseMonitoringControllerTest {
         Room room7 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN SECOND READING) + ONE HUMIDITY
         Room room8 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN THIRD READING) + ONE HUMIDITY
 
-        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018,1,1,23,59);
-        GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018,1,2,0,0);
-        GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2018,1,2,1,1);
-        GregorianCalendar gregorianCalendar4 = new GregorianCalendar(2018,1,2,12,12);
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
+        GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018, 1, 2, 0, 0);
+        GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2018, 1, 2, 1, 1);
+        GregorianCalendar gregorianCalendar4 = new GregorianCalendar(2018, 1, 2, 12, 12);
 
         Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
@@ -596,7 +597,7 @@ class HouseMonitoringControllerTest {
         Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor5 = new Sensor("sensor5", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
         Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading1 = new Reading(20,gregorianCalendar2.getTime());
+        Reading reading1 = new Reading(20, gregorianCalendar2.getTime());
         sensor4.addReading(reading1);
         sensor5.addReading(reading1);
         sensor6.addReading(reading1);
@@ -607,8 +608,8 @@ class HouseMonitoringControllerTest {
 
         Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading2 = new Reading(24,gregorianCalendar2.getTime());
-        Reading reading3 = new Reading(20,gregorianCalendar3.getTime());
+        Reading reading2 = new Reading(24, gregorianCalendar2.getTime());
+        Reading reading3 = new Reading(20, gregorianCalendar3.getTime());
         sensor7.addReading(reading2);
         sensor8.addReading(reading3);
 
@@ -618,8 +619,8 @@ class HouseMonitoringControllerTest {
 
         Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading4 = new Reading(20,gregorianCalendar2.getTime());
-        Reading reading5 = new Reading(25,gregorianCalendar3.getTime());
+        Reading reading4 = new Reading(20, gregorianCalendar2.getTime());
+        Reading reading5 = new Reading(25, gregorianCalendar3.getTime());
         sensor9.addReading(reading4);
         sensor10.addReading(reading5);
 
@@ -629,9 +630,9 @@ class HouseMonitoringControllerTest {
 
         Sensor sensor11 = new Sensor("sensor11", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor12 = new Sensor("sensor12", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading6 = new Reading(26,gregorianCalendar2.getTime());
-        Reading reading7 = new Reading(21,gregorianCalendar3.getTime());
-        Reading reading8 = new Reading(20,gregorianCalendar4.getTime());
+        Reading reading6 = new Reading(26, gregorianCalendar2.getTime());
+        Reading reading7 = new Reading(21, gregorianCalendar3.getTime());
+        Reading reading8 = new Reading(20, gregorianCalendar4.getTime());
         sensor11.addReading(reading6);
         sensor11.addReading(reading7);
         sensor11.addReading(reading8);
@@ -643,9 +644,9 @@ class HouseMonitoringControllerTest {
 
         Sensor sensor13 = new Sensor("sensor13", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor14 = new Sensor("sensor14", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading9 = new Reading(21,gregorianCalendar2.getTime());
-        Reading reading10 = new Reading(27,gregorianCalendar3.getTime());
-        Reading reading11 = new Reading(20,gregorianCalendar4.getTime());
+        Reading reading9 = new Reading(21, gregorianCalendar2.getTime());
+        Reading reading10 = new Reading(27, gregorianCalendar3.getTime());
+        Reading reading11 = new Reading(20, gregorianCalendar4.getTime());
         sensor13.addReading(reading9);
         sensor13.addReading(reading10);
         sensor13.addReading(reading11);
@@ -658,9 +659,9 @@ class HouseMonitoringControllerTest {
 
         Sensor sensor15 = new Sensor("sensor15", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor16 = new Sensor("sensor16", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading12 = new Reading(21,gregorianCalendar2.getTime());
-        Reading reading13 = new Reading(20,gregorianCalendar3.getTime());
-        Reading reading14 = new Reading(28,gregorianCalendar4.getTime());
+        Reading reading12 = new Reading(21, gregorianCalendar2.getTime());
+        Reading reading13 = new Reading(20, gregorianCalendar3.getTime());
+        Reading reading14 = new Reading(28, gregorianCalendar4.getTime());
         sensor15.addReading(reading12);
         sensor15.addReading(reading13);
         sensor15.addReading(reading14);
@@ -681,14 +682,14 @@ class HouseMonitoringControllerTest {
         double actualResult8 = ctrl.getMaxTemperatureInARoomOnAGivenDay(room8, gregorianCalendar3.getTime());
 
         //ASSERT
-        assertEquals(actualResult1,NaN,0.01);
-        assertEquals(actualResult2,NaN,0.01);
-        assertEquals(actualResult3,20,0.01);
-        assertEquals(actualResult4,24,0.01);
-        assertEquals(actualResult5,25,0.01);
-        assertEquals(actualResult6,26,0.01);
-        assertEquals(actualResult7,27,0.01);
-        assertEquals(actualResult8,28,0.01);
+        assertEquals(actualResult1, NaN, 0.01);
+        assertEquals(actualResult2, NaN, 0.01);
+        assertEquals(actualResult3, 20, 0.01);
+        assertEquals(actualResult4, 24, 0.01);
+        assertEquals(actualResult5, 25, 0.01);
+        assertEquals(actualResult6, 26, 0.01);
+        assertEquals(actualResult7, 27, 0.01);
+        assertEquals(actualResult8, 28, 0.01);
     }
 
     @Test

@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -33,6 +32,7 @@ class EnergyConsumptionControllerTest {
     private EnergyConsumptionController controller = new EnergyConsumptionController();
     private Log validLog1 = new Log(56, new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime(),
             new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime());
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
 
     @BeforeEach
@@ -41,19 +41,19 @@ class EnergyConsumptionControllerTest {
         validRoom2 = new Room("Upstairs Bathroom", 2, 15, 20, 10);
         validDevice1.setName("WaterHeater");
         validDevice1.setNominalPower(21.0);
-        validDevice1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
-        validDevice1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
-        validDevice1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        validDevice1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        validDevice1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 40D);
+        validDevice1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         validDevice2.setName("WaterHeaterTwo");
         validDevice2.setNominalPower(55.0);
-        validDevice2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 12D);
-        validDevice2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 40D);
-        validDevice2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        validDevice2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        validDevice2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 40D);
+        validDevice2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         validDevice3.setName("Fridge");
         validDevice3.setNominalPower(10.0);
-        validDevice3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
-        validDevice3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 3D);
-        validDevice3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 456D);
+        validDevice3.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5D);
+        validDevice3.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 3D);
+        validDevice3.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 456D);
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
         validRoom1.addDevice(validDevice3);
@@ -300,7 +300,7 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto", new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         RoomList roomList = new RoomList();
         roomList.addRoom(validRoom1);
@@ -324,7 +324,7 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto",
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60, 180,
@@ -374,7 +374,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto",
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60, 180,
@@ -401,7 +401,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto",
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60, 180,
@@ -423,7 +423,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
                 "Porto", new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea
                 ("Cidade"), 2, 3, new Local(4, 4, 100)), 60,
@@ -447,7 +447,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
                 "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
@@ -473,7 +473,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
                 "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
@@ -501,7 +501,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
                 "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
@@ -526,7 +526,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
                 "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
@@ -553,7 +553,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
                 "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),

@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ class FridgeSpecTest {
     @Test
     void getAttributeValuesTest() {
         FridgeSpec fridgeSpec = new FridgeSpec();
-        fridgeSpec.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        fridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         double expectedResult = 4.0;
         Object result = fridgeSpec.getAttributeValue("Freezer Capacity");
         assertEquals(expectedResult, result);
@@ -58,7 +57,7 @@ class FridgeSpecTest {
     @Test
     void seeIfGetAttributeNamesFreezer() {
         FridgeSpec fridgeSpec = new FridgeSpec();
-        fridgeSpec.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        fridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         double expectedResult = 4;
         assertEquals(expectedResult, fridgeSpec.getAttributeValue("Freezer Capacity"));
     }
@@ -66,15 +65,15 @@ class FridgeSpecTest {
     @Test
     void seeIfGetAttributeNamesRefrigerator() {
         FridgeSpec fridgeSpec = new FridgeSpec();
-        fridgeSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
+        fridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
         double expectedResult = 5;
-        assertEquals(expectedResult, fridgeSpec.getAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY));
+        assertEquals(expectedResult, fridgeSpec.getAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY));
     }
 
     @Test
     void seeIfGetAttributeNamesAnnual() {
         FridgeSpec fridgeSpec = new FridgeSpec();
-        fridgeSpec.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 6D);
+        fridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 6D);
         double expectedResult = 6;
         assertEquals(expectedResult, fridgeSpec.getAttributeValue("Annual Energy Consumption"));
     }
@@ -99,6 +98,7 @@ class FridgeSpecTest {
         boolean result = fridgeSpec.setAttributeValue("Annual Consumption", "Fail");
         assertFalse(result);
     }
+
     @Test
     void seeIfSetAttributeValuesTestNominalPower() {
         FridgeSpec fridgeSpec = new FridgeSpec();
@@ -131,7 +131,7 @@ class FridgeSpecTest {
     void seeIfGetAttributeValuesTest() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         double expectedResult = 4;
-        fridgeSpec.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
+        fridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         Object result = fridgeSpec.getAttributeValue("Freezer Capacity");
         assertEquals(expectedResult, result);
     }
@@ -200,7 +200,7 @@ class FridgeSpecTest {
         FridgeSpec fridgeSpec = new FridgeSpec();
         String attribute = "Refrigerator Capacity";
         Double expectedResult = 6.0;
-        fridgeSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6);
+        fridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 6);
         boolean setResult = fridgeSpec.setAttributeValue(attribute, 6.0);
         Object getResult = fridgeSpec.getAttributeValue(attribute);
         assertEquals(expectedResult, getResult);
@@ -212,7 +212,7 @@ class FridgeSpecTest {
         FridgeSpec fridgeSpec = new FridgeSpec();
         String attribute = "Refrigerator Capacity";
         Double expectedResult = 6.0;
-        fridgeSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6);
+        fridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 6);
         boolean setResult = fridgeSpec.setAttributeValue(attribute, 6.0);
         Object getResult = fridgeSpec.getAttributeValue(attribute);
         assertEquals(expectedResult, getResult);
@@ -223,7 +223,7 @@ class FridgeSpecTest {
     void seeIfGetAndSetAttributeValue3() {
         FridgeSpec fridgeSpec = new FridgeSpec();
         String attribute = "Annual Energy Consumption";
-        fridgeSpec.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 6);
+        fridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 6);
         Double expectedResult = 6.0;
         boolean setResult = fridgeSpec.setAttributeValue(attribute, 6.0);
         Object getResult = fridgeSpec.getAttributeValue(attribute);
@@ -319,10 +319,10 @@ class FridgeSpecTest {
     void seeIfGetObjectAttributeValueTestWorks() {
         //Arrange
         FridgeSpec fridgeSpec = new FridgeSpec();
-        fridgeSpec.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
-        fridgeSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
-        fridgeSpec.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 6D);
-        fridgeSpec.setAttributeValue(TestUtils.NOMINAL_POWER, 6D);
+        fridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
+        fridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
+        fridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 6D);
+        fridgeSpec.setAttributeValue(FridgeSpec.NOMINAL_POWER, 6D);
         //Act
         double expectedResult1 = 4;
         double expectedResult2 = 5;
@@ -343,10 +343,10 @@ class FridgeSpecTest {
     void testGetAttributeCoveringAllCases() {
         //Arrange
         FridgeSpec fridgeSpec = new FridgeSpec();
-        fridgeSpec.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, null);
-        fridgeSpec.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, null);
-        fridgeSpec.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, null);
-        fridgeSpec.setAttributeValue(TestUtils.NOMINAL_POWER, null);
+        fridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, null);
+        fridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, null);
+        fridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, null);
+        fridgeSpec.setAttributeValue(FridgeSpec.NOMINAL_POWER, null);
 
 
         // original strings:

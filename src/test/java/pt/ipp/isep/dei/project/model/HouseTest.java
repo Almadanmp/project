@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
@@ -26,13 +25,16 @@ import static org.testng.Assert.assertEquals;
 
 class HouseTest {
 
+    // Common artifacts for testing in this class.
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+
     @Test
     void seeIfGetListDevice() {
         Device device = new Device(new FridgeSpec());
         device.setName("sdgfsg");
-        device.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 34D);
-        device.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 34D);
-        device.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 65D);
+        device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 34D);
+        device.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 34D);
+        device.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 65D);
         Device device2 = new Device(new WashingMachineSpec());
         device2.setName("dsfgds");
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
@@ -51,7 +53,7 @@ class HouseTest {
     void seeDistanceToSensor() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         Sensor s = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 5, 5), new GregorianCalendar(2018, 10, 1).getTime());
         double result = house.calculateDistanceToSensor(s);
@@ -68,7 +70,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         double result = house.getMinDistanceFromHouseToSensor(ga);
         assertEquals(110.91871788829754, result, 0.01);
@@ -88,7 +90,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         double result = house.getMinDistanceFromHouseToSensor(ga);
         assertEquals(110.91871788829754, result, 0.01);
@@ -98,7 +100,7 @@ class HouseTest {
     void ensureThatWeGetAltitude() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         house.setLocation(23, 43, 4);
         double expectedResult = 4;
@@ -116,7 +118,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
         assertEquals(s1, result);
@@ -127,7 +129,7 @@ class HouseTest {
     void seeEqualToEqualObject() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         House house2 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
 
@@ -140,7 +142,7 @@ class HouseTest {
     void seeEqualToSameObject() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
 
         boolean actualResult = house.equals(house);
@@ -151,7 +153,7 @@ class HouseTest {
     @Test
     void seeEqualsToDifObject() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         House house2 = new House("casa de campo", "Rua do Sol", "4516", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
@@ -164,7 +166,7 @@ class HouseTest {
     @Test
     void seeEqualsToDifTypeObject() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room room = new Room("quarto", 1, 80, 2, 2);
 
@@ -176,7 +178,7 @@ class HouseTest {
     void seeEqualsToNullObject() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
 
         boolean actualResult = house.equals(null);
@@ -188,7 +190,7 @@ class HouseTest {
     void seeAddRoomToEmptyRoomList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Room room = new Room("quarto", 1, 80, 2, 2);
         boolean result = house.addRoomToRoomList(room);
@@ -200,7 +202,7 @@ class HouseTest {
     void seeAddRoomToRoomList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Room room = new Room("quarto", 1, 80, 2, 2);
         Room room2 = new Room("sala", 1, 80, 2, 2);
@@ -214,7 +216,7 @@ class HouseTest {
     void seeAddRoomSameName() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         RoomList rL1 = new RoomList();
         house.setRoomList(rL1);
@@ -230,7 +232,7 @@ class HouseTest {
     void seeIfRecognizesEmptyGridList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         EnergyGridList energyGridList = new EnergyGridList();
         house.setEGList(energyGridList);
@@ -243,7 +245,7 @@ class HouseTest {
     void seePrintedGridList() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         EnergyGrid eg1 = new EnergyGrid("Rede", 444);
         EnergyGrid eg2 = new EnergyGrid("Rede 2", 555);
@@ -265,7 +267,7 @@ class HouseTest {
         //Arrange
         String expectedResult = "Casa do Porto";
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
 
         //Act
@@ -282,7 +284,7 @@ class HouseTest {
         //Arrange
         String expectedResult = "Rua da Praia";
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
 
         //Act
@@ -299,7 +301,7 @@ class HouseTest {
         //Arrange
         String expectedResult = "6327-09";
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
 
         //Act
@@ -316,7 +318,7 @@ class HouseTest {
         //Arrange
         String expectedResult = "Lisboa";
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
 
         //Act
@@ -333,7 +335,7 @@ class HouseTest {
         //Arrange
         Local expectedResult = new Local(7, 78, 50);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
 
         //Act
@@ -351,7 +353,7 @@ class HouseTest {
         Local expectedResult = new Local(5, 35, 34);
         Local localHouse = new Local(8, 9, 1);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", localHouse, ga, 60, 180, deviceTypeString);
 
         //Act
@@ -380,7 +382,7 @@ class HouseTest {
 
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
 
         //Act
@@ -399,14 +401,14 @@ class HouseTest {
         Room r2 = new Room("Sótão", 3, 30, 40, 12);
         Device d1 = new Device(new WaterHeaterSpec());
         d1.setNominalPower(30.0);
-        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Device d2 = new Device(new FridgeSpec());
         d2.setNominalPower(50.0);
-        d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 45D);
-        d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 45D);
-        d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 56D);
+        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 45D);
+        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 45D);
+        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         DeviceList deviceList1 = new DeviceList();
         deviceList1.addDevice(d1);
         r1.setDeviceList(deviceList1);
@@ -414,7 +416,7 @@ class HouseTest {
         deviceList2.addDevice(d2);
         r2.setDeviceList(deviceList2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House testHouse = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         testHouse.addRoomToRoomList(r1);
         testHouse.addRoomToRoomList(r2);
@@ -438,7 +440,7 @@ class HouseTest {
         EnergyGridList expectedResult = new EnergyGridList();
         expectedResult.addGrid(eg);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         //Act
         house.setEGList(energyGridList);
@@ -453,7 +455,7 @@ class HouseTest {
         //ARRANGE
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         String expectedResult = "casa de praia, Rua das Flores, 4512, Porto.\n";
         //ACT
@@ -466,7 +468,7 @@ class HouseTest {
     void hashCodeDummyTest() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         int expectedResult = 1;
         int actualResult = house.hashCode();
@@ -476,37 +478,37 @@ class HouseTest {
     @Test
     void getDailyHouseConsumptionPerTypeTest() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device(new FridgeSpec());
-        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 45D);
-        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 45D);
-        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 65D);
+        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 45D);
+        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 45D);
+        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 65D);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
         Room r2 = new Room("kitchen", 2, 12, 12, 12);
         Device d4 = new Device(new FridgeSpec());
-        d4.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
-        d4.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
-        d4.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        d4.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
+        d4.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
+        d4.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
         Device d5 = new Device(new WaterHeaterSpec());
-        d5.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 300D);
-        d5.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 15D);
-        d5.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d5.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 300D);
+        d5.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 15D);
+        d5.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Device d6 = new Device(new WaterHeaterSpec());
-        d6.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 300D);
-        d6.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 15D);
-        d6.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d6.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 300D);
+        d6.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 15D);
+        d6.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         r2.addDevice(d4);
         r2.addDevice(d5);
         r2.addDevice(d6);
@@ -520,19 +522,19 @@ class HouseTest {
     @Test
     void getDailyHouseConsumptionPerTypeTest2() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House h1 = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("ghfg");
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("jytjd");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         h1.addRoomToRoomList(r1);
@@ -548,19 +550,19 @@ class HouseTest {
     @Test
     void getHouseDevicesOfGivenType() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("hgfhjf");
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("hfjf");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         house.addRoomToRoomList(r1);
@@ -574,19 +576,19 @@ class HouseTest {
     @Test
     void getDeviceListTest() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("hfjfd");
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("ghfghd");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         house.addRoomToRoomList(r1);
@@ -620,7 +622,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
         assertEquals(s2, result);
@@ -649,7 +651,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
         assertEquals(s1, result);
@@ -661,7 +663,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
@@ -697,7 +699,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
         assertEquals(s1, result);
@@ -723,7 +725,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
         assertEquals(s1, result);
@@ -752,7 +754,7 @@ class HouseTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
         assertEquals(s2, result);
@@ -837,7 +839,7 @@ class HouseTest {
     @Test
     void setGridMeteringPeriod() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         house.setGridMeteringPeriod(8);
@@ -852,11 +854,11 @@ class HouseTest {
     void seeAddGridToHouse() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
-        EnergyGrid eg1 = new EnergyGrid("eg1",25);
-        EnergyGrid eg2 = new EnergyGrid("eg2",55);
-        EnergyGrid eg3 = new EnergyGrid("eg1",25);
+        EnergyGrid eg1 = new EnergyGrid("eg1", 25);
+        EnergyGrid eg2 = new EnergyGrid("eg2", 55);
+        EnergyGrid eg3 = new EnergyGrid("eg1", 25);
         //Act
         boolean actualResult1 = house.addGrid(eg1);
         boolean actualResult2 = house.addGrid(eg2);

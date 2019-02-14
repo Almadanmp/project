@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -14,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -23,6 +22,9 @@ import static org.testng.Assert.assertTrue;
 
 class EnergyGridSettingsControllerTest {
 
+    // Common artifacts for testing in this class.
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+
 
     //USER STORY 145
 
@@ -30,7 +32,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfIndexIsMatchedByString() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
@@ -49,7 +51,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfEnergyGridIsPrintedByIndex() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
@@ -70,7 +72,7 @@ class EnergyGridSettingsControllerTest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         RoomList roomList = new RoomList();
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
@@ -101,7 +103,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfRoomIsRemovedFromGrid() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
@@ -122,7 +124,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfRoomIsRemovedFromGridBreaks() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
@@ -139,7 +141,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfEnergyGridPrints() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
@@ -157,7 +159,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfGridListPrints() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGrid energyGrid1 = new EnergyGrid("EG1", 400);
@@ -246,7 +248,7 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfRoomListIsPrintedByHouse() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18)), 60, 180, deviceTypeString);
         Room room = new Room("Quarto", 1, 20, 2, 2);
         house.addRoomToRoomList(room);
@@ -261,7 +263,7 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfRoomIndexIsMatchedByString() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18)), 60, 180, deviceTypeString);
         Room room = new Room("Quarto", 1, 20, 2, 2);
         house.addRoomToRoomList(room);
@@ -282,7 +284,7 @@ class EnergyGridSettingsControllerTest {
         Room room = new Room("kitchen", 1, 1, 2, 2);
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
@@ -309,8 +311,8 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddPowerSourceToEnergyGridWorksFalse() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         EnergyGrid grid = new EnergyGrid("grid", 400);
-        PowerSource powerSource1 = new PowerSource("ps1",20,20);
-        PowerSource powerSource2 = new PowerSource("ps1",20,20);
+        PowerSource powerSource1 = new PowerSource("ps1", 20, 20);
+        PowerSource powerSource2 = new PowerSource("ps1", 20, 20);
         grid.addPowerSource(powerSource1);
         //ACT
         boolean result = ctrl.addPowerSourceToGrid(grid, powerSource2);
@@ -322,7 +324,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddEnergyGridToHouseWorks() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa", "as", "as", "s", new Local(1, 1, 1), new GeographicArea("porto", new TypeArea("cidade"), 12, 12, new Local(1, 1, 1)), 60, 180, deviceTypeString);
         EnergyGrid energyGrid = ctrl.createEnergyGrid("grid", 400);
         ctrl.addEnergyGridToHouse(house, energyGrid);
@@ -332,13 +334,13 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    void seeIfCreateGridTrue(){
+    void seeIfCreateGridTrue() {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
 
         EnergyGrid actualResult = ctrl.createEnergyGrid("EG1", 400);
-        EnergyGrid expectedResult = new EnergyGrid("EG1",400);
+        EnergyGrid expectedResult = new EnergyGrid("EG1", 400);
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -385,7 +387,7 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfDeviceListPrintsByType() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
@@ -393,16 +395,16 @@ class EnergyGridSettingsControllerTest {
         RoomList rl = new RoomList();
         Device d1 = new Device(new FridgeSpec());
         d1.setNominalPower(12.0);
-        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
+        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
+        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
         Device d2 = new Device(new DishwasherSpec());
         d2.setNominalPower(13.0);
         Device d3 = new Device(new FridgeSpec());
         d3.setNominalPower(14.0);
-        d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 5D);
-        d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 6D);
-        d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        d3.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5D);
+        d3.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 6D);
+        d3.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
         d1.setName("uno");
         d2.setName("dos");
         d3.setName("tres");
@@ -429,7 +431,7 @@ class EnergyGridSettingsControllerTest {
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
+        deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         EnergyGrid eg1 = new EnergyGrid("eg1", 65);
         EnergyGrid eg2 = new EnergyGrid("eg2", 55);
@@ -448,12 +450,12 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeCreatePowerSource() {
-        PowerSource powerSource1 = new PowerSource("powersource1",10,10);
-        PowerSource powerSource2 = new PowerSource("powersource2",123,76);
+        PowerSource powerSource1 = new PowerSource("powersource1", 10, 10);
+        PowerSource powerSource2 = new PowerSource("powersource2", 123, 76);
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
         //Act
-        PowerSource actualResult1 = ctrl.createPowerSource("powersource1", 10,10);
-        PowerSource actualResult2 = ctrl.createPowerSource("powersource2", 123,76);
+        PowerSource actualResult1 = ctrl.createPowerSource("powersource1", 10, 10);
+        PowerSource actualResult2 = ctrl.createPowerSource("powersource2", 123, 76);
         //Assert
         assertEquals(actualResult1, powerSource1);
         assertEquals(actualResult2, powerSource2);

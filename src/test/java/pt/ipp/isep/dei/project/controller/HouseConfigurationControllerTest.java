@@ -2,10 +2,11 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
@@ -14,6 +15,10 @@ import static org.testng.Assert.assertEquals;
  */
 
 class HouseConfigurationControllerTest {
+
+    // Common artifacts for testing in this class.
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+
 
     @Test
     void seeIfPrintGAList() {
@@ -86,8 +91,8 @@ class HouseConfigurationControllerTest {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         //Act
         ctrl.setHouseAddress("rua da rua", house);
         String result = house.getStreet();
@@ -100,8 +105,8 @@ class HouseConfigurationControllerTest {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         //Act
         ctrl.setHouseZIPCode("3432", house);
         String result = house.getZip();
@@ -114,11 +119,11 @@ class HouseConfigurationControllerTest {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         //Act
-        Local local = new Local (34,56,5);
-        ctrl.setHouseLocal(34,56,5, house);
+        Local local = new Local(34, 56, 5);
+        ctrl.setHouseLocal(34, 56, 5, house);
         Local result = house.getLocation();
         //Assert
         assertEquals(local, result);
@@ -133,8 +138,8 @@ class HouseConfigurationControllerTest {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
 
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         //Act
 
         String result = ctrl.getHouseName(house);
@@ -149,8 +154,8 @@ class HouseConfigurationControllerTest {
         Room room1 = new Room("quarto", 1, 1, 2, 2);
         Room room2 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room1);
         house.addRoomToRoomList(room2);
         boolean expectedResult = true;
@@ -167,8 +172,8 @@ class HouseConfigurationControllerTest {
         Room room1 = new Room("kitchen", 1, 1, 2, 2);
         Room room2 = new Room("kitchen", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room1);
         house.addRoomToRoomList(room2);
         ctrl.createNewRoom("kitchen", 1, 1, 2, 2);
@@ -248,8 +253,8 @@ class HouseConfigurationControllerTest {
         roomList.addRoom(room);
         roomList.addRoom(room1);
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4),ga,60,180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         house.setRoomList(roomList);
         String expectedResult = "---------------\n" +
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +

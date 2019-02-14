@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.TestUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
@@ -25,19 +24,23 @@ import static org.testng.Assert.assertTrue;
 
 class RoomTest {
 
+    // Common artifacts for testing in this class.
+    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+
+
     @Test
     void seeIfRemoveDeviceFromRoomWorks() {
         Device device = new Device(new WaterHeaterSpec());
         device.setName("waterheater");
         device.setNominalPower(150.0);
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Device device1 = new Device(new WaterHeaterSpec());
         device1.setName("sdgfsgsd");
-        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("cozinha", 1, 1, 1, 1);
         room.addDevice(device);
         room.addDevice(device1);
@@ -56,9 +59,9 @@ class RoomTest {
         Device d1 = new Device(new FridgeSpec());
         d1.setName("frigorifico");
         d1.setNominalPower(230.0);
-        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 1D);
-        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 1D);
-        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 34D);
+        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 1D);
+        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 1D);
+        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 34D);
         deviceList.addDevice(d1);
         Room room = new Room("cozinha", 0, 1, 1, 1);
         room.setDeviceList(deviceList);
@@ -284,21 +287,21 @@ class RoomTest {
         Device d1 = new Device(new FridgeSpec());
         d1.setNominalPower(12.0);
         d1.setName("dsgdgdfg");
-        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
-        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
-        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
+        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
+        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
         Device d2 = new Device(new FridgeSpec());
         d2.setNominalPower(10.0);
         d2.setName("fdgdhsd");
-        d2.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
-        d2.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
-        d2.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
+        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
+        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
         Device d3 = new Device(new FridgeSpec());
         d3.setNominalPower(1.0);
         d3.setName("sdgfddsa");
-        d3.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
-        d3.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
-        d3.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        d3.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
+        d3.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
+        d3.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
         deviceList.addDevice(d2);
@@ -316,17 +319,17 @@ class RoomTest {
     void getDailyRoomConsumptionPerTypeTest() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Device(new FridgeSpec());
-        d1.setAttributeValue(TestUtils.F_FREEZER_CAPACITY, 2D);
-        d1.setAttributeValue(TestUtils.F_REFRIGERATOR_CAPACITY, 2D);
-        d1.setAttributeValue(TestUtils.F_ANNUAL_CONSUMPTION, 45D);
+        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
+        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
+        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
         Device d2 = new Device(new WaterHeaterSpec());
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d1);
         r1.addDevice(d2);
         r1.addDevice(d3);
@@ -339,13 +342,13 @@ class RoomTest {
     void seeIfRemoveRoomDevicesFromDeviceListAssertTrue() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         d2.setAttributeValue("coldWaterTemperature", 5.0);
@@ -360,13 +363,13 @@ class RoomTest {
     void seeIfRemoveRoomDevicesFromDeviceListAssertTrueList() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         DeviceList dlist = new DeviceList();
         dlist.addDevice(d2);
         dlist.addDevice(d3);
@@ -384,19 +387,19 @@ class RoomTest {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("sdgdfg");
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Device d1 = new Device(new WaterHeaterSpec());
         d1.setName("hgfhs");
-        d1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("hfhgfh");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         d2.setAttributeValue("coldWaterTemperature", 5.0);
@@ -412,14 +415,14 @@ class RoomTest {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("sdgfdg");
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("fdsgfds");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 0.9D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         d2.setAttributeValue("Cold Water Temperature", 5.0);
@@ -435,13 +438,13 @@ class RoomTest {
     void addDeviceFails() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         boolean expectedResult = false;
         boolean result = r1.addDevice(d3);
@@ -453,14 +456,14 @@ class RoomTest {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("dsgsg");
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("dssg");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         boolean expectedResult = true;
         boolean result = r1.addDevice(d3);
@@ -471,13 +474,13 @@ class RoomTest {
     void addDeviceSucceeds2() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.addDevice(d3);
@@ -488,9 +491,9 @@ class RoomTest {
     void addDeviceSucceeds3() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         boolean expectedResult = true;
         boolean result = r1.addDevice(d3);
         assertEquals(expectedResult, result);
@@ -501,14 +504,14 @@ class RoomTest {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("sdgdh");
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("fgdffds");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         List<Device> expectedResult = new ArrayList<>();
@@ -522,13 +525,13 @@ class RoomTest {
     void getRoomDevicesOfGivenTypeFails() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         List<Device> expectedResult = new ArrayList<>();
@@ -540,13 +543,13 @@ class RoomTest {
     void removeDeviceSucess() {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.removeDevice(d2);
@@ -558,19 +561,19 @@ class RoomTest {
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("sdfdsfg");
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("fdhgh");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         Device d4 = new Device(new WaterHeaterSpec());
         d4.setName("fdgfdsh");
-        d4.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 50D);
-        d4.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 3D);
-        d4.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d4.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 50D);
+        d4.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 3D);
+        d4.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.removeDevice(d4);
@@ -582,13 +585,13 @@ class RoomTest {
     void seeIfAddRoomDevicesToDeviceListWorksWhenDeviceListAlreadyAddedToRoom() {
         //Arrange
         Device device1 = new Device(new WaterHeaterSpec());
-        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Device device2 = new Device(new WaterHeaterSpec());
-        device2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
@@ -605,13 +608,13 @@ class RoomTest {
     void seeIfAddRoomDevicesToDeviceListWorksAlreadyContained() {
         //Arrange
         Device device1 = new Device(new WaterHeaterSpec());
-        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Device device2 = new Device(new WaterHeaterSpec());
-        device2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
@@ -631,13 +634,13 @@ class RoomTest {
     void seeIfAddRoomDevicesToDeviceListWorksWhenNotYetAddedToRoom() {
         //Arrange
         Device device1 = new Device(new WaterHeaterSpec());
-        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Device device2 = new Device(new WaterHeaterSpec());
-        device2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
         dList.addDevice(device1);
@@ -652,19 +655,19 @@ class RoomTest {
     @Test
     void seeIfGetAllHouseDevices() {
         List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(TestUtils.PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180,deviceTypeString);
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new Device(new WaterHeaterSpec());
         d2.setName("ghfghfg");
-        d2.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 10D);
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
+        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         Device d3 = new Device(new WaterHeaterSpec());
         d3.setName("hdhfg");
-        d3.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 1D);
+        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
+        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
         house.addRoomToRoomList(r1);
@@ -679,9 +682,9 @@ class RoomTest {
     void ensureThatWeDoNotAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
         Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("Room", 1, 2, 3, 4);
         deviceList.addDevice(device);
         room.setDeviceList(deviceList);
@@ -695,9 +698,9 @@ class RoomTest {
     void seeThatWeAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
         Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         DeviceList deviceList2 = new DeviceList();
         deviceList.addDevice(device);
         Room room = new Room("Room", 1, 2, 3, 4);
@@ -711,9 +714,9 @@ class RoomTest {
     void ensureThatWeDontAddADeviceToADeviceList() {
         DeviceList deviceList = new DeviceList();
         Device device = new Device(new WaterHeaterSpec());
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("Room", 1, 2, 3, 4);
         deviceList.addDevice(device);
         boolean expectedResult = false;
@@ -726,18 +729,18 @@ class RoomTest {
         DeviceList deviceList = new DeviceList();
         Device device = new Device(new WaterHeaterSpec());
         device.setName("fdhgh");
-        device.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("Room", 1, 2, 3, 4);
         deviceList.addDevice(device);
         room.setDeviceList(deviceList);
         DeviceList deviceList1 = new DeviceList();
         Device device1 = new Device(new WaterHeaterSpec());
         device1.setName("hgfhjhyj");
-        device1.setAttributeValue(TestUtils.WH_VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(TestUtils.WH_HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(TestUtils.WH_PERFORMANCE_RATIO, 234D);
+        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         deviceList1.addDevice(device1);
         boolean expectedResult = true;
         boolean actualResult = room.addRoomDevicesToDeviceList(deviceList1);
@@ -759,7 +762,7 @@ class RoomTest {
         Room room3 = new Room("room3", 1, 2, 3, 4); //ONE HUMIDITY SENSOR
         Room room4 = new Room("room4", 1, 2, 3, 4); //TWO TEMP + ONE HUMIDITY
 
-        GregorianCalendar gregorianCalendar = new GregorianCalendar(2018,1,1);
+        GregorianCalendar gregorianCalendar = new GregorianCalendar(2018, 1, 1);
         Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar.getTime());
         Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar.getTime());
         Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), gregorianCalendar.getTime());
@@ -786,10 +789,10 @@ class RoomTest {
         SensorList actualResult3 = room3.getSensorsOfGivenType("temperature");
         SensorList actualResult4 = room4.getSensorsOfGivenType("temperature");
         //ASSERT
-        assertEquals(actualResult1,expectedResult1);
-        assertEquals(actualResult2,expectedResult2);
-        assertEquals(actualResult3,expectedResult3);
-        assertEquals(actualResult4,expectedResult4);
+        assertEquals(actualResult1, expectedResult1);
+        assertEquals(actualResult2, expectedResult2);
+        assertEquals(actualResult3, expectedResult3);
+        assertEquals(actualResult4, expectedResult4);
     }
 
     @Test
@@ -803,10 +806,10 @@ class RoomTest {
         Room room7 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN SECOND READING) + ONE HUMIDITY
         Room room8 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN THIRD READING) + ONE HUMIDITY
 
-        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018,1,1,23,59);
-        GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018,1,2,0,0);
-        GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2018,1,2,1,1);
-        GregorianCalendar gregorianCalendar4 = new GregorianCalendar(2018,1,2,12,12);
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
+        GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018, 1, 2, 0, 0);
+        GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2018, 1, 2, 1, 1);
+        GregorianCalendar gregorianCalendar4 = new GregorianCalendar(2018, 1, 2, 12, 12);
 
         Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
@@ -819,7 +822,7 @@ class RoomTest {
         Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor5 = new Sensor("sensor5", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
         Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading1 = new Reading(20,gregorianCalendar2.getTime());
+        Reading reading1 = new Reading(20, gregorianCalendar2.getTime());
         sensor4.addReading(reading1);
         sensor5.addReading(reading1);
         sensor6.addReading(reading1);
@@ -830,8 +833,8 @@ class RoomTest {
 
         Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading2 = new Reading(24,gregorianCalendar2.getTime());
-        Reading reading3 = new Reading(20,gregorianCalendar3.getTime());
+        Reading reading2 = new Reading(24, gregorianCalendar2.getTime());
+        Reading reading3 = new Reading(20, gregorianCalendar3.getTime());
         sensor7.addReading(reading2);
         sensor8.addReading(reading3);
 
@@ -841,8 +844,8 @@ class RoomTest {
 
         Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading4 = new Reading(20,gregorianCalendar2.getTime());
-        Reading reading5 = new Reading(25,gregorianCalendar3.getTime());
+        Reading reading4 = new Reading(20, gregorianCalendar2.getTime());
+        Reading reading5 = new Reading(25, gregorianCalendar3.getTime());
         sensor9.addReading(reading4);
         sensor10.addReading(reading5);
 
@@ -852,9 +855,9 @@ class RoomTest {
 
         Sensor sensor11 = new Sensor("sensor11", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor12 = new Sensor("sensor12", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading6 = new Reading(26,gregorianCalendar2.getTime());
-        Reading reading7 = new Reading(21,gregorianCalendar3.getTime());
-        Reading reading8 = new Reading(20,gregorianCalendar4.getTime());
+        Reading reading6 = new Reading(26, gregorianCalendar2.getTime());
+        Reading reading7 = new Reading(21, gregorianCalendar3.getTime());
+        Reading reading8 = new Reading(20, gregorianCalendar4.getTime());
         sensor11.addReading(reading6);
         sensor11.addReading(reading7);
         sensor11.addReading(reading8);
@@ -866,9 +869,9 @@ class RoomTest {
 
         Sensor sensor13 = new Sensor("sensor13", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor14 = new Sensor("sensor14", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading9 = new Reading(21,gregorianCalendar2.getTime());
-        Reading reading10 = new Reading(27,gregorianCalendar3.getTime());
-        Reading reading11 = new Reading(20,gregorianCalendar4.getTime());
+        Reading reading9 = new Reading(21, gregorianCalendar2.getTime());
+        Reading reading10 = new Reading(27, gregorianCalendar3.getTime());
+        Reading reading11 = new Reading(20, gregorianCalendar4.getTime());
         sensor13.addReading(reading9);
         sensor13.addReading(reading10);
         sensor13.addReading(reading11);
@@ -881,9 +884,9 @@ class RoomTest {
 
         Sensor sensor15 = new Sensor("sensor15", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor16 = new Sensor("sensor16", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading12 = new Reading(21,gregorianCalendar2.getTime());
-        Reading reading13 = new Reading(20,gregorianCalendar3.getTime());
-        Reading reading14 = new Reading(28,gregorianCalendar4.getTime());
+        Reading reading12 = new Reading(21, gregorianCalendar2.getTime());
+        Reading reading13 = new Reading(20, gregorianCalendar3.getTime());
+        Reading reading14 = new Reading(28, gregorianCalendar4.getTime());
         sensor15.addReading(reading12);
         sensor15.addReading(reading13);
         sensor15.addReading(reading14);
@@ -905,14 +908,14 @@ class RoomTest {
 
 
         //ASSERT
-        assertEquals(actualResult1,NaN,0.01);
-        assertEquals(actualResult2,NaN,0.01);
-        assertEquals(actualResult3,20,0.01);
-        assertEquals(actualResult4,24,0.01);
-        assertEquals(actualResult5,25,0.01);
-        assertEquals(actualResult6,26,0.01);
-        assertEquals(actualResult7,27,0.01);
-        assertEquals(actualResult8,28,0.01);
+        assertEquals(actualResult1, NaN, 0.01);
+        assertEquals(actualResult2, NaN, 0.01);
+        assertEquals(actualResult3, 20, 0.01);
+        assertEquals(actualResult4, 24, 0.01);
+        assertEquals(actualResult5, 25, 0.01);
+        assertEquals(actualResult6, 26, 0.01);
+        assertEquals(actualResult7, 27, 0.01);
+        assertEquals(actualResult8, 28, 0.01);
     }
 
     @Test
@@ -926,9 +929,9 @@ class RoomTest {
         Room room7 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MOST RECENT IN SECOND READING) + ONE HUMIDITY
         Room room8 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MOST RECENT IN THIRD READING) + ONE HUMIDITY
 
-        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018,1,1,23,59);
-        GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018,1,2,0,0);
-        GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2018,1,2,0,1);
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
+        GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018, 1, 2, 0, 0);
+        GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2018, 1, 2, 0, 1);
 
         Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
@@ -941,7 +944,7 @@ class RoomTest {
         Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor5 = new Sensor("sensor5", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
         Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading1 = new Reading(20,gregorianCalendar2.getTime());
+        Reading reading1 = new Reading(20, gregorianCalendar2.getTime());
         sensor4.addReading(reading1);
         sensor5.addReading(reading1);
         sensor6.addReading(reading1);
@@ -952,8 +955,8 @@ class RoomTest {
 
         Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading2 = new Reading(24,gregorianCalendar2.getTime());
-        Reading reading3 = new Reading(20,gregorianCalendar1.getTime());
+        Reading reading2 = new Reading(24, gregorianCalendar2.getTime());
+        Reading reading3 = new Reading(20, gregorianCalendar1.getTime());
         sensor7.addReading(reading2);
         sensor8.addReading(reading3);
 
@@ -963,8 +966,8 @@ class RoomTest {
 
         Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading4 = new Reading(20,gregorianCalendar1.getTime());
-        Reading reading5 = new Reading(25,gregorianCalendar2.getTime());
+        Reading reading4 = new Reading(20, gregorianCalendar1.getTime());
+        Reading reading5 = new Reading(25, gregorianCalendar2.getTime());
         sensor9.addReading(reading4);
         sensor10.addReading(reading5);
 
@@ -974,9 +977,9 @@ class RoomTest {
 
         Sensor sensor11 = new Sensor("sensor11", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor12 = new Sensor("sensor12", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading6 = new Reading(26,gregorianCalendar3.getTime());
-        Reading reading7 = new Reading(21,gregorianCalendar1.getTime());
-        Reading reading8 = new Reading(20,gregorianCalendar2.getTime());
+        Reading reading6 = new Reading(26, gregorianCalendar3.getTime());
+        Reading reading7 = new Reading(21, gregorianCalendar1.getTime());
+        Reading reading8 = new Reading(20, gregorianCalendar2.getTime());
         sensor11.addReading(reading6);
         sensor11.addReading(reading7);
         sensor11.addReading(reading8);
@@ -988,9 +991,9 @@ class RoomTest {
 
         Sensor sensor13 = new Sensor("sensor13", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor14 = new Sensor("sensor14", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading9 = new Reading(21,gregorianCalendar2.getTime());
-        Reading reading10 = new Reading(27,gregorianCalendar3.getTime());
-        Reading reading11 = new Reading(20,gregorianCalendar1.getTime());
+        Reading reading9 = new Reading(21, gregorianCalendar2.getTime());
+        Reading reading10 = new Reading(27, gregorianCalendar3.getTime());
+        Reading reading11 = new Reading(20, gregorianCalendar1.getTime());
         sensor13.addReading(reading9);
         sensor13.addReading(reading10);
         sensor13.addReading(reading11);
@@ -1003,9 +1006,9 @@ class RoomTest {
 
         Sensor sensor15 = new Sensor("sensor15", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor16 = new Sensor("sensor16", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading12 = new Reading(21,gregorianCalendar2.getTime());
-        Reading reading13 = new Reading(20,gregorianCalendar1.getTime());
-        Reading reading14 = new Reading(28,gregorianCalendar3.getTime());
+        Reading reading12 = new Reading(21, gregorianCalendar2.getTime());
+        Reading reading13 = new Reading(20, gregorianCalendar1.getTime());
+        Reading reading14 = new Reading(28, gregorianCalendar3.getTime());
         sensor15.addReading(reading12);
         sensor15.addReading(reading13);
         sensor15.addReading(reading14);
@@ -1027,14 +1030,14 @@ class RoomTest {
 
 
         //ASSERT
-        assertEquals(actualResult1,NaN,0.01);
-        assertEquals(actualResult2,NaN,0.01);
-        assertEquals(actualResult3,20,0.01);
-        assertEquals(actualResult4,24,0.01);
-        assertEquals(actualResult5,25,0.01);
-        assertEquals(actualResult6,26,0.01);
-        assertEquals(actualResult7,27,0.01);
-        assertEquals(actualResult8,28,0.01);
+        assertEquals(actualResult1, NaN, 0.01);
+        assertEquals(actualResult2, NaN, 0.01);
+        assertEquals(actualResult3, 20, 0.01);
+        assertEquals(actualResult4, 24, 0.01);
+        assertEquals(actualResult5, 25, 0.01);
+        assertEquals(actualResult6, 26, 0.01);
+        assertEquals(actualResult7, 27, 0.01);
+        assertEquals(actualResult8, 28, 0.01);
     }
 
     @Test
@@ -1043,7 +1046,7 @@ class RoomTest {
         Room room2 = new Room("room2", 0, 1, 1, 1); //ONE SENSOR
         Room room3 = new Room("room3", 0, 1, 1, 1); //TWO SENSORS
 
-        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018,1,1,23,59);
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
         Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
 
@@ -1062,8 +1065,8 @@ class RoomTest {
         SensorList actualResult2 = room2.getSensorList();
         SensorList actualResult3 = room3.getSensorList();
         //ASSERT
-        assertEquals(actualResult1,expectedResult1);
-        assertEquals(actualResult2,expectedResult2);
-        assertEquals(actualResult3,expectedResult3);
+        assertEquals(actualResult1, expectedResult1);
+        assertEquals(actualResult2, expectedResult2);
+        assertEquals(actualResult3, expectedResult3);
     }
 }
