@@ -2,10 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.TestUtils;
-import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
-import pt.ipp.isep.dei.project.model.device.LogList;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
