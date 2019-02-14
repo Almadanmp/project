@@ -19,11 +19,6 @@ class RoomConfigurationUI {
     private RoomConfigurationController mRoomConfigurationController;
     private Room mRoom;
     private Device mDevice;
-    private String mDeviceName;
-    private ProgramList mProgramList = new ProgramList();
-    private String mProgramName;
-    private double mDuration;
-    private double mEnergyConsumption;
     private String mSensorName;
     private int mDataYear;
     private int mDataMonth;
@@ -132,7 +127,7 @@ class RoomConfigurationUI {
             double energyConsumption = inputUtils.getInputAsDouble();
 
             Program newProgram = new Program(programName, duration, energyConsumption);
-            pList.addProgram(newProgram);
+            mRoomConfigurationController.addProgramToProgramList(pList,newProgram);
 
         }
 
@@ -239,32 +234,32 @@ class RoomConfigurationUI {
     private void runUS215(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        this.mRoom = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(this.mRoom)) {
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(this.mRoom);
-        getInputDeviceCharacteristicsUS215(device);
+        Device device = inputUtils.getInputRoomDevicesByList(room);
+        getInputDeviceCharacteristicsUS215(device, room, house);
     }
 
 
-    private void getInputDeviceCharacteristicsUS215(Device device) {
+    private void getInputDeviceCharacteristicsUS215(Device device, Room room, House house) {
         Scanner scanner = new Scanner(System.in);
 
-        if (device == null || mRoom == null) {
+        if (device == null || room == null) {
             System.out.println("There are no devices in this room.");
             return;
         }
 
         // get device name
         System.out.print("Please, type the new name of the device: ");
-        this.mDeviceName = scanner.nextLine();
+        String deviceName = scanner.nextLine();
 
         //get room
-        mRoomConfigurationController.removeDevice(mRoom, device);
+        mRoomConfigurationController.removeDevice(room, device);
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        room = inputUtils.getHouseRoomByList(house);
 
         device.getAttributeNames();
         for (int i = 0; i < device.getAttributeNames().size(); i++) {
@@ -277,53 +272,53 @@ class RoomConfigurationUI {
             System.out.println("This device is programmable.");
             Program program;
             program = inputUtils.getSelectedProgramFromDevice(device);
-            mProgramList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(device));
-            if (program == null || mProgramList == null) {
+            ProgramList programList = ((ProgramList) mRoomConfigurationController.getAttributeValueWashingMachine(device));
+            if (program == null || programList == null) {
                 System.out.println("There are no programs to edit.");
                 return;
             }
-            updateAProgrammableDevice(program);
-            mRoomConfigurationController.configureOneWashingMachineProgram(device, mProgramList);
+            updateAProgrammableDevice(program, programList);
+            mRoomConfigurationController.configureOneWashingMachineProgram(device, programList);
         }
 
-        displayDeviceUS215(device);
+        displayDeviceUS215(device, room, deviceName);
 
 
     }
 
-    private void updateAProgrammableDevice(Program program) {
+    private void updateAProgrammableDevice(Program program, ProgramList programList) {
         Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
-        mProgramList.removeProgram(program);
+        programList.removeProgram(program);
         System.out.println(requestProgramName);
-        this.mProgramName = scanner.nextLine();
+        String programName = scanner.nextLine();
         System.out.println(requestProgramDuration);
-        this.mDuration = inputUtils.getInputAsDouble();
+        double duration = inputUtils.getInputAsDouble();
         System.out.println(requestProgramEnergyConsumption);
-        this.mEnergyConsumption = inputUtils.getInputAsDouble();
-        Program newProgram = new Program(mProgramName, mDuration, mEnergyConsumption);
-        mProgramList.addProgram(newProgram);
-        loopForPrograms();
+        double energyConsumption = inputUtils.getInputAsDouble();
+        Program newProgram = new Program(programName, duration, energyConsumption);
+        mRoomConfigurationController.addProgramToProgramList(programList,newProgram);
+        loopForPrograms(programList);
 
     }
 
-    private void loopForPrograms() {
+    private void loopForPrograms(ProgramList programList) {
         InputUtils inputUtils = new InputUtils();
         Program program1;
         Scanner scanner = new Scanner(System.in);
-        if (mProgramList.getProgramList().size() > 1) {
+        if (programList.getProgramList().size() > 1) {
             System.out.println("Would you like to edit another Program? (y/n)");
             while (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to edit another Program? (y/n)")) {
                 program1 = inputUtils.getSelectedProgramFromDevice(mDevice);
-                mProgramList.removeProgram(program1);
+                programList.removeProgram(program1);
                 System.out.println(requestProgramName);
-                this.mProgramName = scanner.nextLine();
+                String programName = scanner.nextLine();
                 System.out.println(requestProgramDuration);
-                this.mDuration = inputUtils.getInputAsDouble();
+                double duration = inputUtils.getInputAsDouble();
                 System.out.println(requestProgramEnergyConsumption);
-                this.mEnergyConsumption = inputUtils.getInputAsDouble();
-                program1 = new Program(mProgramName, mDuration, mEnergyConsumption);
-                mProgramList.addProgram(program1);
+                double energyConsumption = inputUtils.getInputAsDouble();
+                program1 = new Program(programName, duration, energyConsumption);
+                programList.addProgram(program1);
             }
         }
     }
@@ -331,23 +326,24 @@ class RoomConfigurationUI {
 
     // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it. - CARINA ALAS
 
-    private void displayDeviceUS215(Device device) {
-        if (device == null || mRoom == null) {
+    private void displayDeviceUS215(Device device, Room room, String deviceName) {
+        if (device == null || room == null) {
             return;
         }
-        if (mRoom.addDevice(device)) {
+        if (room.addDevice(device)) {
             for (int i = 0; i < device.getAttributeNames().size(); i++) {
                 System.out.println("You have changed the : " + device.getAttributeNames().get(i) + " to: "
                         + device.getAttributeValue(device.getAttributeNames().get(i)) + " "
                         + device.getAttributeUnit(device.getAttributeNames().get(i)) + ".");
             }
-            System.out.println("\nYou have successfully changed the device name to " + mDeviceName + "." +
-                    "\nThe room is " + mRoom.getRoomName() + "\n");
+            System.out.println("\nYou have successfully changed the device name to " + deviceName + "." +
+                    "\nThe room is " + room.getRoomName() + "\n");
 
         } else {
-            mRoom.addDevice(device);
+            room.addDevice(device);
             System.out.println("Device already exists in the room. Please, try again.\n");
         }
+
     }
 
     /*US222 As a Power User, I want to deactivate a device, so that it is no longer used.

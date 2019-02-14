@@ -673,7 +673,8 @@ class HouseTest {
     @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed4() {
         ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 1, 24).getTime());
+        Reading r1 = new Reading(15, new GregorianCalendar(2018,
+                1, 24).getTime());
         Reading r2 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());
         Reading r3 = new Reading(12, new GregorianCalendar(2018, 1, 25).getTime());
         Reading r4 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());

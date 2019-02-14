@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.List;
@@ -206,6 +207,10 @@ public class RoomConfigurationController {
     public String buildDeviceListString(Room room) {
         return room.buildDeviceListString();
     }
+
+    public void addProgramToProgramList(ProgramList programList, Program newProgram){
+            programList.addProgram(newProgram);}
+
 
     public void setNominalPowerDevice(Device device, double nominalPower) {
         device.setNominalPower(nominalPower);

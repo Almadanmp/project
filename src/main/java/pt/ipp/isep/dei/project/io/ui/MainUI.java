@@ -867,10 +867,11 @@ public class MainUI {
         int option;
         while (true) {
 
-            System.out.println("\n************\n" +
-                    "*** Smart Grid Menu ****\n" +
-                    "**** sWitCh 2018 *****\n" +
-                    "************\n");
+            System.out.println(
+                    "*************************\n" +
+                    "**** Smart Grid Menu ****\n" +
+                    "****** sWitCh 2018 ******\n" +
+                    "*************************\n");
 
             // Submenus Input selection
 
