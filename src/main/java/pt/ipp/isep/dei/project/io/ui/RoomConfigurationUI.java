@@ -14,15 +14,7 @@ import java.util.Scanner;
 
 
 class RoomConfigurationUI {
-
-    private House mHouse;
     private RoomConfigurationController mRoomConfigurationController;
-    private Room mRoom;
-    private Device mDevice;
-    private String mSensorName;
-    private int mDataYear;
-    private int mDataMonth;
-    private int mDataDay;
 
     private String requestProgramName = "Please, type the new Program name:";
     private String requestProgramEnergyConsumption = "Please, type the new Program Energy Consumption:";
@@ -34,8 +26,7 @@ class RoomConfigurationUI {
 
     void run(House house, TypeSensorList typeSensorList) {
         UtilsUI utils = new UtilsUI();
-        this.mHouse = house;
-        if (!utils.houseRoomListIsValid(this.mHouse)) {
+        if (!utils.houseRoomListIsValid(house)) {
             System.out.println(utils.invalidRoomList);
             return;
         }
@@ -50,7 +41,7 @@ class RoomConfigurationUI {
             option = inputUtils.getInputAsInt();
             switch (option) {
                 case 1: //US201
-                    runUS201();
+                    runUS201(house);
                     activeInput = false;
                     break;
                 case 2: //US210
@@ -62,7 +53,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 4: //US220
-                    runUS220();
+                    runUS220(house);
                     activeInput = false;
                     break;
                 case 5: //US222
@@ -74,11 +65,11 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 7: //US250
-                    runUS250();
+                    runUS250(house);
                     activeInput = false;
                     break;
                 case 8: //US253
-                    runUS253(typeSensorList);
+                    runUS253(typeSensorList, house);
                     activeInput = false;
                     break;
                 case 0:
@@ -147,25 +138,24 @@ class RoomConfigurationUI {
      *
      * @param typeSensorList is
      */
-    private void runUS253(TypeSensorList typeSensorList) {
+    private void runUS253(TypeSensorList typeSensorList, House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.typeSensorListIsValid(typeSensorList)) {
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
+        Room room = inputUtils.getHouseRoomByList(house);
         TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
-        getInput253();
-        updateAndDisplay253(typeSensor);
+        getInput253(room, typeSensor);
     }
 
-    private void getInput253() {
+    private void getInput253(Room room, TypeSensor typeSensor) {
         Scanner input = new Scanner(System.in);
         // Name Getter
         System.out.println("\nEnter Sensor Name:\t");
-        this.mSensorName = input.nextLine();
-        System.out.println("You entered sensor " + mSensorName);
+        String sensorName = input.nextLine();
+        System.out.println("You entered sensor " + sensorName);
         // Date Getter
         System.out.println("\nEnter Sensor starting date:\t");
         System.out.println("\nEnter the year:\t");
@@ -173,31 +163,33 @@ class RoomConfigurationUI {
             input.nextLine();
             System.out.println("Not a valid year. Try again");
         }
-        this.mDataYear = input.nextInt();
+        int dateYear = input.nextInt();
         input.nextLine();
         System.out.println("\nEnter the Month:\t");
         while (!input.hasNextInt()) {
             input.nextLine();
             System.out.println("Not a valid month. Try again");
         }
-        this.mDataMonth = input.nextInt();
+        int dateMonth = input.nextInt();
         input.nextLine();
         System.out.println("\nEnter the Day:\t");
         while (!input.hasNextInt()) {
             input.nextLine();
             System.out.println("Not a valid day. Try again");
         }
-        this.mDataDay = input.nextInt();
+        int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
+        updateAndDisplay253(typeSensor, room, dateYear, dateMonth, dateDay, sensorName);
+
     }
 
-    private void updateAndDisplay253(TypeSensor typeSensor) {
+    private void updateAndDisplay253(TypeSensor typeSensor, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         SensorSettingsController mController = new SensorSettingsController();
-        Date mDate = mController.createDate(this.mDataYear, this.mDataMonth, this.mDataDay);
-        Sensor mSensor = mController.createRoomSensor(mSensorName, typeSensor, mDate);
-        if (ctrl.addSensorToRoom(mRoom, mSensor)) {
-            System.out.println("\nSensor successfully added to the Room " + mRoom.getRoomName());
+        Date mDate = mController.createDate(dateYear, dateMonth, dateDay);
+        Sensor mSensor = mController.createRoomSensor(sensorName, typeSensor, mDate);
+        if (ctrl.addSensorToRoom(room, mSensor)) {
+            System.out.println("\nSensor successfully added to the Room " + room.getRoomName());
         } else System.out.println("\nSensor already exists in the room.");
     }
 
@@ -206,25 +198,25 @@ class RoomConfigurationUI {
      * <p>
      * Prints device List in that room.
      */
-    private void runUS201() {
+    private void runUS201(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.houseRoomListIsValid(this.mHouse)) {
+        if (!utilsUI.houseRoomListIsValid(house)) {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        if (!utilsUI.roomDeviceListIsValid(this.mRoom)) {
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        printRoomDeviceList();
+        printRoomDeviceList(room);
     }
 
-    private void printRoomDeviceList() {
-        System.out.println("Available Devices in Room " + mRoom.getRoomName());
+    private void printRoomDeviceList(Room room) {
+        System.out.println("Available Devices in Room " + room.getRoomName());
         System.out.println("Please select one of the existing Devices in the selected Room: ");
-        System.out.println(mRoomConfigurationController.buildDeviceListString(mRoom));
+        System.out.println(mRoomConfigurationController.buildDeviceListString(room));
     }
 
 
@@ -281,26 +273,26 @@ class RoomConfigurationUI {
             updateAProgrammableDevice(program, programList, device);
             mRoomConfigurationController.configureOneWashingMachineProgram(device, programList);
         }
-
         displayDeviceUS215(device, room, deviceName);
-
-
     }
 
     private void updateAProgrammableDevice(Program program, ProgramList programList, Device device) {
         Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
-        programList.removeProgram(program);
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
-        System.out.println(requestProgramDuration);
-        double duration = inputUtils.getInputAsDouble();
-        System.out.println(requestProgramEnergyConsumption);
-        double energyConsumption = inputUtils.getInputAsDouble();
-        Program newProgram = new Program(programName, duration, energyConsumption);
-        mRoomConfigurationController.addProgramToProgramList(programList,newProgram);
-        System.out.println("The edited Program is now called "+programName+", has the Duration of "+duration+
-                " minutes, and the Energy Consumption of "+energyConsumption+ " kWh.");
+        for (int i = 0; i < program.getAttributeNames().size(); i++) {
+            System.out.println("Please insert the value for: " + program.getAttributeNames().get(i)
+                    + " (" + program.getAttributeUnit(program.getAttributeNames().get(i)) + ")");
+            Double value = inputUtils.getInputAsDouble();
+            program.setAttributeValue(program.getAttributeNames().get(i), value);
+        }
+       program.setProgramName(programName);
+        for (int i = 0; i < program.getAttributeNames().size(); i++) {
+            System.out.println("You have changed the : " + program.getAttributeNames().get(i) + " to: "
+                    + program.getAttributeValue(program.getAttributeNames().get(i)) + " "
+                    + program.getAttributeUnit(program.getAttributeNames().get(i)) + ".");
+        }
         loopForPrograms(programList,"Would you like to edit another Program? (y/n)", device);
 
     }
@@ -313,16 +305,22 @@ class RoomConfigurationUI {
             System.out.println(message);
             while (inputUtils.yesOrNo(scanner.nextLine(), message)) {
                 program1 = inputUtils.getSelectedProgramFromDevice(device);
-                programList.removeProgram(program1);
                 System.out.println(requestProgramName);
                 String programName = scanner.nextLine();
-                System.out.println(requestProgramDuration);
-                double duration = inputUtils.getInputAsDouble();
-                System.out.println(requestProgramEnergyConsumption);
-                double energyConsumption = inputUtils.getInputAsDouble();
-                program1 = new Program(programName, duration, energyConsumption);
-                programList.addProgram(program1);
+                for (int i = 0; i < program1.getAttributeNames().size(); i++) {
+                    System.out.println("Please insert the value for: " + program1.getAttributeNames().get(i)
+                            + " (" + program1.getAttributeUnit(program1.getAttributeNames().get(i)) + ")");
+                    Double value = inputUtils.getInputAsDouble();
+                    program1.setAttributeValue(program1.getAttributeNames().get(i), value);
+                }
+                program1.setProgramName(programName);
+                for (int i = 0; i < program1.getAttributeNames().size(); i++) {
+                    System.out.println("You have changed the : " + program1.getAttributeNames().get(i) + " to: "
+                            + program1.getAttributeValue(program1.getAttributeNames().get(i)) + " "
+                            + program1.getAttributeUnit(program1.getAttributeNames().get(i)) + ".");
+                }
               }
+
         }
     }
 
@@ -389,45 +387,45 @@ class RoomConfigurationUI {
 
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
-    private void runUS250() {
+    private void runUS250(House house) {
         InputUtils inputUtils = new InputUtils();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        displaySensorListUS250();
+        Room room = inputUtils.getHouseRoomByList(house);
+        displaySensorListUS250(room);
     }
 
-    private void displaySensorListUS250() {
+    private void displaySensorListUS250(Room room) {
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.roomSensorListIsValid(mRoom)) {
+        if (!utilsUI.roomSensorListIsValid(room)) {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        SensorList sensorList = mRoom.getSensorList();
+        SensorList sensorList = room.getSensorList();
         System.out.println(mRoomConfigurationController.buildSensorListString(sensorList));
     }
 
     /*US220 - As an Administrator, I want to remove a device from a room, so that it is no longer used.
     Its activity log is also removed.
     MARIA MEIRELES*/
-    private void runUS220() {
+    private void runUS220(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        this.mRoom = inputUtils.getHouseRoomByList(this.mHouse);
-        if (!utilsUI.roomDeviceListIsValid(this.mRoom)) {
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        this.mDevice = inputUtils.getInputRoomDevicesByList(this.mRoom);
-        removeDeviceUS220();
+        Device device = inputUtils.getInputRoomDevicesByList(room);
+        removeDeviceUS220(device, room);
     }
 
-    private void removeDeviceUS220() {
-        if (mDevice == null || mRoom == null) {
+    private void removeDeviceUS220(Device device, Room room) {
+        if (device == null || room == null) {
             System.out.println("There are no devices in this room.");
             return;
         }
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        ctrl.removeDevice(mRoom, mDevice);
-        System.out.println("The device " + mDevice.getName() + " on room " + mRoom.getRoomName() + " has ceased to be.");
+        ctrl.removeDevice(room, device);
+        System.out.println("The device " + device.getName() + " on room " + room.getRoomName() + " has ceased to be.");
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
