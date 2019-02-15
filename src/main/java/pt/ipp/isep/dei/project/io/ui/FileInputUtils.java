@@ -58,7 +58,7 @@ class FileInputUtils {
         return 1440 % gridMeteringPeriod == 0;
     }
 
-    //Device
+    //DeviceTemporary
 
     boolean validDeviceMetering() {
         int deviceMeteringPeriod = readDeviceMeteringPeriod();
@@ -96,7 +96,7 @@ class FileInputUtils {
 
     private boolean deviceMeteringPeriodValidation(int deviceValue) {
         if (deviceValue == 0) {
-            System.out.println("Device metering value must be greater than 0.");
+            System.out.println("DeviceTemporary metering value must be greater than 0.");
             return false;
         }
         if (1440 % deviceValue != 0) {

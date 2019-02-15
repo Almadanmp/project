@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
@@ -74,7 +74,7 @@ public class InputUtils {
         }
     }
 
-    Device getGridDevicesByList(EnergyGrid grid) {
+    DeviceTemporary getGridDevicesByList(EnergyGrid grid) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
@@ -82,7 +82,7 @@ public class InputUtils {
             System.out.println(grid.buildDeviceListString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < grid.getDeviceList().size()) {
-                Device result = grid.getDeviceList().get(aux);
+                DeviceTemporary result = grid.getDeviceList().get(aux);
                 System.out.println("You have chosen the following device: ");
                 System.out.println(result.buildDeviceString() + "\n");
                 return result;
@@ -92,7 +92,7 @@ public class InputUtils {
         }
     }
 
-    Program getSelectedProgramFromDevice(Device device) {
+    Program getSelectedProgramFromDevice(DeviceTemporary device) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
@@ -111,7 +111,7 @@ public class InputUtils {
         }
     }
 
-    Device getInputRoomDevicesByList(Room room) {
+    DeviceTemporary getInputRoomDevicesByList(Room room) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
@@ -119,7 +119,7 @@ public class InputUtils {
             System.out.println(room.buildDeviceListString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < room.getDeviceList().size()) {
-                Device result = room.getDeviceList().get(aux);
+                DeviceTemporary result = room.getDeviceList().get(aux);
                 System.out.println("You have chosen the following device:");
                 System.out.println(result.buildDeviceString() + "\n");
                 return result;

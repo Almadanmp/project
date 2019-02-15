@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import org.testng.annotations.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
@@ -78,7 +78,7 @@ public class UtilsUITest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
-        Device device = new Device(new DishwasherSpec());
+        DeviceTemporary device = new DeviceTemporary(new DishwasherSpec());
         room1.addDevice(device);
         EnergyGrid energyGrid1 = new EnergyGrid("mainGrid", 200);
         house.addRoomToRoomList(room1);
@@ -114,7 +114,7 @@ public class UtilsUITest {
         GregorianCalendar date = new GregorianCalendar(2010, 11, 2, 12, 12);
         Sensor sensor1 = new Sensor("sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
         room1.addSensor(sensor1);
-        Device device = new Device(new DishwasherSpec());
+        DeviceTemporary device = new DeviceTemporary(new DishwasherSpec());
         room1.addDevice(device);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
@@ -131,7 +131,7 @@ public class UtilsUITest {
     public void gridListsAreValid() {
         EnergyGrid energyGrid1 = new EnergyGrid("mainGrid", 200);
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
-        Device device = new Device(new DishwasherSpec());
+        DeviceTemporary device = new DeviceTemporary(new DishwasherSpec());
         room1.addDevice(device);
         energyGrid1.addRoomToAnEnergyGrid(room1);
         UtilsUI utilsUI = new UtilsUI();
@@ -212,7 +212,7 @@ public class UtilsUITest {
 
     @Test
     public void testDeviceLogListIsInvalid() {
-        Device device = new Device(new DishwasherSpec());
+        DeviceTemporary device = new DeviceTemporary(new DishwasherSpec());
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.deviceLogListIsValid(device);
@@ -222,7 +222,7 @@ public class UtilsUITest {
 
     @Test
     public void testDeviceLogListIsValid() {
-        Device device = new Device(new DishwasherSpec());
+        DeviceTemporary device = new DeviceTemporary(new DishwasherSpec());
         GregorianCalendar date1 = new GregorianCalendar(2010, 11, 2, 12, 12);
         GregorianCalendar date2 = new GregorianCalendar(2010, 11, 2, 12, 42);
         Log log = new Log(20, date1.getTime(), date2.getTime());

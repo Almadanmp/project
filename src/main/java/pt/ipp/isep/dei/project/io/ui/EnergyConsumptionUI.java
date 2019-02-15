@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.LogList;
 
@@ -203,7 +203,7 @@ class EnergyConsumptionUI {
 
     private void selectDevices(EnergyGrid grid, DeviceList selectedDevices) {
         InputUtils inputs = new InputUtils();
-        Device d1 = inputs.getGridDevicesByList(grid);
+        DeviceTemporary d1 = inputs.getGridDevicesByList(grid);
         Scanner scanner = new Scanner(System.in);
         if (selectedDevices.contains(d1)) {
             String duplicateDevice = "That device is already on the list. Would you like to deselect the device? (Y/N)\n";
@@ -251,7 +251,7 @@ class EnergyConsumptionUI {
      */
 
     /**
-     * This run makes the validation of the Room Device List and the Device Log List.
+     * This run makes the validation of the Room DeviceTemporary List and the DeviceTemporary Log List.
      * Then it calls the controller to get the total metered energy consumption for the given time interval.
      *
      * @param house - Is the parameter which is used to get all the parameters needed for this User Story (720)
@@ -265,7 +265,7 @@ class EnergyConsumptionUI {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(room);
+        DeviceTemporary device = inputUtils.getInputRoomDevicesByList(room);
         if (!utilsUI.deviceLogListIsValid(device)) {
             System.out.println("This device has no energy consumption logs.");
             return;
@@ -274,7 +274,7 @@ class EnergyConsumptionUI {
         Date initialTime = inputUtils.getInputYearMonthDayHourMin();
         System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
         Date finalTime = inputUtils.getInputYearMonthDayHourMin();
-        System.out.println("Device: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
+        System.out.println("DeviceTemporary: " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
                 "\n" +"");
         controller.getDeviceConsumptionInInterval(device, initialTime, finalTime);
     }
@@ -354,7 +354,7 @@ class EnergyConsumptionUI {
                 break;
             case 3:
                 Room case3Room = inputs.getHouseRoomByList(programHouse);
-                Device device = inputs.getInputRoomDevicesByList(case3Room);
+                DeviceTemporary device = inputs.getInputRoomDevicesByList(case3Room);
                 System.out.println(INSERT_START_DATE);
                 startDate = inputs.getInputYearMonthDayHourMin();
                 System.out.println(INSERT_END_DATE);
@@ -377,13 +377,13 @@ class EnergyConsumptionUI {
 
     private void runUS752(House house) {
         InputUtils inputUtils = new InputUtils();
-        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
+        List<DeviceTemporary> waterHeaters = controller.getWaterHeaterDeviceList(house);
         if (waterHeaters.isEmpty()) {
             System.out.println("Your house has no Electric Water Heaters. Returning to Main Menu.");
             return;
         }
         System.out.println("You currently have " + waterHeaters.size() + " electric water heaters in your house:\n");
-        for (Device d : waterHeaters) {
+        for (DeviceTemporary d : waterHeaters) {
             System.out.println("Water Heater name: " + controller.getWHName(d) + ".\n");
             System.out.println("Please insert the cold water temperature for Water Heater " + controller.getWHName(d) + ":");
             double coldWaterTemperature = inputUtils.getInputAsDouble();
@@ -406,7 +406,7 @@ class EnergyConsumptionUI {
         System.out.println("1) Display total nominal power of one of the Energy Grids. (US172)");
         System.out.println("2) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
                 " (US705)");
-        System.out.println("3) Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
+        System.out.println("3) Display total Metered Energy Consumption of a DeviceTemporary in a given time interval. (US720)");
         System.out.println("4) Display total Metered Energy Consumption of a Room in a given time interval. (US721)");
         System.out.println("5) Display total Metered Energy Consumption of a Grid in a given time interval. (US722)");
         System.out.println("6) Show data series necessary to design an energy consumption chart of the metered energy consumption of a device/room/grid in a given time interval. (US730)");
@@ -418,6 +418,6 @@ class EnergyConsumptionUI {
         System.out.println("Choose the type of data to access:");
         System.out.println("1) Grid data.");
         System.out.println("2) Room data.");
-        System.out.println("3) Device data.");
+        System.out.println("3) DeviceTemporary data.");
     }
 }

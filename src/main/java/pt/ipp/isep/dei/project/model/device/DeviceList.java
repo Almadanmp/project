@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DeviceList {
 
-    private List<Device> mDeviceList;
+    private List<DeviceTemporary> mDeviceList;
 
 
     public DeviceList() {
@@ -18,15 +18,15 @@ public class DeviceList {
     }
 
 
-    public List<Device> getList() {
+    public List<DeviceTemporary> getList() {
         return this.mDeviceList;
     }
 
-    public boolean containsDevice(Device device) {
+    public boolean containsDevice(DeviceTemporary device) {
         return mDeviceList.contains(device);
     }
 
-    public boolean addDevice(Device device) {
+    public boolean addDevice(DeviceTemporary device) {
         if (!mDeviceList.contains(device)) {
             mDeviceList.add(device);
             return true;
@@ -34,7 +34,7 @@ public class DeviceList {
         return false;
     }
 
-    public boolean removeDevice(Device device) {
+    public boolean removeDevice(DeviceTemporary device) {
         if (this.contains(device)) {
             mDeviceList.remove(device);
             return true;
@@ -48,7 +48,7 @@ public class DeviceList {
 
     public double getNominalPower() {
         double result = 0;
-        for (Device d : this.getList()) {
+        for (DeviceTemporary d : this.getList()) {
             result += d.getNominalPower();
         }
         return result;
@@ -73,14 +73,14 @@ public class DeviceList {
         return result.toString();
     }
 
-    public boolean contains(Device device) {
+    public boolean contains(DeviceTemporary device) {
         return this.mDeviceList.contains(device);
     }
 
     public String buildDevicesString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (Device d : this.mDeviceList) {
+        for (DeviceTemporary d : this.mDeviceList) {
             result.append(counter).append(") ").append(d.buildDeviceString());
             counter++;
         }
@@ -95,7 +95,7 @@ public class DeviceList {
      */
     public double getDailyConsumptionByDeviceType(String deviceType) {
         double result = 0;
-        for (Device d : mDeviceList) {
+        for (DeviceTemporary d : mDeviceList) {
             if (d.getType().equals(deviceType)) {
                 result += d.getDailyEstimateConsumption();
             }

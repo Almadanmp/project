@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,8 +97,8 @@ public class   RoomList {
         return result.toString();
     }
 
-    List<Device> getDeviceList() {
-        List<Device> result = new ArrayList<>();
+    List<DeviceTemporary> getDeviceList() {
+        List<DeviceTemporary> result = new ArrayList<>();
         for (Room r : this.getList()) {
             result.addAll(r.getDeviceList());
         }

@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.device.Log;
@@ -247,7 +247,7 @@ public class MainUI {
         mTypeAreaList.addTypeArea(typeAreaB);
 
 
-        //Device WashingMachineSpec
+        //DeviceTemporary WashingMachineSpec
         String capacity = "capacity";
         String volumeWater = "volumeOfWater";
         String hotWaterT = "hotWaterTemperature";
@@ -259,27 +259,27 @@ public class MainUI {
         Program program2 = new Program("programa", 2, 2);
         listProgram.addProgram(program1);
         listProgram.addProgram(program2);
-        Device device1 = new Device(new WashingMachineSpec());
+        DeviceTemporary device1 = new DeviceTemporary(new WashingMachineSpec());
         device1.setNominalPower(23.0);
         device1.setName("washingMachine");
         device1.setAttributeValue(capacity, 100D);
-        Device device2 = new Device(new FridgeSpec());
+        DeviceTemporary device2 = new DeviceTemporary(new FridgeSpec());
         device2.setNominalPower(4.0);
         device2.setName("FridgeOne");
         device2.setAttributeValue("freezerCapacity", 2D);
         device2.setAttributeValue("refrigeratorCapacity", 2D);
         device2.setAttributeValue("annualEnergyConsumption", 45D);
-        Device device3 = new Device(new WaterHeaterSpec());
+        DeviceTemporary device3 = new DeviceTemporary(new WaterHeaterSpec());
         device3.setNominalPower(3.0);
         device3.setName("WH Main");
         device3.setAttributeValue(volumeWater, 500D);
         device3.setAttributeValue(hotWaterT, 25D);
         device3.setAttributeValue(performanceRatio, 10D);
-        Device device4 = new Device(new LampSpec());
+        DeviceTemporary device4 = new DeviceTemporary(new LampSpec());
         device4.setNominalPower(4.0);
         device4.setName("Lamp");
         device4.setAttributeValue("luminousFlux", 23D);
-        Device deviceDark = new Device(new WaterHeaterSpec());
+        DeviceTemporary deviceDark = new DeviceTemporary(new WaterHeaterSpec());
         deviceDark.setNominalPower(200.0);
         deviceDark.setName("Water Heater 3000");
         deviceDark.setAttributeValue(volumeWater, 400D);
@@ -292,13 +292,13 @@ public class MainUI {
         listDevices.addDevice(device4);
         listDevices.addDevice(deviceDark);
         roomISEP2.setDeviceList(listDevices);
-        Device device5 = new Device(new FridgeSpec());
+        DeviceTemporary device5 = new DeviceTemporary(new FridgeSpec());
         device5.setNominalPower(4.0);
         device5.setName("FridgeOne1");
         device5.setAttributeValue("freezerCapacity", 1D);
         device5.setAttributeValue("refrigeratorCapacity", 1D);
         device5.setAttributeValue("annualEnergyConsumption", 100D);
-        Device device6 = new Device(new WaterHeaterSpec());
+        DeviceTemporary device6 = new DeviceTemporary(new WaterHeaterSpec());
         device6.setNominalPower(3.0);
         device6.setName("WH Secondary");
         device6.setAttributeValue(volumeWater, 500D);
@@ -358,7 +358,7 @@ public class MainUI {
         b107SP2.setDeviceList(deviceListRoomB107SP3);
         final String classes = "GLASSES";
         final String dishes = "Dishes";
-        Device dishWasherB107SP3 = new Device(new DishwasherSpec());
+        DeviceTemporary dishWasherB107SP3 = new DeviceTemporary(new DishwasherSpec());
         dishWasherB107SP3.setNominalPower(1.5);
         dishWasherB107SP3.setName("DishwasherSpec B107");
         dishWasherB107SP3.setAttributeValue(capacity, 2D);
@@ -394,7 +394,7 @@ public class MainUI {
         dishWasherB107SP3.addLog(logB107DW88);
         dishWasherB107SP3.addLog(logB107DW89);
 
-        Device washingMachineB107SP3 = new Device(new WashingMachineSpec());
+        DeviceTemporary washingMachineB107SP3 = new DeviceTemporary(new WashingMachineSpec());
         washingMachineB107SP3.setNominalPower(3.5);
         washingMachineB107SP3.setName("Washing Machine B107");
         washingMachineB107SP3.setAttributeValue(capacity, 0D);
@@ -419,7 +419,7 @@ public class MainUI {
         washingMachineB107SP3.addLog(logB107WM44);
         washingMachineB107SP3.addLog(logB107WM45);
 
-        Device ehwB107SP3 = new Device(new WaterHeaterSpec());
+        DeviceTemporary ehwB107SP3 = new DeviceTemporary(new WaterHeaterSpec());
         ehwB107SP3.setNominalPower(1.5);
         ehwB107SP3.setName("EHW B109");
         ehwB107SP3.setAttributeValue(volumeWater, 100D);
@@ -550,7 +550,7 @@ public class MainUI {
         readingListSensorHumidityB109SP2.addReading(reading16SensorHumidityB109SP2);
 
         DeviceList deviceListRoomB109SP2 = new DeviceList();
-        Device ehwB109SP2 = new Device(new WaterHeaterSpec());
+        DeviceTemporary ehwB109SP2 = new DeviceTemporary(new WaterHeaterSpec());
         ehwB109SP2.setNominalPower(2.0);
         ehwB109SP2.setName("EHW B109");
         ehwB109SP2.setAttributeValue(volumeWater, 100D);
@@ -597,7 +597,7 @@ public class MainUI {
         ehwB109SP2.addLog(log84);
         ehwB109SP2.addLog(log85);
 
-        Device dishWasherB109SP2 = new Device(new DishwasherSpec());
+        DeviceTemporary dishWasherB109SP2 = new DeviceTemporary(new DishwasherSpec());
         dishWasherB109SP2.setNominalPower(1.5);
         dishWasherB109SP2.setName("DishwasherSpec B109");
         dishWasherB109SP2.setAttributeValue(capacity, 2D);
@@ -611,7 +611,7 @@ public class MainUI {
         programListDishWasherB109SP2.addProgram(ecoTurboB109);
         programListDishWasherB109SP2.addProgram(dishesB109);
 
-        Device washingMachineB109SP2 = new Device(new WashingMachineSpec());
+        DeviceTemporary washingMachineB109SP2 = new DeviceTemporary(new WashingMachineSpec());
         washingMachineB109SP2.setNominalPower(2.5);
         washingMachineB109SP2.setName("Washing Machine B109");
         washingMachineB109SP2.setAttributeValue(capacity, 0D);
@@ -640,14 +640,14 @@ public class MainUI {
 
         Room roomB106SP2 = new Room("B106", 1, 7, 13, 3.5);
         DeviceList deviceListRoomB106SP2 = new DeviceList();
-        Device ehwB106SP2 = new Device(new WaterHeaterSpec());
+        DeviceTemporary ehwB106SP2 = new DeviceTemporary(new WaterHeaterSpec());
         ehwB106SP2.setNominalPower(2.2);
         ehwB106SP2.setName("EHW B106");
         ehwB106SP2.setAttributeValue(volumeWater, 150D);
         ehwB106SP2.setAttributeValue(hotWaterT, 55D);
         ehwB106SP2.setAttributeValue(performanceRatio, 0.92D);
 
-        Device dishWasherB106SP2 = new Device(new DishwasherSpec());
+        DeviceTemporary dishWasherB106SP2 = new DeviceTemporary(new DishwasherSpec());
         dishWasherB106SP2.setNominalPower(1.4);
         dishWasherB106SP2.setName("DishwasherSpec B106");
         dishWasherB106SP2.setAttributeValue(capacity, 0D);
@@ -758,7 +758,7 @@ public class MainUI {
         hhhhh.addGrid(energyGrid);
         Room room10 = new Room("Quarto", 3, 10, 10, 10);
         energyGrid.addRoomToAnEnergyGrid(room10);
-        Device d1 = new Device(new WaterHeaterSpec());
+        DeviceTemporary d1 = new DeviceTemporary(new WaterHeaterSpec());
         room10.addDevice(d1);
         Log log1 = new Log(200, new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 6, 0).getTime());
         Log log2 = new Log(200, new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 7, 0).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 8, 0).getTime());

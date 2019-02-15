@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
@@ -257,7 +257,7 @@ class DishwasherSpecTest {
     void testSetAttributeValueDeviceCoveringAllCases() {
         //Arrange
         DishwasherSpec dWasherSpec = new DishwasherSpec();
-        Device device = new Device(dWasherSpec);
+        DeviceTemporary device = new DeviceTemporary(dWasherSpec);
         Double attribute = 6.0;
         // original strings:
         assertTrue(device.setAttributeValue(DishwasherSpec.NOMINAL_POWER, attribute));

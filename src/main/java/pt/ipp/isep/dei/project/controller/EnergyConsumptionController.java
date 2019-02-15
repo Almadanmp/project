@@ -4,7 +4,7 @@ import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
@@ -67,7 +67,7 @@ public class EnergyConsumptionController {
      * @return true if the device was added, false if it was already in the list.
      */
 
-    public boolean addDeviceToList(Device device, DeviceList list) {
+    public boolean addDeviceToList(DeviceTemporary device, DeviceList list) {
         return list.addDevice(device);
     }
 
@@ -114,7 +114,7 @@ public class EnergyConsumptionController {
      * @return true if the device was removed, false if it wasn't on the list.
      */
 
-    public boolean removeDeviceFromList(Device d, DeviceList deviceList) {
+    public boolean removeDeviceFromList(DeviceTemporary d, DeviceList deviceList) {
         return deviceList.removeDevice(d);
     }
 
@@ -128,12 +128,12 @@ public class EnergyConsumptionController {
     /**
      * This functionality checks if there are any Logs fully contained within the time interval defined by the user.
      *
-     * @param device      - Device that is being analyzed for Logs.
+     * @param device      - DeviceTemporary that is being analyzed for Logs.
      * @param initialTime - Beginning of the interval.
      * @param finalTime   - Ending of the interval.
      * @return the total metered energy consumption for the given device and interval.
      */
-    public String getDeviceConsumptionInInterval(Device device, Date initialTime, Date finalTime) {
+    public String getDeviceConsumptionInInterval(DeviceTemporary device, Date initialTime, Date finalTime) {
         if (device.countLogsInInterval(initialTime, finalTime) == 0) {
             return "This device has no energy consumption logs in the given interval.";
         }
@@ -229,7 +229,7 @@ public class EnergyConsumptionController {
      * @return a List of Logs with the wanted logs.
      */
 
-    public LogList getDeviceLogsInInterval(Device device, Date startDate, Date endDate) {
+    public LogList getDeviceLogsInInterval(DeviceTemporary device, Date startDate, Date endDate) {
         return device.getLogsInInterval(startDate, endDate);
     }
 
@@ -256,7 +256,7 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return returns a list of water heaters from a house
      */
-    public List<Device> getWaterHeaterDeviceList(House house) {
+    public List<DeviceTemporary> getWaterHeaterDeviceList(House house) {
         return house.getDevicesOfGivenType("WaterHeater");
     }
 
@@ -266,7 +266,7 @@ public class EnergyConsumptionController {
      * @param d water heater (device)
      * @return name(string)
      */
-    public String getWHName(Device d) {
+    public String getWHName(DeviceTemporary d) {
         return d.getName();
     }
 
@@ -277,7 +277,7 @@ public class EnergyConsumptionController {
      * @param coldWaterTemperature value for the cold water temperature
      * @param volumeOfWaterToHeat  value for the amount of water to heat
      */
-    public boolean configureWH(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
+    public boolean configureWH(DeviceTemporary device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
         return (device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldWaterTemperature) && device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, volumeOfWaterToHeat));
     }
 

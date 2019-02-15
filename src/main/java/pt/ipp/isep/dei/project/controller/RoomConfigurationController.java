@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
@@ -108,7 +108,7 @@ public class RoomConfigurationController {
      * @param device is the chosen device
      * @return
      */
-    public boolean deactivateDevice(Device device) {
+    public boolean deactivateDevice(DeviceTemporary device) {
         return device.deactivate();
     }
 
@@ -196,7 +196,7 @@ public class RoomConfigurationController {
      * @param device the device we want to print.
      * @return string with the given device.
      */
-    String buildDeviceString(Device device) {
+    String buildDeviceString(DeviceTemporary device) {
         return device.buildDeviceString();
     }
 
@@ -213,19 +213,19 @@ public class RoomConfigurationController {
     }
 
 
-    public void setNominalPowerDevice(Device device, double nominalPower) {
+    public void setNominalPowerDevice(DeviceTemporary device, double nominalPower) {
         device.setNominalPower(nominalPower);
     }
 
-    public boolean removeDevice(Room room, Device device) {
+    public boolean removeDevice(Room room, DeviceTemporary device) {
         return room.removeDevice(device);
     }
 
-    public boolean addDevice(Room room, Device device) {
+    public boolean addDevice(Room room, DeviceTemporary device) {
         return room.addDevice(device);
     }
 
-    public Device createDevice(DeviceType deviceType) {
+    public DeviceTemporary createDevice(DeviceType deviceType) {
         return deviceType.createDeviceType();
     }
 
@@ -234,25 +234,25 @@ public class RoomConfigurationController {
     }
 
 
-    public List<String> getAttributeNames(Device device) {
+    public List<String> getAttributeNames(DeviceTemporary device) {
         return device.getAttributeNames();
     }
 
-    public boolean setAttributeValue(Device device, String attributeName, Object attributeValue) {
+    public boolean setAttributeValue(DeviceTemporary device, String attributeName, Object attributeValue) {
         return device.setAttributeValue(attributeName, attributeValue);
     }
 
-    public String getType(Device device) {
+    public String getType(DeviceTemporary device) {
         return device.getType();
     }
 
 
-    public Object getAttributeValueWashingMachine(Device device) {
+    public Object getAttributeValueWashingMachine(DeviceTemporary device) {
         return device.getProgramList();
     }
 
 
-    public void configureOneWashingMachineProgram(Device device, ProgramList program) {
+    public void configureOneWashingMachineProgram(DeviceTemporary device, ProgramList program) {
         device.setAttributeValue(mProgramList, program);
     }
 

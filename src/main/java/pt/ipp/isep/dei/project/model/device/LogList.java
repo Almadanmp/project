@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.device;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -87,6 +88,7 @@ public class LogList {
         resultString = resultString.replaceAll("\\bWET\\b", "");
         return resultString;
     }
+
 
     @Override
     public boolean equals(Object testObject) {

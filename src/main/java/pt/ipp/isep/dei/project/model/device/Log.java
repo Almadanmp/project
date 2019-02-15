@@ -24,4 +24,6 @@ public class Log {
     Date getFinalDate() {
         return this.mFinalDate;
     }
+
+
 }

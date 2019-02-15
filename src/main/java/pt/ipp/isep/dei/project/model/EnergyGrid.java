@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
@@ -153,7 +153,7 @@ public class EnergyGrid implements Metered {
      * @return a list of devices related to the energy grid.
      */
 
-    public List<Device> getDeviceList() {
+    public List<DeviceTemporary> getDeviceList() {
         return this.mRoomList.getDeviceList();
     }
 
@@ -170,8 +170,8 @@ public class EnergyGrid implements Metered {
             result.append(counter).append(") ").append(r.getRoomName()).append(".\n");
             counter++;
         }
-        List<Device> deviceList = this.getDeviceList();
-        for (Device d : deviceList) {
+        List<DeviceTemporary> deviceList = this.getDeviceList();
+        for (DeviceTemporary d : deviceList) {
             result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getType()).append(", Power: ").append(d.getNominalPower()).append(".\n");
             counter++;
         }
@@ -200,7 +200,7 @@ public class EnergyGrid implements Metered {
     public String buildDeviceListString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (Device d : this.getDeviceList()) {
+        for (DeviceTemporary d : this.getDeviceList()) {
             result.append(counter).append(") ").append(d.buildDeviceString());
             counter++;
         }
@@ -249,9 +249,9 @@ public class EnergyGrid implements Metered {
         StringBuilder result = new StringBuilder();
         for (int x = 0; x < r.getDeviceList().size(); x++) {
             if (d.equals(r.getDeviceList().get(x).getType())) {
-                Device device = r.getDeviceList().get(x);
-                result.append("Device type: ").append(d).append(" | ");
-                result.append("Device name: ").append(device.getName()).append(" | ");
+                DeviceTemporary device = r.getDeviceList().get(x);
+                result.append("DeviceTemporary type: ").append(d).append(" | ");
+                result.append("DeviceTemporary name: ").append(device.getName()).append(" | ");
                 result.append("Nominal power: ").append(device.getNominalPower()).append(" | ");
                 result.append("Room: ").append(r.getRoomName()).append(" | \n");
             }

@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.LogList;
 
@@ -86,7 +86,7 @@ public class Room implements Metered {
         this.mDeviceList = deviceList;
     }
 
-    public List<Device> getDeviceList() {
+    public List<DeviceTemporary> getDeviceList() {
         return this.mDeviceList.getList();
     }
 
@@ -100,7 +100,7 @@ public class Room implements Metered {
     public String buildDeviceListString() {
         StringBuilder result = new StringBuilder("---------------\n");
         for (int i = 0; i < this.getDeviceList().size(); i++) {
-            Device device = this.getDeviceList().get(i);
+            DeviceTemporary device = this.getDeviceList().get(i);
             result.append("\n" + i).append(") device Name: ").append(device.getName());
             result.append(", device Type: ").append(device.getType());
             result.append(", device Nominal Power: ").append(device.getNominalPower());
@@ -122,7 +122,7 @@ public class Room implements Metered {
 
     public double getNominalPower() {
         double result = 0;
-        for (Device d : this.getDeviceList()) {
+        for (DeviceTemporary d : this.getDeviceList()) {
             result += d.getNominalPower();
         }
         return result;
@@ -138,7 +138,7 @@ public class Room implements Metered {
 
     public double getConsumptionInInterval(Date initialDate, Date finalDate){
         double result = 0;
-        for (Device d : this.getDeviceList()){
+        for (DeviceTemporary d : this.getDeviceList()){
             result += d.getConsumptionWithinGivenInterval(initialDate,finalDate);
         }
         return result;
@@ -190,7 +190,7 @@ public class Room implements Metered {
         return false;
     }
 
-    public boolean removeDevice(Device device) {
+    public boolean removeDevice(DeviceTemporary device) {
         if ((mDeviceList.getList().contains(device))) {
             mDeviceList.getList().remove(device);
             return true;
@@ -214,7 +214,7 @@ public class Room implements Metered {
      * @param device to be added
      * @return the result of the operation (true if successful, false otherwise)
      */
-    public boolean addDevice(Device device) {
+    public boolean addDevice(DeviceTemporary device) {
         if (!(mDeviceList.containsDevice(device))) {
             mDeviceList.addDevice(device);
             return true;
@@ -256,9 +256,9 @@ public class Room implements Metered {
      * @param deviceType the device type
      * @return the list with all devices of a given type
      */
-    List<Device> getDevicesOfGivenType(String deviceType) {
-        List<Device> devicesOfGivenType = new ArrayList<>();
-        for (Device d : getDeviceList()) {
+    List<DeviceTemporary> getDevicesOfGivenType(String deviceType) {
+        List<DeviceTemporary> devicesOfGivenType = new ArrayList<>();
+        for (DeviceTemporary d : getDeviceList()) {
             if (d.getType().equals(deviceType)) {
                 devicesOfGivenType.add(d);
             }
@@ -285,7 +285,7 @@ public class Room implements Metered {
 
     public boolean addRoomDevicesToDeviceList(DeviceList list) {
         int counter = 0;
-        for (Device d : this.getDeviceList()) {
+        for (DeviceTemporary d : this.getDeviceList()) {
             if (!(list.containsDevice(d))) {
                 list.addDevice(d);
                 counter++;
@@ -304,7 +304,7 @@ public class Room implements Metered {
         if (list == null) {
             return false;
         }
-        for (Device d : this.getDeviceList()) {
+        for (DeviceTemporary d : this.getDeviceList()) {
             list.removeDevice(d);
         }
         return true;
@@ -312,7 +312,7 @@ public class Room implements Metered {
 
     public LogList getLogsInInterval(Date startDate, Date endDate){
         LogList result = new LogList();
-        for (Device d: this.getDeviceList()){
+        for (DeviceTemporary d: this.getDeviceList()){
             LogList tempList = d.getLogsInInterval(startDate,endDate);
             result.addLogList(tempList);
         }

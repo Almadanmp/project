@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
@@ -98,8 +98,8 @@ class RoomConfigurationUI {
         System.out.print("Please, type the name of the device: ");
         String deviceName = scanner.nextLine();
         InputUtils inputUtils = new InputUtils();
-        //get Device specs
-        Device device = ctrl.createDevice(deviceType);
+        //get DeviceTemporary specs
+        DeviceTemporary device = ctrl.createDevice(deviceType);
         device.setName(deviceName);
         List<String> deviceAttributes = ctrl.getAttributeNames(device);
         for (int i = 0; i < deviceAttributes.size(); i++) {
@@ -127,7 +127,7 @@ class RoomConfigurationUI {
         if (ctrl.addDevice(room, device)) {
             System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
         } else {
-            System.out.println("Device already exists in the room. Please, try again.\n");
+            System.out.println("DeviceTemporary already exists in the room. Please, try again.\n");
         }
     }
 
@@ -232,12 +232,12 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(room);
+        DeviceTemporary device = inputUtils.getInputRoomDevicesByList(room);
         getInputDeviceCharacteristicsUS215(device, room, house);
     }
 
 
-    private void getInputDeviceCharacteristicsUS215(Device device, Room room, House house) {
+    private void getInputDeviceCharacteristicsUS215(DeviceTemporary device, Room room, House house) {
         Scanner scanner = new Scanner(System.in);
 
         if (device == null || room == null) {
@@ -276,7 +276,7 @@ class RoomConfigurationUI {
         displayDeviceUS215(device, room, deviceName);
     }
 
-    private void updateAProgrammableDevice(Program program, ProgramList programList, Device device) {
+    private void updateAProgrammableDevice(Program program, ProgramList programList, DeviceTemporary device) {
         Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
         System.out.println(requestProgramName);
@@ -297,7 +297,7 @@ class RoomConfigurationUI {
 
     }
 
-    private void loopForPrograms(ProgramList programList, String message, Device device) {
+    private void loopForPrograms(ProgramList programList, String message, DeviceTemporary device) {
         InputUtils inputUtils = new InputUtils();
         Program program1;
         Scanner scanner = new Scanner(System.in);
@@ -325,7 +325,7 @@ class RoomConfigurationUI {
     }
 
     // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it. - CARINA ALAS
-    private void displayDeviceUS215(Device device, Room room, String deviceName) {
+    private void displayDeviceUS215(DeviceTemporary device, Room room, String deviceName) {
         if (device == null || room == null) {
             return;
         }
@@ -340,7 +340,7 @@ class RoomConfigurationUI {
 
         } else {
             room.addDevice(device);
-            System.out.println("Device already exists in the room. Please, try again.\n");
+            System.out.println("DeviceTemporary already exists in the room. Please, try again.\n");
         }
 
     }
@@ -356,13 +356,13 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(room);
+        DeviceTemporary device = inputUtils.getInputRoomDevicesByList(room);
         updateStateUS222(device);
     }
 
-    private void updateStateUS222(Device device) {
+    private void updateStateUS222(DeviceTemporary device) {
         if (this.mRoomConfigurationController.deactivateDevice(device)) {
-            System.out.println("Device successfully deactivated!");
+            System.out.println("DeviceTemporary successfully deactivated!");
         } else {
             System.out.println("It wasn't possible to deactivate the device. The device is already deactivated.");
         }
@@ -414,11 +414,11 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(room);
+        DeviceTemporary device = inputUtils.getInputRoomDevicesByList(room);
         removeDeviceUS220(device, room);
     }
 
-    private void removeDeviceUS220(Device device, Room room) {
+    private void removeDeviceUS220(DeviceTemporary device, Room room) {
         if (device == null || room == null) {
             System.out.println("There are no devices in this room.");
             return;

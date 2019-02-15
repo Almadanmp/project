@@ -1,10 +1,10 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 
 public interface DeviceType {
 
-    Device createDeviceType();
+    DeviceTemporary createDeviceType();
 
     String getDeviceType();
 }

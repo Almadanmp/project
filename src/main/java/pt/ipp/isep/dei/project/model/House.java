@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.ArrayList;
@@ -123,7 +123,7 @@ public class House implements Metered {
         return mLocation;
     }
 
-    public List<Device> getDeviceList() {
+    public List<DeviceTemporary> getDeviceList() {
         return this.mRoomList.getDeviceList();
     }
 
@@ -296,16 +296,16 @@ public class House implements Metered {
      * @param deviceType the device type
      * @return the list with all devices of a given type
      */
-    public List<Device> getDevicesOfGivenType(String deviceType) {
-        List<Device> devicesOfGivenType = new ArrayList<>();
+    public List<DeviceTemporary> getDevicesOfGivenType(String deviceType) {
+        List<DeviceTemporary> devicesOfGivenType = new ArrayList<>();
         for (Room r : mRoomList.getList()) {
             devicesOfGivenType.addAll(r.getDevicesOfGivenType(deviceType));
         }
         return devicesOfGivenType;
     }
 
-    List<Device> getAllHouseDevices() {
-        List<Device> allDevices = new ArrayList<>();
+    List<DeviceTemporary> getAllHouseDevices() {
+        List<DeviceTemporary> allDevices = new ArrayList<>();
         for (Room r : mRoomList.getList()) {
             allDevices.addAll(r.getDeviceList());
         }
