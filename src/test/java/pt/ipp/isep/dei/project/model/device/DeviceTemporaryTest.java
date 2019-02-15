@@ -97,7 +97,7 @@ public class DeviceTemporaryTest {
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 23D);
-        d1.setmName("frigorifico");
+        d1.setName("frigorifico");
         String result = d1.getName();
         String expectedResult = "frigorifico";
         assertEquals(expectedResult, result);
@@ -304,7 +304,7 @@ public class DeviceTemporaryTest {
         DeviceTemporary d1 = new DeviceTemporary(new WaterHeaterSpec());
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
-        d1.setAsInactive();
+        d1.deactivate();
         boolean result = d1.addLog(log);
         assertFalse(result);
     }

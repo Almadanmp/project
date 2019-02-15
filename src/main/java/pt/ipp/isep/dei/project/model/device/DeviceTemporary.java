@@ -52,15 +52,7 @@ public class DeviceTemporary implements Metered {
         return this.mActive;
     }
 
-    void setAsInactive() {
-        this.mActive = false;
-    }
-
-    void setmName(String name) {
-        this.mName = name;
-    }
-
-    public String getName() {
+        public String getName() {
         return this.mName;
     }
 
@@ -205,16 +197,13 @@ public class DeviceTemporary implements Metered {
      */
     public boolean deactivate() {
         if (isActive()) {
-            setmActiveFalse();
+            this.mActive=false;
             return true;
         } else {
             return false;
         }
     }
 
-    private void setmActiveFalse() {
-        this.mActive = false;
-    }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
