@@ -107,23 +107,7 @@ class RoomConfigurationUI {
             Double value = inputUtils.getInputAsDouble();
             ctrl.setAttributeValue(device, deviceAttributes.get(i), value);
         }
-
-        if (device.isProgrammable()) {
-            System.out.println("This device is programmable.");
-            ProgramList pList = device.getProgramList();
-            System.out.println("Please insert program name: ");
-            String programName = scanner.nextLine();
-            System.out.println("Please insert program duration: ");
-            double duration = inputUtils.getInputAsDouble();
-            System.out.println("Please insert program duration: ");
-            double energyConsumption = inputUtils.getInputAsDouble();
-
-            Program newProgram = ctrl.createProgram (programName, duration, energyConsumption);
-            ctrl.addProgramToProgramList(pList,newProgram);
-            loopForPrograms(pList, "Would you like to add another Program? (y/n)",device);
-
-        }
-
+        createProgram(device);
         if (ctrl.addDevice(room, device)) {
             System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
         } else {
@@ -131,6 +115,38 @@ class RoomConfigurationUI {
         }
     }
 
+    private void createProgram(DeviceTemporary device) {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Scanner scanner = new Scanner(System.in);
+        InputUtils inputUtils = new InputUtils();
+        if (device.isProgrammable()) {
+            {
+                System.out.println("This device is programmable.");
+                Program program = new Program("jjs", 23, 23);
+                ProgramList programList = ((ProgramList) ctrl.getAttributeValueWashingMachine(device));
+                System.out.println(requestProgramName);
+                String programName = scanner.nextLine();
+                for (int i = 0; i < program.getAttributeNames().size(); i++) {
+                    System.out.println("Please insert the value for: " + program.getAttributeNames().get(i)
+                            + " (" + program.getAttributeUnit(program.getAttributeNames().get(i)) + ")");
+                    Double value = inputUtils.getInputAsDouble();
+                    program.setAttributeValue(program.getAttributeNames().get(i), value);
+                }
+                program.setProgramName(programName);
+                for (int i = 0; i < program.getAttributeNames().size(); i++) {
+                    System.out.println("You have added the : " + program.getAttributeNames().get(i) + " to: "
+                            + program.getAttributeValue(program.getAttributeNames().get(i)) + " "
+                            + program.getAttributeUnit(program.getAttributeNames().get(i)) + ".");
+                }
+                String message = "Would you like to add another Program? (y/n)";
+                String messageOutput = "You have added the : ";
+                loopForProgram(message, device, messageOutput);
+                ctrl.configureOneWashingMachineProgram(device, programList);
+                ctrl.addProgramToProgramList(programList, program);
+            }
+        }
+
+    }
 
     /**
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
@@ -287,40 +303,45 @@ class RoomConfigurationUI {
             Double value = inputUtils.getInputAsDouble();
             program.setAttributeValue(program.getAttributeNames().get(i), value);
         }
-       program.setProgramName(programName);
+        program.setProgramName(programName);
         for (int i = 0; i < program.getAttributeNames().size(); i++) {
             System.out.println("You have changed the : " + program.getAttributeNames().get(i) + " to: "
                     + program.getAttributeValue(program.getAttributeNames().get(i)) + " "
                     + program.getAttributeUnit(program.getAttributeNames().get(i)) + ".");
         }
-        loopForPrograms(programList,"Would you like to edit another Program? (y/n)", device);
+        loopForProgramList(programList, device);
 
     }
 
-    private void loopForPrograms(ProgramList programList, String message, DeviceTemporary device) {
+    private void loopForProgramList(ProgramList programList, DeviceTemporary device) {
+        String message = "Would you like to edit another Program? (y/n)";
+        String messageOutput = "You have changed the : ";
+        if (programList.getProgramList().size() > 1) {
+            System.out.println(message);
+            loopForProgram(message, device, messageOutput);
+        }
+    }
+
+    private void loopForProgram(String message, DeviceTemporary device, String messageOutput) {
         InputUtils inputUtils = new InputUtils();
         Program program1;
         Scanner scanner = new Scanner(System.in);
-        if (programList.getProgramList().size() > 1) {
-            System.out.println(message);
-            while (inputUtils.yesOrNo(scanner.nextLine(), message)) {
-                program1 = inputUtils.getSelectedProgramFromDevice(device);
-                System.out.println(requestProgramName);
-                String programName = scanner.nextLine();
-                for (int i = 0; i < program1.getAttributeNames().size(); i++) {
-                    System.out.println("Please insert the value for: " + program1.getAttributeNames().get(i)
-                            + " (" + program1.getAttributeUnit(program1.getAttributeNames().get(i)) + ")");
-                    Double value = inputUtils.getInputAsDouble();
-                    program1.setAttributeValue(program1.getAttributeNames().get(i), value);
-                }
-                program1.setProgramName(programName);
-                for (int i = 0; i < program1.getAttributeNames().size(); i++) {
-                    System.out.println("You have changed the : " + program1.getAttributeNames().get(i) + " to: "
-                            + program1.getAttributeValue(program1.getAttributeNames().get(i)) + " "
-                            + program1.getAttributeUnit(program1.getAttributeNames().get(i)) + ".");
-                }
-              }
-
+        while (inputUtils.yesOrNo(scanner.nextLine(), message)) {
+            program1 = inputUtils.getSelectedProgramFromDevice(device);
+            System.out.println(requestProgramName);
+            String programName = scanner.nextLine();
+            for (int i = 0; i < program1.getAttributeNames().size(); i++) {
+                System.out.println("Please insert the value for: " + program1.getAttributeNames().get(i)
+                        + " (" + program1.getAttributeUnit(program1.getAttributeNames().get(i)) + ")");
+                Double value = inputUtils.getInputAsDouble();
+                program1.setAttributeValue(program1.getAttributeNames().get(i), value);
+            }
+            program1.setProgramName(programName);
+            for (int i = 0; i < program1.getAttributeNames().size(); i++) {
+                System.out.println(messageOutput + program1.getAttributeNames().get(i) + " to: "
+                        + program1.getAttributeValue(program1.getAttributeNames().get(i)) + " "
+                        + program1.getAttributeUnit(program1.getAttributeNames().get(i)) + ".");
+            }
         }
     }
 
@@ -382,7 +403,7 @@ class RoomConfigurationUI {
     private void getRoomNominalPower(Room room) {
         double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(room);
         System.out.println("This room has a total nominal power of " + roomNominalPower + " kW.\nThis results " +
-                    "from the sum of the nominal power of all devices in the room.");
+                "from the sum of the nominal power of all devices in the room.");
     }
 
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
