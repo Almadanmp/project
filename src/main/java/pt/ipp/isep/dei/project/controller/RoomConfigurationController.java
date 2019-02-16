@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.List;
 
@@ -229,13 +231,36 @@ public class RoomConfigurationController {
         return deviceType.createDeviceType();
     }
 
-    public Program createProgram(String programName, double duration, double energyConsumption) {
-        return new Program(programName, duration, energyConsumption);
-    }
-
-
     public List<String> getAttributeNames(DeviceTemporary device) {
         return device.getAttributeNames();
+    }
+
+    public List<String> getProgramAttributeNames(Program program) {
+        return program.getAttributeNames();
+    }
+
+    public void setProgramAttributeValue(Program program, int i, double value) {
+        program.setAttributeValue(program.getAttributeNames().get(i), value);
+    }
+
+    public ProgramList getProgramList (DeviceTemporary device){
+        return device.getProgramList();
+    }
+
+    public Object getProgramAttributeUnit(Program program, int i){
+       return program.getAttributeUnit(program.getAttributeNames().get(i));
+    }
+
+    public Object getAttributeUnit(DeviceTemporary device, int i){
+        return device.getAttributeUnit(device.getAttributeNames().get(i));
+    }
+
+    public Object getProgramAttributeValue (Program program, int i){
+        return program.getAttributeValue(program.getAttributeNames().get(i));
+    }
+
+    public Object getAttributeValue (DeviceTemporary device, int i){
+         return device.getAttributeValue(device.getAttributeNames().get(i)) ;
     }
 
     public boolean setAttributeValue(DeviceTemporary device, String attributeName, Object attributeValue) {
@@ -251,9 +276,16 @@ public class RoomConfigurationController {
         return device.getProgramList();
     }
 
+    public boolean isProgrammable(DeviceTemporary device) {
+        return device.isProgrammable();
+    }
 
     public void configureOneWashingMachineProgram(DeviceTemporary device, ProgramList program) {
         device.setAttributeValue(mProgramList, program);
+    }
+
+    public void setDeviceName(String name, DeviceTemporary device) {
+        device.setName(name);
     }
 
 
