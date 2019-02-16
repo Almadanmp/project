@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Program {
 
-    public static final String PROGRAM_NAME = "Program Name";
     public static final String DURATION = "Duration";
     public static final String ENERGY_CONSUMPTION = "Energy Consumption";
 

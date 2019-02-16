@@ -755,4 +755,15 @@ class RoomConfigurationControllerTest {
         result.setName("wHeater1");
         Assertions.assertEquals(expectedResult, result);
     }
+
+    @Test void addProgramToProgramList(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Program program = new Program("program", 2, 3);
+        ProgramList plist = new ProgramList();
+        ctrl.addProgramToProgramList(plist,program);
+        String expectedResult = "---------------\n" + "\n0) Program Name: program, Duration: 2.0, Energy Consumption: 3.0"
+                + "\n---------------\n";
+        String result = plist.buildProgramListString();
+        assertEquals(expectedResult, result);
+    }
 }

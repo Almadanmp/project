@@ -15,10 +15,7 @@ import java.util.Scanner;
 
 class RoomConfigurationUI {
     private RoomConfigurationController mRoomConfigurationController;
-
     private String requestProgramName = "Please, type the new Program name:";
-    private String requestProgramEnergyConsumption = "Please, type the new Program Energy Consumption:";
-    private String requestProgramDuration = "Please, type the new Program duration:";
 
     RoomConfigurationUI() {
         this.mRoomConfigurationController = new RoomConfigurationController();
@@ -81,6 +78,33 @@ class RoomConfigurationUI {
         }
     }
 
+    /**
+     * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
+     * <p>
+     * Prints device List in that room.
+     */
+    private void runUS201(House house) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.houseRoomListIsValid(house)) {
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room)) {
+            System.out.println(utilsUI.invalidDeviceList);
+            return;
+        }
+        printRoomDeviceList(room);
+    }
+
+    private void printRoomDeviceList(Room room) {
+        System.out.println("Available Devices in Room " + room.getRoomName());
+        System.out.println("Please select one of the existing Devices in the selected Room: ");
+        System.out.println(mRoomConfigurationController.buildDeviceListString(room));
+    }
+
+
 
     private void runUS210(House house) {
         InputUtils inputUtils = new InputUtils();
@@ -111,7 +135,7 @@ class RoomConfigurationUI {
         if (ctrl.addDevice(room, device)) {
             System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
         } else {
-            System.out.println("DeviceTemporary already exists in the room. Please, try again.\n");
+            System.out.println("Device already exists in the room. Please, try again.\n");
         }
     }
 
@@ -148,94 +172,6 @@ class RoomConfigurationUI {
 
     }
 
-    /**
-     * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
-     * sensor types, in order to configure it.
-     *
-     * @param typeSensorList is
-     */
-    private void runUS253(TypeSensorList typeSensorList, House house) {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.typeSensorListIsValid(typeSensorList)) {
-            System.out.println(utilsUI.invalidTypeSensorList);
-            return;
-        }
-        Room room = inputUtils.getHouseRoomByList(house);
-        TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
-        getInput253(room, typeSensor);
-    }
-
-    private void getInput253(Room room, TypeSensor typeSensor) {
-        Scanner input = new Scanner(System.in);
-        // Name Getter
-        System.out.println("\nEnter Sensor Name:\t");
-        String sensorName = input.nextLine();
-        System.out.println("You entered sensor " + sensorName);
-        // Date Getter
-        System.out.println("\nEnter Sensor starting date:\t");
-        System.out.println("\nEnter the year:\t");
-        while (!input.hasNextInt()) {
-            input.nextLine();
-            System.out.println("Not a valid year. Try again");
-        }
-        int dateYear = input.nextInt();
-        input.nextLine();
-        System.out.println("\nEnter the Month:\t");
-        while (!input.hasNextInt()) {
-            input.nextLine();
-            System.out.println("Not a valid month. Try again");
-        }
-        int dateMonth = input.nextInt();
-        input.nextLine();
-        System.out.println("\nEnter the Day:\t");
-        while (!input.hasNextInt()) {
-            input.nextLine();
-            System.out.println("Not a valid day. Try again");
-        }
-        int dateDay = input.nextInt();
-        System.out.println("You entered the date successfully!");
-        updateAndDisplay253(typeSensor, room, dateYear, dateMonth, dateDay, sensorName);
-
-    }
-
-    private void updateAndDisplay253(TypeSensor typeSensor, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        SensorSettingsController mController = new SensorSettingsController();
-        Date mDate = mController.createDate(dateYear, dateMonth, dateDay);
-        Sensor mSensor = mController.createRoomSensor(sensorName, typeSensor, mDate);
-        if (ctrl.addSensorToRoom(room, mSensor)) {
-            System.out.println("\nSensor successfully added to the Room " + room.getRoomName());
-        } else System.out.println("\nSensor already exists in the room.");
-    }
-
-    /**
-     * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
-     * <p>
-     * Prints device List in that room.
-     */
-    private void runUS201(House house) {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.houseRoomListIsValid(house)) {
-            System.out.println(utilsUI.invalidRoomList);
-            return;
-        }
-        Room room = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room)) {
-            System.out.println(utilsUI.invalidDeviceList);
-            return;
-        }
-        printRoomDeviceList(room);
-    }
-
-    private void printRoomDeviceList(Room room) {
-        System.out.println("Available Devices in Room " + room.getRoomName());
-        System.out.println("Please select one of the existing Devices in the selected Room: ");
-        System.out.println(mRoomConfigurationController.buildDeviceListString(room));
-    }
-
-
     // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
 
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
@@ -255,7 +191,6 @@ class RoomConfigurationUI {
 
     private void getInputDeviceCharacteristicsUS215(DeviceTemporary device, Room room, House house) {
         Scanner scanner = new Scanner(System.in);
-
         if (device == null || room == null) {
             System.out.println("There are no devices in this room.");
             return;
@@ -269,7 +204,7 @@ class RoomConfigurationUI {
         mRoomConfigurationController.removeDevice(room, device);
         InputUtils inputUtils = new InputUtils();
         room = inputUtils.getHouseRoomByList(house);
-
+        mRoomConfigurationController.addDevice(room, device);
         device.getAttributeNames();
         for (int i = 0; i < device.getAttributeNames().size(); i++) {
             System.out.println("Please insert the value for: " + device.getAttributeNames().get(i)
@@ -350,7 +285,7 @@ class RoomConfigurationUI {
         if (device == null || room == null) {
             return;
         }
-        if (room.addDevice(device)) {
+        if (mRoomConfigurationController.addDevice(room, device)) {
             for (int i = 0; i < device.getAttributeNames().size(); i++) {
                 System.out.println("You have changed the : " + device.getAttributeNames().get(i) + " to: "
                         + device.getAttributeValue(device.getAttributeNames().get(i)) + " "
@@ -360,8 +295,8 @@ class RoomConfigurationUI {
                     "\nThe room is " + room.getRoomName() + "\n");
 
         } else {
-            room.addDevice(device);
-            System.out.println("DeviceTemporary already exists in the room. Please, try again.\n");
+            mRoomConfigurationController.addDevice(room, device);
+            System.out.println("Device already exists in the room. Please, try again.\n");
         }
 
     }
@@ -383,7 +318,7 @@ class RoomConfigurationUI {
 
     private void updateStateUS222(DeviceTemporary device) {
         if (this.mRoomConfigurationController.deactivateDevice(device)) {
-            System.out.println("DeviceTemporary successfully deactivated!");
+            System.out.println("Device successfully deactivated!");
         } else {
             System.out.println("It wasn't possible to deactivate the device. The device is already deactivated.");
         }
@@ -423,6 +358,70 @@ class RoomConfigurationUI {
         SensorList sensorList = room.getSensorList();
         System.out.println(mRoomConfigurationController.buildSensorListString(sensorList));
     }
+
+
+    /**
+     * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
+     * sensor types, in order to configure it.
+     *
+     * @param typeSensorList is
+     */
+    private void runUS253(TypeSensorList typeSensorList, House house) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.typeSensorListIsValid(typeSensorList)) {
+            System.out.println(utilsUI.invalidTypeSensorList);
+            return;
+        }
+        Room room = inputUtils.getHouseRoomByList(house);
+        TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
+        getInput253(room, typeSensor);
+    }
+
+    private void getInput253(Room room, TypeSensor typeSensor) {
+        Scanner input = new Scanner(System.in);
+        // Name Getter
+        System.out.println("\nEnter Sensor Name:\t");
+        String sensorName = input.nextLine();
+        System.out.println("You entered sensor " + sensorName);
+        // Date Getter
+        System.out.println("\nEnter Sensor starting date:\t");
+        System.out.println("\nEnter the year:\t");
+        while (!input.hasNextInt()) {
+            input.nextLine();
+            System.out.println("Not a valid year. Try again");
+        }
+        int dateYear = input.nextInt();
+        input.nextLine();
+        System.out.println("\nEnter the Month:\t");
+        while (!input.hasNextInt()) {
+            input.nextLine();
+            System.out.println("Not a valid month. Try again");
+        }
+        int dateMonth = input.nextInt();
+        input.nextLine();
+        System.out.println("\nEnter the Day:\t");
+        while (!input.hasNextInt()) {
+            input.nextLine();
+            System.out.println("Not a valid day. Try again");
+        }
+        int dateDay = input.nextInt();
+        System.out.println("You entered the date successfully!");
+        updateAndDisplay253(typeSensor, room, dateYear, dateMonth, dateDay, sensorName);
+
+    }
+
+    private void updateAndDisplay253(TypeSensor typeSensor, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        SensorSettingsController mController = new SensorSettingsController();
+        Date mDate = mController.createDate(dateYear, dateMonth, dateDay);
+        Sensor mSensor = mController.createRoomSensor(sensorName, typeSensor, mDate);
+        if (ctrl.addSensorToRoom(room, mSensor)) {
+            System.out.println("\nSensor successfully added to the Room " + room.getRoomName());
+        } else System.out.println("\nSensor already exists in the room.");
+    }
+
+
 
     /*US220 - As an Administrator, I want to remove a device from a room, so that it is no longer used.
     Its activity log is also removed.
@@ -464,7 +463,4 @@ class RoomConfigurationUI {
         System.out.println("0) (Return to main menu)\n");
     }
 }
-
-
-
 
