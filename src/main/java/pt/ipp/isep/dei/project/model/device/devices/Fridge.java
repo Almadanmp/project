@@ -103,26 +103,11 @@ public class Fridge implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        int counter = 0;
-        for (Log l : mFridgeLogList.getLogList()) {
-            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
-                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
-                counter++;
-            }
-        }
-        return counter;
+        return mFridgeLogList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        LogList result = new LogList();
-        for (Log l : this.getLogList().getLogList()) {
-            if ((l.getInitialDate().after(startDate) || l.getInitialDate().equals(startDate)) &&
-                    ((l.getFinalDate().before(endDate)) || l.getFinalDate().equals(endDate))) {
-                result.addLog(l);
-            }
-        }
-        return result;
-    }
+        return mFridgeLogList.getLogsInInterval(startDate, endDate);    }
 
     /**
      * This method checks the Logs registered in a periods which are totally contained in the defined interval.
@@ -132,14 +117,7 @@ public class Fridge implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        double result = 0;
-        for (Log l : mFridgeLogList.getLogList()) {
-            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
-                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
-                result += l.getValue();
-            }
-        }
-        return result;
+        return mFridgeLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**

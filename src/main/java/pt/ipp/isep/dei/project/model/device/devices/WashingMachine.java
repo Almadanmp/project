@@ -110,26 +110,11 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        int counter = 0;
-        for (Log l : mWMLogList.getLogList()) {
-            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
-                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
-                counter++;
-            }
-        }
-        return counter;
+        return mWMLogList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        LogList result = new LogList();
-        for (Log l : this.getLogList().getLogList()) {
-            if ((l.getInitialDate().after(startDate) || l.getInitialDate().equals(startDate)) &&
-                    ((l.getFinalDate().before(endDate)) || l.getFinalDate().equals(endDate))) {
-                result.addLog(l);
-            }
-        }
-        return result;
-    }
+        return mWMLogList.getLogsInInterval(startDate, endDate);    }
 
     /**
      * This method checks the Logs registered in a periods which are totally contained in the defined interval.
@@ -139,15 +124,7 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        double result = 0;
-        for (Log l : mWMLogList.getLogList()) {
-            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
-                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
-                result += l.getValue();
-            }
-        }
-        return result;
-    }
+        return mWMLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);    }
 
     /**
      * Energy consumption = energy consumption of the program (kWh)

@@ -69,6 +69,53 @@ public class LogList {
         return counter > 0;
     }
 
+    /**
+     * Method determines the amount of data logs that fall within a given time interval.
+     *
+     * @param initialTime is the start time of the interval.
+     * @param finalTime   is the end time of the interval.
+     * @return is the number of valid data logs in the given interval.
+     */
+    public int countLogsInInterval(Date initialTime, Date finalTime) {
+        int counter = 0;
+        for (Log l : this.getLogList()) {
+            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
+                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public LogList getLogsInInterval(Date startDate, Date endDate) {
+        LogList result = new LogList();
+        for (Log l : this.getLogList()) {
+            if ((l.getInitialDate().after(startDate) || l.getInitialDate().equals(startDate)) &&
+                    ((l.getFinalDate().before(endDate)) || l.getFinalDate().equals(endDate))) {
+                result.addLog(l);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * This method checks the Logs registered in a periods which are totally contained in the defined interval.
+     *
+     * @param initialTime - Beginning of the interval
+     * @param finalTime   - Ending of the interval
+     * @return total consumption within the defined interval
+     */
+    public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
+        double result = 0;
+        for (Log l : this.getLogList()) {
+            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
+                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
+                result += l.getValue();
+            }
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         int counter = 0;
