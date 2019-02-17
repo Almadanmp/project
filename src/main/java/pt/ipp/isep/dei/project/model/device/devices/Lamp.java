@@ -11,49 +11,47 @@ import java.util.List;
 import java.util.Objects;
 
 public class Lamp implements Device, Metered {
-    public static final String NOMINAL_POWER = "Nominal Power";
-
-    private String mName;
-    private double mNominalPower;
-    private String mType = "Lamp";
-    private LampSpec mDeviceSpecs;
-    private boolean mActive;
-    private LogList mLogList;
+    private String mLampName;
+    private double mLampNominalPower;
+    private String mLampType = "Lamp";
+    private LampSpec mLampDeviceSpecs;
+    private boolean mLampActive;
+    private LogList mLampLogList;
 
 
-    public Lamp(LampSpec mDeviceSpecs) {
-        this.mDeviceSpecs = mDeviceSpecs;
-        this.mActive = true;
-        mLogList = new LogList();
+    public Lamp(LampSpec lampSpec) {
+        this.mLampDeviceSpecs = lampSpec;
+        this.mLampActive = true;
+        mLampLogList = new LogList();
     }
 
     public String getName() {
-        return this.mName;
+        return this.mLampName;
     }
 
     public void setName(String name) {
-        this.mName = name;
+        this.mLampName = name;
     }
 
     public String getType() {
-        return this.mType;
+        return this.mLampType;
     }
 
     public void setNominalPower(double nominalPower) {
-        this.mNominalPower = nominalPower;
+        this.mLampNominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.mNominalPower;
+        return this.mLampNominalPower;
     }
 
     public boolean isActive() {
-        return this.mActive;
+        return this.mLampActive;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.mActive = false;
+            this.mLampActive = false;
             return true;
         } else {
             return false;
@@ -70,7 +68,7 @@ public class Lamp implements Device, Metered {
 
 
     public String buildDeviceString() {
-        return "The device Name is " + this.mName + ", and its NominalPower is " + this.mNominalPower + " kW.\n";
+        return "The device Name is " + this.mLampName + ", and its NominalPower is " + this.mLampNominalPower + " kW.\n";
     }
 
     /**
@@ -79,7 +77,7 @@ public class Lamp implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return mLogList;
+        return mLampLogList;
     }
 
     /**
@@ -89,8 +87,8 @@ public class Lamp implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(mLogList.getLogList().contains(log)) && this.mActive) {
-            mLogList.getLogList().add(log);
+        if (!(mLampLogList.getLogList().contains(log)) && this.mLampActive) {
+            mLampLogList.getLogList().add(log);
             return true;
         } else {
             return false;
@@ -106,7 +104,7 @@ public class Lamp implements Device, Metered {
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
         int counter = 0;
-        for (Log l : mLogList.getLogList()) {
+        for (Log l : mLampLogList.getLogList()) {
             if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
                     ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
                 counter++;
@@ -135,7 +133,7 @@ public class Lamp implements Device, Metered {
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
         double result = 0;
-        for (Log l : mLogList.getLogList()) {
+        for (Log l : mLampLogList.getLogList()) {
             if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
                     ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
                 result += l.getValue();
@@ -151,25 +149,25 @@ public class Lamp implements Device, Metered {
      * @return
      */
     public double getEnergyConsumption(float time) {
-        return mNominalPower * time;
+        return mLampNominalPower * time;
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return mDeviceSpecs.getAttributeNames();
+        return mLampDeviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return mDeviceSpecs.getAttributeValue(attributeName);
+        return mLampDeviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return mDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return mLampDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return mDeviceSpecs.getAttributeUnit(attributeName);
+        return mLampDeviceSpecs.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -181,7 +179,7 @@ public class Lamp implements Device, Metered {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(mName, device.getName());
+        return Objects.equals(mLampName, device.getName());
     }
 
     @Override

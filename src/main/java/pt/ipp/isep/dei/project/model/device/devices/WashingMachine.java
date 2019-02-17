@@ -12,52 +12,49 @@ import java.util.List;
 import java.util.Objects;
 
 public class WashingMachine implements Device, Metered, Programmable {
-    public static final String NOMINAL_POWER = "Nominal Power";
-    public static final String PROGRAM_LIST = "Program List";
-
-    private String mName;
-    private double mNominalPower;
-    private String mType = "Washing Machine";
-    private WashingMachineSpec mDeviceSpecs;
-    private boolean mActive;
-    private ProgramList mProgramList;
-    private LogList mLogList;
+    private String mWMName;
+    private double mWMNominalPower;
+    private String mWMType = "Washing Machine";
+    private WashingMachineSpec mWMDeviceSpecs;
+    private boolean mWMActive;
+    private ProgramList mWMProgramList;
+    private LogList mWMLogList;
 
 
-    public WashingMachine(WashingMachineSpec mDeviceSpecs) {
-        this.mDeviceSpecs = mDeviceSpecs;
-        this.mActive = true;
-        mProgramList = new ProgramList();
-        mLogList = new LogList();
+    public WashingMachine(WashingMachineSpec washingMachineSpec) {
+        this.mWMDeviceSpecs = washingMachineSpec;
+        this.mWMActive = true;
+        mWMProgramList = new ProgramList();
+        mWMLogList = new LogList();
     }
 
     public String getName() {
-        return this.mName;
+        return this.mWMName;
     }
 
     public void setName(String name) {
-        this.mName = name;
+        this.mWMName = name;
     }
 
     public String getType() {
-        return this.mType;
+        return this.mWMType;
     }
 
     public void setNominalPower(double nominalPower) {
-        this.mNominalPower = nominalPower;
+        this.mWMNominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.mNominalPower;
+        return this.mWMNominalPower;
     }
 
     public boolean isActive() {
-        return this.mActive;
+        return this.mWMActive;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.mActive = false;
+            this.mWMActive = false;
             return true;
         } else {
             return false;
@@ -70,7 +67,7 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
         if (isProgrammable()) {
-            return this.mProgramList;
+            return this.mWMProgramList;
         } else {
             throw new IncompatibleClassChangeError("ERROR: Unable to get list. DeviceTemporary is not programmable.");
         }
@@ -78,7 +75,7 @@ public class WashingMachine implements Device, Metered, Programmable {
 
 
     public String buildDeviceString() {
-        return "The device Name is " + this.mName + ", and its NominalPower is " + this.mNominalPower + " kW.\n";
+        return "The device Name is " + this.mWMName + ", and its NominalPower is " + this.mWMNominalPower + " kW.\n";
     }
 
     /**
@@ -87,7 +84,7 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return mLogList;
+        return mWMLogList;
     }
 
     /**
@@ -97,8 +94,8 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(mLogList.getLogList().contains(log)) && this.mActive) {
-            mLogList.getLogList().add(log);
+        if (!(mWMLogList.getLogList().contains(log)) && this.mWMActive) {
+            mWMLogList.getLogList().add(log);
             return true;
         } else {
             return false;
@@ -114,7 +111,7 @@ public class WashingMachine implements Device, Metered, Programmable {
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
         int counter = 0;
-        for (Log l : mLogList.getLogList()) {
+        for (Log l : mWMLogList.getLogList()) {
             if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
                     ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
                 counter++;
@@ -143,7 +140,7 @@ public class WashingMachine implements Device, Metered, Programmable {
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
         double result = 0;
-        for (Log l : mLogList.getLogList()) {
+        for (Log l : mWMLogList.getLogList()) {
             if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
                     ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
                 result += l.getValue();
@@ -159,25 +156,25 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return
      */
     public double getEnergyConsumption(float time) {
-        return mNominalPower * time;
+        return mWMNominalPower * time;
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return mDeviceSpecs.getAttributeNames();
+        return mWMDeviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return mDeviceSpecs.getAttributeValue(attributeName);
+        return mWMDeviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return mDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return mWMDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return mDeviceSpecs.getAttributeUnit(attributeName);
+        return mWMDeviceSpecs.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -189,7 +186,7 @@ public class WashingMachine implements Device, Metered, Programmable {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(mName, device.getName());
+        return Objects.equals(mWMName, device.getName());
     }
 
     @Override

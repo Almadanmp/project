@@ -12,9 +12,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Dishwasher implements Device, Metered, Programmable {
-    public static final String NOMINAL_POWER = "Nominal Power";
-    public static final String PROGRAM_LIST = "Program List";
-
     private String mDWName;
     private double mDWNominalPower;
     private String mDWType = "Dishwasher";
