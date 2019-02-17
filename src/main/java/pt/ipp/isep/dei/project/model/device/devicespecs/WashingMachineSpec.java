@@ -5,26 +5,26 @@ import java.util.List;
 
 public class WashingMachineSpec implements DeviceSpecs {
 
-    public static final String CAPACITY = "Capacity";
+    public static final String WM_CAPACITY = "Capacity";
 
-    private Double mCapacity;
+    private Double mWMCapacity;
 
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add(CAPACITY);
+        result.add(WM_CAPACITY);
         return result;
     }
 
     public Object getAttributeValue(String attributeName) {
-        if (attributeName.equals(CAPACITY)) {
-            return mCapacity;
+        if (attributeName.equals(WM_CAPACITY)) {
+            return mWMCapacity;
         }
         return 0;
     }
 
     public Object getAttributeUnit(String attributeName) {
-        if (attributeName.equals(CAPACITY)) {
+        if (attributeName.equals(WM_CAPACITY)) {
             return "Kg";
 
         }
@@ -35,8 +35,8 @@ public class WashingMachineSpec implements DeviceSpecs {
         if (attributeName == null) {
             return false;
         }
-        if (attributeName == CAPACITY && attributeValue instanceof Double) {
-            this.mCapacity = (Double) attributeValue;
+        if (attributeName == WM_CAPACITY && attributeValue instanceof Double) {
+            this.mWMCapacity = (Double) attributeValue;
             return true;
         }
         return false;

@@ -45,11 +45,11 @@ public class WashingMachineTest {
         WashingMachine d = new WashingMachine(new WashingMachineSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
-        d.setAttributeValue(WashingMachineSpec.CAPACITY, 34);
+        d.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 34);
         Device d2 = new WashingMachine(new WashingMachineSpec());
         d2.setName("WMTwo");
         d2.setNominalPower(12.0);
-        d.setAttributeValue(WashingMachineSpec.CAPACITY, 45);
+        d.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 45);
 
         boolean actualResult = d.equals(d2);
         assertFalse(actualResult);
@@ -61,7 +61,7 @@ public class WashingMachineTest {
         WashingMachine d = new WashingMachine(new WashingMachineSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
-        d.setAttributeValue(WashingMachineSpec.CAPACITY, 56);
+        d.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 56);
         Room room = new Room("quarto", 1, 80, 2, 2);
 
         boolean actualResult = d.equals(room);
@@ -71,7 +71,7 @@ public class WashingMachineTest {
     @Test
     void seeEqualsToNullObject() {
         WashingMachine d = new WashingMachine(new WashingMachineSpec());
-        d.setAttributeValue(WashingMachineSpec.CAPACITY, 34);
+        d.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 34);
         boolean actualResult = d.equals(null);
 
         assertFalse(actualResult);
@@ -110,36 +110,36 @@ public class WashingMachineTest {
     @Test
     void seeIfGetAndSetAttributeValue() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Double expectedResult = 33.3;
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 33.3);
-        Object result = d1.getAttributeValue(WashingMachineSpec.CAPACITY);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 33.3);
+        Object result = d1.getAttributeValue(WashingMachineSpec.WM_CAPACITY);
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfGetAndSetAttributeUnit() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         String expectedResult = "Kg";
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 33.3);
-        Object result = d1.getAttributeUnit(WashingMachineSpec.CAPACITY);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 33.3);
+        Object result = d1.getAttributeUnit(WashingMachineSpec.WM_CAPACITY);
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfGetAttributeNames() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         List<String> result = d1.getAttributeNames();
-        assertTrue(result.contains(WashingMachineSpec.CAPACITY));
+        assertTrue(result.contains(WashingMachineSpec.WM_CAPACITY));
         assertEquals(result.size(), 1);
     }
 
     @Test
     void ensureThatWeDeactivateADevice() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         boolean expectedResult = true;
         boolean actualResult = d1.deactivate();
         assertEquals(expectedResult, actualResult);
@@ -148,7 +148,7 @@ public class WashingMachineTest {
     @Test
     void ensureThatWeDoNotDeactivate() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         d1.deactivate();
         boolean expectedResult = false;
         boolean actualResult = d1.deactivate();
@@ -159,7 +159,7 @@ public class WashingMachineTest {
     @Test
     void ensureThatDeviceIsProg() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         d1.deactivate();
         boolean expectedResult = true;
         boolean actualResult = d1.isProgrammable();
@@ -169,7 +169,7 @@ public class WashingMachineTest {
     @Test
     void seeIfGetEnergyConsumption() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         d1.deactivate();
         double expectedResult = 0;
         double actualResult = d1.getEnergyConsumption(2);
@@ -179,7 +179,7 @@ public class WashingMachineTest {
     @Test
     void getProgramList() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = d1.getProgramList();
         listProgram.addProgram(program1);
@@ -191,7 +191,7 @@ public class WashingMachineTest {
     @Test
     void getLogList() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         LogList logList = d1.getLogList();
@@ -203,7 +203,7 @@ public class WashingMachineTest {
     @Test
     void getLogListBreakTest() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         LogList logList = new LogList();
         LogList result = d1.getLogList();
         assertEquals(logList, result);
@@ -212,7 +212,7 @@ public class WashingMachineTest {
     @Test
     void addLogListFalse() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         d1.addLog(log);
@@ -222,7 +222,7 @@ public class WashingMachineTest {
     @Test
     void addLogToInactive() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         d1.deactivate();
@@ -233,7 +233,7 @@ public class WashingMachineTest {
     @Test
     void addLogTrue() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         boolean result = d1.addLog(log);
@@ -250,7 +250,7 @@ public class WashingMachineTest {
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         Device device = new WashingMachine(new WashingMachineSpec());
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         device.addLog(log1);
@@ -268,7 +268,7 @@ public class WashingMachineTest {
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 59).getTime();
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         d1.addLog(log1);
@@ -286,7 +286,7 @@ public class WashingMachineTest {
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         d1.addLog(log1);
@@ -306,7 +306,7 @@ public class WashingMachineTest {
         Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
         Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
         WashingMachine device = new WashingMachine(new WashingMachineSpec());
-        device.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        device.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         Log log3 = new Log(55, periodBeginning3, periodEnding3);
@@ -335,7 +335,7 @@ public class WashingMachineTest {
         Date periodBeginning5 = new GregorianCalendar(2018, 10, 20, 9, 40).getTime();
         Date periodEnding5 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
         WashingMachine device = new WashingMachine(new WashingMachineSpec());
-        device.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        device.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         Log log3 = new Log(55, periodBeginning3, periodEnding3);
@@ -365,7 +365,7 @@ public class WashingMachineTest {
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 10).getTime();
         WashingMachine device = new WashingMachine(new WashingMachineSpec());
-        device.setAttributeValue(WashingMachineSpec.CAPACITY, 12D);
+        device.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         device.addLog(log1);

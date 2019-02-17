@@ -31,11 +31,11 @@ public class DeviceTemporaryTest {
 //        DeviceTemporary d = new DeviceTemporary(new WashingMachineSpec());
 //        d.setName("WMOne");
 //        d.setNominalPower(12.0);
-//        d.setAttributeValue(WashingMachineSpec.CAPACITY, 34);
+//        d.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 34);
 //        DeviceTemporary d2 = new DeviceTemporary(new WashingMachineSpec());
 //        d2.setName("WMTwo");
 //        d2.setNominalPower(12.0);
-//        d.setAttributeValue(WashingMachineSpec.CAPACITY, 45);
+//        d.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 45);
 //
 //        boolean actualResult = d.equals(d2);
 //        assertFalse(actualResult);
@@ -47,7 +47,7 @@ public class DeviceTemporaryTest {
 //        DeviceTemporary d = new DeviceTemporary(new WashingMachineSpec());
 //        d.setName("WMOne");
 //        d.setNominalPower(12.0);
-//        d.setAttributeValue(WashingMachineSpec.CAPACITY, 56);
+//        d.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 56);
 //        Room room = new Room("quarto", 1, 80, 2, 2);
 //
 //        boolean actualResult = d.equals(room);
@@ -57,7 +57,7 @@ public class DeviceTemporaryTest {
 //    @Test
 //    void seeEqualsToNullObject() {
 //        DeviceTemporary d = new DeviceTemporary(new WashingMachineSpec());
-//        d.setAttributeValue(WashingMachineSpec.CAPACITY, 34);
+//        d.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 34);
 //        boolean actualResult = d.equals(null);
 //
 //        assertFalse(actualResult);

@@ -5,26 +5,26 @@ import java.util.List;
 
 public class DishwasherSpec implements DeviceSpecs {
 
-    public static final String CAPACITY = "Capacity";
+    public static final String DW_CAPACITY = "Capacity";
 
-    private Double mCapacity;
+    private Double mDWCapacity;
 
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
-        result.add(CAPACITY);
+        result.add(DW_CAPACITY);
         return result;
     }
 
     public Object getAttributeValue(String attributeName) {
-        if (attributeName.equals(CAPACITY)) {
-            return mCapacity;
+        if (attributeName.equals(DW_CAPACITY)) {
+            return mDWCapacity;
         }
         return 0;
     }
 
     public Object getAttributeUnit(String attributeName) {
-        if (attributeName.equals(CAPACITY)) {
+        if (attributeName.equals(DW_CAPACITY)) {
             return "Kg";
 
         }
@@ -35,8 +35,8 @@ public class DishwasherSpec implements DeviceSpecs {
         if (attributeName == null) {
             return false;
         }
-        if (attributeName == CAPACITY && attributeValue instanceof Double) {
-            this.mCapacity = (Double) attributeValue;
+        if (attributeName == DW_CAPACITY && attributeValue instanceof Double) {
+            this.mDWCapacity = (Double) attributeValue;
             return true;
         }
         return false;

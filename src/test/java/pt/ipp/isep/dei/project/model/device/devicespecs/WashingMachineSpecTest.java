@@ -18,9 +18,9 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeNamesTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add(WashingMachineSpec.CAPACITY);
+        expectedResult.add(WashingMachineSpec.WM_CAPACITY);
         List<String> result = washingMachineSpec.getAttributeNames();
         assertEquals(expectedResult, result);
     }
@@ -28,7 +28,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeValuesTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
         double expectedResult = 5.0;
         Object result = washingMachineSpec.getAttributeValue("Capacity");
         assertEquals(expectedResult, result);
@@ -37,7 +37,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeUnitTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
         String expectedResult = "Kg";
         Object result = washingMachineSpec.getAttributeUnit("Capacity");
         assertEquals(expectedResult, result);
@@ -47,7 +47,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeValuesTest1() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
         int expectedResult = 0;
         Object result = washingMachineSpec.getAttributeValue("Capacity" + "programList");
         assertEquals(expectedResult, result);
@@ -56,7 +56,7 @@ class WashingMachineSpecTest {
     @Test
     void getAttributeValuesWithCapacityEmptyTest() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 34D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 34D);
         double expectedResult = 34.0;
         Object result = washingMachineSpec.getAttributeValue("Capacity");
         assertEquals(expectedResult, result);
@@ -73,7 +73,7 @@ class WashingMachineSpecTest {
     @Test
     void setAttributeValueTestCapacity2() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 23D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 23D);
         Object result = washingMachineSpec.getAttributeValue("Capacity");
         assertEquals(23.0, result);
     }
@@ -82,7 +82,7 @@ class WashingMachineSpecTest {
     void seeIfSetAttributeValueTestTrueWorks() {
         //Arrange
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
         //Act
         boolean actualResult = washingMachineSpec.setAttributeValue("Capacity", 12.0);
         //Assert
@@ -110,7 +110,7 @@ class WashingMachineSpecTest {
     @Test
     void setAttributeValueTestFalseAgain() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5);
+        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5);
         assertEquals(false, result);
     }
 
@@ -118,7 +118,7 @@ class WashingMachineSpecTest {
     @Test
     void setAttributeValueTestFalseCap() {
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, "sjfhbfhfh");
+        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, "sjfhbfhfh");
         assertEquals(false, result);
     }
 
@@ -133,9 +133,9 @@ class WashingMachineSpecTest {
     void testGetAttributeCoveringAllCases() {
         //Arrange
         WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, 5D);
+        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
         // original strings:
-        assertEquals(5.0, washingMachineSpec.getAttributeValue(WashingMachineSpec.CAPACITY));
+        assertEquals(5.0, washingMachineSpec.getAttributeValue(WashingMachineSpec.WM_CAPACITY));
 
         // same hash codes, but different strings:
         assertEquals(0, washingMachineSpec.getAttributeValue("\0Capacity"));
@@ -150,7 +150,7 @@ class WashingMachineSpecTest {
         WashingMachineSpec wMachineSpec = new WashingMachineSpec();
         Double attribute = 6.0;
         // original strings:
-        assertTrue(wMachineSpec.setAttributeValue(WashingMachineSpec.CAPACITY, attribute));
+        assertTrue(wMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, attribute));
         // same hash codes, but different strings:
         assertFalse(wMachineSpec.setAttributeValue("notCapacity", attribute));
         // distinct hash code to cover default cases of switches
@@ -163,7 +163,7 @@ class WashingMachineSpecTest {
         WashingMachineSpec wMachineSpec = new WashingMachineSpec();
         String attributeKg = "Kg";
         // original strings:
-        assertEquals(attributeKg, wMachineSpec.getAttributeUnit(WashingMachineSpec.CAPACITY));
+        assertEquals(attributeKg, wMachineSpec.getAttributeUnit(WashingMachineSpec.WM_CAPACITY));
         // same hash codes, but different strings:
         assertEquals(false, wMachineSpec.getAttributeUnit("notCapacity"));
         // distinct hash code to cover default cases of switches
