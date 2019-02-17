@@ -37,7 +37,7 @@ public class LogList {
      *
      * @return List with Logs
      */
-    List<Log> getLogList() {
+   public  List<Log> getLogList() {
         return this.mLogList;
     }
 

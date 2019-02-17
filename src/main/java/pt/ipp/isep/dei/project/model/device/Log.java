@@ -21,7 +21,7 @@ public class Log {
         return this.mInitialDate;
     }
 
-    Date getFinalDate() {
+   public Date getFinalDate() {
         return this.mFinalDate;
     }
 
