@@ -5,26 +5,27 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec2;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec2;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.Date;
 import java.util.List;
 
-public class Dishwasher implements Device, Metered, Programmable {
+public class WashingMachine implements Device, Metered, Programmable {
     public static final String NOMINAL_POWER = "Nominal Power";
     public static final String PROGRAM_LIST = "Program List";
 
     private String mName;
     private double mNominalPower;
-    private String mType = "Dishwasher";
-    private DishwasherSpec2 mDeviceSpecs;
+    private String mType = "Washing Machine";
+    private WashingMachineSpec2 mDeviceSpecs;
     private boolean mActive;
     private ProgramList mProgramList;
     private LogList mLogList;
 
 
-    public Dishwasher(DishwasherSpec2 mDeviceSpecs) {
+    public WashingMachine(WashingMachineSpec2 mDeviceSpecs) {
         this.mDeviceSpecs = mDeviceSpecs;
         this.mActive = true;
         mProgramList = new ProgramList();

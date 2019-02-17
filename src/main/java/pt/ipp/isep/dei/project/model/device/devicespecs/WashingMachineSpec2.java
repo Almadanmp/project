@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model.device.devicespecs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DishwasherSpec2 implements DeviceSpecs2 {
+public class WashingMachineSpec2 implements DeviceSpecs2 {
 
     public static final String CAPACITY = "Capacity";
 

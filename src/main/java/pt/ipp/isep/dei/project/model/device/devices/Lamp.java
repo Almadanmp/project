@@ -4,30 +4,26 @@ import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec2;
+import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec2;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
-import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.Date;
 import java.util.List;
 
-public class Dishwasher implements Device, Metered, Programmable {
+public class Lamp implements Device, Metered {
     public static final String NOMINAL_POWER = "Nominal Power";
-    public static final String PROGRAM_LIST = "Program List";
 
     private String mName;
     private double mNominalPower;
-    private String mType = "Dishwasher";
-    private DishwasherSpec2 mDeviceSpecs;
+    private String mType = "Lamp";
+    private LampSpec2 mDeviceSpecs;
     private boolean mActive;
-    private ProgramList mProgramList;
     private LogList mLogList;
 
 
-    public Dishwasher(DishwasherSpec2 mDeviceSpecs) {
+    public Lamp(LampSpec2 mDeviceSpecs) {
         this.mDeviceSpecs = mDeviceSpecs;
         this.mActive = true;
-        mProgramList = new ProgramList();
         mLogList = new LogList();
     }
 
@@ -65,11 +61,11 @@ public class Dishwasher implements Device, Metered, Programmable {
     }
 
     public boolean isProgrammable() {
-        return true;
+        return false;
     }
 
     public ProgramList getProgramList() {
-        return this.mProgramList;
+        throw new IncompatibleClassChangeError("ERROR: Unable to get list. Device is not programmable.");
     }
 
 
@@ -149,7 +145,7 @@ public class Dishwasher implements Device, Metered, Programmable {
     }
 
     /**
-     * Energy consumption = energy consumption of the program (kWh)
+     * Energy consumption = Nominal power * time (Wh)
      *
      * @param time
      * @return

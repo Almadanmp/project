@@ -1,12 +1,10 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
-import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.List;
 
@@ -243,24 +241,24 @@ public class RoomConfigurationController {
         program.setAttributeValue(program.getAttributeNames().get(i), value);
     }
 
-    public ProgramList getProgramList (DeviceTemporary device){
+    public ProgramList getProgramList(DeviceTemporary device) {
         return device.getProgramList();
     }
 
-    public Object getProgramAttributeUnit(Program program, int i){
-       return program.getAttributeUnit(program.getAttributeNames().get(i));
+    public Object getProgramAttributeUnit(Program program, int i) {
+        return program.getAttributeUnit(program.getAttributeNames().get(i));
     }
 
-    public Object getAttributeUnit(DeviceTemporary device, int i){
+    public Object getAttributeUnit(DeviceTemporary device, int i) {
         return device.getAttributeUnit(device.getAttributeNames().get(i));
     }
 
-    public Object getProgramAttributeValue (Program program, int i){
+    public Object getProgramAttributeValue(Program program, int i) {
         return program.getAttributeValue(program.getAttributeNames().get(i));
     }
 
-    public Object getAttributeValue (DeviceTemporary device, int i){
-         return device.getAttributeValue(device.getAttributeNames().get(i)) ;
+    public Object getAttributeValue(DeviceTemporary device, int i) {
+        return device.getAttributeValue(device.getAttributeNames().get(i));
     }
 
     public boolean setAttributeValue(DeviceTemporary device, String attributeName, Object attributeValue) {

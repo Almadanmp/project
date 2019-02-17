@@ -5,26 +5,26 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec2;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec2;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.Date;
 import java.util.List;
 
-public class Dishwasher implements Device, Metered, Programmable {
+public class WaterHeater implements Device, Metered{
     public static final String NOMINAL_POWER = "Nominal Power";
-    public static final String PROGRAM_LIST = "Program List";
 
     private String mName;
     private double mNominalPower;
-    private String mType = "Dishwasher";
-    private DishwasherSpec2 mDeviceSpecs;
+    private String mType = "Water Heater";
+    private WaterHeaterSpec2 mDeviceSpecs;
     private boolean mActive;
     private ProgramList mProgramList;
     private LogList mLogList;
 
 
-    public Dishwasher(DishwasherSpec2 mDeviceSpecs) {
+    public WaterHeater(WaterHeaterSpec2 mDeviceSpecs) {
         this.mDeviceSpecs = mDeviceSpecs;
         this.mActive = true;
         mProgramList = new ProgramList();
@@ -65,11 +65,11 @@ public class Dishwasher implements Device, Metered, Programmable {
     }
 
     public boolean isProgrammable() {
-        return true;
+        return false;
     }
 
     public ProgramList getProgramList() {
-        return this.mProgramList;
+        throw new IncompatibleClassChangeError("ERROR: Unable to get list. Device is not programmable.");
     }
 
 
@@ -155,7 +155,19 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return
      */
     public double getEnergyConsumption(float time) {
-        return mNominalPower * time;
+        double coldWaterTemperature = (double) mDeviceSpecs.getAttributeValue("Cold Water Temperature");
+        double hotWaterTemperature = (double) mDeviceSpecs.getAttributeValue("Hot Water Temperature");
+        double volumeOfWaterToHeat = (double) mDeviceSpecs.getAttributeValue("Volume Of Water To Heat");
+        double performanceRatio = (double) mDeviceSpecs.getAttributeValue("Performance Ratio");
+
+        if (coldWaterTemperature >= hotWaterTemperature) {
+            return -1;
+        }
+
+        double dT = hotWaterTemperature - coldWaterTemperature;
+        double volForMinute = volumeOfWaterToHeat / 1440; //calculate v in liters per minute
+        double specificHeatOfWater = 1.163 / 1000;
+        return specificHeatOfWater * volForMinute * dT * performanceRatio * 60;
     }
 
 
