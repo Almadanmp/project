@@ -1,10 +1,13 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.LogList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Double.NaN;
 
@@ -86,7 +89,7 @@ public class Room implements Metered {
         this.mDeviceList = deviceList;
     }
 
-    public List<DeviceTemporary> getDeviceList() {
+    public List<Device> getDeviceList() {
         return this.mDeviceList.getList();
     }
 
@@ -100,7 +103,7 @@ public class Room implements Metered {
     public String buildDeviceListString() {
         StringBuilder result = new StringBuilder("---------------\n");
         for (int i = 0; i < this.getDeviceList().size(); i++) {
-            DeviceTemporary device = this.getDeviceList().get(i);
+            Device device = this.getDeviceList().get(i);
             result.append("\n" + i).append(") device Name: ").append(device.getName());
             result.append(", device Type: ").append(device.getType());
             result.append(", device Nominal Power: ").append(device.getNominalPower());
@@ -122,7 +125,7 @@ public class Room implements Metered {
 
     public double getNominalPower() {
         double result = 0;
-        for (DeviceTemporary d : this.getDeviceList()) {
+        for (Device d : this.getDeviceList()) {
             result += d.getNominalPower();
         }
         return result;
@@ -131,49 +134,54 @@ public class Room implements Metered {
     /**
      * Returns the energy consumption in a given time interval, that is, the sum of the energy consumption
      * of all metered devices' logs in the room that are fully within the given time interval.
+     *
      * @param initialDate defines the start of the interval.
-     * @param finalDate defines the end of the interval.
+     * @param finalDate   defines the end of the interval.
      * @return is the energy consumption.
      */
 
-    public double getConsumptionInInterval(Date initialDate, Date finalDate){
+    public double getConsumptionInInterval(Date initialDate, Date finalDate) {
         double result = 0;
-        for (DeviceTemporary d : this.getDeviceList()){
-            result += d.getConsumptionWithinGivenInterval(initialDate,finalDate);
+        for (Device d : this.getDeviceList()) {
+            result += d.getConsumptionWithinGivenInterval(initialDate, finalDate);
         }
         return result;
     }
 
-    /**Method receives a date of a given day and looks for the max temperature
+    /**
+     * Method receives a date of a given day and looks for the max temperature
      * recorded in every sensor that measure temperature, in the room.
-     * @date day where we want to look for max temperature
+     *
      * @return the max temperature recorded in a sensor that measures temperature or
      * NaN in case there are no readings in the given day or
      * in case the room has no readings whatsoever
-     * **/
-    public double getMaxTemperatureOnGivenDay(Date day){
+     * @date day where we want to look for max temperature
+     **/
+    public double getMaxTemperatureOnGivenDay(Date day) {
         double maxTemp = -1000;
         SensorList tempSensors = getSensorsOfGivenType("temperature");
-        if(tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()){
+        if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {
             return NaN;
         }
-        for(Sensor s: tempSensors.getSensorList()) {
+        for (Sensor s : tempSensors.getSensorList()) {
             ReadingList readingList = s.getReadingList();
             double sensorMax = readingList.getMaximumOfGivenDayValueReadings(day);
-            maxTemp = Math.max(sensorMax,maxTemp);
+            maxTemp = Math.max(sensorMax, maxTemp);
         }
         return maxTemp;
     }
 
-    /**Method that looks in sensor list for sensors of given type and returns a list of
+    /**
+     * Method that looks in sensor list for sensors of given type and returns a list of
      * those sensors. Method will look at the sensor's type.
+     *
      * @return a sensor list that contains sensors of given type
-     * **/
-    public SensorList getSensorsOfGivenType(String type){
+     **/
+    public SensorList getSensorsOfGivenType(String type) {
         SensorList tempSensors = new SensorList();
-        for(Sensor s : this.mRoomSensorList.getSensorList()){
+        for (Sensor s : this.mRoomSensorList.getSensorList()) {
             String typeTest = s.getTypeSensor().getName();
-            if(typeTest.equals(type)){
+            if (typeTest.equals(type)) {
                 tempSensors.addSensor(s);
             }
         }
@@ -190,7 +198,7 @@ public class Room implements Metered {
         return false;
     }
 
-    public boolean removeDevice(DeviceTemporary device) {
+    public boolean removeDevice(Device device) {
         if ((mDeviceList.getList().contains(device))) {
             mDeviceList.getList().remove(device);
             return true;
@@ -214,7 +222,7 @@ public class Room implements Metered {
      * @param device to be added
      * @return the result of the operation (true if successful, false otherwise)
      */
-    public boolean addDevice(DeviceTemporary device) {
+    public boolean addDevice(Device device) {
         if (!(mDeviceList.containsDevice(device))) {
             mDeviceList.addDevice(device);
             return true;
@@ -234,7 +242,7 @@ public class Room implements Metered {
     public double getCurrentRoomTemperature() {
         double currentT = NaN;
         SensorList tempSensors = getSensorsOfGivenType("temperature");
-        if(!tempSensors.getSensorList().isEmpty()){
+        if (!tempSensors.getSensorList().isEmpty()) {
             ReadingList readingList = tempSensors.getReadings();
             currentT = readingList.getMostRecentValueOfReading();
         }
@@ -256,9 +264,9 @@ public class Room implements Metered {
      * @param deviceType the device type
      * @return the list with all devices of a given type
      */
-    List<DeviceTemporary> getDevicesOfGivenType(String deviceType) {
-        List<DeviceTemporary> devicesOfGivenType = new ArrayList<>();
-        for (DeviceTemporary d : getDeviceList()) {
+    List<Device> getDevicesOfGivenType(String deviceType) {
+        List<Device> devicesOfGivenType = new ArrayList<>();
+        for (Device d : getDeviceList()) {
             if (d.getType().equals(deviceType)) {
                 devicesOfGivenType.add(d);
             }
@@ -285,7 +293,7 @@ public class Room implements Metered {
 
     public boolean addRoomDevicesToDeviceList(DeviceList list) {
         int counter = 0;
-        for (DeviceTemporary d : this.getDeviceList()) {
+        for (Device d : this.getDeviceList()) {
             if (!(list.containsDevice(d))) {
                 list.addDevice(d);
                 counter++;
@@ -296,6 +304,7 @@ public class Room implements Metered {
 
     /**
      * Removes all of the room's devices from a given list.
+     *
      * @param list is the list we want to remove devices from.
      * @return false if the list is invalid (null), true otherwise.
      */
@@ -304,16 +313,16 @@ public class Room implements Metered {
         if (list == null) {
             return false;
         }
-        for (DeviceTemporary d : this.getDeviceList()) {
+        for (Device d : this.getDeviceList()) {
             list.removeDevice(d);
         }
         return true;
     }
 
-    public LogList getLogsInInterval(Date startDate, Date endDate){
+    public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
-        for (DeviceTemporary d: this.getDeviceList()){
-            LogList tempList = d.getLogsInInterval(startDate,endDate);
+        for (Device d : this.getDeviceList()) {
+            LogList tempList = d.getLogsInInterval(startDate, endDate);
             result.addLogList(tempList);
         }
         return result;

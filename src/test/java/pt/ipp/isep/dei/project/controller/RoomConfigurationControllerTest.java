@@ -3,8 +3,12 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devices.Fridge;
+import pt.ipp.isep.dei.project.model.device.devices.Lamp;
+import pt.ipp.isep.dei.project.model.device.devices.WashingMachine;
+import pt.ipp.isep.dei.project.model.device.devices.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
@@ -153,19 +157,19 @@ class RoomConfigurationControllerTest {
         //ARRANGE
         RoomConfigurationController ctrl = new RoomConfigurationController();
 
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        Device d1 = new Fridge(new FridgeSpec());
         d1.setNominalPower(12.0);
         ctrl.setAttributeValue(d1, FridgeSpec.FREEZER_CAPACITY, 4D);
         ctrl.setAttributeValue(d1, FridgeSpec.REFRIGERATOR_CAPACITY, 4D);
         ctrl.setAttributeValue(d1, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         d1.setName("hgsdsg");
-        DeviceTemporary d2 = new DeviceTemporary(new FridgeSpec());
+        Device d2 = new Fridge(new FridgeSpec());
         d2.setName("fdshht");
         d2.setNominalPower(10.0);
         ctrl.setAttributeValue(d2, FridgeSpec.FREEZER_CAPACITY, 4D);
         ctrl.setAttributeValue(d2, FridgeSpec.REFRIGERATOR_CAPACITY, 4D);
         ctrl.setAttributeValue(d2, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
-        DeviceTemporary d3 = new DeviceTemporary(new FridgeSpec());
+        Device d3 = new Fridge(new FridgeSpec());
         d3.setName("hfsh");
         d3.setNominalPower(1.0);
         ctrl.setAttributeValue(d3, FridgeSpec.FREEZER_CAPACITY, 4D);
@@ -189,19 +193,19 @@ class RoomConfigurationControllerTest {
         //ARRANGE
         RoomConfigurationController ctrl = new RoomConfigurationController();
 
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        Device d1 = new Fridge(new FridgeSpec());
         d1.setNominalPower(12.0);
         assertTrue(ctrl.setAttributeValue(d1, FridgeSpec.FREEZER_CAPACITY, 4D));
         assertTrue(ctrl.setAttributeValue(d1, FridgeSpec.REFRIGERATOR_CAPACITY, 4D));
         assertTrue(ctrl.setAttributeValue(d1, FridgeSpec.ANNUAL_CONSUMPTION, 56D));
         d1.setName("hgsdsg");
-        DeviceTemporary d2 = new DeviceTemporary(new FridgeSpec());
+        Device d2 = new Fridge(new FridgeSpec());
         d2.setName("fdshht");
         d2.setNominalPower(10.0);
         assertTrue(ctrl.setAttributeValue(d2, FridgeSpec.FREEZER_CAPACITY, 4D));
         assertTrue(ctrl.setAttributeValue(d2, FridgeSpec.REFRIGERATOR_CAPACITY, 4D));
         assertTrue(ctrl.setAttributeValue(d2, FridgeSpec.ANNUAL_CONSUMPTION, 56D));
-        DeviceTemporary d3 = new DeviceTemporary(new FridgeSpec());
+        Device d3 = new Fridge(new FridgeSpec());
         d3.setName("hfsh");
         d3.setNominalPower(1.0);
         assertTrue(ctrl.setAttributeValue(d3, FridgeSpec.FREEZER_CAPACITY, 4D));
@@ -219,19 +223,19 @@ class RoomConfigurationControllerTest {
         //ARRANGE
         RoomConfigurationController ctrl = new RoomConfigurationController();
 
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        Device d1 = new Fridge(new FridgeSpec());
         d1.setNominalPower(12.0);
         assertFalse(ctrl.setAttributeValue(d1, FridgeSpec.FREEZER_CAPACITY, "Fail"));
         assertFalse(ctrl.setAttributeValue(d1, FridgeSpec.REFRIGERATOR_CAPACITY, "Fail"));
         assertFalse(ctrl.setAttributeValue(d1, FridgeSpec.ANNUAL_CONSUMPTION, "Fail"));
         d1.setName("hgsdsg");
-        DeviceTemporary d2 = new DeviceTemporary(new FridgeSpec());
+        Device d2 = new Fridge(new FridgeSpec());
         d2.setName("fdshht");
         d2.setNominalPower(10.0);
         assertFalse(ctrl.setAttributeValue(d2, FridgeSpec.FREEZER_CAPACITY, "Fail"));
         assertFalse(ctrl.setAttributeValue(d2, FridgeSpec.REFRIGERATOR_CAPACITY, "Fail"));
         assertFalse(ctrl.setAttributeValue(d2, FridgeSpec.ANNUAL_CONSUMPTION, "Fail"));
-        DeviceTemporary d3 = new DeviceTemporary(new FridgeSpec());
+        Device d3 = new Fridge(new FridgeSpec());
         d3.setName("hfsh");
         d3.setNominalPower(1.0);
         assertFalse(ctrl.setAttributeValue(d3, FridgeSpec.FREEZER_CAPACITY, "Fail"));
@@ -445,11 +449,11 @@ class RoomConfigurationControllerTest {
         List<Integer> list = new ArrayList<>();
         Integer i = 1;
         list.add(i);
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        Device d1 = new Fridge(new FridgeSpec());
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 4D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 56D);
-        DeviceTemporary d2 = new DeviceTemporary(new WashingMachineSpec());
+        Device d2 = new WashingMachine(new WashingMachineSpec());
         d2.setName("maquina de lavar");
         d2.setNominalPower(150.0);
         Room room = new Room("kitchen", 1, 1, 2, 2);
@@ -470,7 +474,7 @@ class RoomConfigurationControllerTest {
     void SeeIfMatchDeviceIndexByStringWorks() {
         //Arrange
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        Device d1 = new Fridge(new FridgeSpec());
         d1.setName("frigorifico");
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
@@ -489,7 +493,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        Device d1 = new Fridge(new FridgeSpec());
         d1.setName("frigorifico");
         d1.setNominalPower(200.0);
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
@@ -507,7 +511,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintDeviceList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        Device d1 = new Fridge(new FridgeSpec());
         d1.setName("frigorifico");
         d1.setNominalPower(200.0);
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5D);
@@ -552,7 +556,7 @@ class RoomConfigurationControllerTest {
     @Test
     void setNominalPowerDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTemporary device = new DeviceTemporary(new FridgeSpec());
+        Device device = new Fridge(new FridgeSpec());
         device.setNominalPower(3.0);
         ctrl.setNominalPowerDevice(device, 5);
         double result = device.getNominalPower();
@@ -579,16 +583,15 @@ class RoomConfigurationControllerTest {
     }
 
 
-
     @Test
     void removeDeviceSucess() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        DeviceTemporary d2 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d2 = new WaterHeater(new WaterHeaterSpec());
         d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20);
         d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        DeviceTemporary d3 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d3 = new WaterHeater(new WaterHeaterSpec());
         d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
         d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30);
         d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
@@ -602,17 +605,17 @@ class RoomConfigurationControllerTest {
     void removeDeviceFails() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        DeviceTemporary d2 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d2 = new WaterHeater(new WaterHeaterSpec());
         d2.setName("fdsgdg");
         d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 2);
         d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        DeviceTemporary d3 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d3 = new WaterHeater(new WaterHeaterSpec());
         d3.setName("hfhfdh");
         d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
         d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 3D);
         d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        DeviceTemporary d4 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d4 = new WaterHeater(new WaterHeaterSpec());
         d4.setName("jhgjhgj");
         d4.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 50D);
         d4.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 3D);
@@ -627,7 +630,7 @@ class RoomConfigurationControllerTest {
     @Test
     void ensureThatWeDeactivateDevice() {
         RoomConfigurationController roomConfigurationController = new RoomConfigurationController();
-        DeviceTemporary d2 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d2 = new WaterHeater(new WaterHeaterSpec());
         d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 2);
         d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
@@ -639,7 +642,7 @@ class RoomConfigurationControllerTest {
     @Test
     void ensureThatWeDoNotDeactivateDevice() {
         RoomConfigurationController roomConfigurationController = new RoomConfigurationController();
-        DeviceTemporary d2 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d2 = new WaterHeater(new WaterHeaterSpec());
         d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 2);
         d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
@@ -650,18 +653,9 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfGetAttributeValueWashingMachine() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTemporary d1 = new DeviceTemporary(new WashingMachineSpec());
-        Object expectedResult = d1.getAttributeValue("programList");
-        Object result = ctrl.getAttributeValueWashingMachine(d1);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void seeIfConfigureOneWashingMachineProgram() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTemporary d1 = new DeviceTemporary(new WashingMachineSpec());
+        Device d1 = new WashingMachine(new WashingMachineSpec());
         Program program = new Program("rep", 22, 23);
         ProgramList programList = new ProgramList();
         programList.addProgram(program);
@@ -673,7 +667,7 @@ class RoomConfigurationControllerTest {
     @Test
     public void getAttributeNamesTest() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTemporary d1 = new DeviceTemporary(new LampSpec());
+        Device d1 = new Lamp(new LampSpec());
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("Luminous Flux");
         List<String> result = ctrl.getAttributeNames(d1);
@@ -683,7 +677,7 @@ class RoomConfigurationControllerTest {
     @Test
     public void getAttributeNamesTest1() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTemporary d1 = new DeviceTemporary(new LampSpec());
+        Device d1 = new Lamp(new LampSpec());
         String expectedResult = "Lamp";
         String result = ctrl.getType(d1);
         assertEquals(expectedResult, result);
@@ -692,7 +686,7 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfAddDeviceToRoom() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTemporary device = new DeviceTemporary(new WaterHeaterSpec());
+        Device device = new WaterHeater(new WaterHeaterSpec());
         device.setName("waterheater");
         device.setNominalPower(150.0);
         Room room = new Room("cozinha", 1, 1, 1, 1);
@@ -709,12 +703,12 @@ class RoomConfigurationControllerTest {
     void addDeviceFails() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        DeviceTemporary d2 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d2 = new WaterHeater(new WaterHeaterSpec());
         d2.setName("wHeater1");
         d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        DeviceTemporary d3 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d3 = new WaterHeater(new WaterHeaterSpec());
         d3.setName("wHeater1");
         d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
         d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
@@ -729,7 +723,7 @@ class RoomConfigurationControllerTest {
     void addDeviceTrue() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        DeviceTemporary d2 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d2 = new WaterHeater(new WaterHeaterSpec());
         d2.setName("sadffdg");
         d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
@@ -744,23 +738,24 @@ class RoomConfigurationControllerTest {
     void createDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
-        DeviceTemporary d2 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d2 = new WaterHeater(new WaterHeaterSpec());
         d2.setName("wHeater1");
         d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
         d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
         d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
         r1.addDevice(d2);
-        DeviceTemporary expectedResult = d2;
-        DeviceTemporary result = ctrl.createDevice(new WaterHeaterDT());
+        Device expectedResult = d2;
+        Device result = ctrl.createDevice(new WaterHeaterDT());
         result.setName("wHeater1");
         Assertions.assertEquals(expectedResult, result);
     }
 
-    @Test void addProgramToProgramList(){
+    @Test
+    void addProgramToProgramList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Program program = new Program("program", 2, 3);
         ProgramList plist = new ProgramList();
-        ctrl.addProgramToProgramList(plist,program);
+        ctrl.addProgramToProgramList(plist, program);
         String expectedResult = "---------------\n" + "\n0) Program Name: program, Duration: 2.0, Energy Consumption: 3.0"
                 + "\n---------------\n";
         String result = plist.buildProgramListString();

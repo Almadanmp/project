@@ -3,10 +3,14 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
+import pt.ipp.isep.dei.project.model.device.devices.Fridge;
+import pt.ipp.isep.dei.project.model.device.devices.Lamp;
+import pt.ipp.isep.dei.project.model.device.devices.WashingMachine;
+import pt.ipp.isep.dei.project.model.device.devices.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
@@ -33,7 +37,7 @@ class EnergyGridTest {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        DeviceTemporary device = new DeviceTemporary(new FridgeSpec());
+        Device device = new Fridge(new FridgeSpec());
         device.setNominalPower(200.0);
         device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
         device.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 200D);
@@ -53,7 +57,7 @@ class EnergyGridTest {
         Reading r1 = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         ReadingList readingList = new ReadingList();
         readingList.addReading(r1);
-        DeviceTemporary device = new DeviceTemporary(new FridgeSpec());
+        Device device = new Fridge(new FridgeSpec());
         device.setNominalPower(200.0);
         device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
         device.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 200D);
@@ -204,12 +208,12 @@ class EnergyGridTest {
         //Arrange
         Room r1 = new Room("Kitchen", 0, 12, 30, 10);
         Room r2 = new Room("Sótão", 3, 30, 40, 12);
-        DeviceTemporary d1 = new DeviceTemporary(new WaterHeaterSpec());
+        Device d1 = new WaterHeater(new WaterHeaterSpec());
         d1.setNominalPower(30.0);
         d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
         d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 40D);
         d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        DeviceTemporary d2 = new DeviceTemporary(new FridgeSpec());
+        Device d2 = new Fridge(new FridgeSpec());
         d2.setNominalPower(200.0);
         d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 3D);
         d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 3D);
@@ -236,14 +240,14 @@ class EnergyGridTest {
 
     @Test
     void seeIfPrintDevicesWorks() {
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        Device d1 = new Fridge(new FridgeSpec());
         d1.setNominalPower(21.0);
         d1.setName("Fridge");
         d1.setNominalPower(21.0);
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 34D);
-        DeviceTemporary d2 = new DeviceTemporary(new WashingMachineSpec());
+        Device d2 = new WashingMachine(new WashingMachineSpec());
         d2.setNominalPower(30.0);
         d2.setAttributeValue("capacity", 24D);
         d2.setName("WashingMachine");
@@ -333,11 +337,11 @@ class EnergyGridTest {
         RoomList rl = new RoomList();
         rl.addRoom(m);
         eg.setRoomList(rl);
-        List<DeviceTemporary> dlist = eg.getDeviceList();
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        List<Device> dlist = eg.getDeviceList();
+        Device d1 = new Fridge(new FridgeSpec());
         dlist.add(d1);
-        List<DeviceTemporary> expectedResult = eg.getDeviceList();
-        List<DeviceTemporary> result = eg.getDeviceList();
+        List<Device> expectedResult = eg.getDeviceList();
+        List<Device> result = eg.getDeviceList();
         assertEquals(expectedResult, result);
     }
 
@@ -348,7 +352,7 @@ class EnergyGridTest {
         Date date2 = new GregorianCalendar(2018, Calendar.MARCH, 11, 15, 30, 26).getTime();
         Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
 
-        DeviceTemporary device4 = new DeviceTemporary(new LampSpec());
+        Device device4 = new Lamp(new LampSpec());
         device4.setNominalPower(4.0);
         device4.setName("Lamp");
         device4.setAttributeValue("luminousFlux", 23D);
@@ -371,7 +375,7 @@ class EnergyGridTest {
         Date date2 = new GregorianCalendar(2018, Calendar.MARCH, 11, 15, 30, 26).getTime();
         Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
 
-        DeviceTemporary device4 = new DeviceTemporary(new LampSpec());
+        Device device4 = new Lamp(new LampSpec());
         device4.setNominalPower(4.0);
         device4.setName("Lamp");
         device4.addLog(log);
@@ -396,7 +400,7 @@ class EnergyGridTest {
         Date date2 = new GregorianCalendar(2018, Calendar.MARCH, 11, 15, 30, 26).getTime();
         Log log = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 0).getTime(), new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
 
-        DeviceTemporary device4 = new DeviceTemporary(new LampSpec());
+        Device device4 = new Lamp(new LampSpec());
         device4.setNominalPower(4.0);
         device4.setName("Lamp");
         device4.addLog(log);

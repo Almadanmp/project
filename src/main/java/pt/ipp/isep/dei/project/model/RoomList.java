@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.List;
  * Class that groups a number of Rooms in a House.
  */
 
-public class   RoomList {
+public class RoomList {
     private List<Room> mRoomList;
     private String mStringResult = "---------------\n";
     private String mStringInvalidList = "Invalid List - List is Empty\n";
@@ -97,8 +97,8 @@ public class   RoomList {
         return result.toString();
     }
 
-    List<DeviceTemporary> getDeviceList() {
-        List<DeviceTemporary> result = new ArrayList<>();
+    List<Device> getDeviceList() {
+        List<Device> result = new ArrayList<>();
         for (Room r : this.getList()) {
             result.addAll(r.getDeviceList());
         }

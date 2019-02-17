@@ -2,12 +2,15 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
-import java.util.*;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Utility class that aggregates common INPUT methods used by the UI classes.
@@ -74,7 +77,7 @@ public class InputUtils {
         }
     }
 
-    DeviceTemporary getGridDevicesByList(EnergyGrid grid) {
+    Device getGridDevicesByList(EnergyGrid grid) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
@@ -82,7 +85,7 @@ public class InputUtils {
             System.out.println(grid.buildDeviceListString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < grid.getDeviceList().size()) {
-                DeviceTemporary result = grid.getDeviceList().get(aux);
+                Device result = grid.getDeviceList().get(aux);
                 System.out.println("You have chosen the following device: ");
                 System.out.println(result.buildDeviceString() + "\n");
                 return result;
@@ -92,7 +95,7 @@ public class InputUtils {
         }
     }
 
-    Program getSelectedProgramFromDevice(DeviceTemporary device) {
+    Program getSelectedProgramFromDevice(Device device) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
@@ -111,7 +114,7 @@ public class InputUtils {
         }
     }
 
-    DeviceTemporary getInputRoomDevicesByList(Room room) {
+    Device getInputRoomDevicesByList(Room room) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
@@ -119,7 +122,7 @@ public class InputUtils {
             System.out.println(room.buildDeviceListString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < room.getDeviceList().size()) {
-                DeviceTemporary result = room.getDeviceList().get(aux);
+                Device result = room.getDeviceList().get(aux);
                 System.out.println("You have chosen the following device:");
                 System.out.println(result.buildDeviceString() + "\n");
                 return result;
@@ -219,6 +222,7 @@ public class InputUtils {
     /**
      * Method that asks user for string input
      * If user character input isn't alphabetic, the user is asked to type again.
+     *
      * @return String with user input
      */
     public String getInputStringAlphabetCharOnly() {
@@ -267,13 +271,14 @@ public class InputUtils {
     /**
      * Method will read a group of values from user and return a date (year, month, day, hour and
      * minute). It will only accept valid numbers.
+     *
      * @return date introduced by user
      */
     public Date getInputYearMonthDay() {
         int year = getInputYear();
         boolean isLeapyear = new GregorianCalendar().isLeapYear(year);
         int month = getInputMonth();
-        int day = getInputDay(isLeapyear,month);
+        int day = getInputDay(isLeapyear, month);
         Date date = new GregorianCalendar(year, month, day).getTime();
         System.out.println(("You have chosen the following date:\n") + date.toString() + "\n");
         return date;
@@ -282,13 +287,14 @@ public class InputUtils {
     /**
      * Method will read a group of values from user and return a date (year, month, day, hour and
      * minute). It will only accept valid numbers.
+     *
      * @return date introduced by user
      */
     public Date getInputYearMonthDayHourMin() {
         int year = getInputYear();
         boolean isLeapyear = new GregorianCalendar().isLeapYear(year);
         int month = getInputMonth();
-        int day = getInputDay(isLeapyear,month);
+        int day = getInputDay(isLeapyear, month);
         int hour = getInputHour();
         int minute = getInputMinute();
         Date date = new GregorianCalendar(year, month, day, hour, minute).getTime();
@@ -300,6 +306,7 @@ public class InputUtils {
      * Method will ask the user to introduce a year and will return an int
      * that corresponds to the number introduced by user. User can only introduce
      * values from the gregorian calendar
+     *
      * @return int of the year introduced by user
      */
     private int getInputYear() {
@@ -314,6 +321,7 @@ public class InputUtils {
 
     /**
      * Method will ask the user for a month and will return an int of that value subtracted by one
+     *
      * @return int of the month introduced by user
      */
     private int getInputMonth() {
@@ -330,13 +338,13 @@ public class InputUtils {
      * Method will ask the user to introduce a day and will return an int
      * that corresponds to the number introduced by user. User can only introduce
      * valid values
+     *
      * @return int of the day introduced by user
      */
     private int getInputDay(boolean isLeapyear, int month) {
-        if(month == 1) {
+        if (month == 1) {
             return getInputFebruaryDay(isLeapyear);
-        }
-        else {
+        } else {
             return getInputNotFebruaryDay(month);
         }
     }
@@ -346,12 +354,13 @@ public class InputUtils {
      * that corresponds to the number introduced by user. The boolean is true in case of leap
      * year and the user can only introduce a number from 1 to 29. Otherwise, it can only a number
      * from 0 to 28.
+     *
      * @return int of the day introduced by user
      */
-    private int getInputFebruaryDay(boolean isLeapyear){
+    private int getInputFebruaryDay(boolean isLeapyear) {
         Scanner scan = new Scanner(System.in);
         int day = -1;
-        if(isLeapyear){
+        if (isLeapyear) {
             while (day < 1 || day > 29) {
                 day = getInputDateParameter(scan, "day");
                 scan.nextLine();
@@ -369,12 +378,13 @@ public class InputUtils {
      * Method will receive an int of a month and ask the user for a day. It will return an int
      * that corresponds to the number introduced by user. The user can only introduce valid days
      * for that month (January - 0 to 31, April - 0 to 30).
+     *
      * @return int of the day introduced by user
      */
-    private int getInputNotFebruaryDay(int month){
+    private int getInputNotFebruaryDay(int month) {
         Scanner scan = new Scanner(System.in);
         int day = -1;
-        if(isJanuaryMarchMay(month)|| isJulyAugust(month) || isOctoberDecember(month)){
+        if (isJanuaryMarchMay(month) || isJulyAugust(month) || isOctoberDecember(month)) {
             while (day < 1 || day > 31) {
                 day = getInputDateParameter(scan, "day");
                 scan.nextLine();
@@ -389,18 +399,21 @@ public class InputUtils {
     }
 
     //The next three methods were created because of a code smell
+
     /**
      * Method that checks if the month given is January, March or May, returning
      * true in case it is, false in case it is not.
+     *
      * @param month month to test
      */
     private boolean isJanuaryMarchMay(int month) {
-        return month == 0 || month ==2 || month == 4;
+        return month == 0 || month == 2 || month == 4;
     }
 
     /**
      * Method that checks if the month given is July or August, returning
      * true in case it is, false in case it is not.
+     *
      * @param month month to test
      */
     private boolean isJulyAugust(int month) {
@@ -410,6 +423,7 @@ public class InputUtils {
     /**
      * Method that checks if the month given is October or December, returning
      * true in case it is, false in case it is not.
+     *
      * @param month month to test
      */
     private boolean isOctoberDecember(int month) {
@@ -420,6 +434,7 @@ public class InputUtils {
      * Method will ask the user for an hour and will return an int
      * that corresponds to the number introduced by user. User can only introduce
      * valid values (0 to 23).
+     *
      * @return int of the hour introduced by user
      */
     private int getInputHour() {
@@ -436,6 +451,7 @@ public class InputUtils {
      * Method will ask the user to introduce a minute and will return an int
      * that corresponds to the number introduced by user. User can only introduce
      * valid values (0 to 59).
+     *
      * @return int of the minute introduced by user
      */
     private int getInputMinute() {

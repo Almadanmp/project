@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
+import pt.ipp.isep.dei.project.model.device.devices.Fridge;
+import pt.ipp.isep.dei.project.model.device.devices.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
@@ -26,9 +28,9 @@ class EnergyConsumptionControllerTest {
     private EnergyGrid validGrid = new EnergyGrid("validGrid", 300);
     private Room validRoom1; // Is a room with 3 valid devices.
     private Room validRoom2; // Is a room without devices.
-    private DeviceTemporary validDevice1 = new DeviceTemporary(new WaterHeaterSpec());
-    private DeviceTemporary validDevice2 = new DeviceTemporary(new WaterHeaterSpec());
-    private DeviceTemporary validDevice3 = new DeviceTemporary(new FridgeSpec());
+    private Device validDevice1 = new WaterHeater(new WaterHeaterSpec());
+    private Device validDevice2 = new WaterHeater(new WaterHeaterSpec());
+    private Device validDevice3 = new Fridge(new FridgeSpec());
     private EnergyConsumptionController controller = new EnergyConsumptionController();
     private Log validLog1 = new Log(56, new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime(),
             new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime());
@@ -535,12 +537,12 @@ class EnergyConsumptionControllerTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(validDevice1);
         validRoom1.setDeviceList(deviceList);
-        List<DeviceTemporary> expecteResult = new ArrayList<>();
+        List<Device> expecteResult = new ArrayList<>();
         expecteResult.add(validDevice1);
 
         //Act
 
-        List<DeviceTemporary> result = controller.getWaterHeaterDeviceList(house);
+        List<Device> result = controller.getWaterHeaterDeviceList(house);
 
         //Assert
 
@@ -561,13 +563,13 @@ class EnergyConsumptionControllerTest {
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
         house.addRoomToRoomList(validRoom1);
-        List<DeviceTemporary> expectedResult = new ArrayList<>();
+        List<Device> expectedResult = new ArrayList<>();
         expectedResult.add(validDevice1);
         expectedResult.add(validDevice2);
 
         //Act
 
-        List<DeviceTemporary> result = controller.getWaterHeaterDeviceList(house);
+        List<Device> result = controller.getWaterHeaterDeviceList(house);
 
         //Assert
 

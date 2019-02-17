@@ -1,33 +1,29 @@
 package pt.ipp.isep.dei.project.model.device.devices;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec2;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec2;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
-import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-public class WaterHeater implements Device, Metered{
+public class WaterHeater implements Device, Metered {
     public static final String NOMINAL_POWER = "Nominal Power";
 
     private String mName;
     private double mNominalPower;
-    private String mType = "Water Heater";
-    private WaterHeaterSpec2 mDeviceSpecs;
+    private String mType = "WaterHeater";
+    private WaterHeaterSpec mDeviceSpecs;
     private boolean mActive;
-    private ProgramList mProgramList;
     private LogList mLogList;
 
 
-    public WaterHeater(WaterHeaterSpec2 mDeviceSpecs) {
+    public WaterHeater(WaterHeaterSpec mDeviceSpecs) {
         this.mDeviceSpecs = mDeviceSpecs;
         this.mActive = true;
-        mProgramList = new ProgramList();
         mLogList = new LogList();
     }
 
@@ -68,10 +64,9 @@ public class WaterHeater implements Device, Metered{
         return false;
     }
 
-    public ProgramList getProgramList() {
+    public ProgramList getProgramList() throws IncompatibleClassChangeError {
         throw new IncompatibleClassChangeError("ERROR: Unable to get list. Device is not programmable.");
     }
-
 
     public String buildDeviceString() {
         return "The device Name is " + this.mName + ", and its NominalPower is " + this.mNominalPower + " kW.\n";
@@ -186,5 +181,22 @@ public class WaterHeater implements Device, Metered{
 
     public Object getAttributeUnit(String attributeName) {
         return mDeviceSpecs.getAttributeUnit(attributeName);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Device device = (Device) o;
+        return Objects.equals(mName, device.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

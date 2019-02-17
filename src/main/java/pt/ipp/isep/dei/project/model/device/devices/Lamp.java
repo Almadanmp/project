@@ -1,14 +1,14 @@
 package pt.ipp.isep.dei.project.model.device.devices;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec2;
+import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Lamp implements Device, Metered {
     public static final String NOMINAL_POWER = "Nominal Power";
@@ -16,12 +16,12 @@ public class Lamp implements Device, Metered {
     private String mName;
     private double mNominalPower;
     private String mType = "Lamp";
-    private LampSpec2 mDeviceSpecs;
+    private LampSpec mDeviceSpecs;
     private boolean mActive;
     private LogList mLogList;
 
 
-    public Lamp(LampSpec2 mDeviceSpecs) {
+    public Lamp(LampSpec mDeviceSpecs) {
         this.mDeviceSpecs = mDeviceSpecs;
         this.mActive = true;
         mLogList = new LogList();
@@ -64,7 +64,7 @@ public class Lamp implements Device, Metered {
         return false;
     }
 
-    public ProgramList getProgramList() {
+    public ProgramList getProgramList() throws IncompatibleClassChangeError {
         throw new IncompatibleClassChangeError("ERROR: Unable to get list. Device is not programmable.");
     }
 
@@ -171,4 +171,22 @@ public class Lamp implements Device, Metered {
     public Object getAttributeUnit(String attributeName) {
         return mDeviceSpecs.getAttributeUnit(attributeName);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Device device = (Device) o;
+        return Objects.equals(mName, device.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
 }

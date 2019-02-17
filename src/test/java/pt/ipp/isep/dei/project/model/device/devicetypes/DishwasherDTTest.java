@@ -1,7 +1,8 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
+import pt.ipp.isep.dei.project.model.device.devices.Dishwasher;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 
 import static org.testng.Assert.assertEquals;
@@ -15,8 +16,8 @@ class DishwasherDTTest {
     @Test
     void createDishwasherType() {
         DishwasherDT dt = new DishwasherDT();
-        DeviceTemporary result = dt.createDeviceType();
-        DeviceTemporary expectedResult = new DeviceTemporary(new DishwasherSpec());
+        Device result = dt.createDeviceType();
+        Device expectedResult = new Dishwasher(new DishwasherSpec());
         assertEquals(result, expectedResult);
     }
 

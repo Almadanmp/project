@@ -2,9 +2,10 @@ package pt.ipp.isep.dei.project.model;
 
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
+import pt.ipp.isep.dei.project.model.device.devices.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 
 import java.util.Date;
@@ -44,28 +45,30 @@ class LogListTest {
     void seeEqualsToDifObject() {
         LogList list1 = new LogList();
         Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
-        DeviceTemporary d = new DeviceTemporary(new WashingMachineSpec());
+        Device d = new WashingMachine(new WashingMachineSpec());
         d.setNominalPower(12.0);
         d.addLog(log);
         boolean actualResult = list1.equals(d.getLogList());
         assertFalse(actualResult);
     }
+
     @Test
     void addLog() {
         LogList list1 = new LogList();
         Log log = new Log(300, new Date(), new Date());
-        DeviceTemporary d = new DeviceTemporary(new WashingMachineSpec());
+        Device d = new WashingMachine(new WashingMachineSpec());
         d.setNominalPower(12.0);
         boolean actualResult = list1.addLog(log);
         assertTrue(actualResult);
     }
+
     @Test
     void addLogList() {
         LogList list1 = new LogList();
         LogList list2 = new LogList();
         Log log = new Log(300, new Date(), new Date());
         list1.addLog(log);
-        DeviceTemporary d = new DeviceTemporary(new WashingMachineSpec());
+        Device d = new WashingMachine(new WashingMachineSpec());
         d.setNominalPower(12.0);
         boolean actualResult = list1.addLogList(list2);
         assertFalse(actualResult);
@@ -77,7 +80,7 @@ class LogListTest {
         LogList list2 = new LogList();
         Log log = new Log(300, new Date(), new Date());
         list1.addLog(log);
-        DeviceTemporary d = new DeviceTemporary(new WashingMachineSpec());
+        Device d = new WashingMachine(new WashingMachineSpec());
         d.setNominalPower(12.0);
         boolean actualResult = list2.addLogList(list1);
         assertTrue(actualResult);
@@ -87,15 +90,16 @@ class LogListTest {
     void seeIfAddsLogTrue() {
         LogList list1 = new LogList();
         Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
-        boolean actualResult =list1.addLog(log);
+        boolean actualResult = list1.addLog(log);
         assertTrue(actualResult);
     }
+
     @Test
     void seeIfAddsLogFalse() {
         LogList list1 = new LogList();
         Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
         list1.addLog(log);
-        boolean actualResult =list1.addLog(log);
+        boolean actualResult = list1.addLog(log);
         assertFalse(actualResult);
     }
 
@@ -104,10 +108,9 @@ class LogListTest {
         LogList list1 = new LogList();
         Log log = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
         list1.addLog(log);
-        boolean actualResult =list1.addLogList(list1);
+        boolean actualResult = list1.addLogList(list1);
         assertFalse(actualResult);
     }
-
 
 
     @Test

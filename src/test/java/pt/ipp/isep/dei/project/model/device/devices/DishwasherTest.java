@@ -2,10 +2,9 @@ package pt.ipp.isep.dei.project.model.device.devices;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec2;
+import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
@@ -25,7 +24,7 @@ public class DishwasherTest {
 
     @Test
     public void getDeviceTypeTest() {
-        Dishwasher d = new Dishwasher(new DishwasherSpec2());
+        Dishwasher d = new Dishwasher(new DishwasherSpec());
         d.setAttributeValue("capacity", 12D);
         String dT = "Dishwasher";
         String expectedResult = dT;
@@ -35,7 +34,7 @@ public class DishwasherTest {
 
     @Test
     void seeEqualToSameObject() {
-        Dishwasher d = new Dishwasher(new DishwasherSpec2());
+        Dishwasher d = new Dishwasher(new DishwasherSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
         d.setAttributeValue("capacity", 12D);
@@ -45,11 +44,11 @@ public class DishwasherTest {
 
     @Test
     void seeEqualsToDifObject() {
-        Dishwasher d = new Dishwasher(new DishwasherSpec2());
+        Dishwasher d = new Dishwasher(new DishwasherSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
         d.setAttributeValue(WashingMachineSpec.CAPACITY, 34);
-        DeviceTemporary d2 = new DeviceTemporary(new WashingMachineSpec());
+        Device d2 = new WashingMachine(new WashingMachineSpec());
         d2.setName("WMTwo");
         d2.setNominalPower(12.0);
         d.setAttributeValue(WashingMachineSpec.CAPACITY, 45);
@@ -61,7 +60,7 @@ public class DishwasherTest {
 
     @Test
     void seeEqualsToDifTypeObject() {
-        Dishwasher d = new Dishwasher(new DishwasherSpec2());
+        Dishwasher d = new Dishwasher(new DishwasherSpec());
         d.setName("WMOne");
         d.setNominalPower(12.0);
         d.setAttributeValue(WashingMachineSpec.CAPACITY, 56);
@@ -73,7 +72,7 @@ public class DishwasherTest {
 
     @Test
     void seeEqualsToNullObject() {
-        Dishwasher d = new Dishwasher(new DishwasherSpec2());
+        Dishwasher d = new Dishwasher(new DishwasherSpec());
         d.setAttributeValue(WashingMachineSpec.CAPACITY, 34);
         boolean actualResult = d.equals(null);
 
@@ -82,7 +81,7 @@ public class DishwasherTest {
 
     @Test
     void seeIfPrintDeviceWorks() {
-        Dishwasher d = new Dishwasher(new DishwasherSpec2());
+        Dishwasher d = new Dishwasher(new DishwasherSpec());
         d.setName("dishwasher 3000");
         d.setNominalPower(150.0);
         String result = d.buildDeviceString();
@@ -92,7 +91,7 @@ public class DishwasherTest {
 
     @Test
     void seeIfSetNameWorks() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
         d1.setName("dishwasher40");
         String result = d1.getName();
         String expectedResult = "dishwasher40";
@@ -101,57 +100,57 @@ public class DishwasherTest {
 
     @Test
     void getNominalPowerTest() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
         d1.setName("dishwasher40");
         d1.setNominalPower(150);
         double result = d1.getNominalPower();
-       double expectedResult = 150;
+        double expectedResult = 150;
         assertEquals(expectedResult, result);
     }
 
 
     @Test
     void seeIfGetAndSetAttributeValue() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Double expectedResult = 33.3;
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 33.3);
-        Object result = d1.getAttributeValue(DishwasherSpec2.CAPACITY);
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 33.3);
+        Object result = d1.getAttributeValue(DishwasherSpec.CAPACITY);
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfGetAndSetAttributeUnit() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         String expectedResult = "Kg";
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 33.3);
-        Object result = d1.getAttributeUnit(DishwasherSpec2.CAPACITY);
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 33.3);
+        Object result = d1.getAttributeUnit(DishwasherSpec.CAPACITY);
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfGetAttributeNames() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         List<String> result = d1.getAttributeNames();
-        assertTrue(result.contains(DishwasherSpec2.CAPACITY));
+        assertTrue(result.contains(DishwasherSpec.CAPACITY));
         assertEquals(result.size(), 1);
     }
 
     @Test
     void ensureThatWeDeactivateADevice() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
-         boolean expectedResult = true;
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
+        boolean expectedResult = true;
         boolean actualResult = d1.deactivate();
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void ensureThatWeDoNotDeactivate() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         d1.deactivate();
         boolean expectedResult = false;
         boolean actualResult = d1.deactivate();
@@ -161,8 +160,8 @@ public class DishwasherTest {
 
     @Test
     void ensureThatDeviceIsProg() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         d1.deactivate();
         boolean expectedResult = true;
         boolean actualResult = d1.isProgrammable();
@@ -171,8 +170,8 @@ public class DishwasherTest {
 
     @Test
     void seeIfGetEnergyConsumption() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         d1.deactivate();
         double expectedResult = 0;
         double actualResult = d1.getEnergyConsumption(2);
@@ -181,8 +180,8 @@ public class DishwasherTest {
 
     @Test
     void getProgramList() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Program program1 = new Program("programa", 2, 2);
         ProgramList listProgram = d1.getProgramList();
         listProgram.addProgram(program1);
@@ -195,15 +194,15 @@ public class DishwasherTest {
 
         assertThrows(IncompatibleClassChangeError.class,
                 () -> {
-                    DeviceTemporary d1 = new DeviceTemporary(new WaterHeaterSpec());
+                    Device d1 = new WaterHeater(new WaterHeaterSpec());
                     d1.getProgramList();
                 });
     }
 
     @Test
     void getLogList() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         LogList logList = d1.getLogList();
@@ -214,8 +213,8 @@ public class DishwasherTest {
 
     @Test
     void getLogListBreakTest() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         LogList logList = new LogList();
         LogList result = d1.getLogList();
         assertEquals(logList, result);
@@ -223,8 +222,8 @@ public class DishwasherTest {
 
     @Test
     void addLogListFalse() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         d1.addLog(log);
@@ -233,8 +232,8 @@ public class DishwasherTest {
 
     @Test
     void addLogToInactive() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         d1.deactivate();
@@ -244,8 +243,8 @@ public class DishwasherTest {
 
     @Test
     void addLogTrue() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         boolean result = d1.addLog(log);
@@ -260,9 +259,9 @@ public class DishwasherTest {
         Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        DeviceTemporary device = new DeviceTemporary(new WaterHeaterSpec());
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Device device = new WaterHeater(new WaterHeaterSpec());
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         device.addLog(log1);
@@ -279,8 +278,8 @@ public class DishwasherTest {
         Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 59).getTime();
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         d1.addLog(log1);
@@ -297,8 +296,8 @@ public class DishwasherTest {
         Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec2());
-        d1.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         d1.addLog(log1);
@@ -317,8 +316,8 @@ public class DishwasherTest {
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
         Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
         Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Dishwasher device = new Dishwasher(new DishwasherSpec2());
-        device.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher device = new Dishwasher(new DishwasherSpec());
+        device.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         Log log3 = new Log(55, periodBeginning3, periodEnding3);
@@ -346,8 +345,8 @@ public class DishwasherTest {
         Date periodEnding4 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
         Date periodBeginning5 = new GregorianCalendar(2018, 10, 20, 9, 40).getTime();
         Date periodEnding5 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Dishwasher device = new Dishwasher(new DishwasherSpec2());
-        device.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher device = new Dishwasher(new DishwasherSpec());
+        device.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         Log log3 = new Log(55, periodBeginning3, periodEnding3);
@@ -376,8 +375,8 @@ public class DishwasherTest {
         Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
         Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
         Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 10).getTime();
-        Dishwasher device = new Dishwasher(new DishwasherSpec2());
-        device.setAttributeValue(DishwasherSpec2.CAPACITY, 12D);
+        Dishwasher device = new Dishwasher(new DishwasherSpec());
+        device.setAttributeValue(DishwasherSpec.CAPACITY, 12D);
         Log log1 = new Log(56, periodBeginning1, periodEnding1);
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         device.addLog(log1);

@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import pt.ipp.isep.dei.project.model.device.devices.Device;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class DeviceList {
 
-    private List<DeviceTemporary> mDeviceList;
+    private List<Device> mDeviceList;
 
 
     public DeviceList() {
@@ -18,15 +20,15 @@ public class DeviceList {
     }
 
 
-    public List<DeviceTemporary> getList() {
+    public List<Device> getList() {
         return this.mDeviceList;
     }
 
-    public boolean containsDevice(DeviceTemporary device) {
+    public boolean containsDevice(Device device) {
         return mDeviceList.contains(device);
     }
 
-    public boolean addDevice(DeviceTemporary device) {
+    public boolean addDevice(Device device) {
         if (!mDeviceList.contains(device)) {
             mDeviceList.add(device);
             return true;
@@ -34,7 +36,7 @@ public class DeviceList {
         return false;
     }
 
-    public boolean removeDevice(DeviceTemporary device) {
+    public boolean removeDevice(Device device) {
         if (this.contains(device)) {
             mDeviceList.remove(device);
             return true;
@@ -48,7 +50,7 @@ public class DeviceList {
 
     public double getNominalPower() {
         double result = 0;
-        for (DeviceTemporary d : this.getList()) {
+        for (Device d : this.getList()) {
             result += d.getNominalPower();
         }
         return result;
@@ -73,19 +75,22 @@ public class DeviceList {
         return result.toString();
     }
 
-    public boolean contains(DeviceTemporary device) {
+    public boolean contains(Device device) {
         return this.mDeviceList.contains(device);
     }
 
     public String buildDevicesString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (DeviceTemporary d : this.mDeviceList) {
+        for (Device d : this.mDeviceList) {
             result.append(counter).append(") ").append(d.buildDeviceString());
             counter++;
         }
         return result.toString();
     }
+
+
+    //TODO FIX THIS METHOD - USED ON US 752. NOT WORKING NOW, has to send time. I put the 24 temporary
 
     /**
      * Returns the daily estimate consumption of all devices on this list.
@@ -95,9 +100,9 @@ public class DeviceList {
      */
     public double getDailyConsumptionByDeviceType(String deviceType) {
         double result = 0;
-        for (DeviceTemporary d : mDeviceList) {
+        for (Device d : mDeviceList) {
             if (d.getType().equals(deviceType)) {
-                result += d.getDailyEstimateConsumption();
+                result += d.getEnergyConsumption(24);
             }
         }
         return result;

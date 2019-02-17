@@ -1,7 +1,8 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
+import pt.ipp.isep.dei.project.model.device.devices.Lamp;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 
 import static org.testng.Assert.assertEquals;
@@ -15,8 +16,8 @@ class LampDTTest {
     @Test
     void createLampType() {
         LampDT dt = new LampDT();
-        DeviceTemporary result = dt.createDeviceType();
-        DeviceTemporary expectedResult = new DeviceTemporary(new LampSpec());
+        Device result = dt.createDeviceType();
+        Device expectedResult = new Lamp(new LampSpec());
         assertEquals(result, expectedResult);
     }
 

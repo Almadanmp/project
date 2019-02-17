@@ -10,28 +10,32 @@ class FileInputUtils {
     int mDeviceMeteringPeriod;
     int mGridMeteringPeriod;
 
-    /** This method will read the configuration file and validate the value that corresponds
+    /**
+     * This method will read the configuration file and validate the value that corresponds
      * to the grid metering period. In case of a valid value, the value will be stored has a
      * class attribute
+     *
      * @return it will return true in case the value is valid and false if not
-     * **/
+     **/
     boolean validGridMetering() throws IOException {
         int gridMeteringPeriod = readGridMeteringPeriod();
-        if(gridMeteringPeriodValidation(gridMeteringPeriod)){
+        if (gridMeteringPeriodValidation(gridMeteringPeriod)) {
             this.mGridMeteringPeriod = gridMeteringPeriod;
             return true;
         }
         return false;
     }
 
-    /** This method will read the configuration file, get the string that corresponds to the
+    /**
+     * This method will read the configuration file, get the string that corresponds to the
      * grid metering period and turn it into an integer
+     *
      * @return the integer that corresponds to the grid metering period
-     * **/
+     **/
     private int readGridMeteringPeriod() throws IOException {
         String gridMeteringPeriod;
         Properties prop = new Properties();
-        try (FileInputStream input = new FileInputStream("resources/meteringPeriods.properties")){
+        try (FileInputStream input = new FileInputStream("resources/meteringPeriods.properties")) {
             prop.load(input);
             gridMeteringPeriod = prop.getProperty("GridMeteringPeriod");
         } catch (IOException ioe) {
@@ -39,17 +43,18 @@ class FileInputUtils {
         }
         try {
             return Integer.parseInt(gridMeteringPeriod);
-        }
-        catch (NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             throw new NumberFormatException("ERROR: Configuration File value is not a numeric value.");
         }
     }
 
-    /** This method will receive an integer and check if the value is valid. The sum of
+    /**
+     * This method will receive an integer and check if the value is valid. The sum of
      * all metering periods in a day should be 24 hours (1440 minutes)
+     *
      * @param gridMeteringPeriod integer to be tested
      * @return true in case the value is valid, false if not
-     * **/
+     **/
     public boolean gridMeteringPeriodValidation(int gridMeteringPeriod) {
         if (gridMeteringPeriod == 0) {
             System.out.println("Grid metering value must be greater than 0.");
@@ -58,12 +63,12 @@ class FileInputUtils {
         return 1440 % gridMeteringPeriod == 0;
     }
 
-    //DeviceTemporary
+    //Device
 
     boolean validDeviceMetering() {
         int deviceMeteringPeriod = readDeviceMeteringPeriod();
 
-        if(deviceMeteringPeriodValidation(deviceMeteringPeriod)){
+        if (deviceMeteringPeriodValidation(deviceMeteringPeriod)) {
             this.mDeviceMeteringPeriod = deviceMeteringPeriod;
             return true;
         }
@@ -96,7 +101,7 @@ class FileInputUtils {
 
     private boolean deviceMeteringPeriodValidation(int deviceValue) {
         if (deviceValue == 0) {
-            System.out.println("DeviceTemporary metering value must be greater than 0.");
+            System.out.println("Device metering value must be greater than 0.");
             return false;
         }
         if (1440 % deviceValue != 0) {

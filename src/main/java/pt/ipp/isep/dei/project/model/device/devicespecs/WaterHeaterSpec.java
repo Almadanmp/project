@@ -10,15 +10,13 @@ public class WaterHeaterSpec implements DeviceSpecs {
     public static final String COLD_WATER_TEMP = "Cold Water Temperature";
     public static final String PERFORMANCE_RATIO = "Performance Ratio";
     public static final String VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
-    public static final String NOMINAL_POWER = "nominal power";
+
 
     private Double mVolumeOfWater;
     private Double mHotWaterTemperature;
     private Double mPerformanceRatio;
     private Double mColdWaterTemperature;
     private Double mVolumeOfWaterToHeat;
-    private String mType = "WaterHeater";
-    private Double mNominalPower;
 
 
     public WaterHeaterSpec() {
@@ -26,43 +24,12 @@ public class WaterHeaterSpec implements DeviceSpecs {
         mVolumeOfWaterToHeat = 0.0;
     }
 
-    public String getType() {
-        return mType;
-    }
-
-    /**
-     * Estimate energy consumption for a water heater.
-     * It is calculated by the following equation:
-     * Energy consumption = C*V*dT*PR (kWh)
-     * C -> Specific heat of water = 1,163 Wh/kg°C
-     * V -> Volume of water to heat (water consumption in litres/min)
-     * Dt -> difference in temperature = hot water temperature – cold watertemperature
-     * PR -> performance ratio (typically 0.9)
-     * <p>
-     * When the temperature of ColdWater is above the HotWaterTemperature, there will be no energy consumption, so we
-     * return 0.
-     *
-     * @return returns an estimate energy consumption for a water heater
-     */
-
-    public double getConsumption() {
-        if (mColdWaterTemperature >= mHotWaterTemperature) {
-            return -1;
-        }
-
-        double dT = mHotWaterTemperature - mColdWaterTemperature;
-        double volForMinute = mVolumeOfWaterToHeat / 1440; //calculate v in liters per minute
-        double specificHeatOfWater = 1.163 / 1000;
-        return specificHeatOfWater * volForMinute * dT * mPerformanceRatio * 60;
-    }
 
     public List<String> getAttributeNames() {
         List<String> result = new ArrayList<>();
         result.add(VOLUME_OF_WATER);
         result.add(HOT_WATER_TEMP);
         result.add(PERFORMANCE_RATIO);
-        result.add(NOMINAL_POWER);
-
         return result;
     }
 
@@ -78,8 +45,6 @@ public class WaterHeaterSpec implements DeviceSpecs {
                 return mColdWaterTemperature;
             case VOLUME_OF_WATER_HEAT:
                 return mVolumeOfWaterToHeat;
-            case NOMINAL_POWER:
-                return mNominalPower;
             default:
                 return 0.0;
         }
@@ -97,8 +62,6 @@ public class WaterHeaterSpec implements DeviceSpecs {
                 return "ºC";
             case VOLUME_OF_WATER_HEAT:
                 return "L";
-            case NOMINAL_POWER:
-                return "kW";
             default:
                 return false;
         }
@@ -136,12 +99,6 @@ public class WaterHeaterSpec implements DeviceSpecs {
             case VOLUME_OF_WATER_HEAT:
                 if (attributeValue instanceof Double) {
                     this.mVolumeOfWaterToHeat = (Double) attributeValue;
-                    return true;
-                }
-                return false;
-            case NOMINAL_POWER:
-                if (attributeValue instanceof Double) {
-                    this.mNominalPower = (Double) attributeValue;
                     return true;
                 }
                 return false;

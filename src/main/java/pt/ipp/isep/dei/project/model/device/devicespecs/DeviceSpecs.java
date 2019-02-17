@@ -3,26 +3,12 @@ package pt.ipp.isep.dei.project.model.device.devicespecs;
 import java.util.List;
 
 /**
- * Represents device specifications.
+ * Represents device technical specifications.
  * Provides methods to get device information for a each device type.
  * (e.g. of device spec implementation: dishwasher, fridge, etc.
  */
 
 public interface DeviceSpecs {
-
-    /**
-     * This method will return the energy consumption in kW/h.
-     *
-     * @return Energy consumption - measured in kW/h te basic trade unit of energy.
-     */
-    double getConsumption(); // To be added: time/period argument (once spec is closed)
-
-    /**
-     * Method to get a device type from a device spec
-     *
-     * @return a device type
-     */
-    String getType();
 
     /**
      * Get a list with the attribute names of a device spec
@@ -49,7 +35,8 @@ public interface DeviceSpecs {
     boolean setAttributeValue(String attributeName, Object attributeValue);
 
     /**
-     *  get the unity of the attribute.
+     * get the unity of the attribute.
+     *
      * @param attributeName attribute name that we want to get the unit from.
      * @return returns the attribute unit
      */

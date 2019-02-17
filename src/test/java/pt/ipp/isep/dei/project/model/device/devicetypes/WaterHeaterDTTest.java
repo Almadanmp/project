@@ -1,7 +1,8 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
+import pt.ipp.isep.dei.project.model.device.devices.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import static org.testng.Assert.assertEquals;
@@ -15,8 +16,8 @@ class WaterHeaterDTTest {
     @Test
     void createWaterHeaterType() {
         WaterHeaterDT dt = new WaterHeaterDT();
-        DeviceTemporary result = dt.createDeviceType();
-        DeviceTemporary expectedResult = new DeviceTemporary(new WaterHeaterSpec());
+        Device result = dt.createDeviceType();
+        Device expectedResult = new WaterHeater(new WaterHeaterSpec());
         assertEquals(result, expectedResult);
     }
 
@@ -24,7 +25,7 @@ class WaterHeaterDTTest {
     void getDeviceType() {
         WaterHeaterDT dt = new WaterHeaterDT();
         String result = dt.getDeviceType();
-        String expectedResult = "Water Heater";
+        String expectedResult = "WaterHeater";
         assertEquals(result, expectedResult);
     }
 }

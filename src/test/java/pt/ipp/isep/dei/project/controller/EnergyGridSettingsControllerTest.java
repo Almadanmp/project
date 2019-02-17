@@ -3,8 +3,10 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devices.Dishwasher;
+import pt.ipp.isep.dei.project.model.device.devices.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 
@@ -393,14 +395,14 @@ class EnergyGridSettingsControllerTest {
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
-        DeviceTemporary d1 = new DeviceTemporary(new FridgeSpec());
+        Device d1 = new Fridge(new FridgeSpec());
         d1.setNominalPower(12.0);
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        DeviceTemporary d2 = new DeviceTemporary(new DishwasherSpec());
+        Device d2 = new Dishwasher(new DishwasherSpec());
         d2.setNominalPower(13.0);
-        DeviceTemporary d3 = new DeviceTemporary(new FridgeSpec());
+        Device d3 = new Fridge(new FridgeSpec());
         d3.setNominalPower(14.0);
         d3.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5D);
         d3.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 6D);
@@ -419,8 +421,8 @@ class EnergyGridSettingsControllerTest {
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         String expectedResult = "---------------\n" +
-                "DeviceTemporary type: Fridge | DeviceTemporary name: uno | Nominal power: 2.0 | Room: B107 | \n" +
-                "DeviceTemporary type: Fridge | DeviceTemporary name: tres | Nominal power: 2.0 | Room: B107 | \n" +
+                "Device type: Fridge | Device name: uno | Nominal power: 2.0 | Room: B107 | \n" +
+                "Device type: Fridge | Device name: tres | Nominal power: 2.0 | Room: B107 | \n" +
                 "---------------\n";
         String result = ctrl.buildListOfDevicesOrderedByTypeString(eg, house);
         assertEquals(expectedResult, result);

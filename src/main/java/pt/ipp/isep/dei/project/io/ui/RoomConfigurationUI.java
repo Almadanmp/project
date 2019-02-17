@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
@@ -105,7 +105,6 @@ class RoomConfigurationUI {
     }
 
 
-
     private void runUS210(House house) {
         InputUtils inputUtils = new InputUtils();
         Room room = inputUtils.getHouseRoomByList(house);
@@ -122,8 +121,8 @@ class RoomConfigurationUI {
         System.out.print("Please, type the name of the device: ");
         String deviceName = scanner.nextLine();
         InputUtils inputUtils = new InputUtils();
-        //get DeviceTemporary specs
-        DeviceTemporary device = ctrl.createDevice(deviceType);
+        //get Device specs
+        Device device = ctrl.createDevice(deviceType);
         ctrl.setDeviceName(deviceName, device);
         List<String> deviceAttributes = ctrl.getAttributeNames(device);
         for (int i = 0; i < deviceAttributes.size(); i++) {
@@ -131,6 +130,9 @@ class RoomConfigurationUI {
             Double value = inputUtils.getInputAsDouble();
             ctrl.setAttributeValue(device, deviceAttributes.get(i), value);
         }
+        System.out.println("Please insert nominal power: ");
+        device.setNominalPower(scanner.nextDouble());
+
         createProgram(device);
         if (ctrl.addDevice(room, device)) {
             System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
@@ -139,7 +141,7 @@ class RoomConfigurationUI {
         }
     }
 
-    private void createProgram(DeviceTemporary device) {
+    private void createProgram(Device device) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
@@ -150,18 +152,18 @@ class RoomConfigurationUI {
                 ProgramList programList = ctrl.getProgramList(device);
                 System.out.println(requestProgramName);
                 String programName = scanner.nextLine();
-                List <String> programAttributesNames = ctrl.getProgramAttributeNames(program);
+                List<String> programAttributesNames = ctrl.getProgramAttributeNames(program);
                 for (int i = 0; i < programAttributesNames.size(); i++) {
                     System.out.println("Please insert the value for: " + programAttributesNames.get(i)
-                            + " (" + ctrl.getProgramAttributeUnit(program,i) + ")");
+                            + " (" + ctrl.getProgramAttributeUnit(program, i) + ")");
                     Double value = inputUtils.getInputAsDouble();
-                    ctrl.setProgramAttributeValue(program,i, value);
+                    ctrl.setProgramAttributeValue(program, i, value);
                 }
                 program.setProgramName(programName);
                 for (int i = 0; i < programAttributesNames.size(); i++) {
                     System.out.println("You have added the : " + programAttributesNames.get(i) + " to: "
-                            + ctrl.getProgramAttributeValue(program,i)
-                            + ctrl.getProgramAttributeUnit(program,i));
+                            + ctrl.getProgramAttributeValue(program, i)
+                            + ctrl.getProgramAttributeUnit(program, i));
                 }
                 String message = "Would you like to add another Program? (y/n)";
                 String messageOutput = "You have added the : ";
@@ -186,12 +188,12 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        DeviceTemporary device = inputUtils.getInputRoomDevicesByList(room);
+        Device device = inputUtils.getInputRoomDevicesByList(room);
         getInputDeviceCharacteristicsUS215(device, room, house);
     }
 
 
-    private void getInputDeviceCharacteristicsUS215(DeviceTemporary device, Room room, House house) {
+    private void getInputDeviceCharacteristicsUS215(Device device, Room room, House house) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         if (device == null || room == null) {
@@ -208,14 +210,16 @@ class RoomConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         room = inputUtils.getHouseRoomByList(house);
         ctrl.addDevice(room, device);
-        List <String> attributeNames = ctrl.getAttributeNames(device);
+        List<String> attributeNames = ctrl.getAttributeNames(device);
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + attributeNames.get(i)
-                    + " (" + ctrl.getAttributeUnit(device,i) + ")");
+                    + " (" + ctrl.getAttributeUnit(device, i) + ")");
             Double value = inputUtils.getInputAsDouble();
-            ctrl.setAttributeValue(device, attributeNames.get(i),value);
+            ctrl.setAttributeValue(device, attributeNames.get(i), value);
             //device.setAttributeValue(attributeNames.get(i), value);
         }
+        System.out.println("Please insert nominal power: ");
+        device.setNominalPower(scanner.nextDouble());
         if (ctrl.isProgrammable(device)) {
             System.out.println("This device is programmable.");
             Program program;
@@ -231,30 +235,30 @@ class RoomConfigurationUI {
         displayDeviceUS215(device, room, deviceName);
     }
 
-    private void updateAProgrammableDevice(Program program, ProgramList programList, DeviceTemporary device) {
+    private void updateAProgrammableDevice(Program program, ProgramList programList, Device device) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
-        List <String> programAttributeNames = ctrl.getProgramAttributeNames(program);
+        List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + programAttributeNames.get(i)
-                    + " (" + ctrl.getProgramAttributeUnit(program,i) + ")");
+                    + " (" + ctrl.getProgramAttributeUnit(program, i) + ")");
             Double value = inputUtils.getInputAsDouble();
-            ctrl.setProgramAttributeValue(program,i, value);
+            ctrl.setProgramAttributeValue(program, i, value);
         }
         program.setProgramName(programName);
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("You have changed the : " + programAttributeNames.get(i) + " to: "
-                    + ctrl.getProgramAttributeValue(program,i)
-                    + ctrl.getProgramAttributeUnit(program,i));
+                    + ctrl.getProgramAttributeValue(program, i)
+                    + ctrl.getProgramAttributeUnit(program, i));
         }
         loopForProgramList(programList, device);
 
     }
 
-    private void loopForProgramList(ProgramList programList, DeviceTemporary device) {
+    private void loopForProgramList(ProgramList programList, Device device) {
         String message = "Would you like to edit another Program? (y/n)";
         String messageOutput = "You have changed the : ";
         if (programList.getProgramList().size() > 1) {
@@ -263,7 +267,7 @@ class RoomConfigurationUI {
         }
     }
 
-    private void loopForProgram(String message, DeviceTemporary device, String messageOutput) {
+    private void loopForProgram(String message, Device device, String messageOutput) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         InputUtils inputUtils = new InputUtils();
         Program program;
@@ -272,34 +276,34 @@ class RoomConfigurationUI {
             program = inputUtils.getSelectedProgramFromDevice(device);
             System.out.println(requestProgramName);
             String programName = scanner.nextLine();
-            List <String> programAttributeNames = ctrl.getProgramAttributeNames(program);
+            List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
             for (int i = 0; i < programAttributeNames.size(); i++) {
                 System.out.println("Please insert the value for: " + programAttributeNames.get(i)
-                        + " (" + ctrl.getProgramAttributeUnit(program,i) + ")");
+                        + " (" + ctrl.getProgramAttributeUnit(program, i) + ")");
                 Double value = inputUtils.getInputAsDouble();
-                ctrl.setProgramAttributeValue(program,i, value);
+                ctrl.setProgramAttributeValue(program, i, value);
             }
             program.setProgramName(programName);
             for (int i = 0; i < programAttributeNames.size(); i++) {
                 System.out.println(messageOutput + programAttributeNames.get(i) + " to: "
-                        + ctrl.getProgramAttributeValue(program,i)
-                        + ctrl.getProgramAttributeUnit(program,i) + ".");
+                        + ctrl.getProgramAttributeValue(program, i)
+                        + ctrl.getProgramAttributeUnit(program, i) + ".");
             }
         }
     }
 
     // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it. - CARINA ALAS
-    private void displayDeviceUS215(DeviceTemporary device, Room room, String deviceName) {
+    private void displayDeviceUS215(Device device, Room room, String deviceName) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        List <String> attributeNames = ctrl.getAttributeNames(device);
+        List<String> attributeNames = ctrl.getAttributeNames(device);
         if (device == null || room == null) {
             return;
         }
         if (ctrl.addDevice(room, device)) {
             for (int i = 0; i < attributeNames.size(); i++) {
                 System.out.println("You have changed the : " + attributeNames.get(i) + " to: "
-                        + ctrl.getAttributeValue(device,i) + " "
-                        + ctrl.getAttributeUnit(device,i) + ".");
+                        + ctrl.getAttributeValue(device, i) + " "
+                        + ctrl.getAttributeUnit(device, i) + ".");
             }
             System.out.println("\nYou have successfully changed the device name to " + deviceName + "." +
                     "\nThe room is " + room.getRoomName() + "\n");
@@ -322,11 +326,11 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        DeviceTemporary device = inputUtils.getInputRoomDevicesByList(room);
+        Device device = inputUtils.getInputRoomDevicesByList(room);
         updateStateUS222(device);
     }
 
-    private void updateStateUS222(DeviceTemporary device) {
+    private void updateStateUS222(Device device) {
         if (this.mRoomConfigurationController.deactivateDevice(device)) {
             System.out.println("Device successfully deactivated!");
         } else {
@@ -432,7 +436,6 @@ class RoomConfigurationUI {
     }
 
 
-
     /*US220 - As an Administrator, I want to remove a device from a room, so that it is no longer used.
     Its activity log is also removed.
     MARIA MEIRELES*/
@@ -444,11 +447,11 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        DeviceTemporary device = inputUtils.getInputRoomDevicesByList(room);
+        Device device = inputUtils.getInputRoomDevicesByList(room);
         removeDeviceUS220(device, room);
     }
 
-    private void removeDeviceUS220(DeviceTemporary device, Room room) {
+    private void removeDeviceUS220(Device device, Room room) {
         if (device == null || room == null) {
             System.out.println("There are no devices in this room.");
             return;

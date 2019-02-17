@@ -1,15 +1,15 @@
 package pt.ipp.isep.dei.project.model.device.devices;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec2;
+import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Dishwasher implements Device, Metered, Programmable {
     public static final String NOMINAL_POWER = "Nominal Power";
@@ -18,13 +18,13 @@ public class Dishwasher implements Device, Metered, Programmable {
     private String mName;
     private double mNominalPower;
     private String mType = "Dishwasher";
-    private DishwasherSpec2 mDeviceSpecs;
+    private DishwasherSpec mDeviceSpecs;
     private boolean mActive;
     private ProgramList mProgramList;
     private LogList mLogList;
 
 
-    public Dishwasher(DishwasherSpec2 mDeviceSpecs) {
+    public Dishwasher(DishwasherSpec mDeviceSpecs) {
         this.mDeviceSpecs = mDeviceSpecs;
         this.mActive = true;
         mProgramList = new ProgramList();
@@ -68,10 +68,13 @@ public class Dishwasher implements Device, Metered, Programmable {
         return true;
     }
 
-    public ProgramList getProgramList() {
-        return this.mProgramList;
+    public ProgramList getProgramList() throws IncompatibleClassChangeError {
+        if (isProgrammable()) {
+            return this.mProgramList;
+        } else {
+            throw new IncompatibleClassChangeError("ERROR: Unable to get list. DeviceTemporary is not programmable.");
+        }
     }
-
 
     public String buildDeviceString() {
         return "The device Name is " + this.mName + ", and its NominalPower is " + this.mNominalPower + " kW.\n";
@@ -175,4 +178,24 @@ public class Dishwasher implements Device, Metered, Programmable {
     public Object getAttributeUnit(String attributeName) {
         return mDeviceSpecs.getAttributeUnit(attributeName);
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Device device = (Device) o;
+        return Objects.equals(mName, device.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
+
 }

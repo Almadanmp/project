@@ -1,7 +1,8 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
+import pt.ipp.isep.dei.project.model.device.devices.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 
 import static org.testng.Assert.assertEquals;
@@ -15,8 +16,8 @@ class WashingMachineDTTest {
     @Test
     void createWashingMachineType() {
         WashingMachineDT dt = new WashingMachineDT();
-        DeviceTemporary result = dt.createDeviceType();
-        DeviceTemporary expectedResult = new DeviceTemporary(new WashingMachineSpec());
+        Device result = dt.createDeviceType();
+        Device expectedResult = new WashingMachine(new WashingMachineSpec());
         assertEquals(result, expectedResult);
     }
 

@@ -1,5 +1,7 @@
-package pt.ipp.isep.dei.project.model.device;
+package pt.ipp.isep.dei.project.model.device.devices;
 
+import pt.ipp.isep.dei.project.model.device.Log;
+import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.Date;
@@ -50,21 +52,23 @@ public interface Device {
 
 
     //TODO REVIEW IF THIS SHOULD BE FORCED ON DEVICE INTERFACE
+
     /**
      * Method to get the programList if a DeviceTemporary is programmable
      *
      * @return program list
      */
-    ProgramList getProgramList();
+    ProgramList getProgramList() throws IncompatibleClassChangeError;
 
     /**
      * Method that will build a string with information about the device (nominal power and name)
+     *
      * @return String
      */
     String buildDeviceString();
 
 
-/* LOG RELATED METHODS */
+    /* LOG RELATED METHODS */
 
     /**
      * This method returns the DeviceTemporary LogList.
@@ -103,7 +107,6 @@ public interface Device {
      */
 
     double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime);
-
 
 
 // Wrapper Methods to Metered

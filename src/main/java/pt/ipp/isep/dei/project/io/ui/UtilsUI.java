@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceTemporary;
+import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 /**
@@ -13,7 +13,7 @@ public class UtilsUI {
     private String returningToMainMenu = "-- Returning to main menu -- \n";
     String invalidRoomList = "Invalid Room List - List is empty.\n" + returningToMainMenu;
     String invalidGridList = "Invalid Grid List - List is empty.\n" + returningToMainMenu;
-    String invalidDeviceList = "Invalid DeviceTemporary List - List is empty.\n" + returningToMainMenu;
+    String invalidDeviceList = "Invalid Device List - List is empty.\n" + returningToMainMenu;
     String invalidGAList = "Invalid Geographic Area List - List is empty.\n" + returningToMainMenu;
     String invalidGATypeList = "Invalid Geographic Area Type List - List is empty.\n" + returningToMainMenu;
     String invalidSensorList = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
@@ -61,7 +61,7 @@ public class UtilsUI {
         return room.getDeviceList() != null && !room.getDeviceList().isEmpty();
     }
 
-    boolean deviceLogListIsValid(DeviceTemporary device){
+    boolean deviceLogListIsValid(Device device) {
         return (!device.getLogList().isEmpty());
     }
 
