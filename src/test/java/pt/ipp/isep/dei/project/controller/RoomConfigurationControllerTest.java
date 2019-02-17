@@ -3,16 +3,9 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.devices.Device;
+import pt.ipp.isep.dei.project.model.device.devices.*;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devices.Fridge;
-import pt.ipp.isep.dei.project.model.device.devices.Lamp;
-import pt.ipp.isep.dei.project.model.device.devices.WashingMachine;
-import pt.ipp.isep.dei.project.model.device.devices.WaterHeater;
-import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
@@ -242,49 +235,6 @@ class RoomConfigurationControllerTest {
         assertFalse(ctrl.setAttributeValue(d3, FridgeSpec.REFRIGERATOR_CAPACITY, "Fail"));
         assertFalse(ctrl.setAttributeValue(d3, FridgeSpec.ANNUAL_CONSUMPTION, "Fail"));
     }
-
-    /*
-    USER STORY 210 -
-     */
-
-   /* @Test
-    void seeIfPrintDeviceTypeList() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        List<DeviceTypeToBeDeleted> listD = new ArrayList<>();
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        String result = ctrl.buildDeviceTypeListString(listD);
-        String expectedResult =
-                "0) device Type: WATER_HEATER;\n" +
-                        "1) device Type: WASHING_MACHINE;\n" +
-                        "2) device Type: DISHWASHER;\n" +
-                        "3) device Type: FRIDGE;\n" +
-                        "4) device Type: LAMP;\n";
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfPrintDeviceTypeList2() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        DeviceTypeToBeDeleted dishwasher = DeviceTypeToBeDeleted.DISHWASHER;
-        DeviceTypeToBeDeleted fridge = DeviceTypeToBeDeleted.FRIDGE;
-        List<DeviceTypeToBeDeleted> listD = new ArrayList<>();
-        listD.add(fridge);
-        listD.add(dishwasher);
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        String result = ctrl.buildDeviceTypeListString(listD);
-        String expectedResult =
-                "0) device Type: WATER_HEATER;\n" +
-                        "1) device Type: WASHING_MACHINE;\n" +
-                        "2) device Type: DISHWASHER;\n" +
-                        "3) device Type: FRIDGE;\n" +
-                        "4) device Type: LAMP;\n";
-        assertEquals(expectedResult, result);
-    }
-*/
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
