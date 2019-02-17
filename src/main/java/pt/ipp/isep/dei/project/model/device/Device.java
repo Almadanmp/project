@@ -1,7 +1,7 @@
-package pt.ipp.isep.dei.project.model.device.devices;
+package pt.ipp.isep.dei.project.model.device;
 
-import pt.ipp.isep.dei.project.model.device.Log;
-import pt.ipp.isep.dei.project.model.device.LogList;
+import pt.ipp.isep.dei.project.model.device.log.Log;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
 import java.util.List;

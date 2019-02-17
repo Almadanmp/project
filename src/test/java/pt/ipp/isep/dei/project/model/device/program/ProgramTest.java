@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.device.program;
 
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.programs.Program;
 
 
 import java.util.ArrayList;

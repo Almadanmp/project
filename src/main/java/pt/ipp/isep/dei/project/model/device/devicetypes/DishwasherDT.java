@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
-import pt.ipp.isep.dei.project.model.device.devices.Device;
-import pt.ipp.isep.dei.project.model.device.devices.Dishwasher;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.Dishwasher;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 
 public class DishwasherDT implements DeviceType {

@@ -1,14 +1,13 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.model.device.Log;
-import pt.ipp.isep.dei.project.model.device.devices.*;
+import pt.ipp.isep.dei.project.model.device.*;
+import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
+import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
-import pt.ipp.isep.dei.project.model.device.programs.Program;
-import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
-import pt.ipp.isep.dei.project.model.device.programs.Programmable;
+import pt.ipp.isep.dei.project.model.device.program.Program;
+import pt.ipp.isep.dei.project.model.device.program.ProgramList;
+import pt.ipp.isep.dei.project.model.device.program.Programmable;
 
 import java.io.IOException;
 import java.util.*;

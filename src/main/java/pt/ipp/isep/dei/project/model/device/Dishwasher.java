@@ -1,56 +1,60 @@
-package pt.ipp.isep.dei.project.model.device.devices;
+package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.Log;
-import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.model.device.log.Log;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
+import pt.ipp.isep.dei.project.model.device.program.ProgramList;
+import pt.ipp.isep.dei.project.model.device.program.Programmable;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Fridge implements Device, Metered {
-    private String mFridgeName;
-    private double mFridgeNominalPower;
-    private String mFridgeType = "Fridge";
-    private FridgeSpec mFridgeDeviceSpecs;
-    private boolean mFridgeActive;
-    private LogList mFridgeLogList;
+public class Dishwasher implements Device, Metered, Programmable {
+    private String mDWName;
+    private double mDWNominalPower;
+    private String mDWType = "Dishwasher";
+    private DishwasherSpec mDWDeviceSpecs;
+    private boolean mDWActive;
+    private ProgramList mDWProgramList;
+    private LogList mDWLogList;
 
 
-    public Fridge(FridgeSpec fridgeSpec) {
-        this.mFridgeDeviceSpecs = fridgeSpec;
-        this.mFridgeActive = true;
-        mFridgeLogList = new LogList();
+    public Dishwasher(DishwasherSpec dishwasherSpec) {
+        this.mDWDeviceSpecs = dishwasherSpec;
+        this.mDWActive = true;
+        mDWProgramList = new ProgramList();
+        mDWLogList = new LogList();
     }
 
     public String getName() {
-        return this.mFridgeName;
+        return this.mDWName;
     }
 
     public void setName(String name) {
-        this.mFridgeName = name;
+        this.mDWName = name;
     }
 
     public String getType() {
-        return this.mFridgeType;
+        return this.mDWType;
     }
 
     public void setNominalPower(double nominalPower) {
-        this.mFridgeNominalPower = nominalPower;
+        this.mDWNominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.mFridgeNominalPower;
+        return this.mDWNominalPower;
     }
 
     public boolean isActive() {
-        return this.mFridgeActive;
+        return this.mDWActive;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.mFridgeActive = false;
+            this.mDWActive = false;
             return true;
         } else {
             return false;
@@ -58,11 +62,15 @@ public class Fridge implements Device, Metered {
     }
 
     public boolean isProgrammable() {
-        return false;
+        return true;
+    }
+
+    public ProgramList getProgramList() throws IncompatibleClassChangeError {
+        return this.mDWProgramList;
     }
 
     public String buildDeviceString() {
-        return "The device Name is " + this.mFridgeName + ", and its NominalPower is " + this.mFridgeNominalPower + " kW.\n";
+        return "The device Name is " + this.mDWName + ", and its NominalPower is " + this.mDWNominalPower + " kW.\n";
     }
 
     /**
@@ -71,7 +79,7 @@ public class Fridge implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return mFridgeLogList;
+        return mDWLogList;
     }
 
     /**
@@ -81,8 +89,8 @@ public class Fridge implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(mFridgeLogList.getLogList().contains(log)) && this.mFridgeActive) {
-            mFridgeLogList.getLogList().add(log);
+        if (!(mDWLogList.getLogList().contains(log)) && this.mDWActive) {
+            mDWLogList.getLogList().add(log);
             return true;
         } else {
             return false;
@@ -97,11 +105,11 @@ public class Fridge implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return mFridgeLogList.countLogsInInterval(initialTime, finalTime);
+        return mDWLogList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mFridgeLogList.getLogsInInterval(startDate, endDate);
+        return mDWLogList.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -112,36 +120,37 @@ public class Fridge implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return mFridgeLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return mDWLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
-     * Energy consumption (daily) = annual energy consumption / 365 (kWh)
+     * Energy consumption = energy consumption of the program (kWh)
      *
      * @param time
      * @return
      */
     public double getEnergyConsumption(float time) {
-        return mFridgeNominalPower * time;
+        return mDWNominalPower * time;
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return mFridgeDeviceSpecs.getAttributeNames();
+        return mDWDeviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return mFridgeDeviceSpecs.getAttributeValue(attributeName);
+        return mDWDeviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return mFridgeDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return mDWDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return mFridgeDeviceSpecs.getAttributeUnit(attributeName);
+        return mDWDeviceSpecs.getAttributeUnit(attributeName);
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -152,12 +161,13 @@ public class Fridge implements Device, Metered {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(mFridgeName, device.getName());
+        return Objects.equals(mDWName, device.getName());
     }
 
     @Override
     public int hashCode() {
         return 1;
     }
+
 
 }

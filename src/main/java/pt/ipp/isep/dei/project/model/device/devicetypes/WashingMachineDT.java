@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
-import pt.ipp.isep.dei.project.model.device.devices.Device;
-import pt.ipp.isep.dei.project.model.device.devices.WashingMachine;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 
 public class WashingMachineDT implements DeviceType {

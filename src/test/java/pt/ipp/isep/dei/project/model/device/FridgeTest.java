@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.device.devices;
+package pt.ipp.isep.dei.project.model.device;
 
 /**
  * Fridge Device tests class.

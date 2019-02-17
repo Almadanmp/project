@@ -1,56 +1,60 @@
-package pt.ipp.isep.dei.project.model.device.devices;
+package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.Log;
-import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.log.Log;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
+import pt.ipp.isep.dei.project.model.device.program.ProgramList;
+import pt.ipp.isep.dei.project.model.device.program.Programmable;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class WaterHeater implements Device, Metered {
-    private String mWHName;
-    private double mWHNominalPower;
-    private String mWHType = "WaterHeater";
-    private WaterHeaterSpec mWHDeviceSpecs;
-    private boolean mWHActive;
-    private LogList mWHLogList;
+public class WashingMachine implements Device, Metered, Programmable {
+    private String mWMName;
+    private double mWMNominalPower;
+    private String mWMType = "Washing Machine";
+    private WashingMachineSpec mWMDeviceSpecs;
+    private boolean mWMActive;
+    private ProgramList mWMProgramList;
+    private LogList mWMLogList;
 
 
-    public WaterHeater(WaterHeaterSpec waterHeaterSpec) {
-        this.mWHDeviceSpecs = waterHeaterSpec;
-        this.mWHActive = true;
-        mWHLogList = new LogList();
+    public WashingMachine(WashingMachineSpec washingMachineSpec) {
+        this.mWMDeviceSpecs = washingMachineSpec;
+        this.mWMActive = true;
+        mWMProgramList = new ProgramList();
+        mWMLogList = new LogList();
     }
 
     public String getName() {
-        return this.mWHName;
+        return this.mWMName;
     }
 
     public void setName(String name) {
-        this.mWHName = name;
+        this.mWMName = name;
     }
 
     public String getType() {
-        return this.mWHType;
+        return this.mWMType;
     }
 
     public void setNominalPower(double nominalPower) {
-        this.mWHNominalPower = nominalPower;
+        this.mWMNominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.mWHNominalPower;
+        return this.mWMNominalPower;
     }
 
     public boolean isActive() {
-        return this.mWHActive;
+        return this.mWMActive;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.mWHActive = false;
+            this.mWMActive = false;
             return true;
         } else {
             return false;
@@ -58,11 +62,15 @@ public class WaterHeater implements Device, Metered {
     }
 
     public boolean isProgrammable() {
-        return false;
+        return true;
+    }
+
+    public ProgramList getProgramList() throws IncompatibleClassChangeError {
+        return this.mWMProgramList;
     }
 
     public String buildDeviceString() {
-        return "The device Name is " + this.mWHName + ", and its NominalPower is " + this.mWHNominalPower + " kW.\n";
+        return "The device Name is " + this.mWMName + ", and its NominalPower is " + this.mWMNominalPower + " kW.\n";
     }
 
     /**
@@ -71,7 +79,7 @@ public class WaterHeater implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return mWHLogList;
+        return mWMLogList;
     }
 
     /**
@@ -81,8 +89,8 @@ public class WaterHeater implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(mWHLogList.getLogList().contains(log)) && this.mWHActive) {
-            mWHLogList.getLogList().add(log);
+        if (!(mWMLogList.getLogList().contains(log)) && this.mWMActive) {
+            mWMLogList.getLogList().add(log);
             return true;
         } else {
             return false;
@@ -97,11 +105,11 @@ public class WaterHeater implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return mWHLogList.countLogsInInterval(initialTime, finalTime);
+        return mWMLogList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mWHLogList.getLogsInInterval(startDate, endDate);
+        return mWMLogList.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -112,7 +120,7 @@ public class WaterHeater implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return mWHLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return mWMLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
@@ -122,37 +130,25 @@ public class WaterHeater implements Device, Metered {
      * @return
      */
     public double getEnergyConsumption(float time) {
-        double coldWaterTemperature = (double) mWHDeviceSpecs.getAttributeValue("Cold Water Temperature");
-        double hotWaterTemperature = (double) mWHDeviceSpecs.getAttributeValue("Hot Water Temperature");
-        double volumeOfWaterToHeat = (double) mWHDeviceSpecs.getAttributeValue("Volume Of Water To Heat");
-        double performanceRatio = (double) mWHDeviceSpecs.getAttributeValue("Performance Ratio");
-
-        if (coldWaterTemperature >= hotWaterTemperature) {
-            return -1;
-        }
-
-        double dT = hotWaterTemperature - coldWaterTemperature;
-        double volForMinute = volumeOfWaterToHeat / 1440; //calculate v in liters per minute
-        double specificHeatOfWater = 1.163 / 1000;
-        return specificHeatOfWater * volForMinute * dT * performanceRatio * 60;
+        return mWMNominalPower * time;
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return mWHDeviceSpecs.getAttributeNames();
+        return mWMDeviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return mWHDeviceSpecs.getAttributeValue(attributeName);
+        return mWMDeviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return mWHDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return mWMDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return mWHDeviceSpecs.getAttributeUnit(attributeName);
+        return mWMDeviceSpecs.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -164,11 +160,12 @@ public class WaterHeater implements Device, Metered {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(mWHName, device.getName());
+        return Objects.equals(mWMName, device.getName());
     }
 
     @Override
     public int hashCode() {
         return 1;
     }
+
 }

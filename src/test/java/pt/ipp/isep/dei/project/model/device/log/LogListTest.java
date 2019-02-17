@@ -1,11 +1,10 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.device.log;
 
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.devices.Device;
-import pt.ipp.isep.dei.project.model.device.Log;
-import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.devices.WashingMachine;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 
 import java.util.Date;

@@ -5,9 +5,9 @@ import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
-import pt.ipp.isep.dei.project.model.device.devices.Device;
+import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.LogList;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

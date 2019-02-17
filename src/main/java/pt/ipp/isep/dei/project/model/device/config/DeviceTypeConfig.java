@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.device;
+package pt.ipp.isep.dei.project.model.device.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- *
+ * TODO - javadoc class and methods
  */
 
 public class DeviceTypeConfig {
@@ -18,7 +18,7 @@ public class DeviceTypeConfig {
         return getDeviceTypeConfigFromSpecificFile("resources/devices.properties");
     }
 
-    List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
+    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
         String allDevicesKey = "allDeviceTypes";
         Properties props = new Properties();
 
@@ -40,7 +40,7 @@ public class DeviceTypeConfig {
         return deviceTypeConfig;
     }
 
-    String getPropertyValueFromKey(Properties p, String key) throws IOException {
+    public String getPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
             throw new IOException("Could not read " + key + " property value.");

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.device;
+package pt.ipp.isep.dei.project.model.device.log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

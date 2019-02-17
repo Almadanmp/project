@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.device;
+package pt.ipp.isep.dei.project.model.device.config;
 
 import org.junit.jupiter.api.Test;
 
@@ -60,7 +60,6 @@ public class DeviceTypeConfigTest {
 
         assertEquals(expectedResult, result);
     }
-
 
 
     @Test
