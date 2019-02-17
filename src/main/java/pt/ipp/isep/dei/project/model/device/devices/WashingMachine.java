@@ -66,13 +66,8 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
-        if (isProgrammable()) {
-            return this.mWMProgramList;
-        } else {
-            throw new IncompatibleClassChangeError("ERROR: Unable to get list. DeviceTemporary is not programmable.");
-        }
+        return this.mWMProgramList;
     }
-
 
     public String buildDeviceString() {
         return "The device Name is " + this.mWMName + ", and its NominalPower is " + this.mWMNominalPower + " kW.\n";
@@ -114,7 +109,8 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mWMLogList.getLogsInInterval(startDate, endDate);    }
+        return mWMLogList.getLogsInInterval(startDate, endDate);
+    }
 
     /**
      * This method checks the Logs registered in a periods which are totally contained in the defined interval.
@@ -124,7 +120,8 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return mWMLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);    }
+        return mWMLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+    }
 
     /**
      * Energy consumption = energy consumption of the program (kWh)

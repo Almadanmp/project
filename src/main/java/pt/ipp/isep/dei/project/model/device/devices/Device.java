@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.device.devices;
 
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
-import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.Date;
 import java.util.List;
@@ -49,16 +48,6 @@ public interface Device {
      * @return true if programmable, false if not programmable
      */
     boolean isProgrammable();
-
-
-    //TODO REVIEW IF THIS SHOULD BE FORCED ON DEVICE INTERFACE
-
-    /**
-     * Method to get the programList if a DeviceTemporary is programmable
-     *
-     * @return program list
-     */
-    ProgramList getProgramList() throws IncompatibleClassChangeError;
 
     /**
      * Method that will build a string with information about the device (nominal power and name)

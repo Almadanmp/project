@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.Date;
 import java.util.List;
@@ -62,10 +61,6 @@ public class WaterHeater implements Device, Metered {
         return false;
     }
 
-    public ProgramList getProgramList() throws IncompatibleClassChangeError {
-        throw new IncompatibleClassChangeError("ERROR: Unable to get list. Device is not programmable.");
-    }
-
     public String buildDeviceString() {
         return "The device Name is " + this.mWHName + ", and its NominalPower is " + this.mWHNominalPower + " kW.\n";
     }
@@ -106,7 +101,8 @@ public class WaterHeater implements Device, Metered {
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mWHLogList.getLogsInInterval(startDate, endDate);    }
+        return mWHLogList.getLogsInInterval(startDate, endDate);
+    }
 
     /**
      * This method checks the Logs registered in a periods which are totally contained in the defined interval.

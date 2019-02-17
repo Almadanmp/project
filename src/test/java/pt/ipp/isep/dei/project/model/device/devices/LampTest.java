@@ -5,8 +5,6 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
-import pt.ipp.isep.dei.project.model.device.programs.Program;
-import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -41,7 +39,7 @@ public class LampTest {
     }
 
     @Test
-    void getNominalPowerTest(){
+    void getNominalPowerTest() {
         Lamp d = new Lamp(new LampSpec());
         d.setNominalPower(30);
         double expectedResult = 30;
@@ -185,16 +183,6 @@ public class LampTest {
         double expectedResult = 0;
         double actualResult = d1.getEnergyConsumption(2);
         assertEquals(expectedResult, actualResult);
-    }
-
-
-    @Test
-    void getProgramListFalse() {
-        assertThrows(IncompatibleClassChangeError.class,
-                () -> {
-                    Lamp d1 = new Lamp(new LampSpec());
-                    d1.getProgramList();
-                });
     }
 
     @Test

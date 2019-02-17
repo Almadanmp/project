@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.Date;
 import java.util.List;
@@ -149,7 +150,7 @@ class RoomConfigurationUI {
             {
                 System.out.println("This device is programmable.");
                 Program program = new Program("jjs", 23, 23);
-                ProgramList programList = ctrl.getProgramList(device);
+                ProgramList programList = ctrl.getProgramList((Programmable) device);
                 System.out.println(requestProgramName);
                 String programName = scanner.nextLine();
                 List<String> programAttributesNames = ctrl.getProgramAttributeNames(program);
@@ -168,7 +169,7 @@ class RoomConfigurationUI {
                 String message = "Would you like to add another Program? (y/n)";
                 String messageOutput = "You have added the : ";
                 //ctrl.createProgram(programName,program.getDuration(),program.getEnergyConsumption());
-                loopForProgram(message, device, messageOutput);
+                loopForProgram(message, (Programmable) device, messageOutput);
                 ctrl.configureOneWashingMachineProgram(device, programList);
                 ctrl.addProgramToProgramList(programList, program);
             }
@@ -223,19 +224,19 @@ class RoomConfigurationUI {
         if (ctrl.isProgrammable(device)) {
             System.out.println("This device is programmable.");
             Program program;
-            program = inputUtils.getSelectedProgramFromDevice(device);
-            ProgramList programList = ((ProgramList) ctrl.getAttributeValueWashingMachine(device));
+            program = inputUtils.getSelectedProgramFromDevice((Programmable) device);
+            ProgramList programList = ctrl.getWashingMachineProgramList((Programmable) device);
             if (program == null || programList == null) {
                 System.out.println("There are no programs to edit.");
                 return;
             }
-            updateAProgrammableDevice(program, programList, device);
+            updateAProgrammableDevice(program, programList, (Programmable) device);
             ctrl.configureOneWashingMachineProgram(device, programList);
         }
         displayDeviceUS215(device, room, deviceName);
     }
 
-    private void updateAProgrammableDevice(Program program, ProgramList programList, Device device) {
+    private void updateAProgrammableDevice(Program program, ProgramList programList, Programmable device) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
@@ -258,7 +259,7 @@ class RoomConfigurationUI {
 
     }
 
-    private void loopForProgramList(ProgramList programList, Device device) {
+    private void loopForProgramList(ProgramList programList, Programmable device) {
         String message = "Would you like to edit another Program? (y/n)";
         String messageOutput = "You have changed the : ";
         if (programList.getProgramList().size() > 1) {
@@ -267,7 +268,7 @@ class RoomConfigurationUI {
         }
     }
 
-    private void loopForProgram(String message, Device device, String messageOutput) {
+    private void loopForProgram(String message, Programmable device, String messageOutput) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         InputUtils inputUtils = new InputUtils();
         Program program;

@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -95,7 +96,7 @@ public class InputUtils {
         }
     }
 
-    Program getSelectedProgramFromDevice(Device device) {
+    Program getSelectedProgramFromDevice(Programmable device) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {

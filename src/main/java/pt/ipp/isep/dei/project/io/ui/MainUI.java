@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.device.Log;
@@ -9,6 +8,7 @@ import pt.ipp.isep.dei.project.model.device.devices.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.io.IOException;
 import java.util.*;
@@ -363,7 +363,7 @@ public class MainUI {
         dishWasherB107SP3.setNominalPower(1.5);
         dishWasherB107SP3.setName("DishwasherSpec B107");
         dishWasherB107SP3.setAttributeValue(capacity, 2D);
-        ProgramList programListDishWasherB107SP3 = dishWasherB107SP3.getProgramList();
+        ProgramList programListDishWasherB107SP3 = ((Programmable) dishWasherB107SP3).getProgramList();
         Program glassesB107 = new Program(classes, 0, 0.9);
         Program ecoB107 = new Program("Eco", 0, 1.3);
         Program ecoTurboB107 = new Program("Eco Turbo", 0, 1.7);
@@ -399,7 +399,7 @@ public class MainUI {
         washingMachineB107SP3.setNominalPower(3.5);
         washingMachineB107SP3.setName("Washing Machine B107");
         washingMachineB107SP3.setAttributeValue(capacity, 0D);
-        ProgramList programListWashingMachineB107SP3 = washingMachineB107SP3.getProgramList();
+        ProgramList programListWashingMachineB107SP3 = ((Programmable) washingMachineB107SP3).getProgramList();
         Program wool = new Program("Wool", 0, 1.1);
         Program fast = new Program("Fast", 0, 1.8);
         Program fastPlus = new Program("Fast Plus", 0, 2.7);
@@ -602,7 +602,7 @@ public class MainUI {
         dishWasherB109SP2.setNominalPower(1.5);
         dishWasherB109SP2.setName("DishwasherSpec B109");
         dishWasherB109SP2.setAttributeValue(capacity, 2D);
-        ProgramList programListDishWasherB109SP2 = dishWasherB109SP2.getProgramList();
+        ProgramList programListDishWasherB109SP2 = ((Programmable) dishWasherB109SP2).getProgramList();
         Program glassesB109 = new Program(classes, 0, 0.9);
         Program ecoB109 = new Program("Eco", 0, 1.3);
         Program ecoTurboB109 = new Program("Eco Turbo", 0, 1.7);
@@ -616,7 +616,7 @@ public class MainUI {
         washingMachineB109SP2.setNominalPower(2.5);
         washingMachineB109SP2.setName("Washing Machine B109");
         washingMachineB109SP2.setAttributeValue(capacity, 0D);
-        ProgramList programListWashingMachineB109SP2 = washingMachineB109SP2.getProgramList();
+        ProgramList programListWashingMachineB109SP2 = ((Programmable) washingMachineB109SP2).getProgramList();
         Program b109wool = new Program("Wool", 0, 0.9);
         Program b109fast = new Program("Fast", 0, 1.3);
         Program b109fastPlus = new Program("Fast Plus", 0, 1.7);
@@ -652,7 +652,7 @@ public class MainUI {
         dishWasherB106SP2.setNominalPower(1.4);
         dishWasherB106SP2.setName("DishwasherSpec B106");
         dishWasherB106SP2.setAttributeValue(capacity, 0D);
-        ProgramList programDishWasherB106SP2 = dishWasherB106SP2.getProgramList();
+        ProgramList programDishWasherB106SP2 = ((Programmable) dishWasherB106SP2).getProgramList();
         Program glassesB106 = new Program(classes, 0, 0.8);
         Program lightB106 = new Program("Light", 0, 1.3);
         Program lightTurboB106 = new Program("Light Turbo", 0, 1.9);

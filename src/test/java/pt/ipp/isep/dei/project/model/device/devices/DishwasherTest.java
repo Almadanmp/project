@@ -190,16 +190,6 @@ public class DishwasherTest {
     }
 
     @Test
-    void getProgramListFalse() {
-
-        assertThrows(IncompatibleClassChangeError.class,
-                () -> {
-                    Device d1 = new WaterHeater(new WaterHeaterSpec());
-                    d1.getProgramList();
-                });
-    }
-
-    @Test
     void getLogList() {
         Dishwasher d1 = new Dishwasher(new DishwasherSpec());
         d1.setAttributeValue(DishwasherSpec.DW_CAPACITY, 12D);

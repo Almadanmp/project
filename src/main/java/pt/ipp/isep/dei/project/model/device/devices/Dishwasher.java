@@ -66,11 +66,7 @@ public class Dishwasher implements Device, Metered, Programmable {
     }
 
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
-        if (isProgrammable()) {
-            return this.mDWProgramList;
-        } else {
-            throw new IncompatibleClassChangeError("ERROR: Unable to get list. DeviceTemporary is not programmable.");
-        }
+        return this.mDWProgramList;
     }
 
     public String buildDeviceString() {

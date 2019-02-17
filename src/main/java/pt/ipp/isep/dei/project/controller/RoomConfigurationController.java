@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.model.device.devices.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.programs.Program;
 import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
+import pt.ipp.isep.dei.project.model.device.programs.Programmable;
 
 import java.util.List;
 
@@ -241,7 +242,7 @@ public class RoomConfigurationController {
         program.setAttributeValue(program.getAttributeNames().get(i), value);
     }
 
-    public ProgramList getProgramList(Device device) {
+    public ProgramList getProgramList(Programmable device) {
         return device.getProgramList();
     }
 
@@ -270,7 +271,7 @@ public class RoomConfigurationController {
     }
 
 
-    public Object getAttributeValueWashingMachine(Device device) {
+    public ProgramList getWashingMachineProgramList(Programmable device) {
         return device.getProgramList();
     }
 

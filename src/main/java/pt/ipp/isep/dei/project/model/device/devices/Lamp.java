@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.Log;
 import pt.ipp.isep.dei.project.model.device.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
-import pt.ipp.isep.dei.project.model.device.programs.ProgramList;
 
 import java.util.Date;
 import java.util.List;
@@ -62,11 +61,6 @@ public class Lamp implements Device, Metered {
         return false;
     }
 
-    public ProgramList getProgramList() throws IncompatibleClassChangeError {
-        throw new IncompatibleClassChangeError("ERROR: Unable to get list. Device is not programmable.");
-    }
-
-
     public String buildDeviceString() {
         return "The device Name is " + this.mLampName + ", and its NominalPower is " + this.mLampNominalPower + " kW.\n";
     }
@@ -107,7 +101,8 @@ public class Lamp implements Device, Metered {
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mLampLogList.getLogsInInterval(startDate, endDate);    }
+        return mLampLogList.getLogsInInterval(startDate, endDate);
+    }
 
     /**
      * This method checks the Logs registered in a periods which are totally contained in the defined interval.
@@ -117,7 +112,8 @@ public class Lamp implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return mLampLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);    }
+        return mLampLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+    }
 
     /**
      * Energy consumption = Nominal power * time (Wh)
