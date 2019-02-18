@@ -169,9 +169,9 @@ class RoomConfigurationUI {
                 String message = "Would you like to add another Program? (y/n)";
                 String messageOutput = "You have added the : ";
                 //ctrl.createProgram(programName,program.getDuration(),program.getEnergyConsumption());
-                loopForProgram(message, (Programmable) device, messageOutput);
-                ctrl.configureOneWashingMachineProgram(device, programList);
                 ctrl.addProgramToProgramList(programList, program);
+                loopForCreatingProgram(message, messageOutput, programList);
+                ctrl.configureOneWashingMachineProgram(device, programList);
             }
         }
 
@@ -264,33 +264,72 @@ class RoomConfigurationUI {
         String messageOutput = "You have changed the : ";
         if (programList.getProgramList().size() > 1) {
             System.out.println(message);
-            loopForProgram(message, device, messageOutput);
+            loopForEditingProgram(message, device, messageOutput);
         }
     }
 
-    private void loopForProgram(String message, Programmable device, String messageOutput) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
+    private void loopForEditingProgram(String message, Programmable device, String messageOutput) {
         InputUtils inputUtils = new InputUtils();
         Program program;
         Scanner scanner = new Scanner(System.in);
         while (inputUtils.yesOrNo(scanner.nextLine(), message)) {
             program = inputUtils.getSelectedProgramFromDevice(device);
-            System.out.println(requestProgramName);
-            String programName = scanner.nextLine();
-            List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
-            for (int i = 0; i < programAttributeNames.size(); i++) {
-                System.out.println("Please insert the value for: " + programAttributeNames.get(i)
-                        + " (" + ctrl.getProgramAttributeUnit(program, i) + ")");
-                Double value = inputUtils.getInputAsDouble();
-                ctrl.setProgramAttributeValue(program, i, value);
-            }
-            program.setProgramName(programName);
-            for (int i = 0; i < programAttributeNames.size(); i++) {
-                System.out.println(messageOutput + programAttributeNames.get(i) + " to: "
-                        + ctrl.getProgramAttributeValue(program, i)
-                        + ctrl.getProgramAttributeUnit(program, i) + ".");
-            }
+            loopForPrograms(program, messageOutput);
         }
+    }
+    private void loopForCreatingProgram(String message, String messageOutput,ProgramList programList) {
+        InputUtils inputUtils = new InputUtils();
+        Scanner scanner = new Scanner(System.in);
+        while (inputUtils.yesOrNo(scanner.nextLine(), message)) {
+            loopForCreatingPrograms(programList, messageOutput);
+        }
+
+    }
+
+    private void loopForPrograms(Program program, String messageOutput) {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        InputUtils inputUtils = new InputUtils();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(requestProgramName);
+        String programName = scanner.nextLine();
+        List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
+        for (int i = 0; i < programAttributeNames.size(); i++) {
+            System.out.println("Please insert the value for: " + programAttributeNames.get(i)
+                    + " (" + ctrl.getProgramAttributeUnit(program, i) + ")");
+            Double value = inputUtils.getInputAsDouble();
+            ctrl.setProgramAttributeValue(program, i, value);
+        }
+        program.setProgramName(programName);
+        for (int i = 0; i < programAttributeNames.size(); i++) {
+            System.out.println(messageOutput + programAttributeNames.get(i) + " to: "
+                    + ctrl.getProgramAttributeValue(program, i)
+                    + ctrl.getProgramAttributeUnit(program, i) + ".");
+        }
+
+    }
+
+    private void loopForCreatingPrograms(ProgramList programList, String messageOutput) {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        InputUtils inputUtils = new InputUtils();
+        Scanner scanner = new Scanner(System.in);
+        Program program2 = new Program();
+        System.out.println(requestProgramName);
+        String programName = scanner.nextLine();
+        List<String> programAttributeNames = ctrl.getProgramAttributeNames(program2);
+        for (int i = 0; i < programAttributeNames.size(); i++) {
+            System.out.println("Please insert the value for: " + programAttributeNames.get(i)
+                    + " (" + ctrl.getProgramAttributeUnit(program2, i) + ")");
+            Double value = inputUtils.getInputAsDouble();
+            ctrl.setProgramAttributeValue(program2, i, value);
+        }
+        program2.setProgramName(programName);
+        for (int i = 0; i < programAttributeNames.size(); i++) {
+            System.out.println(messageOutput + programAttributeNames.get(i) + " to: "
+                    + ctrl.getProgramAttributeValue(program2, i)
+                    + ctrl.getProgramAttributeUnit(program2, i) + ".");
+        }
+        ctrl.addProgramToProgramList(programList,program2);
+
     }
 
     // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it. - CARINA ALAS
