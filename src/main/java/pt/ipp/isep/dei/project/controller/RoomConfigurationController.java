@@ -266,6 +266,10 @@ public class RoomConfigurationController {
         return device.setAttributeValue(attributeName, attributeValue);
     }
 
+    public void setProgramName(Program program, String programName){
+        program.setProgramName(programName);
+    }
+
     public String getType(Device device) {
         return device.getType();
     }

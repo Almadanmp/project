@@ -160,7 +160,7 @@ class RoomConfigurationUI {
                     Double value = inputUtils.getInputAsDouble();
                     ctrl.setProgramAttributeValue(program, i, value);
                 }
-                program.setProgramName(programName);
+                ctrl.setProgramName(program,programName);
                 for (int i = 0; i < programAttributesNames.size(); i++) {
                     System.out.println("You have added the : " + programAttributesNames.get(i) + " to: "
                             + ctrl.getProgramAttributeValue(program, i)
@@ -239,7 +239,7 @@ class RoomConfigurationUI {
         String programName = scanner.nextLine();
         List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
         loopToSetAttributeValues(program, programAttributeNames);
-        program.setProgramName(programName);
+        ctrl.setProgramName(program,programName);
         loopToBuildFinalStringProgram(program,programAttributeNames);
         loopForProgramList(programList, device);
     }
@@ -294,7 +294,7 @@ class RoomConfigurationUI {
         String programName = scanner.nextLine();
         List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
         loopToSetAttributeValues(program,programAttributeNames);
-        program.setProgramName(programName);
+        ctrl.setProgramName(program,programName);
         loopToBuildFinalStringProgram(program, programAttributeNames);
 
     }
