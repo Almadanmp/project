@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.TypeArea;
+import pt.ipp.isep.dei.project.model.TypeAreaList;
 
 import java.util.List;
 
@@ -100,10 +103,17 @@ public class GASettingsController {
      * @param longitude  input number for longitude
      * @return success if a new GA is added, false otherwise
      */
-
     public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, double latitude, double longitude, double altitude, double length, double width) {
-        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea.getTypeOfGeographicArea()), length, width, new Local(latitude, longitude, altitude));
-        return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
+
+        GeographicArea geoToAdd;
+
+        if (newGeoList.checkIFGACanBeCreated(newName, typeArea, latitude, longitude, altitude)) {
+            geoToAdd = newGeoList.createGA(newName, typeArea, length, width, latitude, altitude, longitude);
+           if (!newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd)){
+               return false;
+           }
+        }
+        return true;
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
