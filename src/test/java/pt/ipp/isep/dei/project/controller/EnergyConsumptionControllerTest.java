@@ -60,6 +60,7 @@ class EnergyConsumptionControllerTest {
         validRoom1.addDevice(validDevice2);
         validRoom1.addDevice(validDevice3);
     }
+
     //US705 TESTS
 
     @Test

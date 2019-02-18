@@ -314,13 +314,10 @@ class GASettingsUI {
      * contains the second geographic area, returning a message to the user accordingly.
      */
     private void checkIfContained(GeographicArea motherGA, GeographicArea daughterGA) {
-        String motherGAName = mController.getGeographicAreaId(motherGA);
-        String daughterGAName = mController.getGeographicAreaId(daughterGA);
-
-        if (!(mController.seeIfItsContained(motherGA, daughterGA))) {
-            System.out.println(daughterGAName + " is NOT contained in " + motherGAName);
+        if (!(mController.isAreaContained(motherGA, daughterGA))) {
+            System.out.println(mController.getGeographicAreaId(daughterGA) + " is NOT contained in " + mController.getGeographicAreaId(motherGA));
         } else {
-            System.out.println(daughterGAName + " is contained in " + motherGAName);
+            System.out.println(mController.getGeographicAreaId(daughterGA) + " is contained in " + mController.getGeographicAreaId(motherGA));
         }
     }
 

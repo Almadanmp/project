@@ -13,7 +13,6 @@ import java.util.List;
 
 
 public class HouseConfigurationController {
-    private Room mRoom;
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
@@ -88,15 +87,16 @@ public class HouseConfigurationController {
     /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
      house floor and dimensions) */
 
-    /**
+    /** This method receives the house and room parameters and creates a new room.
+     * @house program house that will create the room
      * @param roomDesignation is the name of the room we're going to create.
      * @param roomHouseFloor  is the floor of the room we're going to create.
      * @param width           is the width of the room we're going to create.
      * @param length          is the length of the room we're going to create.
      * @param height          is the height of the room we're going to create.
      */
-    public void createNewRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        this.mRoom = new Room(roomDesignation, roomHouseFloor, width, length, height);
+    public Room createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+        return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
     }
 
     /**
@@ -104,8 +104,8 @@ public class HouseConfigurationController {
      * @return is true if the house was successfully added, false if it wasn't.
      */
 
-    public boolean addRoomToHouse(House house) {
-        return (house.addRoomToRoomList(this.mRoom));
+    public boolean addRoomToHouse(House house, Room room) {
+        return (house.addRoomToRoomList(room));
     }
 
     /**

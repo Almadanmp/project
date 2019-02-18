@@ -225,6 +225,18 @@ class SensorSettingsControllerTest {
         assertTrue(actualResult3);
     }
 
+    // Testing for method: public String buildSensorString(Sensor sensor)
+    @Test
+    void testBuildSensorString() {
+        //Arrange
+        SensorSettingsController ctrl = new SensorSettingsController();
+        Sensor sensor = new Sensor("sensor", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1), new GregorianCalendar(1, 1, 1, 1, 1).getTime());
+        //Act
+        String expectedResult = "sensor, temperature, 1.0º lat, 1.0º long\n";
+        String actualResult = ctrl.buildSensorString(sensor);
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
 //    @Test
 //    void seeIfAddSensorToSensorListFalsen() {

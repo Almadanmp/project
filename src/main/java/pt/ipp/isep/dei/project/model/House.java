@@ -11,6 +11,7 @@ import java.util.Objects;
 /**
  * House Class. Defines de House
  */
+
 public class House implements Metered {
     private String mId;
     private String mStreet;
@@ -340,6 +341,13 @@ public class House implements Metered {
 
     public double getEnergyConsumption(float time) {
         return 0;
+    }
+
+    /**This method receives room parameters and creates a new Room with those parameteres
+     * @return returns room that was created
+     * **/
+    public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height){
+        return new Room (roomDesignation,roomHouseFloor,width,length,height);
     }
 
     @Override

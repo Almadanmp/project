@@ -69,6 +69,8 @@ public class WashingMachine implements Device, Metered, Programmable {
         return this.mWMProgramList;
     }
 
+
+
     public String buildDeviceString() {
         return "The device Name is " + this.mWMName + ", and its NominalPower is " + this.mWMNominalPower + " kW.\n";
     }
