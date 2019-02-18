@@ -124,13 +124,21 @@ public class GeographicArea {
         return this.mMotherArea;
     }
 
+    /**
+     * This method is used to check if the daughter area attribute mother area corresponds to the testes mother area.
+     *
+     * @param daughterArea - Geographic Area being tested according to its mother area attribute.
+     * @param motherArea - Geographic Area being compared to daughter area mother area attribute.
+     * @return boolean
+     */
+
     public boolean checkIfAreaIsContained(GeographicArea daughterArea, GeographicArea motherArea) {
-        GeographicArea onTest = daughterArea;
-        while (onTest.getMotherArea() != null) {
-            if (onTest.getMotherArea().equals(motherArea)) {
+        GeographicArea tempMotherArea = daughterArea.getMotherArea();
+        while (tempMotherArea.getMotherArea() != null) {
+            if (tempMotherArea.getMotherArea().equals(motherArea)) {
                 return true;
             } else {
-                onTest = onTest.getMotherArea();
+                tempMotherArea = daughterArea.getMotherArea();
             }
         }
         return false;
