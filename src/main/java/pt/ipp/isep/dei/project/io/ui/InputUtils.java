@@ -169,23 +169,6 @@ public class InputUtils {
         }
     }
 
-    Sensor getInputSensorFromRoomByList(Room room) {
-        UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
-        while (true) {
-            System.out.println("Please select one of the existing Sensors on the selected Room: ");
-            System.out.println(room.getSensorList().buildSensorListString());
-            int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < room.getSensorList().getSensorList().size()) {
-                Sensor result = room.getSensorList().getSensorList().get(aux);
-                System.out.println("You have chosen the following sensor:");
-                System.out.println(result.buildSensorString() + "\n");
-                return result;
-            } else {
-                System.out.println(utils.invalidOption);
-            }
-        }
-    }
 
     DeviceType getInputDeviceTypeByList(House house) {
         InputUtils inputUtils = new InputUtils();

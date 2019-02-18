@@ -10,4 +10,5 @@ package pt.ipp.isep.dei.project.model.device.program;
 public interface Programmable {
 
     ProgramList getProgramList();
+
 }
