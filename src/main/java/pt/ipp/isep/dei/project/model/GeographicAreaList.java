@@ -129,50 +129,88 @@ public class GeographicAreaList {
         return false;
     }
 
-    /**
-     * Checks if a the Geographic Area given as a parameter is inside the Geographic Area List
-     *
-     * @param geoArea geographic area to test
-     * @return returns true in case the GA is contained in the list and false otherwise
-     */
-    boolean containsGA(GeographicArea geoArea) {
-        return mGeographicAreaList.contains(geoArea);
-    }
 
     /**
-     * Getter of the attribute mGeographicAreaList from this class
-     *
-     * @return returns the geographic area list
+     * Method to check if a GA can be Created (if it has at least a different attribute from the following (name, typearea or local)
+     * @param newName -
+     * @param typeArea
+     * @param latitude
+     * @param longitude
+     * @param altitude
+     * @return will return true if can be added and false if it cannot be added
      */
-    public List<GeographicArea> getGeographicAreaList() {
-        return mGeographicAreaList;
-    }
-
-    public GeographicAreaList matchGeographicAreaWithInputType(String typeAreaName) {
-        GeographicAreaList finalList = new GeographicAreaList();
-        TypeArea typeAreaToTest = new TypeArea(typeAreaName);
+    public boolean checkIFGACanBeCreated(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
+        Local newLocal = new Local(latitude, longitude, altitude);
         for (GeographicArea ga : mGeographicAreaList) {
-            if (ga.getTypeArea().equals(typeAreaToTest)) {
-                finalList.addGeographicAreaToGeographicAreaList(ga);
+            if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {
+                return false;
             }
         }
-        return finalList;
+        return true;
     }
 
-    @Override
-    public boolean equals(Object testObject) {
-        if (this == testObject) {
-            return true;
+/**
+ * Method to create a new geographic area before adding it to a GA List.
+ *
+ * @param newName   input string for geographic area name
+ * @param typeArea  input string for type area
+ * @param latitude  input number for latitude
+ * @param longitude input number for longitude
+ * @param altitude  input number for altitude
+ * @param length    input number for length
+ * @param width     input number for width
+ * @return Geographic Area
+ */
+        public GeographicArea createGA (String newName, TypeArea typeArea,double latitude, double longitude,
+        double altitude, double length, double width){
+            return new GeographicArea(newName, typeArea, length, width, new Local(latitude, longitude, altitude));
         }
-        if (!(testObject instanceof GeographicAreaList)) {
-            return false;
-        }
-        GeographicAreaList list = (GeographicAreaList) testObject;
-        return Arrays.equals(this.getGeographicAreaList().toArray(), list.getGeographicAreaList().toArray());
-    }
 
-    @Override
-    public int hashCode() {
-        return 1;
+
+        /**
+         * Checks if a the Geographic Area given as a parameter is inside the Geographic Area List
+         *
+         * @param geoArea geographic area to test
+         * @return returns true in case the GA is contained in the list and false otherwise
+         */
+        boolean containsGA (GeographicArea geoArea){
+            return mGeographicAreaList.contains(geoArea);
+        }
+
+        /**
+         * Getter of the attribute mGeographicAreaList from this class
+         *
+         * @return returns the geographic area list
+         */
+        public List<GeographicArea> getGeographicAreaList () {
+            return mGeographicAreaList;
+        }
+
+        public GeographicAreaList matchGeographicAreaWithInputType (String typeAreaName){
+            GeographicAreaList finalList = new GeographicAreaList();
+            TypeArea typeAreaToTest = new TypeArea(typeAreaName);
+            for (GeographicArea ga : mGeographicAreaList) {
+                if (ga.getTypeArea().equals(typeAreaToTest)) {
+                    finalList.addGeographicAreaToGeographicAreaList(ga);
+                }
+            }
+            return finalList;
+        }
+
+        @Override
+        public boolean equals (Object testObject){
+            if (this == testObject) {
+                return true;
+            }
+            if (!(testObject instanceof GeographicAreaList)) {
+                return false;
+            }
+            GeographicAreaList list = (GeographicAreaList) testObject;
+            return Arrays.equals(this.getGeographicAreaList().toArray(), list.getGeographicAreaList().toArray());
+        }
+
+        @Override
+        public int hashCode () {
+            return 1;
+        }
     }
-}
