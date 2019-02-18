@@ -81,7 +81,6 @@ class RoomConfigurationUI {
 
     /**
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
-     * <p>
      * Prints device List in that room.
      */
     private void runUS201(House house) {

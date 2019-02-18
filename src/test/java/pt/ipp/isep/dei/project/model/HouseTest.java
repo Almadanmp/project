@@ -875,6 +875,26 @@ class HouseTest {
         assertFalse(actualResult4);
     }
 
+    @Test
+    void createsRoom() {
+        GeographicArea ga = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Beach House", "Flower Street", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        Room actualResult1 = new Room("kitchen",1,1,1,1);
+        Room actualResult2 = new Room("room",1,1,1,1);
+        Room actualResult3 = new Room("kitchen",1,1,1,1);
+        //ACT
+        Room expectedResult1 = house.createRoom("kitchen", 1,1,1,1);
+        Room expectedResult2 = house.createRoom("room", 1,1,1,1);
+        Room expectedResult3 = house.createRoom("kitchen", 1,1,1,1);
+
+        //ASSERT
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(expectedResult3, actualResult3);
+    }
+
 }
 
 
