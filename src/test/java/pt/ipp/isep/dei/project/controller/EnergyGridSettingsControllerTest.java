@@ -262,7 +262,7 @@ class EnergyGridSettingsControllerTest {
 
         // Act
 
-        EnergyGrid actualResult = controller.createEnergyGrid("EG1", 400);
+        EnergyGrid actualResult = controller.createEnergyGrid(validHouse, "EG1", 400);
 
         // Assert
 

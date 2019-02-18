@@ -67,7 +67,7 @@ class GASettingsControllerTest {
 
         // Assert
 
-        assertEquals(geographicAreaList, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
