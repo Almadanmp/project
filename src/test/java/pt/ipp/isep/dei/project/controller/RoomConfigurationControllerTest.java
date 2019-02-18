@@ -469,7 +469,7 @@ class RoomConfigurationControllerTest {
         Program program = new Program("rep", 22, 23);
         ProgramList programList = new ProgramList();
         programList.addProgram(program);
-        ctrl.configureOneWashingMachineProgram(d1, programList);
+        ctrl.configureProgramFromAProgrammableDevice(d1, programList);
         Object result = d1.getAttributeValue("programList");
         assertEquals(d1.getAttributeValue("programList"), result);
     }
@@ -665,6 +665,16 @@ class RoomConfigurationControllerTest {
         ctrl.setDeviceName("not a washing machine", washMach);
         boolean result = ctrl.isProgrammable(washMach);
         Assert.assertFalse(result);
+    }
+
+    @Test
+    void seeIfSetDeviceName(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        WaterHeaterSpec wmSpec = new WaterHeaterSpec();
+        WaterHeater washMach = new WaterHeater(wmSpec);
+        ctrl.setDeviceName("not a washing machine", washMach);
+        String result = washMach.getName();
+        assertEquals(result,"not a washing machine");
     }
 
 
