@@ -700,7 +700,7 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void addProgramToProgramList() {
+    void seeIfAddProgramToProgramList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Program program = new Program("program", 2, 3);
         ProgramList plist = new ProgramList();
@@ -709,5 +709,39 @@ class RoomConfigurationControllerTest {
                 + "\n---------------\n";
         String result = plist.buildProgramListString();
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetProgramAttributeNamesTest() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Program program = new Program("program",2,2);
+        ctrl.setProgramAttributeValue(program, 0, 34);
+        List<String> expectedResult = new ArrayList<>();
+        expectedResult.add(Program.DURATION);
+        expectedResult.add(Program.ENERGY_CONSUMPTION);
+        List<String> result =ctrl.getProgramAttributeNames(program);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetProgramList() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        ctrl.setAttributeValue(d1, "Duration", 34);
+        Program program = new Program("programa", 2, 2);
+        ProgramList listProgram = ctrl.getProgramList(d1);
+        ctrl.addProgramToProgramList(listProgram, program);
+        ProgramList result = ctrl.getProgramList(d1);
+        Assertions.assertEquals(listProgram, result);
+    }
+
+    @Test
+    void seeIfGetProgramAttributeUnit() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Program program = new Program("program",2,2);
+        ctrl.setProgramAttributeValue(program,0,12);
+        String expectedResult = "min";
+        Object result = ctrl.getProgramAttributeUnit(program,0);
+        Assertions.assertEquals(expectedResult, result);
     }
 }
