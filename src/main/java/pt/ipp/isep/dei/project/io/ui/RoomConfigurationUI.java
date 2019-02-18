@@ -149,7 +149,6 @@ class RoomConfigurationUI {
     private void createProgram(Device device) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
-        InputUtils inputUtils = new InputUtils();
         if (ctrl.isProgrammable(device)) {
             {
                 System.out.println("This device is programmable.");
@@ -158,18 +157,9 @@ class RoomConfigurationUI {
                 System.out.println(requestProgramName);
                 String programName = scanner.nextLine();
                 List<String> programAttributesNames = ctrl.getProgramAttributeNames(program);
-                for (int i = 0; i < programAttributesNames.size(); i++) {
-                    System.out.println("Please insert the value for: " + programAttributesNames.get(i)
-                            + " (" + ctrl.getProgramAttributeUnit(program, i) + ")");
-                    Double value = inputUtils.getInputAsDouble();
-                    ctrl.setProgramAttributeValue(program, i, value);
-                }
+                loopToSetAttributeValues(program,programAttributesNames);
                 ctrl.setProgramName(program,programName);
-                for (int i = 0; i < programAttributesNames.size(); i++) {
-                    System.out.println("You have added the : " + programAttributesNames.get(i) + " to: "
-                            + ctrl.getProgramAttributeValue(program, i)
-                            + ctrl.getProgramAttributeUnit(program, i));
-                }
+                loopToBuildFinalStringProgram(program,programAttributesNames);
                 String message = "Would you like to add another Program? (y/n)";
                 ctrl.addProgramToProgramList(programList, program);
                 loopForCreatingProgram(message, programList);
@@ -180,7 +170,6 @@ class RoomConfigurationUI {
     }
 
     // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
-
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
 
     private void runUS215(House house) {
