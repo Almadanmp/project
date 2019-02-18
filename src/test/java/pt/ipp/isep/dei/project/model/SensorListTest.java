@@ -1270,9 +1270,9 @@ class SensorListTest {
         Date date3 = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
-            date1 = sd.parse("08/10/2000 23:57");
-            date2 = sd.parse("02/10/2000 23:58");
-            date3 = sd.parse("01/10/2000 23:59");
+            date1 = sd.parse("05/10/2000 23:57");
+            date2 = sd.parse("05/10/2000 23:58");
+            date3 = sd.parse("05/10/2000 23:59");
         }
         catch (ParseException e){
             e.printStackTrace();
