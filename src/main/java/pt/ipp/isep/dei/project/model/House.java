@@ -11,6 +11,7 @@ import java.util.Objects;
 /**
  * House Class. Defines de House
  */
+
 public class House implements Metered {
     private String mId;
     private String mStreet;
