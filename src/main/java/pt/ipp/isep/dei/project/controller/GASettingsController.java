@@ -13,37 +13,6 @@ public class GASettingsController {
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
     /**
-     * @param input        is the name of the TypeArea we want to search the list for.
-     * @param typeAreaList is the list where we're going to search for areas of the given name.
-     * @return is a list of integers with all the indexes, in the parameter list, where
-     * typeAreas with the name given in the first parameter are contained.
-     */
-
-    List<Integer> matchTypeAreaIndexByString(String input, TypeAreaList typeAreaList) {
-        return typeAreaList.matchGeographicAreaTypeIndexByString(input);
-    }
-
-    /**
-     * @param listOfIndexesTypeGeographicAreas is a list of integers containing the indexes of objects we want
-     *                                         to access.
-     * @param typeAreaList                     is the list where we're going to look for said objects.
-     * @return builds a string of all the objects contained in the indexes of the provided list.
-     */
-
-    String buildTypeAreaElementsByIndexString(List<Integer> listOfIndexesTypeGeographicAreas, TypeAreaList typeAreaList) {
-        return typeAreaList.buildGATypeElementsByIndexString(listOfIndexesTypeGeographicAreas);
-    }
-
-    /**
-     * @param typeArea is the type of area to print.
-     * @return builds a string with the given type of area.
-     */
-
-    public String buildTypeAreaString(TypeArea typeArea) {
-        return typeArea.buildTypeGeographicAreaString();
-    }
-
-    /**
      * @param typeAreaList is the list of Geographic Area Types we want to print.
      * @return builds a string with each individual member of the given list.
      */
@@ -138,6 +107,7 @@ public class GASettingsController {
      * @param geographicArea that method will use
      * @return geographic area id as a string
      */
+
     public String getGeographicAreaId(GeographicArea geographicArea) {
         return geographicArea.getId();
     }

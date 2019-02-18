@@ -1,22 +1,11 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Dishwasher;
-import pt.ipp.isep.dei.project.model.device.Fridge;
-import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -39,7 +28,7 @@ class EnergyGridSettingsControllerTest {
         validHouse = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
                 "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
-                60, 180, new ArrayList<String>());
+                60, 180, new ArrayList<>());
         validGrid = new EnergyGrid("validGrid", 300);
     }
 
@@ -342,13 +331,18 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void seeCreatePowerSource() {
+        // Arrange
+
         PowerSource powerSource1 = new PowerSource("powersource1", 10, 10);
         PowerSource powerSource2 = new PowerSource("powersource2", 123, 76);
-        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+
         //Act
-        PowerSource actualResult1 = ctrl.createPowerSource("powersource1", 10, 10);
-        PowerSource actualResult2 = ctrl.createPowerSource("powersource2", 123, 76);
+
+        PowerSource actualResult1 = controller.createPowerSource("powersource1", 10, 10);
+        PowerSource actualResult2 = controller.createPowerSource("powersource2", 123, 76);
+
         //Assert
+
         assertEquals(actualResult1, powerSource1);
         assertEquals(actualResult2, powerSource2);
     }
