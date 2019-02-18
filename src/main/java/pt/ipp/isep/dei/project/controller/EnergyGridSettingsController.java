@@ -14,27 +14,6 @@ public class EnergyGridSettingsController {
     //SHARED METHODS THROUGH DIFFERENT UIS
 
     /**
-     * @param gridName is the name of the grid we're going to check for.
-     * @param house    is the house we're going to check if the grid exists in.
-     * @return gives a list of integers where all members are indexes of the House's EnergyGridList that contain a Grid
-     * of wanted name.
-     */
-
-    List<Integer> matchGridIndexByString(String gridName, House house) {
-        return house.getEGListObject().matchGridListElementsByString(gridName);
-    }
-
-    /**
-     * @param indexList is a list of integers containing indexes.
-     * @param egList    is the list of energy grids we're going to print from.
-     * @return from the given list of Energy Grids the grids in the indexes provided by the list, we build a string.
-     */
-
-    String buildEnergyGridByIndexString(List<Integer> indexList, EnergyGridList egList) {
-        return egList.buildElementsByIndexString(indexList);
-    }
-
-    /**
      * @param grid is the energy grid we're going to print.
      * @return we build a string from the provided grid.
      */
@@ -73,26 +52,6 @@ public class EnergyGridSettingsController {
         return house.buildGridListString();
     }
 
-    /**
-     * @param input is the String, meaning the name of the room, which we want to look for.
-     * @param house is the house where we're going to look for rooms with that name.
-     * @return is a list of integers containing the indexes in the House's RoomList of Rooms with names that match
-     * the input.
-     */
-
-    List<Integer> getIndexHouseRoomsByString(String input, House house) {
-        return house.matchRoomIndexByString(input);
-    }
-
-    /**
-     * @param listOfIndexesOfRoom is a list of integers containing the indexes in the House's RoomList of Rooms with names that match.
-     * @param house               is the house we're going to print Rooms from.
-     * @return builds a string of the rooms in the House's RoomList that are contained in the indexes provided by the first parameter.
-     */
-
-    String buildHouseRoomsByIndexString(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.buildRoomsByIndexString(listOfIndexesOfRoom);
-    }
 
     /**
      * @param room is the room we're going to print.
