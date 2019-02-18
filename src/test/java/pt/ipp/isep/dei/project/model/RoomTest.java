@@ -308,7 +308,7 @@ class RoomTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         Double expectedResult = 0.0;
-        Double result = r1.getDailyConsumptionByDeviceType("WaterHeater");
+        Double result = r1.getDailyConsumptionByDeviceType("WaterHeater", 1440);
         assertEquals(expectedResult, result);
     }
 
@@ -403,8 +403,8 @@ class RoomTest {
         d2.setAttributeValue("Volume Of Water To Heat", 100.0);
         d3.setAttributeValue("Volume Of Water To Heat", 100.0);
         d3.setAttributeValue("Cold Water Temperature", 1.0);
-        double expectedResult = 0.19189499999999998;
-        double result = r1.getDailyConsumptionByDeviceType(d2.getType());
+        double expectedResult = 4.60548;
+        double result = r1.getDailyConsumptionByDeviceType(d2.getType(), 1440);
         assertEquals(expectedResult, result);
     }
 

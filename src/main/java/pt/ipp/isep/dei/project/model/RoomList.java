@@ -103,12 +103,13 @@ public class RoomList {
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms on this list.
      *
      * @param deviceType the device type
+     * @param time represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
-    double getDailyConsumptionByDeviceType(String deviceType) {
+    double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
         for (Room r : mRoomList) {
-            result += r.getDailyConsumptionByDeviceType(deviceType);
+            result += r.getDailyConsumptionByDeviceType(deviceType, time);
         }
         return Math.floor(result * 10) / 10;
     }

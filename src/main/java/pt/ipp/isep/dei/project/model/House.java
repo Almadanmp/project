@@ -291,12 +291,12 @@ public class House implements Metered {
 
     /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
-     *
      * @param deviceType the device type
+     * @param time represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyConsumptionByDeviceType(String deviceType) {
-        return mRoomList.getDailyConsumptionByDeviceType(deviceType);
+    public double getDailyConsumptionByDeviceType(String deviceType, int time) {
+        return mRoomList.getDailyConsumptionByDeviceType(deviceType, time);
     }
 
     public boolean addGrid(EnergyGrid energyGrid) {

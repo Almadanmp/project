@@ -265,10 +265,11 @@ public class Room implements Metered {
      * Returns the daily estimate consumption of all devices of a given type in this room.
      *
      * @param deviceType the device type
+     * @param time represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
-    double getDailyConsumptionByDeviceType(String deviceType) {
-        return mDeviceList.getDailyConsumptionByDeviceType(deviceType);
+    double getDailyConsumptionByDeviceType(String deviceType, int time) {
+        return mDeviceList.getDailyConsumptionByDeviceType(deviceType, time);
     }
 
     /**

@@ -68,20 +68,18 @@ public class DeviceList {
         return result.toString();
     }
 
-
-    //TODO FIX THIS METHOD - USED ON US 752. NOT WORKING NOW, has to send time. I put the 24 temporary
-
     /**
      * Returns the daily estimate consumption of all devices on this list.
      *
      * @param deviceType the device type
+     * @param time represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyConsumptionByDeviceType(String deviceType) {
+    public double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
         for (Device d : mDeviceList) {
             if (d.getType().equals(deviceType)) {
-                result += d.getEnergyConsumption(24);
+                result += d.getEnergyConsumption(time);
             }
         }
         return result;

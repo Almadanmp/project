@@ -272,13 +272,13 @@ public class EnergyConsumptionController {
 
     /**
      * Get the estimate consumption on all water heaters available in the users house
-     *
+     * time a day (in minutes - 24 h = 1440 min)
      * @param house user house
      * @return estimate energy consumption on the water heaters
      */
-
     public double getDailyWaterHeaterConsumption(House house) {
-        return house.getDailyConsumptionByDeviceType("WaterHeater");
+        int time = 1440;
+        return house.getDailyConsumptionByDeviceType("WaterHeater", time);
     }
 
     /**

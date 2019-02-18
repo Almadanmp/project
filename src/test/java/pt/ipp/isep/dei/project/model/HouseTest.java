@@ -500,7 +500,7 @@ class HouseTest {
         h1.addRoomToRoomList(r1);
         h1.addRoomToRoomList(r2);
         double expectedResult = 0.0;
-        double result = h1.getDailyConsumptionByDeviceType("WaterHeater");
+        double result = h1.getDailyConsumptionByDeviceType("WaterHeater", 1440);
         assertEquals(expectedResult, result);
     }
 
@@ -527,8 +527,8 @@ class HouseTest {
         d2.setAttributeValue("Volume Of Water To Heat", 100.0);
         d3.setAttributeValue("Volume Of Water To Heat", 100.0);
         d3.setAttributeValue("Cold Water Temperature", 1.0);
-        double expectedResult = 0.1;
-        double result = h1.getDailyConsumptionByDeviceType("WaterHeater");
+        double expectedResult = 4.6;
+        double result = h1.getDailyConsumptionByDeviceType("WaterHeater", 1440);
         assertEquals(expectedResult, result);
     }
 
