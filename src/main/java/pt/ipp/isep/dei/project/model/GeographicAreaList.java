@@ -78,7 +78,7 @@ public class GeographicAreaList {
      * @param altitude
      * @return will return true if can be added and false if it cannot be added
      */
-    public boolean checkIFGACanBeCreated(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
+    public boolean checkIfGACanBeCreated(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
         Local newLocal = new Local(latitude, longitude, altitude);
         for (GeographicArea ga : mGeographicAreaList) {
             if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {
