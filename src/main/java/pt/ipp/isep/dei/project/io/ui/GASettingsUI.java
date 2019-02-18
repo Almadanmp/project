@@ -317,7 +317,7 @@ class GASettingsUI {
         String motherGAName = mController.getGeographicAreaId(motherGA);
         String daughterGAName = mController.getGeographicAreaId(daughterGA);
 
-        if (!(mController.seeIfItsContained(motherGA, daughterGA))) {
+        if (!(mController.isAreaContained(motherGA, daughterGA))) {
             System.out.println(daughterGAName + " is NOT contained in " + motherGAName);
         } else {
             System.out.println(daughterGAName + " is contained in " + motherGAName);

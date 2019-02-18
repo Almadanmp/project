@@ -157,7 +157,7 @@ public class GASettingsController {
      * @return returns true if one area is contained in the other, false if it isn't.
      */
 
-    public boolean seeIfItsContained(GeographicArea motherGA, GeographicArea daughterGA) {
+    public boolean isAreaContained(GeographicArea motherGA, GeographicArea daughterGA) {
         return daughterGA.checkIfAreaIsContained(daughterGA, motherGA);
     }
 

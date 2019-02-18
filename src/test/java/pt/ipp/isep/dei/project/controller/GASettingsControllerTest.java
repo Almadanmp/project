@@ -475,7 +475,7 @@ class GASettingsControllerTest {
         GeographicArea daughterGA = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
         daughterGA.setMotherArea(motherGA);
         //Act
-        boolean actualResult = ctrl.seeIfItsContained(motherGA,daughterGA);
+        boolean actualResult = ctrl.isAreaContained(motherGA,daughterGA);
         //Assert
         assertTrue(actualResult);
     }
@@ -490,7 +490,7 @@ class GASettingsControllerTest {
         grandDaughterGA.setMotherArea(daughterGA);
         daughterGA.setMotherArea(motherGA);
         //Act
-        boolean actualResult = ctrl.seeIfItsContained(motherGA,grandDaughterGA);
+        boolean actualResult = ctrl.isAreaContained(motherGA,grandDaughterGA);
         //Assert
         assertTrue(actualResult);
     }
@@ -505,7 +505,7 @@ class GASettingsControllerTest {
         grandDaughterGA.setMotherArea(daughterGA);
         daughterGA.setMotherArea(motherGA);
         //Act
-        boolean actualResult = ctrl.seeIfItsContained(grandDaughterGA,motherGA);
+        boolean actualResult = ctrl.isAreaContained(grandDaughterGA,motherGA);
         //Assert
         assertFalse(actualResult);
     }
