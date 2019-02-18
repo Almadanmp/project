@@ -133,7 +133,7 @@ public class GeographicArea {
      */
 
     public boolean checkIfAreaIsContained(GeographicArea daughterArea, GeographicArea motherArea) {
-        GeographicArea tempMotherArea = daughterArea.getMotherArea();
+        GeographicArea tempMotherArea = daughterArea;
         while (tempMotherArea.getMotherArea() != null) {
             if (tempMotherArea.getMotherArea().equals(motherArea)) {
                 return true;
