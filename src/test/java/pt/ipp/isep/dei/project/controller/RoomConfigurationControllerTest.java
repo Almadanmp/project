@@ -83,51 +83,6 @@ class RoomConfigurationControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfPrintRoomElementsByIndex() {
-        //Arrange
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA, 60, 180, deviceTypeString);
-        house.addRoomToRoomList(room);
-        house.addRoomToRoomList(room1);
-
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        String actualResult = ctrl.buildRoomElementsByIndexString(list, house);
-        String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfRoomAreaIndexMatchByString() {
-        //Arrange
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA, 60, 180, deviceTypeString);
-        house.addRoomToRoomList(room);
-        house.addRoomToRoomList(room1);
-
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        List<Integer> actualResult = ctrl.matchRoomIndexByString("sala", house);
-        List<Integer> expectedResult = Collections.singletonList(house.getRoomList().indexOf(room1));
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
     nominal power of a room, i.e. the sum of the nominal power of all devices in the
@@ -306,30 +261,6 @@ class RoomConfigurationControllerTest {
         assertFalse(actualResult);
     }
 
-    @Test
-    void seeIfMatchSensorIndexByStringWorks() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        SensorList sL1 = new SensorList();
-        sL1.addSensor(s1);
-        sL1.addSensor(s2);
-        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        gA1.setSensorList(sL1);
-        GeographicAreaList gList1 = new GeographicAreaList();
-        gList1.addGeographicAreaToGeographicAreaList(gA1);
-        //Act
-        String string = "Pluviosidade";
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        List<Integer> actualResult = ctrl.matchSensorIndexByString(string, sL1);
-        List<Integer> expectedResult = Collections.singletonList(sL1.getSensorList().indexOf(s2));
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void seeIfPrintSensorListWorks() {
@@ -367,77 +298,6 @@ class RoomConfigurationControllerTest {
         String expectedResult = "Pluviosidade1, Pluviosidade, 10.0º lat, 30.0º long\n";
         //Assert
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintSensorElementsByIndexWorks() {
-        //public String buildSensorElementsByIndexString(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
-        //Assert
-        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        SensorList sList = new SensorList();
-        sList.addSensor(s1);
-        sList.addSensor(s2);
-        //Act
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        String actualResult = ctrl.buildSensorElementsByIndexString(list, sList);
-        String expectedResult = "1) Pluviosidade1 which is a Pluviosidade sensor.\n";
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintDeviceElementsByIndex() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 56D);
-        Device d2 = new WashingMachine(new WashingMachineSpec());
-        d2.setName("maquina de lavar");
-        d2.setNominalPower(150.0);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        DeviceList dlist = new DeviceList();
-        dlist.addDevice(d1);
-        dlist.addDevice(d2);
-        room.setDeviceList(dlist);
-
-        //Act
-        String result = ctrl.buildDeviceElementsByIndexString(list, room);
-        String expectedResult = "1) maquina de lavar, 150.0.\n";
-
-        //Assert
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void SeeIfMatchDeviceIndexByStringWorks() {
-        //Arrange
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("frigorifico");
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        DeviceList dlist = new DeviceList();
-        dlist.addDevice(d1);
-        room.setDeviceList(dlist);
-        //Act
-        List<Integer> result = ctrl.matchDeviceIndexByString("frigorifico", room);
-        List<Integer> expectedResult = Collections.singletonList(dlist.getList().indexOf(d1));
-        //Assert
-        assertEquals(expectedResult, result);
     }
 
     @Test

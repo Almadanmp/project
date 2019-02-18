@@ -35,17 +35,6 @@ public class HouseConfigurationController {
     }
 
     /**
-     * @param input       is the string we're going to look for in the list of Geographic Areas.
-     * @param geoAreaList is the list of Geographic Areas we're going to look for the string in.
-     * @return is a list of integers that contains the indexes of all the Geographic Areas in the given list whose name
-     * matches the given string.
-     */
-
-    List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
-        return geoAreaList.matchGeographicAreaIndexByString(input);
-    }
-
-    /**
      * @param zipCode is the zip code we're going to set.
      * @param house   is the house we're going to change the zip code to.
      */
@@ -63,16 +52,6 @@ public class HouseConfigurationController {
 
     public void setHouseLocal(double latitude, double longitude, double altitude, House house) {
         house.setLocation(latitude, longitude, altitude);
-    }
-
-    /**
-     * @param listOfIndexesGeographicAreas is a list of all the indexes in a list where relevant objects are.
-     * @param geoAreaList                  is the list from which we're getting the objects.
-     * @return builds a string of all the geoAreas contained in the list at the positions given in the list of indexes.
-     */
-
-    String buildGeoAreasByIndexString(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
-        return geoAreaList.buildGeographicAreaElementsByIndexString(listOfIndexesGeographicAreas);
     }
 
     /**

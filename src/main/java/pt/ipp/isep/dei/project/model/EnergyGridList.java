@@ -57,22 +57,6 @@ public class EnergyGridList {
         return mEnergyGridList;
     }
 
-    /**
-     * Method returns an array of integers with the index of energy grids that match the input name.
-     * @param name is the name of the grid.
-     * @return returns an array of integers.
-     */
-    public List<Integer> matchGridListElementsByString(String name) {
-
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < mEnergyGridList.size(); i++) {
-            if (getEnergyGridList().get(i).getName().equals(name)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
     public EnergyGrid createEnergyGrid(String designation, double maxPower){
         return new EnergyGrid(designation, maxPower);
     }

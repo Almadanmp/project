@@ -66,39 +66,6 @@ public class RoomConfigurationController {
         return room.buildRoomString();
     }
 
-    /**
-     * @param listOfIndexesOfRoom is a list of integers that represent positions in a list.
-     * @param house               is the house where we want to get lists from.
-     * @return builds a string from the individual elements in the House's RoomList that are contained in the positions
-     * given by the list of indexes.
-     */
-
-    String buildRoomElementsByIndexString(List<Integer> listOfIndexesOfRoom, House house) {
-        return house.buildRoomsByIndexString(listOfIndexesOfRoom);
-    }
-
-    /**
-     * @param listOfIndexesOfDevice is a list of integers that represent positions in a list.
-     * @param room                  is the room where we want to get the device list from.
-     * @return builds a string from the individual elements in the DeviceList that are contained in the positions
-     * given by the list of indexes.
-     */
-
-    String buildDeviceElementsByIndexString(List<Integer> listOfIndexesOfDevice, Room room) {
-        return room.getObjectDeviceList().buildElementByIndexString(listOfIndexesOfDevice);
-    }
-
-    /**
-     * @param input is the name of room we want to look for.
-     * @param house is the house where we want to look for rooms.
-     * @return is a list of integers representing positions in the house's roomList of rooms whose name matches
-     * input string.
-     */
-
-    List<Integer> matchRoomIndexByString(String input, House house) {
-        return house.matchRoomIndexByString(input);
-    }
-
 
     /*US222 As a Power User, I want to deactivate a device, so that it is no longer used.
     Nevertheless, it should be possible to access its configuration and activity log.*/
@@ -160,20 +127,6 @@ public class RoomConfigurationController {
         return mSensor;
     }
 
-    /**
-     * @param input is the name of sensor we want to look for.
-     * @param slist is the sensorlist where we want to look for sensors.
-     * @return is a list of integers representing positions in the sensorlist of sensors whose name matches
-     * input string.
-     */
-
-    List<Integer> matchSensorIndexByString(String input, SensorList slist) {
-        return slist.matchSensorIndexByString(input);
-    }
-
-    List<Integer> matchDeviceIndexByString(String input, Room room) {
-        return room.getObjectDeviceList().matchDeviceIndexByString(input);
-    }
 
     /**
      * @param sensorList is the sensor list to print.
@@ -291,17 +244,6 @@ public class RoomConfigurationController {
         device.setName(name);
     }
 
-
-    /**
-     * @param listOfIndexesOfSensor is a list of integers that represent positions in a list.
-     * @param sensorList            is the sensorList where we want to get sensors from.
-     * @return builds a string from the individual elements in the SensorList that are contained in the positions
-     * given by the list of indexes.
-     */
-
-    String buildSensorElementsByIndexString(List<Integer> listOfIndexesOfSensor, SensorList sensorList) {
-        return sensorList.buildElementsByIndexString(listOfIndexesOfSensor);
-    }
 
     public String buildTypeListString(List<TypeSensor> typeList) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));

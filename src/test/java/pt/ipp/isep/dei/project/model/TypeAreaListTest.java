@@ -97,53 +97,6 @@ class TypeAreaListTest {
     }
 
     @Test
-    void seeIfMatchGeographicAreaTypeIndexByString() {
-        TypeArea type = new TypeArea("cidade");
-        TypeAreaList list = new TypeAreaList();
-        String input = "cidade";
-        list.addTypeArea(type);
-        List <Integer> expectedResult = new ArrayList<>();
-        expectedResult.add(0);
-        List<Integer> result;
-        result = list.matchGeographicAreaTypeIndexByString(input);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfMatchGeographicAreaTypeIndexByStringNotMatch() {
-        TypeArea type = new TypeArea("cidade");
-        TypeAreaList list = new TypeAreaList();
-        String input = "distrito";
-        list.addTypeArea(type);
-        List <Integer> expectedResult = new ArrayList<>();
-        List<Integer> result;
-        result = list.matchGeographicAreaTypeIndexByString(input);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfPrintGATypeElementsByIndex() {
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
-        list.addTypeArea(type1);
-        List <Integer> indexList = new ArrayList<>();
-        indexList.add(0);
-        indexList.add(2);
-       String expectedResult = "---------------\n" +
-               "0) Type Area: cidade\n" +
-               "2) Type Area: aldeia\n" +
-               "---------------\n";
-        String result;
-        result = list.buildGATypeElementsByIndexString(indexList);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void seeIfPrintGAWholeList() {
         TypeArea type1 = new TypeArea("cidade");
         TypeArea type2 = new TypeArea("distrito");

@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Fridge Device tests class.
  */
 
-public class FridgeTest {
+class FridgeTest {
     @Test
     public void getDeviceTypeTest() {
         Fridge d = new Fridge(new FridgeSpec());
@@ -31,8 +31,6 @@ public class FridgeTest {
     void seeEqualToSameObject() {
         Fridge d = new Fridge(new FridgeSpec());
         d.setName("WMOne");
-        d.setNominalPower(12.0);
-        d.setAttributeValue("capacity", 12D);
         boolean actualResult = d.equals(d);
         assertTrue(actualResult);
     }
@@ -57,7 +55,6 @@ public class FridgeTest {
     void seeEqualsToDifTypeObject() {
         Fridge d = new Fridge(new FridgeSpec());
         d.setName("WMOne");
-        d.setNominalPower(12.0);
         d.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 56);
         Room room = new Room("quarto", 1, 80, 2, 2);
 
@@ -106,11 +103,33 @@ public class FridgeTest {
     @Test
     void seeIfGetAndSetAttributeUnit() {
         Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        String expectedResult = "Kg";
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 33.3);
-        Object result = d1.getAttributeUnit(FridgeSpec.FREEZER_CAPACITY);
-        assertEquals(expectedResult, result);
+        d1.getAttributeUnit(FridgeSpec.ANNUAL_CONSUMPTION);
+        d1.getAttributeUnit(FridgeSpec.REFRIGERATOR_CAPACITY);
+        d1.getAttributeUnit(FridgeSpec.FREEZER_CAPACITY);
+        String expectedResult1 = "Kg";
+        String expectedResult2 = "kWh";
+        Object result1 = d1.getAttributeUnit(FridgeSpec.FREEZER_CAPACITY);
+        Object result2 = d1.getAttributeUnit(FridgeSpec.REFRIGERATOR_CAPACITY);
+        Object result3 = d1.getAttributeUnit(FridgeSpec.ANNUAL_CONSUMPTION);
+        assertEquals(expectedResult1, result1);
+        assertEquals(expectedResult1, result2);
+        assertEquals(expectedResult2, result3);
+    }
+
+    @Test
+    void seeIfGetAndSetAttributeValues() {
+        Fridge d1 = new Fridge(new FridgeSpec());
+        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 13D);
+        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 14D);
+        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 16D);
+
+        Object result1 = d1.getAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION);
+        Object result2 = d1.getAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY);
+        Object result3 = d1.getAttributeValue(FridgeSpec.FREEZER_CAPACITY);
+
+        assertEquals(16D, result1);
+        assertEquals(14D, result2);
+        assertEquals(13D, result3);
     }
 
     @Test
@@ -122,7 +141,7 @@ public class FridgeTest {
         expectedResult.add(FridgeSpec.REFRIGERATOR_CAPACITY);
         expectedResult.add(FridgeSpec.ANNUAL_CONSUMPTION);
         List<String> result = d1.getAttributeNames();
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -152,6 +171,14 @@ public class FridgeTest {
         double expectedResult = 0;
         double actualResult = d1.getEnergyConsumption(2);
         assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
+    void isProgrammableTest() {
+        Fridge d1 = new Fridge(new FridgeSpec());
+        boolean result = d1.isProgrammable();
+        assertFalse(result);
     }
 
     @Test
@@ -342,5 +369,4 @@ public class FridgeTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
 }

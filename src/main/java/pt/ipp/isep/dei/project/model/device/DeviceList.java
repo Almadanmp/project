@@ -54,25 +54,6 @@ public class DeviceList {
         return result;
     }
 
-    public List<Integer> matchDeviceIndexByString(String input) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < mDeviceList.size(); i++) {
-            if (mDeviceList.get(i).getName().equals(input)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    public String buildElementByIndexString(List<Integer> indexes) {
-        StringBuilder result = new StringBuilder();
-        for (Integer indexe : indexes) {
-            int pos = indexe;
-            result.append(indexe).append(") ").append(mDeviceList.get(pos).getName()).append(", ").append(mDeviceList.get(pos).getNominalPower()).append(".\n");
-        }
-        return result.toString();
-    }
-
     public boolean contains(Device device) {
         return this.mDeviceList.contains(device);
     }

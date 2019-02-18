@@ -84,35 +84,6 @@ public class GeographicAreaList {
     }
 
     /**
-     * Method to Match a GeographicArea By Name,
-     *
-     * @return a list of GAs with the input name.
-     */
-    public List<Integer> matchGeographicAreaIndexByString(String input) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < mGeographicAreaList.size(); i++) {
-            if (mGeographicAreaList.get(i).getId().equals(input)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Method to pring Geographic Area Elements by index
-     */
-    public String buildGeographicAreaElementsByIndexString(List<Integer> indexes) {
-        StringBuilder result = new StringBuilder(mStringEnhancer);
-        for (Integer index : indexes) {
-            int pos = index;
-            result.append(index).append(") ").append(mGeographicAreaList.get(pos).buildGeographicAreaString());
-        }
-        result.append(mStringEnhancer);
-        return result.toString();
-    }
-
-
-    /**
      * Method that receives a string as a parameter, compares that string with every
      * Geographic Area name of every GA in the list and returns true in case of match.
      *

@@ -270,25 +270,6 @@ public class House implements Metered {
         return this.mRoomList.buildRoomsString();
     }
 
-    /**
-     * @param indexList is a list of integers that represent positions in a list.
-     * @return builds a string from the individual elements in the RoomList that are contained in the positions
-     * given by the list of indexes.
-     */
-
-    public String buildRoomsByIndexString(List<Integer> indexList) {
-        return this.mRoomList.buildElementsByIndexString(indexList);
-    }
-
-    /**
-     * @param input is the name of room we want to look for.
-     * @return is a list of integers, representing positions in the roomList, of rooms whose name matches
-     * input string.
-     */
-    public List<Integer> matchRoomIndexByString(String input) {
-        return this.mRoomList.matchRoomIndexByString(input);
-    }
-
 
     /**
      * Returns a list of devices of a given type, in all rooms of this house.

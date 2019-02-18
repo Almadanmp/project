@@ -181,37 +181,6 @@ public class SensorList {
 
     /**
      *
-     * @param input is the string we're going to look for in the list of Sensors.
-     * @return is a list of integers that contains the indexes of all the Sensors in the given list whose name
-     * matches the given string.
-     */
-
-    public List<Integer> matchSensorIndexByString(String input){
-        List<Integer> result = new ArrayList<>();
-        for(int i = 0; i < mSensorList.size(); i++){
-            if (mSensorList.get(i).getName().equals(input)){
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    /**
-     *
-     * @param indexes is a list of all the indexes in a list where relevant objects are.
-     * @return builds a string of all the individual members of the Sensor list.
-     */
-
-    public String buildElementsByIndexString(List<Integer> indexes){
-        StringBuilder result = new StringBuilder();
-        for (int pos : indexes) {
-            result.append(pos).append(") ").append(mSensorList.get(pos).getName()).append(" which is a ").append(mSensorList.get(pos).getTypeSensor().getName()).append(" sensor.\n");
-        }
-        return result.toString();
-    }
-
-    /**
-     *
      * @return builds a string of all the individual members of the list of sensors of the Room.
      */
 

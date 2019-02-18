@@ -48,47 +48,6 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    void seeIfGeographicAreaIndexMatchByString() {
-        //Arrange
-        HouseConfigurationController ctrl = new HouseConfigurationController();
-        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        GeographicArea gA2 = new GeographicArea("lisboa", new TypeArea("aldeia"), 2, 3, new Local(4, 4, 100));
-
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(gA1);
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(gA2);
-        //Act
-        List<Integer> result = ctrl.matchGeographicAreaIndexByString("lisboa", mGeographicAreaList);
-        List<Integer> expectedResult = Collections.singletonList(mGeographicAreaList.getGeographicAreaList().indexOf(gA2));
-        //Assert
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfPrintGeoGraphicAreaElementsByIndex() {
-        //Arrange
-        HouseConfigurationController ctrl = new HouseConfigurationController();
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), 2, 3, new Local(4, 4, 100));
-
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
-
-        //Act
-        String result = ctrl.buildGeoAreasByIndexString(list, mGeographicAreaList);
-        String expectedResult = "---------------\n" +
-                "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
-                "---------------\n";
-
-        //Assert
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void seeIfSetHouseAddress() {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
@@ -151,46 +110,6 @@ class HouseConfigurationControllerTest {
 
 
     // USER STORY 108
-
-    @Test
-    void seeIfMatchGeographicAreaIndexByStringWorks() {
-        //Arrange -------------------------------------
-        HouseConfigurationController ctrl = new HouseConfigurationController();
-        //Geo Area List
-        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), 2, 3, new Local(4, 4, 100));
-
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
-        //Act -----------------------------------------
-        List<Integer> result = ctrl.matchGeographicAreaIndexByString("lisboa", mGeographicAreaList);
-        List<Integer> expectedResult = Collections.singletonList(mGeographicAreaList.getGeographicAreaList().indexOf(geoa2));
-        //Assert --------------------------------------
-        Assertions.assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfPrintGeoGraphicAreaElementsByIndex2() {
-        //Arrange -----------------------------------------
-        HouseConfigurationController ctrl = new HouseConfigurationController();
-        //Geo Area List
-        GeographicAreaList mGeographicAreaList = new GeographicAreaList();
-        GeographicArea geoa1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        GeographicArea geoa2 = new GeographicArea("lisboa", new TypeArea("aldeia"), 2, 3, new Local(4, 4, 100));
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa1);
-        mGeographicAreaList.addGeographicAreaToGeographicAreaList(geoa2);
-        //Act ---------------------------------------------
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        String result = ctrl.buildGeoAreasByIndexString(list, mGeographicAreaList);
-        String expectedResult = "---------------\n" +
-                "1) lisboa, aldeia, 4.0º lat, 4.0º long\n" +
-                "---------------\n";
-        //Assert ------------------------------------------
-        Assertions.assertEquals(expectedResult, result);
-    }
 
     @Test
     void seeIfPrintsGeoA() {

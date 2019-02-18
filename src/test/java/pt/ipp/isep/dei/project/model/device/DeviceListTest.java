@@ -229,65 +229,6 @@ class DeviceListTest {
     }
 
     @Test
-    void SeeIfMatchDeviceIndexByStringWorks() {
-        //Arrange
-        Device device = new Fridge(new FridgeSpec());
-        device.setName("fridge");
-        device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        device.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
-        device.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        DeviceList dlist = new DeviceList();
-        dlist.addDevice(device);
-        //Act
-        List<Integer> result = dlist.matchDeviceIndexByString("fridge");
-        List<Integer> expectedResult = Collections.singletonList(dlist.getList().indexOf(device));
-        //Assert
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void SeeIfMatchDeviceIndexByStringFails() {
-        //Arrange
-        Device device = new Fridge(new FridgeSpec());
-        device.setName("fridge");
-        device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        device.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
-        device.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        DeviceList dlist = new DeviceList();
-        dlist.addDevice(device);
-        //Act
-        List<Integer> result = dlist.matchDeviceIndexByString("heater");
-        List<Integer> expectedResult = new ArrayList<>();
-        //Assert
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void SeeIfPrintElementsByIndexWorks() {
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setNominalPower(150.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        Device d2 = new WashingMachine(new WashingMachineSpec());
-        d2.setName("maquina de lavar");
-        d2.setNominalPower(150.0);
-        DeviceList dlist = new DeviceList();
-        dlist.addDevice(d1);
-        dlist.addDevice(d2);
-
-        //Act
-        String result = dlist.buildElementByIndexString(list);
-        String expectedResult = "1) maquina de lavar, 150.0.\n";
-
-        //Assert
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void hashCodeDummyTest() {
         //Arrange -------------------
         DeviceList deviceL1 = new DeviceList();
