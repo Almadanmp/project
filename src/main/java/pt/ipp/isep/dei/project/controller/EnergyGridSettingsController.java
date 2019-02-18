@@ -109,8 +109,8 @@ public class EnergyGridSettingsController {
      * @param maxEnergyStorage is the new power source's maximum capacity.
      */
 
-    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
-        return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+    public PowerSource createPowerSource(EnergyGrid energyGrid, String name, double maxPowerOutput, double maxEnergyStorage) {
+        return energyGrid.getListOfPowerSources().createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
     /**

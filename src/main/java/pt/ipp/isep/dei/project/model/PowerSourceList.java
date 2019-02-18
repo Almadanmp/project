@@ -57,6 +57,10 @@ public class PowerSourceList {
         return this.mPowerSourceList;
     }
 
+    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){
+        return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+    }
+
 
     @Override
     public boolean equals(Object testObject) {
