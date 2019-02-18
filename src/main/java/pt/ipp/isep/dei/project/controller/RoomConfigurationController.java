@@ -271,7 +271,7 @@ public class RoomConfigurationController {
     }
 
 
-    public ProgramList getWashingMachineProgramList(Programmable device) {
+    public ProgramList getProgramListFromAProgrammableDevice(Programmable device) {
         return device.getProgramList();
     }
 
