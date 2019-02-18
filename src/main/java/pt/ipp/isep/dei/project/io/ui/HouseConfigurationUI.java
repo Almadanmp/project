@@ -72,16 +72,13 @@ class HouseConfigurationUI {
         System.out.print("Please, type the address of the house: ");
         this.mHouseAddress = scanner.nextLine();
 
-
         // get zip code
         System.out.print("Please, type the Zip Code of the house: ");
         this.mHouseZipCode = scanner.nextLine();
 
-
         //get latitude
         System.out.print("Please, type the latitude: ");
         this.mHouseLat = inputUtils.getInputAsDouble();
-
 
         // get longitude
         System.out.print("Please, type the longitude: ");
@@ -89,7 +86,6 @@ class HouseConfigurationUI {
 
         // get longitude
         System.out.print("Please, type the altitude: ");
-
         this.mHouseAlt = inputUtils.getInputAsDouble();
 
     }
@@ -98,7 +94,6 @@ class HouseConfigurationUI {
      * Method updates the house using the input previously stored.
      * @param house receives the house the program is managing, so its parameters get changed.
      */
-
     private void updateHouseUS101(House house) {
         controller.setHouseLocal(mHouseLat, mHouseLon, mHouseAlt, house);
         controller.setHouseZIPCode(mHouseZipCode, house);
@@ -109,7 +104,6 @@ class HouseConfigurationUI {
      * Method displays the house after all the changes have happened.
      * @param house receives the house the program is managing, so its new parameters get displayed.
      */
-
     private void displayHouseUS101(House house) {
         String houseId = controller.getHouseName(house);
         System.out.println("You have successfully changed the location of the house " + houseId + ". \n" + "Address: " +
@@ -153,7 +147,7 @@ class HouseConfigurationUI {
     }
 
     /**
-     * Method displays the Room and its characteristics.
+     * Method displays the input room and its characteristics.
      */
     private void displayStateRoom() {
         String yourNewRoom = "The room you are trying to create is called ";
@@ -174,12 +168,10 @@ class HouseConfigurationUI {
     }
 
     /**
-     * Method calls on controller to add the created room to the house the program manages.
-     * @param house receives the house the program manages so the room can be added to it.
+     * Method tries to create a room based on the input from user and returns message to user
+     * @param house receives program house so the room can be added to it.
      */
-
     private void updateRoomAndDisplayState(House house) {
-        String houseName = controller.getHouseName(house);
         if (controller.createNewRoom(house, mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight)) {
             System.out.println("The room has been added to house.");
         } else {

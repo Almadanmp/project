@@ -20,7 +20,6 @@ public class Dishwasher implements Device, Metered, Programmable {
     private ProgramList mDWProgramList;
     private LogList mDWLogList;
 
-
     public Dishwasher(DishwasherSpec dishwasherSpec) {
         this.mDWDeviceSpecs = dishwasherSpec;
         this.mDWActive = true;

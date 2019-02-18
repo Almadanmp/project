@@ -21,7 +21,6 @@ class HouseConfigurationControllerTest {
     // Common artifacts for testing in this class.
     public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
-
     @Test
     void seeIfPrintGAList() {
         //Arrange
@@ -135,7 +134,7 @@ class HouseConfigurationControllerTest {
         HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
+        Room room1 = new Room("room", 1, 1, 2, 2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room);
         roomList.addRoom(room1);
@@ -145,7 +144,7 @@ class HouseConfigurationControllerTest {
         house.setRoomList(roomList);
         String expectedResult = "---------------\n" +
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
-                "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
+                "1) Designation: room | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
         String result = ctrl.buildRoomsString(house);
         Assertions.assertEquals(expectedResult, result);
@@ -165,7 +164,6 @@ class HouseConfigurationControllerTest {
         boolean expectedResult1 = ctrl.createNewRoom(house, "kitchen", 1,1,1,1);
         boolean expectedResult2 = ctrl.createNewRoom(house, "room", 1,1,1,1);
         boolean expectedResult3 = ctrl.createNewRoom(house, "kitchen", 1,1,1,1);
-
         //ASSERT
         assertTrue(expectedResult1);
         assertTrue(expectedResult2);

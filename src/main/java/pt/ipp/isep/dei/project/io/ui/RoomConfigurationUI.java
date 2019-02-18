@@ -187,10 +187,6 @@ class RoomConfigurationUI {
     private void getInputDeviceCharacteristicsUS215(Device device, Room room, House house) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
-        if (device == null || room == null) {
-            System.out.println("There are no devices in this room.");
-            return;
-        }
 
         // get device name
         System.out.print("Please, type the new name of the device: ");
@@ -199,8 +195,10 @@ class RoomConfigurationUI {
         //get room
         ctrl.removeDevice(room, device);
         InputUtils inputUtils = new InputUtils();
+        System.out.println("Please select the room you want to add the device.");
         room = inputUtils.getHouseRoomByList(house);
         ctrl.addDevice(room, device);
+
         List<String> attributeNames = ctrl.getAttributeNames(device);
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + attributeNames.get(i)
@@ -211,14 +209,14 @@ class RoomConfigurationUI {
         System.out.println("Please insert the value for: Nominal Power (kW)");
         device.setNominalPower(scanner.nextDouble());
         if (ctrl.isProgrammable(device)) {
+            UtilsUI utilsUI = new UtilsUI();
             System.out.println("This device is programmable.");
-            Program program;
-            program = inputUtils.getSelectedProgramFromDevice((Programmable) device);
             ProgramList programList = ctrl.getProgramListFromAProgrammableDevice((Programmable) device);
-            if (program == null || programList == null) {
-                System.out.println("There are no program to edit.");
+            if(!utilsUI.programListIsValid(programList)){
+                System.out.println(utilsUI.invalidProgramList);
                 return;
             }
+            Program program = inputUtils.getSelectedProgramFromDevice((Programmable) device);
             updateAProgrammableDevice(program, programList, (Programmable) device);
             ctrl.configureOneWashingMachineProgram(device, programList);
         }
