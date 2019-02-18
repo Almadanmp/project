@@ -11,7 +11,6 @@ import pt.ipp.isep.dei.project.model.device.program.Program;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -27,61 +26,6 @@ class RoomConfigurationControllerTest {
 
     // Common artifacts for testing in this class.
     public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
-
-
-    //  SHARED METHODS
-    @Test
-    void seeIfRoomIsContainedInRoomList() {
-        //Arrange
-        Room room1 = new Room("Quarto", 1, 5, 1, 21);
-        Room room2 = new Room("Cozinha", 1, 9, 3, 5);
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House house1 = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
-        house1.addRoomToRoomList(room1);
-        house1.addRoomToRoomList(room2);
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        Room actualResult = ctrl.getRoomFromHouseByName("Quarto", house1);
-        //Assert
-        assertEquals(room1, actualResult);
-    }
-
-    @Test
-    void seeIfPrintsRoomList() {
-        //Arrange
-        GeographicArea gA = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), gA, 60, 180, deviceTypeString);
-        house.addRoomToRoomList(room);
-        house.addRoomToRoomList(room1);
-
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        String expectedactualResult = "---------------\n" +
-                "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
-                "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
-                "---------------\n";
-        String actualResult = ctrl.buildRoomListString(house);
-        //Assert
-        assertEquals(expectedactualResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintRoomWorks() {
-        //Arrange
-        Room room = new Room("room1", 1, 1, 2, 2);
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        String actualResult = ctrl.buildRoomString(room);
-        String expectedResult = "room1, 1, 1.0, 2.0, 2.0.\n";
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
@@ -194,73 +138,6 @@ class RoomConfigurationControllerTest {
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
 
-    @Test
-    void seeIfSensorIsContainedInGA() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento1", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        SensorList sList = new SensorList();
-        sList.addSensor(s1);
-        sList.addSensor(s2);
-        GeographicArea gA1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        gA1.setSensorList(sList);
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        Sensor actualResult = ctrl.getSensorFromGAByName("Vento1", gA1);
-        //Assert
-        assertEquals(s1, actualResult);
-    }
-
-    @Test
-    void seeIfSensorListIsContainedInGAList() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        SensorList sList = new SensorList();
-        sList.addSensor(s1);
-        sList.addSensor(s2);
-        GeographicArea ga1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        ga1.setSensorList(sList);
-        GeographicAreaList gList = new GeographicAreaList();
-        gList.addGeographicAreaToGeographicAreaList(ga1);
-        //Act
-        RoomConfigurationController crl = new RoomConfigurationController();
-        boolean actualResult = crl.checkIfGAContainsSensorByString("Vento", ga1);
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfSensorListIsNotContainedInGAList() {
-        //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
-        Sensor s2 = new Sensor("Pluviosidade", new TypeSensor("Pluviosidade", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        SensorList sList = new SensorList();
-        sList.addSensor(s1);
-        sList.addSensor(s2);
-        GeographicArea ga1 = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        ga1.setSensorList(sList);
-        GeographicAreaList gAList = new GeographicAreaList();
-        gAList.addGeographicAreaToGeographicAreaList(ga1);
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        boolean actualResult = ctrl.checkIfGAContainsSensorByString("Chuva", ga1);
-        //Assert
-        assertFalse(actualResult);
-    }
-
 
     @Test
     void seeIfPrintSensorListWorks() {
@@ -283,39 +160,6 @@ class RoomConfigurationControllerTest {
                 "---------------\n";
         //Assert
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintSensorWorks() {
-        //String buildSensorString(Sensor sensor) {
-        //Assert
-        Sensor s2 = new Sensor("Pluviosidade1", new TypeSensor("Pluviosidade", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        String actualResult = ctrl.buildSensorString(s2);
-        String expectedResult = "Pluviosidade1, Pluviosidade, 10.0º lat, 30.0º long\n";
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintDevice() {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("frigorifico");
-        d1.setNominalPower(200.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 56D);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        DeviceList dlist = new DeviceList();
-        dlist.addDevice(d1);
-        room.setDeviceList(dlist);
-        String result = ctrl.buildDeviceString(d1);
-        String expectedResult = "The device Name is frigorifico, and its NominalPower is 200.0 kW.\n";
-        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -352,18 +196,6 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfTypeListIsPrintedEmptyList() {
-        //Arrange
-        List<TypeSensor> list1 = new ArrayList<>();
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        String result = "Invalid List - List is Empty\n";
-        String actualResult = ctrl.buildTypeListString(list1);
-        //Assert
-        assertEquals(result, actualResult);
-    }
-
-    @Test
     void setNominalPowerDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Device device = new Fridge(new FridgeSpec());
@@ -372,26 +204,6 @@ class RoomConfigurationControllerTest {
         double result = device.getNominalPower();
         assertEquals(5.0, result);
     }
-
-    @Test
-    void seeIfTypeListIsPrinted() {
-        //Arrange
-        List<TypeSensor> list1 = new ArrayList<>();
-        TypeSensor t1 = new TypeSensor("rain", "mm");
-        TypeSensor t2 = new TypeSensor("wind", "km/h");
-        list1.add(t1);
-        list1.add(t2);
-        //Act
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        String result = "---------------\n" +
-                "0) Name: rain | Units: mm\n" +
-                "1) Name: wind | Units: km/h\n" +
-                "---------------\n";
-        String actualResult = ctrl.buildTypeListString(list1);
-        //Assert
-        assertEquals(result, actualResult);
-    }
-
 
     @Test
     void removeDeviceSuccess() {
@@ -575,12 +387,12 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfGetProgramAttributeNamesTest() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Program program = new Program("program",2,2);
+        Program program = new Program("program", 2, 2);
         ctrl.setProgramAttributeValue(program, 0, 34);
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add(Program.DURATION);
         expectedResult.add(Program.ENERGY_CONSUMPTION);
-        List<String> result =ctrl.getProgramAttributeNames(program);
+        List<String> result = ctrl.getProgramAttributeNames(program);
         assertEquals(expectedResult, result);
     }
 
@@ -599,27 +411,27 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfGetProgramAttributeUnit() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Program program = new Program("program",2,2);
-        ctrl.setProgramAttributeValue(program,0,12);
+        Program program = new Program("program", 2, 2);
+        ctrl.setProgramAttributeValue(program, 0, 12);
         String expectedResult = "min";
-        Object result = ctrl.getProgramAttributeUnit(program,0);
+        Object result = ctrl.getProgramAttributeUnit(program, 0);
         Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetProgramAttributeValue(){
+    void seeIfGetProgramAttributeValue() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
-        Program program = new Program("program",2,2);
+        Program program = new Program("program", 2, 2);
         double expectedResult = 2.0;
-        Object result = ctrl.getProgramAttributeValue(program,1);
+        Object result = ctrl.getProgramAttributeValue(program, 1);
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAttributeValue(){
+    void seeIfGetAttributeValue() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         WaterHeaterSpec whspec = new WaterHeaterSpec();
-        whspec.setAttributeValue("Volume Of Water",5D);
+        whspec.setAttributeValue("Volume Of Water", 5D);
         WaterHeater device = new WaterHeater(whspec);
         double expectedResult = 5.0;
         Object result = ctrl.getAttributeValue(device, 0);
@@ -627,17 +439,17 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfSetProgramName(){
+    void seeIfSetProgramName() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Program program = new Program();
         ctrl.setProgramName(program, "program");
         String result = program.getProgramName();
         String expectedResult = "program";
-        assertEquals(result,expectedResult);
+        assertEquals(result, expectedResult);
     }
 
     @Test
-    void getProgramListFromAProgrammableDevice(){
+    void getProgramListFromAProgrammableDevice() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         WashingMachineSpec wmSpec = new WashingMachineSpec();
         WashingMachine washMach = new WashingMachine(wmSpec);
@@ -645,11 +457,11 @@ class RoomConfigurationControllerTest {
         Program program = new Program();
         programList.addProgram(program);
         ProgramList result = ctrl.getProgramList(washMach);
-        assertEquals(result,programList);
+        assertEquals(result, programList);
     }
 
     @Test
-    void seeIfIsProgrammableTrue(){
+    void seeIfIsProgrammableTrue() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         WashingMachineSpec wmSpec = new WashingMachineSpec();
         WashingMachine washMach = new WashingMachine(wmSpec);
@@ -658,7 +470,7 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfIsProgrammableFalse(){
+    void seeIfIsProgrammableFalse() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         WaterHeaterSpec wmSpec = new WaterHeaterSpec();
         WaterHeater washMach = new WaterHeater(wmSpec);
@@ -668,13 +480,13 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfSetDeviceName(){
+    void seeIfSetDeviceName() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         WaterHeaterSpec wmSpec = new WaterHeaterSpec();
         WaterHeater washMach = new WaterHeater(wmSpec);
         ctrl.setDeviceName("not a washing machine", washMach);
         String result = washMach.getName();
-        assertEquals(result,"not a washing machine");
+        assertEquals(result, "not a washing machine");
     }
 
 

@@ -177,13 +177,6 @@ public class House implements Metered {
         return true;
     }
 
-    String buildHouseString() {
-        String result;
-        result = this.mId + ", " + this.mStreet + ", " + this.mZip + ", " +
-                this.mTown + ".\n";
-        return result;
-    }
-
     /**
      * calculates distance from the house to the sensor.
      *
@@ -285,15 +278,6 @@ public class House implements Metered {
         return devicesOfGivenType;
     }
 
-    List<Device> getAllHouseDevices() {
-        List<Device> allDevices = new ArrayList<>();
-        for (Room r : mRoomList.getList()) {
-            allDevices.addAll(r.getDeviceList());
-        }
-        return allDevices;
-    }
-
-
     public String buildTypeListString(List<DeviceType> list) {
         StringBuilder result = new StringBuilder(new StringBuilder());
         if (list.isEmpty()) {
@@ -324,13 +308,15 @@ public class House implements Metered {
         return 0;
     }
 
-    /**This method receives room parameters, checks if room exists in house and
+    /**
+     * This method receives room parameters, checks if room exists in house and
      * creates room in case it doesn't. In the end, the room will be added to the house
      * and the method will return true.
+     *
      * @return true in case the room is added to house, false otherwise
-     * **/
-    public boolean createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height){
-        if(!containsRoomByName(roomDesignation)){
+     **/
+    public boolean createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+        if (!containsRoomByName(roomDesignation)) {
             Room room = new Room(roomDesignation, roomHouseFloor, width, length, height);
             mRoomList.addRoom(room);
             return true;
@@ -338,14 +324,16 @@ public class House implements Metered {
         return false;
     }
 
-    /**This receives a room designation and checks if house has room with
+    /**
+     * This receives a room designation and checks if house has room with
      * that designation, returning true in case it does and false in case it does not.
+     *
      * @return true in case a room with the given designation exists in house, false otherwise
-     * **/
-    public boolean containsRoomByName(String roomDesignation){
-        for(Room r : this.mRoomList.getList()){
+     **/
+    public boolean containsRoomByName(String roomDesignation) {
+        for (Room r : this.mRoomList.getList()) {
             String nameTest = r.getRoomName();
-            if(nameTest.equals(roomDesignation)){
+            if (nameTest.equals(roomDesignation)) {
                 return true;
             }
         }

@@ -21,6 +21,7 @@ public class EnergyGridList {
 
     /**
      * Method adds an energy grid to the a energy grid list if the input grid isn't already contained in said list.
+     *
      * @param energyGridToAdd the energy grid we want to add to the list.
      * @return returns true if the addition to the list is successful.
      */
@@ -33,31 +34,15 @@ public class EnergyGridList {
     }
 
     /**
-     * Method prints the names of all the energy grids contained in the list of energy grids.
-     * @return returns true if the addition to the list is successful.
-     */
-    String buildEnergyGridListString() {
-        StringBuilder finalString = new StringBuilder();
-        String emptyList = "The list is empty.";
-        if (mEnergyGridList.isEmpty()) {
-            return emptyList;
-        }
-        finalString.append("Energy grid list:");
-        for (EnergyGrid energyGrid : mEnergyGridList) {
-            finalString.append(" \n" + "-").append(energyGrid.getName()).append(";");
-        }
-        return finalString.toString();
-    }
-
-    /**
      * Method returns an array containing all the energy grids contained in the list of energy grids.
+     *
      * @return returns an array of energy grids.
      */
     public List<EnergyGrid> getEnergyGridList() {
         return mEnergyGridList;
     }
 
-    public EnergyGrid createEnergyGrid(String designation, double maxPower){
+    public EnergyGrid createEnergyGrid(String designation, double maxPower) {
         return new EnergyGrid(designation, maxPower);
     }
 

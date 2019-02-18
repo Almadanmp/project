@@ -2,9 +2,6 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -14,35 +11,6 @@ import static org.testng.Assert.assertTrue;
  */
 
 class TypeAreaListTest {
-
-    @Test
-    void seeIfPrintTypeAreaListWorks() {
-        TypeAreaList list = new TypeAreaList();
-        TypeArea t1 = new TypeArea("Rua");
-        list.addTypeArea(t1);
-        String result = list.buildTypeAreaListString();
-        String expectedResult = "\n" +
-                "Area Types List:\n" +
-                "\n" +
-                "-Rua;";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void seeIfPrintsWhenTypeAreaListIsEmpty() {
-        TypeAreaList list = new TypeAreaList();
-        String result = list.buildTypeAreaListString();
-        String expectedResult = "\nArea Types List:\n\n|||| List is Empty ||||\nAdd types to list first";
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    void seeIfPrintsWhenTypeAreaListIsNull() {
-        TypeAreaList list = new TypeAreaList();
-        String result = list.buildTypeAreaListString();
-        String expectedResult = "\nArea Types List:\n\n|||| List is Empty ||||\nAdd types to list first";
-        assertEquals(result, expectedResult);
-    }
 
     @Test
     void newTAG() {
@@ -106,11 +74,11 @@ class TypeAreaListTest {
         list.addTypeArea(type2);
         list.addTypeArea(type3);
         list.addTypeArea(type1);
-                String expectedResult = "---------------\n" +
-                        "0) Name: cidade \n" +
-                        "1) Name: distrito \n" +
-                        "2) Name: aldeia \n" +
-                        "---------------\n";
+        String expectedResult = "---------------\n" +
+                "0) Name: cidade \n" +
+                "1) Name: distrito \n" +
+                "2) Name: aldeia \n" +
+                "---------------\n";
         String result;
         result = list.buildGATypeWholeListString(list);
         assertEquals(expectedResult, result);

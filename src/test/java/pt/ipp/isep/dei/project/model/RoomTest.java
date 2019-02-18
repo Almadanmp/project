@@ -178,34 +178,6 @@ class RoomTest {
     }
 
     @Test
-    void seeIfDoesSensorListInARoomContainASensorByNameWorks() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
-        boolean result = room.doesSensorListInARoomContainASensorByName("sensor1");
-        assertTrue(result);
-    }
-
-    @Test
-    void seeIfDoesSensorListInARoomContainASensorByNameWorksFalse() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 8, 5, 2);
-        room.setRoomSensorList(list);
-        boolean result = room.doesSensorListInARoomContainASensorByName("sensor89");
-        assertEquals(false, result);
-    }
-
-    @Test
     void seeIfAddSensorWorks() {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("temperature", "Celsius");
@@ -652,32 +624,6 @@ class RoomTest {
         boolean expectedResult = false;
         //Assert
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetAllHouseDevices() {
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setName("ghfghfg");
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setName("hdhfg");
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        house.addRoomToRoomList(r1);
-        List<Device> expectedResult = new ArrayList<>();
-        expectedResult.add(d2);
-        expectedResult.add(d3);
-        List<Device> result = house.getAllHouseDevices();
-        Assert.assertEquals(expectedResult, result);
     }
 
     @Test

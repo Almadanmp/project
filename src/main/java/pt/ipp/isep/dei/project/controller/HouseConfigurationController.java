@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
-import java.util.List;
 
 /**
  * Controller class for House Configuration UI
@@ -12,15 +9,6 @@ import java.util.List;
 public class HouseConfigurationController {
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
-
-    /**
-     * @param geoAreaList is the list we're going to print.
-     * @return builds a striing of all the individual members of the geoArea list.
-     */
-
-    String buildGAListString(GeographicAreaList geoAreaList) {
-        return geoAreaList.buildGaWholeListString(geoAreaList);
-    }
 
     /**
      * @param address is the address of the house.
@@ -51,21 +39,14 @@ public class HouseConfigurationController {
         house.setLocation(latitude, longitude, altitude);
     }
 
-    /**
-     * @param geoArea is the area we're going to print.
-     * @return builds a string with the given area.
-     */
-
-    String buildGeoAreaString(GeographicArea geoArea) {
-        return geoArea.buildGeographicAreaString();
-    }
-
-    /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
+       /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
      house floor and dimensions) */
 
-    /** This method receives the house and room parameter, creates a new room and adds it to house in case it the room
+    /**
+     * This method receives the house and room parameter, creates a new room and adds it to house in case it the room
      * does not exist in house.
-     * @param house program house that will create the room
+     *
+     * @param house           program house that will create the room
      * @param roomDesignation is the name of the room we're going to create.
      * @param roomHouseFloor  is the floor of the room we're going to create.
      * @param width           is the width of the room we're going to create.

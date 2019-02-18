@@ -6,8 +6,8 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
 import java.util.List;
@@ -23,17 +23,6 @@ public class EnergyConsumptionController {
      As a Power User, I want to know the total nominal power of a subset of rooms and/or devices of my choosing
      connected to a grid.
      */
-
-    /**
-     * Calls for the grid's method in the model to print its own rooms and devices.
-     *
-     * @param grid is the grid the user has already chosen.
-     * @return builds a string from the Rooms and the Devices in that grid.
-     */
-
-    String buildRoomsAndDevicesString(EnergyGrid grid) {
-        return grid.buildRoomsAndDevicesString();
-    }
 
     /**
      * Calls for the room's method in the model to add all of its devices to a given deviceList.

@@ -112,10 +112,6 @@ public class Room implements Metered {
         return result.toString();
     }
 
-    public DeviceList getObjectDeviceList() {
-        return this.mDeviceList;
-    }
-
     /**
      * This method will go through the room's device list and add all the devices'
      * The result is the room's total nominal power and will be returned as a double
@@ -187,15 +183,6 @@ public class Room implements Metered {
         }
         return tempSensors;
 
-    }
-
-    boolean doesSensorListInARoomContainASensorByName(String name) {
-        for (Sensor s : mRoomSensorList.getSensorList()) {
-            if (s.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public boolean removeDevice(Device device) {

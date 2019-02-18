@@ -16,23 +16,6 @@ public class TypeAreaList {
     }
 
     /**
-     * This method prints all the Geographic Area Types in a TypeAreaList.
-     *
-     * @return the types of geographic areas in a list
-     */
-    String buildTypeAreaListString() {
-        StringBuilder finalString = new StringBuilder("\nArea Types List:\n");
-        if (mTypeAreaList.isEmpty()) {
-            finalString.append("\n|||| List is Empty ||||\nAdd types to list first");
-        } else {
-            for (TypeArea tipo : mTypeAreaList) {
-                finalString.append("\n").append("-").append(tipo.getTypeOfGeographicArea()).append(";");
-            }
-        }
-        return finalString.toString();
-    }
-
-    /**
      * This method creates a new Type of Geographic Area and adds it to a list.
      *
      * @param name String of the new Area Type that one wishes to create and add to a list.

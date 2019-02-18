@@ -3,11 +3,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Fridge;
-import pt.ipp.isep.dei.project.model.device.WashingMachine;
-import pt.ipp.isep.dei.project.model.device.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
@@ -454,20 +450,6 @@ class HouseTest {
     }
 
     @Test
-    void seePrintHouse() {
-        //ARRANGE
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
-        String expectedResult = "casa de praia, Rua das Flores, 4512, Porto.\n";
-        //ACT
-        String actualResult = house.buildHouseString();
-        //ASSERT
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void hashCodeDummyTest() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
@@ -882,9 +864,9 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Beach House", "Flower Street", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         //ACT
-        boolean expectedResult1 = house.createRoom("kitchen", 1,1,1,1);
-        boolean expectedResult2 = house.createRoom("room", 1,1,1,1);
-        boolean expectedResult3 = house.createRoom("kitchen", 1,1,1,1);
+        boolean expectedResult1 = house.createRoom("kitchen", 1, 1, 1, 1);
+        boolean expectedResult2 = house.createRoom("room", 1, 1, 1, 1);
+        boolean expectedResult3 = house.createRoom("kitchen", 1, 1, 1, 1);
         //ASSERT
         assertTrue(expectedResult1);
         assertTrue(expectedResult2);
@@ -897,7 +879,7 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Beach House", "Flower Street", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
-        Room room = new Room("room", 1,1,1,1);
+        Room room = new Room("room", 1, 1, 1, 1);
         house.addRoomToRoomList(room);
         //ACT
         boolean expectedResult1 = house.containsRoomByName("kitchen");

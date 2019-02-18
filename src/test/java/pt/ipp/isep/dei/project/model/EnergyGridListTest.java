@@ -3,8 +3,6 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * EnergyGridList tests class.
  */
@@ -33,28 +31,6 @@ public class EnergyGridListTest {
         Boolean actualResult = pList1.addGrid(energyGrid2);
 
         Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintsEnergyGridList() {
-        EnergyGridList pList1 = new EnergyGridList();
-        EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
-        EnergyGrid energyGrid2 = new EnergyGrid("Secundary Grid", 0);
-        pList1.addGrid(energyGrid1);
-        pList1.addGrid(energyGrid2);
-        String expectedResult = "Energy grid list: \n" +
-                "-Secundary Grid;";
-        String result = pList1.buildEnergyGridListString();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfPrintsInvalidList() {
-        EnergyGridList pList1 = new EnergyGridList();
-
-        String expectedResult = "The list is empty.";
-        String result = pList1.buildEnergyGridListString();
-        assertEquals(expectedResult, result);
     }
 
     @Test
