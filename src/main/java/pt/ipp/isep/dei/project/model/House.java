@@ -343,6 +343,13 @@ public class House implements Metered {
         return 0;
     }
 
+    /**This method receives room parameters and creates a new Room with those parameteres
+     * @return returns room that was created
+     * **/
+    public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height){
+        return new Room (roomDesignation,roomHouseFloor,width,length,height);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

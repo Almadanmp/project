@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.Scanner;
 
@@ -64,7 +65,7 @@ class HouseConfigurationUI {
     }
 
     private void getInputHouseCharacteristicsUS101() {
-
+        InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
 
         // get house address
@@ -78,30 +79,18 @@ class HouseConfigurationUI {
 
 
         //get latitude
-        String onlyNumbers = "Please,try again. Only numbers this time:";
         System.out.print("Please, type the latitude: ");
-        while (!scanner.hasNextDouble()) {
-            System.out.println(onlyNumbers);
-            scanner.next();
-        }
-        this.mHouseLat = scanner.nextDouble();
+        this.mHouseLat = inputUtils.getInputAsDouble();
 
 
         // get longitude
         System.out.print("Please, type the longitude: ");
-        while (!scanner.hasNextDouble()) {
-            System.out.println(onlyNumbers);
-            scanner.next();
-        }
-        this.mHouseLon = scanner.nextDouble();
+        this.mHouseLon = inputUtils.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the altitude: ");
-        while (!scanner.hasNextDouble()) {
-            System.out.println(onlyNumbers);
-            scanner.next();
-        }
-        this.mHouseAlt = scanner.nextDouble();
+
+        this.mHouseAlt = inputUtils.getInputAsDouble();
 
     }
 
@@ -133,17 +122,17 @@ class HouseConfigurationUI {
     // house floor and dimensions) - TERESA VARELA.
     private void runUS105(House house){
         getInputRoomCharacteristics();
-        updateInputRoom();
+        Room room = updateInputRoom(house);
         displayStateRoom();
-        updateRoomAndDisplayState(house);
+        updateRoomAndDisplayState(house, room);
     }
 
     /**
      * Method gets input from user to save as the characteristics of a room.
      */
     private void getInputRoomCharacteristics() {
-        String insertValidNumber = "Please insert a valid number.";
         Scanner input = new Scanner(System.in);
+        InputUtils inputUtils = new InputUtils();
 
         //GET ROOM DESIGNATION
         System.out.println("Please insert the room name: ");
@@ -151,36 +140,24 @@ class HouseConfigurationUI {
 
         //GET ROOM HOUSE FLOOR
         System.out.println("Please insert your room's house floor: ");
-        while (!input.hasNextInt()) {
-            System.out.println(insertValidNumber);
-        }
-        this.mRoomHouseFloor = input.nextInt();
+        this.mRoomHouseFloor = inputUtils.getInputAsInt();
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's width in meters: ");
-        while (!input.hasNextDouble()) {
-            System.out.println(insertValidNumber);
-        }
-        this.mRoomWidth = input.nextDouble();
+        this.mRoomWidth = inputUtils.getInputAsDouble();
 
         System.out.println("Please insert your room's length in meters: ");
-        while (!input.hasNextDouble()) {
-            System.out.println(insertValidNumber);
-        }
-        this.mRoomLength = input.nextDouble();
+        this.mRoomLength = inputUtils.getInputAsDouble();
 
         System.out.println("Please insert your room's height in meters: ");
-        while (!input.hasNextDouble()) {
-            System.out.println(insertValidNumber);
-        }
-        this.mRoomHeight = input.nextDouble();
+        this.mRoomHeight = inputUtils.getInputAsDouble();
     }
 
     /**
      * Method creates a new room with the parameters previously provided by the user.
      */
-    private void updateInputRoom() {
-        this.controller.createNewRoom(mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight);
+    private Room updateInputRoom(House house) {
+        return this.controller.createNewRoom(house, mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight);
     }
 
     /**
@@ -209,9 +186,9 @@ class HouseConfigurationUI {
      * @param house receives the house the program manages so the room can be added to it.
      */
 
-    private void updateRoomAndDisplayState(House house) {
+    private void updateRoomAndDisplayState(House house, Room room) {
         String houseName = controller.getHouseName(house);
-        if (controller.addRoomToHouse(house)) {
+        if (controller.addRoomToHouse(house, room)) {
             System.out.println("The room " + this.mRoomName + " has been added to house " + houseName + ".");
         } else {
             System.out.println("The room you entered already exists in house " + houseName + ". Please try again.");

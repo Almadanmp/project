@@ -108,20 +108,25 @@ class RoomConfigurationUI {
 
     private void runUS210(House house) {
         InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.houseRoomListIsValid(house)) {
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
         Room room = inputUtils.getHouseRoomByList(house);
-        DeviceType deviceType;
-        deviceType = inputUtils.getInputDeviceTypeByList(house);
+        DeviceType deviceType = inputUtils.getInputDeviceTypeByList(house);
         createDevice(room, deviceType);
     }
 
 
     private void createDevice(Room room, DeviceType deviceType) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
+        InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
         // get device name
         System.out.print("Please, type the name of the device: ");
         String deviceName = scanner.nextLine();
-        InputUtils inputUtils = new InputUtils();
+
         //get Device specs
         Device device = ctrl.createDevice(deviceType);
         ctrl.setDeviceName(deviceName, device);
