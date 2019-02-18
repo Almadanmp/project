@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Represents a Sensor.
@@ -199,8 +198,8 @@ public class Sensor {
         return (latS <= latTopVert && latS >= latBotVert && longS <= longBotVert && longS >= longTopVert);
     }
 
-    boolean isSensorActiveOnGivenDate(GregorianCalendar date1) {
-        return this.getDateStartedFunctioning().before(date1.getTime());
+    boolean isSensorActiveOnGivenDate(Date date1) {
+        return this.getDateStartedFunctioning().before(date1);
     }
 
 

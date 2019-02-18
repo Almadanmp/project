@@ -64,17 +64,17 @@ class EnergyGridSettingsUI {
     // USER STORY 130 UI -  As an Administrator, I want to create a house grid, so that I can define the rooms that are
     // attached to it and the contracted maximum power for that grid - DANIEL OLIVEIRA .
     private void runUS130(House house) {
-        EnergyGrid energyGrid = getInputUS130();
+        EnergyGrid energyGrid = getInputUS130(house);
         updateHouse(house, energyGrid);
     }
 
-    private EnergyGrid getInputUS130() {
+    private EnergyGrid getInputUS130(House programHouse) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum contracted power for this energy grid.");
         double power = getInputMaxPower();
-        return mController.createEnergyGrid(name, power);
+        return mController.createEnergyGrid(programHouse, name, power);
     }
 
 
@@ -96,7 +96,7 @@ class EnergyGridSettingsUI {
         UtilsUI check = new UtilsUI();
         if (check.houseGridListIsValid(house)) {
             EnergyGrid energyGrid = inputs.getInputGridByList(house);
-            PowerSource powerSource = getInputAndCreatePowerSource();
+            PowerSource powerSource = getInputAndCreatePowerSource(energyGrid);
             updateGridAndDisplayState(energyGrid, powerSource);
         }
         else {
@@ -104,7 +104,7 @@ class EnergyGridSettingsUI {
         }
     }
 
-    private PowerSource getInputAndCreatePowerSource() {
+    private PowerSource getInputAndCreatePowerSource(EnergyGrid energyGrid) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the power source you want to add: ");
         String name = scanner.next();
@@ -113,7 +113,7 @@ class EnergyGridSettingsUI {
         System.out.println("Now let's set the maximum energy storage of this power source (it should be 0 in case the " +
                 "power source can't storage any energy).");
         double maxEnergyStorage = getInputMaxPower();
-        return mController.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
+        return mController.createPowerSource(energyGrid, name, maxPowerOutput, maxEnergyStorage);
 
     }
 

@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,12 +17,20 @@ class SensorListTest {
 
     @Test
     void seeIfConstructorWorks() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/10/118");
+            d2 = sd.parse("01/04/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
+                new Local(10, 30, 20),d2);
         Sensor[] expectedResult = new Sensor[]{s1, s2};
         Sensor[] result;
         SensorList lc = new SensorList(new Sensor[]{s1, s2});
@@ -39,12 +49,20 @@ class SensorListTest {
 
     @Test
     void seeIfAddSensorsWorks_true() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/09/118");
+            d2 = sd.parse("04/10/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 9, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(10, 30, 20),d2);
         SensorList sl = new SensorList(s1);
         sl.addSensor(s2);
         boolean expectedResult = true;
@@ -56,12 +74,20 @@ class SensorListTest {
 
     @Test
     void seeIfAddSensorWorks_false() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/10/118");
+            d2 = sd.parse("04/09/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 9, 4).getTime());
+                new Local(10, 30, 20),d2);
         SensorList sl = new SensorList(s1);
         boolean actualResult = sl.containsSensor(s2);
         boolean expectedResult = false;
@@ -71,15 +97,24 @@ class SensorListTest {
 
     @Test
     void seeIfAddSensorThatExistsWorks_false() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/10/118");
+            d2 = sd.parse("04/12/118");
+            d3 = sd.parse("04/08/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(10, 30, 20),d2);
         Sensor s3 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 8, 4).getTime());
+                new Local(10, 30, 20),d3);
         SensorList sl = new SensorList(s1);
         sl.addSensor(s2);
         sl.addSensor(s3);
@@ -91,12 +126,20 @@ class SensorListTest {
 
     @Test
     void seeIfRemoveSensor_true() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/12/118");
+            d2 = sd.parse("04/10/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(10, 30, 20),d2);
         SensorList lc = new SensorList(s1);
         lc.addSensor(s2);
         lc.removeSensor(s1);
@@ -107,12 +150,20 @@ class SensorListTest {
 
     @Test
     void seeIfRemoveSensor_false() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/12/118");
+            d2 = sd.parse("04/10/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(10, 30, 20),d2);
         SensorList lc = new SensorList(s1);
         lc.addSensor(s2);
         lc.removeSensor(s1);
@@ -123,12 +174,20 @@ class SensorListTest {
 
     @Test
     void seeIfArrayGetSensors() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/12/118");
+            d2 = sd.parse("04/10/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(10, 30, 20),d2);
         Sensor[] expectedResult = new Sensor[]{s1, s2};
         Sensor[] result;
         SensorList lc = new SensorList(s1);
@@ -139,12 +198,20 @@ class SensorListTest {
 
     @Test
     void seeIfGetSensorsList() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/12/118");
+            d2 = sd.parse("04/10/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(10, 30, 20),d2);
         List<Sensor> expectedResult = new ArrayList<>();
         List<Sensor> result;
         SensorList lc = new SensorList(s1);
@@ -156,10 +223,17 @@ class SensorListTest {
     }
 
     @Test
-    void seeIfequalsSameObject() {
+    void seeIfEqualsSameObject() {
+        Date d1 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/12/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(12, 31, 21),d1);
         SensorList sl = new SensorList(s1);
         boolean actualResult = sl.equals(sl);
         assertTrue(actualResult);
@@ -168,12 +242,20 @@ class SensorListTest {
 
     @Test
     void seeIfequalsSensorListWithSameContent() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/12/118");
+            d2 = sd.parse("04/12/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(10, 30, 20),d2);
         SensorList sl1 = new SensorList(s1);
         SensorList sl2 = new SensorList(s2);
         boolean actualResult = sl1.equals(sl2);
@@ -184,12 +266,20 @@ class SensorListTest {
 
     @Test
     void seeIfequalsSensorListWithDifferentContent() {
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/12/118");
+            d2 = sd.parse("04/10/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(10, 30, 20),d2);
         SensorList sl1 = new SensorList(s1);
         SensorList sl2 = new SensorList(s2);
         boolean actualResult = sl1.equals(sl2);
@@ -199,10 +289,17 @@ class SensorListTest {
     }
 
     @Test
-    void seeIfequalsSensorListWithDifferentObject() {
+    void seeIfEqualsSensorListWithDifferentObject() {
+        Date d1 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/12/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(12, 31, 21),d1);
         int teste = 3;
         SensorList sl1 = new SensorList(s1);
         boolean actualResult = sl1.equals(teste);
@@ -212,9 +309,16 @@ class SensorListTest {
 
     @Test
     void seeHashCodeDummyTest() {
+        Date d1 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/12/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 12, 4).getTime());
+                new Local(12, 31, 21),d1);
         SensorList l1 = new SensorList(s1);
         int expectedResult = 1;
         int actualResult = l1.hashCode();
@@ -223,17 +327,36 @@ class SensorListTest {
 
     @Test
     void getSensorsInGAInACertainTimePeriod() {
-        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15), new GregorianCalendar(2000, 5, 1).getTime());
-        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 7, 1).getTime());
-        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("01/05/2000");
+            d2 = sd.parse("01/07/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15),d1);
+        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15),d2);
+        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15),d3);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
         GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga1.setSensorList(sensorList);
-        GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
-        List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
+        Date d4 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d4 = s.parse("05/10/2000");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
+        List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(d4, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
         expectedResult.add(s1);
         expectedResult.add(s2);
@@ -242,16 +365,35 @@ class SensorListTest {
 
     @Test
     void getSensorsInGAInACertainTimePeriodFalse() {
-        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15),d1);
+        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15),d2);
+        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15),d3);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
         GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga1.setSensorList(sensorList);
-        GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
+        Date date1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date1 = s.parse("05/10/2000");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
         assertEquals(expectedResult, result);
@@ -259,16 +401,35 @@ class SensorListTest {
 
     @Test
     void getSensorsInGAInACertainTimePeriodWrongArea() {
-        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15), new GregorianCalendar(2000, 5, 1).getTime());
-        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(50, 19, 15), new GregorianCalendar(2000, 7, 1).getTime());
-        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("01/05/2000");
+            d2 = sd.parse("01/07/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15),d1);
+        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(50, 19, 15),d2);
+        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15),d3);
         SensorList sensorList = new SensorList(s1);
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
         GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga1.setSensorList(sensorList);
-        GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
+        Date date1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date1 = s.parse("05/10/2000");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
         expectedResult.add(s1);
@@ -279,10 +440,22 @@ class SensorListTest {
     @Test
     void getListOfSensorsContainedInGA() {
         //Arrange
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t1, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t1, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
         Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
@@ -306,10 +479,22 @@ class SensorListTest {
     @Test
     void getListOfSensorsContainedInGAAllThreeContained() {
         //Arrange
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t1, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(15, 15, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t1, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(15, 15, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
         Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
@@ -336,9 +521,21 @@ class SensorListTest {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
         Local l1 = new Local(20, 20, 50);
         TypeArea ta1 = new TypeArea("Pantano");
@@ -364,9 +561,21 @@ class SensorListTest {
 
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
 
         //Act
@@ -385,9 +594,21 @@ class SensorListTest {
 
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
 
         //Act
@@ -403,12 +624,20 @@ class SensorListTest {
     @Test
     void seeIfSetTypeWorks() {
         //Arrange
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/10/118");
+            d2 = sd.parse("02/01/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
+                new Local(10, 30, 20),d2);
         SensorList lc = new SensorList(new Sensor[]{s1, s2});
         String expectedResult = "Movement";
 
@@ -422,12 +651,20 @@ class SensorListTest {
     @Test
     void seeIfSetTypeWorksAssertTrue() {
         //Arrange
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/10/118");
+            d2 = sd.parse("02/01/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
+                new Local(10, 30, 20),d2);
         SensorList lc = new SensorList(new Sensor[]{s1, s2});
 
         //Act
@@ -442,12 +679,20 @@ class SensorListTest {
     @Test
     void seeIfSetTypeWorksFalse() {
         //Arrange
+        Date d1 = new Date();
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("04/10/118");
+            d2 = sd.parse("02/01/118");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21),
-                new GregorianCalendar(118, 10, 4).getTime());
+                new Local(12, 31, 21),d1);
         Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20),
-                new GregorianCalendar(118, 1, 4).getTime());
+                new Local(10, 30, 20),d2);
         SensorList lc = new SensorList(new Sensor[]{s1, s2});
         boolean expectedResult = false;
 
@@ -497,9 +742,21 @@ class SensorListTest {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
 
         //Act
@@ -517,9 +774,21 @@ class SensorListTest {
         //Arrange
         TypeSensor t1 = new TypeSensor("Vento", "km/h");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
 
         //Act
@@ -537,7 +806,15 @@ class SensorListTest {
     void seeItGetSensorByTypeList() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
+        Date d1 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
         SensorList sensorList1 = new SensorList(s1);
 
         //Act
@@ -553,9 +830,21 @@ class SensorListTest {
         //Arrange
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
 
         //Act
@@ -579,9 +868,21 @@ class SensorListTest {
         //Arrange
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
 
         //Act
@@ -603,9 +904,21 @@ class SensorListTest {
         //Arrange
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
 
         //Act
@@ -624,9 +937,21 @@ class SensorListTest {
         //Arrange
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Rain", "l/m2");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
 
         //Act
@@ -648,9 +973,21 @@ class SensorListTest {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
@@ -684,9 +1021,21 @@ class SensorListTest {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
@@ -707,9 +1056,21 @@ class SensorListTest {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
@@ -729,9 +1090,21 @@ class SensorListTest {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
@@ -747,9 +1120,21 @@ class SensorListTest {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
@@ -765,9 +1150,21 @@ class SensorListTest {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         TypeSensor t1 = new TypeSensor("Rain", "l/m2");
         TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), new GregorianCalendar(2000, 10, 8).getTime());
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), new GregorianCalendar(2000, 11, 2).getTime());
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), new GregorianCalendar(2000, 11, 1).getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("08/10/2000");
+            d2 = sd.parse("02/11/2000");
+            d3 = sd.parse("01/11/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50),d1);
+        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50),d2);
+        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50),d3);
         SensorList sensorList1 = new SensorList(s1);
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
@@ -794,37 +1191,43 @@ class SensorListTest {
 
     @Test
     void seeReadings() {
-        GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
-
+        Date date1 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date1 = sd.parse("05/10/2000");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         SensorList sensorList1 = new SensorList(); //EMPTY LIST
         SensorList sensorList2 = new SensorList(); //ONE SENSOR WITH NO READINGS
         SensorList sensorList3 = new SensorList(); //TWO SENSORS: FIRST WITH READINGS
         SensorList sensorList4 = new SensorList(); //TWO SENSORS: SECOND WITH READINGS
         SensorList sensorList5 = new SensorList(); //TWO SENSORS: BOTH WITH READINGS
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature","ºC"),date1);
         sensorList2.addSensor(sensor1);
 
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature","ºC"),date1.getTime());
-        Reading reading1 = new Reading(20,date1.getTime());
-        Reading reading2 = new Reading(21,date1.getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature","ºC"),date1);
+        Reading reading1 = new Reading(20,date1);
+        Reading reading2 = new Reading(21,date1);
         sensor2.addReading(reading1);
         sensor2.addReading(reading2);
         sensorList3.addSensor(sensor2);
         sensorList3.addSensor(sensor3);
 
-        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature","ºC"),date1);
         sensor5.addReading(reading1);
         sensor5.addReading(reading2);
         sensorList4.addSensor(sensor4);
         sensorList4.addSensor(sensor5);
 
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature","ºC"),date1.getTime());
-        Reading reading3 = new Reading(32,date1.getTime());
-        Reading reading4 = new Reading(12,date1.getTime());
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature","ºC"),date1);
+        Reading reading3 = new Reading(32,date1);
+        Reading reading4 = new Reading(12,date1);
         sensor6.addReading(reading1);
         sensor6.addReading(reading2);
         sensor7.addReading(reading3);
@@ -862,9 +1265,18 @@ class SensorListTest {
 
     @Test
     void mostRecentlyUsedSensor() {
-        GregorianCalendar date1 = new GregorianCalendar(2018, 10, 5,23,57);
-        GregorianCalendar date2 = new GregorianCalendar(2018, 10, 5,23,58);
-        GregorianCalendar date3 = new GregorianCalendar(2018, 10, 5,23,59);
+        Date date1 = new Date();
+        Date date2 = new Date();
+        Date date3 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            date1 = sd.parse("05/10/2000 23:57");
+            date2 = sd.parse("05/10/2000 23:58");
+            date3 = sd.parse("05/10/2000 23:59");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
 
         SensorList sensorList1 = new SensorList(); //EMPTY LIST
         SensorList sensorList2 = new SensorList(); //ONE SENSOR WITH NO READINGS
@@ -872,15 +1284,15 @@ class SensorListTest {
         SensorList sensorList4 = new SensorList(); //THREE SENSORS: SECOND MOST RECENT
         SensorList sensorList5 = new SensorList(); //THREE SENSORS: THIRD MOST RECENT
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature","ºC"),date1);
         sensorList2.addSensor(sensor1);
 
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature","ºC"),date1.getTime());
-        Reading reading1 = new Reading(20,date3.getTime());
-        Reading reading2 = new Reading(21,date1.getTime());
-        Reading reading3 = new Reading(32,date2.getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature","ºC"),date1);
+        Reading reading1 = new Reading(20,date3);
+        Reading reading2 = new Reading(21,date1);
+        Reading reading3 = new Reading(32,date2);
 
         sensor2.addReading(reading1);
         sensor3.addReading(reading2);
@@ -890,12 +1302,12 @@ class SensorListTest {
         sensorList3.addSensor(sensor4);
 
 
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature","ºC"),date1.getTime());
-        Reading reading4 = new Reading(20,date1.getTime());
-        Reading reading5 = new Reading(21,date3.getTime());
-        Reading reading6 = new Reading(32,date2.getTime());
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature","ºC"),date1);
+        Reading reading4 = new Reading(20,date1);
+        Reading reading5 = new Reading(21,date3);
+        Reading reading6 = new Reading(32,date2);
 
         sensor5.addReading(reading4);
         sensor6.addReading(reading5);
@@ -904,12 +1316,12 @@ class SensorListTest {
         sensorList4.addSensor(sensor6);
         sensorList4.addSensor(sensor7);
 
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature","ºC"),date1.getTime());
-        Reading reading7 = new Reading(20,date2.getTime());
-        Reading reading8 = new Reading(21,date1.getTime());
-        Reading reading9 = new Reading(32,date3.getTime());
+        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature","ºC"),date1);
+        Reading reading7 = new Reading(20,date2);
+        Reading reading8 = new Reading(21,date1);
+        Reading reading9 = new Reading(32,date3);
 
         sensor8.addReading(reading7);
         sensor9.addReading(reading8);
@@ -918,9 +1330,18 @@ class SensorListTest {
         sensorList5.addSensor(sensor9);
         sensorList5.addSensor(sensor10);
 
-
-        Sensor expectedResult1 = new Sensor("emptySensor",new TypeSensor("type"," "),new GregorianCalendar(1900,0,1).getTime());
-        Sensor expectedResult2 = new Sensor("emptySensor",new TypeSensor("type"," "),new GregorianCalendar(1900,0,1).getTime());
+        Date date4 = new Date();
+        Date date5 = new Date();
+        SimpleDateFormat sd2 = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date4 = sd2.parse("01/00/1900");
+            date5 = sd2.parse("01/00/1900");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        Sensor expectedResult1 = new Sensor("emptySensor",new TypeSensor("type"," "),date4);
+        Sensor expectedResult2 = new Sensor("emptySensor",new TypeSensor("type"," "),date5);
         Sensor expectedResult3 = sensor2;
         Sensor expectedResult4 = sensor6;
         Sensor expectedResult5 = sensor10;
@@ -941,35 +1362,41 @@ class SensorListTest {
 
     @Test
     void hasReadings() {
-        GregorianCalendar date1 = new GregorianCalendar(2018, 10, 5,23,57);
-
+        Date date1 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            date1 = sd.parse("05/10/2018 23:57");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         SensorList sensorList1 = new SensorList(); //EMPTY LIST
         SensorList sensorList2 = new SensorList(); //ONE SENSOR WITHOUT READINGS
         SensorList sensorList3 = new SensorList(); //TWO SENSORS WITHOUT READINGS
         SensorList sensorList4 = new SensorList(); //THREE SENSORS: FIRST HAS READINGS
         SensorList sensorList5 = new SensorList(); //THREE SENSORS: LAST HAS READINGS
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature","ºC"),date1);
         sensorList2.addSensor(sensor1);
 
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature","ºC"),date1.getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature","ºC"),date1);
         sensorList3.addSensor(sensor2);
         sensorList3.addSensor(sensor3);
 
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature","ºC"),date1.getTime());
-        Reading reading4 = new Reading(20,date1.getTime());
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature","ºC"),date1);
+        Reading reading4 = new Reading(20,date1);
         sensor5.addReading(reading4);
         sensorList4.addSensor(sensor5);
         sensorList4.addSensor(sensor6);
         sensorList4.addSensor(sensor7);
 
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature","ºC"),date1.getTime());
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature","ºC"),date1.getTime());
-        Reading reading7 = new Reading(26,date1.getTime());
+        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature","ºC"),date1);
+        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature","ºC"),date1);
+        Reading reading7 = new Reading(26,date1);
         sensor10.addReading(reading7);
         sensorList5.addSensor(sensor8);
         sensorList5.addSensor(sensor9);

@@ -772,7 +772,7 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, test);
         test.add("teste");
         List<DeviceType> expectedResult = new ArrayList<>();
-        List<DeviceType> result = house.getmDeviceTypeList();
+        List<DeviceType> result = house.getDeviceTypeList();
         assertEquals(expectedResult, result);
     }
 
@@ -811,7 +811,7 @@ class HouseTest {
 
         house.buildDeviceTypeList(deviceTypePaths);
 
-        List<DeviceType> dtList = house.getmDeviceTypeList();
+        List<DeviceType> dtList = house.getDeviceTypeList();
         assertEquals(dtList.size(), 2);
         assertTrue(dtList.get(0) instanceof DishwasherDT);
         assertTrue(dtList.get(1) instanceof WaterHeaterDT);
@@ -873,6 +873,38 @@ class HouseTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
         assertFalse(actualResult4);
+    }
+
+    @Test
+    void createsRoom() {
+        GeographicArea ga = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Beach House", "Flower Street", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        //ACT
+        boolean expectedResult1 = house.createRoom("kitchen", 1,1,1,1);
+        boolean expectedResult2 = house.createRoom("room", 1,1,1,1);
+        boolean expectedResult3 = house.createRoom("kitchen", 1,1,1,1);
+        //ASSERT
+        assertTrue(expectedResult1);
+        assertTrue(expectedResult2);
+        assertFalse(expectedResult3);
+    }
+
+    @Test
+    void containsRoomByName() {
+        GeographicArea ga = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Beach House", "Flower Street", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        Room room = new Room("room", 1,1,1,1);
+        house.addRoomToRoomList(room);
+        //ACT
+        boolean expectedResult1 = house.containsRoomByName("kitchen");
+        boolean expectedResult2 = house.containsRoomByName("room");
+        //ASSERT
+        assertFalse(expectedResult1);
+        assertTrue(expectedResult2);
     }
 
 }

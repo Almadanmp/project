@@ -73,17 +73,8 @@ public class EnergyGridList {
         return result;
     }
 
-    /**
-     * Method returns a string with the name, nominal power and list of power sources.
-     * @param indexes is an array on integers
-     * @return returns a string with the name, nominal power and list of power sources.
-     */
-    public String buildElementsByIndexString(List<Integer> indexes) {
-        StringBuilder result = new StringBuilder();
-        for (int pos : indexes) {
-            result.append(pos).append(") ").append(mEnergyGridList.get(pos).getName()).append(", ").append(mEnergyGridList.get(pos).getMaxContractedPower()).append(", ").append(mEnergyGridList.get(pos).getListPowerSources()).append(".\n");
-        }
-        return result.toString();
+    public EnergyGrid createEnergyGrid(String designation, double maxPower){
+        return new EnergyGrid(designation, maxPower);
     }
 
     @Override

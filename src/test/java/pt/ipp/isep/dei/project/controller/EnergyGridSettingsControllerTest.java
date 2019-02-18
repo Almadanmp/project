@@ -336,12 +336,10 @@ class EnergyGridSettingsControllerTest {
         PowerSource powerSource1 = new PowerSource("powersource1", 10, 10);
         PowerSource powerSource2 = new PowerSource("powersource2", 123, 76);
 
-        //Act
-
-        PowerSource actualResult1 = controller.createPowerSource("powersource1", 10, 10);
-        PowerSource actualResult2 = controller.createPowerSource("powersource2", 123, 76);
-
-        //Assert
+        // Act
+        PowerSource actualResult1 = controller.createPowerSource(validGrid, "powersource1", 10, 10);
+        PowerSource actualResult2 = controller.createPowerSource(validGrid, "powersource2", 123, 76);
+        // Assert
 
         assertEquals(actualResult1, powerSource1);
         assertEquals(actualResult2, powerSource2);

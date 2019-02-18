@@ -2,8 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.List;
-
 /**
  * Controller class for Energy Grid Settings UI
  */
@@ -58,7 +56,7 @@ public class EnergyGridSettingsController {
      * @return builds a string of the room.
      */
 
-    public String buildRoomString(Room room) {
+    String buildRoomString(Room room) {
         return room.buildRoomString();
     }
 
@@ -98,8 +96,8 @@ public class EnergyGridSettingsController {
      * @param designation is the name we're going to give to the new EnergyGrid.
      * @param maxPower    is the new grid's maxPower.
      */
-    public EnergyGrid createEnergyGrid(String designation, double maxPower) {
-        return new EnergyGrid(designation, maxPower);
+    public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower) {
+        return programHouse.getEGListObject().createEnergyGrid(designation, maxPower);
     }
 
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced
@@ -111,8 +109,8 @@ public class EnergyGridSettingsController {
      * @param maxEnergyStorage is the new power source's maximum capacity.
      */
 
-    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
-        return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+    public PowerSource createPowerSource(EnergyGrid energyGrid, String name, double maxPowerOutput, double maxEnergyStorage) {
+        return energyGrid.getListOfPowerSources().createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
     /**

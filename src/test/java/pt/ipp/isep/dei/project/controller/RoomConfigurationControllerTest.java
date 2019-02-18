@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
@@ -533,7 +534,7 @@ class RoomConfigurationControllerTest {
 
 
     @Test
-    void removeDeviceSucess() {
+    void removeDeviceSuccess() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new WaterHeater(new WaterHeaterSpec());
@@ -700,7 +701,7 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void addProgramToProgramList() {
+    void seeIfAddProgramToProgramList() {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Program program = new Program("program", 2, 3);
         ProgramList plist = new ProgramList();
@@ -710,4 +711,101 @@ class RoomConfigurationControllerTest {
         String result = plist.buildProgramListString();
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void seeIfGetProgramAttributeNamesTest() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Program program = new Program("program",2,2);
+        ctrl.setProgramAttributeValue(program, 0, 34);
+        List<String> expectedResult = new ArrayList<>();
+        expectedResult.add(Program.DURATION);
+        expectedResult.add(Program.ENERGY_CONSUMPTION);
+        List<String> result =ctrl.getProgramAttributeNames(program);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetProgramList() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        ctrl.setAttributeValue(d1, "Duration", 34);
+        Program program = new Program("programa", 2, 2);
+        ProgramList listProgram = ctrl.getProgramList(d1);
+        ctrl.addProgramToProgramList(listProgram, program);
+        ProgramList result = ctrl.getProgramList(d1);
+        Assertions.assertEquals(listProgram, result);
+    }
+
+    @Test
+    void seeIfGetProgramAttributeUnit() {
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Program program = new Program("program",2,2);
+        ctrl.setProgramAttributeValue(program,0,12);
+        String expectedResult = "min";
+        Object result = ctrl.getProgramAttributeUnit(program,0);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetProgramAttributeValue(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Program program = new Program("program",2,2);
+        double expectedResult = 2.0;
+        Object result = ctrl.getProgramAttributeValue(program,1);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetAttributeValue(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        WaterHeaterSpec whspec = new WaterHeaterSpec();
+        whspec.setAttributeValue("Volume Of Water",5D);
+        WaterHeater device = new WaterHeater(whspec);
+        double expectedResult = 5.0;
+        Object result = ctrl.getAttributeValue(device, 0);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfSetProgramName(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        Program program = new Program();
+        ctrl.setProgramName(program, "program");
+        String result = program.getProgramName();
+        String expectedResult = "program";
+        assertEquals(result,expectedResult);
+    }
+
+    @Test
+    void getProgramListFromAProgrammableDevice(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        WashingMachineSpec wmSpec = new WashingMachineSpec();
+        WashingMachine washMach = new WashingMachine(wmSpec);
+        ProgramList programList = washMach.getProgramList();
+        Program program = new Program();
+        programList.addProgram(program);
+        ProgramList result = ctrl.getProgramList(washMach);
+        assertEquals(result,programList);
+    }
+
+    @Test
+    void seeIfIsProgrammableTrue(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        WashingMachineSpec wmSpec = new WashingMachineSpec();
+        WashingMachine washMach = new WashingMachine(wmSpec);
+        boolean result = ctrl.isProgrammable(washMach);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    void seeIfIsProgrammableFalse(){
+        RoomConfigurationController ctrl = new RoomConfigurationController();
+        WaterHeaterSpec wmSpec = new WaterHeaterSpec();
+        WaterHeater washMach = new WaterHeater(wmSpec);
+        ctrl.setDeviceName("not a washing machine", washMach);
+        boolean result = ctrl.isProgrammable(washMach);
+        Assert.assertFalse(result);
+    }
+
+
 }

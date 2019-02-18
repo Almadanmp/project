@@ -81,7 +81,6 @@ class RoomConfigurationUI {
 
     /**
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
-     * <p>
      * Prints device List in that room.
      */
     private void runUS201(House house) {
@@ -108,20 +107,25 @@ class RoomConfigurationUI {
 
     private void runUS210(House house) {
         InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.houseRoomListIsValid(house)) {
+            System.out.println(utilsUI.invalidRoomList);
+            return;
+        }
         Room room = inputUtils.getHouseRoomByList(house);
-        DeviceType deviceType;
-        deviceType = inputUtils.getInputDeviceTypeByList(house);
+        DeviceType deviceType = inputUtils.getInputDeviceTypeByList(house);
         createDevice(room, deviceType);
     }
 
 
     private void createDevice(Room room, DeviceType deviceType) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
+        InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
         // get device name
         System.out.print("Please, type the name of the device: ");
         String deviceName = scanner.nextLine();
-        InputUtils inputUtils = new InputUtils();
+
         //get Device specs
         Device device = ctrl.createDevice(deviceType);
         ctrl.setDeviceName(deviceName, device);
@@ -145,7 +149,6 @@ class RoomConfigurationUI {
     private void createProgram(Device device) {
         RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
-        InputUtils inputUtils = new InputUtils();
         if (ctrl.isProgrammable(device)) {
             {
                 System.out.println("This device is programmable.");
@@ -154,18 +157,9 @@ class RoomConfigurationUI {
                 System.out.println(requestProgramName);
                 String programName = scanner.nextLine();
                 List<String> programAttributesNames = ctrl.getProgramAttributeNames(program);
-                for (int i = 0; i < programAttributesNames.size(); i++) {
-                    System.out.println("Please insert the value for: " + programAttributesNames.get(i)
-                            + " (" + ctrl.getProgramAttributeUnit(program, i) + ")");
-                    Double value = inputUtils.getInputAsDouble();
-                    ctrl.setProgramAttributeValue(program, i, value);
-                }
-                program.setProgramName(programName);
-                for (int i = 0; i < programAttributesNames.size(); i++) {
-                    System.out.println("You have added the : " + programAttributesNames.get(i) + " to: "
-                            + ctrl.getProgramAttributeValue(program, i)
-                            + ctrl.getProgramAttributeUnit(program, i));
-                }
+                loopToSetAttributeValues(program,programAttributesNames);
+                ctrl.setProgramName(program,programName);
+                loopToBuildFinalStringProgram(program,programAttributesNames);
                 String message = "Would you like to add another Program? (y/n)";
                 ctrl.addProgramToProgramList(programList, program);
                 loopForCreatingProgram(message, programList);
@@ -176,7 +170,6 @@ class RoomConfigurationUI {
     }
 
     // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
-
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
 
     private void runUS215(House house) {
@@ -239,7 +232,7 @@ class RoomConfigurationUI {
         String programName = scanner.nextLine();
         List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
         loopToSetAttributeValues(program, programAttributeNames);
-        program.setProgramName(programName);
+        ctrl.setProgramName(program,programName);
         loopToBuildFinalStringProgram(program,programAttributeNames);
         loopForProgramList(programList, device);
     }
@@ -294,7 +287,7 @@ class RoomConfigurationUI {
         String programName = scanner.nextLine();
         List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
         loopToSetAttributeValues(program,programAttributeNames);
-        program.setProgramName(programName);
+        ctrl.setProgramName(program,programName);
         loopToBuildFinalStringProgram(program, programAttributeNames);
 
     }

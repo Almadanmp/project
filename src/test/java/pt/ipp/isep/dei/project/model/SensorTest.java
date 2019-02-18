@@ -4,6 +4,8 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +26,14 @@ class SensorTest {
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Local l1 = new Local(38, 7, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         TypeSensor actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
         //Act
@@ -40,7 +49,14 @@ class SensorTest {
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Local l1 = new Local(38, 7, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Date actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
         //Act
@@ -56,7 +72,14 @@ class SensorTest {
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Local l1 = new Local(38, 7, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         ReadingList rl1 = new ReadingList();
         TypeSensor actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
@@ -73,7 +96,14 @@ class SensorTest {
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Local l1 = new Local(38, 7, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         ReadingList rl1 = new ReadingList();
         Date actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
@@ -90,7 +120,14 @@ class SensorTest {
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
         Local l1 = new Local(38, 7, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         ReadingList rl1 = new ReadingList();
         Local actualResult;
         Sensor c = new Sensor(name, t1, l1, d1);
@@ -255,12 +292,26 @@ class SensorTest {
         //Arrange
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21), new Date());
-        Calendar myCalendar = new GregorianCalendar(2014, Calendar.FEBRUARY, 11);
-        Date expectedResult = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
+        Date myCalendar = new Date();
+        SimpleDateFormat sd2 = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            myCalendar = sd2.parse("11/02/2014");
+        }
+        catch (ParseException c2){
+            c2.printStackTrace();
+        }
+        Date expectedResult = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            expectedResult = sd.parse("11/02/2014");
+        }
+        catch (ParseException p){
+            p.printStackTrace();
+        }
         Date actualResult;
 
         //Act
-        c.setDateStartedFunctioning(myCalendar.getTime());
+        c.setDateStartedFunctioning(myCalendar);
         actualResult = c.getDateStartedFunctioning();
 
         //Assert
@@ -273,7 +324,15 @@ class SensorTest {
         Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
                 new Local(12, 31, 21), new Date());
         ReadingList rl1 = new ReadingList();
-        Reading reading1 = new Reading(15, new GregorianCalendar(118, 11, 25).getTime());
+        Date d1 = new Date();
+        SimpleDateFormat sd2 = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd2.parse("25/11/118");
+        }
+        catch (ParseException c2){
+            c2.printStackTrace();
+        }
+        Reading reading1 = new Reading(15,d1);
         rl1.addReading(reading1);
 
         //Act
@@ -391,24 +450,41 @@ class SensorTest {
         ReadingList rList = new ReadingList();
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(15, 23, 5), new Date());
         s1.setReadingList(rList);
-        GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
-        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 1, 0, 0, 0);
-        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 23, 23, 26, 21);
-        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 27, 8, 21, 22);
-        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 23, 18, 14, 3);
-        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
-        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 28, 12, 12, 12);
-        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 30, 23, 59, 59);
-        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 1, 0, 0, 0);
-        Reading r0 = new Reading(23, g0.getTime());
-        Reading r1 = new Reading(23, g1.getTime());
-        Reading r2 = new Reading(24, g2.getTime());
-        Reading r3 = new Reading(25, g3.getTime());
-        Reading r4 = new Reading(26, g4.getTime());
-        Reading r5 = new Reading(23, g5.getTime());
-        Reading r6 = new Reading(22, g6.getTime());
-        Reading r7 = new Reading(23, g7.getTime());
-        Reading r8 = new Reading(22, g8.getTime());
+        Date d1 = new Date();
+        Date d2 = new Date();
+        Date d3 = new Date();
+        Date d4 = new Date();
+        Date d5 = new Date();
+        Date d6 = new Date();
+        Date d7 = new Date();
+        Date d8 = new Date();
+        Date d9 = new Date();
+        Date dateToTest = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            d1 = s.parse("31/09/2018 23:59:59");
+            d2 = s.parse("01/10/2018 00:00:00");
+            d3 = s.parse("23/10/2018 23:26:21");
+            d4 = s.parse("27/10/2018 08:21:22");
+            d5 = s.parse("23/10/2018 18:14:03");
+            d6 = s.parse("23/10/2018 12:14:23");
+            d7 = s.parse("28/10/2018 12:12:12");
+            d8 = s.parse("30/10/2018 23:59:59");
+            d9 = s.parse("01/11/2018 00:00:00");
+            dateToTest = s.parse("07/10/2018 00:00:00");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
+        Reading r0 = new Reading(23, d1);
+        Reading r1 = new Reading(23, d2);
+        Reading r2 = new Reading(24, d3);
+        Reading r3 = new Reading(25, d4);
+        Reading r4 = new Reading(26, d5);
+        Reading r5 = new Reading(23, d6);
+        Reading r6 = new Reading(22, d7);
+        Reading r7 = new Reading(23, d8);
+        Reading r8 = new Reading(22, d9);
         rList.addReading(r0);
         rList.addReading(r1);
         rList.addReading(r2);
@@ -420,8 +496,6 @@ class SensorTest {
         rList.addReading(r8);
 
         double expectedResult = 23.71;
-        GregorianCalendar gc = new GregorianCalendar(2018, 10, 7);
-        Date dateToTest = gc.getTime();
         double result = s1.calculateMonthMeanOnSensor(s1, dateToTest);
         assertEquals(expectedResult, result, 0.1);
     }
@@ -436,7 +510,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(20, 20, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -456,7 +537,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -476,7 +564,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(30, 30, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -496,7 +591,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -516,7 +618,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 10, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -536,7 +645,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(30, 10, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -556,7 +672,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(35, 20, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -576,7 +699,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-35, 20, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -596,7 +726,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(100, 100, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -616,7 +753,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(20, -35, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -636,7 +780,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, -5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -658,7 +809,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -678,7 +836,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(30, 30, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -698,7 +863,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 30, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -718,7 +890,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(10, 10, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -738,7 +917,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(30, 10, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -758,7 +944,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(35, 20, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -778,7 +971,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-35, 20, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -798,7 +998,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(100, 100, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -818,7 +1025,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(20, -35, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -838,7 +1052,14 @@ class SensorTest {
         GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, -5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
 
         //Act
@@ -855,7 +1076,14 @@ class SensorTest {
     void seeIfPrintSensor() {
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
         String result = s1.buildSensorString();
         Assertions.assertEquals("XV56-LD1, Temperatura, -5.0º lat, -5.0º long\n", result);
@@ -866,7 +1094,14 @@ class SensorTest {
         //Arrange
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         TypeSensor actualResult;
         Sensor c = new Sensor(name, t1, d1);
         //Act
@@ -881,7 +1116,14 @@ class SensorTest {
         //Arrange
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         TypeSensor actualResult;
         Sensor c = new Sensor("Sensor", new TypeSensor("tiposensor", "unidades"), new Local(5, 5, 5), new Date());
         c.setTypeSensor(t1);
@@ -899,11 +1141,26 @@ class SensorTest {
         //Arrange
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         boolean expectedResult = true;
         Sensor c = new Sensor(name, t1, d1);
         //Act
-        boolean actualResult = c.isSensorActiveOnGivenDate(new GregorianCalendar(2018, 8, 10));
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d2 = sd.parse("10/08/2018");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        boolean actualResult = c.isSensorActiveOnGivenDate(d2);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -914,11 +1171,26 @@ class SensorTest {
         //Arrange
         String name = "Chuva";
         TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         boolean expectedResult = false;
         Sensor c = new Sensor(name, t1, d1);
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d2 = sd.parse("07/08/2018");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         //Act
-        boolean actualResult = c.isSensorActiveOnGivenDate(new GregorianCalendar(2018, 8, 7));
+        boolean actualResult = c.isSensorActiveOnGivenDate(d2);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -932,7 +1204,14 @@ class SensorTest {
         List<String> test = new ArrayList<>();
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, -5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
         double expectedResult = 1579.28;
 
@@ -944,7 +1223,14 @@ class SensorTest {
     void ensureThatEqualsRecognizesSameObject() {
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(100, 100, 5);
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
         boolean actualResult = s1.equals(s1);
         assertTrue(actualResult);
@@ -953,8 +1239,22 @@ class SensorTest {
     @Test
     void addReadings() {
         TypeSensor ty1 = new TypeSensor("temperature", "Celsius");
-        Date d1 = new GregorianCalendar(2018, 8, 9).getTime();
-        Date d2 = new GregorianCalendar(2018, 8, 12).getTime();
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("09/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d2 = sd.parse("12/08/2018");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         Sensor sensor1 = new Sensor("sensor1", ty1, d1);
 
         Reading reading1 = new Reading(20, d1);
