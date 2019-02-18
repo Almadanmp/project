@@ -881,18 +881,30 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Beach House", "Flower Street", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
-        Room actualResult1 = new Room("kitchen",1,1,1,1);
-        Room actualResult2 = new Room("room",1,1,1,1);
-        Room actualResult3 = new Room("kitchen",1,1,1,1);
         //ACT
-        Room expectedResult1 = house.createRoom("kitchen", 1,1,1,1);
-        Room expectedResult2 = house.createRoom("room", 1,1,1,1);
-        Room expectedResult3 = house.createRoom("kitchen", 1,1,1,1);
-
+        boolean expectedResult1 = house.createRoom("kitchen", 1,1,1,1);
+        boolean expectedResult2 = house.createRoom("room", 1,1,1,1);
+        boolean expectedResult3 = house.createRoom("kitchen", 1,1,1,1);
         //ASSERT
-        assertEquals(expectedResult1, actualResult1);
-        assertEquals(expectedResult2, actualResult2);
-        assertEquals(expectedResult3, actualResult3);
+        assertTrue(expectedResult1);
+        assertTrue(expectedResult2);
+        assertFalse(expectedResult3);
+    }
+
+    @Test
+    void containsRoomByName() {
+        GeographicArea ga = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("Beach House", "Flower Street", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        Room room = new Room("room", 1,1,1,1);
+        house.addRoomToRoomList(room);
+        //ACT
+        boolean expectedResult1 = house.containsRoomByName("kitchen");
+        boolean expectedResult2 = house.containsRoomByName("room");
+        //ASSERT
+        assertFalse(expectedResult1);
+        assertTrue(expectedResult2);
     }
 
 }

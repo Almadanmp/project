@@ -343,11 +343,32 @@ public class House implements Metered {
         return 0;
     }
 
-    /**This method receives room parameters and creates a new Room with those parameteres
-     * @return returns room that was created
+    /**This method receives room parameters, checks if room exists in house and
+     * creates room in case it doesn't. In the end, the room will be added to the house
+     * and the method will return true.
+     * @return true in case the room is added to house, false otherwise
      * **/
-    public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height){
-        return new Room (roomDesignation,roomHouseFloor,width,length,height);
+    public boolean createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height){
+        if(!containsRoomByName(roomDesignation)){
+            Room room = new Room(roomDesignation, roomHouseFloor, width, length, height);
+            mRoomList.addRoom(room);
+            return true;
+        }
+        return false;
+    }
+
+    /**This receives a room designation and checks if house has room with
+     * that designation, returning true in case it does and false in case it does not.
+     * @return true in case a room with the given designation exists in house, false otherwise
+     * **/
+    public boolean containsRoomByName(String roomDesignation){
+        for(Room r : this.mRoomList.getList()){
+            String nameTest = r.getRoomName();
+            if(nameTest.equals(roomDesignation)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -95,17 +95,8 @@ public class HouseConfigurationController {
      * @param length          is the length of the room we're going to create.
      * @param height          is the height of the room we're going to create.
      */
-    public Room createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+    public boolean createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
         return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
-    }
-
-    /**
-     * @param house is the house we're going to add a room to.
-     * @return is true if the house was successfully added, false if it wasn't.
-     */
-
-    public boolean addRoomToHouse(House house, Room room) {
-        return (house.addRoomToRoomList(room));
     }
 
     /**

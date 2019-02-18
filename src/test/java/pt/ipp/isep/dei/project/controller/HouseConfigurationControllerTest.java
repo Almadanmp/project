@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -241,13 +243,13 @@ class HouseConfigurationControllerTest {
         Room actualResult2 = new Room("room",1,1,1,1);
         Room actualResult3 = new Room("kitchen",1,1,1,1);
         //ACT
-        Room expectedResult1 = ctrl.createNewRoom(house, "kitchen", 1,1,1,1);
-        Room expectedResult2 = ctrl.createNewRoom(house, "room", 1,1,1,1);
-        Room expectedResult3 = ctrl.createNewRoom(house, "kitchen", 1,1,1,1);
+        boolean expectedResult1 = ctrl.createNewRoom(house, "kitchen", 1,1,1,1);
+        boolean expectedResult2 = ctrl.createNewRoom(house, "room", 1,1,1,1);
+        boolean expectedResult3 = ctrl.createNewRoom(house, "kitchen", 1,1,1,1);
 
         //ASSERT
-        assertEquals(expectedResult1, actualResult1);
-        assertEquals(expectedResult2, actualResult2);
-        assertEquals(expectedResult3, actualResult3);
+        assertTrue(expectedResult1);
+        assertTrue(expectedResult2);
+        assertFalse(expectedResult3);
     }
 }

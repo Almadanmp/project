@@ -122,9 +122,8 @@ class HouseConfigurationUI {
     // house floor and dimensions) - TERESA VARELA.
     private void runUS105(House house){
         getInputRoomCharacteristics();
-        Room room = updateInputRoom(house);
         displayStateRoom();
-        updateRoomAndDisplayState(house, room);
+        updateRoomAndDisplayState(house);
     }
 
     /**
@@ -154,18 +153,11 @@ class HouseConfigurationUI {
     }
 
     /**
-     * Method creates a new room with the parameters previously provided by the user.
-     */
-    private Room updateInputRoom(House house) {
-        return this.controller.createNewRoom(house, mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight);
-    }
-
-    /**
      * Method displays the Room and its characteristics.
      */
     private void displayStateRoom() {
-        String yourNewRoom = "Your new room is called ";
-        String located = ", it is located on the ";
+        String yourNewRoom = "The room you are trying to create is called ";
+        String located = ", it would be located on the ";
         String width = " meters of width, ";
         String length = " meters of length and ";
         String height = " meters of height.";
@@ -186,12 +178,12 @@ class HouseConfigurationUI {
      * @param house receives the house the program manages so the room can be added to it.
      */
 
-    private void updateRoomAndDisplayState(House house, Room room) {
+    private void updateRoomAndDisplayState(House house) {
         String houseName = controller.getHouseName(house);
-        if (controller.addRoomToHouse(house, room)) {
-            System.out.println("The room " + this.mRoomName + " has been added to house " + houseName + ".");
+        if (controller.createNewRoom(house, mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight)) {
+            System.out.println("The room has been added to house.");
         } else {
-            System.out.println("The room you entered already exists in house " + houseName + ". Please try again.");
+            System.out.println("The room you entered already exists in house. Please try again.");
         }
     }
 
