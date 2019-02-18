@@ -270,10 +270,14 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         EnergyGrid expectedResult = new EnergyGrid("EG1", 400);
+        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
+                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+                60, 180, new ArrayList<>());
 
         // Act
 
-        EnergyGrid actualResult = controller.createEnergyGrid("EG1", 400);
+        EnergyGrid actualResult = controller.createEnergyGrid(house, "EG1", 400);
 
         // Assert
 
@@ -345,9 +349,10 @@ class EnergyGridSettingsControllerTest {
         PowerSource powerSource1 = new PowerSource("powersource1", 10, 10);
         PowerSource powerSource2 = new PowerSource("powersource2", 123, 76);
         EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
+        EnergyGrid energyGrid = new EnergyGrid("validGrid", 300);
         //Act
-        PowerSource actualResult1 = ctrl.createPowerSource("powersource1", 10, 10);
-        PowerSource actualResult2 = ctrl.createPowerSource("powersource2", 123, 76);
+        PowerSource actualResult1 = ctrl.createPowerSource(energyGrid, "powersource1", 10, 10);
+        PowerSource actualResult2 = ctrl.createPowerSource(energyGrid, "powersource2", 123, 76);
         //Assert
         assertEquals(actualResult1, powerSource1);
         assertEquals(actualResult2, powerSource2);

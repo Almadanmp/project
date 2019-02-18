@@ -173,12 +173,12 @@ public class InputUtils {
     DeviceType getInputDeviceTypeByList(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
-        List<DeviceType> deviceTypeList = house.getmDeviceTypeList();
+        List<DeviceType> deviceTypeList = house.getDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device types: ");
             System.out.println(house.buildTypeListString(deviceTypeList));
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < house.getmDeviceTypeList().size()) {
+            if (aux >= 0 && aux < house.getDeviceTypeList().size()) {
                 DeviceType result = deviceTypeList.get(aux);
                 System.out.println("You have chosen the following device type:");
                 System.out.println(result.getDeviceType() + "\n");
