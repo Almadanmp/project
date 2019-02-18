@@ -270,10 +270,14 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         EnergyGrid expectedResult = new EnergyGrid("EG1", 400);
+        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
+                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+                60, 180, new ArrayList<>());
 
         // Act
 
-        EnergyGrid actualResult = controller.createEnergyGrid("EG1", 400);
+        EnergyGrid actualResult = controller.createEnergyGrid(house, "EG1", 400);
 
         // Assert
 

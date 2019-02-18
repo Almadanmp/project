@@ -228,7 +228,7 @@ public class EnergyGrid implements Metered {
     public String buildListOfDeviceByTypeString(EnergyGrid energyGrid, House house) {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
-        for (DeviceType d : house.getmDeviceTypeList()) {
+        for (DeviceType d : house.getDeviceTypeList()) {
             for (int i = 0; i < energyGrid.getListOfRooms().getList().size(); i++) {
                 Room r = energyGrid.getListOfRooms().getList().get(i);
                 if (r != null) {

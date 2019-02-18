@@ -64,17 +64,17 @@ class EnergyGridSettingsUI {
     // USER STORY 130 UI -  As an Administrator, I want to create a house grid, so that I can define the rooms that are
     // attached to it and the contracted maximum power for that grid - DANIEL OLIVEIRA .
     private void runUS130(House house) {
-        EnergyGrid energyGrid = getInputUS130();
+        EnergyGrid energyGrid = getInputUS130(house);
         updateHouse(house, energyGrid);
     }
 
-    private EnergyGrid getInputUS130() {
+    private EnergyGrid getInputUS130(House programHouse) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum contracted power for this energy grid.");
         double power = getInputMaxPower();
-        return mController.createEnergyGrid(name, power);
+        return mController.createEnergyGrid(programHouse, name, power);
     }
 
 

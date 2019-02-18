@@ -48,7 +48,7 @@ public class House implements Metered {
      *
      * @param deviceTypePaths List of Strings with all the device paths (values) from device.properties file
      */
-    public void buildDeviceTypeList(List<String> deviceTypePaths) {
+    void buildDeviceTypeList(List<String> deviceTypePaths) {
         this.mDeviceTypeList = new ArrayList<>();
         for (String s : deviceTypePaths) {
             DeviceType aux;
@@ -104,19 +104,19 @@ public class House implements Metered {
         return result;
     }
 
-    public void setGridMeteringPeriod(int meteringPeriod) {
+    void setGridMeteringPeriod(int meteringPeriod) {
         this.mGridMeteringPeriod = meteringPeriod;
     }
 
-    public double getGridMeteringPeriod() {
+    double getGridMeteringPeriod() {
         return mGridMeteringPeriod;
     }
 
-    public void setDeviceMeteringPeriod(int meteringPeriod) {
+    void setDeviceMeteringPeriod(int meteringPeriod) {
         this.mDeviceMeteringPeriod = meteringPeriod;
     }
 
-    public double getDeviceMeteringPeriod() {
+    double getDeviceMeteringPeriod() {
         return mDeviceMeteringPeriod;
     }
 
@@ -162,7 +162,7 @@ public class House implements Metered {
         this.mEGList = energyGridList;
     }
 
-    public List<DeviceType> getmDeviceTypeList() {
+    public List<DeviceType> getDeviceTypeList() {
         return mDeviceTypeList;
     }
 

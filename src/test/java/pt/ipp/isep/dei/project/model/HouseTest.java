@@ -772,7 +772,7 @@ class HouseTest {
         House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 50), ga, 60, 180, test);
         test.add("teste");
         List<DeviceType> expectedResult = new ArrayList<>();
-        List<DeviceType> result = house.getmDeviceTypeList();
+        List<DeviceType> result = house.getDeviceTypeList();
         assertEquals(expectedResult, result);
     }
 
@@ -811,7 +811,7 @@ class HouseTest {
 
         house.buildDeviceTypeList(deviceTypePaths);
 
-        List<DeviceType> dtList = house.getmDeviceTypeList();
+        List<DeviceType> dtList = house.getDeviceTypeList();
         assertEquals(dtList.size(), 2);
         assertTrue(dtList.get(0) instanceof DishwasherDT);
         assertTrue(dtList.get(1) instanceof WaterHeaterDT);
