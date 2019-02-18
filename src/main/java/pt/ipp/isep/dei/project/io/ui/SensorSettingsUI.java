@@ -15,7 +15,7 @@ class SensorSettingsUI {
 
     void run(GeographicAreaList geographicAreaList, TypeSensorList typeList) {
         UtilsUI utilsUI = new UtilsUI();
-        if (utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+        if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {
             System.out.println(utilsUI.invalidGAList);
             return;
         }

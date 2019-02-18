@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -103,7 +105,15 @@ public class SensorList {
      * @return the most recently used sensor
      */
     public Sensor getMostRecentlyUsedSensor(){
-        Sensor error = new Sensor("emptySensor",new TypeSensor("type"," "),new GregorianCalendar(1900,0,1).getTime());
+        Date d1 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = sd.parse("01/00/1900");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
+        Sensor error = new Sensor("emptySensor",new TypeSensor("type"," "),d1);
         if(this.mSensorList.isEmpty() || !this.hasReadings()){
             return error;
         }
@@ -255,7 +265,7 @@ public class SensorList {
      * @return builds a list of sensors with the sensors that are active at the precise date the one introduced as parameter.
      */
 
-    List<Sensor> getSensorsInGAAtACertainTimePeriod(GregorianCalendar date1, GeographicArea ga) {
+    List<Sensor> getSensorsInGAAtACertainTimePeriod(Date date1, GeographicArea ga) {
         List<Sensor> finalList = new ArrayList<>();
         for (Sensor s : mSensorList) {
             if (s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)) {

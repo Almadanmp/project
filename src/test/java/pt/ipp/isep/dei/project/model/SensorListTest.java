@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -232,8 +234,15 @@ class SensorListTest {
         sensorList.addSensor(s3);
         GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga1.setSensorList(sensorList);
-        GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
-        List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
+        Date d1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            d1 = s.parse("05/10/2000");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
+        List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(d1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
         expectedResult.add(s1);
         expectedResult.add(s2);
@@ -251,7 +260,14 @@ class SensorListTest {
         sensorList.addSensor(s3);
         GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga1.setSensorList(sensorList);
-        GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
+        Date date1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date1 = s.parse("05/10/2000");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
         assertEquals(expectedResult, result);
@@ -268,7 +284,14 @@ class SensorListTest {
         sensorList.addSensor(s3);
         GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga1.setSensorList(sensorList);
-        GregorianCalendar date1 = new GregorianCalendar(2000, 10, 5);
+        Date date1 = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date1 = s.parse("05/10/2000");
+        }
+        catch (ParseException c){
+            c.printStackTrace();
+        }
         List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
         List<Sensor> expectedResult = new ArrayList<>();
         expectedResult.add(s1);
