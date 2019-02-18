@@ -18,9 +18,7 @@ import java.util.List;
 
 public class RoomConfigurationController {
 
-    private Room mRoom;
-    private Sensor mSensor;
-    private String mProgramList = "programList";
+        private String mProgramList = "programList";
 
     /**
      * Empty constructor.

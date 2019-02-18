@@ -195,13 +195,6 @@ public class SensorList {
     }
 
     /**
-     * @return true if the list is empty.
-     */
-    private boolean checkIfListInvalid() {
-        return (this.mSensorList.isEmpty());
-    }
-
-    /**
      * Method that goes through every sensor in the sensor list and gets
      * every reading within that sensor. In the end we will get a Reading list
      * that contains every reading from every sensor of the sensor list.
