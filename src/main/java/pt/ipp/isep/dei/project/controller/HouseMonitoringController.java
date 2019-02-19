@@ -30,7 +30,7 @@ public class HouseMonitoringController {
      * @return is the max temperature recorded in a room
      */
 
-    public double getDayMaxTemperature(Room room, Date day) {
+    public double getDayMaxTemperature(Room room, Date day) throws IllegalArgumentException {
         return room.getMaxTemperatureOnGivenDay(day);
     }
 

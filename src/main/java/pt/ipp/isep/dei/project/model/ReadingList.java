@@ -490,11 +490,10 @@ public class ReadingList {
 
     /**
      * This method returns the Maximum Value of the Reading of a Given Day.
-     *
      * @param dateGiven date given
      * @return get maximum value reading in a given day
      */
-    double getMaximumOfGivenDayValueReadings(Date dateGiven) {
+    double getMaximumOfGivenDayValueReadings(Date dateGiven) throws IllegalArgumentException {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(dateGiven);
         cal.set(Calendar.HOUR_OF_DAY, 23);
@@ -512,7 +511,7 @@ public class ReadingList {
         ReadingList dayReadings = matchByDate(beginDay,endDay);
 
         if(dayReadings.isEmpty()){
-            return NaN;
+            throw new IllegalArgumentException("The day given has no readings");
         }
         double maxValue = dayReadings.getListOfReadings().get(0).getValue();
         for (Reading r : dayReadings.getListOfReadings()) {

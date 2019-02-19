@@ -138,27 +138,21 @@ public class HouseMonitoringUI {
             return;
         }
         Date date = inputUtils.getInputYearMonthDay();
-        double maxTemp = updateModel610(room, date);
-        displayState610(room, date, maxTemp);
+        updateModel610(room, date);
     }
 
-    private double updateModel610(Room room, Date date) {
+    private void updateModel610(Room room, Date date) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         System.out.println("You selected the room " + room.getRoomName() + " and the date " + date + "\n");
-        return ctrl.getDayMaxTemperature(room, date);
-    }
-
-    private void displayState610(Room room,  Date date, double temperature) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        if(Double.isNaN(temperature)){
-            System.out.println("The room you selected has no temperature readings.");
-            return;
+        try {
+            double temperature =  ctrl.getDayMaxTemperature(room, date);
+            String message = "The maximum temperature in the room " + ctrl.getRoomName(room) +
+                    " on the day " + date + was + temperature + "°C.";
+            System.out.println(message);
         }
-        String message = "The maximum temperature in the room " + ctrl.getRoomName(room) +
-                " on the day " + date +
-                was + temperature + "°C.";
-        System.out.println(message);
-
+        catch (IllegalArgumentException illegal) {
+            System.out.println(illegal.getMessage());
+        }
     }
 
 

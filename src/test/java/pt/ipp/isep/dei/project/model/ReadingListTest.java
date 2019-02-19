@@ -86,7 +86,6 @@ class ReadingListTest {
         ReadingList readingList = new ReadingList();
         GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
         Reading reading1 = new Reading(17, calendar.getTime());
-        GregorianCalendar calendar2 = new GregorianCalendar(118, 9, 3);
         Reading reading2 = new Reading(29, calendar.getTime());
         readingList.addReading(reading1);
         readingList.addReading(reading2);
@@ -1244,9 +1243,7 @@ class ReadingListTest {
         ReadingList rl1 = new ReadingList();
 
         //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rl1.getLowestValueFromGivenList(valuesOfDay);
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> rl1.getLowestValueFromGivenList(valuesOfDay));
         //Assert
         assertEquals("List is not valid", exception.getMessage());
     }
@@ -1257,9 +1254,7 @@ class ReadingListTest {
         ReadingList rl1 = new ReadingList();
 
         //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rl1.getLowestValueFromGivenList(null);
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> rl1.getLowestValueFromGivenList(null));
         //Assert
         assertEquals("List is not valid", exception.getMessage());
     }
@@ -1849,7 +1844,7 @@ class ReadingListTest {
         rList.addReading(r6);
         rList.addReading(r7);
         rList.addReading(r8);
-        List<Date> expectedResult = new ArrayList<>();
+        List<Integer> expectedResult = new ArrayList<>();
         //Act
         GregorianCalendar dateWithWeekToTest = new GregorianCalendar(2018, 1, 2);
         List<Integer> actualResult = rList.getListOfDatesWithReadingsFromWeekOfDateGiven(dateWithWeekToTest.getTime());
@@ -1888,7 +1883,7 @@ class ReadingListTest {
         rList.addReading(r6);
         rList.addReading(r7);
         rList.addReading(r8);
-        List<Date> expectedResult = new ArrayList<>();
+        List<Integer> expectedResult = new ArrayList<>();
         //Act
         GregorianCalendar dateWithWeekToTest = new GregorianCalendar(2017, 10, 22);
         List<Integer> actualResult = rList.getListOfDatesWithReadingsFromWeekOfDateGiven(dateWithWeekToTest.getTime());
@@ -2020,9 +2015,7 @@ class ReadingListTest {
     void seeIfListNullThrowsException() {
         ReadingList rList = new ReadingList();
         //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rList.checkIfListValid(null);
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> rList.checkIfListValid(null));
         //Assert
         assertEquals("List is not valid", exception.getMessage());
     }
@@ -2034,9 +2027,7 @@ class ReadingListTest {
         List<Double> valuesOfDay = new ArrayList<>();
 
         //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rList.checkIfListValid(valuesOfDay);
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> rList.checkIfListValid(valuesOfDay));
         //Assert
         assertEquals("List is not valid", exception.getMessage());
     }
@@ -2090,6 +2081,23 @@ class ReadingListTest {
         double actualResult = rList.getMaximumOfGivenDayValueReadings(g5.getTime());
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
+    }
+    @Test
+    void getMaximumOfGivenDayValueReadingsIllegalArgumentInG() {
+        //Arrange
+
+        ReadingList readingList = new ReadingList();
+        Date d1 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            d1 = sd.parse("19/11/2017 11:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalD = d1; //Intellij made me do this
+        //Act and Assert
+
+        assertThrows(IllegalArgumentException.class, () -> readingList.getMaximumOfGivenDayValueReadings(finalD));
     }
 
 
@@ -2159,14 +2167,6 @@ class ReadingListTest {
         list.addReading(r2);
         double result = list.getMaximumOfGivenDayValueReadings(d1);
         double expectedResult = 15.0;
-        assertEquals(expectedResult, result, 0.01);
-    }
-    @Test
-    void seeMaxValueWithEmptyList() {
-        ReadingList list = new ReadingList();
-        Date d1 = new GregorianCalendar(2015, 11, 2).getTime();
-        double result = list.getMaximumOfGivenDayValueReadings(d1);
-        double expectedResult = NaN;
         assertEquals(expectedResult, result, 0.01);
     }
 

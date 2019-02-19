@@ -81,7 +81,7 @@ public class Room implements Metered {
         return roomName;
     }
 
-    public int getHouseFloor() {
+    int getHouseFloor() {
         return houseFloor;
     }
 
@@ -104,7 +104,7 @@ public class Room implements Metered {
         StringBuilder result = new StringBuilder("---------------\n");
         for (int i = 0; i < this.getDeviceList().size(); i++) {
             Device device = this.getDeviceList().get(i);
-            result.append("\n" + i).append(") device Name: ").append(device.getName());
+            result.append("\n").append(i).append(") device Name: ").append(device.getName());
             result.append(", device Type: ").append(device.getType());
             result.append(", device Nominal Power: ").append(device.getNominalPower());
         }
@@ -153,11 +153,11 @@ public class Room implements Metered {
      * in case the room has no readings whatsoever
      * @date day where we want to look for max temperature
      **/
-    public double getMaxTemperatureOnGivenDay(Date day) {
+    public double getMaxTemperatureOnGivenDay(Date day) throws IllegalArgumentException {
         double maxTemp = -1000;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {
-            return NaN;
+            throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
         for (Sensor s : tempSensors.getSensorList()) {
             ReadingList readingList = s.getReadingList();
@@ -173,7 +173,7 @@ public class Room implements Metered {
      *
      * @return a sensor list that contains sensors of given type
      **/
-    public SensorList getSensorsOfGivenType(String type) {
+    SensorList getSensorsOfGivenType(String type) {
         SensorList tempSensors = new SensorList();
         for (Sensor s : this.roomSensorList.getSensorList()) {
             String typeTest = s.getTypeSensor().getName();
