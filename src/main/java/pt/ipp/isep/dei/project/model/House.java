@@ -15,13 +15,13 @@ import java.util.Objects;
 public class House implements Metered {
     private String id;
     private Address address;
-    private Local mLocation;
+    private Local location;
     private EnergyGridList mEGList;
     private RoomList mRoomList;
-    private GeographicArea mMotherArea;
-    private int mGridMeteringPeriod;
-    private int mDeviceMeteringPeriod;
-    private List<DeviceType> mDeviceTypeList;
+    private GeographicArea motherArea;
+    private int gridMeteringPeriod;
+    private int deviceMeteringPeriod;
+    private List<DeviceType> deviceTypeList;
 
     //CONSTRUCTOR
 
@@ -29,12 +29,12 @@ public class House implements Metered {
                  int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
         this.id = id;
         this.address = address;
-        this.mLocation = mLocation;
-        this.mMotherArea = mMotherArea;
+        this.location = mLocation;
+        this.motherArea = mMotherArea;
         this.mRoomList = new RoomList();
         this.mEGList = new EnergyGridList();
-        this.mGridMeteringPeriod = gridMeteringPeriod;
-        this.mDeviceMeteringPeriod = deviceMeteringPeriod;
+        this.gridMeteringPeriod = gridMeteringPeriod;
+        this.deviceMeteringPeriod = deviceMeteringPeriod;
         buildDeviceTypeList(deviceTypeConfig);
     }
 
@@ -45,7 +45,7 @@ public class House implements Metered {
      * @param deviceTypePaths List of Strings with all the device paths (values) from device.properties file
      */
     void buildDeviceTypeList(List<String> deviceTypePaths) {
-        this.mDeviceTypeList = new ArrayList<>();
+        this.deviceTypeList = new ArrayList<>();
         for (String s : deviceTypePaths) {
             DeviceType aux;
             try {
@@ -53,7 +53,7 @@ public class House implements Metered {
             } catch (Exception e) {
                 throw new IllegalArgumentException("ERROR: Unable to create device type from path - " + e.getMessage());
             }
-            mDeviceTypeList.add(aux);
+            deviceTypeList.add(aux);
         }
     }
 
@@ -74,23 +74,23 @@ public class House implements Metered {
     }
 
     void setGridMeteringPeriod(int meteringPeriod) {
-        this.mGridMeteringPeriod = meteringPeriod;
+        this.gridMeteringPeriod = meteringPeriod;
     }
 
     double getGridMeteringPeriod() {
-        return mGridMeteringPeriod;
+        return gridMeteringPeriod;
     }
 
     void setDeviceMeteringPeriod(int meteringPeriod) {
-        this.mDeviceMeteringPeriod = meteringPeriod;
+        this.deviceMeteringPeriod = meteringPeriod;
     }
 
     double getDeviceMeteringPeriod() {
-        return mDeviceMeteringPeriod;
+        return deviceMeteringPeriod;
     }
 
     public Local getLocation() {
-        return mLocation;
+        return location;
     }
 
     public List<Device> getDeviceList() {
@@ -98,9 +98,9 @@ public class House implements Metered {
     }
 
     public void setLocation(double latitude, double longitude, double altitude) {
-        mLocation.setLatitude(latitude);
-        mLocation.setLongitude(longitude);
-        mLocation.setAltitude(altitude);
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        location.setAltitude(altitude);
     }
 
     public void setRoomList(RoomList roomList) {
@@ -108,7 +108,7 @@ public class House implements Metered {
     }
 
     public void setMotherArea(GeographicArea motherArea) {
-        this.mMotherArea = motherArea;
+        this.motherArea = motherArea;
     }
 
     public List<Room> getRoomList() {
@@ -116,7 +116,7 @@ public class House implements Metered {
     }
 
     public GeographicArea getMotherArea() {
-        return mMotherArea;
+        return motherArea;
     }
 
     public EnergyGridList getEGListObject() {
@@ -132,7 +132,7 @@ public class House implements Metered {
     }
 
     public List<DeviceType> getDeviceTypeList() {
-        return mDeviceTypeList;
+        return deviceTypeList;
     }
 
     public boolean addRoomToRoomList(Room room) {
@@ -154,7 +154,7 @@ public class House implements Metered {
      */
     double calculateDistanceToSensor(Sensor sensor) {
         Local l = sensor.getLocal();
-        return this.mLocation.getLinearDistanceBetweenLocalsInKm(l);
+        return this.location.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     /**
