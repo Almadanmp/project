@@ -247,6 +247,10 @@ public class MainUI {
         mTypeAreaList.addTypeArea(typeAreaA);
         mTypeAreaList.addTypeArea(typeAreaB);
 
+        //Device WaterHeaterSpec
+        String wHVolumeOfWater = WaterHeaterSpec.VOLUME_OF_WATER;
+        String wHHotWaterTemperature = WaterHeaterSpec.HOT_WATER_TEMP;
+        String wHPerformanceRatio = WaterHeaterSpec.PERFORMANCE_RATIO;
 
         //Device WashingMachineSpec
         String capacity = "capacity";
@@ -271,11 +275,11 @@ public class MainUI {
         device2.setAttributeValue("refrigeratorCapacity", 2D);
         device2.setAttributeValue("annualEnergyConsumption", 45D);
         Device device3 = new WaterHeater(new WaterHeaterSpec());
-        device3.setNominalPower(3.0);
+            device3.setNominalPower(3.0);
         device3.setName("WH Main");
-        device3.setAttributeValue(volumeWater, 500D);
-        device3.setAttributeValue(hotWaterT, 25D);
-        device3.setAttributeValue(performanceRatio, 10D);
+        device3.setAttributeValue(wHVolumeOfWater, 500D);
+        device3.setAttributeValue(wHHotWaterTemperature, 25D);
+        device3.setAttributeValue(wHPerformanceRatio, 10D);
         Device device4 = new Lamp(new LampSpec());
         device4.setNominalPower(4.0);
         device4.setName("Lamp");
@@ -283,9 +287,9 @@ public class MainUI {
         Device deviceDark = new WaterHeater(new WaterHeaterSpec());
         deviceDark.setNominalPower(200.0);
         deviceDark.setName("Water Heater 3000");
-        deviceDark.setAttributeValue(volumeWater, 400D);
-        deviceDark.setAttributeValue(hotWaterT, 400D);
-        deviceDark.setAttributeValue(performanceRatio, 0.9D);
+        deviceDark.setAttributeValue(wHVolumeOfWater, 400D);
+        deviceDark.setAttributeValue(wHHotWaterTemperature, 400D);
+        deviceDark.setAttributeValue(wHPerformanceRatio, 0.9D);
         DeviceList listDevices = new DeviceList();
         listDevices.addDevice(device1);
         listDevices.addDevice(device2);
@@ -302,9 +306,9 @@ public class MainUI {
         Device device6 = new WaterHeater(new WaterHeaterSpec());
         device6.setNominalPower(3.0);
         device6.setName("WH Secondary");
-        device6.setAttributeValue(volumeWater, 500D);
-        device6.setAttributeValue(hotWaterT, 25D);
-        device6.setAttributeValue(performanceRatio, 10D);
+        device6.setAttributeValue(wHVolumeOfWater, 500D);
+        device6.setAttributeValue(wHHotWaterTemperature, 25D);
+        device6.setAttributeValue(wHPerformanceRatio, 10D);
         DeviceList listDevices1 = new DeviceList();
         listDevices1.addDevice(device5);
         listDevices1.addDevice(device6);

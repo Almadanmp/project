@@ -125,7 +125,7 @@ public class WaterHeater implements Device, Metered {
         if (coldWaterTemperature >= hotWaterTemperature) {
             return 0;
         }
-        return coldWaterTemperature * hotWaterTemperature;
+        return hotWaterTemperature - coldWaterTemperature;
     }
 
     /**
