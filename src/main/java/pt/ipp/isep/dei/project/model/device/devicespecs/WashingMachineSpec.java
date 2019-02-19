@@ -7,7 +7,7 @@ public class WashingMachineSpec implements DeviceSpecs {
 
     public static final String WM_CAPACITY = "Capacity";
 
-    private Double mWMCapacity;
+    private Double wMCapacity;
 
 
     public List<String> getAttributeNames() {
@@ -18,7 +18,7 @@ public class WashingMachineSpec implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         if (attributeName.equals(WM_CAPACITY)) {
-            return mWMCapacity;
+            return wMCapacity;
         }
         return 0;
     }
@@ -36,7 +36,7 @@ public class WashingMachineSpec implements DeviceSpecs {
             return false;
         }
         if (attributeName == WM_CAPACITY && attributeValue instanceof Double) {
-            this.mWMCapacity = (Double) attributeValue;
+            this.wMCapacity = (Double) attributeValue;
             return true;
         }
         return false;

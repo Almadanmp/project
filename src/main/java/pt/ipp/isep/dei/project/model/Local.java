@@ -65,7 +65,7 @@ public class Local {
      * Getter Altitude
      * @return Altitude value
      */
-    double getAltitude() {
+    public double getAltitude() {
         return this.altitude;
     }
 

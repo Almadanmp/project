@@ -525,6 +525,8 @@ public class ReadingList {
     }
 
 
+
+
     boolean checkIfListValid(List<Double> values) {
         if (values == null || values.isEmpty()) {
             throw new IllegalArgumentException("List is not valid");

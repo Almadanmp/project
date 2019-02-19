@@ -114,7 +114,8 @@ public class MainUI {
 
         // Houses (1 per Geographical Area!)
 
-        House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        Address addressEdificioB = new Address("Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString);
+        House edificioB = new House("Edificio B", addressEdificioB, new Local(41.177748, -8.607745, 112), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         edificioB.setMotherArea(isep);
         edificioB.addRoomToRoomList(roomISEP1);
         edificioB.addRoomToRoomList(roomISEP2);
@@ -325,7 +326,8 @@ public class MainUI {
         Room room5 = new Room("room2", 2, 13, 93, 23);
         Room room6 = new Room("room3", 2, 73, 43, 23);
         Room room7 = new Room("room4", 5, 63, 23, 23);
-        House house4 = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        Address addressHouse4 = new Address("Street", "4230", portoString);
+        House house4 = new House("houseRoomDifEG", addressHouse4, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         house4.addRoomToRoomList(room4);
         house4.addRoomToRoomList(room5);
 
@@ -730,7 +732,8 @@ public class MainUI {
         portoSP2.setDescription("City of Porto");
         geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
         EnergyGrid mainGridSP2 = new EnergyGrid(mainGridString, 0);
-        House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        Address addressHouseSP2 = new Address("Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString);
+        House houseSP2 = new House("Edificio B", addressHouseSP2, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseSP2.setMotherArea(geographicAreaSP2);
         geographicAreaSP2.setSensorList(areaSensorSP2);
         EnergyGridList mainGridList = new EnergyGridList();
@@ -747,12 +750,14 @@ public class MainUI {
         Room room1 = new Room("room1", 1, 33, 13, 23);
         Room room2 = new Room("room2", 2, 13, 93, 23);
 
-        House houseTest = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        Address addressHouseTest = new Address("Street", "4230", portoString);
+        House houseTest = new House("houseRoomDifEG", addressHouseTest, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseTest.addRoomToRoomList(room1);
         houseTest.addRoomToRoomList(room2);
 
         //LOGS
-        House hhhhh = new House("Iseperino", "Rua dos tones", "4535", portoString, new Local(45, 45, 45), new GeographicArea(portoString, new TypeArea("coise"), 45, 45, new Local(50, 50, 50)),
+        Address addressHHHHH = new Address("Rua das Dunas", "4535", portoString);
+        House hhhhh = new House("Iseperino", addressHHHHH, new Local(45, 45, 45), new GeographicArea(portoString, new TypeArea("coise"), 45, 45, new Local(50, 50, 50)),
                 10, 10, deviceTypeConfig);
         EnergyGrid energyGrid = new EnergyGrid(mainGridString, 500);
         hhhhh.addGrid(energyGrid);

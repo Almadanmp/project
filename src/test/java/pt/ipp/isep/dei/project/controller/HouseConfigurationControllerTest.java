@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -25,7 +23,8 @@ class HouseConfigurationControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         List<String> deviceTypeList = new ArrayList<>();
-        validHouse = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        validHouse = new House("ISEP", address,
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60, 180,
                 deviceTypeList);
@@ -33,57 +32,19 @@ class HouseConfigurationControllerTest {
     }
 
 
-    @Test
-    void seeIfSetHouseAddress() {
-        // Arrange
-
-        controller.setHouseAddress("Rua de Teste", validHouse);
-
-        // Act
-
-        String actualResult = validHouse.getStreet();
-
-        // Assert
-
-        assertEquals("Rua de Teste", actualResult);
-    }
-
-    @Test
-    void seeIfSetHouseZipCode() {
-        // Arrange
-
-        controller.setHouseZIPCode("4400", validHouse);
-
-        // Act
-
-        String actualResult = validHouse.getZip();
-
-        // Assert
-
-        assertEquals("4400", actualResult);
-    }
-
-    @Test
-    void seeIfSetHouseLocal() {
-        // Arrange
-
-        Local local = new Local(34, 56, 5);
-        controller.setHouseLocal(34, 56, 5, validHouse);
-
-        // Act
-
-        Local actualResult = validHouse.getLocation();
-
-        // Assert
-
-        assertEquals(local, actualResult);
-    }
-
-    // US105
+    //USER STORY 105
 
 
     @Test
     void seeIfGetHouseName() {
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
+
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia", address, new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        //Act
         // Act
 
         String actualResult = controller.getHouseName(validHouse);
@@ -122,16 +83,22 @@ class HouseConfigurationControllerTest {
 
     @Test
     void createsRoom() {
+        //Arrange
+
+        Room expectedResult1 = new Room("Kitchen", 1, 10, 15, 10);
+        Room expectedResult2 = new Room("Room", 1, 10, 15, 10);
+        Room expectedResult3 = new Room("Kitchen", 1, 10, 15, 10);
+
         // Act
 
-        boolean expectedResult1 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
-        boolean expectedResult2 = controller.createNewRoom(validHouse, "Room", 1, 10, 15, 10);
-        boolean expectedResult3 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
+        Room actualResult1 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
+        Room actualResult2 = controller.createNewRoom(validHouse, "Room", 1, 10, 15, 10);
+        Room actualResult3 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
 
         // Assert
 
-        assertTrue(expectedResult1);
-        assertTrue(expectedResult2);
-        assertFalse(expectedResult3);
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(expectedResult3, actualResult3);
     }
 }

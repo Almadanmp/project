@@ -12,49 +12,48 @@ import java.util.List;
 import java.util.Objects;
 
 public class WashingMachine implements Device, Metered, Programmable {
-    private String mWMName;
-    private double mWMNominalPower;
-    private String mWMType = "Washing Machine";
-    private WashingMachineSpec mWMDeviceSpecs;
-    private boolean mWMActive;
-    private ProgramList mWMProgramList;
-    private LogList mWMLogList;
+    private String wMName;
+    private double wMNominalPower;
+    private WashingMachineSpec wMDeviceSpecs;
+    private boolean wMActive;
+    private ProgramList wMProgramList;
+    private LogList wMLogList;
 
 
     public WashingMachine(WashingMachineSpec washingMachineSpec) {
-        this.mWMDeviceSpecs = washingMachineSpec;
-        this.mWMActive = true;
-        mWMProgramList = new ProgramList();
-        mWMLogList = new LogList();
+        this.wMDeviceSpecs = washingMachineSpec;
+        this.wMActive = true;
+        wMProgramList = new ProgramList();
+        wMLogList = new LogList();
     }
 
     public String getName() {
-        return this.mWMName;
+        return this.wMName;
     }
 
     public void setName(String name) {
-        this.mWMName = name;
+        this.wMName = name;
     }
 
     public String getType() {
-        return this.mWMType;
+        return "Washing Machine";
     }
 
     public void setNominalPower(double nominalPower) {
-        this.mWMNominalPower = nominalPower;
+        this.wMNominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.mWMNominalPower;
+        return this.wMNominalPower;
     }
 
     public boolean isActive() {
-        return this.mWMActive;
+        return this.wMActive;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.mWMActive = false;
+            this.wMActive = false;
             return true;
         } else {
             return false;
@@ -66,13 +65,13 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
-        return this.mWMProgramList;
+        return this.wMProgramList;
     }
 
 
 
     public String buildDeviceString() {
-        return "The device Name is " + this.mWMName + ", and its NominalPower is " + this.mWMNominalPower + " kW.\n";
+        return "The device Name is " + this.wMName + ", and its NominalPower is " + this.wMNominalPower + " kW.\n";
     }
 
     /**
@@ -81,7 +80,7 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return mWMLogList;
+        return wMLogList;
     }
 
     /**
@@ -91,8 +90,8 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(mWMLogList.getLogList().contains(log)) && this.mWMActive) {
-            mWMLogList.getLogList().add(log);
+        if (!(wMLogList.getLogList().contains(log)) && this.wMActive) {
+            wMLogList.getLogList().add(log);
             return true;
         } else {
             return false;
@@ -107,11 +106,11 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return mWMLogList.countLogsInInterval(initialTime, finalTime);
+        return wMLogList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mWMLogList.getLogsInInterval(startDate, endDate);
+        return wMLogList.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -122,7 +121,7 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return mWMLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return wMLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
@@ -132,25 +131,25 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return
      */
     public double getEnergyConsumption(float time) {
-        return mWMNominalPower * time;
+        return wMNominalPower * time;
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return mWMDeviceSpecs.getAttributeNames();
+        return wMDeviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return mWMDeviceSpecs.getAttributeValue(attributeName);
+        return wMDeviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return mWMDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return wMDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return mWMDeviceSpecs.getAttributeUnit(attributeName);
+        return wMDeviceSpecs.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -162,7 +161,7 @@ public class WashingMachine implements Device, Metered, Programmable {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(mWMName, device.getName());
+        return Objects.equals(wMName, device.getName());
     }
 
     @Override

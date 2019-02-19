@@ -13,10 +13,8 @@ import java.util.Objects;
  */
 
 public class House implements Metered {
-    private String mId;
-    private String mStreet;
-    private String mZip;
-    private String mTown;
+    private String id;
+    private Address address;
     private Local mLocation;
     private EnergyGridList mEGList;
     private RoomList mRoomList;
@@ -27,12 +25,10 @@ public class House implements Metered {
 
     //CONSTRUCTOR
 
-    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea,
+    public House(String id, Address address, Local mLocation, GeographicArea mMotherArea,
                  int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
-        this.mId = mId;
-        this.mStreet = mStreet;
-        this.mZip = mZip;
-        this.mTown = mTown;
+        this.id = id;
+        this.address = address;
         this.mLocation = mLocation;
         this.mMotherArea = mMotherArea;
         this.mRoomList = new RoomList();
@@ -64,37 +60,10 @@ public class House implements Metered {
 
     //SETTERS AND GETTERS
 
-    public String getHouseId() {
-        return mId;
-    }
 
-    void setId(String id) {
-        this.mId = id;
-    }
+    public String getHouseId(){return this.id;}
 
-    public String getStreet() {
-        return this.mStreet;
-    }
-
-    public void setStreet(String mStreet) {
-        this.mStreet = mStreet;
-    }
-
-    public String getZip() {
-        return mZip;
-    }
-
-    public void setZip(String mZip) {
-        this.mZip = mZip;
-    }
-
-    String getTown() {
-        return mTown;
-    }
-
-    void setTown(String town) {
-        this.mTown = town;
-    }
+    public void setAddress(Address address){this.address = address;}
 
     public double getNominalPower() {
         double result = 0;
@@ -310,18 +279,18 @@ public class House implements Metered {
 
     /**
      * This method receives room parameters, checks if room exists in house and
-     * creates room in case it doesn't. In the end, the room will be added to the house
-     * and the method will return true.
-     *
-     * @return true in case the room is added to house, false otherwise
+     * returns room with same designation in case it does. In case the room does not
+     * exit, a new room will be created and returned.
+     * @return room with characteristics given as parameters
      **/
-    public boolean createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        if (!containsRoomByName(roomDesignation)) {
-            Room room = new Room(roomDesignation, roomHouseFloor, width, length, height);
-            mRoomList.addRoom(room);
-            return true;
+    public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+        for (Room r : this.mRoomList.getList()){
+            String designation = r.getRoomName();
+            if(roomDesignation.equals(designation)){
+                return r;
+            }
         }
-        return false;
+        return new Room(roomDesignation,roomHouseFloor,width,length,height);
     }
 
     /**
@@ -349,7 +318,7 @@ public class House implements Metered {
             return false;
         }
         House house = (House) o;
-        return Objects.equals(mStreet, house.mStreet);
+        return Objects.equals(this.address, house.address);
     }
 
     @Override

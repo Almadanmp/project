@@ -60,7 +60,8 @@ public class UtilsUITest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia",address , new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.houseRoomListIsValid(house);
@@ -77,7 +78,8 @@ public class UtilsUITest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
@@ -285,7 +287,8 @@ public class UtilsUITest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.houseMotherAreaIsValid(house);
@@ -298,7 +301,8 @@ public class UtilsUITest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         GeographicArea ga1 = null;
         house.setMotherArea(ga1);
         UtilsUI utilsUI = new UtilsUI();

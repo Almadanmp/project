@@ -14,7 +14,6 @@ import java.util.Objects;
 public class Dishwasher implements Device, Metered, Programmable {
     private String dWName;
     private double dWNominalPower;
-    private String dWType = "Dishwasher";
     private DishwasherSpec dWDeviceSpecs;
     private boolean dWActive;
     private ProgramList dWProgramList;
@@ -23,8 +22,8 @@ public class Dishwasher implements Device, Metered, Programmable {
     public Dishwasher(DishwasherSpec dishwasherSpec) {
         this.dWDeviceSpecs = dishwasherSpec;
         this.dWActive = true;
-        this.dWProgramList = new ProgramList();
-        this.dWLogList = new LogList();
+        dWProgramList = new ProgramList();
+        dWLogList = new LogList();
     }
 
     public String getName() {
@@ -36,7 +35,7 @@ public class Dishwasher implements Device, Metered, Programmable {
     }
 
     public String getType() {
-        return this.dWType;
+        return "Dishwasher";
     }
 
     public void setNominalPower(double nominalPower) {

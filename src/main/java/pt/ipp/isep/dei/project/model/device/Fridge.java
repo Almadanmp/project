@@ -10,47 +10,46 @@ import java.util.List;
 import java.util.Objects;
 
 public class Fridge implements Device, Metered {
-    private String mFridgeName;
-    private double mFridgeNominalPower;
-    private String mFridgeType = "Fridge";
-    private FridgeSpec mFridgeDeviceSpecs;
-    private boolean mFridgeActive;
-    private LogList mFridgeLogList;
+    private String fridgeName;
+    private double fridgeNominalPower;
+    private FridgeSpec fridgeDeviceSpecs;
+    private boolean fridgeActive;
+    private LogList fridgeLogList;
 
 
     public Fridge(FridgeSpec fridgeSpec) {
-        this.mFridgeDeviceSpecs = fridgeSpec;
-        this.mFridgeActive = true;
-        mFridgeLogList = new LogList();
+        this.fridgeDeviceSpecs = fridgeSpec;
+        this.fridgeActive = true;
+        fridgeLogList = new LogList();
     }
 
     public String getName() {
-        return this.mFridgeName;
+        return this.fridgeName;
     }
 
     public void setName(String name) {
-        this.mFridgeName = name;
+        this.fridgeName = name;
     }
 
     public String getType() {
-        return this.mFridgeType;
+        return "Fridge";
     }
 
     public void setNominalPower(double nominalPower) {
-        this.mFridgeNominalPower = nominalPower;
+        this.fridgeNominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.mFridgeNominalPower;
+        return this.fridgeNominalPower;
     }
 
     public boolean isActive() {
-        return this.mFridgeActive;
+        return this.fridgeActive;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.mFridgeActive = false;
+            this.fridgeActive = false;
             return true;
         } else {
             return false;
@@ -62,7 +61,7 @@ public class Fridge implements Device, Metered {
     }
 
     public String buildDeviceString() {
-        return "The device Name is " + this.mFridgeName + ", and its NominalPower is " + this.mFridgeNominalPower + " kW.\n";
+        return "The device Name is " + this.fridgeName + ", and its NominalPower is " + this.fridgeNominalPower + " kW.\n";
     }
 
     /**
@@ -71,7 +70,7 @@ public class Fridge implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return mFridgeLogList;
+        return fridgeLogList;
     }
 
     /**
@@ -81,8 +80,8 @@ public class Fridge implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(mFridgeLogList.getLogList().contains(log)) && this.mFridgeActive) {
-            mFridgeLogList.getLogList().add(log);
+        if (!(fridgeLogList.getLogList().contains(log)) && this.fridgeActive) {
+            fridgeLogList.getLogList().add(log);
             return true;
         } else {
             return false;
@@ -97,11 +96,11 @@ public class Fridge implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return mFridgeLogList.countLogsInInterval(initialTime, finalTime);
+        return fridgeLogList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mFridgeLogList.getLogsInInterval(startDate, endDate);
+        return fridgeLogList.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -112,7 +111,7 @@ public class Fridge implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return mFridgeLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return fridgeLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
@@ -122,25 +121,25 @@ public class Fridge implements Device, Metered {
      * @return
      */
     public double getEnergyConsumption(float time) {
-        return mFridgeNominalPower * time;
+        return fridgeNominalPower * time;
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return mFridgeDeviceSpecs.getAttributeNames();
+        return fridgeDeviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return mFridgeDeviceSpecs.getAttributeValue(attributeName);
+        return fridgeDeviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return mFridgeDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return fridgeDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return mFridgeDeviceSpecs.getAttributeUnit(attributeName);
+        return fridgeDeviceSpecs.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -152,7 +151,7 @@ public class Fridge implements Device, Metered {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(mFridgeName, device.getName());
+        return Objects.equals(fridgeName, device.getName());
     }
 
     @Override

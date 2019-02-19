@@ -6,15 +6,15 @@ import java.util.List;
 
 public class ProgramList {
 
-    private List<Program> mProgramList;
+    private List<Program> programList;
 
 
     public ProgramList(){
-        mProgramList = new ArrayList<>();
+        programList = new ArrayList<>();
     }
 
     public List<Program> getProgramList(){
-        return this.mProgramList;
+        return this.programList;
     }
 
 
@@ -46,8 +46,8 @@ public class ProgramList {
     }
 
     public boolean addProgram(Program program) {
-        if (!(mProgramList.contains(program))) {
-            mProgramList.add(program);
+        if (!(programList.contains(program))) {
+            programList.add(program);
             return true;
         } else {
             return false;
@@ -55,8 +55,8 @@ public class ProgramList {
     }
 
     public boolean removeProgram(Program program) {
-        if (mProgramList.contains(program)) {
-            mProgramList.remove(program);
+        if (programList.contains(program)) {
+            programList.remove(program);
             return true;
         } else {
             return false;

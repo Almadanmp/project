@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
+import pt.ipp.isep.dei.project.model.Address;
 import pt.ipp.isep.dei.project.model.House;
 
 import java.util.Scanner;
@@ -15,8 +16,7 @@ class HouseConfigurationUI {
     private double mHouseLat;
     private double mHouseLon;
     private double mHouseAlt;
-    private String mHouseAddress;
-    private String mHouseZipCode;
+    private Address address;
     private static final String INVALID_OPTION = "Please enter a valid option";
 
     HouseConfigurationUI() {
@@ -68,12 +68,18 @@ class HouseConfigurationUI {
         Scanner scanner = new Scanner(System.in);
 
         // get house address
-        System.out.print("Please, type the address of the house: ");
-        this.mHouseAddress = scanner.nextLine();
+        System.out.print("Please, type the street name of the house: ");
+        String street = scanner.nextLine();
 
         // get zip code
-        System.out.print("Please, type the Zip Code of the house: ");
-        this.mHouseZipCode = scanner.nextLine();
+        System.out.print("Please, type the zip code of the house: ");
+        String zip = scanner.nextLine();
+
+        // get town
+        System.out.println("Please, type the town of the house: ");
+        String town = scanner.nextLine();
+
+        this.address = new Address(street, zip, town);
 
         //get latitude
         System.out.print("Please, type the latitude: ");
@@ -95,8 +101,7 @@ class HouseConfigurationUI {
      */
     private void updateHouseUS101(House house) {
         controller.setHouseLocal(mHouseLat, mHouseLon, mHouseAlt, house);
-        controller.setHouseZIPCode(mHouseZipCode, house);
-        controller.setHouseAddress(mHouseAddress, house);
+        controller.setHouseAddress(this.address, house);
     }
 
     /**
@@ -105,8 +110,8 @@ class HouseConfigurationUI {
      */
     private void displayHouseUS101(House house) {
         String houseId = controller.getHouseName(house);
-        System.out.println("You have successfully changed the location of the house " + houseId + ". \n" + "Address: " +
-                mHouseAddress + ". \n" + "ZipCode: " + mHouseZipCode + ". \n" + "Latitude: " + mHouseLat + ". \n" +
+        System.out.println("You have successfully changed the location of the house " + houseId + ". \n" + "Street: " +
+                this.address.getStreet() + ". \n" + "ZipCode: " + this.address.getZip() + ". \n" + "Town: " + this.address.getTown() + ". \n" + "Latitude: " + mHouseLat + ". \n" +
                 "Longitude: " + mHouseLon + ". \n" + "Altitude: " + mHouseAlt + ". \n");
     }
 
@@ -116,7 +121,6 @@ class HouseConfigurationUI {
     private void runUS105(House house){
         getInputRoomCharacteristics();
         displayStateRoom();
-        updateRoomAndDisplayState(house);
     }
 
     /**
@@ -149,8 +153,8 @@ class HouseConfigurationUI {
      * Method displays the input room and its characteristics.
      */
     private void displayStateRoom() {
-        String yourNewRoom = "The room you are trying to create is called ";
-        String located = ", it would be located on the ";
+        String yourNewRoom = "The room is called ";
+        String located = ", it will be located on the ";
         String width = " meters of width, ";
         String length = " meters of length and ";
         String height = " meters of height.";
@@ -163,18 +167,6 @@ class HouseConfigurationUI {
             System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "rd floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
         } else {
             System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "th floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
-        }
-    }
-
-    /**
-     * Method tries to create a room based on the input from user and returns message to user
-     * @param house receives program house so the room can be added to it.
-     */
-    private void updateRoomAndDisplayState(House house) {
-        if (controller.createNewRoom(house, mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight)) {
-            System.out.println("The room has been added to house.");
-        } else {
-            System.out.println("The room you entered already exists in house. Please try again.");
         }
     }
 

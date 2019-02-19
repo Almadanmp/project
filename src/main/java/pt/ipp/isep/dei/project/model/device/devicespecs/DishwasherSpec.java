@@ -7,7 +7,7 @@ public class DishwasherSpec implements DeviceSpecs {
 
     public static final String DW_CAPACITY = "Capacity";
 
-    private Double mDWCapacity;
+    private Double dWCapacity;
 
 
     public List<String> getAttributeNames() {
@@ -18,7 +18,7 @@ public class DishwasherSpec implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         if (attributeName.equals(DW_CAPACITY)) {
-            return mDWCapacity;
+            return dWCapacity;
         }
         return 0;
     }
@@ -36,7 +36,7 @@ public class DishwasherSpec implements DeviceSpecs {
             return false;
         }
         if (attributeName == DW_CAPACITY && attributeValue instanceof Double) {
-            this.mDWCapacity = (Double) attributeValue;
+            this.dWCapacity = (Double) attributeValue;
             return true;
         }
         return false;
