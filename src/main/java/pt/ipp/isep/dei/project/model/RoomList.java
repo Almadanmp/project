@@ -25,15 +25,6 @@ public class RoomList {
         this.mRoomList = new ArrayList<>();
     }
 
-    public boolean doesListOfRoomsContainRoomByName(String name) {
-        for (Room room : getList()) {
-            if ((room.getRoomName().equals(name))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public List<Room> getList() {
         return this.mRoomList;
     }
@@ -69,34 +60,6 @@ public class RoomList {
         return null;
     }
 
-    boolean matchRoom(String roomToMatch) {
-        for (Room r : mRoomList) {
-            if (r.getRoomName().equals(roomToMatch)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    List<Integer> matchRoomIndexByString(String input) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < mRoomList.size(); i++) {
-            if (mRoomList.get(i).getRoomName().equals(input)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    String buildElementsByIndexString(List<Integer> indexes) {
-        StringBuilder result = new StringBuilder();
-        for (Integer indexe : indexes) {
-            int pos = indexe;
-            result.append(indexe).append(") ").append(mRoomList.get(pos).getRoomName()).append(", ").append(mRoomList.get(pos).getHouseFloor()).append(", ").append(mRoomList.get(pos).getRoomWidth()).append(", ").append(mRoomList.get(pos).getRoomLength()).append(", ").append(this.mRoomList.get(pos).getRoomHeight()).append(".\n");
-        }
-        return result.toString();
-    }
-
     List<Device> getDeviceList() {
         List<Device> result = new ArrayList<>();
         for (Room r : this.getList()) {
@@ -105,22 +68,6 @@ public class RoomList {
         return result;
     }
 
-    public String buildRoomListString(House house) {
-        StringBuilder result = new StringBuilder(this.mStringResult);
-        if (house.getRoomList().isEmpty()) {
-            return this.mStringInvalidList;
-        }
-        for (int i = 0; i < house.getRoomList().size(); i++) {
-            Room aux = house.getRoomList().get(i);
-            result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
-            result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
-            result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
-            result.append(this.mStringLength).append(aux.getRoomLength()).append(" | ");
-            result.append(this.mStringHeight).append(aux.getRoomHeight()).append("\n");
-        }
-        result.append(this.mStringResult);
-        return result.toString();
-    }
 
     public String buildRoomsString() {
         StringBuilder result = new StringBuilder(this.mStringResult);
@@ -156,12 +103,13 @@ public class RoomList {
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms on this list.
      *
      * @param deviceType the device type
+     * @param time represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
-    double getDailyConsumptionByDeviceType(String deviceType) {
+    double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
         for (Room r : mRoomList) {
-            result += r.getDailyConsumptionByDeviceType(deviceType);
+            result += r.getDailyConsumptionByDeviceType(deviceType, time);
         }
         return Math.floor(result * 10) / 10;
     }

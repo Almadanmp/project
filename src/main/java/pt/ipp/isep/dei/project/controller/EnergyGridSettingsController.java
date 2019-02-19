@@ -11,14 +11,6 @@ public class EnergyGridSettingsController {
 
     //SHARED METHODS THROUGH DIFFERENT UIS
 
-    /**
-     * @param grid is the energy grid we're going to print.
-     * @return we build a string from the provided grid.
-     */
-
-    String buildEnergyGridString(EnergyGrid grid) {
-        return grid.buildGridString();
-    }
 
     /**
      * @param roomList is the list of Rooms we want to print.
@@ -32,52 +24,13 @@ public class EnergyGridSettingsController {
         return roomList.buildRoomsString();
     }
 
-    /**
-     * @param house is the house of which we're going to print the roomList.
-     * @return builds a string of all the individual rooms contained in the house's roomList.
-     */
-
-    String buildHouseRoomListString(House house) {
-        return house.buildRoomListString();
-    }
 
     /**
      * @param house is the house of which we're going to print the GridList.
      * @return builds a string of all the individual EnergyGrids contained in the house's EnergyGridList.
      */
-
     public String buildGridListString(House house) {
         return house.buildGridListString();
-    }
-
-
-    /**
-     * @param room is the room we're going to print.
-     * @return builds a string of the room.
-     */
-
-    String buildRoomString(Room room) {
-        return room.buildRoomString();
-    }
-
-    /**
-     * @param energyGrid is the energy grid from which we're going to print rooms.
-     * @return builds a string of all the rooms contained in the EnergyGrid's RoomList.
-     */
-
-    String buildGridRoomsString(EnergyGrid energyGrid) {
-        String mStringSpacer = "---------------\n";
-        StringBuilder result = new StringBuilder(mStringSpacer);
-        if (energyGrid.getListOfRooms().getList().isEmpty()) {
-            return "Invalid List - List is Empty\n";
-        }
-        for (int i = 0; i < energyGrid.getListOfRooms().getList().size(); i++) {
-            Room aux = energyGrid.getListOfRooms().getList().get(i);
-            result.append(i).append(") Designation: ").append(aux.getRoomName()).append(" | ");
-            result.append("House Floor: ").append(aux.getHouseFloor()).append(" | \n");
-        }
-        result.append(mStringSpacer);
-        return result.toString();
     }
 
     /*

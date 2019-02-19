@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.util.Date;
-
 /**
  * Class that represents a Geographical Area.
  */
@@ -128,7 +126,7 @@ public class GeographicArea {
      * This method is used to check if the daughter area attribute mother area corresponds to the testes mother area.
      *
      * @param daughterArea - Geographic Area being tested according to its mother area attribute.
-     * @param motherArea - Geographic Area being compared to daughter area mother area attribute.
+     * @param motherArea   - Geographic Area being compared to daughter area mother area attribute.
      * @return boolean
      */
 
@@ -242,33 +240,6 @@ public class GeographicArea {
     double calculateDistanceToGA(GeographicArea ga) {
         Local l = ga.getLocal();
         return this.mLocation.getLinearDistanceBetweenLocalsInKm(l);
-    }
-
-    /**
-     * Method to get the Average of Readings on a certain typeofSensor on a GeographicArea.
-     *
-     * @param typeSensor String input, the type of the sensor we want to get from the list e.g, "Rainfall"
-     * @param dateMin    the start date of readings (start of interval)
-     * @param dateMax    the end date of readings (end of interval)
-     * @return average of the readings off all sensors of the GA SensorList with the input typeSensor
-     */
-    double getAvgReadingsFromSensorTypeInGA(String typeSensor, Date dateMin, Date dateMax) {
-        double average = 0;
-        int counter = 0;
-        if (mAreaSensors.getSensorList().isEmpty()) {
-            return -1;
-        }
-        for (int i = 0; i < mAreaSensors.getSensorList().size(); i++) {
-            Sensor sensorToGetAVG = mAreaSensors.getSensorList().get(i);
-            if (sensorToGetAVG.getTypeSensor().getName().equals(typeSensor)) {
-                average += sensorToGetAVG.getReadingList().getAverageReadingsBetweenTwoDates(dateMin, dateMax);
-                counter++;
-            }
-        }
-        if (counter == 0) {
-            return -1;
-        }
-        return average / counter;
     }
 
     public boolean addSensorToSensorList(Sensor sensor) {

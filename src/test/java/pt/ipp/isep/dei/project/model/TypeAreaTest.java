@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TypeAreaTest {
 
     @Test
-    void seeTypeOfGeographicAreaConstructor(){
+    void seeTypeOfGeographicAreaConstructor() {
         //Arrange
         String expectedResult = "Rua";
         String actualResult;
@@ -21,11 +21,11 @@ class TypeAreaTest {
         actualResult = typeArea1.getTypeOfGeographicArea();
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeSetGeographicAreaTypeWithSameDesignationFromConstructor(){
+    void seeSetGeographicAreaTypeWithSameDesignationFromConstructor() {
         //Arrange
         String expectedResult = "Rua";
         String actualResult;
@@ -36,10 +36,11 @@ class TypeAreaTest {
         actualResult = typeArea1.getTypeOfGeographicArea();
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
+
     @Test
-    void seeSetGeographicAreaTypeWithDifferentDesignationFromConstructor(){
+    void seeSetGeographicAreaTypeWithDifferentDesignationFromConstructor() {
         //Arrange
         String expectedResult = "Freguesia";
         String actualResult;
@@ -50,11 +51,11 @@ class TypeAreaTest {
         actualResult = typeArea1.getTypeOfGeographicArea();
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeGetGeographicAreaTypeAfterSet(){
+    void seeGetGeographicAreaTypeAfterSet() {
         //Arrange
         String expectedResult = "Porto";
         String actualResult;
@@ -65,11 +66,11 @@ class TypeAreaTest {
         actualResult = typeArea1.getTypeOfGeographicArea();
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeEqualsBetweenTwoGeographicAreaTypesWithSameDesignation(){
+    void seeEqualsBetweenTwoGeographicAreaTypesWithSameDesignation() {
         //Arrange
         boolean expectedResult = true;
         boolean actualResult;
@@ -78,10 +79,11 @@ class TypeAreaTest {
         //Act
         actualResult = typeArea1.equals(typeArea2);
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
+
     @Test
-    void seeEqualsBetweenTwoGeographicAreaTypesWithDifferentDesignation(){
+    void seeEqualsBetweenTwoGeographicAreaTypesWithDifferentDesignation() {
         //Arrange
         boolean expectedResult = false;
         boolean actualResult;
@@ -90,10 +92,11 @@ class TypeAreaTest {
         //Act
         actualResult = typeArea1.equals(typeArea2);
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
+
     @Test
-    void seeEqualsBetweenSameObject(){
+    void seeEqualsBetweenSameObject() {
         //Arrange
         boolean actualResult;
         TypeArea typeArea1 = new TypeArea("Rua");
@@ -102,8 +105,9 @@ class TypeAreaTest {
         //Assert
         assertTrue(actualResult);
     }
+
     @Test
-    void seeEqualsBetweenObjectsFromDifferentClasses(){
+    void seeEqualsBetweenObjectsFromDifferentClasses() {
         //Arrange
         boolean actualResult;
         TypeArea typeArea1 = new TypeArea("Rua");
@@ -142,10 +146,11 @@ class TypeAreaTest {
         //Act
 
         //Assert
-                Assertions.assertThrows(IllegalArgumentException.class, () -> {
-                    a1.isNameValid("");
-                });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            a1.isNameValid("");
+        });
     }
+
     @Test
     void seeIfNameInvalidNameWithNumbers() {
 
@@ -158,6 +163,7 @@ class TypeAreaTest {
             a1.isNameValid("Humidade1");
         });
     }
+
     @Test
     void seeIfNameInvalidNameNull() {
 
@@ -171,10 +177,4 @@ class TypeAreaTest {
         });
     }
 
-    @Test
-    void seeIfPrintTypeGA(){
-        TypeArea a1 = new TypeArea("Humidade");
-        String result = a1.buildTypeGeographicAreaString();
-        Assertions.assertEquals("Type Area: Humidade\n", result);
-    }
 }

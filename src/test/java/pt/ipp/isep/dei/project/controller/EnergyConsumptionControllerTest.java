@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.log.Log;
-import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.log.Log;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.*;
 
@@ -62,28 +62,6 @@ class EnergyConsumptionControllerTest {
     }
 
     //US705 TESTS
-
-    @Test
-    void seeIfRoomsAndDevicesGetPrinted() {
-
-        //Arrange
-
-        RoomList roomList = new RoomList();
-        roomList.addRoom(validRoom1);
-        validGrid.setRoomList(roomList);
-
-        String expectedResult = "0) Kitchen.\n" +
-                "1) WaterHeater, Type: WaterHeater, Power: 21.0.\n" +
-                "2) WaterHeaterTwo, Type: WaterHeater, Power: 55.0.\n" +
-                "3) Fridge, Type: Fridge, Power: 10.0.\n";
-
-        //Act
-        String actualResult = controller.buildRoomsAndDevicesString(validGrid);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-
-    }
 
     @Test
     void seeIfRoomDevicesGetAddedToDeviceList() {

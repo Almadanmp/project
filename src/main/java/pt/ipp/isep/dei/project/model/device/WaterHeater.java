@@ -115,11 +115,18 @@ public class WaterHeater implements Device, Metered {
         return mWHLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
-    /**
-     * Energy consumption = energy consumption of the program (kWh)
-     *
+       /**
+     * Estimate energy consumption for a water heater.
+     * It is calculated by the following equation:
+     * Energy consumption = C*V*dT*PR (kWh)
+     * C -> Specific heat of water = 1,163 Wh/kg°C
+     * V -> Volume of water to heat (water consumption in litres/min)
+     * Dt -> difference in temperature = hot water temperature – cold water temperature
+     * PR -> performance ratio (typically 0.9)
+     * When the temperature of ColdWater is above the HotWaterTemperature, there will be no energy consumption, so we
+     * return 0.
      * @param time
-     * @return
+     * @return an estimate energy consumption for a water heater
      */
     public double getEnergyConsumption(float time) {
         double coldWaterTemperature = (double) mWHDeviceSpecs.getAttributeValue("Cold Water Temperature");
@@ -128,13 +135,13 @@ public class WaterHeater implements Device, Metered {
         double performanceRatio = (double) mWHDeviceSpecs.getAttributeValue("Performance Ratio");
 
         if (coldWaterTemperature >= hotWaterTemperature) {
-            return -1;
+            return 0;
         }
 
         double dT = hotWaterTemperature - coldWaterTemperature;
         double volForMinute = volumeOfWaterToHeat / 1440; //calculate v in liters per minute
         double specificHeatOfWater = 1.163 / 1000;
-        return specificHeatOfWater * volForMinute * dT * performanceRatio * 60;
+        return specificHeatOfWater * volForMinute * dT * performanceRatio * time;
     }
 
 

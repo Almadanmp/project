@@ -5,8 +5,6 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.TypeArea;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
 
-import java.util.List;
-
 /**
  * Controller class for Geographical Area Settings UI
  */
@@ -76,13 +74,11 @@ public class GASettingsController {
 
         GeographicArea geoToAdd;
 
-        if (newGeoList.checkIFGACanBeCreated(newName, typeArea, latitude, longitude, altitude)) {
+        if (newGeoList.checkIfGACanBeCreated(newName, typeArea, latitude, longitude, altitude)) {
             geoToAdd = newGeoList.createGA(newName, typeArea, length, width, latitude, altitude, longitude);
-           if (!newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd)){
-               return false;
-           }
+            return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
         }
-        return true;
+        return false;
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
