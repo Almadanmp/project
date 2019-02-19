@@ -339,44 +339,65 @@ class EnergyConsumptionUI {
 
     private void runUS730(House programHouse) {
         InputUtils inputs = new InputUtils();
-        Date startDate;
-        Date endDate;
         this.printUS730Menu();
         int option = inputs.getInputAsInt();
         switch (option) {
             case 1:
-                EnergyGrid grid = inputs.getInputGridByList(programHouse);
-                System.out.println(INSERT_START_DATE);
-                startDate = inputs.getInputYearMonthDayHourMin();
-                System.out.println(INSERT_END_DATE);
-                endDate = inputs.getInputYearMonthDayHourMin();
-                LogList gridLogs = controller.getGridLogsInInterval(grid, startDate, endDate);
-                System.out.println(controller.buildLogListString(gridLogs));
+                setGridData(programHouse);
                 break;
             case 2:
-                Room case2Room = inputs.getHouseRoomByList(programHouse);
-                System.out.println(INSERT_START_DATE);
-                startDate = inputs.getInputYearMonthDayHourMin();
-                System.out.println(INSERT_END_DATE);
-                endDate = inputs.getInputYearMonthDayHourMin();
-                LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate);
-                System.out.println(controller.buildLogListString(roomLogs));
+                setRoomData(programHouse);
                 break;
             case 3:
-                Room case3Room = inputs.getHouseRoomByList(programHouse);
-                Device device = inputs.getInputRoomDevicesByList(case3Room);
-                System.out.println(INSERT_START_DATE);
-                startDate = inputs.getInputYearMonthDayHourMin();
-                System.out.println(INSERT_END_DATE);
-                endDate = inputs.getInputYearMonthDayHourMin();
-                LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);
-                System.out.println(controller.buildLogListString(deviceLogs));
+                setDeviceData(programHouse);
                 break;
             default:
                 System.out.println("Invalid option. Please try again.");
                 break;
 
         }
+    }
+    private void setGridData(House programHouse) {
+        InputUtils inputs = new InputUtils();
+        EnergyGrid grid = inputs.getInputGridByList(programHouse);
+        System.out.println(INSERT_START_DATE);
+        Date startDate = inputs.getInputYearMonthDayHourMin();
+        System.out.println(INSERT_END_DATE);
+        Date endDate = inputs.getInputYearMonthDayHourMin();
+        LogList gridLogs = controller.getGridLogsInInterval(grid, startDate, endDate);
+        System.out.println(controller.buildLogListString(gridLogs));
+
+    }
+
+    private void setRoomData(House programHouse) {
+        InputUtils inputs = new InputUtils();
+        Room case2Room = inputs.getHouseRoomByList(programHouse);
+        Date startDate = requestStartDate();
+        Date endDate = requestEndDate();
+        LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate);
+        System.out.println(controller.buildLogListString(roomLogs));
+    }
+
+    private void setDeviceData(House programHouse) {
+        InputUtils inputs = new InputUtils();
+        Room case3Room = inputs.getHouseRoomByList(programHouse);
+        Device device = inputs.getInputRoomDevicesByList(case3Room);
+        Date startDate = requestStartDate();
+        Date endDate = requestEndDate();
+        LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);
+        System.out.println(controller.buildLogListString(deviceLogs));
+    }
+
+    private Date requestStartDate(){
+        InputUtils inputs = new InputUtils();
+        System.out.println(INSERT_START_DATE);
+        return inputs.getInputYearMonthDayHourMin();
+    }
+
+    private Date requestEndDate(){
+        InputUtils inputs = new InputUtils();
+        System.out.println(INSERT_END_DATE);
+        return inputs.getInputYearMonthDayHourMin();
     }
 
     /*
