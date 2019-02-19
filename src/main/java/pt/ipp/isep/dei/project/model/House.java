@@ -65,6 +65,10 @@ public class House implements Metered {
 
     public void setAddress(Address address){this.address = address;}
 
+    public Address getAddress() {
+        return address;
+    }
+
     public double getNominalPower() {
         double result = 0;
         for (Room r1 : mRoomList.getList()) {
