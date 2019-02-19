@@ -18,8 +18,6 @@ import java.util.List;
 
 public class RoomConfigurationController {
 
-        private String mProgramList = "programList";
-
     /**
      * Empty constructor.
      */
@@ -264,7 +262,8 @@ public class RoomConfigurationController {
      * @param program - programlist we want to add to the device
      */
     public void configureProgramListFromAProgrammableDevice(Device device, ProgramList program) {
-        device.setAttributeValue(mProgramList, program);
+        String programList = "programList";
+        device.setAttributeValue(programList, program);
     }
 
     /**

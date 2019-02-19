@@ -11,7 +11,7 @@ import static java.lang.System.out;
 
 public class HouseMonitoringUI {
     private HouseMonitoringController houseMonitoringcontroller;
-    private String  mWas = " was ";
+    private String was = " was ";
 
     public HouseMonitoringUI() {
         this.houseMonitoringcontroller = new HouseMonitoringController();
@@ -156,7 +156,7 @@ public class HouseMonitoringUI {
         }
         String message = "The maximum temperature in the room " + ctrl.getRoomName(room) +
                 " on the day " + date +
-                mWas + temperature + "°C.";
+                was + temperature + "°C.";
         System.out.println(message);
 
     }
@@ -189,7 +189,7 @@ public class HouseMonitoringUI {
         if (Double.isNaN(result)) {
             System.out.println("Warning: average value not calculated - no readings available.");
         } else {
-            System.out.println("The average rainfall on " + date + mWas + result + "%.");
+            System.out.println("The average rainfall on " + date + was + result + "%.");
         }
     }
 
@@ -229,7 +229,7 @@ public class HouseMonitoringUI {
         if (Double.isNaN(result623)) {
             System.out.println("Warning: average value not calculated - no readings available.");
         } else {
-            System.out.println("The average rainfall between " + initialDate + " and " + endDate + mWas
+            System.out.println("The average rainfall between " + initialDate + " and " + endDate + was
                     + result623 + "%.");
         }
     }

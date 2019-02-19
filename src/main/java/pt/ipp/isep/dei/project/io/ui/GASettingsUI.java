@@ -9,12 +9,12 @@ import pt.ipp.isep.dei.project.model.TypeAreaList;
 import java.util.Scanner;
 
 class GASettingsUI {
-    private GASettingsController mController;
-    private String mTypeAreaName;
-    private TypeArea mTypeArea;
+    private GASettingsController controller;
+    private String typeAreaName;
+    private TypeArea typeArea;
 
     GASettingsUI() {
-        this.mController = new GASettingsController();
+        this.controller = new GASettingsController();
     }
 
     void runGASettings(GeographicAreaList programGAList, TypeAreaList programTypeAreaList) {
@@ -70,14 +70,14 @@ class GASettingsUI {
         InputUtils inputUtils = new InputUtils();
         while (true) {
             System.out.println("Please select the Geographic Area Type from the list: ");
-            System.out.print(mController.buildGATypeListString(typeAreaList));
+            System.out.print(controller.buildGATypeListString(typeAreaList));
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
-                this.mTypeArea = typeAreaList.getTypeAreaList().get(aux);
-                this.mTypeAreaName = typeAreaList.getTypeAreaList().get(aux).getTypeOfGeographicArea();
+                this.typeArea = typeAreaList.getTypeAreaList().get(aux);
+                this.typeAreaName = typeAreaList.getTypeAreaList().get(aux).getTypeOfGeographicArea();
                 System.out.println("You have chosen the following Geographic Area Type:");
-                System.out.println("TypeArea: " + mController.getTypeAreaName(this.mTypeArea));
-                return this.mTypeArea;
+                System.out.println("TypeArea: " + controller.getTypeAreaName(this.typeArea));
+                return this.typeArea;
             } else {
                 System.out.println(utils.invalidOption);
             }
@@ -109,7 +109,7 @@ class GASettingsUI {
     }
 
     private boolean updateModelUS01(TypeAreaList typeAreaList, String typeAreaName) {
-        return mController.createAndAddTypeAreaToList(typeAreaName, typeAreaList);
+        return controller.createAndAddTypeAreaToList(typeAreaName, typeAreaList);
     }
 
     private void displayStateUS01(boolean created) {
@@ -130,7 +130,7 @@ class GASettingsUI {
     private void updateAndDisplayUS02(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
         if (utils.typeAreaListIsValid(typeAreaList)) {
-            System.out.println(mController.getTypeAreaList(typeAreaList));
+            System.out.println(controller.getTypeAreaList(typeAreaList));
             System.out.println("\nList finished.");
         } else {
             System.out.println(utils.invalidGATypeList);
@@ -163,13 +163,13 @@ class GASettingsUI {
             System.out.println("Please insert the geographic area description:");
             geoAreDescription = scanner.nextLine();
         }
-        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + mTypeAreaName +
+        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + typeAreaName +
                 " and its " + "localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The geographic area size" +
                 " is " + geoAreaLength + " by " + geoAreaWidth + " kms\n");
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
         }
-        return mController.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, mTypeArea, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
+        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, typeArea, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
     }
 
     private void displayStateUS03(boolean created) {
@@ -231,13 +231,13 @@ class GASettingsUI {
     }
 
     private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeArea typeArea) {
-        return mController.matchGAByTypeArea(geographicAreaList, typeArea);
+        return controller.matchGAByTypeArea(geographicAreaList, typeArea);
     }
 
     private void displayGAListByTypeArea(GeographicAreaList gaFinalList, TypeArea typeArea) {
-        String taName = mController.getTypeAreaName(typeArea);
+        String taName = controller.getTypeAreaName(typeArea);
         System.out.println("Geographic Areas of the type " + taName + ":\n");
-        System.out.println(mController.buildGAListString(gaFinalList));
+        System.out.println(controller.buildGAListString(gaFinalList));
     }
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */
@@ -266,12 +266,12 @@ class GASettingsUI {
     }
 
     private void updateStateUS07(GeographicArea motherGA, GeographicArea daughterGA) {
-        mController.setMotherArea(daughterGA, motherGA);
+        controller.setMotherArea(daughterGA, motherGA);
     }
 
     private void displayStateUS07(GeographicArea motherGA, GeographicArea daughterGA) {
-        String motherGAName = mController.getGeographicAreaId(motherGA);
-        String daughterGAName = mController.getGeographicAreaId(daughterGA);
+        String motherGAName = controller.getGeographicAreaId(motherGA);
+        String daughterGAName = controller.getGeographicAreaId(daughterGA);
         System.out.print("The Geographic Area " + daughterGAName + " is contained in " + motherGAName + ".");
     }
 
@@ -314,10 +314,10 @@ class GASettingsUI {
      * contains the second geographic area, returning a message to the user accordingly.
      */
     private void checkIfContained(GeographicArea motherGA, GeographicArea daughterGA) {
-        if (!(mController.isAreaContained(motherGA, daughterGA))) {
-            System.out.println(mController.getGeographicAreaId(daughterGA) + " is NOT contained in " + mController.getGeographicAreaId(motherGA));
+        if (!(controller.isAreaContained(motherGA, daughterGA))) {
+            System.out.println(controller.getGeographicAreaId(daughterGA) + " is NOT contained in " + controller.getGeographicAreaId(motherGA));
         } else {
-            System.out.println(mController.getGeographicAreaId(daughterGA) + " is contained in " + mController.getGeographicAreaId(motherGA));
+            System.out.println(controller.getGeographicAreaId(daughterGA) + " is contained in " + controller.getGeographicAreaId(motherGA));
         }
     }
 
