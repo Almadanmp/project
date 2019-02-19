@@ -9,10 +9,10 @@ import pt.ipp.isep.dei.project.model.Room;
 import java.util.Scanner;
 
 class EnergyGridSettingsUI {
-    private EnergyGridSettingsController mController;
+    private EnergyGridSettingsController controller;
 
     EnergyGridSettingsUI() {
-        this.mController = new EnergyGridSettingsController();
+        this.controller = new EnergyGridSettingsController();
     }
 
     void run(House house) {
@@ -74,12 +74,12 @@ class EnergyGridSettingsUI {
         String name = scanner.next();
         System.out.println("Now let's set the maximum contracted power for this energy grid.");
         double power = getInputMaxPower();
-        return mController.createEnergyGrid(programHouse, name, power);
+        return controller.createEnergyGrid(programHouse, name, power);
     }
 
 
     private void updateHouse(House house, EnergyGrid energyGrid) {
-        if(mController.addEnergyGridToHouse(house, energyGrid)){
+        if(controller.addEnergyGridToHouse(house, energyGrid)){
             System.out.println("The energy grid was successfully created and added to the house.");
         }
         else {
@@ -113,12 +113,12 @@ class EnergyGridSettingsUI {
         System.out.println("Now let's set the maximum energy storage of this power source (it should be 0 in case the " +
                 "power source can't storage any energy).");
         double maxEnergyStorage = getInputMaxPower();
-        return mController.createPowerSource(energyGrid, name, maxPowerOutput, maxEnergyStorage);
+        return controller.createPowerSource(energyGrid, name, maxPowerOutput, maxEnergyStorage);
 
     }
 
     private void updateGridAndDisplayState(EnergyGrid energyGrid, PowerSource powerSource) {
-        if (mController.addPowerSourceToGrid(energyGrid, powerSource)) {
+        if (controller.addPowerSourceToGrid(energyGrid, powerSource)) {
             System.out.println("The power source was successfully added to the energy grid.");
         } else {
             System.out.println("The power source wasn't added to the energy grid. The energy grid already has a power source " +
@@ -162,7 +162,7 @@ class EnergyGridSettingsUI {
     }
 
     private void displayRoomList(EnergyGrid energyGrid) {
-        System.out.println(mController.buildRoomsString(energyGrid.getListOfRooms()));
+        System.out.println(controller.buildRoomsString(energyGrid.getListOfRooms()));
     }
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
@@ -184,7 +184,7 @@ class EnergyGridSettingsUI {
     }
 
     private void updateGridUS147(EnergyGrid grid, Room room) {
-        if (mController.addRoomToGrid(grid, room)) {
+        if (controller.addRoomToGrid(grid, room)) {
             System.out.println("Room successfully added to the grid!");
         } else {
             System.out.println("It wasn't possible to add the room. Please try again.");
@@ -210,7 +210,7 @@ class EnergyGridSettingsUI {
     }
 
     private void updateGridUS149(EnergyGrid grid, Room room) {
-        if (mController.removeRoomFromGrid(grid, room)) {
+        if (controller.removeRoomFromGrid(grid, room)) {
             System.out.println("Room successfully removed from grid!");
         } else {
             System.out.println("It wasn't possible to remove the room. Please try again.");
@@ -241,7 +241,7 @@ class EnergyGridSettingsUI {
     }
 
     private void displayUS160(EnergyGrid energyGrid, House house) {
-        System.out.println("\nList of device(s) by type:\n" + mController.buildListOfDevicesOrderedByTypeString(energyGrid, house));
+        System.out.println("\nList of device(s) by type:\n" + controller.buildListOfDevicesOrderedByTypeString(energyGrid, house));
     }
 
 

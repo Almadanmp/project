@@ -7,10 +7,10 @@ import java.util.Date;
 import java.util.Scanner;
 
 class SensorSettingsUI {
-    private SensorSettingsController mController;
+    private SensorSettingsController controller;
 
     SensorSettingsUI() {
-        this.mController = new SensorSettingsController();
+        this.controller = new SensorSettingsController();
     }
 
     void run(GeographicAreaList geographicAreaList, TypeSensorList typeList) {
@@ -60,7 +60,7 @@ class SensorSettingsUI {
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
-            System.out.println(mController.buildSensorTypesString(list));
+            System.out.println(controller.buildSensorTypesString(list));
         }
 
 
@@ -77,11 +77,11 @@ class SensorSettingsUI {
         String name = inputUtils.getInputStringAlphabetCharOnly();
         System.out.print("Type the sensor type's unit of measurement: ");
         String unit = inputUtils.getInputStringAlphabetCharOnly();
-        return mController.createType(name, unit);
+        return controller.createType(name, unit);
     }
 
     private boolean updateModel05(TypeSensor typeSensor, TypeSensorList typeSensorList) {
-        return mController.addTypeSensorToList(typeSensor, typeSensorList);
+        return controller.addTypeSensorToList(typeSensor, typeSensorList);
     }
 
     private void displayState05(boolean added) {
@@ -116,7 +116,7 @@ class SensorSettingsUI {
         TypeSensor typeSensor = getInputTypeSensor();
         Local local = getInputSensorLocal();
         Date startDate = getInputStartDate();
-        return mController.createSensor(name, typeSensor, local, startDate);
+        return controller.createSensor(name, typeSensor, local, startDate);
     }
 
     private String getInputSensorName() {
@@ -135,7 +135,7 @@ class SensorSettingsUI {
         System.out.println("\nEnter the sensor type's unit of measurement:\t");
         String unit = input.nextLine();
 
-        return mController.createType(name, unit);
+        return controller.createType(name, unit);
     }
 
     private Local getInputSensorLocal(){
@@ -150,7 +150,7 @@ class SensorSettingsUI {
         System.out.println("\nEnter Altitude:\t");
         double altitude = inputUtils.getInputAsDouble();
 
-        return mController.createLocal(latitude, longitude, altitude);
+        return controller.createLocal(latitude, longitude, altitude);
     }
 
     private Date getInputStartDate(){
@@ -160,7 +160,7 @@ class SensorSettingsUI {
     }
 
     private boolean getConfirmation(Sensor sensor) {
-        System.out.println("You have created the following sensor:\n" + mController.buildSensorString(sensor));
+        System.out.println("You have created the following sensor:\n" + controller.buildSensorString(sensor));
         Scanner input = new Scanner(System.in);
         System.out.println("\n Do you wish to add this sensor to a geographic area?\n");
         System.out.println("Yes/No:\t");
@@ -170,7 +170,7 @@ class SensorSettingsUI {
     private void addSensor(Sensor sensor, GeographicAreaList geographicAreaList) {
         InputUtils inputUtils = new InputUtils();
         GeographicArea geographicArea = inputUtils.getGeographicAreaByList(geographicAreaList);
-        if (mController.addSensorToGeographicArea(sensor, geographicArea)) {
+        if (controller.addSensorToGeographicArea(sensor, geographicArea)) {
             System.out.println("\nSensor has been successfully added to the geographic area.");
         } else {
             System.out.println("\nSensor wasn't added to the selected geographic area.");

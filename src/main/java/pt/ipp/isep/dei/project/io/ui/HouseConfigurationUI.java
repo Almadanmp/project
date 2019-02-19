@@ -8,14 +8,14 @@ import java.util.Scanner;
 
 class HouseConfigurationUI {
     private HouseConfigurationController controller;
-    private String mRoomName;
-    private int mRoomHouseFloor;
-    private double mRoomWidth;
-    private double mRoomLength;
-    private double mRoomHeight;
-    private double mHouseLat;
-    private double mHouseLon;
-    private double mHouseAlt;
+    private String roomName;
+    private int roomHouseFloor;
+    private double roomWidth;
+    private double roomLength;
+    private double roomHeight;
+    private double houseLat;
+    private double houseLon;
+    private double houseAlt;
     private Address address;
     private static final String INVALID_OPTION = "Please enter a valid option";
 
@@ -83,15 +83,15 @@ class HouseConfigurationUI {
 
         //get latitude
         System.out.print("Please, type the latitude: ");
-        this.mHouseLat = inputUtils.getInputAsDouble();
+        this.houseLat = inputUtils.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the longitude: ");
-        this.mHouseLon = inputUtils.getInputAsDouble();
+        this.houseLon = inputUtils.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the altitude: ");
-        this.mHouseAlt = inputUtils.getInputAsDouble();
+        this.houseAlt = inputUtils.getInputAsDouble();
 
     }
 
@@ -100,7 +100,7 @@ class HouseConfigurationUI {
      * @param house receives the house the program is managing, so its parameters get changed.
      */
     private void updateHouseUS101(House house) {
-        controller.setHouseLocal(mHouseLat, mHouseLon, mHouseAlt, house);
+        controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
         controller.setHouseAddress(this.address, house);
     }
 
@@ -111,8 +111,8 @@ class HouseConfigurationUI {
     private void displayHouseUS101(House house) {
         String houseId = controller.getHouseName(house);
         System.out.println("You have successfully changed the location of the house " + houseId + ". \n" + "Street: " +
-                this.address.getStreet() + ". \n" + "ZipCode: " + this.address.getZip() + ". \n" + "Town: " + this.address.getTown() + ". \n" + "Latitude: " + mHouseLat + ". \n" +
-                "Longitude: " + mHouseLon + ". \n" + "Altitude: " + mHouseAlt + ". \n");
+                this.address.getStreet() + ". \n" + "ZipCode: " + this.address.getZip() + ". \n" + "Town: " + this.address.getTown() + ". \n" + "Latitude: " + houseLat + ". \n" +
+                "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
     }
 
 
@@ -132,21 +132,21 @@ class HouseConfigurationUI {
 
         //GET ROOM DESIGNATION
         System.out.println("Please insert the room name: ");
-        this.mRoomName = input.nextLine();
+        this.roomName = input.nextLine();
 
         //GET ROOM HOUSE FLOOR
         System.out.println("Please insert your room's house floor: ");
-        this.mRoomHouseFloor = inputUtils.getInputAsInt();
+        this.roomHouseFloor = inputUtils.getInputAsInt();
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's width in meters: ");
-        this.mRoomWidth = inputUtils.getInputAsDouble();
+        this.roomWidth = inputUtils.getInputAsDouble();
 
         System.out.println("Please insert your room's length in meters: ");
-        this.mRoomLength = inputUtils.getInputAsDouble();
+        this.roomLength = inputUtils.getInputAsDouble();
 
         System.out.println("Please insert your room's height in meters: ");
-        this.mRoomHeight = inputUtils.getInputAsDouble();
+        this.roomHeight = inputUtils.getInputAsDouble();
     }
 
     /**
@@ -159,14 +159,14 @@ class HouseConfigurationUI {
         String length = " meters of length and ";
         String height = " meters of height.";
         //SHOW ROOM ENTERED BY USER
-        if (mRoomHouseFloor == 1) {
-            System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "st floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
-        } else if (mRoomHouseFloor == 2) {
-            System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "nd floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
-        } else if (mRoomHouseFloor == 3) {
-            System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "rd floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
+        if (roomHouseFloor == 1) {
+            System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "st floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
+        } else if (roomHouseFloor == 2) {
+            System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "nd floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
+        } else if (roomHouseFloor == 3) {
+            System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "rd floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
         } else {
-            System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "th floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
+            System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "th floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
         }
     }
 
