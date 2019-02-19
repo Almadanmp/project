@@ -6,14 +6,14 @@ package pt.ipp.isep.dei.project.model;
 
 public class GeographicArea {
 
-    private String mId;
-    private TypeArea mTypeArea;
-    private double mLength;
-    private double mWidth;
-    private GeographicArea mMotherArea;
-    private Local mLocation;
-    private SensorList mAreaSensors;
-    private String mDescription;
+    private String id;
+    private TypeArea typeArea;
+    private double length;
+    private double width;
+    private GeographicArea motherArea;
+    private Local location;
+    private SensorList areaSensors;
+    private String description;
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -29,18 +29,18 @@ public class GeographicArea {
         setLength(length);
         setWidth(width);
         setLocal(location);
-        this.mAreaSensors = new SensorList();
+        this.areaSensors = new SensorList();
     }
 
     // Setters and Getters for all the parameters.
 
     public String getId() {
-        return this.mId;
+        return this.id;
     }
 
     void setId(String name) {
         if (isGeographicNameValid(name)) {
-            this.mId = name;
+            this.id = name;
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
@@ -53,7 +53,7 @@ public class GeographicArea {
      */
 
     public void setWidth(double width) {
-        this.mWidth = width;
+        this.width = width;
     }
 
     /**
@@ -63,7 +63,7 @@ public class GeographicArea {
      */
 
     public void setLength(double length) {
-        this.mLength = length;
+        this.length = length;
     }
 
     /**
@@ -73,11 +73,11 @@ public class GeographicArea {
      */
 
     public void setDescription(String description) {
-        this.mDescription = description;
+        this.description = description;
     }
 
     String getDescription() {
-        return this.mDescription;
+        return this.description;
     }
 
     /**
@@ -86,7 +86,7 @@ public class GeographicArea {
      * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
      */
     void setTypeArea(TypeArea typeArea) {
-        this.mTypeArea = typeArea;
+        this.typeArea = typeArea;
     }
 
     /**
@@ -95,7 +95,7 @@ public class GeographicArea {
      * @param local Localization is defined by three doubles (longitude, latitude and altitude).
      */
     void setLocal(Local local) {
-        this.mLocation = local;
+        this.location = local;
     }
 
 
@@ -106,12 +106,12 @@ public class GeographicArea {
      */
 
     public void setSensorList(SensorList listToSet) {
-        this.mAreaSensors = listToSet;
+        this.areaSensors = listToSet;
     }
 
     public boolean setMotherArea(GeographicArea geoArea) {
         if (geoArea != null) {
-            this.mMotherArea = geoArea;
+            this.motherArea = geoArea;
             return true;
         } else {
             return false;
@@ -119,7 +119,7 @@ public class GeographicArea {
     }
 
     GeographicArea getMotherArea() {
-        return this.mMotherArea;
+        return this.motherArea;
     }
 
     /**
@@ -148,7 +148,7 @@ public class GeographicArea {
      * @return returns the attribute TypeArea from an object of the class Geographic Area
      */
     TypeArea getTypeArea() {
-        return this.mTypeArea;
+        return this.typeArea;
     }
 
     /**
@@ -157,7 +157,7 @@ public class GeographicArea {
      * @return returns the attribute local from an object of the class Geographic Area
      */
     public Local getLocal() {
-        return this.mLocation;
+        return this.location;
     }
 
     /**
@@ -166,7 +166,7 @@ public class GeographicArea {
      * @return returns the attribute sensorList from an object of the class Geographic Area
      */
     public SensorList getSensorList() {
-        return this.mAreaSensors;
+        return this.areaSensors;
     }
 
     /**
@@ -178,8 +178,8 @@ public class GeographicArea {
 
     public String buildGeographicAreaString() {
         String result;
-        result = this.mId + ", " + this.mTypeArea.getTypeOfGeographicArea() + ", " +
-                this.mLocation.getLatitude() + "º lat, " + this.mLocation.getLongitude() + "º long\n";
+        result = this.id + ", " + this.typeArea.getTypeOfGeographicArea() + ", " +
+                this.location.getLatitude() + "º lat, " + this.location.getLongitude() + "º long\n";
         return result;
     }
 
@@ -202,7 +202,7 @@ public class GeographicArea {
      * @return returns a double of the most recent value recorded in every type sensor given
      */
     double getMostRecentReadingValue(String typeOfSensor) {
-        SensorList listToTest = this.mAreaSensors;
+        SensorList listToTest = this.areaSensors;
         for (int i = 0; i < listToTest.getSensorList().size(); i++) {
             if (!(listToTest.getSensorList().get(i).getTypeSensor().getName().equals(typeOfSensor))) {
                 listToTest.removeSensor(listToTest.getSensorList().get(i));
@@ -212,11 +212,11 @@ public class GeographicArea {
     }
 
     double getWidth() {
-        return this.mWidth;
+        return this.width;
     }
 
     public double getLength() {
-        return this.mLength;
+        return this.length;
     }
 
     boolean isAreaContainedInAnotherArea(GeographicArea smallerAG, GeographicArea biggestAG) {
@@ -239,17 +239,17 @@ public class GeographicArea {
      */
     double calculateDistanceToGA(GeographicArea ga) {
         Local l = ga.getLocal();
-        return this.mLocation.getLinearDistanceBetweenLocalsInKm(l);
+        return this.location.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     public boolean addSensorToSensorList(Sensor sensor) {
         String sensorToAddName = sensor.getName();
-        for (Sensor s : this.mAreaSensors.getSensorList()) {
+        for (Sensor s : this.areaSensors.getSensorList()) {
             String sensorNameTest = s.getName();
             if (sensorNameTest.equals(sensorToAddName))
                 return false;
         }
-        this.mAreaSensors.addSensor(sensor);
+        this.areaSensors.addSensor(sensor);
         return true;
     }
 
