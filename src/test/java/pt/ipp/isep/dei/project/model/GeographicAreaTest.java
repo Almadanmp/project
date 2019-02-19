@@ -1189,6 +1189,16 @@ class GeographicAreaTest {
         assertTrue(result3);
     }
 
+    @Test
+    void testBuildGeographicAreaString() {
+        //Arrange
+        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 16, 17, new Local(16, 17, 18));
+        //Act
+        String expectedResult = "Porto, Rua, 16.0º lat, 17.0º long\n";
+        String actualResult = ga1.buildGeographicAreaString();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void hashCodeDummyTest() {
