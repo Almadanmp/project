@@ -10,8 +10,6 @@ import java.util.Scanner;
 
 class GASettingsUI {
     private GASettingsController controller;
-    private String typeAreaName;
-    private TypeArea typeArea;
 
     GASettingsUI() {
         this.controller = new GASettingsController();
@@ -73,11 +71,10 @@ class GASettingsUI {
             System.out.print(controller.buildGATypeListString(typeAreaList));
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
-                this.typeArea = typeAreaList.getTypeAreaList().get(aux);
-                this.typeAreaName = typeAreaList.getTypeAreaList().get(aux).getTypeOfGeographicArea();
+                TypeArea typeArea = typeAreaList.getTypeAreaList().get(aux);
                 System.out.println("You have chosen the following Geographic Area Type:");
-                System.out.println("TypeArea: " + controller.getTypeAreaName(this.typeArea));
-                return this.typeArea;
+                System.out.println("TypeArea: " + controller.getTypeAreaName(typeArea));
+                return typeArea;
             } else {
                 System.out.println(utils.invalidOption);
             }
@@ -151,7 +148,8 @@ class GASettingsUI {
     private boolean getAreaInputUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
-        getInputTypeAreaByList(typeAreaList);
+        TypeArea geoTypeArea = getInputTypeAreaByList(typeAreaList);
+        String gaTypeAreaName = controller.getTypeAreaName(geoTypeArea);
         String nameOfGeoArea = readInputString("name");
         double geoAreaLat = readInputNumber("Latitude");
         double geoAreaLong = readInputNumber("Longitude");
@@ -163,13 +161,13 @@ class GASettingsUI {
             System.out.println("Please insert the geographic area description:");
             geoAreDescription = scanner.nextLine();
         }
-        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + typeAreaName +
+        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + gaTypeAreaName +
                 " and its " + "localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The geographic area size" +
                 " is " + geoAreaLength + " by " + geoAreaWidth + " kms\n");
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
         }
-        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, typeArea, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
+        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
     }
 
     private void displayStateUS03(boolean created) {
