@@ -9,9 +9,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Fridge;
-import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.ArrayList;
 import java.util.List;
