@@ -64,21 +64,6 @@ class EnergyConsumptionControllerTest {
     //US705 TESTS
 
     @Test
-    void seeIfRoomDevicesGetAddedToDeviceList() {
-
-        //Arrange
-
-        DeviceList deviceList1 = new DeviceList();
-
-        //Act
-        boolean actualResult = controller.addRoomDevicesToDeviceList(validRoom1, deviceList1);
-
-        //Assert
-        assertTrue(actualResult);
-
-    }
-
-    @Test
     void seeIfRoomDevicesGetRemovedFromDeviceList() {
 
         //Arrange
