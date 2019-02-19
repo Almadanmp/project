@@ -116,7 +116,6 @@ class HouseConfigurationUI {
     private void runUS105(House house){
         getInputRoomCharacteristics();
         displayStateRoom();
-        updateRoomAndDisplayState(house);
     }
 
     /**
@@ -149,8 +148,8 @@ class HouseConfigurationUI {
      * Method displays the input room and its characteristics.
      */
     private void displayStateRoom() {
-        String yourNewRoom = "The room you are trying to create is called ";
-        String located = ", it would be located on the ";
+        String yourNewRoom = "The room is called ";
+        String located = ", it will be located on the ";
         String width = " meters of width, ";
         String length = " meters of length and ";
         String height = " meters of height.";
@@ -163,18 +162,6 @@ class HouseConfigurationUI {
             System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "rd floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
         } else {
             System.out.println(yourNewRoom + mRoomName + located + mRoomHouseFloor + "th floor and has " + mRoomWidth + width + mRoomLength + length + mRoomHeight + height);
-        }
-    }
-
-    /**
-     * Method tries to create a room based on the input from user and returns message to user
-     * @param house receives program house so the room can be added to it.
-     */
-    private void updateRoomAndDisplayState(House house) {
-        if (controller.createNewRoom(house, mRoomName, mRoomHouseFloor, mRoomWidth, mRoomLength, mRoomHeight)) {
-            System.out.println("The room has been added to house.");
-        } else {
-            System.out.println("The room you entered already exists in house. Please try again.");
         }
     }
 

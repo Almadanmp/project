@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -122,16 +120,22 @@ class HouseConfigurationControllerTest {
 
     @Test
     void createsRoom() {
+        //Arrange
+
+        Room expectedResult1 = new Room("Kitchen", 1, 10, 15, 10);
+        Room expectedResult2 = new Room("Room", 1, 10, 15, 10);
+        Room expectedResult3 = new Room("Kitchen", 1, 10, 15, 10);
+
         // Act
 
-        boolean expectedResult1 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
-        boolean expectedResult2 = controller.createNewRoom(validHouse, "Room", 1, 10, 15, 10);
-        boolean expectedResult3 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
+        Room actualResult1 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
+        Room actualResult2 = controller.createNewRoom(validHouse, "Room", 1, 10, 15, 10);
+        Room actualResult3 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
 
         // Assert
 
-        assertTrue(expectedResult1);
-        assertTrue(expectedResult2);
-        assertFalse(expectedResult3);
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(expectedResult3, actualResult3);
     }
 }

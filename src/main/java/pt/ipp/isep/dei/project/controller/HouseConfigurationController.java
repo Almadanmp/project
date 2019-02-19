@@ -1,7 +1,8 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.House;
-
+import pt.ipp.isep.dei.project.model.Room;
+import java.util.List;
 
 /**
  * Controller class for House Configuration UI
@@ -52,7 +53,7 @@ public class HouseConfigurationController {
      * @param length          is the length of the room we're going to create.
      * @param height          is the height of the room we're going to create.
      */
-    public boolean createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+    public Room createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
         return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
     }
 

@@ -863,14 +863,18 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         House house = new House("Beach House", "Flower Street", "4512", "Porto", new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        Room expectedResult1 = new Room("kitchen", 1, 1, 1, 1);
+        Room expectedResult2 = new Room("room", 1, 1, 1, 1);
+        Room expectedResult3 = new Room("kitchen", 1, 1, 1, 1);
+
         //ACT
-        boolean expectedResult1 = house.createRoom("kitchen", 1, 1, 1, 1);
-        boolean expectedResult2 = house.createRoom("room", 1, 1, 1, 1);
-        boolean expectedResult3 = house.createRoom("kitchen", 1, 1, 1, 1);
+        Room actualResult1 = house.createRoom("kitchen", 1, 1, 1, 1);
+        Room actualResult2 = house.createRoom("room", 1, 1, 1, 1);
+        Room actualResult3 = house.createRoom("kitchen", 1, 1, 1, 1);
         //ASSERT
-        assertTrue(expectedResult1);
-        assertTrue(expectedResult2);
-        assertFalse(expectedResult3);
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(expectedResult3, actualResult3);
     }
 
     @Test
