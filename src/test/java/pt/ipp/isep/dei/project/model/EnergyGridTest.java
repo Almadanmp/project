@@ -19,6 +19,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import java.io.IOException;
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testng.Assert.*;
 
@@ -461,5 +462,27 @@ class EnergyGridTest {
         double expectedResult = 0;
         double value = eg.getEnergyConsumption(21);
         assertEquals(expectedResult, value);
+    }
+
+    @Test
+    void testBuildDeviceListInGridStringWhereDeviceNotEqualAndReturnEmptyString() {
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        String notEqual = "something";
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        RoomList rl = new RoomList();
+        DeviceList deviceList = new DeviceList();
+        Device fridge = new Fridge(new FridgeSpec());
+        deviceList.addDevice(fridge);
+        room1EdC.setDeviceList(deviceList);
+        eg.setRoomList(rl);
+        rl.addRoom(room1EdC);
+        //Act
+        String expectedResult = "";
+        String actualResult = eg.buildDeviceListInGridString(room1EdC, notEqual);
+        //Arrange
+        assertEquals(expectedResult, actualResult);
     }
 }
