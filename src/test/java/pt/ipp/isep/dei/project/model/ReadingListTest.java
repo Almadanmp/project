@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.lang.Double.NaN;
@@ -37,7 +39,7 @@ class ReadingListTest {
         list.add(2.0);
 
         //Act
-        double actualResult = readingList.getTotalFromGivenList(list);
+        double actualResult = readingList.getListSum(list);
 
         //Assert
         assertEquals(3.0, actualResult);
@@ -228,7 +230,7 @@ class ReadingListTest {
         //Act
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 7);
         Date dateToTest = cal.getTime();
-        double actualResult = rList.getAverageOfAllRecordedValueReadingsFromGivenMonth(dateToTest);
+        double actualResult = rList.getAverageReadingsFromGivenMonth(dateToTest);
         //Assert
         assertEquals(expectedResult, actualResult, 0.1);
     }
@@ -241,7 +243,7 @@ class ReadingListTest {
         double expectedResult = 0;
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 7);
         Date dateToTest = cal.getTime();
-        double actualResult = rList.getAverageOfAllRecordedValueReadingsFromGivenMonth(dateToTest);
+        double actualResult = rList.getAverageReadingsFromGivenMonth(dateToTest);
         //Assert
         assertEquals(expectedResult, actualResult, 0.001);
     }
@@ -281,7 +283,7 @@ class ReadingListTest {
         //Act
         GregorianCalendar cal = new GregorianCalendar(2018, 1, 7);
         Date dateToTest = cal.getTime();
-        double actualResult = rList.getAverageOfAllRecordedValueReadingsFromGivenMonth(dateToTest);
+        double actualResult = rList.getAverageReadingsFromGivenMonth(dateToTest);
         //Assert
         assertEquals(expectedResult, actualResult, 0.1);
     }
@@ -327,7 +329,7 @@ class ReadingListTest {
         expectedResult.add(g6.getTime());
         expectedResult.add(g7.getTime());
         GregorianCalendar dateWithMonthToTest = new GregorianCalendar(2018, 10, 11, 9, 0, 4);
-        List<Date> actualResult = rList.getListOfDatesOfMonthWithReadings(dateWithMonthToTest.getTime());
+        List<Date> actualResult = rList.getDatesOfMonthWithReadings(dateWithMonthToTest.getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -373,7 +375,7 @@ class ReadingListTest {
         expectedResult.add(g6.getTime());
         expectedResult.add(g7.getTime());
         GregorianCalendar dateWithMonthToTest = new GregorianCalendar(2018, 1, 11, 9, 0, 4);
-        List<Date> actualResult = rList.getListOfDatesOfMonthWithReadings(dateWithMonthToTest.getTime());
+        List<Date> actualResult = rList.getDatesOfMonthWithReadings(dateWithMonthToTest.getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -459,7 +461,7 @@ class ReadingListTest {
         rList.addReading(r8);
         List<Date> expectedResult = new ArrayList<>();
         GregorianCalendar dateWithMonthToTest = new GregorianCalendar(2018, 9, 11, 9, 0, 4);
-        List<Date> actualResult = rList.getListOfDatesOfMonthWithReadings(dateWithMonthToTest.getTime());
+        List<Date> actualResult = rList.getDatesOfMonthWithReadings(dateWithMonthToTest.getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -2177,7 +2179,7 @@ class ReadingListTest {
         Reading r2 = new Reading(30, d2);
         list.addReading(r1);
         list.addReading(r2);
-        double result = list.getMostRecentValueOfReading();
+        double result = list.getMostRecentValue();
         double expectedResult = 30.0;
         assertEquals(expectedResult, result, 0.01);
 
@@ -2186,7 +2188,7 @@ class ReadingListTest {
     void seeMostRecentValueWithEmptyList() {
         ReadingList list = new ReadingList();
         //ACT
-        double result = list.getMostRecentValueOfReading();
+        double result = list.getMostRecentValue();
         double expectedResult = NaN;
         //ASSERT
         assertEquals(expectedResult, result, 0.01);
@@ -2201,7 +2203,7 @@ class ReadingListTest {
         Reading r2 = new Reading(30, d2);
         list.addReading(r1);
         list.addReading(r2);
-        double result = list.getMostRecentValueOfReading();
+        double result = list.getMostRecentValue();
         double expectedResult = 15.0;
         assertEquals(expectedResult, result, 0.01);
 
@@ -2392,7 +2394,6 @@ class ReadingListTest {
         ReadingList readingList1 = new ReadingList();
         ReadingList readingList2 = new ReadingList();
         ReadingList readingList3 = new ReadingList();
-        ReadingList readingList4 = new ReadingList();
 
         Reading reading1 = new Reading(22, new GregorianCalendar(2018, 10, 2,23,59).getTime());
         Reading reading2 = new Reading(25, new GregorianCalendar(2018, 10, 3,0,0).getTime());
@@ -2426,6 +2427,74 @@ class ReadingListTest {
         int actualResult1 = readingList1.hashCode();
         //Assert
         assertEquals(actualResult1, 1);
+    }
+
+    @Test
+    void matchByDate() {
+        //Assert
+
+        ReadingList readingList1 = new ReadingList(); //EMPTY LIST
+        ReadingList readingList2 = new ReadingList(); //LIST WITH READINGS IN BOUNDARY LIMITS
+        ReadingList readingList3 = new ReadingList(); //LIST WITH READINGS INSIDE LIMITS
+        ReadingList readingList4 = new ReadingList(); //LIST WITH READINGS OUTSIDE LIMITS
+
+        Date date1 = new Date();
+        Date date2 = new Date();
+        Date date3 = new Date();
+        Date date4 = new Date();
+        Date date5 = new Date();
+        Date date6 = new Date();
+
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            date1 = sd.parse("05/10/2000 23:59");
+            date2 = sd.parse("06/10/2000 00:00");
+            date3 = sd.parse("06/10/2000 12:30");
+            date4 = sd.parse("06/10/2000 23:59");
+            date5 = sd.parse("07/10/2000 00:00");
+            date6 = sd.parse("19/11/2001 11:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Reading reading1 = new Reading(20, date1);
+        Reading reading2 = new Reading(25, date2);
+        Reading reading3 = new Reading(2, date3);
+        Reading reading4 = new Reading(12, date4);
+        Reading reading5 = new Reading(1, date5);
+        Reading reading6 = new Reading(-1, date6);
+
+        readingList2.addReading(reading1);
+        readingList2.addReading(reading2);
+        readingList2.addReading(reading4);
+        readingList2.addReading(reading5);
+
+        readingList3.addReading(reading3);
+
+        readingList4.addReading(reading6);
+
+        ReadingList expectedResult1 = new ReadingList(); //EMPTY
+        ReadingList expectedResult2 = new ReadingList();
+        ReadingList expectedResult3 = new ReadingList();
+
+        expectedResult2.addReading(reading2);
+        expectedResult2.addReading(reading4);
+        expectedResult3.addReading(reading3);
+
+        //Act
+
+        ReadingList actualResult1 = readingList1.matchByDate(date1, date5);
+        ReadingList actualResult2 = readingList2.matchByDate(date1, date5);
+        ReadingList actualResult3 = readingList3.matchByDate(date1, date5);
+        ReadingList actualResult4 = readingList4.matchByDate(date1, date5);
+
+        //Assert
+
+        assertEquals(expectedResult1,actualResult1);
+        assertEquals(expectedResult2,actualResult2);
+        assertEquals(expectedResult3,actualResult3);
+        assertEquals(expectedResult1,actualResult4);
     }
 
 }

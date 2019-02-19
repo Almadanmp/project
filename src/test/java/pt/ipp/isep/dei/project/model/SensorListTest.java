@@ -738,7 +738,6 @@ class SensorListTest {
         sensorList3.addSensor(sensor3);
         sensorList3.addSensor(sensor4);
 
-
         Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature", "ºC"), date1);
         Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), date1);
         Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), date1);

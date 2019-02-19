@@ -99,7 +99,7 @@ public class HouseMonitoringController {
     public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {
         Sensor closest = house.getClosestSensorOfGivenType(ga,"temperature");
         ReadingList readingList = closest.getReadingList();
-        return readingList.getMostRecentValueOfReading();
+        return readingList.getMostRecentValue();
     }
 
 }

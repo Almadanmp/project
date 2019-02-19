@@ -231,7 +231,7 @@ public class Room implements Metered {
         SensorList tempSensors = getSensorsOfGivenType("temperature");
         if (!tempSensors.getSensorList().isEmpty()) {
             ReadingList readingList = tempSensors.getReadings();
-            currentT = readingList.getMostRecentValueOfReading();
+            currentT = readingList.getMostRecentValue();
         }
         return currentT;
     }

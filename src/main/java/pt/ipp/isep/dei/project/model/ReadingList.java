@@ -44,7 +44,6 @@ public class ReadingList {
     }
 
 
-    //THIS METHOD DOES NOT CONSIDER THAT A LIST MIGHT BE EMPTY
     /**Method that goes through every Reading in the list and
      * returns the reading with the most recent Date.
      * @return most recent reading
@@ -70,7 +69,7 @@ public class ReadingList {
      * This method returns the most recent reading value a Reading List.
      * @return the most recent reading value or NaN when the Reading List is empty
      */
-    public double getMostRecentValueOfReading() {
+    public double getMostRecentValue() {
         if(this.readings.isEmpty()){
             return NaN;
         }
@@ -82,8 +81,8 @@ public class ReadingList {
      *
      * @return average value of all reading from given date's month
      */
-    double getAverageOfAllRecordedValueReadingsFromGivenMonth(Date dateGiven) {
-        List<Date> datesOfMonth = getListOfDatesOfMonthWithReadings(dateGiven);
+    double getAverageReadingsFromGivenMonth(Date dateGiven) {
+        List<Date> datesOfMonth = getDatesOfMonthWithReadings(dateGiven);
         double sum = 0;
         int counter = 0;
         for (Date d : datesOfMonth) {
@@ -132,7 +131,7 @@ public class ReadingList {
      * @param dateGiven date that will correspond to the month where to look for readings
      * @return list of dates of readings from the given date's month
      */
-    List<Date> getListOfDatesOfMonthWithReadings(Date dateGiven) {
+    List<Date> getDatesOfMonthWithReadings(Date dateGiven) {
         Date dateBeforeStartMonth = getDateBeforeStartMonth(dateGiven);
         Date dateAfterEndMonth = getDateAfterEndMonth(dateGiven);
 
@@ -495,7 +494,6 @@ public class ReadingList {
      * @param dateGiven date given
      * @return get maximum value reading in a given day
      */
-
     double getMaximumOfGivenDayValueReadings(Date dateGiven) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(dateGiven);
@@ -511,17 +509,33 @@ public class ReadingList {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         Date endDay = cal.getTime();
-        if(readings.isEmpty()){
+        ReadingList dayReadings = matchByDate(beginDay,endDay);
+
+        if(dayReadings.isEmpty()){
             return NaN;
         }
-        double maxValue = -100;
-        for (Reading mReading : readings) {
-            Date currentReadingDate = mReading.getDate();
-            if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue < mReading.getValue()) {
-                maxValue = mReading.getValue();
-            }
+        double maxValue = dayReadings.getListOfReadings().get(0).getValue();
+        for (Reading r : dayReadings.getListOfReadings()) {
+            double currentValue = r.getValue();
+            maxValue = Math.max(maxValue, currentValue);
         }
         return maxValue;
+    }
+
+    /**
+     * This method receives two dates and checks the readings to match those that
+     * have a date contained in the interval given as parameter
+     * @return list of readings contained in interval given as parameter
+     */
+    public ReadingList matchByDate(Date beginDate, Date endDate){
+        ReadingList finalList = new ReadingList();
+        for(Reading r : this.readings){
+            Date readingDate = r.getDate();
+            if(readingDate.after(beginDate) && readingDate.before(endDate)){
+                finalList.addReading(r);
+            }
+        }
+        return finalList;
     }
 
 
@@ -606,10 +620,10 @@ public class ReadingList {
         for (int day : daysWithReadings) {
             List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(day);
             double givenD;
-            givenD = getTotalFromGivenList(valueReadingsThatMatchDay);
+            givenD = getListSum(valueReadingsThatMatchDay);
             totalValuesFromDaysWithReadings.add(givenD);
         }
-        return getTotalFromGivenList(totalValuesFromDaysWithReadings);
+        return getListSum(totalValuesFromDaysWithReadings);
     }
 
     /**
@@ -618,7 +632,7 @@ public class ReadingList {
      *
      * @return returns the average of all values contained within that ArrayList
      */
-    double getTotalFromGivenList(List<Double> valueList) {
+    double getListSum(List<Double> valueList) {
         double sum = 0;
         if (valueList.isEmpty()) {
             return NaN;
