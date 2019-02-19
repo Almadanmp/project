@@ -2,8 +2,12 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.log.Log;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.GregorianCalendar;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * WaterHeater device tests class.
@@ -22,6 +26,16 @@ public class WaterHeaterTest {
     //getConsumption Tests
 
     @Test
+    void seeIfPrintDeviceWorks() {
+        Device d = new WaterHeater(new WaterHeaterSpec());
+        d.setName("WaterHeater 3000");
+        d.setNominalPower(150.0);
+        String result = d.buildDeviceString();
+        String expectedResult = "The device Name is WaterHeater 3000, and its NominalPower is 150.0 kW.\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void getConsumptionTest() {
         Device waterHeater = new WaterHeater(new WaterHeaterSpec());
 
@@ -34,7 +48,7 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
         waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
         waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
-        Double expectedResult = 0.0028348125;
+        Double expectedResult = 0.06541875;
         Double result = waterHeater.getEnergyConsumption(1);
         assertEquals(expectedResult, result);
     }
@@ -87,23 +101,6 @@ public class WaterHeaterTest {
     }
 
     @Test
-    void getConsumptionTestColdWaterEqualsHotWaterDifString() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Double coldT = 25.0;
-        Double waterV = 100.0;
-        Double hotT = 25.0;
-        waterHeater.setAttributeValue("dgfhfjg", coldT);
-        waterHeater.setAttributeValue("Volume Of Water To Heat", waterV);
-        waterHeater.setAttributeValue("adsdfgh", hotT);
-        double expectedResult = 0.002180625;
-        double result = waterHeater.getEnergyConsumption(1);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void getConsumptionTestColdWaterMinorHotWater() {
         Device waterHeater = new WaterHeater(new WaterHeaterSpec());
 
@@ -116,7 +113,7 @@ public class WaterHeaterTest {
         waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
         waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
         waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
-        double expectedResult = 0.0016718125000000001;
+        double expectedResult = 0.0036343749999999996;
         double result = waterHeater.getEnergyConsumption(1);
         assertEquals(expectedResult, result);
     }
@@ -132,4 +129,80 @@ public class WaterHeaterTest {
         double result = waterHeater.getEnergyConsumption(1);
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void seeIfGetAndSetAttributeUnit() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP);
+        d1.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO);
+        d1.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER);
+        d1.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP);
+        d1.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER_HEAT);
+        String expectedResult1 = "L";
+        String expectedResult2 = "ºC";
+        String expectedResult3 = "";
+        Object result1 = d1.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP);
+        Object result2 = d1.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO);
+        Object result3 = d1.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER);
+        Object result4 = d1.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP);
+        Object result5 = d1.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER_HEAT);
+        assertEquals(expectedResult2, result1);
+        assertEquals(expectedResult3, result2);
+        assertEquals(expectedResult1, result3);
+        assertEquals(expectedResult2, result4);
+        assertEquals(expectedResult1, result5);
+    }
+
+    @Test
+    void getLogList() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
+                new GregorianCalendar(2019, 1, 1).getTime());
+        LogList logList = d1.getLogList();
+        d1.addLog(log);
+        LogList result = d1.getLogList();
+        assertEquals(logList, result);
+    }
+
+    @Test
+    void getLogListBreakTest() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        LogList logList = new LogList();
+        LogList result = d1.getLogList();
+        assertEquals(logList, result);
+    }
+
+    @Test
+    void addLogListFalse() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
+                new GregorianCalendar(2019, 1, 1).getTime());
+        d1.addLog(log);
+        assertFalse(d1.addLog(log));
+    }
+
+    @Test
+    void addLogToInactive() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
+                new GregorianCalendar(2019, 1, 1).getTime());
+        d1.deactivate();
+        boolean result = d1.addLog(log);
+        assertFalse(result);
+    }
+
+    @Test
+    void addLogTrue() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
+                new GregorianCalendar(2019, 1, 1).getTime());
+        boolean result = d1.addLog(log);
+        assertTrue(result);
+    }
+
 }

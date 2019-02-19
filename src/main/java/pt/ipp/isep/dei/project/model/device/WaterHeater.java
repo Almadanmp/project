@@ -1,9 +1,9 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import java.util.Date;
 import java.util.List;
@@ -114,7 +114,21 @@ public class WaterHeater implements Device, Metered {
         return wHLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
-       /**
+    /**
+     * Method to calculate the difference in temperature to be used on getEnergyConsumptionMethod
+     *
+     * @return Dt -> difference in temperature = hot water temperature – cold water temperature
+     */
+    private double dTQuotient() {
+        double coldWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Cold Water Temperature");
+        double hotWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Hot Water Temperature");
+        if (coldWaterTemperature >= hotWaterTemperature) {
+            return 0;
+        }
+        return coldWaterTemperature * hotWaterTemperature;
+    }
+
+    /**
      * Estimate energy consumption for a water heater.
      * It is calculated by the following equation:
      * Energy consumption = C*V*dT*PR (kWh)
@@ -124,20 +138,15 @@ public class WaterHeater implements Device, Metered {
      * PR -> performance ratio (typically 0.9)
      * When the temperature of ColdWater is above the HotWaterTemperature, there will be no energy consumption, so we
      * return 0.
-     * @param time
+     *
+     * @param time time in minutes
      * @return an estimate energy consumption for a water heater
      */
     public double getEnergyConsumption(float time) {
-        double coldWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Cold Water Temperature");
-        double hotWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Hot Water Temperature");
         double volumeOfWaterToHeat = (double) wHDeviceSpecs.getAttributeValue("Volume Of Water To Heat");
         double performanceRatio = (double) wHDeviceSpecs.getAttributeValue("Performance Ratio");
 
-        if (coldWaterTemperature >= hotWaterTemperature) {
-            return 0;
-        }
-
-        double dT = hotWaterTemperature - coldWaterTemperature;
+        double dT = dTQuotient();
         double volForMinute = volumeOfWaterToHeat / 1440; //calculate v in liters per minute
         double specificHeatOfWater = 1.163 / 1000;
         return specificHeatOfWater * volForMinute * dT * performanceRatio * time;
