@@ -21,7 +21,7 @@ class ReadingTest{
         Reading l1 = new Reading(15.0,date1.getTime());
         Date expectedResult = date1.getTime();
         //Act
-        Date result =l1.getmDate();
+        Date result =l1.getDate();
         //Assert
         assertEquals(expectedResult,result);
     }
@@ -35,7 +35,7 @@ class ReadingTest{
         l1.setData(date2.getTime());
         Date expectedResult = date2.getTime();
         //Act
-        Date result = l1.getmDate();
+        Date result = l1.getDate();
         //Assert
         assertEquals(expectedResult,result);
     }
@@ -45,7 +45,7 @@ class ReadingTest{
         double valor1 = 15.0;
         Reading l1 = new Reading(valor1,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         //Act
-        double result =l1.getmValue();
+        double result =l1.getValue();
         //Assert
         assertEquals(valor1,result,0.01);
     }
@@ -56,9 +56,9 @@ class ReadingTest{
         double valor1 = 15.0;
         Reading l1 = new Reading(valor1,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         double valor2 = 18.0;
-        l1.setmValue(valor2);
+        l1.setValue(valor2);
         //Act
-        double result = l1.getmValue();
+        double result = l1.getValue();
         //Assert
         assertEquals(valor2,result,0.01);
     }
@@ -69,10 +69,10 @@ class ReadingTest{
         ReadingList listal = new ReadingList();
         Reading leitura1 = new Reading(15,date1.getTime());
         listal.addReading(leitura1);
-        leitura1.setmValue(19);
+        leitura1.setValue(19);
         double expectedResult = 19;
         //Act
-        double result = leitura1.getmValue();
+        double result = leitura1.getValue();
         //Assert
         assertEquals(result,expectedResult,0.01);
     }

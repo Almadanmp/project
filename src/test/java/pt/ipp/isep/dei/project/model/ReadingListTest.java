@@ -129,7 +129,7 @@ class ReadingListTest {
         double expectedResult = 15;
 
         //Act
-        double actualResult = readingList.getListOfReadings().get(0).getmValue();
+        double actualResult = readingList.getListOfReadings().get(0).getValue();
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.1);
@@ -148,7 +148,7 @@ class ReadingListTest {
         double expectedResult = 29;
 
         //Act
-        double actualResult = readingList.getListOfReadings().get(1).getmValue();
+        double actualResult = readingList.getListOfReadings().get(1).getValue();
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.1);

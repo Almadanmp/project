@@ -161,26 +161,6 @@ public class EnergyGrid implements Metered {
         return this.mRoomList.getDeviceList();
     }
 
-    /**
-     * Creates a string displaying the name of the rooms and the devices connected to the energy grid.
-     *
-     * @return returns a string displaying the name of the rooms and the devices connected to the energy grid.
-     */
-    public String buildRoomsAndDevicesString() {
-        int counter = 0;
-        StringBuilder result = new StringBuilder();
-        List<Room> roomList = this.getRoomList();
-        for (Room r : roomList) {
-            result.append(counter).append(") ").append(r.getRoomName()).append(".\n");
-            counter++;
-        }
-        List<Device> deviceList = this.getDeviceList();
-        for (Device d : deviceList) {
-            result.append(counter).append(") ").append(d.getName()).append(", Type: ").append(d.getType()).append(", Power: ").append(d.getNominalPower()).append(".\n");
-            counter++;
-        }
-        return result.toString();
-    }
 
     /**
      * Method to remove a room from the energy grid.

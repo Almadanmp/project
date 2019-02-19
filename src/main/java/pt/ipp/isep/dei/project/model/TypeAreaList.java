@@ -8,11 +8,10 @@ import java.util.List;
  */
 
 public class TypeAreaList {
-    private List<TypeArea> mTypeAreaList;
-    private String mResultLookEnhancer = "---------------\n";
+    private List<TypeArea> typeAreaList;
 
     public TypeAreaList() {
-        mTypeAreaList = new ArrayList<>();
+        typeAreaList = new ArrayList<>();
     }
 
     /**
@@ -36,8 +35,8 @@ public class TypeAreaList {
      * @return true or false depending on the list containing or not the type input already.
      */
     public boolean addTypeArea(TypeArea type) {
-        if (!mTypeAreaList.contains(type)) {
-            mTypeAreaList.add(type);
+        if (!typeAreaList.contains(type)) {
+            typeAreaList.add(type);
             return true;
         } else {
             return false;
@@ -51,12 +50,12 @@ public class TypeAreaList {
      * @return builds a string of all the individual members of the geoAreaType list.
      */
     public String buildGATypeWholeListString(TypeAreaList typeAreaList) {
-        StringBuilder result = new StringBuilder(mResultLookEnhancer);
+        StringBuilder result = new StringBuilder("---------------\n");
         for (int i = 0; i < typeAreaList.getTypeAreaList().size(); i++) {
             TypeArea aux = typeAreaList.getTypeAreaList().get(i);
             result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" \n");
         }
-        result.append(mResultLookEnhancer);
+        result.append("---------------\n");
         return result.toString();
     }
 
@@ -66,6 +65,6 @@ public class TypeAreaList {
      * @return a list of the types of Geographic Areas.
      */
     public List<TypeArea> getTypeAreaList() {
-        return this.mTypeAreaList;
+        return this.typeAreaList;
     }
 }

@@ -21,7 +21,7 @@ public class MainUI {
         String fixConfigFile = "Please fix Configuration File before continuing.";
         try {
             if (fileUtils.validGridMetering()) {
-                gridMeteringPeriod = fileUtils.mGridMeteringPeriod;
+                gridMeteringPeriod = fileUtils.gridMeteringPeriod;
             } else {
                 System.out.println("ERROR: Configuration File values are incorrect. Energy Grids cannot be created.\n" +
                         fixConfigFile);
@@ -40,7 +40,7 @@ public class MainUI {
         int deviceMeteringPeriod = 0;
         try {
             if (fileUtils.validDeviceMetering()) {
-                deviceMeteringPeriod = fileUtils.mDeviceMeteringPeriod;
+                deviceMeteringPeriod = fileUtils.deviceMeteringPeriod;
             } else return;
         } catch (IllegalArgumentException il) {
             return;

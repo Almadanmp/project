@@ -7,8 +7,8 @@ import java.util.Date;
  */
 public class Reading {
 
-    private double mValue;
-    private Date mDate;
+    private double value;
+    private Date date;
 
     /**
      * Builder with 'value' and 'date'
@@ -17,7 +17,7 @@ public class Reading {
      * @param date date received
      */
     public Reading(double value, Date date) {
-        setmValue(value);
+        setValue(value);
         setData(date);
     }
 
@@ -26,12 +26,12 @@ public class Reading {
      *
      * @param value of reading made
      */
-    void setmValue(double value) {
-        this.mValue = value;
+    void setValue(double value) {
+        this.value = value;
     }
 
-    double getmValue() {
-        return this.mValue;
+    double getValue() {
+        return this.value;
     }
 
     /**
@@ -39,11 +39,11 @@ public class Reading {
      * @param date of the reading
      */
     public void setData(Date date) {
-        this.mDate = date;
+        this.date = date;
     }
 
-    Date getmDate() {
-        return this.mDate;
+    Date getDate() {
+        return this.date;
     }
 
 
@@ -63,7 +63,7 @@ public class Reading {
             return false;
         } else {
             Reading reading = (Reading) o;
-            return (java.lang.Double.compare(this.mValue, reading.getmValue()) == 0 && this.mDate.equals(reading.getmDate()));
+            return (java.lang.Double.compare(this.value, reading.getValue()) == 0 && this.date.equals(reading.getDate()));
         }
     }
 
