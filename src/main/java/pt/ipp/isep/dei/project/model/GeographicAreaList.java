@@ -105,6 +105,8 @@ public class GeographicAreaList {
             GeographicArea ga = geographicAreas.get(i);
             if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {
                 gAResult = geographicAreas.get(i);
+            } else {
+                throw new IllegalArgumentException("There are no geographic areas equal to the inputed one on the list");
             }
         }
         return gAResult;

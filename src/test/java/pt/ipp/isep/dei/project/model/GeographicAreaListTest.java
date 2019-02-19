@@ -478,5 +478,48 @@ class GeographicAreaListTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void getGeographicAreaFails() {
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    GeographicAreaList gAL1 = new GeographicAreaList();
+                    TypeArea t1 = new TypeArea("Rua");
+                    Local l1 = new Local(38, 7, 100);
+                    GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+                    gAL1.addGeographicArea(c);
+                    gAL1.getGeographicArea("Lisboa", t1, 38, 7, 100);
+
+                });
+    }
+
+    @Test
+    void checkIfGAExistsFalse() {
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+        gAL1.addGeographicArea(c);
+        boolean result = gAL1.checkIfGAExists("Porto", t1, 38, 7, 100);
+        assertEquals(false, result);
+    }
+
+    @Test
+    void checkIfGAExistsTrue() {
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+        gAL1.addGeographicArea(c);
+        boolean result = gAL1.checkIfGAExists("Lisboa", t1, 38, 7, 100);
+        assertEquals(true, result);
+    }
+
+    @Test
+    void checkIfGAExistsIfEmptyList() {
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        boolean result = gAL1.checkIfGAExists("Lisboa", t1, 38, 7, 100);
+        assertEquals(true, result);
+    }
 
 }
