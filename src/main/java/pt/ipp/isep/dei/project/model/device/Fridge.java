@@ -80,8 +80,8 @@ public class Fridge implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(fridgeLogList.getLogList().contains(log)) && this.fridgeActive) {
-            fridgeLogList.getLogList().add(log);
+        if (!(fridgeLogList.getLogListAttribute().contains(log)) && this.fridgeActive) {
+            fridgeLogList.getLogListAttribute().add(log);
             return true;
         } else {
             return false;

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TypeSensorList {
-    private List<TypeSensor> typeSensorList;
+    private List<TypeSensor> typeSensors;
 
     public TypeSensorList() {
-        typeSensorList = new ArrayList<>();
+        typeSensors = new ArrayList<>();
     }
 
     /**Method receives a type Sensor, checks if it already exists in list
@@ -15,8 +15,8 @@ public class TypeSensorList {
      * @return true in case the type sensor is added, false otherwise
      * **/
     public boolean add(TypeSensor typeSensor){
-        if(!typeSensorList.contains(typeSensor)){
-            typeSensorList.add(typeSensor);
+        if(!typeSensors.contains(typeSensor)){
+            typeSensors.add(typeSensor);
             return true;
         }
         return false;
@@ -26,7 +26,7 @@ public class TypeSensorList {
      * @return List that contains sensor types
      * **/
     public List<TypeSensor> getTypeSensorList(){
-        return this.typeSensorList;
+        return this.typeSensors;
     }
 
     /**
@@ -36,11 +36,11 @@ public class TypeSensorList {
      */
     public String buildString() {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
-        if (typeSensorList.isEmpty()) {
+        if (typeSensors.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < typeSensorList.size(); i++) {
-            TypeSensor aux = typeSensorList.get(i);
+        for (int i = 0; i < typeSensors.size(); i++) {
+            TypeSensor aux = typeSensors.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
             result.append("Unit: ").append(aux.getUnits()).append("\n");
         }

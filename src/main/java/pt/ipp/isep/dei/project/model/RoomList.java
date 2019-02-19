@@ -11,20 +11,20 @@ import java.util.List;
  */
 
 public class RoomList {
-    private List<Room> mRoomList;
+    private List<Room> rooms;
 
 
     public RoomList() {
-        this.mRoomList = new ArrayList<>();
+        this.rooms = new ArrayList<>();
     }
 
     public List<Room> getList() {
-        return this.mRoomList;
+        return this.rooms;
     }
 
     public boolean addRoom(Room room) {
-        if (!(mRoomList.contains(room))) {
-            mRoomList.add(room);
+        if (!(rooms.contains(room))) {
+            rooms.add(room);
             return true;
         } else {
             return false;
@@ -45,7 +45,7 @@ public class RoomList {
      * if no Room with the name of found, it will return null.
      */
     public Room getRoomByName(String roomName) {
-        for (Room aux : mRoomList) {
+        for (Room aux : rooms) {
             if (roomName.equals(aux.getRoomName())) {
                 return aux;
             }
@@ -81,12 +81,12 @@ public class RoomList {
     }
 
     public boolean contains(Room room) {
-        return (this.mRoomList.contains(room));
+        return (this.rooms.contains(room));
     }
 
     public boolean removeRoom(Room room) {
         if (this.contains(room)) {
-            this.mRoomList.remove(room);
+            this.rooms.remove(room);
             return true;
         }
         return false;
@@ -101,7 +101,7 @@ public class RoomList {
      */
     double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
-        for (Room r : mRoomList) {
+        for (Room r : rooms) {
             result += r.getDailyConsumptionByDeviceType(deviceType, time);
         }
         return Math.floor(result * 10) / 10;

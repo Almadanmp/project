@@ -80,8 +80,8 @@ public class WaterHeater implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(wHLogList.getLogList().contains(log)) && this.wHActive) {
-            wHLogList.getLogList().add(log);
+        if (!(wHLogList.getLogListAttribute().contains(log)) && this.wHActive) {
+            wHLogList.getLogListAttribute().add(log);
             return true;
         } else {
             return false;

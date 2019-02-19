@@ -9,24 +9,24 @@ import java.util.List;
  */
 
 public class GeographicAreaList {
-    private List<GeographicArea> geographicAreaList;
+    private List<GeographicArea> geographicAreas;
 
     /**
      * GeographicAreaList constructor that receives a Geographic Area as a parameter and
-     * adds the GA to the attribute geographicAreaList
+     * adds the GA to the attribute geographicAreas
      *
      * @param geographicAreaToAdd geographic area to add to the attribute
      */
     public GeographicAreaList(GeographicArea geographicAreaToAdd) {
-        geographicAreaList = new ArrayList<>();
-        geographicAreaList.add(geographicAreaToAdd);
+        geographicAreas = new ArrayList<>();
+        geographicAreas.add(geographicAreaToAdd);
     }
 
     /**
      * GeographicAreaList constructor that receives without parameters
      */
     public GeographicAreaList() {
-        geographicAreaList = new ArrayList<>();
+        geographicAreas = new ArrayList<>();
     }
 
     /**
@@ -37,8 +37,8 @@ public class GeographicAreaList {
      * @return returns true in case the geographic area is added and false if not
      **/
     public boolean addGeographicAreaToGeographicAreaList(GeographicArea geographicAreaToAdd) {
-        if (!(geographicAreaList.contains(geographicAreaToAdd))) {
-            geographicAreaList.add(geographicAreaToAdd);
+        if (!(geographicAreas.contains(geographicAreaToAdd))) {
+            geographicAreas.add(geographicAreaToAdd);
             return true;
         }
         return false;
@@ -79,7 +79,7 @@ public class GeographicAreaList {
      */
     public boolean checkIfGACanBeCreated(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
         Local newLocal = new Local(latitude, longitude, altitude);
-        for (GeographicArea ga : geographicAreaList) {
+        for (GeographicArea ga : geographicAreas) {
             if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {
                 return false;
             }
@@ -112,22 +112,22 @@ public class GeographicAreaList {
      * @return returns true in case the GA is contained in the list and false otherwise
      */
     boolean containsGA(GeographicArea geoArea) {
-        return geographicAreaList.contains(geoArea);
+        return geographicAreas.contains(geoArea);
     }
 
     /**
-     * Getter of the attribute geographicAreaList from this class
+     * Getter of the attribute geographicAreas from this class
      *
      * @return returns the geographic area list
      */
     public List<GeographicArea> getGeographicAreaList() {
-        return geographicAreaList;
+        return geographicAreas;
     }
 
     public GeographicAreaList matchGeographicAreaWithInputType(String typeAreaName) {
         GeographicAreaList finalList = new GeographicAreaList();
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
-        for (GeographicArea ga : geographicAreaList) {
+        for (GeographicArea ga : geographicAreas) {
             if (ga.getTypeArea().equals(typeAreaToTest)) {
                 finalList.addGeographicAreaToGeographicAreaList(ga);
             }

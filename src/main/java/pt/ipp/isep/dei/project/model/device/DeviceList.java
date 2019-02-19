@@ -10,25 +10,25 @@ import java.util.List;
 
 public class DeviceList {
 
-    private List<Device> deviceList;
+    private List<Device> devices;
 
 
     public DeviceList() {
-        this.deviceList = new ArrayList<>();
+        this.devices = new ArrayList<>();
     }
 
 
     public List<Device> getList() {
-        return this.deviceList;
+        return this.devices;
     }
 
     public boolean containsDevice(Device device) {
-        return deviceList.contains(device);
+        return devices.contains(device);
     }
 
     public boolean addDevice(Device device) {
-        if (!deviceList.contains(device)) {
-            deviceList.add(device);
+        if (!devices.contains(device)) {
+            devices.add(device);
             return true;
         }
         return false;
@@ -36,14 +36,14 @@ public class DeviceList {
 
     public boolean removeDevice(Device device) {
         if (this.contains(device)) {
-            deviceList.remove(device);
+            devices.remove(device);
             return true;
         }
         return false;
     }
 
     public boolean checkIfListIsValid() {
-        return !deviceList.isEmpty();
+        return !devices.isEmpty();
     }
 
     public double getNominalPower() {
@@ -55,13 +55,13 @@ public class DeviceList {
     }
 
     public boolean contains(Device device) {
-        return this.deviceList.contains(device);
+        return this.devices.contains(device);
     }
 
     public String buildDevicesString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (Device d : this.deviceList) {
+        for (Device d : this.devices) {
             result.append(counter).append(") ").append(d.buildDeviceString());
             counter++;
         }
@@ -77,7 +77,7 @@ public class DeviceList {
      */
     public double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
-        for (Device d : deviceList) {
+        for (Device d : devices) {
             if (d.getType().equals(deviceType)) {
                 result += d.getEnergyConsumption(time);
             }

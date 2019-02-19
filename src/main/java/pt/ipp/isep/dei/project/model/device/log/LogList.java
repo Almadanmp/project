@@ -12,10 +12,10 @@ import java.util.List;
 
 public class LogList {
 
-    private List<Log> logList;
+    private List<Log> logs;
 
     public LogList() {
-        this.logList = new ArrayList<>();
+        this.logs = new ArrayList<>();
     }
 
     /**
@@ -24,10 +24,10 @@ public class LogList {
      * @return array of Logs
      */
     public Log[] getLogs() {
-        int sizeOfResultArray = logList.size();
+        int sizeOfResultArray = logs.size();
         Log[] result = new Log[sizeOfResultArray];
-        for (int i = 0; i < logList.size(); i++) {
-            result[i] = logList.get(i);
+        for (int i = 0; i < logs.size(); i++) {
+            result[i] = logs.get(i);
         }
         return result;
     }
@@ -37,8 +37,8 @@ public class LogList {
      *
      * @return List with Logs
      */
-   public  List<Log> getLogList() {
-        return this.logList;
+   public  List<Log> getLogListAttribute() {
+        return this.logs;
     }
 
     /**
@@ -48,20 +48,20 @@ public class LogList {
      */
 
     public boolean addLog(Log logToAdd) {
-        if (this.getLogList().contains(logToAdd)) {
+        if (this.getLogListAttribute().contains(logToAdd)) {
             return false;
         }
-        this.getLogList().add(logToAdd);
+        this.getLogListAttribute().add(logToAdd);
         return true;
     }
 
     public boolean isEmpty() {
-        return this.logList.isEmpty();
+        return this.logs.isEmpty();
     }
 
     public boolean addLogList(LogList listToAdd) {
         int counter = 0;
-        for (Log l : listToAdd.getLogList()) {
+        for (Log l : listToAdd.getLogListAttribute()) {
             if (this.addLog(l)) {
                 counter++;
             }
@@ -78,7 +78,7 @@ public class LogList {
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
         int counter = 0;
-        for (Log l : this.getLogList()) {
+        for (Log l : this.getLogListAttribute()) {
             if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
                     ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
                 counter++;
@@ -89,7 +89,7 @@ public class LogList {
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
-        for (Log l : this.getLogList()) {
+        for (Log l : this.getLogListAttribute()) {
             if ((l.getInitialDate().after(startDate) || l.getInitialDate().equals(startDate)) &&
                     ((l.getFinalDate().before(endDate)) || l.getFinalDate().equals(endDate))) {
                 result.addLog(l);
@@ -107,7 +107,7 @@ public class LogList {
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
         double result = 0;
-        for (Log l : this.getLogList()) {
+        for (Log l : this.getLogListAttribute()) {
             if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
                     ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
                 result += l.getValue();
@@ -120,7 +120,7 @@ public class LogList {
     public String toString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (Log log : this.getLogList()) {
+        for (Log log : this.getLogListAttribute()) {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             String startDateString = format.format(log.getInitialDate());
             String endDateString = format.format(log.getFinalDate());

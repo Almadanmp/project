@@ -40,7 +40,7 @@ class HouseConfigurationUI {
                     break;
 
                 case 2:
-                    runUS105(house);
+                    runUS105();
                     activeInput = false;
                     break;
                 case 3:
@@ -118,7 +118,7 @@ class HouseConfigurationUI {
 
     // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
-    private void runUS105(House house){
+    private void runUS105(){
         getInputRoomCharacteristics();
         displayStateRoom();
     }

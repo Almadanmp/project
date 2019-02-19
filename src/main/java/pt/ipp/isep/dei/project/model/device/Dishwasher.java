@@ -87,8 +87,8 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(dWLogList.getLogList().contains(log)) && this.dWActive) {
-            dWLogList.getLogList().add(log);
+        if (!(dWLogList.getLogListAttribute().contains(log)) && this.dWActive) {
+            dWLogList.getLogListAttribute().add(log);
             return true;
         } else {
             return false;

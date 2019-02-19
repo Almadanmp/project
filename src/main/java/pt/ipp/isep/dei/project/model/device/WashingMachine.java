@@ -90,8 +90,8 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(wMLogList.getLogList().contains(log)) && this.wMActive) {
-            wMLogList.getLogList().add(log);
+        if (!(wMLogList.getLogListAttribute().contains(log)) && this.wMActive) {
+            wMLogList.getLogListAttribute().add(log);
             return true;
         } else {
             return false;

@@ -8,10 +8,10 @@ import java.util.List;
  */
 
 public class TypeAreaList {
-    private List<TypeArea> typeAreaList;
+    private List<TypeArea> typeAreas;
 
     public TypeAreaList() {
-        typeAreaList = new ArrayList<>();
+        typeAreas = new ArrayList<>();
     }
 
     /**
@@ -35,8 +35,8 @@ public class TypeAreaList {
      * @return true or false depending on the list containing or not the type input already.
      */
     public boolean addTypeArea(TypeArea type) {
-        if (!typeAreaList.contains(type)) {
-            typeAreaList.add(type);
+        if (!typeAreas.contains(type)) {
+            typeAreas.add(type);
             return true;
         } else {
             return false;
@@ -65,6 +65,6 @@ public class TypeAreaList {
      * @return a list of the types of Geographic Areas.
      */
     public List<TypeArea> getTypeAreaList() {
-        return this.typeAreaList;
+        return this.typeAreas;
     }
 }

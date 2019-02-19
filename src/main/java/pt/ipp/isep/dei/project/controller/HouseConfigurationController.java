@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.model.Address;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import java.util.List;
 
 /**
  * Controller class for House Configuration UI
@@ -15,7 +14,6 @@ public class HouseConfigurationController {
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
-     * @param street, zip, town are the address arguments of the house.
      * @param house   is the house we're going to set the address of.
      */
 

@@ -10,13 +10,13 @@ import java.util.List;
 
 public class EnergyGridList {
 
-    private List<EnergyGrid> energyGridList;
+    private List<EnergyGrid> energyGrids;
 
     /**
      * Empty constructor to use on UIs.
      */
     public EnergyGridList() {
-        energyGridList = new ArrayList<>();
+        energyGrids = new ArrayList<>();
     }
 
     /**
@@ -26,8 +26,8 @@ public class EnergyGridList {
      * @return returns true if the addition to the list is successful.
      */
     public boolean addGrid(EnergyGrid energyGridToAdd) {
-        if (!(energyGridList.contains(energyGridToAdd))) {
-            energyGridList.add(energyGridToAdd);
+        if (!(energyGrids.contains(energyGridToAdd))) {
+            energyGrids.add(energyGridToAdd);
             return true;
         }
         return false;
@@ -39,7 +39,7 @@ public class EnergyGridList {
      * @return returns an array of energy grids.
      */
     public List<EnergyGrid> getEnergyGridList() {
-        return energyGridList;
+        return energyGrids;
     }
 
     public EnergyGrid createEnergyGrid(String designation, double maxPower) {

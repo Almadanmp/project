@@ -80,8 +80,8 @@ public class Lamp implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(lampLogList.getLogList().contains(log)) && this.lampActive) {
-            lampLogList.getLogList().add(log);
+        if (!(lampLogList.getLogListAttribute().contains(log)) && this.lampActive) {
+            lampLogList.getLogListAttribute().add(log);
             return true;
         } else {
             return false;

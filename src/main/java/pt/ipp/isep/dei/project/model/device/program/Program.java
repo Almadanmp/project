@@ -9,7 +9,7 @@ public class Program {
     public static final String ENERGY_CONSUMPTION = "Energy Consumption";
 
     private String programName;
-    private double duration;
+    private double programDuration;
     private double energyConsumption;
 
 
@@ -34,7 +34,7 @@ public class Program {
     }
 
     public void setDuration(double duration) {
-        this.duration = duration;
+        this.programDuration = duration;
     }
 
     public void setEnergyConsumption(double energyConsumption) {
@@ -46,7 +46,7 @@ public class Program {
     }
 
     public double getDuration() {
-        return this.duration;
+        return this.programDuration;
     }
 
     public double getEnergyConsumption() {
@@ -64,7 +64,7 @@ public class Program {
         switch (attributeName) {
             case DURATION:
                 if (attributeValue instanceof Double) {
-                    this.duration = (Double) attributeValue;
+                    this.programDuration = (Double) attributeValue;
                     return true;
                 }
                 return false;
@@ -95,7 +95,7 @@ public class Program {
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case DURATION:
-                return duration;
+                return programDuration;
             case ENERGY_CONSUMPTION:
                 return energyConsumption;
             default:
