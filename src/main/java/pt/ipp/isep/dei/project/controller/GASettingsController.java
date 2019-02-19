@@ -71,14 +71,14 @@ public class GASettingsController {
      * @return success if a new GA is added, false otherwise
      */
     public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, double latitude, double longitude, double altitude, double length, double width) {
+        GeographicArea geoToAdd = newGeoList.createGA(newName, typeArea, length, width, latitude, altitude, longitude);
 
-        GeographicArea geoToAdd;
-
-        if (newGeoList.checkIfGACanBeCreated(newName, typeArea, latitude, longitude, altitude)) {
-            geoToAdd = newGeoList.createGA(newName, typeArea, length, width, latitude, altitude, longitude);
-            return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
+        if (newGeoList.checkIfGAExists(newName, typeArea, latitude, longitude, altitude)) {
+            return newGeoList.addGeographicArea(geoToAdd);
+        } else {
+            geoToAdd = newGeoList.getGeographicArea(newName, typeArea, latitude, altitude, longitude);
+            return newGeoList.addGeographicArea(geoToAdd);
         }
-        return false;
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */

@@ -36,7 +36,7 @@ public class GeographicAreaList {
      * @param geographicAreaToAdd geographic area to be added
      * @return returns true in case the geographic area is added and false if not
      **/
-    public boolean addGeographicAreaToGeographicAreaList(GeographicArea geographicAreaToAdd) {
+    public boolean addGeographicArea(GeographicArea geographicAreaToAdd) {
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
             return true;
@@ -77,7 +77,7 @@ public class GeographicAreaList {
      * @param altitude
      * @return will return true if can be added and false if it cannot be added
      */
-    public boolean checkIfGACanBeCreated(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
+    public boolean checkIfGAExists(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
         Local newLocal = new Local(latitude, longitude, altitude);
         for (GeographicArea ga : geographicAreas) {
             if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {
@@ -85,6 +85,29 @@ public class GeographicAreaList {
             }
         }
         return true;
+    }
+
+    /**
+     * Method to get a Geographic Area from the List.
+     * It will first check if the List already contains an equal Geographic area (with the same name, localiation and type)
+     *
+     * @param newName
+     * @param typeArea
+     * @param latitude
+     * @param longitude
+     * @param altitude
+     * @return
+     */
+    public GeographicArea getGeographicArea(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
+        Local newLocal = new Local(latitude, longitude, altitude);
+        GeographicArea gAResult = null;
+        for (int i = 0; i < geographicAreas.size(); i++) {
+            GeographicArea ga = geographicAreas.get(i);
+            if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {
+                gAResult = geographicAreas.get(i);
+            }
+        }
+        return gAResult;
     }
 
     /**
@@ -129,7 +152,7 @@ public class GeographicAreaList {
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
             if (ga.getTypeArea().equals(typeAreaToTest)) {
-                finalList.addGeographicAreaToGeographicAreaList(ga);
+                finalList.addGeographicArea(ga);
             }
         }
         return finalList;

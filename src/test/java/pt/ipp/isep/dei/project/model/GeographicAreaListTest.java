@@ -41,7 +41,7 @@ class GeographicAreaListTest {
         boolean expectedResult = false;
         boolean actualResult;
         //Act
-        actualResult = geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        actualResult = geographicAreaList.addGeographicArea(ga2);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -58,7 +58,7 @@ class GeographicAreaListTest {
         boolean expectedResult = true;
         boolean actualResult;
         //Act
-        actualResult = geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        actualResult = geographicAreaList.addGeographicArea(ga2);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -84,8 +84,8 @@ class GeographicAreaListTest {
         GeographicArea ga3 = new GeographicArea(n3, t1, 2, 3, l3);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        geographicAreaList.addGeographicArea(ga2);
+        geographicAreaList.addGeographicArea(ga3);
         GeographicArea gaToTest = new GeographicArea(n1, t1, 2, 3, l1);
         gaToTest.setId(n1);
 
@@ -118,8 +118,8 @@ class GeographicAreaListTest {
 
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        geographicAreaList.addGeographicArea(ga2);
+        geographicAreaList.addGeographicArea(ga3);
         GeographicArea gaToTest = new GeographicArea(n2, t1, 2, 3, l2);
         gaToTest.setId(n2);
 
@@ -150,8 +150,8 @@ class GeographicAreaListTest {
         GeographicArea ga3 = new GeographicArea(n3, t1, 2, 3, l3);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        geographicAreaList.addGeographicArea(ga2);
+        geographicAreaList.addGeographicArea(ga3);
         GeographicArea gaToTest = new GeographicArea(n3, t1, 2, 3, l3);
         gaToTest.setId(n3);
 
@@ -186,8 +186,8 @@ class GeographicAreaListTest {
         GeographicArea ga3 = new GeographicArea(n3, t1, 2, 3, l3);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        geographicAreaList.addGeographicArea(ga2);
+        geographicAreaList.addGeographicArea(ga3);
 
         //Act
         actualResult = geographicAreaList.containsGA(gaToTest);
@@ -214,11 +214,11 @@ class GeographicAreaListTest {
         GeographicArea ga3 = new GeographicArea("Lisboa", t3, 2, 3, l3);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        geographicAreaList.addGeographicArea(ga2);
+        geographicAreaList.addGeographicArea(ga3);
 
         GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.addGeographicAreaToGeographicAreaList(ga3);
+        expectedResult.addGeographicArea(ga3);
         GeographicAreaList actualResult;
         //Act
         actualResult = geographicAreaList.matchGeographicAreaWithInputType(typeToTest);
@@ -244,11 +244,11 @@ class GeographicAreaListTest {
         GeographicArea ga3 = new GeographicArea("Lisboa", t3, 2, 3, l3);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        geographicAreaList.addGeographicArea(ga2);
+        geographicAreaList.addGeographicArea(ga3);
 
         GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.addGeographicAreaToGeographicAreaList(ga1);
+        expectedResult.addGeographicArea(ga1);
         GeographicAreaList actualResult;
         //Act
         actualResult = geographicAreaList.matchGeographicAreaWithInputType(typeToTest);
@@ -274,11 +274,11 @@ class GeographicAreaListTest {
         GeographicArea ga3 = new GeographicArea("Lisboa", t3, 2, 3, l3);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga3);
+        geographicAreaList.addGeographicArea(ga2);
+        geographicAreaList.addGeographicArea(ga3);
 
         GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.addGeographicAreaToGeographicAreaList(ga2);
+        expectedResult.addGeographicArea(ga2);
         GeographicAreaList actualResult;
         //Act
         actualResult = geographicAreaList.matchGeographicAreaWithInputType(typeToTest);
@@ -299,7 +299,7 @@ class GeographicAreaListTest {
         GeographicArea ga2 = new GeographicArea("Coimbra", t2, 2, 3, l2);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList.addGeographicArea(ga2);
 
         GeographicAreaList expectedResult = new GeographicAreaList();
         GeographicAreaList actualResult;
@@ -336,10 +336,10 @@ class GeographicAreaListTest {
         GeographicArea ga2 = new GeographicArea("Coimbra", t2, 2, 3, l2);
 
         GeographicAreaList geographicAreaList1 = new GeographicAreaList(ga1);
-        geographicAreaList1.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList1.addGeographicArea(ga2);
 
         GeographicAreaList geographicAreaList2 = new GeographicAreaList(ga1);
-        geographicAreaList2.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList2.addGeographicArea(ga2);
 
         boolean expectedResult = true;
         boolean actualResult;
@@ -361,10 +361,10 @@ class GeographicAreaListTest {
         GeographicArea ga2 = new GeographicArea("Coimbra", t2, 2, 3, l2);
 
         GeographicAreaList geographicAreaList1 = new GeographicAreaList(ga1);
-        geographicAreaList1.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList1.addGeographicArea(ga2);
 
         GeographicAreaList geographicAreaList2 = new GeographicAreaList(ga1);
-        geographicAreaList2.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList2.addGeographicArea(ga2);
 
         boolean actualResult;
         //Act
@@ -395,10 +395,10 @@ class GeographicAreaListTest {
 
 
         GeographicAreaList geographicAreaList1 = new GeographicAreaList(ga1);
-        geographicAreaList1.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList1.addGeographicArea(ga2);
 
         GeographicAreaList geographicAreaList2 = new GeographicAreaList(ga3);
-        geographicAreaList2.addGeographicAreaToGeographicAreaList(ga4);
+        geographicAreaList2.addGeographicArea(ga4);
 
         boolean expectedResult = false;
         boolean actualResult;
@@ -421,7 +421,7 @@ class GeographicAreaListTest {
         GeographicArea ga2 = new GeographicArea("Coimbra", t2, 2, 3, l2);
 
         GeographicAreaList geographicAreaList1 = new GeographicAreaList(ga1);
-        geographicAreaList1.addGeographicAreaToGeographicAreaList(ga2);
+        geographicAreaList1.addGeographicArea(ga2);
 
 
         boolean actualResult;
@@ -438,9 +438,9 @@ class GeographicAreaListTest {
         GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 10, 20, new Local(3, 3, 18));
 
         GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
+        gAL1.addGeographicArea(gA1);
+        gAL1.addGeographicArea(gA2);
+        gAL1.addGeographicArea(gA3);
         String expectedResult = "---------------\n" +
                 "0) Name: Portugal | Type: Country | Latitude: 21.0 | Longitude: 33.0\n" +
                 "1) Name: Oporto | Type: City | Latitude: 14.0 | Longitude: 14.0\n" +
@@ -465,4 +465,18 @@ class GeographicAreaListTest {
         int actualResult = gAL1.hashCode();
         Assertions.assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void getGeographicAreaSuccess() {
+        GeographicAreaList gAL1 = new GeographicAreaList();
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
+        gAL1.addGeographicArea(c);
+        GeographicArea expectedResult = c;
+        GeographicArea result = gAL1.getGeographicArea("Porto", t1, 38, 7, 100);
+        assertEquals(expectedResult, result);
+    }
+
+
 }

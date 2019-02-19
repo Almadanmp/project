@@ -255,7 +255,7 @@ class SensorSettingsControllerTest {
         areaG.setId("Alegria");
 
         GeographicAreaList xgaList = new GeographicAreaList();
-        xgaList.addGeographicAreaToGeographicAreaList(areaG);
+        xgaList.addGeographicArea(areaG);
 
         //Act
         boolean actualResult = ctrl.addSensorToGeographicArea(areaG);
@@ -288,7 +288,7 @@ class SensorSettingsControllerTest {
         GeographicArea areaG = new GeographicArea("Porto", t1, 2, 3, l1);
         areaG.setId("Alegria");
         GeographicAreaList xgaList = new GeographicAreaList();
-        xgaList.addGeographicAreaToGeographicAreaList(areaG);
+        xgaList.addGeographicArea(areaG);
 
         //Act
         boolean actualResult = ctrl.addSensorToGeographicArea(areaG);

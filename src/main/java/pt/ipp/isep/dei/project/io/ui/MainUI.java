@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
+import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.program.Program;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
@@ -96,10 +96,10 @@ public class MainUI {
         portoSanto.setLength(235);
         portoSanto.setDescription("City of Porto Santo");
 
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(isep);
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(porto);
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(portugal);
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(portoSanto);
+        geographicalAreaList.addGeographicArea(isep);
+        geographicalAreaList.addGeographicArea(porto);
+        geographicalAreaList.addGeographicArea(portugal);
+        geographicalAreaList.addGeographicArea(portoSanto);
 
         //Rooms
 
@@ -346,7 +346,7 @@ public class MainUI {
         GeographicAreaList geographicAreaListSP2 = new GeographicAreaList();
         TypeArea urbanArea = new TypeArea("urban area");
         GeographicArea geographicAreaSP2 = new GeographicArea("ISEP", urbanArea, 0.249, 0.261, new Local(41.178553, -8.608035, 111));
-        geographicAreaListSP2.addGeographicAreaToGeographicAreaList(geographicAreaSP2);
+        geographicAreaListSP2.addGeographicArea(geographicAreaSP2);
         TypeAreaList typeAreaListSP2 = new TypeAreaList();
         typeAreaListSP2.addTypeArea(urbanArea);
         geographicAreaSP2.setDescription("Campus do ISEP");
@@ -730,7 +730,7 @@ public class MainUI {
         GeographicArea portoSP2 = new GeographicArea(portoString, citySP2, 3.30, 10.09, new Local(41.164077, -8.620802, 118));
         typeAreaListSP2.addTypeArea(citySP2);
         portoSP2.setDescription("City of Porto");
-        geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
+        geographicAreaListSP2.addGeographicArea(portoSP2);
         EnergyGrid mainGridSP2 = new EnergyGrid(mainGridString, 0);
         Address addressHouseSP2 = new Address("Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString);
         House houseSP2 = new House("Edificio B", addressHouseSP2, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
@@ -799,7 +799,7 @@ public class MainUI {
  GeographicAreaList geographicalAreaList1 = new GeographicAreaList();
  GeographicArea geographicArea1 = new GeographicArea("GeoAreaNoSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
 
- geographicalAreaList1.addGeographicAreaToGeographicAreaList(geographicArea1);
+ geographicalAreaList1.addGeographicArea(geographicArea1);
 
  // Geo Area List -  Geo Area with Empty Sensor List
 
@@ -808,7 +808,7 @@ public class MainUI {
  SensorList sensorList2 = new SensorList();
 
  geographicArea2.setSensorList(sensorList2);
- geographicalAreaList2.addGeographicAreaToGeographicAreaList(geographicArea2);
+ geographicalAreaList2.addGeographicArea(geographicArea2);
 
  // Geo Area List -  Geo Area with Sensor List
 
@@ -819,7 +819,7 @@ public class MainUI {
  sensorList3.addSensor(s3);
 
  geographicArea3.setSensorList(sensorList3);
- geographicalAreaList3.addGeographicAreaToGeographicAreaList(geographicArea3);
+ geographicalAreaList3.addGeographicArea(geographicArea3);
 
  // House - Empty RoomList - Without EnergyGrid
  GeographicArea geographicArea4 = new GeographicArea();

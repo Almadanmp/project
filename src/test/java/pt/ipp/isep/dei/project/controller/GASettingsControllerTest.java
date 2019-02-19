@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
+
 import static org.testng.Assert.*;
 
 /**
@@ -18,7 +19,7 @@ class GASettingsControllerTest {
     private TypeArea typeCity;
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         typeCountry = new TypeArea("Country");
         typeCity = new TypeArea("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
@@ -56,10 +57,10 @@ class GASettingsControllerTest {
         // Arrange
 
         GeographicAreaList geographicAreaList = new GeographicAreaList();
-        geographicAreaList.addGeographicAreaToGeographicAreaList(firstValidArea);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(secondValidArea);
+        geographicAreaList.addGeographicArea(firstValidArea);
+        geographicAreaList.addGeographicArea(secondValidArea);
         GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.addGeographicAreaToGeographicAreaList(secondValidArea);
+        expectedResult.addGeographicArea(secondValidArea);
 
         // Act
 
@@ -340,10 +341,10 @@ class GASettingsControllerTest {
         //Arrange
 
         GeographicAreaList gaL1 = new GeographicAreaList();
-        gaL1.addGeographicAreaToGeographicAreaList(firstValidArea);
-        gaL1.addGeographicAreaToGeographicAreaList(secondValidArea);
+        gaL1.addGeographicArea(firstValidArea);
+        gaL1.addGeographicArea(secondValidArea);
         GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.addGeographicAreaToGeographicAreaList(firstValidArea);
+        expectedResult.addGeographicArea(firstValidArea);
 
         //Act
 
@@ -360,10 +361,10 @@ class GASettingsControllerTest {
         //Arrange
 
         GeographicAreaList gaL1 = new GeographicAreaList();
-        gaL1.addGeographicAreaToGeographicAreaList(firstValidArea);
-        gaL1.addGeographicAreaToGeographicAreaList(secondValidArea);
+        gaL1.addGeographicArea(firstValidArea);
+        gaL1.addGeographicArea(secondValidArea);
         GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.addGeographicAreaToGeographicAreaList(secondValidArea);
+        expectedResult.addGeographicArea(secondValidArea);
 
         //Act
 
@@ -380,7 +381,7 @@ class GASettingsControllerTest {
         //Arrange
 
         GeographicAreaList gaL1 = new GeographicAreaList();
-        gaL1.addGeographicAreaToGeographicAreaList(firstValidArea);
+        gaL1.addGeographicArea(firstValidArea);
         GeographicAreaList expectedResult = new GeographicAreaList();
 
         //Act
@@ -415,8 +416,8 @@ class GASettingsControllerTest {
         //Arrange
 
         GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(firstValidArea);
-        gAL1.addGeographicAreaToGeographicAreaList(secondValidArea);
+        gAL1.addGeographicArea(firstValidArea);
+        gAL1.addGeographicArea(secondValidArea);
         String expectedResult = "---------------\n" +
                 "0) Name: Portugal | Type: Country | Latitude: 21.0 | Longitude: 33.0\n" +
                 "1) Name: Portugal | Type: City | Latitude: 21.0 | Longitude: 33.0\n" +
@@ -437,8 +438,8 @@ class GASettingsControllerTest {
         // Arrange
 
         GeographicAreaList geographicAreaList = new GeographicAreaList();
-        geographicAreaList.addGeographicAreaToGeographicAreaList(firstValidArea);
-        geographicAreaList.addGeographicAreaToGeographicAreaList(secondValidArea);
+        geographicAreaList.addGeographicArea(firstValidArea);
+        geographicAreaList.addGeographicArea(secondValidArea);
 
         // Act
 
@@ -457,7 +458,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        geographicAreaList.addGeographicAreaToGeographicAreaList(firstValidArea);
+        geographicAreaList.addGeographicArea(firstValidArea);
         boolean actualResult = controller.setMotherArea(firstValidArea, null);
 
         // Assert
@@ -476,7 +477,7 @@ class GASettingsControllerTest {
 
         //Act
 
-        boolean actualResult = controller.isAreaContained(secondValidArea,firstValidArea);
+        boolean actualResult = controller.isAreaContained(secondValidArea, firstValidArea);
 
         //Assert
 
@@ -513,7 +514,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        boolean actualResult = controller.isAreaContained(grandDaughterGA,firstValidArea);
+        boolean actualResult = controller.isAreaContained(grandDaughterGA, firstValidArea);
 
         // Assert
 
