@@ -12,48 +12,48 @@ import java.util.List;
 import java.util.Objects;
 
 public class Dishwasher implements Device, Metered, Programmable {
-    private String mDWName;
-    private double mDWNominalPower;
-    private String mDWType = "Dishwasher";
-    private DishwasherSpec mDWDeviceSpecs;
-    private boolean mDWActive;
-    private ProgramList mDWProgramList;
-    private LogList mDWLogList;
+    private String dWName;
+    private double dWNominalPower;
+    private String dWType = "Dishwasher";
+    private DishwasherSpec dWDeviceSpecs;
+    private boolean dWActive;
+    private ProgramList dWProgramList;
+    private LogList dWLogList;
 
     public Dishwasher(DishwasherSpec dishwasherSpec) {
-        this.mDWDeviceSpecs = dishwasherSpec;
-        this.mDWActive = true;
-        mDWProgramList = new ProgramList();
-        mDWLogList = new LogList();
+        this.dWDeviceSpecs = dishwasherSpec;
+        this.dWActive = true;
+        this.dWProgramList = new ProgramList();
+        this.dWLogList = new LogList();
     }
 
     public String getName() {
-        return this.mDWName;
+        return this.dWName;
     }
 
     public void setName(String name) {
-        this.mDWName = name;
+        this.dWName = name;
     }
 
     public String getType() {
-        return this.mDWType;
+        return this.dWType;
     }
 
     public void setNominalPower(double nominalPower) {
-        this.mDWNominalPower = nominalPower;
+        this.dWNominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.mDWNominalPower;
+        return this.dWNominalPower;
     }
 
     public boolean isActive() {
-        return this.mDWActive;
+        return this.dWActive;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.mDWActive = false;
+            this.dWActive = false;
             return true;
         } else {
             return false;
@@ -65,11 +65,11 @@ public class Dishwasher implements Device, Metered, Programmable {
     }
 
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
-        return this.mDWProgramList;
+        return this.dWProgramList;
     }
 
     public String buildDeviceString() {
-        return "The device Name is " + this.mDWName + ", and its NominalPower is " + this.mDWNominalPower + " kW.\n";
+        return "The device Name is " + this.dWName + ", and its NominalPower is " + this.dWNominalPower + " kW.\n";
     }
 
     /**
@@ -78,7 +78,7 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return mDWLogList;
+        return dWLogList;
     }
 
     /**
@@ -88,8 +88,8 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(mDWLogList.getLogList().contains(log)) && this.mDWActive) {
-            mDWLogList.getLogList().add(log);
+        if (!(dWLogList.getLogList().contains(log)) && this.dWActive) {
+            dWLogList.getLogList().add(log);
             return true;
         } else {
             return false;
@@ -104,11 +104,11 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return mDWLogList.countLogsInInterval(initialTime, finalTime);
+        return dWLogList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mDWLogList.getLogsInInterval(startDate, endDate);
+        return dWLogList.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -119,7 +119,7 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return mDWLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return dWLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
@@ -129,25 +129,25 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return
      */
     public double getEnergyConsumption(float time) {
-        return mDWNominalPower * time;
+        return dWNominalPower * time;
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return mDWDeviceSpecs.getAttributeNames();
+        return dWDeviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return mDWDeviceSpecs.getAttributeValue(attributeName);
+        return dWDeviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return mDWDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return dWDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return mDWDeviceSpecs.getAttributeUnit(attributeName);
+        return dWDeviceSpecs.getAttributeUnit(attributeName);
     }
 
 
@@ -160,7 +160,7 @@ public class Dishwasher implements Device, Metered, Programmable {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(mDWName, device.getName());
+        return Objects.equals(dWName, device.getName());
     }
 
     @Override
