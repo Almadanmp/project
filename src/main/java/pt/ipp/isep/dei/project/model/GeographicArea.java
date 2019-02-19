@@ -208,7 +208,7 @@ public class GeographicArea {
                 listToTest.removeSensor(listToTest.getSensorList().get(i));
             }
         }
-        return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
+        return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getValue();
     }
 
     double getWidth() {

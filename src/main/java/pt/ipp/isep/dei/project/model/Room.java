@@ -17,13 +17,13 @@ import static java.lang.Double.NaN;
 
 public class Room implements Metered {
 
-    private String mRoomName;
-    private int mHouseFloor;
-    private double mRoomWidth;
-    private double mRoomLength;
-    private double mRoomHeight;
-    private SensorList mRoomSensorList;
-    private DeviceList mDeviceList;
+    private String roomName;
+    private int houseFloor;
+    private double roomWidth;
+    private double roomLength;
+    private double roomHeight;
+    private SensorList roomSensorList;
+    private DeviceList deviceList;
 
 
     public Room(String name, int houseFloor, double width, double length, double height) {
@@ -32,65 +32,65 @@ public class Room implements Metered {
         setRoomWidth(width);
         setRoomLength(length);
         setRoomHeight(height);
-        this.mRoomSensorList = new SensorList();
-        this.mDeviceList = new DeviceList();
+        this.roomSensorList = new SensorList();
+        this.deviceList = new DeviceList();
     }
 
     public SensorList getSensorList() {
-        return mRoomSensorList;
+        return roomSensorList;
     }
 
     private void setRoomName(String name) {
-        mRoomName = name;
+        roomName = name;
     }
 
     private void setRoomHouseFloor(int houseFloor) {
-        mHouseFloor = houseFloor;
+        this.houseFloor = houseFloor;
     }
 
 
     private void setRoomHeight(double height) {
-        mRoomHeight = height;
+        roomHeight = height;
     }
 
     private void setRoomLength(double length) {
-        mRoomLength = length;
+        roomLength = length;
     }
 
     private void setRoomWidth(double width) {
-        mRoomWidth = width;
+        roomWidth = width;
     }
 
     double getRoomHeight() {
-        return mRoomHeight;
+        return roomHeight;
     }
 
     double getRoomLength() {
-        return mRoomLength;
+        return roomLength;
     }
 
     double getRoomWidth() {
-        return mRoomWidth;
+        return roomWidth;
     }
 
     public void setRoomSensorList(SensorList sensorList) {
-        mRoomSensorList = sensorList;
+        roomSensorList = sensorList;
     }
 
     public String getRoomName() {
-        return mRoomName;
+        return roomName;
     }
 
     public int getHouseFloor() {
-        return mHouseFloor;
+        return houseFloor;
     }
 
     public void setDeviceList(DeviceList deviceList) {
-        this.mDeviceList = deviceList;
+        this.deviceList = deviceList;
     }
 
     public List<Device> getDeviceList() {
-        return this.mDeviceList.getList();
+        return this.deviceList.getList();
     }
 
     /**
@@ -175,7 +175,7 @@ public class Room implements Metered {
      **/
     public SensorList getSensorsOfGivenType(String type) {
         SensorList tempSensors = new SensorList();
-        for (Sensor s : this.mRoomSensorList.getSensorList()) {
+        for (Sensor s : this.roomSensorList.getSensorList()) {
             String typeTest = s.getTypeSensor().getName();
             if (typeTest.equals(type)) {
                 tempSensors.addSensor(s);
@@ -186,8 +186,8 @@ public class Room implements Metered {
     }
 
     public boolean removeDevice(Device device) {
-        if ((mDeviceList.getList().contains(device))) {
-            mDeviceList.getList().remove(device);
+        if ((deviceList.getList().contains(device))) {
+            deviceList.getList().remove(device);
             return true;
         } else {
             return false;
@@ -195,8 +195,8 @@ public class Room implements Metered {
     }
 
     public boolean addSensor(Sensor sensor) {
-        if (!(mRoomSensorList.getSensorList().contains(sensor))) {
-            mRoomSensorList.getSensorList().add(sensor);
+        if (!(roomSensorList.getSensorList().contains(sensor))) {
+            roomSensorList.getSensorList().add(sensor);
             return true;
         } else {
             return false;
@@ -210,8 +210,8 @@ public class Room implements Metered {
      * @return the result of the operation (true if successful, false otherwise)
      */
     public boolean addDevice(Device device) {
-        if (!(mDeviceList.containsDevice(device))) {
-            mDeviceList.addDevice(device);
+        if (!(deviceList.containsDevice(device))) {
+            deviceList.addDevice(device);
             return true;
         } else {
             return false;
@@ -239,7 +239,7 @@ public class Room implements Metered {
 
     public String buildRoomString() {
         String result;
-        result = this.mRoomName + ", " + this.getHouseFloor() + ", " +
+        result = this.roomName + ", " + this.getHouseFloor() + ", " +
                 this.getRoomWidth() + ", " + this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";
         return result;
     }
@@ -269,7 +269,7 @@ public class Room implements Metered {
      * @return the sum of all daily estimate consumptions of that type
      */
     double getDailyConsumptionByDeviceType(String deviceType, int time) {
-        return mDeviceList.getDailyConsumptionByDeviceType(deviceType, time);
+        return deviceList.getDailyConsumptionByDeviceType(deviceType, time);
     }
 
     /**
@@ -325,7 +325,7 @@ public class Room implements Metered {
             return false;
         }
         Room room = (Room) o;
-        return Objects.equals(mRoomName, room.mRoomName);
+        return Objects.equals(roomName, room.roomName);
     }
 
 

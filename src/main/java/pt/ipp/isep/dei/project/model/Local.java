@@ -5,9 +5,9 @@ package pt.ipp.isep.dei.project.model;
  */
 
 public class Local {
-    private double mLatitude;
-    private double mLongitude;
-    private double mAltitude;
+    private double latitude;
+    private double longitude;
+    private double altitude;
 
     /**
      * Builder Local(), with all the parameters to define a local.
@@ -26,7 +26,7 @@ public class Local {
      * @param altitude of the local
      */
     void setAltitude(double altitude) {
-        this.mAltitude = altitude;
+        this.altitude = altitude;
     }
 
     /**
@@ -34,7 +34,7 @@ public class Local {
      * @param latitude of the local
      */
     public void setLatitude(double latitude) {
-        this.mLatitude = latitude;
+        this.latitude = latitude;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Local {
      * @param longitude of the local
      */
     public void setLongitude(double longitude) {
-        this.mLongitude = longitude;
+        this.longitude = longitude;
     }
 
     /**
@@ -50,7 +50,7 @@ public class Local {
      * @return Latitude Value
      */
     public double getLatitude() {
-        return this.mLatitude;
+        return this.latitude;
     }
 
     /**
@@ -58,7 +58,7 @@ public class Local {
      * @return Longitude value
      */
     public double getLongitude() {
-        return this.mLongitude;
+        return this.longitude;
     }
 
     /**
@@ -66,7 +66,7 @@ public class Local {
      * @return Altitude value
      */
     double getAltitude() {
-        return this.mAltitude;
+        return this.altitude;
     }
 
     /**Convert coordinates TO radians
@@ -113,7 +113,7 @@ public class Local {
             return false;
         }
         Local localVariable = (Local) testLocal;
-       return (java.lang.Double.compare(this.mLatitude,localVariable.getLatitude())==0 && java.lang.Double.compare(this.mLongitude,localVariable.getLongitude())==0 );
+       return (java.lang.Double.compare(this.latitude,localVariable.getLatitude())==0 && java.lang.Double.compare(this.longitude,localVariable.getLongitude())==0 );
 
     }
 

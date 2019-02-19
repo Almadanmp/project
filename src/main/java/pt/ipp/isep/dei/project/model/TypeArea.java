@@ -5,20 +5,20 @@ package pt.ipp.isep.dei.project.model;
  */
 
 public class TypeArea {
-    private String mName;
+    private String name;
 
     /**
      * Main and only Area Type Constructor
      */
     public TypeArea(String nameGiven) {
-        this.mName = nameGiven;
+        this.name = nameGiven;
     }
 
     /**
      * Sets the type of a Geographical Area
      */
     void setTypeOfGeographicArea(String nameGiven) {
-        this.mName = nameGiven;
+        this.name = nameGiven;
     }
 
     /**
@@ -28,7 +28,7 @@ public class TypeArea {
      */
 
     public String getTypeOfGeographicArea() {
-        return this.mName;
+        return this.name;
     }
 
 
@@ -58,7 +58,7 @@ public class TypeArea {
             return false;
         }
         TypeArea localVariable = (TypeArea) objectToTest;
-        return localVariable.getTypeOfGeographicArea().equals(this.mName);
+        return localVariable.getTypeOfGeographicArea().equals(this.name);
     }
 
     @Override

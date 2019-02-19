@@ -7,8 +7,8 @@ import java.util.Properties;
 
 class FileInputUtils {
 
-    int mDeviceMeteringPeriod;
-    int mGridMeteringPeriod;
+    int deviceMeteringPeriod;
+    int gridMeteringPeriod;
 
     /**
      * This method will read the configuration file and validate the value that corresponds
@@ -20,7 +20,7 @@ class FileInputUtils {
     boolean validGridMetering() throws IOException {
         int gridMeteringPeriod = readGridMeteringPeriod();
         if (gridMeteringPeriodValidation(gridMeteringPeriod)) {
-            this.mGridMeteringPeriod = gridMeteringPeriod;
+            this.gridMeteringPeriod = gridMeteringPeriod;
             return true;
         }
         return false;
@@ -69,7 +69,7 @@ class FileInputUtils {
         int deviceMeteringPeriod = readDeviceMeteringPeriod();
 
         if (deviceMeteringPeriodValidation(deviceMeteringPeriod)) {
-            this.mDeviceMeteringPeriod = deviceMeteringPeriod;
+            this.deviceMeteringPeriod = deviceMeteringPeriod;
             return true;
         }
         System.out.println("ERROR: Configuration File values are incorrect. Devices cannot be created.\n" +
@@ -107,6 +107,6 @@ class FileInputUtils {
         if (1440 % deviceValue != 0) {
             return false;
         }
-        return deviceValue % this.mGridMeteringPeriod == 0;
+        return deviceValue % this.gridMeteringPeriod == 0;
     }
 }

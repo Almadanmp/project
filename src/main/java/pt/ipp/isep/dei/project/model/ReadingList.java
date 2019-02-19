@@ -55,9 +55,9 @@ public class ReadingList {
             return error;
         }
         Reading recentReading = this.mReadings.get(0);
-        Date mostRecent = recentReading.getmDate();
+        Date mostRecent = recentReading.getDate();
         for(Reading r : this.mReadings){
-            Date testDate = r.getmDate();
+            Date testDate = r.getDate();
             if(mostRecent.before(testDate)){
                 mostRecent = testDate;
                 recentReading = r;
@@ -74,7 +74,7 @@ public class ReadingList {
         if(this.mReadings.isEmpty()){
             return NaN;
         }
-        return getMostRecentReading().getmValue();
+        return getMostRecentReading().getValue();
     }
 
     /**
@@ -88,8 +88,8 @@ public class ReadingList {
         int counter = 0;
         for (Date d : datesOfMonth) {
             for (Reading r : this.mReadings) {
-                if (r.getmDate() == d) {
-                    sum = sum + r.getmValue();
+                if (r.getDate() == d) {
+                    sum = sum + r.getValue();
                     counter++;
                 }
             }
@@ -138,7 +138,7 @@ public class ReadingList {
 
         List<Date> datesList = new ArrayList<>();
         for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+            Date currentReadingDate = mReading.getDate();
             if ((currentReadingDate.after(dateBeforeStartMonth)) && (currentReadingDate.before(dateAfterEndMonth))) {
                 datesList.add(currentReadingDate);
 
@@ -163,7 +163,7 @@ public class ReadingList {
         Date endDate = cal.getTime();
 
         for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+            Date currentReadingDate = mReading.getDate();
             if (currentReadingDate.before(endDate) && currentReadingDate.after(startDate)) {
                 GregorianCalendar temporaryCalend = new GregorianCalendar();
                 temporaryCalend.setTime(currentReadingDate);
@@ -241,7 +241,7 @@ public class ReadingList {
         int year = cal.get(Calendar.YEAR);
         for (int i = mReadings.size() - 1; i >= 0; i--) {
             Reading reading = mReadings.get(i);
-            cal.setTime(reading.getmDate());
+            cal.setTime(reading.getDate());
             if ((cal.get(Calendar.MONTH) != month) || (cal.get(Calendar.YEAR) != year)) {
                 this.mReadings.remove(reading);
             }
@@ -261,7 +261,7 @@ public class ReadingList {
         Date dateAfterEndMonth = getDateAfterEndMonth(dateGiven);
         List<Integer> daysWithReadings = new ArrayList<>();
         for (Reading reading : mReadings) {
-            Date currentReadingDate = reading.getmDate();
+            Date currentReadingDate = reading.getDate();
             if (currentReadingDate.after(dateBeforeStartMonth) && currentReadingDate.before(dateAfterEndMonth)) {
                 GregorianCalendar temporaryCalend = new GregorianCalendar();
                 temporaryCalend.setTime(currentReadingDate);
@@ -287,10 +287,10 @@ public class ReadingList {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (Reading r : mReadings) {
             GregorianCalendar dateOfReading = new GregorianCalendar();
-            dateOfReading.setTime(r.getmDate());
+            dateOfReading.setTime(r.getDate());
 
             if ((dateOfReading.get(Calendar.DAY_OF_MONTH)) == dayOfMonth) {
-                valueReadingsFromGivenDay.add(r.getmValue());
+                valueReadingsFromGivenDay.add(r.getValue());
             }
         }
         return valueReadingsFromGivenDay;
@@ -393,9 +393,9 @@ public class ReadingList {
         double sum = 0;
         int counter = 0;
         for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+            Date currentReadingDate = mReading.getDate();
             if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay)) {
-                sum += mReading.getmValue();
+                sum += mReading.getValue();
                 counter++;
             }
         }
@@ -428,7 +428,7 @@ public class ReadingList {
 
         List<Integer> daysWithReadings = new ArrayList<>();
         for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+            Date currentReadingDate = mReading.getDate();
             if (currentReadingDate.after(dateBeforeStartOfWeek) && currentReadingDate.before(dateAfterEndOfWeek)) {
                 GregorianCalendar temporaryCalend = new GregorianCalendar();
                 temporaryCalend.setTime(currentReadingDate);
@@ -516,9 +516,9 @@ public class ReadingList {
         }
         double maxValue = -100;
         for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
-            if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue < mReading.getmValue()) {
-                maxValue = mReading.getmValue();
+            Date currentReadingDate = mReading.getDate();
+            if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue < mReading.getValue()) {
+                maxValue = mReading.getValue();
             }
         }
         return maxValue;
@@ -556,9 +556,9 @@ public class ReadingList {
 
         double sum = 0;
         for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+            Date currentReadingDate = mReading.getDate();
             if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay)) {
-                sum += mReading.getmValue();
+                sum += mReading.getValue();
             }
         }
         return sum;

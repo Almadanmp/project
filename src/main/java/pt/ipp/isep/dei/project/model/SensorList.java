@@ -107,9 +107,9 @@ public class SensorList {
             return error;
         }
         Sensor mostRecent = this.mSensorList.get(0);
-        Date recent = mostRecent.getReadingList().getMostRecentReading().getmDate();
+        Date recent = mostRecent.getReadingList().getMostRecentReading().getDate();
         for (Sensor s : this.mSensorList) {
-            Date test = s.getReadingList().getMostRecentReading().getmDate();
+            Date test = s.getReadingList().getMostRecentReading().getDate();
             if (recent.before(test)) {
                 recent = test;
                 mostRecent = s;

@@ -9,25 +9,24 @@ import java.util.List;
  */
 
 public class GeographicAreaList {
-    private List<GeographicArea> mGeographicAreaList;
-    private String mStringEnhancer = "---------------\n";
+    private List<GeographicArea> geographicAreaList;
 
     /**
      * GeographicAreaList constructor that receives a Geographic Area as a parameter and
-     * adds the GA to the attribute mGeographicAreaList
+     * adds the GA to the attribute geographicAreaList
      *
      * @param geographicAreaToAdd geographic area to add to the attribute
      */
     public GeographicAreaList(GeographicArea geographicAreaToAdd) {
-        mGeographicAreaList = new ArrayList<>();
-        mGeographicAreaList.add(geographicAreaToAdd);
+        geographicAreaList = new ArrayList<>();
+        geographicAreaList.add(geographicAreaToAdd);
     }
 
     /**
      * GeographicAreaList constructor that receives without parameters
      */
     public GeographicAreaList() {
-        mGeographicAreaList = new ArrayList<>();
+        geographicAreaList = new ArrayList<>();
     }
 
     /**
@@ -38,8 +37,8 @@ public class GeographicAreaList {
      * @return returns true in case the geographic area is added and false if not
      **/
     public boolean addGeographicAreaToGeographicAreaList(GeographicArea geographicAreaToAdd) {
-        if (!(mGeographicAreaList.contains(geographicAreaToAdd))) {
-            mGeographicAreaList.add(geographicAreaToAdd);
+        if (!(geographicAreaList.contains(geographicAreaToAdd))) {
+            geographicAreaList.add(geographicAreaToAdd);
             return true;
         }
         return false;
@@ -51,7 +50,7 @@ public class GeographicAreaList {
      * (name, type of GA and Localization)
      */
     public String buildGaWholeListString(GeographicAreaList newGeoListUi) {
-        StringBuilder result = new StringBuilder(new StringBuilder(mStringEnhancer));
+        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
         if (newGeoListUi.getGeographicAreaList().isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -64,7 +63,7 @@ public class GeographicAreaList {
             result.append("Latitude: ").append(aux.getLocal().getLatitude()).append(" | ");
             result.append("Longitude: ").append(aux.getLocal().getLongitude()).append("\n");
         }
-        result.append(mStringEnhancer);
+        result.append("---------------\n");
         return result.toString();
     }
 
@@ -80,7 +79,7 @@ public class GeographicAreaList {
      */
     public boolean checkIfGACanBeCreated(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
         Local newLocal = new Local(latitude, longitude, altitude);
-        for (GeographicArea ga : mGeographicAreaList) {
+        for (GeographicArea ga : geographicAreaList) {
             if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {
                 return false;
             }
@@ -113,22 +112,22 @@ public class GeographicAreaList {
      * @return returns true in case the GA is contained in the list and false otherwise
      */
     boolean containsGA(GeographicArea geoArea) {
-        return mGeographicAreaList.contains(geoArea);
+        return geographicAreaList.contains(geoArea);
     }
 
     /**
-     * Getter of the attribute mGeographicAreaList from this class
+     * Getter of the attribute geographicAreaList from this class
      *
      * @return returns the geographic area list
      */
     public List<GeographicArea> getGeographicAreaList() {
-        return mGeographicAreaList;
+        return geographicAreaList;
     }
 
     public GeographicAreaList matchGeographicAreaWithInputType(String typeAreaName) {
         GeographicAreaList finalList = new GeographicAreaList();
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
-        for (GeographicArea ga : mGeographicAreaList) {
+        for (GeographicArea ga : geographicAreaList) {
             if (ga.getTypeArea().equals(typeAreaToTest)) {
                 finalList.addGeographicAreaToGeographicAreaList(ga);
             }

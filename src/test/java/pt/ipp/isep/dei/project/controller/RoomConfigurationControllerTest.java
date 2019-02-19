@@ -281,7 +281,7 @@ class RoomConfigurationControllerTest {
         Program program = new Program("rep", 22, 23);
         ProgramList programList = new ProgramList();
         programList.addProgram(program);
-        ctrl.configureProgramFromAProgrammableDevice(d1, programList);
+        ctrl.configureProgramListFromAProgrammableDevice(d1, programList);
         Object result = d1.getAttributeValue("programList");
         assertEquals(d1.getAttributeValue("programList"), result);
     }

@@ -12,13 +12,6 @@ import java.util.List;
 
 public class RoomList {
     private List<Room> mRoomList;
-    private String mStringResult = "---------------\n";
-    private String mStringInvalidList = "Invalid List - List is Empty\n";
-    private String mStringDesignation = ") Designation: ";
-    private String mStringHouseFloor = "House Floor: ";
-    private String mStringWidth = "Width: ";
-    private String mStringLength = "Length: ";
-    private String mStringHeight = "Height: ";
 
 
     public RoomList() {
@@ -70,20 +63,20 @@ public class RoomList {
 
 
     public String buildRoomsString() {
-        StringBuilder result = new StringBuilder(this.mStringResult);
+        StringBuilder result = new StringBuilder("---------------\n");
         if (this.getList().isEmpty()) {
-            return this.mStringInvalidList;
+            return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < this.getList().size(); i++) {
             Room aux = this.getList().get(i);
-            result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
-            result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
-            result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
-            result.append(this.mStringLength).append(aux.getRoomLength()).append(" | ");
-            result.append(this.mStringHeight).append(aux.getRoomHeight()).append("\n");
+            result.append(i).append(") Designation: ").append(aux.getRoomName()).append(" | ");
+            result.append("House Floor: ").append(aux.getHouseFloor()).append(" | ");
+            result.append("Width: ").append(aux.getRoomWidth()).append(" | ");
+            result.append("Length: ").append(aux.getRoomLength()).append(" | ");
+            result.append("Height: ").append(aux.getRoomHeight()).append("\n");
 
         }
-        result.append(this.mStringResult);
+        result.append("---------------\n");
         return result.toString();
     }
 

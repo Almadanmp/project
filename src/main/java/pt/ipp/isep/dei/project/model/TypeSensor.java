@@ -5,8 +5,8 @@ package pt.ipp.isep.dei.project.model;
  */
 
 public class TypeSensor {
-    private String mName;
-    private String mUnits;
+    private String name;
+    private String units;
 
 
     /**
@@ -25,7 +25,7 @@ public class TypeSensor {
      */
     public void setName(String name) {
         if (isNameValid(name)) {
-            this.mName = name;
+            this.name = name;
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
@@ -38,7 +38,7 @@ public class TypeSensor {
      */
     void setUnits(String units) {
         if (isNameValid(units)) {
-            this.mUnits = units;
+            this.units = units;
         } else {
             throw new IllegalArgumentException("Please Insert Valid String for Units of The Sensor");
         }
@@ -50,7 +50,7 @@ public class TypeSensor {
      * @return the unit measure of the type
      */
     public String getUnits() {
-        return this.mUnits;
+        return this.units;
     }
 
     /**
@@ -59,7 +59,7 @@ public class TypeSensor {
      * @return the name of the type
      */
     public String getName() {
-        return this.mName;
+        return this.name;
     }
 
     /**
@@ -78,7 +78,7 @@ public class TypeSensor {
      * @ string of name and unit of measure **/
     public String buildString(){
         String result;
-        result = "The type sensor is " + this.mName + ", and the unit of measure is " + this.mUnits + ".";
+        result = "The type sensor is " + this.name + ", and the unit of measure is " + this.units + ".";
         return result;
     }
 
