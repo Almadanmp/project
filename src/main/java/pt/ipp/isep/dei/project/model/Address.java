@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 /**
- * Class that represents the Local of an Object .
+ * Class that represents the Address of a House .
  */
 
 public class Address {

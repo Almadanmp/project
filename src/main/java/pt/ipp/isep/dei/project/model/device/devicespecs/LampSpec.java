@@ -7,7 +7,7 @@ public class LampSpec implements DeviceSpecs {
 
     public static final String FLUX = "Luminous Flux";
 
-    private Double mLuminousFlux;
+    private Double luminousFlux;
 
 
     public List<String> getAttributeNames() {
@@ -18,7 +18,7 @@ public class LampSpec implements DeviceSpecs {
 
     public Object getAttributeValue(String attributeName) {
         if (attributeName.equals(FLUX)) {
-            return mLuminousFlux;
+            return luminousFlux;
         }
         return false;
     }
@@ -36,7 +36,7 @@ public class LampSpec implements DeviceSpecs {
             return false;
         }
         if (attributeName == FLUX && attributeValue instanceof Double) {
-            this.mLuminousFlux = (Double) attributeValue;
+            this.luminousFlux = (Double) attributeValue;
             return true;
         }
         return false;

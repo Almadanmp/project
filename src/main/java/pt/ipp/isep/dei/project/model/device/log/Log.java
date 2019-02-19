@@ -3,26 +3,26 @@ package pt.ipp.isep.dei.project.model.device.log;
 import java.util.Date;
 
 public class Log {
-    private double mValue;
-    private Date mInitialDate;
-    private Date mFinalDate;
+    private double value;
+    private Date initialDate;
+    private Date finalDate;
 
     public Log(double value, Date initialDate, Date finalDate) {
-        this.mValue = value;
-        this.mInitialDate = initialDate;
-        this.mFinalDate = finalDate;
+        this.value = value;
+        this.initialDate = initialDate;
+        this.finalDate = finalDate;
     }
 
     public double getValue() {
-        return this.mValue;
+        return this.value;
     }
 
     public Date getInitialDate() {
-        return this.mInitialDate;
+        return this.initialDate;
     }
 
    public Date getFinalDate() {
-        return this.mFinalDate;
+        return this.finalDate;
     }
 
 

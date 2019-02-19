@@ -12,10 +12,10 @@ import java.util.List;
 
 public class LogList {
 
-    private List<Log> mLogList;
+    private List<Log> logList;
 
     public LogList() {
-        this.mLogList = new ArrayList<>();
+        this.logList = new ArrayList<>();
     }
 
     /**
@@ -24,10 +24,10 @@ public class LogList {
      * @return array of Logs
      */
     public Log[] getLogs() {
-        int sizeOfResultArray = mLogList.size();
+        int sizeOfResultArray = logList.size();
         Log[] result = new Log[sizeOfResultArray];
-        for (int i = 0; i < mLogList.size(); i++) {
-            result[i] = mLogList.get(i);
+        for (int i = 0; i < logList.size(); i++) {
+            result[i] = logList.get(i);
         }
         return result;
     }
@@ -38,7 +38,7 @@ public class LogList {
      * @return List with Logs
      */
    public  List<Log> getLogList() {
-        return this.mLogList;
+        return this.logList;
     }
 
     /**
@@ -56,7 +56,7 @@ public class LogList {
     }
 
     public boolean isEmpty() {
-        return this.mLogList.isEmpty();
+        return this.logList.isEmpty();
     }
 
     public boolean addLogList(LogList listToAdd) {

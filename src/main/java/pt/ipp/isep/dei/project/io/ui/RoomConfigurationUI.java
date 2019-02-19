@@ -166,7 +166,6 @@ class RoomConfigurationUI {
             loopForCreatingProgram(message, programList);
             controller.configureProgramListFromAProgrammableDevice(device, programList);
         }
-
     }
 
     // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
@@ -234,7 +233,6 @@ class RoomConfigurationUI {
         loopForProgramList(programList, device);
     }
 
-
     // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it - CARINA ALAS
     // displays final string to the user.
     private void displayDeviceUS215(Device device, Room room, String deviceName) {
@@ -287,7 +285,6 @@ class RoomConfigurationUI {
         loopToSetAttributeValues(program, programAttributeNames);
         controller.setProgramName(program, programName);
         loopToBuildFinalStringProgram(program, programAttributeNames);
-
     }
 
     //loop that sets all the attributes of the chosen program to configure it.

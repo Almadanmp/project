@@ -10,47 +10,46 @@ import java.util.List;
 import java.util.Objects;
 
 public class WaterHeater implements Device, Metered {
-    private String mWHName;
-    private double mWHNominalPower;
-    private String mWHType = "WaterHeater";
-    private WaterHeaterSpec mWHDeviceSpecs;
-    private boolean mWHActive;
-    private LogList mWHLogList;
+    private String wHName;
+    private double wHNominalPower;
+    private WaterHeaterSpec wHDeviceSpecs;
+    private boolean wHActive;
+    private LogList wHLogList;
 
 
     public WaterHeater(WaterHeaterSpec waterHeaterSpec) {
-        this.mWHDeviceSpecs = waterHeaterSpec;
-        this.mWHActive = true;
-        mWHLogList = new LogList();
+        this.wHDeviceSpecs = waterHeaterSpec;
+        this.wHActive = true;
+        wHLogList = new LogList();
     }
 
     public String getName() {
-        return this.mWHName;
+        return this.wHName;
     }
 
     public void setName(String name) {
-        this.mWHName = name;
+        this.wHName = name;
     }
 
     public String getType() {
-        return this.mWHType;
+        return "WaterHeater";
     }
 
     public void setNominalPower(double nominalPower) {
-        this.mWHNominalPower = nominalPower;
+        this.wHNominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.mWHNominalPower;
+        return this.wHNominalPower;
     }
 
     public boolean isActive() {
-        return this.mWHActive;
+        return this.wHActive;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.mWHActive = false;
+            this.wHActive = false;
             return true;
         } else {
             return false;
@@ -62,7 +61,7 @@ public class WaterHeater implements Device, Metered {
     }
 
     public String buildDeviceString() {
-        return "The device Name is " + this.mWHName + ", and its NominalPower is " + this.mWHNominalPower + " kW.\n";
+        return "The device Name is " + this.wHName + ", and its NominalPower is " + this.wHNominalPower + " kW.\n";
     }
 
     /**
@@ -71,7 +70,7 @@ public class WaterHeater implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return mWHLogList;
+        return wHLogList;
     }
 
     /**
@@ -81,8 +80,8 @@ public class WaterHeater implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(mWHLogList.getLogList().contains(log)) && this.mWHActive) {
-            mWHLogList.getLogList().add(log);
+        if (!(wHLogList.getLogList().contains(log)) && this.wHActive) {
+            wHLogList.getLogList().add(log);
             return true;
         } else {
             return false;
@@ -97,11 +96,11 @@ public class WaterHeater implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return mWHLogList.countLogsInInterval(initialTime, finalTime);
+        return wHLogList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mWHLogList.getLogsInInterval(startDate, endDate);
+        return wHLogList.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -112,7 +111,7 @@ public class WaterHeater implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return mWHLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return wHLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
        /**
@@ -129,10 +128,10 @@ public class WaterHeater implements Device, Metered {
      * @return an estimate energy consumption for a water heater
      */
     public double getEnergyConsumption(float time) {
-        double coldWaterTemperature = (double) mWHDeviceSpecs.getAttributeValue("Cold Water Temperature");
-        double hotWaterTemperature = (double) mWHDeviceSpecs.getAttributeValue("Hot Water Temperature");
-        double volumeOfWaterToHeat = (double) mWHDeviceSpecs.getAttributeValue("Volume Of Water To Heat");
-        double performanceRatio = (double) mWHDeviceSpecs.getAttributeValue("Performance Ratio");
+        double coldWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Cold Water Temperature");
+        double hotWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Hot Water Temperature");
+        double volumeOfWaterToHeat = (double) wHDeviceSpecs.getAttributeValue("Volume Of Water To Heat");
+        double performanceRatio = (double) wHDeviceSpecs.getAttributeValue("Performance Ratio");
 
         if (coldWaterTemperature >= hotWaterTemperature) {
             return 0;
@@ -147,19 +146,19 @@ public class WaterHeater implements Device, Metered {
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return mWHDeviceSpecs.getAttributeNames();
+        return wHDeviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return mWHDeviceSpecs.getAttributeValue(attributeName);
+        return wHDeviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return mWHDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return wHDeviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return mWHDeviceSpecs.getAttributeUnit(attributeName);
+        return wHDeviceSpecs.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -171,7 +170,7 @@ public class WaterHeater implements Device, Metered {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(mWHName, device.getName());
+        return Objects.equals(wHName, device.getName());
     }
 
     @Override

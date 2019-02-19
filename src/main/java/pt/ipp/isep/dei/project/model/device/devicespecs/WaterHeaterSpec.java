@@ -12,16 +12,16 @@ public class WaterHeaterSpec implements DeviceSpecs {
     public static final String VOLUME_OF_WATER_HEAT = "Volume Of Water To Heat";
 
 
-    private Double mVolumeOfWater;
-    private Double mHotWaterTemperature;
-    private Double mPerformanceRatio;
-    private Double mColdWaterTemperature;
-    private Double mVolumeOfWaterToHeat;
+    private Double volumeOfWater;
+    private Double hotWaterTemperature;
+    private Double performanceRatio;
+    private Double coldWaterTemperature;
+    private Double volumeOfWaterToHeat;
 
 
     public WaterHeaterSpec() {
-        mColdWaterTemperature = 0.0;
-        mVolumeOfWaterToHeat = 0.0;
+        coldWaterTemperature = 0.0;
+        volumeOfWaterToHeat = 0.0;
     }
 
 
@@ -36,15 +36,15 @@ public class WaterHeaterSpec implements DeviceSpecs {
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case VOLUME_OF_WATER:
-                return mVolumeOfWater;
+                return volumeOfWater;
             case HOT_WATER_TEMP:
-                return mHotWaterTemperature;
+                return hotWaterTemperature;
             case PERFORMANCE_RATIO:
-                return mPerformanceRatio;
+                return performanceRatio;
             case COLD_WATER_TEMP:
-                return mColdWaterTemperature;
+                return coldWaterTemperature;
             case VOLUME_OF_WATER_HEAT:
-                return mVolumeOfWaterToHeat;
+                return volumeOfWaterToHeat;
             default:
                 return 0.0;
         }
@@ -74,31 +74,31 @@ public class WaterHeaterSpec implements DeviceSpecs {
         switch (attributeName) {
             case VOLUME_OF_WATER:
                 if (attributeValue instanceof Double) {
-                    this.mVolumeOfWater = (Double) attributeValue;
+                    this.volumeOfWater = (Double) attributeValue;
                     return true;
                 }
                 return false;
             case HOT_WATER_TEMP:
                 if (attributeValue instanceof Double) {
-                    this.mHotWaterTemperature = (Double) attributeValue;
+                    this.hotWaterTemperature = (Double) attributeValue;
                     return true;
                 }
                 return false;
             case PERFORMANCE_RATIO:
                 if (attributeValue instanceof Double) {
-                    this.mPerformanceRatio = (Double) attributeValue;
+                    this.performanceRatio = (Double) attributeValue;
                     return true;
                 }
                 return false;
             case COLD_WATER_TEMP:
                 if (attributeValue instanceof Double) {
-                    this.mColdWaterTemperature = (Double) attributeValue;
+                    this.coldWaterTemperature = (Double) attributeValue;
                     return true;
                 }
                 return false;
             case VOLUME_OF_WATER_HEAT:
                 if (attributeValue instanceof Double) {
-                    this.mVolumeOfWaterToHeat = (Double) attributeValue;
+                    this.volumeOfWaterToHeat = (Double) attributeValue;
                     return true;
                 }
                 return false;
