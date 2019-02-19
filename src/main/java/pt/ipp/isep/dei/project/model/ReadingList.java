@@ -527,7 +527,7 @@ public class ReadingList {
      * have a date contained in the interval given as parameter
      * @return list of readings contained in interval given as parameter
      */
-    public ReadingList matchByDate(Date beginDate, Date endDate){
+    ReadingList matchByDate(Date beginDate, Date endDate){
         ReadingList finalList = new ReadingList();
         for(Reading r : this.readings){
             Date readingDate = r.getDate();
