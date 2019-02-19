@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -203,6 +204,50 @@ public class WaterHeaterTest {
                 new GregorianCalendar(2019, 1, 1).getTime());
         boolean result = d1.addLog(log);
         assertTrue(result);
+    }
+
+    @Test
+    void seeEqualToSameObject() {
+        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
+        d.setName("WMOne");
+        boolean actualResult = d.equals(d);
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeEqualsToDifObject() {
+        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
+        d.setName("WHOne");
+        d.setNominalPower(12.0);
+        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 34);
+        WaterHeater d2 = new WaterHeater(new WaterHeaterSpec());
+        d2.setName("WHTwo");
+        d2.setNominalPower(12.0);
+        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 45);
+
+        boolean actualResult = d.equals(d2);
+        assertFalse(actualResult);
+    }
+
+
+    @Test
+    void seeEqualsToDifTypeObject() {
+        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
+        d.setName("WMOne");
+        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 56);
+        Room room = new Room("quarto", 1, 80, 2, 2);
+
+        boolean actualResult = d.equals(room);
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeEqualsToNullObject() {
+        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
+        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 34);
+        boolean actualResult = d.equals(null);
+
+        assertFalse(actualResult);
     }
 
 }
