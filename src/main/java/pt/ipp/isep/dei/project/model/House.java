@@ -158,16 +158,38 @@ public class House implements Metered {
     }
 
     /**
-     * calculates minimum distance from the house to a list of sensors
+     * Calculates minimum distance from the house to a list of sensors in a given geographic area..
      *
-     * @param ga
-     * @return
+     * @param ga is the given geographic area.
+     * @return is the value of the distance of the house to the closest sensor to it.
      */
-    double getMinDistanceFromHouseToSensor(GeographicArea ga) {
+    double getMinDistanceToSensor(GeographicArea ga) {
         Sensor firstSensor = ga.getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
             Sensor sensor = ga.getSensorList().getSensors()[i];
+            if (distance > calculateDistanceToSensor(sensor)) {
+                distance = calculateDistanceToSensor(sensor);
+            }
+        }
+        return distance;
+    }
+
+    /**
+     * Calculates minimum distance from the house to a list of sensors of a given type
+     * in a given geographic area.
+     *
+     * @param ga is the given geographic area.
+     * @param type is the type we want to search for.
+     * @return is the value of the distance of the house to sensor of the given type closest to it.
+     */
+
+    double getMinDistanceToSensorOfGivenType(GeographicArea ga, String type) {
+        List<Sensor> workingList = ga.getSensorList().getSensorListByType(type);
+        Sensor firstSensor = workingList.get(0);
+        double distance = calculateDistanceToSensor(firstSensor);
+        for (int i = 0; i < workingList.size(); i++) {
+            Sensor sensor = workingList.get(i);
             if (distance > calculateDistanceToSensor(sensor)) {
                 distance = calculateDistanceToSensor(sensor);
             }
@@ -188,11 +210,10 @@ public class House implements Metered {
         SensorList sensorList = new SensorList();
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
-            if (Double.compare(this.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(this)) == 0) {
+            if (Double.compare(this.getMinDistanceToSensorOfGivenType(ga, sensorType), s.getDistanceToHouse(this)) == 0) {
                 sensorList.addSensor(s);
             }
         }
-
         if (sensorList.getSensorList().isEmpty()) {
             return sensorError;
         }

@@ -77,7 +77,7 @@ public class HouseMonitoringUI {
     }
 
     private double updateModel600(House house, GeographicArea geographicArea) {
-        return houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, geographicArea);
+        return houseMonitoringcontroller.getHouseAreaTemperature(house, geographicArea);
     }
 
     private void displayState600(double temperature) {
@@ -145,7 +145,7 @@ public class HouseMonitoringUI {
     private double updateModel610(Room room, Date date) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         System.out.println("You selected the room " + room.getRoomName() + " and the date " + date + "\n");
-        return ctrl.getMaxTemperatureInARoomOnAGivenDay(room, date);
+        return ctrl.getDayMaxTemperature(room, date);
     }
 
     private void displayState610(Room room,  Date date, double temperature) {
@@ -197,6 +197,7 @@ public class HouseMonitoringUI {
      * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
+
     private void runUS623(House house) {
         UtilsUI utils = new UtilsUI();
         if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
@@ -221,7 +222,7 @@ public class HouseMonitoringUI {
     }
 
     private void updateAndDisplayUS623(House house, Date startDate, Date endDate) {
-        double result623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, startDate, endDate);
+        double result623 = houseMonitoringcontroller.getAverageRainfallInterval(house, startDate, endDate);
         printResultMessageUS623(startDate, endDate, result623);
     }
 

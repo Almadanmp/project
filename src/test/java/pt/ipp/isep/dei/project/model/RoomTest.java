@@ -100,7 +100,7 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = 20.0;
         assertEquals(expectedResult, result, 0.01);
@@ -131,7 +131,7 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = -20.0;
         assertEquals(expectedResult, result, 0.01);
@@ -162,7 +162,7 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = 30.0;
         assertEquals(expectedResult, result, 0.01);
@@ -172,7 +172,7 @@ class RoomTest {
     void seeGetCurrentRoomTemperatureWithoutReadings() {
         SensorList list = new SensorList();
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         double result = room.getCurrentRoomTemperature();
         assertEquals(NaN, result, 0.01);
     }
@@ -186,7 +186,7 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 8, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         Sensor s2 = new Sensor("sensor2", type, new Local(1, 1, 50), new Date());
         s2.setReadingList(listR);
         boolean result = room.addSensor(s2);
@@ -202,7 +202,7 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         boolean result = room.addSensor(s1);
         assertEquals(false, result);
     }
@@ -952,8 +952,8 @@ class RoomTest {
         room7.addSensor(sensor14);
 
 
-        Sensor sensor15 = new Sensor("sensor15", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor16 = new Sensor("sensor16", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor15 = new Sensor("sensor15", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor16 = new Sensor("sensor16", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
         Reading reading12 = new Reading(21, gregorianCalendar2.getTime());
         Reading reading13 = new Reading(20, gregorianCalendar1.getTime());
         Reading reading14 = new Reading(28, gregorianCalendar3.getTime());

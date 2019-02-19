@@ -30,7 +30,7 @@ public class HouseMonitoringController {
      * @return is the max temperature recorded in a room
      */
 
-    public double getMaxTemperatureInARoomOnAGivenDay(Room room, Date day) {
+    public double getDayMaxTemperature(Room room, Date day) {
         return room.getMaxTemperatureOnGivenDay(day);
     }
 
@@ -55,7 +55,7 @@ public class HouseMonitoringController {
      * @return is the average rainfall of the house, as measured by the closest sensor to the house.
      */
 
-    public double getAVGDailyRainfallOnGivenPeriod(House house, Date initialDate, Date endDate) {
+    public double getAverageRainfallInterval(House house, Date initialDate, Date endDate) {
         GeographicArea geoArea = house.getMotherArea();
         Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea, rainfall);
         if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
@@ -96,8 +96,8 @@ public class HouseMonitoringController {
      * @return is the most recent temperature reading as measured by the closest sensor to the house.
      */
 
-    public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {
-        Sensor closest = house.getClosestSensorOfGivenType(ga,"temperature");
+    public double getHouseAreaTemperature(House house, GeographicArea ga) {
+        Sensor closest = house.getClosestSensorOfGivenType(ga,"Temperature");
         ReadingList readingList = closest.getReadingList();
         return readingList.getMostRecentValueOfReading();
     }

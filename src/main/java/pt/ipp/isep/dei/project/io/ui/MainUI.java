@@ -219,15 +219,15 @@ public class MainUI {
         // Sensor Lists
         SensorList room109SensorList = new SensorList();
         room109SensorList.addSensor(sensorRoom109);
-        roomISEP2.setRoomSensorList(room109SensorList);
+        roomISEP2.setSensorList(room109SensorList);
 
         SensorList isepSensorList = new SensorList();
         isepSensorList.addSensor(sensorRainfallISEP);
         isepSensorList.addSensor(sensorTemperatureISEP);
         isep.setSensorList(isepSensorList);
         SensorList test = new SensorList();
-        roomISEP1.setRoomSensorList(test);
-        roomISEP3.setRoomSensorList(test);
+        roomISEP1.setSensorList(test);
+        roomISEP3.setSensorList(test);
         porto.setSensorList(test);
 
         // Energy Grid
@@ -472,7 +472,7 @@ public class MainUI {
         TypeSensorList typeSensorListSP2 = new TypeSensorList();
         TypeSensor temperatureB109SP2 = new TypeSensor(temperature, "celsius");
         SensorList sensorListRoomB109SP2 = new SensorList();
-        b109SP2.setRoomSensorList(sensorListRoomB109SP2);
+        b109SP2.setSensorList(sensorListRoomB109SP2);
         Sensor sensorTemperatureB109SP2 = new Sensor("Temperature B109", temperatureB109SP2, new GregorianCalendar(2018, 10, 15).getTime());
         sensorListRoomB109SP2.addSensor(sensorTemperatureB109SP2);
         ReadingList readingListSensorTemperatureB109SP2 = new ReadingList();

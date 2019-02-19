@@ -73,7 +73,7 @@ public class Room implements Metered {
         return roomWidth;
     }
 
-    public void setRoomSensorList(SensorList sensorList) {
+    public void setSensorList(SensorList sensorList) {
         roomSensorList = sensorList;
     }
 
@@ -155,7 +155,7 @@ public class Room implements Metered {
      **/
     public double getMaxTemperatureOnGivenDay(Date day) {
         double maxTemp = -1000;
-        SensorList tempSensors = getSensorsOfGivenType("temperature");
+        SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {
             return NaN;
         }
@@ -177,7 +177,7 @@ public class Room implements Metered {
         SensorList tempSensors = new SensorList();
         for (Sensor s : this.roomSensorList.getSensorList()) {
             String typeTest = s.getTypeSensor().getName();
-            if (typeTest.equals(type)) {
+            if (typeTest.equalsIgnoreCase(type)) {
                 tempSensors.addSensor(s);
             }
         }
@@ -228,7 +228,7 @@ public class Room implements Metered {
 
     public double getCurrentRoomTemperature() {
         double currentT = NaN;
-        SensorList tempSensors = getSensorsOfGivenType("temperature");
+        SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (!tempSensors.getSensorList().isEmpty()) {
             ReadingList readingList = tempSensors.getReadings();
             currentT = readingList.getMostRecentValueOfReading();

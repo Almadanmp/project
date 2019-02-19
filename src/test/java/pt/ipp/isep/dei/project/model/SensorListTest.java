@@ -550,7 +550,7 @@ class SensorListTest {
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
-        room.setRoomSensorList(sensorList1);
+        room.setSensorList(sensorList1);
         boolean expectedResult = true;
         boolean actualResult = sensorList1.doesSensorListContainSensorByName("s1");
         assertEquals(expectedResult, actualResult);
@@ -579,7 +579,7 @@ class SensorListTest {
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
-        room.setRoomSensorList(sensorList1);
+        room.setSensorList(sensorList1);
         boolean expectedResult = false;
         boolean actualResult = sensorList1.doesSensorListContainSensorByName("s4");
         assertEquals(expectedResult, actualResult);
@@ -608,7 +608,7 @@ class SensorListTest {
         sensorList1.addSensor(s1);
         sensorList1.addSensor(s2);
         sensorList1.addSensor(s3);
-        room.setRoomSensorList(sensorList1);
+        room.setSensorList(sensorList1);
         String expectedResult = "---------------\n" +
                 "0) Name: s1 | Type: Rain\n" +
                 "1) Name: s2 | Type: Vento\n" +
@@ -622,7 +622,7 @@ class SensorListTest {
     void seeIfPrintsEmptySensorWholeList() {
         Room room = new Room("Quarto Miki", 1, 3, 3, 3);
         SensorList sensorList1 = new SensorList();
-        room.setRoomSensorList(sensorList1);
+        room.setSensorList(sensorList1);
         String expectedResult = "Invalid List - List is Empty\n";
         String result = sensorList1.buildSensorWholeListString(sensorList1);
         assertEquals(expectedResult, result);

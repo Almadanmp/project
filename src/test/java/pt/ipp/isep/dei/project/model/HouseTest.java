@@ -73,7 +73,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        double result = house.getMinDistanceFromHouseToSensor(ga);
+        double result = house.getMinDistanceToSensor(ga);
         assertEquals(110.91871788829754, result, 0.01);
     }
 
@@ -94,7 +94,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        double result = house.getMinDistanceFromHouseToSensor(ga);
+        double result = house.getMinDistanceToSensor(ga);
         assertEquals(110.91871788829754, result, 0.01);
     }
 
