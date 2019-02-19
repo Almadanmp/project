@@ -250,4 +250,31 @@ public class WaterHeaterTest {
         assertFalse(actualResult);
     }
 
+    @Test
+    void getConsumption() {
+        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
+        d.setNominalPower(15);
+        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        d.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 5D);
+        d.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 12D);
+        d.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        double expectedResult = 0.167472;
+        double result = d.getEnergyConsumption(24);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getConsumptionTimeZero() {
+        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
+        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        d.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
+        d.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 12D);
+        d.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        d.setNominalPower(15);
+        double expectedResult = 0;
+        double result = d.getEnergyConsumption(0);
+        assertEquals(expectedResult, result);
+    }
 }

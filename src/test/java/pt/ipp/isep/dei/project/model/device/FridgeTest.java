@@ -28,6 +28,24 @@ class FridgeTest {
     }
 
     @Test
+    public void getConsumption() {
+        Fridge d = new Fridge(new FridgeSpec());
+        d.setNominalPower(15);
+        double expectedResult = 360;
+        double result = d.getEnergyConsumption(24);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void getConsumptionTimeZero() {
+        Fridge d = new Fridge(new FridgeSpec());
+        d.setNominalPower(15);
+        double expectedResult = 0;
+        double result = d.getEnergyConsumption(0);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeEqualToSameObject() {
         Fridge d = new Fridge(new FridgeSpec());
         d.setName("WMOne");
@@ -367,6 +385,14 @@ class FridgeTest {
         LogList expectedResult = new LogList();
         LogList actualResult = device.getLogsInInterval(initialTime, finalTime);
         //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void hashCodeDummyTest() {
+        Fridge device = new Fridge(new FridgeSpec());
+        int expectedResult = 1;
+        int actualResult = device.hashCode();
         assertEquals(expectedResult, actualResult);
     }
 }

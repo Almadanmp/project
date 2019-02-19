@@ -376,4 +376,22 @@ public class WashingMachineTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void getConsumption() {
+        WashingMachine d = new WashingMachine(new WashingMachineSpec());
+        d.setNominalPower(15);
+        double expectedResult = 360;
+        double result = d.getEnergyConsumption(24);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getConsumptionTimeZero() {
+        WashingMachine d = new WashingMachine(new WashingMachineSpec());
+        d.setNominalPower(15);
+        double expectedResult = 0;
+        double result = d.getEnergyConsumption(0);
+        assertEquals(expectedResult, result);
+    }
 }

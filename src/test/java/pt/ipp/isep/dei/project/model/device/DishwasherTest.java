@@ -377,4 +377,23 @@ public class DishwasherTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void getConsumption() {
+        Dishwasher d = new Dishwasher(new DishwasherSpec());
+        d.setNominalPower(15);
+        double expectedResult = 360;
+        double result = d.getEnergyConsumption(24);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void getConsumptionTimeZero() {
+        Dishwasher d = new Dishwasher(new DishwasherSpec());
+        d.setNominalPower(15);
+        double expectedResult = 0;
+        double result = d.getEnergyConsumption(0);
+        assertEquals(expectedResult, result);
+    }
+
 }
