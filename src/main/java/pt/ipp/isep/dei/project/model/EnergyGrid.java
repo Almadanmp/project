@@ -114,16 +114,6 @@ public class EnergyGrid implements Metered {
     }
 
     /**
-     * Setter for the name of the energy grid.
-     *
-     * @param mName name of the energy grid.
-     */
-
-    public void setName(String mName) {
-        this.name = mName;
-    }
-
-    /**
      * Setter for a new room to be added to the energy grid.
      *
      * @param room Room to be added to the list of rooms in the energy grid.
