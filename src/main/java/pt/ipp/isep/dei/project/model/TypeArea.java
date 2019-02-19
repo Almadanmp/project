@@ -36,7 +36,8 @@ public class TypeArea {
      *
      * @return prints the type of the Geographical Area
      */
-    public String buildTypeGeographicAreaString() {
+
+    String buildTypeGeographicAreaString() {
         String result;
         result = "Type Area: " + this.mName + "\n";
         return result;
@@ -47,6 +48,7 @@ public class TypeArea {
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
+
     boolean isNameValid(String name) {
         if (name != null && !name.isEmpty() && !name.matches(".*\\d+.*")) {
                 return true;

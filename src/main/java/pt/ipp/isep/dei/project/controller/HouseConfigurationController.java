@@ -17,32 +17,12 @@ public class HouseConfigurationController {
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
-     * @param geoAreaList is the list we're going to print.
-     * @return builds a striing of all the individual members of the geoArea list.
-     */
-
-    String buildGAListString(GeographicAreaList geoAreaList) {
-        return geoAreaList.buildGaWholeListString(geoAreaList);
-    }
-
-    /**
      * @param address is the address of the house.
      * @param house   is the house we're going to set the address of.
      */
 
     public void setHouseAddress(String address, House house) {
         house.setStreet(address);
-    }
-
-    /**
-     * @param input       is the string we're going to look for in the list of Geographic Areas.
-     * @param geoAreaList is the list of Geographic Areas we're going to look for the string in.
-     * @return is a list of integers that contains the indexes of all the Geographic Areas in the given list whose name
-     * matches the given string.
-     */
-
-    List<Integer> matchGeographicAreaIndexByString(String input, GeographicAreaList geoAreaList) {
-        return geoAreaList.matchGeographicAreaIndexByString(input);
     }
 
     /**
@@ -65,30 +45,11 @@ public class HouseConfigurationController {
         house.setLocation(latitude, longitude, altitude);
     }
 
-    /**
-     * @param listOfIndexesGeographicAreas is a list of all the indexes in a list where relevant objects are.
-     * @param geoAreaList                  is the list from which we're getting the objects.
-     * @return builds a string of all the geoAreas contained in the list at the positions given in the list of indexes.
-     */
-
-    String buildGeoAreasByIndexString(List<Integer> listOfIndexesGeographicAreas, GeographicAreaList geoAreaList) {
-        return geoAreaList.buildGeographicAreaElementsByIndexString(listOfIndexesGeographicAreas);
-    }
-
-    /**
-     * @param geoArea is the area we're going to print.
-     * @return builds a string with the given area.
-     */
-
-    String buildGeoAreaString(GeographicArea geoArea) {
-        return geoArea.buildGeographicAreaString();
-    }
-
     /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
      house floor and dimensions) */
 
     /** This method receives the house and room parameters and creates a new room.
-     * @house program house that will create the room
+     * @param house house that will create the room
      * @param roomDesignation is the name of the room we're going to create.
      * @param roomHouseFloor  is the floor of the room we're going to create.
      * @param width           is the width of the room we're going to create.
