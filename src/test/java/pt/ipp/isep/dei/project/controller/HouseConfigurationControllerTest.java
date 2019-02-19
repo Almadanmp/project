@@ -23,7 +23,8 @@ class HouseConfigurationControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         List<String> deviceTypeList = new ArrayList<>();
-        validHouse = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        validHouse = new House("ISEP", address,
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60, 180,
                 deviceTypeList);
@@ -31,57 +32,19 @@ class HouseConfigurationControllerTest {
     }
 
 
-    @Test
-    void seeIfSetHouseAddress() {
-        // Arrange
-
-        controller.setHouseAddress("Rua de Teste", validHouse);
-
-        // Act
-
-        String actualResult = validHouse.getStreet();
-
-        // Assert
-
-        assertEquals("Rua de Teste", actualResult);
-    }
-
-    @Test
-    void seeIfSetHouseZipCode() {
-        // Arrange
-
-        controller.setHouseZIPCode("4400", validHouse);
-
-        // Act
-
-        String actualResult = validHouse.getZip();
-
-        // Assert
-
-        assertEquals("4400", actualResult);
-    }
-
-    @Test
-    void seeIfSetHouseLocal() {
-        // Arrange
-
-        Local local = new Local(34, 56, 5);
-        controller.setHouseLocal(34, 56, 5, validHouse);
-
-        // Act
-
-        Local actualResult = validHouse.getLocation();
-
-        // Assert
-
-        assertEquals(local, actualResult);
-    }
-
-    // US105
+    //USER STORY 105
 
 
     @Test
     void seeIfGetHouseName() {
+        HouseConfigurationController ctrl = new HouseConfigurationController();
+        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
+
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia", address, new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        //Act
         // Act
 
         String actualResult = controller.getHouseName(validHouse);

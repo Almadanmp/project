@@ -276,9 +276,9 @@ public class InputUtils {
      */
     public Date getInputYearMonthDayHourMin() {
         int year = getInputYear();
-        boolean isLeapyear = new GregorianCalendar().isLeapYear(year);
+        boolean isLeapYear = new GregorianCalendar().isLeapYear(year);
         int month = getInputMonth();
-        int day = getInputDay(isLeapyear, month);
+        int day = getInputDay(isLeapYear, month);
         int hour = getInputHour();
         int minute = getInputMinute();
         Date date = new GregorianCalendar(year, month, day, hour, minute).getTime();

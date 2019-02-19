@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.model.Address;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import java.util.List;
@@ -14,21 +15,12 @@ public class HouseConfigurationController {
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
-     * @param address is the address of the house.
+     * @param street, zip, town are the address arguments of the house.
      * @param house   is the house we're going to set the address of.
      */
 
-    public void setHouseAddress(String address, House house) {
-        house.setStreet(address);
-    }
-
-    /**
-     * @param zipCode is the zip code we're going to set.
-     * @param house   is the house we're going to change the zip code to.
-     */
-
-    public void setHouseZIPCode(String zipCode, House house) {
-        house.setZip(zipCode);
+    public void setHouseAddress(Address address, House house) {
+        house.setAddress(address);
     }
 
     /**

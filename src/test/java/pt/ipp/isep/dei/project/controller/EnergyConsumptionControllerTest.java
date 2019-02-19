@@ -282,7 +282,8 @@ class EnergyConsumptionControllerTest {
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto", new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         RoomList roomList = new RoomList();
         roomList.addRoom(validRoom1);
         roomList.addRoom(validRoom2);
@@ -306,7 +307,9 @@ class EnergyConsumptionControllerTest {
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+
+        House house = new House("ISEP", address,
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60, 180,
                 deviceTypeString);
@@ -356,7 +359,9 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+
+        House house = new House("ISEP", address,
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60, 180,
                 deviceTypeString);
@@ -383,7 +388,8 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072", "Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        House house = new House("ISEP", address,
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60, 180,
                 deviceTypeString);
@@ -405,8 +411,9 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
-                "Porto", new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+
+        House house = new House("ISEP", address , new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea
                 ("Cidade"), 2, 3, new Local(4, 4, 100)), 60,
                 180, deviceTypeString);
         house.addRoomToRoomList(validRoom1);
@@ -429,8 +436,8 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
-                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
                 60, 180, deviceTypeString);
         validRoom1.addDevice(validDevice1);
@@ -455,8 +462,8 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
-                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
                 60, 180, deviceTypeString);
         RoomList roomList = new RoomList();
@@ -483,8 +490,8 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
-                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
                 60, 180, deviceTypeString);
         RoomList roomList = new RoomList();
@@ -508,8 +515,8 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
-                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
                 60, 180, deviceTypeString);
         house.addRoomToRoomList(validRoom1);
@@ -535,8 +542,8 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
-                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
                 60, 180, deviceTypeString);
         validRoom1.addDevice(validDevice1);

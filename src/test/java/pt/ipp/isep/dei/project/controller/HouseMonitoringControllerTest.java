@@ -75,7 +75,8 @@ class HouseMonitoringControllerTest {
         //House List
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 100), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("casa de praia", address, new Local(4, 5, 100), ga, 60, 180, deviceTypeString);
 
         //Act ---------------------------------------------------
         double result = ctrl.getCurrentTemperatureInTheHouseArea(house, ga);
@@ -136,7 +137,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -167,7 +169,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -197,7 +200,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -223,7 +227,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -251,7 +256,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -287,7 +293,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -325,7 +332,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -353,7 +361,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -385,7 +394,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -415,7 +425,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -445,7 +456,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -483,7 +495,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -535,7 +548,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
@@ -558,7 +572,8 @@ class HouseMonitoringControllerTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa", "street", "zip", "town", new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
+        Address address = new Address("street", "zip", "town");
+        House house = new House("casa", address, new Local(1, 1, 1), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
         house.setMotherArea(ga);
