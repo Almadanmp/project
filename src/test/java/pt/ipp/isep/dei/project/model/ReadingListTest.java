@@ -22,13 +22,12 @@ class ReadingListTest {
         ReadingList readingList = new ReadingList();
         GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
         Reading reading1 = new Reading(17, calendar.getTime());
-        boolean expectedResult = true;
 
         //Act
         boolean actualResult = readingList.addReading(reading1);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
     @Test
     void seeIfGetTotalFromGivenList() {
@@ -53,14 +52,13 @@ class ReadingListTest {
         Reading reading1 = new Reading(17, calendar.getTime());
         GregorianCalendar calendar2 = new GregorianCalendar(118, 9, 3);
         Reading reading2 = new Reading(29, calendar2.getTime());
-        boolean expectedResult = true;
 
         //Act
         readingList.addReading(reading1);
         boolean actualResult = readingList.addReading(reading2);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -70,14 +68,13 @@ class ReadingListTest {
         GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
         Reading reading1 = new Reading(17, calendar.getTime());
         Reading reading2 = new Reading(17, calendar.getTime());
-        boolean expectedResult = false;
 
         //Act
         readingList.addReading(reading1);
         boolean actualResult = readingList.addReading(reading2);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -89,13 +86,12 @@ class ReadingListTest {
         Reading reading2 = new Reading(29, calendar.getTime());
         readingList.addReading(reading1);
         readingList.addReading(reading2);
-        boolean expectedResult = true;
 
         //Act
         boolean actualResult = readingList.getListOfReadings().contains(reading1);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -108,13 +104,12 @@ class ReadingListTest {
         Reading reading2 = new Reading(2, g2.getTime());
         readingList.addReading(reading1);
         readingList.addReading(reading2);
-        boolean expectedResult = true;
 
         //Act
         boolean actualResult = readingList.getListOfReadings().contains(reading2);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -164,13 +159,12 @@ class ReadingListTest {
         GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
         Reading reading2 = new Reading(29, g2.getTime());
         readingList.addReading(reading1);
-        boolean expectedResult = false;
 
         //Act
         boolean actualResult = readingList.getListOfReadings().contains(reading2);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -184,13 +178,12 @@ class ReadingListTest {
         readingList.addReading(reading1);
         readingList.addReading(reading2);
         readingList.addReading(reading2);
-        boolean expectedResult = true;
 
         //Act
         boolean actualResult = readingList.getListOfReadings().contains(reading2);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -644,13 +637,12 @@ class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2018, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
 
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals(NaN, actualResult, 0.001);
     }
 
     @Test
@@ -686,13 +678,12 @@ class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 10, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
 
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals(NaN, actualResult, 0.001);
     }
 
     @Test
@@ -728,13 +719,12 @@ class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
 
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals(NaN, actualResult, 0.001);
     }
 
     @Test
@@ -742,13 +732,12 @@ class ReadingListTest {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
-        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2015, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMinimumValuesInTheReadingsOfMonth(dateToTest);
 
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals(NaN, actualResult, 0.001);
     }
 
     @Test
@@ -1283,12 +1272,11 @@ class ReadingListTest {
         //Arrange
         List<Double> doubleList = new ArrayList<>();
         ReadingList rList = new ReadingList();
-        double expectedResult = NaN;
         double actualResult;
         //Act
         actualResult = rList.getAverageFromGivenList(doubleList);
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals(NaN, actualResult, 0.001);
     }
 
     @Test
@@ -1339,13 +1327,12 @@ class ReadingListTest {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
-        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2018, 10, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
 
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals(NaN, actualResult, 0.001);
     }
 
     @Test
@@ -1381,13 +1368,12 @@ class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2018, 2, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
 
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals(NaN, actualResult, 0.001);
     }
 
     @Test
@@ -1423,13 +1409,12 @@ class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 10, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
 
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals(NaN, actualResult, 0.001);
     }
 
     @Test
@@ -1465,13 +1450,12 @@ class ReadingListTest {
         rList.addReading(r8);
 
         //Act
-        double expectedResult = NaN;
         GregorianCalendar cal = new GregorianCalendar(2017, 1, 7);
         Date dateToTest = cal.getTime();
         double actualResult = rList.getAverageOfMaximumValuesInTheReadingsOfMonth(dateToTest);
 
         //Assert
-        assertEquals(expectedResult, actualResult, 0.001);
+        assertEquals(NaN, actualResult, 0.001);
     }
 
     @Test
@@ -1551,9 +1535,7 @@ class ReadingListTest {
         ReadingList rl1 = new ReadingList();
 
         //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rl1.getHighestValueInList(valuesOfDay);
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> rl1.getHighestValueInList(valuesOfDay));
         //Assert
         assertEquals("List is not valid", exception.getMessage());
     }
@@ -1564,9 +1546,7 @@ class ReadingListTest {
         ReadingList rl1 = new ReadingList();
 
         //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            rl1.getHighestValueInList(null);
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> rl1.getHighestValueInList(null));
         //Assert
         assertEquals("List is not valid", exception.getMessage());
     }
@@ -2189,9 +2169,8 @@ class ReadingListTest {
         ReadingList list = new ReadingList();
         //ACT
         double result = list.getMostRecentValue();
-        double expectedResult = NaN;
         //ASSERT
-        assertEquals(expectedResult, result, 0.01);
+        assertEquals(NaN, result, 0.01);
     }
 
     @Test
@@ -2295,11 +2274,10 @@ class ReadingListTest {
     void ensureReadingListIsEmpty() {
         //Arrange
         ReadingList rl = new ReadingList();
-        boolean expectedResult = true;
         //Act
         boolean actualResult = rl.isEmpty();
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -2308,11 +2286,10 @@ class ReadingListTest {
         ReadingList rl = new ReadingList();
         Reading reading = new Reading(20,new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
         rl.addReading(reading);
-        boolean expectedResult = false;
         //Act
         boolean actualResult = rl.isEmpty();
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -2372,7 +2349,6 @@ class ReadingListTest {
         readingList4.addReading(reading1);
         readingList4.addReading(reading3);
 
-        Reading expectedResult1 = reading3;
         Reading expectedResult2 = new Reading(NaN, new GregorianCalendar(1900,0,1).getTime());
 
         //Act
@@ -2382,10 +2358,10 @@ class ReadingListTest {
         Reading actualResult4 = readingList4.getMostRecentReading();
         Reading actualResult5 = readingList5.getMostRecentReading();
         //Assert
-        assertEquals(expectedResult1, actualResult1);
-        assertEquals(expectedResult1, actualResult2);
-        assertEquals(expectedResult1, actualResult3);
-        assertEquals(expectedResult1, actualResult4);
+        assertEquals(reading3, actualResult1);
+        assertEquals(reading3, actualResult2);
+        assertEquals(reading3, actualResult3);
+        assertEquals(reading3, actualResult4);
         assertEquals(expectedResult2, actualResult5);
     }
 

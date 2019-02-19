@@ -417,9 +417,8 @@ class RoomTest {
         d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
         d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
-        boolean expectedResult = false;
         boolean result = r1.addDevice(d3);
-        assertEquals(expectedResult, result);
+        assertFalse(result);
     }
 
     @Test
@@ -436,9 +435,8 @@ class RoomTest {
         d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
         d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
-        boolean expectedResult = true;
         boolean result = r1.addDevice(d3);
-        assertEquals(expectedResult, result);
+        assertTrue(result);
     }
 
     @Test

@@ -276,7 +276,6 @@ public class Room implements Metered {
      * Adds all of this room's devices to a given list. Skips duplicates.
      *
      * @param list is the list we want to add the room's devices to.
-     * @return is true if at least one device was added, false if no devices were added.
      */
 
     public void addRoomDevicesToDeviceList(DeviceList list) {
