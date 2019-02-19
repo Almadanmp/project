@@ -265,7 +265,7 @@ public class Room implements Metered {
      * Returns the daily estimate consumption of all devices of a given type in this room.
      *
      * @param deviceType the device type
-     * @param time represents a day in minutes
+     * @param time       represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
     double getDailyConsumptionByDeviceType(String deviceType, int time) {
@@ -279,15 +279,12 @@ public class Room implements Metered {
      * @return is true if at least one device was added, false if no devices were added.
      */
 
-    public boolean addRoomDevicesToDeviceList(DeviceList list) {
-        int counter = 0;
+    public void addRoomDevicesToDeviceList(DeviceList list) {
         for (Device d : this.getDeviceList()) {
             if (!(list.containsDevice(d))) {
                 list.addDevice(d);
-                counter++;
             }
         }
-        return counter != 0;
     }
 
     /**

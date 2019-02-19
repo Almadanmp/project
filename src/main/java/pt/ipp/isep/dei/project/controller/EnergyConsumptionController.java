@@ -32,8 +32,8 @@ public class EnergyConsumptionController {
      * @return true if devices were added.
      */
 
-    public boolean addRoomDevicesToDeviceList(Room room, DeviceList deviceList) {
-        return room.addRoomDevicesToDeviceList(deviceList);
+    public void addRoomDevicesToDeviceList(Room room, DeviceList deviceList) {
+        room.addRoomDevicesToDeviceList(deviceList);
     }
 
     /**
