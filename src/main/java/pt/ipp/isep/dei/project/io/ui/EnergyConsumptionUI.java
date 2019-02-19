@@ -115,7 +115,6 @@ class EnergyConsumptionUI {
             System.out.println(utils.invalidGridList);
             return;
         }
-        boolean active;
         InputUtils inputs = new InputUtils();
         EnergyGrid grid = inputs.getInputGridByList(programHouse);
         RoomList selectedRooms = new RoomList();
@@ -127,20 +126,10 @@ class EnergyConsumptionUI {
             option = inputs.getInputAsInt();
             switch (option) {
                 case 1:
-                    active = true;
-                    while (active) {
-                        printSelection(selectedDevices, selectedRooms);
-                        selectRooms(grid, selectedRooms, selectedDevices);
-                        active = continuePrompt();
-                    }
+                    allRoomDevicesSelection(grid, selectedRooms, selectedDevices);
                     break;
                 case 2:
-                    active = true;
-                    while (active) {
-                        printSelection(selectedDevices, selectedRooms);
-                        selectDevices(grid, selectedDevices);
-                        active = continuePrompt();
-                    }
+                    devicesSelection(grid, selectedRooms, selectedDevices);
                     break;
                 case 3:
                     printSelection(selectedDevices, selectedRooms);
@@ -153,6 +142,24 @@ class EnergyConsumptionUI {
                     System.out.println(utils.invalidOption);
                     break;
             }
+        }
+    }
+
+    private void allRoomDevicesSelection(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
+        boolean active = true;
+        while (active) {
+            printSelection(selectedDevices, selectedRooms);
+            selectRooms(grid, selectedRooms, selectedDevices);
+            active = continuePrompt();
+        }
+    }
+
+    private void devicesSelection(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
+        boolean active = true;
+        while (active) {
+            printSelection(selectedDevices, selectedRooms);
+            selectDevices(grid, selectedDevices);
+            active = continuePrompt();
         }
     }
 
