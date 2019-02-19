@@ -292,6 +292,27 @@ class EnergyGridTest {
     }
 
     @Test
+    void seeIfDeviceListPrintsByTypeWorks() {
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        RoomList rl = new RoomList();
+        DeviceList deviceList = new DeviceList();
+        Device fridge = new Fridge(new FridgeSpec());
+        deviceList.addDevice(fridge);
+        room1EdC.setDeviceList(deviceList);
+        eg.setRoomList(rl);
+        rl.addRoom(room1EdC);
+        String expectedResult = "---------------\n" +
+                "Device type: Fridge | Device name: null | Nominal power: 0.0 | Room: B107 | \n" +
+                "---------------\n";
+        String result = eg.buildListOfDeviceByTypeString(eg, house);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfDeviceListPrintsByTypeWithNullList() throws IOException {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);

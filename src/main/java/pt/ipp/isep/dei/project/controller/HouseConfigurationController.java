@@ -1,10 +1,16 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
+
+import java.util.List;
 
 /**
  * Controller class for House Configuration UI
  */
+
 
 public class HouseConfigurationController {
 
@@ -39,20 +45,16 @@ public class HouseConfigurationController {
         house.setLocation(latitude, longitude, altitude);
     }
 
-       /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
+    /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
      house floor and dimensions) */
 
-    /**
-     * This method receives the house and room parameter, creates a new room and adds it to house in case it the room
-     * does not exist in house.
-     *
-     * @param house           program house that will create the room
+    /** This method receives the house and room parameters and creates a new room.
+     * @param house house that will create the room
      * @param roomDesignation is the name of the room we're going to create.
      * @param roomHouseFloor  is the floor of the room we're going to create.
      * @param width           is the width of the room we're going to create.
      * @param length          is the length of the room we're going to create.
      * @param height          is the height of the room we're going to create.
-     * @return true in case the room is created and added to house, false otherwise
      */
     public boolean createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
         return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
