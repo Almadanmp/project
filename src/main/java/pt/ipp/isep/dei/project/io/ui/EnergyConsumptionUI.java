@@ -121,7 +121,9 @@ class EnergyConsumptionUI {
         DeviceList selectedDevices = new DeviceList();
         while (true) {
             printSelection(selectedDevices, selectedRooms);
-            System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); \n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; \n 4) Return to main menu;\n ");
+            System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); " +
+                    "\n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; " +
+                    "\n 4) Return to main menu;\n ");
             int option;
             option = inputs.getInputAsInt();
             switch (option) {
@@ -174,7 +176,8 @@ class EnergyConsumptionUI {
         if (selectedDevices.getList().isEmpty() && selectedRooms.getList().isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
-            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildRoomsString() + "\n" + "You have already selected the following devices:\n\n" + selectedDevices.buildDevicesString() + ".");
+            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildRoomsString()
+                    + "\n" + "You have already selected the following devices:\n\n" + selectedDevices.buildDevicesString() + ".");
     }
 
     /**

@@ -170,8 +170,8 @@ class RoomTest {
         SensorList list = new SensorList();
         Room room = new Room("quarto", 1, 80, 5, 3);
         room.setSensorList(list);
-        double result = room.getCurrentRoomTemperature();
-        assertEquals(NaN, result, 0.01);
+
+        assertThrows(IllegalArgumentException.class, room::getCurrentRoomTemperature);
     }
 
     @Test
@@ -936,8 +936,6 @@ class RoomTest {
         room8.addSensor(sensor16);
 
         //ACT
-        double actualResult1 = room1.getCurrentRoomTemperature();
-        double actualResult2 = room2.getCurrentRoomTemperature();
         double actualResult3 = room3.getCurrentRoomTemperature();
         double actualResult4 = room4.getCurrentRoomTemperature();
         double actualResult5 = room5.getCurrentRoomTemperature();
@@ -947,8 +945,8 @@ class RoomTest {
 
 
         //ASSERT
-        assertEquals(actualResult1, NaN, 0.01);
-        assertEquals(actualResult2, NaN, 0.01);
+        assertThrows(IllegalArgumentException.class, room1::getCurrentRoomTemperature);
+        assertThrows(IllegalArgumentException.class, room2::getCurrentRoomTemperature);
         assertEquals(actualResult3, 20, 0.01);
         assertEquals(actualResult4, 24, 0.01);
         assertEquals(actualResult5, 25, 0.01);
@@ -956,6 +954,30 @@ class RoomTest {
         assertEquals(actualResult7, 27, 0.01);
         assertEquals(actualResult8, 28, 0.01);
     }
+
+    @Test
+    void getCurrentRoomTemperatureIllegalArguments() {
+        //Arrange
+
+        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
+        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
+
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
+
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+
+        room2.addSensor(sensor1);
+        room2.addSensor(sensor2);
+        room2.addSensor(sensor3);
+
+        //Act and Assert
+
+        assertThrows(IllegalArgumentException.class, room1::getCurrentRoomTemperature);
+        assertThrows(IllegalArgumentException.class, room2::getCurrentRoomTemperature);
+    }
+
 
     @Test
     void getSensorList() {

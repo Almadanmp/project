@@ -2168,9 +2168,8 @@ class ReadingListTest {
     void seeMostRecentValueWithEmptyList() {
         ReadingList list = new ReadingList();
         //ACT
-        double result = list.getMostRecentValue();
-        //ASSERT
-        assertEquals(NaN, result, 0.01);
+
+        assertThrows(IllegalArgumentException.class, list::getMostRecentValue);
     }
 
     @Test

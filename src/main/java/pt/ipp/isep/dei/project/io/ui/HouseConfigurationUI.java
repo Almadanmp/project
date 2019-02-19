@@ -38,7 +38,6 @@ class HouseConfigurationUI {
                     runUS101(house);
                     activeInput = false;
                     break;
-
                 case 2:
                     runUS105();
                     activeInput = false;

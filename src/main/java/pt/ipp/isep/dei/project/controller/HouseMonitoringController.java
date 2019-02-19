@@ -19,7 +19,7 @@ public class HouseMonitoringController {
      * @return is the most recent temperature recorded in a room.
      */
 
-    public double getCurrentRoomTemperature(Room room) {
+    public double getCurrentRoomTemperature(Room room) throws IllegalArgumentException {
         return room.getCurrentRoomTemperature();
     }
 
@@ -94,7 +94,7 @@ public class HouseMonitoringController {
      * @return is the most recent temperature reading as measured by the closest sensor to the house.
      */
 
-    public double getHouseAreaTemperature(House house, GeographicArea ga) {
+    public double getHouseAreaTemperature(House house, GeographicArea ga) throws IllegalArgumentException {
         Sensor closest = house.getClosestSensorOfGivenType(ga,"Temperature");
         ReadingList readingList = closest.getReadingList();
         return readingList.getMostRecentValue();

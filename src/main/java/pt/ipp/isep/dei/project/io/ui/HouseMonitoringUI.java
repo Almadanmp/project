@@ -6,7 +6,9 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.Date;
+
 import static java.lang.System.out;
+import static java.lang.System.setErr;
 
 
 public class HouseMonitoringUI {
@@ -72,20 +74,18 @@ public class HouseMonitoringUI {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        double currentTemp = updateModel600(house, motherArea);
-        displayState600(currentTemp);
+         updateModel600(house, motherArea);
     }
 
-    private double updateModel600(House house, GeographicArea geographicArea) {
-        return houseMonitoringcontroller.getHouseAreaTemperature(house, geographicArea);
-    }
-
-    private void displayState600(double temperature) {
-        if(Double.isNaN(temperature)){
-            System.out.println("The house area has no temperature readings.");
-            return;
+    private void updateModel600(House house, GeographicArea geographicArea) {
+        try{
+            double currentTemp = houseMonitoringcontroller.getHouseAreaTemperature(house, geographicArea);
+            System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         }
-        System.out.println("The current temperature in the house area is: " + temperature + "°C.");
+        catch(IllegalArgumentException illegal){
+            System.out.println(illegal.getMessage());
+        }
+
     }
 
     /**
@@ -94,7 +94,7 @@ public class HouseMonitoringUI {
      */
     private void runUS605(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        if(!utilsUI.houseRoomListIsValid(house)){
+        if (!utilsUI.houseRoomListIsValid(house)) {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
@@ -104,23 +104,22 @@ public class HouseMonitoringUI {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        double currentTemp = updateModel605(room);
-        displayState605(room, currentTemp);
+        updateModelDisplayState605(room);
 
     }
 
-    private double updateModel605(Room room) {
-        return houseMonitoringcontroller.getCurrentRoomTemperature(room);
-    }
-
-    private void displayState605(Room room, double temperature) {
-        if(Double.isNaN(temperature)){
-            System.out.println("The room you selected has no temperature readings.");
-            return;
+    private void updateModelDisplayState605(Room room) {
+        try {
+            double currentTemp = houseMonitoringcontroller.getCurrentRoomTemperature(room);
+            out.println("The current temperature in the room " + houseMonitoringcontroller.getRoomName(room) +
+                    " is " + currentTemp + "°C.");
+        } catch (IllegalArgumentException illegal) {
+            System.out.println(illegal.getMessage());
         }
-        out.println("The current temperature in the room " + houseMonitoringcontroller.getRoomName(room) +
-                " is " + temperature + "°C.");
+
     }
+
+
 
     /**
      * US610 - Get Max Temperature in a room in a specific day - CARINA ALAS
@@ -143,14 +142,12 @@ public class HouseMonitoringUI {
 
     private void updateModel610(Room room, Date date) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        System.out.println("You selected the room " + room.getRoomName() + " and the date " + date + "\n");
         try {
-            double temperature =  ctrl.getDayMaxTemperature(room, date);
+            double temperature = ctrl.getDayMaxTemperature(room, date);
             String message = "The maximum temperature in the room " + ctrl.getRoomName(room) +
                     " on the day " + date + was + temperature + "°C.";
             System.out.println(message);
-        }
-        catch (IllegalArgumentException illegal) {
+        } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
         }
     }
