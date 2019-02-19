@@ -213,7 +213,7 @@ public class EnergyGrid implements Metered {
     }
 
     /**
-     * Creates a string that displays the device type and in which room it is contained.
+     * Creates a string that displays all devices of a given type in a given room.
      *
      * @param r room where we want to see the devices.
      * @param d type of the devices.
