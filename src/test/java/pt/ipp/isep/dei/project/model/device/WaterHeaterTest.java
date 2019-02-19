@@ -277,4 +277,14 @@ public class WaterHeaterTest {
         double result = d.getEnergyConsumption(0);
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void hashCodeDummyTest() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setNominalPower(12.0);
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT,4D);
+        int expectedResult = 1;
+        int actualResult = d1.hashCode();
+        assertEquals(expectedResult, actualResult);
+    }
 }

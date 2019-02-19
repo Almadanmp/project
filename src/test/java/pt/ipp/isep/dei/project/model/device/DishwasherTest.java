@@ -396,4 +396,16 @@ public class DishwasherTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    public void hashCodeDummyTest() {
+        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
+        d1.setName("FridgeTwo");
+        d1.setNominalPower(12.0);
+        d1.setAttributeValue(DishwasherSpec.DW_CAPACITY, 4D);
+        int expectedResult = 1;
+        int actualResult = d1.hashCode();
+        assertEquals(expectedResult, actualResult);
+    }
+
+
 }
