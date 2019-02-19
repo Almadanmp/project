@@ -54,12 +54,11 @@ public class HouseMonitoringController {
      * @param endDate is the date where we want to stop measuring average rainfall (upper limit).
      * @return is the average rainfall of the house, as measured by the closest sensor to the house.
      */
-
     public double getAverageRainfallInterval(House house, Date initialDate, Date endDate) {
         GeographicArea geoArea = house.getMotherArea();
         Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea, rainfall);
         if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
-            return Double.NaN;
+            throw new IllegalArgumentException("Warning: average value not calculated - no readings available.");
         }
         return closestSensor.getReadingList().getAverageReadingsBetweenTwoDates(initialDate, endDate);
     }
@@ -70,7 +69,6 @@ public class HouseMonitoringController {
      * @param day is the date where we want to  measure total rainfall.
      * @return is the total rainfall of the house, as measured by the closest sensor to the house.
      */
-
     public double getTotalRainfallOnGivenDay(House house, Date day) {
         int counter = 0;
         GeographicArea geoArea = house.getMotherArea();

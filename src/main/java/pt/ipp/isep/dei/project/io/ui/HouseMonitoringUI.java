@@ -215,18 +215,15 @@ public class HouseMonitoringUI {
         return inputUtils.getInputYearMonthDay();
     }
 
-    private void updateAndDisplayUS623(House house, Date startDate, Date endDate) {
-        double result623 = houseMonitoringcontroller.getAverageRainfallInterval(house, startDate, endDate);
-        printResultMessageUS623(startDate, endDate, result623);
-    }
-
-    private void printResultMessageUS623(Date initialDate, Date endDate, double result623) {
-        if (Double.isNaN(result623)) {
-            System.out.println("Warning: average value not calculated - no readings available.");
-        } else {
-            System.out.println("The average rainfall between " + initialDate + " and " + endDate + was
-                    + result623 + "%.");
+    private void updateAndDisplayUS623(House house, Date startDate, Date endDate){
+        double result623 = 0;
+        try {
+            result623 = houseMonitoringcontroller.getAverageRainfallInterval(house, startDate, endDate);
+        } catch (IllegalArgumentException e) {
+            e.getMessage();
         }
+        System.out.println("The average rainfall between " + startDate + " and " + endDate + was
+                + result623 + "%.");
     }
 
     private void printOptionMessage() {

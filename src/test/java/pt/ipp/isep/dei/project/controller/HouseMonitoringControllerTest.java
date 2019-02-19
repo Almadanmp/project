@@ -8,6 +8,7 @@ import java.util.*;
 
 import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * House Monitoring - controller Tests
@@ -237,5 +238,15 @@ class HouseMonitoringControllerTest {
 
         assertEquals(expectedResult, actualResult);
 
+    }
+
+    @Test
+    void getAverageRainfallIntervalThrowsException() {
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            controller.getAverageRainfallInterval(validHouse, (new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime()), (new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime()));
+        });
+        //Assert
+        assertEquals("Warning: average value not calculated - no readings available.", exception.getMessage());
     }
 }
