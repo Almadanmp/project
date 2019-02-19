@@ -89,7 +89,7 @@ public class House implements Metered {
         return deviceMeteringPeriod;
     }
 
-    public Local getLocation() {
+    Local getLocation() {
         return location;
     }
 
@@ -229,7 +229,7 @@ public class House implements Metered {
     /**
      * This method builds a String for the GridList in the house.
      *
-     * @return
+     * @return string with energy grid list
      */
     public String buildGridListString() {
         String mStringEnhancer = "---------------\n";
@@ -311,7 +311,9 @@ public class House implements Metered {
                 return r;
             }
         }
-        return new Room(roomDesignation,roomHouseFloor,width,length,height);
+        Room room = new Room(roomDesignation,roomHouseFloor,width,length,height);
+        this.mRoomList.addRoom(room);
+        return room;
     }
 
     /**
@@ -320,7 +322,7 @@ public class House implements Metered {
      *
      * @return true in case a room with the given designation exists in house, false otherwise
      **/
-    public boolean containsRoomByName(String roomDesignation) {
+    boolean containsRoomByName(String roomDesignation) {
         for (Room r : this.mRoomList.getList()) {
             String nameTest = r.getRoomName();
             if (nameTest.equals(roomDesignation)) {
