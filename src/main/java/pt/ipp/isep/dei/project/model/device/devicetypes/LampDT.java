@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 
 public class LampDT implements DeviceType {
 
-    public Device createDeviceType() {
+    public Device createDevice() {
         LampSpec ds = new LampSpec();
         return new Lamp(ds);
     }

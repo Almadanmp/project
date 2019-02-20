@@ -69,7 +69,7 @@ public class ReadingList {
      * This method returns the most recent reading value a Reading List.
      * @return the most recent reading value or NaN when the Reading List is empty
      */
-    public double getMostRecentValue() throws IllegalArgumentException{
+    public double getMostRecentValue() {
         if(this.readings.isEmpty()){
             throw new IllegalArgumentException("There aren't any readings available.");
         }

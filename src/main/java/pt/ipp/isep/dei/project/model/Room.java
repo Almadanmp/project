@@ -226,8 +226,8 @@ public class Room implements Metered {
      * sensors and/or when temperature sensors have no readings
      */
 
-    public double getCurrentRoomTemperature() throws IllegalArgumentException {
-        double currentT = NaN;
+    public double getCurrentRoomTemperature() {
+        double currentT;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.getSensorList().isEmpty()|| !tempSensors.hasReadings()) {
         throw new IllegalArgumentException("There aren't any temperature readings available.");

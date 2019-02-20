@@ -126,7 +126,7 @@ public class RoomConfigurationController {
      * @return - the device
      */
     public Device createDevice(DeviceType deviceType) {
-        return deviceType.createDeviceType();
+        return deviceType.createDevice();
     }
 
     /**

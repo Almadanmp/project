@@ -16,7 +16,7 @@ class DishwasherDTTest {
     @Test
     void createDishwasherType() {
         DishwasherDT dt = new DishwasherDT();
-        Device result = dt.createDeviceType();
+        Device result = dt.createDevice();
         Device expectedResult = new Dishwasher(new DishwasherSpec());
         assertEquals(result, expectedResult);
     }
