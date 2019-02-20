@@ -162,7 +162,7 @@ class EnergyGridSettingsUI {
     }
 
     private void displayRoomList(EnergyGrid energyGrid) {
-        System.out.println(controller.buildRoomsString(energyGrid.getListOfRooms()));
+        System.out.println(controller.buildRoomsString(energyGrid.getRoomList()));
     }
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and

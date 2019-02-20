@@ -67,7 +67,7 @@ class EnergyGridTest {
         deviceList.addDevice(device);
         EnergyGrid energyGrid = new EnergyGrid("grid", 0);
         energyGrid.setRoomList(roomList);
-        String result = energyGrid.getListOfRooms().buildRoomsString();
+        String result = energyGrid.getRoomList().buildRoomsString();
         assertEquals("---------------\n" +
                 "0) Designation: room1 | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n", result);

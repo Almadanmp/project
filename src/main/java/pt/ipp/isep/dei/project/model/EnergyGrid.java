@@ -41,7 +41,7 @@ public class EnergyGrid implements Metered {
      * @return returns a list with all the rooms contained in this energy grid.
      */
 
-    public RoomList getListOfRooms() {
+    public RoomList getRoomList() {
         return roomList;
     }
 
@@ -137,7 +137,7 @@ public class EnergyGrid implements Metered {
      *
      * @return a list of rooms related to the energy grid.
      */
-    public List<Room> getRoomList() {
+    public List<Room> getListOfRooms() {
         return this.roomList.getList();
     }
 
@@ -201,8 +201,8 @@ public class EnergyGrid implements Metered {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
         for (DeviceType d : house.getDeviceTypeList()) {
-            for (int i = 0; i < energyGrid.getListOfRooms().getList().size(); i++) {
-                Room r = energyGrid.getListOfRooms().getList().get(i);
+            for (int i = 0; i < energyGrid.getRoomList().getList().size(); i++) {
+                Room r = energyGrid.getRoomList().getList().get(i);
                 if (r != null) {
                     result.append(buildDeviceListInGridString(r, d.getDeviceType()));
                 }
@@ -243,7 +243,7 @@ public class EnergyGrid implements Metered {
      */
     public double getGridConsumptionInInterval(Date initialDate, Date finalDate) {
         double gridConsumption = 0;
-        for (Room r : this.getRoomList()) {
+        for (Room r : this.getListOfRooms()) {
             gridConsumption += r.getConsumptionInInterval(initialDate, finalDate);
         }
         return gridConsumption;
@@ -251,7 +251,7 @@ public class EnergyGrid implements Metered {
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
-        for (Room r : this.getRoomList()) {
+        for (Room r : this.getListOfRooms()) {
             LogList tempList = r.getLogsInInterval(startDate, endDate);
             result.addLogList(tempList);
         }

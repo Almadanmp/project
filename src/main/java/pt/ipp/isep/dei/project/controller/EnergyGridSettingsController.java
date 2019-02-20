@@ -50,7 +50,7 @@ public class EnergyGridSettingsController {
      * @param maxPower    is the new grid's maxPower.
      */
     public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower) {
-        return programHouse.getEGListObject().createEnergyGrid(designation, maxPower);
+        return programHouse.getGridList().createEnergyGrid(designation, maxPower);
     }
 
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced

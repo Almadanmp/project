@@ -358,7 +358,7 @@ class HouseTest {
         House house = new House("Casa de praia", address, new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         //Act
         house.setEGList(energyGridList);
-        EnergyGridList actualResult = house.getEGListObject();
+        EnergyGridList actualResult = house.getGridList();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -842,5 +842,49 @@ class HouseTest {
         Address actualResult = house.getAddress();
         //Assert
         assertEquals(address1, actualResult);
+    }
+
+    @Test
+    void getRoomList() {
+        //Arrange
+        GeographicArea ga = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
+        Address address1 = new Address("address1", "4434-666", "Porto");
+
+        List<String> deviceTypeString = new ArrayList<>();
+        House house1 = new House("house1", address1, new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+        House house2 = new House("house2", address1, new Local(2, 5, 4), ga, 60, 180, deviceTypeString);
+        House house3 = new House("house3", address1, new Local(3, 5, 4), ga, 60, 180, deviceTypeString);
+
+        RoomList roomList1 = new RoomList(); //EMPTY
+        RoomList roomList2 = new RoomList(); //ONE ROOM
+        RoomList roomList3 = new RoomList(); //TWO ROOMS
+
+        Room room1 = new Room("room1", 2,22,22,4);
+        Room room2 = new Room("room2", 2,22,22,4);
+
+        roomList2.addRoom(room1);
+        roomList3.addRoom(room1);
+        roomList3.addRoom(room2);
+        house1.setRoomList(roomList1);
+        house2.setRoomList(roomList2);
+        house3.setRoomList(roomList3);
+
+        RoomList expectedResult1 = new RoomList();
+        RoomList expectedResult2 = new RoomList();
+        RoomList expectedResult3 = new RoomList();
+
+        expectedResult2.addRoom(room1);
+        expectedResult3.addRoom(room1);
+        expectedResult3.addRoom(room2);
+
+        //Act
+        RoomList actualResult1 = house1.getRoomList();
+        RoomList actualResult2 = house2.getRoomList();
+        RoomList actualResult3 = house3.getRoomList();
+
+        //Assert
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(expectedResult3, actualResult3);
     }
 }

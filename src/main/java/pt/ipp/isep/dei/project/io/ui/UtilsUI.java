@@ -26,7 +26,7 @@ public class UtilsUI {
     }
 
     boolean houseRoomListIsValid(House house) {
-        return house.getListOfRooms() != null && !house.getListOfRooms().isEmpty();
+        return house.getListOfRooms() != null && !house.getRoomList().isEmpty();
     }
 
     boolean roomSensorListIsValid(Room room) {
@@ -34,12 +34,12 @@ public class UtilsUI {
     }
 
     boolean houseDeviceListValid(House house) {
-        return house.getDeviceList() != null && !house.getListOfRooms().isEmpty();
+        return house.getDeviceList() != null && !house.getRoomList().isEmpty();
     }
 
 
     boolean houseGridListIsValid(House house) {
-        return house.getEGListObject() != null && !house.getEGListObject().isEmpty();
+        return house.getGridList() != null && !house.getGridList().isEmpty();
     }
 
     boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
@@ -47,7 +47,7 @@ public class UtilsUI {
     }
 
     boolean gridRoomListIsValid(EnergyGrid energyGrid) {
-        return energyGrid.getListOfRooms() != null && !energyGrid.getListOfRooms().isEmpty();
+        return energyGrid.getRoomList() != null && !energyGrid.getRoomList().isEmpty();
     }
 
     boolean typeAreaListIsValid(TypeAreaList list) {
@@ -67,7 +67,7 @@ public class UtilsUI {
     }
 
     boolean typeSensorListIsValid(TypeSensorList typeSensorList) {
-        return typeSensorList != null && !typeSensorList.getTypeSensorList().isEmpty();
+        return typeSensorList != null && !typeSensorList.isEmpty();
     }
 
     boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {

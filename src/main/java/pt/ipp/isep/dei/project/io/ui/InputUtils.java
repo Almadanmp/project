@@ -67,8 +67,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(grid.buildRoomListString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < grid.getRoomList().size()) {
-                Room result = grid.getRoomList().get(aux);
+            if (aux >= 0 && aux < grid.getListOfRooms().size()) {
+                Room result = grid.getListOfRooms().get(aux);
                 System.out.println("You have chosen the following room: ");
                 System.out.println(result.buildRoomString() + "\n");
                 return result;
@@ -140,8 +140,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing grids on the selected house: ");
             System.out.println(controller.buildGridListString(house));
             int aux = this.getInputAsInt();
-            if (aux >= 0 && aux < house.getEGListObject().getEnergyGridList().size()) {
-                EnergyGrid result = house.getEGListObject().getEnergyGridList().get(aux);
+            if (aux >= 0 && aux < house.getGridList().getEnergyGridList().size()) {
+                EnergyGrid result = house.getGridList().getEnergyGridList().get(aux);
                 System.out.println("You have chosen the following grid:");
                 System.out.println(result.buildGridString() + "\n");
                 return result;

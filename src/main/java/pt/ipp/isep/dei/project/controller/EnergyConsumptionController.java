@@ -154,7 +154,7 @@ public class EnergyConsumptionController {
      */
 
     public List<EnergyGrid> getHouseGridList(House programHouse) {
-        return programHouse.getEGList();
+        return programHouse.getListOfGrids();
     }
 
     /**
