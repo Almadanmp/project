@@ -63,17 +63,15 @@ public class GASettingsController {
      * @param newGeoList geographic area list to add the new geographic area
      * @param newName    input string for geographic area name
      * @param typeArea   input string for type area
-     * @param local   input number for latitude, longitude and altitude
+     * @param local      input number for latitude, longitude and altitude
      * @return success if a new GA is added, false otherwise
      */
     public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, Local local, double length, double width) {
-        GeographicArea geoToAdd = newGeoList.createGA(newName, typeArea, length, width, local.getLatitude(), local.getAltitude(), local.getLongitude());
-
         if (newGeoList.checkIfGAExists(newName, typeArea, local.getLatitude(), local.getAltitude(), local.getLongitude())) {
+            GeographicArea geoToAdd = newGeoList.createGA(newName, typeArea, length, width, local.getLatitude(), local.getAltitude(), local.getLongitude());
             return newGeoList.addGeographicArea(geoToAdd);
         } else {
-            geoToAdd = newGeoList.getGeographicArea(newName, typeArea, local.getLatitude(), local.getAltitude(), local.getLongitude());
-            return newGeoList.addGeographicArea(geoToAdd);
+            return false;
         }
     }
 
