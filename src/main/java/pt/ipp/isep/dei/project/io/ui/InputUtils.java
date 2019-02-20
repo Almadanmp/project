@@ -85,8 +85,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing devices in the selected room: ");
             System.out.println(grid.buildDeviceListString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < grid.getDeviceList().size()) {
-                Device result = grid.getDeviceList().get(aux);
+            if (aux >= 0 && aux < grid.getListOfDevices().size()) {
+                Device result = grid.getListOfDevices().get(aux);
                 System.out.println("You have chosen the following device: ");
                 System.out.println(result.buildDeviceString() + "\n");
                 return result;
@@ -122,8 +122,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing devices in the selected room: ");
             System.out.println(room.buildDeviceListString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < room.getDeviceList().size()) {
-                Device result = room.getDeviceList().get(aux);
+            if (aux >= 0 && aux < room.getListOfDevices().size()) {
+                Device result = room.getListOfDevices().get(aux);
                 System.out.println("You have chosen the following device:");
                 System.out.println(result.buildDeviceString() + "\n");
                 return result;

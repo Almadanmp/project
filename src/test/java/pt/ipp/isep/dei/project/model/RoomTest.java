@@ -572,7 +572,7 @@ class RoomTest {
         room.setDeviceList(dList);
         //Act
         room.addRoomDevicesToDeviceList(d2);
-        List<Device> actualResult = room.getDeviceList();
+        List<Device> actualResult = room.getListOfDevices();
         List<Device> expectedResult = dList.getList();
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -601,7 +601,7 @@ class RoomTest {
         deviceList2.addDevice(device2);
         room.addRoomDevicesToDeviceList(deviceList2);
         //Act
-        List<Device> actualResult = room.getDeviceList();
+        List<Device> actualResult = room.getListOfDevices();
         List<Device> expectedResult = dList.getList();
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -625,7 +625,7 @@ class RoomTest {
         DeviceList deviceList2 = new DeviceList();
         room.addRoomDevicesToDeviceList(dList);
         //Act
-        List<Device> actualResult = room.getDeviceList();
+        List<Device> actualResult = room.getListOfDevices();
         List<Device> expectedResult = deviceList2.getList();
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -651,7 +651,7 @@ class RoomTest {
         room.addDevice(device2);
         room.addRoomDevicesToDeviceList(dList2);
         //Act
-        List<Device> actualResult = room.getDeviceList();
+        List<Device> actualResult = room.getListOfDevices();
         List<Device> expectedResult = dList2.getList();
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -677,7 +677,7 @@ class RoomTest {
         room.addDevice(device2);
         room.addRoomDevicesToDeviceList(dList2);
         //Act
-        List<Device> actualResult = room.getDeviceList();
+        List<Device> actualResult = room.getListOfDevices();
         List<Device> expectedResult = dList2.getList();
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -1065,5 +1065,43 @@ class RoomTest {
         assertEquals(actualResult1, expectedResult1);
         assertEquals(actualResult2, expectedResult2);
         assertEquals(actualResult3, expectedResult3);
+    }
+
+    @Test
+    void getDeviceList() {
+        Room room1 = new Room("room1", 0, 1, 1, 1); //NO DEVICES
+        Room room2 = new Room("room2", 0, 1, 1, 1); //ONE DEVICE
+        Room room3 = new Room("room3", 0, 1, 1, 1); //TWO DEVICES
+
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
+        Device device1 = new WaterHeater(new WaterHeaterSpec());
+        device1.setName("WaterHeaterOne");
+        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        Device device2 = new WaterHeater(new WaterHeaterSpec());
+        device1.setName("WaterHeaterTwo");
+        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+
+        room2.addDevice(device1);
+        room3.addDevice(device1);
+        room3.addDevice(device2);
+
+        DeviceList expectedResult1 = new DeviceList();
+        DeviceList expectedResult2 = new DeviceList();
+        DeviceList expectedResult3 = new DeviceList();
+        expectedResult2.addDevice(device1);
+        expectedResult3.addDevice(device1);
+        expectedResult3.addDevice(device2);
+        //ACT
+        DeviceList actualResult1 = room1.getDeviceList();
+        DeviceList actualResult2 = room2.getDeviceList();
+        DeviceList actualResult3 = room3.getDeviceList();
+        //ASSERT
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(expectedResult3, actualResult3);
     }
 }

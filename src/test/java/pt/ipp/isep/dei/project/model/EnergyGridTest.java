@@ -362,11 +362,11 @@ class EnergyGridTest {
         RoomList rl = new RoomList();
         rl.addRoom(m);
         eg.setRoomList(rl);
-        List<Device> dlist = eg.getDeviceList();
+        List<Device> dlist = eg.getListOfDevices();
         Device d1 = new Fridge(new FridgeSpec());
         dlist.add(d1);
-        List<Device> expectedResult = eg.getDeviceList();
-        List<Device> result = eg.getDeviceList();
+        List<Device> expectedResult = eg.getListOfDevices();
+        List<Device> result = eg.getListOfDevices();
         assertEquals(expectedResult, result);
     }
 

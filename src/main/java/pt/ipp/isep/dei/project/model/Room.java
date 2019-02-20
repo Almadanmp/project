@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static java.lang.Double.NaN;
-
 /**
  * Class that represents a Room of a House.
  */
@@ -166,8 +164,16 @@ public class Room implements Metered {
      *
      * @return
      */
-    public List<Device> getDeviceList() {
+
+    public List<Device> getListOfDevices() {
         return this.deviceList.getList();
+    }
+
+    /** Method that gets the room's device list.
+     * @return room's DeviceList
+     */
+    public DeviceList getDeviceList(){
+        return this.deviceList;
     }
 
     /**
@@ -179,8 +185,8 @@ public class Room implements Metered {
 
     public String buildDeviceListString() {
         StringBuilder result = new StringBuilder("---------------\n");
-        for (int i = 0; i < this.getDeviceList().size(); i++) {
-            Device device = this.getDeviceList().get(i);
+        for (int i = 0; i < this.getListOfDevices().size(); i++) {
+            Device device = this.getListOfDevices().get(i);
             result.append("\n").append(i).append(") device Name: ").append(device.getName());
             result.append(", device Type: ").append(device.getType());
             result.append(", device Nominal Power: ").append(device.getNominalPower());
@@ -198,7 +204,7 @@ public class Room implements Metered {
 
     public double getNominalPower() {
         double result = 0;
-        for (Device d : this.getDeviceList()) {
+        for (Device d : this.getListOfDevices()) {
             result += d.getNominalPower();
         }
         return result;
@@ -215,7 +221,7 @@ public class Room implements Metered {
 
     public double getConsumptionInInterval(Date initialDate, Date finalDate) {
         double result = 0;
-        for (Device d : this.getDeviceList()) {
+        for (Device d : this.getListOfDevices()) {
             result += d.getConsumptionWithinGivenInterval(initialDate, finalDate);
         }
         return result;
@@ -348,7 +354,7 @@ public class Room implements Metered {
      */
     List<Device> getDevicesOfGivenType(String deviceType) {
         List<Device> devicesOfGivenType = new ArrayList<>();
-        for (Device d : getDeviceList()) {
+        for (Device d : getListOfDevices()) {
             if (d.getType().equals(deviceType)) {
                 devicesOfGivenType.add(d);
             }
@@ -374,7 +380,7 @@ public class Room implements Metered {
      */
 
     public void addRoomDevicesToDeviceList(DeviceList list) {
-        for (Device d : this.getDeviceList()) {
+        for (Device d : this.getListOfDevices()) {
             if (!(list.containsDevice(d))) {
                 list.addDevice(d);
             }
@@ -392,7 +398,7 @@ public class Room implements Metered {
         if (list == null) {
             return false;
         }
-        for (Device d : this.getDeviceList()) {
+        for (Device d : this.getListOfDevices()) {
             list.removeDevice(d);
         }
         return true;
@@ -407,7 +413,7 @@ public class Room implements Metered {
      */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
-        for (Device d : this.getDeviceList()) {
+        for (Device d : this.getListOfDevices()) {
             LogList tempList = d.getLogsInInterval(startDate, endDate);
             result.addLogList(tempList);
         }

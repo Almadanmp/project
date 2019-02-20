@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
@@ -147,10 +148,16 @@ public class EnergyGrid implements Metered {
      * @return a list of devices related to the energy grid.
      */
 
-    public List<Device> getDeviceList() {
-        return this.roomList.getDeviceList();
+    public List<Device> getListOfDevices() {
+        return this.roomList.getListOfDevices();
     }
 
+    /** Method gets all devices associated to energy grid
+     * @return energy grid's entire DeviceList
+     */
+    public DeviceList getDeviceList(){
+        return this.roomList.getDeviceList();
+    }
 
     /**
      * Method to remove a room from the energy grid.
@@ -174,7 +181,7 @@ public class EnergyGrid implements Metered {
     public String buildDeviceListString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (Device d : this.getDeviceList()) {
+        for (Device d : this.getListOfDevices()) {
             result.append(counter).append(") ").append(d.buildDeviceString());
             counter++;
         }
@@ -221,9 +228,9 @@ public class EnergyGrid implements Metered {
      */
     String buildDeviceListInGridString(Room r, String d) {
         StringBuilder result = new StringBuilder();
-        for (int x = 0; x < r.getDeviceList().size(); x++) {
-            if (d.equals(r.getDeviceList().get(x).getType())) {
-                Device device = r.getDeviceList().get(x);
+        for (int x = 0; x < r.getListOfDevices().size(); x++) {
+            if (d.equals(r.getListOfDevices().get(x).getType())) {
+                Device device = r.getListOfDevices().get(x);
                 result.append("Device type: ").append(d).append(" | ");
                 result.append("Device name: ").append(device.getName()).append(" | ");
                 result.append("Nominal power: ").append(device.getNominalPower()).append(" | ");

@@ -98,7 +98,7 @@ public class House implements Metered {
     }
 
     public List<Device> getDeviceList() {
-        return this.mRoomList.getDeviceList();
+        return this.mRoomList.getListOfDevices();
     }
 
     public void setLocation(double latitude, double longitude, double altitude) {
