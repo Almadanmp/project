@@ -45,7 +45,7 @@ class EnergyGridListTest {
 
         // Assert
 
-        Assertions.assertTrue(actualResult);
+        Assertions.assertFalse(actualResult);
     }
 
     @Test
@@ -77,6 +77,8 @@ class EnergyGridListTest {
         // Act
 
         boolean actualResult = validGridList.equals(testList);
+
+        // Assert
 
         Assertions.assertFalse(actualResult);
     }
