@@ -162,24 +162,6 @@ public class House implements Metered {
     }
 
     /**
-     * Calculates minimum distance from the house to a list of sensors in a given geographic area..
-     *
-     * @param ga is the given geographic area.
-     * @return is the value of the distance of the house to the closest sensor to it.
-     */
-    double getMinDistanceToSensor(GeographicArea ga) {
-        Sensor firstSensor = ga.getSensorList().getSensors()[0];
-        double distance = calculateDistanceToSensor(firstSensor);
-        for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
-            Sensor sensor = ga.getSensorList().getSensors()[i];
-            if (distance > calculateDistanceToSensor(sensor)) {
-                distance = calculateDistanceToSensor(sensor);
-            }
-        }
-        return distance;
-    }
-
-    /**
      * Calculates minimum distance from the house to a list of sensors of a given type
      * in a given geographic area.
      *
