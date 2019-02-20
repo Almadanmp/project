@@ -25,7 +25,15 @@ public class Room implements Metered {
     private SensorList roomSensorList;
     private DeviceList deviceList;
 
-
+    /**
+     * Room() Constructor receiving 5 parameters and initializing 2 Lists, SensorList and DeviceList.
+     *
+     * @param name       of the room
+     * @param houseFloor of the room
+     * @param width      of the room
+     * @param length     of the room
+     * @param height     of the room
+     */
     public Room(String name, int houseFloor, double width, double length, double height) {
         setRoomName(name);
         setRoomHouseFloor(houseFloor);
@@ -36,59 +44,128 @@ public class Room implements Metered {
         this.deviceList = new DeviceList();
     }
 
+    /**
+     * Method that returns the SensorList of the room.
+     *
+     * @return
+     */
     public SensorList getSensorList() {
         return roomSensorList;
     }
 
+    /**
+     * Room Name Setter.
+     *
+     * @param name
+     */
     private void setRoomName(String name) {
         roomName = name;
     }
 
+    /**
+     * Room House Floor Setter.
+     *
+     * @param houseFloor
+     */
     private void setRoomHouseFloor(int houseFloor) {
         this.houseFloor = houseFloor;
     }
 
-
+    /**
+     * Room Height Setter.
+     *
+     * @param height
+     */
     private void setRoomHeight(double height) {
         roomHeight = height;
     }
 
+    /**
+     * Room Length Setter.
+     *
+     * @param length
+     */
     private void setRoomLength(double length) {
         roomLength = length;
     }
 
+    /**
+     * Room Width Setter.
+     *
+     * @param width
+     */
     private void setRoomWidth(double width) {
         roomWidth = width;
     }
 
+    /**
+     * Room Height Getter.
+     *
+     * @return
+     */
     double getRoomHeight() {
         return roomHeight;
     }
 
+    /**
+     * Room Length Getter.
+     *
+     * @return
+     */
     double getRoomLength() {
         return roomLength;
     }
 
+    /**
+     * Room Width Getter.
+     *
+     * @return
+     */
     double getRoomWidth() {
         return roomWidth;
     }
 
+    /**
+     * Room Sensor List Setter.
+     *
+     * @param sensorList to set to the Room
+     */
     public void setSensorList(SensorList sensorList) {
         roomSensorList = sensorList;
     }
 
+    /**
+     * Room Name Getter.
+     *
+     * @return
+     */
     public String getRoomName() {
         return roomName;
     }
 
+    /**
+     * House Floor Getter.
+     *
+     * @return
+     */
     int getHouseFloor() {
         return houseFloor;
     }
 
+    /**
+     * Room DeviceList Setter.
+     *
+     * @param deviceList
+     */
     public void setDeviceList(DeviceList deviceList) {
         this.deviceList = deviceList;
     }
 
+    /**
+     * Room DeviceList Getter.
+     *
+     * @return
+     */
     public List<Device> getDeviceList() {
         return this.deviceList.getList();
     }
@@ -185,6 +262,12 @@ public class Room implements Metered {
 
     }
 
+    /**
+     * Method that removes a Device from the Room.
+     *
+     * @param device we want to remove.
+     * @return
+     */
     public boolean removeDevice(Device device) {
         if ((deviceList.getList().contains(device))) {
             deviceList.getList().remove(device);
@@ -194,6 +277,12 @@ public class Room implements Metered {
         }
     }
 
+    /**
+     * Method to add a Sensor to the Room.
+     *
+     * @param sensor we want to add.
+     * @return
+     */
     public boolean addSensor(Sensor sensor) {
         if (!(roomSensorList.getSensorList().contains(sensor))) {
             roomSensorList.getSensorList().add(sensor);
@@ -229,16 +318,20 @@ public class Room implements Metered {
     public double getCurrentRoomTemperature() {
         double currentT;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
-        if (tempSensors.getSensorList().isEmpty()|| !tempSensors.hasReadings()) {
-        throw new IllegalArgumentException("There aren't any temperature readings available.");
+        if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {
+            throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
-            ReadingList readingList = tempSensors.getReadings();
-            currentT = readingList.getMostRecentValue();
+        ReadingList readingList = tempSensors.getReadings();
+        currentT = readingList.getMostRecentValue();
 
         return currentT;
     }
 
-
+    /**
+     * String Builder of the Room.
+     *
+     * @return
+     */
     public String buildRoomString() {
         String result;
         result = this.roomName + ", " + this.getHouseFloor() + ", " +
@@ -305,6 +398,13 @@ public class Room implements Metered {
         return true;
     }
 
+    /**
+     * Method that returns a LogList of a given interval of time.
+     *
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
         for (Device d : this.getDeviceList()) {
