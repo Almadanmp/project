@@ -40,7 +40,7 @@ public class LogList {
      *
      * @return List with Logs
      */
-   public  List<Log> getLogListAttribute() {
+    public List<Log> getLogListAttribute() {
         return this.logs;
     }
 
@@ -64,6 +64,7 @@ public class LogList {
 
     /**
      * Method that allows adding a LogList to another one.
+     *
      * @param listToAdd to the LogList
      * @return
      */
@@ -97,6 +98,7 @@ public class LogList {
 
     /**
      * Method that returns LogList in given interval of time.
+     *
      * @param startDate
      * @param endDate
      * @return

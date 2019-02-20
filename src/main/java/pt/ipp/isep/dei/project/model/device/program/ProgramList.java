@@ -11,20 +11,22 @@ public class ProgramList {
     /**
      * ProgramList() Empty Constructor that initializes an ArrayList of Programs.
      */
-    public ProgramList(){
+    public ProgramList() {
         programs = new ArrayList<>();
     }
 
     /**
      * Getter of the ProgramList.
+     *
      * @return
      */
-    public List<Program> getProgramList(){
+    public List<Program> getProgramList() {
         return this.programs;
     }
 
     /**
      * String Builder of the ProgramList.
+     *
      * @return
      */
     public String buildProgramListString() {
@@ -44,6 +46,7 @@ public class ProgramList {
 
     /**
      * Method that adds a Program to the ProgramList.
+     *
      * @param program we want to add
      * @return
      */
@@ -58,6 +61,7 @@ public class ProgramList {
 
     /**
      * Method that removes a Program from the ProgramList.
+     *
      * @param program you want to remove from the ProgramList.
      * @return
      */

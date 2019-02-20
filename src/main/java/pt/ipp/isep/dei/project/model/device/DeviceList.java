@@ -12,20 +12,38 @@ public class DeviceList {
 
     private List<Device> devices;
 
-
+    /**
+     * DeviceList() Empty Constructor that initializes an ArrayList of Devices.
+     */
     public DeviceList() {
         this.devices = new ArrayList<>();
     }
 
-
+    /**
+     * Getter of the DeviceList.
+     *
+     * @return
+     */
     public List<Device> getList() {
         return this.devices;
     }
 
+    /**
+     * Method to check if a DeviceList contains a certain Device.
+     *
+     * @param device that we want to check if it's contained.
+     * @return
+     */
     public boolean containsDevice(Device device) {
-        return devices.contains(device);
+        return this.devices.contains(device);
     }
 
+    /**
+     * Method to add a Device to the DeviceList.
+     *
+     * @param device that we want to add.
+     * @return
+     */
     public boolean addDevice(Device device) {
         if (!devices.contains(device)) {
             devices.add(device);
@@ -34,18 +52,34 @@ public class DeviceList {
         return false;
     }
 
+    /**
+     * Method to remove a Device from the DeviceList.
+     *
+     * @param device that we want to remove.
+     * @return
+     */
     public boolean removeDevice(Device device) {
-        if (this.contains(device)) {
+        if (this.containsDevice(device)) {
             devices.remove(device);
             return true;
         }
         return false;
     }
 
+    /**
+     * Validation for the DeviceList.
+     *
+     * @return
+     */
     boolean checkIfListIsValid() {
         return !devices.isEmpty();
     }
 
+    /**
+     * Method that returns the NominalPower of the DeviceList.
+     *
+     * @return a double that represents the NominalPower of the DeviceList.
+     */
     public double getNominalPower() {
         double result = 0;
         for (Device d : this.getList()) {
@@ -54,10 +88,11 @@ public class DeviceList {
         return result;
     }
 
-    public boolean contains(Device device) {
-        return this.devices.contains(device);
-    }
-
+    /**
+     * String Builder of the DeviceList.
+     *
+     * @return
+     */
     public String buildDevicesString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
@@ -72,7 +107,7 @@ public class DeviceList {
      * Returns the daily estimate consumption of all devices on this list.
      *
      * @param deviceType the device type
-     * @param time represents a day in minutes
+     * @param time       represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
     public double getDailyConsumptionByDeviceType(String deviceType, int time) {
