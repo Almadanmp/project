@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
 
 public class TypeSensorListTest {
 
