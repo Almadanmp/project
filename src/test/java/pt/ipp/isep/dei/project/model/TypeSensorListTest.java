@@ -74,4 +74,29 @@ public class TypeSensorListTest {
         assertEquals(actualResult1,expectedResult1);
         assertEquals(actualResult2,expectedResult2);
     }
+
+    @Test
+    public void isEmpty() {
+        //Arrange
+        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
+        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
+
+        TypeSensorList typeList1 = new TypeSensorList(); //EMPTY LIST
+        TypeSensorList typeList2 = new TypeSensorList(); //ONE TYPE SENSOR
+        TypeSensorList typeList3 = new TypeSensorList(); //TWO TYPE SENSORS
+
+        typeList2.add(typeSensor1);
+        typeList3.add(typeSensor1);
+        typeList3.add(typeSensor2);
+
+        //Act
+        boolean actualResult1 = typeList1.isEmpty();
+        boolean actualResult2 = typeList2.isEmpty();
+        boolean actualResult3 = typeList3.isEmpty();
+
+        //Assert
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+    }
 }
