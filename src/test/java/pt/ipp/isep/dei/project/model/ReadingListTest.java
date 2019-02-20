@@ -1137,6 +1137,31 @@ class ReadingListTest {
     }
 
     @Test
+    void seeIfGetLowestValueFromListWithTwoEqualValues() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 2;
+        double value2 = 0;
+        double value3 = 2;
+        double value4 = -2;
+        double value5 = -2;
+        double expectedResult = -2;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        valuesOfDay.add(value5);
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        valuesOfDay.add(value3);
+        valuesOfDay.add(value4);
+        actualResult = rl1.getLowestValueFromGivenList(valuesOfDay);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
     void seeIfGetLowestValueFromEndOfListOutOfOrder() {
         //Arrange
         List<Double> valuesOfDay = new ArrayList<>();
@@ -1522,6 +1547,31 @@ class ReadingListTest {
         valuesOfDay.add(value2);
         valuesOfDay.add(value3);
         valuesOfDay.add(value4);
+        actualResult = rl1.getHighestValueInList(valuesOfDay);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+
+    @Test
+    void seeIfGetHighestValueHavingTwoEqualValues() {
+        //Arrange
+        List<Double> valuesOfDay = new ArrayList<>();
+        double value1 = 16;
+        double value2 = 15;
+        double value3 = 2;
+        double value4 = 5;
+        double value5 = 16;
+        double expectedResult = 16;
+        double actualResult;
+        ReadingList rl1 = new ReadingList();
+
+        //Act
+        valuesOfDay.add(value1);
+        valuesOfDay.add(value2);
+        valuesOfDay.add(value3);
+        valuesOfDay.add(value4);
+        valuesOfDay.add(value5);
         actualResult = rl1.getHighestValueInList(valuesOfDay);
 
         //Assert
