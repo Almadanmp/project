@@ -69,21 +69,11 @@ public class HouseMonitoringController {
      * @return is the total rainfall of the house, as measured by the closest sensor to the house.
      */
     public double getTotalRainfallOnGivenDay(House house, Date day) {
-        int counter = 0;
-        GeographicArea geoArea = house.getMotherArea();
-        for (Sensor s : geoArea.getSensorList().getSensorList()) {
-            if (rainfall.equals(s.getTypeSensor().getName())) {
-                counter++;
-            }
-        }
-        if (counter >= 1) {
             Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
             if (closestSensor.getReadingList() == null) {
                 return Double.NaN;
             }
             return closestSensor.getReadingList().getTotalValueOfReadingOnGivenDay(day);
-        }
-        return Double.NaN;
     }
 
     /**
