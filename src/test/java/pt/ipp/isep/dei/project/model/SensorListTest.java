@@ -848,4 +848,36 @@ class SensorListTest {
         assertTrue(actualResult4);
         assertTrue(actualResult5);
     }
+
+    @Test
+    void isEmpty() {
+        Date date1 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            date1 = sd.parse("05/10/2018 23:57");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //Arrange
+        SensorList sensorList1 = new SensorList(); //EMPTY LIST
+        SensorList sensorList2 = new SensorList(); //ONE SENSOR
+        SensorList sensorList3 = new SensorList(); //TWO SENSORS
+
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), date1);
+        sensorList2.addSensor(sensor1);
+
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature", "ºC"), date1);
+        sensorList3.addSensor(sensor1);
+        sensorList3.addSensor(sensor2);
+
+        //Act
+        boolean actualResult1 = sensorList1.isEmpty();
+        boolean actualResult2 = sensorList2.isEmpty();
+        boolean actualResult3 = sensorList3.isEmpty();
+
+        //Assert
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+    }
 }

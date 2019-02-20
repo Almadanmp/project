@@ -30,7 +30,7 @@ public class UtilsUI {
     }
 
     boolean roomSensorListIsValid(Room room) {
-        return room.getSensorList() != null && !room.getSensorList().getSensorList().isEmpty();
+        return room.getSensorList() != null && !room.getSensorList().isEmpty();
     }
 
     boolean houseDeviceListValid(House house) {
@@ -71,7 +71,7 @@ public class UtilsUI {
     }
 
     boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
-        return geographicArea.getSensorList() != null && !geographicArea.getSensorList().getSensorList().isEmpty();
+        return geographicArea.getSensorList() != null && !geographicArea.getSensorList().isEmpty();
     }
 
     boolean houseMotherAreaIsValid(House house) {
