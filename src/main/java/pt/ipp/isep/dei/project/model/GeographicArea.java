@@ -254,6 +254,15 @@ public class GeographicArea {
     }
 
     /**
+     * Method checks if geographic area's sensor list is empty.
+     * @return true if SensorList is empty, false otherwise
+     */
+    public boolean isSensorListEmpty() {
+        return areaSensors.isEmpty();
+    }
+
+
+    /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two
      * Geographic Areas cannot have the same Localization, name and TypeArea
      */

@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.model.ReadingList;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 
 import java.util.*;
 
@@ -182,7 +181,7 @@ class DeviceListTest {
     }
 
     @Test
-    void seeIfCheckIfListIsValidWorks() {
+    void seeIfListIsNotEmpty() {
         //Arrange ------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
@@ -202,13 +201,13 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
         deviceL1.addDevice(d1);
         //Act ----------------------------------
-        boolean result = deviceL1.checkIfListIsValid();
+        boolean result = deviceL1.isEmpty();
         //Assert -------------------------------
-        assertTrue(result);
+        assertFalse(result);
     }
 
     @Test
-    void seeIfCheckIfListIsValidWorksForFalse() {
+    void checkIfListIsEmpty() {
         //Arrange ------------------------------
         //Room List
         RoomList roomList1 = new RoomList();
@@ -223,9 +222,9 @@ class DeviceListTest {
         //device List
         DeviceList deviceL1 = new DeviceList();
         //Act ----------------------------------
-        boolean result = deviceL1.checkIfListIsValid();
+        boolean result = deviceL1.isEmpty();
         //Assert -------------------------------
-        assertFalse(result);
+        assertTrue(result);
     }
 
     @Test

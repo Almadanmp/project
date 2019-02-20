@@ -65,13 +65,19 @@ public class ProgramList {
      * @param program you want to remove from the ProgramList.
      * @return true if program was successfully removed, false otherwise.
      */
-    public boolean removeProgram(Program program) {
+    boolean removeProgram(Program program) {
         if (programs.contains(program)) {
             programs.remove(program);
             return true;
         } else {
             return false;
         }
+    }
+
+    /** Method checks if program list is empty.
+     * @return true if list is empty, false otherwise**/
+    public boolean isEmpty() {
+        return this.programs.isEmpty();
     }
 
 

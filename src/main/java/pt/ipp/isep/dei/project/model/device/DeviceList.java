@@ -71,8 +71,8 @@ public class DeviceList {
      *
      * @return true if List is not empty, false otherwise.
      */
-    public boolean checkIfListIsValid() {
-        return !devices.isEmpty();
+    public boolean isEmpty() {
+        return devices.isEmpty();
     }
 
     /**

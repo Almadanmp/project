@@ -16,8 +16,11 @@ public class WaterHeater implements Device, Metered {
     private boolean wHActive;
     private LogList wHLogList;
 
+    static final double DEFAUT_DT = 0.0;
+    private double dT;
 
     public WaterHeater(WaterHeaterSpec waterHeaterSpec) {
+        dT = DEFAUT_DT;
         this.wHDeviceSpecs = waterHeaterSpec;
         this.wHActive = true;
         wHLogList = new LogList();
@@ -74,6 +77,14 @@ public class WaterHeater implements Device, Metered {
     }
 
     /**
+     * Method checks if device LogList is empty
+     * @return true if LogList is empty, false otherwise
+     * */
+    public boolean isLogListEmpty(){
+        return this.wHLogList.isEmpty();
+    }
+
+    /**
      * This method adds a Log to the device LogList, if the Log isn't already in the LogList.
      *
      * @param log - Parameter which will be used to add to the Device LogList.
@@ -122,8 +133,9 @@ public class WaterHeater implements Device, Metered {
     private double dTQuotient() {
         double coldWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Cold Water Temperature");
         double hotWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Hot Water Temperature");
-        double result = hotWaterTemperature - coldWaterTemperature;
-        return result;
+        if (hotWaterTemperature - coldWaterTemperature < 0)
+            return 0.0;
+        return hotWaterTemperature - coldWaterTemperature;
     }
 
     /**
@@ -144,14 +156,14 @@ public class WaterHeater implements Device, Metered {
         double volumeOfWaterToHeat = (double) wHDeviceSpecs.getAttributeValue("Volume Of Water To Heat");
         double performanceRatio = (double) wHDeviceSpecs.getAttributeValue("Performance Ratio");
         double dT = dTQuotient();
-        if (dT < 0.0 ) {
-            dT = 0.0;
-        }
         double volForMinute = volumeOfWaterToHeat / 1440; //calculate v in liters per minute
         double specificHeatOfWater = 1.163 / 1000;
         return specificHeatOfWater * volForMinute * dT * performanceRatio * time;
     }
 
+    public double getDT() {
+        return dT;
+    }
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
