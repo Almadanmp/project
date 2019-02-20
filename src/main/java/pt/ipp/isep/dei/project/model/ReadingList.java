@@ -9,6 +9,8 @@ import static java.lang.Double.NaN;
  */
 
 public class ReadingList {
+
+    static final String listIsNotValid = "List is not valid";
     private List<Reading> readings;
 
     /**
@@ -516,7 +518,7 @@ public class ReadingList {
 
     boolean checkIfListValid(List<Double> values) {
         if (values == null || values.isEmpty()) {
-            throw new IllegalArgumentException("List is not valid");
+            throw new IllegalArgumentException(listIsNotValid);
         }
         return true;
     }
