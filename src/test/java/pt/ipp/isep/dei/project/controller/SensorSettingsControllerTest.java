@@ -17,6 +17,8 @@ import static org.testng.Assert.assertTrue;
 
 class SensorSettingsControllerTest {
 
+    // Common testing artifacts for class.
+
     private SensorSettingsController controller = new SensorSettingsController();
 
     //USER STORY 006 TESTS
