@@ -13,15 +13,28 @@ import java.util.List;
 public class RoomList {
     private List<Room> rooms;
 
-
+    /**
+     * RoomList() empty constructor that initializes an ArrayList of Rooms.
+     */
     public RoomList() {
         this.rooms = new ArrayList<>();
     }
 
+    /**
+     * RoomList Getter.
+     *
+     * @return
+     */
     public List<Room> getList() {
         return this.rooms;
     }
 
+    /**
+     * Method that adds a Room to the RoomList.
+     *
+     * @param room we want to add.
+     * @return
+     */
     public boolean addRoom(Room room) {
         if (!(rooms.contains(room))) {
             rooms.add(room);
@@ -53,6 +66,11 @@ public class RoomList {
         return null;
     }
 
+    /**
+     * Method that returns a List of Devices of the RoomList.
+     *
+     * @return
+     */
     List<Device> getDeviceList() {
         List<Device> result = new ArrayList<>();
         for (Room r : this.getList()) {
@@ -61,7 +79,11 @@ public class RoomList {
         return result;
     }
 
-
+    /**
+     * String Builder of the RoomList.
+     *
+     * @return
+     */
     public String buildRoomsString() {
         StringBuilder result = new StringBuilder("---------------\n");
         if (this.getList().isEmpty()) {
@@ -80,10 +102,22 @@ public class RoomList {
         return result.toString();
     }
 
+    /**
+     * Method that checks if a Room is contained in the RoomList.
+     *
+     * @param room
+     * @return
+     */
     public boolean contains(Room room) {
         return (this.rooms.contains(room));
     }
 
+    /**
+     * Method that removes a Room from the RoomList.
+     *
+     * @param room
+     * @return
+     */
     public boolean removeRoom(Room room) {
         if (this.contains(room)) {
             this.rooms.remove(room);
@@ -96,7 +130,7 @@ public class RoomList {
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms on this list.
      *
      * @param deviceType the device type
-     * @param time represents a day in minutes
+     * @param time       represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
     double getDailyConsumptionByDeviceType(String deviceType, int time) {
@@ -107,8 +141,11 @@ public class RoomList {
         return Math.floor(result * 10) / 10;
     }
 
-    /**This method checks if room list is empty.
-     * @return true if list is empty, false otherwise.**/
+    /**
+     * This method checks if room list is empty.
+     *
+     * @return true if list is empty, false otherwise.
+     **/
     public boolean isEmpty() {
         return this.rooms.isEmpty();
     }
