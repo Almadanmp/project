@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -15,6 +16,15 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class SensorListTest {
+
+    // Common artifacts for testing in this class.
+
+    @BeforeEach
+    void arrangeArtifacts() {
+
+    }
+
+
 
     @Test
     void seeIfAddSensorsWorks_true() {
