@@ -16,11 +16,7 @@ public class WaterHeater implements Device, Metered {
     private boolean wHActive;
     private LogList wHLogList;
 
-    static final double DEFAUT_DT = 0.0;
-    private double dT;
-
     public WaterHeater(WaterHeaterSpec waterHeaterSpec) {
-        dT = DEFAUT_DT;
         this.wHDeviceSpecs = waterHeaterSpec;
         this.wHActive = true;
         wHLogList = new LogList();
@@ -159,10 +155,6 @@ public class WaterHeater implements Device, Metered {
         double volForMinute = volumeOfWaterToHeat / 1440; //calculate v in liters per minute
         double specificHeatOfWater = 1.163 / 1000;
         return specificHeatOfWater * volForMinute * dT * performanceRatio * time;
-    }
-
-    public double getDT() {
-        return dT;
     }
 
     // WRAPPER METHODS TO DEVICE SPECS
