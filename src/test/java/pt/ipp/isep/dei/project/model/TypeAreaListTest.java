@@ -83,6 +83,7 @@ class TypeAreaListTest {
         result = list.buildGATypeWholeListString(list);
         assertEquals(expectedResult, result);
     }
+
     @Test
     void isEmpty() {
         //Arrange
@@ -106,4 +107,118 @@ class TypeAreaListTest {
         assertFalse(actualResult2);
         assertFalse(actualResult3);
     }
+
+    @Test
+    void ensureThatAObjectIsAInstanceOfDifferentLists() {
+        TypeArea type1 = new TypeArea("cidade");
+        TypeArea type2 = new TypeArea("distrito");
+        TypeArea type3 = new TypeArea("aldeia");
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(type1);
+        list.addTypeArea(type2);
+        list.addTypeArea(type3);
+        TypeAreaList list2 = new TypeAreaList();
+        list2.addTypeArea(type1);
+        list2.addTypeArea(type2);
+        list2.addTypeArea(type3);
+
+        boolean actualResult = list.equals(list2);
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void ensureThatAObjectIsAInstanceOfDifferentObjectsWithDifferentContent() {
+        TypeArea type1 = new TypeArea("cidade");
+        TypeArea type2 = new TypeArea("distrito");
+        TypeArea type3 = new TypeArea("aldeia");
+        TypeArea type4 = new TypeArea("país");
+        TypeArea type5 = new TypeArea("vila");
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(type1);
+        list.addTypeArea(type2);
+        list.addTypeArea(type3);
+        TypeAreaList list2 = new TypeAreaList();
+        list2.addTypeArea(type1);
+        list2.addTypeArea(type4);
+        list2.addTypeArea(type5);
+
+        boolean actualResult = list.equals(list2);
+
+        assertFalse( actualResult);
+    }
+
+    @Test
+    void ensureThatAObjectIsAInstanceOfDifferentObjectsWithSameContent() {
+        TypeArea type1 = new TypeArea("cidade");
+        TypeArea type2 = new TypeArea("distrito");
+        TypeArea type3 = new TypeArea("aldeia");
+        TypeArea type4 = new TypeArea("cidade");
+        TypeArea type5 = new TypeArea("distrito");
+        TypeArea type6 = new TypeArea("aldeia");
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(type1);
+        list.addTypeArea(type2);
+        list.addTypeArea(type3);
+        TypeAreaList list2 = new TypeAreaList();
+        list2.addTypeArea(type4);
+        list2.addTypeArea(type5);
+        list2.addTypeArea(type6);
+
+        boolean actualResult = list.equals(list2);
+
+        assertTrue( actualResult);
+    }
+
+    @Test
+    void ensureThatAObjectIsAInstanceOfDifferentListTypes() {
+        TypeArea type1 = new TypeArea("cidade");
+        TypeArea type2 = new TypeArea("distrito");
+        TypeArea type3 = new TypeArea("aldeia");
+        Room room1 = new Room("room1", 1, 12,12,12);
+        Room room2 = new Room("room2", 3, 15,17,12);
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(type1);
+        list.addTypeArea(type2);
+        list.addTypeArea(type3);
+        RoomList list2 = new RoomList();
+        list2.addRoom(room1);
+        list2.addRoom(room2);
+
+        boolean actualResult = list.equals(list2);
+
+        assertFalse( actualResult);
+    }
+
+    @Test
+    void ensureThatAObjectIsAInstanceOfSameList() {
+        TypeArea type1 = new TypeArea("cidade");
+        TypeArea type2 = new TypeArea("distrito");
+        TypeArea type3 = new TypeArea("aldeia");
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(type1);
+        list.addTypeArea(type2);
+        list.addTypeArea(type3);
+
+
+        boolean actualResult = list.equals(list);
+
+        assertTrue( actualResult);
+    }
+
+    @Test
+    void seeHashCodeDummyTest() {
+        TypeArea type1 = new TypeArea("cidade");
+        TypeArea type2 = new TypeArea("distrito");
+        TypeArea type3 = new TypeArea("aldeia");
+        TypeAreaList list = new TypeAreaList();
+        list.addTypeArea(type1);
+        list.addTypeArea(type2);
+        list.addTypeArea(type3);
+
+        int expectedResult = 1;
+        int actualResult = list.hashCode();
+        assertEquals(expectedResult, actualResult);
+    }
+
 }
