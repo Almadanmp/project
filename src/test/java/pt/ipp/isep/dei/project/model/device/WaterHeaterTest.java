@@ -10,20 +10,11 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static pt.ipp.isep.dei.project.model.device.WaterHeater.DEFAUT_DT;
-
 /**
  * WaterHeater device tests class.
  */
 
 public class WaterHeaterTest {
-
-    WaterHeater waterHeater = new WaterHeater(new WaterHeaterSpec());
-
-    @Test
-    public void initialState () {
-        assertEquals(DEFAUT_DT, waterHeater.getDT());
-    }
 
     @Test
     void getTypeTest() {
