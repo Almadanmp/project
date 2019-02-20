@@ -20,10 +20,10 @@ public class Address {
     }
 
     public String getZip() {
-        return zip;
+        return this.zip;
     }
 
     public String getTown() {
-        return town;
+        return this.town;
     }
 }
