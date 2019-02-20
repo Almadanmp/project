@@ -186,15 +186,35 @@ public class WaterHeaterTest {
     }
 
     @Test
-    void addLogToInactive() {
+    void testDeactivateBothConditions() {
+        //Arrange
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        WaterHeater d2 = new WaterHeater(new WaterHeaterSpec());
+        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        //Act
+        d1.deactivate();
+        boolean actualResult1 = d1.deactivate(); //Deactivates a second time to get false return.
+        boolean actualResult2 = d2.deactivate(); //Deactivate once for true return.
+        //Assert
+        assertFalse(actualResult1);
+        assertTrue(actualResult2);
+    }
+
+    @Test
+    void addLogToInactiveTrue() {
+        //Arrange
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
         d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
         Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
+        //Act
         d1.deactivate();
         boolean result = d1.addLog(log);
+        //Assert
         assertFalse(result);
     }
+
 
     @Test
     void addLogTrue() {
@@ -277,6 +297,8 @@ public class WaterHeaterTest {
         double result = d.getEnergyConsumption(0);
         assertEquals(expectedResult, result);
     }
+
+
 
     @Test
     public void hashCodeDummyTest() {
