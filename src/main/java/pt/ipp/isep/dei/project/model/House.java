@@ -3,10 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * House Class. Defines de House
@@ -61,9 +58,13 @@ public class House implements Metered {
     //SETTERS AND GETTERS
 
 
-    public String getHouseId(){return this.id;}
+    public String getHouseId() {
+        return this.id;
+    }
 
-    public void setAddress(Address address){this.address = address;}
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public Address getAddress() {
         return address;
@@ -118,9 +119,13 @@ public class House implements Metered {
     public List<Room> getListOfRooms() {
         return this.mRoomList.getList();
     }
-    /** Method that gives the house room list.
-     * @return house RoomList **/
-    public RoomList getRoomList(){
+
+    /**
+     * Method that gives the house room list.
+     *
+     * @return house RoomList
+     **/
+    public RoomList getRoomList() {
         return this.mRoomList;
     }
 
@@ -174,17 +179,13 @@ public class House implements Metered {
      * @return is the value of the distance of the house to sensor of the given type closest to it.
      */
 
-    public double getMinDistanceToSensorOfGivenType(String type) {
+    double getMinDistanceToSensorOfGivenType(String type) {
         List<Sensor> workingList = this.getMotherArea().getSensorList().getSensorListByType(type);
-        Sensor firstSensor = workingList.get(0);
-        double distance = calculateDistanceToSensor(firstSensor);
-        for (int i = 0; i < workingList.size(); i++) {
-            Sensor sensor = workingList.get(i);
-            if (distance > calculateDistanceToSensor(sensor)) {
-                distance = calculateDistanceToSensor(sensor);
-            }
+        ArrayList<Double> arrayList = new ArrayList<>();
+        for (Sensor sensor : workingList) {
+            arrayList.add(calculateDistanceToSensor(sensor));
         }
-        return distance;
+        return Collections.min(arrayList);
     }
 
     /**
@@ -270,8 +271,9 @@ public class House implements Metered {
 
     /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
+     *
      * @param deviceType the device type
-     * @param time represents a day in minutes
+     * @param time       represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
     public double getDailyConsumptionByDeviceType(String deviceType, int time) {
@@ -291,16 +293,17 @@ public class House implements Metered {
      * This method receives room parameters, checks if room exists in house and
      * returns room with same designation in case it does. In case the room does not
      * exit, a new room will be created and returned.
+     *
      * @return room with characteristics given as parameters
      **/
     public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        for (Room r : this.mRoomList.getList()){
+        for (Room r : this.mRoomList.getList()) {
             String designation = r.getRoomName();
-            if(roomDesignation.equals(designation)){
+            if (roomDesignation.equals(designation)) {
                 return r;
             }
         }
-        Room room = new Room(roomDesignation,roomHouseFloor,width,length,height);
+        Room room = new Room(roomDesignation, roomHouseFloor, width, length, height);
         this.mRoomList.addRoom(room);
         return room;
     }
