@@ -123,7 +123,7 @@ public class WaterHeater implements Device, Metered {
         double coldWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Cold Water Temperature");
         double hotWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Hot Water Temperature");
         double result = hotWaterTemperature - coldWaterTemperature;
-        if (result <= 0) {
+        if (result < 0 || result == 0) {
             result = 0;
         }
         return result;
@@ -148,6 +148,7 @@ public class WaterHeater implements Device, Metered {
         double performanceRatio = (double) wHDeviceSpecs.getAttributeValue("Performance Ratio");
 
         double dT = dTQuotient();
+
         double volForMinute = volumeOfWaterToHeat / 1440; //calculate v in liters per minute
         double specificHeatOfWater = 1.163 / 1000;
         return specificHeatOfWater * volForMinute * dT * performanceRatio * time;
