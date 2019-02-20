@@ -36,7 +36,7 @@ public class RoomConfigurationController {
      * This method receives the chosen device and returns a boolean true if it deactivates the device or false if it doesn't.
      *
      * @param device is the chosen device
-     * @return
+     * @return true if device was deactivated false otherwise
      */
     public boolean deactivateDevice(Device device) {
         return device.deactivate();
@@ -261,7 +261,7 @@ public class RoomConfigurationController {
      * @param device  - device we want to add the programlist to
      * @param program - programlist we want to add to the device
      */
-    public void configureProgramListFromAProgrammableDevice(Device device, ProgramList program) {
+    public void configureDeviceProgramList(Device device, ProgramList program) {
         String programList = "programList";
         device.setAttributeValue(programList, program);
     }

@@ -160,6 +160,12 @@ public class GeographicAreaList {
         return finalList;
     }
 
+    /**This method checks if a geographic area list is empty
+     * @return true if empty, false otherwise**/
+    public boolean isEmpty(){
+        return this.geographicAreas.isEmpty();
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {

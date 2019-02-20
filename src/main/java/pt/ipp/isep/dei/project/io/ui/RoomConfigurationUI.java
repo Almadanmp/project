@@ -164,7 +164,7 @@ class RoomConfigurationUI {
             String message = "Would you like to add another Program? (y/n)";
             controller.addProgramToProgramList(programList, program);
             loopForCreatingProgram(message, programList);
-            controller.configureProgramListFromAProgrammableDevice(device, programList);
+            controller.configureDeviceProgramList(device, programList);
         }
     }
 
@@ -216,7 +216,7 @@ class RoomConfigurationUI {
             }
             Program program = inputUtils.getSelectedProgramFromDevice((Programmable) device);
             configureAProgrammableDevice(program, programList, (Programmable) device);
-            controller.configureProgramListFromAProgrammableDevice(device, programList);
+            controller.configureDeviceProgramList(device, programList);
         }
         displayDeviceUS215(device, room1, deviceName);
     }

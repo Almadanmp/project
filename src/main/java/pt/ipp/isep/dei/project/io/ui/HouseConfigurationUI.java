@@ -67,15 +67,15 @@ class HouseConfigurationUI {
         Scanner scanner = new Scanner(System.in);
 
         // get house address
-        System.out.print("Please, type the street name of the house: ");
+        System.out.print("Please, type the street where the house is located: ");
         String street = scanner.nextLine();
 
         // get zip code
-        System.out.print("Please, type the zip code of the house: ");
+        System.out.print("Please, type the address's zip code: ");
         String zip = scanner.nextLine();
 
         // get town
-        System.out.println("Please, type the town of the house: ");
+        System.out.println("Please, type the town where the house is located: ");
         String town = scanner.nextLine();
 
         this.address = new Address(street, zip, town);
@@ -126,12 +126,12 @@ class HouseConfigurationUI {
      * Method gets input from user to save as the characteristics of a room.
      */
     private void getInputRoomCharacteristics() {
-        Scanner input = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         InputUtils inputUtils = new InputUtils();
 
         //GET ROOM DESIGNATION
-        System.out.println("Please insert the room name: ");
-        this.roomName = input.nextLine();
+        System.out.println("Please insert the room's name: ");
+        this.roomName = scanner.nextLine();
 
         //GET ROOM HOUSE FLOOR
         System.out.println("Please insert your room's house floor: ");
@@ -153,7 +153,7 @@ class HouseConfigurationUI {
      */
     private void displayStateRoom() {
         String yourNewRoom = "The room is called ";
-        String located = ", it will be located on the ";
+        String located = ", it is located on the ";
         String width = " meters of width, ";
         String length = " meters of length and ";
         String height = " meters of height.";
@@ -174,11 +174,11 @@ class HouseConfigurationUI {
     * - MARIA MEIRELES, TERESA VARELA */
     private void runUS108(House house){
         UtilsUI utilsUI = new UtilsUI();
-        if(!utilsUI.houseRoomListIsValid(house)){
+        if (utilsUI.houseRoomListIsValid(house)) {
+            printRoomList(house);
+        } else {
             System.out.println(utilsUI.invalidRoomList);
-            return;
         }
-        printRoomList(house);
     }
 
     private void printRoomList(House house) {

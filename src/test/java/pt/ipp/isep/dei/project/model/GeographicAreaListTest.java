@@ -38,12 +38,11 @@ class GeographicAreaListTest {
         GeographicArea ga1 = new GeographicArea("Porto", t1, 2, 3, l1);
         GeographicArea ga2 = new GeographicArea("Porto", t1, 2, 3, l1);
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        boolean expectedResult = false;
         boolean actualResult;
         //Act
         actualResult = geographicAreaList.addGeographicArea(ga2);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -55,20 +54,16 @@ class GeographicAreaListTest {
         GeographicArea ga1 = new GeographicArea("Porto", t1, 2, 3, l1);
         GeographicArea ga2 = new GeographicArea("Porto", t1, 2, 3, l2);
         GeographicAreaList geographicAreaList = new GeographicAreaList(ga1);
-        boolean expectedResult = true;
         boolean actualResult;
         //Act
         actualResult = geographicAreaList.addGeographicArea(ga2);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
     void seeIfTrueWhenGivenGeoAreaIsFirstInGeographicAreaList() {
         //Arrange
-        boolean expectedResult = true;
-        boolean actualResult;
-
         TypeArea t1 = new TypeArea("Cidade");
         Local l1 = new Local(38, 7, 100);
         String n1 = "Porto";
@@ -90,15 +85,14 @@ class GeographicAreaListTest {
         gaToTest.setId(n1);
 
         //Act
-        actualResult = geographicAreaList.containsGA(gaToTest);
+        boolean actualResult = geographicAreaList.containsGA(gaToTest);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
     void seeIfTrueWhenGivenGeoAreaIsInMiddleOfGeographicAreaList() {
         //Arrange
-        boolean expectedResult = true;
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
@@ -126,13 +120,12 @@ class GeographicAreaListTest {
         //Act
         actualResult = geographicAreaList.containsGA(gaToTest);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
     void seeIfTrueWhenGivenGeoAreaIsInLastOfGeographicAreaList() {
         //Arrange
-        boolean expectedResult = true;
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
@@ -158,13 +151,12 @@ class GeographicAreaListTest {
         //Act
         actualResult = geographicAreaList.containsGA(gaToTest);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
     void seeIfFalseWhenGivenGeoAreaIsNotContainedInGeographicAreaList() {
         //Arrange
-        boolean expectedResult = false;
         boolean actualResult;
 
         TypeArea t1 = new TypeArea("Cidade");
@@ -192,7 +184,7 @@ class GeographicAreaListTest {
         //Act
         actualResult = geographicAreaList.containsGA(gaToTest);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
 
@@ -400,12 +392,11 @@ class GeographicAreaListTest {
         GeographicAreaList geographicAreaList2 = new GeographicAreaList(ga3);
         geographicAreaList2.addGeographicArea(ga4);
 
-        boolean expectedResult = false;
         boolean actualResult;
         //Act
         actualResult = geographicAreaList1.equals(geographicAreaList2);
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -473,9 +464,8 @@ class GeographicAreaListTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         gAL1.addGeographicArea(c);
-        GeographicArea expectedResult = c;
         GeographicArea result = gAL1.getGeographicArea("Porto", t1, 38, 7, 100);
-        assertEquals(expectedResult, result);
+        assertEquals(c, result);
     }
 
     @Test
@@ -500,7 +490,7 @@ class GeographicAreaListTest {
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         gAL1.addGeographicArea(c);
         boolean result = gAL1.checkIfGAExists("Porto", t1, 38, 7, 100);
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test
@@ -511,7 +501,7 @@ class GeographicAreaListTest {
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         gAL1.addGeographicArea(c);
         boolean result = gAL1.checkIfGAExists("Lisboa", t1, 38, 7, 100);
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     @Test
@@ -519,7 +509,35 @@ class GeographicAreaListTest {
         GeographicAreaList gAL1 = new GeographicAreaList();
         TypeArea t1 = new TypeArea("Rua");
         boolean result = gAL1.checkIfGAExists("Lisboa", t1, 38, 7, 100);
-        assertEquals(true, result);
+        assertTrue(result);
     }
+
+    @Test
+    void isEmpty() {
+        //Arrange
+        GeographicAreaList geographicAreaList1 = new GeographicAreaList(); //EMPTY LIST
+        GeographicAreaList geographicAreaList2 = new GeographicAreaList(); //LIST WITH ONE ELEMENT
+        GeographicAreaList geographicAreaList3 = new GeographicAreaList(); //LIST WITH TWO ELEMENTS
+
+        TypeArea t1 = new TypeArea("Rua");
+        Local l1 = new Local(38, 7, 100);
+        GeographicArea geographicArea1 = new GeographicArea("Porto", t1, 2, 3, l1);
+        GeographicArea geographicArea2 = new GeographicArea("Porto", t1, 2, 3, l1);
+
+        geographicAreaList2.addGeographicArea(geographicArea1);
+        geographicAreaList3.addGeographicArea(geographicArea1);
+        geographicAreaList3.addGeographicArea(geographicArea2);
+
+        //Act
+        boolean actualResult1 = geographicAreaList1.isEmpty();
+        boolean actualResult2 = geographicAreaList2.isEmpty();
+        boolean actualResult3 = geographicAreaList3.isEmpty();
+
+        //Assert
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+    }
+
 
 }

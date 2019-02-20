@@ -153,7 +153,7 @@ public class Room implements Metered {
      * in case the room has no readings whatsoever
      * @date day where we want to look for max temperature
      **/
-    public double getMaxTemperatureOnGivenDay(Date day) throws IllegalArgumentException {
+    public double getMaxTemperatureOnGivenDay(Date day) {
         double maxTemp = -1000;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {

@@ -11,8 +11,6 @@ import java.util.GregorianCalendar;
 
 public class SensorSettingsController {
 
-    //SHARED METHODS THROUGH DIFFERENT UIS
-
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
     public String buildSensorTypesString(TypeSensorList typeSensorList) {

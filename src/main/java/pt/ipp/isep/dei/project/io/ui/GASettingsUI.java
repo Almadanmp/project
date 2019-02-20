@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.GASettingsController;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.TypeArea;
-import pt.ipp.isep.dei.project.model.TypeAreaList;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Scanner;
 
@@ -29,7 +26,6 @@ class GASettingsUI {
                     runUS01(programTypeAreaList);
                     activeInput = false;
                     break;
-
                 case 2:
                     runUS02(programTypeAreaList);
                     activeInput = false;
@@ -156,6 +152,7 @@ class GASettingsUI {
         double geoAreaAlt = readInputNumber("Altitude");
         double geoAreaLength = readInputNumber("Length");
         double geoAreaWidth = readInputNumber("Width");
+        Local geoLocal = new Local (geoAreaLat,geoAreaLong,geoAreaAlt);
         String geoAreDescription = null;
         if (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to add a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
@@ -167,7 +164,7 @@ class GASettingsUI {
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
         }
-        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
+        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoLocal, geoAreaLength, geoAreaWidth);
     }
 
     private void displayStateUS03(boolean created) {

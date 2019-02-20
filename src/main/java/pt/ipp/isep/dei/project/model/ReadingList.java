@@ -493,7 +493,7 @@ public class ReadingList {
      * @param dateGiven date given
      * @return get maximum value reading in a given day
      */
-    double getMaximumOfGivenDayValueReadings(Date dateGiven) throws IllegalArgumentException {
+    double getMaximumOfGivenDayValueReadings(Date dateGiven) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(dateGiven);
         cal.set(Calendar.HOUR_OF_DAY, 23);

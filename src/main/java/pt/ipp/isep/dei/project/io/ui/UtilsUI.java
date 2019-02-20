@@ -22,7 +22,7 @@ public class UtilsUI {
     String invalidProgramList = "Invalid Program List - The selected Device does not have any Programs defined.\n" + returningToMainMenu;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
-        return geographicAreaList != null && !geographicAreaList.getGeographicAreaList().isEmpty();
+        return geographicAreaList != null && !geographicAreaList.isEmpty();
     }
 
     boolean houseRoomListIsValid(House house) {
