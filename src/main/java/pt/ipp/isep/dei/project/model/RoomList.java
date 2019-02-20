@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,13 +72,22 @@ public class RoomList {
      *
      * @return
      */
-    List<Device> getDeviceList() {
+    List<Device> getListOfDevices() {
         List<Device> result = new ArrayList<>();
         for (Room r : this.getList()) {
-            result.addAll(r.getDeviceList());
+            result.addAll(r.getListOfDevices());
         }
         return result;
     }
+
+    DeviceList getDeviceList(){
+        DeviceList finalList = new DeviceList();
+        for(Room r : this.rooms){
+            finalList.appendListNoDuplicates(r.getDeviceList());
+        }
+        return finalList;
+    }
+
 
     /**
      * String Builder of the RoomList.

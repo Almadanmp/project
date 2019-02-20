@@ -71,7 +71,7 @@ public class DeviceList {
      *
      * @return
      */
-    boolean checkIfListIsValid() {
+    public boolean checkIfListIsValid() {
         return !devices.isEmpty();
     }
 
@@ -118,6 +118,15 @@ public class DeviceList {
             }
         }
         return result;
+    }
+    /** Adds all devices of a given DeviceList to target list, rejecting duplicates.\
+     * @return DeviceList completed
+     * **/
+    public DeviceList appendListNoDuplicates(DeviceList deviceList){
+        for(Device d : deviceList.getList()){
+            this.addDevice(d);
+        }
+        return this;
     }
 
     @Override

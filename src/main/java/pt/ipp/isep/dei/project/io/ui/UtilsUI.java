@@ -43,7 +43,7 @@ public class UtilsUI {
     }
 
     boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
-        return energyGrid.getDeviceList() != null && !energyGrid.getDeviceList().isEmpty();
+        return energyGrid.getListOfDevices() != null && energyGrid.getDeviceList().checkIfListIsValid();
     }
 
     boolean gridRoomListIsValid(EnergyGrid energyGrid) {
@@ -59,7 +59,7 @@ public class UtilsUI {
     }
 
     boolean roomDeviceListIsValid(Room room) {
-        return room.getDeviceList() != null && !room.getDeviceList().isEmpty();
+        return room.getListOfDevices() != null && !room.getListOfDevices().isEmpty();
     }
 
     boolean deviceLogListIsValid(Device device) {

@@ -44,7 +44,7 @@ class HouseTest {
         List<Device> expectedResult = new ArrayList<>();
         expectedResult.add(device);
         expectedResult.add(device2);
-        List<Device> result = roomList.getDeviceList();
+        List<Device> result = roomList.getListOfDevices();
         assertEquals(expectedResult, result);
     }
 
