@@ -16,7 +16,7 @@ class LampDTTest {
     @Test
     void createLampType() {
         LampDT dt = new LampDT();
-        Device result = dt.createDeviceType();
+        Device result = dt.createDevice();
         Device expectedResult = new Lamp(new LampSpec());
         assertEquals(result, expectedResult);
     }

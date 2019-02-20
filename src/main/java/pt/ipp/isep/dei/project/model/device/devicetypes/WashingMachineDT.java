@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 
 public class WashingMachineDT implements DeviceType {
 
-    public Device createDeviceType() {
+    public Device createDevice() {
         WashingMachineSpec ds = new WashingMachineSpec();
         return new WashingMachine(ds);
     }

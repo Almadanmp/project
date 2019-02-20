@@ -16,7 +16,7 @@ class WaterHeaterDTTest {
     @Test
     void createWaterHeaterType() {
         WaterHeaterDT dt = new WaterHeaterDT();
-        Device result = dt.createDeviceType();
+        Device result = dt.createDevice();
         Device expectedResult = new WaterHeater(new WaterHeaterSpec());
         assertEquals(result, expectedResult);
     }
