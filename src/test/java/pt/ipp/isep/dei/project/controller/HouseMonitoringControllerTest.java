@@ -117,68 +117,78 @@ class HouseMonitoringControllerTest {
     @Test
     void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
         // Arrange
-
         Date intervalStart = new GregorianCalendar(2017, Calendar.DECEMBER, 2).getTime();
         Date intervalEnd = new GregorianCalendar(2017, Calendar.DECEMBER, 20).getTime();
         validHouseArea.setSensorList(validSensorList);
         double expectedResult = 20;
 
         // Act
-
         double actualResult = controller.getAverageRainfallInterval(validHouse, intervalStart, intervalEnd);
 
         // Assert
-
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetAVGDailyRainfallOnGivenPeriodWorksEmptyReadingList() {
         // Arrange
-
         Date intervalStart = new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime();
         Date intervalEnd = new GregorianCalendar(2019, Calendar.NOVEMBER, 13).getTime();
         validHouseArea.setSensorList(validSensorList);
 
         // Act
-
         double actualResult = controller.getAverageRainfallInterval(validHouse, intervalStart, intervalEnd);
 
         // Assert
-
         assertEquals(NaN, actualResult);
+    }
+
+    @Test
+    void getAverageRainfallIntervalThrowsExceptionReadingListEmpty() {
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            controller.getAverageRainfallInterval(validHouse, (new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime()), (new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime()));
+        });
+        //Assert
+        assertEquals("Warning: average value not calculated - no readings available.", exception.getMessage());
+    }
+
+    @Test
+    void getAverageRainfallIntervalThrowsExceptionReadingListNull() {
+        //Arrange
+        validSensorList = null;
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            controller.getAverageRainfallInterval(validHouse, (new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime()), (new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime()));
+        });
+        //Assert
+        assertEquals("Warning: average value not calculated - no readings available.", exception.getMessage());
     }
 
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDay() {
         // Arrange
-
         Date day = new GregorianCalendar(2017, Calendar.DECEMBER, 3).getTime();
         validHouseArea.setSensorList(validSensorList);
         double expectedResult = 40;
 
         // Act
-
         double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, day);
 
         // Assert
-
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDayNoRainfall() {
         // Arrange
-
         Date day = new GregorianCalendar(2018, Calendar.DECEMBER, 3).getTime();
         validHouseArea.setSensorList(validSensorList);
 
         // Act
-
         double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, day);
 
         // Assert
-
         assertEquals(NaN, actualResult);
     }
 
@@ -238,15 +248,5 @@ class HouseMonitoringControllerTest {
 
         assertEquals(expectedResult, actualResult);
 
-    }
-
-    @Test
-    void getAverageRainfallIntervalThrowsException() {
-        //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            controller.getAverageRainfallInterval(validHouse, (new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime()), (new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime()));
-        });
-        //Assert
-        assertEquals("Warning: average value not calculated - no readings available.", exception.getMessage());
     }
 }
