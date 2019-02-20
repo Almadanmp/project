@@ -39,7 +39,7 @@ class EnergyConsumptionControllerTest {
     private Date validDate1; // Date 09/08/2018
     private Date validDate2; // Date 11/02/2014
     private Log validLog1;
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
 
     @BeforeEach
@@ -788,7 +788,7 @@ class EnergyConsumptionControllerTest {
     void seeIfGetGridConsumptionInIntervalWorks() {
 
         //Arrange
-        validGrid.addRoomToAnEnergyGrid(validRoom1);
+        validGrid.addRoom(validRoom1);
         double expectedResult = 56.0;
 
         //Act
@@ -806,7 +806,7 @@ class EnergyConsumptionControllerTest {
     void seeIfGetGridLogsInInterval() {
 
         //Arrange
-        validGrid.addRoomToAnEnergyGrid(validRoom1);
+        validGrid.addRoom(validRoom1);
         LogList expectedResult = new LogList();
         expectedResult.addLog(validLog1);
 

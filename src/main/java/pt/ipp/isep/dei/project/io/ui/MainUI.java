@@ -337,8 +337,8 @@ public class MainUI {
 
 
         EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
-        energyGrid1.addRoomToAnEnergyGrid(room6);
-        energyGrid1.addRoomToAnEnergyGrid(room7);
+        energyGrid1.addRoom(room6);
+        energyGrid1.addRoom(room7);
 
         EnergyGridList energyGridList1 = new EnergyGridList();
         energyGridList1.addGrid(energyGrid1);
@@ -746,9 +746,9 @@ public class MainUI {
         houseSP2.addRoomToRoomList(b107SP2);
         houseSP2.addRoomToRoomList(b109SP2);
         houseSP2.addRoomToRoomList(roomB106SP2);
-        mainGridSP2.addRoomToAnEnergyGrid(roomB106SP2);
-        mainGridSP2.addRoomToAnEnergyGrid(b107SP2);
-        mainGridSP2.addRoomToAnEnergyGrid(b109SP2);
+        mainGridSP2.addRoom(roomB106SP2);
+        mainGridSP2.addRoom(b107SP2);
+        mainGridSP2.addRoom(b109SP2);
 
         // House - With RoomList Different From EnergyGrid (In order to check attach and detach from an energy grid)
         Room room1 = new Room("room1", 1, 33, 13, 23);
@@ -766,7 +766,7 @@ public class MainUI {
         EnergyGrid energyGrid = new EnergyGrid(mainGridString, 500);
         hhhhh.addGrid(energyGrid);
         Room room10 = new Room("Quarto", 3, 10, 10, 10);
-        energyGrid.addRoomToAnEnergyGrid(room10);
+        energyGrid.addRoom(room10);
         Device d1 = new WaterHeater(new WaterHeaterSpec());
         room10.addDevice(d1);
         Log log1 = new Log(200, new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 10, 6, 0).getTime());
@@ -860,8 +860,8 @@ public class MainUI {
  House house4 = new House("houseRoomDifEG", "Street", "4230", msPorto, new Local(23, 23, 21), geographicArea4, roomList4);
 
  EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 1233);
- energyGrid1.addRoomToAnEnergyGrid(room6);
- energyGrid1.addRoomToAnEnergyGrid(room7);
+ energyGrid1.addRoom(room6);
+ energyGrid1.addRoom(room7);
 
  EnergyGridList energyGridList1 = new EnergyGridList();
  energyGridList1.addGrid(energyGrid1);

@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -80,7 +79,7 @@ public class EnergyGrid implements Metered {
      *
      * @param mListPowerSources List of power sources.
      */
-    void setListPowerSources(PowerSourceList mListPowerSources) {
+    void setPowerSourceList(PowerSourceList mListPowerSources) {
         this.listPowerSources = mListPowerSources;
     }
 
@@ -120,7 +119,7 @@ public class EnergyGrid implements Metered {
      * @param room Room to be added to the list of rooms in the energy grid.
      * @return returns true if the room is actually added to the energy grid.
      */
-    public boolean addRoomToAnEnergyGrid(Room room) {
+    public boolean addRoom(Room room) {
         return this.roomList.addRoom(room);
     }
 
@@ -204,14 +203,14 @@ public class EnergyGrid implements Metered {
      * @param energyGrid energy grid that we want to see which devices will be printed.
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
-    public String buildListOfDeviceByTypeString(EnergyGrid energyGrid, House house) {
+    public String buildDeviceListWithTypeString(EnergyGrid energyGrid, House house) {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
         for (DeviceType d : house.getDeviceTypeList()) {
             for (int i = 0; i < energyGrid.getRoomList().getList().size(); i++) {
                 Room r = energyGrid.getRoomList().getList().get(i);
                 if (r != null) {
-                    result.append(buildDeviceListInGridString(r, d.getDeviceType()));
+                    result.append(buildDevicesStringByType(r, d.getDeviceType()));
                 }
             }
         }
@@ -222,19 +221,19 @@ public class EnergyGrid implements Metered {
     /**
      * Creates a string that displays all devices of a given type in a given room.
      *
-     * @param r room where we want to see the devices.
-     * @param d type of the devices.
+     * @param room room where we want to see the devices.
+     * @param type type of the devices.
      * @return a string that displays the device type and in which room it is contained.
      */
-    String buildDeviceListInGridString(Room r, String d) {
+    String buildDevicesStringByType(Room room, String type) {
         StringBuilder result = new StringBuilder();
-        for (int x = 0; x < r.getListOfDevices().size(); x++) {
-            if (d.equals(r.getListOfDevices().get(x).getType())) {
-                Device device = r.getListOfDevices().get(x);
-                result.append("Device type: ").append(d).append(" | ");
+        for (int x = 0; x < room.getListOfDevices().size(); x++) {
+            if (type.equals(room.getListOfDevices().get(x).getType())) {
+                Device device = room.getListOfDevices().get(x);
+                result.append("Device type: ").append(type).append(" | ");
                 result.append("Device name: ").append(device.getName()).append(" | ");
                 result.append("Nominal power: ").append(device.getNominalPower()).append(" | ");
-                result.append("Room: ").append(r.getRoomName()).append(" | \n");
+                result.append("Room: ").append(room.getRoomName()).append(" | \n");
             }
         }
         return result.toString();

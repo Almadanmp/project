@@ -136,7 +136,7 @@ public class UtilsUITest {
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
-        energyGrid1.addRoomToAnEnergyGrid(room1);
+        energyGrid1.addRoom(room1);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.gridRoomListIsValid(energyGrid1);

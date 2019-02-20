@@ -84,7 +84,7 @@ public class EnergyGridSettingsController {
      */
 
     public boolean addRoomToGrid(EnergyGrid grid, Room room) {
-        return grid.addRoomToAnEnergyGrid(room);
+        return grid.addRoom(room);
     }
 
     /*USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
@@ -113,6 +113,6 @@ public class EnergyGridSettingsController {
      */
 
     public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house) {
-        return energyGrid.buildListOfDeviceByTypeString(energyGrid, house);
+        return energyGrid.buildDeviceListWithTypeString(energyGrid, house);
     }
 }

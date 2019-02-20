@@ -90,7 +90,7 @@ class EnergyGridSettingsControllerTest {
         //Arrange
 
         Room room = new Room("Quarto", 1, 20, 2, 2);
-        validGrid.addRoomToAnEnergyGrid(room);
+        validGrid.addRoom(room);
 
         //Act
 
