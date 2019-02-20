@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -18,152 +19,103 @@ class SensorTest {
 
     // Common artifacts for testing in this class.
     public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private SimpleDateFormat validSdf1; // SimpleDateFormat dd/MM/yyyy
+    private SimpleDateFormat validSdf2; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
+    private Date validDate1; // Date 09/08/2018
+    private Date validDate2; // Date 11/02/2014
+    private TypeSensor validTypeSensor1; // Sensor Type temperature with unit Celcius;
+    private String validName1 = "Sensor XXV5"; // Sensor name "Sensor XXV5"
+    private Local validLocal1; // Localization with Latitude:38, Longitude:7, Altitude: 5
+    private TypeArea validTypeArea1; // Area of Type 'Country'
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validTypeArea1 = new TypeArea("Country");
+        validLocal1 = new Local(38,7,5);
+        validTypeSensor1 = new TypeSensor("Temperature", "Celsius");
+        validSdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate2 = validSdf1.parse("11/02/2014");
+            validDate1 = validSdf1.parse("09/08/2018");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+    }
 
 
     @Test
-    void seeIfFirstConstructorSetsTypeArea() {
+    void seeIfConstructorSetsTypeArea() {
         //Arrange
-        String name = "Chuva";
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Local l1 = new Local(38, 7, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
         TypeSensor actualResult;
-        Sensor c = new Sensor(name, t1, l1, d1);
+        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
+
         //Act
         actualResult = c.getTypeSensor();
 
         //Assert
-        assertEquals(t1, actualResult);
+        assertEquals(validTypeSensor1, actualResult);
     }
 
     @Test
-    void seeIfFirstConstructorSetsDate() {
+    void seeIfConstructorSetsDate() {
         //Arrange
-        String name = "Chuva";
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Local l1 = new Local(38, 7, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
         Date actualResult;
-        Sensor c = new Sensor(name, t1, l1, d1);
+        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
+
         //Act
         actualResult = c.getDateStartedFunctioning();
 
         //Assert
-        assertEquals(d1, actualResult);
+        assertEquals(validDate1, actualResult);
     }
 
     @Test
     void seeIfSecondConstructorSetsTypeArea() {
         //Arrange
-        String name = "Chuva";
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Local l1 = new Local(38, 7, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
         ReadingList rl1 = new ReadingList();
-        TypeSensor actualResult;
-        Sensor c = new Sensor(name, t1, l1, d1);
+        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
         c.setReadingList(rl1);
+
         //Act
-        actualResult = c.getTypeSensor();
+        TypeSensor actualResult = c.getTypeSensor();
 
         //Assert
-        assertEquals(t1, actualResult);
+        assertEquals(validTypeSensor1, actualResult);
     }
 
     @Test
     void seeIfSecondConstructorSetsDate() {
-        String name = "Chuva";
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Local l1 = new Local(38, 7, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
+        //Arrange
         ReadingList rl1 = new ReadingList();
-        Date actualResult;
-        Sensor c = new Sensor(name, t1, l1, d1);
+        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
         c.setReadingList(rl1);
         //Act
-        actualResult = c.getDateStartedFunctioning();
+        Date actualResult = c.getDateStartedFunctioning();
 
         //Assert
-        assertEquals(d1, actualResult);
+        assertEquals(validDate1, actualResult);
     }
 
     @Test
     void seeIfSecondConstructorSetsLocal() {
-        String name = "Chuva";
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Local l1 = new Local(38, 7, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
+        //Arrange
         ReadingList rl1 = new ReadingList();
-        Local actualResult;
-        Sensor c = new Sensor(name, t1, l1, d1);
+        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
         c.setReadingList(rl1);
         //Act
-        actualResult = c.getLocal();
+        Local actualResult = c.getLocal();
 
         //Assert
-        assertEquals(l1, actualResult);
+        assertEquals(validLocal1, actualResult);
     }
 
     @Test
     void seeIfSetGetNameWorks() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        c.setName("Temperatura");
-        String expectedResult = "Temperatura";
-        String actualResult;
-
-        //Act
-        actualResult = c.getName();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-
-    @Test
-    void seeIfSetGetNameWorksSecondName() {
-        //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        c.setName("Temperatura");
-        c.setName("Chuva");
-        String expectedResult = "Chuva";
+        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        c.setName("XXB6");
+        String expectedResult = "XXB6";
         String actualResult;
 
         //Act
@@ -174,25 +126,20 @@ class SensorTest {
     }
 
     @Test
-    void seeIfSetGetNameWorksNoSet() {
+    void seeIfSetGetNameWorksWithoutSet() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        String expectedResult = "Vento";
-        String actualResult;
-
+        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
         //Act
-        actualResult = c.getName();
+        String actualResult = c.getName();
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(validName1, actualResult);
     }
 
     @Test
-    void seeIfSetNameWorksNullAndThrowsStringMessage() {
+    void seeIfNullSensorNameThrowsStringMessage() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
+        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1,validDate1);
 
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -204,10 +151,9 @@ class SensorTest {
     }
 
     @Test
-    void seeIfSetNameWorksEmptyAndThrowsStringException() {
+    void seeIfEmptySensorNameThrowsException() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
+        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
 
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -222,8 +168,7 @@ class SensorTest {
     @Test
     void seeIfSetGetLocalWorks() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
+        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
         Local testLocal = new Local(34, 2, 110);
         Local expectedResult = new Local(34, 2, 110);
         Local actualResult;
@@ -237,29 +182,9 @@ class SensorTest {
     }
 
     @Test
-    void seeIfSetGetLocalWorksSecondLocal() {
+    void seeIfSetGetLocalWorksWithoutSet() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        Local testLocal1 = new Local(34, 2, 110);
-        Local testLocal2 = new Local(30, 20, 110);
-        Local expectedResult = new Local(30, 20, 110);
-        Local actualResult;
-
-        //Act
-        c.setLocal(testLocal1);
-        c.setLocal(testLocal2);
-        actualResult = c.getLocal();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfSetGetLocalWorksNoSet() {
-        //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
+        Sensor c = new Sensor(validName1,validTypeSensor1, new Local(12, 31, 21),validDate1);
         Local expectedResult = new Local(12, 31, 21);
         Local actualResult;
 
@@ -273,14 +198,12 @@ class SensorTest {
     @Test
     void seeIfGetSetTypeSensorWorks() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        TypeSensor testSensor = new TypeSensor("Atmosphere", "km/h");
-        TypeSensor expectedResult = new TypeSensor("Atmosphere", "km/h");
+        Sensor c = new Sensor(validName1, new TypeSensor("Wind Pressure", "km/h"),validLocal1,validDate1);
+        TypeSensor expectedResult = validTypeSensor1;
         TypeSensor actualResult;
 
         //Act
-        c.setTypeSensor(testSensor);
+        c.setTypeSensor(validTypeSensor1);
         actualResult = c.getTypeSensor();
 
         //Assert
@@ -290,29 +213,12 @@ class SensorTest {
     @Test
     void seeIfGetSetDateStartedFunctioningWorks() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        Date myCalendar = new Date();
-        SimpleDateFormat sd2 = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            myCalendar = sd2.parse("11/02/2014");
-        }
-        catch (ParseException c2){
-            c2.printStackTrace();
-        }
-        Date expectedResult = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            expectedResult = sd.parse("11/02/2014");
-        }
-        catch (ParseException p){
-            p.printStackTrace();
-        }
-        Date actualResult;
+        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        Date expectedResult = validDate2;
 
         //Act
-        c.setDateStartedFunctioning(myCalendar);
-        actualResult = c.getDateStartedFunctioning();
+        c.setDateStartedFunctioning(validDate2);
+        Date actualResult = c.getDateStartedFunctioning();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -321,38 +227,27 @@ class SensorTest {
     @Test
     void seeIfSeTAndGetReadingList() {
         //Arrange
-        Sensor c = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        ReadingList rl1 = new ReadingList();
-        Date d1 = new Date();
-        SimpleDateFormat sd2 = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd2.parse("25/11/118");
-        }
-        catch (ParseException c2){
-            c2.printStackTrace();
-        }
-        Reading reading1 = new Reading(15,d1);
-        rl1.addReading(reading1);
+        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        ReadingList rList1 = new ReadingList();
+        Reading reading1 = new Reading(15,validDate2);
+        rList1.addReading(reading1);
 
         //Act
-        c.setReadingList(rl1);
+        c.setReadingList(rList1);
         ReadingList result = c.getReadingList();
 
         //Assert
-        assertEquals(rl1, result);
+        assertEquals(rList1, result);
     }
 
     @Test
     void seeIfEqualsWorksNotAnInstanceFalse() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
+        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
         Local l1 = new Local(21, 23, 1);
-        boolean actualResult;
 
         //Act
-        actualResult = s1.equals(l1);
+        boolean actualResult = s1.equals(l1);
 
         //Assert
         assertFalse(actualResult);
@@ -361,15 +256,12 @@ class SensorTest {
     @Test
     void seeIfEqualsWorksFalseDifferentSensor() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Chuva", "l/m2"),
-                new Local(10, 30, 20), new Date());
-        boolean expectedResult = false;
-        boolean actualResult;
+        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Temperature Sensor XX56",validTypeSensor1,validLocal1,validDate1);
 
         //Act
-        actualResult = s1.equals(s2);
+        boolean actualResult = s1.equals(s2);
+        boolean expectedResult = false;
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -378,10 +270,8 @@ class SensorTest {
     @Test
     void seeIfEqualsWorksFalseDifferentName() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(12, 31, 21), new Date());
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate1);
         boolean expectedResult = false;
         boolean actualResult;
 
@@ -396,13 +286,12 @@ class SensorTest {
     @Test
     void seeIfEqualsWorksTrueSameSensor() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        boolean actualResult = s1.equals(s2);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate2);
+        Sensor s2 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate2);
         boolean expectedResult = true;
 
+        //Act
+        boolean actualResult = s1.equals(s2);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -411,11 +300,12 @@ class SensorTest {
     @Test
     void seeIfEqualsWorksTrueSameName() {
         //Arrange
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
-        Sensor s2 = new Sensor("Vento", new TypeSensor("Chuva", "km/h"),
-                new Local(10, 30, 20), new Date());
+        Sensor s1 = new Sensor(validName1, new TypeSensor("Atmosphere", "km/h"),validLocal1,validDate2);
+        Sensor s2 = new Sensor(validName1, new TypeSensor("Rain", "mm"),validLocal1,validDate2);
         boolean expectedResult = true;
+
+        //Act
+
         boolean actualResult = s1.equals(s2);
 
         //Assert
@@ -424,32 +314,40 @@ class SensorTest {
 
     @Test
     void hashCodeDummyTest() {
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), new Date());
+        //Arrange
+        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
         int expectedResult = 1;
+
+        //Act
         int actualResult = s1.hashCode();
+
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
 
     @Test
     void seeIfcalculateDistanceToSensorWorks() {
+        //Arrange
         Local l1 = new Local(23, 46, 5);
         Local l2 = new Local(25, 47, 5);
-        TypeSensor t1 = new TypeSensor("Termometro", "Celsius");
-        TypeSensor t2 = new TypeSensor("Lololometro", "looool");
-        Sensor s1 = new Sensor("Sensor1", t1, l1, new Date());
-        Sensor s2 = new Sensor("Sensor2", t2, l2, new Date());
+        Sensor s1 = new Sensor("Sensor1",validTypeSensor1, l1,validDate1);
+        Sensor s2 = new Sensor("Sensor2",validTypeSensor1, l2,validDate1);
+        double expectedResult = 244;
+
+        //Act
         double result = s1.calculateDistanceToSensor(s2);
-        double expectedresult = 244;
-        assertEquals(expectedresult, result, 1);
+
+        //Assert
+        assertEquals(expectedResult, result, 1);
     }
 
     @Test
     void seeGetMeanOfMonthThroughSensor() {
+        //Arrange
         ReadingList rList = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(15, 23, 5), new Date());
-        s1.setReadingList(rList);
+        Sensor sensor1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate2);
+        sensor1.setReadingList(rList);
         Date d1 = new Date();
         Date d2 = new Date();
         Date d3 = new Date();
@@ -460,20 +358,18 @@ class SensorTest {
         Date d8 = new Date();
         Date d9 = new Date();
         Date dateToTest = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
-            d1 = s.parse("31/09/2018 23:59:59");
-            d2 = s.parse("01/10/2018 00:00:00");
-            d3 = s.parse("23/10/2018 23:26:21");
-            d4 = s.parse("27/10/2018 08:21:22");
-            d5 = s.parse("23/10/2018 18:14:03");
-            d6 = s.parse("23/10/2018 12:14:23");
-            d7 = s.parse("28/10/2018 12:12:12");
-            d8 = s.parse("30/10/2018 23:59:59");
-            d9 = s.parse("01/11/2018 00:00:00");
-            dateToTest = s.parse("07/10/2018 00:00:00");
-        }
-        catch (ParseException c){
+            d1 = validSdf2.parse("31/09/2018 23:59:59");
+            d2 = validSdf2.parse("01/10/2018 00:00:00");
+            d3 = validSdf2.parse("23/10/2018 23:26:21");
+            d4 = validSdf2.parse("27/10/2018 08:21:22");
+            d5 = validSdf2.parse("23/10/2018 18:14:03");
+            d6 = validSdf2.parse("23/10/2018 12:14:23");
+            d7 = validSdf2.parse("28/10/2018 12:12:12");
+            d8 = validSdf2.parse("30/10/2018 23:59:59");
+            d9 = validSdf2.parse("01/11/2018 00:00:00");
+            dateToTest = validSdf2.parse("07/10/2018 00:00:00");
+        } catch (ParseException c) {
             c.printStackTrace();
         }
         Reading r0 = new Reading(23, d1);
@@ -496,29 +392,21 @@ class SensorTest {
         rList.addReading(r8);
 
         double expectedResult = 23.71;
-        double result = s1.calculateMonthMeanOnSensor(s1, dateToTest);
+
+        //Act
+        double result = sensor1.calculateMonthMeanOnSensor(sensor1, dateToTest);
+
+        //Assert
         assertEquals(expectedResult, result, 0.1);
     }
 
-    //TESTS for sensorIsContainedInArea
-    //Testing latS, longS, latTopVert and longTopVert
     @Test
     void seeIfSensorIsContainedInArea() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(20, 20, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, loc1);
+        Local loc2 = new Local(20, 20, 5);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc2,validDate1);
 
         //Act
         a1.setWidth(20);
@@ -532,20 +420,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsContainedOnTheEdge() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(10, 30, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Local loc1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, loc1);
+        Local loc2 = new Local(10, 30, 5);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1,loc2,validDate1);
 
         //Act
         a1.setWidth(20);
@@ -559,20 +437,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsContainedOnUpperRightVertex() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(30, 30, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Local loc1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, loc1);
+        Local loc2 = new Local(30, 30, 5);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc2,validDate1);
 
         //Act
         a1.setWidth(20);
@@ -586,20 +454,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsContainedOnUpperLeftVertex() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 30, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(21);
@@ -613,20 +471,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsContainedOnBottomLeftVertex() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 10, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(25);
@@ -640,20 +488,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsContainedOnBottomRightVertex() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(30, 10, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor("XV56-LD1",validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(23);
@@ -667,20 +505,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLatitude() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(35, 20, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor("XV56-LD1",validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(21);
@@ -692,49 +520,12 @@ class SensorTest {
     }
 
     @Test
-    void seeIfSensorIsNotContainedInAreaWrongLatitude2() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(-35, 20, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
-
-        //Act
-        a1.setLength(20);
-        a1.setWidth(25);
-        boolean result = s1.isSensorContainedInArea(a1);
-
-        //Assert
-        assertFalse(result);
-    }
-
-    @Test
     void seeIfSensorIsNotContainedInAreaWrongLongitude() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(100, 100, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(10);
@@ -746,49 +537,12 @@ class SensorTest {
     }
 
     @Test
-    void seeIfSensorIsNotContainedInAreaWrongLongitude2() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(20, -35, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
-
-        //Act
-        a1.setWidth(100);
-        a1.setLength(100);
-        boolean result = s1.isSensorContainedInArea(a1);
-
-        //Assert
-        assertFalse(result);
-    }
-
-    @Test
     void seeIfSensorIsContainedInAreaNegativeCoords() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(-5, -5, -5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(50);
@@ -799,25 +553,13 @@ class SensorTest {
         assertTrue(result);
     }
 
-    //Testing latLongVert and longBotVert
-    //Estes testes são o contrário dos acima, daí o nome com a posição estará invertido
     @Test
     void seeIfSensorIsContainedOnTheEdge2() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(0, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 30, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(20);
@@ -831,20 +573,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsContainedOnUpperRightVertex2() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(40, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(30, 30, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(20);
@@ -858,20 +590,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsContainedOnUpperLeftVertex2() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(0, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 30, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(21);
@@ -885,20 +607,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsContainedOnBottomLeftVertex2() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(0, 0, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 10, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(25);
@@ -912,20 +624,10 @@ class SensorTest {
     @Test
     void seeIfSensorIsContainedOnBottomRightVertex2() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(40, 0, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(30, 10, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(23);
@@ -937,130 +639,12 @@ class SensorTest {
     }
 
     @Test
-    void seeIfSensorIsNotContainedInAreaWrongLatitude3() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(50, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(35, 20, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
-
-        //Act
-        a1.setWidth(21);
-        a1.setLength(32);
-        boolean result = s1.isSensorContainedInArea(a1);
-
-        //Assert
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfSensorIsNotContainedInAreaWrongLatitude4() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(-90, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(-35, 20, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
-
-        //Act
-        a1.setLength(20);
-        a1.setWidth(25);
-        boolean result = s1.isSensorContainedInArea(a1);
-
-        //Assert
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfSensorIsNotContainedInAreaWrongLongitude3() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(180, 180, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(100, 100, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
-
-        //Act
-        a1.setWidth(10);
-        a1.setLength(10);
-        boolean result = s1.isSensorContainedInArea(a1);
-
-        //Assert
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfSensorIsNotContainedInAreaWrongLongitude4() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
-        Local l1 = new Local(20, -90, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(20, -35, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
-
-        //Act
-        a1.setWidth(100);
-        a1.setLength(100);
-        boolean result = s1.isSensorContainedInArea(a1);
-
-        //Assert
-        assertFalse(result);
-    }
-
-    @Test
     void seeIfSensorIsContainedInAreaNegativeCoords2() {
         //Arrange
-        TypeArea t1 = new TypeArea("Pantano");
         Local l1 = new Local(-30, -30, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", t1, 10, 20, l1);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(-5, -5, -5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
         a1.setWidth(50);
@@ -1074,92 +658,43 @@ class SensorTest {
 
     @Test
     void seeIfPrintSensor() {
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(-5, -5, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        //Arrange
+
+        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        String expectedResult = validName1+", Temperature, 38.0º lat, 7.0º long\n";
+
+        //Act
         String result = s1.buildSensorString();
-        Assertions.assertEquals("XV56-LD1, Temperatura, -5.0º lat, -5.0º long\n", result);
-    }
-
-    @Test
-    void seeIf2ndConstructorSetsTypeArea() {
-        //Arrange
-        String name = "Chuva";
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        TypeSensor actualResult;
-        Sensor c = new Sensor(name, t1, d1);
-        //Act
-        actualResult = c.getTypeSensor();
 
         //Assert
-        assertEquals(t1, actualResult);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfEmptyConstructorSetsTypeArea() {
+    void seeIfSecondConstructorSetsTypeSensorCorretly() {
         //Arrange
-        String name = "Chuva";
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        TypeSensor actualResult;
-        Sensor c = new Sensor("Sensor", new TypeSensor("tiposensor", "unidades"), new Local(5, 5, 5), new Date());
-        c.setTypeSensor(t1);
-        c.setName(name);
-        c.setDateStartedFunctioning(d1);
+        Sensor c = new Sensor(validName1,validTypeSensor1,validDate1);
+
         //Act
-        actualResult = c.getTypeSensor();
+        TypeSensor actualResult = c.getTypeSensor();
 
         //Assert
-        assertEquals(t1, actualResult);
+        assertEquals(validTypeSensor1, actualResult);
     }
 
     @Test
-    void ensureThatSensorIsActive() {
+    void SeeIfSensorIsActiveOnGivenDate() {
         //Arrange
-        String name = "Chuva";
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        boolean expectedResult = true;
-        Sensor c = new Sensor(name, t1, d1);
-        //Act
+        Sensor c = new Sensor(validName1,validTypeSensor1,validDate1);
         Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            d2 = sd.parse("10/08/2018");
-        }
-        catch (ParseException e){
+            d2 = validSdf1.parse("10/08/2018");
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+        boolean expectedResult = true;
+
+        //Act
         boolean actualResult = c.isSensorActiveOnGivenDate(d2);
 
         //Assert
@@ -1167,28 +702,17 @@ class SensorTest {
     }
 
     @Test
-    void ensureThatSensorIsNotActive() {
+    void SeeIfSensorIsNotActive() {
         //Arrange
-        String name = "Chuva";
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        boolean expectedResult = false;
-        Sensor c = new Sensor(name, t1, d1);
+        Sensor c = new Sensor(validName1,validTypeSensor1,validDate1);
         Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            d2 = sd.parse("07/08/2018");
-        }
-        catch (ParseException e){
+            d2 = validSdf1.parse("07/08/2018");
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+        boolean expectedResult = false;
+
         //Act
         boolean actualResult = c.isSensorActiveOnGivenDate(d2);
 
@@ -1198,81 +722,43 @@ class SensorTest {
 
     @Test
     void ensureThatWeGetDistanceToHouse() {
+        //Arrange
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 6, 6), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
+        House house = new House("Casa 1", address, new Local(4, 6, 6),
+                new GeographicArea("Porto",validTypeArea1, 2, 3,
+                        new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Local loc1 = new Local(-5, -5, -5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
         double expectedResult = 1579.28;
 
+        //Act
         double actualResult = s1.getDistanceToHouse(house);
+
+        //Assert
         assertEquals(expectedResult, actualResult, 0.01);
     }
 
     @Test
-    void ensureThatEqualsRecognizesSameObject() {
-        TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
-        Local loc1 = new Local(100, 100, 5);
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor s1 = new Sensor("XV56-LD1", ty1, loc1, d1);
-        boolean actualResult = s1.equals(s1);
-        assertTrue(actualResult);
-    }
-
-    @Test
     void addReadings() {
-        TypeSensor ty1 = new TypeSensor("temperature", "Celsius");
-        Date d1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = s.parse("09/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d2 = sd.parse("12/08/2018");
-        }
-        catch (ParseException c){
-            c.printStackTrace();
-        }
-        Sensor sensor1 = new Sensor("sensor1", ty1, d1);
+        Sensor sensor1 = new Sensor(validName1,validTypeSensor1, validDate1);
+        Reading reading1 = new Reading(20, validDate1);
+        Reading reading2 = new Reading(20, validDate2);
+        Reading reading3 = new Reading(25, validDate1);
+        Reading reading4 = new Reading(20, validDate1);
 
-        Reading reading1 = new Reading(20, d1);
-        Reading reading2 = new Reading(20, d2);
-        Reading reading3 = new Reading(25, d1);
-        Reading reading4 = new Reading(20, d1);
-        //ACT
+        //act
         boolean actualResult1 = sensor1.addReading(reading1);
         boolean actualResult2 = sensor1.addReading(reading2);
         boolean actualResult3 = sensor1.addReading(reading3);
         boolean actualResult4 = sensor1.addReading(reading4);
-        //ASSERT
+
+        //assert
         assertTrue(actualResult1);
         assertTrue(actualResult2);
         assertTrue(actualResult3);
         assertFalse(actualResult4);
     }
-
-
 }
 
