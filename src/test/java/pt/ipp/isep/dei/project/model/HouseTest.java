@@ -86,7 +86,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
+        Sensor result = house.getClosestSensorOfGivenType("temperature");
         assertEquals(s1, result);
     }
 
@@ -102,7 +102,7 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        double result = house.getMinDistanceToSensorOfGivenType(ga, "temperature");
+        double result = house.getMinDistanceToSensorOfGivenType("temperature");
         assertEquals(110.91871788829754, result);
     }
 
@@ -118,11 +118,11 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        double result = house.getMinDistanceToSensorOfGivenType(ga, "temperature");
+        double result = house.getMinDistanceToSensorOfGivenType("temperature");
         assertEquals(110.91871788829754, result);
     }
 
-    //TODO distance should de zero since the sensor1 has the same localization as house. check methods to see why it isn't
+    //TODO distance should be zero since the sensor1 has the same localization as house. check methods to see why it isn't
     @Test
     void getMinDistanceToSensorOfGivenTypeSamePositionAsHouse(){
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 5, 50), new GregorianCalendar(4, 4, 9).getTime());
@@ -135,7 +135,7 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        double result = house.getMinDistanceToSensorOfGivenType(ga, "temperature");
+        double result = house.getMinDistanceToSensorOfGivenType("temperature");
         assertEquals(9.493073054631141E-5, result);
     }
 
@@ -578,7 +578,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
+        Sensor result = house.getClosestSensorOfGivenType("temperature");
         assertEquals(s2, result);
     }
 
@@ -608,7 +608,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
+        Sensor result = house.getClosestSensorOfGivenType("temperature");
         assertEquals(s1, result);
     }
 
@@ -621,7 +621,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
+        Sensor result = house.getClosestSensorOfGivenType("temperature");
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         assertEquals(sensorError.getName(), result.getName());
     }
@@ -659,7 +659,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
+        Sensor result = house.getClosestSensorOfGivenType("temperature");
         assertEquals(s1, result);
     }
 
@@ -686,7 +686,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
+        Sensor result = house.getClosestSensorOfGivenType("temperature");
         assertEquals(s1, result);
     }
 
@@ -716,7 +716,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        Sensor result = house.getClosestSensorOfGivenType(ga, "temperature");
+        Sensor result = house.getClosestSensorOfGivenType("temperature");
         assertEquals(s2, result);
     }
 

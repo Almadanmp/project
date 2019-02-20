@@ -55,8 +55,7 @@ public class HouseMonitoringController {
      * @return is the average rainfall of the house, as measured by the closest sensor to the house.
      */
     public double getAverageRainfallInterval(House house, Date initialDate, Date endDate){
-        GeographicArea geoArea = house.getMotherArea();
-        Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea, rainfall);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
         if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
             throw new IllegalArgumentException("Warning: average value not calculated - no readings available.");
         }
@@ -78,7 +77,7 @@ public class HouseMonitoringController {
             }
         }
         if (counter >= 1) {
-            Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea,rainfall);
+            Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
             if (closestSensor.getReadingList() == null) {
                 return Double.NaN;
             }
@@ -90,12 +89,11 @@ public class HouseMonitoringController {
     /**
      *
      * @param house is the house we want to get the temperature from.
-     * @param ga is the area the house is contained in.
      * @return is the most recent temperature reading as measured by the closest sensor to the house.
      */
 
-    public double getHouseAreaTemperature(House house, GeographicArea ga)   {
-        Sensor closest = house.getClosestSensorOfGivenType(ga,"temperature");
+    public double getHouseAreaTemperature(House house)   {
+        Sensor closest = house.getClosestSensorOfGivenType("temperature");
         ReadingList readingList = closest.getReadingList();
         return readingList.getMostRecentValue();
     }
