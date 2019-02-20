@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
+import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.program.Program;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
@@ -21,7 +21,7 @@ public class MainUI {
         String fixConfigFile = "Please fix Configuration File before continuing.";
         try {
             if (fileUtils.validGridMetering()) {
-                gridMeteringPeriod = fileUtils.mGridMeteringPeriod;
+                gridMeteringPeriod = fileUtils.gridMeteringPeriod;
             } else {
                 System.out.println("ERROR: Configuration File values are incorrect. Energy Grids cannot be created.\n" +
                         fixConfigFile);
@@ -40,7 +40,7 @@ public class MainUI {
         int deviceMeteringPeriod = 0;
         try {
             if (fileUtils.validDeviceMetering()) {
-                deviceMeteringPeriod = fileUtils.mDeviceMeteringPeriod;
+                deviceMeteringPeriod = fileUtils.deviceMeteringPeriod;
             } else return;
         } catch (IllegalArgumentException il) {
             return;
@@ -96,10 +96,10 @@ public class MainUI {
         portoSanto.setLength(235);
         portoSanto.setDescription("City of Porto Santo");
 
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(isep);
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(porto);
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(portugal);
-        geographicalAreaList.addGeographicAreaToGeographicAreaList(portoSanto);
+        geographicalAreaList.addGeographicArea(isep);
+        geographicalAreaList.addGeographicArea(porto);
+        geographicalAreaList.addGeographicArea(portugal);
+        geographicalAreaList.addGeographicArea(portoSanto);
 
         //Rooms
 
@@ -114,7 +114,8 @@ public class MainUI {
 
         // Houses (1 per Geographical Area!)
 
-        House edificioB = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        Address addressEdificioB = new Address("Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString);
+        House edificioB = new House("Edificio B", addressEdificioB, new Local(41.177748, -8.607745, 112), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         edificioB.setMotherArea(isep);
         edificioB.addRoomToRoomList(roomISEP1);
         edificioB.addRoomToRoomList(roomISEP2);
@@ -218,15 +219,15 @@ public class MainUI {
         // Sensor Lists
         SensorList room109SensorList = new SensorList();
         room109SensorList.addSensor(sensorRoom109);
-        roomISEP2.setRoomSensorList(room109SensorList);
+        roomISEP2.setSensorList(room109SensorList);
 
         SensorList isepSensorList = new SensorList();
         isepSensorList.addSensor(sensorRainfallISEP);
         isepSensorList.addSensor(sensorTemperatureISEP);
         isep.setSensorList(isepSensorList);
         SensorList test = new SensorList();
-        roomISEP1.setRoomSensorList(test);
-        roomISEP3.setRoomSensorList(test);
+        roomISEP1.setSensorList(test);
+        roomISEP3.setSensorList(test);
         porto.setSensorList(test);
 
         // Energy Grid
@@ -246,6 +247,10 @@ public class MainUI {
         mTypeAreaList.addTypeArea(typeAreaA);
         mTypeAreaList.addTypeArea(typeAreaB);
 
+        //Device WaterHeaterSpec
+        String wHVolumeOfWater = WaterHeaterSpec.VOLUME_OF_WATER;
+        String wHHotWaterTemperature = WaterHeaterSpec.HOT_WATER_TEMP;
+        String wHPerformanceRatio = WaterHeaterSpec.PERFORMANCE_RATIO;
 
         //Device WashingMachineSpec
         String capacity = "capacity";
@@ -270,11 +275,11 @@ public class MainUI {
         device2.setAttributeValue("refrigeratorCapacity", 2D);
         device2.setAttributeValue("annualEnergyConsumption", 45D);
         Device device3 = new WaterHeater(new WaterHeaterSpec());
-        device3.setNominalPower(3.0);
+            device3.setNominalPower(3.0);
         device3.setName("WH Main");
-        device3.setAttributeValue(volumeWater, 500D);
-        device3.setAttributeValue(hotWaterT, 25D);
-        device3.setAttributeValue(performanceRatio, 10D);
+        device3.setAttributeValue(wHVolumeOfWater, 500D);
+        device3.setAttributeValue(wHHotWaterTemperature, 25D);
+        device3.setAttributeValue(wHPerformanceRatio, 10D);
         Device device4 = new Lamp(new LampSpec());
         device4.setNominalPower(4.0);
         device4.setName("Lamp");
@@ -282,9 +287,9 @@ public class MainUI {
         Device deviceDark = new WaterHeater(new WaterHeaterSpec());
         deviceDark.setNominalPower(200.0);
         deviceDark.setName("Water Heater 3000");
-        deviceDark.setAttributeValue(volumeWater, 400D);
-        deviceDark.setAttributeValue(hotWaterT, 400D);
-        deviceDark.setAttributeValue(performanceRatio, 0.9D);
+        deviceDark.setAttributeValue(wHVolumeOfWater, 400D);
+        deviceDark.setAttributeValue(wHHotWaterTemperature, 400D);
+        deviceDark.setAttributeValue(wHPerformanceRatio, 0.9D);
         DeviceList listDevices = new DeviceList();
         listDevices.addDevice(device1);
         listDevices.addDevice(device2);
@@ -301,9 +306,9 @@ public class MainUI {
         Device device6 = new WaterHeater(new WaterHeaterSpec());
         device6.setNominalPower(3.0);
         device6.setName("WH Secondary");
-        device6.setAttributeValue(volumeWater, 500D);
-        device6.setAttributeValue(hotWaterT, 25D);
-        device6.setAttributeValue(performanceRatio, 10D);
+        device6.setAttributeValue(wHVolumeOfWater, 500D);
+        device6.setAttributeValue(wHHotWaterTemperature, 25D);
+        device6.setAttributeValue(wHPerformanceRatio, 10D);
         DeviceList listDevices1 = new DeviceList();
         listDevices1.addDevice(device5);
         listDevices1.addDevice(device6);
@@ -325,7 +330,8 @@ public class MainUI {
         Room room5 = new Room("room2", 2, 13, 93, 23);
         Room room6 = new Room("room3", 2, 73, 43, 23);
         Room room7 = new Room("room4", 5, 63, 23, 23);
-        House house4 = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        Address addressHouse4 = new Address("Street", "4230", portoString);
+        House house4 = new House("houseRoomDifEG", addressHouse4, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         house4.addRoomToRoomList(room4);
         house4.addRoomToRoomList(room5);
 
@@ -344,7 +350,7 @@ public class MainUI {
         GeographicAreaList geographicAreaListSP2 = new GeographicAreaList();
         TypeArea urbanArea = new TypeArea("urban area");
         GeographicArea geographicAreaSP2 = new GeographicArea("ISEP", urbanArea, 0.249, 0.261, new Local(41.178553, -8.608035, 111));
-        geographicAreaListSP2.addGeographicAreaToGeographicAreaList(geographicAreaSP2);
+        geographicAreaListSP2.addGeographicArea(geographicAreaSP2);
         TypeAreaList typeAreaListSP2 = new TypeAreaList();
         typeAreaListSP2.addTypeArea(urbanArea);
         geographicAreaSP2.setDescription("Campus do ISEP");
@@ -470,7 +476,7 @@ public class MainUI {
         TypeSensorList typeSensorListSP2 = new TypeSensorList();
         TypeSensor temperatureB109SP2 = new TypeSensor(temperature, "celsius");
         SensorList sensorListRoomB109SP2 = new SensorList();
-        b109SP2.setRoomSensorList(sensorListRoomB109SP2);
+        b109SP2.setSensorList(sensorListRoomB109SP2);
         Sensor sensorTemperatureB109SP2 = new Sensor("Temperature B109", temperatureB109SP2, new GregorianCalendar(2018, 10, 15).getTime());
         sensorListRoomB109SP2.addSensor(sensorTemperatureB109SP2);
         ReadingList readingListSensorTemperatureB109SP2 = new ReadingList();
@@ -728,9 +734,10 @@ public class MainUI {
         GeographicArea portoSP2 = new GeographicArea(portoString, citySP2, 3.30, 10.09, new Local(41.164077, -8.620802, 118));
         typeAreaListSP2.addTypeArea(citySP2);
         portoSP2.setDescription("City of Porto");
-        geographicAreaListSP2.addGeographicAreaToGeographicAreaList(portoSP2);
+        geographicAreaListSP2.addGeographicArea(portoSP2);
         EnergyGrid mainGridSP2 = new EnergyGrid(mainGridString, 0);
-        House houseSP2 = new House("Edificio B", "Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        Address addressHouseSP2 = new Address("Rua Dr António Bernardino de Almeida, 431", "4200-072", portoString);
+        House houseSP2 = new House("Edificio B", addressHouseSP2, new Local(41.177748, -8.607745, 112), geographicAreaSP2, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseSP2.setMotherArea(geographicAreaSP2);
         geographicAreaSP2.setSensorList(areaSensorSP2);
         EnergyGridList mainGridList = new EnergyGridList();
@@ -747,12 +754,14 @@ public class MainUI {
         Room room1 = new Room("room1", 1, 33, 13, 23);
         Room room2 = new Room("room2", 2, 13, 93, 23);
 
-        House houseTest = new House("houseRoomDifEG", "Street", "4230", portoString, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        Address addressHouseTest = new Address("Street", "4230", portoString);
+        House houseTest = new House("houseRoomDifEG", addressHouseTest, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         houseTest.addRoomToRoomList(room1);
         houseTest.addRoomToRoomList(room2);
 
         //LOGS
-        House hhhhh = new House("Iseperino", "Rua dos tones", "4535", portoString, new Local(45, 45, 45), new GeographicArea(portoString, new TypeArea("coise"), 45, 45, new Local(50, 50, 50)),
+        Address addressHHHHH = new Address("Rua das Dunas", "4535", portoString);
+        House hhhhh = new House("Iseperino", addressHHHHH, new Local(45, 45, 45), new GeographicArea(portoString, new TypeArea("coise"), 45, 45, new Local(50, 50, 50)),
                 10, 10, deviceTypeConfig);
         EnergyGrid energyGrid = new EnergyGrid(mainGridString, 500);
         hhhhh.addGrid(energyGrid);
@@ -794,7 +803,7 @@ public class MainUI {
  GeographicAreaList geographicalAreaList1 = new GeographicAreaList();
  GeographicArea geographicArea1 = new GeographicArea("GeoAreaNoSensor", new TypeArea("City"), 23, 34, new Local(23, 23, 12));
 
- geographicalAreaList1.addGeographicAreaToGeographicAreaList(geographicArea1);
+ geographicalAreaList1.addGeographicArea(geographicArea1);
 
  // Geo Area List -  Geo Area with Empty Sensor List
 
@@ -803,7 +812,7 @@ public class MainUI {
  SensorList sensorList2 = new SensorList();
 
  geographicArea2.setSensorList(sensorList2);
- geographicalAreaList2.addGeographicAreaToGeographicAreaList(geographicArea2);
+ geographicalAreaList2.addGeographicArea(geographicArea2);
 
  // Geo Area List -  Geo Area with Sensor List
 
@@ -814,7 +823,7 @@ public class MainUI {
  sensorList3.addSensor(s3);
 
  geographicArea3.setSensorList(sensorList3);
- geographicalAreaList3.addGeographicAreaToGeographicAreaList(geographicArea3);
+ geographicalAreaList3.addGeographicArea(geographicArea3);
 
  // House - Empty RoomList - Without EnergyGrid
  GeographicArea geographicArea4 = new GeographicArea();

@@ -8,25 +8,25 @@ import java.util.Objects;
 
 public class PowerSource {
 
-    private String mPowerSourceName;
-    private double mMaxPowerOutput;
-    private double mMaxEnergyStorage;
+    private String powerSourceName;
+    private double maxPowerOutput;
+    private double maxEnergyStorage;
 
     public PowerSource(String powerSourceName, double maxPowerOutput, double maxEnergyStorage){
-        this.mPowerSourceName = powerSourceName;
-        this.mMaxPowerOutput = maxPowerOutput;
-        this.mMaxEnergyStorage = maxEnergyStorage;
+        this.powerSourceName = powerSourceName;
+        this.maxPowerOutput = maxPowerOutput;
+        this.maxEnergyStorage = maxEnergyStorage;
     }
 
     double getMaxEnergyStorage() {
-        return mMaxEnergyStorage;
+        return maxEnergyStorage;
     }
 
     double getMaxPowerOutput() {
-        return mMaxPowerOutput;
+        return maxPowerOutput;
     }
 
-    private String getPowerSourceName(){return this.mPowerSourceName;}
+    private String getPowerSourceName(){return this.powerSourceName;}
 
     @Override
     public boolean equals(Object o) {
@@ -39,7 +39,7 @@ public class PowerSource {
         }
 
         PowerSource ps = (PowerSource) o;
-        return Objects.equals(mPowerSourceName, ps.getPowerSourceName());
+        return Objects.equals(powerSourceName, ps.getPowerSourceName());
     }
 
     @Override

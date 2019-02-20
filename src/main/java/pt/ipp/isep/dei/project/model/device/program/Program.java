@@ -8,9 +8,9 @@ public class Program {
     public static final String DURATION = "Duration";
     public static final String ENERGY_CONSUMPTION = "Energy Consumption";
 
-    private String mProgramName;
-    private double mDuration;
-    private double mEnergyConsumption;
+    private String programName;
+    private double programDuration;
+    private double energyConsumption;
 
 
     public Program() {
@@ -30,27 +30,27 @@ public class Program {
     }
 
     public void setProgramName(String name) {
-        this.mProgramName = name;
+        this.programName = name;
     }
 
     public void setDuration(double duration) {
-        this.mDuration = duration;
+        this.programDuration = duration;
     }
 
     public void setEnergyConsumption(double energyConsumption) {
-        this.mEnergyConsumption = energyConsumption;
+        this.energyConsumption = energyConsumption;
     }
 
     public String getProgramName() {
-        return this.mProgramName;
+        return this.programName;
     }
 
     public double getDuration() {
-        return this.mDuration;
+        return this.programDuration;
     }
 
     public double getEnergyConsumption() {
-        return this.mEnergyConsumption;
+        return this.energyConsumption;
     }
 
     public List<String> getAttributeNames() {
@@ -64,13 +64,13 @@ public class Program {
         switch (attributeName) {
             case DURATION:
                 if (attributeValue instanceof Double) {
-                    this.mDuration = (Double) attributeValue;
+                    this.programDuration = (Double) attributeValue;
                     return true;
                 }
                 return false;
             case ENERGY_CONSUMPTION:
                 if (attributeValue instanceof Double) {
-                    this.mEnergyConsumption = (Double) attributeValue;
+                    this.energyConsumption = (Double) attributeValue;
                     return true;
                 }
                 return false;
@@ -95,9 +95,9 @@ public class Program {
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case DURATION:
-                return mDuration;
+                return programDuration;
             case ENERGY_CONSUMPTION:
-                return mEnergyConsumption;
+                return energyConsumption;
             default:
                 return 0;
         }

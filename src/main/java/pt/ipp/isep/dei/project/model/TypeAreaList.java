@@ -8,28 +8,10 @@ import java.util.List;
  */
 
 public class TypeAreaList {
-    private List<TypeArea> mTypeAreaList;
-    private String mResultLookEnhancer = "---------------\n";
+    private List<TypeArea> typeAreas;
 
     public TypeAreaList() {
-        mTypeAreaList = new ArrayList<>();
-    }
-
-    /**
-     * This method prints all the Geographic Area Types in a TypeAreaList.
-     *
-     * @return the types of geographic areas in a list
-     */
-    String buildTypeAreaListString() {
-        StringBuilder finalString = new StringBuilder("\nArea Types List:\n");
-        if (mTypeAreaList.isEmpty()) {
-            finalString.append("\n|||| List is Empty ||||\nAdd types to list first");
-        } else {
-            for (TypeArea tipo : mTypeAreaList) {
-                finalString.append("\n").append("-").append(tipo.getTypeOfGeographicArea()).append(";");
-            }
-        }
-        return finalString.toString();
+        typeAreas = new ArrayList<>();
     }
 
     /**
@@ -53,47 +35,12 @@ public class TypeAreaList {
      * @return true or false depending on the list containing or not the type input already.
      */
     public boolean addTypeArea(TypeArea type) {
-        if (!mTypeAreaList.contains(type)) {
-            mTypeAreaList.add(type);
+        if (!typeAreas.contains(type)) {
+            typeAreas.add(type);
             return true;
         } else {
             return false;
         }
-    }
-
-    /**
-     * The method generates a list of integers with the indexes of all the Geographic Areas e a given list matching a string
-     *
-     * @param input is the string we're going to look for in the list of Geographic Areas.
-     * @return is a list of integers that contains the indexes of all the Geographic Areas in the given list whose name
-     * matches the given string.
-     */
-
-    public List<Integer> matchGeographicAreaTypeIndexByString(String input) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < mTypeAreaList.size(); i++) {
-            if (mTypeAreaList.get(i).getTypeOfGeographicArea().equals(input)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * This method prints a string of the indexes of all the individual members of the geoArea list.
-     *
-     * @param indexes is a list of all the indexes in a list where relevant objects are.
-     * @return builds a string of all the individual members of the geoArea list.
-     */
-
-    public String buildGATypeElementsByIndexString(List<Integer> indexes) {
-        StringBuilder result = new StringBuilder(mResultLookEnhancer);
-        for (Integer index : indexes) {
-            int pos = index;
-            result.append(index).append(") ").append(mTypeAreaList.get(pos).buildTypeGeographicAreaString());
-        }
-        result.append(mResultLookEnhancer);
-        return result.toString();
     }
 
     /**
@@ -102,15 +49,13 @@ public class TypeAreaList {
      * @param typeAreaList is a list of all the types a Geographical Area may have.
      * @return builds a string of all the individual members of the geoAreaType list.
      */
-
-
     public String buildGATypeWholeListString(TypeAreaList typeAreaList) {
-        StringBuilder result = new StringBuilder(mResultLookEnhancer);
+        StringBuilder result = new StringBuilder("---------------\n");
         for (int i = 0; i < typeAreaList.getTypeAreaList().size(); i++) {
             TypeArea aux = typeAreaList.getTypeAreaList().get(i);
             result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" \n");
         }
-        result.append(mResultLookEnhancer);
+        result.append("---------------\n");
         return result.toString();
     }
 
@@ -120,6 +65,6 @@ public class TypeAreaList {
      * @return a list of the types of Geographic Areas.
      */
     public List<TypeArea> getTypeAreaList() {
-        return this.mTypeAreaList;
+        return this.typeAreas;
     }
 }

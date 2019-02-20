@@ -3,9 +3,9 @@ package pt.ipp.isep.dei.project.io.ui;
 import org.testng.annotations.Test;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.Dishwasher;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
+import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.program.Program;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
@@ -42,9 +42,9 @@ public class UtilsUITest {
         GeographicArea geographicArea = new GeographicArea("Porto", new TypeArea("Cidade"), 20, 20, new Local(20, 20, 20));
         GeographicArea geographicArea1 = new GeographicArea("Lisboa", new TypeArea("Cidade"), 20, 20, new Local(20, 20, 20));
 
-        geographicAreaList.addGeographicAreaToGeographicAreaList(geographicArea);
-        geographicAreaList1.addGeographicAreaToGeographicAreaList(geographicArea);
-        geographicAreaList1.addGeographicAreaToGeographicAreaList(geographicArea1);
+        geographicAreaList.addGeographicArea(geographicArea);
+        geographicAreaList1.addGeographicArea(geographicArea);
+        geographicAreaList1.addGeographicArea(geographicArea1);
 
         UtilsUI utilsUI = new UtilsUI();
         //ACT
@@ -60,7 +60,8 @@ public class UtilsUITest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.houseRoomListIsValid(house);
@@ -77,7 +78,8 @@ public class UtilsUITest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
@@ -285,7 +287,8 @@ public class UtilsUITest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.houseMotherAreaIsValid(house);
@@ -298,7 +301,8 @@ public class UtilsUITest {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("Casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         GeographicArea ga1 = null;
         house.setMotherArea(ga1);
         UtilsUI utilsUI = new UtilsUI();

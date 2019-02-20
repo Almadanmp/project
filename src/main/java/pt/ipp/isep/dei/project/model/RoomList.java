@@ -11,36 +11,20 @@ import java.util.List;
  */
 
 public class RoomList {
-    private List<Room> mRoomList;
-    private String mStringResult = "---------------\n";
-    private String mStringInvalidList = "Invalid List - List is Empty\n";
-    private String mStringDesignation = ") Designation: ";
-    private String mStringHouseFloor = "House Floor: ";
-    private String mStringWidth = "Width: ";
-    private String mStringLength = "Length: ";
-    private String mStringHeight = "Height: ";
+    private List<Room> rooms;
 
 
     public RoomList() {
-        this.mRoomList = new ArrayList<>();
-    }
-
-    public boolean doesListOfRoomsContainRoomByName(String name) {
-        for (Room room : getList()) {
-            if ((room.getRoomName().equals(name))) {
-                return true;
-            }
-        }
-        return false;
+        this.rooms = new ArrayList<>();
     }
 
     public List<Room> getList() {
-        return this.mRoomList;
+        return this.rooms;
     }
 
     public boolean addRoom(Room room) {
-        if (!(mRoomList.contains(room))) {
-            mRoomList.add(room);
+        if (!(rooms.contains(room))) {
+            rooms.add(room);
             return true;
         } else {
             return false;
@@ -61,40 +45,12 @@ public class RoomList {
      * if no Room with the name of found, it will return null.
      */
     public Room getRoomByName(String roomName) {
-        for (Room aux : mRoomList) {
+        for (Room aux : rooms) {
             if (roomName.equals(aux.getRoomName())) {
                 return aux;
             }
         }
         return null;
-    }
-
-    boolean matchRoom(String roomToMatch) {
-        for (Room r : mRoomList) {
-            if (r.getRoomName().equals(roomToMatch)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    List<Integer> matchRoomIndexByString(String input) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < mRoomList.size(); i++) {
-            if (mRoomList.get(i).getRoomName().equals(input)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    String buildElementsByIndexString(List<Integer> indexes) {
-        StringBuilder result = new StringBuilder();
-        for (Integer indexe : indexes) {
-            int pos = indexe;
-            result.append(indexe).append(") ").append(mRoomList.get(pos).getRoomName()).append(", ").append(mRoomList.get(pos).getHouseFloor()).append(", ").append(mRoomList.get(pos).getRoomWidth()).append(", ").append(mRoomList.get(pos).getRoomLength()).append(", ").append(this.mRoomList.get(pos).getRoomHeight()).append(".\n");
-        }
-        return result.toString();
     }
 
     List<Device> getDeviceList() {
@@ -105,48 +61,32 @@ public class RoomList {
         return result;
     }
 
-    public String buildRoomListString(House house) {
-        StringBuilder result = new StringBuilder(this.mStringResult);
-        if (house.getRoomList().isEmpty()) {
-            return this.mStringInvalidList;
-        }
-        for (int i = 0; i < house.getRoomList().size(); i++) {
-            Room aux = house.getRoomList().get(i);
-            result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
-            result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
-            result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
-            result.append(this.mStringLength).append(aux.getRoomLength()).append(" | ");
-            result.append(this.mStringHeight).append(aux.getRoomHeight()).append("\n");
-        }
-        result.append(this.mStringResult);
-        return result.toString();
-    }
 
     public String buildRoomsString() {
-        StringBuilder result = new StringBuilder(this.mStringResult);
+        StringBuilder result = new StringBuilder("---------------\n");
         if (this.getList().isEmpty()) {
-            return this.mStringInvalidList;
+            return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < this.getList().size(); i++) {
             Room aux = this.getList().get(i);
-            result.append(i).append(this.mStringDesignation).append(aux.getRoomName()).append(" | ");
-            result.append(this.mStringHouseFloor).append(aux.getHouseFloor()).append(" | ");
-            result.append(this.mStringWidth).append(aux.getRoomWidth()).append(" | ");
-            result.append(this.mStringLength).append(aux.getRoomLength()).append(" | ");
-            result.append(this.mStringHeight).append(aux.getRoomHeight()).append("\n");
+            result.append(i).append(") Designation: ").append(aux.getRoomName()).append(" | ");
+            result.append("House Floor: ").append(aux.getHouseFloor()).append(" | ");
+            result.append("Width: ").append(aux.getRoomWidth()).append(" | ");
+            result.append("Length: ").append(aux.getRoomLength()).append(" | ");
+            result.append("Height: ").append(aux.getRoomHeight()).append("\n");
 
         }
-        result.append(this.mStringResult);
+        result.append("---------------\n");
         return result.toString();
     }
 
     public boolean contains(Room room) {
-        return (this.mRoomList.contains(room));
+        return (this.rooms.contains(room));
     }
 
     public boolean removeRoom(Room room) {
         if (this.contains(room)) {
-            this.mRoomList.remove(room);
+            this.rooms.remove(room);
             return true;
         }
         return false;
@@ -156,12 +96,13 @@ public class RoomList {
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms on this list.
      *
      * @param deviceType the device type
+     * @param time represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
-    double getDailyConsumptionByDeviceType(String deviceType) {
+    double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
-        for (Room r : mRoomList) {
-            result += r.getDailyConsumptionByDeviceType(deviceType);
+        for (Room r : rooms) {
+            result += r.getDailyConsumptionByDeviceType(deviceType, time);
         }
         return Math.floor(result * 10) / 10;
     }

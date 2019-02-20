@@ -19,9 +19,10 @@ public class UtilsUI {
     String invalidSensorList = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
     String invalidTypeSensorList = "Invalid Type Sensor List - List is empty.\n" + returningToMainMenu;
     String invalidMotherArea = "The selected House does not have a Geographical Area defined.\n" + returningToMainMenu;
+    String invalidProgramList = "Invalid Program List - The selected Device does not have any Programs defined.\n" + returningToMainMenu;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
-        return geographicAreaList != null && !geographicAreaList.getGeographicAreaList().isEmpty();
+        return geographicAreaList != null && !geographicAreaList.isEmpty();
     }
 
     boolean houseRoomListIsValid(House house) {

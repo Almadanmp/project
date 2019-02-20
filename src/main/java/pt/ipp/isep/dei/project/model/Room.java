@@ -17,13 +17,13 @@ import static java.lang.Double.NaN;
 
 public class Room implements Metered {
 
-    private String mRoomName;
-    private int mHouseFloor;
-    private double mRoomWidth;
-    private double mRoomLength;
-    private double mRoomHeight;
-    private SensorList mRoomSensorList;
-    private DeviceList mDeviceList;
+    private String roomName;
+    private int houseFloor;
+    private double roomWidth;
+    private double roomLength;
+    private double roomHeight;
+    private SensorList roomSensorList;
+    private DeviceList deviceList;
 
 
     public Room(String name, int houseFloor, double width, double length, double height) {
@@ -32,65 +32,65 @@ public class Room implements Metered {
         setRoomWidth(width);
         setRoomLength(length);
         setRoomHeight(height);
-        this.mRoomSensorList = new SensorList();
-        this.mDeviceList = new DeviceList();
+        this.roomSensorList = new SensorList();
+        this.deviceList = new DeviceList();
     }
 
     public SensorList getSensorList() {
-        return mRoomSensorList;
+        return roomSensorList;
     }
 
     private void setRoomName(String name) {
-        mRoomName = name;
+        roomName = name;
     }
 
     private void setRoomHouseFloor(int houseFloor) {
-        mHouseFloor = houseFloor;
+        this.houseFloor = houseFloor;
     }
 
 
     private void setRoomHeight(double height) {
-        mRoomHeight = height;
+        roomHeight = height;
     }
 
     private void setRoomLength(double length) {
-        mRoomLength = length;
+        roomLength = length;
     }
 
     private void setRoomWidth(double width) {
-        mRoomWidth = width;
+        roomWidth = width;
     }
 
     double getRoomHeight() {
-        return mRoomHeight;
+        return roomHeight;
     }
 
     double getRoomLength() {
-        return mRoomLength;
+        return roomLength;
     }
 
     double getRoomWidth() {
-        return mRoomWidth;
+        return roomWidth;
     }
 
-    public void setRoomSensorList(SensorList sensorList) {
-        mRoomSensorList = sensorList;
+    public void setSensorList(SensorList sensorList) {
+        roomSensorList = sensorList;
     }
 
     public String getRoomName() {
-        return mRoomName;
+        return roomName;
     }
 
-    public int getHouseFloor() {
-        return mHouseFloor;
+    int getHouseFloor() {
+        return houseFloor;
     }
 
     public void setDeviceList(DeviceList deviceList) {
-        this.mDeviceList = deviceList;
+        this.deviceList = deviceList;
     }
 
     public List<Device> getDeviceList() {
-        return this.mDeviceList.getList();
+        return this.deviceList.getList();
     }
 
     /**
@@ -104,16 +104,12 @@ public class Room implements Metered {
         StringBuilder result = new StringBuilder("---------------\n");
         for (int i = 0; i < this.getDeviceList().size(); i++) {
             Device device = this.getDeviceList().get(i);
-            result.append("\n" + i).append(") device Name: ").append(device.getName());
+            result.append("\n").append(i).append(") device Name: ").append(device.getName());
             result.append(", device Type: ").append(device.getType());
             result.append(", device Nominal Power: ").append(device.getNominalPower());
         }
         result.append("\n---------------\n");
         return result.toString();
-    }
-
-    public DeviceList getObjectDeviceList() {
-        return this.mDeviceList;
     }
 
     /**
@@ -159,9 +155,9 @@ public class Room implements Metered {
      **/
     public double getMaxTemperatureOnGivenDay(Date day) {
         double maxTemp = -1000;
-        SensorList tempSensors = getSensorsOfGivenType("temperature");
+        SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {
-            return NaN;
+            throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
         for (Sensor s : tempSensors.getSensorList()) {
             ReadingList readingList = s.getReadingList();
@@ -177,11 +173,11 @@ public class Room implements Metered {
      *
      * @return a sensor list that contains sensors of given type
      **/
-    public SensorList getSensorsOfGivenType(String type) {
+    SensorList getSensorsOfGivenType(String type) {
         SensorList tempSensors = new SensorList();
-        for (Sensor s : this.mRoomSensorList.getSensorList()) {
+        for (Sensor s : this.roomSensorList.getSensorList()) {
             String typeTest = s.getTypeSensor().getName();
-            if (typeTest.equals(type)) {
+            if (typeTest.equalsIgnoreCase(type)) {
                 tempSensors.addSensor(s);
             }
         }
@@ -189,18 +185,9 @@ public class Room implements Metered {
 
     }
 
-    boolean doesSensorListInARoomContainASensorByName(String name) {
-        for (Sensor s : mRoomSensorList.getSensorList()) {
-            if (s.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean removeDevice(Device device) {
-        if ((mDeviceList.getList().contains(device))) {
-            mDeviceList.getList().remove(device);
+        if ((deviceList.getList().contains(device))) {
+            deviceList.getList().remove(device);
             return true;
         } else {
             return false;
@@ -208,8 +195,8 @@ public class Room implements Metered {
     }
 
     public boolean addSensor(Sensor sensor) {
-        if (!(mRoomSensorList.getSensorList().contains(sensor))) {
-            mRoomSensorList.getSensorList().add(sensor);
+        if (!(roomSensorList.getSensorList().contains(sensor))) {
+            roomSensorList.getSensorList().add(sensor);
             return true;
         } else {
             return false;
@@ -223,8 +210,8 @@ public class Room implements Metered {
      * @return the result of the operation (true if successful, false otherwise)
      */
     public boolean addDevice(Device device) {
-        if (!(mDeviceList.containsDevice(device))) {
-            mDeviceList.addDevice(device);
+        if (!(deviceList.containsDevice(device))) {
+            deviceList.addDevice(device);
             return true;
         } else {
             return false;
@@ -239,20 +226,22 @@ public class Room implements Metered {
      * sensors and/or when temperature sensors have no readings
      */
 
-    public double getCurrentRoomTemperature() {
+    public double getCurrentRoomTemperature() throws IllegalArgumentException {
         double currentT = NaN;
-        SensorList tempSensors = getSensorsOfGivenType("temperature");
-        if (!tempSensors.getSensorList().isEmpty()) {
-            ReadingList readingList = tempSensors.getReadings();
-            currentT = readingList.getMostRecentValueOfReading();
+        SensorList tempSensors = getSensorsOfGivenType("Temperature");
+        if (tempSensors.getSensorList().isEmpty()|| !tempSensors.hasReadings()) {
+        throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
+            ReadingList readingList = tempSensors.getReadings();
+            currentT = readingList.getMostRecentValue();
+
         return currentT;
     }
 
 
     public String buildRoomString() {
         String result;
-        result = this.mRoomName + ", " + this.getHouseFloor() + ", " +
+        result = this.roomName + ", " + this.getHouseFloor() + ", " +
                 this.getRoomWidth() + ", " + this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";
         return result;
     }
@@ -278,28 +267,25 @@ public class Room implements Metered {
      * Returns the daily estimate consumption of all devices of a given type in this room.
      *
      * @param deviceType the device type
+     * @param time       represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
-    double getDailyConsumptionByDeviceType(String deviceType) {
-        return mDeviceList.getDailyConsumptionByDeviceType(deviceType);
+    double getDailyConsumptionByDeviceType(String deviceType, int time) {
+        return deviceList.getDailyConsumptionByDeviceType(deviceType, time);
     }
 
     /**
      * Adds all of this room's devices to a given list. Skips duplicates.
      *
      * @param list is the list we want to add the room's devices to.
-     * @return is true if at least one device was added, false if no devices were added.
      */
 
-    public boolean addRoomDevicesToDeviceList(DeviceList list) {
-        int counter = 0;
+    public void addRoomDevicesToDeviceList(DeviceList list) {
         for (Device d : this.getDeviceList()) {
             if (!(list.containsDevice(d))) {
                 list.addDevice(d);
-                counter++;
             }
         }
-        return counter != 0;
     }
 
     /**
@@ -337,7 +323,7 @@ public class Room implements Metered {
             return false;
         }
         Room room = (Room) o;
-        return Objects.equals(mRoomName, room.mRoomName);
+        return Objects.equals(roomName, room.roomName);
     }
 
 

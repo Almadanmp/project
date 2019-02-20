@@ -13,32 +13,28 @@ import java.util.Objects;
  */
 
 public class House implements Metered {
-    private String mId;
-    private String mStreet;
-    private String mZip;
-    private String mTown;
-    private Local mLocation;
+    private String id;
+    private Address address;
+    private Local location;
     private EnergyGridList mEGList;
     private RoomList mRoomList;
-    private GeographicArea mMotherArea;
-    private int mGridMeteringPeriod;
-    private int mDeviceMeteringPeriod;
-    private List<DeviceType> mDeviceTypeList;
+    private GeographicArea motherArea;
+    private int gridMeteringPeriod;
+    private int deviceMeteringPeriod;
+    private List<DeviceType> deviceTypeList;
 
     //CONSTRUCTOR
 
-    public House(String mId, String mStreet, String mZip, String mTown, Local mLocation, GeographicArea mMotherArea,
+    public House(String id, Address address, Local mLocation, GeographicArea mMotherArea,
                  int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
-        this.mId = mId;
-        this.mStreet = mStreet;
-        this.mZip = mZip;
-        this.mTown = mTown;
-        this.mLocation = mLocation;
-        this.mMotherArea = mMotherArea;
+        this.id = id;
+        this.address = address;
+        this.location = mLocation;
+        this.motherArea = mMotherArea;
         this.mRoomList = new RoomList();
         this.mEGList = new EnergyGridList();
-        this.mGridMeteringPeriod = gridMeteringPeriod;
-        this.mDeviceMeteringPeriod = deviceMeteringPeriod;
+        this.gridMeteringPeriod = gridMeteringPeriod;
+        this.deviceMeteringPeriod = deviceMeteringPeriod;
         buildDeviceTypeList(deviceTypeConfig);
     }
 
@@ -49,7 +45,7 @@ public class House implements Metered {
      * @param deviceTypePaths List of Strings with all the device paths (values) from device.properties file
      */
     void buildDeviceTypeList(List<String> deviceTypePaths) {
-        this.mDeviceTypeList = new ArrayList<>();
+        this.deviceTypeList = new ArrayList<>();
         for (String s : deviceTypePaths) {
             DeviceType aux;
             try {
@@ -57,43 +53,20 @@ public class House implements Metered {
             } catch (Exception e) {
                 throw new IllegalArgumentException("ERROR: Unable to create device type from path - " + e.getMessage());
             }
-            mDeviceTypeList.add(aux);
+            deviceTypeList.add(aux);
         }
     }
 
 
     //SETTERS AND GETTERS
 
-    public String getHouseId() {
-        return mId;
-    }
 
-    void setId(String id) {
-        this.mId = id;
-    }
+    public String getHouseId(){return this.id;}
 
-    public String getStreet() {
-        return this.mStreet;
-    }
+    public void setAddress(Address address){this.address = address;}
 
-    public void setStreet(String mStreet) {
-        this.mStreet = mStreet;
-    }
-
-    public String getZip() {
-        return mZip;
-    }
-
-    public void setZip(String mZip) {
-        this.mZip = mZip;
-    }
-
-    String getTown() {
-        return mTown;
-    }
-
-    void setTown(String town) {
-        this.mTown = town;
+    public Address getAddress() {
+        return address;
     }
 
     public double getNominalPower() {
@@ -105,23 +78,23 @@ public class House implements Metered {
     }
 
     void setGridMeteringPeriod(int meteringPeriod) {
-        this.mGridMeteringPeriod = meteringPeriod;
+        this.gridMeteringPeriod = meteringPeriod;
     }
 
     double getGridMeteringPeriod() {
-        return mGridMeteringPeriod;
+        return gridMeteringPeriod;
     }
 
     void setDeviceMeteringPeriod(int meteringPeriod) {
-        this.mDeviceMeteringPeriod = meteringPeriod;
+        this.deviceMeteringPeriod = meteringPeriod;
     }
 
     double getDeviceMeteringPeriod() {
-        return mDeviceMeteringPeriod;
+        return deviceMeteringPeriod;
     }
 
-    public Local getLocation() {
-        return mLocation;
+    Local getLocation() {
+        return location;
     }
 
     public List<Device> getDeviceList() {
@@ -129,9 +102,9 @@ public class House implements Metered {
     }
 
     public void setLocation(double latitude, double longitude, double altitude) {
-        mLocation.setLatitude(latitude);
-        mLocation.setLongitude(longitude);
-        mLocation.setAltitude(altitude);
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        location.setAltitude(altitude);
     }
 
     public void setRoomList(RoomList roomList) {
@@ -139,7 +112,7 @@ public class House implements Metered {
     }
 
     public void setMotherArea(GeographicArea motherArea) {
-        this.mMotherArea = motherArea;
+        this.motherArea = motherArea;
     }
 
     public List<Room> getRoomList() {
@@ -147,7 +120,7 @@ public class House implements Metered {
     }
 
     public GeographicArea getMotherArea() {
-        return mMotherArea;
+        return motherArea;
     }
 
     public EnergyGridList getEGListObject() {
@@ -163,7 +136,7 @@ public class House implements Metered {
     }
 
     public List<DeviceType> getDeviceTypeList() {
-        return mDeviceTypeList;
+        return deviceTypeList;
     }
 
     public boolean addRoomToRoomList(Room room) {
@@ -177,13 +150,6 @@ public class House implements Metered {
         return true;
     }
 
-    String buildHouseString() {
-        String result;
-        result = this.mId + ", " + this.mStreet + ", " + this.mZip + ", " +
-                this.mTown + ".\n";
-        return result;
-    }
-
     /**
      * calculates distance from the house to the sensor.
      *
@@ -192,20 +158,42 @@ public class House implements Metered {
      */
     double calculateDistanceToSensor(Sensor sensor) {
         Local l = sensor.getLocal();
-        return this.mLocation.getLinearDistanceBetweenLocalsInKm(l);
+        return this.location.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     /**
-     * calculates minimum distance from the house to a list of sensors
+     * Calculates minimum distance from the house to a list of sensors in a given geographic area..
      *
-     * @param ga
-     * @return
+     * @param ga is the given geographic area.
+     * @return is the value of the distance of the house to the closest sensor to it.
      */
-    double getMinDistanceFromHouseToSensor(GeographicArea ga) {
+    double getMinDistanceToSensor(GeographicArea ga) {
         Sensor firstSensor = ga.getSensorList().getSensors()[0];
         double distance = calculateDistanceToSensor(firstSensor);
         for (int i = 0; i < ga.getSensorList().getSensors().length; i++) {
             Sensor sensor = ga.getSensorList().getSensors()[i];
+            if (distance > calculateDistanceToSensor(sensor)) {
+                distance = calculateDistanceToSensor(sensor);
+            }
+        }
+        return distance;
+    }
+
+    /**
+     * Calculates minimum distance from the house to a list of sensors of a given type
+     * in a given geographic area.
+     *
+     * @param ga is the given geographic area.
+     * @param type is the type we want to search for.
+     * @return is the value of the distance of the house to sensor of the given type closest to it.
+     */
+
+    double getMinDistanceToSensorOfGivenType(GeographicArea ga, String type) {
+        List<Sensor> workingList = ga.getSensorList().getSensorListByType(type);
+        Sensor firstSensor = workingList.get(0);
+        double distance = calculateDistanceToSensor(firstSensor);
+        for (int i = 0; i < workingList.size(); i++) {
+            Sensor sensor = workingList.get(i);
             if (distance > calculateDistanceToSensor(sensor)) {
                 distance = calculateDistanceToSensor(sensor);
             }
@@ -226,11 +214,10 @@ public class House implements Metered {
         SensorList sensorList = new SensorList();
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
-            if (Double.compare(this.getMinDistanceFromHouseToSensor(ga), s.getDistanceToHouse(this)) == 0) {
+            if (Double.compare(this.getMinDistanceToSensorOfGivenType(ga, sensorType), s.getDistanceToHouse(this)) == 0) {
                 sensorList.addSensor(s);
             }
         }
-
         if (sensorList.getSensorList().isEmpty()) {
             return sensorError;
         }
@@ -246,7 +233,7 @@ public class House implements Metered {
     /**
      * This method builds a String for the GridList in the house.
      *
-     * @return
+     * @return string with energy grid list
      */
     public String buildGridListString() {
         String mStringEnhancer = "---------------\n";
@@ -270,25 +257,6 @@ public class House implements Metered {
         return this.mRoomList.buildRoomsString();
     }
 
-    /**
-     * @param indexList is a list of integers that represent positions in a list.
-     * @return builds a string from the individual elements in the RoomList that are contained in the positions
-     * given by the list of indexes.
-     */
-
-    public String buildRoomsByIndexString(List<Integer> indexList) {
-        return this.mRoomList.buildElementsByIndexString(indexList);
-    }
-
-    /**
-     * @param input is the name of room we want to look for.
-     * @return is a list of integers, representing positions in the roomList, of rooms whose name matches
-     * input string.
-     */
-    public List<Integer> matchRoomIndexByString(String input) {
-        return this.mRoomList.matchRoomIndexByString(input);
-    }
-
 
     /**
      * Returns a list of devices of a given type, in all rooms of this house.
@@ -304,15 +272,6 @@ public class House implements Metered {
         return devicesOfGivenType;
     }
 
-    List<Device> getAllHouseDevices() {
-        List<Device> allDevices = new ArrayList<>();
-        for (Room r : mRoomList.getList()) {
-            allDevices.addAll(r.getDeviceList());
-        }
-        return allDevices;
-    }
-
-
     public String buildTypeListString(List<DeviceType> list) {
         StringBuilder result = new StringBuilder(new StringBuilder());
         if (list.isEmpty()) {
@@ -326,12 +285,12 @@ public class House implements Metered {
 
     /**
      * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
-     *
      * @param deviceType the device type
+     * @param time represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyConsumptionByDeviceType(String deviceType) {
-        return mRoomList.getDailyConsumptionByDeviceType(deviceType);
+    public double getDailyConsumptionByDeviceType(String deviceType, int time) {
+        return mRoomList.getDailyConsumptionByDeviceType(deviceType, time);
     }
 
     public boolean addGrid(EnergyGrid energyGrid) {
@@ -343,11 +302,38 @@ public class House implements Metered {
         return 0;
     }
 
-    /**This method receives room parameters and creates a new Room with those parameteres
-     * @return returns room that was created
-     * **/
-    public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height){
-        return new Room (roomDesignation,roomHouseFloor,width,length,height);
+    /**
+     * This method receives room parameters, checks if room exists in house and
+     * returns room with same designation in case it does. In case the room does not
+     * exit, a new room will be created and returned.
+     * @return room with characteristics given as parameters
+     **/
+    public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+        for (Room r : this.mRoomList.getList()){
+            String designation = r.getRoomName();
+            if(roomDesignation.equals(designation)){
+                return r;
+            }
+        }
+        Room room = new Room(roomDesignation,roomHouseFloor,width,length,height);
+        this.mRoomList.addRoom(room);
+        return room;
+    }
+
+    /**
+     * This receives a room designation and checks if house has room with
+     * that designation, returning true in case it does and false in case it does not.
+     *
+     * @return true in case a room with the given designation exists in house, false otherwise
+     **/
+    boolean containsRoomByName(String roomDesignation) {
+        for (Room r : this.mRoomList.getList()) {
+            String nameTest = r.getRoomName();
+            if (nameTest.equals(roomDesignation)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -359,7 +345,7 @@ public class House implements Metered {
             return false;
         }
         House house = (House) o;
-        return Objects.equals(mStreet, house.mStreet);
+        return Objects.equals(this.address, house.address);
     }
 
     @Override

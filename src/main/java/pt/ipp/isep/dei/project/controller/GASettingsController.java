@@ -2,8 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.List;
-
 /**
  * Controller class for Geographical Area Settings UI
  */
@@ -11,37 +9,6 @@ import java.util.List;
 public class GASettingsController {
 
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
-
-    /**
-     * @param input        is the name of the TypeArea we want to search the list for.
-     * @param typeAreaList is the list where we're going to search for areas of the given name.
-     * @return is a list of integers with all the indexes, in the parameter list, where
-     * typeAreas with the name given in the first parameter are contained.
-     */
-
-    List<Integer> matchTypeAreaIndexByString(String input, TypeAreaList typeAreaList) {
-        return typeAreaList.matchGeographicAreaTypeIndexByString(input);
-    }
-
-    /**
-     * @param listOfIndexesTypeGeographicAreas is a list of integers containing the indexes of objects we want
-     *                                         to access.
-     * @param typeAreaList                     is the list where we're going to look for said objects.
-     * @return builds a string of all the objects contained in the indexes of the provided list.
-     */
-
-    String buildTypeAreaElementsByIndexString(List<Integer> listOfIndexesTypeGeographicAreas, TypeAreaList typeAreaList) {
-        return typeAreaList.buildGATypeElementsByIndexString(listOfIndexesTypeGeographicAreas);
-    }
-
-    /**
-     * @param typeArea is the type of area to print.
-     * @return builds a string with the given type of area.
-     */
-
-    public String buildTypeAreaString(TypeArea typeArea) {
-        return typeArea.buildTypeGeographicAreaString();
-    }
 
     /**
      * @param typeAreaList is the list of Geographic Area Types we want to print.
@@ -96,14 +63,18 @@ public class GASettingsController {
      * @param newGeoList geographic area list to add the new geographic area
      * @param newName    input string for geographic area name
      * @param typeArea   input string for type area
-     * @param latitude   input number for latitude
-     * @param longitude  input number for longitude
+     * @param local   input number for latitude, longitude and altitude
      * @return success if a new GA is added, false otherwise
      */
+    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, Local local, double length, double width) {
+        GeographicArea geoToAdd = newGeoList.createGA(newName, typeArea, length, width, local.getLatitude(), local.getAltitude(), local.getLongitude());
 
-    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, double latitude, double longitude, double altitude, double length, double width) {
-        GeographicArea geoToAdd = new GeographicArea(newName, new TypeArea(typeArea.getTypeOfGeographicArea()), length, width, new Local(latitude, longitude, altitude));
-        return newGeoList.addGeographicAreaToGeographicAreaList(geoToAdd);
+        if (newGeoList.checkIfGAExists(newName, typeArea, local.getLatitude(), local.getAltitude(), local.getLongitude())) {
+            return newGeoList.addGeographicArea(geoToAdd);
+        } else {
+            geoToAdd = newGeoList.getGeographicArea(newName, typeArea, local.getLatitude(), local.getAltitude(), local.getLongitude());
+            return newGeoList.addGeographicArea(geoToAdd);
+        }
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
@@ -138,6 +109,7 @@ public class GASettingsController {
      * @param geographicArea that method will use
      * @return geographic area id as a string
      */
+
     public String getGeographicAreaId(GeographicArea geographicArea) {
         return geographicArea.getId();
     }

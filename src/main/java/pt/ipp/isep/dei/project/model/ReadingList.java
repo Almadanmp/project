@@ -9,14 +9,14 @@ import static java.lang.Double.NaN;
  */
 
 public class ReadingList {
-    private List<Reading> mReadings;
+    private List<Reading> readings;
 
     /**
      * Empty Constructor to always allow the creation of an ArrayList of Readings.
      */
 
     public ReadingList() {
-        this.mReadings = new ArrayList<>();
+        this.readings = new ArrayList<>();
     }
 
     /**
@@ -29,8 +29,8 @@ public class ReadingList {
 
     public boolean addReading(Reading reading) {
         boolean result = false;
-        if (!(mReadings.contains(reading))) {
-            result = mReadings.add(reading);
+        if (!(readings.contains(reading))) {
+            result = readings.add(reading);
         }
         return result;
     }
@@ -40,11 +40,10 @@ public class ReadingList {
      */
 
     List<Reading> getListOfReadings() {
-        return this.mReadings;
+        return this.readings;
     }
 
 
-    //THIS METHOD DOES NOT CONSIDER THAT A LIST MIGHT BE EMPTY
     /**Method that goes through every Reading in the list and
      * returns the reading with the most recent Date.
      * @return most recent reading
@@ -54,10 +53,10 @@ public class ReadingList {
         if(isEmpty()){
             return error;
         }
-        Reading recentReading = this.mReadings.get(0);
-        Date mostRecent = recentReading.getmDate();
-        for(Reading r : this.mReadings){
-            Date testDate = r.getmDate();
+        Reading recentReading = this.readings.get(0);
+        Date mostRecent = recentReading.getDate();
+        for(Reading r : this.readings){
+            Date testDate = r.getDate();
             if(mostRecent.before(testDate)){
                 mostRecent = testDate;
                 recentReading = r;
@@ -70,11 +69,11 @@ public class ReadingList {
      * This method returns the most recent reading value a Reading List.
      * @return the most recent reading value or NaN when the Reading List is empty
      */
-    public double getMostRecentValueOfReading() {
-        if(this.mReadings.isEmpty()){
-            return NaN;
+    public double getMostRecentValue() throws IllegalArgumentException{
+        if(this.readings.isEmpty()){
+            throw new IllegalArgumentException("There aren't any readings available.");
         }
-        return getMostRecentReading().getmValue();
+        return getMostRecentReading().getValue();
     }
 
     /**
@@ -82,14 +81,14 @@ public class ReadingList {
      *
      * @return average value of all reading from given date's month
      */
-    double getAverageOfAllRecordedValueReadingsFromGivenMonth(Date dateGiven) {
-        List<Date> datesOfMonth = getListOfDatesOfMonthWithReadings(dateGiven);
+    double getAverageReadingsFromGivenMonth(Date dateGiven) {
+        List<Date> datesOfMonth = getDatesOfMonthWithReadings(dateGiven);
         double sum = 0;
         int counter = 0;
         for (Date d : datesOfMonth) {
-            for (Reading r : this.mReadings) {
-                if (r.getmDate() == d) {
-                    sum = sum + r.getmValue();
+            for (Reading r : this.readings) {
+                if (r.getDate() == d) {
+                    sum = sum + r.getValue();
                     counter++;
                 }
             }
@@ -132,13 +131,13 @@ public class ReadingList {
      * @param dateGiven date that will correspond to the month where to look for readings
      * @return list of dates of readings from the given date's month
      */
-    List<Date> getListOfDatesOfMonthWithReadings(Date dateGiven) {
+    List<Date> getDatesOfMonthWithReadings(Date dateGiven) {
         Date dateBeforeStartMonth = getDateBeforeStartMonth(dateGiven);
         Date dateAfterEndMonth = getDateAfterEndMonth(dateGiven);
 
         List<Date> datesList = new ArrayList<>();
-        for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+        for (Reading mReading : readings) {
+            Date currentReadingDate = mReading.getDate();
             if ((currentReadingDate.after(dateBeforeStartMonth)) && (currentReadingDate.before(dateAfterEndMonth))) {
                 datesList.add(currentReadingDate);
 
@@ -162,8 +161,8 @@ public class ReadingList {
         List<Integer> daysWithReadings = new ArrayList<>();
         Date endDate = cal.getTime();
 
-        for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+        for (Reading mReading : readings) {
+            Date currentReadingDate = mReading.getDate();
             if (currentReadingDate.before(endDate) && currentReadingDate.after(startDate)) {
                 GregorianCalendar temporaryCalend = new GregorianCalendar();
                 temporaryCalend.setTime(currentReadingDate);
@@ -239,14 +238,14 @@ public class ReadingList {
         cal.setTime(dateGiven);
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
-        for (int i = mReadings.size() - 1; i >= 0; i--) {
-            Reading reading = mReadings.get(i);
-            cal.setTime(reading.getmDate());
+        for (int i = readings.size() - 1; i >= 0; i--) {
+            Reading reading = readings.get(i);
+            cal.setTime(reading.getDate());
             if ((cal.get(Calendar.MONTH) != month) || (cal.get(Calendar.YEAR) != year)) {
-                this.mReadings.remove(reading);
+                this.readings.remove(reading);
             }
         }
-        return this.mReadings;
+        return this.readings;
     }
 
     /**
@@ -260,8 +259,8 @@ public class ReadingList {
         Date dateBeforeStartMonth = getDateBeforeStartMonth(dateGiven);
         Date dateAfterEndMonth = getDateAfterEndMonth(dateGiven);
         List<Integer> daysWithReadings = new ArrayList<>();
-        for (Reading reading : mReadings) {
-            Date currentReadingDate = reading.getmDate();
+        for (Reading reading : readings) {
+            Date currentReadingDate = reading.getDate();
             if (currentReadingDate.after(dateBeforeStartMonth) && currentReadingDate.before(dateAfterEndMonth)) {
                 GregorianCalendar temporaryCalend = new GregorianCalendar();
                 temporaryCalend.setTime(currentReadingDate);
@@ -285,12 +284,12 @@ public class ReadingList {
      */
     List<Double> getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(int dayOfMonth) {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
-        for (Reading r : mReadings) {
+        for (Reading r : readings) {
             GregorianCalendar dateOfReading = new GregorianCalendar();
-            dateOfReading.setTime(r.getmDate());
+            dateOfReading.setTime(r.getDate());
 
             if ((dateOfReading.get(Calendar.DAY_OF_MONTH)) == dayOfMonth) {
-                valueReadingsFromGivenDay.add(r.getmValue());
+                valueReadingsFromGivenDay.add(r.getValue());
             }
         }
         return valueReadingsFromGivenDay;
@@ -392,10 +391,10 @@ public class ReadingList {
 
         double sum = 0;
         int counter = 0;
-        for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+        for (Reading mReading : readings) {
+            Date currentReadingDate = mReading.getDate();
             if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay)) {
-                sum += mReading.getmValue();
+                sum += mReading.getValue();
                 counter++;
             }
         }
@@ -427,8 +426,8 @@ public class ReadingList {
         Date dateAfterEndOfWeek = cal1.getTime();
 
         List<Integer> daysWithReadings = new ArrayList<>();
-        for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+        for (Reading mReading : readings) {
+            Date currentReadingDate = mReading.getDate();
             if (currentReadingDate.after(dateBeforeStartOfWeek) && currentReadingDate.before(dateAfterEndOfWeek)) {
                 GregorianCalendar temporaryCalend = new GregorianCalendar();
                 temporaryCalend.setTime(currentReadingDate);
@@ -491,11 +490,9 @@ public class ReadingList {
 
     /**
      * This method returns the Maximum Value of the Reading of a Given Day.
-     *
      * @param dateGiven date given
      * @return get maximum value reading in a given day
      */
-
     double getMaximumOfGivenDayValueReadings(Date dateGiven) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(dateGiven);
@@ -511,18 +508,36 @@ public class ReadingList {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         Date endDay = cal.getTime();
-        if(mReadings.isEmpty()){
-            return NaN;
+        ReadingList dayReadings = matchByDate(beginDay,endDay);
+
+        if(dayReadings.isEmpty()){
+            throw new IllegalArgumentException("The day given has no readings");
         }
-        double maxValue = -100;
-        for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
-            if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay) && maxValue < mReading.getmValue()) {
-                maxValue = mReading.getmValue();
-            }
+        double maxValue = dayReadings.getListOfReadings().get(0).getValue();
+        for (Reading r : dayReadings.getListOfReadings()) {
+            double currentValue = r.getValue();
+            maxValue = Math.max(maxValue, currentValue);
         }
         return maxValue;
     }
+
+    /**
+     * This method receives two dates and checks the readings to match those that
+     * have a date contained in the interval given as parameter
+     * @return list of readings contained in interval given as parameter
+     */
+    ReadingList matchByDate(Date beginDate, Date endDate){
+        ReadingList finalList = new ReadingList();
+        for(Reading r : this.readings){
+            Date readingDate = r.getDate();
+            if(readingDate.after(beginDate) && readingDate.before(endDate)){
+                finalList.addReading(r);
+            }
+        }
+        return finalList;
+    }
+
+
 
 
     boolean checkIfListValid(List<Double> values) {
@@ -555,10 +570,10 @@ public class ReadingList {
         Date endDay = cal.getTime();
 
         double sum = 0;
-        for (Reading mReading : mReadings) {
-            Date currentReadingDate = mReading.getmDate();
+        for (Reading mReading : readings) {
+            Date currentReadingDate = mReading.getDate();
             if (currentReadingDate.after(beginDay) && currentReadingDate.before(endDay)) {
-                sum += mReading.getmValue();
+                sum += mReading.getValue();
             }
         }
         return sum;
@@ -589,7 +604,7 @@ public class ReadingList {
      * @return whether the list is empty or not.
      */
     public boolean isEmpty() {
-        return mReadings.isEmpty();
+        return readings.isEmpty();
     }
 
     /**
@@ -604,10 +619,10 @@ public class ReadingList {
         for (int day : daysWithReadings) {
             List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(day);
             double givenD;
-            givenD = getTotalFromGivenList(valueReadingsThatMatchDay);
+            givenD = getListSum(valueReadingsThatMatchDay);
             totalValuesFromDaysWithReadings.add(givenD);
         }
-        return getTotalFromGivenList(totalValuesFromDaysWithReadings);
+        return getListSum(totalValuesFromDaysWithReadings);
     }
 
     /**
@@ -616,7 +631,7 @@ public class ReadingList {
      *
      * @return returns the average of all values contained within that ArrayList
      */
-    double getTotalFromGivenList(List<Double> valueList) {
+    double getListSum(List<Double> valueList) {
         double sum = 0;
         if (valueList.isEmpty()) {
             return NaN;

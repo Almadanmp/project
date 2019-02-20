@@ -115,32 +115,23 @@ class EnergyConsumptionUI {
             System.out.println(utils.invalidGridList);
             return;
         }
-        boolean active;
         InputUtils inputs = new InputUtils();
         EnergyGrid grid = inputs.getInputGridByList(programHouse);
         RoomList selectedRooms = new RoomList();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
             printSelection(selectedDevices, selectedRooms);
-            System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); \n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; \n 4) Return to main menu;\n ");
+            System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); " +
+                    "\n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; " +
+                    "\n 4) Return to main menu;\n ");
             int option;
             option = inputs.getInputAsInt();
             switch (option) {
                 case 1:
-                    active = true;
-                    while (active) {
-                        printSelection(selectedDevices, selectedRooms);
-                        selectRooms(grid, selectedRooms, selectedDevices);
-                        active = continuePrompt();
-                    }
+                    allRoomDevicesSelection(grid, selectedRooms, selectedDevices);
                     break;
                 case 2:
-                    active = true;
-                    while (active) {
-                        printSelection(selectedDevices, selectedRooms);
-                        selectDevices(grid, selectedDevices);
-                        active = continuePrompt();
-                    }
+                    devicesSelection(grid, selectedRooms, selectedDevices);
                     break;
                 case 3:
                     printSelection(selectedDevices, selectedRooms);
@@ -156,6 +147,24 @@ class EnergyConsumptionUI {
         }
     }
 
+    private void allRoomDevicesSelection(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
+        boolean active = true;
+        while (active) {
+            printSelection(selectedDevices, selectedRooms);
+            selectRooms(grid, selectedRooms, selectedDevices);
+            active = continuePrompt();
+        }
+    }
+
+    private void devicesSelection(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
+        boolean active = true;
+        while (active) {
+            printSelection(selectedDevices, selectedRooms);
+            selectDevices(grid, selectedDevices);
+            active = continuePrompt();
+        }
+    }
+
     /**
      * Prints currently selected devices and rooms.
      *
@@ -167,7 +176,8 @@ class EnergyConsumptionUI {
         if (selectedDevices.getList().isEmpty() && selectedRooms.getList().isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
-            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildRoomsString() + "\n" + "You have already selected the following devices:\n\n" + selectedDevices.buildDevicesString() + ".");
+            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildRoomsString()
+                    + "\n" + "You have already selected the following devices:\n\n" + selectedDevices.buildDevicesString() + ".");
     }
 
     /**
@@ -332,44 +342,65 @@ class EnergyConsumptionUI {
 
     private void runUS730(House programHouse) {
         InputUtils inputs = new InputUtils();
-        Date startDate;
-        Date endDate;
         this.printUS730Menu();
         int option = inputs.getInputAsInt();
         switch (option) {
             case 1:
-                EnergyGrid grid = inputs.getInputGridByList(programHouse);
-                System.out.println(INSERT_START_DATE);
-                startDate = inputs.getInputYearMonthDayHourMin();
-                System.out.println(INSERT_END_DATE);
-                endDate = inputs.getInputYearMonthDayHourMin();
-                LogList gridLogs = controller.getGridLogsInInterval(grid, startDate, endDate);
-                System.out.println(controller.buildLogListString(gridLogs));
+                setGridData(programHouse);
                 break;
             case 2:
-                Room case2Room = inputs.getHouseRoomByList(programHouse);
-                System.out.println(INSERT_START_DATE);
-                startDate = inputs.getInputYearMonthDayHourMin();
-                System.out.println(INSERT_END_DATE);
-                endDate = inputs.getInputYearMonthDayHourMin();
-                LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate);
-                System.out.println(controller.buildLogListString(roomLogs));
+                setRoomData(programHouse);
                 break;
             case 3:
-                Room case3Room = inputs.getHouseRoomByList(programHouse);
-                Device device = inputs.getInputRoomDevicesByList(case3Room);
-                System.out.println(INSERT_START_DATE);
-                startDate = inputs.getInputYearMonthDayHourMin();
-                System.out.println(INSERT_END_DATE);
-                endDate = inputs.getInputYearMonthDayHourMin();
-                LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);
-                System.out.println(controller.buildLogListString(deviceLogs));
+                setDeviceData(programHouse);
                 break;
             default:
                 System.out.println("Invalid option. Please try again.");
                 break;
 
         }
+    }
+    private void setGridData(House programHouse) {
+        InputUtils inputs = new InputUtils();
+        EnergyGrid grid = inputs.getInputGridByList(programHouse);
+        System.out.println(INSERT_START_DATE);
+        Date startDate = inputs.getInputYearMonthDayHourMin();
+        System.out.println(INSERT_END_DATE);
+        Date endDate = inputs.getInputYearMonthDayHourMin();
+        LogList gridLogs = controller.getGridLogsInInterval(grid, startDate, endDate);
+        System.out.println(controller.buildLogListString(gridLogs));
+
+    }
+
+    private void setRoomData(House programHouse) {
+        InputUtils inputs = new InputUtils();
+        Room case2Room = inputs.getHouseRoomByList(programHouse);
+        Date startDate = requestStartDate();
+        Date endDate = requestEndDate();
+        LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate);
+        System.out.println(controller.buildLogListString(roomLogs));
+    }
+
+    private void setDeviceData(House programHouse) {
+        InputUtils inputs = new InputUtils();
+        Room case3Room = inputs.getHouseRoomByList(programHouse);
+        Device device = inputs.getInputRoomDevicesByList(case3Room);
+        Date startDate = requestStartDate();
+        Date endDate = requestEndDate();
+        LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);
+        System.out.println(controller.buildLogListString(deviceLogs));
+    }
+
+    private Date requestStartDate(){
+        InputUtils inputs = new InputUtils();
+        System.out.println(INSERT_START_DATE);
+        return inputs.getInputYearMonthDayHourMin();
+    }
+
+    private Date requestEndDate(){
+        InputUtils inputs = new InputUtils();
+        System.out.println(INSERT_END_DATE);
+        return inputs.getInputYearMonthDayHourMin();
     }
 
     /*

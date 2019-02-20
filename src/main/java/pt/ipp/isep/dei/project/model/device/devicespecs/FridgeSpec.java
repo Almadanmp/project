@@ -9,9 +9,9 @@ public class FridgeSpec implements DeviceSpecs {
     public static final String REFRIGERATOR_CAPACITY = "Refrigerator Capacity";
     public static final String ANNUAL_CONSUMPTION = "Annual Energy Consumption";
 
-    private double mFreezerCapacity;
-    private double mRefrigeratorCapacity;
-    private double mAnnualEnergyConsumption;
+    private double freezerCapacity;
+    private double refrigeratorCapacity;
+    private double annualEnergyConsumption;
 
 
     public List<String> getAttributeNames() {
@@ -25,11 +25,11 @@ public class FridgeSpec implements DeviceSpecs {
     public Object getAttributeValue(String attributeName) {
         switch (attributeName) {
             case FREEZER_CAPACITY:
-                return mFreezerCapacity;
+                return freezerCapacity;
             case REFRIGERATOR_CAPACITY:
-                return mRefrigeratorCapacity;
+                return refrigeratorCapacity;
             case ANNUAL_CONSUMPTION:
-                return mAnnualEnergyConsumption;
+                return annualEnergyConsumption;
             default:
                 return 0;
         }
@@ -52,19 +52,19 @@ public class FridgeSpec implements DeviceSpecs {
         switch (attributeName) {
             case FREEZER_CAPACITY:
                 if (attributeValue instanceof Double) {
-                    this.mFreezerCapacity = (Double) attributeValue;
+                    this.freezerCapacity = (Double) attributeValue;
                     return true;
                 }
                 return false;
             case REFRIGERATOR_CAPACITY:
                 if (attributeValue instanceof Double) {
-                    this.mRefrigeratorCapacity = (Double) attributeValue;
+                    this.refrigeratorCapacity = (Double) attributeValue;
                     return true;
                 }
                 return false;
             case ANNUAL_CONSUMPTION:
                 if (attributeValue instanceof Double) {
-                    this.mAnnualEnergyConsumption = (Double) attributeValue;
+                    this.annualEnergyConsumption = (Double) attributeValue;
                     return true;
                 }
                 return false;

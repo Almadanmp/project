@@ -9,11 +9,11 @@ import java.util.Date;
  */
 
 public class Sensor {
-    private String mName;
-    private TypeSensor mTypeSensor;
-    private Local mLocal;
-    private Date mDateStartedFunctioning;
-    private ReadingList mReadingList;
+    private String name;
+    private TypeSensor typeSensor;
+    private Local local;
+    private Date dateStartedFunctioning;
+    private ReadingList readingList;
 
     /**
      * Constructor with:name, typesensor, local, dateStartedFunctioning
@@ -28,7 +28,7 @@ public class Sensor {
         setTypeSensor(typeSensor);
         setLocal(local);
         setDateStartedFunctioning(dateStartedFunctioning);
-        mReadingList = new ReadingList();
+        readingList = new ReadingList();
     }
 
     /**
@@ -42,7 +42,7 @@ public class Sensor {
         setName(name);
         setTypeSensor(typeSensor);
         setDateStartedFunctioning(dateStartedFunctioning);
-        mReadingList = new ReadingList();
+        readingList = new ReadingList();
     }
 
     /**
@@ -52,7 +52,7 @@ public class Sensor {
      */
     public void setName(String name) {
         if (isSensorNameValid(name)) {
-            this.mName = name;
+            this.name = name;
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
@@ -64,7 +64,7 @@ public class Sensor {
      * @param local
      */
     public void setLocal(Local local) {
-        this.mLocal = local;
+        this.local = local;
     }
 
     /**
@@ -73,7 +73,7 @@ public class Sensor {
      * @param sensor
      */
     void setTypeSensor(TypeSensor sensor) {
-        this.mTypeSensor = sensor;
+        this.typeSensor = sensor;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Sensor {
      * @param dateStartedFunctioning
      */
     void setDateStartedFunctioning(Date dateStartedFunctioning) {
-        this.mDateStartedFunctioning = dateStartedFunctioning;
+        this.dateStartedFunctioning = dateStartedFunctioning;
     }
 
     /**
@@ -91,7 +91,7 @@ public class Sensor {
      * @return
      */
     public String getName() {
-        return (this.mName);
+        return (this.name);
     }
 
     /**
@@ -100,7 +100,7 @@ public class Sensor {
      * @return
      */
     public TypeSensor getTypeSensor() {
-        return (this.mTypeSensor);
+        return (this.typeSensor);
     }
 
     /**
@@ -109,7 +109,7 @@ public class Sensor {
      * @return
      */
     public Local getLocal() {
-        return (this.mLocal);
+        return (this.local);
     }
 
     /**
@@ -118,7 +118,7 @@ public class Sensor {
      * @return
      */
     Date getDateStartedFunctioning() {
-        return (this.mDateStartedFunctioning);
+        return (this.dateStartedFunctioning);
     }
 
     /**
@@ -127,7 +127,7 @@ public class Sensor {
      * @return
      */
     public ReadingList getReadingList() {
-        return mReadingList;
+        return readingList;
     }
 
     /**
@@ -136,7 +136,7 @@ public class Sensor {
      * @param readingList
      */
     public void setReadingList(ReadingList readingList) {
-        this.mReadingList = readingList;
+        this.readingList = readingList;
     }
 
 
@@ -146,12 +146,12 @@ public class Sensor {
      * @return true in case the reading is new and it is added
      * or false in case the reading already exists**/
     public boolean addReading(Reading reading){
-        for(Reading r : this.mReadingList.getListOfReadings()){
+        for(Reading r : this.readingList.getListOfReadings()){
             if(r.equals(reading)){
                 return false;
             }
         }
-        this.mReadingList.addReading(reading);
+        this.readingList.addReading(reading);
         return true;
     }
 
@@ -163,7 +163,7 @@ public class Sensor {
      */
     double calculateDistanceToSensor(Sensor s1) {
         Local l = s1.getLocal();
-        return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
+        return this.local.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     /**
@@ -173,7 +173,7 @@ public class Sensor {
      * @return average of readings on a month on a sensor
      */
     double calculateMonthMeanOnSensor(Sensor s1, Date dateGiven) {
-        return s1.getReadingList().getAverageOfAllRecordedValueReadingsFromGivenMonth(dateGiven);
+        return s1.getReadingList().getAverageReadingsFromGivenMonth(dateGiven);
     }
 
     /**
@@ -205,7 +205,7 @@ public class Sensor {
 
     double getDistanceToHouse(House house) {
         Local l = house.getLocation();
-        return this.mLocal.getLinearDistanceBetweenLocalsInKm(l);
+        return this.local.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     /**
@@ -216,8 +216,8 @@ public class Sensor {
      */
     public String buildSensorString() {
         String result;
-        result = this.mName + ", " + this.mTypeSensor.getName() + ", " +
-                this.mLocal.getLatitude() + "º lat, " + this.mLocal.getLongitude() + "º long\n";
+        result = this.name + ", " + this.typeSensor.getName() + ", " +
+                this.local.getLatitude() + "º lat, " + this.local.getLongitude() + "º long\n";
         return result;
     }
 

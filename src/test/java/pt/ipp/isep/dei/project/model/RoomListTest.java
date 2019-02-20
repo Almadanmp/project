@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -28,11 +27,11 @@ class RoomListTest {
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
-        r1.setRoomSensorList(sensorList);
+        r1.setSensorList(sensorList);
         Room r2 = new Room("Jardim", 1, 123, 2, 2);
-        r2.setRoomSensorList(sensorList);
+        r2.setSensorList(sensorList);
         Room r3 = new Room("Quarto", 1, 123, 2, 2);
-        r3.setRoomSensorList(sensorList);
+        r3.setSensorList(sensorList);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
         roomList.addRoom(r3);
@@ -54,55 +53,15 @@ class RoomListTest {
     }
 
     @Test
-    void seeIfDoesListOfRoomsContainRoomByName() {
-        RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
-        Room r1 = new Room("Cozinha", 1, 123, 2, 2);
-        r1.setRoomSensorList(sensorList);
-        Room r2 = new Room("Jardim", 1, 123, 2, 2);
-        r2.setRoomSensorList(sensorList);
-        Room r3 = new Room("Quarto", 1, 123, 2, 2);
-        r3.setRoomSensorList(sensorList);
-        roomList.addRoom(r1);
-        roomList.addRoom(r2);
-        roomList.addRoom(r3);
-
-        boolean expectedResult = true;
-        boolean actualResult = roomList.doesListOfRoomsContainRoomByName("Jardim");
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfDoesListOfRoomsContainRoomByNameFalse() {
-        RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
-        Room r1 = new Room("Cozinha", 1, 123, 2, 2);
-        r1.setRoomSensorList(sensorList);
-        Room r2 = new Room("Jardim", 1, 123, 2, 2);
-        r2.setRoomSensorList(sensorList);
-        Room r3 = new Room("Quarto", 1, 123, 2, 2);
-        r3.setRoomSensorList(sensorList);
-        roomList.addRoom(r1);
-        roomList.addRoom(r2);
-        roomList.addRoom(r3);
-
-        boolean expectedResult = false;
-        boolean actualResult = roomList.doesListOfRoomsContainRoomByName("Sala");
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfAddRoomFails() {
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
-        r1.setRoomSensorList(sensorList);
+        r1.setSensorList(sensorList);
         Room r2 = new Room("Cozinha", 1, 123, 2, 2);
-        r2.setRoomSensorList(sensorList);
+        r2.setSensorList(sensorList);
         Room r3 = new Room("Quarto", 1, 123, 2, 2);
-        r3.setRoomSensorList(sensorList);
+        r3.setSensorList(sensorList);
         roomList.addRoom(r1);
         boolean expectedResult = false;
         boolean actualResult = roomList.addRoom(r2);
@@ -114,123 +73,15 @@ class RoomListTest {
         RoomList roomList = new RoomList();
         SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
-        r1.setRoomSensorList(sensorList);
+        r1.setSensorList(sensorList);
         Room r2 = new Room("Jardim", 1, 123, 2, 2);
-        r2.setRoomSensorList(sensorList);
+        r2.setSensorList(sensorList);
         Room r3 = new Room("Quarto", 1, 123, 2, 2);
-        r3.setRoomSensorList(sensorList);
+        r3.setSensorList(sensorList);
         roomList.addRoom(r1);
         boolean expectedResult = true;
         boolean actualResult = roomList.addRoom(r2);
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeifmatchRoomWorks() {
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room);
-        roomList.addRoom(room1);
-        boolean result = roomList.matchRoom("kitchen");
-        assertTrue(result);
-    }
-
-    @Test
-    void seeifmatchRoomWorksFalse() {
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room);
-        roomList.addRoom(room1);
-        boolean result = roomList.matchRoom("cozinha");
-        assertFalse(result);
-    }
-
-
-    @Test
-    void seeIfRoomAreaIndexMatchByString() {
-        //Arrange
-
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room);
-        roomList.addRoom(room1);
-        //Act
-        List<Integer> result = roomList.matchRoomIndexByString("sala");
-        List<Integer> expectedResult = Collections.singletonList(roomList.getList().indexOf(room1));
-        //Assert
-        Assert.assertEquals(expectedResult, result);
-
-    }
-
-    @Test
-    void seeIfPrintRoomElementsByIndex() {
-        //Arrange
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room);
-        roomList.addRoom(room1);
-
-        //Act
-        String result = roomList.buildElementsByIndexString(list);
-        String expectedResult = "1) sala, 1, 1.0, 2.0, 2.0.\n";
-
-        //Assert
-        Assert.assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfBuildRoomListString() {
-        //Arrange
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room);
-        roomList.addRoom(room1);
-        house.addRoomToRoomList(room);
-        house.addRoomToRoomList(room1);
-
-        //Act
-        String result = roomList.buildRoomListString(house);
-        String expectedResult = "---------------\n" +
-                "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
-                "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
-                "---------------\n";
-
-        //Assert
-        Assert.assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfBuildRoomListStringInvalid() {
-        //Arrange
-        List<Integer> list = new ArrayList<>();
-        Integer i = 1;
-        list.add(i);
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        RoomList roomList = new RoomList();
-
-        //Act
-        String result = roomList.buildRoomListString(house);
-        String expectedResult = "Invalid List - List is Empty\n";
-        //Assert
-        Assert.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -240,7 +91,8 @@ class RoomListTest {
         Room room1 = new Room("sala", 1, 1, 2, 2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         house.addRoomToRoomList(room);
         house.addRoomToRoomList(room1);
 
@@ -257,7 +109,8 @@ class RoomListTest {
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
         String expectedResult = "Invalid List - List is Empty\n";
         String result = house.buildRoomListString();
         assertEquals(expectedResult, result);

@@ -136,5 +136,4 @@ class FridgeSpecTest {
         // distinct hash code to cover default cases of switches
         assertEquals(0, fridgeSpec.getAttributeUnit(""));
     }
-
 }

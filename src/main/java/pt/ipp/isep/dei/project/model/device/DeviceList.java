@@ -10,25 +10,25 @@ import java.util.List;
 
 public class DeviceList {
 
-    private List<Device> mDeviceList;
+    private List<Device> devices;
 
 
     public DeviceList() {
-        this.mDeviceList = new ArrayList<>();
+        this.devices = new ArrayList<>();
     }
 
 
     public List<Device> getList() {
-        return this.mDeviceList;
+        return this.devices;
     }
 
     public boolean containsDevice(Device device) {
-        return mDeviceList.contains(device);
+        return devices.contains(device);
     }
 
     public boolean addDevice(Device device) {
-        if (!mDeviceList.contains(device)) {
-            mDeviceList.add(device);
+        if (!devices.contains(device)) {
+            devices.add(device);
             return true;
         }
         return false;
@@ -36,14 +36,14 @@ public class DeviceList {
 
     public boolean removeDevice(Device device) {
         if (this.contains(device)) {
-            mDeviceList.remove(device);
+            devices.remove(device);
             return true;
         }
         return false;
     }
 
-    public boolean checkIfListIsValid() {
-        return !mDeviceList.isEmpty();
+    boolean checkIfListIsValid() {
+        return !devices.isEmpty();
     }
 
     public double getNominalPower() {
@@ -54,53 +54,32 @@ public class DeviceList {
         return result;
     }
 
-    public List<Integer> matchDeviceIndexByString(String input) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < mDeviceList.size(); i++) {
-            if (mDeviceList.get(i).getName().equals(input)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    public String buildElementByIndexString(List<Integer> indexes) {
-        StringBuilder result = new StringBuilder();
-        for (Integer indexe : indexes) {
-            int pos = indexe;
-            result.append(indexe).append(") ").append(mDeviceList.get(pos).getName()).append(", ").append(mDeviceList.get(pos).getNominalPower()).append(".\n");
-        }
-        return result.toString();
-    }
-
     public boolean contains(Device device) {
-        return this.mDeviceList.contains(device);
+        return this.devices.contains(device);
     }
 
     public String buildDevicesString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (Device d : this.mDeviceList) {
+        for (Device d : this.devices) {
             result.append(counter).append(") ").append(d.buildDeviceString());
             counter++;
         }
         return result.toString();
     }
 
-
-    //TODO FIX THIS METHOD - USED ON US 752. NOT WORKING NOW, has to send time. I put the 24 temporary
-
     /**
      * Returns the daily estimate consumption of all devices on this list.
      *
      * @param deviceType the device type
+     * @param time represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
-    public double getDailyConsumptionByDeviceType(String deviceType) {
+    public double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
-        for (Device d : mDeviceList) {
+        for (Device d : devices) {
             if (d.getType().equals(deviceType)) {
-                result += d.getEnergyConsumption(24);
+                result += d.getEnergyConsumption(time);
             }
         }
         return result;

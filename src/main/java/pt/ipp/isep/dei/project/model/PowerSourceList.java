@@ -8,10 +8,10 @@ import java.util.*;
 
 public class PowerSourceList {
 
-    private List<PowerSource> mPowerSourceList;
+    private List<PowerSource> powerSources;
 
     PowerSourceList() {
-        this.mPowerSourceList = new ArrayList<>();
+        this.powerSources = new ArrayList<>();
     }
 
     /**
@@ -21,12 +21,12 @@ public class PowerSourceList {
      * @return true if contains false if not
      */
     boolean containsPowerSource(PowerSource powerSource) {
-        return mPowerSourceList.contains(powerSource);
+        return powerSources.contains(powerSource);
     }
 
     boolean addPowerSource(PowerSource powerSource) {
-        if (!(mPowerSourceList.contains(powerSource))) {
-            mPowerSourceList.add(powerSource);
+        if (!(powerSources.contains(powerSource))) {
+            powerSources.add(powerSource);
             return true;
         } else {
             return false;
@@ -40,10 +40,10 @@ public class PowerSourceList {
      * @return array of powerSources
      */
     PowerSource[] getPowerSources() {
-        int sizeOfResultArray = mPowerSourceList.size();
+        int sizeOfResultArray = powerSources.size();
         PowerSource[] result = new PowerSource[sizeOfResultArray];
-        for (int i = 0; i < mPowerSourceList.size(); i++) {
-            result[i] = mPowerSourceList.get(i);
+        for (int i = 0; i < powerSources.size(); i++) {
+            result[i] = powerSources.get(i);
         }
         return result;
     }
@@ -54,7 +54,7 @@ public class PowerSourceList {
      * @return list of powerSources
      */
     List<PowerSource> getPowerSourceList() {
-        return this.mPowerSourceList;
+        return this.powerSources;
     }
 
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){

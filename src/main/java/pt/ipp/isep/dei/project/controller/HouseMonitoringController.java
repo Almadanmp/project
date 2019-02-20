@@ -19,7 +19,7 @@ public class HouseMonitoringController {
      * @return is the most recent temperature recorded in a room.
      */
 
-    public double getCurrentRoomTemperature(Room room) {
+    public double getCurrentRoomTemperature(Room room) throws IllegalArgumentException {
         return room.getCurrentRoomTemperature();
     }
 
@@ -30,7 +30,7 @@ public class HouseMonitoringController {
      * @return is the max temperature recorded in a room
      */
 
-    public double getMaxTemperatureInARoomOnAGivenDay(Room room, Date day) {
+    public double getDayMaxTemperature(Room room, Date day) throws IllegalArgumentException {
         return room.getMaxTemperatureOnGivenDay(day);
     }
 
@@ -54,12 +54,11 @@ public class HouseMonitoringController {
      * @param endDate is the date where we want to stop measuring average rainfall (upper limit).
      * @return is the average rainfall of the house, as measured by the closest sensor to the house.
      */
-
-    public double getAVGDailyRainfallOnGivenPeriod(House house, Date initialDate, Date endDate) {
+    public double getAverageRainfallInterval(House house, Date initialDate, Date endDate) {
         GeographicArea geoArea = house.getMotherArea();
         Sensor closestSensor = house.getClosestSensorOfGivenType(geoArea, rainfall);
         if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
-            return Double.NaN;
+            throw new IllegalArgumentException("Warning: average value not calculated - no readings available.");
         }
         return closestSensor.getReadingList().getAverageReadingsBetweenTwoDates(initialDate, endDate);
     }
@@ -70,7 +69,6 @@ public class HouseMonitoringController {
      * @param day is the date where we want to  measure total rainfall.
      * @return is the total rainfall of the house, as measured by the closest sensor to the house.
      */
-
     public double getTotalRainfallOnGivenDay(House house, Date day) {
         int counter = 0;
         GeographicArea geoArea = house.getMotherArea();
@@ -96,10 +94,10 @@ public class HouseMonitoringController {
      * @return is the most recent temperature reading as measured by the closest sensor to the house.
      */
 
-    public double getCurrentTemperatureInTheHouseArea(House house, GeographicArea ga) {
-        Sensor closest = house.getClosestSensorOfGivenType(ga,"temperature");
+    public double getHouseAreaTemperature(House house, GeographicArea ga) throws IllegalArgumentException {
+        Sensor closest = house.getClosestSensorOfGivenType(ga,"Temperature");
         ReadingList readingList = closest.getReadingList();
-        return readingList.getMostRecentValueOfReading();
+        return readingList.getMostRecentValue();
     }
 
 }

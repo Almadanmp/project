@@ -1200,8 +1200,8 @@ class SensorTest {
     void ensureThatWeGetDistanceToHouse() {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 6, 6), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        List<String> test = new ArrayList<>();
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("casa de praia", address, new Local(4, 6, 6), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
         TypeSensor ty1 = new TypeSensor("Temperatura", "Celsius");
         Local loc1 = new Local(-5, -5, -5);
         Date d1 = new Date();

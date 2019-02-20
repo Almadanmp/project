@@ -7,7 +7,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 /**
  * SensorSettingsController tests class.
@@ -121,30 +122,6 @@ class SensorSettingsControllerTest {
     }
 
     @Test
-    void seeIfPrintGAList() {
-        //Arrange
-        GeographicArea gA1 = new GeographicArea("Portugal", new TypeArea("Country"), 2, 5, new Local(21, 33, 5));
-        GeographicArea gA2 = new GeographicArea("Oporto", new TypeArea("City"), 2, 4, new Local(14, 14, 5));
-        GeographicArea gA3 = new GeographicArea("Lisbon", new TypeArea("Village"), 2, 4, new Local(3, 3, 5));
-        GeographicAreaList gAL1 = new GeographicAreaList();
-        gAL1.addGeographicAreaToGeographicAreaList(gA1);
-        gAL1.addGeographicAreaToGeographicAreaList(gA2);
-        gAL1.addGeographicAreaToGeographicAreaList(gA3);
-
-        //Act
-        String expectedResult = "---------------\n" +
-                "0) Name: Portugal | Type: Country | Latitude: 21.0 | Longitude: 33.0\n" +
-                "1) Name: Oporto | Type: City | Latitude: 14.0 | Longitude: 14.0\n" +
-                "2) Name: Lisbon | Type: Village | Latitude: 3.0 | Longitude: 3.0\n" +
-                "---------------\n";
-        SensorSettingsController ctrl = new SensorSettingsController();
-        String result = ctrl.buildGAListString(gAL1);
-
-        //Assert
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void seeIfTypeListIsPrinted() {
         //Arrange
         TypeSensorList list1 = new TypeSensorList();
@@ -186,6 +163,7 @@ class SensorSettingsControllerTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void addTypeSensorToList() {
         SensorSettingsController ctrl = new SensorSettingsController();
@@ -206,6 +184,7 @@ class SensorSettingsControllerTest {
         assertFalse(actualResult3);
         assertTrue(actualResult4);
     }
+
     @Test
     void addSensorToGeographicArea() {
         SensorSettingsController ctrl = new SensorSettingsController();
@@ -276,7 +255,7 @@ class SensorSettingsControllerTest {
         areaG.setId("Alegria");
 
         GeographicAreaList xgaList = new GeographicAreaList();
-        xgaList.addGeographicAreaToGeographicAreaList(areaG);
+        xgaList.addGeographicArea(areaG);
 
         //Act
         boolean actualResult = ctrl.addSensorToGeographicArea(areaG);
@@ -309,7 +288,7 @@ class SensorSettingsControllerTest {
         GeographicArea areaG = new GeographicArea("Porto", t1, 2, 3, l1);
         areaG.setId("Alegria");
         GeographicAreaList xgaList = new GeographicAreaList();
-        xgaList.addGeographicAreaToGeographicAreaList(areaG);
+        xgaList.addGeographicArea(areaG);
 
         //Act
         boolean actualResult = ctrl.addSensorToGeographicArea(areaG);

@@ -376,4 +376,33 @@ public class WashingMachineTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void getConsumption() {
+        WashingMachine d = new WashingMachine(new WashingMachineSpec());
+        d.setNominalPower(15);
+        double expectedResult = 360;
+        double result = d.getEnergyConsumption(24);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getConsumptionTimeZero() {
+        WashingMachine d = new WashingMachine(new WashingMachineSpec());
+        d.setNominalPower(15);
+        double expectedResult = 0;
+        double result = d.getEnergyConsumption(0);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void hashCodeDummyTest() {
+        WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
+        d1.setName("FridgeTwo");
+        d1.setNominalPower(12.0);
+        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 4D);
+        int expectedResult = 1;
+        int actualResult = d1.hashCode();
+        assertEquals(expectedResult, actualResult);
+    }
 }

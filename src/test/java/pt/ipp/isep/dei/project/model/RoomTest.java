@@ -18,6 +18,7 @@ import java.util.List;
 import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -25,10 +26,6 @@ import static org.testng.Assert.assertTrue;
  */
 
 class RoomTest {
-
-    // Common artifacts for testing in this class.
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
-
 
     @Test
     void seeIfRemoveDeviceFromRoomWorks() {
@@ -100,7 +97,7 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = 20.0;
         assertEquals(expectedResult, result, 0.01);
@@ -131,7 +128,7 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = -20.0;
         assertEquals(expectedResult, result, 0.01);
@@ -162,7 +159,7 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         double result = room.getCurrentRoomTemperature();
         double expectedResult = 30.0;
         assertEquals(expectedResult, result, 0.01);
@@ -172,37 +169,9 @@ class RoomTest {
     void seeGetCurrentRoomTemperatureWithoutReadings() {
         SensorList list = new SensorList();
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
-        double result = room.getCurrentRoomTemperature();
-        assertEquals(NaN, result, 0.01);
-    }
+        room.setSensorList(list);
 
-    @Test
-    void seeIfDoesSensorListInARoomContainASensorByNameWorks() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
-        boolean result = room.doesSensorListInARoomContainASensorByName("sensor1");
-        assertTrue(result);
-    }
-
-    @Test
-    void seeIfDoesSensorListInARoomContainASensorByNameWorksFalse() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 8, 5, 2);
-        room.setRoomSensorList(list);
-        boolean result = room.doesSensorListInARoomContainASensorByName("sensor89");
-        assertEquals(false, result);
+        assertThrows(IllegalArgumentException.class, room::getCurrentRoomTemperature);
     }
 
     @Test
@@ -214,7 +183,7 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 8, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         Sensor s2 = new Sensor("sensor2", type, new Local(1, 1, 50), new Date());
         s2.setReadingList(listR);
         boolean result = room.addSensor(s2);
@@ -230,9 +199,9 @@ class RoomTest {
         s1.setReadingList(listR);
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setRoomSensorList(list);
+        room.setSensorList(list);
         boolean result = room.addSensor(s1);
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test
@@ -245,7 +214,7 @@ class RoomTest {
         list.addSensor(s1);
         Room room = new Room("quarto", 1, 80, 5, 3);
         boolean result = room.equals(null);
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test
@@ -253,7 +222,7 @@ class RoomTest {
         TypeSensor type = new TypeSensor("temperature", "Celsius");
         Room room = new Room("quarto", 1, 80, 5, 3);
         boolean result = room.equals(type);
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test
@@ -336,7 +305,7 @@ class RoomTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         Double expectedResult = 0.0;
-        Double result = r1.getDailyConsumptionByDeviceType("WaterHeater");
+        Double result = r1.getDailyConsumptionByDeviceType("WaterHeater", 1440);
         assertEquals(expectedResult, result);
     }
 
@@ -431,8 +400,8 @@ class RoomTest {
         d2.setAttributeValue("Volume Of Water To Heat", 100.0);
         d3.setAttributeValue("Volume Of Water To Heat", 100.0);
         d3.setAttributeValue("Cold Water Temperature", 1.0);
-        double expectedResult = 0.19189499999999998;
-        double result = r1.getDailyConsumptionByDeviceType(d2.getType());
+        double expectedResult = 4.60548;
+        double result = r1.getDailyConsumptionByDeviceType(d2.getType(), 1440);
         assertEquals(expectedResult, result);
     }
 
@@ -448,9 +417,8 @@ class RoomTest {
         d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
         d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
-        boolean expectedResult = false;
         boolean result = r1.addDevice(d3);
-        assertEquals(expectedResult, result);
+        assertFalse(result);
     }
 
     @Test
@@ -467,9 +435,8 @@ class RoomTest {
         d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
         d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
-        boolean expectedResult = true;
         boolean result = r1.addDevice(d3);
-        assertEquals(expectedResult, result);
+        assertTrue(result);
     }
 
     @Test
@@ -555,7 +522,7 @@ class RoomTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.removeDevice(d2);
-        assertEquals(true, result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -579,7 +546,7 @@ class RoomTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         boolean result = r1.removeDevice(d4);
-        assertEquals(false, result);
+        assertFalse(result);
 
     }
 
@@ -600,8 +567,9 @@ class RoomTest {
         dList.addDevice(device2);
         room.setDeviceList(dList);
         //Act
-        boolean actualResult = room.addRoomDevicesToDeviceList(dList);
-        boolean expectedResult = false;
+        room.addRoomDevicesToDeviceList(dList);
+        List<Device> actualResult = room.getDeviceList();
+        List<Device> expectedResult = dList.getList();
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -626,8 +594,8 @@ class RoomTest {
         deviceList2.addDevice(device2);
         room.setDeviceList(dList);
         //Act
-        boolean actualResult = room.addRoomDevicesToDeviceList(deviceList2);
-        boolean expectedResult = false;
+        List<Device> actualResult = room.getDeviceList();
+        List<Device> expectedResult = dList.getList();
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -645,39 +613,17 @@ class RoomTest {
         device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("cozinha", 1, 1, 1, 1);
         DeviceList dList = new DeviceList();
+        DeviceList dList2 = new DeviceList();
         dList.addDevice(device1);
         dList.addDevice(device2);
+        room.addDevice(device1);
+        room.addDevice(device2);
+        room.addRoomDevicesToDeviceList(dList2);
         //Act
-        boolean actualResult = room.addRoomDevicesToDeviceList(dList);
-        boolean expectedResult = false;
+        List<Device> actualResult = room.getDeviceList();
+        List<Device> expectedResult = dList.getList();
         //Assert
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetAllHouseDevices() {
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House house = new House("casa de praia", "Rua das Flores", "4512", "Porto", new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setName("ghfghfg");
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setName("hdhfg");
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        house.addRoomToRoomList(r1);
-        List<Device> expectedResult = new ArrayList<>();
-        expectedResult.add(d2);
-        expectedResult.add(d3);
-        List<Device> result = house.getAllHouseDevices();
-        Assert.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -691,7 +637,7 @@ class RoomTest {
         deviceList.addDevice(device);
         room.setDeviceList(deviceList);
         boolean expectedResult = false;
-        boolean actualResult = room.addRoomDevicesToDeviceList(deviceList);
+        boolean actualResult = room.addDevice(device);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -703,49 +649,10 @@ class RoomTest {
         device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
         device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
         device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        DeviceList deviceList2 = new DeviceList();
-        deviceList.addDevice(device);
         Room room = new Room("Room", 1, 2, 3, 4);
         room.setDeviceList(deviceList);
         boolean expectedResult = true;
-        boolean actualResult = room.addRoomDevicesToDeviceList(deviceList2);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void ensureThatWeDontAddADeviceToADeviceList() {
-        DeviceList deviceList = new DeviceList();
-        Device device = new WaterHeater(new WaterHeaterSpec());
-        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Room room = new Room("Room", 1, 2, 3, 4);
-        deviceList.addDevice(device);
-        boolean expectedResult = false;
-        boolean actualResult = room.addRoomDevicesToDeviceList(deviceList);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void ensureThatWeAddADeviceToADeviceList() {
-        DeviceList deviceList = new DeviceList();
-        Device device = new WaterHeater(new WaterHeaterSpec());
-        device.setName("fdhgh");
-        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Room room = new Room("Room", 1, 2, 3, 4);
-        deviceList.addDevice(device);
-        room.setDeviceList(deviceList);
-        DeviceList deviceList1 = new DeviceList();
-        Device device1 = new WaterHeater(new WaterHeaterSpec());
-        device1.setName("hgfhjhyj");
-        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        deviceList1.addDevice(device1);
-        boolean expectedResult = true;
-        boolean actualResult = room.addRoomDevicesToDeviceList(deviceList1);
+        boolean actualResult = room.addDevice(device);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -799,14 +706,12 @@ class RoomTest {
 
     @Test
     void getMaxTemperatureOnGivenDay() {
-        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
-        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
-        Room room3 = new Room("room3", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH READINGS SAME VALUE ON DAY TESTED + ONE HUMIDITY
-        Room room4 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MAX IN FIRST SENSOR + ONE HUMIDITY
-        Room room5 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MAX IN SECOND SENSOR + ONE HUMIDITY
-        Room room6 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN FIRST READING) + ONE HUMIDITY
-        Room room7 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN SECOND READING) + ONE HUMIDITY
-        Room room8 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN THIRD READING) + ONE HUMIDITY
+        Room room1 = new Room("room1", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH READINGS SAME VALUE ON DAY TESTED + ONE HUMIDITY
+        Room room2 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MAX IN FIRST SENSOR + ONE HUMIDITY
+        Room room3 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MAX IN SECOND SENSOR + ONE HUMIDITY
+        Room room4 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN FIRST READING) + ONE HUMIDITY
+        Room room5 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN SECOND READING) + ONE HUMIDITY
+        Room room6 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN THIRD READING) + ONE HUMIDITY
 
         GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
         GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018, 1, 2, 0, 0);
@@ -816,87 +721,79 @@ class RoomTest {
         Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
         Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Reading reading1 = new Reading(20, gregorianCalendar2.getTime());
+        sensor1.addReading(reading1);
+        sensor2.addReading(reading1);
+        sensor3.addReading(reading1);
 
-        room2.addSensor(sensor1);
-        room2.addSensor(sensor2);
-        room2.addSensor(sensor3);
+        room1.addSensor(sensor1);
+        room1.addSensor(sensor2);
+        room1.addSensor(sensor3);
 
         Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading1 = new Reading(20, gregorianCalendar2.getTime());
-        sensor4.addReading(reading1);
-        sensor5.addReading(reading1);
-        sensor6.addReading(reading1);
-
-        room3.addSensor(sensor4);
-        room3.addSensor(sensor5);
-        room3.addSensor(sensor6);
-
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Reading reading2 = new Reading(24, gregorianCalendar2.getTime());
         Reading reading3 = new Reading(20, gregorianCalendar3.getTime());
-        sensor7.addReading(reading2);
-        sensor8.addReading(reading3);
+        sensor4.addReading(reading2);
+        sensor5.addReading(reading3);
 
-        room4.addSensor(sensor5);
-        room4.addSensor(sensor7);
-        room4.addSensor(sensor8);
+        room2.addSensor(sensor2);
+        room2.addSensor(sensor4);
+        room2.addSensor(sensor5);
 
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Reading reading4 = new Reading(20, gregorianCalendar2.getTime());
         Reading reading5 = new Reading(25, gregorianCalendar3.getTime());
-        sensor9.addReading(reading4);
-        sensor10.addReading(reading5);
+        sensor6.addReading(reading4);
+        sensor7.addReading(reading5);
 
-        room5.addSensor(sensor5);
-        room5.addSensor(sensor9);
-        room5.addSensor(sensor10);
+        room3.addSensor(sensor2);
+        room3.addSensor(sensor6);
+        room3.addSensor(sensor7);
 
-        Sensor sensor11 = new Sensor("sensor11", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor12 = new Sensor("sensor12", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Reading reading6 = new Reading(26, gregorianCalendar2.getTime());
         Reading reading7 = new Reading(21, gregorianCalendar3.getTime());
         Reading reading8 = new Reading(20, gregorianCalendar4.getTime());
-        sensor11.addReading(reading6);
-        sensor11.addReading(reading7);
-        sensor11.addReading(reading8);
-        sensor12.addReading(reading8);
+        sensor8.addReading(reading6);
+        sensor8.addReading(reading7);
+        sensor8.addReading(reading8);
+        sensor9.addReading(reading8);
 
-        room6.addSensor(sensor5);
-        room6.addSensor(sensor11);
-        room6.addSensor(sensor12);
+        room4.addSensor(sensor2);
+        room4.addSensor(sensor8);
+        room4.addSensor(sensor9);
 
-        Sensor sensor13 = new Sensor("sensor13", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor14 = new Sensor("sensor14", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor11 = new Sensor("sensor11", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Reading reading9 = new Reading(21, gregorianCalendar2.getTime());
         Reading reading10 = new Reading(27, gregorianCalendar3.getTime());
         Reading reading11 = new Reading(20, gregorianCalendar4.getTime());
-        sensor13.addReading(reading9);
-        sensor13.addReading(reading10);
-        sensor13.addReading(reading11);
-        sensor14.addReading(reading11);
+        sensor10.addReading(reading9);
+        sensor10.addReading(reading10);
+        sensor11.addReading(reading11);
+        sensor11.addReading(reading11);
 
-        room7.addSensor(sensor5);
-        room7.addSensor(sensor13);
-        room7.addSensor(sensor14);
+        room5.addSensor(sensor2);
+        room5.addSensor(sensor10);
+        room5.addSensor(sensor11);
 
 
-        Sensor sensor15 = new Sensor("sensor15", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor16 = new Sensor("sensor16", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor12 = new Sensor("sensor12", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor13 = new Sensor("sensor13", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
         Reading reading12 = new Reading(21, gregorianCalendar2.getTime());
         Reading reading13 = new Reading(20, gregorianCalendar3.getTime());
         Reading reading14 = new Reading(28, gregorianCalendar4.getTime());
-        sensor15.addReading(reading12);
-        sensor15.addReading(reading13);
-        sensor15.addReading(reading14);
-        sensor16.addReading(reading12);
+        sensor12.addReading(reading12);
+        sensor12.addReading(reading13);
+        sensor12.addReading(reading14);
+        sensor13.addReading(reading12);
 
-        room8.addSensor(sensor5);
-        room8.addSensor(sensor15);
-        room8.addSensor(sensor16);
+        room6.addSensor(sensor2);
+        room6.addSensor(sensor12);
+        room6.addSensor(sensor13);
 
         //ACT
         double actualResult1 = room1.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
@@ -905,19 +802,37 @@ class RoomTest {
         double actualResult4 = room4.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
         double actualResult5 = room5.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
         double actualResult6 = room6.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
-        double actualResult7 = room7.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
-        double actualResult8 = room8.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
 
 
         //ASSERT
-        assertEquals(actualResult1, NaN, 0.01);
-        assertEquals(actualResult2, NaN, 0.01);
-        assertEquals(actualResult3, 20, 0.01);
-        assertEquals(actualResult4, 24, 0.01);
-        assertEquals(actualResult5, 25, 0.01);
-        assertEquals(actualResult6, 26, 0.01);
-        assertEquals(actualResult7, 27, 0.01);
-        assertEquals(actualResult8, 28, 0.01);
+        assertEquals(actualResult1, 20, 0.01);
+        assertEquals(actualResult2, 24, 0.01);
+        assertEquals(actualResult3, 25, 0.01);
+        assertEquals(actualResult4, 26, 0.01);
+        assertEquals(actualResult5, 27, 0.01);
+        assertEquals(actualResult6, 28, 0.01);
+    }
+    @Test
+    void getMaxTemperatureOnGivenDayIllegalArguments() {
+        //Arrange
+
+        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
+        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
+
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
+
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+
+        room2.addSensor(sensor1);
+        room2.addSensor(sensor2);
+        room2.addSensor(sensor3);
+
+        //Act and Assert
+
+        assertThrows(IllegalArgumentException.class, () -> room1.getMaxTemperatureOnGivenDay(gregorianCalendar1.getTime()));
+        assertThrows(IllegalArgumentException.class, () -> room2.getMaxTemperatureOnGivenDay(gregorianCalendar1.getTime()));
     }
 
     @Test
@@ -1006,8 +921,8 @@ class RoomTest {
         room7.addSensor(sensor14);
 
 
-        Sensor sensor15 = new Sensor("sensor15", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor16 = new Sensor("sensor16", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor15 = new Sensor("sensor15", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor16 = new Sensor("sensor16", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
         Reading reading12 = new Reading(21, gregorianCalendar2.getTime());
         Reading reading13 = new Reading(20, gregorianCalendar1.getTime());
         Reading reading14 = new Reading(28, gregorianCalendar3.getTime());
@@ -1021,8 +936,6 @@ class RoomTest {
         room8.addSensor(sensor16);
 
         //ACT
-        double actualResult1 = room1.getCurrentRoomTemperature();
-        double actualResult2 = room2.getCurrentRoomTemperature();
         double actualResult3 = room3.getCurrentRoomTemperature();
         double actualResult4 = room4.getCurrentRoomTemperature();
         double actualResult5 = room5.getCurrentRoomTemperature();
@@ -1032,8 +945,8 @@ class RoomTest {
 
 
         //ASSERT
-        assertEquals(actualResult1, NaN, 0.01);
-        assertEquals(actualResult2, NaN, 0.01);
+        assertThrows(IllegalArgumentException.class, room1::getCurrentRoomTemperature);
+        assertThrows(IllegalArgumentException.class, room2::getCurrentRoomTemperature);
         assertEquals(actualResult3, 20, 0.01);
         assertEquals(actualResult4, 24, 0.01);
         assertEquals(actualResult5, 25, 0.01);
@@ -1041,6 +954,30 @@ class RoomTest {
         assertEquals(actualResult7, 27, 0.01);
         assertEquals(actualResult8, 28, 0.01);
     }
+
+    @Test
+    void getCurrentRoomTemperatureIllegalArguments() {
+        //Arrange
+
+        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
+        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
+
+        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
+
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), gregorianCalendar1.getTime());
+
+        room2.addSensor(sensor1);
+        room2.addSensor(sensor2);
+        room2.addSensor(sensor3);
+
+        //Act and Assert
+
+        assertThrows(IllegalArgumentException.class, room1::getCurrentRoomTemperature);
+        assertThrows(IllegalArgumentException.class, room2::getCurrentRoomTemperature);
+    }
+
 
     @Test
     void getSensorList() {

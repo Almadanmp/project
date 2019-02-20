@@ -4,14 +4,13 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-
 import java.util.Date;
 import static java.lang.System.out;
 
 
 public class HouseMonitoringUI {
     private HouseMonitoringController houseMonitoringcontroller;
-    private String  mWas = " was ";
+    private String was = " was ";
 
     public HouseMonitoringUI() {
         this.houseMonitoringcontroller = new HouseMonitoringController();
@@ -72,20 +71,18 @@ public class HouseMonitoringUI {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        double currentTemp = updateModel600(house, motherArea);
-        displayState600(currentTemp);
+         updateModel600(house, motherArea);
     }
 
-    private double updateModel600(House house, GeographicArea geographicArea) {
-        return houseMonitoringcontroller.getCurrentTemperatureInTheHouseArea(house, geographicArea);
-    }
-
-    private void displayState600(double temperature) {
-        if(Double.isNaN(temperature)){
-            System.out.println("The house area has no temperature readings.");
-            return;
+    private void updateModel600(House house, GeographicArea geographicArea) {
+        try{
+            double currentTemp = houseMonitoringcontroller.getHouseAreaTemperature(house, geographicArea);
+            System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         }
-        System.out.println("The current temperature in the house area is: " + temperature + "°C.");
+        catch(IllegalArgumentException illegal){
+            System.out.println(illegal.getMessage());
+        }
+
     }
 
     /**
@@ -94,7 +91,7 @@ public class HouseMonitoringUI {
      */
     private void runUS605(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        if(!utilsUI.houseRoomListIsValid(house)){
+        if (!utilsUI.houseRoomListIsValid(house)) {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
@@ -104,23 +101,22 @@ public class HouseMonitoringUI {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        double currentTemp = updateModel605(room);
-        displayState605(room, currentTemp);
+        updateModelDisplayState605(room);
 
     }
 
-    private double updateModel605(Room room) {
-        return houseMonitoringcontroller.getCurrentRoomTemperature(room);
-    }
-
-    private void displayState605(Room room, double temperature) {
-        if(Double.isNaN(temperature)){
-            System.out.println("The room you selected has no temperature readings.");
-            return;
+    private void updateModelDisplayState605(Room room) {
+        try {
+            double currentTemp = houseMonitoringcontroller.getCurrentRoomTemperature(room);
+            out.println("The current temperature in the room " + houseMonitoringcontroller.getRoomName(room) +
+                    " is " + currentTemp + "°C.");
+        } catch (IllegalArgumentException illegal) {
+            System.out.println(illegal.getMessage());
         }
-        out.println("The current temperature in the room " + houseMonitoringcontroller.getRoomName(room) +
-                " is " + temperature + "°C.");
+
     }
+
+
 
     /**
      * US610 - Get Max Temperature in a room in a specific day - CARINA ALAS
@@ -138,27 +134,19 @@ public class HouseMonitoringUI {
             return;
         }
         Date date = inputUtils.getInputYearMonthDay();
-        double maxTemp = updateModel610(room, date);
-        displayState610(room, date, maxTemp);
+        updateModel610(room, date);
     }
 
-    private double updateModel610(Room room, Date date) {
+    private void updateModel610(Room room, Date date) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
-        System.out.println("You selected the room " + room.getRoomName() + " and the date " + date + "\n");
-        return ctrl.getMaxTemperatureInARoomOnAGivenDay(room, date);
-    }
-
-    private void displayState610(Room room,  Date date, double temperature) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        if(Double.isNaN(temperature)){
-            System.out.println("The room you selected has no temperature readings.");
-            return;
+        try {
+            double temperature = ctrl.getDayMaxTemperature(room, date);
+            String message = "The maximum temperature in the room " + ctrl.getRoomName(room) +
+                    " on the day " + date + was + temperature + "°C.";
+            System.out.println(message);
+        } catch (IllegalArgumentException illegal) {
+            System.out.println(illegal.getMessage());
         }
-        String message = "The maximum temperature in the room " + ctrl.getRoomName(room) +
-                " on the day " + date +
-                mWas + temperature + "°C.";
-        System.out.println(message);
-
     }
 
 
@@ -189,7 +177,7 @@ public class HouseMonitoringUI {
         if (Double.isNaN(result)) {
             System.out.println("Warning: average value not calculated - no readings available.");
         } else {
-            System.out.println("The average rainfall on " + date + mWas + result + "%.");
+            System.out.println("The average rainfall on " + date + was + result + "%.");
         }
     }
 
@@ -197,6 +185,7 @@ public class HouseMonitoringUI {
      * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
+
     private void runUS623(House house) {
         UtilsUI utils = new UtilsUI();
         if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
@@ -220,18 +209,15 @@ public class HouseMonitoringUI {
         return inputUtils.getInputYearMonthDay();
     }
 
-    private void updateAndDisplayUS623(House house, Date startDate, Date endDate) {
-        double result623 = houseMonitoringcontroller.getAVGDailyRainfallOnGivenPeriod(house, startDate, endDate);
-        printResultMessageUS623(startDate, endDate, result623);
-    }
-
-    private void printResultMessageUS623(Date initialDate, Date endDate, double result623) {
-        if (Double.isNaN(result623)) {
-            System.out.println("Warning: average value not calculated - no readings available.");
-        } else {
-            System.out.println("The average rainfall between " + initialDate + " and " + endDate + mWas
-                    + result623 + "%.");
+    private void updateAndDisplayUS623(House house, Date startDate, Date endDate){
+        double result623 = 0;
+        try {
+            result623 = houseMonitoringcontroller.getAverageRainfallInterval(house, startDate, endDate);
+        } catch (IllegalArgumentException e) {
+            e.getMessage();
         }
+        System.out.println("The average rainfall between " + startDate + " and " + endDate + was
+                + result623 + "%.");
     }
 
     private void printOptionMessage() {

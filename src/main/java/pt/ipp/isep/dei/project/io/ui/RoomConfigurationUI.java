@@ -15,11 +15,11 @@ import java.util.Scanner;
 
 
 class RoomConfigurationUI {
-    private RoomConfigurationController mRoomConfigurationController;
+    private RoomConfigurationController controller;
     private String requestProgramName = "Please, type the new Program name:";
 
     RoomConfigurationUI() {
-        this.mRoomConfigurationController = new RoomConfigurationController();
+        this.controller = new RoomConfigurationController();
     }
 
     void run(House house, TypeSensorList typeSensorList) {
@@ -101,9 +101,13 @@ class RoomConfigurationUI {
     private void printRoomDeviceList(Room room) {
         System.out.println("Available Devices in Room " + room.getRoomName());
         System.out.println("Please select one of the existing Devices in the selected Room: ");
-        System.out.println(mRoomConfigurationController.buildDeviceListString(room));
+        System.out.println(controller.buildDeviceListString(room));
     }
 
+    /**
+     * US210 As an Administrator, I want to add a new device to a room from the list of available device types, so that I can configure it.
+     * @param house
+     */
 
     private void runUS210(House house) {
         InputUtils inputUtils = new InputUtils();
@@ -119,7 +123,6 @@ class RoomConfigurationUI {
 
 
     private void createDevice(Room room, DeviceType deviceType) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
         // get device name
@@ -127,46 +130,42 @@ class RoomConfigurationUI {
         String deviceName = scanner.nextLine();
 
         //get Device specs
-        Device device = ctrl.createDevice(deviceType);
-        ctrl.setDeviceName(deviceName, device);
-        List<String> deviceAttributes = ctrl.getAttributeNames(device);
+        Device device = controller.createDevice(deviceType);
+        controller.setDeviceName(deviceName, device);
+        List<String> deviceAttributes = controller.getAttributeNames(device);
         for (int i = 0; i < deviceAttributes.size(); i++) {
             System.out.println("Please insert value for: " + deviceAttributes.get(i));
             Double value = inputUtils.getInputAsDouble();
-            ctrl.setAttributeValue(device, deviceAttributes.get(i), value);
+            controller.setAttributeValue(device, deviceAttributes.get(i), value);
         }
         System.out.println("Please insert nominal power: ");
-        device.setNominalPower(scanner.nextDouble());
+        controller.setNominalPowerDevice(device,scanner.nextDouble());
 
         createProgram(device);
-        if (ctrl.addDevice(room, device)) {
-            System.out.println("You have successfully created a " + ctrl.getType(device) + " with the name " + deviceName + ". \n");
+        if (controller.addDevice(room, device)) {
+            System.out.println("You have successfully created a " + controller.getType(device) + " with the name " + deviceName + ". \n");
         } else {
             System.out.println("Device already exists in the room. Please, try again.\n");
         }
     }
 
     private void createProgram(Device device) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
-        if (ctrl.isProgrammable(device)) {
-            {
-                System.out.println("This device is programmable.");
-                Program program = new Program("jjs", 23, 23);
-                ProgramList programList = ctrl.getProgramList((Programmable) device);
-                System.out.println(requestProgramName);
-                String programName = scanner.nextLine();
-                List<String> programAttributesNames = ctrl.getProgramAttributeNames(program);
-                loopToSetAttributeValues(program,programAttributesNames);
-                ctrl.setProgramName(program,programName);
-                loopToBuildFinalStringProgram(program,programAttributesNames);
-                String message = "Would you like to add another Program? (y/n)";
-                ctrl.addProgramToProgramList(programList, program);
-                loopForCreatingProgram(message, programList);
-                ctrl.configureOneWashingMachineProgram(device, programList);
-            }
+        if (controller.isProgrammable(device)) {
+            System.out.println("This device is programmable.");
+            Program program = new Program("ProgramName", 23, 23);
+            ProgramList programList = controller.getProgramList((Programmable) device);
+            System.out.println(requestProgramName);
+            String programName = scanner.nextLine();
+            List<String> programAttributesNames = controller.getProgramAttributeNames(program);
+            loopToSetAttributeValues(program, programAttributesNames);
+            controller.setProgramName(program, programName);
+            loopToBuildFinalStringProgram(program, programAttributesNames);
+            String message = "Would you like to add another Program? (y/n)";
+            controller.addProgramToProgramList(programList, program);
+            loopForCreatingProgram(message, programList);
+            controller.configureProgramListFromAProgrammableDevice(device, programList);
         }
-
     }
 
     // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
@@ -184,77 +183,71 @@ class RoomConfigurationUI {
         getInputDeviceCharacteristicsUS215(device, room, house);
     }
 
+    //* gets the input of the new device name, room, attributes and nominal power. If the device is programmable,
+    // it shows the list of programs, and allows for the user to choose one or more to edit.
     private void getInputDeviceCharacteristicsUS215(Device device, Room room, House house) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
-        if (device == null || room == null) {
-            System.out.println("There are no devices in this room.");
-            return;
-        }
 
         // get device name
         System.out.print("Please, type the new name of the device: ");
         String deviceName = scanner.nextLine();
-
         //get room
-        ctrl.removeDevice(room, device);
+        controller.removeDevice(room, device);
         InputUtils inputUtils = new InputUtils();
-        room = inputUtils.getHouseRoomByList(house);
-        ctrl.addDevice(room, device);
-        List<String> attributeNames = ctrl.getAttributeNames(device);
+        Room room1;
+        room1 = inputUtils.getHouseRoomByList(house);
+        controller.addDevice(room1, device);
+        List<String> attributeNames = controller.getAttributeNames(device);
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + attributeNames.get(i)
-                    + " (" + ctrl.getAttributeUnit(device, i) + ")");
+                    + " (" + controller.getAttributeUnit(device, i) + ")");
             Double value = inputUtils.getInputAsDouble();
-            ctrl.setAttributeValue(device, attributeNames.get(i), value);
+            controller.setAttributeValue(device, attributeNames.get(i), value);
         }
         System.out.println("Please insert the value for: Nominal Power (kW)");
-        device.setNominalPower(scanner.nextDouble());
-        if (ctrl.isProgrammable(device)) {
+        controller.setNominalPowerDevice(device,scanner.nextDouble());
+        if (controller.isProgrammable(device)) {
+            UtilsUI utilsUI = new UtilsUI();
             System.out.println("This device is programmable.");
-            Program program;
-            program = inputUtils.getSelectedProgramFromDevice((Programmable) device);
-            ProgramList programList = ctrl.getProgramListFromAProgrammableDevice((Programmable) device);
-            if (program == null || programList == null) {
-                System.out.println("There are no program to edit.");
+            ProgramList programList = controller.getProgramList((Programmable) device);
+            if(!utilsUI.programListIsValid(programList)){
+                System.out.println(utilsUI.invalidProgramList);
                 return;
             }
-            updateAProgrammableDevice(program, programList, (Programmable) device);
-            ctrl.configureOneWashingMachineProgram(device, programList);
+            Program program = inputUtils.getSelectedProgramFromDevice((Programmable) device);
+            configureAProgrammableDevice(program, programList, (Programmable) device);
+            controller.configureProgramListFromAProgrammableDevice(device, programList);
         }
-        displayDeviceUS215(device, room, deviceName);
+        displayDeviceUS215(device, room1, deviceName);
     }
 
-    private void updateAProgrammableDevice(Program program, ProgramList programList, Programmable device) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
+    //configures the programs in the device's program list, if the device is indeed programmable.
+    private void configureAProgrammableDevice(Program program, ProgramList programList, Programmable device) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
-        List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
+        List<String> programAttributeNames = controller.getProgramAttributeNames(program);
         loopToSetAttributeValues(program, programAttributeNames);
-        ctrl.setProgramName(program,programName);
-        loopToBuildFinalStringProgram(program,programAttributeNames);
+        controller.setProgramName(program, programName);
+        loopToBuildFinalStringProgram(program, programAttributeNames);
         loopForProgramList(programList, device);
     }
 
-
-
-    // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it. - CARINA ALAS
+    // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it - CARINA ALAS
+    // displays final string to the user.
     private void displayDeviceUS215(Device device, Room room, String deviceName) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        List<String> attributeNames = ctrl.getAttributeNames(device);
-        if (device == null || room == null) {
-            return;
-        }
+        List<String> attributeNames = controller.getAttributeNames(device);
         System.out.println("\nYou have successfully changed the device name to " + deviceName + "." +
                 "\nThe room is " + room.getRoomName() + "\n");
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("You have changed the : " + attributeNames.get(i) + " to: "
-                    + ctrl.getAttributeValue(device, i) + " "
-                    + ctrl.getAttributeUnit(device, i) + ".\n");
+                    + controller.getAttributeValue(device, i) + " "
+                    + controller.getAttributeUnit(device, i) + ".\n");
         }
     }
 
+    // enters a loop if the device's program list has more than one program, and allows for the configuration of other
+    // programs in the list (us215).
     private void loopForProgramList(ProgramList programList, Programmable device) {
         String message = "Would you like to edit another Program? (y/n)";
         if (programList.getProgramList().size() > 1) {
@@ -263,6 +256,7 @@ class RoomConfigurationUI {
         }
     }
 
+    // enters a loop if the user chooses to edit another program of the existing programs in the list. (us215)
     private void loopForEditingProgram(String message, Programmable device) {
         InputUtils inputUtils = new InputUtils();
         Program program;
@@ -272,7 +266,9 @@ class RoomConfigurationUI {
             loopForPrograms(program);
         }
     }
-    private void loopForCreatingProgram(String message,ProgramList programList) {
+
+    // enters a loop if the user chooses to add another program. (us210)
+    private void loopForCreatingProgram(String message, ProgramList programList) {
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
         while (inputUtils.yesOrNo(scanner.nextLine(), message)) {
@@ -280,48 +276,48 @@ class RoomConfigurationUI {
         }
     }
 
+    //loop that sets all the attributes of the chosen program and then displays it.
     private void loopForPrograms(Program program) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
-        List<String> programAttributeNames = ctrl.getProgramAttributeNames(program);
-        loopToSetAttributeValues(program,programAttributeNames);
-        ctrl.setProgramName(program,programName);
+        List<String> programAttributeNames = controller.getProgramAttributeNames(program);
+        loopToSetAttributeValues(program, programAttributeNames);
+        controller.setProgramName(program, programName);
         loopToBuildFinalStringProgram(program, programAttributeNames);
-
-    }
-    private void loopToBuildFinalStringProgram(Program program, List<String> programAttributeNames){
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        for (int i = 0; i < programAttributeNames.size(); i++) {
-            System.out.println("You have changed the : " + programAttributeNames.get(i) + " to: "
-                    + ctrl.getProgramAttributeValue(program, i) + " "
-                    + ctrl.getProgramAttributeUnit(program, i));
-        }
     }
 
-    private void loopToSetAttributeValues(Program program2, List<String> programAttributeNames){
-        RoomConfigurationController ctrl = new RoomConfigurationController();
+    //loop that sets all the attributes of the chosen program to configure it.
+    private void loopToSetAttributeValues(Program program2, List<String> programAttributeNames) {
         InputUtils inputUtils = new InputUtils();
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + programAttributeNames.get(i)
-                    + " (" + ctrl.getProgramAttributeUnit(program2, i) + ")");
+                    + " (" + controller.getProgramAttributeUnit(program2, i) + ")");
             Double value = inputUtils.getInputAsDouble();
-            ctrl.setProgramAttributeValue(program2, i, value);
+            controller.setProgramAttributeValue(program2, i, value);
         }
     }
 
+    // loop that display all the edited attributes of the program.
+    private void loopToBuildFinalStringProgram(Program program, List<String> programAttributeNames) {
+        for (int i = 0; i < programAttributeNames.size(); i++) {
+            System.out.println("You have changed the : " + programAttributeNames.get(i) + " to: "
+                    + controller.getProgramAttributeValue(program, i) + " "
+                    + controller.getProgramAttributeUnit(program, i));
+        }
+    }
+
+    //loop that creates new programs and configures them. (us210)
     private void loopForCreatingPrograms(ProgramList programList) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
         Scanner scanner = new Scanner(System.in);
         Program program2 = new Program();
-        List<String> programAttributeNames = ctrl.getProgramAttributeNames(program2);
+        List<String> programAttributeNames = controller.getProgramAttributeNames(program2);
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
         loopToSetAttributeValues(program2, programAttributeNames);
         program2.setProgramName(programName);
-        loopToBuildFinalStringProgram(program2,programAttributeNames);
-        ctrl.addProgramToProgramList(programList,program2);
+        loopToBuildFinalStringProgram(program2, programAttributeNames);
+        controller.addProgramToProgramList(programList, program2);
 
     }
 
@@ -342,7 +338,7 @@ class RoomConfigurationUI {
     }
 
     private void updateStateUS222(Device device) {
-        if (this.mRoomConfigurationController.deactivateDevice(device)) {
+        if (controller.deactivateDevice(device)) {
             System.out.println("Device successfully deactivated!");
         } else {
             System.out.println("It wasn't possible to deactivate the device. The device is already deactivated.");
@@ -361,7 +357,7 @@ class RoomConfigurationUI {
     }
 
     private void getRoomNominalPower(Room room) {
-        double roomNominalPower = mRoomConfigurationController.getRoomNominalPower(room);
+        double roomNominalPower =controller.getRoomNominalPower(room);
         System.out.println("This room has a total nominal power of " + roomNominalPower + " kW.\nThis results " +
                 "from the sum of the nominal power of all devices in the room.");
     }
@@ -381,7 +377,7 @@ class RoomConfigurationUI {
             return;
         }
         SensorList sensorList = room.getSensorList();
-        System.out.println(mRoomConfigurationController.buildSensorListString(sensorList));
+        System.out.println(controller.buildSensorListString(sensorList));
     }
 
 
@@ -437,11 +433,10 @@ class RoomConfigurationUI {
     }
 
     private void updateAndDisplay253(TypeSensor typeSensor, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        SensorSettingsController mController = new SensorSettingsController();
-        Date mDate = mController.createDate(dateYear, dateMonth, dateDay);
-        Sensor mSensor = mController.createRoomSensor(sensorName, typeSensor, mDate);
-        if (ctrl.addSensorToRoom(room, mSensor)) {
+        SensorSettingsController sensorSettingsController = new SensorSettingsController();
+        Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
+        Sensor mSensor = sensorSettingsController.createRoomSensor(sensorName, typeSensor, mDate);
+        if (controller.addSensorToRoom(room, mSensor)) {
             System.out.println("\nSensor successfully added to the Room " + room.getRoomName());
         } else System.out.println("\nSensor already exists in the room.");
     }
@@ -467,8 +462,7 @@ class RoomConfigurationUI {
             System.out.println("There are no devices in this room.");
             return;
         }
-        RoomConfigurationController ctrl = new RoomConfigurationController();
-        ctrl.removeDevice(room, device);
+        controller.removeDevice(room, device);
         System.out.println("The device " + device.getName() + " on room " + room.getRoomName() + " has ceased to be.");
     }
 

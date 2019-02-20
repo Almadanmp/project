@@ -1,21 +1,19 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.util.Date;
-
 /**
  * Class that represents a Geographical Area.
  */
 
 public class GeographicArea {
 
-    private String mId;
-    private TypeArea mTypeArea;
-    private double mLength;
-    private double mWidth;
-    private GeographicArea mMotherArea;
-    private Local mLocation;
-    private SensorList mAreaSensors;
-    private String mDescription;
+    private String id;
+    private TypeArea typeArea;
+    private double length;
+    private double width;
+    private GeographicArea motherArea;
+    private Local location;
+    private SensorList areaSensors;
+    private String description;
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -31,18 +29,18 @@ public class GeographicArea {
         setLength(length);
         setWidth(width);
         setLocal(location);
-        this.mAreaSensors = new SensorList();
+        this.areaSensors = new SensorList();
     }
 
     // Setters and Getters for all the parameters.
 
     public String getId() {
-        return this.mId;
+        return this.id;
     }
 
     void setId(String name) {
         if (isGeographicNameValid(name)) {
-            this.mId = name;
+            this.id = name;
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
@@ -55,7 +53,7 @@ public class GeographicArea {
      */
 
     public void setWidth(double width) {
-        this.mWidth = width;
+        this.width = width;
     }
 
     /**
@@ -65,7 +63,7 @@ public class GeographicArea {
      */
 
     public void setLength(double length) {
-        this.mLength = length;
+        this.length = length;
     }
 
     /**
@@ -75,11 +73,11 @@ public class GeographicArea {
      */
 
     public void setDescription(String description) {
-        this.mDescription = description;
+        this.description = description;
     }
 
     String getDescription() {
-        return this.mDescription;
+        return this.description;
     }
 
     /**
@@ -88,7 +86,7 @@ public class GeographicArea {
      * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
      */
     void setTypeArea(TypeArea typeArea) {
-        this.mTypeArea = typeArea;
+        this.typeArea = typeArea;
     }
 
     /**
@@ -97,7 +95,7 @@ public class GeographicArea {
      * @param local Localization is defined by three doubles (longitude, latitude and altitude).
      */
     void setLocal(Local local) {
-        this.mLocation = local;
+        this.location = local;
     }
 
 
@@ -108,12 +106,12 @@ public class GeographicArea {
      */
 
     public void setSensorList(SensorList listToSet) {
-        this.mAreaSensors = listToSet;
+        this.areaSensors = listToSet;
     }
 
     public boolean setMotherArea(GeographicArea geoArea) {
         if (geoArea != null) {
-            this.mMotherArea = geoArea;
+            this.motherArea = geoArea;
             return true;
         } else {
             return false;
@@ -121,14 +119,14 @@ public class GeographicArea {
     }
 
     GeographicArea getMotherArea() {
-        return this.mMotherArea;
+        return this.motherArea;
     }
 
     /**
      * This method is used to check if the daughter area attribute mother area corresponds to the testes mother area.
      *
      * @param daughterArea - Geographic Area being tested according to its mother area attribute.
-     * @param motherArea - Geographic Area being compared to daughter area mother area attribute.
+     * @param motherArea   - Geographic Area being compared to daughter area mother area attribute.
      * @return boolean
      */
 
@@ -150,7 +148,7 @@ public class GeographicArea {
      * @return returns the attribute TypeArea from an object of the class Geographic Area
      */
     TypeArea getTypeArea() {
-        return this.mTypeArea;
+        return this.typeArea;
     }
 
     /**
@@ -159,7 +157,7 @@ public class GeographicArea {
      * @return returns the attribute local from an object of the class Geographic Area
      */
     public Local getLocal() {
-        return this.mLocation;
+        return this.location;
     }
 
     /**
@@ -168,7 +166,7 @@ public class GeographicArea {
      * @return returns the attribute sensorList from an object of the class Geographic Area
      */
     public SensorList getSensorList() {
-        return this.mAreaSensors;
+        return this.areaSensors;
     }
 
     /**
@@ -180,8 +178,8 @@ public class GeographicArea {
 
     public String buildGeographicAreaString() {
         String result;
-        result = this.mId + ", " + this.mTypeArea.getTypeOfGeographicArea() + ", " +
-                this.mLocation.getLatitude() + "º lat, " + this.mLocation.getLongitude() + "º long\n";
+        result = this.id + ", " + this.typeArea.getTypeOfGeographicArea() + ", " +
+                this.location.getLatitude() + "º lat, " + this.location.getLongitude() + "º long\n";
         return result;
     }
 
@@ -204,21 +202,21 @@ public class GeographicArea {
      * @return returns a double of the most recent value recorded in every type sensor given
      */
     double getMostRecentReadingValue(String typeOfSensor) {
-        SensorList listToTest = this.mAreaSensors;
+        SensorList listToTest = this.areaSensors;
         for (int i = 0; i < listToTest.getSensorList().size(); i++) {
             if (!(listToTest.getSensorList().get(i).getTypeSensor().getName().equals(typeOfSensor))) {
                 listToTest.removeSensor(listToTest.getSensorList().get(i));
             }
         }
-        return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getmValue();
+        return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getValue();
     }
 
     double getWidth() {
-        return this.mWidth;
+        return this.width;
     }
 
     public double getLength() {
-        return this.mLength;
+        return this.length;
     }
 
     boolean isAreaContainedInAnotherArea(GeographicArea smallerAG, GeographicArea biggestAG) {
@@ -241,44 +239,17 @@ public class GeographicArea {
      */
     double calculateDistanceToGA(GeographicArea ga) {
         Local l = ga.getLocal();
-        return this.mLocation.getLinearDistanceBetweenLocalsInKm(l);
-    }
-
-    /**
-     * Method to get the Average of Readings on a certain typeofSensor on a GeographicArea.
-     *
-     * @param typeSensor String input, the type of the sensor we want to get from the list e.g, "Rainfall"
-     * @param dateMin    the start date of readings (start of interval)
-     * @param dateMax    the end date of readings (end of interval)
-     * @return average of the readings off all sensors of the GA SensorList with the input typeSensor
-     */
-    double getAvgReadingsFromSensorTypeInGA(String typeSensor, Date dateMin, Date dateMax) {
-        double average = 0;
-        int counter = 0;
-        if (mAreaSensors.getSensorList().isEmpty()) {
-            return -1;
-        }
-        for (int i = 0; i < mAreaSensors.getSensorList().size(); i++) {
-            Sensor sensorToGetAVG = mAreaSensors.getSensorList().get(i);
-            if (sensorToGetAVG.getTypeSensor().getName().equals(typeSensor)) {
-                average += sensorToGetAVG.getReadingList().getAverageReadingsBetweenTwoDates(dateMin, dateMax);
-                counter++;
-            }
-        }
-        if (counter == 0) {
-            return -1;
-        }
-        return average / counter;
+        return this.location.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     public boolean addSensorToSensorList(Sensor sensor) {
         String sensorToAddName = sensor.getName();
-        for (Sensor s : this.mAreaSensors.getSensorList()) {
+        for (Sensor s : this.areaSensors.getSensorList()) {
             String sensorNameTest = s.getName();
             if (sensorNameTest.equals(sensorToAddName))
                 return false;
         }
-        this.mAreaSensors.addSensor(sensor);
+        this.areaSensors.addSensor(sensor);
         return true;
     }
 

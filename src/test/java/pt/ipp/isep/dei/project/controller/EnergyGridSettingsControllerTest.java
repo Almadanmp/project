@@ -1,21 +1,19 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
+
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Dishwasher;
 import pt.ipp.isep.dei.project.model.device.Fridge;
-import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -36,10 +34,10 @@ class EnergyGridSettingsControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validHouse = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
-                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        validHouse = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
                 new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
-                60, 180, new ArrayList<String>());
+                60, 180, new ArrayList<>());
         validGrid = new EnergyGrid("validGrid", 300);
     }
 
@@ -101,22 +99,6 @@ class EnergyGridSettingsControllerTest {
         //Assert
 
         Assertions.assertTrue(actualresult);
-    }
-
-    @Test
-    void seeIfEnergyGridPrints() {
-
-        // Arrange
-
-        String expectedResult = "Energy Grid: validGrid, Max Power: 300.0";
-
-        // Act
-
-        String actualResult = controller.buildEnergyGridString(validGrid);
-
-        // Assert
-
-        Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -198,25 +180,6 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    void seeIfRoomListIsPrintedByHouse() {
-        // Arrange
-
-        Room room = new Room("Quarto", 1, 20, 2, 2);
-        validHouse.addRoomToRoomList(room);
-        String expectedResult = "---------------\n" +
-                "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
-                "---------------\n";
-
-        // Act
-
-        String actualResult = controller.buildHouseRoomListString(validHouse);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfAddPowerSourceToEnergyGridWorks() {
         // Arrange
 
@@ -270,91 +233,67 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         EnergyGrid expectedResult = new EnergyGrid("EG1", 400);
-        House house = new House("ISEP", "Rua Dr. António Bernardino de Almeida", "4200-072",
-                "Porto", new Local(20, 20, 20), new GeographicArea("Porto",
-                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
-                60, 180, new ArrayList<>());
 
         // Act
 
-        EnergyGrid actualResult = controller.createEnergyGrid(house, "EG1", 400);
+        EnergyGrid actualResult = controller.createEnergyGrid(validHouse, "EG1", 400);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintRoomWorks() {
-        // Arrange
-
-        Room room = new Room("quarto1", 1, 2, 2, 2);
-        String expectedResult = "quarto1, 1, 2.0, 2.0, 2.0.\n";
-
-        // Act
-
-        String actualResult = controller.buildRoomString(room);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintsInvalidList() {
-        // Arrange
-
-        String expectedResult = "Invalid List - List is Empty\n";
-
-        // Act
-
-        String actualResult = controller.buildGridRoomsString(validGrid);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintsRoomList() {
-        // Arrange
-
-        Room roomOne = new Room("B117", 1, 7, 11, 3.5);
-        Room roomTwo = new Room("B109", 1, 7, 11, 3.5);
-        Room roomThree = new Room("B106", 1, 7, 13, 3.5);
-        EnergyGridList gridList = new EnergyGridList();
-        gridList.addGrid(validGrid);
-        RoomList roomList = new RoomList();
-        validGrid.setRoomList(roomList);
-        roomList.addRoom(roomOne);
-        roomList.addRoom(roomTwo);
-        roomList.addRoom(roomThree);
-        String expectedResult = "---------------\n" +
-                "0) Designation: B117 | House Floor: 1 | \n" +
-                "1) Designation: B109 | House Floor: 1 | \n" +
-                "2) Designation: B106 | House Floor: 1 | \n" +
-                "---------------\n";
-
-        // Act
-
-        String result = controller.buildGridRoomsString(validGrid);
-
-        // Assert
-
-        assertEquals(expectedResult, result);
     }
 
     @Test
     void seeCreatePowerSource() {
+        // Arrange
+
         PowerSource powerSource1 = new PowerSource("powersource1", 10, 10);
         PowerSource powerSource2 = new PowerSource("powersource2", 123, 76);
-        EnergyGridSettingsController ctrl = new EnergyGridSettingsController();
-        EnergyGrid energyGrid = new EnergyGrid("validGrid", 300);
-        //Act
-        PowerSource actualResult1 = ctrl.createPowerSource(energyGrid, "powersource1", 10, 10);
-        PowerSource actualResult2 = ctrl.createPowerSource(energyGrid, "powersource2", 123, 76);
-        //Assert
+
+        // Act
+
+        PowerSource actualResult1 = controller.createPowerSource(validGrid, "powersource1", 10, 10);
+        PowerSource actualResult2 = controller.createPowerSource(validGrid, "powersource2", 123, 76);
+
+        // Assert
+
         assertEquals(actualResult1, powerSource1);
         assertEquals(actualResult2, powerSource2);
+    }
+
+    @Test
+    void testBuildListOfDevicesOrderedByTypeStringEmptyString() {
+        //Arrange
+        validHouse.addGrid(validGrid);
+        //Act
+        String expectedResult = "---------------\n" +
+                "---------------\n";
+        String actualResult = controller.buildListOfDevicesOrderedByTypeString(validGrid, validHouse);
+        //Arrange
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void testBuildListOfDevicesOrderedByTypeStringWithDevices() {
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("casa de praia", address, new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        RoomList rl = new RoomList();
+        DeviceList deviceList = new DeviceList();
+        Device fridge = new Fridge(new FridgeSpec());
+        deviceList.addDevice(fridge);
+        room1EdC.setDeviceList(deviceList);
+        eg.setRoomList(rl);
+        rl.addRoom(room1EdC);
+        //Act
+        String expectedResult = "---------------\n" +
+                "Device type: Fridge | Device name: null | Nominal power: 0.0 | Room: B107 | \n" +
+                "---------------\n";
+        String actualResult = controller.buildListOfDevicesOrderedByTypeString(eg, house);
+        //Arrange
+        assertEquals(expectedResult, actualResult);
     }
 }

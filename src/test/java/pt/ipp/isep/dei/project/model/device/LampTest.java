@@ -2,16 +2,17 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.device.Lamp;
+import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Lamp Device tests class.
@@ -367,5 +368,23 @@ public class LampTest {
         LogList actualResult = device.getLogsInInterval(initialTime, finalTime);
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getConsumption() {
+        Lamp d = new Lamp(new LampSpec());
+        d.setNominalPower(15);
+        double expectedResult = 360;
+        double result = d.getEnergyConsumption(24);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getConsumptionTimeZero() {
+        Lamp d = new Lamp(new LampSpec());
+        d.setNominalPower(15);
+        double expectedResult = 0;
+        double result = d.getEnergyConsumption(0);
+        assertEquals(expectedResult, result);
     }
 }

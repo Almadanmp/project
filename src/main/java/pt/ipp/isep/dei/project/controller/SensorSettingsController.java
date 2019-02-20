@@ -13,27 +13,19 @@ public class SensorSettingsController {
 
     //SHARED METHODS THROUGH DIFFERENT UIS
 
-    /**
-     * @param geoAreaList is the list of Geographic Areas we want to print.
-     * @return builds a string with each individual member of the given list.
-     */
-
-    String buildGAListString(GeographicAreaList geoAreaList) {
-        return geoAreaList.buildGaWholeListString(geoAreaList);
-    }
-
-
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
     public String buildSensorTypesString(TypeSensorList typeSensorList) {
         return typeSensorList.buildString();
     }
 
-    /** This method receives a list and a type sensor and tries to add the type sensor
+    /**
+     * This method receives a list and a type sensor and tries to add the type sensor
      * to the list. The type sensor will not be added in case the list already contains it.
+     *
      * @return true in case the type sensor is added to the list, false otherwise
      */
-    public boolean addTypeSensorToList(TypeSensor typeSensor, TypeSensorList typeSensorList){
+    public boolean addTypeSensorToList(TypeSensor typeSensor, TypeSensorList typeSensorList) {
         return typeSensorList.add(typeSensor);
     }
 
@@ -89,9 +81,12 @@ public class SensorSettingsController {
         return new Sensor(name, type, local, date);
     }
 
-    /**This method receives a sensor and returns a string with the sensor's parameters
-     * @return String with sensor parameters**/
-    public String buildSensorString(Sensor sensor){
+    /**
+     * This method receives a sensor and returns a string with the sensor's parameters
+     *
+     * @return String with sensor parameters
+     **/
+    public String buildSensorString(Sensor sensor) {
         return sensor.buildSensorString();
     }
 

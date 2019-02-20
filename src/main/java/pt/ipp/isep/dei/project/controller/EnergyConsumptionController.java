@@ -6,8 +6,8 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
 import java.util.List;
@@ -25,17 +25,6 @@ public class EnergyConsumptionController {
      */
 
     /**
-     * Calls for the grid's method in the model to print its own rooms and devices.
-     *
-     * @param grid is the grid the user has already chosen.
-     * @return builds a string from the Rooms and the Devices in that grid.
-     */
-
-    String buildRoomsAndDevicesString(EnergyGrid grid) {
-        return grid.buildRoomsAndDevicesString();
-    }
-
-    /**
      * Calls for the room's method in the model to add all of its devices to a given deviceList.
      *
      * @param room       is the room where the devices we want to add are.
@@ -43,8 +32,8 @@ public class EnergyConsumptionController {
      * @return true if devices were added.
      */
 
-    public boolean addRoomDevicesToDeviceList(Room room, DeviceList deviceList) {
-        return room.addRoomDevicesToDeviceList(deviceList);
+    public void addRoomDevicesToDeviceList(Room room, DeviceList deviceList) {
+        room.addRoomDevicesToDeviceList(deviceList);
     }
 
     /**
@@ -283,13 +272,13 @@ public class EnergyConsumptionController {
 
     /**
      * Get the estimate consumption on all water heaters available in the users house
-     *
+     * time a day (in minutes - 24 h = 1440 min)
      * @param house user house
      * @return estimate energy consumption on the water heaters
      */
-
     public double getDailyWaterHeaterConsumption(House house) {
-        return house.getDailyConsumptionByDeviceType("WaterHeater");
+        int time = 1440;
+        return house.getDailyConsumptionByDeviceType("WaterHeater", time);
     }
 
     /**

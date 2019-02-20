@@ -5,54 +5,46 @@ package pt.ipp.isep.dei.project.model;
  */
 
 public class TypeArea {
-    private String mName;
+    private String name;
 
     /**
      * Main and only Area Type Constructor
-     *
      */
     public TypeArea(String nameGiven) {
-        this.mName = nameGiven;
+        this.name = nameGiven;
     }
 
     /**
      * Sets the type of a Geographical Area
-     *
      */
     void setTypeOfGeographicArea(String nameGiven) {
-        this.mName = nameGiven;
+        this.name = nameGiven;
     }
 
     /**
      * Gets the type of a Geographical Area
+     *
      * @return string with the name of the type
      */
 
     public String getTypeOfGeographicArea() {
-        return this.mName;
+        return this.name;
     }
 
-    /**
-     *
-     * @return prints the type of the Geographical Area
-     */
-    public String buildTypeGeographicAreaString() {
-        String result;
-        result = "Type Area: " + this.mName + "\n";
-        return result;
-    }
 
     /**
      * Method to restrain input name so they cant be null or empty
+     *
      * @param name name inserted by user
      * @return will return true if the name is valid or it will throw an exception if Invalid
      */
     boolean isNameValid(String name) {
         if (name != null && !name.isEmpty() && !name.matches(".*\\d+.*")) {
-                return true;
+            return true;
         }
         throw new IllegalArgumentException("Please Insert Valid Name");
     }
+
     /**
      * Method 'equals' is required so that each 'Area Type' can be added to a 'Geographic Area'.
      */
@@ -66,7 +58,7 @@ public class TypeArea {
             return false;
         }
         TypeArea localVariable = (TypeArea) objectToTest;
-        return localVariable.getTypeOfGeographicArea().equals(this.mName);
+        return localVariable.getTypeOfGeographicArea().equals(this.name);
     }
 
     @Override
