@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
@@ -153,8 +150,8 @@ public class EnergyConsumptionController {
      * @return returns the List of Grids in the given house.
      */
 
-    public List<EnergyGrid> getHouseGridList(House programHouse) {
-        return programHouse.getListOfGrids();
+    public EnergyGridList getHouseGridList(House programHouse) {
+        return programHouse.getGridList();
     }
 
     /**

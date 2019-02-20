@@ -19,7 +19,7 @@ import static org.testng.Assert.assertTrue;
 public class UtilsUITest {
 
     // Common artifacts for testing in this class.
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
 
     @Test
@@ -66,11 +66,9 @@ public class UtilsUITest {
         //ACT
         boolean result1 = utilsUI.houseRoomListIsValid(house);
         boolean result2 = utilsUI.houseGridListIsValid(house);
-        boolean result3 = utilsUI.houseDeviceListValid(house);
         //ASSERT
         assertFalse(result1);
         assertFalse(result2);
-        assertFalse(result3);
     }
 
     @Test
@@ -90,12 +88,10 @@ public class UtilsUITest {
         //ACT
         boolean result1 = utilsUI.houseRoomListIsValid(house);
         boolean result2 = utilsUI.houseGridListIsValid(house);
-        boolean result3 = utilsUI.houseDeviceListValid(house);
 
         //ASSERT
         assertTrue(result1);
         assertTrue(result2);
-        assertTrue(result3);
     }
 
     @Test

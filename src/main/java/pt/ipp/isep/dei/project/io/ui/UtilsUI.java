@@ -33,17 +33,12 @@ public class UtilsUI {
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
 
-    boolean houseDeviceListValid(House house) {
-        return house.getDeviceList() != null && !house.isListOfDevicesEmpty();
-    }
-
-
     boolean houseGridListIsValid(House house) {
         return house.getGridList() != null && !house.isEnergyGridListEmpty();
     }
 
     boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
-        return energyGrid.getListOfDevices() != null && !energyGrid.isDeviceListEmpty();
+        return energyGrid.getDeviceList() != null && !energyGrid.isDeviceListEmpty();
     }
 
     boolean gridRoomListIsValid(EnergyGrid energyGrid) {
@@ -59,7 +54,7 @@ public class UtilsUI {
     }
 
     boolean roomDeviceListIsValid(Room room) {
-        return room.getListOfDevices() != null && !room.isDeviceListEmpty();
+        return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 
     boolean deviceLogListIsValid(Device device) {

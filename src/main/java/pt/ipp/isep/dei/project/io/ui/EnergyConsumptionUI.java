@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -318,8 +315,8 @@ class EnergyConsumptionUI {
 
     private void runUS722(House programHouse) {
         InputUtils inputs = new InputUtils();
-        List<EnergyGrid> eGridList = controller.getHouseGridList(programHouse);
-        if (eGridList.isEmpty()) {
+        EnergyGridList gridList = controller.getHouseGridList(programHouse);
+        if (gridList.isEmpty()) {
             System.out.println("Your house has no Grids.\nReturning to main menu.");
             return;
         }
