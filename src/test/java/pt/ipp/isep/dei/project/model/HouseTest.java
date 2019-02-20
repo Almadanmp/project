@@ -25,7 +25,7 @@ import static org.testng.Assert.assertEquals;
 class HouseTest {
 
     // Common artifacts for testing in this class.
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+     static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
     @Test
     void seeIfGetListDevice() {
@@ -839,9 +839,8 @@ class HouseTest {
         House house = new House("Beach House", address2, new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         //Act
         house.setAddress(address1);
-        Address expectedResult = address1;
         Address actualResult = house.getAddress();
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(address1, actualResult);
     }
 }

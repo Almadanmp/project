@@ -158,7 +158,7 @@ class RoomConfigurationUI {
             System.out.println(requestProgramName);
             String programName = scanner.nextLine();
             List<String> programAttributesNames = controller.getProgramAttributeNames(program);
-            loopToSetAttributeValues(program, programAttributesNames);
+            loopToSetAttributeValuesProgram(program, programAttributesNames);
             controller.setProgramName(program, programName);
             loopToBuildFinalStringProgram(program, programAttributesNames);
             String message = "Would you like to add another Program? (y/n)";
@@ -227,7 +227,7 @@ class RoomConfigurationUI {
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
         List<String> programAttributeNames = controller.getProgramAttributeNames(program);
-        loopToSetAttributeValues(program, programAttributeNames);
+        loopToSetAttributeValuesProgram(program, programAttributeNames);
         controller.setProgramName(program, programName);
         loopToBuildFinalStringProgram(program, programAttributeNames);
         loopForProgramList(programList, device);
@@ -282,13 +282,13 @@ class RoomConfigurationUI {
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
         List<String> programAttributeNames = controller.getProgramAttributeNames(program);
-        loopToSetAttributeValues(program, programAttributeNames);
+        loopToSetAttributeValuesProgram(program, programAttributeNames);
         controller.setProgramName(program, programName);
         loopToBuildFinalStringProgram(program, programAttributeNames);
     }
 
     //loop that sets all the attributes of the chosen program to configure it.
-    private void loopToSetAttributeValues(Program program2, List<String> programAttributeNames) {
+    private void loopToSetAttributeValuesProgram(Program program2, List<String> programAttributeNames) {
         InputUtils inputUtils = new InputUtils();
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + programAttributeNames.get(i)
@@ -314,7 +314,7 @@ class RoomConfigurationUI {
         List<String> programAttributeNames = controller.getProgramAttributeNames(program2);
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
-        loopToSetAttributeValues(program2, programAttributeNames);
+        loopToSetAttributeValuesProgram(program2, programAttributeNames);
         program2.setProgramName(programName);
         loopToBuildFinalStringProgram(program2, programAttributeNames);
         controller.addProgramToProgramList(programList, program2);
