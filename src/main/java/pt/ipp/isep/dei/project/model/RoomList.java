@@ -80,12 +80,14 @@ public class RoomList {
         return result;
     }
 
-    /**Method that returns the room list's list of devices.
-     * @return DeviceList that collects all devices from room's list
-     * **/
-    DeviceList getDeviceList(){
+    /**
+     * Method that returns a DeviceList with all the devices of the RoomList.
+     *
+     * @return a DeviceList of all the devices in the RoomList.
+     */
+    DeviceList getDeviceList() {
         DeviceList finalList = new DeviceList();
-        for(Room r : this.rooms){
+        for (Room r : this.rooms) {
             finalList.appendListNoDuplicates(r.getDeviceList());
         }
         return finalList;

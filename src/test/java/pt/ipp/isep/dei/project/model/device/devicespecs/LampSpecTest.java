@@ -13,10 +13,10 @@ import static org.testng.Assert.assertTrue;
  * LampSpec tests class.
  */
 
-public class LampSpecTest {
+ class LampSpecTest {
 
     @Test
-    public void getAttributeNamesTest() {
+     void getAttributeNamesTest() {
         LampSpec lampSpec = new LampSpec();
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("Luminous Flux");
@@ -25,21 +25,21 @@ public class LampSpecTest {
     }
 
     @Test
-    public void setAttributeValueTest() {
+     void setAttributeValueTest() {
         LampSpec lampSpec = new LampSpec();
         boolean result = lampSpec.setAttributeValue("lisboa", 12);
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test
-    public void setAttributeValueTestTrue2() {
+     void setAttributeValueTestTrue2() {
         LampSpec lampSpec = new LampSpec();
         boolean actualResult = lampSpec.setAttributeValue("Luminous Flux", 12.0);
         assertTrue(actualResult);
     }
 
     @Test
-    public void getObjectAttributeValueTest() {
+     void getObjectAttributeValueTest() {
         LampSpec lampSpec = new LampSpec();
         lampSpec.setAttributeValue(LampSpec.FLUX, 4D);
         Double expectedResult = 4.0;
@@ -48,7 +48,7 @@ public class LampSpecTest {
     }
 
     @Test
-    public void getObjectAttributeUnitTest() {
+     void getObjectAttributeUnitTest() {
         LampSpec lampSpec = new LampSpec();
         String expectedResult = "lm";
         Object result = lampSpec.getAttributeUnit(LampSpec.FLUX);
@@ -58,14 +58,14 @@ public class LampSpecTest {
     }
 
     @Test
-    public void setAttributeValueTestFalse() {
+     void setAttributeValueTestFalse() {
         LampSpec lampSpec = new LampSpec();
         Object result = lampSpec.setAttributeValue("luminousFlux", 5);
         assertEquals(false, result);
     }
 
     @Test
-    public void setAttributeValueTestDefault() {
+     void setAttributeValueTestDefault() {
         LampSpec lampSpec = new LampSpec();
         lampSpec.setAttributeValue("luminousFlux", 5.0);
         Object result = lampSpec.getAttributeValue("lisbon");
@@ -73,7 +73,7 @@ public class LampSpecTest {
     }
 
     @Test
-    public void setAttributeValueTestTrue() {
+     void setAttributeValueTestTrue() {
         LampSpec lampSpec = new LampSpec();
         lampSpec.setAttributeValue("Luminous Flux", 5.0);
         Object result = lampSpec.getAttributeValue("Luminous Flux");
@@ -82,14 +82,14 @@ public class LampSpecTest {
 
 
     @Test
-    public void setAttributeValueTestFalseFlux() {
+     void setAttributeValueTestFalseFlux() {
         LampSpec lampSpec = new LampSpec();
         Object result = lampSpec.setAttributeValue(LampSpec.FLUX, 5);
         assertEquals(false, result);
     }
 
     @Test
-    public void setAttributeValueTestTrueFlux() {
+     void setAttributeValueTestTrueFlux() {
         LampSpec lampSpec = new LampSpec();
         lampSpec.setAttributeValue(LampSpec.FLUX, 5.0);
         Object result = lampSpec.getAttributeValue("Luminous Flux");
@@ -115,7 +115,6 @@ public class LampSpecTest {
         //Arrange
         LampSpec lSpec = new LampSpec();
         String attributeLm = "lm";
-        String attributeKW = "kW";
         // original strings:
         assertEquals(attributeLm, lSpec.getAttributeUnit(LampSpec.FLUX));
         // same hash codes, but different strings:
