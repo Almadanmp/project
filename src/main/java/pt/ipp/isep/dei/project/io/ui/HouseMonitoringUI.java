@@ -214,7 +214,8 @@ public class HouseMonitoringUI {
         try {
             result623 = houseMonitoringcontroller.getAverageRainfallInterval(house, startDate, endDate);
         } catch (IllegalArgumentException e) {
-            e.getMessage();
+           System.out.println(e.getMessage());
+            return;
         }
         System.out.println("The average rainfall between " + startDate + " and " + endDate + was
                 + result623 + "%.");
