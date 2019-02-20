@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
@@ -18,10 +19,10 @@ import static org.testng.Assert.assertTrue;
  * Lamp Device tests class.
  */
 
-public class LampTest {
+ class LampTest {
 
     @Test
-    public void getDeviceTypeTest() {
+     void getDeviceTypeTest() {
         Lamp d = new Lamp(new LampSpec());
         d.setAttributeValue("capacity", 12D);
         String dT = "Lamp";
@@ -109,7 +110,7 @@ public class LampTest {
     }
 
     @Test
-    public void hashCodeDummyTest() {
+     void hashCodeDummyTest() {
         Lamp d1 = new Lamp(new LampSpec());
         d1.setName("FridgeTwo");
         d1.setNominalPower(12.0);
@@ -387,4 +388,36 @@ public class LampTest {
         double result = d.getEnergyConsumption(0);
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void testSetAttributeValueForAllCases() {
+        //Arrange
+        LampSpec lspec = new LampSpec();
+        Lamp lamp = new Lamp(lspec);
+        Double attribute = 6.0;
+        // original strings + double:
+        assertTrue(lamp.setAttributeValue(LampSpec.FLUX, attribute));
+        // same hash codes, but different strings + double:
+        Assertions.assertFalse(lamp.setAttributeValue("notFLUX", attribute));
+        // distinct hash code to cover default cases of switches + double
+        Assertions.assertFalse(lamp.setAttributeValue("", attribute));
+    }
+
+    @Test
+    void testSetAttributeValueForNotDouble() {
+        //Arrange
+        LampSpec lspec = new LampSpec();
+        Lamp lamp = new Lamp(lspec);
+        Double attributeD = 6.0;
+        Integer attribute = 6;
+        lamp.setAttributeValue(LampSpec.FLUX, attributeD);
+        // original strings + not double:
+        Assertions.assertFalse(lamp.setAttributeValue(LampSpec.FLUX, attribute));
+        // same hash codes, but different strings + not double:
+        Assertions.assertFalse(lamp.setAttributeValue("notFLUX", attribute));
+        Assertions.assertFalse(lamp.setAttributeValue("notNOMINAL_POWER", attribute));
+        // distinct hash code to cover default cases of switches + not double
+        Assertions.assertFalse(lamp.setAttributeValue("", attribute));
+    }
+
 }

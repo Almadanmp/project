@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static pt.ipp.isep.dei.project.model.device.WaterHeater.DEFAUT_DT;
@@ -192,7 +193,64 @@ public class WaterHeaterTest {
         assertEquals(expectedResult2, result4);
         assertEquals(expectedResult1, result5);
     }
+    @Test
+    void seeIfGetAndSetAttributeNames() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        List<String> result = d1.getAttributeNames();
+        assertTrue(result.contains(WaterHeaterSpec.VOLUME_OF_WATER));
+        assertTrue(result.contains(WaterHeaterSpec.HOT_WATER_TEMP));
+        assertTrue(result.contains(WaterHeaterSpec.PERFORMANCE_RATIO));
+        assertEquals(result.size(), 3);
+    }
+    @Test
+    void seeIfGetAndSetAttributeValues() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        String attribute = "Volume Of Water";
+        Double expectedResult = 2.0;
+        double attributeValue = 2.0;
+        boolean setResult = d1.setAttributeValue(attribute, attributeValue);
+        Object getResult = d1.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertTrue(setResult);
 
+        attribute = "Hot Water Temperature";
+        attributeValue = 3.0;
+        expectedResult = 3.0;
+        setResult = d1.setAttributeValue(attribute, attributeValue);
+        getResult = d1.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertTrue(setResult);
+
+        attribute = "Cold Water Temperature";
+        attributeValue = 4.0;
+        expectedResult = 4.0;
+        setResult = d1.setAttributeValue(attribute, attributeValue);
+        getResult = d1.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertTrue(setResult);
+
+        attribute = "Performance Ratio";
+        expectedResult = 5.0;
+        attributeValue = 5.0;
+        setResult = d1.setAttributeValue(attribute, attributeValue);
+        getResult = d1.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertTrue(setResult);
+
+        attribute = "Volume Of Water To Heat";
+        expectedResult = 10.0;
+        attributeValue = 10.0;
+        setResult = d1.setAttributeValue(attribute, attributeValue);
+        getResult = d1.getAttributeValue(attribute);
+        assertEquals(expectedResult, getResult);
+        assertTrue(setResult);
+    }
     @Test
     void getLogList() {
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
