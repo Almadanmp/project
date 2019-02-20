@@ -45,7 +45,7 @@ public class Room implements Metered {
     /**
      * Method that returns the SensorList of the room.
      *
-     * @return
+     * @return SensorList of the Room.
      */
     public SensorList getSensorList() {
         return roomSensorList;
@@ -54,7 +54,7 @@ public class Room implements Metered {
     /**
      * Room Name Setter.
      *
-     * @param name
+     * @param name is the name we want to set to the room.
      */
     private void setRoomName(String name) {
         roomName = name;
@@ -63,7 +63,7 @@ public class Room implements Metered {
     /**
      * Room House Floor Setter.
      *
-     * @param houseFloor
+     * @param houseFloor is the floor we want to set to the room.
      */
     private void setRoomHouseFloor(int houseFloor) {
         this.houseFloor = houseFloor;
@@ -72,7 +72,7 @@ public class Room implements Metered {
     /**
      * Room Height Setter.
      *
-     * @param height
+     * @param height is the height we want to set to the room.
      */
     private void setRoomHeight(double height) {
         roomHeight = height;
@@ -81,7 +81,7 @@ public class Room implements Metered {
     /**
      * Room Length Setter.
      *
-     * @param length
+     * @param length is the length we want to set to the room.
      */
     private void setRoomLength(double length) {
         roomLength = length;
@@ -90,7 +90,7 @@ public class Room implements Metered {
     /**
      * Room Width Setter.
      *
-     * @param width
+     * @param width is the width we want to set to the room.
      */
     private void setRoomWidth(double width) {
         roomWidth = width;
@@ -99,7 +99,7 @@ public class Room implements Metered {
     /**
      * Room Height Getter.
      *
-     * @return
+     * @return a double that represents the room height.
      */
     double getRoomHeight() {
         return roomHeight;
@@ -108,7 +108,7 @@ public class Room implements Metered {
     /**
      * Room Length Getter.
      *
-     * @return
+     * @return a double that represents the room length.
      */
     double getRoomLength() {
         return roomLength;
@@ -117,7 +117,7 @@ public class Room implements Metered {
     /**
      * Room Width Getter.
      *
-     * @return
+     * @return a double that represents the room width.
      */
     double getRoomWidth() {
         return roomWidth;
@@ -126,7 +126,7 @@ public class Room implements Metered {
     /**
      * Room Sensor List Setter.
      *
-     * @param sensorList to set to the Room
+     * @param sensorList is the sensorList to set to the Room
      */
     public void setSensorList(SensorList sensorList) {
         roomSensorList = sensorList;
@@ -135,7 +135,7 @@ public class Room implements Metered {
     /**
      * Room Name Getter.
      *
-     * @return
+     * @return a string that represents the room name.
      */
     public String getRoomName() {
         return roomName;
@@ -144,7 +144,7 @@ public class Room implements Metered {
     /**
      * House Floor Getter.
      *
-     * @return
+     * @return a int that represents the room house floor.
      */
     int getHouseFloor() {
         return houseFloor;
@@ -153,7 +153,7 @@ public class Room implements Metered {
     /**
      * Room DeviceList Setter.
      *
-     * @param deviceList
+     * @param deviceList is the deviceList that we want to set to the room.
      */
     public void setDeviceList(DeviceList deviceList) {
         this.deviceList = deviceList;
@@ -162,7 +162,7 @@ public class Room implements Metered {
     /**
      * Room DeviceList Getter.
      *
-     * @return
+     * @return the List of Devices of the room.
      */
 
     public List<Device> getListOfDevices() {
@@ -271,8 +271,8 @@ public class Room implements Metered {
     /**
      * Method that removes a Device from the Room.
      *
-     * @param device we want to remove.
-     * @return
+     * @param device is the device we want to remove.
+     * @return true if device was successfully removed from the room, false otherwise.
      */
     public boolean removeDevice(Device device) {
         if ((deviceList.getList().contains(device))) {
@@ -286,8 +286,8 @@ public class Room implements Metered {
     /**
      * Method to add a Sensor to the Room.
      *
-     * @param sensor we want to add.
-     * @return
+     * @param sensor is the sensor we want to add.
+     * @return true if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensor(Sensor sensor) {
         if (!(roomSensorList.getSensorList().contains(sensor))) {
@@ -301,7 +301,7 @@ public class Room implements Metered {
     /**
      * Adds a device to a room
      *
-     * @param device to be added
+     * @param device is the device to be added
      * @return the result of the operation (true if successful, false otherwise)
      */
     public boolean addDevice(Device device) {
@@ -336,7 +336,7 @@ public class Room implements Metered {
     /**
      * String Builder of the Room.
      *
-     * @return
+     * @return a String that represents the Room Specifications.
      */
     public String buildRoomString() {
         String result;
@@ -407,9 +407,9 @@ public class Room implements Metered {
     /**
      * Method that returns a LogList of a given interval of time.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate is the Starting Date of the log.
+     * @param endDate   is the End Date of the Log.
+     * @return a LogList
      */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();

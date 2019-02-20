@@ -22,7 +22,7 @@ public class DeviceList {
     /**
      * Getter of the DeviceList.
      *
-     * @return
+     * @return List of Devices.
      */
     public List<Device> getList() {
         return this.devices;
@@ -31,8 +31,8 @@ public class DeviceList {
     /**
      * Method to check if a DeviceList contains a certain Device.
      *
-     * @param device that we want to check if it's contained.
-     * @return
+     * @param device is the device that we want to check if it's contained in the list.
+     * @return true if devices is contained in the list, false otherwise.
      */
     public boolean containsDevice(Device device) {
         return this.devices.contains(device);
@@ -41,8 +41,8 @@ public class DeviceList {
     /**
      * Method to add a Device to the DeviceList.
      *
-     * @param device that we want to add.
-     * @return
+     * @param device is the device that we want to add.
+     * @return true if the device was successfully added, false otherwise(device already exists in the list)
      */
     public boolean addDevice(Device device) {
         if (!devices.contains(device)) {
@@ -55,8 +55,8 @@ public class DeviceList {
     /**
      * Method to remove a Device from the DeviceList.
      *
-     * @param device that we want to remove.
-     * @return
+     * @param device is the device that we want to remove.
+     * @return true if it was successfully removed, false otherwise(it doesn't exists on the list already).
      */
     public boolean removeDevice(Device device) {
         if (this.containsDevice(device)) {
@@ -69,7 +69,7 @@ public class DeviceList {
     /**
      * Validation for the DeviceList.
      *
-     * @return
+     * @return true if List is not empty, false otherwise.
      */
     public boolean checkIfListIsValid() {
         return !devices.isEmpty();
@@ -91,7 +91,7 @@ public class DeviceList {
     /**
      * String Builder of the DeviceList.
      *
-     * @return
+     * @return a String of Devices from the List.
      */
     public String buildDevicesString() {
         int counter = 0;

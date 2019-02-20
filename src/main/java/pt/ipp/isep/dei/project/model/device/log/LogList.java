@@ -45,11 +45,11 @@ public class LogList {
     }
 
     /**
-     * This method checks if the LogList is empty.
+     * Method that adds a Log to the LogList.
      *
-     * @return boolean
+     * @param logToAdd is the Log we want to add to the LogList.
+     * @return false if it's already contained in the list, true if it added successfully.
      */
-
     public boolean addLog(Log logToAdd) {
         if (this.getLogListAttribute().contains(logToAdd)) {
             return false;
@@ -65,8 +65,8 @@ public class LogList {
     /**
      * Method that allows adding a LogList to another one.
      *
-     * @param listToAdd to the LogList
-     * @return
+     * @param listToAdd is the List we want to add to the LogList.
+     * @return true if at least one object was added do the list, false if nothing was added to the list.
      */
     public boolean addLogList(LogList listToAdd) {
         int counter = 0;
@@ -99,9 +99,9 @@ public class LogList {
     /**
      * Method that returns LogList in given interval of time.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate is the Starting Date of the Log.
+     * @param endDate   is the End Date of the Log.
+     * @return a LogList in a given Interval.
      */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
