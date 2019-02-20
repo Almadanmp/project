@@ -2,8 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.testng.Assert.*;
 
@@ -30,31 +29,29 @@ public class TypeSensorListTest {
 
     @Test
     public void testGetSensorList() {
+        //Arrange
         TypeSensorList typeList1 = new TypeSensorList();
         TypeSensorList typeList2 = new TypeSensorList();
         TypeSensorList typeList3 = new TypeSensorList();
-        List<TypeSensor> expectedResult1 = new ArrayList<>();
-        List<TypeSensor> expectedResult2 = new ArrayList<>();
-        List<TypeSensor> expectedResult3 = new ArrayList<>();
-
         TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
-
+        TypeSensor typeSensor2 = new TypeSensor("vida", "kelvin");
         typeList2.add(typeSensor1);
         typeList3.add(typeSensor1);
         typeList3.add(typeSensor2);
-
+        //Act
+        List<TypeSensor> expectedResult1 = new ArrayList<>();
+        List<TypeSensor> expectedResult2 = new ArrayList<>();
+        List<TypeSensor> expectedResult3 = new ArrayList<>();
         expectedResult2.add(typeSensor1);
         expectedResult3.add(typeSensor1);
         expectedResult3.add(typeSensor2);
-        //ACT
         List<TypeSensor> actualResult1 = typeList1.getTypeSensorList();
         List<TypeSensor> actualResult2 = typeList2.getTypeSensorList();
         List<TypeSensor> actualResult3 = typeList3.getTypeSensorList();
-        //ASSERT
-        assertEquals(actualResult1,expectedResult1);
-        assertEquals(actualResult2,expectedResult2);
-        assertEquals(actualResult3,expectedResult3);
+        //Assert
+        assertEquals(expectedResult1,actualResult1);
+        assertEquals(expectedResult2,actualResult2);
+        assertEquals(expectedResult3,actualResult3);
     }
 
     @Test
