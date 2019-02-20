@@ -71,12 +71,12 @@ public class HouseMonitoringUI {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-         updateModel600(house, motherArea);
+         updateModel600(house);
     }
 
-    private void updateModel600(House house, GeographicArea geographicArea) {
+    private void updateModel600(House house) {
         try{
-            double currentTemp = houseMonitoringcontroller.getHouseAreaTemperature(house, geographicArea);
+            double currentTemp = houseMonitoringcontroller.getHouseAreaTemperature(house);
             System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         }
         catch(IllegalArgumentException illegal){

@@ -217,6 +217,25 @@ public class WaterHeaterTest {
 
 
     @Test
+    void ensureThatWeDeactivateADevice() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        boolean expectedResult = true;
+        boolean actualResult = d1.deactivate();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatWeDoNotDeactivate() {
+        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
+        d1.deactivate();
+        boolean expectedResult = false;
+        boolean actualResult = d1.deactivate();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void addLogTrue() {
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
         d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
@@ -301,7 +320,7 @@ public class WaterHeaterTest {
 
 
     @Test
-    public void hashCodeDummyTest() {
+     void hashCodeDummyTest() {
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
         d1.setNominalPower(12.0);
         d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT,4D);

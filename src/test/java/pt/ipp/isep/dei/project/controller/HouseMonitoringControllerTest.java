@@ -102,11 +102,12 @@ class HouseMonitoringControllerTest {
         // Arrange
 
         validHouseArea.setSensorList(validSensorList);
+        validHouse.setMotherArea(validHouseArea);
         double expectedResult = 20;
 
         // Act
 
-        double actualResult = controller.getHouseAreaTemperature(validHouse, validHouseArea);
+        double actualResult = controller.getHouseAreaTemperature(validHouse);
 
 
         // Assert

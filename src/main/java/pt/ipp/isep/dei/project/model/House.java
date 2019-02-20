@@ -167,15 +167,15 @@ public class House implements Metered {
     }
 
     /**
-     * Calculates minimum distance from the house to a list of sensors of a given type
-     * in a given geographic area.
+     * Searches within the list of sensors of a given type in a given geographic area for the distance to
+     * the closest sensor the house.
      *
-     * @param ga is the given geographic area.
      * @param type is the type we want to search for.
      * @return is the value of the distance of the house to sensor of the given type closest to it.
      */
-    double getMinDistanceToSensorOfGivenType(GeographicArea ga, String type) {
-        List<Sensor> workingList = ga.getSensorList().getSensorListByType(type);
+
+    public double getMinDistanceToSensorOfGivenType(String type) {
+        List<Sensor> workingList = this.getMotherArea().getSensorList().getSensorListByType(type);
         Sensor firstSensor = workingList.get(0);
         double distance = calculateDistanceToSensor(firstSensor);
         for (int i = 0; i < workingList.size(); i++) {
@@ -191,16 +191,15 @@ public class House implements Metered {
      * This method returns the sensor closest to the house. If more than one sensor is close to it,
      * the one with the most recent reading should be used.
      *
-     * @param ga
      * @param sensorType
      * @return
      */
-    public Sensor getClosestSensorOfGivenType(GeographicArea ga, String sensorType) {
+    public Sensor getClosestSensorOfGivenType(String sensorType) {
         Sensor sensor;
         SensorList sensorList = new SensorList();
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
-        for (Sensor s : ga.getSensorList().getSensorListByType(sensorType)) {
-            if (Double.compare(this.getMinDistanceToSensorOfGivenType(ga, sensorType), s.getDistanceToHouse(this)) == 0) {
+        for (Sensor s : this.getMotherArea().getSensorList().getSensorListByType(sensorType)) {
+            if (Double.compare(this.getMinDistanceToSensorOfGivenType(sensorType), s.getDistanceToHouse(this)) == 0) {
                 sensorList.addSensor(s);
             }
         }
