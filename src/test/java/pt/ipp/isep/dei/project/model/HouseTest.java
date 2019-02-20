@@ -90,6 +90,54 @@ class HouseTest {
         assertEquals(s1, result);
     }
 
+    @Test
+    void getMinDistanceToSensorOfGivenType(){
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        ga.setSensorList(sensorList);
+        List<String> deviceTypeString = new ArrayList<>();
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
+        double result = house.getMinDistanceToSensorOfGivenType(ga, "temperature");
+        assertEquals(110.91871788829754, result);
+    }
+
+    @Test
+    void getMinDistanceToSensorOfGivenTypeIfInSamePosition(){
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        ga.setSensorList(sensorList);
+        List<String> deviceTypeString = new ArrayList<>();
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
+        double result = house.getMinDistanceToSensorOfGivenType(ga, "temperature");
+        assertEquals(110.91871788829754, result);
+    }
+
+    //TODO distance should de zero since the sensor1 has the same localization as house. check methods to see why it isn't
+    @Test
+    void getMinDistanceToSensorOfGivenTypeSamePositionAsHouse(){
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 5, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(4, 4, 4).getTime());
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        ga.setSensorList(sensorList);
+        List<String> deviceTypeString = new ArrayList<>();
+        Address address = new Address("Rua das Flores", "4512", "Porto");
+        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
+        double result = house.getMinDistanceToSensorOfGivenType(ga, "temperature");
+        assertEquals(9.493073054631141E-5, result);
+    }
 
     @Test
     void seeEqualToEqualObject() {

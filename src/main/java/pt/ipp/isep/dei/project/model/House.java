@@ -174,7 +174,6 @@ public class House implements Metered {
      * @param type is the type we want to search for.
      * @return is the value of the distance of the house to sensor of the given type closest to it.
      */
-
     double getMinDistanceToSensorOfGivenType(GeographicArea ga, String type) {
         List<Sensor> workingList = ga.getSensorList().getSensorListByType(type);
         Sensor firstSensor = workingList.get(0);
