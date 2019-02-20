@@ -191,17 +191,16 @@ public class InputUtils {
     }
 
     boolean yesOrNo(String answer, String question) {
-        String temp = answer;
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
         while (!("y".equalsIgnoreCase(answer)) && !("n".equalsIgnoreCase(answer))) {
             System.out.println(utils.invalidOption);
             System.out.println(question);
-            temp = scanner.nextLine();
+            answer = scanner.nextLine();
         }
         if ("y".equalsIgnoreCase(answer)) {
             return true;
-        } else return !"n".equalsIgnoreCase(temp);
+        } else return !"n".equalsIgnoreCase( answer);
     }
 
     /**
@@ -457,7 +456,7 @@ public class InputUtils {
      * @return value read from the user
      */
     private int getInputDateParameter(Scanner scan, String dataType) {
-        System.out.println("Enter a valid " + dataType + ":");
+        System.out.println("Enter a" + dataType + ":");
         while (!scan.hasNextInt()) {
             scan.next();
             System.out.println("Not a valid " + dataType + ". Try again");
