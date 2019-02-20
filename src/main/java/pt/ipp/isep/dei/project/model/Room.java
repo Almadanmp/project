@@ -223,10 +223,10 @@ public class Room implements Metered {
     public double getMaxTemperatureOnGivenDay(Date day) {
         double maxTemp = -1000;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
-        if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {
+        if (tempSensors.isEmpty() || !tempSensors.hasReadings()) {
             throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
-        for (Sensor s : tempSensors.getSensorList()) {
+        for (Sensor s : tempSensors.getListOfSensors()) {
             ReadingList readingList = s.getReadingList();
             double sensorMax = readingList.getMaximumOfGivenDayValueReadings(day);
             maxTemp = Math.max(sensorMax, maxTemp);
@@ -241,15 +241,7 @@ public class Room implements Metered {
      * @return a sensor list that contains sensors of given type
      **/
     SensorList getSensorsOfGivenType(String type) {
-        SensorList tempSensors = new SensorList();
-        for (Sensor s : this.roomSensorList.getSensorList()) {
-            String typeTest = s.getTypeSensor().getName();
-            if (typeTest.equalsIgnoreCase(type)) {
-                tempSensors.addSensor(s);
-            }
-        }
-        return tempSensors;
-
+        return this.roomSensorList.getSensorListByType(type);
     }
 
     /**
@@ -274,8 +266,8 @@ public class Room implements Metered {
      * @return true if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensor(Sensor sensor) {
-        if (!(roomSensorList.getSensorList().contains(sensor))) {
-            roomSensorList.getSensorList().add(sensor);
+        if (!(roomSensorList.getListOfSensors().contains(sensor))) {
+            roomSensorList.getListOfSensors().add(sensor);
             return true;
         } else {
             return false;
@@ -308,7 +300,7 @@ public class Room implements Metered {
     public double getCurrentRoomTemperature() {
         double currentT;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
-        if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {
+        if (tempSensors.isEmpty() || !tempSensors.hasReadings()) {
             throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
         ReadingList readingList = tempSensors.getReadings();

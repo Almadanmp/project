@@ -203,9 +203,9 @@ public class GeographicArea {
      */
     double getMostRecentReadingValue(String typeOfSensor) {
         SensorList listToTest = this.areaSensors;
-        for (int i = 0; i < listToTest.getSensorList().size(); i++) {
-            if (!(listToTest.getSensorList().get(i).getTypeSensor().getName().equals(typeOfSensor))) {
-                listToTest.removeSensor(listToTest.getSensorList().get(i));
+        for (int i = 0; i < listToTest.size(); i++) {
+            if (!(listToTest.get(i).getTypeSensor().getName().equals(typeOfSensor))) {
+                listToTest.removeSensor(listToTest.get(i));
             }
         }
         return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getValue();
@@ -244,7 +244,7 @@ public class GeographicArea {
 
     public boolean addSensorToSensorList(Sensor sensor) {
         String sensorToAddName = sensor.getName();
-        for (Sensor s : this.areaSensors.getSensorList()) {
+        for (Sensor s : this.areaSensors.getListOfSensors()) {
             String sensorNameTest = s.getName();
             if (sensorNameTest.equals(sensorToAddName))
                 return false;

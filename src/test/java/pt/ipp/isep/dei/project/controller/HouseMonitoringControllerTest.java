@@ -45,7 +45,7 @@ class HouseMonitoringControllerTest {
 
         // Sets up a valid temperature sensor with valid Readings.
 
-        validTemperatureSensor = new Sensor("TempOne", new TypeSensor("temperature", "Celsius"),
+        validTemperatureSensor = new Sensor("TempOne", new TypeSensor("Temperature", "Celsius"),
                 new Local(21,10,15),
                 new Date());
         Reading firstTempReading = new Reading(15, new GregorianCalendar(2018,

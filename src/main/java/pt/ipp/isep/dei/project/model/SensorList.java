@@ -57,26 +57,13 @@ public class SensorList {
         return sensors.contains(sensor);
     }
 
-    /**
-     * Getter (array of sensors)
-     *
-     * @return array of sensors
-     */
-    Sensor[] getSensors() {
-        int sizeOfResultArray = sensors.size();
-        Sensor[] result = new Sensor[sizeOfResultArray];
-        for (int i = 0; i < sensors.size(); i++) {
-            result[i] = sensors.get(i);
-        }
-        return result;
-    }
 
     /**
      * Gettter (list of sensors)
      *
      * @return list of sensors
      */
-    public List<Sensor> getSensorList() {
+    public List<Sensor> getListOfSensors() {
         return this.sensors;
     }
 
@@ -154,11 +141,11 @@ public class SensorList {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    List<Sensor> getSensorListByType(String name) {
-        List<Sensor> containedTypeSensors = new ArrayList<>();
+    SensorList getSensorListByType(String name) {
+        SensorList containedTypeSensors = new SensorList();
         for (Sensor sensor : this.sensors) {
             if (name.equals(sensor.getTypeSensor().getName())) {
-                containedTypeSensors.add(sensor);
+                containedTypeSensors.addSensor(sensor);
             }
         }
         return containedTypeSensors;
@@ -170,11 +157,11 @@ public class SensorList {
      * @return builds a list of sensors with the sensors that are active at the precise date the one introduced as parameter.
      */
 
-    List<Sensor> getSensorsInGAAtACertainTimePeriod(Date date1, GeographicArea ga) {
-        List<Sensor> finalList = new ArrayList<>();
+    SensorList getSensorsInGAAtACertainTimePeriod(Date date1, GeographicArea ga) {
+        SensorList finalList = new SensorList();
         for (Sensor s : sensors) {
             if (s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)) {
-                finalList.add(s);
+                finalList.addSensor(s);
             }
         }
         return finalList;
@@ -188,12 +175,12 @@ public class SensorList {
     public String buildSensorWholeListString(SensorList sensorList) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
-        if (sensorList.getSensorList().isEmpty()) {
+        if (sensorList.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
 
-        for (int i = 0; i < sensorList.getSensorList().size(); i++) {
-            Sensor aux = sensorList.getSensorList().get(i);
+        for (int i = 0; i < sensorList.size(); i++) {
+            Sensor aux = sensorList.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
             result.append("Type: ").append(aux.getTypeSensor().getName()).append("\n");
         }
@@ -230,6 +217,35 @@ public class SensorList {
         return this.sensors.isEmpty();
     }
 
+    /** Checks the sensor list size and returns the size as int.\
+     * @return SensorList size as int
+     * **/
+    public int size(){
+        return this.sensors.size();
+    }
+
+    /** This method receives an index as parameter and gets a sensor from sensor list.
+     * @return returns sensor that corresponds to index.
+     */
+    public Sensor get(int index) {
+        return this.sensors.get(index);
+    }
+
+
+    /**
+     * Getter (array of sensors)
+     *
+     * @return array of sensors
+     */
+    Sensor[] getElementsAsArray() {
+        int sizeOfResultArray = sensors.size();
+        Sensor[] result = new Sensor[sizeOfResultArray];
+        for (int i = 0; i < sensors.size(); i++) {
+            result[i] = sensors.get(i);
+        }
+        return result;
+    }
+
     /**
      * Method 'equals' for comparison between objects of the same class
      *
@@ -246,7 +262,7 @@ public class SensorList {
             return false;
         }
         SensorList list = (SensorList) testObject;
-        return Arrays.equals(this.getSensors(), list.getSensors());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

@@ -177,9 +177,9 @@ public class House implements Metered {
      */
 
     double getMinDistanceToSensorOfGivenType(String type) {
-        List<Sensor> workingList = this.getMotherArea().getSensorList().getSensorListByType(type);
+        SensorList workingList = this.getMotherArea().getSensorList().getSensorListByType(type);
         ArrayList<Double> arrayList = new ArrayList<>();
-        for (Sensor sensor : workingList) {
+        for (Sensor sensor : workingList.getListOfSensors()) {
             arrayList.add(calculateDistanceToSensor(sensor));
         }
         return Collections.min(arrayList);
@@ -196,18 +196,18 @@ public class House implements Metered {
         Sensor sensor;
         SensorList sensorList = new SensorList();
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
-        for (Sensor s : this.getMotherArea().getSensorList().getSensorListByType(sensorType)) {
+        for (Sensor s : this.getMotherArea().getSensorList().getSensorListByType(sensorType).getListOfSensors()) {
             if (Double.compare(this.getMinDistanceToSensorOfGivenType(sensorType), s.getDistanceToHouse(this)) == 0) {
                 sensorList.addSensor(s);
             }
         }
-        if (sensorList.getSensorList().isEmpty()) {
+        if (sensorList.isEmpty()) {
             return sensorError;
         }
-        if (sensorList.getSensorList().size() >= 2) {
+        if (sensorList.size() >= 2) {
             sensor = sensorList.getMostRecentlyUsedSensor();
         } else {
-            sensor = sensorList.getSensorList().get(0);
+            sensor = sensorList.get(0);
         }
         return sensor;
     }
