@@ -418,10 +418,44 @@ class SensorTest {
     }
 
     @Test
+    void seeIfSensorIsContainedInAreaNegative() {
+        //Arrange
+        Local loc1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, loc1);
+        Local loc2 = new Local(20, 20, 5);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc2,validDate1);
+
+        //Act
+        a1.setWidth(20);
+        a1.setLength(30);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
     void seeIfSensorIsContainedOnTheEdge() {
         //Arrange
         Local loc1 = new Local(20, 20, 5);
         GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, loc1);
+        Local loc2 = new Local(10, 30, 5);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1,loc2,validDate1);
+
+        //Act
+        a1.setWidth(20);
+        a1.setLength(30);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    void seeIfSensorIsContainedOnTheEdgeNegative() {
+        //Arrange
+        Local loc1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, loc1);
         Local loc2 = new Local(10, 30, 5);
         Sensor s1 = new Sensor(validName1,validTypeSensor1,loc2,validDate1);
 
@@ -520,11 +554,45 @@ class SensorTest {
     }
 
     @Test
+    void seeIfSensorIsNotContainedInAreaWrongLatitudeNegative() {
+        //Arrange
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, l1);
+        Local loc1 = new Local(35, 20, 5);
+        Sensor s1 = new Sensor("XV56-LD1",validTypeSensor1, loc1,validDate1);
+
+        //Act
+        a1.setWidth(21);
+        a1.setLength(32);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
     void seeIfSensorIsNotContainedInAreaWrongLongitude() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
         GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(100, 100, 5);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+
+        //Act
+        a1.setWidth(10);
+        a1.setLength(10);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLongitudeNegative() {
+        //Arrange
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, l1);
+        Local loc1 = new Local(100, 20, 5);
         Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
         //Act
@@ -558,6 +626,23 @@ class SensorTest {
         //Arrange
         Local l1 = new Local(0, 40, 5);
         GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        Local loc1 = new Local(10, 30, 5);
+        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+
+        //Act
+        a1.setWidth(20);
+        a1.setLength(30);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    void seeIfSensorIsContainedOnTheEdge2Negative() {
+        //Arrange
+        Local l1 = new Local(0, 40, 5);
+        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, l1);
         Local loc1 = new Local(10, 30, 5);
         Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
 
