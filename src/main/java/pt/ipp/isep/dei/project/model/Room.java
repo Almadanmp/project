@@ -169,10 +169,12 @@ public class Room implements Metered {
         return this.deviceList.getList();
     }
 
-    /** Method that gets the room's device list.
+    /**
+     * Method that gets the room's device list.
+     *
      * @return room's DeviceList
      */
-    public DeviceList getDeviceList(){
+    public DeviceList getDeviceList() {
         return this.deviceList;
     }
 
