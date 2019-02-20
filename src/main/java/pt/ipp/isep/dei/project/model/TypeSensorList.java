@@ -11,22 +11,26 @@ public class TypeSensorList {
         typeSensors = new ArrayList<>();
     }
 
-    /**Method receives a type Sensor, checks if it already exists in list
+    /**
+     * Method receives a type Sensor, checks if it already exists in list
      * and adds it in case it does not exist in list.
+     *
      * @return true in case the type sensor is added, false otherwise
-     * **/
-    public boolean add(TypeSensor typeSensor){
-        if(!typeSensors.contains(typeSensor)){
+     **/
+    public boolean add(TypeSensor typeSensor) {
+        if (!typeSensors.contains(typeSensor)) {
             typeSensors.add(typeSensor);
             return true;
         }
         return false;
     }
 
-    /**Method returns a list with all sensor types.
+    /**
+     * Method returns a list with all sensor types.
+     *
      * @return List that contains sensor types
-     * **/
-    public List<TypeSensor> getTypeSensorList(){
+     **/
+    public List<TypeSensor> getTypeSensorList() {
         return this.typeSensors;
     }
 
@@ -49,7 +53,9 @@ public class TypeSensorList {
         return result.toString();
     }
 
-    /** This methods checks if type sensor list is empty.
+    /**
+     * This methods checks if type sensor list is empty.
+     *
      * @return true if list is empty, false otherwise
      */
     public boolean isEmpty() {

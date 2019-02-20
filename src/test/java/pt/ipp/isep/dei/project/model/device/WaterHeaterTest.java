@@ -85,6 +85,37 @@ public class WaterHeaterTest {
         double result = waterHeater.getEnergyConsumption(1);
         assertEquals(expectedResult, result);
     }
+    @Test
+    void getConsumptionTestFailsWithoutColdTemp() {
+        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+
+        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
+        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP,5D);
+        Double hotT = 1.0;
+        Double waterV = 300.0;
+        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
+        double expectedResult = 0;
+        double result = waterHeater.getEnergyConsumption(1);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getConsumptionTestFailsWithoutWaterVolume() {
+        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+
+        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
+        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT,5D);
+        Double hotT = 1.0;
+        Double coldT = 300.0;
+        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
+        double expectedResult = 0;
+        double result = waterHeater.getEnergyConsumption(1);
+        assertEquals(expectedResult, result);
+    }
 
     @Test
     void getConsumptionTestColdWaterEqualsHotWater() {
@@ -220,9 +251,8 @@ public class WaterHeaterTest {
     void ensureThatWeDeactivateADevice() {
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
         d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        boolean expectedResult = true;
         boolean actualResult = d1.deactivate();
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -230,9 +260,8 @@ public class WaterHeaterTest {
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
         d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
         d1.deactivate();
-        boolean expectedResult = false;
         boolean actualResult = d1.deactivate();
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test

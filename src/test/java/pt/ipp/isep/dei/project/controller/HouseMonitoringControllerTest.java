@@ -211,6 +211,44 @@ class HouseMonitoringControllerTest {
     }
 
     @Test
+    void ensureThatWeGetTotalReadingsWithoutRainFallSensorsAndWithoutReadings() {
+        // Arrange
+
+        SensorList temperatureList = new SensorList();
+        Sensor temperatureSensor = new Sensor("temperature sensor",new TypeSensor("temperature","celsius"),new Local(21, 20, 20),new GregorianCalendar(2015,2,2).getTime());
+        temperatureList.addSensor(temperatureSensor);
+        Date day = new GregorianCalendar(2017, Calendar.DECEMBER, 3).getTime();
+        validHouseArea.setSensorList(temperatureList);
+
+        // Act
+
+        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, day);
+
+        // Assert
+
+        assertEquals(NaN, actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetTotalReadingsWithoutWithoutReadings() {
+        // Arrange
+
+        SensorList rainFallSensorList = new SensorList();
+        Sensor rainfallSensor = new Sensor("rainfall sensor",new TypeSensor("rainfall","L"),new Local(21, 20, 20),new GregorianCalendar(2015,2,2).getTime());
+        rainFallSensorList.addSensor(rainfallSensor);
+        Date day = new GregorianCalendar(2017, Calendar.DECEMBER, 3).getTime();
+        validHouseArea.setSensorList(rainFallSensorList);
+
+        // Act
+
+        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, day);
+
+        // Assert
+
+        assertEquals(NaN, actualResult);
+    }
+
+    @Test
     void roomMaxTemperatureInGivenDay() {
         // Arrange
 
