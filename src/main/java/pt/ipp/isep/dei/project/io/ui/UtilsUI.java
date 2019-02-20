@@ -26,44 +26,44 @@ public class UtilsUI {
     }
 
     boolean houseRoomListIsValid(House house) {
-        return house.getListOfRooms() != null && !house.getRoomList().isEmpty();
+        return house.getListOfRooms() != null && !house.isRoomListEmpty();
     }
 
     boolean roomSensorListIsValid(Room room) {
-        return room.getSensorList() != null && !room.getSensorList().isEmpty();
+        return room.getSensorList() != null && !room.isSensorListEmpty();
     }
 
     boolean houseDeviceListValid(House house) {
-        return house.getDeviceList() != null && !house.getRoomList().isEmpty();
+        return house.getDeviceList() != null && !house.isListOfDevicesEmpty();
     }
 
 
     boolean houseGridListIsValid(House house) {
-        return house.getGridList() != null && !house.getGridList().isEmpty();
+        return house.getGridList() != null && !house.isEnergyGridListEmpty();
     }
 
     boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
-        return energyGrid.getListOfDevices() != null && energyGrid.getDeviceList().checkIfListIsValid();
+        return energyGrid.getListOfDevices() != null && !energyGrid.isDeviceListEmpty();
     }
 
     boolean gridRoomListIsValid(EnergyGrid energyGrid) {
-        return energyGrid.getRoomList() != null && !energyGrid.getRoomList().isEmpty();
+        return energyGrid.getRoomList() != null && !energyGrid.isRoomListEmpty();
     }
 
     boolean typeAreaListIsValid(TypeAreaList list) {
-        return list != null && !list.getTypeAreaList().isEmpty();
+        return list != null && !list.isEmpty();
     }
 
     boolean programListIsValid(ProgramList programList) {
-        return programList != null && !programList.getProgramList().isEmpty();
+        return programList != null && !programList.isEmpty();
     }
 
     boolean roomDeviceListIsValid(Room room) {
-        return room.getListOfDevices() != null && !room.getListOfDevices().isEmpty();
+        return room.getListOfDevices() != null && !room.isDeviceListEmpty();
     }
 
     boolean deviceLogListIsValid(Device device) {
-        return (!device.getLogList().isEmpty());
+        return (!device.isLogListEmpty());
     }
 
     boolean typeSensorListIsValid(TypeSensorList typeSensorList) {
@@ -71,7 +71,7 @@ public class UtilsUI {
     }
 
     boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
-        return geographicArea.getSensorList() != null && !geographicArea.getSensorList().isEmpty();
+        return geographicArea.getSensorList() != null && !geographicArea.isSensorListEmpty();
     }
 
     boolean houseMotherAreaIsValid(House house) {

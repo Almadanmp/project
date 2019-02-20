@@ -324,6 +324,30 @@ public class House implements Metered {
         return false;
     }
 
+    /**
+     * This method checks if house's RoomList is empty.
+     * @return true if house's RoomList is empty, false otherwise
+     **/
+    public boolean isRoomListEmpty(){
+        return this.mRoomList.isEmpty();
+    }
+
+    /**
+     * This method checks if house list of Devices is empty.
+     * @return true if house's List<Device> is empty, false otherwise.
+     **/
+    public boolean isListOfDevicesEmpty(){
+        return this.deviceTypeList.isEmpty();
+    }
+
+    /**
+     * This method checks if house's list of Energy Grids is empty.
+     * @return true if house's EnergyGridList is empty, false otherwise.
+     **/
+    public boolean isEnergyGridListEmpty(){
+        return this.mEGList.isEmpty();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

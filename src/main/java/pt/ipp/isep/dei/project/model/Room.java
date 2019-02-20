@@ -159,12 +159,13 @@ public class Room implements Metered {
         this.deviceList = deviceList;
     }
 
+
     /**
      * Room DeviceList Getter.
      *
      * @return the List of Devices of the room.
      */
-
+    //METODO VAI SER APAGADO
     public List<Device> getListOfDevices() {
         return this.deviceList.getList();
     }
@@ -418,6 +419,22 @@ public class Room implements Metered {
             result.addLogList(tempList);
         }
         return result;
+    }
+
+    /**
+     * This method checks if room's SensorList is empty.
+     * @return true if room's SensorList is empty, false otherwise.
+     **/
+    public boolean isSensorListEmpty(){
+        return this.roomSensorList.isEmpty();
+    }
+
+    /**
+     * This method checks if room's Device List is empty.
+     * @return true if room's DeviceList is empty, false otherwise.
+     **/
+    public boolean isDeviceListEmpty(){
+        return this.deviceList.isEmpty();
     }
 
     @Override

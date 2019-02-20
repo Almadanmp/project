@@ -265,6 +265,22 @@ public class EnergyGrid implements Metered {
         return result;
     }
 
+    /**
+     * This method checks if energy grid's Device List is empty.
+     * @return true if energy grid's DeviceList is empty, false otherwise.
+     **/
+    public boolean isDeviceListEmpty(){
+        return roomList.isDeviceListEmpty();
+    }
+
+    /**
+     * This method checks if energy grid's Room List is empty.
+     * @return true if energy grid's RoomList is empty, false otherwise.
+     **/
+    public boolean isRoomListEmpty(){
+        return roomList.isEmpty();
+    }
+
     @Override
     public double getEnergyConsumption(float time) {
         return 0;

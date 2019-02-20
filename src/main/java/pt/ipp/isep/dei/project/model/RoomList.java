@@ -67,7 +67,7 @@ public class RoomList {
         return null;
     }
 
-    /**
+    /**  METODO VAI SER APAGADO
      * Method that returns a List of Devices of the RoomList.
      *
      * @return List of Devices of the RoomList.
@@ -80,6 +80,9 @@ public class RoomList {
         return result;
     }
 
+    /**Method that returns the room list's list of devices.
+     * @return DeviceList that collects all devices from room's list
+     * **/
     DeviceList getDeviceList(){
         DeviceList finalList = new DeviceList();
         for(Room r : this.rooms){
@@ -87,7 +90,6 @@ public class RoomList {
         }
         return finalList;
     }
-
 
     /**
      * String Builder of the RoomList.
@@ -158,6 +160,15 @@ public class RoomList {
      **/
     public boolean isEmpty() {
         return this.rooms.isEmpty();
+    }
+
+    /**
+     * This method checks if every room in room list has no devices.
+     *
+     * @return true if list has no devices, false otherwise.
+     **/
+    public boolean isDeviceListEmpty() {
+        return this.getDeviceList().isEmpty();
     }
 
 

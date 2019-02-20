@@ -74,7 +74,6 @@ public class TypeAreaList {
 
     /**
      * This method checks if type area list is empty.*
-     *
      * @return true if list is empty, false otherwise.
      */
     public boolean isEmpty() {

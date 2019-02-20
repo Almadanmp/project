@@ -81,6 +81,14 @@ public class Dishwasher implements Device, Metered, Programmable {
     }
 
     /**
+     * Method checks if device LogList is empty
+     * @return true if LogList is empty, false otherwise
+     * */
+    public boolean isLogListEmpty(){
+        return this.dWLogList.isEmpty();
+    }
+
+    /**
      * This method adds a Log to the device LogList, if the Log isn't already in the LogList.
      *
      * @param log - Parameter which will be used to add to the Device LogList.
@@ -148,6 +156,7 @@ public class Dishwasher implements Device, Metered, Programmable {
     public Object getAttributeUnit(String attributeName) {
         return dWDeviceSpecs.getAttributeUnit(attributeName);
     }
+
 
 
     @Override

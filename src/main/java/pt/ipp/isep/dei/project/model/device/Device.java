@@ -67,6 +67,12 @@ public interface Device {
     LogList getLogList();
 
     /**
+     * Method checks if device LogList is empty
+     * @return true if LogList is empty, false otherwise
+     * */
+    boolean isLogListEmpty();
+
+    /**
      * This method adds a Log to the device LogList, if the Log isn't already in the LogList.
      *
      * @param log - Parameter which will be used to add to the DeviceTemporary LogList.
@@ -131,4 +137,5 @@ public interface Device {
      * @return returns the attribute unit
      */
     Object getAttributeUnit(String attributeName);
+
 }
