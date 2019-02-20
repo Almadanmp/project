@@ -74,20 +74,23 @@ public class TypeSensor {
     }
 
 
-    /**This method will return a string with the type sensor information (name and unit of measure)
-     * @ string of name and unit of measure **/
-    public String buildString(){
+    /**
+     * This method will return a string with the type sensor information (name and unit of measure)
+     *
+     * @ string of name and unit of measure
+     **/
+    public String buildString() {
         String result;
         result = "The type sensor is " + this.name + ", and the unit of measure is " + this.units + ".";
         return result;
     }
 
     /**
-            * Specific Method
+     * Specific Method
      *
-             * @param testSensor Receives an object to verify if it matches current instance of TypeSensor.
-            * @return boolean returns true if equal, false if they are not equal.
-            */
+     * @param testSensor Receives an object to verify if it matches current instance of TypeSensor.
+     * @return boolean returns true if equal, false if they are not equal.
+     */
     @Override
     public boolean equals(Object testSensor) {
         if (this == testSensor) {

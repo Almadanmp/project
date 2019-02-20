@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import java.util.*;
 
 import static java.lang.Double.NaN;
+import static java.lang.Double.min;
 
 /**
  * This is the ReadingList Class, a List of Readings that the Sensor receives.
@@ -309,31 +310,11 @@ public class ReadingList {
      */
     double getLowestValueFromGivenList(List<Double> valueList) {
         checkIfListValid(valueList);
-        double minValue = valueList.get(0);
-        for (double value : valueList) {
-            if (minValue > value) {
-                minValue = value;
-            }
-        }
-        return minValue;
+        ArrayList<Double> arrayList = new ArrayList<>(valueList);
+        return Collections.min(arrayList);
     }
 
-    /**
-     * Method that receives a list of doubles that correspond to value readings and will return
-     * the highest value on that list.
-     *
-     * @return returns the highest of all value readings within list
-     */
-    double getHighestValueInList(List<Double> valueList) {
-        checkIfListValid(valueList);
-        double highestValue = valueList.get(0);
-        for (double value : valueList) {
-            if (value > highestValue) {
-                highestValue = value;
-            }
-        }
-        return highestValue;
-    }
+
     /**
      * This method receives a list of doubles that correspond to value readings and
      * will return the average value on that list.
@@ -365,6 +346,17 @@ public class ReadingList {
     }
 
 
+    /**
+     * Method that receives a list of doubles that correspond to value readings and will return
+     * the highest value on that list.
+     *
+     * @return returns the highest of all value readings within list
+     */
+    double getHighestValueInList(List<Double> valueList) {
+        checkIfListValid(valueList);
+        ArrayList<Double> arrayList = new ArrayList<>(valueList);
+        return Collections.max(arrayList);
+    }
 
     /**
      * Method that receives a date and will return the average of all recorded value readings

@@ -16,7 +16,7 @@ class HouseConfigurationControllerTest {
 
     // Common artifacts for testing in this class.
 
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
     private HouseConfigurationController controller = new HouseConfigurationController();
     private House validHouse;
 

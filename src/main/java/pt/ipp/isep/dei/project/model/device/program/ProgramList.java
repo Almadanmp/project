@@ -18,7 +18,7 @@ public class ProgramList {
     /**
      * Getter of the ProgramList.
      *
-     * @return
+     * @return the ProgramList.
      */
     public List<Program> getProgramList() {
         return this.programs;
@@ -47,8 +47,8 @@ public class ProgramList {
     /**
      * Method that adds a Program to the ProgramList.
      *
-     * @param program we want to add
-     * @return
+     * @param program is the program we want to add.
+     * @return true if program was successfully added, false otherwise (already existing program)
      */
     public boolean addProgram(Program program) {
         if (!(programs.contains(program))) {
@@ -63,15 +63,21 @@ public class ProgramList {
      * Method that removes a Program from the ProgramList.
      *
      * @param program you want to remove from the ProgramList.
-     * @return
+     * @return true if program was successfully removed, false otherwise.
      */
-    public boolean removeProgram(Program program) {
+    boolean removeProgram(Program program) {
         if (programs.contains(program)) {
             programs.remove(program);
             return true;
         } else {
             return false;
         }
+    }
+
+    /** Method checks if program list is empty.
+     * @return true if list is empty, false otherwise**/
+    public boolean isEmpty() {
+        return this.programs.isEmpty();
     }
 
 

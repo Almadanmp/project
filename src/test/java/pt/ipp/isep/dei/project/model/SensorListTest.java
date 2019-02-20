@@ -18,417 +18,301 @@ import static org.junit.jupiter.api.Assertions.*;
 class SensorListTest {
 
     // Common artifacts for testing in this class.
+    private TypeSensor validTypeSensor1; // Sensor Type temperature with unit Celsius;
+    private TypeSensor validTypeSensor2; // Sensor Type rain with unit millimeters;
+    private Local validLocal1; // Localization with Latitude:38, Longitude:7, Altitude: 5
+    private Local validLocal2; // Localization with Latitude:100, Longitude:76, Altitude: 59
+    private SimpleDateFormat validSdf1; // SimpleDateFormat dd/MM/yyyy
+    private SimpleDateFormat validSdf2; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
+    private Date validDate1; // Date 04/09/2018
+    private Date validDate2; // Date 04/10/2018
+    private Date validDate3; // Date 05/10/2018
+    private Date validDate4; // Date 20/12/2018
+    private Date validDate5; // Date 05/10/2018 23:57
+    private GeographicArea validGeographicArea; // Id:Portugal, Type:Country, Length:2000, Width:2000
+    private GeographicArea validGeographicArea2; // Id:Spain, Type:Country, Length:2, Width:2
+    private SensorList validSensorList1; // Empty Sensor List
 
     @BeforeEach
     void arrangeArtifacts() {
-
-    }
-
-
-
-    @Test
-    void seeIfAddSensorsWorks_true() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        validTypeSensor1 = new TypeSensor("Temperature", "Celsius");
+        validTypeSensor2 = new TypeSensor("Rain", "mm");
+        validLocal1 = new Local(38,7,5);
+        validLocal2 = new Local(100,76,59);
+        validSdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
-            d1 = sd.parse("04/09/118");
-            d2 = sd.parse("04/10/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
+            validDate1 = validSdf1.parse("04/09/2018");
+            validDate2 = validSdf1.parse("04/10/2018");
+            validDate3 = validSdf1.parse("05/10/2018");
+            validDate4 = validSdf1.parse("20/12/2019");
+            validDate5 = validSdf2.parse("05/10/2018 23:57");
+        } catch (ParseException c) {
+            c.printStackTrace();
         }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20), d2);
-        SensorList sl = new SensorList(s1);
-        sl.addSensor(s2);
-        boolean expectedResult = true;
-
-        boolean actualResult = sl.containsSensor(s2);
-
-        assertEquals(expectedResult, actualResult);
+        validSensorList1 = new SensorList();
+        validGeographicArea = new GeographicArea("Portugal",new TypeArea("Country"),2000,2000,validLocal2);
+        validGeographicArea2 = new GeographicArea("Spain",new TypeArea("Country"),2,2,validLocal2);
     }
 
     @Test
-    void seeIfAddSensorWorks_false() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/10/118");
-            d2 = sd.parse("04/09/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20), d2);
-        SensorList sl = new SensorList(s1);
-        boolean actualResult = sl.containsSensor(s2);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
-        System.out.println(actualResult);
+    void seeIfContainsMethodWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+
+
+        //Act
+        boolean actualResult = validSensorList1.containsSensor(s2);
+
+        //Assert
+        assertTrue(actualResult);
     }
 
     @Test
-    void seeIfAddSensorThatExistsWorks_false() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/10/118");
-            d2 = sd.parse("04/12/118");
-            d3 = sd.parse("04/08/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20), d2);
-        Sensor s3 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20), d3);
-        SensorList sl = new SensorList(s1);
-        sl.addSensor(s2);
-        sl.addSensor(s3);
-        boolean actualResult = sl.addSensor(s3);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
-        System.out.println(actualResult);
+    void seeIfContainsMethodFails() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        validSensorList1.addSensor(s1);
+
+        //Act
+        boolean actualResult = validSensorList1.containsSensor(s2);
+
+        //Assert
+        assertFalse(actualResult);
     }
 
     @Test
-    void seeIfRemoveSensor_true() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/12/118");
-            d2 = sd.parse("04/10/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20), d2);
-        SensorList lc = new SensorList(s1);
-        lc.addSensor(s2);
-        lc.removeSensor(s1);
-        boolean expectedResult = true;
-        boolean result = lc.containsSensor(s2);
-        assertEquals(result, expectedResult);
+    void seeIfAddingSensorAlreadyAddedFails() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
+
+        //Act
+        boolean actualResult = validSensorList1.addSensor(s3);
+
+        //Assert
+        assertFalse(actualResult);
     }
 
     @Test
-    void seeIfRemoveSensor_false() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/12/118");
-            d2 = sd.parse("04/10/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20), d2);
-        SensorList lc = new SensorList(s1);
-        lc.addSensor(s2);
-        lc.removeSensor(s1);
-        boolean expectedResult = false;
-        boolean result = lc.containsSensor(s1);
-        assertEquals(result, expectedResult);
+    void seeIfRemovingSensorWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+
+        //Act
+        validSensorList1.removeSensor(s1);
+        boolean result = validSensorList1.containsSensor(s2);
+
+        //Assert
+        assertTrue(result);
     }
 
     @Test
-    void seeIfArrayGetSensors() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/12/118");
-            d2 = sd.parse("04/10/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20), d2);
+    void seeIfRemovingSensorWorksDifferentApproach() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+
+        //Act
+        validSensorList1.removeSensor(s1);
+        boolean result = validSensorList1.containsSensor(s1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfGetSensorsAsArrayWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
         Sensor[] expectedResult = new Sensor[]{s1, s2};
-        Sensor[] result;
-        SensorList lc = new SensorList(s1);
-        lc.addSensor(s2);
-        result = lc.getSensors();
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+
+        //Act
+        Sensor[] result = validSensorList1.getSensors();
+
+        //Assert
         assertArrayEquals(result, expectedResult);
     }
 
     @Test
-    void seeIfGetSensorsList() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/12/118");
-            d2 = sd.parse("04/10/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20), d2);
+    void seeIfGetSensorsAsListWorks() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
         List<Sensor> expectedResult = new ArrayList<>();
-        List<Sensor> result;
-        SensorList lc = new SensorList(s1);
-        lc.addSensor(s2);
-        result = lc.getSensorList();
         expectedResult.add(s1);
         expectedResult.add(s2);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+
+        //Act
+        List<Sensor> result = validSensorList1.getSensorList();
+
+        //Assert
         assertEquals(result, expectedResult);
     }
 
     @Test
-    void seeIfEqualsSameObject() {
-        Date d1 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/12/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        SensorList sl = new SensorList(s1);
-        boolean actualResult = sl.equals(sl);
+    void seeIfEqualsWorksOnSameObject() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        validSensorList1.addSensor(s1);
+
+        //Act
+        boolean actualResult = validSensorList1.equals(validSensorList1);
+
+        //Assert
         assertTrue(actualResult);
-
     }
 
     @Test
-    void seeIfequalsSensorListWithSameContent() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/12/118");
-            d2 = sd.parse("04/12/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        Sensor s2 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(10, 30, 20), d2);
-        SensorList sl1 = new SensorList(s1);
-        SensorList sl2 = new SensorList(s2);
-        boolean actualResult = sl1.equals(sl2);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, actualResult);
+    void seeIfEqualsWorksOnSensorListWithSameContent() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        SensorList sList1 = new SensorList(s1);
+        SensorList sList2 = new SensorList(s1);
 
+        //Act
+        boolean actualResult = sList1.equals(sList2);
+
+        //Assert
+        assertTrue(actualResult);
     }
 
     @Test
-    void seeIfequalsSensorListWithDifferentContent() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/12/118");
-            d2 = sd.parse("04/10/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        Sensor s2 = new Sensor("Chuva", new TypeSensor("Atmosphere", "l/m2"),
-                new Local(10, 30, 20), d2);
-        SensorList sl1 = new SensorList(s1);
-        SensorList sl2 = new SensorList(s2);
-        boolean actualResult = sl1.equals(sl2);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
+    void seeIfEqualsWorksOnSensorListWithDifferentContent() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        SensorList slist1 = new SensorList(s1);
+        SensorList slist2 = new SensorList(s2);
 
+        //Act
+        boolean actualResult = slist1.equals(slist2);
+
+        //Assert
+        assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsSensorListWithDifferentObject() {
-        Date d1 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/12/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        int teste = 3;
-        SensorList sl1 = new SensorList(s1);
-        boolean actualResult = sl1.equals(teste);
-        assertFalse(actualResult);
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        validSensorList1.addSensor(s1);
 
+        //Act
+        boolean actualResult = validSensorList1.equals(s2);
+
+        //Assert
+        assertFalse(actualResult);
     }
 
     @Test
     void seeHashCodeDummyTest() {
-        Date d1 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("04/12/118");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosphere", "km/h"),
-                new Local(12, 31, 21), d1);
-        SensorList l1 = new SensorList(s1);
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        validSensorList1.addSensor(s1);
         int expectedResult = 1;
-        int actualResult = l1.hashCode();
+
+        //Act
+        int actualResult = validSensorList1.hashCode();
+
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void getSensorsInGAInACertainTimePeriod() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("01/05/2000");
-            d2 = sd.parse("01/07/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15), d1);
-        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), d2);
-        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), d3);
-        SensorList sensorList = new SensorList(s1);
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        sensorList.addSensor(s3);
-        GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga1.setSensorList(sensorList);
-        Date d4 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d4 = s.parse("05/10/2000");
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
-        List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(d4, ga1);
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor1,validLocal1,validDate3);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
+        validGeographicArea.setSensorList(validSensorList1);
         List<Sensor> expectedResult = new ArrayList<>();
         expectedResult.add(s1);
         expectedResult.add(s2);
-        assertEquals(expectedResult, result);
+        expectedResult.add(s3);
+
+        //Act
+        List<Sensor> actualResult = validSensorList1.getSensorsInGAAtACertainTimePeriod(validDate4, validGeographicArea);
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 
     @Test
-    void getSensorsInGAInACertainTimePeriodFalse() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("08/10/2000");
-            d2 = sd.parse("02/11/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15), d1);
-        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), d2);
-        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), d3);
-        SensorList sensorList = new SensorList(s1);
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        sensorList.addSensor(s3);
-        GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga1.setSensorList(sensorList);
-        Date date1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date1 = s.parse("05/10/2000");
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
-        List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
+    void getSensorsInGAInACertainTimePeriodNoSensorsUsed() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate3);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor1,validLocal1,validDate4);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
+        validGeographicArea.setSensorList(validSensorList1);
         List<Sensor> expectedResult = new ArrayList<>();
-        assertEquals(expectedResult, result);
+
+        //Act
+        List<Sensor> actualResult = validSensorList1.getSensorsInGAAtACertainTimePeriod(validDate1, validGeographicArea);
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 
     @Test
     void getSensorsInGAInACertainTimePeriodWrongArea() {
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("01/05/2000");
-            d2 = sd.parse("01/07/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", new TypeSensor("temperatura", "Celsius"), new Local(20, 14, 15), d1);
-        Sensor s2 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(50, 19, 15), d2);
-        Sensor s3 = new Sensor("s2", new TypeSensor("temperatura", "Celsius"), new Local(15, 19, 15), d3);
-        SensorList sensorList = new SensorList(s1);
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        sensorList.addSensor(s3);
-        GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga1.setSensorList(sensorList);
-        Date date1 = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date1 = s.parse("05/10/2000");
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
-        List<Sensor> result = sensorList.getSensorsInGAAtACertainTimePeriod(date1, ga1);
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor1,validLocal1,validDate3);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
+        validGeographicArea.setSensorList(validSensorList1);
         List<Sensor> expectedResult = new ArrayList<>();
-        expectedResult.add(s1);
 
-        assertEquals(expectedResult, result);
+        //Act
+        List<Sensor> actualResult = validSensorList1.getSensorsInGAAtACertainTimePeriod(validDate4, validGeographicArea2);
+
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 
     @Test
     void seeItGetSensorListByTypeEquals() {
         //Arrange
-        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
-        TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("08/10/2000");
-            d2 = sd.parse("02/11/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), d1);
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), d2);
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), d3);
-        SensorList sensorList1 = new SensorList(s1);
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor2,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor2,validLocal1,validDate3);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
 
         //Act
-        sensorList1.addSensor(s1);
-        sensorList1.addSensor(s2);
-        sensorList1.addSensor(s3);
-        sensorList1.addSensor(s1);
-        List<Sensor> actualResult = sensorList1.getSensorListByType("Rain");
+        List<Sensor> actualResult = validSensorList1.getSensorListByType("Rain");
         List<Sensor> expectedResult = new ArrayList<>();
         expectedResult.add(s1);
         expectedResult.add(s3);
-
 
         //Assert
         expectedResult.equals(actualResult);
@@ -438,32 +322,18 @@ class SensorListTest {
     @Test
     void seeItGetSensorListByTypeContains() {
         //Arrange
-        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
-        TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("08/10/2000");
-            d2 = sd.parse("02/11/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), d1);
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), d2);
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), d3);
-        SensorList sensorList1 = new SensorList(s1);
-
-        //Act
-        sensorList1.addSensor(s1);
-        sensorList1.addSensor(s2);
-        sensorList1.addSensor(s3);
-        List<Sensor> actualResult = sensorList1.getSensorListByType("Rain");
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor2,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor2,validLocal1,validDate3);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
         List<Sensor> expectedResult = new ArrayList<>();
         expectedResult.add(s1);
         expectedResult.add(s3);
+
+        //Act
+        List<Sensor> actualResult = validSensorList1.getSensorListByType("Rain");
 
         //Assert
         expectedResult.contains(actualResult);
@@ -473,216 +343,132 @@ class SensorListTest {
     @Test
     void seeItGetSensorListByTypeDoesNotContain() {
         //Arrange
-        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
-        TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("08/10/2000");
-            d2 = sd.parse("02/11/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), d1);
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), d2);
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), d3);
-        SensorList sensorList1 = new SensorList(s1);
+        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor2,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor2,validLocal1,validDate3);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
+        List<Sensor> expectedResult = new ArrayList<>();
 
         //Act
-        sensorList1.addSensor(s1);
-        sensorList1.addSensor(s2);
-        sensorList1.addSensor(s3);
-        List<Sensor> actualResult = sensorList1.getSensorListByType("Temperature");
-        List<Sensor> expectedResult = new ArrayList<>();
+        List<Sensor> actualResult = validSensorList1.getSensorListByType("Pressure");
 
         //Assert
         expectedResult.contains(actualResult);
     }
 
     @Test
-    void seeItGetSensorListByTypeContainsSameName() {
+    void SeeThatSensorIsInSensorListByString() {
         //Arrange
-        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
-        TypeSensor t2 = new TypeSensor("Rain", "l/m2");
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("08/10/2000");
-            d2 = sd.parse("02/11/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), d1);
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), d2);
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), d3);
-        SensorList sensorList1 = new SensorList(s1);
+        Sensor s1 = new Sensor("Mod Sensor 1",validTypeSensor2,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor2,validLocal1,validDate3);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
 
         //Act
-        sensorList1.addSensor(s1);
-        sensorList1.addSensor(s2);
-        sensorList1.addSensor(s3);
-        List<Sensor> actualResult = sensorList1.getSensorListByType("Rain");
-        List<Sensor> expectedResult = new ArrayList<>();
-        expectedResult.add(s1);
-        expectedResult.add(s2);
-        expectedResult.add(s3);
+        boolean actualResult = validSensorList1.doesSensorListContainSensorByName("Mod Sensor 1");
+
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void SeeThatSensorIsNotInSensorListByString() {
+        //Arrange
+        Sensor s1 = new Sensor("Temperature Sensor 1",validTypeSensor2,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor2,validLocal1,validDate3);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
+
+        //Act
+        boolean actualResult = validSensorList1.doesSensorListContainSensorByName("Mod Sensor 1");
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfPrintsSensorWholeList() {
+        //Arrange
+        Sensor s1 = new Sensor("Temperature Sensor 1",validTypeSensor2,validLocal1,validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate2);
+        Sensor s3 = new Sensor("Pressure Sensor 1",validTypeSensor2,validLocal1,validDate3);
+        validSensorList1.addSensor(s1);
+        validSensorList1.addSensor(s2);
+        validSensorList1.addSensor(s3);
+
+        String expectedResult = "---------------\n" +
+                "0) Name: Temperature Sensor 1 | Type: Rain\n" +
+                "1) Name: Rain Sensor 1 | Type: Temperature\n" +
+                "2) Name: Pressure Sensor 1 | Type: Rain\n" +
+                "---------------\n";
+
+        //Act
+        String actualResult = validSensorList1.buildSensorWholeListString(validSensorList1);
 
         //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void ensureThatSensorIsInSensorListByString() {
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
-        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
-        TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("08/10/2000");
-            d2 = sd.parse("02/11/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), d1);
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), d2);
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), d3);
-        SensorList sensorList1 = new SensorList(s1);
-        sensorList1.addSensor(s1);
-        sensorList1.addSensor(s2);
-        sensorList1.addSensor(s3);
-        room.setSensorList(sensorList1);
-        boolean expectedResult = true;
-        boolean actualResult = sensorList1.doesSensorListContainSensorByName("s1");
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void ensureThatSensorIsNotInSensorListByString() {
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
-        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
-        TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("08/10/2000");
-            d2 = sd.parse("02/11/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), d1);
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), d2);
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), d3);
-        SensorList sensorList1 = new SensorList(s1);
-        sensorList1.addSensor(s1);
-        sensorList1.addSensor(s2);
-        sensorList1.addSensor(s3);
-        room.setSensorList(sensorList1);
-        boolean expectedResult = false;
-        boolean actualResult = sensorList1.doesSensorListContainSensorByName("s4");
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintsSensorWholeList() {
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
-        TypeSensor t1 = new TypeSensor("Rain", "l/m2");
-        TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("08/10/2000");
-            d2 = sd.parse("02/11/2000");
-            d3 = sd.parse("01/11/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("s1", t1, new Local(15, 16, 50), d1);
-        Sensor s2 = new Sensor("s2", t2, new Local(16, 17, 50), d2);
-        Sensor s3 = new Sensor("s3", t1, new Local(0, 0, 50), d3);
-        SensorList sensorList1 = new SensorList(s1);
-        sensorList1.addSensor(s1);
-        sensorList1.addSensor(s2);
-        sensorList1.addSensor(s3);
-        room.setSensorList(sensorList1);
-        String expectedResult = "---------------\n" +
-                "0) Name: s1 | Type: Rain\n" +
-                "1) Name: s2 | Type: Vento\n" +
-                "2) Name: s3 | Type: Rain\n" +
-                "---------------\n";
-        String result = sensorList1.buildSensorWholeListString(sensorList1);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void seeIfPrintsEmptySensorWholeList() {
-        Room room = new Room("Quarto Miki", 1, 3, 3, 3);
-        SensorList sensorList1 = new SensorList();
-        room.setSensorList(sensorList1);
+        //Arrange
         String expectedResult = "Invalid List - List is Empty\n";
-        String result = sensorList1.buildSensorWholeListString(sensorList1);
-        assertEquals(expectedResult, result);
+
+        //Act
+        String actualResult = validSensorList1.buildSensorWholeListString(validSensorList1);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeReadings() {
-        Date date1 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date1 = sd.parse("05/10/2000");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        //Arrange
         SensorList sensorList1 = new SensorList(); //EMPTY LIST
         SensorList sensorList2 = new SensorList(); //ONE SENSOR WITH NO READINGS
         SensorList sensorList3 = new SensorList(); //TWO SENSORS: FIRST WITH READINGS
         SensorList sensorList4 = new SensorList(); //TWO SENSORS: SECOND WITH READINGS
         SensorList sensorList5 = new SensorList(); //TWO SENSORS: BOTH WITH READINGS
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), date1);
+        //Arrange 2
+        Sensor sensor1 = new Sensor("Temperature Sensor 1",validTypeSensor1,validLocal1,validDate1);
         sensorList2.addSensor(sensor1);
 
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), date1);
-        Reading reading1 = new Reading(20, date1);
-        Reading reading2 = new Reading(21, date1);
+        //Arrange 3
+        Sensor sensor2 = new Sensor("Temperature Sensor 2",validTypeSensor1,validLocal1,validDate1);
+        Sensor sensor3 = new Sensor("Temperature Sensor 3",validTypeSensor1,validLocal1,validDate1);
+        Reading reading1 = new Reading(20,validDate1);
+        Reading reading2 = new Reading(21,validDate1);
         sensor2.addReading(reading1);
         sensor2.addReading(reading2);
         sensorList3.addSensor(sensor2);
         sensorList3.addSensor(sensor3);
 
-        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature", "ºC"), date1);
+        //Arrange 4
+        Sensor sensor4 = new Sensor("Temperature Sensor 4",validTypeSensor1,validLocal1,validDate1);
+        Sensor sensor5 = new Sensor("Temperature Sensor 5",validTypeSensor1,validLocal1,validDate1);
         sensor5.addReading(reading1);
         sensor5.addReading(reading2);
         sensorList4.addSensor(sensor4);
         sensorList4.addSensor(sensor5);
 
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), date1);
-        Reading reading3 = new Reading(32, date1);
-        Reading reading4 = new Reading(12, date1);
+        //Arrange 5
+        Sensor sensor6 = new Sensor("sensor6",validTypeSensor1,validLocal1,validDate1);
+        Sensor sensor7 = new Sensor("sensor7",validTypeSensor1,validLocal1,validDate1);
+        Reading reading3 = new Reading(32,validDate1);
+        Reading reading4 = new Reading(12,validDate1);
         sensor6.addReading(reading1);
         sensor6.addReading(reading2);
         sensor7.addReading(reading3);
         sensor7.addReading(reading4);
         sensorList5.addSensor(sensor6);
         sensorList5.addSensor(sensor7);
-
 
         ReadingList expectedResult1 = new ReadingList();
         ReadingList expectedResult2 = new ReadingList();
@@ -697,13 +483,15 @@ class SensorListTest {
         expectedResult5.addReading(reading2);
         expectedResult5.addReading(reading3);
         expectedResult5.addReading(reading4);
-        //ACT
+
+        //Act
         ReadingList actualResult1 = sensorList1.getReadings();
         ReadingList actualResult2 = sensorList2.getReadings();
         ReadingList actualResult3 = sensorList3.getReadings();
         ReadingList actualResult4 = sensorList4.getReadings();
         ReadingList actualResult5 = sensorList5.getReadings();
-        //ASSERT
+
+        //Assert
         assertEquals(actualResult1, expectedResult1);
         assertEquals(actualResult2, expectedResult2);
         assertEquals(actualResult3, expectedResult3);
@@ -713,14 +501,20 @@ class SensorListTest {
 
     @Test
     void mostRecentlyUsedSensor() {
+        //Arrange
         Date date1 = new Date();
         Date date2 = new Date();
         Date date3 = new Date();
+        Date date4 = new Date();
+        Date date5 = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        SimpleDateFormat sd2 = new SimpleDateFormat("dd/MM/yyyy");
         try {
             date1 = sd.parse("05/10/2000 23:57");
             date2 = sd.parse("05/10/2000 23:58");
             date3 = sd.parse("05/10/2000 23:59");
+            date4 = sd2.parse("01/00/1900");
+            date5 = sd2.parse("01/00/1900");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -731,12 +525,12 @@ class SensorListTest {
         SensorList sensorList4 = new SensorList(); //THREE SENSORS: SECOND MOST RECENT
         SensorList sensorList5 = new SensorList(); //THREE SENSORS: THIRD MOST RECENT
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), date1);
+        Sensor sensor1 = new Sensor("sensor1",validTypeSensor1, date1);
         sensorList2.addSensor(sensor1);
 
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("temperature", "ºC"), date1);
+        Sensor sensor2 = new Sensor("sensor2",validTypeSensor1, date1);
+        Sensor sensor3 = new Sensor("sensor3",validTypeSensor1, date1);
+        Sensor sensor4 = new Sensor("sensor4",validTypeSensor1, date1);
         Reading reading1 = new Reading(20, date3);
         Reading reading2 = new Reading(21, date1);
         Reading reading3 = new Reading(32, date2);
@@ -748,9 +542,9 @@ class SensorListTest {
         sensorList3.addSensor(sensor3);
         sensorList3.addSensor(sensor4);
 
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), date1);
+        Sensor sensor5 = new Sensor("sensor5",validTypeSensor1, date1);
+        Sensor sensor6 = new Sensor("sensor6",validTypeSensor1, date1);
+        Sensor sensor7 = new Sensor("sensor7",validTypeSensor1, date1);
         Reading reading4 = new Reading(20, date1);
         Reading reading5 = new Reading(21, date3);
         Reading reading6 = new Reading(32, date2);
@@ -762,9 +556,9 @@ class SensorListTest {
         sensorList4.addSensor(sensor6);
         sensorList4.addSensor(sensor7);
 
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"), date1);
+        Sensor sensor8 = new Sensor("sensor8",validTypeSensor1, date1);
+        Sensor sensor9 = new Sensor("sensor9",validTypeSensor1, date1);
+        Sensor sensor10 = new Sensor("sensor10",validTypeSensor1, date1);
         Reading reading7 = new Reading(20, date2);
         Reading reading8 = new Reading(21, date1);
         Reading reading9 = new Reading(32, date3);
@@ -776,28 +570,20 @@ class SensorListTest {
         sensorList5.addSensor(sensor9);
         sensorList5.addSensor(sensor10);
 
-        Date date4 = new Date();
-        Date date5 = new Date();
-        SimpleDateFormat sd2 = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date4 = sd2.parse("01/00/1900");
-            date5 = sd2.parse("01/00/1900");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         Sensor expectedResult1 = new Sensor("emptySensor", new TypeSensor("type", " "), date4);
         Sensor expectedResult2 = new Sensor("emptySensor", new TypeSensor("type", " "), date5);
         Sensor expectedResult3 = sensor2;
         Sensor expectedResult4 = sensor6;
         Sensor expectedResult5 = sensor10;
 
-        //ACT
+        //Act
         Sensor actualResult1 = sensorList1.getMostRecentlyUsedSensor();
         Sensor actualResult2 = sensorList2.getMostRecentlyUsedSensor();
         Sensor actualResult3 = sensorList3.getMostRecentlyUsedSensor();
         Sensor actualResult4 = sensorList4.getMostRecentlyUsedSensor();
         Sensor actualResult5 = sensorList5.getMostRecentlyUsedSensor();
-        //ASSERT
+
+        //Assert
         assertEquals(actualResult1, expectedResult1);
         assertEquals(actualResult2, expectedResult2);
         assertEquals(actualResult3, expectedResult3);
@@ -807,51 +593,46 @@ class SensorListTest {
 
     @Test
     void hasReadings() {
-        Date date1 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        try {
-            date1 = sd.parse("05/10/2018 23:57");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         SensorList sensorList1 = new SensorList(); //EMPTY LIST
         SensorList sensorList2 = new SensorList(); //ONE SENSOR WITHOUT READINGS
         SensorList sensorList3 = new SensorList(); //TWO SENSORS WITHOUT READINGS
         SensorList sensorList4 = new SensorList(); //THREE SENSORS: FIRST HAS READINGS
         SensorList sensorList5 = new SensorList(); //THREE SENSORS: LAST HAS READINGS
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), date1);
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"),validDate5);
         sensorList2.addSensor(sensor1);
 
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), date1);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature", "ºC"),validDate5);
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"),validDate5);
         sensorList3.addSensor(sensor2);
         sensorList3.addSensor(sensor3);
 
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), date1);
-        Reading reading4 = new Reading(20, date1);
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature", "ºC"),validDate5);
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"),validDate5);
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"),validDate5);
+        Reading reading4 = new Reading(20,validDate1);
         sensor5.addReading(reading4);
         sensorList4.addSensor(sensor5);
         sensorList4.addSensor(sensor6);
         sensorList4.addSensor(sensor7);
 
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"), date1);
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"), date1);
-        Reading reading7 = new Reading(26, date1);
+        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"),validDate5);
+        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"),validDate5);
+        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"),validDate5);
+        Reading reading7 = new Reading(26,validDate5);
         sensor10.addReading(reading7);
         sensorList5.addSensor(sensor8);
         sensorList5.addSensor(sensor9);
         sensorList5.addSensor(sensor10);
-        //ACT
+
+        //Act
         boolean actualResult1 = sensorList1.hasReadings();
         boolean actualResult2 = sensorList2.hasReadings();
         boolean actualResult3 = sensorList3.hasReadings();
         boolean actualResult4 = sensorList4.hasReadings();
         boolean actualResult5 = sensorList4.hasReadings();
-        //ASSERT
+
+        //Assert
         assertFalse(actualResult1);
         assertFalse(actualResult2);
         assertFalse(actualResult3);
@@ -861,22 +642,15 @@ class SensorListTest {
 
     @Test
     void isEmpty() {
-        Date date1 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        try {
-            date1 = sd.parse("05/10/2018 23:57");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         //Arrange
         SensorList sensorList1 = new SensorList(); //EMPTY LIST
         SensorList sensorList2 = new SensorList(); //ONE SENSOR
         SensorList sensorList3 = new SensorList(); //TWO SENSORS
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), date1);
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"),validDate5);
         sensorList2.addSensor(sensor1);
 
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature", "ºC"), date1);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature", "ºC"),validDate5);
         sensorList3.addSensor(sensor1);
         sensorList3.addSensor(sensor2);
 

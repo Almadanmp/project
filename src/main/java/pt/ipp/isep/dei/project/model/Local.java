@@ -25,7 +25,7 @@ public class Local {
      * Setter Altitude
      * @param altitude of the local
      */
-    void setAltitude(double altitude) {
+    public void setAltitude(double altitude) {
         this.altitude = altitude;
     }
 

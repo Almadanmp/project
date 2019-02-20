@@ -74,6 +74,14 @@ public class Fridge implements Device, Metered {
     }
 
     /**
+     * Method checks if device LogList is empty
+     * @return true if LogList is empty, false otherwise
+     * */
+    public boolean isLogListEmpty(){
+        return this.fridgeLogList.isEmpty();
+    }
+
+    /**
      * This method adds a Log to the device LogList, if the Log isn't already in the LogList.
      *
      * @param log - Parameter which will be used to add to the Device LogList.

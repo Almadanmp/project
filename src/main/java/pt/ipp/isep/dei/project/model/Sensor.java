@@ -16,12 +16,12 @@ public class Sensor {
     private ReadingList readingList;
 
     /**
-     * Constructor with:name, typesensor, local, dateStartedFunctioning
+     * Sensor() constructor with 4 parameters.
      *
-     * @param name
-     * @param typeSensor
-     * @param local
-     * @param dateStartedFunctioning
+     * @param name                   is the name we want to set to the Sensor.
+     * @param typeSensor             is the Type of the Sensor.
+     * @param local                  is the Local of the Sensor.
+     * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
     public Sensor(String name, TypeSensor typeSensor, Local local, Date dateStartedFunctioning) {
         setName(name);
@@ -32,11 +32,12 @@ public class Sensor {
     }
 
     /**
-     * Constructor with:name, typesensor, DateStartedFunctioning (Used When A Sensor is in a Room already. So the Location is the same as the room/house).
+     * Sensor() constructor with 3 parameters (Used When A Sensor is in a Room already. So the Location is the same as
+     * the room/house).
      *
-     * @param name
-     * @param typeSensor
-     * @param dateStartedFunctioning
+     * @param name                   is the name we want to set to the Sensor.
+     * @param typeSensor             is the Type of the Sensor.
+     * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
     public Sensor(String name, TypeSensor typeSensor, Date dateStartedFunctioning) {
         setName(name);
@@ -48,7 +49,7 @@ public class Sensor {
     /**
      * Setter: name
      *
-     * @param name
+     * @param name is the name we want to set to the sensor.
      */
     public void setName(String name) {
         if (isSensorNameValid(name)) {
@@ -61,7 +62,7 @@ public class Sensor {
     /**
      * Setter: local
      *
-     * @param local
+     * @param local is the local we want to set to the sensor.
      */
     public void setLocal(Local local) {
         this.local = local;
@@ -70,7 +71,7 @@ public class Sensor {
     /**
      * Setter: type sensor
      *
-     * @param sensor
+     * @param sensor is the Type we want to set to the sensor.
      */
     void setTypeSensor(TypeSensor sensor) {
         this.typeSensor = sensor;
@@ -79,7 +80,7 @@ public class Sensor {
     /**
      * Setter: date started functioning
      *
-     * @param dateStartedFunctioning
+     * @param dateStartedFunctioning is the date that the sensor started functioning.
      */
     void setDateStartedFunctioning(Date dateStartedFunctioning) {
         this.dateStartedFunctioning = dateStartedFunctioning;
@@ -88,7 +89,7 @@ public class Sensor {
     /**
      * Getter: name
      *
-     * @return
+     * @return a string that represents the name of the sensor.
      */
     public String getName() {
         return (this.name);
@@ -97,7 +98,7 @@ public class Sensor {
     /**
      * Getter: type sensor
      *
-     * @return
+     * @return the Type of the Sensor.
      */
     public TypeSensor getTypeSensor() {
         return (this.typeSensor);
@@ -106,7 +107,7 @@ public class Sensor {
     /**
      * Getter: local
      *
-     * @return
+     * @return the Local of the Sensor.
      */
     public Local getLocal() {
         return (this.local);
@@ -115,7 +116,7 @@ public class Sensor {
     /**
      * Getter: date started functioning
      *
-     * @return
+     * @return the Date which is the date that the sensor started functioning.
      */
     Date getDateStartedFunctioning() {
         return (this.dateStartedFunctioning);
@@ -124,7 +125,7 @@ public class Sensor {
     /**
      * Getter: reading list
      *
-     * @return
+     * @return the readingList of the sensor.
      */
     public ReadingList getReadingList() {
         return readingList;
@@ -133,7 +134,7 @@ public class Sensor {
     /**
      * Setter: reading list
      *
-     * @param readingList
+     * @param readingList is the readingList we want to set to the sensor.
      */
     public void setReadingList(ReadingList readingList) {
         this.readingList = readingList;
@@ -143,11 +144,13 @@ public class Sensor {
     /**
      * Checks if reading already exists in reading list and in case the
      * reading is new, adds it to the reading list.
+     *
      * @return true in case the reading is new and it is added
-     * or false in case the reading already exists**/
-    public boolean addReading(Reading reading){
-        for(Reading r : this.readingList.getListOfReadings()){
-            if(r.equals(reading)){
+     * or false in case the reading already exists
+     **/
+    public boolean addReading(Reading reading) {
+        for (Reading r : this.readingList.getListOfReadings()) {
+            if (r.equals(reading)) {
                 return false;
             }
         }
@@ -187,7 +190,12 @@ public class Sensor {
     }
 
 
-
+    /**
+     * Method that checks if the Sensor is contained in a given Geographical Area.
+     *
+     * @param area is the area we want to check if the sensor is in.
+     * @return true if the sensor is in the given area, false otherwise.
+     */
     boolean isSensorContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
@@ -198,11 +206,22 @@ public class Sensor {
         return (latS <= latTopVert && latS >= latBotVert && longS <= longBotVert && longS >= longTopVert);
     }
 
+    /**
+     * Method that checks if a sensor is active in a given date.
+     *
+     * @param date1 is the date we want to check if the sensor is active.
+     * @return true if the sensor is active in a given date, false otherwise.
+     */
     boolean isSensorActiveOnGivenDate(Date date1) {
         return this.getDateStartedFunctioning().before(date1);
     }
 
-
+    /**
+     * Method that returns the distance between the sensor and the house.
+     *
+     * @param house is the house we want to calculate the distance to.
+     * @return a double that represents the distance between the house and the sensor.
+     */
     double getDistanceToHouse(House house) {
         Local l = house.getLocation();
         return this.local.getLinearDistanceBetweenLocalsInKm(l);

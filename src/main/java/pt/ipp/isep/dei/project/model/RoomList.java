@@ -24,7 +24,7 @@ public class RoomList {
     /**
      * RoomList Getter.
      *
-     * @return
+     * @return a List of Rooms.
      */
     public List<Room> getList() {
         return this.rooms;
@@ -33,8 +33,8 @@ public class RoomList {
     /**
      * Method that adds a Room to the RoomList.
      *
-     * @param room we want to add.
-     * @return
+     * @param room is the room we want to add.
+     * @return true if the room was successfully added to the RoomList, false otherwise.
      */
     public boolean addRoom(Room room) {
         if (!(rooms.contains(room))) {
@@ -67,10 +67,10 @@ public class RoomList {
         return null;
     }
 
-    /**
+    /**  METODO VAI SER APAGADO
      * Method that returns a List of Devices of the RoomList.
      *
-     * @return
+     * @return List of Devices of the RoomList.
      */
     List<Device> getListOfDevices() {
         List<Device> result = new ArrayList<>();
@@ -80,19 +80,23 @@ public class RoomList {
         return result;
     }
 
-    DeviceList getDeviceList(){
+    /**
+     * Method that returns a DeviceList with all the devices of the RoomList.
+     *
+     * @return a DeviceList of all the devices in the RoomList.
+     */
+    DeviceList getDeviceList() {
         DeviceList finalList = new DeviceList();
-        for(Room r : this.rooms){
+        for (Room r : this.rooms) {
             finalList.appendListNoDuplicates(r.getDeviceList());
         }
         return finalList;
     }
 
-
     /**
      * String Builder of the RoomList.
      *
-     * @return
+     * @return a String of the Rooms in the RoomList.
      */
     public String buildRoomsString() {
         StringBuilder result = new StringBuilder("---------------\n");
@@ -115,8 +119,8 @@ public class RoomList {
     /**
      * Method that checks if a Room is contained in the RoomList.
      *
-     * @param room
-     * @return
+     * @param room is the room that we want to see if it's contained in the roomList.
+     * @return true if room is contained in the RoomList, false otherwise.
      */
     public boolean contains(Room room) {
         return (this.rooms.contains(room));
@@ -125,8 +129,8 @@ public class RoomList {
     /**
      * Method that removes a Room from the RoomList.
      *
-     * @param room
-     * @return
+     * @param room is the room we want to remove from the roomList.
+     * @return true if room was successfully removed from the roomList, false otherwise.
      */
     public boolean removeRoom(Room room) {
         if (this.contains(room)) {
@@ -158,6 +162,15 @@ public class RoomList {
      **/
     public boolean isEmpty() {
         return this.rooms.isEmpty();
+    }
+
+    /**
+     * This method checks if every room in room list has no devices.
+     *
+     * @return true if list has no devices, false otherwise.
+     **/
+    public boolean isDeviceListEmpty() {
+        return this.getDeviceList().isEmpty();
     }
 
 

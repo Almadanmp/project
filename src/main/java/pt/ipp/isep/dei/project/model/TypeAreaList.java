@@ -11,6 +11,9 @@ import java.util.List;
 public class TypeAreaList {
     private List<TypeArea> typeAreas;
 
+    /**
+     * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
+     */
     public TypeAreaList() {
         typeAreas = new ArrayList<>();
     }
@@ -69,7 +72,8 @@ public class TypeAreaList {
         return this.typeAreas;
     }
 
-    /** This method checks if type area list is empty.*
+    /**
+     * This method checks if type area list is empty.*
      * @return true if list is empty, false otherwise.
      */
     public boolean isEmpty() {
