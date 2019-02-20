@@ -26,7 +26,7 @@ public class UtilsUI {
     }
 
     boolean houseRoomListIsValid(House house) {
-        return house.getRoomList() != null && !house.getRoomList().isEmpty();
+        return house.getListOfRooms() != null && !house.getListOfRooms().isEmpty();
     }
 
     boolean roomSensorListIsValid(Room room) {
@@ -34,12 +34,12 @@ public class UtilsUI {
     }
 
     boolean houseDeviceListValid(House house) {
-        return house.getDeviceList() != null && !house.getRoomList().isEmpty();
+        return house.getDeviceList() != null && !house.getListOfRooms().isEmpty();
     }
 
 
     boolean houseGridListIsValid(House house) {
-        return house.getEGListObject() != null && !house.getEGListObject().getEnergyGridList().isEmpty();
+        return house.getEGListObject() != null && !house.getEGListObject().isEmpty();
     }
 
     boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
@@ -47,7 +47,7 @@ public class UtilsUI {
     }
 
     boolean gridRoomListIsValid(EnergyGrid energyGrid) {
-        return energyGrid.getListOfRooms() != null && !energyGrid.getListOfRooms().getList().isEmpty();
+        return energyGrid.getListOfRooms() != null && !energyGrid.getListOfRooms().isEmpty();
     }
 
     boolean typeAreaListIsValid(TypeAreaList list) {

@@ -115,8 +115,13 @@ public class House implements Metered {
         this.motherArea = motherArea;
     }
 
-    public List<Room> getRoomList() {
+    public List<Room> getListOfRooms() {
         return this.mRoomList.getList();
+    }
+    /** Method that gives the house room list.
+     * @return house RoomList **/
+    public RoomList getRoomList(){
+        return this.mRoomList;
     }
 
     public GeographicArea getMotherArea() {

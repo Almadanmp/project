@@ -143,7 +143,7 @@ public class EnergyConsumptionController {
      */
 
     public List<Room> getHouseRoomList(House programHouse) {
-        return programHouse.getRoomList();
+        return programHouse.getListOfRooms();
     }
 
     /**

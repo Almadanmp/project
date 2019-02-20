@@ -49,8 +49,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(house.buildRoomListString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < house.getRoomList().size()) {
-                Room result = house.getRoomList().get(aux);
+            if (aux >= 0 && aux < house.getListOfRooms().size()) {
+                Room result = house.getListOfRooms().get(aux);
                 System.out.println("You have chosen the following room: ");
                 System.out.println(result.buildRoomString() + "\n");
                 return result;

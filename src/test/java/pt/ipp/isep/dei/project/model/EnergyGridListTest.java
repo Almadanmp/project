@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.testng.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * EnergyGridList tests class.
@@ -30,7 +33,7 @@ class EnergyGridListTest {
 
         // Assert
 
-        Assertions.assertTrue(actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -45,7 +48,7 @@ class EnergyGridListTest {
 
         // Assert
 
-        Assertions.assertFalse(actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -62,7 +65,7 @@ class EnergyGridListTest {
 
         // Assert
 
-        Assertions.assertTrue(actualResult);
+        assertTrue(actualResult);
     }
 
 
@@ -80,7 +83,7 @@ class EnergyGridListTest {
 
         // Assert
 
-        Assertions.assertFalse(actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -91,8 +94,35 @@ class EnergyGridListTest {
 
         // Assert
 
-        Assertions.assertTrue(actualResult);
+        assertTrue(actualResult);
     }
+
+    @Test
+    void seeIfIsEmpty() {
+        //Arrange
+        EnergyGridList testListOneGrid = new EnergyGridList(); // Not empty: One Grid
+        EnergyGridList testListTwoGrids = new EnergyGridList(); // Not empty: Two Grids
+
+        EnergyGrid energyGrid1 = new EnergyGrid("grid1", 200);
+        EnergyGrid energyGrid2 = new EnergyGrid("grid2", 200);
+
+        testListOneGrid.addGrid(energyGrid1);
+        testListTwoGrids.addGrid(energyGrid1);
+        testListTwoGrids.addGrid(energyGrid2);
+
+        // Act
+
+        boolean actualResult1 = validGridList.isEmpty();
+        boolean actualResult2 = testListOneGrid.isEmpty();
+        boolean actualResult3 = testListTwoGrids.isEmpty();
+
+        // Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+    }
+
 
     @Test
     void seeIfEqualsDifferentObjectWorks() {
@@ -102,7 +132,7 @@ class EnergyGridListTest {
 
         // Assert
 
-        Assertions.assertEquals(false, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
