@@ -25,7 +25,7 @@ import static org.testng.Assert.assertEquals;
 class HouseTest {
 
     // Common artifacts for testing in this class.
-     static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
     @Test
     void seeIfGetListDevice() {
