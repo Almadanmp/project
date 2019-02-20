@@ -1,23 +1,22 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * EnergyGridList tests class.
  */
 
-public class EnergyGridListTest {
+class EnergyGridListTest {
 
     @Test
     void seeIfAddEnergyGridToEnergyGridListTrue() {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
-
-        Boolean expectedResult = true;
         Boolean actualResult = pList1.addGrid(energyGrid1);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        assertEquals(true, actualResult);
     }
 
     @Test
@@ -27,10 +26,9 @@ public class EnergyGridListTest {
         EnergyGrid energyGrid2 = new EnergyGrid("Secundary Grid", 0);
         pList1.addGrid(energyGrid1);
 
-        Boolean expectedResult = false;
         Boolean actualResult = pList1.addGrid(energyGrid2);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        assertEquals(false, actualResult);
     }
 
     @Test
@@ -41,11 +39,10 @@ public class EnergyGridListTest {
         EnergyGridList pList2 = new EnergyGridList();
         EnergyGrid energyGrid2 = new EnergyGrid("Grid", 0);
         pList2.addGrid(energyGrid2);
-        Boolean expectedResult = true;
 
         Boolean actualResult = pList1.equals(pList2);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        assertEquals(true, actualResult);
     }
 
 
@@ -56,11 +53,10 @@ public class EnergyGridListTest {
         pList1.addGrid(energyGrid1);
         EnergyGridList pList2 = new EnergyGridList();
         pList2.addGrid(energyGrid1);
-        Boolean expectedResult = true;
 
         Boolean actualResult = pList1.equals(pList2);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        assertEquals(true, actualResult);
     }
 
     @Test
@@ -68,11 +64,10 @@ public class EnergyGridListTest {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
         pList1.addGrid(energyGrid1);
-        Boolean expectedResult = true;
 
         Boolean actualResult = pList1.equals(pList1);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        assertEquals(true, actualResult);
     }
 
     @Test
@@ -80,9 +75,8 @@ public class EnergyGridListTest {
         EnergyGridList pList1 = new EnergyGridList();
         EnergyGrid energyGrid1 = new EnergyGrid("Grid", 0);
         pList1.addGrid(energyGrid1);
-        Boolean expectedResult = false;
         Boolean actualResult = pList1.equals(energyGrid1);
-        Assertions.assertEquals(expectedResult, actualResult);
+        assertEquals(false, actualResult);
     }
 
 
@@ -94,11 +88,32 @@ public class EnergyGridListTest {
         EnergyGrid energyGrid2 = new EnergyGrid("Main Grid", 0);
         pList1.addGrid(energyGrid1);
         pList2.addGrid(energyGrid2);
-        Boolean expectedResult = false;
 
         Boolean actualResult = pList1.equals(pList2);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void isEmpty() {
+        //Arrange
+        EnergyGridList list1 = new EnergyGridList(); //EMPTY LIST
+        EnergyGridList list2 = new EnergyGridList(); //ONE ENERGY GRID
+        EnergyGridList list3 = new EnergyGridList(); //TWO ENERGY GRIDS
+
+        EnergyGrid energyGrid1 = new EnergyGrid("Secundary Grid", 0);
+        EnergyGrid energyGrid2 = new EnergyGrid("Main Grid", 0);
+        list2.addGrid(energyGrid1);
+        list3.addGrid(energyGrid1);
+        list3.addGrid(energyGrid2);
+        //Act
+        boolean actualResult1 = list1.isEmpty();
+        boolean actualResult2 = list2.isEmpty();
+        boolean actualResult3 = list3.isEmpty();
+        //Assert
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
     }
 
     @Test
@@ -108,7 +123,7 @@ public class EnergyGridListTest {
         pList1.addGrid(energyGrid1);
         int expectedResult = 1;
         int actualResult = pList1.hashCode();
-        Assertions.assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 }
 
