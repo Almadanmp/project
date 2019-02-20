@@ -78,33 +78,4 @@ public class ProgramListTest {
         boolean result = list.removeProgram(program);
         assertEquals(true, result);
     }
-
-    @Test
-    void ensureThatWeBuildProgramListStringForEach() {
-        //Arrange
-        Program program = new Program("Program 1",2,5);
-        Program program2 = new Program("Program 2",1,3);
-        ProgramList programList = new ProgramList();
-        programList.addProgram(program);
-        programList.addProgram(program2);
-        String expectedResult = "\n" +
-                "- The Program Name is Program 1, its Duration is 2.0 hours and its Energy Consumption is 5.0.\n" +
-                "\n" +
-                "- The Program Name is Program 2, its Duration is 1.0 hours and its Energy Consumption is 3.0.\n";
-        //Act
-        String actualResult = programList.buildProgramListStringForEach();
-        //Assert
-        assertEquals(expectedResult,actualResult);
-    }
-
-    @Test
-    void ensureThatWeGetMessageWithProgramListEmpty() {
-        //Arrange
-        ProgramList programList = new ProgramList();
-        String expectedResult = "This device has no programs\n";
-        //Act
-        String actualResult = programList.buildProgramListStringForEach();
-        //Assert
-        assertEquals(expectedResult,actualResult);
-    }
 }
