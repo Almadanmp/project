@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TypeSensorList {
@@ -53,5 +54,21 @@ public class TypeSensorList {
      */
     public boolean isEmpty() {
         return this.typeSensors.isEmpty();
+    }
+
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof TypeSensorList)) {
+            return false;
+        }
+        TypeSensorList list = (TypeSensorList) testObject;
+        return Arrays.equals(this.getTypeSensorList().toArray(), list.getTypeSensorList().toArray());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }
