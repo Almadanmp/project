@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -19,7 +18,7 @@ import static org.testng.Assert.assertTrue;
 class RoomListTest {
 
     // Common artifacts for testing in this class.
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
 
     @Test
@@ -46,10 +45,9 @@ class RoomListTest {
         RoomList roomList = new RoomList();
         Room r3 = new Room("Quarto", 1, 123, 2, 2);
         roomList.addRoom(r3);
-        Room expectedResult = null;
         Room actualResult = roomList.getRoomByName("Cozinha");
 
-        assertEquals(expectedResult, actualResult);
+        assertNull(actualResult);
     }
 
     @Test
@@ -79,9 +77,8 @@ class RoomListTest {
         Room r3 = new Room("Quarto", 1, 123, 2, 2);
         r3.setSensorList(sensorList);
         roomList.addRoom(r1);
-        boolean expectedResult = true;
         boolean actualResult = roomList.addRoom(r2);
-        assertEquals(expectedResult, actualResult);
+        Assertions.assertTrue(actualResult);
     }
 
     @Test
@@ -195,6 +192,28 @@ class RoomListTest {
         roomList1.addRoom(room1);
         boolean actualResult = roomList1.equals(room1);
         assertFalse(actualResult);
+    }
+
+    @Test
+    void isEmpty() {
+        //Arrange
+        RoomList roomList1 = new RoomList(); //EMPTY LIST
+        RoomList roomList2 = new RoomList(); //ONE ROOM
+        RoomList roomList3 = new RoomList(); //TWO ROOMS
+
+        Room room1 = new Room("room1", 1, 22, 22, 4);
+        Room room2 = new Room("room2", 2, 21, 21, 4);
+        roomList2.addRoom(room1);
+        roomList3.addRoom(room1);
+        roomList3.addRoom(room2);
+        //Act
+        boolean actualResult1 = roomList1.isEmpty();
+        boolean actualResult2 = roomList2.isEmpty();
+        boolean actualResult3 = roomList3.isEmpty();
+        //Assert
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
     }
 
     @Test

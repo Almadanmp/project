@@ -14,6 +14,9 @@ public class LogList {
 
     private List<Log> logs;
 
+    /**
+     * LogList empty constructor with an initialization of an ArrayList of Logs.
+     */
     public LogList() {
         this.logs = new ArrayList<>();
     }
@@ -59,6 +62,11 @@ public class LogList {
         return this.logs.isEmpty();
     }
 
+    /**
+     * Method that allows adding a LogList to another one.
+     * @param listToAdd to the LogList
+     * @return
+     */
     public boolean addLogList(LogList listToAdd) {
         int counter = 0;
         for (Log l : listToAdd.getLogListAttribute()) {
@@ -87,6 +95,12 @@ public class LogList {
         return counter;
     }
 
+    /**
+     * Method that returns LogList in given interval of time.
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
         for (Log l : this.getLogListAttribute()) {

@@ -67,4 +67,11 @@ public class TypeAreaList {
     public List<TypeArea> getTypeAreaList() {
         return this.typeAreas;
     }
+
+    /** This method checks if type area list is empty.*
+     * @return true if list is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return this.typeAreas.isEmpty();
+    }
 }
