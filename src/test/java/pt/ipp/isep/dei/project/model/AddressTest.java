@@ -1,40 +1,64 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.testng.Assert.*;
 
 public class AddressTest {
 
+    // Common testing artifacts for test class.
+
+    private Address validAddress;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        validAddress = new Address("Rua Dr. António Bernardino de Almeida",
+                "4440-616", "Porto");
+    }
+
     @Test
     void testGetStreet() {
-        //Arrange
-        Address porto = new Address("Rua da Vida", "4440-616", "Valongo");
-        //Act
-        String expectedResult = "Rua da Vida";
-        String actualResult = porto.getStreet();
-        //Assert
+        // Arrange
+
+        String expectedResult = "Rua Dr. António Bernardino de Almeida";
+
+        // Act
+
+        String actualResult = validAddress.getStreet();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void testGetZip() {
-        //Arrange
-        Address porto = new Address("Rua da Vida", "4440-616", "Valongo");
-        //Act
+        // Arrange
+
         String expectedResult = "4440-616";
-        String actualResult = porto.getZip();
-        //Assert
+
+        // Act
+
+        String actualResult = validAddress.getZip();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void testGetTown() {
-        //Arrange
-        Address porto = new Address("Rua da Vida", "4440-616", "Valongo");
-        //Act
-        String expectedResult = "Valongo";
-        String actualResult = porto.getTown();
-        //Assert
+
+        // Arrange
+
+        String expectedResult = "Porto";
+
+        // Act
+
+        String actualResult = validAddress.getTown();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 }

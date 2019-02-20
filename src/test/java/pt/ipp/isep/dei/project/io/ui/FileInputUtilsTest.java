@@ -13,10 +13,16 @@ public class FileInputUtilsTest {
 
     @Test
     public void validGridMetering() throws IOException, NumberFormatException {
+        // Arrange
+
         FileInputUtils fileInputUtils = new FileInputUtils();
-        //ACT
+
+        // Act
+
         boolean result1 = fileInputUtils.validGridMetering();
-        //ASSERT
+
+        // Assert
+
         assertTrue(result1);
     }
 
