@@ -110,6 +110,7 @@ class TypeAreaListTest {
 
     @Test
     void ensureThatAObjectIsAInstanceOfDifferentLists() {
+        //Assert
         TypeArea type1 = new TypeArea("cidade");
         TypeArea type2 = new TypeArea("distrito");
         TypeArea type3 = new TypeArea("aldeia");
@@ -122,13 +123,16 @@ class TypeAreaListTest {
         list2.addTypeArea(type2);
         list2.addTypeArea(type3);
 
+        //Act
         boolean actualResult = list.equals(list2);
 
+        //Assert
         assertTrue(actualResult);
     }
 
     @Test
     void ensureThatAObjectIsAInstanceOfDifferentObjectsWithDifferentContent() {
+        //Arrange
         TypeArea type1 = new TypeArea("cidade");
         TypeArea type2 = new TypeArea("distrito");
         TypeArea type3 = new TypeArea("aldeia");
@@ -143,13 +147,16 @@ class TypeAreaListTest {
         list2.addTypeArea(type4);
         list2.addTypeArea(type5);
 
+        //Act
         boolean actualResult = list.equals(list2);
 
+        //Assert
         assertFalse( actualResult);
     }
 
     @Test
     void ensureThatAObjectIsAInstanceOfDifferentObjectsWithSameContent() {
+        //Arrange
         TypeArea type1 = new TypeArea("cidade");
         TypeArea type2 = new TypeArea("distrito");
         TypeArea type3 = new TypeArea("aldeia");
@@ -165,13 +172,16 @@ class TypeAreaListTest {
         list2.addTypeArea(type5);
         list2.addTypeArea(type6);
 
+        //Act
         boolean actualResult = list.equals(list2);
 
+        //Assert
         assertTrue( actualResult);
     }
 
     @Test
     void ensureThatAObjectIsAInstanceOfDifferentListTypes() {
+        //Arrange
         TypeArea type1 = new TypeArea("cidade");
         TypeArea type2 = new TypeArea("distrito");
         TypeArea type3 = new TypeArea("aldeia");
@@ -185,13 +195,16 @@ class TypeAreaListTest {
         list2.addRoom(room1);
         list2.addRoom(room2);
 
+        //Act
         boolean actualResult = list.equals(list2);
 
+        //Assert
         assertFalse( actualResult);
     }
 
     @Test
     void ensureThatAObjectIsAInstanceOfSameList() {
+        //Arrange
         TypeArea type1 = new TypeArea("cidade");
         TypeArea type2 = new TypeArea("distrito");
         TypeArea type3 = new TypeArea("aldeia");
@@ -200,14 +213,16 @@ class TypeAreaListTest {
         list.addTypeArea(type2);
         list.addTypeArea(type3);
 
-
+        //Act
         boolean actualResult = list.equals(list);
 
+        //Assert
         assertTrue( actualResult);
     }
 
     @Test
     void seeHashCodeDummyTest() {
+        //Arrange
         TypeArea type1 = new TypeArea("cidade");
         TypeArea type2 = new TypeArea("distrito");
         TypeArea type3 = new TypeArea("aldeia");
@@ -216,8 +231,11 @@ class TypeAreaListTest {
         list.addTypeArea(type2);
         list.addTypeArea(type3);
 
+        //Act
         int expectedResult = 1;
         int actualResult = list.hashCode();
+
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
