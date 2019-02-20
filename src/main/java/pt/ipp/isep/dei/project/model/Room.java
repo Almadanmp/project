@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -161,16 +160,6 @@ public class Room implements Metered {
 
 
     /**
-     * Room DeviceList Getter.
-     *
-     * @return the List of Devices of the room.
-     */
-    //METODO VAI SER APAGADO
-    public List<Device> getListOfDevices() {
-        return this.deviceList.getList();
-    }
-
-    /**
      * Method that gets the room's device list.
      *
      * @return room's DeviceList
@@ -188,8 +177,8 @@ public class Room implements Metered {
 
     public String buildDeviceListString() {
         StringBuilder result = new StringBuilder("---------------\n");
-        for (int i = 0; i < this.getListOfDevices().size(); i++) {
-            Device device = this.getListOfDevices().get(i);
+        for (int i = 0; i < this.getDeviceList().size(); i++) {
+            Device device = this.getDeviceList().get(i);
             result.append("\n").append(i).append(") device Name: ").append(device.getName());
             result.append(", device Type: ").append(device.getType());
             result.append(", device Nominal Power: ").append(device.getNominalPower());
@@ -206,11 +195,7 @@ public class Room implements Metered {
      */
 
     public double getNominalPower() {
-        double result = 0;
-        for (Device d : this.getListOfDevices()) {
-            result += d.getNominalPower();
-        }
-        return result;
+        return this.deviceList.getNominalPower();
     }
 
     /**
@@ -223,11 +208,7 @@ public class Room implements Metered {
      */
 
     public double getConsumptionInInterval(Date initialDate, Date finalDate) {
-        double result = 0;
-        for (Device d : this.getListOfDevices()) {
-            result += d.getConsumptionWithinGivenInterval(initialDate, finalDate);
-        }
-        return result;
+        return this.deviceList.getConsumptionInInterval(initialDate, finalDate);
     }
 
     /**
@@ -242,10 +223,10 @@ public class Room implements Metered {
     public double getMaxTemperatureOnGivenDay(Date day) {
         double maxTemp = -1000;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
-        if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {
+        if (tempSensors.isEmpty() || !tempSensors.hasReadings()) {
             throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
-        for (Sensor s : tempSensors.getSensorList()) {
+        for (Sensor s : tempSensors.getListOfSensors()) {
             ReadingList readingList = s.getReadingList();
             double sensorMax = readingList.getMaximumOfGivenDayValueReadings(day);
             maxTemp = Math.max(sensorMax, maxTemp);
@@ -260,15 +241,7 @@ public class Room implements Metered {
      * @return a sensor list that contains sensors of given type
      **/
     SensorList getSensorsOfGivenType(String type) {
-        SensorList tempSensors = new SensorList();
-        for (Sensor s : this.roomSensorList.getSensorList()) {
-            String typeTest = s.getTypeSensor().getName();
-            if (typeTest.equalsIgnoreCase(type)) {
-                tempSensors.addSensor(s);
-            }
-        }
-        return tempSensors;
-
+        return this.roomSensorList.getSensorListByType(type);
     }
 
     /**
@@ -293,8 +266,8 @@ public class Room implements Metered {
      * @return true if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensor(Sensor sensor) {
-        if (!(roomSensorList.getSensorList().contains(sensor))) {
-            roomSensorList.getSensorList().add(sensor);
+        if (!(roomSensorList.getListOfSensors().contains(sensor))) {
+            roomSensorList.getListOfSensors().add(sensor);
             return true;
         } else {
             return false;
@@ -327,7 +300,7 @@ public class Room implements Metered {
     public double getCurrentRoomTemperature() {
         double currentT;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
-        if (tempSensors.getSensorList().isEmpty() || !tempSensors.hasReadings()) {
+        if (tempSensors.isEmpty() || !tempSensors.hasReadings()) {
             throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
         ReadingList readingList = tempSensors.getReadings();
@@ -356,13 +329,7 @@ public class Room implements Metered {
      * @return the list with all devices of a given type
      */
     List<Device> getDevicesOfGivenType(String deviceType) {
-        List<Device> devicesOfGivenType = new ArrayList<>();
-        for (Device d : getListOfDevices()) {
-            if (d.getType().equals(deviceType)) {
-                devicesOfGivenType.add(d);
-            }
-        }
-        return devicesOfGivenType;
+        return this.deviceList.getDevicesOfGivenType(deviceType);
     }
 
     /**
@@ -372,6 +339,7 @@ public class Room implements Metered {
      * @param time       represents a day in minutes
      * @return the sum of all daily estimate consumptions of that type
      */
+
     double getDailyConsumptionByDeviceType(String deviceType, int time) {
         return deviceList.getDailyConsumptionByDeviceType(deviceType, time);
     }
@@ -383,11 +351,7 @@ public class Room implements Metered {
      */
 
     public void addRoomDevicesToDeviceList(DeviceList list) {
-        for (Device d : this.getListOfDevices()) {
-            if (!(list.containsDevice(d))) {
-                list.addDevice(d);
-            }
-        }
+        this.deviceList.addDevicesToDeviceList(list);
     }
 
     /**
@@ -398,13 +362,7 @@ public class Room implements Metered {
      */
 
     public boolean removeRoomDevicesFromDeviceList(DeviceList list) {
-        if (list == null) {
-            return false;
-        }
-        for (Device d : this.getListOfDevices()) {
-            list.removeDevice(d);
-        }
-        return true;
+        return this.deviceList.removeDevicesFromGivenList(list);
     }
 
     /**
@@ -415,12 +373,7 @@ public class Room implements Metered {
      * @return a LogList
      */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        LogList result = new LogList();
-        for (Device d : this.getListOfDevices()) {
-            LogList tempList = d.getLogsInInterval(startDate, endDate);
-            result.addLogList(tempList);
-        }
-        return result;
+        return this.deviceList.getLogsInInterval(startDate, endDate);
     }
 
     /**

@@ -41,10 +41,10 @@ class HouseTest {
         room1.addDevice(device2);
         RoomList roomList = new RoomList();
         roomList.addRoom(room1);
-        List<Device> expectedResult = new ArrayList<>();
-        expectedResult.add(device);
-        expectedResult.add(device2);
-        List<Device> result = roomList.getListOfDevices();
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.addDevice(device);
+        expectedResult.addDevice(device2);
+        DeviceList result = roomList.getDeviceList();
         assertEquals(expectedResult, result);
     }
 
@@ -545,10 +545,10 @@ class HouseTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         house.addRoomToRoomList(r1);
-        List<Device> expectedResult = new ArrayList<>();
-        expectedResult.add(d2);
-        expectedResult.add(d3);
-        List<Device> result = house.getDeviceList();
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.addDevice(d2);
+        expectedResult.addDevice(d3);
+        DeviceList result = house.getDeviceList();
         assertEquals(expectedResult, result);
     }
 

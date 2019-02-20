@@ -33,15 +33,6 @@ public class EnergyGridList {
         return false;
     }
 
-    /**
-     * Method returns an array containing all the energy grids contained in the list of energy grids.
-     *
-     * @return returns an array of energy grids.
-     */
-    public List<EnergyGrid> getEnergyGridList() {
-        return energyGrids;
-    }
-
     public EnergyGrid createEnergyGrid(String designation, double maxPower) {
         return new EnergyGrid(designation, maxPower);
     }
@@ -53,6 +44,29 @@ public class EnergyGridList {
         return this.energyGrids.isEmpty();
     }
 
+    /** This method checks the energy grid list size.
+     * @return returns the list size as int.
+     */
+    public int size() {
+        return this.energyGrids.size();
+    }
+
+    /** This method receives an index as parameter and gets energy grid from energy grid list.
+     * @return returns Energy grid that corresponds to index.
+     */
+    public EnergyGrid get(int index) {
+        return this.energyGrids.get(index);
+    }
+
+    public EnergyGrid[] getElementsAsArray(){
+        int size = this.size();
+        EnergyGrid [] result = new EnergyGrid[size];
+        for (int i = 0; i < size; i++){
+            result[i] = this.energyGrids.get(i);
+        }
+        return result;
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
@@ -62,7 +76,7 @@ public class EnergyGridList {
             return false;
         }
         EnergyGridList list = (EnergyGridList) testObject;
-        return Arrays.equals(this.getEnergyGridList().toArray(), list.getEnergyGridList().toArray());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

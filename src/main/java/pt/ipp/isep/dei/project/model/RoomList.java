@@ -67,19 +67,6 @@ public class RoomList {
         return null;
     }
 
-    /**  METODO VAI SER APAGADO
-     * Method that returns a List of Devices of the RoomList.
-     *
-     * @return List of Devices of the RoomList.
-     */
-    List<Device> getListOfDevices() {
-        List<Device> result = new ArrayList<>();
-        for (Room r : this.getList()) {
-            result.addAll(r.getListOfDevices());
-        }
-        return result;
-    }
-
     /**
      * Method that returns a DeviceList with all the devices of the RoomList.
      *
@@ -172,7 +159,6 @@ public class RoomList {
     public boolean isDeviceListEmpty() {
         return this.getDeviceList().isEmpty();
     }
-
 
     @Override
     public boolean equals(Object testObject) {

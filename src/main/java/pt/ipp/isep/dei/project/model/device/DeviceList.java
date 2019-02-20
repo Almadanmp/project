@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import pt.ipp.isep.dei.project.model.device.log.LogList;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -127,6 +130,99 @@ public class DeviceList {
             this.addDevice(d);
         }
         return this;
+    }
+
+    /** Checks the device list size and returns the size as int.\
+     * @return DeviceList size as int
+     * **/
+    public int size(){
+        return this.devices.size();
+    }
+
+    /** This method receives an index as parameter and gets a device from device list.
+     * @return returns device that corresponds to index.
+     */
+    public Device get(int index) {
+        return this.devices.get(index);
+    }
+
+    /**
+     * Returns the energy consumption in a given time interval, that is, the sum of the energy consumption
+     * of all metered devices' logs in the device list that are fully within the given time interval.
+     *
+     * @param initialDate defines the start of the interval.
+     * @param finalDate   defines the end of the interval.
+     * @return the energy consumption as double.
+     */
+    public double getConsumptionInInterval(Date initialDate, Date finalDate) {
+        double result = 0;
+        for (Device d : this.devices) {
+            result += d.getConsumptionWithinGivenInterval(initialDate, finalDate);
+        }
+        return result;
+    }
+
+    /**
+     * Returns a list of devices of a given typ
+     *
+     * @param deviceType the device type
+     * @return the list with all devices of a given type
+     */
+    public List<Device> getDevicesOfGivenType(String deviceType) {
+        List<Device> devicesOfGivenType = new ArrayList<>();
+        for (Device d : this.devices) {
+            if (d.getType().equals(deviceType)) {
+                devicesOfGivenType.add(d);
+            }
+        }
+        return devicesOfGivenType;
+    }
+
+    /**
+     * Adds all of this devices to a given list. Skips duplicates.
+     *
+     * @param list is the list we want to add the room's devices to.
+     */
+
+    public void addDevicesToDeviceList(DeviceList list) {
+        for (Device d : this.devices) {
+            if (!(list.containsDevice(d))) {
+                list.addDevice(d);
+            }
+        }
+    }
+
+    /**
+     * Removes all devices in list from the list given.
+     *
+     * @param list is the list we want to remove devices from.
+     * @return false if the list is invalid (null), true otherwise.
+     */
+
+    public boolean removeDevicesFromGivenList(DeviceList list) {
+        if (list == null) {
+            return false;
+        }
+        for (Device d : this.devices) {
+            list.removeDevice(d);
+        }
+        return true;
+    }
+
+    /**
+     * Method that returns a LogList of a given interval of time.
+     *
+     * @param startDate is the Starting Date of the log.
+     * @param endDate   is the End Date of the Log.
+     * @return a LogList
+     */
+    public LogList getLogsInInterval(Date startDate, Date endDate) {
+        LogList result = new LogList();
+        for (Device d : this.devices) {
+            LogList tempList = d.getLogsInInterval(startDate, endDate);
+            result.addLogList(tempList);
+        }
+        return result;
     }
 
     @Override

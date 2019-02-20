@@ -144,7 +144,7 @@ class SensorListTest {
         validSensorList1.addSensor(s2);
 
         //Act
-        Sensor[] result = validSensorList1.getSensors();
+        Sensor[] result = validSensorList1.getElementsAsArray();
 
         //Assert
         assertArrayEquals(result, expectedResult);
@@ -162,7 +162,7 @@ class SensorListTest {
         validSensorList1.addSensor(s2);
 
         //Act
-        List<Sensor> result = validSensorList1.getSensorList();
+        List<Sensor> result = validSensorList1.getListOfSensors();
 
         //Assert
         assertEquals(result, expectedResult);
@@ -248,13 +248,13 @@ class SensorListTest {
         validSensorList1.addSensor(s2);
         validSensorList1.addSensor(s3);
         validGeographicArea.setSensorList(validSensorList1);
-        List<Sensor> expectedResult = new ArrayList<>();
-        expectedResult.add(s1);
-        expectedResult.add(s2);
-        expectedResult.add(s3);
+        SensorList expectedResult = new SensorList();
+        expectedResult.addSensor(s1);
+        expectedResult.addSensor(s2);
+        expectedResult.addSensor(s3);
 
         //Act
-        List<Sensor> actualResult = validSensorList1.getSensorsInGAAtACertainTimePeriod(validDate4, validGeographicArea);
+        SensorList actualResult = validSensorList1.getSensorsInGAAtACertainTimePeriod(validDate4, validGeographicArea);
 
         //Assert
         assertEquals(expectedResult,actualResult);
@@ -270,10 +270,10 @@ class SensorListTest {
         validSensorList1.addSensor(s2);
         validSensorList1.addSensor(s3);
         validGeographicArea.setSensorList(validSensorList1);
-        List<Sensor> expectedResult = new ArrayList<>();
+        SensorList expectedResult = new SensorList();
 
         //Act
-        List<Sensor> actualResult = validSensorList1.getSensorsInGAAtACertainTimePeriod(validDate1, validGeographicArea);
+        SensorList actualResult = validSensorList1.getSensorsInGAAtACertainTimePeriod(validDate1, validGeographicArea);
 
         //Assert
         assertEquals(expectedResult,actualResult);
@@ -289,10 +289,10 @@ class SensorListTest {
         validSensorList1.addSensor(s2);
         validSensorList1.addSensor(s3);
         validGeographicArea.setSensorList(validSensorList1);
-        List<Sensor> expectedResult = new ArrayList<>();
+        SensorList expectedResult = new SensorList();
 
         //Act
-        List<Sensor> actualResult = validSensorList1.getSensorsInGAAtACertainTimePeriod(validDate4, validGeographicArea2);
+        SensorList actualResult = validSensorList1.getSensorsInGAAtACertainTimePeriod(validDate4, validGeographicArea2);
 
         //Assert
         assertEquals(expectedResult,actualResult);
@@ -309,10 +309,10 @@ class SensorListTest {
         validSensorList1.addSensor(s3);
 
         //Act
-        List<Sensor> actualResult = validSensorList1.getSensorListByType("Rain");
-        List<Sensor> expectedResult = new ArrayList<>();
-        expectedResult.add(s1);
-        expectedResult.add(s3);
+        SensorList actualResult = validSensorList1.getSensorListByType("Rain");
+        SensorList expectedResult = new SensorList();
+        expectedResult.addSensor(s1);
+        expectedResult.addSensor(s3);
 
         //Assert
         expectedResult.equals(actualResult);
@@ -328,15 +328,14 @@ class SensorListTest {
         validSensorList1.addSensor(s1);
         validSensorList1.addSensor(s2);
         validSensorList1.addSensor(s3);
-        List<Sensor> expectedResult = new ArrayList<>();
-        expectedResult.add(s1);
-        expectedResult.add(s3);
+        SensorList expectedResult = new SensorList();
+        expectedResult.addSensor(s1);
+        expectedResult.addSensor(s3);
 
         //Act
-        List<Sensor> actualResult = validSensorList1.getSensorListByType("Rain");
+        SensorList actualResult = validSensorList1.getSensorListByType("Rain");
 
         //Assert
-        expectedResult.contains(actualResult);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -349,13 +348,13 @@ class SensorListTest {
         validSensorList1.addSensor(s1);
         validSensorList1.addSensor(s2);
         validSensorList1.addSensor(s3);
-        List<Sensor> expectedResult = new ArrayList<>();
+        SensorList expectedResult = new SensorList();
 
         //Act
-        List<Sensor> actualResult = validSensorList1.getSensorListByType("Pressure");
+        SensorList actualResult = validSensorList1.getSensorListByType("Pressure");
 
         //Assert
-        expectedResult.contains(actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test

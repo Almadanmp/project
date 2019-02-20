@@ -316,12 +316,12 @@ class EnergyConsumptionControllerTest {
         EnergyGridList houseGrid = new EnergyGridList();
         houseGrid.addGrid(testGrid);
         house.setEGList(houseGrid);
-        List<EnergyGrid> expectedResult = new ArrayList<>();
-        expectedResult.add(testGrid);
+        EnergyGridList expectedResult = new EnergyGridList();
+        expectedResult.addGrid(testGrid);
 
         //Act
 
-        List<EnergyGrid> actualResult = controller.getHouseGridList(house);
+        EnergyGridList actualResult = controller.getHouseGridList(house);
 
         //Assert
 

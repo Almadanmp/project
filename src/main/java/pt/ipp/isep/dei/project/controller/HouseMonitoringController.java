@@ -83,7 +83,7 @@ public class HouseMonitoringController {
      */
 
     public double getHouseAreaTemperature(House house)   {
-        Sensor closest = house.getClosestSensorOfGivenType("temperature");
+        Sensor closest = house.getClosestSensorOfGivenType("Temperature");
         ReadingList readingList = closest.getReadingList();
         return readingList.getMostRecentValue();
     }

@@ -141,16 +141,6 @@ public class EnergyGrid implements Metered {
         return this.roomList.getList();
     }
 
-    /**
-     * Getter for the list of devices related to the energy grid as an array od devices.
-     *
-     * @return a list of devices related to the energy grid.
-     */
-
-    public List<Device> getListOfDevices() {
-        return this.roomList.getListOfDevices();
-    }
-
     /** Method gets all devices associated to energy grid
      * @return energy grid's entire DeviceList
      */
@@ -178,13 +168,7 @@ public class EnergyGrid implements Metered {
      * @return returns a string displaying the name of the devices in the energy grid.
      */
     public String buildDeviceListString() {
-        int counter = 0;
-        StringBuilder result = new StringBuilder();
-        for (Device d : this.getListOfDevices()) {
-            result.append(counter).append(") ").append(d.buildDeviceString());
-            counter++;
-        }
-        return result.toString();
+        return this.getDeviceList().buildDevicesString();
     }
 
     /**
@@ -227,9 +211,9 @@ public class EnergyGrid implements Metered {
      */
     String buildDevicesStringByType(Room room, String type) {
         StringBuilder result = new StringBuilder();
-        for (int x = 0; x < room.getListOfDevices().size(); x++) {
-            if (type.equals(room.getListOfDevices().get(x).getType())) {
-                Device device = room.getListOfDevices().get(x);
+        for (int x = 0; x < room.getDeviceList().size(); x++) {
+            if (type.equals(room.getDeviceList().get(x).getType())) {
+                Device device = room.getDeviceList().get(x);
                 result.append("Device type: ").append(type).append(" | ");
                 result.append("Device name: ").append(device.getName()).append(" | ");
                 result.append("Nominal power: ").append(device.getNominalPower()).append(" | ");

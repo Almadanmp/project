@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.*;
@@ -98,8 +99,8 @@ public class House implements Metered {
         return location;
     }
 
-    public List<Device> getDeviceList() {
-        return this.mRoomList.getListOfDevices();
+    public DeviceList getDeviceList() {
+        return this.mRoomList.getDeviceList();
     }
 
     public void setLocation(double latitude, double longitude, double altitude) {
@@ -135,10 +136,6 @@ public class House implements Metered {
 
     public EnergyGridList getGridList() {
         return this.mEGList;
-    }
-
-    public List<EnergyGrid> getListOfGrids() {
-        return this.mEGList.getEnergyGridList();
     }
 
     public void setEGList(EnergyGridList energyGridList) {
@@ -180,9 +177,9 @@ public class House implements Metered {
      */
 
     double getMinDistanceToSensorOfGivenType(String type) {
-        List<Sensor> workingList = this.getMotherArea().getSensorList().getSensorListByType(type);
+        SensorList workingList = this.getMotherArea().getSensorList().getSensorListByType(type);
         ArrayList<Double> arrayList = new ArrayList<>();
-        for (Sensor sensor : workingList) {
+        for (Sensor sensor : workingList.getListOfSensors()) {
             arrayList.add(calculateDistanceToSensor(sensor));
         }
         return Collections.min(arrayList);
@@ -199,18 +196,18 @@ public class House implements Metered {
         Sensor sensor;
         SensorList sensorList = new SensorList();
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
-        for (Sensor s : this.getMotherArea().getSensorList().getSensorListByType(sensorType)) {
+        for (Sensor s : this.getMotherArea().getSensorList().getSensorListByType(sensorType).getListOfSensors()) {
             if (Double.compare(this.getMinDistanceToSensorOfGivenType(sensorType), s.getDistanceToHouse(this)) == 0) {
                 sensorList.addSensor(s);
             }
         }
-        if (sensorList.getSensorList().isEmpty()) {
+        if (sensorList.isEmpty()) {
             return sensorError;
         }
-        if (sensorList.getSensorList().size() >= 2) {
+        if (sensorList.size() >= 2) {
             sensor = sensorList.getMostRecentlyUsedSensor();
         } else {
-            sensor = sensorList.getSensorList().get(0);
+            sensor = sensorList.get(0);
         }
         return sensor;
     }
@@ -224,11 +221,11 @@ public class House implements Metered {
     public String buildGridListString() {
         String mStringEnhancer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringEnhancer);
-        if (this.mEGList.getEnergyGridList().isEmpty()) {
+        if (this.mEGList.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < this.mEGList.getEnergyGridList().size(); i++) {
-            EnergyGrid aux = this.mEGList.getEnergyGridList().get(i);
+        for (int i = 0; i < this.mEGList.size(); i++) {
+            EnergyGrid aux = this.mEGList.get(i);
             result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
             result.append("Max Power: ").append(aux.getMaxContractedPower()).append("\n");
         }
@@ -332,13 +329,6 @@ public class House implements Metered {
         return this.mRoomList.isEmpty();
     }
 
-    /**
-     * This method checks if house list of Devices is empty.
-     * @return true if house's List<Device> is empty, false otherwise.
-     **/
-    public boolean isListOfDevicesEmpty(){
-        return this.deviceTypeList.isEmpty();
-    }
 
     /**
      * This method checks if house's list of Energy Grids is empty.
@@ -346,6 +336,20 @@ public class House implements Metered {
      **/
     public boolean isEnergyGridListEmpty(){
         return this.mEGList.isEmpty();
+    }
+
+    /** This method checks the house's energy grid list size.
+     * @return returns the house's energy grid list size as int.
+     */
+    public int energyGridListSize() {
+        return this.mEGList.size();
+    }
+
+    /** This method receives an index as parameter and gets energy grid from house's energy grid list.
+     * @return returns Energy grid that corresponds to index.
+     */
+    public EnergyGrid getEnergyGrid(int index) {
+        return this.mEGList.get(index);
     }
 
     @Override
