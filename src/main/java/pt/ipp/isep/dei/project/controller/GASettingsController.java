@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.TypeArea;
-import pt.ipp.isep.dei.project.model.TypeAreaList;
+import pt.ipp.isep.dei.project.model.*;
 
 /**
  * Controller class for Geographical Area Settings UI
@@ -66,17 +63,16 @@ public class GASettingsController {
      * @param newGeoList geographic area list to add the new geographic area
      * @param newName    input string for geographic area name
      * @param typeArea   input string for type area
-     * @param latitude   input number for latitude
-     * @param longitude  input number for longitude
+     * @param local   input number for latitude, longitude and altitude
      * @return success if a new GA is added, false otherwise
      */
-    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, double latitude, double longitude, double altitude, double length, double width) {
-        GeographicArea geoToAdd = newGeoList.createGA(newName, typeArea, length, width, latitude, altitude, longitude);
+    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, Local local, double length, double width) {
+        GeographicArea geoToAdd = newGeoList.createGA(newName, typeArea, length, width, local.getLatitude(), local.getAltitude(), local.getLongitude());
 
-        if (newGeoList.checkIfGAExists(newName, typeArea, latitude, longitude, altitude)) {
+        if (newGeoList.checkIfGAExists(newName, typeArea, local.getLatitude(), local.getAltitude(), local.getLongitude())) {
             return newGeoList.addGeographicArea(geoToAdd);
         } else {
-            geoToAdd = newGeoList.getGeographicArea(newName, typeArea, latitude, altitude, longitude);
+            geoToAdd = newGeoList.getGeographicArea(newName, typeArea, local.getLatitude(), local.getAltitude(), local.getLongitude());
             return newGeoList.addGeographicArea(geoToAdd);
         }
     }

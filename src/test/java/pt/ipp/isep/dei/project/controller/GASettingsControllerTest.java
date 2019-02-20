@@ -273,7 +273,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        boolean result = controller.addNewGeoAreaToList(geoList, "Porto", typeCity, length, width, latitude, longitude, altitude);
+        boolean result = controller.addNewGeoAreaToList(geoList, "Porto", typeCity, new Local(latitude, longitude, altitude), length, width);
 
         // Assert
 
@@ -296,8 +296,8 @@ class GASettingsControllerTest {
 
         // Act
 
-        boolean result1 = controller.addNewGeoAreaToList(geoList, name, typeCity, length, width, latitude, longitude, altitude);
-        boolean result2 = controller.addNewGeoAreaToList(geoList, name, typeCity, length, width, latitude, longitude, altitude);
+        boolean result1 = controller.addNewGeoAreaToList(geoList, name, typeCity, new Local(latitude, longitude, altitude), length, width);
+        boolean result2 = controller.addNewGeoAreaToList(geoList, name, typeCity, new Local(latitude, longitude, altitude), length, width);
 
 
         // Assert
@@ -323,8 +323,8 @@ class GASettingsControllerTest {
 
         // Act
 
-        boolean result1 = controller.addNewGeoAreaToList(geoList, name1, typeCity, length, width, latitude, longitude, altitude);
-        boolean result2 = controller.addNewGeoAreaToList(geoList, name2, typeCity, length, width, latitude, longitude, altitude);
+        boolean result1 = controller.addNewGeoAreaToList(geoList, name1, typeCity, new Local(latitude, longitude, altitude), length, width);
+        boolean result2 = controller.addNewGeoAreaToList(geoList, name2, typeCity, new Local(latitude, longitude, altitude), length, width);
 
         // Assert
 
