@@ -13,6 +13,8 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,8 +34,11 @@ class EnergyConsumptionControllerTest {
     private Device validDevice2 = new WaterHeater(new WaterHeaterSpec());
     private Device validDevice3 = new Fridge(new FridgeSpec());
     private EnergyConsumptionController controller = new EnergyConsumptionController();
-    private Log validLog1 = new Log(56, new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime(),
-            new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime());
+    private SimpleDateFormat validSdf1; // SimpleDateFormat dd/MM/yyyy
+    private SimpleDateFormat validSdf2; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
+    private Date validDate1; // Date 09/08/2018
+    private Date validDate2; // Date 11/02/2014
+    private Log validLog1;
     public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
 
@@ -59,6 +64,15 @@ class EnergyConsumptionControllerTest {
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
         validRoom1.addDevice(validDevice3);
+        validSdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate2 = validSdf2.parse("21/11/2014 10:20:00");
+            validDate1 = validSdf2.parse("20/11/2018 10:10:00");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+        validLog1 = new Log(56, validDate1,validDate2);
     }
 
     //US705 TESTS
@@ -317,9 +331,21 @@ class EnergyConsumptionControllerTest {
     @Test
     void seeIfGetRoomConsumptionInIntervalWorks() {
         //Arrange
+        Date initialTime = new Date();
+        try {
+            initialTime = validSdf2.parse("20/11/2018 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalTime = new Date();
+        try {
+            finalTime = validSdf2.parse("20/11/2018 10:50:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
+        //Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
+        //Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
         validDevice1.addLog(validLog1);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(validDevice1);
@@ -359,11 +385,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        double result = controller.getDailyWaterHeaterConsumption(house);
+        double actualResult = controller.getDailyWaterHeaterConsumption(house);
 
         //Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -382,11 +408,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        double result = controller.getDailyWaterHeaterConsumption(house);
+        double actualResult = controller.getDailyWaterHeaterConsumption(house);
 
         //Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -407,11 +433,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        double result = controller.getDailyWaterHeaterConsumption(house);
+        double actualResult = controller.getDailyWaterHeaterConsumption(house);
 
         //Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -433,11 +459,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        double result = controller.getDailyWaterHeaterConsumption(house);
+        double actualResult = controller.getDailyWaterHeaterConsumption(house);
 
         //Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -461,11 +487,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        double result = controller.getTotalPowerFromGrid(validGrid);
+        double actualResult = controller.getTotalPowerFromGrid(validGrid);
 
         //Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -486,11 +512,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        double result = controller.getTotalPowerFromGrid(validGrid);
+        double actualResult = controller.getTotalPowerFromGrid(validGrid);
 
         //Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -513,11 +539,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        List<Device> result = controller.getWaterHeaterDeviceList(house);
+        List<Device> actualResult = controller.getWaterHeaterDeviceList(house);
 
         //Assert
 
-        Assertions.assertEquals(expecteResult, result);
+        Assertions.assertEquals(expecteResult, actualResult);
     }
 
     @Test
@@ -540,11 +566,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        List<Device> result = controller.getWaterHeaterDeviceList(house);
+        List<Device> actualResult = controller.getWaterHeaterDeviceList(house);
 
         //Assert
 
-        Assertions.assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -552,11 +578,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        String result = controller.getWHName(validDevice1);
+        String actualResult = controller.getWHName(validDevice1);
 
         //Assert
 
-        Assertions.assertEquals("WaterHeater", result);
+        Assertions.assertEquals("WaterHeater", actualResult);
     }
 
     @Test
@@ -568,11 +594,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        boolean result = controller.configureWH(validDevice1, null, attributeValue2);
+        boolean actualResult = controller.configureWH(validDevice1, null, attributeValue2);
 
         //Assert
 
-        assertFalse(result);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -584,11 +610,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        boolean result = controller.configureWH(validDevice1, attributeValue2, null);
+        boolean actualResult = controller.configureWH(validDevice1, attributeValue2, null);
 
         //Assert
 
-        assertFalse(result);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -596,11 +622,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        boolean result = controller.configureWH(validDevice1, null, null);
+        boolean actualResult = controller.configureWH(validDevice1, null, null);
 
         //Assert
 
-        assertFalse(result);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -608,11 +634,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        boolean result = controller.configureWH(validDevice1, -2D, -2.5);
+        boolean actualResult = controller.configureWH(validDevice1, -2D, -2.5);
 
         //Assert
 
-        assertTrue(result);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -620,11 +646,11 @@ class EnergyConsumptionControllerTest {
 
         //Act
 
-        boolean result = controller.configureWH(validDevice1, 2D, 30D);
+        boolean actualResult = controller.configureWH(validDevice1, 2D, 30D);
 
         //Assert
 
-        assertTrue(result);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -633,53 +659,60 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
-        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
+       // Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
+        //Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
         validDevice1.addLog(validLog1);
 
         //Act
 
-        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+        String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, validDate1, validDate2);
 
 
         //Assert
 
-        assertEquals(result, expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void getDeviceConsumptionInIntervalEmptyLogListTest() {
 
         //Arrange
-        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
         String expectedResult = "This device has no energy consumption logs in the given interval.";
 
         //Act
 
-        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+        String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, validDate1,validDate2);
 
 
         //Assert
-        assertEquals(result, expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void getDeviceConsumptionInIntervalOutsideIntervalBeforeTest() {
 
-        //Arrange
-        Date initialTime = new GregorianCalendar(2013, Calendar.NOVEMBER, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2014, Calendar.NOVEMBER, 20, 10, 60).getTime();
+        Date initialTime = new Date();
+        try {
+            initialTime = validSdf2.parse("20/10/2014 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalTime = new Date();
+        try {
+            finalTime = validSdf2.parse("20/10/2014 10:59:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         validDevice1.addLog(validLog1);
         String expectedResult = "This device has no energy consumption logs in the given interval.";
 
         //Act
 
-        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+        String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, initialTime,finalTime);
 
 
         //Assert
-        assertEquals(result, expectedResult);
+        assertEquals(expectedResult, actualResult);
 
     }
 
@@ -687,73 +720,81 @@ class EnergyConsumptionControllerTest {
     void getDeviceConsumptionInIntervalOutsideIntervalAfterTest() {
 
         //Arrange
-        Date initialTime = new GregorianCalendar(2020, Calendar.NOVEMBER, 20, 10, 2).getTime();
-        Date finalTime = new GregorianCalendar(2020, Calendar.NOVEMBER, 20, 10, 60).getTime();
+        Date initialTime = new Date();
+        try {
+            initialTime = validSdf2.parse("20/10/2020 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalTime = new Date();
+        try {
+            finalTime = validSdf2.parse("20/10/2020 10:59:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         validDevice1.addLog(validLog1);
         String expectedResult = "This device has no energy consumption logs in the given interval.";
 
         //Act
 
-        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+        String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, initialTime,finalTime);
 
 
         //Assert
-        assertEquals(result, expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void getDeviceConsumptionInIntervalSameTime() {
 
         //Arrange
-
-        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
         validDevice1.addLog(validLog1);
         String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
 
         //Act
 
-        String result = controller.getDeviceConsumptionInInterval(validDevice1, initialTime, finalTime);
+        String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, validDate1,validDate2);
 
 
         //Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void getDeviceConsumptionInIntervalSameTimeNoLogs() {
 
         //Arrange
-
-        Date time = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
+        Date time = new Date();
+        try {
+           time = validSdf2.parse("20/10/2014 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         validDevice1.addLog(validLog1);
         String expectedResult = "This device has no energy consumption logs in the given interval.";
 
         //Act
 
-        String result = controller.getDeviceConsumptionInInterval(validDevice1, time, time);
+        String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, time, time);
 
 
         //Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetGridConsumptionInIntervalWorks() {
 
         //Arrange
-
-        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
         validGrid.addRoomToAnEnergyGrid(validRoom1);
         double expectedResult = 56.0;
 
         //Act
 
         validDevice1.addLog(validLog1);
-        double actualResult = controller.getGridConsumptionInInterval(validGrid, initialTime, finalTime);
+        double actualResult = controller.getGridConsumptionInInterval(validGrid, validDate1,validDate2);
 
 
         //Assert
@@ -765,9 +806,6 @@ class EnergyConsumptionControllerTest {
     void seeIfGetGridLogsInInterval() {
 
         //Arrange
-
-        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
         validGrid.addRoomToAnEnergyGrid(validRoom1);
         LogList expectedResult = new LogList();
         expectedResult.addLog(validLog1);
@@ -775,7 +813,7 @@ class EnergyConsumptionControllerTest {
         //Act
 
         validDevice1.addLog(validLog1);
-        LogList actualResult = controller.getGridLogsInInterval(validGrid, initialTime, finalTime);
+        LogList actualResult = controller.getGridLogsInInterval(validGrid, validDate1, validDate2);
 
         //Assert
 
@@ -786,15 +824,13 @@ class EnergyConsumptionControllerTest {
     void seeIfGetRoomLogsInInterval() {
         //Arrange
 
-        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
         LogList expectedResult = new LogList();
         expectedResult.addLog(validLog1);
 
         //Act
 
         validDevice1.addLog(validLog1);
-        LogList actualResult = controller.getRoomLogsInInterval(validRoom1, initialTime, finalTime);
+        LogList actualResult = controller.getRoomLogsInInterval(validRoom1, validDate1,validDate2);
 
         //Assert
 
@@ -806,15 +842,13 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
 
-        Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 10).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 50).getTime();
         LogList expectedResult = new LogList();
         expectedResult.addLog(validLog1);
 
         //Act
 
         validDevice1.addLog(validLog1);
-        LogList actualResult = controller.getDeviceLogsInInterval(validDevice1, initialTime, finalTime);
+        LogList actualResult = controller.getDeviceLogsInInterval(validDevice1, validDate1,validDate2);
 
         //Assert
 
@@ -828,14 +862,14 @@ class EnergyConsumptionControllerTest {
 
         LogList list = new LogList();
         list.addLog(validLog1);
-        String expectedResult = "\n0) Start Date: 20/11/2018 10:10:00 | End Date: 20/11/2018 10:50:00 | Value: 56.0";
+        String expectedResult = "\n0) Start Date: 20/11/2018 10:10:00 | End Date: 21/11/2014 10:20:00 | Value: 56.0";
 
         //Act
 
-        String result = controller.buildLogListString(list);
+        String actualResult = controller.buildLogListString(list);
 
         //Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, actualResult);
     }
 }

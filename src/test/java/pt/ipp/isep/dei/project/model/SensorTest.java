@@ -23,7 +23,7 @@ class SensorTest {
     private SimpleDateFormat validSdf2; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private Date validDate1; // Date 09/08/2018
     private Date validDate2; // Date 11/02/2014
-    private TypeSensor validTypeSensor1; // Sensor Type temperature with unit Celcius;
+    private TypeSensor validTypeSensor1; // Sensor Type temperature with unit Celsius;
     private String validName1 = "Sensor XXV5"; // Sensor name "Sensor XXV5"
     private Local validLocal1; // Localization with Latitude:38, Longitude:7, Altitude: 5
     private TypeArea validTypeArea1; // Area of Type 'Country'
