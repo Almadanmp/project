@@ -15,6 +15,9 @@ public class SensorList {
 
     private List<Sensor> sensors;
 
+    /**
+     * SensorList() empty constructor that initializes an ArrayList of Sensors.
+     */
     public SensorList() {
         this.sensors = new ArrayList<>();
     }
@@ -33,8 +36,8 @@ public class SensorList {
     /**
      * Method to Add a sensor only if it's not contained in the list already.
      *
-     * @param sensorToAdd
-     * @return
+     * @param sensorToAdd is the sensor we want to add to the sensorList.
+     * @return true if sensor was successfully added to the SensorList, false otherwise.
      */
 
     public boolean addSensor(Sensor sensorToAdd) {
@@ -45,10 +48,10 @@ public class SensorList {
     }
 
     /**
-     * Checks if a Sensor is inside the Sensor List
+     * Checks if a Sensor is contained in the Sensor List
      *
-     * @param sensor
-     * @return
+     * @param sensor is the sensor we want to check if it's contained.
+     * @return true if it's contained, false otherwise.
      */
     public boolean containsSensor(Sensor sensor) {
         return sensors.contains(sensor);
@@ -117,6 +120,11 @@ public class SensorList {
         return mostRecent;
     }
 
+    /**
+     * Method that checks if the Sensors in the SensorList has readings.
+     *
+     * @return true if we have at least one reading in the sensors, false otherwise.
+     */
     public boolean hasReadings() {
         for (Sensor s : this.sensors) {
             ReadingList readingList = s.getReadingList();
@@ -212,17 +220,21 @@ public class SensorList {
         }
         return finalList;
     }
-    /**Method checks if sensor list is empty.
-     * @return true if empty, false otherwise.**/
-    public boolean isEmpty(){
+
+    /**
+     * Method checks if sensor list is empty.
+     *
+     * @return true if empty, false otherwise.
+     **/
+    public boolean isEmpty() {
         return this.sensors.isEmpty();
     }
 
     /**
-     * Method 'equals' for comparisson between objects of the same class
+     * Method 'equals' for comparison between objects of the same class
      *
-     * @param testObject
-     * @return boolean
+     * @param testObject is the object we want to test.
+     * @return true if it's equal, false otherwise.
      */
 
     @Override
