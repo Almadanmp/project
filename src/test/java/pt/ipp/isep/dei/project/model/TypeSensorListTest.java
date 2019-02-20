@@ -38,20 +38,20 @@ public class TypeSensorListTest {
         typeList2.add(typeSensor1);
         typeList3.add(typeSensor1);
         typeList3.add(typeSensor2);
-        //Act
         List<TypeSensor> expectedResult1 = new ArrayList<>();
         List<TypeSensor> expectedResult2 = new ArrayList<>();
         List<TypeSensor> expectedResult3 = new ArrayList<>();
         expectedResult2.add(typeSensor1);
         expectedResult3.add(typeSensor1);
         expectedResult3.add(typeSensor2);
+        //Act
         List<TypeSensor> actualResult1 = typeList1.getTypeSensorList();
         List<TypeSensor> actualResult2 = typeList2.getTypeSensorList();
         List<TypeSensor> actualResult3 = typeList3.getTypeSensorList();
         //Assert
-        assertEquals(expectedResult1,actualResult1);
-        assertEquals(expectedResult2,actualResult2);
-        assertEquals(expectedResult3,actualResult3);
+        assertEquals(actualResult1,expectedResult1);
+        assertEquals(actualResult2,expectedResult2);
+        assertEquals(actualResult3,expectedResult3);
     }
 
     @Test
