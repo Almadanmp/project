@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 
 public class FridgeDT implements DeviceType {
 
-    public Device createDeviceType() {
+    public Device createDevice() {
         FridgeSpec ds = new FridgeSpec();
         return new Fridge(ds);
     }

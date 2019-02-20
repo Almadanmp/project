@@ -16,7 +16,7 @@ class WashingMachineDTTest {
     @Test
     void createWashingMachineType() {
         WashingMachineDT dt = new WashingMachineDT();
-        Device result = dt.createDeviceType();
+        Device result = dt.createDevice();
         Device expectedResult = new WashingMachine(new WashingMachineSpec());
         assertEquals(result, expectedResult);
     }

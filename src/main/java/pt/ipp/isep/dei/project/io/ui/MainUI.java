@@ -783,6 +783,9 @@ public class MainUI {
         d1.addLog(log6);
 
 
+
+
+
 /**
  // House - Empty RoomList - Without EnergyGrid
  GeographicArea geographicArea4 = new GeographicArea();
@@ -944,7 +947,7 @@ public class MainUI {
                         break;
                     case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
-                        houseM.run(edificioB);
+                        houseM.run(houseSP2);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

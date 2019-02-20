@@ -218,7 +218,7 @@ class EnergyConsumptionUI {
         InputUtils inputs = new InputUtils();
         Device d1 = inputs.getGridDevicesByList(grid);
         Scanner scanner = new Scanner(System.in);
-        if (selectedDevices.contains(d1)) {
+        if (selectedDevices.containsDevice(d1)) {
             String duplicateDevice = "That device is already on the list. Would you like to deselect the device? (Y/N)\n";
             System.out.println(duplicateDevice);
             if (inputs.yesOrNo(scanner.nextLine(), duplicateDevice)) {

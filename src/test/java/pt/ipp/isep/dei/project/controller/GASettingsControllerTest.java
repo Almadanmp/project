@@ -293,17 +293,20 @@ class GASettingsControllerTest {
         double altitude = 5;
         double length = 2;
         double width = 4;
+        GeographicArea geoFail = new GeographicArea(name, typeCity, length, width, new Local(latitude, longitude, altitude));
 
         // Act
 
         boolean result1 = controller.addNewGeoAreaToList(geoList, name, typeCity, new Local(latitude, longitude, altitude), length, width);
         boolean result2 = controller.addNewGeoAreaToList(geoList, name, typeCity, new Local(latitude, longitude, altitude), length, width);
-
+        geoList.addGeographicArea(geoFail);
+        boolean result3 = controller.addNewGeoAreaToList(geoList, name, typeCity, new Local(latitude, longitude, altitude), length, width);
 
         // Assert
 
         assertTrue(result1); //safety check (already covered on previous test)
         Assertions.assertFalse(result2);
+        assertFalse(result3);
         assertEquals(1, geoList.getGeographicAreaList().size());
     }
 

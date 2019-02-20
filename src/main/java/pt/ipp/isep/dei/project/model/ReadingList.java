@@ -9,6 +9,8 @@ import static java.lang.Double.NaN;
  */
 
 public class ReadingList {
+
+    static final String listIsNotValid = "List is not valid";
     private List<Reading> readings;
 
     /**
@@ -69,7 +71,7 @@ public class ReadingList {
      * This method returns the most recent reading value a Reading List.
      * @return the most recent reading value or NaN when the Reading List is empty
      */
-    public double getMostRecentValue() throws IllegalArgumentException{
+    public double getMostRecentValue() {
         if(this.readings.isEmpty()){
             throw new IllegalArgumentException("There aren't any readings available.");
         }
@@ -462,32 +464,6 @@ public class ReadingList {
         return firstDateOfWeek.getTime();
     }
 
-    double getAverageOfMinimumValuesInTheReadingsOfWeek(Date dateGiven) {
-        removeReadingsWithDifferentMonthAndYearFromDateGiven(dateGiven);
-        List<Integer> daysWithReadings = getListOfDatesWithReadingsFromWeekOfDateGiven(dateGiven);
-        List<Double> minValuesFromDaysWithReadings = new ArrayList<>();
-        for (int day : daysWithReadings) {
-            List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(day);
-            double minValueOfDay;
-            minValueOfDay = getLowestValueFromGivenList(valueReadingsThatMatchDay);
-            minValuesFromDaysWithReadings.add(minValueOfDay);
-        }
-        return getAverageFromGivenList(minValuesFromDaysWithReadings);
-    }
-
-    double getAverageOfMaximumValuesInTheReadingsOfWeek(Date dateGiven) {
-        removeReadingsWithDifferentMonthAndYearFromDateGiven(dateGiven);
-        List<Integer> daysWithReadings = getListOfDatesWithReadingsFromWeekOfDateGiven(dateGiven);
-        List<Double> maxValuesFromDaysWithReadings = new ArrayList<>();
-        for (int day : daysWithReadings) {
-            List<Double> valueReadingsThatMatchDay = getValueReadingsThatMatchGivenDayFromListOfOneMonthReadings(day);
-            double maxValueOfDay;
-            maxValueOfDay = getHighestValueInList(valueReadingsThatMatchDay);
-            maxValuesFromDaysWithReadings.add(maxValueOfDay);
-        }
-        return getAverageFromGivenList(maxValuesFromDaysWithReadings);
-    }
-
     /**
      * This method returns the Maximum Value of the Reading of a Given Day.
      * @param dateGiven date given
@@ -511,7 +487,7 @@ public class ReadingList {
         ReadingList dayReadings = matchByDate(beginDay,endDay);
 
         if(dayReadings.isEmpty()){
-            throw new IllegalArgumentException("The day given has no readings");
+            throw new IllegalArgumentException("The day given has no readings.");
         }
         double maxValue = dayReadings.getListOfReadings().get(0).getValue();
         for (Reading r : dayReadings.getListOfReadings()) {
@@ -542,7 +518,7 @@ public class ReadingList {
 
     boolean checkIfListValid(List<Double> values) {
         if (values == null || values.isEmpty()) {
-            throw new IllegalArgumentException("List is not valid");
+            throw new IllegalArgumentException(listIsNotValid);
         }
         return true;
     }

@@ -46,6 +46,13 @@ public class EnergyGridList {
         return new EnergyGrid(designation, maxPower);
     }
 
+    /** This method checks if the energy grid list is empty.
+     * @return returns true if the list is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return this.energyGrids.isEmpty();
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {

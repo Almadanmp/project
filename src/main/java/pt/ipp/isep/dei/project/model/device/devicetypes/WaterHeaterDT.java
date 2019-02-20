@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 public class WaterHeaterDT implements DeviceType {
 
-    public Device createDeviceType() {
+    public Device createDevice() {
         WaterHeaterSpec ds = new WaterHeaterSpec();
         return new WaterHeater(ds);
     }

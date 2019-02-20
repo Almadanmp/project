@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 
 public class DishwasherDT implements DeviceType {
 
-    public Device createDeviceType() {
+    public Device createDevice() {
         DishwasherSpec ds = new DishwasherSpec();
         return new Dishwasher(ds);
     }

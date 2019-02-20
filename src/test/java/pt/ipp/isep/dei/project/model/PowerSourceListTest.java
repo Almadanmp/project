@@ -12,7 +12,7 @@ import static org.testng.Assert.*;
  * PowerSourceList tests class.
  */
 
-public class PowerSourceListTest {
+ class PowerSourceListTest {
 
     @Test
     void seeIfContainsPowerWorksTrue() {

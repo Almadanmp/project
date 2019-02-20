@@ -575,7 +575,7 @@ class RoomTest {
     }
 
     @Test
-    void seeIfAddRoomDevicesToDeviceListWorksAlreadyContained() {
+    void seeIfSetDeviceListWorksAlreadyContained() {
         //Arrange
         Device device1 = new WaterHeater(new WaterHeaterSpec());
         device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
@@ -596,6 +596,30 @@ class RoomTest {
         //Act
         List<Device> actualResult = room.getDeviceList();
         List<Device> expectedResult = dList.getList();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomDevicesToDeviceListWorksAlreadyContained() {
+        //Arrange
+        Device device1 = new WaterHeater(new WaterHeaterSpec());
+        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        Device device2 = new WaterHeater(new WaterHeaterSpec());
+        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
+        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
+        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        Room room = new Room("cozinha", 1, 1, 1, 1);
+        DeviceList dList = new DeviceList();
+        dList.addDevice(device1);
+        dList.addDevice(device2);
+        DeviceList deviceList2 = new DeviceList();
+        room.addRoomDevicesToDeviceList(dList);
+        //Act
+        List<Device> actualResult = room.getDeviceList();
+        List<Device> expectedResult = deviceList2.getList();
         //Assert
         assertEquals(expectedResult, actualResult);
     }

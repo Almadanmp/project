@@ -212,6 +212,11 @@ public class SensorList {
         }
         return finalList;
     }
+    /**Method checks if sensor list is empty.
+     * @return true if empty, false otherwise.**/
+    public boolean isEmpty(){
+        return this.sensors.isEmpty();
+    }
 
     /**
      * Method 'equals' for comparisson between objects of the same class

@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -67,4 +68,31 @@ public class TypeAreaList {
     public List<TypeArea> getTypeAreaList() {
         return this.typeAreas;
     }
+
+    /** This method checks if type area list is empty.*
+     * @return true if list is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return this.typeAreas.isEmpty();
+    }
+
+
+    @Override
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof TypeAreaList)) {
+            return false;
+        }
+        TypeAreaList list = (TypeAreaList) testObject;
+        return Arrays.equals(this.getTypeAreaList().toArray(), list.getTypeAreaList().toArray());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
+
 }

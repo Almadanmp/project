@@ -47,4 +47,11 @@ public class TypeSensorList {
         result.append("---------------\n");
         return result.toString();
     }
+
+    /** This methods checks if type sensor list is empty.
+     * @return true if list is empty, false otherwise
+     */
+    public boolean isEmpty() {
+        return this.typeSensors.isEmpty();
+    }
 }

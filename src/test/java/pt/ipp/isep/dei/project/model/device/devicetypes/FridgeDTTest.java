@@ -16,7 +16,7 @@ class FridgeDTTest {
     @Test
     void createFridgeType() {
         FridgeDT dt = new FridgeDT();
-        Device result = dt.createDeviceType();
+        Device result = dt.createDevice();
         Device expectedResult = new Fridge(new FridgeSpec());
         assertEquals(result, expectedResult);
     }

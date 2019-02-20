@@ -126,7 +126,7 @@ public class RoomConfigurationController {
      * @return - the device
      */
     public Device createDevice(DeviceType deviceType) {
-        return deviceType.createDeviceType();
+        return deviceType.createDevice();
     }
 
     /**
@@ -261,7 +261,7 @@ public class RoomConfigurationController {
      * @param device  - device we want to add the programlist to
      * @param program - programlist we want to add to the device
      */
-    public void configureProgramListFromAProgrammableDevice(Device device, ProgramList program) {
+    public void configureDeviceProgramList(Device device, ProgramList program) {
         String programList = "programList";
         device.setAttributeValue(programList, program);
     }

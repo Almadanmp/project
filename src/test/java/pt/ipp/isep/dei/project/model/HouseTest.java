@@ -25,7 +25,7 @@ import static org.testng.Assert.assertEquals;
 class HouseTest {
 
     // Common artifacts for testing in this class.
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+     static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
     @Test
     void seeIfGetListDevice() {
@@ -60,53 +60,7 @@ class HouseTest {
         assertEquals(110.91871788829754, result, 0.01);
     }
 
-    @Test
-    void testMinDistanceToSensor() {
-        //Arrange
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 6, 5), new GregorianCalendar(2018, 10, 1).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura", "Celsius"), new Local(4, 8, 5), new GregorianCalendar(2018, 10, 1).getTime());
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga.setSensorList(sensorList);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        //Act
-        double expectedResult = 110.91871788829754;
-        double actualResult = house.getMinDistanceToSensor(ga);
-        //Assert
-        assertEquals(expectedResult, actualResult, 0.01);
-    }
-
-    @Test
-    void testMinDistanceToSensorInsideIf() {
-        //Arrange
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 6, 5), new GregorianCalendar(2018, 10, 1).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperatura", "Celsius"), new Local(4, 8, 5), new GregorianCalendar(2018, 10, 1).getTime());
-        Sensor s3 = new Sensor("sensor2", new TypeSensor("temperatura", "Celsius"), new Local(4, 5, 5), new GregorianCalendar(2018, 10, 1).getTime());
-        Sensor s4 = new Sensor("sensor2", new TypeSensor("temperatura", "Celsius"), new Local(4, 9, 5), new GregorianCalendar(2018, 10, 1).getTime());
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        sensorList.addSensor(s3);
-        sensorList.addSensor(s4);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga.setSensorList(sensorList);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        //Act
-        double expectedResult = 110.91871788829754;
-        double actualResult = house.getMinDistanceToSensor(ga);
-        //Assert
-        assertEquals(expectedResult, actualResult, 0.01);
-    }
-
-    @Test
+      @Test
     void ensureThatWeGetAltitude() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
@@ -885,9 +839,8 @@ class HouseTest {
         House house = new House("Beach House", address2, new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
         //Act
         house.setAddress(address1);
-        Address expectedResult = address1;
         Address actualResult = house.getAddress();
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(address1, actualResult);
     }
 }
