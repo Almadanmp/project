@@ -783,6 +783,20 @@ public class MainUI {
         d1.addLog(log6);
 
 
+        // House - With RoomList - Without EnergyGrid
+        Room room22 = new Room("houseNoEG", 1, 23, 23, 23);
+        House house22 = new House("houseRoomDifEG", addressHouseTest, new Local(23, 23, 21), isep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        TypeSensor typeSensorMeteoStation1 = new TypeSensor(temperature, "celsius");
+        Sensor meteoStationTemperatureSP21 = new Sensor("Meteo station ISEP - temperature", typeSensorMeteoStation1, new Local(41.179230, -8.606409, 125), new GregorianCalendar(2016, 11, 15).getTime());
+        Reading reading122 = new Reading(20,periodBeginning);
+        meteoStationTemperatureSP21.addReading(reading122);
+        room22.addSensor(meteoStationTemperatureSP21);
+        house22.addRoomToRoomList(room22);
+
+
+
+
+
 /**
  // House - Empty RoomList - Without EnergyGrid
  GeographicArea geographicArea4 = new GeographicArea();
@@ -944,7 +958,7 @@ public class MainUI {
                         break;
                     case 6:
                         HouseMonitoringUI houseM = new HouseMonitoringUI();
-                        houseM.run(edificioB);
+                        houseM.run(house22);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

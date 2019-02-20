@@ -511,7 +511,7 @@ public class ReadingList {
         ReadingList dayReadings = matchByDate(beginDay,endDay);
 
         if(dayReadings.isEmpty()){
-            throw new IllegalArgumentException("The day given has no readings");
+            throw new IllegalArgumentException("The day given has no readings.");
         }
         double maxValue = dayReadings.getListOfReadings().get(0).getValue();
         for (Reading r : dayReadings.getListOfReadings()) {

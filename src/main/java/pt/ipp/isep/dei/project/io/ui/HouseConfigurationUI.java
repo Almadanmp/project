@@ -39,7 +39,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS105();
+                    runUS105(house);
                     activeInput = false;
                     break;
                 case 3:
@@ -117,8 +117,9 @@ class HouseConfigurationUI {
 
     // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
-    private void runUS105(){
+    private void runUS105(House house){
         getInputRoomCharacteristics();
+        createNewRoom(house);
         displayStateRoom();
     }
 
@@ -146,6 +147,10 @@ class HouseConfigurationUI {
 
         System.out.println("Please insert your room's height in meters: ");
         this.roomHeight = inputUtils.getInputAsDouble();
+    }
+
+    private void createNewRoom(House house){
+        controller.createNewRoom(house,roomName,roomHouseFloor,roomWidth,roomLength,roomHeight);
     }
 
     /**
