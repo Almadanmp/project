@@ -307,7 +307,7 @@ class GASettingsControllerTest {
         assertTrue(result1); //safety check (already covered on previous test)
         Assertions.assertFalse(result2);
         assertFalse(result3);
-        assertEquals(2, geoList.getGeographicAreaList().size());
+        assertEquals(1, geoList.getGeographicAreaList().size());
     }
 
     @Test

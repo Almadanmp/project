@@ -464,7 +464,7 @@ class GeographicAreaListTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         gAL1.addGeographicArea(c);
-        GeographicArea result = gAL1.getGeographicArea("Porto", t1, 38, 7, 100);
+        GeographicArea result = gAL1.getGeographicArea("Porto", t1, l1);
         assertEquals(c, result);
     }
 
@@ -477,7 +477,7 @@ class GeographicAreaListTest {
                     Local l1 = new Local(38, 7, 100);
                     GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
                     gAL1.addGeographicArea(c);
-                    gAL1.getGeographicArea("Lisboa", t1, 38, 7, 100);
+                    gAL1.getGeographicArea("Lisboa", t1, l1);
 
                 });
     }
