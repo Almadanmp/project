@@ -419,8 +419,11 @@ class RoomConfigurationControllerTest {
         WaterHeater washMach = new WaterHeater(new WaterHeaterSpec());
 
         // Act
+
         controller.setDeviceName("Not a Washing Machine", washMach);
         String actualResult = washMach.getName();
+
+        // Assert
 
         assertEquals(actualResult, "Not a Washing Machine");
     }
