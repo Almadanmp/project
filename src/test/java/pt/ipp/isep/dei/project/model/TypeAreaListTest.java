@@ -83,4 +83,27 @@ class TypeAreaListTest {
         result = list.buildGATypeWholeListString(list);
         assertEquals(expectedResult, result);
     }
+    @Test
+    void isEmpty() {
+        //Arrange
+        TypeArea type1 = new TypeArea("city");
+        TypeArea type2 = new TypeArea("village");
+        TypeAreaList list1 = new TypeAreaList(); //EMPTY LIST
+        TypeAreaList list2 = new TypeAreaList(); //ONE TYPE AREA
+        TypeAreaList list3 = new TypeAreaList(); //TWO TYPE AREAS
+
+        list2.addTypeArea(type1);
+        list3.addTypeArea(type1);
+        list3.addTypeArea(type2);
+
+        //Act
+        boolean actualResult1 = list1.isEmpty();
+        boolean actualResult2 = list2.isEmpty();
+        boolean actualResult3 = list3.isEmpty();
+
+        //Assert
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+    }
 }

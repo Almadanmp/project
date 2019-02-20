@@ -44,7 +44,7 @@ public class RoomList {
      * If the user input - roomName equals the name of the Room on that index, we return the Room, if not it will compare with the next position.
      * if no Room with the name of found, it will return null.
      */
-    public Room getRoomByName(String roomName) {
+    Room getRoomByName(String roomName) {
         for (Room aux : rooms) {
             if (roomName.equals(aux.getRoomName())) {
                 return aux;
@@ -105,6 +105,12 @@ public class RoomList {
             result += r.getDailyConsumptionByDeviceType(deviceType, time);
         }
         return Math.floor(result * 10) / 10;
+    }
+
+    /**This method checks if room list is empty.
+     * @return true if list is empty, false otherwise.**/
+    public boolean isEmpty() {
+        return this.rooms.isEmpty();
     }
 
 
