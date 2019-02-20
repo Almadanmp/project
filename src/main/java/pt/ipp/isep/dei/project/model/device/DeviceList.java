@@ -42,7 +42,7 @@ public class DeviceList {
         return false;
     }
 
-    public boolean checkIfListIsValid() {
+    boolean checkIfListIsValid() {
         return !devices.isEmpty();
     }
 

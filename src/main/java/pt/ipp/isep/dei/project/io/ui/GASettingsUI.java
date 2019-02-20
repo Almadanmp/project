@@ -26,7 +26,6 @@ class GASettingsUI {
                     runUS01(programTypeAreaList);
                     activeInput = false;
                     break;
-
                 case 2:
                     runUS02(programTypeAreaList);
                     activeInput = false;

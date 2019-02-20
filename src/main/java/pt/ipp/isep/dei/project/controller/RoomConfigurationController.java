@@ -36,7 +36,7 @@ public class RoomConfigurationController {
      * This method receives the chosen device and returns a boolean true if it deactivates the device or false if it doesn't.
      *
      * @param device is the chosen device
-     * @return
+     * @return true if device was deactivated false otherwise
      */
     public boolean deactivateDevice(Device device) {
         return device.deactivate();

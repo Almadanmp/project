@@ -4,11 +4,8 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-
 import java.util.Date;
-
 import static java.lang.System.out;
-import static java.lang.System.setErr;
 
 
 public class HouseMonitoringUI {
