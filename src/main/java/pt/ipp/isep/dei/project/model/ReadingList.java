@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import java.util.*;
 
 import static java.lang.Double.NaN;
+import static java.lang.Double.min;
 
 /**
  * This is the ReadingList Class, a List of Readings that the Sensor receives.
@@ -46,20 +47,22 @@ public class ReadingList {
     }
 
 
-    /**Method that goes through every Reading in the list and
+    /**
+     * Method that goes through every Reading in the list and
      * returns the reading with the most recent Date.
+     *
      * @return most recent reading
-     * **/
-    Reading getMostRecentReading(){
-        Reading error = new Reading(NaN, new GregorianCalendar(1900,0,1).getTime());
-        if(isEmpty()){
+     **/
+    Reading getMostRecentReading() {
+        Reading error = new Reading(NaN, new GregorianCalendar(1900, 0, 1).getTime());
+        if (isEmpty()) {
             return error;
         }
         Reading recentReading = this.readings.get(0);
         Date mostRecent = recentReading.getDate();
-        for(Reading r : this.readings){
+        for (Reading r : this.readings) {
             Date testDate = r.getDate();
-            if(mostRecent.before(testDate)){
+            if (mostRecent.before(testDate)) {
                 mostRecent = testDate;
                 recentReading = r;
             }
@@ -69,10 +72,11 @@ public class ReadingList {
 
     /**
      * This method returns the most recent reading value a Reading List.
+     *
      * @return the most recent reading value or NaN when the Reading List is empty
      */
     public double getMostRecentValue() {
-        if(this.readings.isEmpty()){
+        if (this.readings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }
         return getMostRecentReading().getValue();
@@ -306,13 +310,8 @@ public class ReadingList {
      */
     double getLowestValueFromGivenList(List<Double> valueList) {
         checkIfListValid(valueList);
-        double minValue = valueList.get(0);
-        for (double value : valueList) {
-            if (minValue > value) {
-                minValue = value;
-            }
-        }
-        return minValue;
+        ArrayList<Double> arrayList = new ArrayList<>(valueList);
+        return Collections.min(arrayList);
     }
 
 
@@ -361,13 +360,8 @@ public class ReadingList {
      */
     double getHighestValueInList(List<Double> valueList) {
         checkIfListValid(valueList);
-        double highestValue = valueList.get(0);
-        for (double value : valueList) {
-            if (value > highestValue) {
-                highestValue = value;
-            }
-        }
-        return highestValue;
+        ArrayList<Double> arrayList = new ArrayList<>(valueList);
+        return Collections.max(arrayList);
     }
 
     /**
@@ -466,6 +460,7 @@ public class ReadingList {
 
     /**
      * This method returns the Maximum Value of the Reading of a Given Day.
+     *
      * @param dateGiven date given
      * @return get maximum value reading in a given day
      */
@@ -484,9 +479,9 @@ public class ReadingList {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         Date endDay = cal.getTime();
-        ReadingList dayReadings = matchByDate(beginDay,endDay);
+        ReadingList dayReadings = matchByDate(beginDay, endDay);
 
-        if(dayReadings.isEmpty()){
+        if (dayReadings.isEmpty()) {
             throw new IllegalArgumentException("The day given has no readings.");
         }
         double maxValue = dayReadings.getListOfReadings().get(0).getValue();
@@ -500,20 +495,19 @@ public class ReadingList {
     /**
      * This method receives two dates and checks the readings to match those that
      * have a date contained in the interval given as parameter
+     *
      * @return list of readings contained in interval given as parameter
      */
-    ReadingList matchByDate(Date beginDate, Date endDate){
+    ReadingList matchByDate(Date beginDate, Date endDate) {
         ReadingList finalList = new ReadingList();
-        for(Reading r : this.readings){
+        for (Reading r : this.readings) {
             Date readingDate = r.getDate();
-            if(readingDate.after(beginDate) && readingDate.before(endDate)){
+            if (readingDate.after(beginDate) && readingDate.before(endDate)) {
                 finalList.addReading(r);
             }
         }
         return finalList;
     }
-
-
 
 
     boolean checkIfListValid(List<Double> values) {
