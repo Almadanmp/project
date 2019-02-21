@@ -1,0 +1,53 @@
+@startuml
+
+title US03 \n Create a Geographic Area \n Success Case
+
+autonumber
+
+actor Admin
+
+Admin -> MainUI: start program
+activate MainUI
+MainUI --> Admin: Show Menu
+Admin -> MainUI: Select Option GeographicAreaSettings
+MainUI -> ":GeographicAreaList": GeographicAreaList gAL = new GeographicAreaList()
+activate ":GeographicAreaSettingsUI"
+":GeographicAreaSettingsUI" --> MainUI: Show Menu
+Admin ->  ":GeographicAreaSettingsUI": Select Option Create Geographic Area
+Ref over  ":GeographicAreaSettingsUI"
+get Geographic Area Types: US02
+end ref
+":GeographicAreaSettingsUI" --> Admin: Show Type of Geographic Areas
+ Admin ->  ":GeographicAreaSettingsUI": Select Geographic Area type
+Ref over ":GeographicAreaSettingsUI":
+Title: receiving data for the new Geographic Area
+":GeographicAreaSettingsUI" --> Admin: Request name for Geographic Area
+Admin -> ":GeographicAreaSettingsUI": geographic area name
+":GeographicAreaSettingsUI" --> Admin: Request latitude for Geographic Area
+Admin -> ":GeographicAreaSettingsUI": geographic area latitude
+":GeographicAreaSettingsUI" --> Admin: Request longitude for Geographic Area
+Admin -> ":GeographicAreaSettingsUI": geographic area longitude
+":GeographicAreaSettingsUI" --> Admin: Request altitude for Geographic Area
+Admin -> ":GeographicAreaSettingsUI": geographic area altitude
+":GeographicAreaSettingsUI" --> Admin: Request length for Geographic Area
+Admin -> ":GeographicAreaSettingsUI": geographic area length
+":GeographicAreaSettingsUI" --> Admin: Request latitude for Geographic Area
+Admin -> ":GeographicAreaSettingsUI": geographic area latitude
+
+
+
+
+
+":GeographicAreaSettingsUI" --> ":GeographicAreaController":
+
+
+
+
+
+
+MainUI -> Admin: show option menu
+
+deactivate MainUI
+
+
+@enduml
