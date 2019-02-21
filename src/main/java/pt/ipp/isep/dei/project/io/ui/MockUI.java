@@ -20,13 +20,15 @@ import java.util.List;
 public class MockUI {
 
 
+    static final String GLASSES = "Glasses";
+    static final String DISHES = "Dishes";
+
     private TypeAreaList typeAreaList;
     private TypeSensorList typeSensorList;
     private GeographicAreaList geoAreaList;
 
     //GLOBAL VARIABLES TO BE USED BY CLASS METHODS
     private GeographicArea geoAreaIsep;
-    private GeographicArea geoAreaPorto;
 
     private TypeArea urbanArea;
     private TypeArea city;
@@ -34,10 +36,6 @@ public class MockUI {
     private TypeSensor rainfallST;
     private TypeSensor temperatureST;
     private TypeSensor humidityST;
-
-
-    public MockUI() {
-    }
 
 //Getter Methods to use on MAINUI
 
@@ -60,7 +58,7 @@ public class MockUI {
     }
 
 
-    public TypeAreaList mockTypeAreaList() {
+    private TypeAreaList mockTypeAreaList() {
         TypeAreaList mockTypeAreaList = new TypeAreaList();
         this.urbanArea = new TypeArea("Urban Area");
         this.city = new TypeArea("City");
@@ -70,7 +68,7 @@ public class MockUI {
         return mockTypeAreaList;
     }
 
-    public TypeSensorList mockTypeSensorList() {
+    private TypeSensorList mockTypeSensorList() {
         TypeSensorList mockTypeSensorList = new TypeSensorList();
 
         this.rainfallST = new TypeSensor("rainfall", "l/m2");
@@ -86,7 +84,7 @@ public class MockUI {
 
     }
 
-    public GeographicAreaList mockGeographicAreaList() {
+    private GeographicAreaList mockGeographicAreaList() {
         GeographicAreaList mockGeographicAreaList = new GeographicAreaList();
 
         //ISEP GEOGRAPHIC AREA//
@@ -103,15 +101,14 @@ public class MockUI {
         geoAreaIsep.addSensorToSensorList(temperatureIsepSensor);
 
         //PORTO GEOGRAPHIC AREA//
-        this.geoAreaPorto = new GeographicArea("City of Porto", this.city, 3.30, 10.09, new Local(41.164077, -8.620802, 118));
-        mockGeographicAreaList.addGeographicArea(this.geoAreaPorto);
+        GeographicArea geoAreaPorto = new GeographicArea("City of Porto", this.city, 3.30, 10.09, new Local(41.164077, -8.620802, 118));
+        mockGeographicAreaList.addGeographicArea(geoAreaPorto);
 
         return mockGeographicAreaList;
     }
 
-    public House mockHouse(int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
-        GeographicArea geoArea = this.geoAreaIsep;
-        House mockHouse = new House("Edificio B", new Address("Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto"), new Local(41.177748, -8.607745, 112), geoArea, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+    House mockHouse(int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
+        House mockHouse = new House("Edificio B", new Address("Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto"), new Local(41.177748, -8.607745, 112), this.geoAreaIsep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         EnergyGrid mainGrid = new EnergyGrid("Main Grid", 0);
         EnergyGridList mockEGList = new EnergyGridList();
         mockEGList.addGrid(mainGrid);
@@ -155,18 +152,12 @@ public class MockUI {
         dW107.setName("Dishwasher B107");
         dW107.setNominalPower(1.5);
         dW107.setAttributeValue(DishwasherSpec.DW_CAPACITY, 0D); // NOT SPECIFIED ON GIVEN MOCK DATA
-        Program glassesProgram = new Program("Glasses", 0.0, 0.9); //duration not specified on given mock data
-        Program ecoProgram = new Program("Eco", 0.0, 1.3);//duration not specified on given mock data
-        Program ecoTurboProgram = new Program("Eco Turbo", 0.0, 1.7);//duration not specified on given mock data
-        Program dishesProgram = new Program("Dishes", 0.0, 2.1);//duration not specified on given mock data
-
-        dW107.getProgramList().addProgram(glassesProgram);
-        dW107.getProgramList().addProgram(ecoProgram);
-        dW107.getProgramList().addProgram(ecoTurboProgram);
-        dW107.getProgramList().addProgram(dishesProgram);
+        dW107.getProgramList().addProgram(new Program(GLASSES, 0.0, 0.9)); //duration not specified on given mock data
+        dW107.getProgramList().addProgram(new Program("Eco", 0.0, 1.3));//duration not specified on given mock data
+        dW107.getProgramList().addProgram(new Program("Eco Turbo", 0.0, 1.7));//duration not specified on given mock data
+        dW107.getProgramList().addProgram(new Program(DISHES, 0.0, 2.1));//duration not specified on given mock data
 
         createDw107Logs(dW107);
-
         roomB107.addDevice(dW107);
 
         WashingMachine wM107 = new WashingMachine(new WashingMachineSpec());
@@ -210,10 +201,10 @@ public class MockUI {
         dW109.setName("Dishwasher B109");
         dW109.setNominalPower(1.5);
         dW109.setAttributeValue(DishwasherSpec.DW_CAPACITY, 0D); // NOT SPECIFIED ON GIVEN MOCK DATA
-        dW109.getProgramList().addProgram(new Program("Glasses", 0.0, 0.9)); //duration not specified on given mock data
+        dW109.getProgramList().addProgram(new Program(GLASSES, 0.0, 0.9)); //duration not specified on given mock data
         dW109.getProgramList().addProgram(new Program("Eco", 0.0, 1.3));//duration not specified on given mock data
         dW109.getProgramList().addProgram(new Program("Eco Turbo", 0.0, 1.7));//duration not specified on given mock data
-        dW109.getProgramList().addProgram(new Program("Dishes", 0.0, 2.1));//duration not specified on given mock data
+        dW109.getProgramList().addProgram(new Program(DISHES, 0.0, 2.1));//duration not specified on given mock data
         roomB109.addDevice(dW109);
 
 
@@ -246,10 +237,10 @@ public class MockUI {
         dW106.setName("Dishwasher B106");
         dW106.setNominalPower(1.4);
         dW106.setAttributeValue(DishwasherSpec.DW_CAPACITY, 0D); // NOT SPECIFIED ON GIVEN MOCK DATA
-        dW106.getProgramList().addProgram(new Program("Glasses", 0.0, 0.8));//duration not specified on given mock data
+        dW106.getProgramList().addProgram(new Program(GLASSES, 0.0, 0.8));//duration not specified on given mock data
         dW106.getProgramList().addProgram(new Program("Light", 0.0, 1.3));//duration not specified on given mock data
         dW106.getProgramList().addProgram(new Program("Light Turbo", 0.0, 1.9));//duration not specified on given mock data
-        dW106.getProgramList().addProgram(new Program("Dishes", 0.0, 2.3));//duration not specified on given mock data
+        dW106.getProgramList().addProgram(new Program(DISHES, 0.0, 2.3));//duration not specified on given mock data
         roomB106.addDevice(dW106);
 
         return roomB106;
@@ -279,7 +270,7 @@ public class MockUI {
 
     }
 
-    public void createDw107Logs(Dishwasher dW107) {
+    private void createDw107Logs(Dishwasher dW107) {
         dW107.addLog(new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 12, 59).getTime()));
         dW107.addLog(new Log(0.3, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 14).getTime()));
         dW107.addLog(new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 13, 29).getTime()));
@@ -292,7 +283,7 @@ public class MockUI {
         dW107.addLog(new Log(0.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 22, 0).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 22, 14).getTime()));
     }
 
-    public void createwM107Logs(WashingMachine wM107) {
+    private void createwM107Logs(WashingMachine wM107) {
         wM107.addLog(new Log(0.1, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 15).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 29).getTime()));
         wM107.addLog(new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 30).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 44).getTime()));
         wM107.addLog(new Log(0.375, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 45).getTime(), new GregorianCalendar(2018, Calendar.DECEMBER, 31, 10, 59).getTime()));
@@ -359,7 +350,7 @@ public class MockUI {
         temperatureIsepSensor.addReading(new Reading(8.3, new GregorianCalendar(2019, Calendar.JANUARY, 2, 20, 0).getTime()));
     }
 
-    public void createTemperatureSensorB109Readings(Sensor temperatureSensorB109) {
+    private void createTemperatureSensorB109Readings(Sensor temperatureSensorB109) {
         //TODO Check Reading values from jason file
         temperatureSensorB109.addReading(new Reading(14, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 2, 0).getTime()));
         temperatureSensorB109.addReading(new Reading(14, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 2, 0).getTime()));
@@ -380,7 +371,7 @@ public class MockUI {
         temperatureSensorB109.addReading(new Reading(12.8, new GregorianCalendar(2019, Calendar.JANUARY, 2, 20, 0).getTime()));
     }
 
-    public void createHumiditySensorB109Readings(Sensor humiditySensorB109) {
+    private void createHumiditySensorB109Readings(Sensor humiditySensorB109) {
         //TODO Check Reading values from jason file
         humiditySensorB109.addReading(new Reading(84, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 2, 0).getTime()));
         humiditySensorB109.addReading(new Reading(85.7, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 8, 0).getTime()));
