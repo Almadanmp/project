@@ -20,8 +20,8 @@ import java.util.List;
 public class MockUI {
 
 
-    static final String GLASSES = "Glasses";
-    static final String DISHES = "Dishes";
+    private static final String GLASSES = "Glasses";
+    private static final String DISHES = "Dishes";
 
     private TypeAreaList typeAreaList;
     private TypeSensorList typeSensorList;
@@ -39,19 +39,19 @@ public class MockUI {
 
 //Getter Methods to use on MAINUI
 
-    public TypeAreaList getTypeAreaList() {
+    TypeAreaList getTypeAreaList() {
         return typeAreaList;
     }
 
-    public TypeSensorList getTypeSensorList() {
+    TypeSensorList getTypeSensorList() {
         return typeSensorList;
     }
 
-    public GeographicAreaList getGeoAreaList() {
+    GeographicAreaList getGeoAreaList() {
         return geoAreaList;
     }
 
-    public void initializeMockUI() {
+    void initializeMockUI() {
         this.typeAreaList = mockTypeAreaList();
         this.typeSensorList = mockTypeSensorList();
         this.geoAreaList = mockGeographicAreaList();
@@ -185,6 +185,8 @@ public class MockUI {
 
         Sensor humiditySensorB109 = new Sensor("Humidity B109", this.humidityST, new GregorianCalendar(2018, Calendar.NOVEMBER, 22).getTime());
         room2SL.addSensor(humiditySensorB109);
+
+        roomB109.setSensorList(room2SL);
 
         createHumiditySensorB109Readings(humiditySensorB109);
 
@@ -351,8 +353,6 @@ public class MockUI {
     }
 
     private void createTemperatureSensorB109Readings(Sensor temperatureSensorB109) {
-        //TODO Check Reading values from jason file
-        temperatureSensorB109.addReading(new Reading(14, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 2, 0).getTime()));
         temperatureSensorB109.addReading(new Reading(14, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 2, 0).getTime()));
         temperatureSensorB109.addReading(new Reading(13.7, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 8, 0).getTime()));
         temperatureSensorB109.addReading(new Reading(16.5, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 14, 0).getTime()));
@@ -372,7 +372,6 @@ public class MockUI {
     }
 
     private void createHumiditySensorB109Readings(Sensor humiditySensorB109) {
-        //TODO Check Reading values from jason file
         humiditySensorB109.addReading(new Reading(84, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 2, 0).getTime()));
         humiditySensorB109.addReading(new Reading(85.7, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 8, 0).getTime()));
         humiditySensorB109.addReading(new Reading(76.5, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 14, 0).getTime()));
