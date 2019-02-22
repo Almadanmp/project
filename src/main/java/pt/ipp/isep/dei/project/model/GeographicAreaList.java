@@ -68,7 +68,7 @@ public class GeographicAreaList {
     }
 
     /**
-     * Method to check if a GA can be Created (if it has at least a different attribute from the following (name,
+     * Method to check if a GA not exists and can be Created (if it has at least a different attribute from the following (name,
      * typearea or local)
      *
      * @param newName   -
@@ -78,7 +78,7 @@ public class GeographicAreaList {
      * @param altitude
      * @return will return true if can be added and false if it cannot be added
      */
-    public boolean checkIfGAExists(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
+    public boolean checkIfGANotExists(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
         Local newLocal = new Local(latitude, longitude, altitude);
         for (GeographicArea ga : geographicAreas) {
             if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {

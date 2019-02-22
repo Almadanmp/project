@@ -1,26 +1,11 @@
 @startuml
 
-title US03 \n Create a Geographic Area \n Success Case
+title US03 \n Create a Geographic Area \n Receive and set data for the new geographic area
 
 autonumber
 
 actor Admin
 
-Admin -> MainUI: start program
-activate MainUI
-MainUI --> Admin: Show Menu
-Admin -> MainUI: Select Option GeographicAreaSettings
-MainUI -> ":GeographicAreaList": GeographicAreaList gAL = new GeographicAreaList()
-activate ":GeographicAreaSettingsUI"
-":GeographicAreaSettingsUI" --> MainUI: Show Menu
-Admin ->  ":GeographicAreaSettingsUI": Select Option Create Geographic Area
-Ref over  ":GeographicAreaSettingsUI"
-get Geographic Area Types: US02
-end ref
-":GeographicAreaSettingsUI" --> Admin: Show Type of Geographic Areas
- Admin ->  ":GeographicAreaSettingsUI": Select geographic area type
-Ref over ":GeographicAreaSettingsUI":
-Title: receiving data for the new geographic area
 ":GeographicAreaSettingsUI" --> Admin: Request name for geographic area
 Admin -> ":GeographicAreaSettingsUI": geographic area name
 ":GeographicAreaSettingsUI" --> Admin: Request latitude for geographic area
@@ -38,25 +23,7 @@ Admin -> ":GeographicAreaSettingsUI": geographic area width
 Admin -> ":GeographicAreaSettingsUI": geographic area width
 ":GeographicAreaSettingsUI" --> Admin: Ask user if he would like to insert a \n geographic area description
 Admin -> ":GeographicAreaSettingsUI": answer "yes"
-":GeographicAreaSettingsUI" --> Admin: Request
-
-
-
-
-
-
-
-
-":GeographicAreaSettingsUI" --> ":GeographicAreaController":
-
-
-
-
-
-
-MainUI -> Admin: show option menu
-
-deactivate MainUI
-
+":GeographicAreaSettingsUI" --> Admin: Request geographic area description
+Admin -> ":GeographicAreaSettingsUI": geographic area description
 
 @enduml

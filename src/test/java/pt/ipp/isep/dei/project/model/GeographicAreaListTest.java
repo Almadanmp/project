@@ -489,7 +489,7 @@ class GeographicAreaListTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         gAL1.addGeographicArea(c);
-        boolean result = gAL1.checkIfGAExists("Porto", t1, 38, 7, 100);
+        boolean result = gAL1.checkIfGANotExists("Porto", t1, 38, 7, 100);
         assertFalse(result);
     }
 
@@ -500,7 +500,7 @@ class GeographicAreaListTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         gAL1.addGeographicArea(c);
-        boolean result = gAL1.checkIfGAExists("Lisboa", t1, 38, 7, 100);
+        boolean result = gAL1.checkIfGANotExists("Lisboa", t1, 38, 7, 100);
         assertTrue(result);
     }
 
@@ -508,7 +508,7 @@ class GeographicAreaListTest {
     void checkIfGAExistsIfEmptyList() {
         GeographicAreaList gAL1 = new GeographicAreaList();
         TypeArea t1 = new TypeArea("Rua");
-        boolean result = gAL1.checkIfGAExists("Lisboa", t1, 38, 7, 100);
+        boolean result = gAL1.checkIfGANotExists("Lisboa", t1, 38, 7, 100);
         assertTrue(result);
     }
 

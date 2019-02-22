@@ -138,7 +138,7 @@ class GASettingsUI {
             return;
         }
         boolean created = getAreaInputUS03(geographicAreaList, typeAreaList);
-        displayStateUS03(created);
+        generateResultUS03(created);
     }
 
     private boolean getAreaInputUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
@@ -164,10 +164,10 @@ class GASettingsUI {
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
         }
-        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoLocal, geoAreaLength, geoAreaWidth);
+        return controller.addGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoLocal, geoAreaLength, geoAreaWidth);
     }
 
-    private void displayStateUS03(boolean created) {
+    private void generateResultUS03(boolean created) {
         if (created) {
             System.out.print("The Geographic Area has been successfully added.");
         } else
