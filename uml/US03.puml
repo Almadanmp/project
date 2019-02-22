@@ -18,21 +18,30 @@ Ref over  ":GeographicAreaSettingsUI"
 get Geographic Area Types: US02
 end ref
 ":GeographicAreaSettingsUI" --> Admin: Show Type of Geographic Areas
- Admin ->  ":GeographicAreaSettingsUI": Select Geographic Area type
+ Admin ->  ":GeographicAreaSettingsUI": Select geographic area type
 Ref over ":GeographicAreaSettingsUI":
-Title: receiving data for the new Geographic Area
-":GeographicAreaSettingsUI" --> Admin: Request name for Geographic Area
+Title: receiving data for the new geographic area
+":GeographicAreaSettingsUI" --> Admin: Request name for geographic area
 Admin -> ":GeographicAreaSettingsUI": geographic area name
-":GeographicAreaSettingsUI" --> Admin: Request latitude for Geographic Area
+":GeographicAreaSettingsUI" --> Admin: Request latitude for geographic area
 Admin -> ":GeographicAreaSettingsUI": geographic area latitude
-":GeographicAreaSettingsUI" --> Admin: Request longitude for Geographic Area
+":GeographicAreaSettingsUI" --> Admin: Request longitude for geographic area
 Admin -> ":GeographicAreaSettingsUI": geographic area longitude
-":GeographicAreaSettingsUI" --> Admin: Request altitude for Geographic Area
+":GeographicAreaSettingsUI" --> Admin: Request altitude for geographic area
 Admin -> ":GeographicAreaSettingsUI": geographic area altitude
-":GeographicAreaSettingsUI" --> Admin: Request length for Geographic Area
+":GeographicAreaSettingsUI" --> Admin: Request length for geographic area
 Admin -> ":GeographicAreaSettingsUI": geographic area length
-":GeographicAreaSettingsUI" --> Admin: Request latitude for Geographic Area
-Admin -> ":GeographicAreaSettingsUI": geographic area latitude
+":GeographicAreaSettingsUI" --> Admin: Request width for geographic area
+Admin -> ":GeographicAreaSettingsUI": geographic area width
+":GeographicAreaSettingsUI" --> Admin: Request width for geographic area
+Admin -> ":GeographicAreaSettingsUI": geographic area width
+Admin -> ":GeographicAreaSettingsUI": geographic area width
+":GeographicAreaSettingsUI" --> Admin: Ask user if he would like to insert a \n geographic area description
+Admin -> ":GeographicAreaSettingsUI": answer "yes"
+":GeographicAreaSettingsUI" --> Admin: Request
+
+
+
 
 
 
