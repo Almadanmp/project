@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,7 +33,7 @@ class SensorTest {
     @BeforeEach
     void arrangeArtifacts() {
         validTypeArea1 = new TypeArea("Country");
-        validLocal1 = new Local(38,7,5);
+        validLocal1 = new Local(38, 7, 5);
         validTypeSensor1 = new TypeSensor("Temperature", "Celsius");
         validSdf1 = new SimpleDateFormat("dd/MM/yyyy");
         validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -48,7 +50,7 @@ class SensorTest {
     void seeIfConstructorSetsTypeArea() {
         //Arrange
         TypeSensor actualResult;
-        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
 
         //Act
         actualResult = c.getTypeSensor();
@@ -58,23 +60,10 @@ class SensorTest {
     }
 
     @Test
-    void seeIfConstructorSetsDate() {
-        //Arrange
-        Date actualResult;
-        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
-
-        //Act
-        actualResult = c.getDateStartedFunctioning();
-
-        //Assert
-        assertEquals(validDate1, actualResult);
-    }
-
-    @Test
     void seeIfSecondConstructorSetsTypeArea() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
         c.setReadingList(rl1);
 
         //Act
@@ -85,23 +74,10 @@ class SensorTest {
     }
 
     @Test
-    void seeIfSecondConstructorSetsDate() {
-        //Arrange
-        ReadingList rl1 = new ReadingList();
-        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
-        c.setReadingList(rl1);
-        //Act
-        Date actualResult = c.getDateStartedFunctioning();
-
-        //Assert
-        assertEquals(validDate1, actualResult);
-    }
-
-    @Test
     void seeIfSecondConstructorSetsLocal() {
         //Arrange
         ReadingList rl1 = new ReadingList();
-        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1, validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
         c.setReadingList(rl1);
         //Act
         Local actualResult = c.getLocal();
@@ -113,7 +89,7 @@ class SensorTest {
     @Test
     void seeIfSetGetNameWorks() {
         //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
         c.setName("XXB6");
         String expectedResult = "XXB6";
         String actualResult;
@@ -128,7 +104,7 @@ class SensorTest {
     @Test
     void seeIfSetGetNameWorksWithoutSet() {
         //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
         //Act
         String actualResult = c.getName();
 
@@ -139,7 +115,7 @@ class SensorTest {
     @Test
     void seeIfNullSensorNameThrowsStringMessage() {
         //Arrange
-        Sensor c = new Sensor(validName1, validTypeSensor1,validLocal1,validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
 
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -153,7 +129,7 @@ class SensorTest {
     @Test
     void seeIfEmptySensorNameThrowsException() {
         //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
 
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -168,7 +144,7 @@ class SensorTest {
     @Test
     void seeIfSetGetLocalWorks() {
         //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
         Local testLocal = new Local(34, 2, 110);
         Local expectedResult = new Local(34, 2, 110);
         Local actualResult;
@@ -184,7 +160,7 @@ class SensorTest {
     @Test
     void seeIfSetGetLocalWorksWithoutSet() {
         //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1, new Local(12, 31, 21),validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, new Local(12, 31, 21), validDate1);
         Local expectedResult = new Local(12, 31, 21);
         Local actualResult;
 
@@ -198,7 +174,7 @@ class SensorTest {
     @Test
     void seeIfGetSetTypeSensorWorks() {
         //Arrange
-        Sensor c = new Sensor(validName1, new TypeSensor("Wind Pressure", "km/h"),validLocal1,validDate1);
+        Sensor c = new Sensor(validName1, new TypeSensor("Wind Pressure", "km/h"), validLocal1, validDate1);
         TypeSensor expectedResult = validTypeSensor1;
         TypeSensor actualResult;
 
@@ -211,25 +187,11 @@ class SensorTest {
     }
 
     @Test
-    void seeIfGetSetDateStartedFunctioningWorks() {
-        //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
-        Date expectedResult = validDate2;
-
-        //Act
-        c.setDateStartedFunctioning(validDate2);
-        Date actualResult = c.getDateStartedFunctioning();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfSeTAndGetReadingList() {
         //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
         ReadingList rList1 = new ReadingList();
-        Reading reading1 = new Reading(15,validDate2);
+        Reading reading1 = new Reading(15, validDate2);
         rList1.addReading(reading1);
 
         //Act
@@ -243,7 +205,7 @@ class SensorTest {
     @Test
     void seeIfEqualsWorksNotAnInstanceFalse() {
         //Arrange
-        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
         Local l1 = new Local(21, 23, 1);
 
         //Act
@@ -256,8 +218,8 @@ class SensorTest {
     @Test
     void seeIfEqualsWorksFalseDifferentSensor() {
         //Arrange
-        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
-        Sensor s2 = new Sensor("Temperature Sensor XX56",validTypeSensor1,validLocal1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
+        Sensor s2 = new Sensor("Temperature Sensor XX56", validTypeSensor1, validLocal1, validDate1);
 
         //Act
         boolean actualResult = s1.equals(s2);
@@ -270,8 +232,8 @@ class SensorTest {
     @Test
     void seeIfEqualsWorksFalseDifferentName() {
         //Arrange
-        Sensor s1 = new Sensor("Wind Sensor 1",validTypeSensor1,validLocal1,validDate1);
-        Sensor s2 = new Sensor("Rain Sensor 1",validTypeSensor1,validLocal1,validDate1);
+        Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
+        Sensor s2 = new Sensor("Rain Sensor 1", validTypeSensor1, validLocal1, validDate1);
         boolean expectedResult = false;
         boolean actualResult;
 
@@ -286,8 +248,8 @@ class SensorTest {
     @Test
     void seeIfEqualsWorksTrueSameSensor() {
         //Arrange
-        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate2);
-        Sensor s2 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate2);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate2);
+        Sensor s2 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate2);
         boolean expectedResult = true;
 
         //Act
@@ -300,8 +262,8 @@ class SensorTest {
     @Test
     void seeIfEqualsWorksTrueSameName() {
         //Arrange
-        Sensor s1 = new Sensor(validName1, new TypeSensor("Atmosphere", "km/h"),validLocal1,validDate2);
-        Sensor s2 = new Sensor(validName1, new TypeSensor("Rain", "mm"),validLocal1,validDate2);
+        Sensor s1 = new Sensor(validName1, new TypeSensor("Atmosphere", "km/h"), validLocal1, validDate2);
+        Sensor s2 = new Sensor(validName1, new TypeSensor("Rain", "mm"), validLocal1, validDate2);
         boolean expectedResult = true;
 
         //Act
@@ -315,7 +277,7 @@ class SensorTest {
     @Test
     void hashCodeDummyTest() {
         //Arrange
-        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
         int expectedResult = 1;
 
         //Act
@@ -331,8 +293,8 @@ class SensorTest {
         //Arrange
         Local l1 = new Local(23, 46, 5);
         Local l2 = new Local(25, 47, 5);
-        Sensor s1 = new Sensor("Sensor1",validTypeSensor1, l1,validDate1);
-        Sensor s2 = new Sensor("Sensor2",validTypeSensor1, l2,validDate1);
+        Sensor s1 = new Sensor("Sensor1", validTypeSensor1, l1, validDate1);
+        Sensor s2 = new Sensor("Sensor2", validTypeSensor1, l2, validDate1);
         double expectedResult = 244;
 
         //Act
@@ -343,70 +305,12 @@ class SensorTest {
     }
 
     @Test
-    void seeGetMeanOfMonthThroughSensor() {
-        //Arrange
-        ReadingList rList = new ReadingList();
-        Sensor sensor1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate2);
-        sensor1.setReadingList(rList);
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date d3 = new Date();
-        Date d4 = new Date();
-        Date d5 = new Date();
-        Date d6 = new Date();
-        Date d7 = new Date();
-        Date d8 = new Date();
-        Date d9 = new Date();
-        Date dateToTest = new Date();
-        try {
-            d1 = validSdf2.parse("31/09/2018 23:59:59");
-            d2 = validSdf2.parse("01/10/2018 00:00:00");
-            d3 = validSdf2.parse("23/10/2018 23:26:21");
-            d4 = validSdf2.parse("27/10/2018 08:21:22");
-            d5 = validSdf2.parse("23/10/2018 18:14:03");
-            d6 = validSdf2.parse("23/10/2018 12:14:23");
-            d7 = validSdf2.parse("28/10/2018 12:12:12");
-            d8 = validSdf2.parse("30/10/2018 23:59:59");
-            d9 = validSdf2.parse("01/11/2018 00:00:00");
-            dateToTest = validSdf2.parse("07/10/2018 00:00:00");
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
-        Reading r0 = new Reading(23, d1);
-        Reading r1 = new Reading(23, d2);
-        Reading r2 = new Reading(24, d3);
-        Reading r3 = new Reading(25, d4);
-        Reading r4 = new Reading(26, d5);
-        Reading r5 = new Reading(23, d6);
-        Reading r6 = new Reading(22, d7);
-        Reading r7 = new Reading(23, d8);
-        Reading r8 = new Reading(22, d9);
-        rList.addReading(r0);
-        rList.addReading(r1);
-        rList.addReading(r2);
-        rList.addReading(r3);
-        rList.addReading(r4);
-        rList.addReading(r5);
-        rList.addReading(r6);
-        rList.addReading(r7);
-        rList.addReading(r8);
-
-        double expectedResult = 23.71;
-
-        //Act
-        double result = sensor1.calculateMonthMeanOnSensor(sensor1, dateToTest);
-
-        //Assert
-        assertEquals(expectedResult, result, 0.1);
-    }
-
-    @Test
     void seeIfSensorIsContainedInArea() {
         //Arrange
         Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, loc1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, loc1);
         Local loc2 = new Local(20, 20, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc2,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
 
         //Act
         a1.setWidth(20);
@@ -421,9 +325,9 @@ class SensorTest {
     void seeIfSensorIsContainedInAreaNegative() {
         //Arrange
         Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, loc1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, -10, -20, loc1);
         Local loc2 = new Local(20, 20, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc2,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
 
         //Act
         a1.setWidth(20);
@@ -438,9 +342,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnTheEdge() {
         //Arrange
         Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, loc1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, loc1);
         Local loc2 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1,loc2,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
 
         //Act
         a1.setWidth(20);
@@ -455,9 +359,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnTheEdgeNegative() {
         //Arrange
         Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, loc1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, -10, -20, loc1);
         Local loc2 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1,loc2,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
 
         //Act
         a1.setWidth(20);
@@ -472,9 +376,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnUpperRightVertex() {
         //Arrange
         Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, loc1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, loc1);
         Local loc2 = new Local(30, 30, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc2,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
 
         //Act
         a1.setWidth(20);
@@ -489,9 +393,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnUpperLeftVertex() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(21);
@@ -506,9 +410,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnBottomLeftVertex() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 10, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(25);
@@ -523,9 +427,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnBottomRightVertex() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(30, 10, 5);
-        Sensor s1 = new Sensor("XV56-LD1",validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(23);
@@ -540,9 +444,9 @@ class SensorTest {
     void seeIfSensorIsNotContainedInAreaWrongLatitude() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(35, 20, 5);
-        Sensor s1 = new Sensor("XV56-LD1",validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(21);
@@ -557,9 +461,9 @@ class SensorTest {
     void seeIfSensorIsNotContainedInAreaWrongLatitudeNegative() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, -10, -20, l1);
         Local loc1 = new Local(35, 20, 5);
-        Sensor s1 = new Sensor("XV56-LD1",validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(21);
@@ -574,9 +478,9 @@ class SensorTest {
     void seeIfSensorIsNotContainedInAreaWrongLongitude() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(100, 100, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(10);
@@ -591,9 +495,9 @@ class SensorTest {
     void seeIfSensorIsNotContainedInAreaWrongLongitudeNegative() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, -10, -20, l1);
         Local loc1 = new Local(100, 20, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(10);
@@ -608,9 +512,9 @@ class SensorTest {
     void seeIfSensorIsContainedInAreaNegativeCoords() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(-5, -5, -5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(50);
@@ -625,9 +529,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnTheEdge2() {
         //Arrange
         Local l1 = new Local(0, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(20);
@@ -642,9 +546,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnTheEdge2Negative() {
         //Arrange
         Local l1 = new Local(0, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, -10, -20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, -10, -20, l1);
         Local loc1 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(20);
@@ -659,9 +563,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnUpperRightVertex2() {
         //Arrange
         Local l1 = new Local(40, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(30, 30, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(20);
@@ -676,9 +580,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnUpperLeftVertex2() {
         //Arrange
         Local l1 = new Local(0, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(21);
@@ -693,9 +597,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnBottomLeftVertex2() {
         //Arrange
         Local l1 = new Local(0, 0, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(10, 10, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(25);
@@ -710,9 +614,9 @@ class SensorTest {
     void seeIfSensorIsContainedOnBottomRightVertex2() {
         //Arrange
         Local l1 = new Local(40, 0, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(30, 10, 5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(23);
@@ -727,9 +631,9 @@ class SensorTest {
     void seeIfSensorIsContainedInAreaNegativeCoords2() {
         //Arrange
         Local l1 = new Local(-30, -30, 5);
-        GeographicArea a1 = new GeographicArea("Portugal",validTypeArea1, 10, 20, l1);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
         Local loc1 = new Local(-5, -5, -5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
 
         //Act
         a1.setWidth(50);
@@ -745,8 +649,8 @@ class SensorTest {
     void seeIfPrintSensor() {
         //Arrange
 
-        Sensor s1 = new Sensor(validName1,validTypeSensor1,validLocal1,validDate1);
-        String expectedResult = validName1+", Temperature, 38.0º lat, 7.0º long\n";
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
+        String expectedResult = validName1 + ", Temperature, 38.0º lat, 7.0º long\n";
 
         //Act
         String result = s1.buildSensorString();
@@ -758,7 +662,7 @@ class SensorTest {
     @Test
     void seeIfSecondConstructorSetsTypeSensorCorretly() {
         //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1,validDate1);
+        Sensor c = new Sensor(validName1, validTypeSensor1, validDate1);
 
         //Act
         TypeSensor actualResult = c.getTypeSensor();
@@ -768,54 +672,16 @@ class SensorTest {
     }
 
     @Test
-    void SeeIfSensorIsActiveOnGivenDate() {
-        //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1,validDate1);
-        Date d2 = new Date();
-        try {
-            d2 = validSdf1.parse("10/08/2018");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        boolean expectedResult = true;
-
-        //Act
-        boolean actualResult = c.isSensorActiveOnGivenDate(d2);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void SeeIfSensorIsNotActive() {
-        //Arrange
-        Sensor c = new Sensor(validName1,validTypeSensor1,validDate1);
-        Date d2 = new Date();
-        try {
-            d2 = validSdf1.parse("07/08/2018");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        boolean expectedResult = false;
-
-        //Act
-        boolean actualResult = c.isSensorActiveOnGivenDate(d2);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void ensureThatWeGetDistanceToHouse() {
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("Casa 1", address, new Local(4, 6, 6),
-                new GeographicArea("Porto",validTypeArea1, 2, 3,
+                new GeographicArea("Porto", validTypeArea1, 2, 3,
                         new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Local loc1 = new Local(-5, -5, -5);
-        Sensor s1 = new Sensor(validName1,validTypeSensor1, loc1,validDate1);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
         double expectedResult = 1579.28;
 
         //Act
@@ -827,7 +693,7 @@ class SensorTest {
 
     @Test
     void addReadings() {
-        Sensor sensor1 = new Sensor(validName1,validTypeSensor1, validDate1);
+        Sensor sensor1 = new Sensor(validName1, validTypeSensor1, validDate1);
         Reading reading1 = new Reading(20, validDate1);
         Reading reading2 = new Reading(20, validDate2);
         Reading reading3 = new Reading(25, validDate1);

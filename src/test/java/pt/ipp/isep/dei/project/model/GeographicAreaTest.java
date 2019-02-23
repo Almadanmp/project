@@ -194,176 +194,6 @@ class GeographicAreaTest {
         assertEquals(list1, actualResult);
     }
 
-
-    @Test
-    void seeIfCalculateDistanceToDifferentGAWorks() {
-        //Arrange
-        Local l1 = new Local(23, 46, 100);
-        Local l2 = new Local(25, 47, 100);
-        TypeArea t1 = new TypeArea("Porto");
-        TypeArea t2 = new TypeArea("Braga");
-        GeographicArea ga1 = new GeographicArea("Porto", t1, 2, 3, l1);
-        GeographicArea ga2 = new GeographicArea("Porto", t2, 2, 3, l2);
-        double result = ga1.calculateDistanceToGA(ga2);
-        //Act
-        double expectedResult = 244;
-        //Assert
-        assertEquals(expectedResult, result, 1);
-    }
-
-    @Test
-    void seeIfCalculateDistanceToDifferentGAWithSameLocalizationWorks() {
-        //Arrange
-        Local l1 = new Local(23, 46, 100);
-        Local l2 = new Local(23, 46, 100);
-        TypeArea t1 = new TypeArea("Porto");
-        TypeArea t2 = new TypeArea("Braga");
-        GeographicArea ga1 = new GeographicArea("Porto", t1, 2, 3, l1);
-        GeographicArea ga2 = new GeographicArea("Porto", t2, 2, 3, l2);
-        double result = ga1.calculateDistanceToGA(ga2);
-        //Act
-        double expectedResult = 0;
-        //Assert
-        assertEquals(expectedResult, result, 1);
-    }
-
-    @Test
-    void seeIfCalculateDistanceToSameGAWorks() {
-        //Arrange
-        Local l1 = new Local(23, 46, 100);
-        Local l2 = new Local(23, 46, 100);
-        TypeArea t1 = new TypeArea("Porto");
-        TypeArea t2 = new TypeArea("Porto");
-        GeographicArea ga1 = new GeographicArea("Porto", t1, 2, 3, l1);
-        GeographicArea ga2 = new GeographicArea("Porto", t2, 2, 3, l2);
-        double result = ga1.calculateDistanceToGA(ga2);
-        //Act
-        double expectedResult = 0;
-        //Assert
-        assertEquals(expectedResult, result, 1);
-    }
-
-    @Test
-    void seeThatWeGetMostRecentReadingValueOfACertainTypeOfSensor() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3).getTime());
-        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4).getTime());
-        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1).getTime());
-        readingList.addReading(r1);
-        readingList.addReading(r2);
-        readingList.addReading(r3);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime());
-        s1.setReadingList(readingList);
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 2, 3, new Local(16, 17, 18));
-        ga1.setSensorList(new SensorList(s1));
-        double expectedResult = 19;
-        //Act
-        double result = ga1.getMostRecentReadingValue("Temperatura");
-        //Assert
-        assertEquals(expectedResult, result, 0.01);
-
-    }
-
-    @Test
-    void seeThatWeGetMostRecentReadingValueOfACertainTypeOfSensorWithMultipleSensorsOfSameType() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3).getTime());
-        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4).getTime());
-        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1).getTime());
-        ReadingList readingList2 = new ReadingList();
-        Reading r4 = new Reading(20, new GregorianCalendar(2018, 12, 20).getTime());
-        Reading r5 = new Reading(25, new GregorianCalendar(2018, 12, 2).getTime());
-        Reading r6 = new Reading(45, new GregorianCalendar(2018, 12, 1).getTime());
-        readingList.addReading(r1);
-        readingList.addReading(r2);
-        readingList.addReading(r3);
-        readingList2.addReading(r4);
-        readingList2.addReading(r5);
-        readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime());
-        s1.setReadingList(readingList);
-        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Temperatura", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime());
-        s2.setReadingList(readingList2);
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 2, 3, new Local(16, 17, 18));
-        ga1.setSensorList(sensorList);
-        double expectedResult = 20;
-        //Act
-        double result = ga1.getMostRecentReadingValue("Temperatura");
-        //Assert
-        assertEquals(expectedResult, result, 0.01);
-    }
-
-    @Test
-    void seeThatWeGetMostRecentReadingValueOfACertainTypeOfSensorWithMultipleSensorsOfDifferentType() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3).getTime());
-        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 21).getTime());
-        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1).getTime());
-        ReadingList readingList2 = new ReadingList();
-        Reading r4 = new Reading(20, new GregorianCalendar(2018, 12, 20).getTime());
-        Reading r5 = new Reading(25, new GregorianCalendar(2018, 12, 2).getTime());
-        Reading r6 = new Reading(45, new GregorianCalendar(2018, 12, 1).getTime());
-        readingList.addReading(r1);
-        readingList.addReading(r2);
-        readingList.addReading(r3);
-        readingList2.addReading(r4);
-        readingList2.addReading(r5);
-        readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime());
-        s1.setReadingList(readingList);
-        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade", "l/m2"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime());
-        s2.setReadingList(readingList2);
-        SensorList sensorList = new SensorList(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 2, 3, new Local(16, 17, 18));
-        ga1.setSensorList(sensorList);
-        double expectedResult = 19;
-        //Act
-        double result = ga1.getMostRecentReadingValue("Temperatura");
-        //Assert
-        assertEquals(expectedResult, result, 0.01);
-
-    }
-
-    @Test
-    void seeThatWeRemoveAListWithAnotherType() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 3).getTime());
-        Reading r2 = new Reading(19, new GregorianCalendar(2018, 12, 4).getTime());
-        Reading r3 = new Reading(17, new GregorianCalendar(2018, 12, 1).getTime());
-        ReadingList readingList2 = new ReadingList();
-        Reading r4 = new Reading(20, new GregorianCalendar(2018, 12, 20).getTime());
-        Reading r5 = new Reading(25, new GregorianCalendar(2018, 12, 2).getTime());
-        Reading r6 = new Reading(45, new GregorianCalendar(2018, 12, 1).getTime());
-        readingList.addReading(r1);
-        readingList.addReading(r2);
-        readingList.addReading(r3);
-        readingList2.addReading(r4);
-        readingList2.addReading(r5);
-        readingList2.addReading(r6);
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime());
-        s1.setReadingList(readingList);
-        Sensor s2 = new Sensor("Sensor 2", new TypeSensor("Pluviosidade", "l/m2"), new Local(16, 17, 18), new GregorianCalendar(2010, 8, 9).getTime());
-        s2.setReadingList(readingList2);
-        SensorList sensorList = new SensorList(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 2, 3, new Local(16, 17, 18));
-        ga1.setSensorList(sensorList);
-        double expectedResult = 19;
-        //Act
-        double result = ga1.getMostRecentReadingValue("Temperatura");
-        //Assert
-        assertEquals(expectedResult, result, 0.01);
-    }
-
-    //Centro - Exactamente o mesmo ponto
     @Test
     void seeIfAreaIsContainedInArea() {
         //Arrange
@@ -379,7 +209,6 @@ class GeographicAreaTest {
         assertTrue(result);
     }
 
-    //Centro - Exactamente o mesmo ponto mas - ga2 menor length
     @Test
     void seeIfAreaIsContainedInAreaEnhanced() {
         //Arrange
@@ -394,8 +223,7 @@ class GeographicAreaTest {
         assertTrue(result);
     }
 
-    //Centro - Exactamente o mesmo ponto mas - ga2 maior length
-    @Test
+        @Test
     void seeIfAreaIsContainedInAreaEnhanced2() {
         //Arrange
         TypeArea t1 = new TypeArea("Terriola");
