@@ -76,12 +76,15 @@ public class MainUI {
         Scanner enterToReturnToConsole = new Scanner(System.in);
         int option;
         while (true) {
-
             System.out.println(
-                    "*************************\n" +
-                            "**** Smart Grid Menu ****\n" +
-                            "****** sWitCh 2018 ******\n" +
-                            "*************************\n");
+                     "                      ______          ___ _    _____ _    _ \n" +
+                     "                    / ____\\ \\        / (_) |  / ____| |  | |\n" +
+                     "                   | (___  \\ \\  /\\  / / _| |_| |    | |__| |\n" +
+                     "                    \\___ \\  \\ \\/  \\/ / | | __| |    |  __  |\n" +
+                     "                    ____) |  \\  /\\  /  | | |_| |____| |  | |\n" +
+                     "                   |_____/    \\/  \\/   |_|\\__|\\_____|_|  |_|    2018\n" +
+                     "                          \n                                Smart Grid Menu \n"
+            );
 
             // Submenus Input selection
 
