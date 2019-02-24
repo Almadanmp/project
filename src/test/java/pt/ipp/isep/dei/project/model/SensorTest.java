@@ -441,6 +441,57 @@ class SensorTest {
     }
 
     @Test
+    void seeIfSensorIsNotContainedInAreaWrongLatitudeSecondCondition() {
+        //Arrange
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
+        Local loc1 = new Local(-35, 20, 5);
+        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
+
+        //Act
+        a1.setWidth(20);
+        a1.setLength(25);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLatitudeThirdCondition() {
+        //Arrange
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
+        Local loc1 = new Local(35, 20, 5);
+        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
+
+        //Act
+        a1.setWidth(21);
+        a1.setLength(32);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLatitudeFourthCondition() {
+        //Arrange
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
+        Local loc1 = new Local(-35, 20, 5);
+        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
+
+        //Act
+        a1.setWidth(20);
+        a1.setLength(25);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
     void seeIfSensorIsNotContainedInAreaWrongLatitudeNegative() {
         //Arrange
         Local l1 = new Local(20, 20, 5);
@@ -468,6 +519,57 @@ class SensorTest {
         //Act
         a1.setWidth(10);
         a1.setLength(10);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLongitudeSecondCondition() {
+        //Arrange
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
+        Local loc1 = new Local(20, -35, 5);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+
+        //Act
+        a1.setWidth(100);
+        a1.setLength(100);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLongitudeThirdCondition() {
+        //Arrange
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
+        Local loc1 = new Local(100, 100, 5);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+
+        //Act
+        a1.setWidth(10);
+        a1.setLength(10);
+        boolean result = s1.isSensorContainedInArea(a1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsNotContainedInAreaWrongLongitudeFourthCondition() {
+        //Arrange
+        Local l1 = new Local(20, 20, 5);
+        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 20, l1);
+        Local loc1 = new Local(20, -35, 5);
+        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+
+        //Act
+        a1.setWidth(100);
+        a1.setLength(100);
         boolean result = s1.isSensorContainedInArea(a1);
 
         //Assert
