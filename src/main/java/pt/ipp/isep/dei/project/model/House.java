@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.*;
@@ -97,10 +96,6 @@ public class House implements Metered {
 
     Local getLocation() {
         return location;
-    }
-
-    public DeviceList getDeviceList() {
-        return this.mRoomList.getDeviceList();
     }
 
     public void setLocation(double latitude, double longitude, double altitude) {
@@ -286,6 +281,9 @@ public class House implements Metered {
         return 0;
     }
 
+
+    //TODO this method should be in roomList. it is the roomlist who has the equals to check if a room with the same name already exists
+
     /**
      * This method receives room parameters, checks if room exists in house and
      * returns room with same designation in case it does. In case the room does not
@@ -306,46 +304,36 @@ public class House implements Metered {
     }
 
     /**
-     * This receives a room designation and checks if house has room with
-     * that designation, returning true in case it does and false in case it does not.
-     *
-     * @return true in case a room with the given designation exists in house, false otherwise
-     **/
-    boolean containsRoomByName(String roomDesignation) {
-        for (Room r : this.mRoomList.getList()) {
-            String nameTest = r.getRoomName();
-            if (nameTest.equals(roomDesignation)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * This method checks if house's RoomList is empty.
+     *
      * @return true if house's RoomList is empty, false otherwise
      **/
-    public boolean isRoomListEmpty(){
+    public boolean isRoomListEmpty() {
         return this.mRoomList.isEmpty();
     }
 
 
     /**
      * This method checks if house's list of Energy Grids is empty.
+     *
      * @return true if house's EnergyGridList is empty, false otherwise.
      **/
-    public boolean isEnergyGridListEmpty(){
+    public boolean isEnergyGridListEmpty() {
         return this.mEGList.isEmpty();
     }
 
-    /** This method checks the house's energy grid list size.
+    /**
+     * This method checks the house's energy grid list size.
+     *
      * @return returns the house's energy grid list size as int.
      */
     public int energyGridListSize() {
         return this.mEGList.size();
     }
 
-    /** This method receives an index as parameter and gets energy grid from house's energy grid list.
+    /**
+     * This method receives an index as parameter and gets energy grid from house's energy grid list.
+     *
      * @return returns Energy grid that corresponds to index.
      */
     public EnergyGrid getEnergyGrid(int index) {

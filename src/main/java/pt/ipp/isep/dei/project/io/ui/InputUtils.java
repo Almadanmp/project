@@ -200,7 +200,7 @@ public class InputUtils {
         }
         if ("y".equalsIgnoreCase(answer)) {
             return true;
-        } else return !"n".equalsIgnoreCase( answer);
+        } else return !"n".equalsIgnoreCase(answer);
     }
 
     /**
@@ -456,7 +456,7 @@ public class InputUtils {
      * @return value read from the user
      */
     private int getInputDateParameter(Scanner scan, String dataType) {
-        System.out.println("Enter a" + dataType + ":");
+        System.out.println("Enter a " + dataType + ":");
         while (!scan.hasNextInt()) {
             scan.next();
             System.out.println("Not a valid " + dataType + ". Try again");

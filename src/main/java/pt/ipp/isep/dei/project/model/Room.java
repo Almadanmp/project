@@ -32,11 +32,11 @@ public class Room implements Metered {
      * @param height     of the room
      */
     public Room(String name, int houseFloor, double width, double length, double height) {
-        setRoomName(name);
-        setRoomHouseFloor(houseFloor);
-        setRoomWidth(width);
-        setRoomLength(length);
-        setRoomHeight(height);
+        this.roomName = name;
+        this.houseFloor = houseFloor;
+        this.roomWidth = width;
+        this.roomLength = length;
+        this.roomHeight = height;
         this.roomSensorList = new SensorList();
         this.deviceList = new DeviceList();
     }
@@ -48,51 +48,6 @@ public class Room implements Metered {
      */
     public SensorList getSensorList() {
         return roomSensorList;
-    }
-
-    /**
-     * Room Name Setter.
-     *
-     * @param name is the name we want to set to the room.
-     */
-    private void setRoomName(String name) {
-        roomName = name;
-    }
-
-    /**
-     * Room House Floor Setter.
-     *
-     * @param houseFloor is the floor we want to set to the room.
-     */
-    private void setRoomHouseFloor(int houseFloor) {
-        this.houseFloor = houseFloor;
-    }
-
-    /**
-     * Room Height Setter.
-     *
-     * @param height is the height we want to set to the room.
-     */
-    private void setRoomHeight(double height) {
-        roomHeight = height;
-    }
-
-    /**
-     * Room Length Setter.
-     *
-     * @param length is the length we want to set to the room.
-     */
-    private void setRoomLength(double length) {
-        roomLength = length;
-    }
-
-    /**
-     * Room Width Setter.
-     *
-     * @param width is the width we want to set to the room.
-     */
-    private void setRoomWidth(double width) {
-        roomWidth = width;
     }
 
     /**
@@ -211,6 +166,8 @@ public class Room implements Metered {
         return this.deviceList.getConsumptionInInterval(initialDate, finalDate);
     }
 
+    //TODO remove the   double maxTemp = -1000;
+
     /**
      * Method receives a date of a given day and looks for the max temperature
      * recorded in every sensor that measure temperature, in the room.
@@ -223,7 +180,7 @@ public class Room implements Metered {
     public double getMaxTemperatureOnGivenDay(Date day) {
         double maxTemp = -1000;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
-        if (tempSensors.isEmpty() || !tempSensors.hasReadings()) {
+        if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
         for (Sensor s : tempSensors.getListOfSensors()) {
@@ -300,7 +257,7 @@ public class Room implements Metered {
     public double getCurrentRoomTemperature() {
         double currentT;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
-        if (tempSensors.isEmpty() || !tempSensors.hasReadings()) {
+        if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException("There aren't any temperature readings available.");
         }
         ReadingList readingList = tempSensors.getReadings();
@@ -378,17 +335,19 @@ public class Room implements Metered {
 
     /**
      * This method checks if room's SensorList is empty.
+     *
      * @return true if room's SensorList is empty, false otherwise.
      **/
-    public boolean isSensorListEmpty(){
+    public boolean isSensorListEmpty() {
         return this.roomSensorList.isEmpty();
     }
 
     /**
      * This method checks if room's Device List is empty.
+     *
      * @return true if room's DeviceList is empty, false otherwise.
      **/
-    public boolean isDeviceListEmpty(){
+    public boolean isDeviceListEmpty() {
         return this.deviceList.isEmpty();
     }
 

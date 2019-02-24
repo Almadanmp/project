@@ -4,7 +4,9 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
+
 import java.util.Date;
+
 import static java.lang.System.out;
 
 
@@ -71,15 +73,14 @@ public class HouseMonitoringUI {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-         updateModel600(house);
+        updateModel600(house);
     }
 
     private void updateModel600(House house) {
-        try{
+        try {
             double currentTemp = houseMonitoringcontroller.getHouseAreaTemperature(house);
             System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
-        }
-        catch(IllegalArgumentException illegal){
+        } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
         }
 
@@ -115,7 +116,6 @@ public class HouseMonitoringUI {
         }
 
     }
-
 
 
     /**
@@ -209,12 +209,12 @@ public class HouseMonitoringUI {
         return inputUtils.getInputYearMonthDay();
     }
 
-    private void updateAndDisplayUS623(House house, Date startDate, Date endDate){
+    private void updateAndDisplayUS623(House house, Date startDate, Date endDate) {
         double result623 = 0;
         try {
             result623 = houseMonitoringcontroller.getAverageRainfallInterval(house, startDate, endDate);
         } catch (IllegalArgumentException e) {
-           System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
             return;
         }
         System.out.println("The average rainfall between " + startDate + " and " + endDate + was
@@ -226,7 +226,7 @@ public class HouseMonitoringUI {
         System.out.println("1) Get Max Temperature in a room in a specific day (US610).");
         System.out.println("2) Get Current Temperature in a room. (US605).");
         System.out.println("3) Get Current Temperature in a House Area. (US600)");
-        System.out.println("4) Get The Average Rainfall on a specific day in a House Area. (US620)");
+        System.out.println("4) Get The Average Rainfall on a specific day in a House Area. (US620)"); // TODO this is calling total
         System.out.println("5) Get The Average Rainfall on a day interval in a House Area. (US623)");
         System.out.println("0) (Return to main menu)\n");
     }

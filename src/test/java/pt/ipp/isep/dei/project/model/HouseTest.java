@@ -25,7 +25,7 @@ import static org.testng.Assert.assertEquals;
 class HouseTest {
 
     // Common artifacts for testing in this class.
-     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
     @Test
     void seeIfGetListDevice() {
@@ -60,7 +60,7 @@ class HouseTest {
         assertEquals(110.91871788829754, result, 0.01);
     }
 
-      @Test
+    @Test
     void ensureThatWeGetAltitude() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
@@ -91,7 +91,7 @@ class HouseTest {
     }
 
     @Test
-    void getMinDistanceToSensorOfGivenType(){
+    void getMinDistanceToSensorOfGivenType() {
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
@@ -107,7 +107,7 @@ class HouseTest {
     }
 
     @Test
-    void getMinDistanceToSensorOfGivenTypeIfInSamePosition(){
+    void getMinDistanceToSensorOfGivenTypeIfInSamePosition() {
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
@@ -124,7 +124,7 @@ class HouseTest {
 
     //TODO distance should be zero since the sensor1 has the same localization as house. check methods to see why it isn't
     @Test
-    void getMinDistanceToSensorOfGivenTypeSamePositionAsHouse(){
+    void getMinDistanceToSensorOfGivenTypeSamePositionAsHouse() {
         Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 5, 50), new GregorianCalendar(4, 4, 9).getTime());
         Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
@@ -526,33 +526,6 @@ class HouseTest {
     }
 
     @Test
-    void getDeviceListTest() {
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setName("hfjfd");
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setName("ghfghd");
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        house.addRoomToRoomList(r1);
-        DeviceList expectedResult = new DeviceList();
-        expectedResult.addDevice(d2);
-        expectedResult.addDevice(d3);
-        DeviceList result = house.getDeviceList();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed2() {
         ReadingList readingList = new ReadingList();
         Reading r1 = new Reading(15, new GregorianCalendar(2018, 11, 12).getTime());
@@ -860,22 +833,6 @@ class HouseTest {
         assertEquals(expectedResult3, actualResult3);
     }
 
-    @Test
-    void containsRoomByName() {
-        GeographicArea ga = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Flower Street", "4512", "Porto");
-        House house = new House("Beach House", address, new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
-        Room room = new Room("room", 1, 1, 1, 1);
-        house.addRoomToRoomList(room);
-        //ACT
-        boolean expectedResult1 = house.containsRoomByName("kitchen");
-        boolean expectedResult2 = house.containsRoomByName("room");
-        //ASSERT
-        assertFalse(expectedResult1);
-        assertTrue(expectedResult2);
-    }
 
     @Test
     void testSetAddress() {
@@ -907,8 +864,8 @@ class HouseTest {
         RoomList roomList2 = new RoomList(); //ONE ROOM
         RoomList roomList3 = new RoomList(); //TWO ROOMS
 
-        Room room1 = new Room("room1", 2,22,22,4);
-        Room room2 = new Room("room2", 2,22,22,4);
+        Room room1 = new Room("room1", 2, 22, 22, 4);
+        Room room2 = new Room("room2", 2, 22, 22, 4);
 
         roomList2.addRoom(room1);
         roomList3.addRoom(room1);

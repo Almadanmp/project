@@ -114,15 +114,6 @@ public class Sensor {
     }
 
     /**
-     * Getter: date started functioning
-     *
-     * @return the Date which is the date that the sensor started functioning.
-     */
-    Date getDateStartedFunctioning() {
-        return (this.dateStartedFunctioning);
-    }
-
-    /**
      * Getter: reading list
      *
      * @return the readingList of the sensor.
@@ -159,27 +150,6 @@ public class Sensor {
     }
 
     /**
-     * Method to calculate distance to sensor from a sensor to a local
-     *
-     * @param s1 - sensor
-     * @return the distance from a local to sensor in km (doubles)
-     */
-    double calculateDistanceToSensor(Sensor s1) {
-        Local l = s1.getLocal();
-        return this.local.getLinearDistanceBetweenLocalsInKm(l);
-    }
-
-    /**
-     * Method to determine the month average of a sensor reading (e.g. temperature, wind...)
-     *
-     * @param s1 - sensor
-     * @return average of readings on a month on a sensor
-     */
-    double calculateMonthMeanOnSensor(Sensor s1, Date dateGiven) {
-        return s1.getReadingList().getAverageReadingsFromGivenMonth(dateGiven);
-    }
-
-    /**
      * Method to restrain input name so they cant be null or empty.
      *
      * @param name name inserted by user
@@ -204,16 +174,6 @@ public class Sensor {
         double latBotVert = area.getLocal().getLatitude() - (area.getWidth() / 2);
         double longBotVert = area.getLocal().getLongitude() + (area.getLength() / 2);
         return (latS <= latTopVert && latS >= latBotVert && longS <= longBotVert && longS >= longTopVert);
-    }
-
-    /**
-     * Method that checks if a sensor is active in a given date.
-     *
-     * @param date1 is the date we want to check if the sensor is active.
-     * @return true if the sensor is active in a given date, false otherwise.
-     */
-    boolean isSensorActiveOnGivenDate(Date date1) {
-        return this.getDateStartedFunctioning().before(date1);
     }
 
     /**

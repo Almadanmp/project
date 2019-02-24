@@ -68,7 +68,7 @@ public class GeographicAreaList {
     }
 
     /**
-     * Method to check if a GA can be Created (if it has at least a different attribute from the following (name,
+     * Method to check if a GA not exists and can be Created (if it has at least a different attribute from the following (name,
      * typearea or local)
      *
      * @param newName   -
@@ -78,7 +78,7 @@ public class GeographicAreaList {
      * @param altitude
      * @return will return true if can be added and false if it cannot be added
      */
-    public boolean checkIfGAExists(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
+    public boolean checkIfGANotExists(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
         Local newLocal = new Local(latitude, longitude, altitude);
         for (GeographicArea ga : geographicAreas) {
             if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {
@@ -89,29 +89,6 @@ public class GeographicAreaList {
     }
 
     /**
-     * Method to get a Geographic Area from the List.
-     * It will first check if the List already contains an equal Geographic area (with the same name, localization and
-     * type)
-     *
-     * @param newName
-     * @param typeArea
-     * @param local    localization of the Geographic Area
-     * @return
-     */
-    public GeographicArea getGeographicArea(String newName, TypeArea typeArea, Local local) {
-        GeographicArea gAResult = null;
-        for (int i = 0; i < geographicAreas.size(); i++) {
-            GeographicArea ga = geographicAreas.get(i);
-            if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(local))))) {
-                gAResult = geographicAreas.get(i);
-            } else {
-                throw new IllegalArgumentException("There are no geographic areas equal to the inputted one on the list");
-            }
-        }
-        return gAResult;
-    }
-
-     /**
      * Method to create a new geographic area before adding it to a GA List.
      *
      * @param newName  input string for geographic area name for the new geographic area
@@ -123,16 +100,6 @@ public class GeographicAreaList {
      */
     public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, Local local) {
         return new GeographicArea(newName, typeArea, length, width, local);
-    }
-
-    /**
-     * Checks if a the Geographic Area given as a parameter is inside the Geographic Area List
-     *
-     * @param geoArea geographic area to test
-     * @return returns true in case the GA is contained in the list and false otherwise
-     */
-    boolean containsGA(GeographicArea geoArea) {
-        return geographicAreas.contains(geoArea);
     }
 
     /**

@@ -4,9 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
-import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -46,7 +48,7 @@ class HouseMonitoringControllerTest {
         // Sets up a valid temperature sensor with valid Readings.
 
         validTemperatureSensor = new Sensor("TempOne", new TypeSensor("Temperature", "Celsius"),
-                new Local(21,10,15),
+                new Local(21, 10, 15),
                 new Date());
         Reading firstTempReading = new Reading(15, new GregorianCalendar(2018,
                 Calendar.APRIL, 1, 15, 0,
@@ -131,20 +133,6 @@ class HouseMonitoringControllerTest {
     }
 
     @Test
-    void seeIfGetAVGDailyRainfallOnGivenPeriodWorksEmptyReadingList() {
-        // Arrange
-        Date intervalStart = new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime();
-        Date intervalEnd = new GregorianCalendar(2019, Calendar.NOVEMBER, 13).getTime();
-        validHouseArea.setSensorList(validSensorList);
-
-        // Act
-        double actualResult = controller.getAverageRainfallInterval(validHouse, intervalStart, intervalEnd);
-
-        // Assert
-        assertEquals(NaN, actualResult);
-    }
-
-    @Test
     void getAverageRainfallIntervalThrowsExceptionReadingListEmpty() {
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -190,7 +178,7 @@ class HouseMonitoringControllerTest {
         double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, day);
 
         // Assert
-        assertEquals(NaN, actualResult);
+        assertEquals(0, actualResult);
     }
 
     @Test
@@ -207,7 +195,7 @@ class HouseMonitoringControllerTest {
 
         // Assert
 
-        assertEquals(NaN, actualResult);
+        assertEquals(0, actualResult);
     }
 
     @Test
@@ -215,7 +203,7 @@ class HouseMonitoringControllerTest {
         // Arrange
 
         SensorList temperatureList = new SensorList();
-        Sensor temperatureSensor = new Sensor("temperature sensor",new TypeSensor("temperature","celsius"),new Local(21, 20, 20),new GregorianCalendar(2015,2,2).getTime());
+        Sensor temperatureSensor = new Sensor("temperature sensor", new TypeSensor("temperature", "celsius"), new Local(21, 20, 20), new GregorianCalendar(2015, 2, 2).getTime());
         temperatureList.addSensor(temperatureSensor);
         Date day = new GregorianCalendar(2017, Calendar.DECEMBER, 3).getTime();
         validHouseArea.setSensorList(temperatureList);
@@ -226,7 +214,7 @@ class HouseMonitoringControllerTest {
 
         // Assert
 
-        assertEquals(NaN, actualResult);
+        assertEquals(0, actualResult);
     }
 
     @Test
@@ -234,7 +222,7 @@ class HouseMonitoringControllerTest {
         // Arrange
 
         SensorList rainFallSensorList = new SensorList();
-        Sensor rainfallSensor = new Sensor("rainfall sensor",new TypeSensor("rainfall","L"),new Local(21, 20, 20),new GregorianCalendar(2015,2,2).getTime());
+        Sensor rainfallSensor = new Sensor("rainfall sensor", new TypeSensor("rainfall", "L"), new Local(21, 20, 20), new GregorianCalendar(2015, 2, 2).getTime());
         rainFallSensorList.addSensor(rainfallSensor);
         Date day = new GregorianCalendar(2017, Calendar.DECEMBER, 3).getTime();
         validHouseArea.setSensorList(rainFallSensorList);
@@ -245,7 +233,7 @@ class HouseMonitoringControllerTest {
 
         // Assert
 
-        assertEquals(NaN, actualResult);
+        assertEquals(0, actualResult);
     }
 
     @Test

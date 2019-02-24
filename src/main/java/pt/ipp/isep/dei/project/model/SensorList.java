@@ -48,17 +48,6 @@ public class SensorList {
     }
 
     /**
-     * Checks if a Sensor is contained in the Sensor List
-     *
-     * @param sensor is the sensor we want to check if it's contained.
-     * @return true if it's contained, false otherwise.
-     */
-    public boolean containsSensor(Sensor sensor) {
-        return sensors.contains(sensor);
-    }
-
-
-    /**
      * Gettter (list of sensors)
      *
      * @return list of sensors
@@ -66,16 +55,6 @@ public class SensorList {
     public List<Sensor> getListOfSensors() {
         return this.sensors;
     }
-
-    /**
-     * Removes a sensor from the Sensor List
-     *
-     * @param sensorToRemove
-     */
-    void removeSensor(Sensor sensorToRemove) {
-        sensors.remove(sensorToRemove);
-    }
-
 
     /**
      * Method that goes through the sensor list and looks for the sensor
@@ -92,7 +71,7 @@ public class SensorList {
             c.printStackTrace();
         }
         Sensor error = new Sensor("emptySensor", new TypeSensor("type", " "), d1);
-        if (this.sensors.isEmpty() || !this.hasReadings()) {
+        if (this.sensors.isEmpty()) {
             return error;
         }
         Sensor mostRecent = this.sensors.get(0);
@@ -108,35 +87,6 @@ public class SensorList {
     }
 
     /**
-     * Method that checks if the Sensors in the SensorList has readings.
-     *
-     * @return true if we have at least one reading in the sensors, false otherwise.
-     */
-    public boolean hasReadings() {
-        for (Sensor s : this.sensors) {
-            ReadingList readingList = s.getReadingList();
-            if (!readingList.isEmpty()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @param name name of the sensor to find in the list.
-     * @return returns true if a Sensor with the same name as @param name exists in the Sensor List
-     */
-
-    public boolean doesSensorListContainSensorByName(String name) {
-        for (Sensor s : sensors) {
-            if (s.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * @param name String of the sensor we wish to compare with the existent sensors on the sensor list.
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
@@ -149,22 +99,6 @@ public class SensorList {
             }
         }
         return containedTypeSensors;
-    }
-
-    /**
-     * @param date1 Date when we wish to check which sensors from the list are active at.
-     * @param ga    Geographical Area where we wish to get the sensors from.
-     * @return builds a list of sensors with the sensors that are active at the precise date the one introduced as parameter.
-     */
-
-    SensorList getSensorsInGAAtACertainTimePeriod(Date date1, GeographicArea ga) {
-        SensorList finalList = new SensorList();
-        for (Sensor s : sensors) {
-            if (s.isSensorActiveOnGivenDate(date1) && s.isSensorContainedInArea(ga)) {
-                finalList.addSensor(s);
-            }
-        }
-        return finalList;
     }
 
     /**
@@ -217,33 +151,22 @@ public class SensorList {
         return this.sensors.isEmpty();
     }
 
-    /** Checks the sensor list size and returns the size as int.\
+    /**
+     * Checks the sensor list size and returns the size as int.\
+     *
      * @return SensorList size as int
-     * **/
-    public int size(){
+     **/
+    public int size() {
         return this.sensors.size();
     }
 
-    /** This method receives an index as parameter and gets a sensor from sensor list.
+    /**
+     * This method receives an index as parameter and gets a sensor from sensor list.
+     *
      * @return returns sensor that corresponds to index.
      */
     public Sensor get(int index) {
         return this.sensors.get(index);
-    }
-
-
-    /**
-     * Getter (array of sensors)
-     *
-     * @return array of sensors
-     */
-    Sensor[] getElementsAsArray() {
-        int sizeOfResultArray = sensors.size();
-        Sensor[] result = new Sensor[sizeOfResultArray];
-        for (int i = 0; i < sensors.size(); i++) {
-            result[i] = sensors.get(i);
-        }
-        return result;
     }
 
     /**
@@ -262,7 +185,7 @@ public class SensorList {
             return false;
         }
         SensorList list = (SensorList) testObject;
-        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
+        return Arrays.equals(this.getListOfSensors().toArray(), list.getListOfSensors().toArray());
     }
 
     @Override

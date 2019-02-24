@@ -194,52 +194,12 @@ public class GeographicArea {
     }
 
 
-    /**
-     * Method will go through Geographic Area's sensor list, create a second list with the type
-     * of sensors defined by the parameter and finally return the most recent value recorded in that list.
-     *
-     * @param typeOfSensor Type sensor is determined by a string - e.g. "Temperature", "Rain", etc.
-     * @return returns a double of the most recent value recorded in every type sensor given
-     */
-    double getMostRecentReadingValue(String typeOfSensor) {
-        SensorList listToTest = this.areaSensors;
-        for (int i = 0; i < listToTest.size(); i++) {
-            if (!(listToTest.get(i).getTypeSensor().getName().equals(typeOfSensor))) {
-                listToTest.removeSensor(listToTest.get(i));
-            }
-        }
-        return listToTest.getMostRecentlyUsedSensor().getReadingList().getMostRecentReading().getValue();
-    }
-
     double getWidth() {
         return this.width;
     }
 
     public double getLength() {
         return this.length;
-    }
-
-    boolean isAreaContainedInAnotherArea(GeographicArea smallerAG, GeographicArea biggestAG) {
-        double latTopVert1 = smallerAG.getLocal().getLatitude() + (smallerAG.getWidth() / 2);
-        double longTopVert1 = smallerAG.getLocal().getLongitude() - (smallerAG.getLength() / 2);
-        double latBotVert1 = smallerAG.getLocal().getLatitude() - (smallerAG.getWidth() / 2);
-        double longBotVert1 = smallerAG.getLocal().getLongitude() + (smallerAG.getLength() / 2);
-        double latTopVert2 = biggestAG.getLocal().getLatitude() + (biggestAG.getWidth() / 2);
-        double longTopVert2 = biggestAG.getLocal().getLongitude() - (biggestAG.getLength() / 2);
-        double latBotVert2 = biggestAG.getLocal().getLatitude() - (biggestAG.getWidth() / 2);
-        double longBotVert2 = biggestAG.getLocal().getLongitude() + (biggestAG.getLength() / 2);
-        return (latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1);
-    }
-
-    /**
-     * Method will calculate the distance between two different Geographic Areas.
-     *
-     * @param ga object of the class GeographicAreaController
-     * @return returns a double of the distance between Geographic Areas.
-     */
-    double calculateDistanceToGA(GeographicArea ga) {
-        Local l = ga.getLocal();
-        return this.location.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     public boolean addSensorToSensorList(Sensor sensor) {
@@ -255,6 +215,7 @@ public class GeographicArea {
 
     /**
      * Method checks if geographic area's sensor list is empty.
+     *
      * @return true if SensorList is empty, false otherwise
      */
     public boolean isSensorListEmpty() {
