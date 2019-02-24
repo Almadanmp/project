@@ -164,21 +164,24 @@ public class HouseMonitoringUI {
             return;
         }
         InputUtils inputUtils = new InputUtils();
+        System.out.println("Please enter the desired date.");
         Date date = inputUtils.getInputYearMonthDay();
         updateAndDisplayModelUS620(house, date);
     }
 
     private void updateAndDisplayModelUS620(House house, Date date) {
-        double result = houseMonitoringcontroller.getTotalRainfallOnGivenDay(house, date);
+        double result = 0;
+        try {
+            result = houseMonitoringcontroller.getTotalRainfallOnGivenDay(house, date);
+        } catch (IllegalStateException ex) {
+            System.out.println(ex.getMessage());
+            return;
+        }
         printResultMessageUS620(date, result);
     }
 
     private void printResultMessageUS620(Date date, double result) {
-        if (Double.isNaN(result)) {
-            System.out.println("Warning: average value not calculated - no readings available.");
-        } else {
             System.out.println("The average rainfall on " + date + was + result + "%.");
-        }
     }
 
     /**

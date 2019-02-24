@@ -71,9 +71,8 @@ public class HouseMonitoringController {
      */
     public double getTotalRainfallOnGivenDay(House house, Date day) {
         Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
-        if (closestSensor.getReadingList() == null) {
-            //TODO we cant return NaN, we should throw an exception?
-            return Double.NaN;
+        if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
+            throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
         return closestSensor.getReadingList().getTotalValueOfReadingOnGivenDay(day);
     }

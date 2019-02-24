@@ -572,9 +572,11 @@ class ReadingListTest {
         //Arrange
         ReadingList rl = new ReadingList();
         //Act
-        double actualResult = rl.getTotalValueOfReadingOnGivenDay(new GregorianCalendar(2018, 10, 3).getTime());
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            rl.getTotalValueOfReadingOnGivenDay(new GregorianCalendar(2018, 10, 3).getTime());
+                });
         //Assert
-        assertEquals(0, actualResult);
+        assertEquals("Warning: Total value was not calculated - no readings were available.", exception.getMessage());
     }
 
     @Test

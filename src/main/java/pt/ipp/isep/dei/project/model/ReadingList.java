@@ -311,6 +311,9 @@ public class ReadingList {
     public double getTotalValueOfReadingOnGivenDay(Date givenDate) {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
         List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(givenDate);
+        if (valueReadingsThatMatchDay.isEmpty()) {
+            throw new IllegalStateException("Warning: Total value was not calculated - no readings were available.");
+        }
         double givenD;
         givenD = getListSum(valueReadingsThatMatchDay);
         totalValuesFromDaysWithReadings.add(givenD);

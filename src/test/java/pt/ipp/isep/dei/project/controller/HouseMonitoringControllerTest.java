@@ -175,10 +175,12 @@ class HouseMonitoringControllerTest {
         validHouseArea.setSensorList(validSensorList);
 
         // Act
-        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, day);
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            controller.getTotalRainfallOnGivenDay(validHouse, day);
+                });
 
         // Assert
-        assertEquals(0, actualResult);
+        assertEquals("Warning: Total value was not calculated - no readings were available.", exception.getMessage());
     }
 
     @Test
@@ -191,11 +193,13 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, day);
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            controller.getTotalRainfallOnGivenDay(validHouse, day);
+                });
 
         // Assert
 
-        assertEquals(0, actualResult);
+        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
     }
 
     @Test
@@ -210,11 +214,13 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, day);
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            controller.getTotalRainfallOnGivenDay(validHouse, day);
+                });
 
         // Assert
 
-        assertEquals(0, actualResult);
+        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
     }
 
     @Test
@@ -229,11 +235,13 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, day);
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            controller.getTotalRainfallOnGivenDay(validHouse, day);
+                });
 
         // Assert
 
-        assertEquals(0, actualResult);
+        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
     }
 
     @Test
