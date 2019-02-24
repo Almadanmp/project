@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -20,35 +21,6 @@ class RoomListTest {
     // Common artifacts for testing in this class.
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
-
-    @Test
-    void seeIfGetRoomByNameFromList() {
-        RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
-        Room r1 = new Room("Cozinha", 1, 123, 2, 2);
-        r1.setSensorList(sensorList);
-        Room r2 = new Room("Jardim", 1, 123, 2, 2);
-        r2.setSensorList(sensorList);
-        Room r3 = new Room("Quarto", 1, 123, 2, 2);
-        r3.setSensorList(sensorList);
-        roomList.addRoom(r1);
-        roomList.addRoom(r2);
-        roomList.addRoom(r3);
-
-        Room actualResult = roomList.getRoomByName("Cozinha");
-
-        assertEquals(r1, actualResult);
-    }
-
-    @Test
-    void seeIfGetRoomByNameIfNull() {
-        RoomList roomList = new RoomList();
-        Room r3 = new Room("Quarto", 1, 123, 2, 2);
-        roomList.addRoom(r3);
-        Room actualResult = roomList.getRoomByName("Cozinha");
-
-        assertNull(actualResult);
-    }
 
     @Test
     void seeIfAddRoomFails() {

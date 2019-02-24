@@ -89,29 +89,6 @@ public class GeographicAreaList {
     }
 
     /**
-     * Method to get a Geographic Area from the List.
-     * It will first check if the List already contains an equal Geographic area (with the same name, localization and
-     * type)
-     *
-     * @param newName
-     * @param typeArea
-     * @param local    localization of the Geographic Area
-     * @return
-     */
-    public GeographicArea getGeographicArea(String newName, TypeArea typeArea, Local local) {
-        GeographicArea gAResult = null;
-        for (int i = 0; i < geographicAreas.size(); i++) {
-            GeographicArea ga = geographicAreas.get(i);
-            if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(local))))) {
-                gAResult = geographicAreas.get(i);
-            } else {
-                throw new IllegalArgumentException("There are no geographic areas equal to the inputted one on the list");
-            }
-        }
-        return gAResult;
-    }
-
-     /**
      * Method to create a new geographic area before adding it to a GA List.
      *
      * @param newName  input string for geographic area name for the new geographic area
@@ -123,16 +100,6 @@ public class GeographicAreaList {
      */
     public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, Local local) {
         return new GeographicArea(newName, typeArea, length, width, local);
-    }
-
-    /**
-     * Checks if a the Geographic Area given as a parameter is inside the Geographic Area List
-     *
-     * @param geoArea geographic area to test
-     * @return returns true in case the GA is contained in the list and false otherwise
-     */
-    boolean containsGA(GeographicArea geoArea) {
-        return geographicAreas.contains(geoArea);
     }
 
     /**

@@ -71,7 +71,7 @@ public class SensorList {
             c.printStackTrace();
         }
         Sensor error = new Sensor("emptySensor", new TypeSensor("type", " "), d1);
-        if (this.sensors.isEmpty() || !this.hasReadings()) {
+        if (this.sensors.isEmpty()) {
             return error;
         }
         Sensor mostRecent = this.sensors.get(0);
@@ -84,21 +84,6 @@ public class SensorList {
             }
         }
         return mostRecent;
-    }
-
-    /**
-     * Method that checks if the Sensors in the SensorList has readings.
-     *
-     * @return true if we have at least one reading in the sensors, false otherwise.
-     */
-    public boolean hasReadings() {
-        for (Sensor s : this.sensors) {
-            ReadingList readingList = s.getReadingList();
-            if (!readingList.isEmpty()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -184,21 +169,6 @@ public class SensorList {
         return this.sensors.get(index);
     }
 
-
-    /**
-     * Getter (array of sensors)
-     *
-     * @return array of sensors
-     */
-    Sensor[] getElementsAsArray() {
-        int sizeOfResultArray = sensors.size();
-        Sensor[] result = new Sensor[sizeOfResultArray];
-        for (int i = 0; i < sensors.size(); i++) {
-            result[i] = sensors.get(i);
-        }
-        return result;
-    }
-
     /**
      * Method 'equals' for comparison between objects of the same class
      *
@@ -215,7 +185,7 @@ public class SensorList {
             return false;
         }
         SensorList list = (SensorList) testObject;
-        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
+        return Arrays.equals(this.getListOfSensors().toArray(), list.getListOfSensors().toArray());
     }
 
     @Override

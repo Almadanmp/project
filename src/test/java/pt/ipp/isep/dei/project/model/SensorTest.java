@@ -287,23 +287,6 @@ class SensorTest {
         assertEquals(expectedResult, actualResult);
     }
 
-
-    @Test
-    void seeIfcalculateDistanceToSensorWorks() {
-        //Arrange
-        Local l1 = new Local(23, 46, 5);
-        Local l2 = new Local(25, 47, 5);
-        Sensor s1 = new Sensor("Sensor1", validTypeSensor1, l1, validDate1);
-        Sensor s2 = new Sensor("Sensor2", validTypeSensor1, l2, validDate1);
-        double expectedResult = 244;
-
-        //Act
-        double result = s1.calculateDistanceToSensor(s2);
-
-        //Assert
-        assertEquals(expectedResult, result, 1);
-    }
-
     @Test
     void seeIfSensorIsContainedInArea() {
         //Arrange

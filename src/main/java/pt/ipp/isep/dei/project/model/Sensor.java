@@ -150,17 +150,6 @@ public class Sensor {
     }
 
     /**
-     * Method to calculate distance to sensor from a sensor to a local
-     *
-     * @param s1 - sensor
-     * @return the distance from a local to sensor in km (doubles)
-     */
-    double calculateDistanceToSensor(Sensor s1) {
-        Local l = s1.getLocal();
-        return this.local.getLinearDistanceBetweenLocalsInKm(l);
-    }
-
-    /**
      * Method to restrain input name so they cant be null or empty.
      *
      * @param name name inserted by user

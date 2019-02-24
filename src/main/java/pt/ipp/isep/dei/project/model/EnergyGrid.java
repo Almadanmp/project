@@ -2,8 +2,9 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +46,9 @@ public class EnergyGrid implements Metered {
         return roomList;
     }
 
-    public PowerSourceList getListOfPowerSources(){return listPowerSources;}
+    public PowerSourceList getListOfPowerSources() {
+        return listPowerSources;
+    }
 
     double getMaxContractedPower() {
         return maxContractedPower;
@@ -72,15 +75,6 @@ public class EnergyGrid implements Metered {
      */
     PowerSourceList getListPowerSources() {
         return listPowerSources;
-    }
-
-    /**
-     * Setter for List of power sources connected to the energy grid.
-     *
-     * @param mListPowerSources List of power sources.
-     */
-    void setPowerSourceList(PowerSourceList mListPowerSources) {
-        this.listPowerSources = mListPowerSources;
     }
 
     boolean setMaxContractedPower(double power) {
@@ -141,10 +135,12 @@ public class EnergyGrid implements Metered {
         return this.roomList.getList();
     }
 
-    /** Method gets all devices associated to energy grid
+    /**
+     * Method gets all devices associated to energy grid
+     *
      * @return energy grid's entire DeviceList
      */
-    public DeviceList getDeviceList(){
+    public DeviceList getDeviceList() {
         return this.roomList.getDeviceList();
     }
 
@@ -250,17 +246,19 @@ public class EnergyGrid implements Metered {
 
     /**
      * This method checks if energy grid's Device List is empty.
+     *
      * @return true if energy grid's DeviceList is empty, false otherwise.
      **/
-    public boolean isDeviceListEmpty(){
+    public boolean isDeviceListEmpty() {
         return roomList.isDeviceListEmpty();
     }
 
     /**
      * This method checks if energy grid's Room List is empty.
+     *
      * @return true if energy grid's RoomList is empty, false otherwise.
      **/
-    public boolean isRoomListEmpty(){
+    public boolean isRoomListEmpty() {
         return roomList.isEmpty();
     }
 

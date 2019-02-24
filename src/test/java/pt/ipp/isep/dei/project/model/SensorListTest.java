@@ -73,22 +73,6 @@ class SensorListTest {
     }
 
     @Test
-    void seeIfGetSensorsAsArrayWorks() {
-        //Arrange
-        Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
-        Sensor s2 = new Sensor("Rain Sensor 1", validTypeSensor1, validLocal1, validDate2);
-        Sensor[] expectedResult = new Sensor[]{s1, s2};
-        validSensorList1.addSensor(s1);
-        validSensorList1.addSensor(s2);
-
-        //Act
-        Sensor[] result = validSensorList1.getElementsAsArray();
-
-        //Assert
-        assertArrayEquals(result, expectedResult);
-    }
-
-    @Test
     void seeIfGetSensorsAsListWorks() {
         //Arrange
         Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
@@ -349,7 +333,6 @@ class SensorListTest {
         Date date2 = new Date();
         Date date3 = new Date();
         Date date4 = new Date();
-        Date date5 = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         SimpleDateFormat sd2 = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -357,7 +340,6 @@ class SensorListTest {
             date2 = sd.parse("05/10/2000 23:58");
             date3 = sd.parse("05/10/2000 23:59");
             date4 = sd2.parse("01/00/1900");
-            date5 = sd2.parse("01/00/1900");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -414,7 +396,7 @@ class SensorListTest {
         sensorList5.addSensor(sensor10);
 
         Sensor expectedResult1 = new Sensor("emptySensor", new TypeSensor("type", " "), date4);
-        Sensor expectedResult2 = new Sensor("emptySensor", new TypeSensor("type", " "), date5);
+        Sensor expectedResult2 = sensor1;
         Sensor expectedResult3 = sensor2;
         Sensor expectedResult4 = sensor6;
         Sensor expectedResult5 = sensor10;
@@ -432,55 +414,6 @@ class SensorListTest {
         assertEquals(actualResult3, expectedResult3);
         assertEquals(actualResult4, expectedResult4);
         assertEquals(actualResult5, expectedResult5);
-    }
-
-    @Test
-    void hasReadings() {
-        SensorList sensorList1 = new SensorList(); //EMPTY LIST
-        SensorList sensorList2 = new SensorList(); //ONE SENSOR WITHOUT READINGS
-        SensorList sensorList3 = new SensorList(); //TWO SENSORS WITHOUT READINGS
-        SensorList sensorList4 = new SensorList(); //THREE SENSORS: FIRST HAS READINGS
-        SensorList sensorList5 = new SensorList(); //THREE SENSORS: LAST HAS READINGS
-
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), validDate5);
-        sensorList2.addSensor(sensor1);
-
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature", "ºC"), validDate5);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "ºC"), validDate5);
-        sensorList3.addSensor(sensor2);
-        sensorList3.addSensor(sensor3);
-
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("temperature", "ºC"), validDate5);
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("temperature", "ºC"), validDate5);
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("temperature", "ºC"), validDate5);
-        Reading reading4 = new Reading(20, validDate1);
-        sensor5.addReading(reading4);
-        sensorList4.addSensor(sensor5);
-        sensorList4.addSensor(sensor6);
-        sensorList4.addSensor(sensor7);
-
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("temperature", "ºC"), validDate5);
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("temperature", "ºC"), validDate5);
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("temperature", "ºC"), validDate5);
-        Reading reading7 = new Reading(26, validDate5);
-        sensor10.addReading(reading7);
-        sensorList5.addSensor(sensor8);
-        sensorList5.addSensor(sensor9);
-        sensorList5.addSensor(sensor10);
-
-        //Act
-        boolean actualResult1 = sensorList1.hasReadings();
-        boolean actualResult2 = sensorList2.hasReadings();
-        boolean actualResult3 = sensorList3.hasReadings();
-        boolean actualResult4 = sensorList4.hasReadings();
-        boolean actualResult5 = sensorList4.hasReadings();
-
-        //Assert
-        assertFalse(actualResult1);
-        assertFalse(actualResult2);
-        assertFalse(actualResult3);
-        assertTrue(actualResult4);
-        assertTrue(actualResult5);
     }
 
     @Test

@@ -202,18 +202,6 @@ public class GeographicArea {
         return this.length;
     }
 
-    boolean isAreaContainedInAnotherArea(GeographicArea smallerAG, GeographicArea biggestAG) {
-        double latTopVert1 = smallerAG.getLocal().getLatitude() + (smallerAG.getWidth() / 2);
-        double longTopVert1 = smallerAG.getLocal().getLongitude() - (smallerAG.getLength() / 2);
-        double latBotVert1 = smallerAG.getLocal().getLatitude() - (smallerAG.getWidth() / 2);
-        double longBotVert1 = smallerAG.getLocal().getLongitude() + (smallerAG.getLength() / 2);
-        double latTopVert2 = biggestAG.getLocal().getLatitude() + (biggestAG.getWidth() / 2);
-        double longTopVert2 = biggestAG.getLocal().getLongitude() - (biggestAG.getLength() / 2);
-        double latBotVert2 = biggestAG.getLocal().getLatitude() - (biggestAG.getWidth() / 2);
-        double longBotVert2 = biggestAG.getLocal().getLongitude() + (biggestAG.getLength() / 2);
-        return (latTopVert2 <= latTopVert1 && longTopVert2 >= longTopVert1 && latBotVert2 >= latBotVert1 && longBotVert2 <= longBotVert1);
-    }
-
     public boolean addSensorToSensorList(Sensor sensor) {
         String sensorToAddName = sensor.getName();
         for (Sensor s : this.areaSensors.getListOfSensors()) {

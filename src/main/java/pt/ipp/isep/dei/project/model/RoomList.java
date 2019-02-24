@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.ArrayList;
@@ -43,28 +42,6 @@ public class RoomList {
         } else {
             return false;
         }
-    }
-
-    /**
-     * Exercise: Get Room By Name From The Room List(String).
-     *
-     * @param roomName - user input will be designation of the Room.
-     * @return it will return the Room if it exists on the arrayList. it will return Null if there is no Room with that
-     * name.
-     * Description: we create a for cycle to iterate on the arrayList. the index is "i" and it will iterate until the last
-     * position of the Room arraylist. we increment at the end of each cycle to go to the next index.
-     * On the for cycle we create an auxiliary variable (aux) that will be equal to the Room on the index position at the moment.
-     * (we use the get method to get the information from the index).
-     * If the user input - roomName equals the name of the Room on that index, we return the Room, if not it will compare with the next position.
-     * if no Room with the name of found, it will return null.
-     */
-    Room getRoomByName(String roomName) {
-        for (Room aux : rooms) {
-            if (roomName.equals(aux.getRoomName())) {
-                return aux;
-            }
-        }
-        return null;
     }
 
     /**

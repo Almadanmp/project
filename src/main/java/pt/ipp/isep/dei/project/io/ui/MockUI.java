@@ -177,16 +177,13 @@ public class MockUI {
 
     private Room createRoomB109() {
         Room roomB109 = new Room("B109", 1, 7, 11, 3.5);
-        SensorList room2SL = new SensorList();
         Sensor temperatureSensorB109 = new Sensor("Temperature B109", this.temperatureST, new GregorianCalendar(2018, Calendar.NOVEMBER, 15).getTime());
-        room2SL.addSensor(temperatureSensorB109);
+        roomB109.addSensor(temperatureSensorB109);
 
         createTemperatureSensorB109Readings(temperatureSensorB109);
 
         Sensor humiditySensorB109 = new Sensor("Humidity B109", this.humidityST, new GregorianCalendar(2018, Calendar.NOVEMBER, 22).getTime());
-        room2SL.addSensor(humiditySensorB109);
-
-        roomB109.setSensorList(room2SL);
+        roomB109.addSensor(humiditySensorB109);
 
         createHumiditySensorB109Readings(humiditySensorB109);
 
