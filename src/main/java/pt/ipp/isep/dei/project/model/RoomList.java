@@ -139,7 +139,7 @@ public class RoomList {
 
     /**
      * This method receives an index as parameter and gets a room from room list.
-     *
+     * @param index the index of the room
      * @return returns room that corresponds to index.
      */
     public Room get(int index) {

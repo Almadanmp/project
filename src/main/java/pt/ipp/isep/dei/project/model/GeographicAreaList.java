@@ -44,14 +44,6 @@ public class GeographicAreaList {
         return false;
     }
 
-    /**
-     * Method to print a Whole Geographic Area List.
-     * It will print the attributes needed to check if a GA is different from another GA
-     * (name, type of GA and Localization)
-     * @param newGeoListUi the chosen list of geographic areas
-     * @return a string with the names of the geographic areas
-     */
-
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
@@ -82,11 +74,11 @@ public class GeographicAreaList {
      * @return will return true if can be added and false if it cannot be added
      * Method to check if a GA with the given input parameters exists in the list.
      *
-     * @param newName   -
-     * @param typeArea
-     * @param latitude
-     * @param longitude
-     * @param altitude
+     * @param newName the name of the GA
+     * @param typeArea the type of the GA
+     * @param latitude the latitude of the GA
+     * @param longitude the longitude of the GA
+     * @param altitude the altitude of the GA
      * @return will return true if a Geographic Area matching given parameters already
      * exists, false if it doesn't.
      */

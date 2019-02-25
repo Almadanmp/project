@@ -82,7 +82,7 @@ public class TypeAreaList {
 
     /**
      * This method receives an index as parameter and gets a type area from Type Area list.
-     *
+     * @param index the index of the type area
      * @return returns Type Area that corresponds to index.
      */
     public TypeArea get(int index) {
