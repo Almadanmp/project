@@ -55,21 +55,12 @@ public class TypeAreaList {
      */
     public String buildGATypeWholeListString(TypeAreaList typeAreaList) {
         StringBuilder result = new StringBuilder("---------------\n");
-        for (int i = 0; i < typeAreaList.getTypeAreaList().size(); i++) {
-            TypeArea aux = typeAreaList.getTypeAreaList().get(i);
+        for (int i = 0; i < typeAreaList.size(); i++) {
+            TypeArea aux = typeAreaList.get(i);
             result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" \n");
         }
         result.append("---------------\n");
         return result.toString();
-    }
-
-    /**
-     * Getter of the Type Area List.
-     *
-     * @return a list of the types of Geographic Areas.
-     */
-    public List<TypeArea> getTypeAreaList() {
-        return this.typeAreas;
     }
 
     /**
@@ -80,6 +71,37 @@ public class TypeAreaList {
         return this.typeAreas.isEmpty();
     }
 
+    /**
+     * Checks the type area list size and returns the size as int.\
+     *
+     * @return TypeArea size as int
+     **/
+    public int size() {
+        return this.typeAreas.size();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a type area from Type Area list.
+     *
+     * @return returns Type Area that corresponds to index.
+     */
+    public TypeArea get(int index) {
+        return this.typeAreas.get(index);
+    }
+
+    /**
+     * Getter (array of Type Areas)
+
+     * @return array of Type Areas
+     */
+    private TypeArea[] getElementsAsArray() {
+        int sizeOfResultArray = typeAreas.size();
+        TypeArea[] result = new TypeArea[sizeOfResultArray];
+        for (int i = 0; i < typeAreas.size(); i++) {
+            result[i] = typeAreas.get(i);
+        }
+        return result;
+    }
 
     @Override
     public boolean equals(Object testObject) {
@@ -90,7 +112,7 @@ public class TypeAreaList {
             return false;
         }
         TypeAreaList list = (TypeAreaList) testObject;
-        return Arrays.equals(this.getTypeAreaList().toArray(), list.getTypeAreaList().toArray());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

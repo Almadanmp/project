@@ -52,7 +52,7 @@ public class ReadingList {
      * @return most recent reading
      **/
     Reading getMostRecentReading() {
-        Reading error = new Reading(NaN, new GregorianCalendar(1900, 0, 1).getTime());
+        Reading error = new Reading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime());
         if (isEmpty()) {
             return error;
         }
@@ -119,7 +119,7 @@ public class ReadingList {
      * @return date with 1st second of given day
      * @author Daniela
      */
-    Date getFirstSecondOfDay(Date day) {
+    private Date getFirstSecondOfDay(Date day) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(day);
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
@@ -133,7 +133,7 @@ public class ReadingList {
      * @return date with last second of given day
      * @author Daniela
      */
-    Date getLastSecondOfDay(Date day) {
+   private Date getLastSecondOfDay(Date day) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(day);
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
@@ -150,7 +150,7 @@ public class ReadingList {
      * @return true if reading date is between dates, false if it isn't
      * @author Daniela
      */
-    boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
+  private  boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
         return (readingDate.after(startDate) || readingDate.equals(startDate)) &&
                 (readingDate.before(endDate) || readingDate.equals(endDate));
     }
@@ -161,8 +161,9 @@ public class ReadingList {
      *
      * @param day the day to look for readings
      * @return returns a list with every value of readings that was recorded on that particular day.
+     * @author Daniela - US623
      */
-    List<Double> getValuesOfSpecificDayReadings(Date day) {
+   private List<Double> getValuesOfSpecificDayReadings(Date day) {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (int i = 0; i < readings.size(); i++) {
             if (compareDayMonthAndYearBetweenDates(readings.get(i).getDate(), day)) {
@@ -181,7 +182,7 @@ public class ReadingList {
      * @param r2 date two
      * @return return true if equal, return false otherwise
      */
-    boolean compareDayMonthAndYearBetweenDates(Date r1, Date r2) {
+  private  boolean compareDayMonthAndYearBetweenDates(Date r1, Date r2) {
         GregorianCalendar cal1 = new GregorianCalendar();
         cal1.setTime(r1);
 
@@ -234,7 +235,7 @@ public class ReadingList {
         if (dayReadings.isEmpty()) {
             throw new IllegalArgumentException("The day given has no readings.");
         }
-        double maxValue = dayReadings.getListOfReadings().get(0).getValue();
+        double maxValue = dayReadings.get(0).getValue();
         for (Reading r : dayReadings.getListOfReadings()) {
             double currentValue = r.getValue();
             maxValue = Math.max(maxValue, currentValue);
@@ -278,6 +279,7 @@ public class ReadingList {
      * @param maxDate the upper (max) date for interval comparison
      * @return the average of all values in the reading list between the two given dates
      * @author Daniela
+     * @linkplain US623
      */
     public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
@@ -337,6 +339,49 @@ public class ReadingList {
         return sum;
     }
 
+    /**
+     * Checks the reading list size and returns the size as int.\
+     *
+     * @return ReadingList size as int
+     **/
+    public int size() {
+        return this.readings.size();
+    }
+
+    /**
+     * Method checks if reading list contains reading given as parameter.
+     *
+     * @param reading reading to check.
+     * @return returns true if list contains reading, false if it does not contain reading.
+     */
+
+    public boolean contains(Reading reading) {
+        return readings.contains(reading);
+    }
+
+    /**
+     * This method receives an index as parameter and gets a reading from reading list.
+     *
+     * @return returns reading that corresponds to index.
+     */
+    public Reading get(int index) {
+        return this.readings.get(index);
+    }
+
+    /**
+     * Getter (array of readings)
+
+     * @return array of readings
+     */
+    Reading[] getElementsAsArray() {
+        int sizeOfResultArray = readings.size();
+        Reading[] result = new Reading[sizeOfResultArray];
+        for (int i = 0; i < readings.size(); i++) {
+            result[i] = readings.get(i);
+        }
+        return result;
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
@@ -346,7 +391,7 @@ public class ReadingList {
             return false;
         }
         ReadingList list = (ReadingList) testObject;
-        return Arrays.equals(this.getListOfReadings().toArray(), list.getListOfReadings().toArray());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

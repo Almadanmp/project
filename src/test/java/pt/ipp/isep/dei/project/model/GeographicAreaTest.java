@@ -4,6 +4,9 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +27,6 @@ class GeographicAreaTest {
         TypeArea actualResult;
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         //Act
-        c.setTypeArea(t1);
         actualResult = c.getTypeArea();
 
         //Assert
@@ -43,29 +45,12 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetSetTypeWorksIfDifferentOfGivenConstructor() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        TypeArea t2 = new TypeArea("Freguesia");
-        Local l1 = new Local(38, 7, 100);
-        TypeArea actualResult;
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-
-        //Act
-        c.setTypeArea(t2);
-        actualResult = c.getTypeArea();
-        //Assert
-        assertEquals(t2, actualResult);
-    }
-
-    @Test
     void seeIfEqualsSameObject() {
         //Arrange
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         //Act
-        c.setLocal(l1);
         boolean actualResult = c.equals(c);
 
         //Assert
@@ -80,7 +65,6 @@ class GeographicAreaTest {
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         GeographicArea d = new GeographicArea("Porto", t1, 2, 3, l1);
         //Act
-        c.setLocal(l1);
         boolean actualResult = c.equals(d);
 
         //Assert
@@ -96,7 +80,6 @@ class GeographicAreaTest {
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         GeographicArea d = new GeographicArea("Porto", t2, 2, 3, l1);
         //Act
-        c.setLocal(l1);
         boolean actualResult = c.equals(d);
 
         //Assert
@@ -111,7 +94,6 @@ class GeographicAreaTest {
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         GeographicArea d = new GeographicArea("Lisboa", t1, 2, 3, l1);
         //Act
-        c.setLocal(l1);
         boolean actualResult = c.equals(d);
 
         //Assert
@@ -127,7 +109,6 @@ class GeographicAreaTest {
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         GeographicArea d = new GeographicArea("Porto", t1, 2, 3, l2);
         //Act
-        c.setLocal(l1);
         boolean actualResult = c.equals(d);
 
         //Assert
@@ -141,7 +122,6 @@ class GeographicAreaTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         //Act
-        c.setLocal(l1);
         boolean actualResult = c.getTypeArea().getTypeOfGeographicArea().equals("Rua");
 
         //Assert
@@ -155,7 +135,6 @@ class GeographicAreaTest {
         Local l1 = new Local(38, 7, 100);
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
         //Act
-        c.setLocal(l1);
         boolean actualResult = c.getId().equals("Porto");
 
         //Assert
@@ -163,27 +142,20 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetSetLocalIfDifferentOfConstructorWorks() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        Local l2 = new Local(65, 56, 100);
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        Local actualResult;
-        //Act
-        c.setLocal(l2);
-        actualResult = c.getLocal();
-
-        //Assert
-        assertEquals(l2, actualResult);
-    }
-
-    @Test
     void seeIfGetSetSensorList() {
         //Arrange
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("09/08/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico", "km/h"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico", "km/h"),
+                new Local(12, 31, 21), date);
         SensorList list1 = new SensorList(s1);
         SensorList actualResult;
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
@@ -253,8 +225,16 @@ class GeographicAreaTest {
 
     @Test
     void ensureThatAObjectIsNotAInstanceOf() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("25/11/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2, 5, new Local(22, 23, 100));
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), new GregorianCalendar(2018, 11, 25).getTime());
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), date);
 
         boolean actualResult = ga1.equals(s1);
 
@@ -298,10 +278,17 @@ class GeographicAreaTest {
 
     @Test
     void seeAddSensorToGA() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("25/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Sensor sensor1 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new GregorianCalendar(2018, 10, 25).getTime());
-        Sensor sensor2 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new GregorianCalendar(2018, 10, 25).getTime());
-        Sensor sensor3 = new Sensor("Sensor 3", new TypeSensor("Temperature", "Celsius"), new GregorianCalendar(2018, 10, 25).getTime());
+        Sensor sensor1 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), date);
+        Sensor sensor2 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), date);
+        Sensor sensor3 = new Sensor("Sensor 3", new TypeSensor("Temperature", "Celsius"), date);
 
         boolean result1 = ga.addSensorToSensorList(sensor1);
         boolean result2 = ga.addSensorToSensorList(sensor2);

@@ -260,8 +260,7 @@ class RoomConfigurationUI {
     private void loopForEditingProgram(String message, Programmable device) {
         InputUtils inputUtils = new InputUtils();
         Program program;
-        Scanner scanner = new Scanner(System.in);
-        while (inputUtils.yesOrNo(scanner.nextLine(), message)) {
+        while (inputUtils.yesOrNo(message)) {
             program = inputUtils.getSelectedProgramFromDevice(device);
             loopForPrograms(program);
         }
@@ -270,8 +269,7 @@ class RoomConfigurationUI {
     // enters a loop if the user chooses to add another program. (us210)
     private void loopForCreatingProgram(String message, ProgramList programList) {
         InputUtils inputUtils = new InputUtils();
-        Scanner scanner = new Scanner(System.in);
-        while (inputUtils.yesOrNo(scanner.nextLine(), message)) {
+        while (inputUtils.yesOrNo (message)) {
             loopForCreatingPrograms(programList);
         }
     }

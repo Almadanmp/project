@@ -29,7 +29,7 @@ public class InputUtils {
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
-            System.out.println(geographicAreaList.buildGaWholeListString(geographicAreaList));
+            System.out.println(geographicAreaList.toString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < geographicAreaList.getGeographicAreaList().size()) {
                 GeographicArea result = geographicAreaList.getGeographicAreaList().get(aux);
@@ -158,8 +158,8 @@ public class InputUtils {
             System.out.println("Please select a type of sensor from the list:");
             System.out.println(typeSensorList.buildString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < typeSensorList.getTypeSensorList().size()) {
-                TypeSensor result = typeSensorList.getTypeSensorList().get(aux);
+            if (aux >= 0 && aux < typeSensorList.size()) {
+                TypeSensor result = typeSensorList.get(aux);
                 System.out.println("You have chosen the following sensor type:");
                 System.out.println(result.buildString() + "\n");
                 return result;
@@ -190,7 +190,8 @@ public class InputUtils {
         }
     }
 
-    boolean yesOrNo(String answer, String question) {
+    boolean yesOrNo(String question) {
+        String answer= "";
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
         while (!("y".equalsIgnoreCase(answer)) && !("n".equalsIgnoreCase(answer))) {

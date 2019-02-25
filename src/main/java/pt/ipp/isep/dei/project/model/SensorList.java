@@ -171,6 +171,47 @@ public class SensorList {
     }
 
     /**
+     * Method that adds a sensor only if it's not already contained in the list.
+     *
+     * @param sensor sensor to add.
+     * @return returns true if the input reading was added successfully.
+     * returns false if the input sensor was rejected.
+     */
+
+    public boolean add(Sensor sensor) {
+        if (!sensors.contains(sensor)) {
+            sensors.add(sensor);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Method checks if sensor list contains sensor given as parameter.
+     *
+     * @param sensor sensor to check.
+     * @return returns true if list contains sensor, false if it does not contain sensor.
+     */
+
+    public boolean contains(Sensor sensor) {
+        return sensors.contains(sensor);
+    }
+
+    /**
+     * Getter (array of sensors)
+
+     * @return array of sensors
+     */
+    Sensor[] getElementsAsArray() {
+        int sizeOfResultArray = sensors.size();
+        Sensor[] result = new Sensor[sizeOfResultArray];
+        for (int i = 0; i < sensors.size(); i++) {
+            result[i] = sensors.get(i);
+        }
+        return result;
+    }
+
+    /**
      * Method 'equals' for comparison between objects of the same class
      *
      * @param testObject is the object we want to test.
@@ -186,7 +227,7 @@ public class SensorList {
             return false;
         }
         SensorList list = (SensorList) testObject;
-        return Arrays.equals(this.getListOfSensors().toArray(), list.getListOfSensors().toArray());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

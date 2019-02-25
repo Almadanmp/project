@@ -51,15 +51,17 @@ public class GeographicAreaList {
      * @param newGeoListUi the chosen list of geographic areas
      * @return a string with the names of the geographic areas
      */
-    public String buildGaWholeListString(GeographicAreaList newGeoListUi) {
+
+    @Override
+    public String toString() {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
-        if (newGeoListUi.getGeographicAreaList().isEmpty()) {
+        if (this.getGeographicAreaList().isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
 
-        for (int i = 0; i < newGeoListUi.getGeographicAreaList().size(); i++) {
-            GeographicArea aux = newGeoListUi.getGeographicAreaList().get(i);
+        for (int i = 0; i < this.getGeographicAreaList().size(); i++) {
+            GeographicArea aux = this.getGeographicAreaList().get(i);
             result.append(i).append(") Name: ").append(aux.getId()).append(" | ");
             result.append("Type: ").append(aux.getTypeArea().getTypeOfGeographicArea()).append(" | ");
             result.append("Latitude: ").append(aux.getLocal().getLatitude()).append(" | ");
@@ -78,15 +80,24 @@ public class GeographicAreaList {
      * @param longitude the longitude of the GA
      * @param altitude the altitude of the GA.
      * @return will return true if can be added and false if it cannot be added
+     * Method to check if a GA with the given input parameters exists in the list.
+     *
+     * @param newName   -
+     * @param typeArea
+     * @param latitude
+     * @param longitude
+     * @param altitude
+     * @return will return true if a Geographic Area matching given parameters already
+     * exists, false if it doesn't.
      */
-    public boolean checkIfGANotExists(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
+    public boolean containsObjectMatchesParameters(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
         Local newLocal = new Local(latitude, longitude, altitude);
         for (GeographicArea ga : geographicAreas) {
             if ((ga.getId().equals(newName) && (ga.getTypeArea().equals(typeArea) && (ga.getLocal().equals(newLocal))))) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -104,6 +115,16 @@ public class GeographicAreaList {
     }
 
     /**
+     * Checks if a the Geographic Area given as a parameter is inside the Geographic Area List
+     *
+     * @param geoArea geographic area to test
+     * @return returns true in case the GA is contained in the list and false otherwise
+     */
+    boolean contains(GeographicArea geoArea) {
+        return geographicAreas.contains(geoArea);
+    }
+
+    /**
      * Getter of the attribute geographicAreas from this class
      *
      * @return returns the geographic area list
@@ -112,7 +133,7 @@ public class GeographicAreaList {
         return geographicAreas;
     }
 
-    public GeographicAreaList matchGeographicAreaWithInputType(String typeAreaName) {
+    public GeographicAreaList getGeoAreasByType(String typeAreaName) {
         GeographicAreaList finalList = new GeographicAreaList();
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
         for (GeographicArea ga : geographicAreas) {

@@ -19,9 +19,9 @@ import static org.testng.Assert.*;
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
-        pSList1.addPowerSource(pS2);
-        boolean actualResult = pSList1.containsPowerSource(pS2);
+        pSList1.add(pS1);
+        pSList1.add(pS2);
+        boolean actualResult = pSList1.contains(pS2);
         boolean expectedResult = true;
         assertEquals(expectedResult, actualResult);
     }
@@ -31,8 +31,8 @@ import static org.testng.Assert.*;
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
-        boolean actualResult = pSList1.containsPowerSource(pS2);
+        pSList1.add(pS1);
+        boolean actualResult = pSList1.contains(pS2);
         boolean expectedResult = false;
         assertEquals(expectedResult, actualResult);
     }
@@ -43,7 +43,7 @@ import static org.testng.Assert.*;
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
         //Act
-        boolean actualResult = pSList1.addPowerSource(pS1);
+        boolean actualResult = pSList1.add(pS1);
         //Assert
         assertTrue(actualResult);
     }
@@ -54,9 +54,9 @@ import static org.testng.Assert.*;
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
+        pSList1.add(pS1);
         //Act
-        boolean actualResult = pSList1.addPowerSource(pS2);
+        boolean actualResult = pSList1.add(pS2);
         //Assert
         assertTrue(actualResult);
     }
@@ -67,9 +67,9 @@ import static org.testng.Assert.*;
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
+        pSList1.add(pS1);
         //Act
-        boolean actualResult = pSList1.addPowerSource(pS2);
+        boolean actualResult = pSList1.add(pS2);
         //Assert
         assertFalse(actualResult);
     }
@@ -80,9 +80,9 @@ import static org.testng.Assert.*;
         //Arrange
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
+        pSList1.add(pS1);
         //Act
-        boolean actualResult = pSList1.addPowerSource(pS1);
+        boolean actualResult = pSList1.add(pS1);
         //Assert
         assertFalse(actualResult);
     }
@@ -92,7 +92,7 @@ import static org.testng.Assert.*;
     void seeHashCodeDummyTest() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
+        pSList1.add(pS1);
         int expectedResult = 1;
         int actualResult = pSList1.hashCode();
         assertEquals(expectedResult, actualResult);
@@ -103,7 +103,7 @@ import static org.testng.Assert.*;
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         int teste = 3;
         PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
+        pSList1.add(pS1);
         boolean actualResult = pSList1.equals(teste);
         assertFalse(actualResult);
     }
@@ -114,8 +114,8 @@ import static org.testng.Assert.*;
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
         PowerSourceList pSList2 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
-        pSList2.addPowerSource(pS2);
+        pSList1.add(pS1);
+        pSList2.add(pS2);
         boolean actualResult = pSList1.equals(pSList2);
         assertFalse(actualResult);
     }
@@ -125,7 +125,7 @@ import static org.testng.Assert.*;
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
+        pSList1.add(pS1);
         boolean actualResult = pSList1.equals(pS2);
         assertFalse(actualResult);
     }
@@ -136,8 +136,8 @@ import static org.testng.Assert.*;
         PowerSource pS2 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
         PowerSourceList pSList2 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
-        pSList2.addPowerSource(pS2);
+        pSList1.add(pS1);
+        pSList2.add(pS2);
         boolean actualResult = pSList1.equals(pSList2);
         assertEquals(true, actualResult);
     }
@@ -146,7 +146,7 @@ import static org.testng.Assert.*;
     void seeIfEqualsSameObject() {
         PowerSource pS1 = new PowerSource("Energia", 50, 50);
         PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.addPowerSource(pS1);
+        pSList1.add(pS1);
         boolean actualResult = pSList1.equals(pSList1);
         boolean expectedResult = true;
         assertEquals(true, actualResult);

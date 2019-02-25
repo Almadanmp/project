@@ -53,6 +53,38 @@ public class TypeSensorList {
     }
 
     /**
+     * Checks the type sensor list size and returns the size as int.\
+     *
+     * @return TypeSensor size as int
+     **/
+    public int size() {
+        return this.typeSensors.size();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a type sensor from Type Sensor list.
+
+     * @return returns Type Sensor that corresponds to index.
+     */
+    public TypeSensor get(int index) {
+        return this.typeSensors.get(index);
+    }
+
+    /**
+     * Getter (array of Type Sensors)
+
+     * @return array of Type Sensors
+     */
+    TypeSensor[] getElementsAsArray() {
+        int sizeOfResultArray = typeSensors.size();
+        TypeSensor[] result = new TypeSensor[sizeOfResultArray];
+        for (int i = 0; i < typeSensors.size(); i++) {
+            result[i] = typeSensors.get(i);
+        }
+        return result;
+    }
+
+    /**
      * This methods checks if type sensor list is empty.
      *
      * @return true if list is empty, false otherwise
@@ -69,7 +101,7 @@ public class TypeSensorList {
             return false;
         }
         TypeSensorList list = (TypeSensorList) testObject;
-        return Arrays.equals(this.getTypeSensorList().toArray(), list.getTypeSensorList().toArray());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

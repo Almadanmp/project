@@ -64,11 +64,11 @@ public class RoomList {
      */
     public String buildRoomsString() {
         StringBuilder result = new StringBuilder("---------------\n");
-        if (this.getList().isEmpty()) {
+        if (this.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < this.getList().size(); i++) {
-            Room aux = this.getList().get(i);
+        for (int i = 0; i < this.size(); i++) {
+            Room aux = this.get(i);
             result.append(i).append(") Designation: ").append(aux.getRoomName()).append(" | ");
             result.append("House Floor: ").append(aux.getHouseFloor()).append(" | ");
             result.append("Width: ").append(aux.getRoomWidth()).append(" | ");
@@ -129,12 +129,44 @@ public class RoomList {
     }
 
     /**
+     * Checks the room list size and returns the size as int.\
+     *
+     * @return RoomList size as int
+     **/
+    public int size() {
+        return this.rooms.size();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a room from room list.
+     *
+     * @return returns room that corresponds to index.
+     */
+    public Room get(int index) {
+        return this.rooms.get(index);
+    }
+
+    /**
      * This method checks if every room in room list has no devices.
      *
      * @return true if list has no devices, false otherwise.
      **/
     public boolean isDeviceListEmpty() {
         return this.getDeviceList().isEmpty();
+    }
+
+    /**
+     * Getter (array of rooms)
+     *
+     * @return array of rooms
+     */
+    private Room[] getElementsAsArray() {
+        int sizeOfResultArray = rooms.size();
+        Room[] result = new Room[sizeOfResultArray];
+        for (int i = 0; i < rooms.size(); i++) {
+            result[i] = rooms.get(i);
+        }
+        return result;
     }
 
     @Override
@@ -146,7 +178,7 @@ public class RoomList {
             return false;
         }
         RoomList list = (RoomList) testObject;
-        return Arrays.equals(this.getList().toArray(), list.getList().toArray());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

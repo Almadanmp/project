@@ -170,7 +170,7 @@ class EnergyConsumptionUI {
      */
 
     private void printSelection(DeviceList selectedDevices, RoomList selectedRooms) {
-        if (selectedDevices.getList().isEmpty() && selectedRooms.getList().isEmpty()) {
+        if (selectedDevices.getList().isEmpty() && selectedRooms.isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
             System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildRoomsString()
@@ -188,11 +188,10 @@ class EnergyConsumptionUI {
     private void selectRooms(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
         InputUtils inputs = new InputUtils();
         Room r1 = inputs.getGridRoomByList(grid);
-        Scanner scanner = new Scanner(System.in);
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to remove it from the list? (Y/N)\n";
             System.out.println(duplicateRoom);
-            if (inputs.yesOrNo(scanner.nextLine(), duplicateRoom)) {
+            if (inputs.yesOrNo(duplicateRoom)) {
                 controller.removeRoomFromList(r1, selectedRooms);
                 controller.removeRoomDevicesFromDeviceList(r1, selectedDevices);
                 System.out.println("The room and its devices have been deselected.");
@@ -214,11 +213,10 @@ class EnergyConsumptionUI {
     private void selectDevices(EnergyGrid grid, DeviceList selectedDevices) {
         InputUtils inputs = new InputUtils();
         Device d1 = inputs.getGridDevicesByList(grid);
-        Scanner scanner = new Scanner(System.in);
         if (selectedDevices.containsDevice(d1)) {
             String duplicateDevice = "That device is already on the list. Would you like to deselect the device? (Y/N)\n";
             System.out.println(duplicateDevice);
-            if (inputs.yesOrNo(scanner.nextLine(), duplicateDevice)) {
+            if (inputs.yesOrNo(duplicateDevice)) {
                 controller.removeDeviceFromList(d1, selectedDevices);
                 System.out.println("The device has been deselected.");
             }
@@ -238,9 +236,8 @@ class EnergyConsumptionUI {
     private boolean continuePrompt() {
         String prompt = "Would you like to continue choosing? (y/n)";
         System.out.println(prompt);
-        Scanner scanner = new Scanner(System.in);
         InputUtils inputs = new InputUtils();
-        return inputs.yesOrNo(scanner.nextLine(), prompt);
+        return inputs.yesOrNo(prompt);
     }
 
     /**

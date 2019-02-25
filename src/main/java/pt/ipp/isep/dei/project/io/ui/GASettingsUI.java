@@ -65,8 +65,8 @@ class GASettingsUI {
             System.out.println("Please select the Geographic Area Type from the list: ");
             System.out.print(controller.buildGATypeListString(typeAreaList));
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
-                TypeArea typeArea = typeAreaList.getTypeAreaList().get(aux);
+            if (aux >= 0 && aux < typeAreaList.size()) {
+                TypeArea typeArea = typeAreaList.get(aux);
                 System.out.println("You have chosen the following Geographic Area Type:");
                 System.out.println("TypeArea: " + controller.getTypeAreaName(typeArea));
                 return typeArea;
@@ -153,7 +153,7 @@ class GASettingsUI {
         double geoAreaWidth = readInputNumber("Width");
         Local geoLocal = new Local (geoAreaLat,geoAreaLong,geoAreaAlt);
         String geoAreDescription = null;
-        if (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to add a description to the new geographic area? (y/n)")) {
+        if (inputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
             geoAreDescription = scanner.nextLine();
         }
@@ -163,7 +163,7 @@ class GASettingsUI {
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
         }
-        return controller.addGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoLocal, geoAreaLength, geoAreaWidth);
+        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoLocal, geoAreaLength, geoAreaWidth);
     }
 
     private void generateResultUS03(boolean created) {

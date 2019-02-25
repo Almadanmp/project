@@ -105,16 +105,6 @@ public class Room implements Metered {
     }
 
     /**
-     * Room DeviceList Setter.
-     *
-     * @param deviceList is the deviceList that we want to set to the room.
-     */
-    public void setDeviceList(DeviceList deviceList) {
-        this.deviceList = deviceList;
-    }
-
-
-    /**
      * Method that gets the room's device list.
      *
      * @return room's DeviceList
@@ -223,8 +213,8 @@ public class Room implements Metered {
      * @return true if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensor(Sensor sensor) {
-        if (!(roomSensorList.getListOfSensors().contains(sensor))) {
-            roomSensorList.getListOfSensors().add(sensor);
+        if (!(roomSensorList.contains(sensor))) {
+            roomSensorList.add(sensor);
             return true;
         } else {
             return false;

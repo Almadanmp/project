@@ -20,11 +20,11 @@ public class PowerSourceList {
      * @param powerSource power source received
      * @return true if contains false if not
      */
-    boolean containsPowerSource(PowerSource powerSource) {
+    boolean contains(PowerSource powerSource) {
         return powerSources.contains(powerSource);
     }
 
-    boolean addPowerSource(PowerSource powerSource) {
+    boolean add(PowerSource powerSource) {
         if (!(powerSources.contains(powerSource))) {
             powerSources.add(powerSource);
             return true;
@@ -39,7 +39,7 @@ public class PowerSourceList {
      *
      * @return array of powerSources
      */
-    PowerSource[] getPowerSources() {
+    PowerSource[] getElementsAsArray() {
         int sizeOfResultArray = powerSources.size();
         PowerSource[] result = new PowerSource[sizeOfResultArray];
         for (int i = 0; i < powerSources.size(); i++) {
@@ -48,14 +48,6 @@ public class PowerSourceList {
         return result;
     }
 
-    /**
-     * Gettter (list of powerSources)
-     *
-     * @return list of powerSources
-     */
-    List<PowerSource> getPowerSourceList() {
-        return this.powerSources;
-    }
 
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
@@ -71,7 +63,7 @@ public class PowerSourceList {
             return false;
         }
         PowerSourceList list = (PowerSourceList) testObject;
-        return Arrays.equals(this.getPowerSources(), list.getPowerSources());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

@@ -10,6 +10,8 @@ import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -178,7 +180,7 @@ class EnergyGridTest {
         PowerSource powerSource = new PowerSource("SourceOne", 400, 400);
         validGrid.addPowerSource(powerSource);
         PowerSourceList expectedResult = new PowerSourceList();
-        expectedResult.addPowerSource(powerSource);
+        expectedResult.add(powerSource);
 
         // Act
 
@@ -382,11 +384,26 @@ class EnergyGridTest {
     @Test
     void seeIfGetsLogInInterval() {
         // Arrange
-
-        Date initialTime = new GregorianCalendar(2018, Calendar.JANUARY, 11, 15, 30, 26).getTime();
-        Date endTime = new GregorianCalendar(2018, Calendar.MARCH, 11, 15, 30, 26).getTime();
-        Log validLog = new Log(300, new GregorianCalendar(2018, Calendar.FEBRUARY, 20,
-                10, 0).getTime(), new GregorianCalendar
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date initialTime = new Date();
+        try {
+            initialTime = validSdf.parse("11/01/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalTime = new Date();
+        try {
+            finalTime = validSdf.parse("11/03/2018 10:30:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date logDate = new Date();
+        try {
+            logDate = validSdf.parse("20/02/2018 10:30:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log validLog = new Log(300, logDate, new GregorianCalendar
                 (2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
         validFridge.addLog(validLog);
         LogList expectedResult = new LogList();
@@ -394,7 +411,7 @@ class EnergyGridTest {
 
         // Act
 
-        LogList actualResult = validGrid.getLogsInInterval(initialTime, endTime);
+        LogList actualResult = validGrid.getLogsInInterval(initialTime, finalTime);
 
         // Assert
 
@@ -404,14 +421,24 @@ class EnergyGridTest {
     @Test
     void seeIfDoesNotGetLogInInterval() {
         // Arrange
-
-        Date initialTime = new GregorianCalendar(2018, Calendar.JANUARY, 11, 15, 30, 26).getTime();
-        Date endTime = new GregorianCalendar(2018, Calendar.MARCH, 11, 15, 30, 26).getTime();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date initialTime = new Date();
+        try {
+            initialTime = validSdf.parse("11/01/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalTime = new Date();
+        try {
+            finalTime = validSdf.parse("11/03/2018 10:30:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         LogList expectedResult = new LogList();
 
         // Act
 
-        LogList actualResult = validGrid.getLogsInInterval(initialTime, endTime);
+        LogList actualResult = validGrid.getLogsInInterval(initialTime, finalTime);
 
         // Assert
 

@@ -18,16 +18,28 @@ import static org.junit.jupiter.api.Assertions.*;
  * WashingMachine device tests class.
  */
 
-public class WashingMachineTest {
+class WashingMachineTest {
 
     @Test
-    public void getDeviceTypeTest() {
+     void getDeviceTypeTest() {
         WashingMachine d = new WashingMachine(new WashingMachineSpec());
         d.setAttributeValue("capacity", 12D);
         String dT = "Washing Machine";
         String expectedResult = dT;
         String result = d.getType();
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void testSetAttributeForNullAttribute() {
+        //Arrange
+        WashingMachine d = new WashingMachine(new WashingMachineSpec());
+
+        //Act
+        boolean result = d.setAttributeValue(null, 12D);
+
+        //Assert
+        assertFalse(result);
     }
 
     @Test

@@ -1,8 +1,11 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,22 +23,38 @@ class SensorSettingsControllerTest {
     // Common testing artifacts for class.
 
     private SensorSettingsController controller = new SensorSettingsController();
+    private SimpleDateFormat validSdf;
+    private Date validDate1;
 
+    @BeforeEach
+    void arrangeArtifacts() {
+        validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate1 = validSdf.parse("01/04/2018 00:00:00");
+
+        } catch (
+                ParseException c) {
+            c.printStackTrace();
+        }
+    }
     //USER STORY 006 TESTS
 
     @Test
     void seeIfLocalIsCreated() {
 
-        //Arrange
+        // Arrange
+
         double lat = 50.0;
         double lon = 50.0;
         double alt = 50.0;
         Local expectedResult = new Local(50, 50, 50);
 
-        //Act
+        // Act
+
         Local actualResult = controller.createLocal(lat, lon, alt);
 
-        //Assert
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
@@ -61,11 +80,10 @@ class SensorSettingsControllerTest {
 
         // Arrange
 
-        int year = 1989;
-        int month = 7;
-        int day = 12;
-        Date expectedResult = new GregorianCalendar(1989, Calendar.AUGUST,
-                12).getTime();
+        int year = 2018;
+        int month = 3;
+        int day = 01;
+        Date expectedResult = validDate1;
 
         // Act
 
@@ -96,7 +114,7 @@ class SensorSettingsControllerTest {
         controller.createSensor(nameString, type1, loc1, date1);
         TypeSensor t1 = new TypeSensor(typeStr, "kg/m³");
         Sensor expectedResult = new Sensor("XV-56D", t1, loc1,
-                new GregorianCalendar(2018, Calendar.SEPTEMBER, 9).getTime());
+               validDate1);
 
         //Act
         Sensor actualResult = controller.createSensor(nameString, type1, loc1, date1);
@@ -115,10 +133,10 @@ class SensorSettingsControllerTest {
         Sensor firstSensor = new Sensor("SensorOne", new TypeSensor
                 ("Temperature", "Celsius"),
                 new Local(1, 1, 1),
-                new GregorianCalendar(1, Calendar.FEBRUARY, 1, 1, 1).getTime());
+                validDate1);
         Sensor secondSensor = new Sensor("SensorTwo", new TypeSensor("Temperature", "Celsius"),
                 new Local(1, 1, 1),
-                new GregorianCalendar(1, Calendar.FEBRUARY, 1, 1, 1).getTime());
+                validDate1);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(firstSensor);
         geoArea.setSensorList(sensorList);
@@ -171,8 +189,7 @@ class SensorSettingsControllerTest {
         Date date1 = controller.createDate(year, month, day);
         controller.createRoomSensor(nameString, firstType, date1);
         TypeSensor t1 = new TypeSensor(typeStr, "Celsius³");
-        Sensor expectedResult = new Sensor("XV-56D", t1, new GregorianCalendar(2018,
-                Calendar.SEPTEMBER, 9).getTime());
+        Sensor expectedResult = new Sensor("XV-56D", t1, validDate1);
 
         // Act
 
@@ -214,11 +231,11 @@ class SensorSettingsControllerTest {
 
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
         Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
-                new GregorianCalendar(1, Calendar.FEBRUARY, 1, 1, 1).getTime());
+                validDate1);
         Sensor sensor2 = new Sensor("sensor1", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
-                new GregorianCalendar(1, Calendar.FEBRUARY, 1, 1, 1).getTime());
+                validDate1);
         Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
-                new GregorianCalendar(1, Calendar.FEBRUARY, 1, 1, 1).getTime());
+                validDate1);
 
         // Act
         boolean actualResult1 = controller.addSensorToGeographicArea(sensor1, ga1);
@@ -236,8 +253,7 @@ class SensorSettingsControllerTest {
         // Arrange
 
         Sensor sensor = new Sensor("Sensor", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
-                new GregorianCalendar(1, Calendar.FEBRUARY, 1,
-                        1, 1).getTime());
+                validDate1);
         String expectedResult = "Sensor, temperature, 1.0º lat, 1.0º long\n";
 
 
