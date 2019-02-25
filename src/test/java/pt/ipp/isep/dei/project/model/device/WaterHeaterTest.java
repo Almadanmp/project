@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * WaterHeater device tests class.
  */
@@ -85,13 +86,14 @@ public class WaterHeaterTest {
         double result = waterHeater.getEnergyConsumption(1);
         assertEquals(expectedResult, result);
     }
+
     @Test
     void getConsumptionTestFailsWithoutColdTemp() {
         Device waterHeater = new WaterHeater(new WaterHeaterSpec());
 
         waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
         waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP,5D);
+        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 5D);
         Double hotT = 1.0;
         Double waterV = 300.0;
         waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
@@ -107,7 +109,7 @@ public class WaterHeaterTest {
 
         waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
         waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT,5D);
+        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 5D);
         Double hotT = 1.0;
         Double coldT = 300.0;
         waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
@@ -184,6 +186,7 @@ public class WaterHeaterTest {
         assertEquals(expectedResult2, result4);
         assertEquals(expectedResult1, result5);
     }
+
     @Test
     void seeIfGetAndSetAttributeNames() {
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
@@ -196,6 +199,7 @@ public class WaterHeaterTest {
         assertTrue(result.contains(WaterHeaterSpec.PERFORMANCE_RATIO));
         assertEquals(result.size(), 3);
     }
+
     @Test
     void seeIfGetAndSetAttributeValues() {
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
@@ -242,6 +246,7 @@ public class WaterHeaterTest {
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
     }
+
     @Test
     void getLogList() {
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
@@ -356,6 +361,28 @@ public class WaterHeaterTest {
 
 
     @Test
+    void dTQuotient() {
+        WaterHeater device = new WaterHeater(new WaterHeaterSpec());
+        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
+        double expectedResultSameValues = 0;
+        double resultSameValues = device.dTQuotient();
+        assertEquals(expectedResultSameValues, resultSameValues);
+
+        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 300D);
+        device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
+        double expectedResultHotWater = 288.0;
+        double resultHotWater = device.dTQuotient();
+        assertEquals(expectedResultHotWater, resultHotWater);
+
+        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 300D);
+        double expectedResultColdWater = 0;
+        double resultColdWater = device.dTQuotient();
+        assertEquals(expectedResultColdWater, resultColdWater);
+    }
+
+    @Test
     void seeEqualsToDifTypeObject() {
         WaterHeater d = new WaterHeater(new WaterHeaterSpec());
         d.setName("WMOne");
@@ -404,12 +431,11 @@ public class WaterHeaterTest {
     }
 
 
-
     @Test
-     void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
         d1.setNominalPower(12.0);
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT,4D);
+        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 4D);
         int expectedResult = 1;
         int actualResult = d1.hashCode();
         assertEquals(expectedResult, actualResult);
