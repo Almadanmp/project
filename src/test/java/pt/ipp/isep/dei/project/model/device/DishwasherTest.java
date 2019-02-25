@@ -23,13 +23,25 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DishwasherTest {
 
     @Test
-    public void getDeviceTypeTest() {
+    void getDeviceTypeTest() {
         Dishwasher d = new Dishwasher(new DishwasherSpec());
         d.setAttributeValue("capacity", 12D);
         String dT = "Dishwasher";
         String expectedResult = dT;
         String result = d.getType();
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void testSetAttributeForNullAttribute() {
+        //Arrange
+        Dishwasher d = new Dishwasher(new DishwasherSpec());
+
+        //Act
+        boolean result = d.setAttributeValue(null, 12D);
+
+        //Assert
+        assertFalse(result);
     }
 
     @Test
