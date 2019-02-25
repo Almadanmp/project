@@ -364,6 +364,12 @@ public class WaterHeaterTest {
     void dTQuotient() {
         WaterHeater device = new WaterHeater(new WaterHeaterSpec());
         device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 300D);
+        double expectedResultColdWater = 0;
+        double resultColdWater = device.dTQuotient();
+        assertEquals(expectedResultColdWater, resultColdWater);
+
+        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
         device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
         double expectedResultSameValues = 0;
         double resultSameValues = device.dTQuotient();
@@ -375,11 +381,7 @@ public class WaterHeaterTest {
         double resultHotWater = device.dTQuotient();
         assertEquals(expectedResultHotWater, resultHotWater);
 
-        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
-        device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 300D);
-        double expectedResultColdWater = 0;
-        double resultColdWater = device.dTQuotient();
-        assertEquals(expectedResultColdWater, resultColdWater);
+
     }
 
     @Test
