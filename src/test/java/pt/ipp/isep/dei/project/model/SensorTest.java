@@ -796,5 +796,19 @@ class SensorTest {
         assertTrue(actualResult3);
         assertFalse(actualResult4);
     }
+
+    @Test
+    void testSetDateSensor(){
+
+        // Arrange
+        Sensor sensor1 = new Sensor(validName1, validTypeSensor1, validDate1);
+
+        //Act
+        Date actualResult = sensor1.getDateStartedFunctioning();
+        Date expectedResult = validDate1;
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 }
 

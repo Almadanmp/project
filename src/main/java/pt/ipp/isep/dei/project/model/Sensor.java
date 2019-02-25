@@ -86,6 +86,8 @@ public class Sensor {
         this.dateStartedFunctioning = dateStartedFunctioning;
     }
 
+    public Date getDateStartedFunctioning(){return this.dateStartedFunctioning;}
+
     /**
      * Getter: name
      *
