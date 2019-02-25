@@ -62,7 +62,6 @@ public class GeographicArea {
      *
      * @param listToSet list to set
      */
-//TODO Remove this method after changing tests
     public void setSensorList(SensorList listToSet) {
         this.areaSensors = listToSet;
     }
@@ -139,17 +138,6 @@ public class GeographicArea {
                 this.location.getLatitude() + "º lat, " + this.location.getLongitude() + "º long\n";
         return result;
     }
-
-    /**
-     * Method to restrain input name so they cant be null or empty.
-     *
-     * @param name name inserted by user
-     * @return will return true if the name is valid or it will throw an exception if Invalid
-     */
-    private boolean isGeographicNameValid(String name) {
-        return (name != null && !name.isEmpty());
-    }
-
 
     double getWidth() {
         return this.width;
