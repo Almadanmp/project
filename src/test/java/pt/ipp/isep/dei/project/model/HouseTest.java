@@ -11,7 +11,10 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -50,12 +53,20 @@ class HouseTest {
 
     @Test
     void seeDistanceToSensor() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("20/11/2018 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        Sensor s = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 5, 5), new GregorianCalendar(2018, 10, 1).getTime());
+        Sensor s = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 5, 5),
+                date);
         double result = house.calculateDistanceToSensor(s);
         assertEquals(110.91871788829754, result, 0.01);
     }
@@ -75,8 +86,10 @@ class HouseTest {
 
     @Test
     void seeSensorWithMinDistance() {
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50),
+                new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50),
+                new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -92,8 +105,10 @@ class HouseTest {
 
     @Test
     void getMinDistanceToSensorOfGivenType() {
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50), new GregorianCalendar(4, 4, 4).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50),
+                new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50),
+                new GregorianCalendar(4, 4, 4).getTime());
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -108,8 +123,17 @@ class HouseTest {
 
     @Test
     void getMinDistanceToSensorOfGivenTypeIfInSamePosition() {
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 4).getTime());
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("09/04/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date);
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -125,8 +149,17 @@ class HouseTest {
     //TODO distance should be zero since the sensor1 has the same localization as house. check methods to see why it isn't
     @Test
     void getMinDistanceToSensorOfGivenTypeSamePositionAsHouse() {
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 5, 50), new GregorianCalendar(4, 4, 9).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(16, 17, 18), new GregorianCalendar(4, 4, 4).getTime());
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("09/04/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 5, 50), date);
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"),
+                new Local(16, 17, 18), date);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -186,7 +219,9 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        House house = new House("casa de praia", address, new Local(4, 5, 50),
+                new GeographicArea("porto", new TypeArea("cidade"), 2, 3,
+                        new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room room = new Room("quarto", 1, 80, 2, 2);
 
         boolean actualResult = house.equals(room);
@@ -369,7 +404,9 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House testHouse = new House("Casa de praia", address, new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        House testHouse = new House("Casa de praia", address, new Local(4, 5, 4),
+                new GeographicArea("porto", new TypeArea("cidade"), 2, 3,
+                        new Local(4, 4, 100)), 60, 180, deviceTypeString);
         testHouse.addRoomToRoomList(r1);
         testHouse.addRoomToRoomList(r2);
         double expectedResult = 80;
@@ -420,7 +457,9 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House h1 = new House("casa de praia", address, new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        House h1 = new House("casa de praia", address, new Local(4, 5, 4),
+                new GeographicArea("porto", new TypeArea("cidade"), 2, 3,
+                        new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d1 = new Fridge(new FridgeSpec());
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 45D);
@@ -465,7 +504,9 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House h1 = new House("casa de praia", address, new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        House h1 = new House("casa de praia", address, new Local(4, 5, 4),
+                new GeographicArea("porto", new TypeArea("cidade"), 2, 3,
+                        new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new WaterHeater(new WaterHeaterSpec());
         d2.setName("ghfg");
@@ -494,7 +535,9 @@ class HouseTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 4), new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
+        House house = new House("casa de praia", address, new Local(4, 5, 4),
+                new GeographicArea("porto", new TypeArea("cidade"), 2, 3,
+                        new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Room r1 = new Room("quarto", 1, 12, 12, 12);
         Device d2 = new WaterHeater(new WaterHeaterSpec());
         d2.setName("hgfhjf");
@@ -518,20 +561,47 @@ class HouseTest {
 
     @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed2() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date1 = new Date();
+        try {
+            date1 = validSdf.parse("12/11/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date2 = new Date();
+        try {
+            date2 = validSdf.parse("01/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date3 = new Date();
+        try {
+            date3 = validSdf.parse("25/12/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date4 = new Date();
+        try {
+            date4 = validSdf.parse("01/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 11, 12).getTime());
-        Reading r2 = new Reading(12, new GregorianCalendar(2018, 10, 1).getTime());
-        Reading r3 = new Reading(12, new GregorianCalendar(2018, 12, 25).getTime());
-        Reading r4 = new Reading(12, new GregorianCalendar(2018, 10, 1).getTime());
+        Reading r1 = new Reading(15, date1);
+        Reading r2 = new Reading(12, date2);
+        Reading r3 = new Reading(12, date3);
+        Reading r4 = new Reading(12, date4);
         readingList.addReading(r1);
         readingList.addReading(r2);
         ReadingList readingList2 = new ReadingList();
         readingList2.addReading(r3);
         readingList2.addReading(r4);
 
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date1);
         s1.setReadingList(readingList);
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 15).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date2);
         s2.setReadingList(readingList2);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
@@ -548,20 +618,47 @@ class HouseTest {
 
     @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed3() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date1 = new Date();
+        try {
+            date1 = validSdf.parse("24/01/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date2 = new Date();
+        try {
+            date2 = validSdf.parse("01/01/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date3 = new Date();
+        try {
+            date3 = validSdf.parse("25/01/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date4 = new Date();
+        try {
+            date4 = validSdf.parse("01/01/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 1, 24).getTime());
-        Reading r2 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());
-        Reading r3 = new Reading(12, new GregorianCalendar(2018, 1, 25).getTime());
-        Reading r4 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());
+        Reading r1 = new Reading(15, date1);
+        Reading r2 = new Reading(12, date2);
+        Reading r3 = new Reading(12, date3);
+        Reading r4 = new Reading(12, date4);
         readingList.addReading(r1);
         readingList.addReading(r2);
         ReadingList readingList2 = new ReadingList();
         readingList2.addReading(r3);
         readingList2.addReading(r4);
 
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date1);
         s1.setReadingList(readingList2);
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 15).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date2);
         s2.setReadingList(readingList);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
@@ -578,46 +675,85 @@ class HouseTest {
 
     @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsednull() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("12/11/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         SensorList sensorList = new SensorList();
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20,
+                new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
         Sensor result = house.getClosestSensorOfGivenType("temperature");
-        Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
+        Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "),
+                new Local(0, 0, 0), date);
         assertEquals(sensorError.getName(), result.getName());
     }
 
     @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed4() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date1 = new Date();
+        try {
+            date1 = validSdf.parse("12/11/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date2 = new Date();
+        try {
+            date2 = validSdf.parse("01/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date3 = new Date();
+        try {
+            date3 = validSdf.parse("25/12/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date4 = new Date();
+        try {
+            date4 = validSdf.parse("01/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018,
-                1, 24).getTime());
-        Reading r2 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());
-        Reading r3 = new Reading(12, new GregorianCalendar(2018, 1, 25).getTime());
-        Reading r4 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());
+        Reading r1 = new Reading(15, date1);
+        Reading r2 = new Reading(12, date2);
+        Reading r3 = new Reading(12, date3);
+        Reading r4 = new Reading(12,date4);
         readingList.addReading(r1);
         readingList.addReading(r2);
         ReadingList readingList2 = new ReadingList();
         readingList2.addReading(r3);
         readingList2.addReading(r4);
 
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date1);
         s1.setReadingList(readingList2);
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 15).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date2);
         s2.setReadingList(readingList);
-        Sensor s3 = new Sensor("sensor3", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s3 = new Sensor("sensor3", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date3);
         s3.setReadingList(readingList);
-        Sensor s4 = new Sensor("sensor4", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s4 = new Sensor("sensor4", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date4);
         s4.setReadingList(readingList);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
         sensorList.addSensor(s4);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20,
+                new Local(16, 17, 18));
         ga.setSensorList(sensorList);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -629,18 +765,45 @@ class HouseTest {
 
     @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsed5() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date1 = new Date();
+        try {
+            date1 = validSdf.parse("12/11/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date2 = new Date();
+        try {
+            date2 = validSdf.parse("01/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date3 = new Date();
+        try {
+            date3 = validSdf.parse("25/12/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date4 = new Date();
+        try {
+            date4 = validSdf.parse("01/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 1, 24).getTime());
-        Reading r2 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());
-        Reading r3 = new Reading(12, new GregorianCalendar(2018, 1, 25).getTime());
-        Reading r4 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());
+        Reading r1 = new Reading(15, date1);
+        Reading r2 = new Reading(12, date2);
+        Reading r3 = new Reading(12, date3);
+        Reading r4 = new Reading(12, date4);
         readingList.addReading(r1);
         readingList.addReading(r2);
         ReadingList readingList2 = new ReadingList();
         readingList2.addReading(r3);
         readingList2.addReading(r4);
 
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date1);
         s1.setReadingList(readingList2);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
@@ -656,20 +819,47 @@ class HouseTest {
 
     @Test
     void seeIfgetSensorWithMinDistanceAndMostRecentlyUsedWithDifDistance() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date1 = new Date();
+        try {
+            date1 = validSdf.parse("12/11/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date2 = new Date();
+        try {
+            date2 = validSdf.parse("01/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date3 = new Date();
+        try {
+            date3 = validSdf.parse("25/12/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date4 = new Date();
+        try {
+            date4 = validSdf.parse("01/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 1, 24).getTime());
-        Reading r2 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());
-        Reading r3 = new Reading(12, new GregorianCalendar(2018, 1, 25).getTime());
-        Reading r4 = new Reading(12, new GregorianCalendar(2018, 1, 1).getTime());
+        Reading r1 = new Reading(15, date1);
+        Reading r2 = new Reading(12, date2);
+        Reading r3 = new Reading(12, date3);
+        Reading r4 = new Reading(12, date4);
         readingList.addReading(r1);
         readingList.addReading(r2);
         ReadingList readingList2 = new ReadingList();
         readingList2.addReading(r3);
         readingList2.addReading(r4);
 
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 9, 50), new GregorianCalendar(4, 4, 9).getTime());
+        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 9, 50), date1);
         s1.setReadingList(readingList2);
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50), new GregorianCalendar(4, 4, 15).getTime());
+        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"),
+                new Local(4, 6, 50), date2);
         s2.setReadingList(readingList);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
