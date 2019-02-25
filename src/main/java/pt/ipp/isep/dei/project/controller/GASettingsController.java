@@ -134,7 +134,7 @@ public class GASettingsController {
      */
 
     public boolean isAreaContained(GeographicArea motherGA, GeographicArea daughterGA) {
-        return daughterGA.checkIfAreaIsContained(daughterGA, motherGA);
+        return daughterGA.isContainedInArea(motherGA);
     }
 
 }

@@ -2,12 +2,12 @@ package pt.ipp.isep.dei.project.model;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,283 +16,193 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class GeographicAreaTest {
+    private GeographicArea validArea;
 
+    @BeforeEach
+    void arrangeArtifacts(){
+        validArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
+                new Local(50, 50, 10));
+    }
 
     @Test
-    void seeIfGetSetTypeWorksIfSameAsGivenConstructor() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        TypeArea expectedResult = new TypeArea("Rua");
-        TypeArea actualResult;
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        //Act
-        actualResult = c.getTypeArea();
+    void seeIfGetTypeAreaWorks() {
+        // Arrange
 
-        //Assert
+        TypeArea expectedResult = new TypeArea("Country");
+
+        // Act
+
+        TypeArea actualResult = validArea.getTypeArea();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfConstructorSetsTypeArea() {
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        TypeArea expectedResult = new TypeArea("Rua");
-        TypeArea actualResult;
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        actualResult = c.getTypeArea();
+    void seeIfEqualsWorksSameObject() {
+        // Act
+
+        boolean actualResult = validArea.equals(validArea); // Needed for SonarQube coverage purposes.
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalse() {
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
+                new Local(50, 50, 10));
+
+        // Act
+
+        boolean actualResult = validArea.equals(testArea);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksDifferentObject() {
+        // Arrange
+
+        RoomList testList = new RoomList();
+
+        // Act
+
+        boolean actualResult = validArea.equals(testList); // Necessary for Sonarqube coverage purposes.
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfGetSetSensorListWork() {
+        // Arrange
+
+        Sensor testSensor = new Sensor("Vento", new TypeSensor("Atmosférico", "km/h"),
+                new Local(12, 31, 21), new Date());
+        SensorList testSensorList = new SensorList(testSensor);
+        validArea.setSensorList(testSensorList);
+        SensorList expectedResult = new SensorList();
+        expectedResult.addSensor(testSensor);
+
+        // Act
+
+        SensorList actualResult = validArea.getSensorList();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfEqualsSameObject() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        //Act
-        boolean actualResult = c.equals(c);
 
-        //Assert
-        assertTrue(actualResult);
+    @Test
+    void seeIfGetSetMotherAreaWorks() {
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 2, 5,
+                new Local(22, 23, 100));
+        validArea.setMotherArea(testArea);
+
+        // Act
+
+        GeographicArea actualResult = validArea.getMotherArea();
+
+        // Assert
+
+        assertEquals(testArea, actualResult);
     }
 
     @Test
-    void seeIfEqualsDifferentObject() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        GeographicArea d = new GeographicArea("Porto", t1, 2, 3, l1);
-        //Act
-        boolean actualResult = c.equals(d);
+    void seeIfGetSetDescription() {
+        // Arrange
 
-        //Assert
-        assertTrue(actualResult);
+        validArea.setDescription("Country of Portugal.");
+
+        // Act
+
+        String actualResult = validArea.getDescription();
+
+        // Assert
+
+        assertEquals("Country of Portugal.", actualResult);
     }
 
     @Test
-    void seeIfGetSetLocalIfSameAsConstructorWorksTypeAreaFALSE() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        TypeArea t2 = new TypeArea("Freguesia");
-        Local l1 = new Local(38, 7, 100);
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        GeographicArea d = new GeographicArea("Porto", t2, 2, 3, l1);
-        //Act
-        boolean actualResult = c.equals(d);
+    void seeIfCheckIfAreaIsContainedWorksTrue() {
+        // Arrange
 
-        //Assert
-        assertFalse(actualResult);
-    }
+        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 2, 5,
+                new Local(22, 23, 100));
+        validArea.setMotherArea(testArea);
 
-    @Test
-    void seeIfGetSetLocalIfSameAsConstructorWorksIDFALSE() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        GeographicArea d = new GeographicArea("Lisboa", t1, 2, 3, l1);
-        //Act
-        boolean actualResult = c.equals(d);
+        // Act
 
-        //Assert
-        assertFalse(actualResult);
-    }
+        boolean actualResult = validArea.isContainedInArea(testArea);
 
-    @Test
-    void seeIfGetSetLocalIfSameAsConstructorWorksLocalFALSE() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        Local l2 = new Local(30, 7, 100);
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        GeographicArea d = new GeographicArea("Porto", t1, 2, 3, l2);
-        //Act
-        boolean actualResult = c.equals(d);
-
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfGetSetLocalIfSameAsConstructorWorksTypeArea() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        //Act
-        boolean actualResult = c.getTypeArea().getTypeOfGeographicArea().equals("Rua");
-
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfGetSetLocalIfSameAsConstructorWorksID() {
-        //Arrange
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(38, 7, 100);
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        //Act
-        boolean actualResult = c.getId().equals("Porto");
-
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfGetSetSensorList() {
-        //Arrange
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("09/08/2018 10:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        TypeArea t1 = new TypeArea("Rua");
-        Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico", "km/h"),
-                new Local(12, 31, 21), date);
-        SensorList list1 = new SensorList(s1);
-        SensorList actualResult;
-        GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
-        //Act
-        c.setSensorList(list1);
-        actualResult = c.getSensorList();
-        //Assert
-        assertEquals(list1, actualResult);
-    }
-
-    @Test
-    void seeIfSetNameWorksNullAndThrowsStringMessage() {
-        //Arrange
-        String name = "Porto";
-        TypeArea t1 = new TypeArea("rua");
-        Local l1 = new Local(11, 12, 100);
-        GeographicArea ga1 = new GeographicArea(name, t1, 2, 3, l1);
-
-        //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            ga1.setId(null);
-        });
-
-        //Assert
-        assertEquals("Please Insert Valid Name", exception.getMessage());
-    }
-
-    @Test
-    void seeIfSetNameWorksEmptyAndThrowsStringException() {
-        //Arrange
-        String name = "Porto";
-        TypeArea t1 = new TypeArea("rua");
-        Local l1 = new Local(11, 12, 100);
-        GeographicArea ga1 = new GeographicArea(name, t1, 2, 3, l1);
-        //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            ga1.setId("");
-        });
-        //Assert
-        assertEquals("Please Insert Valid Name", exception.getMessage());
-    }
-
-
-    @Test
-    void seeIfWeSetMotherArea() {
-        //Arrange
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2, 5, new Local(22, 23, 100));
-        GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("País"), 6, 7, new Local(22, 17, 100));
-        ga1.setMotherArea(ga2);
-
-        //Act
-        GeographicArea actualResult = ga1.getMotherArea();
-
-        //Assert
-        assertEquals(ga2, actualResult);
-    }
-
-    @Test
-    void seeIfSetDescription() {
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2, 5, new Local(22, 23, 100));
-        ga1.setDescription("cidade do Porto");
-
-        String actualResult = ga1.getDescription();
-
-        assertEquals("cidade do Porto", actualResult);
-    }
-
-    @Test
-    void ensureThatAObjectIsNotAInstanceOf() {
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("25/11/2018 10:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2, 5, new Local(22, 23, 100));
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), date);
-
-        boolean actualResult = ga1.equals(s1);
-
-        assertFalse(actualResult);
-    }
-
-
-    @Test
-    void ensureThatAreaIsContained() {
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 10, 20, new Local(22, 23, 100));
-        GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("Cidade"), 200, 521, new Local(22, 23, 100));
-        ga1.setMotherArea(ga2);
-        ga1.setMotherArea(ga2);
-        boolean actualResult = ga1.checkIfAreaIsContained(ga1, ga2);
+        // Assert
 
         assertTrue(actualResult);
     }
 
     @Test
-    void ensureThatAreaIsNotContained() {
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 10, 20, new Local(22, 23, 100));
-        GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("Cidade"), 200, 521, new Local(22, 23, 100));
-        ga1.setMotherArea(ga2);
-        ga1.setMotherArea(ga2);
-        boolean actualResult = ga1.checkIfAreaIsContained(ga2, ga1);
+    void seeIfCheckIfAreaIsContainedWorksFalse() {
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 2, 5,
+                new Local(22, 23, 100));
+
+
+        // Act
+
+        boolean actualResult = validArea.isContainedInArea(testArea);
+
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
-    void ensureThatGrandsonAreaIsContainedInGrandmotherArea() {
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2, 4, new Local(22, 22, 100));
-        GeographicArea ga2 = new GeographicArea("Portugal", new TypeArea("Cidade"), 20, 40, new Local(22, 22, 100));
-        GeographicArea ga3 = new GeographicArea("Europa", new TypeArea("Cidade"), 200, 400, new Local(22, 22, 100));
-        ga1.setMotherArea(ga2);
-        ga2.setMotherArea(ga3);
-        boolean actualResult = ga1.checkIfAreaIsContained(ga1, ga3);
+    void seeIfCheckIfAreaIsContainedWorksTransitive() {
+        // Arrange
+
+        GeographicArea firstTestArea = new GeographicArea("Porto", new TypeArea("City"),
+                2, 4, new Local(22, 22, 100));
+        GeographicArea secondTestArea = new GeographicArea("Europe", new TypeArea("Continent"),
+                200, 400, new Local(22, 22, 100));
+        firstTestArea.setMotherArea(validArea);
+        validArea.setMotherArea(secondTestArea);
+
+        // Act
+
+        boolean actualResult = firstTestArea.isContainedInArea(secondTestArea);
+
+        // Assert
 
         assertTrue(actualResult);
     }
 
     @Test
     void seeAddSensorToGA() {
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("25/10/2018 10:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Sensor sensor1 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), date);
-        Sensor sensor2 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), date);
-        Sensor sensor3 = new Sensor("Sensor 3", new TypeSensor("Temperature", "Celsius"), date);
+        // Arrange
 
-        boolean result1 = ga.addSensorToSensorList(sensor1);
-        boolean result2 = ga.addSensorToSensorList(sensor2);
-        boolean result3 = ga.addSensorToSensorList(sensor3);
+        Sensor firstTestSensor = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new Date());
+        Sensor secondTestSensor = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new Date());
+        Sensor thirdTestSensor = new Sensor("Sensor 3", new TypeSensor("Temperature", "Celsius"), new Date());
+
+        // Act
+
+        boolean result1 = validArea.addSensorToSensorList(firstTestSensor);
+        boolean result2 = validArea.addSensorToSensorList(secondTestSensor);
+        boolean result3 = validArea.addSensorToSensorList(thirdTestSensor);
+
+        // Assert
 
         assertTrue(result1);
         assertFalse(result2);
@@ -300,21 +210,32 @@ class GeographicAreaTest {
     }
 
     @Test
-    void testBuildGeographicAreaString() {
-        //Arrange
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 16, 17, new Local(16, 17, 18));
-        //Act
-        String expectedResult = "Porto, Rua, 16.0º lat, 17.0º long\n";
-        String actualResult = ga1.buildGeographicAreaString();
-        //Assert
+    void seeIfToStringWorks() {
+        // Arrange
+
+        String expectedResult = "Portugal, Country, 50.0º lat, 50.0º long\n";
+
+        // Act
+
+        String actualResult = validArea.buildGeographicAreaString();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void hashCodeDummyTest() {
-        GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Rua"), 16, 17, new Local(16, 17, 18));
+   void hashCodeDummyTest() {
+        // Arrange
+
         int expectedResult = 1;
-        int actualResult = ga1.hashCode();
+
+        // Act
+
+        int actualResult = validArea.hashCode();
+
+        // Assert
+
         Assertions.assertEquals(expectedResult, actualResult);
     }
 }
