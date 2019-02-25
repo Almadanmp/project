@@ -380,8 +380,6 @@ public class WaterHeaterTest {
         double expectedResultHotWater = 288.0;
         double resultHotWater = device.dTQuotient();
         assertEquals(expectedResultHotWater, resultHotWater);
-
-
     }
 
     @Test
