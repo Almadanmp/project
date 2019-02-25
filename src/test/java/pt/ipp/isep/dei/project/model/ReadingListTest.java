@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.*;
@@ -83,41 +80,6 @@ class ReadingListTest {
     }
 
     @Test
-    void seeThatWeAddAReading1ToAList() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(17, calendar.getTime());
-        Reading reading2 = new Reading(29, calendar.getTime());
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-
-        //Act
-        boolean actualResult = readingList.contains(reading1);
-
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeThatWeAddAReading2ToAList() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(15, g1.getTime());
-        GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
-        Reading reading2 = new Reading(2, g2.getTime());
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-
-        //Act
-        boolean actualResult = readingList.contains(reading2);
-
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
     void seeThatWeGetAValueFromAReading1InsideAList() {
         //Arrange
         ReadingList readingList = new ReadingList();
@@ -153,42 +115,6 @@ class ReadingListTest {
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.1);
-    }
-
-    @Test
-    void seeThatAReadingListDoesNotContainAReading() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(15, g1.getTime());
-        GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
-        Reading reading2 = new Reading(29, g2.getTime());
-        readingList.addReading(reading1);
-
-        //Act
-        boolean actualResult = readingList.contains(reading2);
-
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeThatAReadingDoesNotAddBecauseItIsAlreadyContained() {
-        //Arrange
-        ReadingList readingList = new ReadingList();
-        GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(15, g1.getTime());
-        GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
-        Reading reading2 = new Reading(29, g2.getTime());
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        readingList.addReading(reading2);
-
-        //Act
-        boolean actualResult = readingList.contains(reading2);
-
-        //Assert
-        assertTrue(actualResult);
     }
 
     @Test
@@ -237,7 +163,6 @@ class ReadingListTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
 
     @Test
     void seeIfGetsAverageFromList() {
@@ -574,7 +499,7 @@ class ReadingListTest {
         //Act
         Throwable exception = assertThrows(IllegalStateException.class, () -> {
             rl.getTotalValueOfReadingOnGivenDay(new GregorianCalendar(2018, 10, 3).getTime());
-                });
+        });
         //Assert
         assertEquals("Warning: Total value was not calculated - no readings were available.", exception.getMessage());
     }
@@ -731,4 +656,32 @@ class ReadingListTest {
         assertEquals(expectedResult1, actualResult4);
     }
 
+    @Test
+    void getFirstSecondOfDaySuccess() {
+        GregorianCalendar cal = new GregorianCalendar(2018, Calendar.OCTOBER, 2, 23, 59);
+        Date expectedResult = new GregorianCalendar(2018, Calendar.OCTOBER, 2, 00, 00).getTime();
+        Date date = cal.getTime();
+        ReadingList readingList1 = new ReadingList();
+        assertEquals(expectedResult, readingList1.getFirstSecondOfDay(date));
+    }
+
+    @Test
+    void isReadingDateBetweenTwoDatesTrue() {
+        ReadingList readingList1 = new ReadingList();
+        Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 23, 59).getTime());
+        Date startDate = new GregorianCalendar(2018, Calendar.OCTOBER, 1, 23, 59).getTime();
+        Date endDate = new GregorianCalendar(2019, Calendar.OCTOBER, 1, 23, 59).getTime();
+        readingList1.addReading(reading1);
+        assertTrue(readingList1.isReadingDateBetweenTwoDates(reading1.getDate(), startDate, endDate));
+    }
+
+    @Test
+    void isReadingDateBetweenTwoDatesFalse() {
+        ReadingList readingList1 = new ReadingList();
+        Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 23, 59).getTime());
+        Date startDate = new GregorianCalendar(2016, Calendar.OCTOBER, 1, 23, 59).getTime();
+        Date endDate = new GregorianCalendar(2017, Calendar.OCTOBER, 1, 23, 59).getTime();
+        readingList1.addReading(reading1);
+        assertFalse(readingList1.isReadingDateBetweenTwoDates(reading1.getDate(), startDate, endDate));
+    }
 }
