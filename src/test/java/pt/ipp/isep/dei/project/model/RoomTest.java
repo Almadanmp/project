@@ -8,10 +8,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertTrue;
@@ -841,7 +838,7 @@ class RoomTest {
         //Act and Assert
 
         assertThrows(IllegalArgumentException.class, () -> room1.getMaxTemperatureOnGivenDay(gregorianCalendar1.getTime()));
-        assertThrows(IllegalArgumentException.class, () -> room2.getMaxTemperatureOnGivenDay(gregorianCalendar1.getTime()));
+        assertThrows(NoSuchElementException.class, () -> room2.getMaxTemperatureOnGivenDay(gregorianCalendar1.getTime()));
     }
 
     @Test

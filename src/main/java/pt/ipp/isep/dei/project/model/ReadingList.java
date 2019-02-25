@@ -163,7 +163,7 @@ public class ReadingList {
      * @return returns a list with every value of readings that was recorded on that particular day.
      * @author Daniela - US623
      */
-   private List<Double> getValuesOfSpecificDayReadings(Date day) {
+    List<Double> getValuesOfSpecificDayReadings(Date day) {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (int i = 0; i < readings.size(); i++) {
             if (compareDayMonthAndYearBetweenDates(readings.get(i).getDate(), day)) {
@@ -209,41 +209,7 @@ public class ReadingList {
         return (sum / valueList.size());
     }
 
-    /**
-     * This method returns the Maximum Value of the Reading of a Given Day.
-     *
-     * @param dateGiven date given
-     * @return get maximum value reading in a given day
-     */
-    double getMaximumOfGivenDayValueReadings(Date dateGiven) {
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTime(dateGiven);
-        cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 59);
-        cal.set(Calendar.SECOND, 59);
-        cal.add(Calendar.DAY_OF_MONTH, -1);
-        Date beginDay = cal.getTime();
-
-        cal.setTime(dateGiven);
-        cal.set(Calendar.SECOND, 0);
-        cal.add(Calendar.DAY_OF_MONTH, +1);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        Date endDay = cal.getTime();
-        ReadingList dayReadings = matchByDate(beginDay, endDay);
-
-        if (dayReadings.isEmpty()) {
-            throw new IllegalArgumentException("The day given has no readings.");
-        }
-        double maxValue = dayReadings.get(0).getValue();
-        for (Reading r : dayReadings.getListOfReadings()) {
-            double currentValue = r.getValue();
-            maxValue = Math.max(maxValue, currentValue);
-        }
-        return maxValue;
-    }
-
-    /**
+     /**
      * This method receives two dates and checks the readings to match those that
      * have a date contained in the interval given as parameter
      *

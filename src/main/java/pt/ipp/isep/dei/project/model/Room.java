@@ -4,9 +4,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Class that represents a Room of a House.
@@ -156,8 +154,6 @@ public class Room implements Metered {
         return this.deviceList.getConsumptionInInterval(initialDate, finalDate);
     }
 
-    //TODO remove the   double maxTemp = -1000;
-
     /**
      * Method receives a date of a given day and looks for the max temperature
      * recorded in every sensor that measure temperature, in the room.
@@ -168,17 +164,15 @@ public class Room implements Metered {
      * @param day where we want to look for max temperature
      **/
     public double getMaxTemperatureOnGivenDay(Date day) {
-        double maxTemp = -1000;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException("There aren't any temperature readings available.");
+        } else {
+            if (!tempSensors.getReadings().getValuesOfSpecificDayReadings(day).isEmpty()) {
+                return Collections.max(tempSensors.getReadings().getValuesOfSpecificDayReadings(day));
+            }
+            throw new NoSuchElementException("There aren't any temperature readings available.");
         }
-        for (Sensor s : tempSensors.getListOfSensors()) {
-            ReadingList readingList = s.getReadingList();
-            double sensorMax = readingList.getMaximumOfGivenDayValueReadings(day);
-            maxTemp = Math.max(sensorMax, maxTemp);
-        }
-        return maxTemp;
     }
 
     /**
