@@ -25,10 +25,10 @@ public class GeographicArea {
 
     public GeographicArea(String id, TypeArea typeArea, double length, double width, Local location) {
         setId(id);
-        setTypeArea(typeArea);
-        setLength(length);
-        setWidth(width);
-        setLocal(location);
+        this.typeArea = typeArea;
+        this.length = length;
+        this.width = width;
+        this.location = location;
         this.areaSensors = new SensorList();
     }
 
@@ -47,26 +47,6 @@ public class GeographicArea {
     }
 
     /**
-     * Sets the width attribute
-     *
-     * @param width related to longitude
-     */
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    /**
-     * Sets the length attribute
-     *
-     * @param length related to latitude
-     */
-
-    public void setLength(double length) {
-        this.length = length;
-    }
-
-    /**
      * Sets the description attribute
      *
      * @param description String is a short description of the Geographical Area.
@@ -81,30 +61,11 @@ public class GeographicArea {
     }
 
     /**
-     * Setter for Geographic Area type.
-     *
-     * @param typeArea Type area is determined by a string - e.g. "Street", "City", etc.
-     */
-    void setTypeArea(TypeArea typeArea) {
-        this.typeArea = typeArea;
-    }
-
-    /**
-     * Setter for Geographic Area localization.
-     *
-     * @param local Localization is defined by three doubles (longitude, latitude and altitude).
-     */
-    void setLocal(Local local) {
-        this.location = local;
-    }
-
-
-    /**
      * Setter for Sensor List.
      *
      * @param listToSet list to set
      */
-
+//TODO Remove this method after changing tests
     public void setSensorList(SensorList listToSet) {
         this.areaSensors = listToSet;
     }

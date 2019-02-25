@@ -278,6 +278,7 @@ public class ReadingList {
      * @param maxDate the upper (max) date for interval comparison
      * @return the average of all values in the reading list between the two given dates
      * @author Daniela
+     * @linkplain US623
      */
     public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
