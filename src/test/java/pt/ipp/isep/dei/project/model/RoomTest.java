@@ -703,9 +703,8 @@ class RoomTest {
         device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("Room", 1, 2, 3, 4);
         room.setDeviceList(deviceList);
-        boolean expectedResult = true;
         boolean actualResult = room.addDevice(device);
-        assertEquals(expectedResult, actualResult);
+        Assertions.assertTrue(actualResult);
     }
 
     @Test

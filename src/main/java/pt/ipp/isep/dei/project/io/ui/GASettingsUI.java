@@ -66,8 +66,8 @@ class GASettingsUI {
             System.out.println("Please select the Geographic Area Type from the list: ");
             System.out.print(controller.buildGATypeListString(typeAreaList));
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < typeAreaList.getTypeAreaList().size()) {
-                TypeArea typeArea = typeAreaList.getTypeAreaList().get(aux);
+            if (aux >= 0 && aux < typeAreaList.size()) {
+                TypeArea typeArea = typeAreaList.get(aux);
                 System.out.println("You have chosen the following Geographic Area Type:");
                 System.out.println("TypeArea: " + controller.getTypeAreaName(typeArea));
                 return typeArea;

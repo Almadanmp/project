@@ -178,7 +178,7 @@ class EnergyGridTest {
         PowerSource powerSource = new PowerSource("SourceOne", 400, 400);
         validGrid.addPowerSource(powerSource);
         PowerSourceList expectedResult = new PowerSourceList();
-        expectedResult.addPowerSource(powerSource);
+        expectedResult.add(powerSource);
 
         // Act
 

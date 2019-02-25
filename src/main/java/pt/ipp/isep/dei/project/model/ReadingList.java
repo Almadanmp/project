@@ -234,7 +234,7 @@ public class ReadingList {
         if (dayReadings.isEmpty()) {
             throw new IllegalArgumentException("The day given has no readings.");
         }
-        double maxValue = dayReadings.getListOfReadings().get(0).getValue();
+        double maxValue = dayReadings.get(0).getValue();
         for (Reading r : dayReadings.getListOfReadings()) {
             double currentValue = r.getValue();
             maxValue = Math.max(maxValue, currentValue);
@@ -338,6 +338,49 @@ public class ReadingList {
         return sum;
     }
 
+    /**
+     * Checks the reading list size and returns the size as int.\
+     *
+     * @return ReadingList size as int
+     **/
+    public int size() {
+        return this.readings.size();
+    }
+
+    /**
+     * Method checks if reading list contains reading given as parameter.
+     *
+     * @param reading reading to check.
+     * @return returns true if list contains reading, false if it does not contain reading.
+     */
+
+    public boolean contains(Reading reading) {
+        return readings.contains(reading);
+    }
+
+    /**
+     * This method receives an index as parameter and gets a reading from reading list.
+     *
+     * @return returns reading that corresponds to index.
+     */
+    public Reading get(int index) {
+        return this.readings.get(index);
+    }
+
+    /**
+     * Getter (array of readings)
+
+     * @return array of readings
+     */
+    Reading[] getElementsAsArray() {
+        int sizeOfResultArray = readings.size();
+        Reading[] result = new Reading[sizeOfResultArray];
+        for (int i = 0; i < readings.size(); i++) {
+            result[i] = readings.get(i);
+        }
+        return result;
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
@@ -347,7 +390,7 @@ public class ReadingList {
             return false;
         }
         ReadingList list = (ReadingList) testObject;
-        return Arrays.equals(this.getListOfReadings().toArray(), list.getListOfReadings().toArray());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

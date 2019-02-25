@@ -93,7 +93,7 @@ class ReadingListTest {
         readingList.addReading(reading2);
 
         //Act
-        boolean actualResult = readingList.getListOfReadings().contains(reading1);
+        boolean actualResult = readingList.contains(reading1);
 
         //Assert
         assertTrue(actualResult);
@@ -111,7 +111,7 @@ class ReadingListTest {
         readingList.addReading(reading2);
 
         //Act
-        boolean actualResult = readingList.getListOfReadings().contains(reading2);
+        boolean actualResult = readingList.contains(reading2);
 
         //Assert
         assertTrue(actualResult);
@@ -130,7 +130,7 @@ class ReadingListTest {
         double expectedResult = 15;
 
         //Act
-        double actualResult = readingList.getListOfReadings().get(0).getValue();
+        double actualResult = readingList.get(0).getValue();
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.1);
@@ -149,7 +149,7 @@ class ReadingListTest {
         double expectedResult = 29;
 
         //Act
-        double actualResult = readingList.getListOfReadings().get(1).getValue();
+        double actualResult = readingList.get(1).getValue();
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.1);
@@ -166,7 +166,7 @@ class ReadingListTest {
         readingList.addReading(reading1);
 
         //Act
-        boolean actualResult = readingList.getListOfReadings().contains(reading2);
+        boolean actualResult = readingList.contains(reading2);
 
         //Assert
         assertFalse(actualResult);
@@ -185,7 +185,7 @@ class ReadingListTest {
         readingList.addReading(reading2);
 
         //Act
-        boolean actualResult = readingList.getListOfReadings().contains(reading2);
+        boolean actualResult = readingList.contains(reading2);
 
         //Assert
         assertTrue(actualResult);

@@ -101,8 +101,8 @@ public class EnergyGrid implements Metered {
      * @return returns true case the power source to be added is already associated to the grid.
      */
     public boolean addPowerSource(PowerSource powerSource) {
-        if (!(listPowerSources.getPowerSourceList().contains(powerSource))) {
-            return listPowerSources.getPowerSourceList().add(powerSource);
+        if (!(listPowerSources.contains(powerSource))) {
+            return listPowerSources.add(powerSource);
         }
         return false;
     }
@@ -187,8 +187,8 @@ public class EnergyGrid implements Metered {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
         for (DeviceType d : house.getDeviceTypeList()) {
-            for (int i = 0; i < energyGrid.getRoomList().getList().size(); i++) {
-                Room r = energyGrid.getRoomList().getList().get(i);
+            for (int i = 0; i < energyGrid.getRoomList().size(); i++) {
+                Room r = energyGrid.getRoomList().get(i);
                 if (r != null) {
                     result.append(buildDevicesStringByType(r, d.getDeviceType()));
                 }

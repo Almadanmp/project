@@ -170,7 +170,7 @@ class EnergyConsumptionUI {
      */
 
     private void printSelection(DeviceList selectedDevices, RoomList selectedRooms) {
-        if (selectedDevices.getList().isEmpty() && selectedRooms.getList().isEmpty()) {
+        if (selectedDevices.getList().isEmpty() && selectedRooms.isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
             System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildRoomsString()
