@@ -90,7 +90,7 @@ public class GeographicArea {
     public boolean isContainedInArea(GeographicArea motherArea) {
         GeographicArea tempMotherArea = this;
         while (tempMotherArea.getMotherArea() != null) {
-            if (tempMotherArea.getMotherArea().equals(motherArea)) {
+            if (tempMotherArea.isMotherAreaEqual(motherArea)) {
                 return true;
             } else {
                 tempMotherArea = this.getMotherArea();
@@ -149,14 +149,7 @@ public class GeographicArea {
     }
 
     public boolean addSensorToSensorList(Sensor sensor) {
-        String sensorToAddName = sensor.getName();
-        for (Sensor s : this.areaSensors.getListOfSensors()) {
-            String sensorNameTest = s.getName();
-            if (sensorNameTest.equals(sensorToAddName))
-                return false;
-        }
-        this.areaSensors.addSensor(sensor);
-        return true;
+        return this.areaSensors.addSensor(sensor);
     }
 
     /**
@@ -168,6 +161,29 @@ public class GeographicArea {
         return areaSensors.isEmpty();
     }
 
+    /** This method checks if mother area is equal to geographic area given.
+     *
+     * @return true if is equal to geographic area given, false otherwise.
+     * **/
+    public boolean isMotherAreaEqual(GeographicArea geographicArea){
+        return this.motherArea.equals(geographicArea);
+    }
+
+    /** This method checks if name, type area and local match those of geographic area.
+     *
+     * @return true if it matches, false if it does not.
+     * **/
+    public boolean equalsParameters(String name, TypeArea typeArea, Local local){
+        return (this.id.equals(name) && (this.typeArea.equals(typeArea) && (this.location.equals(local))));
+    }
+
+    /** This method checks if type area given match that of geographic area.
+     *
+     * @return true if it matches, false if it does not.
+     * **/
+    public boolean equalsTypeArea(TypeArea typeArea){
+        return (this.typeArea.equals(typeArea));
+    }
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two

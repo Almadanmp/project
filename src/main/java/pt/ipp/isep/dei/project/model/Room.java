@@ -355,6 +355,25 @@ public class Room implements Metered {
         return this.deviceList.isEmpty();
     }
 
+    /**
+     * Creates a string that displays all devices of a given type in a given room.
+     *
+     * @param type type of device to display
+     * @return a string that displays all devices of given type.
+     */
+    String buildDevicesStringByType(String type) {
+        StringBuilder result = new StringBuilder();
+        for (int x = 0; x < deviceList.size(); x++) {
+            if (type.equals(deviceList.get(x).getType())) {
+                Device device = deviceList.get(x);
+                result.append("Device type: ").append(type).append(" | ");
+                result.append("Device name: ").append(device.getName()).append(" | ");
+                result.append("Nominal power: ").append(device.getNominalPower()).append(" | ");
+                result.append("Room: ").append(this.roomName).append(" | \n");
+            }
+        }
+        return result.toString();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

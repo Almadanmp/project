@@ -327,7 +327,7 @@ class EnergyGridTest {
 
         // Act
 
-        String actualResult = validGrid.buildDeviceListWithTypeString(validGrid, validHouse);
+        String actualResult = validGrid.buildDeviceListWithTypeString(validHouse);
 
         // Assert
 
@@ -344,7 +344,7 @@ class EnergyGridTest {
 
         // Act
 
-        String actualResult = validGrid.buildDeviceListWithTypeString(testGrid, validHouse);
+        String actualResult = testGrid.buildDeviceListWithTypeString(validHouse);
 
         // Assert
 
@@ -363,7 +363,7 @@ class EnergyGridTest {
 
         // Act
 
-        String actualResult = validGrid.buildDeviceListWithTypeString(testGrid, validHouse);
+        String actualResult = testGrid.buildDeviceListWithTypeString(validHouse);
 
         // Assert
 
@@ -479,20 +479,5 @@ class EnergyGridTest {
         // Assert
 
         assertEquals(expectedResult, value);
-    }
-
-    @Test
-    void seeIfBuildDeviceListByTypeWorksNoDevicesOfType() {
-        // Arrange
-
-        String expectedResult = "";
-
-        //Act
-
-        String actualResult = validGrid.buildDevicesStringByType(validRoom, "Rocket");
-
-        //Arrange
-
-        assertEquals(expectedResult, actualResult);
     }
 }

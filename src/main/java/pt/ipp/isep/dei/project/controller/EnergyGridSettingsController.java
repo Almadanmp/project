@@ -124,6 +124,6 @@ public class EnergyGridSettingsController {
      */
 
     public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house) {
-        return energyGrid.buildDeviceListWithTypeString(energyGrid, house);
+        return energyGrid.buildDeviceListWithTypeString(house);
     }
 }

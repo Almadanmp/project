@@ -51,12 +51,23 @@ public class LogList {
      * @return false if it's already contained in the list, true if it added successfully.
      */
     public boolean addLog(Log logToAdd) {
-        if (this.getLogListAttribute().contains(logToAdd)) {
+        if (this.logs.contains(logToAdd)) {
             return false;
         }
-        this.getLogListAttribute().add(logToAdd);
+        this.logs.add(logToAdd);
         return true;
     }
+
+    /**
+     * Method that checks if a Log is contained in the LogList.
+     *
+     * @param log is the log that we want to see if it's contained in the LogList.
+     * @return true if log is contained in the LogList, false otherwise.
+     */
+    public boolean contains(Log log) {
+        return (this.logs.contains(log));
+    }
+
 
     public boolean isEmpty() {
         return this.logs.isEmpty();
@@ -87,9 +98,8 @@ public class LogList {
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
         int counter = 0;
-        for (Log l : this.getLogListAttribute()) {
-            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
-                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
+        for (Log l : this.logs) {
+            if (l.isLogInInterval(initialTime, finalTime)) {
                 counter++;
             }
         }
@@ -105,9 +115,8 @@ public class LogList {
      */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         LogList result = new LogList();
-        for (Log l : this.getLogListAttribute()) {
-            if ((l.getInitialDate().after(startDate) || l.getInitialDate().equals(startDate)) &&
-                    ((l.getFinalDate().before(endDate)) || l.getFinalDate().equals(endDate))) {
+        for (Log l : this.logs) {
+            if (l.isLogInInterval(startDate, endDate)) {
                 result.addLog(l);
             }
         }
@@ -123,9 +132,8 @@ public class LogList {
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
         double result = 0;
-        for (Log l : this.getLogListAttribute()) {
-            if ((l.getInitialDate().after(initialTime) || l.getInitialDate().equals(initialTime)) &&
-                    ((l.getFinalDate().before(finalTime)) || l.getFinalDate().equals(finalTime))) {
+        for (Log l : this.logs) {
+            if (l.isLogInInterval(initialTime, finalTime)) {
                 result += l.getValue();
             }
         }
@@ -136,7 +144,7 @@ public class LogList {
     public String toString() {
         int counter = 0;
         StringBuilder result = new StringBuilder();
-        for (Log log : this.getLogListAttribute()) {
+        for (Log log : this.logs) {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             String startDateString = format.format(log.getInitialDate());
             String endDateString = format.format(log.getFinalDate());

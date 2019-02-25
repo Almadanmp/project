@@ -39,10 +39,12 @@ public class SensorList {
      * @return true if sensor was successfully added to the SensorList, false otherwise.
      */
 
-    public void addSensor(Sensor sensorToAdd) {
+    public boolean addSensor(Sensor sensorToAdd) {
         if (!(sensors.contains(sensorToAdd))) {
             sensors.add(sensorToAdd);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -185,7 +187,7 @@ public class SensorList {
 
      * @return array of sensors
      */
-    Sensor[] getElementsAsArray() {
+    private Sensor[] getElementsAsArray() {
         int sizeOfResultArray = sensors.size();
         Sensor[] result = new Sensor[sizeOfResultArray];
         for (int i = 0; i < sensors.size(); i++) {

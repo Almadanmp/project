@@ -61,11 +61,7 @@ public class EnergyGrid implements Metered {
      */
 
     public double getNominalPower() {
-        double result = 0;
-        for (Room r : roomList.getList()) {
-            result += r.getNominalPower();
-        }
-        return result;
+        return roomList.getNominalPower();
     }
 
     /**
@@ -88,10 +84,11 @@ public class EnergyGrid implements Metered {
     /**
      * Setter for the list of rooms connected the energy grid.
      *
-     * @param mListOfRooms List of rooms in the energy grid.
+     * @param roomList List of rooms in the energy grid.
      */
-    public void setRoomList(RoomList mListOfRooms) {
-        this.roomList = mListOfRooms;
+    public void setRoomList(RoomList roomList) {
+        if(roomList != null){
+        this.roomList = roomList;}
     }
 
     /**
@@ -101,10 +98,7 @@ public class EnergyGrid implements Metered {
      * @return returns true case the power source to be added is already associated to the grid.
      */
     public boolean addPowerSource(PowerSource powerSource) {
-        if (!(listPowerSources.contains(powerSource))) {
-            return listPowerSources.add(powerSource);
-        }
-        return false;
+        return listPowerSources.add(powerSource);
     }
 
     /**
@@ -124,15 +118,6 @@ public class EnergyGrid implements Metered {
      */
     public String buildGridString() {
         return "Energy Grid: " + this.name + ", Max Power: " + this.getMaxContractedPower();
-    }
-
-    /**
-     * Getter for the list of rooms related to the energy grid as an array of rooms.
-     *
-     * @return a list of rooms related to the energy grid.
-     */
-    private List<Room> getListOfRooms() {
-        return this.roomList.getList();
     }
 
     /**
@@ -209,45 +194,21 @@ public class EnergyGrid implements Metered {
 
     /**
      * Creates a String with the device index, device type, device name and the room in which the device is contained.
-     * @param house the house that contains the devices.
-     * @param energyGrid energy grid that we want to see which devices will be printed.
+     * @param house the house that contains the device types.
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
-    public String buildDeviceListWithTypeString(EnergyGrid energyGrid, House house) {
+    public String buildDeviceListWithTypeString(House house) {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
         for (DeviceType d : house.getDeviceTypeList()) {
-            for (int i = 0; i < energyGrid.getRoomList().size(); i++) {
-                Room r = energyGrid.getRoomList().get(i);
-                if (r != null) {
-                    result.append(buildDevicesStringByType(r, d.getDeviceType()));
-                }
-            }
+            String deviceType = d.getDeviceType();
+            result.append(roomList.buildDeviceListByType(deviceType));
         }
         result.append(stringSpacer);
         return result.toString();
     }
 
-    /**
-     * Creates a string that displays all devices of a given type in a given room.
-     *
-     * @param room room where we want to see the devices.
-     * @param type type of the devices.
-     * @return a string that displays the device type and in which room it is contained.
-     */
-    String buildDevicesStringByType(Room room, String type) {
-        StringBuilder result = new StringBuilder();
-        for (int x = 0; x < room.getDeviceListSize(); x++) {
-            if (type.equals(room.getDeviceList().get(x).getType())) {
-                Device device = room.getDeviceList().get(x);
-                result.append("Device type: ").append(type).append(" | ");
-                result.append("Device name: ").append(device.getName()).append(" | ");
-                result.append("Nominal power: ").append(device.getNominalPower()).append(" | ");
-                result.append("Room: ").append(room.getRoomName()).append(" | \n");
-            }
-        }
-        return result.toString();
-    }
+
 
     /**
      * US722 As a Power User [or Administrator], I want the sum of the energy consumption of all energy-metered rooms
@@ -258,20 +219,16 @@ public class EnergyGrid implements Metered {
      * @return total metered energy consumption of a grid in a given time interval.
      */
     public double getGridConsumptionInInterval(Date initialDate, Date finalDate) {
-        double gridConsumption = 0;
-        for (Room r : this.getListOfRooms()) {
-            gridConsumption += r.getConsumptionInInterval(initialDate, finalDate);
-        }
-        return gridConsumption;
+        return this.roomList.getConsumptionInInterval(initialDate, finalDate);
     }
 
+    /**
+     * This method goes through every room in list and returns logs contained in interval given.
+     *
+     * @return log list with every log contained in interval given.
+     */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        LogList result = new LogList();
-        for (Room r : this.getListOfRooms()) {
-            LogList tempList = r.getLogsInInterval(startDate, endDate);
-            result.addLogList(tempList);
-        }
-        return result;
+        return this.roomList.getLogsInInterval(startDate, endDate);
     }
 
     /**

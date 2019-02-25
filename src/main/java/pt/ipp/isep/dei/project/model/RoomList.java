@@ -1,9 +1,12 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -132,6 +135,50 @@ public class RoomList {
     }
 
     /**
+     * Method accesses the sum of nominal powers of all devices connected to every room in room list.
+     *
+     * @return is the sum of nominal powers of all rooms.
+     */
+
+    public double getNominalPower() {
+        double result = 0;
+        for (Room r : rooms) {
+            result += r.getNominalPower();
+        }
+        return result;
+    }
+
+    /**
+     * This method goes through the room list and returns the consumption from every room in the
+     * interval given.
+     *
+     * @param initialDate for metering period.
+     * @param finalDate   for metering period.
+     * @return total metered energy consumption of a room list in a given time interval.
+     */
+    public double getConsumptionInInterval(Date initialDate, Date finalDate) {
+        double consumption = 0;
+        for (Room r : this.rooms) {
+            consumption += r.getConsumptionInInterval(initialDate, finalDate);
+        }
+        return consumption;
+    }
+
+    /**
+     * This method goes through every room in list and returns logs contained in interval given.
+     *
+     * @return log list with every log contained in interval given.
+     */
+    public LogList getLogsInInterval(Date initialDate, Date finalDate) {
+        LogList result = new LogList();
+        for (Room r : this.rooms) {
+            LogList tempList = r.getLogsInInterval(initialDate, finalDate);
+            result.addLogList(tempList);
+        }
+        return result;
+    }
+
+    /**
      * This method checks if room list is empty.
      *
      * @return true if list is empty, false otherwise.
@@ -178,6 +225,16 @@ public class RoomList {
             sum = sum + r.getDeviceListSize();
         }
         return sum;
+    }
+
+    StringBuilder buildDeviceListByType(String deviceType){
+        StringBuilder result = new StringBuilder();
+        for (Room r : this.rooms) {
+            if (r != null) {
+                result.append(r.buildDevicesStringByType(deviceType));
+            }
+        }
+        return result;
     }
 
 
