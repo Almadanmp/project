@@ -170,22 +170,6 @@ public class SensorList {
     }
 
     /**
-     * Method that adds a sensor only if it's not already contained in the list.
-     *
-     * @param sensor sensor to add.
-     * @return returns true if the input reading was added successfully.
-     * returns false if the input sensor was rejected.
-     */
-
-    public boolean add(Sensor sensor) {
-        if (!sensors.contains(sensor)) {
-            sensors.add(sensor);
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Method checks if sensor list contains sensor given as parameter.
      *
      * @param sensor sensor to check.
