@@ -13,27 +13,27 @@ import java.util.List;
 import java.util.Objects;
 
 public class MicrowaveOven implements Device, Metered, Programmable {
-    private String mOName;
-    private double mONominalPower;
-    private MicrowaveOvenSpec mODeviceSpecs;
-    private boolean mOActive;
-    private ProgramList mOProgramList;
-    private LogList mOLogList;
+    private String name;
+    private double nominalPower;
+    private MicrowaveOvenSpec deviceSpecs;
+    private boolean active;
+    private ProgramList programList;
+    private LogList logList;
 
 
     public MicrowaveOven(MicrowaveOvenSpec microwaveOvenSpec) {
-        this.mODeviceSpecs = microwaveOvenSpec;
-        this.mOActive = true;
-        mOProgramList = new ProgramList();
-        mOLogList = new LogList();
+        this.deviceSpecs = microwaveOvenSpec;
+        this.active = true;
+        programList = new ProgramList();
+        logList = new LogList();
     }
 
     public String getName() {
-        return this.mOName;
+        return this.name;
     }
 
     public void setName(String name) {
-        this.mOName = name;
+        this.name = name;
     }
 
     public String getType() {
@@ -41,20 +41,20 @@ public class MicrowaveOven implements Device, Metered, Programmable {
     }
 
     public void setNominalPower(double nominalPower) {
-        this.mONominalPower = nominalPower;
+        this.nominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.mONominalPower;
+        return this.nominalPower;
     }
 
     public boolean isActive() {
-        return this.mOActive;
+        return this.active;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.mOActive = false;
+            this.active = false;
             return true;
         } else {
             return false;
@@ -66,11 +66,11 @@ public class MicrowaveOven implements Device, Metered, Programmable {
     }
 
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
-        return this.mOProgramList;
+        return this.programList;
     }
 
     public String buildDeviceString() {
-        return "The device Name is " + this.mOName + ", and its NominalPower is " + this.mONominalPower + " kW.\n";
+        return "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
     }
 
     /**
@@ -79,7 +79,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return mOLogList;
+        return logList;
     }
 
     /**
@@ -88,7 +88,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      * @return true if LogList is empty, false otherwise
      */
     public boolean isLogListEmpty() {
-        return this.mOLogList.isEmpty();
+        return this.logList.isEmpty();
     }
 
     /**
@@ -98,8 +98,8 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(mOLogList.getLogListAttribute().contains(log)) && this.mOActive) {
-            mOLogList.getLogListAttribute().add(log);
+        if (!(logList.getLogListAttribute().contains(log)) && this.active) {
+            logList.getLogListAttribute().add(log);
             return true;
         } else {
             return false;
@@ -114,11 +114,11 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return mOLogList.countLogsInInterval(initialTime, finalTime);
+        return logList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return mOLogList.getLogsInInterval(startDate, endDate);
+        return logList.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -129,7 +129,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return mOLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
@@ -139,7 +139,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
-        return mONominalPower * time;
+        return nominalPower * time;
     }
 
     /**
@@ -157,19 +157,19 @@ public class MicrowaveOven implements Device, Metered, Programmable {
     // WRAPPER METHODS TO DEVICE SPECS
 
     public List<String> getAttributeNames() {
-        return mODeviceSpecs.getAttributeNames();
+        return deviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return mODeviceSpecs.getAttributeValue(attributeName);
+        return deviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return mODeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return deviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return mODeviceSpecs.getAttributeUnit(attributeName);
+        return deviceSpecs.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -181,7 +181,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(mOName, device.getName());
+        return Objects.equals(name, device.getName());
     }
 
     @Override

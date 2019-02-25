@@ -27,9 +27,7 @@ class TypeSensorTest {
     void constructorTypeSensorTestSameObject() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        TypeSensor t2 = new TypeSensor("Vento", "km/h");
-        t2.setName("Humidade");
-        t2.setUnits("kg/m³");
+        TypeSensor t2 = new TypeSensor("Humidade", "kg/m³");
 
         //Act
         boolean expectedResult = t1.equals(t2);
@@ -39,37 +37,12 @@ class TypeSensorTest {
         assertEquals(result, expectedResult);
     }
 
-    @Test
-    void seeIfSetNameWorksNull() {
-        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        assertThrows(IllegalArgumentException.class, () -> {
-            t1.setName(null);
-        });
-    }
-
-    @Test
-    void seeIfSetNameWorksEmpty() {
-        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        assertThrows(IllegalArgumentException.class, () -> {
-            t1.setName("");
-        });
-    }
-
-    @Test
-    void seeIfSetNameWorks() {
-        TypeSensor t1 = new TypeSensor("Density", "Density");
-        t1.setName("Densidade");
-        String expectedResult = "Densidade";
-        String result = t1.getName();
-        assertEquals(expectedResult, result);
-    }
 
     @Test
     void testTypeSensorGetAndSet() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        t1.setName("Movimento");
-        String actualResult = "Movimento";
+        String actualResult = "Humidade";
 
         //Act
         String expectedResult = t1.getName();
@@ -82,9 +55,7 @@ class TypeSensorTest {
     void testTypeSensorGetAndSetPartII() {
         //Arrange
         TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        t1.setName("Movimento");
-        t1.setName("Luz");
-        String actualResult = "Luz";
+        String actualResult = "Humidade";
 
         //Act
         String expectedResult = t1.getName();
@@ -184,14 +155,6 @@ class TypeSensorTest {
         int expectedResult = 1;
         int actualResult = t1.hashCode();
         assertEquals(expectedResult, actualResult);
-    }
-    @Test
-    void seeIfSetterForTypeSensorUnitsThrowsException(){
-        TypeSensor t1 = new TypeSensor("Temperature", "Cº");
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            t1.setUnits("");
-        });
-        assertEquals("Please Insert Valid String for Units of The Sensor",exception.getMessage());
     }
 
     @Test

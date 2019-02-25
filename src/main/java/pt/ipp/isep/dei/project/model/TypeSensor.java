@@ -2,50 +2,28 @@ package pt.ipp.isep.dei.project.model;
 
 /**
  * Defines the Type of the Sensor.
+ * A Type of Sensor is characterized by a name and a measure unit
+ * Different Sensor Types cannot share the same Type Name
  */
 
 public class TypeSensor {
     private String name;
     private String units;
 
+// CONSTRUCTOR
 
     /**
-     * @param name The name of the type
+     * @param name  The name of the type
      * @param units The type of units used in that type of sensor
-     * Constructor to always create an object that names the Type of the Sensor and the Units of the Sensor.
+     *              Constructor to always create an object that names the Type of the Sensor and the Units of the Sensor.
      */
 
     public TypeSensor(String name, String units) {
-        setName(name);
-        setUnits(units);
+        this.name = name;
+        this.units = units;
     }
 
-    /**
-     * Setter Name
-     *
-     * @param name of type of sensor
-     */
-    public void setName(String name) {
-        if (isNameValid(name)) {
-            this.name = name;
-        } else {
-            throw new IllegalArgumentException("Please Insert Valid Name");
-        }
-    }
-
-    /**
-     * Setter Units of the Sensor.
-     *
-     * @param units Unit measure of the type
-     */
-    void setUnits(String units) {
-        if (isNameValid(units)) {
-            this.units = units;
-        } else {
-            throw new IllegalArgumentException("Please Insert Valid String for Units of The Sensor");
-        }
-    }
-
+    //GETTER METHODS
     /**
      * Getter Units of the Sensor.
      *
@@ -64,20 +42,11 @@ public class TypeSensor {
         return this.name;
     }
 
-    /**
-     * Method to restrain input name/unit so they can't be null or empty
-     *
-     * @param name name or units inserted by user
-     * @return will return true if the String is valid or it will throw an exception if Invalid
-     */
-
-    private boolean isNameValid(String name) {
-        return (name != null && !name.isEmpty());
-    }
-
+    //SPECIFIC METHODS
 
     /**
      * This method will return a string with the type sensor information (name and unit of measure)
+     *
      * @return string of name and unit of measure
      **/
     public String buildString() {
@@ -87,7 +56,7 @@ public class TypeSensor {
     }
 
     /**
-     * Specific Method
+     * Equals Method
      *
      * @param testSensor Receives an object to verify if it matches current instance of TypeSensor.
      * @return boolean returns true if equal, false if they are not equal.

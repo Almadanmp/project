@@ -10,24 +10,24 @@ import java.util.List;
 import java.util.Objects;
 
 public class WaterHeater implements Device, Metered {
-    private String wHName;
-    private double wHNominalPower;
-    private WaterHeaterSpec wHDeviceSpecs;
-    private boolean wHActive;
-    private LogList wHLogList;
+    private String name;
+    private double nominalPower;
+    private WaterHeaterSpec deviceSpecs;
+    private boolean active;
+    private LogList logList;
 
     public WaterHeater(WaterHeaterSpec waterHeaterSpec) {
-        this.wHDeviceSpecs = waterHeaterSpec;
-        this.wHActive = true;
-        wHLogList = new LogList();
+        this.deviceSpecs = waterHeaterSpec;
+        this.active = true;
+        logList = new LogList();
     }
 
     public String getName() {
-        return this.wHName;
+        return this.name;
     }
 
     public void setName(String name) {
-        this.wHName = name;
+        this.name = name;
     }
 
     public String getType() {
@@ -35,20 +35,20 @@ public class WaterHeater implements Device, Metered {
     }
 
     public void setNominalPower(double nominalPower) {
-        this.wHNominalPower = nominalPower;
+        this.nominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.wHNominalPower;
+        return this.nominalPower;
     }
 
     public boolean isActive() {
-        return this.wHActive;
+        return this.active;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.wHActive = false;
+            this.active = false;
             return true;
         } else {
             return false;
@@ -60,7 +60,7 @@ public class WaterHeater implements Device, Metered {
     }
 
     public String buildDeviceString() {
-        return "The device Name is " + this.wHName + ", and its NominalPower is " + this.wHNominalPower + " kW.\n";
+        return "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
     }
 
     /**
@@ -69,7 +69,7 @@ public class WaterHeater implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return wHLogList;
+        return logList;
     }
 
     /**
@@ -78,7 +78,7 @@ public class WaterHeater implements Device, Metered {
      * @return true if LogList is empty, false otherwise
      */
     public boolean isLogListEmpty() {
-        return this.wHLogList.isEmpty();
+        return this.logList.isEmpty();
     }
 
     /**
@@ -88,8 +88,8 @@ public class WaterHeater implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(wHLogList.getLogListAttribute().contains(log)) && this.wHActive) {
-            wHLogList.getLogListAttribute().add(log);
+        if (!(logList.getLogListAttribute().contains(log)) && this.active) {
+            logList.getLogListAttribute().add(log);
             return true;
         } else {
             return false;
@@ -104,11 +104,11 @@ public class WaterHeater implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return wHLogList.countLogsInInterval(initialTime, finalTime);
+        return logList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return wHLogList.getLogsInInterval(startDate, endDate);
+        return logList.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -119,7 +119,7 @@ public class WaterHeater implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return wHLogList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
@@ -128,8 +128,8 @@ public class WaterHeater implements Device, Metered {
      * @return Dt -> difference in temperature = hot water temperature – cold water temperature
      */
     double dTQuotient() {
-        double coldWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Cold Water Temperature");
-        double hotWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Hot Water Temperature");
+        double coldWaterTemperature = (double) deviceSpecs.getAttributeValue("Cold Water Temperature");
+        double hotWaterTemperature = (double) deviceSpecs.getAttributeValue("Hot Water Temperature");
         double dTQuotient = hotWaterTemperature - coldWaterTemperature;
         if (dTQuotient <= 0) {
             return 0;
@@ -152,8 +152,8 @@ public class WaterHeater implements Device, Metered {
      * @return an estimate energy consumption for a water heater
      */
     public double getEnergyConsumption(float time) {
-        double volumeOfWaterToHeat = (double) wHDeviceSpecs.getAttributeValue("Volume Of Water To Heat");
-        double performanceRatio = (double) wHDeviceSpecs.getAttributeValue("Performance Ratio");
+        double volumeOfWaterToHeat = (double) deviceSpecs.getAttributeValue("Volume Of Water To Heat");
+        double performanceRatio = (double) deviceSpecs.getAttributeValue("Performance Ratio");
         double dT = dTQuotient();
         double volForMinute = volumeOfWaterToHeat / 1440; //calculate v in liters per minute
         double specificHeatOfWater = 1.163 / 1000;
@@ -162,19 +162,19 @@ public class WaterHeater implements Device, Metered {
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return wHDeviceSpecs.getAttributeNames();
+        return deviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return wHDeviceSpecs.getAttributeValue(attributeName);
+        return deviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return wHDeviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return deviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return wHDeviceSpecs.getAttributeUnit(attributeName);
+        return deviceSpecs.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -186,7 +186,7 @@ public class WaterHeater implements Device, Metered {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(wHName, device.getName());
+        return Objects.equals(name, device.getName());
     }
 
     @Override
