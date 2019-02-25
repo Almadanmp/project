@@ -227,6 +227,20 @@ public class DeviceList {
         return result;
     }
 
+    /**
+     * Getter (array of devices)
+     *
+     * @return array of devices
+     */
+    private Device[] getElementsAsArray() {
+        int sizeOfResultArray = devices.size();
+        Device[] result = new Device[sizeOfResultArray];
+        for (int i = 0; i < devices.size(); i++) {
+            result[i] = devices.get(i);
+        }
+        return result;
+    }
+
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
@@ -236,7 +250,7 @@ public class DeviceList {
             return false;
         }
         DeviceList list = (DeviceList) testObject;
-        return Arrays.equals(this.getList().toArray(), list.getList().toArray());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

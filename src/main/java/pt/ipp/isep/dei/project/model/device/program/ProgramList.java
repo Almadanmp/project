@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.device.program;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProgramList {
@@ -16,26 +17,17 @@ public class ProgramList {
     }
 
     /**
-     * Getter of the ProgramList.
-     *
-     * @return the ProgramList.
-     */
-    public List<Program> getProgramList() {
-        return this.programs;
-    }
-
-    /**
      * String Builder of the ProgramList.
      *
      * @return a string with all the programs
      */
     public String buildProgramListString() {
         StringBuilder result = new StringBuilder("---------------\n");
-        if (getProgramList().isEmpty()) {
+        if (this.isEmpty()) {
             return "This device has no programs\n";
         }
-        for (int i = 0; i < getProgramList().size(); i++) {
-            Program program = getProgramList().get(i);
+        for (int i = 0; i < this.size(); i++) {
+            Program program = this.get(i);
             result.append("\n").append(i).append(") Program Name: ").append(program.getProgramName());
             result.append(", Duration: ").append(program.getDuration());
             result.append(", Energy Consumption: ").append(program.getEnergyConsumption());
@@ -80,5 +72,53 @@ public class ProgramList {
         return this.programs.isEmpty();
     }
 
+    /**
+     * Checks the program list size and returns the size as int.\
+     *
+     * @return ProgramList size as int
+     **/
+    public int size() {
+        return this.programs.size();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a program from program list.
+     *
+     * @return returns program that corresponds to index.
+     */
+    public Program get(int index) {
+        return this.programs.get(index);
+    }
+
+    /**
+     * Getter (array of programs)
+     *
+     * @return array of programs
+     */
+    private Program[] getElementsAsArray() {
+        int sizeOfResultArray = programs.size();
+        Program[] result = new Program[sizeOfResultArray];
+        for (int i = 0; i < programs.size(); i++) {
+            result[i] = programs.get(i);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof ProgramList)) {
+            return false;
+        }
+        ProgramList list = (ProgramList) testObject;
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 
 }

@@ -125,7 +125,7 @@ public class SensorList {
 
     /**
      * Method that goes through every sensor in the sensor list and gets
-     * every reading within that sensor. In the end we will get a Reading list
+     * every reading within that sensor. In the end we will getDeviceTypeByIndex a Reading list
      * that contains every reading from every sensor of the sensor list.
      *
      * @return a list with all readings from sensor list

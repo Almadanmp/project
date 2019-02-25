@@ -274,31 +274,6 @@ class EnergyConsumptionControllerTest {
     //US721 TESTS
 
     @Test
-    void seeIfGetHouseRoomListWorks() {
-
-        //Arrange
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
-        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(validRoom1);
-        roomList.addRoom(validRoom2);
-        house.setRoomList(roomList);
-        List<Room> expectedResult = new ArrayList<>();
-        expectedResult.add(validRoom1);
-        expectedResult.add(validRoom2);
-
-        //Act
-
-        List<Room> actualResult = controller.getHouseRoomList(house);
-
-        //Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfGetHouseGridListWorks() {
 
         //Arrange

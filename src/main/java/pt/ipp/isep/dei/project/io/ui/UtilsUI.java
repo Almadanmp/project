@@ -26,7 +26,7 @@ public class UtilsUI {
     }
 
     boolean houseRoomListIsValid(House house) {
-        return house.getListOfRooms() != null && !house.isRoomListEmpty();
+        return !house.isRoomListEmpty();
     }
 
     boolean roomSensorListIsValid(Room room) {

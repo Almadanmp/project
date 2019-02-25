@@ -44,16 +44,23 @@ public class GeographicAreaList {
         return false;
     }
 
+    /**
+     * Method to print a Whole Geographic Area List.
+     * It will print the attributes needed to check if a GA is different from another GA
+     * (name, type of GA and Localization)
+     * @return a string with the names of the geographic areas
+     */
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
-        if (this.getGeographicAreaList().isEmpty()) {
+        if (this.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
 
-        for (int i = 0; i < this.getGeographicAreaList().size(); i++) {
-            GeographicArea aux = this.getGeographicAreaList().get(i);
+        for (int i = 0; i < this.size(); i++) {
+            GeographicArea aux = this.get(i);
             result.append(i).append(") Name: ").append(aux.getId()).append(" | ");
             result.append("Type: ").append(aux.getTypeArea().getTypeOfGeographicArea()).append(" | ");
             result.append("Latitude: ").append(aux.getLocal().getLatitude()).append(" | ");
@@ -116,14 +123,6 @@ public class GeographicAreaList {
         return geographicAreas.contains(geoArea);
     }
 
-    /**
-     * Getter of the attribute geographicAreas from this class
-     *
-     * @return returns the geographic area list
-     */
-    public List<GeographicArea> getGeographicAreaList() {
-        return geographicAreas;
-    }
 
     public GeographicAreaList getGeoAreasByType(String typeAreaName) {
         GeographicAreaList finalList = new GeographicAreaList();
@@ -134,6 +133,40 @@ public class GeographicAreaList {
             }
         }
         return finalList;
+    }
+
+    /**
+     * Checks the geographic area list size and returns the size as int.\
+     *
+     * @return GeographicAreaList size as int
+     **/
+    public int size() {
+        return this.geographicAreas.size();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a geographic area from geographic
+     * area list.
+     *
+     * @return returns geographic area that corresponds to index.
+     */
+    public GeographicArea get(int index) {
+        return this.geographicAreas.get(index);
+    }
+
+
+    /**
+     * Getter (array of geographic area)
+     *
+     * @return array of geographic area
+     */
+    private GeographicArea[] getElementsAsArray() {
+        int sizeOfResultArray = geographicAreas.size();
+        GeographicArea[] result = new GeographicArea[sizeOfResultArray];
+        for (int i = 0; i < geographicAreas.size(); i++) {
+            result[i] = geographicAreas.get(i);
+        }
+        return result;
     }
 
     /**
@@ -154,7 +187,7 @@ public class GeographicAreaList {
             return false;
         }
         GeographicAreaList list = (GeographicAreaList) testObject;
-        return Arrays.equals(this.getGeographicAreaList().toArray(), list.getGeographicAreaList().toArray());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

@@ -31,8 +31,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing geographic areas: ");
             System.out.println(geographicAreaList.toString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < geographicAreaList.getGeographicAreaList().size()) {
-                GeographicArea result = geographicAreaList.getGeographicAreaList().get(aux);
+            if (aux >= 0 && aux < geographicAreaList.size()) {
+                GeographicArea result = geographicAreaList.get(aux);
                 System.out.println("You have chosen the following geographic area: ");
                 System.out.println(result.buildGeographicAreaString() + "\n");
                 return result;
@@ -49,8 +49,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(house.buildRoomListString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < house.getListOfRooms().size()) {
-                Room result = house.getListOfRooms().get(aux);
+            if (aux >= 0 && aux < house.roomListSize()) {
+                Room result = house.getRoomByIndex(aux);
                 System.out.println("You have chosen the following room: ");
                 System.out.println(result.buildRoomString() + "\n");
                 return result;
@@ -67,8 +67,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(grid.buildRoomListString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < grid.getListOfRooms().size()) {
-                Room result = grid.getListOfRooms().get(aux);
+            if (aux >= 0 && aux < grid.roomListSize()) {
+                Room result = grid.getRoom(aux);
                 System.out.println("You have chosen the following room: ");
                 System.out.println(result.buildRoomString() + "\n");
                 return result;
@@ -85,8 +85,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing devices in the selected room: ");
             System.out.println(grid.buildDeviceListString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < grid.getDeviceList().size()) {
-                Device result = grid.getDeviceList().get(aux);
+            if (aux >= 0 && aux < grid.getNumberOfDevices()) {
+                Device result = grid.getDeviceByIndex(aux);
                 System.out.println("You have chosen the following device: ");
                 System.out.println(result.buildDeviceString() + "\n");
                 return result;
@@ -104,8 +104,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing program in the selected program List: ");
             System.out.println(deviceProgramList.buildProgramListString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < deviceProgramList.getProgramList().size()) {
-                Program result = deviceProgramList.getProgramList().get(aux);
+            if (aux >= 0 && aux < deviceProgramList.size()) {
+                Program result = deviceProgramList.get(aux);
                 System.out.println("You have chosen the following program: ");
                 System.out.println(result.buildProgramString() + "\n");
                 return result;
@@ -122,8 +122,8 @@ public class InputUtils {
             System.out.println("Please select one of the existing devices in the selected room: ");
             System.out.println(room.buildDeviceListString());
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < room.getDeviceList().size()) {
-                Device result = room.getDeviceList().get(aux);
+            if (aux >= 0 && aux < room.getDeviceListSize()) {
+                Device result = room.getDeviceByIndex(aux);
                 System.out.println("You have chosen the following device:");
                 System.out.println(result.buildDeviceString() + "\n");
                 return result;
@@ -141,7 +141,7 @@ public class InputUtils {
             System.out.println(controller.buildGridListString(house));
             int aux = this.getInputAsInt();
             if (aux >= 0 && aux < house.energyGridListSize()) {
-                EnergyGrid result = house.getEnergyGrid(aux);
+                EnergyGrid result = house.getEnergyGridByIndex(aux);
                 System.out.println("You have chosen the following grid:");
                 System.out.println(result.buildGridString() + "\n");
                 return result;
@@ -178,7 +178,7 @@ public class InputUtils {
             System.out.println("Please select one of the device types: ");
             System.out.println(house.buildTypeListString(deviceTypeList));
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < house.getDeviceTypeList().size()) {
+            if (aux >= 0 && aux < house.deviceTypeListSize()) {
                 DeviceType result = deviceTypeList.get(aux);
                 System.out.println("You have chosen the following device type:");
                 System.out.println(result.getDeviceType() + "\n");
@@ -450,7 +450,7 @@ public class InputUtils {
     }
 
     /**
-     * Method to get a date as an int.
+     * Method to getDeviceTypeByIndex a date as an int.
      *
      * @param scan     the scanner to read input
      * @param dataType the type of date to read (year, month or day)

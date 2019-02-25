@@ -13,8 +13,8 @@ public class House implements Metered {
     private String id;
     private Address address;
     private Local location;
-    private EnergyGridList mEGList;
-    private RoomList mRoomList;
+    private EnergyGridList energyGridList;
+    private RoomList roomList;
     private GeographicArea motherArea;
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
@@ -28,8 +28,8 @@ public class House implements Metered {
         this.address = address;
         this.location = mLocation;
         this.motherArea = mMotherArea;
-        this.mRoomList = new RoomList();
-        this.mEGList = new EnergyGridList();
+        this.roomList = new RoomList();
+        this.energyGridList = new EnergyGridList();
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
         buildDeviceTypeList(deviceTypeConfig);
@@ -72,7 +72,7 @@ public class House implements Metered {
 
     public double getNominalPower() {
         double result = 0;
-        for (Room r1 : mRoomList.getList()) {
+        for (Room r1 : roomList.getList()) {
             result += r1.getNominalPower();
         }
         return result;
@@ -105,15 +105,12 @@ public class House implements Metered {
     }
 
     public void setRoomList(RoomList roomList) {
-        this.mRoomList = roomList;
+        if(roomList != null){
+        this.roomList = roomList;}
     }
 
     public void setMotherArea(GeographicArea motherArea) {
         this.motherArea = motherArea;
-    }
-
-    public List<Room> getListOfRooms() {
-        return this.mRoomList.getList();
     }
 
     /**
@@ -122,7 +119,7 @@ public class House implements Metered {
      * @return house RoomList
      **/
     public RoomList getRoomList() {
-        return this.mRoomList;
+        return this.roomList;
     }
 
     public GeographicArea getMotherArea() {
@@ -130,11 +127,11 @@ public class House implements Metered {
     }
 
     public EnergyGridList getGridList() {
-        return this.mEGList;
+        return this.energyGridList;
     }
 
     public void setEGList(EnergyGridList energyGridList) {
-        this.mEGList = energyGridList;
+        this.energyGridList = energyGridList;
     }
 
     public List<DeviceType> getDeviceTypeList() {
@@ -143,12 +140,12 @@ public class House implements Metered {
 
     public boolean addRoomToRoomList(Room room) {
         String roomToAddName = room.getRoomName();
-        for (Room r : this.mRoomList.getList()) {
+        for (Room r : this.roomList.getList()) {
             String roomNameTest = r.getRoomName();
             if (roomNameTest.equals(roomToAddName))
                 return false;
         }
-        this.mRoomList.addRoom(room);
+        this.roomList.addRoom(room);
         return true;
     }
 
@@ -215,11 +212,11 @@ public class House implements Metered {
     public String buildGridListString() {
         String mStringEnhancer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringEnhancer);
-        if (this.mEGList.isEmpty()) {
+        if (this.energyGridList.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < this.mEGList.size(); i++) {
-            EnergyGrid aux = this.mEGList.get(i);
+        for (int i = 0; i < this.energyGridList.size(); i++) {
+            EnergyGrid aux = this.energyGridList.get(i);
             result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
             result.append("Max Power: ").append(aux.getMaxContractedPower()).append("\n");
         }
@@ -231,7 +228,7 @@ public class House implements Metered {
      * @return builds a string from the House's room list.
      */
     public String buildRoomListString() {
-        return this.mRoomList.buildRoomsString();
+        return this.roomList.buildRoomsString();
     }
 
 
@@ -243,7 +240,7 @@ public class House implements Metered {
      */
     public List<Device> getDevicesOfGivenType(String deviceType) {
         List<Device> devicesOfGivenType = new ArrayList<>();
-        for (Room r : mRoomList.getList()) {
+        for (Room r : roomList.getList()) {
             devicesOfGivenType.addAll(r.getDevicesOfGivenType(deviceType));
         }
         return devicesOfGivenType;
@@ -268,11 +265,11 @@ public class House implements Metered {
      * @return the sum of all daily estimate consumptions of that type
      */
     public double getDailyConsumptionByDeviceType(String deviceType, int time) {
-        return mRoomList.getDailyConsumptionByDeviceType(deviceType, time);
+        return roomList.getDailyConsumptionByDeviceType(deviceType, time);
     }
 
     public boolean addGrid(EnergyGrid energyGrid) {
-        return this.mEGList.addGrid(energyGrid);
+        return this.energyGridList.addGrid(energyGrid);
     }
 
 
@@ -295,14 +292,14 @@ public class House implements Metered {
      * @return room with characteristics given as parameters
      **/
     public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        for (Room r : this.mRoomList.getList()) {
+        for (Room r : this.roomList.getList()) {
             String designation = r.getRoomName();
             if (roomDesignation.equals(designation)) {
                 return r;
             }
         }
         Room room = new Room(roomDesignation, roomHouseFloor, width, length, height);
-        this.mRoomList.addRoom(room);
+        this.roomList.addRoom(room);
         return room;
     }
 
@@ -312,7 +309,7 @@ public class House implements Metered {
      * @return true if house's RoomList is empty, false otherwise
      **/
     public boolean isRoomListEmpty() {
-        return this.mRoomList.isEmpty();
+        return this.roomList.isEmpty();
     }
 
 
@@ -322,7 +319,7 @@ public class House implements Metered {
      * @return true if house's EnergyGridList is empty, false otherwise.
      **/
     public boolean isEnergyGridListEmpty() {
-        return this.mEGList.isEmpty();
+        return this.energyGridList.isEmpty();
     }
 
     /**
@@ -331,7 +328,35 @@ public class House implements Metered {
      * @return returns the house's energy grid list size as int.
      */
     public int energyGridListSize() {
-        return this.mEGList.size();
+        return this.energyGridList.size();
+    }
+
+    /**
+     * This method checks the house's room list size.
+     *
+     * @return returns the house's room list size as int.
+     */
+    public int roomListSize() {
+        return this.roomList.size();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a room from the house's room list.
+     *
+     * @return returns room that corresponds to index.
+     */
+    public Room getRoomByIndex(int index) {
+        return this.roomList.get(index);
+    }
+
+
+    /**
+     * This method checks the house's device type list size.
+     *
+     * @return returns the house's device type list size as int.
+     */
+    public int deviceTypeListSize() {
+        return this.deviceTypeList.size();
     }
 
     /**
@@ -339,8 +364,8 @@ public class House implements Metered {
      * @param index the index of the Energy Grid
      * @return returns Energy grid that corresponds to index.
      */
-    public EnergyGrid getEnergyGrid(int index) {
-        return this.mEGList.get(index);
+    public EnergyGrid getEnergyGridByIndex(int index) {
+        return this.energyGridList.get(index);
     }
 
     @Override

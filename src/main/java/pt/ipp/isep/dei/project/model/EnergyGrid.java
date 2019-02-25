@@ -131,9 +131,19 @@ public class EnergyGrid implements Metered {
      *
      * @return a list of rooms related to the energy grid.
      */
-    public List<Room> getListOfRooms() {
+    private List<Room> getListOfRooms() {
         return this.roomList.getList();
     }
+
+    /**
+     * This method receives an index as parameter and gets a room from energy grid's room list.
+     *
+     * @return returns room that corresponds to index.
+     */
+    public Room getRoom(int index) {
+        return this.roomList.get(index);
+    }
+
 
     /**
      * Method gets all devices associated to energy grid
@@ -142,6 +152,26 @@ public class EnergyGrid implements Metered {
      */
     public DeviceList getDeviceList() {
         return this.roomList.getDeviceList();
+    }
+
+    /**
+     * Method goes through all rooms associated to energy grid and returns
+     * the number of devices in each room
+     *
+     * @return energy grid's associated devices as int
+     */
+    public int getNumberOfDevices() {
+        return this.roomList.getNumberOfDevices();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a device from energy grid's device list.
+     *
+     * @return returns device that corresponds to index.
+     */
+    public Device getDeviceByIndex(int index) {
+        DeviceList deviceList = this.getDeviceList();
+        return deviceList.get(index);
     }
 
     /**
@@ -207,7 +237,7 @@ public class EnergyGrid implements Metered {
      */
     String buildDevicesStringByType(Room room, String type) {
         StringBuilder result = new StringBuilder();
-        for (int x = 0; x < room.getDeviceList().size(); x++) {
+        for (int x = 0; x < room.getDeviceListSize(); x++) {
             if (type.equals(room.getDeviceList().get(x).getType())) {
                 Device device = room.getDeviceList().get(x);
                 result.append("Device type: ").append(type).append(" | ");
@@ -260,6 +290,15 @@ public class EnergyGrid implements Metered {
      **/
     public boolean isRoomListEmpty() {
         return roomList.isEmpty();
+    }
+
+    /**
+     * This method checks the Room List's size.
+     *
+     * @return energy grid's RoomList size as int
+     **/
+    public int roomListSize() {
+        return roomList.size();
     }
 
     @Override

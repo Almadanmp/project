@@ -151,9 +151,23 @@ public class RoomList {
      *
      * @return true if list has no devices, false otherwise.
      **/
-    public boolean isDeviceListEmpty() {
+    boolean isDeviceListEmpty() {
         return this.getDeviceList().isEmpty();
     }
+
+    /**
+     * Checks how many devices are associated to room list.\
+     *
+     * @return number of devices associated to room list as int
+     **/
+    int getNumberOfDevices() {
+        int sum = 0;
+        for(Room r: rooms){
+            sum = sum + r.getDeviceListSize();
+        }
+        return sum;
+    }
+
 
     /**
      * Getter (array of rooms)

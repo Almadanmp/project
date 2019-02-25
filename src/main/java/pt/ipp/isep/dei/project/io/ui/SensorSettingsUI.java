@@ -93,7 +93,7 @@ class SensorSettingsUI {
     }
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
-     one can get measurements of that type in that area */
+     one can getDeviceTypeByIndex measurements of that type in that area */
     private void runUS06(GeographicAreaList geographicAreaList, TypeSensorList typeSensorList){
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {

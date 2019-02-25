@@ -131,21 +131,11 @@ public class EnergyConsumptionController {
        the interval.
      */
 
-    /**
-     * Accesses model and returns a House's list of rooms.
-     *
-     * @param programHouse the house we want to get the roomList from.
-     * @return returns the List of Rooms in the given house.
-     */
-
-    public List<Room> getHouseRoomList(House programHouse) {
-        return programHouse.getListOfRooms();
-    }
 
     /**
      * Acesses model and returns a House's list of grids.
      *
-     * @param programHouse the house we want to get the roomList from.
+     * @param programHouse the house we want to getDeviceTypeByIndex the roomList from.
      * @return returns the List of Grids in the given house.
      */
 
@@ -182,7 +172,7 @@ public class EnergyConsumptionController {
     /**
      * Method accesses model and gets the logs associated to the devices in a grid's room that are within an interval.
      *
-     * @param grid      the grid we want to get logs from.
+     * @param grid      the grid we want to getDeviceTypeByIndex logs from.
      * @param startDate the start of the interval.
      * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
@@ -195,7 +185,7 @@ public class EnergyConsumptionController {
     /**
      * Method accesses model and gets the logs associated to the devices in a selected room.
      *
-     * @param room      is the room we want to get logs from.
+     * @param room      is the room we want to getDeviceTypeByIndex logs from.
      * @param startDate the start of the interval.
      * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
@@ -208,7 +198,7 @@ public class EnergyConsumptionController {
     /**
      * Method accesses model and gets the logs associated to the device.
      *
-     * @param device    is the device we want to get logs from.
+     * @param device    is the device we want to getDeviceTypeByIndex logs from.
      * @param startDate the start of the interval.
      * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
@@ -282,7 +272,7 @@ public class EnergyConsumptionController {
     /**
      * Returns the sum of the values of nominal power of all the devices in the input energy grid
      *
-     * @param grid the grid in which we want to get the total nominal power from
+     * @param grid the grid in which we want to getDeviceTypeByIndex the total nominal power from
      * @return the value of the nominal power of all the devices in this grid
      */
 

@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 /**
  * Represents all the metered objects.
- * Provides methods to get the nominal power for each one of the metered objects.
+ * Provides methods to getDeviceTypeByIndex the nominal power for each one of the metered objects.
  * (e.g. of metered implementation: rooms, devices, houses.
  */
 

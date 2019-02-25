@@ -120,7 +120,7 @@ public class Room implements Metered {
 
     public String buildDeviceListString() {
         StringBuilder result = new StringBuilder("---------------\n");
-        for (int i = 0; i < this.getDeviceList().size(); i++) {
+        for (int i = 0; i < this.getDeviceListSize(); i++) {
             Device device = this.getDeviceList().get(i);
             result.append("\n").append(i).append(") device Name: ").append(device.getName());
             result.append(", device Type: ").append(device.getType());
@@ -325,6 +325,25 @@ public class Room implements Metered {
     public boolean isSensorListEmpty() {
         return this.roomSensorList.isEmpty();
     }
+
+    /**
+     * This method checks room's DeviceList size.
+     *
+     * @return DeviceList size as int.
+     **/
+    public int getDeviceListSize() {
+        return this.deviceList.size();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a device from room's room list.
+     * @param index the index of the device
+     * @return returns device that corresponds to index.
+     */
+    public Device getDeviceByIndex(int index) {
+        return this.deviceList.get(index);
+    }
+
 
     /**
      * This method checks if room's Device List is empty.

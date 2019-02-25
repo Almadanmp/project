@@ -78,7 +78,7 @@ public class GASettingsController {
         }
     }
 
-    /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
+    /* USER STORY 04 -  As an Administrator, I want to getDeviceTypeByIndex a list of existing geographical areas of a given type. */
 
     /**
      * @param geographicAreaList is the Geographic Area List where we want to search for objects with a given type.
@@ -92,7 +92,7 @@ public class GASettingsController {
     }
 
     /**
-     * @param typeArea is the Type of Area we want to get the name of.
+     * @param typeArea is the Type of Area we want to getDeviceTypeByIndex the name of.
      * @return is the name of the given type of area.
      */
 

@@ -61,7 +61,7 @@ public class HouseMonitoringUI {
 
     /**
      * US600
-     * As a Regular User, I want to get the current temperature in the house area. If, in the
+     * As a Regular User, I want to getDeviceTypeByIndex the current temperature in the house area. If, in the
      * first element with temperature sensors of the hierarchy of geographical areas that
      * includes the house, there is more than one temperature sensor, the nearest one
      * should be used.
@@ -87,7 +87,7 @@ public class HouseMonitoringUI {
     }
 
     /**
-     * US605 As a Regular User, I want to get the current temperature in a room, in order to check
+     * US605 As a Regular User, I want to getDeviceTypeByIndex the current temperature in a room, in order to check
      * if it meets my personal comfort requirements.
      */
     private void runUS605(House house) {
@@ -151,7 +151,7 @@ public class HouseMonitoringUI {
 
 
     /**
-     * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
+     * US620UI: As a Regular User, I want to getDeviceTypeByIndex the total rainfall in the house area for a given day.
      */
     private void runUS620(House house) {
         UtilsUI utils = new UtilsUI();
@@ -185,7 +185,7 @@ public class HouseMonitoringUI {
     }
 
     /**
-     * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
+     * US623: As a Regular User, I want to getDeviceTypeByIndex the average daily rainfall in the house area for a
      * given period (days), as it is needed to assess the garden’s watering needs.
      */
 

@@ -287,7 +287,7 @@ public class WaterHeaterTest {
         d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
         //Act
         d1.deactivate();
-        boolean actualResult1 = d1.deactivate(); //Deactivates a second time to get false return.
+        boolean actualResult1 = d1.deactivate(); //Deactivates a second time to getDeviceTypeByIndex false return.
         boolean actualResult2 = d2.deactivate(); //Deactivate once for true return.
         //Assert
         assertFalse(actualResult1);

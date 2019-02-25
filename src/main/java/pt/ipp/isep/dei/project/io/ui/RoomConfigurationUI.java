@@ -80,7 +80,7 @@ class RoomConfigurationUI {
     }
 
     /**
-     * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
+     * US201 As an administrator, I want to getDeviceTypeByIndex a list of all devices in a room, so that I can configure them.
      * Prints device List in that room.
      */
     private void runUS201(House house) {
@@ -125,11 +125,11 @@ class RoomConfigurationUI {
     private void createDevice(Room room, DeviceType deviceType) {
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
-        // get device name
+        // getDeviceTypeByIndex device name
         System.out.print("Please, type the name of the device: ");
         String deviceName = scanner.nextLine();
 
-        //get Device specs
+        //getDeviceTypeByIndex Device specs
         Device device = controller.createDevice(deviceType);
         controller.setDeviceName(deviceName, device);
         List<String> deviceAttributes = controller.getAttributeNames(device);
@@ -188,10 +188,10 @@ class RoomConfigurationUI {
     private void getInputDeviceCharacteristicsUS215(Device device, Room room, House house) {
         Scanner scanner = new Scanner(System.in);
 
-        // get device name
+        // getDeviceTypeByIndex device name
         System.out.print("Please, type the new name of the device: ");
         String deviceName = scanner.nextLine();
-        //get room
+        //getDeviceTypeByIndex room
         controller.removeDevice(room, device);
         InputUtils inputUtils = new InputUtils();
         Room room1;
@@ -250,7 +250,7 @@ class RoomConfigurationUI {
     // programs in the list (us215).
     private void loopForProgramList(ProgramList programList, Programmable device) {
         String message = "Would you like to edit another Program? (y/n)";
-        if (programList.getProgramList().size() > 1) {
+        if (programList.size() > 1) {
             System.out.println(message);
             loopForEditingProgram(message, device);
         }
@@ -360,7 +360,7 @@ class RoomConfigurationUI {
                 "from the sum of the nominal power of all devices in the room.");
     }
 
-    /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
+    /*US250 - As an Administrator, I want to getDeviceTypeByIndex a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
     private void runUS250(House house) {
         InputUtils inputUtils = new InputUtils();

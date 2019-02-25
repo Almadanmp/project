@@ -259,9 +259,9 @@ class EnergyConsumptionUI {
 
     /**
      * This run makes the validation of the Room Device  List and the Device  Log List.
-     * Then it calls the controller to get the total metered energy consumption for the given time interval.
+     * Then it calls the controller to getDeviceTypeByIndex the total metered energy consumption for the given time interval.
      *
-     * @param house - Is the parameter which is used to get all the parameters needed for this User Story (720)
+     * @param house - Is the parameter which is used to getDeviceTypeByIndex all the parameters needed for this User Story (720)
      */
 
     private void runUS720(House house) {
@@ -292,9 +292,9 @@ class EnergyConsumptionUI {
      */
 
     private void runUS721(House programHouse) {
-        List<Room> roomList = controller.getHouseRoomList(programHouse);
-        if (roomList.isEmpty()) {
-            System.out.println("Your house has no Rooms. Returning to Main Menu.");
+        UtilsUI utilsUI = new UtilsUI();
+        if (!utilsUI.houseRoomListIsValid(programHouse)) {
+            System.out.print(utilsUI.invalidRoomList);
         }
         InputUtils inputs = new InputUtils();
         Room room = inputs.getHouseRoomByList(programHouse);

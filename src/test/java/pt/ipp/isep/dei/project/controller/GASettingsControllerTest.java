@@ -278,7 +278,7 @@ class GASettingsControllerTest {
         // Assert
 
         assertTrue(result);
-        assertEquals(1, geoList.getGeographicAreaList().size());
+        assertEquals(1, geoList.size());
     }
 
     @Test
@@ -307,7 +307,7 @@ class GASettingsControllerTest {
         assertTrue(result1); //safety check (already covered on previous test)
         Assertions.assertFalse(result2);
         assertFalse(result3);
-        assertEquals(1, geoList.getGeographicAreaList().size());
+        assertEquals(1, geoList.size());
     }
 
     @Test
@@ -333,7 +333,7 @@ class GASettingsControllerTest {
 
         assertTrue(result1); //safety check (already covered on previous test)
         assertTrue(result2);
-        assertEquals(2, geoList.getGeographicAreaList().size());
+        assertEquals(2, geoList.size());
     }
 
     //USER STORY 004 TESTS

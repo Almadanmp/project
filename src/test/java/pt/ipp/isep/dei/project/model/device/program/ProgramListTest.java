@@ -12,20 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProgramListTest {
 
     @Test
-     void seeIfGetProgramList() {
-        Program program = new Program("program", 2, 3);
-        ProgramList plist = new ProgramList();
-        plist.addProgram(program);
-        List<Program> expectedResult = new ArrayList<>();
-        List<Program> result;
-        ProgramList lc = new ProgramList();
-        lc.addProgram(program);
-        result = lc.getProgramList();
-        expectedResult.add(program);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
      void testBuildProgramListString() {
         Program program = new Program("program", 2, 3);
         ProgramList plist = new ProgramList();
