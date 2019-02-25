@@ -73,6 +73,19 @@ class SensorListTest {
     }
 
     @Test
+    void seeIfAddingSameSensorTwiceFails() {
+        //Arrange
+        Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
+        validSensorList1.addSensor(s1);
+
+        //Act
+        boolean actualResult = validSensorList1.addSensor(s1);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfGetSensorsAsListWorks() {
         //Arrange
         Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
