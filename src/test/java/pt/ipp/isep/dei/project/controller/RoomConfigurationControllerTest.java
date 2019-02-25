@@ -11,10 +11,9 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT;
 import pt.ipp.isep.dei.project.model.device.program.Program;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -104,13 +103,19 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintSensorListWorks() {
         //Arrange
-
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");;
+        Date date = new Date();
+        try {
+            date = validSdf.parse("03/12/2017 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Sensor s1 = new Sensor("SensorOne", new TypeSensor("Wind", "km/h"),
                 new Local(12, 31, 21),
-                new GregorianCalendar(118, Calendar.NOVEMBER, 4).getTime());
+                date);
         Sensor s2 = new Sensor("SensorTwo", new TypeSensor("Rain", "l/m2"),
                 new Local(10, 30, 20),
-                new GregorianCalendar(118, Calendar.DECEMBER, 4).getTime());
+               date);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -147,9 +152,14 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfSensorIsAddedToRoom() {
         // Arrange
-
-        Sensor testSensor = new Sensor("SensorOne", new TypeSensor("Rain", "mm"), new GregorianCalendar(
-                2, Calendar.APRIL, 4).getTime());
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("04/14/2017 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Sensor testSensor = new Sensor("SensorOne", new TypeSensor("Rain", "mm"), date);
         // Act
 
         boolean actualResult = controller.addSensorToRoom(validRoomWithDevices, testSensor);

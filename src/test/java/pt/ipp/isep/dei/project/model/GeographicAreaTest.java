@@ -4,6 +4,9 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -141,9 +144,18 @@ class GeographicAreaTest {
     @Test
     void seeIfGetSetSensorList() {
         //Arrange
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("09/08/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         TypeArea t1 = new TypeArea("Rua");
         Local l1 = new Local(21, 38, 40);
-        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico", "km/h"), new Local(12, 31, 21), new GregorianCalendar(2010, 8, 9).getTime());
+        Sensor s1 = new Sensor("Vento", new TypeSensor("Atmosférico", "km/h"),
+                new Local(12, 31, 21), date);
         SensorList list1 = new SensorList(s1);
         SensorList actualResult;
         GeographicArea c = new GeographicArea("Porto", t1, 2, 3, l1);
@@ -213,8 +225,16 @@ class GeographicAreaTest {
 
     @Test
     void ensureThatAObjectIsNotAInstanceOf() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("25/11/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("Cidade"), 2, 5, new Local(22, 23, 100));
-        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), new GregorianCalendar(2018, 11, 25).getTime());
+        Sensor s1 = new Sensor("Sensor 1", new TypeSensor("Temperatura", "Celsius"), new Local(22, 22, 100), date);
 
         boolean actualResult = ga1.equals(s1);
 
@@ -258,10 +278,17 @@ class GeographicAreaTest {
 
     @Test
     void seeAddSensorToGA() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("25/10/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Sensor sensor1 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new GregorianCalendar(2018, 10, 25).getTime());
-        Sensor sensor2 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new GregorianCalendar(2018, 10, 25).getTime());
-        Sensor sensor3 = new Sensor("Sensor 3", new TypeSensor("Temperature", "Celsius"), new GregorianCalendar(2018, 10, 25).getTime());
+        Sensor sensor1 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), date);
+        Sensor sensor2 = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), date);
+        Sensor sensor3 = new Sensor("Sensor 3", new TypeSensor("Temperature", "Celsius"), date);
 
         boolean result1 = ga.addSensorToSensorList(sensor1);
         boolean result2 = ga.addSensorToSensorList(sensor2);

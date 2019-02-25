@@ -342,8 +342,6 @@ class EnergyConsumptionControllerTest {
             e.printStackTrace();
         }
 
-        //Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
-        //Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
         validDevice1.addLog(validLog1);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(validDevice1);
@@ -657,8 +655,6 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
-       // Date initialTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 2).getTime();
-        //Date finalTime = new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10, 60).getTime();
         validDevice1.addLog(validLog1);
 
         //Act

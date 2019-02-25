@@ -3,15 +3,13 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.log.Log;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -138,7 +136,7 @@ class HouseMonitoringControllerTest {
         double expectedResult = 25;
 
         // Act
-        double actualResult = controller.getAverageRainfallInterval(validHouse, validDate4,validDate5);
+        double actualResult = controller.getAverageRainfallInterval(validHouse, validDate4, validDate5);
 
         // Assert
         assertEquals(expectedResult, actualResult);
@@ -178,7 +176,7 @@ class HouseMonitoringControllerTest {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            controller.getAverageRainfallInterval(validHouse, date,date2);
+            controller.getAverageRainfallInterval(validHouse, date, date2);
         });
         //Assert
         assertEquals("Warning: average value not calculated - no readings available.", exception.getMessage());
@@ -217,7 +215,7 @@ class HouseMonitoringControllerTest {
                 e.printStackTrace();
             }
             controller.getTotalRainfallOnGivenDay(validHouse, date);
-                });
+        });
 
         // Assert
         assertEquals("Warning: Total value was not calculated - no readings were available.", exception.getMessage());
@@ -234,7 +232,7 @@ class HouseMonitoringControllerTest {
 
         Throwable exception = assertThrows(IllegalStateException.class, () -> {
             controller.getTotalRainfallOnGivenDay(validHouse, validDate4);
-                });
+        });
 
         // Assert
 
@@ -259,7 +257,7 @@ class HouseMonitoringControllerTest {
 
         Throwable exception = assertThrows(IllegalStateException.class, () -> {
             controller.getTotalRainfallOnGivenDay(validHouse, validDate4);
-                });
+        });
 
         // Assert
 
@@ -284,7 +282,7 @@ class HouseMonitoringControllerTest {
 
         Throwable exception = assertThrows(IllegalStateException.class, () -> {
             controller.getTotalRainfallOnGivenDay(validHouse, validDate4);
-                });
+        });
 
         // Assert
 
