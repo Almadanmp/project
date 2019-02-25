@@ -7,10 +7,12 @@ public class Program {
 
     public static final String DURATION = "Duration";
     public static final String ENERGY_CONSUMPTION = "Energy Consumption";
+    public static final String NOMINAL_POWER = "Nominal Power";
 
     private String programName;
     private double programDuration;
     private double energyConsumption;
+    private double programNominalPower;
 
 
     public Program() {
@@ -20,6 +22,11 @@ public class Program {
         setDuration(duration);
         setProgramName(name);
         setEnergyConsumption(energyConsumption);
+    }
+
+    public Program(String name, double nominalPower) {
+        setProgramName(name);
+        setNominalPower(nominalPower);
     }
 
     public String buildProgramString() {
@@ -35,6 +42,14 @@ public class Program {
 
     public void setDuration(double duration) {
         this.programDuration = duration;
+    }
+
+    public void setNominalPower(double nominalPower) {
+        this.programNominalPower = nominalPower;
+    }
+
+    public double getNominalPower() {
+        return this.programNominalPower;
     }
 
     public void setEnergyConsumption(double energyConsumption) {
