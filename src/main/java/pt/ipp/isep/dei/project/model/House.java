@@ -277,9 +277,6 @@ public class House implements Metered {
         return 0;
     }
 
-
-    //TODO this method should be in roomList. it is the roomlist who has the equals to check if a room with the same name already exists
-
     /**
      * This method receives room parameters, checks if room exists in house and
      * returns room with same designation in case it does. In case the room does not
@@ -292,15 +289,7 @@ public class House implements Metered {
      * @return room with characteristics given as parameters
      **/
     public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        for (Room r : this.roomList.getList()) {
-            String designation = r.getRoomName();
-            if (roomDesignation.equals(designation)) {
-                return r;
-            }
-        }
-        Room room = new Room(roomDesignation, roomHouseFloor, width, length, height);
-        this.roomList.addRoom(room);
-        return room;
+        return this.roomList.createRoom(roomDesignation, roomHouseFloor, width, length, height);
     }
 
     /**

@@ -57,6 +57,18 @@ public class RoomList {
         return finalList;
     }
 
+    Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+        for (Room r : this.rooms) {
+            String designation = r.getRoomName();
+            if (roomDesignation.equals(designation)) {
+                return r;
+            }
+        }
+        Room room = new Room(roomDesignation, roomHouseFloor, width, length, height);
+        this.rooms.add(room);
+        return room;
+    }
+
     /**
      * String Builder of the RoomList.
      *
