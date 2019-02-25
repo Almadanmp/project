@@ -19,6 +19,7 @@ public class Room implements Metered {
     private double roomHeight;
     private SensorList roomSensorList;
     private DeviceList deviceList;
+    private String noTempReadings = "There aren't any temperature readings available.";
 
     /**
      * Room() Constructor receiving 5 parameters and initializing 2 Lists, SensorList and DeviceList.
@@ -166,12 +167,12 @@ public class Room implements Metered {
     public double getMaxTemperatureOnGivenDay(Date day) {
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.isEmpty()) {
-            throw new IllegalArgumentException("There aren't any temperature readings available.");
+            throw new IllegalArgumentException(noTempReadings);
         } else {
             if (!tempSensors.getReadings().getValuesOfSpecificDayReadings(day).isEmpty()) {
                 return Collections.max(tempSensors.getReadings().getValuesOfSpecificDayReadings(day));
             }
-            throw new NoSuchElementException("There aren't any temperature readings available.");
+            throw new NoSuchElementException(noTempReadings);
         }
     }
 
@@ -242,7 +243,7 @@ public class Room implements Metered {
         double currentT;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.isEmpty()) {
-            throw new IllegalArgumentException("There aren't any temperature readings available.");
+            throw new IllegalArgumentException(noTempReadings);
         }
         ReadingList readingList = tempSensors.getReadings();
         currentT = readingList.getMostRecentValue();
