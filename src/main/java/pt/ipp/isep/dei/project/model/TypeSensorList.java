@@ -4,12 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+/**
+ * This class represents a collection of Sensor Types
+ * Methods are organized by functionality
+ */
+
 public class TypeSensorList {
     private List<TypeSensor> typeSensors;
 
+    //CONSTRUCTOR
     public TypeSensorList() {
         typeSensors = new ArrayList<>();
     }
+
 
     /**
      * Method receives a type Sensor, checks if it already exists in list
@@ -26,11 +34,31 @@ public class TypeSensorList {
     }
 
     /**
-     * Method returns a list with all sensor types.
-     * @return List that contains sensor types
+     * This method receives an index as parameter and gets a type sensor from Type Sensor list.
+     * @param index the type sensor index
+     * @return returns Type Sensor that corresponds to index.
+     */
+    public TypeSensor get(int index) {
+        return this.typeSensors.get(index);
+    }
+
+
+    /**
+     * Checks the type sensor list size and returns the size as int.\
+     *
+     * @return TypeSensor size as int
      **/
-    public List<TypeSensor> getTypeSensorList() {
-        return this.typeSensors;
+    public int size() {
+        return this.typeSensors.size();
+    }
+
+    /**
+     * This methods checks if type sensor list is empty.
+     *
+     * @return true if list is empty, false otherwise
+     */
+    public boolean isEmpty() {
+        return this.typeSensors.isEmpty();
     }
 
     /**
@@ -53,24 +81,6 @@ public class TypeSensorList {
     }
 
     /**
-     * Checks the type sensor list size and returns the size as int.\
-     *
-     * @return TypeSensor size as int
-     **/
-    public int size() {
-        return this.typeSensors.size();
-    }
-
-    /**
-     * This method receives an index as parameter and gets a type sensor from Type Sensor list.
-     * @param index the type sensor index
-     * @return returns Type Sensor that corresponds to index.
-     */
-    public TypeSensor get(int index) {
-        return this.typeSensors.get(index);
-    }
-
-    /**
      * Getter (array of Type Sensors)
 
      * @return array of Type Sensors
@@ -82,15 +92,6 @@ public class TypeSensorList {
             result[i] = typeSensors.get(i);
         }
         return result;
-    }
-
-    /**
-     * This methods checks if type sensor list is empty.
-     *
-     * @return true if list is empty, false otherwise
-     */
-    public boolean isEmpty() {
-        return this.typeSensors.isEmpty();
     }
 
     public boolean equals(Object testObject) {
