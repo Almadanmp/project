@@ -25,7 +25,7 @@ public class GASettingsController {
      */
 
     public String buildGAListString(GeographicAreaList geoAreaList) {
-        return geoAreaList.buildGaWholeListString(geoAreaList);
+        return geoAreaList.toString();
     }
 
 
@@ -66,8 +66,8 @@ public class GASettingsController {
      * @param local      input number for latitude, longitude and altitude
      * @return success if a new GA is added, false otherwise
      */
-    public boolean addGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, Local local, double length, double width) {
-        if (newGeoList.checkIfGANotExists(newName, typeArea, local.getLatitude(), local.getAltitude(), local.getLongitude())) {
+    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, Local local, double length, double width) {
+        if (!(newGeoList.containsObjectMatchesParameters(newName, typeArea, local.getLatitude(), local.getAltitude(), local.getLongitude()))) {
             GeographicArea geoToAdd = newGeoList.createGA(newName, typeArea, length, width, local);
             return newGeoList.addGeographicArea(geoToAdd);
         } else {
@@ -85,7 +85,7 @@ public class GASettingsController {
 
     public GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeArea typeArea) {
         String typeAreaName = typeArea.getTypeOfGeographicArea();
-        return geographicAreaList.matchGeographicAreaWithInputType(typeAreaName);
+        return geographicAreaList.getGeoAreasByType(typeAreaName);
     }
 
     /**

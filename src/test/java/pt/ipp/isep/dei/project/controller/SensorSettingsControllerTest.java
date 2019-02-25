@@ -42,16 +42,19 @@ class SensorSettingsControllerTest {
     @Test
     void seeIfLocalIsCreated() {
 
-        //Arrange
+        // Arrange
+
         double lat = 50.0;
         double lon = 50.0;
         double alt = 50.0;
         Local expectedResult = new Local(50, 50, 50);
 
-        //Act
+        // Act
+
         Local actualResult = controller.createLocal(lat, lon, alt);
 
-        //Assert
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 

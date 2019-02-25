@@ -164,7 +164,7 @@ class GASettingsUI {
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
         }
-        return controller.addGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoLocal, geoAreaLength, geoAreaWidth);
+        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoLocal, geoAreaLength, geoAreaWidth);
     }
 
     private void generateResultUS03(boolean created) {

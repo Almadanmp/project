@@ -27,7 +27,7 @@ class EnergyGridSettingsControllerTest {
 
     // Common artifacts for testing in this class.
 
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
     private House validHouse;
     private EnergyGrid validGrid;
     private EnergyGridSettingsController controller = new EnergyGridSettingsController();
