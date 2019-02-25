@@ -63,7 +63,7 @@ public class TypeSensorList {
 
     /**
      * This method receives an index as parameter and gets a type sensor from Type Sensor list.
-
+     * @param index the type sensor index
      * @return returns Type Sensor that corresponds to index.
      */
     public TypeSensor get(int index) {
