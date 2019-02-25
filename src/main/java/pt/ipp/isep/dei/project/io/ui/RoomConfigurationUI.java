@@ -191,6 +191,7 @@ class RoomConfigurationUI {
         // get device name
         System.out.print("Please, type the new name of the device: ");
         String deviceName = scanner.nextLine();
+        controller.setDeviceName(deviceName,device);
         //get room
         controller.removeDevice(room, device);
         InputUtils inputUtils = new InputUtils();

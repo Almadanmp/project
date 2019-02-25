@@ -1,5 +1,6 @@
 @startuml
 actor User
+autonumber
 User -> MainUI: Get Current Temperature on House Area
 MainUI -> HouseMonitoringUI: Get Current Temperature on House Area
 HouseMonitoringUI --> User: Request Geographic Area Name or Index from List

@@ -1,6 +1,6 @@
 @startuml
 actor User
-
+autonumber
 User -> MainUI: Get Max Temperature In A Room On A Given Day
 MainUI -> HouseMonitoringUI: runUS610()
 HouseMonitoringUI --> User: displayRoomList()

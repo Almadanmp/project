@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +27,14 @@ class RoomListTest {
     @Test
     void seeIfAddRoomFails() {
         RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("21/11/2018");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), date));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
         r1.setSensorList(sensorList);
         Room r2 = new Room("Cozinha", 1, 123, 2, 2);
@@ -41,7 +50,14 @@ class RoomListTest {
     @Test
     void seeIfAddRoomPasses() {
         RoomList roomList = new RoomList();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), new Date(21 / 11 / 2018)));
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("21/11/2018");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50),date));
         Room r1 = new Room("Cozinha", 1, 123, 2, 2);
         r1.setSensorList(sensorList);
         Room r2 = new Room("Jardim", 1, 123, 2, 2);

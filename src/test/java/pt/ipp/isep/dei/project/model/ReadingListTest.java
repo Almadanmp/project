@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -17,12 +18,59 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ReadingListTest {
 
+    private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy
+    private Date validDate1; // Date 21/11/2018
+    private Date validDate2; // Date 03/09/2018
+    private Date validDate3 = new Date(); // 31/09/2018 23:59:59
+    private Date validDate4 = new Date(); // 07/10/2018 00:00:00
+    private Date validDate5 = new Date(); // 08/10/2018 23:26:21
+    private Date validDate6 = new Date(); // 09/10/2018 08:21:22
+    private Date validDate7 = new Date(); // 10/10/2018 18:14:03
+    private Date validDate8 = new Date(); // 23/10/2018 12:14:23
+    private Date validDate9 = new Date(); // 13/10/2018 12:12:12
+    private Date validDate10 = new Date(); // 30/10/2018 23:59:59
+    private Date validDate11 = new Date(); // 01/11/2018 00:00:00
+    private Date validDate12; //02/11/2015
+    private Date dateToTest2 = new Date(); // 13/10/2018 23:59:59
+    private Date validDate13;
+    private Date validDate14;
+    private Date validDate15;
+
+    @BeforeEach
+    void arrangeDateFormat() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            validDate1 = validSdf.parse("21/11/2018 00:00:00");
+            validDate2 = validSdf.parse("03/09/2018 00:00:00");
+            validDate3 = validSdf.parse("31/09/2018 23:59:59");
+            validDate4 = validSdf.parse("07/10/2018 00:00:00");
+            validDate5 = validSdf.parse("08/10/2018 23:26:21");
+            validDate6 = validSdf.parse("09/10/2018 08:21:22");
+            validDate7 = validSdf.parse("10/10/2018 18:14:03");
+            validDate8 = validSdf.parse("23/10/2018 12:14:23");
+            validDate9 = validSdf.parse("13/10/2018 12:12:12");
+            validDate10 = validSdf.parse("30/10/2018 23:59:59");
+            validDate11 = validSdf.parse("01/11/2018 00:00:00");
+            validDate12 = validSdf.parse("02/11/2015 20:00:00");
+            dateToTest2 = validSdf.parse("13/10/2018 23:59:59");
+            validDate13 = validSdfDay.parse("03/10/2018");
+            validDate14 = validSdf.parse("02/10/2018 23:59:00");
+            validDate15 = validSdf.parse("03/10/2018 00:00:00");
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Test
     void seeAddReadingIfListIsEmpty() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(17, calendar.getTime());
+        Reading reading1 = new Reading(17, validDate1);
 
         //Act
         boolean actualResult = readingList.addReading(reading1);
@@ -50,10 +98,8 @@ class ReadingListTest {
     void seeAddReadingIfListHasDifferentReading() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(17, calendar.getTime());
-        GregorianCalendar calendar2 = new GregorianCalendar(118, 9, 3);
-        Reading reading2 = new Reading(29, calendar2.getTime());
+        Reading reading1 = new Reading(17, validDate1);
+        Reading reading2 = new Reading(29, validDate2);
 
         //Act
         readingList.addReading(reading1);
@@ -67,9 +113,8 @@ class ReadingListTest {
     void seeAddReadingIfListHasSameReading() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        GregorianCalendar calendar = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(17, calendar.getTime());
-        Reading reading2 = new Reading(17, calendar.getTime());
+        Reading reading1 = new Reading(17, validDate1);
+        Reading reading2 = new Reading(17, validDate1);
 
         //Act
         readingList.addReading(reading1);
@@ -83,10 +128,8 @@ class ReadingListTest {
     void seeThatWeGetAValueFromAReading1InsideAList() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(15, g1.getTime());
-        GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
-        Reading reading2 = new Reading(29, g2.getTime());
+        Reading reading1 = new Reading(15, validDate1);
+        Reading reading2 = new Reading(29, validDate2);
         readingList.addReading(reading1);
         readingList.addReading(reading2);
         double expectedResult = 15;
@@ -102,10 +145,8 @@ class ReadingListTest {
     void seeThatWeGetAValueFromAReading2InsideAList() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        GregorianCalendar g1 = new GregorianCalendar(118, 11, 25);
-        Reading reading1 = new Reading(15, g1.getTime());
-        GregorianCalendar g2 = new GregorianCalendar(118, 9, 3);
-        Reading reading2 = new Reading(29, g2.getTime());
+        Reading reading1 = new Reading(15, validDate1);
+        Reading reading2 = new Reading(29, validDate2);
         readingList.addReading(reading1);
         readingList.addReading(reading2);
         double expectedResult = 29;
@@ -121,24 +162,16 @@ class ReadingListTest {
     void seeIfGetDatesWithReadingsBetweenTwoGivenDates() {
         //Arrange
         ReadingList rList = new ReadingList();
-        GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
-        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 7, 0, 0, 0);
-        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 8, 23, 26, 21);
-        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 9, 8, 21, 22);
-        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 10, 18, 14, 3);
-        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
-        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 13, 12, 12, 12);
-        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 30, 23, 59, 59);
-        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 1, 0, 0, 0);
-        Reading r0 = new Reading(23, g0.getTime());
-        Reading r1 = new Reading(23, g1.getTime());
-        Reading r2 = new Reading(24, g2.getTime());
-        Reading r3 = new Reading(25, g3.getTime());
-        Reading r4 = new Reading(26, g4.getTime());
-        Reading r5 = new Reading(23, g5.getTime());
-        Reading r6 = new Reading(22, g6.getTime());
-        Reading r7 = new Reading(23, g7.getTime());
-        Reading r8 = new Reading(22, g8.getTime());
+
+        Reading r0 = new Reading(23, validDate3);
+        Reading r1 = new Reading(23, validDate4);
+        Reading r2 = new Reading(24, validDate5);
+        Reading r3 = new Reading(25, validDate6);
+        Reading r4 = new Reading(26, validDate7);
+        Reading r5 = new Reading(23, validDate8);
+        Reading r6 = new Reading(22, validDate9);
+        Reading r7 = new Reading(23, validDate10);
+        Reading r8 = new Reading(22, validDate11);
         rList.addReading(r0);
         rList.addReading(r1);
         rList.addReading(r2);
@@ -149,17 +182,13 @@ class ReadingListTest {
         rList.addReading(r7);
         rList.addReading(r8);
         List<Date> expectedResult = new ArrayList<>();
-        expectedResult.add(new GregorianCalendar(2018, 10, 7, 0, 0, 0).getTime());
-        expectedResult.add(new GregorianCalendar(2018, 10, 8, 23, 26, 21).getTime());
-        expectedResult.add(new GregorianCalendar(2018, 10, 9, 8, 21, 22).getTime());
-        expectedResult.add(new GregorianCalendar(2018, 10, 10, 18, 14, 3).getTime());
-        expectedResult.add(new GregorianCalendar(2018, 10, 13, 12, 12, 12).getTime());
+        expectedResult.add(validDate4);
+        expectedResult.add(validDate5);
+        expectedResult.add(validDate6);
+        expectedResult.add(validDate7);
+        expectedResult.add(validDate9);
         //Act
-        GregorianCalendar dateMin = new GregorianCalendar(2018, 10, 7);
-        GregorianCalendar dateMax = new GregorianCalendar(2018, 10, 13);
-        Date dateToTest1 = dateMin.getTime();
-        Date dateToTest2 = dateMax.getTime();
-        List<Date> actualResult = rList.getDaysWithReadingsBetweenDates(dateToTest1, dateToTest2);
+        List<Date> actualResult = rList.getDaysWithReadingsBetweenDates(validDate4, dateToTest2);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -233,9 +262,14 @@ class ReadingListTest {
     @Test
     void seeIfGetMostRecentValueOfReadingWorks() {
         ReadingList list = new ReadingList();
-        Date d1 = new GregorianCalendar(2015, 11, 2).getTime();
-        Date d2 = new GregorianCalendar(2015, 11, 3).getTime();
-        Reading r1 = new Reading(15, d1);
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            d2 = sd.parse("03/11/2018 00:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading r1 = new Reading(15, validDate12);
         Reading r2 = new Reading(30, d2);
         list.addReading(r1);
         list.addReading(r2);
@@ -256,9 +290,14 @@ class ReadingListTest {
     @Test
     void seeIfGetMostRecentValueOfReadingWorksSameDay() {
         ReadingList list = new ReadingList();
-        Date d1 = new GregorianCalendar(2015, 11, 2, 20, 0).getTime();
-        Date d2 = new GregorianCalendar(2015, 11, 2, 5, 0).getTime();
-        Reading r1 = new Reading(15, d1);
+        Reading r1 = new Reading(15, validDate12);
+        Date d2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            d2 = sd.parse("02/11/2015 05:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Reading r2 = new Reading(30, d2);
         list.addReading(r1);
         list.addReading(r2);
@@ -272,24 +311,16 @@ class ReadingListTest {
     void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
         //Arrange
         ReadingList rList = new ReadingList();
-        GregorianCalendar g0 = new GregorianCalendar(2018, 9, 31, 23, 59, 59);
-        GregorianCalendar g1 = new GregorianCalendar(2018, 10, 7, 0, 0, 0);
-        GregorianCalendar g2 = new GregorianCalendar(2018, 10, 8, 23, 26, 21);
-        GregorianCalendar g3 = new GregorianCalendar(2018, 10, 9, 8, 21, 22);
-        GregorianCalendar g4 = new GregorianCalendar(2018, 10, 10, 18, 14, 3);
-        GregorianCalendar g5 = new GregorianCalendar(2018, 10, 23, 12, 14, 23);
-        GregorianCalendar g6 = new GregorianCalendar(2018, 10, 13, 12, 12, 12);
-        GregorianCalendar g7 = new GregorianCalendar(2018, 10, 30, 23, 59, 59);
-        GregorianCalendar g8 = new GregorianCalendar(2018, 11, 1, 0, 0, 0);
-        Reading r0 = new Reading(23, g0.getTime());
-        Reading r1 = new Reading(23, g1.getTime());
-        Reading r2 = new Reading(24, g2.getTime());
-        Reading r3 = new Reading(25, g3.getTime());
-        Reading r4 = new Reading(26, g4.getTime());
-        Reading r5 = new Reading(23, g5.getTime());
-        Reading r6 = new Reading(22, g6.getTime());
-        Reading r7 = new Reading(23, g7.getTime());
-        Reading r8 = new Reading(22, g8.getTime());
+
+        Reading r0 = new Reading(23, validDate3);
+        Reading r1 = new Reading(23, validDate4);
+        Reading r2 = new Reading(24, validDate5);
+        Reading r3 = new Reading(25, validDate6);
+        Reading r4 = new Reading(26, validDate7);
+        Reading r5 = new Reading(23, validDate8);
+        Reading r6 = new Reading(22, validDate9);
+        Reading r7 = new Reading(23, validDate10);
+        Reading r8 = new Reading(22, validDate11);
         rList.addReading(r0);
         rList.addReading(r1);
         rList.addReading(r2);
@@ -301,11 +332,7 @@ class ReadingListTest {
         rList.addReading(r8);
         double expectedResult = 24.0;
         //Act
-        GregorianCalendar dateMin = new GregorianCalendar(2018, 10, 7);
-        GregorianCalendar dateMax = new GregorianCalendar(2018, 10, 13);
-        Date dateToTest1 = dateMin.getTime();
-        Date dateToTest2 = dateMax.getTime();
-        double actualResult = rList.getAverageReadingsBetweenDates(dateToTest1, dateToTest2);
+        double actualResult = rList.getAverageReadingsBetweenDates(validDate4, dateToTest2);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -316,13 +343,9 @@ class ReadingListTest {
         //Arrange
         ReadingList rList = new ReadingList();
         //Act
-        GregorianCalendar dateMin = new GregorianCalendar(2018, 10, 7);
-        GregorianCalendar dateMax = new GregorianCalendar(2018, 10, 13);
-        Date dateToTest1 = dateMin.getTime();
-        Date dateToTest2 = dateMax.getTime();
         //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            rList.getAverageReadingsBetweenDates(dateToTest1, dateToTest2);
+            rList.getAverageReadingsBetweenDates(validDate4, dateToTest2);
         });
     }
 
@@ -340,7 +363,17 @@ class ReadingListTest {
     void ensureReadingListIsNotEmpty() {
         //Arrange
         ReadingList rl = new ReadingList();
-        Reading reading = new Reading(20, new GregorianCalendar(2018, GregorianCalendar.DECEMBER, 30).getTime());
+
+        Date date1 = new Date();
+
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date1 = sd.parse("30/12/2018");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading reading = new Reading(20, date1);
         rl.addReading(reading);
         //Act
         boolean actualResult = rl.isEmpty();
@@ -352,17 +385,30 @@ class ReadingListTest {
     void ensureThatWeGetTotalReadingsOnGivenDay() {
         //Arrange
         ReadingList rl = new ReadingList();
-        Reading reading = new Reading(20, new GregorianCalendar(2018, 10, 3, 0, 0, 0).getTime());
-        Reading reading2 = new Reading(20, new GregorianCalendar(2018, 10, 3, 12, 0, 0).getTime());
-        Reading reading3 = new Reading(20, new GregorianCalendar(2018, 10, 4).getTime());
-        Reading reading4 = new Reading(20, new GregorianCalendar(2018, 10, 2).getTime());
+
+        Date date2 = new Date();
+        Date date3 = new Date();
+
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        try {
+            date2 = sd.parse("03/10/2018 12:00:00");
+            date3 = sd.parse("04/10/2018 12:30:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading reading = new Reading(20, validDate15);
+        Reading reading2 = new Reading(20, date2);
+        Reading reading3 = new Reading(20, date3);
+        Reading reading4 = new Reading(20, validDate14);
         rl.addReading(reading);
         rl.addReading(reading2);
         rl.addReading(reading3);
         rl.addReading(reading4);
         double expectedResult = 40;
         //Act
-        double actualResult = rl.getTotalValueOfReadingOnGivenDay(new GregorianCalendar(2018, 10, 3).getTime());
+        double actualResult = rl.getTotalValueOfReadingOnGivenDay(validDate13);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -373,7 +419,7 @@ class ReadingListTest {
         ReadingList rl = new ReadingList();
         //Act
         Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            rl.getTotalValueOfReadingOnGivenDay(new GregorianCalendar(2018, 10, 3).getTime());
+            rl.getTotalValueOfReadingOnGivenDay(validDate13);
         });
         //Assert
         assertEquals("Warning: Total value was not calculated - no readings were available.", exception.getMessage());
@@ -386,11 +432,19 @@ class ReadingListTest {
         ReadingList readingList3 = new ReadingList(); //MOST RECENT THIRD
         ReadingList readingList4 = new ReadingList(); //TWO READINGS WITH SAME DATE
         ReadingList readingList5 = new ReadingList(); //NO READINGS
+        Date date = new Date();
 
-        Reading reading1 = new Reading(22, new GregorianCalendar(2018, 10, 2, 23, 59).getTime());
-        Reading reading2 = new Reading(25, new GregorianCalendar(2018, 10, 3, 0, 0).getTime());
-        Reading reading3 = new Reading(27, new GregorianCalendar(2018, 10, 3, 0, 1).getTime());
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
+        try {
+            date = sd.parse("03/10/2018 00:01:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading reading1 = new Reading(22, validDate14);
+        Reading reading2 = new Reading(25, validDate15);
+        Reading reading3 = new Reading(27, date);
         readingList1.addReading(reading3);
         readingList1.addReading(reading1);
         readingList1.addReading(reading2);
@@ -407,7 +461,7 @@ class ReadingListTest {
         readingList4.addReading(reading1);
         readingList4.addReading(reading3);
 
-        Reading expectedResult2 = new Reading(NaN, new GregorianCalendar(1900, 0, 1).getTime());
+        Reading error = new Reading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime());
 
         //Act
         Reading actualResult1 = readingList1.getMostRecentReading();
@@ -420,7 +474,7 @@ class ReadingListTest {
         assertEquals(reading3, actualResult2);
         assertEquals(reading3, actualResult3);
         assertEquals(reading3, actualResult4);
-        assertEquals(expectedResult2, actualResult5);
+        assertEquals(error, actualResult5);
     }
 
     @Test
@@ -429,9 +483,8 @@ class ReadingListTest {
         ReadingList readingList2 = new ReadingList();
         ReadingList readingList3 = new ReadingList();
 
-        Reading reading1 = new Reading(22, new GregorianCalendar(2018, 10, 2, 23, 59).getTime());
-        Reading reading2 = new Reading(25, new GregorianCalendar(2018, 10, 3, 0, 0).getTime());
-
+        Reading reading1 = new Reading(22, validDate14);
+        Reading reading2 = new Reading(25, validDate15);
         readingList1.addReading(reading1);
         readingList1.addReading(reading2);
 
@@ -455,7 +508,7 @@ class ReadingListTest {
     @Test
     void hashcode() {
         ReadingList readingList1 = new ReadingList();
-        Reading reading1 = new Reading(22, new GregorianCalendar(2018, 10, 2, 23, 59).getTime());
+        Reading reading1 = new Reading(22, validDate14);
         readingList1.addReading(reading1);
         //Act
         int actualResult1 = readingList1.hashCode();
@@ -533,30 +586,52 @@ class ReadingListTest {
 
     @Test
     void getFirstSecondOfDaySuccess() {
-        GregorianCalendar cal = new GregorianCalendar(2018, Calendar.OCTOBER, 2, 23, 59);
-        Date expectedResult = new GregorianCalendar(2018, Calendar.OCTOBER, 2, 00, 00).getTime();
-        Date date = cal.getTime();
-        ReadingList readingList1 = new ReadingList();
-        assertEquals(expectedResult, readingList1.getFirstSecondOfDay(date));
-    }
+        Date expectedResult = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            expectedResult = sdf.parse("02/10/2018 00:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+            ReadingList readingList1 = new ReadingList();
+            assertEquals(expectedResult, readingList1.getFirstSecondOfDay(validDate14));
+        }
 
-    @Test
-    void isReadingDateBetweenTwoDatesTrue() {
-        ReadingList readingList1 = new ReadingList();
-        Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 23, 59).getTime());
-        Date startDate = new GregorianCalendar(2018, Calendar.OCTOBER, 1, 23, 59).getTime();
-        Date endDate = new GregorianCalendar(2019, Calendar.OCTOBER, 1, 23, 59).getTime();
-        readingList1.addReading(reading1);
-        assertTrue(readingList1.isReadingDateBetweenTwoDates(reading1.getDate(), startDate, endDate));
-    }
+        @Test
+        void isReadingDateBetweenTwoDatesTrue () {
+            Date date1 = new Date();
+            Date date2 = new Date();
 
-    @Test
-    void isReadingDateBetweenTwoDatesFalse() {
-        ReadingList readingList1 = new ReadingList();
-        Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 23, 59).getTime());
-        Date startDate = new GregorianCalendar(2016, Calendar.OCTOBER, 1, 23, 59).getTime();
-        Date endDate = new GregorianCalendar(2017, Calendar.OCTOBER, 1, 23, 59).getTime();
-        readingList1.addReading(reading1);
-        assertFalse(readingList1.isReadingDateBetweenTwoDates(reading1.getDate(), startDate, endDate));
+            SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            try {
+                date1 = sd.parse("01/10/2018 23:59");
+                date2 = sd.parse("01/10/2019 23:59");
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            ReadingList readingList1 = new ReadingList();
+            Reading reading1 = new Reading(22, validDate14);
+            readingList1.addReading(reading1);
+            assertTrue(readingList1.isReadingDateBetweenTwoDates(reading1.getDate(), date1, date2));
+        }
+
+        @Test
+        void isReadingDateBetweenTwoDatesFalse () {
+            Date date1 = new Date();
+            Date date2 = new Date();
+
+            SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            try {
+                date1 = sd.parse("01/10/2016 23:59");
+                date2 = sd.parse("01/10/2017 23:59");
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            ReadingList readingList1 = new ReadingList();
+            Reading reading1 = new Reading(22,validDate14);
+            readingList1.addReading(reading1);
+            assertFalse(readingList1.isReadingDateBetweenTwoDates(reading1.getDate(), date1, date2));
+        }
     }
-}

@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.*;
@@ -8,6 +9,8 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +21,37 @@ import static org.testng.Assert.assertTrue;
  */
 
 class RoomTest {
+
+    private Date validDate1;
+    private Date validDate2;
+    private Date validDate3;
+    private Date validDate4;
+    private Date validDate5;
+    private Date validDate6;
+    private Date validDate7;
+    private Date validDate8;
+
+    @BeforeEach
+    void arrangeDateFormat() {
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            validDate1 = validSdf.parse("01/02/2018 16:30:00");
+            validDate2 = validSdf.parse("01/02/2018 20:30:00");
+            validDate3 = validSdf.parse("01/01/2018 20:30:00");
+            validDate4 = validSdf.parse("01/12/2017 20:30:00");
+            validDate5 = validSdf.parse("01/01/2018 23:59:59");
+            validDate6 = validSdf.parse("02/01/2018 00:00:00");
+            validDate7 = validSdf.parse("02/01/2018 01:01:00");
+            validDate8 = validSdf.parse("02/01/2018 12:12:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     @Test
     void seeIfRemoveDeviceFromRoomWorks() {
@@ -69,18 +103,14 @@ class RoomTest {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("Temperature", "Celsius");
         ReadingList listR = new ReadingList();
-        Date d1 = new GregorianCalendar(2018, 2, 1, 16, 30).getTime();
-        Date d2 = new GregorianCalendar(2018, 2, 1, 20, 30).getTime();
-        Date d3 = new GregorianCalendar(2018, 1, 1, 20, 30).getTime();
-        Date d4 = new GregorianCalendar(2017, 12, 1, 20, 30).getTime();
         Reading r1;
         Reading r2;
         Reading r3;
         Reading r4;
-        r1 = new Reading(30, d1);
-        r2 = new Reading(20, d2);
-        r3 = new Reading(25, d3);
-        r4 = new Reading(10, d4);
+        r1 = new Reading(30, validDate1);
+        r2 = new Reading(20, validDate2);
+        r3 = new Reading(25, validDate3);
+        r4 = new Reading(10, validDate4);
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
@@ -100,18 +130,14 @@ class RoomTest {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("Temperature", "Celsius");
         ReadingList listR = new ReadingList();
-        Date d1 = new GregorianCalendar(2018, 2, 1, 16, 30).getTime();
-        Date d2 = new GregorianCalendar(2018, 2, 1, 20, 30).getTime();
-        Date d3 = new GregorianCalendar(2018, 1, 1, 20, 30).getTime();
-        Date d4 = new GregorianCalendar(2017, 12, 1, 20, 30).getTime();
         Reading r1;
         Reading r2;
         Reading r3;
         Reading r4;
-        r1 = new Reading(30, d1);
-        r2 = new Reading(-20, d2);
-        r3 = new Reading(25, d3);
-        r4 = new Reading(10, d4);
+        r1 = new Reading(30, validDate1);
+        r2 = new Reading(-20, validDate2);
+        r3 = new Reading(25, validDate3);
+        r4 = new Reading(10, validDate4);
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
@@ -131,18 +157,21 @@ class RoomTest {
         SensorList list = new SensorList();
         TypeSensor type = new TypeSensor("Temperature", "Celsius");
         ReadingList listR = new ReadingList();
-        Date d1 = new GregorianCalendar(2018, 2, 1, 20, 31).getTime();
-        Date d2 = new GregorianCalendar(2018, 2, 1, 20, 30).getTime();
-        Date d3 = new GregorianCalendar(2018, 1, 1, 20, 30).getTime();
-        Date d4 = new GregorianCalendar(2017, 12, 1, 20, 30).getTime();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date date = new Date();
+        try {
+            date = validSdf.parse("01/02/2018 20:31");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Reading r1;
         Reading r2;
         Reading r3;
         Reading r4;
-        r1 = new Reading(30, d1);
-        r2 = new Reading(-20, d2);
-        r3 = new Reading(25, d3);
-        r4 = new Reading(10, d4);
+        r1 = new Reading(30, date);
+        r2 = new Reading(-20, validDate2);
+        r3 = new Reading(25, validDate3);
+        r4 = new Reading(10, validDate4);
         listR.addReading(r1);
         listR.addReading(r2);
         listR.addReading(r3);
@@ -676,10 +705,9 @@ class RoomTest {
         Room room3 = new Room("room3", 1, 2, 3, 4); //ONE HUMIDITY SENSOR
         Room room4 = new Room("room4", 1, 2, 3, 4); //TWO TEMP + ONE HUMIDITY
 
-        GregorianCalendar gregorianCalendar = new GregorianCalendar(2018, 1, 1);
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), gregorianCalendar.getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar.getTime());
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), gregorianCalendar.getTime());
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate2);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate2);
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"),validDate2);
 
         room2.addSensor(sensor1);
         room2.addSensor(sensor3);
@@ -718,15 +746,10 @@ class RoomTest {
         Room room5 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN SECOND READING) + ONE HUMIDITY
         Room room6 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN THIRD READING) + ONE HUMIDITY
 
-        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
-        GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018, 1, 2, 0, 0);
-        GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2018, 1, 2, 1, 1);
-        GregorianCalendar gregorianCalendar4 = new GregorianCalendar(2018, 1, 2, 12, 12);
-
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading1 = new Reading(20, gregorianCalendar2.getTime());
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"),validDate5);
+        Reading reading1 = new Reading(20, validDate6);
         sensor1.addReading(reading1);
         sensor2.addReading(reading1);
         sensor3.addReading(reading1);
@@ -735,10 +758,10 @@ class RoomTest {
         room1.addSensor(sensor2);
         room1.addSensor(sensor3);
 
-        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading2 = new Reading(24, gregorianCalendar2.getTime());
-        Reading reading3 = new Reading(20, gregorianCalendar3.getTime());
+        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("Temperature", "ºC"), validDate5);
+        Reading reading2 = new Reading(24, validDate6);
+        Reading reading3 = new Reading(20, validDate7);
         sensor4.addReading(reading2);
         sensor5.addReading(reading3);
 
@@ -746,10 +769,10 @@ class RoomTest {
         room2.addSensor(sensor4);
         room2.addSensor(sensor5);
 
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading4 = new Reading(20, gregorianCalendar2.getTime());
-        Reading reading5 = new Reading(25, gregorianCalendar3.getTime());
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("Temperature", "ºC"), validDate5);
+        Reading reading4 = new Reading(20, validDate6);
+        Reading reading5 = new Reading(25, validDate7);
         sensor6.addReading(reading4);
         sensor7.addReading(reading5);
 
@@ -757,11 +780,11 @@ class RoomTest {
         room3.addSensor(sensor6);
         room3.addSensor(sensor7);
 
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading6 = new Reading(26, gregorianCalendar2.getTime());
-        Reading reading7 = new Reading(21, gregorianCalendar3.getTime());
-        Reading reading8 = new Reading(20, gregorianCalendar4.getTime());
+        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("Temperature", "ºC"), validDate5);
+        Reading reading6 = new Reading(26, validDate6);
+        Reading reading7 = new Reading(21, validDate7);
+        Reading reading8 = new Reading(20, validDate8);
         sensor8.addReading(reading6);
         sensor8.addReading(reading7);
         sensor8.addReading(reading8);
@@ -771,11 +794,11 @@ class RoomTest {
         room4.addSensor(sensor8);
         room4.addSensor(sensor9);
 
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor11 = new Sensor("sensor11", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading9 = new Reading(21, gregorianCalendar2.getTime());
-        Reading reading10 = new Reading(27, gregorianCalendar3.getTime());
-        Reading reading11 = new Reading(20, gregorianCalendar4.getTime());
+        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor11 = new Sensor("sensor11", new TypeSensor("Temperature", "ºC"), validDate5);
+        Reading reading9 = new Reading(21, validDate6);
+        Reading reading10 = new Reading(27, validDate7);
+        Reading reading11 = new Reading(20, validDate8);
         sensor10.addReading(reading9);
         sensor10.addReading(reading10);
         sensor11.addReading(reading11);
@@ -786,11 +809,11 @@ class RoomTest {
         room5.addSensor(sensor11);
 
 
-        Sensor sensor12 = new Sensor("sensor12", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor13 = new Sensor("sensor13", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading12 = new Reading(21, gregorianCalendar2.getTime());
-        Reading reading13 = new Reading(20, gregorianCalendar3.getTime());
-        Reading reading14 = new Reading(28, gregorianCalendar4.getTime());
+        Sensor sensor12 = new Sensor("sensor12", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor13 = new Sensor("sensor13", new TypeSensor("Temperature", "ºC"), validDate5);
+        Reading reading12 = new Reading(21, validDate6);
+        Reading reading13 = new Reading(20, validDate7);
+        Reading reading14 = new Reading(28, validDate8);
         sensor12.addReading(reading12);
         sensor12.addReading(reading13);
         sensor12.addReading(reading14);
@@ -801,12 +824,12 @@ class RoomTest {
         room6.addSensor(sensor13);
 
         //ACT
-        double actualResult1 = room1.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
-        double actualResult2 = room2.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
-        double actualResult3 = room3.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
-        double actualResult4 = room4.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
-        double actualResult5 = room5.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
-        double actualResult6 = room6.getMaxTemperatureOnGivenDay(gregorianCalendar2.getTime());
+        double actualResult1 = room1.getMaxTemperatureOnGivenDay(validDate6);
+        double actualResult2 = room2.getMaxTemperatureOnGivenDay(validDate6);
+        double actualResult3 = room3.getMaxTemperatureOnGivenDay(validDate6);
+        double actualResult4 = room4.getMaxTemperatureOnGivenDay(validDate6);
+        double actualResult5 = room5.getMaxTemperatureOnGivenDay(validDate6);
+        double actualResult6 = room6.getMaxTemperatureOnGivenDay(validDate6);
 
 
         //ASSERT
@@ -825,11 +848,10 @@ class RoomTest {
         Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
         Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
 
-        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), validDate5);
 
         room2.addSensor(sensor1);
         room2.addSensor(sensor2);
@@ -837,8 +859,8 @@ class RoomTest {
 
         //Act and Assert
 
-        assertThrows(IllegalArgumentException.class, () -> room1.getMaxTemperatureOnGivenDay(gregorianCalendar1.getTime()));
-        assertThrows(NoSuchElementException.class, () -> room2.getMaxTemperatureOnGivenDay(gregorianCalendar1.getTime()));
+        assertThrows(IllegalArgumentException.class, () -> room1.getMaxTemperatureOnGivenDay(validDate5));
+        assertThrows(NoSuchElementException.class, () -> room2.getMaxTemperatureOnGivenDay(validDate5));
     }
 
     @Test
@@ -852,22 +874,19 @@ class RoomTest {
         Room room7 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MOST RECENT IN SECOND READING) + ONE HUMIDITY
         Room room8 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MOST RECENT IN THIRD READING) + ONE HUMIDITY
 
-        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
-        GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2018, 1, 2, 0, 0);
-        GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2018, 1, 2, 0, 1);
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), validDate5);
 
         room2.addSensor(sensor1);
         room2.addSensor(sensor2);
         room2.addSensor(sensor3);
 
-        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading1 = new Reading(20, gregorianCalendar2.getTime());
+        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("humidity", "%"), validDate5);
+        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("Temperature", "ºC"), validDate5);
+        Reading reading1 = new Reading(20, validDate6);
         sensor4.addReading(reading1);
         sensor5.addReading(reading1);
         sensor6.addReading(reading1);
@@ -876,10 +895,10 @@ class RoomTest {
         room3.addSensor(sensor5);
         room3.addSensor(sensor6);
 
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading2 = new Reading(24, gregorianCalendar2.getTime());
-        Reading reading3 = new Reading(20, gregorianCalendar1.getTime());
+        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("Temperature", "ºC"), validDate5);
+        Reading reading2 = new Reading(24, validDate6);
+        Reading reading3 = new Reading(20, validDate5);
         sensor7.addReading(reading2);
         sensor8.addReading(reading3);
 
@@ -887,10 +906,10 @@ class RoomTest {
         room4.addSensor(sensor7);
         room4.addSensor(sensor8);
 
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading4 = new Reading(20, gregorianCalendar1.getTime());
-        Reading reading5 = new Reading(25, gregorianCalendar2.getTime());
+        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("Temperature", "ºC"), validDate5);
+        Reading reading4 = new Reading(20, validDate5);
+        Reading reading5 = new Reading(25, validDate6);
         sensor9.addReading(reading4);
         sensor10.addReading(reading5);
 
@@ -898,11 +917,11 @@ class RoomTest {
         room5.addSensor(sensor9);
         room5.addSensor(sensor10);
 
-        Sensor sensor11 = new Sensor("sensor11", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor12 = new Sensor("sensor12", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading6 = new Reading(26, gregorianCalendar3.getTime());
-        Reading reading7 = new Reading(21, gregorianCalendar1.getTime());
-        Reading reading8 = new Reading(20, gregorianCalendar2.getTime());
+        Sensor sensor11 = new Sensor("sensor11", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor12 = new Sensor("sensor12", new TypeSensor("Temperature", "ºC"),validDate5);
+        Reading reading6 = new Reading(26, validDate7);
+        Reading reading7 = new Reading(21, validDate5);
+        Reading reading8 = new Reading(20, validDate6);
         sensor11.addReading(reading6);
         sensor11.addReading(reading7);
         sensor11.addReading(reading8);
@@ -912,11 +931,11 @@ class RoomTest {
         room6.addSensor(sensor11);
         room6.addSensor(sensor12);
 
-        Sensor sensor13 = new Sensor("sensor13", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor14 = new Sensor("sensor14", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading9 = new Reading(21, gregorianCalendar2.getTime());
-        Reading reading10 = new Reading(27, gregorianCalendar3.getTime());
-        Reading reading11 = new Reading(20, gregorianCalendar1.getTime());
+        Sensor sensor13 = new Sensor("sensor13", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor14 = new Sensor("sensor14", new TypeSensor("Temperature", "ºC"), validDate5);
+        Reading reading9 = new Reading(21, validDate6);
+        Reading reading10 = new Reading(27, validDate7);
+        Reading reading11 = new Reading(20,validDate5);
         sensor13.addReading(reading9);
         sensor13.addReading(reading10);
         sensor13.addReading(reading11);
@@ -927,11 +946,11 @@ class RoomTest {
         room7.addSensor(sensor14);
 
 
-        Sensor sensor15 = new Sensor("sensor15", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor16 = new Sensor("sensor16", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Reading reading12 = new Reading(21, gregorianCalendar2.getTime());
-        Reading reading13 = new Reading(20, gregorianCalendar1.getTime());
-        Reading reading14 = new Reading(28, gregorianCalendar3.getTime());
+        Sensor sensor15 = new Sensor("sensor15", new TypeSensor("Temperature", "ºC"),validDate5);
+        Sensor sensor16 = new Sensor("sensor16", new TypeSensor("Temperature", "ºC"),validDate5);
+        Reading reading12 = new Reading(21, validDate6);
+        Reading reading13 = new Reading(20, validDate5);
+        Reading reading14 = new Reading(28, validDate7);
         sensor15.addReading(reading12);
         sensor15.addReading(reading13);
         sensor15.addReading(reading14);
@@ -968,11 +987,10 @@ class RoomTest {
         Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
         Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
 
-        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
 
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
+        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), validDate5);
 
         room2.addSensor(sensor1);
         room2.addSensor(sensor2);
@@ -991,9 +1009,8 @@ class RoomTest {
         Room room2 = new Room("room2", 0, 1, 1, 1); //ONE SENSOR
         Room room3 = new Room("room3", 0, 1, 1, 1); //TWO SENSORS
 
-        GregorianCalendar gregorianCalendar1 = new GregorianCalendar(2018, 1, 1, 23, 59);
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), gregorianCalendar1.getTime());
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), gregorianCalendar1.getTime());
+        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
+        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
 
         room2.addSensor(sensor1);
         room3.addSensor(sensor1);
