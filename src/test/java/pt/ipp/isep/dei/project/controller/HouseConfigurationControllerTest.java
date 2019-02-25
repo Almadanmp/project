@@ -37,7 +37,6 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfGetHouseName() {
-        HouseConfigurationController ctrl = new HouseConfigurationController();
         GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
 
         List<String> deviceTypeString = new ArrayList<>();

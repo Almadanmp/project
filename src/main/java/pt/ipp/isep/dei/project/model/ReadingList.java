@@ -119,7 +119,7 @@ public class ReadingList {
      * @return date with 1st second of given day
      * @author Daniela
      */
-    private Date getFirstSecondOfDay(Date day) {
+     Date getFirstSecondOfDay(Date day) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(day);
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
@@ -150,7 +150,7 @@ public class ReadingList {
      * @return true if reading date is between dates, false if it isn't
      * @author Daniela
      */
-  private  boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
+    boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
         return (readingDate.after(startDate) || readingDate.equals(startDate)) &&
                 (readingDate.before(endDate) || readingDate.equals(endDate));
     }
@@ -346,17 +346,6 @@ public class ReadingList {
      **/
     public int size() {
         return this.readings.size();
-    }
-
-    /**
-     * Method checks if reading list contains reading given as parameter.
-     *
-     * @param reading reading to check.
-     * @return returns true if list contains reading, false if it does not contain reading.
-     */
-
-    public boolean contains(Reading reading) {
-        return readings.contains(reading);
     }
 
     /**
