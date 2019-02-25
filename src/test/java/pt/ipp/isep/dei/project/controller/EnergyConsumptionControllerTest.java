@@ -34,8 +34,7 @@ class EnergyConsumptionControllerTest {
     private Device validDevice2 = new WaterHeater(new WaterHeaterSpec());
     private Device validDevice3 = new Fridge(new FridgeSpec());
     private EnergyConsumptionController controller = new EnergyConsumptionController();
-    private SimpleDateFormat validSdf1; // SimpleDateFormat dd/MM/yyyy
-    private SimpleDateFormat validSdf2; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
+    private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private Date validDate1; // Date 09/08/2018
     private Date validDate2; // Date 11/02/2014
     private Log validLog1;
@@ -64,11 +63,10 @@ class EnergyConsumptionControllerTest {
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
         validRoom1.addDevice(validDevice3);
-        validSdf1 = new SimpleDateFormat("dd/MM/yyyy");
-        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
-            validDate2 = validSdf2.parse("21/11/2014 10:20:00");
-            validDate1 = validSdf2.parse("20/11/2018 10:10:00");
+            validDate2 = validSdf.parse("21/11/2014 10:20:00");
+            validDate1 = validSdf.parse("20/11/2018 10:10:00");
         } catch (ParseException c) {
             c.printStackTrace();
         }
@@ -333,13 +331,13 @@ class EnergyConsumptionControllerTest {
         //Arrange
         Date initialTime = new Date();
         try {
-            initialTime = validSdf2.parse("20/11/2018 10:02:00");
+            initialTime = validSdf.parse("20/11/2018 10:02:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
         Date finalTime = new Date();
         try {
-            finalTime = validSdf2.parse("20/11/2018 10:50:00");
+            finalTime = validSdf.parse("20/11/2018 10:50:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -693,13 +691,13 @@ class EnergyConsumptionControllerTest {
 
         Date initialTime = new Date();
         try {
-            initialTime = validSdf2.parse("20/10/2014 10:02:00");
+            initialTime = validSdf.parse("20/10/2014 10:02:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
         Date finalTime = new Date();
         try {
-            finalTime = validSdf2.parse("20/10/2014 10:59:00");
+            finalTime = validSdf.parse("20/10/2014 10:59:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -722,13 +720,13 @@ class EnergyConsumptionControllerTest {
         //Arrange
         Date initialTime = new Date();
         try {
-            initialTime = validSdf2.parse("20/10/2020 10:02:00");
+            initialTime = validSdf.parse("20/10/2020 10:02:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
         Date finalTime = new Date();
         try {
-            finalTime = validSdf2.parse("20/10/2020 10:59:00");
+            finalTime = validSdf.parse("20/10/2020 10:59:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -767,7 +765,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
         Date time = new Date();
         try {
-           time = validSdf2.parse("20/10/2014 10:02:00");
+           time = validSdf.parse("20/10/2014 10:02:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
