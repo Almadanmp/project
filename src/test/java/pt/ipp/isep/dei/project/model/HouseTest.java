@@ -332,13 +332,8 @@ class HouseTest {
 
         GeographicArea expectedResult = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         expectedResult.setId("Porto");
-        expectedResult.setLocal(new Local(2, 3, 4));
-        expectedResult.setTypeArea(new TypeArea("Cidade"));
         GeographicArea ga1 = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         ga1.setId("Porto");
-        ga1.setLocal(new Local(2, 3, 4));
-        ga1.setTypeArea(new TypeArea("Cidade"));
-
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
