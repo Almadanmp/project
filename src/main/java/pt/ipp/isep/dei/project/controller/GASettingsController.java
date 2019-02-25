@@ -38,9 +38,10 @@ public class GASettingsController {
     /**
      * This method creates a new Type of Geographic Area and adds it to a List.
      *
-     * @param input - the String name of the Type of Geographic Area.
-     * @return true - the Type of Geographic Area was successfully created and added to a list;
-     * false - the name is null.
+     * @param typeAreaList - the list of types of areas
+     * @param input        - the String name of the Type of Geographic Area.
+     * @return true - the Type of Geographic Area was successfully created and added to a list or false if the name is
+     * null.
      */
 
     public boolean createAndAddTypeAreaToList(String input, TypeAreaList typeAreaList) {
@@ -63,6 +64,8 @@ public class GASettingsController {
      * @param newGeoList geographic area list to add the new geographic area
      * @param newName    input string for geographic area name
      * @param typeArea   input string for type area
+     * @param width      the length of the GA
+     * @param length     the length of the GA
      * @param local      input number for latitude, longitude and altitude
      * @return success if a new GA is added, false otherwise
      */
@@ -115,6 +118,7 @@ public class GASettingsController {
     /**
      * @param daughterArea is the area that is contained in another.
      * @param motherArea   is the area that contains another.
+     * @return true if the area was successfully added.
      */
     public boolean setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
         return daughterArea.setMotherArea(motherArea);
@@ -124,6 +128,8 @@ public class GASettingsController {
     or indirectly, in another one. */
 
     /**
+     * @param motherGA   the geographic area that contains the daughter geographic area.
+     * @param daughterGA the geographic area that is contained in the mother geographic area.
      * @return returns true if one area is contained in the other, false if it isn't.
      */
 

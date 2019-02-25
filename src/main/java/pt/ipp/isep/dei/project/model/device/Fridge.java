@@ -125,8 +125,8 @@ public class Fridge implements Device, Metered {
     /**
      * Energy consumption (daily) = annual energy consumption / 365 (kWh)
      *
-     * @param time
-     * @return
+     * @param time the desired time
+     * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
         return fridgeNominalPower * time;

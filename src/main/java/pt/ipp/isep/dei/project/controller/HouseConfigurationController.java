@@ -14,7 +14,8 @@ public class HouseConfigurationController {
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
-     * @param house   is the house we're going to set the address of.
+     * @param house is the house we're going to set the address of.
+     * @param address the houses's address.
      */
 
     public void setHouseAddress(Address address, House house) {
@@ -42,6 +43,7 @@ public class HouseConfigurationController {
      * @param width           is the width of the room we're going to create.
      * @param length          is the length of the room we're going to create.
      * @param height          is the height of the room we're going to create.
+     * @return a new Room
      */
     public Room createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
         return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);

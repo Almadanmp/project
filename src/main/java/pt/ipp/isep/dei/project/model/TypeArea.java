@@ -9,6 +9,7 @@ public class TypeArea {
 
     /**
      * Main and only Area Type Constructor
+     * @param nameGiven The name of the type of area
      */
     public TypeArea(String nameGiven) {
         this.name = nameGiven;

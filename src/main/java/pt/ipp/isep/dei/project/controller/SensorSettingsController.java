@@ -20,8 +20,9 @@ public class SensorSettingsController {
     /**
      * This method receives a list and a type sensor and tries to add the type sensor
      * to the list. The type sensor will not be added in case the list already contains it.
-     *
-     * @return true in case the type sensor is added to the list, false otherwise
+     * @param typeSensor the type of sensor to be added
+     * @param typeSensorList the list of types of sensors
+     * @return true if the type of sensor was added to the list of type sensors.
      */
     public boolean addTypeSensorToList(TypeSensor typeSensor, TypeSensorList typeSensorList) {
         return typeSensorList.add(typeSensor);
@@ -81,7 +82,7 @@ public class SensorSettingsController {
 
     /**
      * This method receives a sensor and returns a string with the sensor's parameters
-     *
+     * @param sensor the chosen sensor.
      * @return String with sensor parameters
      **/
     public String buildSensorString(Sensor sensor) {
@@ -93,6 +94,7 @@ public class SensorSettingsController {
     }
 
     /**
+     * @param sensor the sensor we want to add to the geographic area.
      * @param geoArea is the area we want to add the sensor to.
      * @return is true if successfully added, false if not.
      */

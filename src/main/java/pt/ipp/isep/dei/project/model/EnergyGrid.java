@@ -179,7 +179,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Creates a String with the device index, device type, device name and the room in which the device is contained.
-     *
+     * @param house the house that contains the devices.
      * @param energyGrid energy grid that we want to see which devices will be printed.
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */

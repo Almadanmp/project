@@ -138,10 +138,10 @@ public class WaterHeater implements Device, Metered {
      * Estimate energy consumption for a water heater.
      * It is calculated by the following equation:
      * Energy consumption = C*V*dT*PR (kWh)
-     * C -> Specific heat of water = 1,163 Wh/kg°C
-     * V -> Volume of water to heat (water consumption in litres/min)
-     * Dt -> difference in temperature = hot water temperature – cold water temperature
-     * PR -> performance ratio (typically 0.9)
+     * C - Specific heat of water = 1,163 Wh/kg°C
+     * V - Volume of water to heat (water consumption in litres/min)
+     * Dt - difference in temperature = hot water temperature – cold water temperature
+     * PR - performance ratio (typically 0.9)
      * When the temperature of ColdWater is above the HotWaterTemperature, there will be no energy consumption, so we
      * return 0.
      *

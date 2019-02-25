@@ -122,8 +122,9 @@ public class DeviceList {
         }
         return result;
     }
-    /** Adds all devices of a given DeviceList to target list, rejecting duplicates.\
-     * @return DeviceList completed
+    /** Adds all devices of a given DeviceList to target list, rejecting duplicates.
+     * @param deviceList The list to be added to the target list
+     * @return A parallel deviceList with all the devices that could be added
      * **/
     public DeviceList appendListNoDuplicates(DeviceList deviceList){
         for(Device d : deviceList.getList()){
@@ -140,6 +141,7 @@ public class DeviceList {
     }
 
     /** This method receives an index as parameter and gets a device from device list.
+     * @param index The index of the desired Device
      * @return returns device that corresponds to index.
      */
     public Device get(int index) {

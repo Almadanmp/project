@@ -48,6 +48,8 @@ public class GeographicAreaList {
      * Method to print a Whole Geographic Area List.
      * It will print the attributes needed to check if a GA is different from another GA
      * (name, type of GA and Localization)
+     * @param newGeoListUi the chosen list of geographic areas
+     * @return a string with the names of the geographic areas
      */
     public String buildGaWholeListString(GeographicAreaList newGeoListUi) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
@@ -70,12 +72,11 @@ public class GeographicAreaList {
     /**
      * Method to check if a GA not exists and can be Created (if it has at least a different attribute from the following (name,
      * typearea or local)
-     *
-     * @param newName   -
-     * @param typeArea
-     * @param latitude
-     * @param longitude
-     * @param altitude
+     * @param newName the name of the GA
+     * @param typeArea the type of the GA
+     * @param latitude the latitude of the GA
+     * @param longitude the longitude of the GA
+     * @param altitude the altitude of the GA.
      * @return will return true if can be added and false if it cannot be added
      */
     public boolean checkIfGANotExists(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
@@ -96,7 +97,7 @@ public class GeographicAreaList {
      * @param local    input localization for the new geographic area
      * @param length   input number for length for the new geographic area
      * @param width    input number for width for the new geographic area
-     * @return Geographic Area
+     * @return a new geographic area.
      */
     public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, Local local) {
         return new GeographicArea(newName, typeArea, length, width, local);

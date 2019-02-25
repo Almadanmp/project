@@ -37,7 +37,7 @@ public class HouseMonitoringController {
 
     /**
      * This method receives a room and return the room's name
-     *
+     * @param room the chosen Room.
      * @return room's name as a string
      **/
     public String getRoomName(Room room) {

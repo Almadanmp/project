@@ -26,7 +26,6 @@ public class EnergyConsumptionController {
      *
      * @param room       is the room where the devices we want to add are.
      * @param deviceList is the deviceList we want to add devices to.
-     * @return true if devices were added.
      */
 
     public void addRoomDevicesToDeviceList(Room room, DeviceList deviceList) {
@@ -262,6 +261,7 @@ public class EnergyConsumptionController {
      * @param device               device to change
      * @param coldWaterTemperature value for the cold water temperature
      * @param volumeOfWaterToHeat  value for the amount of water to heat
+     * @return true if the attributes are successfully set.
      */
     public boolean configureWH(Device device, Double coldWaterTemperature, Double volumeOfWaterToHeat) {
         return (device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldWaterTemperature) && device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, volumeOfWaterToHeat));
@@ -270,6 +270,7 @@ public class EnergyConsumptionController {
     /**
      * Get the estimate consumption on all water heaters available in the users house
      * time a day (in minutes - 24 h = 1440 min)
+     *
      * @param house user house
      * @return estimate energy consumption on the water heaters
      */

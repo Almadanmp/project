@@ -52,6 +52,7 @@ public class EnergyGridList {
     }
 
     /** This method receives an index as parameter and gets energy grid from energy grid list.
+     * @param index the index of the energy grid.
      * @return returns Energy grid that corresponds to index.
      */
     public EnergyGrid get(int index) {

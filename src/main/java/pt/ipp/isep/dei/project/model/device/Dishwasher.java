@@ -131,9 +131,8 @@ public class Dishwasher implements Device, Metered, Programmable {
 
     /**
      * Energy consumption = energy consumption of the program (kWh)
-     *
-     * @param time
-     * @return
+     * @param time the desired time
+     * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
         return dWNominalPower * time;

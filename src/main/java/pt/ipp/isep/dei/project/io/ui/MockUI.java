@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
- * < MOCK DATA FOR TESTING PURPOSES >
+ * MOCK DATA FOR TESTING PURPOSES
  */
 public class MockUI {
 

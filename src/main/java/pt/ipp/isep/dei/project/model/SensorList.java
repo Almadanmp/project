@@ -25,8 +25,7 @@ public class SensorList {
 
     /**
      * Constructor to always create an Array of Sensors.
-     *
-     * @param sensorToAdd
+     * @param sensorToAdd the selected sensor.
      */
     public SensorList(Sensor sensorToAdd) {
         sensors = new ArrayList<>();
@@ -105,6 +104,8 @@ public class SensorList {
      * Method to print a Whole Sensor List.
      * It will print the attributes needed to check if a Sensor is different from another Sensor
      * (name, type of Sensor and Units)
+     * @param sensorList the list of sensors.
+     * @return a string of the sensors contained in the list.
      */
     public String buildSensorWholeListString(SensorList sensorList) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
@@ -162,7 +163,7 @@ public class SensorList {
 
     /**
      * This method receives an index as parameter and gets a sensor from sensor list.
-     *
+     * @param index the index of the Sensor.
      * @return returns sensor that corresponds to index.
      */
     public Sensor get(int index) {

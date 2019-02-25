@@ -125,8 +125,8 @@ public class Lamp implements Device, Metered {
     /**
      * Energy consumption = Nominal power * time (Wh)
      *
-     * @param time
-     * @return
+     * @param time the desired time
+     * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
         return lampNominalPower * time;

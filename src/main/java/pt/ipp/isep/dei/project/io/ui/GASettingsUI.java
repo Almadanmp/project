@@ -58,7 +58,6 @@ class GASettingsUI {
 
     // SHARED METHODS //
 
-    //GET INPUT TYPE AREA BY LIST - SÓ É USADO NESTA CLASSE POR ISSO NAO ESTÁ EM INPUT UTILS//
     private TypeArea getInputTypeAreaByList(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
         InputUtils inputUtils = new InputUtils();

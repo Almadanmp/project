@@ -27,7 +27,7 @@ public class ProgramList {
     /**
      * String Builder of the ProgramList.
      *
-     * @return
+     * @return a string with all the programs
      */
     public String buildProgramListString() {
         StringBuilder result = new StringBuilder("---------------\n");

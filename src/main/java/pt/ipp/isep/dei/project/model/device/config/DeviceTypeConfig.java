@@ -57,7 +57,7 @@ public class DeviceTypeConfig {
      * available
      * This method is separated from the above so we can test with different propfilenames (wrong etc).
      * @return list of strings with device paths
-     * @throws IOException
+     * @throws IOException the exception to the method
      */
     public List<String> getDeviceTypeConfig() throws IOException {
         return getDeviceTypeConfigFromSpecificFile("resources/devices.properties");

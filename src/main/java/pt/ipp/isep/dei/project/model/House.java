@@ -183,9 +183,8 @@ public class House implements Metered {
     /**
      * This method returns the sensor closest to the house. If more than one sensor is close to it,
      * the one with the most recent reading should be used.
-     *
-     * @param sensorType
-     * @return
+     * @param sensorType the type of sensor to check
+     * @return the closest sensor.
      */
     public Sensor getClosestSensorOfGivenType(String sensorType) {
         Sensor sensor;
@@ -288,7 +287,11 @@ public class House implements Metered {
      * This method receives room parameters, checks if room exists in house and
      * returns room with same designation in case it does. In case the room does not
      * exit, a new room will be created and returned.
-     *
+     * @param roomDesignation the designation of the room.
+     * @param roomHouseFloor the floor of the room.
+     * @param width the width of the room.
+     * @param height the height of the room.
+     * @param length the length of the room.
      * @return room with characteristics given as parameters
      **/
     public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
@@ -333,7 +336,7 @@ public class House implements Metered {
 
     /**
      * This method receives an index as parameter and gets energy grid from house's energy grid list.
-     *
+     * @param index the index of the Energy Grid
      * @return returns Energy grid that corresponds to index.
      */
     public EnergyGrid getEnergyGrid(int index) {

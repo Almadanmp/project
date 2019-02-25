@@ -135,7 +135,7 @@ public class Sensor {
     /**
      * Checks if reading already exists in reading list and in case the
      * reading is new, adds it to the reading list.
-     *
+     * @param reading the reading to be added to the list
      * @return true in case the reading is new and it is added
      * or false in case the reading already exists
      **/

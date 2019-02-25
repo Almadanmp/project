@@ -220,6 +220,7 @@ public class RoomConfigurationController {
      * @param device         - the device we want to set the attribute value
      * @param attributeName  - the name of the attribute
      * @param attributeValue - the value we want to set
+     * @return true if the attributes were successfully added.
      */
     public boolean setAttributeValue(Device device, String attributeName, Object attributeValue) {
         return device.setAttributeValue(attributeName, attributeValue);

@@ -40,14 +40,20 @@ public class EnergyGridSettingsController {
 
     /**
      * This method directly adds the desired energy grid to the energy grid list from a selected house;
+     *
+     * @param programHouse the house to which the grid will be added to.
+     * @param energyGrid   the grid to add to the House.
+     * @return true if the grid was added to the house.
      */
     public boolean addEnergyGridToHouse(House programHouse, EnergyGrid energyGrid) {
         return programHouse.addGrid(energyGrid);
     }
 
     /**
-     * @param designation is the name we're going to give to the new EnergyGrid.
-     * @param maxPower    is the new grid's maxPower.
+     * @param designation  is the name we're going to give to the new EnergyGrid.
+     * @param maxPower     is the new grid's maxPower.
+     * @param programHouse the house.
+     * @return a new EnergyGrid.
      */
     public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower) {
         return programHouse.getGridList().createEnergyGrid(designation, maxPower);
@@ -60,6 +66,8 @@ public class EnergyGridSettingsController {
      * @param name             is the name we're going to give to the new power source.
      * @param maxPowerOutput   is the new power source's maximum power output.
      * @param maxEnergyStorage is the new power source's maximum capacity.
+     * @param energyGrid       is the new power source's energy grid.
+     * @return a new power source.
      */
 
     public PowerSource createPowerSource(EnergyGrid energyGrid, String name, double maxPowerOutput, double maxEnergyStorage) {
@@ -67,7 +75,8 @@ public class EnergyGridSettingsController {
     }
 
     /**
-     * @param grid is the grid we're going to add the new powerSource to.
+     * @param grid        is the grid we're going to add the new powerSource to.
+     * @param powerSource the power source we are going to add.
      * @return is true if the power source is added successfully, false if it isn't.
      */
 
@@ -109,7 +118,9 @@ public class EnergyGridSettingsController {
      * This method validates the list of rooms and the list of devices in all rooms.
      * If all the attributes are valid, this method will print the devices, according to their type
      *
+     * @param house      the House containing the devices.
      * @param energyGrid - This will be the parameter in which we want to search all the devices
+     * @return a string with the devices ordered by their type.
      */
 
     public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house) {

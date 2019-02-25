@@ -10,6 +10,8 @@ public class TypeSensor {
 
 
     /**
+     * @param name The name of the type
+     * @param units The type of units used in that type of sensor
      * Constructor to always create an object that names the Type of the Sensor and the Units of the Sensor.
      */
 
@@ -76,8 +78,7 @@ public class TypeSensor {
 
     /**
      * This method will return a string with the type sensor information (name and unit of measure)
-     *
-     * @ string of name and unit of measure
+     * @return string of name and unit of measure
      **/
     public String buildString() {
         String result;

@@ -175,7 +175,7 @@ public class Room implements Metered {
      * @return the max temperature recorded in a sensor that measures temperature or
      * NaN in case there are no readings in the given day or
      * in case the room has no readings whatsoever
-     * @date day where we want to look for max temperature
+     * @param day where we want to look for max temperature
      **/
     public double getMaxTemperatureOnGivenDay(Date day) {
         double maxTemp = -1000;

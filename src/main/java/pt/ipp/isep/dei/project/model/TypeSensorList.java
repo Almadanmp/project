@@ -14,7 +14,7 @@ public class TypeSensorList {
     /**
      * Method receives a type Sensor, checks if it already exists in list
      * and adds it in case it does not exist in list.
-     *
+     * @param typeSensor The type of the Sensor
      * @return true in case the type sensor is added, false otherwise
      **/
     public boolean add(TypeSensor typeSensor) {
@@ -27,7 +27,6 @@ public class TypeSensorList {
 
     /**
      * Method returns a list with all sensor types.
-     *
      * @return List that contains sensor types
      **/
     public List<TypeSensor> getTypeSensorList() {

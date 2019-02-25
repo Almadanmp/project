@@ -20,7 +20,12 @@ public class GeographicArea {
     // They can be made with or without a sensor list.
 
     /**
-     * empty constructor to use on UIs
+     * Empty constructor to use on UIs
+     * @param id the Id of the Area
+     * @param typeArea the type of the area.
+     * @param length the total length of the area.
+     * @param width the total width of the area.
+     * @param location the location of the area,
      */
 
     public GeographicArea(String id, TypeArea typeArea, double length, double width, Local location) {
