@@ -17,7 +17,7 @@ public class HouseMonitoringController {
     private String rainfall = "rainfall";
 
     /**
-     * @param room is the room we want to getDeviceTypeByIndex the temperature from.
+     * @param room is the room we want to get the temperature from.
      * @return is the most recent temperature recorded in a room.
      */
 
@@ -47,11 +47,11 @@ public class HouseMonitoringController {
 
 
     /* US 623 - Controller Methods
-    As a Regular User, I want to getDeviceTypeByIndex the average daily rainfall in the house area for a given period (days),as it
+    As a Regular User, I want to get the average daily rainfall in the house area for a given period (days),as it
     is needed to assess the garden’s watering needs. */
 
     /**
-     * @param house       is the house we want to getDeviceTypeByIndex the average rainfall from.
+     * @param house       is the house we want to get the average rainfall from.
      * @param initialDate is the date where we want to start measuring average rainfall (lower limit).
      * @param endDate     is the date where we want to stop measuring average rainfall (upper limit).
      * @return is the average rainfall of the house, as measured by the closest sensor to the house.
@@ -65,7 +65,7 @@ public class HouseMonitoringController {
     }
 
     /**
-     * @param house is the house we want to getDeviceTypeByIndex the total rainfall from.
+     * @param house is the house we want to get the total rainfall from.
      * @param day   is the date where we want to  measure total rainfall.
      * @return is the total rainfall of the house, as measured by the closest sensor to the house.
      */
@@ -78,7 +78,7 @@ public class HouseMonitoringController {
     }
 
     /**
-     * @param house is the house we want to getDeviceTypeByIndex the temperature from.
+     * @param house is the house we want to get the temperature from.
      * @return is the most recent temperature reading as measured by the closest sensor to the house.
      */
 

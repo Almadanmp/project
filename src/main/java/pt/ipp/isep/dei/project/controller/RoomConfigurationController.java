@@ -132,7 +132,7 @@ public class RoomConfigurationController {
     /**
      * gets a list of strings with the attribute names from a given device class.
      *
-     * @param device - device from which we want to getDeviceTypeByIndex the names of the attributes
+     * @param device - device from which we want to get the names of the attributes
      * @return - list of strings
      */
     public List<String> getAttributeNames(Device device) {
@@ -142,7 +142,7 @@ public class RoomConfigurationController {
     /**
      * gets a list of strings with the attribute names from a given program.
      *
-     * @param program - program from which we want to getDeviceTypeByIndex the names of the attributes
+     * @param program - program from which we want to get the names of the attributes
      * @return - list of strings
      */
     public List<String> getProgramAttributeNames(Program program) {
@@ -239,7 +239,7 @@ public class RoomConfigurationController {
     /**
      * gets the device type of the device
      *
-     * @param device - the device we want to getDeviceTypeByIndex the type from
+     * @param device - the device we want to get the type from
      * @return - string with the name of the type
      */
     public String getType(Device device) {

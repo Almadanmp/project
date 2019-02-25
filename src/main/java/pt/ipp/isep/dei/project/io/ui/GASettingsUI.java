@@ -208,7 +208,7 @@ class GASettingsUI {
         return scanner.nextDouble();
     }
 
-    /* USER STORY 04 -  As an Administrator, I want to getDeviceTypeByIndex a list of existing geographical areas of a given type. */
+    /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
     private void runUS04(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.typeAreaListIsValid(typeAreaList)) {

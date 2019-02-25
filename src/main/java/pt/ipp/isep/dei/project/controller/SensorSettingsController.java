@@ -29,7 +29,7 @@ public class SensorSettingsController {
     }
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
-    one can getDeviceTypeByIndex measurements of that type in that area */
+    one can get measurements of that type in that area */
 
     /**
      * Method to create a Local with given doubles.

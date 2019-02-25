@@ -80,7 +80,7 @@ class RoomConfigurationUI {
     }
 
     /**
-     * US201 As an administrator, I want to getDeviceTypeByIndex a list of all devices in a room, so that I can configure them.
+     * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
      * Prints device List in that room.
      */
     private void runUS201(House house) {
@@ -125,11 +125,11 @@ class RoomConfigurationUI {
     private void createDevice(Room room, DeviceType deviceType) {
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
-        // getDeviceTypeByIndex device name
+        // get device name
         System.out.print("Please, type the name of the device: ");
         String deviceName = scanner.nextLine();
 
-        //getDeviceTypeByIndex Device specs
+        //get Device specs
         Device device = controller.createDevice(deviceType);
         controller.setDeviceName(deviceName, device);
         List<String> deviceAttributes = controller.getAttributeNames(device);
@@ -188,10 +188,10 @@ class RoomConfigurationUI {
     private void getInputDeviceCharacteristicsUS215(Device device, Room room, House house) {
         Scanner scanner = new Scanner(System.in);
 
-        // getDeviceTypeByIndex device name
+        // get device name
         System.out.print("Please, type the new name of the device: ");
         String deviceName = scanner.nextLine();
-        //getDeviceTypeByIndex room
+        //get room
         controller.removeDevice(room, device);
         InputUtils inputUtils = new InputUtils();
         Room room1;
@@ -360,7 +360,7 @@ class RoomConfigurationUI {
                 "from the sum of the nominal power of all devices in the room.");
     }
 
-    /*US250 - As an Administrator, I want to getDeviceTypeByIndex a list of all sensors in a room, so that I can configure them.
+    /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
     private void runUS250(House house) {
         InputUtils inputUtils = new InputUtils();

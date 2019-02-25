@@ -66,29 +66,29 @@ class HouseConfigurationUI {
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
 
-        // getDeviceTypeByIndex house address
+        // get house address
         System.out.print("Please, type the street where the house is located: ");
         String street = scanner.nextLine();
 
-        // getDeviceTypeByIndex zip code
+        // get zip code
         System.out.print("Please, type the address's zip code: ");
         String zip = scanner.nextLine();
 
-        // getDeviceTypeByIndex town
+        // get town
         System.out.println("Please, type the town where the house is located: ");
         String town = scanner.nextLine();
 
         this.address = new Address(street, zip, town);
 
-        //getDeviceTypeByIndex latitude
+        //get latitude
         System.out.print("Please, type the latitude: ");
         this.houseLat = inputUtils.getInputAsDouble();
 
-        // getDeviceTypeByIndex longitude
+        // get longitude
         System.out.print("Please, type the longitude: ");
         this.houseLon = inputUtils.getInputAsDouble();
 
-        // getDeviceTypeByIndex longitude
+        // get longitude
         System.out.print("Please, type the altitude: ");
         this.houseAlt = inputUtils.getInputAsDouble();
 
@@ -96,7 +96,7 @@ class HouseConfigurationUI {
 
     /**
      * Method updates the house using the input previously stored.
-     * @param house receives the house the program is managing, so its parameters getDeviceTypeByIndex changed.
+     * @param house receives the house the program is managing, so its parameters get changed.
      */
     private void updateHouseUS101(House house) {
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
@@ -105,7 +105,7 @@ class HouseConfigurationUI {
 
     /**
      * Method displays the house after all the changes have happened.
-     * @param house receives the house the program is managing, so its new parameters getDeviceTypeByIndex displayed.
+     * @param house receives the house the program is managing, so its new parameters get displayed.
      */
     private void displayHouseUS101(House house) {
         String houseId = controller.getHouseName(house);

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Represents device.
- * Provides methods to getDeviceTypeByIndex device information.
+ * Provides methods to get device information.
  */
 
 public interface Device {
@@ -18,7 +18,7 @@ public interface Device {
     void setName(String name);
 
     /**
-     * Method to getDeviceTypeByIndex a device type from a device spec
+     * Method to get a device type from a device spec
      *
      * @return a device type
      */
@@ -29,7 +29,7 @@ public interface Device {
     double getNominalPower();
 
     /**
-     * Boolean to getDeviceTypeByIndex DeviceTemporary Status. Either if is Active or Not.
+     * Boolean to get DeviceTemporary Status. Either if is Active or Not.
      *
      * @return true if device is active
      */
@@ -114,7 +114,7 @@ public interface Device {
     List<String> getAttributeNames();
 
     /**
-     * getDeviceTypeByIndex a attribute value
+     * get a attribute value
      *
      * @param attributeName attribute name form which we want the attribute value
      * @return attribute value
@@ -124,16 +124,16 @@ public interface Device {
     /**
      * sets attribute value
      *
-     * @param attributeName  attribute name that will getDeviceTypeByIndex a new value
+     * @param attributeName  attribute name that will get a new value
      * @param attributeValue new value to set on the attribute
      * @return false if the attribute value fails (if attribute value name inputted doesn't exist on attributes.
      */
     boolean setAttributeValue(String attributeName, Object attributeValue);
 
     /**
-     * getDeviceTypeByIndex the unity of the attribute.
+     * get the unity of the attribute.
      *
-     * @param attributeName attribute name that we want to getDeviceTypeByIndex the unit from.
+     * @param attributeName attribute name that we want to get the unit from.
      * @return returns the attribute unit
      */
     Object getAttributeUnit(String attributeName);

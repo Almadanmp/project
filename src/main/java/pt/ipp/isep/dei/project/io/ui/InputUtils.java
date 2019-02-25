@@ -450,7 +450,7 @@ public class InputUtils {
     }
 
     /**
-     * Method to getDeviceTypeByIndex a date as an int.
+     * Method to get a date as an int.
      *
      * @param scan     the scanner to read input
      * @param dataType the type of date to read (year, month or day)

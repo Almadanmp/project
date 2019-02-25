@@ -110,7 +110,7 @@ public class EnergyGridSettingsController {
     }
 
     /*USER STORY 160 - As a Power User (or Administrator),
-    I want to getDeviceTypeByIndex a list of all devices in a grid, grouped by device type.
+    I want to get a list of all devices in a grid, grouped by device type.
     It must include device location
     DANIEL OLIVEIRA*/
 

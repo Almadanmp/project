@@ -36,7 +36,7 @@ public class LogList {
     }
 
     /**
-     * This method is used to getDeviceTypeByIndex a List of objects of the class Log.
+     * This method is used to get a List of objects of the class Log.
      *
      * @return List with Logs
      */

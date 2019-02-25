@@ -27,7 +27,7 @@ class FileInputUtils {
     }
 
     /**
-     * This method will read the configuration file, getDeviceTypeByIndex the string that corresponds to the
+     * This method will read the configuration file, get the string that corresponds to the
      * grid metering period and turn it into an integer
      *
      * @return the integer that corresponds to the grid metering period

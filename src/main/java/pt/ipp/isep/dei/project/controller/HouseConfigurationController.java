@@ -50,7 +50,7 @@ public class HouseConfigurationController {
     }
 
     /**
-     * @param house is the house we want to getDeviceTypeByIndex the name from.
+     * @param house is the house we want to get the name from.
      * @return is the name of the given house.
      */
 
