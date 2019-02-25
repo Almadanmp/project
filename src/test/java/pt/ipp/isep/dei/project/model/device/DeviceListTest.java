@@ -355,4 +355,33 @@ class DeviceListTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void testGetterElementsAsArray(){
+        //Arrange
+        Device d1 = new Fridge(new FridgeSpec());
+        d1.setName("Fridge1");
+        d1.setNominalPower(21.0);
+        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
+        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
+        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        Device d2 = new Fridge(new FridgeSpec());
+        d2.setName("Fridge2");
+        d2.setNominalPower(21.0);
+        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
+        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
+        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(d1);
+        deviceList.addDevice(d2);
+        Device[] expectedResult = new Device[2];
+        expectedResult[0] = d1;
+        expectedResult[1] = d2;
+
+        //Act
+        Device[] actualResult = deviceList.getElementsAsArray();
+
+        //Assert
+        assertArrayEquals(expectedResult,actualResult);
+    }
 }

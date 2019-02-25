@@ -2,10 +2,7 @@ package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class that groups a number of Devices.
@@ -232,7 +229,7 @@ public class DeviceList {
      *
      * @return array of devices
      */
-    private Device[] getElementsAsArray() {
+    public Device[] getElementsAsArray() {
         int sizeOfResultArray = devices.size();
         Device[] result = new Device[sizeOfResultArray];
         for (int i = 0; i < devices.size(); i++) {
