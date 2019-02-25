@@ -39,11 +39,10 @@ public class SensorList {
      * @return true if sensor was successfully added to the SensorList, false otherwise.
      */
 
-    public boolean addSensor(Sensor sensorToAdd) {
+    public void addSensor(Sensor sensorToAdd) {
         if (!(sensors.contains(sensorToAdd))) {
             sensors.add(sensorToAdd);
         }
-        return false;
     }
 
     /**

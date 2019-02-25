@@ -74,9 +74,10 @@ public class WaterHeater implements Device, Metered {
 
     /**
      * Method checks if device LogList is empty
+     *
      * @return true if LogList is empty, false otherwise
-     * */
-    public boolean isLogListEmpty(){
+     */
+    public boolean isLogListEmpty() {
         return this.wHLogList.isEmpty();
     }
 
@@ -126,13 +127,14 @@ public class WaterHeater implements Device, Metered {
      *
      * @return Dt -> difference in temperature = hot water temperature – cold water temperature
      */
-     double dTQuotient() {
+    double dTQuotient() {
         double coldWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Cold Water Temperature");
         double hotWaterTemperature = (double) wHDeviceSpecs.getAttributeValue("Hot Water Temperature");
-        if (hotWaterTemperature < coldWaterTemperature){
+        double dTQuotient = hotWaterTemperature - coldWaterTemperature;
+        if (dTQuotient <= 0) {
             return 0;
         }
-        return hotWaterTemperature - coldWaterTemperature;
+        return dTQuotient;
     }
 
     /**

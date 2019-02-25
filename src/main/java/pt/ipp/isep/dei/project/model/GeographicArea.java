@@ -29,7 +29,7 @@ public class GeographicArea {
      */
 
     public GeographicArea(String id, TypeArea typeArea, double length, double width, Local location) {
-        setId(id);
+        this.id = id;
         this.typeArea = typeArea;
         this.length = length;
         this.width = width;
@@ -41,14 +41,6 @@ public class GeographicArea {
 
     public String getId() {
         return this.id;
-    }
-
-    void setId(String name) {
-        if (isGeographicNameValid(name)) {
-            this.id = name;
-        } else {
-            throw new IllegalArgumentException("Please Insert Valid Name");
-        }
     }
 
     /**
@@ -89,20 +81,19 @@ public class GeographicArea {
     }
 
     /**
-     * This method is used to check if the daughter area attribute mother area corresponds to the testes mother area.
+     * This method is used to check if the current GeoArea is contained in the given area.
      *
-     * @param daughterArea - Geographic Area being tested according to its mother area attribute.
      * @param motherArea   - Geographic Area being compared to daughter area mother area attribute.
-     * @return boolean
+     * @return true if contained, false if not.
      */
 
-    public boolean checkIfAreaIsContained(GeographicArea daughterArea, GeographicArea motherArea) {
-        GeographicArea tempMotherArea = daughterArea;
+    public boolean isContainedInArea(GeographicArea motherArea) {
+        GeographicArea tempMotherArea = this;
         while (tempMotherArea.getMotherArea() != null) {
             if (tempMotherArea.getMotherArea().equals(motherArea)) {
                 return true;
             } else {
-                tempMotherArea = daughterArea.getMotherArea();
+                tempMotherArea = this.getMotherArea();
             }
         }
         return false;
