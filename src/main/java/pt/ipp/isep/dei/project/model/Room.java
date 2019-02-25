@@ -209,7 +209,7 @@ public class Room implements Metered {
      */
     public boolean addSensor(Sensor sensor) {
         if (!(roomSensorList.contains(sensor))) {
-            roomSensorList.add(sensor);
+            roomSensorList.addSensor(sensor);
             return true;
         } else {
             return false;
