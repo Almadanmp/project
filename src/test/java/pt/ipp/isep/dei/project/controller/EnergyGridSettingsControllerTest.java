@@ -282,10 +282,8 @@ class EnergyGridSettingsControllerTest {
         Room room1EdC = new Room("B107", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
-        DeviceList deviceList = new DeviceList();
         Device fridge = new Fridge(new FridgeSpec());
-        deviceList.addDevice(fridge);
-        room1EdC.setDeviceList(deviceList);
+        room1EdC.addDevice(fridge);
         eg.setRoomList(rl);
         rl.addRoom(room1EdC);
         //Act

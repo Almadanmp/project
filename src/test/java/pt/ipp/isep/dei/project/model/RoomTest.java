@@ -58,7 +58,7 @@ class RoomTest {
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 34D);
         deviceList.addDevice(d1);
         Room room = new Room("cozinha", 0, 1, 1, 1);
-        room.setDeviceList(deviceList);
+        room.addDevice(d1);
         String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
                 "\n" +
@@ -268,12 +268,10 @@ class RoomTest {
         d3.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
         d3.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
         d3.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(d1);
-        deviceList.addDevice(d2);
-        deviceList.addDevice(d3);
         Room room1 = new Room("room1", 19, 5, 3, 3);
-        room1.setDeviceList(deviceList);
+        room1.addDevice(d1);
+        room1.addDevice(d2);
+        room1.addDevice(d3);
         double expectedResult = 23;
         //ACT
         double actualResult = room1.getNominalPower();
@@ -336,10 +334,8 @@ class RoomTest {
         d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
         d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
         d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        DeviceList dlist = new DeviceList();
-        dlist.addDevice(d2);
-        dlist.addDevice(d3);
-        r1.setDeviceList(dlist);
+        r1.addDevice(d2);
+        r1.addDevice(d3);
         d2.setAttributeValue("coldWaterTemperature", 5.0);
         d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
         d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
@@ -542,39 +538,6 @@ class RoomTest {
         r1.addDevice(d3);
         boolean result = r1.removeDevice(d4);
         assertFalse(result);
-
-    }
-
-    @Test
-    void seeIfAddRoomDevicesToDeviceListWorksWhenDeviceListAlreadyAddedToRoom() {
-        //Arrange
-        Device device1 = new WaterHeater(new WaterHeaterSpec());
-        device1.setName("WaterHeaterOne");
-        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Device device2 = new WaterHeater(new WaterHeaterSpec());
-        device1.setName("WaterHeaterTwo");
-        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Device device3 = new Lamp(new LampSpec());
-        device3.setName("Lamp");
-        device2.setAttributeValue(LampSpec.FLUX, 22D);
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        DeviceList expectedResult = new DeviceList();
-        expectedResult.addDevice(device1);
-        expectedResult.addDevice(device2);
-        DeviceList d2 = new DeviceList();
-        d2.addDevice(device1);
-        d2.addDevice(device2);
-        d2.addDevice(device3);
-        room.setDeviceList(expectedResult);
-        //Act
-        room.addRoomDevicesToDeviceList(d2);
-        DeviceList actualResult = room.getDeviceList();
-        //Assert
-        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -594,11 +557,8 @@ class RoomTest {
         DeviceList expectedResult = new DeviceList();
         expectedResult.addDevice(device1);
         expectedResult.addDevice(device2);
-        room.setDeviceList(expectedResult);
-        DeviceList deviceList2 = new DeviceList();
-        deviceList2.addDevice(device1);
-        deviceList2.addDevice(device2);
-        room.addRoomDevicesToDeviceList(deviceList2);
+        room.addDevice(device1);
+        room.addDevice(device2);
         //Act
         DeviceList actualResult = room.getDeviceList();
         //Assert
@@ -680,14 +640,12 @@ class RoomTest {
 
     @Test
     void ensureThatWeDoNotAddADeviceToADeviceList() {
-        DeviceList deviceList = new DeviceList();
         Device device = new WaterHeater(new WaterHeaterSpec());
         device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
         device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
         device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("Room", 1, 2, 3, 4);
-        deviceList.addDevice(device);
-        room.setDeviceList(deviceList);
+        room.addDevice(device);
         boolean expectedResult = false;
         boolean actualResult = room.addDevice(device);
         assertEquals(expectedResult, actualResult);
@@ -696,13 +654,12 @@ class RoomTest {
 
     @Test
     void seeThatWeAddADeviceToADeviceList() {
-        DeviceList deviceList = new DeviceList();
         Device device = new WaterHeater(new WaterHeaterSpec());
         device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
         device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
         device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         Room room = new Room("Room", 1, 2, 3, 4);
-        room.setDeviceList(deviceList);
+        boolean expectedResult = true;
         boolean actualResult = room.addDevice(device);
         Assertions.assertTrue(actualResult);
     }

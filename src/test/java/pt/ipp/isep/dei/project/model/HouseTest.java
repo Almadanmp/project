@@ -364,12 +364,8 @@ class HouseTest {
         d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 45D);
         d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 45D);
         d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 56D);
-        DeviceList deviceList1 = new DeviceList();
-        deviceList1.addDevice(d1);
-        r1.setDeviceList(deviceList1);
-        DeviceList deviceList2 = new DeviceList();
-        deviceList2.addDevice(d2);
-        r2.setDeviceList(deviceList2);
+        r1.addDevice(d1);
+        r2.addDevice(d2);
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");

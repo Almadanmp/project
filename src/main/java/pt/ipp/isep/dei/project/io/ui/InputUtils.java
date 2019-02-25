@@ -190,7 +190,8 @@ public class InputUtils {
         }
     }
 
-    boolean yesOrNo(String answer, String question) {
+    boolean yesOrNo(String question) {
+        String answer= "";
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
         while (!("y".equalsIgnoreCase(answer)) && !("n".equalsIgnoreCase(answer))) {

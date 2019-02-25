@@ -105,16 +105,6 @@ public class Room implements Metered {
     }
 
     /**
-     * Room DeviceList Setter.
-     *
-     * @param deviceList is the deviceList that we want to set to the room.
-     */
-    public void setDeviceList(DeviceList deviceList) {
-        this.deviceList = deviceList;
-    }
-
-
-    /**
      * Method that gets the room's device list.
      *
      * @return room's DeviceList

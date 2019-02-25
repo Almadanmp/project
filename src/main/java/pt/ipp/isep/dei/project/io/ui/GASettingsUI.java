@@ -154,7 +154,7 @@ class GASettingsUI {
         double geoAreaWidth = readInputNumber("Width");
         Local geoLocal = new Local (geoAreaLat,geoAreaLong,geoAreaAlt);
         String geoAreDescription = null;
-        if (inputUtils.yesOrNo(scanner.nextLine(), "Would you like to add a description to the new geographic area? (y/n)")) {
+        if (inputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
             geoAreDescription = scanner.nextLine();
         }

@@ -343,9 +343,7 @@ class EnergyConsumptionControllerTest {
         }
 
         validDevice1.addLog(validLog1);
-        DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(validDevice1);
-        validRoom1.setDeviceList(deviceList);
+        validRoom1.addDevice(validDevice1);
         double expectedResult = 56;
 
         //Act
@@ -513,33 +511,6 @@ class EnergyConsumptionControllerTest {
         //Assert
 
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getWaterHeaterDeviceListTest() {
-
-        //Arrange
-
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
-        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
-                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
-                60, 180, deviceTypeString);
-        house.addRoomToRoomList(validRoom1);
-        DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(validDevice1);
-        validRoom1.setDeviceList(deviceList);
-        List<Device> expecteResult = new ArrayList<>();
-        expecteResult.add(validDevice1);
-
-        //Act
-
-        List<Device> actualResult = controller.getWaterHeaterDeviceList(house);
-
-        //Assert
-
-        Assertions.assertEquals(expecteResult, actualResult);
     }
 
     @Test
