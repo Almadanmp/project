@@ -48,6 +48,7 @@ public class GeographicAreaList {
      * Method to print a Whole Geographic Area List.
      * It will print the attributes needed to check if a GA is different from another GA
      * (name, type of GA and Localization)
+     *
      * @return a string with the names of the geographic areas
      */
 
@@ -62,7 +63,7 @@ public class GeographicAreaList {
         for (int i = 0; i < this.size(); i++) {
             GeographicArea aux = this.get(i);
             result.append(i).append(") Name: ").append(aux.getId()).append(" | ");
-            result.append("Type: ").append(aux.getTypeArea().getTypeOfGeographicArea()).append(" | ");
+            result.append("Type: ").append(aux.getTypeArea().getName()).append(" | ");
             result.append("Latitude: ").append(aux.getLocal().getLatitude()).append(" | ");
             result.append("Longitude: ").append(aux.getLocal().getLongitude()).append("\n");
         }
@@ -73,19 +74,17 @@ public class GeographicAreaList {
     /**
      * Method to check if a GA not exists and can be Created (if it has at least a different attribute from the following (name,
      * typearea or local)
-     * @param newName the name of the GA
-     * @param typeArea the type of the GA
-     * @param latitude the latitude of the GA
-     * @param longitude the longitude of the GA
-     * @param altitude the altitude of the GA.
-     * @return will return true if can be added and false if it cannot be added
-     * Method to check if a GA with the given input parameters exists in the list.
      *
-     * @param newName the name of the GA
-     * @param typeArea the type of the GA
-     * @param latitude the latitude of the GA
+     * @param newName   the name of the GA
+     * @param typeArea  the type of the GA
+     * @param latitude  the latitude of the GA
      * @param longitude the longitude of the GA
-     * @param altitude the altitude of the GA
+     * @param altitude  the altitude of the GA.
+     * @param newName   the name of the GA
+     * @param typeArea  the type of the GA
+     * @param latitude  the latitude of the GA
+     * @param longitude the longitude of the GA
+     * @param altitude  the altitude of the GA
      * @return will return true if a Geographic Area matching given parameters already
      * exists, false if it doesn't.
      */

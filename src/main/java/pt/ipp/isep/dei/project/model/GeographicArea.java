@@ -21,10 +21,11 @@ public class GeographicArea {
 
     /**
      * Empty constructor to use on UIs
-     * @param id the Id of the Area
+     *
+     * @param id       the Id of the Area
      * @param typeArea the type of the area.
-     * @param length the total length of the area.
-     * @param width the total width of the area.
+     * @param length   the total length of the area.
+     * @param width    the total width of the area.
      * @param location the location of the area,
      */
 
@@ -82,7 +83,7 @@ public class GeographicArea {
     /**
      * This method is used to check if the current GeoArea is contained in the given area.
      *
-     * @param motherArea   - Geographic Area being compared to daughter area mother area attribute.
+     * @param motherArea - Geographic Area being compared to daughter area mother area attribute.
      * @return true if contained, false if not.
      */
 
@@ -134,7 +135,7 @@ public class GeographicArea {
 
     public String buildGeographicAreaString() {
         String result;
-        result = this.id + ", " + this.typeArea.getTypeOfGeographicArea() + ", " +
+        result = this.id + ", " + this.typeArea.getName() + ", " +
                 this.location.getLatitude() + "º lat, " + this.location.getLongitude() + "º long\n";
         return result;
     }
@@ -181,7 +182,7 @@ public class GeographicArea {
             return false;
         }
         GeographicArea gA = (GeographicArea) testObject;
-        return (this.getLocal().equals(gA.getLocal()) && (this.getId().equals(gA.getId()) && (this.getTypeArea().getTypeOfGeographicArea().equals(gA.getTypeArea().getTypeOfGeographicArea()))));
+        return (this.getLocal().equals(gA.getLocal()) && (this.getId().equals(gA.getId()) && (this.getTypeArea().getName().equals(gA.getTypeArea().getName()))));
     }
 
     @Override

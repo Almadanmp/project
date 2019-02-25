@@ -57,7 +57,7 @@ public class TypeAreaList {
         StringBuilder result = new StringBuilder("---------------\n");
         for (int i = 0; i < typeAreaList.size(); i++) {
             TypeArea aux = typeAreaList.get(i);
-            result.append(i).append(") Name: ").append(aux.getTypeOfGeographicArea()).append(" \n");
+            result.append(i).append(") Name: ").append(aux.getName()).append(" \n");
         }
         result.append("---------------\n");
         return result.toString();
@@ -65,6 +65,7 @@ public class TypeAreaList {
 
     /**
      * This method checks if type area list is empty.*
+     *
      * @return true if list is empty, false otherwise.
      */
     public boolean isEmpty() {
@@ -82,6 +83,7 @@ public class TypeAreaList {
 
     /**
      * This method receives an index as parameter and gets a type area from Type Area list.
+     *
      * @param index the index of the type area
      * @return returns Type Area that corresponds to index.
      */
@@ -91,7 +93,7 @@ public class TypeAreaList {
 
     /**
      * Getter (array of Type Areas)
-
+     *
      * @return array of Type Areas
      */
     private TypeArea[] getElementsAsArray() {

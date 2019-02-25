@@ -87,7 +87,7 @@ public class GASettingsController {
      */
 
     public GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeArea typeArea) {
-        String typeAreaName = typeArea.getTypeOfGeographicArea();
+        String typeAreaName = typeArea.getName();
         return geographicAreaList.getGeoAreasByType(typeAreaName);
     }
 
@@ -97,7 +97,7 @@ public class GASettingsController {
      */
 
     public String getTypeAreaName(TypeArea typeArea) {
-        return typeArea.getTypeOfGeographicArea();
+        return typeArea.getName();
     }
 
     /*USER STORY 07 - As an Administrator, I want to add an existing geographical area to another one (e.g. add city of
