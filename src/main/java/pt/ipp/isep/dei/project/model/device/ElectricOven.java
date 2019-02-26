@@ -10,28 +10,28 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class ElectricOven implements Device, Metered {
-    private String name;
-    private double nominalPower;
-    private ElectricOvenSpec deviceSpecs;
-    private boolean active;
-    private ProgramList programList;
-    private LogList logList;
+public class ElectricOven implements Device, Metered, Programmable {
+    private String nameElectricOven;
+    private double nominalPowerElectricOven;
+    private ElectricOvenSpec deviceSpecsElectricOven;
+    private boolean activeElectricOven;
+    private ProgramList programListElectricOven;
+    private LogList logListElectricOven;
 
 
     public ElectricOven(ElectricOvenSpec electricOvenSpec) {
-        this.deviceSpecs = electricOvenSpec;
-        this.active = true;
-        programList = new ProgramList();
-        logList = new LogList();
+        this.deviceSpecsElectricOven = electricOvenSpec;
+        this.activeElectricOven = true;
+        programListElectricOven = new ProgramList();
+        logListElectricOven = new LogList();
     }
 
     public String getName() {
-        return this.name;
+        return this.nameElectricOven;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nameElectricOven = name;
     }
 
     public String getType() {
@@ -39,37 +39,33 @@ public class ElectricOven implements Device, Metered {
     }
 
     public void setNominalPower(double nominalPower) {
-        this.nominalPower = nominalPower;
+        this.nominalPowerElectricOven = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.nominalPower;
+        return this.nominalPowerElectricOven;
     }
 
     public boolean isActive() {
-        return this.active;
+        return this.activeElectricOven;
     }
 
     public boolean deactivate() {
         if (isActive()) {
-            this.active = false;
+            this.activeElectricOven = false;
             return true;
         } else {
             return false;
         }
     }
 
-    public boolean isProgrammable() {
-        return true;
-    }
-
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
-        return this.programList;
+        return this.programListElectricOven;
     }
 
     public String buildString() {
         String result;
-        result = "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
+        result = "The device Name is " + this.nameElectricOven + ", and its NominalPower is " + this.nominalPowerElectricOven + " kW.\n";
         return result;
     }
 
@@ -79,7 +75,7 @@ public class ElectricOven implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return logList;
+        return logListElectricOven;
     }
 
     /**
@@ -88,7 +84,7 @@ public class ElectricOven implements Device, Metered {
      * @return true if LogList is empty, false otherwise
      */
     public boolean isLogListEmpty() {
-        return this.logList.isEmpty();
+        return this.logListElectricOven.isEmpty();
     }
 
     /**
@@ -98,8 +94,8 @@ public class ElectricOven implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(logList.getLogListAttribute().contains(log)) && this.active) {
-            logList.getLogListAttribute().add(log);
+        if (!(logListElectricOven.getLogListAttribute().contains(log)) && this.activeElectricOven) {
+            logListElectricOven.getLogListAttribute().add(log);
             return true;
         } else {
             return false;
@@ -114,11 +110,11 @@ public class ElectricOven implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return logList.countLogsInInterval(initialTime, finalTime);
+        return logListElectricOven.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return logList.getLogsInInterval(startDate, endDate);
+        return logListElectricOven.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -129,7 +125,7 @@ public class ElectricOven implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return logListElectricOven.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
@@ -139,7 +135,7 @@ public class ElectricOven implements Device, Metered {
      * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
-        return nominalPower * time;
+        return nominalPowerElectricOven * time;
     }
 
     /**
@@ -156,19 +152,19 @@ public class ElectricOven implements Device, Metered {
     // WRAPPER METHODS TO DEVICE SPECS
 
     public List<String> getAttributeNames() {
-        return deviceSpecs.getAttributeNames();
+        return deviceSpecsElectricOven.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return deviceSpecs.getAttributeValue(attributeName);
+        return deviceSpecsElectricOven.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return deviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return deviceSpecsElectricOven.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return deviceSpecs.getAttributeUnit(attributeName);
+        return deviceSpecsElectricOven.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -180,7 +176,7 @@ public class ElectricOven implements Device, Metered {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(name, device.getName());
+        return Objects.equals(nameElectricOven, device.getName());
     }
 
     @Override

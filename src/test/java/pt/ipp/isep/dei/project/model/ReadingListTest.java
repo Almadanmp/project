@@ -21,17 +21,17 @@ class ReadingListTest {
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
-    private Date validDate3 = new Date(); // 31/09/2018 23:59:59
-    private Date validDate4 = new Date(); // 07/10/2018 00:00:00
-    private Date validDate5 = new Date(); // 08/10/2018 23:26:21
-    private Date validDate6 = new Date(); // 09/10/2018 08:21:22
-    private Date validDate7 = new Date(); // 10/10/2018 18:14:03
-    private Date validDate8 = new Date(); // 23/10/2018 12:14:23
-    private Date validDate9 = new Date(); // 13/10/2018 12:12:12
-    private Date validDate10 = new Date(); // 30/10/2018 23:59:59
-    private Date validDate11 = new Date(); // 01/11/2018 00:00:00
+    private Date validDate3; // 31/09/2018 23:59:59
+    private Date validDate4; // 07/10/2018 00:00:00
+    private Date validDate5; // 08/10/2018 23:26:21
+    private Date validDate6; // 09/10/2018 08:21:22
+    private Date validDate7; // 10/10/2018 18:14:03
+    private Date validDate8; // 23/10/2018 12:14:23
+    private Date validDate9; // 13/10/2018 12:12:12
+    private Date validDate10; // 30/10/2018 23:59:59
+    private Date validDate11; // 01/11/2018 00:00:00
     private Date validDate12; //02/11/2015
-    private Date dateToTest2 = new Date(); // 13/10/2018 23:59:59
+    private Date dateToTest2; // 13/10/2018 23:59:59
     private Date validDate13;
     private Date validDate14;
     private Date validDate15;

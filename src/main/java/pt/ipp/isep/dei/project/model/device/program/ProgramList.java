@@ -1,4 +1,5 @@
 package pt.ipp.isep.dei.project.model.device.program;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,9 +38,10 @@ public class ProgramList {
                 result.append(", Nominal Power: ").append(((VariableTimeProgram) program).getNominalPower());
             }
         }
-            result.append("\n---------------\n");
-            return result.toString();
+        result.append("\n---------------\n");
+        return result.toString();
     }
+
 
     /**
      * Method that adds a Program to the ProgramList.
