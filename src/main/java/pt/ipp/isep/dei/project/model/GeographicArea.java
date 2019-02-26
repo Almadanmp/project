@@ -148,6 +148,10 @@ public class GeographicArea {
         return this.length;
     }
 
+    /**Method adds sensor to geographic area sensor list.
+     * @Sensor sensor to add
+     * @return true in case the sensor is added, false otherwise.
+     * **/
     public boolean addSensor(Sensor sensor) {
         return this.areaSensors.addSensor(sensor);
     }
@@ -183,6 +187,14 @@ public class GeographicArea {
      * **/
     public boolean equalsTypeArea(TypeArea typeArea){
         return (this.typeArea.equals(typeArea));
+    }
+
+    /**This method receives the string type name and returns a list of sensors
+     * from geographic area of that type.
+     * @return SensorList of given type
+     * **/
+    public SensorList getSensorsOfGivenType(String type){
+        return this.areaSensors.getSensorListByType(type);
     }
 
     /**

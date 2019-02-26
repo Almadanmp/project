@@ -71,11 +71,7 @@ public class House implements Metered {
     }
 
     public double getNominalPower() {
-        double result = 0;
-        for (Room r1 : roomList.getList()) {
-            result += r1.getNominalPower();
-        }
-        return result;
+        return this.roomList.getNominalPower();
     }
 
     void setGridMeteringPeriod(int meteringPeriod) {
@@ -140,14 +136,7 @@ public class House implements Metered {
     }
 
     public boolean addRoomToRoomList(Room room) {
-        String roomToAddName = room.getRoomName();
-        for (Room r : this.roomList.getList()) {
-            String roomNameTest = r.getRoomName();
-            if (roomNameTest.equals(roomToAddName))
-                return false;
-        }
-        this.roomList.addRoom(room);
-        return true;
+        return this.roomList.addRoom(room);
     }
 
     /**
@@ -373,4 +362,3 @@ public class House implements Metered {
         return 1;
     }
 }
-

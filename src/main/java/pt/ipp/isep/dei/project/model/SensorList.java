@@ -2,10 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class that groups a number of Sensors.
@@ -103,6 +100,21 @@ public class SensorList {
     }
 
     /**
+     * Goes through the sensor list, calculates sensors distance to house and
+     * returns values in ArrayList.
+     *
+     * @param house to calculate closest distance
+     * @return List of sensors distance to house
+     */
+    List<Double> getSensorsDistanceToHouse(House house) {
+        ArrayList<Double> arrayList = new ArrayList<>();
+        for (Sensor sensor : this.sensors) {
+            arrayList.add(house.calculateDistanceToSensor(sensor));
+        }
+        return arrayList;
+    }
+
+    /**
      * Method to print a Whole Sensor List.
      * It will print the attributes needed to check if a Sensor is different from another Sensor
      * (name, type of Sensor and Units)
@@ -140,6 +152,20 @@ public class SensorList {
         for (Sensor s : this.sensors) {
             for (Reading r : s.getReadingList().getListOfReadings()) {
                 finalList.addReading(r);
+            }
+        }
+        return finalList;
+    }
+
+    /**This method receives a house and the distance of the sensor closest to it,
+     * goes through the sensor list and returns the sensors closest to house.
+     * @return SensorList with sensors closest to house.
+     * **/
+    public SensorList getSensorsByDistanceToHouse(House house, double minDist){
+        SensorList finalList = new SensorList();
+        for (Sensor s : this.sensors) {
+            if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
+                finalList.addSensor(s);
             }
         }
         return finalList;
