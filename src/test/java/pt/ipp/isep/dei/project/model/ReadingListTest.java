@@ -225,41 +225,6 @@ class ReadingListTest {
     }
 
     @Test
-    void seeIfListNullThrowsException() {
-        ReadingList rList = new ReadingList();
-        //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> rList.checkIfListValid(null));
-        //Assert
-        assertEquals("List is not valid", exception.getMessage());
-    }
-
-    @Test
-    void seeIfListEmptyThrowsException() {
-        //Arrange
-        ReadingList rList = new ReadingList();
-        List<Double> valuesOfDay = new ArrayList<>();
-
-        //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> rList.checkIfListValid(valuesOfDay));
-        //Assert
-        assertEquals("List is not valid", exception.getMessage());
-    }
-
-    @Test
-    void seeIfTrueIfListIsValid() {
-        //Arrange
-        ReadingList rList = new ReadingList();
-        List<Double> valuesOfDay = new ArrayList<>();
-        valuesOfDay.add(31.0);
-
-        //Act
-        boolean actualResult = rList.checkIfListValid(valuesOfDay);
-
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
     void seeIfGetMostRecentValueOfReadingWorks() {
         ReadingList list = new ReadingList();
         Date d2 = new Date();
@@ -514,74 +479,6 @@ class ReadingListTest {
         int actualResult1 = readingList1.hashCode();
         //Assert
         assertEquals(actualResult1, 1);
-    }
-
-    @Test
-    void matchByDate() {
-        //Assert
-
-        ReadingList readingList1 = new ReadingList(); //EMPTY LIST
-        ReadingList readingList2 = new ReadingList(); //LIST WITH READINGS IN BOUNDARY LIMITS
-        ReadingList readingList3 = new ReadingList(); //LIST WITH READINGS INSIDE LIMITS
-        ReadingList readingList4 = new ReadingList(); //LIST WITH READINGS OUTSIDE LIMITS
-
-        Date date1 = new Date();
-        Date date2 = new Date();
-        Date date3 = new Date();
-        Date date4 = new Date();
-        Date date5 = new Date();
-        Date date6 = new Date();
-
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        try {
-            date1 = sd.parse("05/10/2000 23:59");
-            date2 = sd.parse("06/10/2000 00:00");
-            date3 = sd.parse("06/10/2000 12:30");
-            date4 = sd.parse("06/10/2000 23:59");
-            date5 = sd.parse("07/10/2000 00:00");
-            date6 = sd.parse("19/11/2001 11:00");
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Reading reading1 = new Reading(20, date1);
-        Reading reading2 = new Reading(25, date2);
-        Reading reading3 = new Reading(2, date3);
-        Reading reading4 = new Reading(12, date4);
-        Reading reading5 = new Reading(1, date5);
-        Reading reading6 = new Reading(-1, date6);
-
-        readingList2.addReading(reading1);
-        readingList2.addReading(reading2);
-        readingList2.addReading(reading4);
-        readingList2.addReading(reading5);
-
-        readingList3.addReading(reading3);
-
-        readingList4.addReading(reading6);
-
-        ReadingList expectedResult1 = new ReadingList(); //EMPTY
-        ReadingList expectedResult2 = new ReadingList();
-        ReadingList expectedResult3 = new ReadingList();
-
-        expectedResult2.addReading(reading2);
-        expectedResult2.addReading(reading4);
-        expectedResult3.addReading(reading3);
-
-        //Act
-
-        ReadingList actualResult1 = readingList1.matchByDate(date1, date5);
-        ReadingList actualResult2 = readingList2.matchByDate(date1, date5);
-        ReadingList actualResult3 = readingList3.matchByDate(date1, date5);
-        ReadingList actualResult4 = readingList4.matchByDate(date1, date5);
-
-        //Assert
-
-        assertEquals(expectedResult1, actualResult1);
-        assertEquals(expectedResult2, actualResult2);
-        assertEquals(expectedResult3, actualResult3);
-        assertEquals(expectedResult1, actualResult4);
     }
 
     @Test
