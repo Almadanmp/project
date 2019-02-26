@@ -4,9 +4,9 @@ import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.devicespecs.MicrowaveOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.device.program.Program;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
+import pt.ipp.isep.dei.project.model.device.program.VariableProgram;
 
 import java.util.Date;
 import java.util.List;
@@ -145,11 +145,11 @@ public class MicrowaveOven implements Device, Metered, Programmable {
     /**
      * Energy consumption = energy consumption in a program for a defined period of time (kWh)
      *
-     * @param time the desired time
+     * @param time    the desired time
      * @param program the desired program
      * @return the energy consumed in the given time
      */
-    public double getProgramEnergyConsumption(float time, Program program) {
+    public double getProgramConsumption(float time, VariableProgram program) {
         return program.getNominalPower() * time;
     }
 

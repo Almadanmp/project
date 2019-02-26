@@ -3,11 +3,10 @@ package pt.ipp.isep.dei.project.model.device.program;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Program {
+public class Program implements DeviceProgram {
 
     public static final String DURATION = "Duration";
     public static final String ENERGY_CONSUMPTION = "Energy Consumption";
-    public static final String NOMINAL_POWER = "Nominal Power";
 
     private String programName;
     private double programDuration;
@@ -22,11 +21,6 @@ public class Program {
         setDuration(duration);
         setProgramName(name);
         setEnergyConsumption(energyConsumption);
-    }
-
-    public Program(String name, double nominalPower) {
-        setProgramName(name);
-        setNominalPower(nominalPower);
     }
 
     public String buildProgramString() {
