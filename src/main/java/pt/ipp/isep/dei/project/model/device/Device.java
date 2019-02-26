@@ -42,12 +42,6 @@ public interface Device {
      */
     boolean deactivate();
 
-    /**
-     * Method that will check if a DeviceTemporary is Programmable
-     *
-     * @return true if programmable, false if not programmable
-     */
-    boolean isProgrammable();
 
     /**
      * Method that will build a string with information about the device (nominal power and name)

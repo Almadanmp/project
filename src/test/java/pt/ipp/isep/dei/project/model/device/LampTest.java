@@ -169,15 +169,6 @@ import static org.testng.Assert.assertTrue;
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void ensureThatDeviceIsNotProg() {
-        Lamp d1 = new Lamp(new LampSpec());
-        d1.setAttributeValue(LampSpec.FLUX, 12D);
-        d1.deactivate();
-        boolean expectedResult = false;
-        boolean actualResult = d1.isProgrammable();
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void seeIfGetEnergyConsumption() {

@@ -55,10 +55,6 @@ public class WaterHeater implements Device, Metered {
         }
     }
 
-    public boolean isProgrammable() {
-        return false;
-    }
-
     public String buildDeviceString() {
         return "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
     }

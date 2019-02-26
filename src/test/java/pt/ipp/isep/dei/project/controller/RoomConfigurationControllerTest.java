@@ -392,35 +392,7 @@ class RoomConfigurationControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfIsProgrammableTrue() {
-        // Arrange
 
-        WashingMachine washMach = new WashingMachine(new WashingMachineSpec());
-
-        // Act
-
-        boolean result = controller.isProgrammable(washMach);
-
-        // Assert
-
-        Assert.assertTrue(result);
-    }
-
-    @Test
-    void seeIfIsProgrammableFalse() {
-        // Arrange
-
-        WaterHeater washMach = new WaterHeater(new WaterHeaterSpec());
-
-        // Act
-
-        boolean result = controller.isProgrammable(washMach);
-
-        // Assert
-
-        Assert.assertFalse(result);
-    }
 
     @Test
     void seeIfSetDeviceName() {

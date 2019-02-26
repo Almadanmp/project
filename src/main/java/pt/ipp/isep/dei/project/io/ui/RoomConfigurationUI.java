@@ -151,7 +151,7 @@ class RoomConfigurationUI {
 
     private void createProgram(Device device) {
         Scanner scanner = new Scanner(System.in);
-        if (controller.isProgrammable(device)) {
+        if (device instanceof Programmable) {
             System.out.println("This device is programmable.");
             Program program = new Program("ProgramName", 23, 23);
             ProgramList programList = controller.getProgramList((Programmable) device);
@@ -207,7 +207,7 @@ class RoomConfigurationUI {
         }
         System.out.println("Please insert the value for: Nominal Power (kW)");
         controller.setNominalPowerDevice(device,scanner.nextDouble());
-        if (controller.isProgrammable(device)) {
+        if (device instanceof Programmable) {
             UtilsUI utilsUI = new UtilsUI();
             System.out.println("This device is programmable.");
             ProgramList programList = controller.getProgramList((Programmable) device);

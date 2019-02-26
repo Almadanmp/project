@@ -246,15 +246,7 @@ public class RoomConfigurationController {
         return device.getType();
     }
 
-    /**
-     * checks if a device is programmable (implements Programmable Interface)
-     *
-     * @param device - device we want to know if it is programmable or not.
-     * @return - boolean
-     */
-    public boolean isProgrammable(Device device) {
-        return device.isProgrammable();
-    }
+
 
     /**
      * sets a programlist to a programmable device

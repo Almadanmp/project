@@ -63,7 +63,7 @@ public class VariableProgram implements DeviceProgram {
     public Object getAttributeUnit(String attributeName) {
         switch (attributeName) {
             case NOMINAL_POWER:
-                return "min";
+                return "kW";
             default:
                 return false;
         }

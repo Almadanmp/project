@@ -167,17 +167,6 @@ class WashingMachineTest {
         assertEquals(expectedResult, actualResult);
     }
 
-
-    @Test
-    void ensureThatDeviceIsProg() {
-        WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
-        d1.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 12D);
-        d1.deactivate();
-        boolean expectedResult = true;
-        boolean actualResult = d1.isProgrammable();
-        assertEquals(expectedResult, actualResult);
-    }
-
     @Test
     void seeIfGetEnergyConsumption() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());

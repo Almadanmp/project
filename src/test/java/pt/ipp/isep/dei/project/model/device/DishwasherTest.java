@@ -170,15 +170,6 @@ public class DishwasherTest {
     }
 
 
-    @Test
-    void ensureThatDeviceIsProg() {
-        Dishwasher d1 = new Dishwasher(new DishwasherSpec());
-        d1.setAttributeValue(DishwasherSpec.DW_CAPACITY, 12D);
-        d1.deactivate();
-        boolean expectedResult = true;
-        boolean actualResult = d1.isProgrammable();
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void seeIfGetEnergyConsumption() {

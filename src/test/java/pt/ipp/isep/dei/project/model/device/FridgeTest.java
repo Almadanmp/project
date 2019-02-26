@@ -192,12 +192,6 @@ class FridgeTest {
     }
 
 
-    @Test
-    void isProgrammableTest() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        boolean result = d1.isProgrammable();
-        assertFalse(result);
-    }
 
     @Test
     void getLogList() {

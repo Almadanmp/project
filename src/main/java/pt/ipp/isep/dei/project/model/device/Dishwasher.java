@@ -59,9 +59,6 @@ public class Dishwasher implements Device, Metered, Programmable {
         }
     }
 
-    public boolean isProgrammable() {
-        return true;
-    }
 
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
         return this.programList;
