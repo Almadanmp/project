@@ -61,7 +61,7 @@ public class DeviceTypeConfigTest {
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricConvectionHeaterDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricOilHeaterDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallElectricHeaterDT");
-
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.StoveDT");
         assertEquals(expectedResult, result);
     }
 
@@ -138,6 +138,7 @@ public class DeviceTypeConfigTest {
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricConvectionHeaterDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricOilHeaterDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallElectricHeaterDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.StoveDT");
 
 
         assertEquals(expectedResult, result);
