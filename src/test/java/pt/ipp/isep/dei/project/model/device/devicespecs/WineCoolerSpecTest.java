@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
+import pt.ipp.isep.dei.project.model.device.program.WineCooler;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,65 +11,64 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.*;
 
 public class WineCoolerSpecTest {
+    private WineCooler wineCoolerValid = new WineCooler(new WineCoolerSpec());
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        wineCoolerValid.setName("Wine Cooler");
+        wineCoolerValid.setNominalPower(15);
+        wineCoolerValid.setAnnualConsumption(3650);
+        wineCoolerValid.setAttributeValue("Number Bottles", 15);}
+
 
     @Test
     void seeIfGetAttributeNamesTest() {
-        WineCoolerSpec spec = new WineCoolerSpec();
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("Number Bottles");
-        List<String> result = spec.getAttributeNames();
-        assertEquals(expectedResult, result);
+        List<String> actualResult = wineCoolerValid.getAttributeNames();
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfSetAttributeValueTestFalse() {
-        WineCoolerSpec spec = new WineCoolerSpec();
-        boolean result = spec.setAttributeValue("Flux", 12);
+        boolean result = wineCoolerValid.setAttributeValue("Flux", 12);
         assertFalse(result);
     }
 
     @Test
-    void seeIfSetAttributeValueTestTrue() {
-        WineCoolerSpec spec = new WineCoolerSpec();
-        boolean actualResult = spec.setAttributeValue("Number Bottles", 12);
+    void seeIfSetAttributeValueTestTrueFalse() {
+        Integer attribute = 6;
+        boolean actualResult = wineCoolerValid.setAttributeValue("Number Bottles", 12);
+        boolean actualResultDouble = wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 5.0);
+        assertTrue(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attribute));
+        assertFalse(wineCoolerValid.setAttributeValue("notFLUX", attribute));
+        assertFalse(wineCoolerValid.setAttributeValue("", attribute));
+        assertFalse(wineCoolerValid.setAttributeValue(null, attribute));
+        assertFalse(actualResultDouble);
         assertTrue(actualResult);
     }
 
     @Test
     void seeIfGetObjectAttributeValueTest() {
-        WineCoolerSpec spec = new WineCoolerSpec();
-        spec.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 4);
-       Integer expectedResult = 4;
-        Object result = spec.getAttributeValue(WineCoolerSpec.NUMBER_BOTTLES);
-        assertEquals(expectedResult, result);
+       Integer expectedResult = 15;
+        Object actualResult = wineCoolerValid.getAttributeValue(WineCoolerSpec.NUMBER_BOTTLES);
+        Object actualResultFalse = wineCoolerValid.getAttributeValue("flux");
+        Object actualResultEmpty = wineCoolerValid.getAttributeValue("");
+        assertEquals(expectedResult, actualResult);
+        assertEquals(false, actualResultFalse);
+        assertEquals(false, actualResultEmpty);
     }
 
     @Test
     void seeIfGetObjectAttributeUnitTest() {
-        WineCoolerSpec spec = new WineCoolerSpec();
         String expectedResult = "bottles";
-        Object result = spec.getAttributeUnit(WineCoolerSpec.NUMBER_BOTTLES);
-        assertEquals(expectedResult, result);
-        assertEquals(false, spec.getAttributeUnit(""));
+        Object actualResult = wineCoolerValid.getAttributeUnit(WineCoolerSpec.NUMBER_BOTTLES);
+        Object actualResultFalse = wineCoolerValid.getAttributeUnit("flux");
+        Object actualResultEmpty = wineCoolerValid.getAttributeUnit("");
+        assertEquals(expectedResult, actualResult);
+        assertEquals(false, actualResultFalse);
+        assertEquals(false, actualResultEmpty);
 
-    }
-
-
-    @Test
-    void seeIfGetAttributeValueTestDefault() {
-        WineCoolerSpec spec = new WineCoolerSpec();
-        spec.setAttributeValue("Number Bottles", 5);
-        Object result = spec.getAttributeValue("flux");
-        assertEquals(false, result);
-    }
-
-
-
-    @Test
-    void SeeIfSetAttributeValueTestFalseBottle() {
-        WineCoolerSpec spec = new WineCoolerSpec();
-        Object result = spec.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 5.0);
-        assertEquals(false, result);
     }
 
     @Test
@@ -80,59 +79,14 @@ public class WineCoolerSpecTest {
         assertEquals(5, result);
     }
 
-    @Test
-    void seeIfGetAttributeValueForAllCases() {
-        //Arrange
-        WineCoolerSpec spec = new WineCoolerSpec();
-        Integer attribute = 6;
-        spec.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attribute);
-        // original strings:
-        assertEquals(attribute, spec.getAttributeValue(WineCoolerSpec.NUMBER_BOTTLES));
-        // same hash codes, but different strings:
-        assertEquals(false, spec.getAttributeValue("notFLUX"));
-        // distinct hash code to cover default cases of switches
-        assertEquals(false, spec.getAttributeValue(""));
-    }
-
-    @Test
-    void seeIfGetAttributeUnitForAllCases() {
-        //Arrange
-        WineCoolerSpec spec = new WineCoolerSpec();
-        String attributeBo = "bottles";
-        // original strings:
-        assertEquals(attributeBo, spec.getAttributeUnit(WineCoolerSpec.NUMBER_BOTTLES));
-        // same hash codes, but different strings:
-        assertEquals(false, spec.getAttributeUnit("notFLUX"));
-        // distinct hash code to cover default cases of switches
-        assertEquals(false, spec.getAttributeUnit(""));
-    }
-
-    @Test
-    void testSetAttributeValueForAllCases() {
-        //Arrange
-        WineCoolerSpec spec = new WineCoolerSpec();
-        Integer attribute = 6;
-        // original strings + int:
-        assertTrue(spec.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attribute));
-        // same hash codes, but different strings + int:
-        assertFalse(spec.setAttributeValue("notFLUX", attribute));
-        // distinct hash code to cover default cases of switches + int
-        assertFalse(spec.setAttributeValue("", attribute));
-    }
 
     @Test
     void testSetAttributeValueForNotInteger() {
-        //Arrange
-        WineCoolerSpec spec = new WineCoolerSpec();
-       Integer attributeD = 6;
-        Integer attribute = 6;
-        spec.setAttributeValue(LampSpec.FLUX, attributeD);
-        // original strings + not int:
-        assertFalse(spec.setAttributeValue(LampSpec.FLUX, attribute));
-        // same hash codes, but different strings + not int:
-        assertFalse(spec.setAttributeValue("notFLUX", attribute));
-        assertFalse(spec.setAttributeValue("notNOMINAL_POWER", attribute));
-        // distinct hash code to cover default cases of switches + not int
-        assertFalse(spec.setAttributeValue("", attribute));
+       Double attributeD = 6.0;
+        wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attributeD);
+        assertFalse(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attributeD));
+        assertFalse(wineCoolerValid.setAttributeValue("notFLUX", attributeD));
+        assertFalse(wineCoolerValid.setAttributeValue("notNOMINAL_POWER", attributeD));
+        assertFalse(wineCoolerValid.setAttributeValue("", attributeD));
     }
 }
