@@ -321,7 +321,7 @@ class RoomConfigurationControllerTest {
         ProgramList programList = new ProgramList();
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) FixedTimeProgram Name: Low Heat, Duration: 60.0, Energy Consumption: 100.0\n" +
+                "0) Program Name: Low Heat, Duration: 60.0, Energy Consumption: 100.0\n" +
                 "---------------\n";
 
         // Act
