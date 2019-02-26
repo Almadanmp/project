@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.device.program;
 
+import java.util.List;
+
 public interface DeviceProgram {
 
     /**
@@ -17,5 +19,15 @@ public interface DeviceProgram {
     void setNominalPower(double nominalPower);
 
     double getNominalPower();
+
+    List<String> getAttributeNames();
+
+    boolean setAttributeValue(String attributeName, Object attributeValue);
+
+    Object getAttributeUnit(String attributeName);
+
+    Object getAttributeValue(String attributeName);
+
+
 
 }
