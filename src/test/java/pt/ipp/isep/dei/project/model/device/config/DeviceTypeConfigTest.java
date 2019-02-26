@@ -57,6 +57,7 @@ public class DeviceTypeConfigTest {
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachineDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.LampDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallTowelHeaterDT");
 
         assertEquals(expectedResult, result);
     }
@@ -130,6 +131,7 @@ public class DeviceTypeConfigTest {
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachineDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.LampDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallTowelHeaterDT");
 
         assertEquals(expectedResult, result);
     }
