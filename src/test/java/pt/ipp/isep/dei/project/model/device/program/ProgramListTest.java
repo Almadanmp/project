@@ -5,21 +5,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class FixedTimeProgramListTest {
+class ProgramListTest {
 
     @Test
-     void testBuildProgramListString() {
+    void testBuildProgramListString() {
         FixedTimeProgram program = new FixedTimeProgram("program", 2, 3);
         ProgramList plist = new ProgramList();
         plist.addProgram(program);
-        String expectedResult = "---------------\n" + "\n0) FixedTimeProgram Name: program, Duration: 2.0, Energy Consumption: 3.0"
+        String expectedResult = "---------------\n" + "\n0) Program Name: program, Duration: 2.0, Energy Consumption: 3.0"
                 + "\n---------------\n";
         String result = plist.buildString();
         assertEquals(expectedResult, result);
     }
 
     @Test
-     void testBuildProgramListString2() {
+    void testBuildProgramListString2() {
         ProgramList plist = new ProgramList();
         String expectedResult = "This device has no programs\n";
         String result = plist.buildString();
@@ -28,7 +28,7 @@ class FixedTimeProgramListTest {
 
 
     @Test
-     void seeIfAddProgram() {
+    void seeIfAddProgram() {
         FixedTimeProgram program = new FixedTimeProgram("program", 2, 3);
         ProgramList list = new ProgramList();
         boolean result = list.addProgram(program);
@@ -36,7 +36,7 @@ class FixedTimeProgramListTest {
     }
 
     @Test
-     void seeIfAddProgram2() {
+    void seeIfAddProgram2() {
         FixedTimeProgram program = new FixedTimeProgram("program", 2, 3);
         ProgramList list = new ProgramList();
         list.addProgram(program);
@@ -45,7 +45,7 @@ class FixedTimeProgramListTest {
     }
 
     @Test
-     void seeIfRemoveProgram() {
+    void seeIfRemoveProgram() {
         FixedTimeProgram program = new FixedTimeProgram("program", 2, 3);
         ProgramList list = new ProgramList();
         boolean result = list.removeProgram(program);
@@ -53,11 +53,25 @@ class FixedTimeProgramListTest {
     }
 
     @Test
-     void seeIfRemoveProgram2() {
+    void seeIfRemoveProgram2() {
         FixedTimeProgram program = new FixedTimeProgram("program", 2, 3);
         ProgramList list = new ProgramList();
         list.addProgram(program);
         boolean result = list.removeProgram(program);
         assertTrue(result);
+    }
+
+    @Test
+    void testBuildDifferentProgramListString() {
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 3);
+        VariableTimeProgram program2 = new VariableTimeProgram("program2",70);
+        ProgramList plist = new ProgramList();
+        plist.addProgram(program);
+        plist.addProgram(program2);
+        String expectedResult = "---------------\n" + "\n0) Program Name: program, Duration: 2.0, Energy Consumption: 3.0"
+                + "\n1) Program Name: program2, Nominal Power: 70.0"
+                + "\n---------------\n";
+        String result = plist.buildString();
+        assertEquals(expectedResult, result);
     }
 }
