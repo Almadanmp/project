@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model.device.program;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VariableProgram implements DeviceProgram {
+public class VariableTimeProgram implements Program {
 
     public static final String NOMINAL_POWER = "Nominal Power";
 
@@ -11,7 +11,7 @@ public class VariableProgram implements DeviceProgram {
 
     private double programNominalPower;
 
-    public VariableProgram(String name, double nominalPower) {
+    public VariableTimeProgram(String name, double nominalPower) {
         setProgramName(name);
         setNominalPower(nominalPower);
     }
@@ -34,9 +34,13 @@ public class VariableProgram implements DeviceProgram {
 
     public String buildString() {
         String result;
-        result = "- The Program Name is " + getProgramName() + ", its Nomimal Power is " +
+        result = "- The FixedTimeProgram Name is " + getProgramName() + ", its Nomimal Power is " +
                 getNominalPower() + " kW.\n";
         return result;
+    }
+
+    public double getEnergyConsumption(double time) {
+        return this.programNominalPower * time;
     }
 
     public List<String> getAttributeNames() {

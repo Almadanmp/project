@@ -58,7 +58,7 @@ public class MainUI {
         }
 
 
-        //Program Variables
+        //FixedTimeProgram Variables
 
         // *************************
         // ******* < MOCK DATA FOR TESTING PURPOSES >*******

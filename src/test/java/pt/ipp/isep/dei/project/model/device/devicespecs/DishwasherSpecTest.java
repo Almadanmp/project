@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.program.Program;
+import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ class DishwasherSpecTest {
 
     @Test
     void seeIfGetAttributeNamesTestWorks() {
-        Program program1 = new Program("programa", 2, 2);
+        FixedTimeProgram program1 = new FixedTimeProgram("programa", 2, 2);
         ProgramList listProgram = new ProgramList();
         listProgram.addProgram(program1);
         DishwasherSpec dishwasherSpec = new DishwasherSpec();

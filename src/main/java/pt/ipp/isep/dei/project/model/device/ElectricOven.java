@@ -15,14 +15,14 @@ public class ElectricOven implements Device, Metered {
     private double nominalPower;
     private ElectricOvenSpec deviceSpecs;
     private boolean active;
-    private VariableProgramList programList;
+    private VariableTimeProgramList programList;
     private LogList logList;
 
 
     public ElectricOven(ElectricOvenSpec electricOvenSpec) {
         this.deviceSpecs = electricOvenSpec;
         this.active = true;
-        programList = new VariableProgramList();
+        programList = new VariableTimeProgramList();
         logList = new LogList();
     }
 
@@ -63,7 +63,7 @@ public class ElectricOven implements Device, Metered {
         return true;
     }
 
-    public VariableProgramList getProgramList() throws IncompatibleClassChangeError {
+    public VariableTimeProgramList getProgramList() throws IncompatibleClassChangeError {
         return this.programList;
     }
 
@@ -149,7 +149,7 @@ public class ElectricOven implements Device, Metered {
      * @param program the desired program
      * @return the energy consumed in the given time
      */
-    public double getProgramEnergyConsumption(float time, Program program) {
+    public double getProgramEnergyConsumption(float time, VariableTimeProgram program) {
         return program.getNominalPower() * time;
     }
 

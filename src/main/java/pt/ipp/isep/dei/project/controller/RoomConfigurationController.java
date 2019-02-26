@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.model.Sensor;
 import pt.ipp.isep.dei.project.model.SensorList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.device.program.Program;
+import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 
@@ -81,10 +81,10 @@ public class RoomConfigurationController {
      * adds a given program to a program list.
      *
      * @param programList - the list
-     * @param newProgram  -the program we want to add to the list
+     * @param newFixedTimeProgram  -the program we want to add to the list
      */
-    public void addProgramToProgramList(ProgramList programList, Program newProgram) {
-        programList.addProgram(newProgram);
+    public void addProgramToProgramList(ProgramList programList, FixedTimeProgram newFixedTimeProgram) {
+        programList.addProgram(newFixedTimeProgram);
     }
 
     /**
@@ -145,7 +145,7 @@ public class RoomConfigurationController {
      * @param program - program from which we want to get the names of the attributes
      * @return - list of strings
      */
-    public List<String> getProgramAttributeNames(Program program) {
+    public List<String> getProgramAttributeNames(FixedTimeProgram program) {
         return program.getAttributeNames();
     }
 
@@ -156,7 +156,7 @@ public class RoomConfigurationController {
      * @param i       - the indez of the attribute
      * @param value   - the value we want to set
      */
-    public void setProgramAttributeValue(Program program, int i, double value) {
+    public void setProgramAttributeValue(FixedTimeProgram program, int i, double value) {
         program.setAttributeValue(program.getAttributeNames().get(i), value);
     }
 
@@ -177,7 +177,7 @@ public class RoomConfigurationController {
      * @param i       - index of the attribute
      * @return object (string with the unit)
      */
-    public Object getProgramAttributeUnit(Program program, int i) {
+    public Object getProgramAttributeUnit(FixedTimeProgram program, int i) {
         return program.getAttributeUnit(program.getAttributeNames().get(i));
     }
 
@@ -199,7 +199,7 @@ public class RoomConfigurationController {
      * @param i       - index of the attribute
      * @return object (value)
      */
-    public Object getProgramAttributeValue(Program program, int i) {
+    public Object getProgramAttributeValue(FixedTimeProgram program, int i) {
         return program.getAttributeValue(program.getAttributeNames().get(i));
     }
 
@@ -232,7 +232,7 @@ public class RoomConfigurationController {
      * @param program     - program we want to set the name to
      * @param programName - String name
      */
-    public void setProgramName(Program program, String programName) {
+    public void setProgramName(FixedTimeProgram program, String programName) {
         program.setProgramName(programName);
     }
 

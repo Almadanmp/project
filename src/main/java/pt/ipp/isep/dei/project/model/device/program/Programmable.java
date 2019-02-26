@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.device.program;
 
+import java.util.List;
+
 /**
  * Represents a programmable option for devices.
  * <p>

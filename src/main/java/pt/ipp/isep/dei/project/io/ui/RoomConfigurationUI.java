@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.device.program.Program;
+import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 
@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 class RoomConfigurationUI {
     private RoomConfigurationController controller;
-    private String requestProgramName = "Please, type the new Program name:";
+    private String requestProgramName = "Please, type the new FixedTimeProgram name:";
 
     RoomConfigurationUI() {
         this.controller = new RoomConfigurationController();
@@ -153,7 +153,7 @@ class RoomConfigurationUI {
         Scanner scanner = new Scanner(System.in);
         if (device instanceof Programmable) {
             System.out.println("This device is programmable.");
-            Program program = new Program("ProgramName", 23, 23);
+            FixedTimeProgram program = new FixedTimeProgram("ProgramName", 23, 23);
             ProgramList programList = controller.getProgramList((Programmable) device);
             System.out.println(requestProgramName);
             String programName = scanner.nextLine();
@@ -161,7 +161,7 @@ class RoomConfigurationUI {
             loopToSetAttributeValuesProgram(program, programAttributesNames);
             controller.setProgramName(program, programName);
             loopToBuildFinalStringProgram(program, programAttributesNames);
-            String message = "Would you like to add another Program? (y/n)";
+            String message = "Would you like to add another FixedTimeProgram? (y/n)";
             controller.addProgramToProgramList(programList, program);
             loopForCreatingProgram(message, programList);
             controller.configureDeviceProgramList(device, programList);
@@ -215,7 +215,7 @@ class RoomConfigurationUI {
                 System.out.println(utilsUI.invalidProgramList);
                 return;
             }
-            Program program = inputUtils.getSelectedProgramFromDevice((Programmable) device);
+            FixedTimeProgram program = inputUtils.getSelectedProgramFromDevice((Programmable) device);
             configureAProgrammableDevice(program, programList, (Programmable) device);
             controller.configureDeviceProgramList(device, programList);
         }
@@ -223,7 +223,7 @@ class RoomConfigurationUI {
     }
 
     //configures the programs in the device's program list, if the device is indeed programmable.
-    private void configureAProgrammableDevice(Program program, ProgramList programList, Programmable device) {
+    private void configureAProgrammableDevice(FixedTimeProgram program, ProgramList programList, Programmable device) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
@@ -250,7 +250,7 @@ class RoomConfigurationUI {
     // enters a loop if the device's program list has more than one program, and allows for the configuration of other
     // programs in the list (us215).
     private void loopForProgramList(ProgramList programList, Programmable device) {
-        String message = "Would you like to edit another Program? (y/n)";
+        String message = "Would you like to edit another FixedTimeProgram? (y/n)";
         if (programList.size() > 1) {
             System.out.println(message);
             loopForEditingProgram(message, device);
@@ -260,7 +260,7 @@ class RoomConfigurationUI {
     // enters a loop if the user chooses to edit another program of the existing programs in the list. (us215)
     private void loopForEditingProgram(String message, Programmable device) {
         InputUtils inputUtils = new InputUtils();
-        Program program;
+        FixedTimeProgram program;
         while (inputUtils.yesOrNo(message)) {
             program = inputUtils.getSelectedProgramFromDevice(device);
             loopForPrograms(program);
@@ -276,7 +276,7 @@ class RoomConfigurationUI {
     }
 
     //loop that sets all the attributes of the chosen program and then displays it.
-    private void loopForPrograms(Program program) {
+    private void loopForPrograms(FixedTimeProgram program) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();
@@ -287,7 +287,7 @@ class RoomConfigurationUI {
     }
 
     //loop that sets all the attributes of the chosen program to configure it.
-    private void loopToSetAttributeValuesProgram(Program program2, List<String> programAttributeNames) {
+    private void loopToSetAttributeValuesProgram(FixedTimeProgram program2, List<String> programAttributeNames) {
         InputUtils inputUtils = new InputUtils();
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + programAttributeNames.get(i)
@@ -298,7 +298,7 @@ class RoomConfigurationUI {
     }
 
     // loop that display all the edited attributes of the program.
-    private void loopToBuildFinalStringProgram(Program program, List<String> programAttributeNames) {
+    private void loopToBuildFinalStringProgram(FixedTimeProgram program, List<String> programAttributeNames) {
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("You have changed the : " + programAttributeNames.get(i) + " to: "
                     + controller.getProgramAttributeValue(program, i) + " "
@@ -309,7 +309,7 @@ class RoomConfigurationUI {
     //loop that creates new programs and configures them. (us210)
     private void loopForCreatingPrograms(ProgramList programList) {
         Scanner scanner = new Scanner(System.in);
-        Program program2 = new Program();
+        FixedTimeProgram program2 = new FixedTimeProgram();
         List<String> programAttributeNames = controller.getProgramAttributeNames(program2);
         System.out.println(requestProgramName);
         String programName = scanner.nextLine();

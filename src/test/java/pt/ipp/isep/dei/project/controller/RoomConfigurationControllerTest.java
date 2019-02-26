@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT;
-import pt.ipp.isep.dei.project.model.device.program.Program;
+import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
 import java.text.ParseException;
@@ -228,7 +228,7 @@ class RoomConfigurationControllerTest {
         // Arrange
 
         Device washingMachine = new WashingMachine(new WashingMachineSpec());
-        Program program = new Program("LowHeat", 60, 100);
+        FixedTimeProgram program = new FixedTimeProgram("LowHeat", 60, 100);
         ProgramList programList = new ProgramList();
         programList.addProgram(program);
 
@@ -317,11 +317,11 @@ class RoomConfigurationControllerTest {
     void seeIfAddProgramToProgramList() {
         // Arrange
 
-        Program program = new Program("Low Heat", 60, 100);
+        FixedTimeProgram program = new FixedTimeProgram("Low Heat", 60, 100);
         ProgramList programList = new ProgramList();
         String expectedResult = "---------------\n" +
                 "\n" +
-                "0) Program Name: Low Heat, Duration: 60.0, Energy Consumption: 100.0\n" +
+                "0) FixedTimeProgram Name: Low Heat, Duration: 60.0, Energy Consumption: 100.0\n" +
                 "---------------\n";
 
         // Act
@@ -338,11 +338,11 @@ class RoomConfigurationControllerTest {
     void seeIfGetProgramAttributeNamesTest() {
         // Arrange
 
-        Program program = new Program("Low Heat", 60, 120);
+        FixedTimeProgram program = new FixedTimeProgram("Low Heat", 60, 120);
         controller.setProgramAttributeValue(program, 0, 100);
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add(Program.DURATION);
-        expectedResult.add(Program.ENERGY_CONSUMPTION);
+        expectedResult.add(FixedTimeProgram.DURATION);
+        expectedResult.add(FixedTimeProgram.ENERGY_CONSUMPTION);
 
         // Act
 
@@ -358,7 +358,7 @@ class RoomConfigurationControllerTest {
 
         // Arrange
 
-        Program program = new Program("Low Heat", 60, 200);
+        FixedTimeProgram program = new FixedTimeProgram("Low Heat", 60, 200);
         String expectedResultUnit = "min";
         double expectedResultValue = 60;
 
@@ -377,7 +377,7 @@ class RoomConfigurationControllerTest {
     void seeIfSetProgramName() {
         // Arrange
 
-        Program program = new Program();
+        FixedTimeProgram program = new FixedTimeProgram();
         controller.setProgramName(program, "Low Heat");
         String expectedResult = "Low Heat";
 

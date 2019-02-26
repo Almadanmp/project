@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class VariableProgramList {
+public class VariableTimeProgramList {
 
 
-    private List<VariableProgram> programs;
+    private List<VariableTimeProgram> programs;
 
     /**
      * ProgramList() Empty Constructor that initializes an ArrayList of Programs.
      */
-    public VariableProgramList() {
+    public VariableTimeProgramList() {
         programs = new ArrayList<>();
     }
 
@@ -21,27 +21,27 @@ public class VariableProgramList {
      *
      * @return a string with all the programs
      */
-    public String buildVariableProgramListString() {
+    public String buildString() {
         StringBuilder result = new StringBuilder("---------------\n");
         if (programs.isEmpty()) {
             return "This device has no programs\n";
         }
         for (int i = 0; i < this.size(); i++) {
-            VariableProgram vprogram = programs.get(i);
-            result.append("\n").append(i).append(") Program Name: ").append(vprogram.getProgramName());
-            result.append(", Nominal Power: ").append(vprogram.getNominalPower());
+            VariableTimeProgram vtProgram = programs.get(i);
+            result.append("\n").append(i).append(") FixedTimeProgram Name: ").append(vtProgram.getProgramName());
+            result.append(", Nominal Power: ").append(vtProgram.getNominalPower());
         }
         result.append("\n---------------\n");
         return result.toString();
     }
 
     /**
-     * Method that adds a Program to the ProgramList.
+     * Method that adds a FixedTimeProgram to the ProgramList.
      *
      * @param program is the program we want to add.
      * @return true if program was successfully added, false otherwise (already existing program)
      */
-    public boolean addProgram(VariableProgram program) {
+    public boolean addProgram(VariableTimeProgram program) {
         if (!(programs.contains(program))) {
             programs.add(program);
             return true;
@@ -51,12 +51,12 @@ public class VariableProgramList {
     }
 
     /**
-     * Method that removes a Program from the ProgramList.
+     * Method that removes a FixedTimeProgram from the ProgramList.
      *
      * @param program you want to remove from the ProgramList.
      * @return true if program was successfully removed, false otherwise.
      */
-    boolean removeProgram(VariableProgram program) {
+    boolean removeProgram(VariableTimeProgram program) {
         if (programs.contains(program)) {
             programs.remove(program);
             return true;
@@ -85,7 +85,7 @@ public class VariableProgramList {
      *
      * @return returns program that corresponds to index.
      */
-    public VariableProgram get(int index) {
+    public VariableTimeProgram get(int index) {
         return this.programs.get(index);
     }
 
@@ -94,9 +94,9 @@ public class VariableProgramList {
      *
      * @return array of programs
      */
-    private VariableProgram[] getElementsAsArray() {
+    private VariableTimeProgram[] getElementsAsArray() {
         int sizeOfResultArray = programs.size();
-        VariableProgram[] result = new VariableProgram[sizeOfResultArray];
+        VariableTimeProgram[] result = new VariableTimeProgram[sizeOfResultArray];
         for (int i = 0; i < programs.size(); i++) {
             result[i] = programs.get(i);
         }
@@ -108,10 +108,10 @@ public class VariableProgramList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof VariableProgramList)) {
+        if (!(testObject instanceof VariableTimeProgramList)) {
             return false;
         }
-        VariableProgramList list = (VariableProgramList) testObject;
+        VariableTimeProgramList list = (VariableTimeProgramList) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

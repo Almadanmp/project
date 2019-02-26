@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Dishwasher;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
-import pt.ipp.isep.dei.project.model.device.program.Program;
+import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
 import java.util.ArrayList;
@@ -199,7 +199,7 @@ public class UtilsUITest {
     @Test
     public void testProgramListIsValid() {
         ProgramList programList = new ProgramList();
-        Program program = new Program("eco", 25, 50);
+        FixedTimeProgram program = new FixedTimeProgram("eco", 25, 50);
         programList.addProgram(program);
         UtilsUI utilsUI = new UtilsUI();
         //ACT

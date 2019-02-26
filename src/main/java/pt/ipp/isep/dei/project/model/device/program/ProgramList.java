@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProgramList {
 
-    private List<Program> programs;
+    private List<FixedTimeProgram> programs;
 
     /**
      * ProgramList() Empty Constructor that initializes an ArrayList of Programs.
@@ -27,8 +27,8 @@ public class ProgramList {
             return "This device has no programs\n";
         }
         for (int i = 0; i < this.size(); i++) {
-            Program program = this.get(i);
-            result.append("\n").append(i).append(") Program Name: ").append(program.getProgramName());
+            FixedTimeProgram program = this.get(i);
+            result.append("\n").append(i).append(") FixedTimeProgram Name: ").append(program.getProgramName());
             result.append(", Duration: ").append(program.getDuration());
             result.append(", Energy Consumption: ").append(program.getEnergyConsumption());
         }
@@ -37,12 +37,12 @@ public class ProgramList {
     }
 
     /**
-     * Method that adds a Program to the ProgramList.
+     * Method that adds a FixedTimeProgram to the ProgramList.
      *
      * @param program is the program we want to add.
      * @return true if program was successfully added, false otherwise (already existing program)
      */
-    public boolean addProgram(Program program) {
+    public boolean addProgram(FixedTimeProgram program) {
         if (!(programs.contains(program))) {
             programs.add(program);
             return true;
@@ -52,12 +52,12 @@ public class ProgramList {
     }
 
     /**
-     * Method that removes a Program from the ProgramList.
+     * Method that removes a FixedTimeProgram from the ProgramList.
      *
      * @param program you want to remove from the ProgramList.
      * @return true if program was successfully removed, false otherwise.
      */
-    boolean removeProgram(Program program) {
+    boolean removeProgram(FixedTimeProgram program) {
         if (programs.contains(program)) {
             programs.remove(program);
             return true;
@@ -86,7 +86,7 @@ public class ProgramList {
      *
      * @return returns program that corresponds to index.
      */
-    public Program get(int index) {
+    public FixedTimeProgram get(int index) {
         return this.programs.get(index);
     }
 
@@ -95,9 +95,9 @@ public class ProgramList {
      *
      * @return array of programs
      */
-    private Program[] getElementsAsArray() {
+    private FixedTimeProgram[] getElementsAsArray() {
         int sizeOfResultArray = programs.size();
-        Program[] result = new Program[sizeOfResultArray];
+        FixedTimeProgram[] result = new FixedTimeProgram[sizeOfResultArray];
         for (int i = 0; i < programs.size(); i++) {
             result[i] = programs.get(i);
         }

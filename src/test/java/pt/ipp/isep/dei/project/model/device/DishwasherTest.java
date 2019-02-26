@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.device.program.Program;
+import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
 import java.util.Date;
@@ -185,7 +185,7 @@ public class DishwasherTest {
     void getProgramList() {
         Dishwasher d1 = new Dishwasher(new DishwasherSpec());
         d1.setAttributeValue(DishwasherSpec.DW_CAPACITY, 12D);
-        Program program1 = new Program("programa", 2, 2);
+        FixedTimeProgram program1 = new FixedTimeProgram("programa", 2, 2);
         ProgramList listProgram = d1.getProgramList();
         listProgram.addProgram(program1);
         ProgramList result = d1.getProgramList();

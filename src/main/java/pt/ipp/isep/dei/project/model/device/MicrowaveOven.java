@@ -4,9 +4,7 @@ import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.devicespecs.MicrowaveOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.device.program.ProgramList;
-import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.model.device.program.VariableProgram;
+import pt.ipp.isep.dei.project.model.device.program.*;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +22,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
     public MicrowaveOven(MicrowaveOvenSpec microwaveOvenSpec) {
         this.deviceSpecs = microwaveOvenSpec;
         this.active = true;
-        programList = new ProgramList();
+        this.programList = new ProgramList();
         logList = new LogList();
     }
 
@@ -60,7 +58,6 @@ public class MicrowaveOven implements Device, Metered, Programmable {
             return false;
         }
     }
-
 
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
         return this.programList;
@@ -148,7 +145,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      * @param program the desired program
      * @return the energy consumed in the given time
      */
-    public double getProgramConsumption(float time, VariableProgram program) {
+    public double getProgramConsumption(float time, VariableTimeProgram program) {
         return program.getNominalPower() * time;
     }
 

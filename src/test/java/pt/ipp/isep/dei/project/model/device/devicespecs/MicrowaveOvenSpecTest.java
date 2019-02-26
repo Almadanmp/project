@@ -1,10 +1,8 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.program.Program;
-import pt.ipp.isep.dei.project.model.device.program.ProgramList;
-import pt.ipp.isep.dei.project.model.device.program.VariableProgram;
-import pt.ipp.isep.dei.project.model.device.program.VariableProgramList;
+import pt.ipp.isep.dei.project.model.device.program.VariableTimeProgram;
+import pt.ipp.isep.dei.project.model.device.program.VariableTimeProgramList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +13,8 @@ public class MicrowaveOvenSpecTest {
 
     @Test
     void seeIfGetAttributeNamesTestWorks() {
-        VariableProgram program1 = new VariableProgram("programa", 78);
-        VariableProgramList listProgram = new VariableProgramList();
+        VariableTimeProgram program1 = new VariableTimeProgram("programa", 78);
+        VariableTimeProgramList listProgram = new VariableTimeProgramList();
         listProgram.addProgram(program1);
         MicrowaveOvenSpec microwaveOvenSpec = new MicrowaveOvenSpec();
         List<String> expectedResult = new ArrayList<>();

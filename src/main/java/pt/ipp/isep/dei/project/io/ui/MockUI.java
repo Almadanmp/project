@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
-import pt.ipp.isep.dei.project.model.device.program.Program;
+import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -152,10 +152,10 @@ public class MockUI {
         dW107.setName("Dishwasher B107");
         dW107.setNominalPower(1.5);
         dW107.setAttributeValue(DishwasherSpec.DW_CAPACITY, 0D); // NOT SPECIFIED ON GIVEN MOCK DATA
-        dW107.getProgramList().addProgram(new Program(GLASSES, 0.0, 0.9)); //duration not specified on given mock data
-        dW107.getProgramList().addProgram(new Program("Eco", 0.0, 1.3));//duration not specified on given mock data
-        dW107.getProgramList().addProgram(new Program("Eco Turbo", 0.0, 1.7));//duration not specified on given mock data
-        dW107.getProgramList().addProgram(new Program(DISHES, 0.0, 2.1));//duration not specified on given mock data
+        dW107.getProgramList().addProgram(new FixedTimeProgram(GLASSES, 0.0, 0.9)); //duration not specified on given mock data
+        dW107.getProgramList().addProgram(new FixedTimeProgram("Eco", 0.0, 1.3));//duration not specified on given mock data
+        dW107.getProgramList().addProgram(new FixedTimeProgram("Eco Turbo", 0.0, 1.7));//duration not specified on given mock data
+        dW107.getProgramList().addProgram(new FixedTimeProgram(DISHES, 0.0, 2.1));//duration not specified on given mock data
 
         createDw107Logs(dW107);
         roomB107.addDevice(dW107);
@@ -164,10 +164,10 @@ public class MockUI {
         wM107.setName("Washing Machine B107");
         wM107.setNominalPower(3.5);
         wM107.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 0.0D); // NOT SPECIFIED ON GIVEN MOCK DATA
-        wM107.getProgramList().addProgram(new Program("Wool", 0.0, 1.1)); //duration not specified on given mock data
-        wM107.getProgramList().addProgram(new Program("Fast", 0.0, 1.8)); //duration not specified on given mock data
-        wM107.getProgramList().addProgram(new Program("Fast Plus", 0.0, 2.7)); //duration not specified on given mock data
-        wM107.getProgramList().addProgram(new Program("Synthetic 30º", 0.0, 2.8)); //duration not specified on given mock data
+        wM107.getProgramList().addProgram(new FixedTimeProgram("Wool", 0.0, 1.1)); //duration not specified on given mock data
+        wM107.getProgramList().addProgram(new FixedTimeProgram("Fast", 0.0, 1.8)); //duration not specified on given mock data
+        wM107.getProgramList().addProgram(new FixedTimeProgram("Fast Plus", 0.0, 2.7)); //duration not specified on given mock data
+        wM107.getProgramList().addProgram(new FixedTimeProgram("Synthetic 30º", 0.0, 2.8)); //duration not specified on given mock data
 
         createwM107Logs(wM107);
 
@@ -200,10 +200,10 @@ public class MockUI {
         dW109.setName("Dishwasher B109");
         dW109.setNominalPower(1.5);
         dW109.setAttributeValue(DishwasherSpec.DW_CAPACITY, 0D); // NOT SPECIFIED ON GIVEN MOCK DATA
-        dW109.getProgramList().addProgram(new Program(GLASSES, 0.0, 0.9)); //duration not specified on given mock data
-        dW109.getProgramList().addProgram(new Program("Eco", 0.0, 1.3));//duration not specified on given mock data
-        dW109.getProgramList().addProgram(new Program("Eco Turbo", 0.0, 1.7));//duration not specified on given mock data
-        dW109.getProgramList().addProgram(new Program(DISHES, 0.0, 2.1));//duration not specified on given mock data
+        dW109.getProgramList().addProgram(new FixedTimeProgram(GLASSES, 0.0, 0.9)); //duration not specified on given mock data
+        dW109.getProgramList().addProgram(new FixedTimeProgram("Eco", 0.0, 1.3));//duration not specified on given mock data
+        dW109.getProgramList().addProgram(new FixedTimeProgram("Eco Turbo", 0.0, 1.7));//duration not specified on given mock data
+        dW109.getProgramList().addProgram(new FixedTimeProgram(DISHES, 0.0, 2.1));//duration not specified on given mock data
         roomB109.addDevice(dW109);
 
 
@@ -211,10 +211,10 @@ public class MockUI {
         wM109.setName("Washing Machine B109");
         wM109.setNominalPower(2.5);
         wM109.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 0.0D); // NOT SPECIFIED ON GIVEN MOCK DATA
-        wM109.getProgramList().addProgram(new Program("Wool", 0, 0.9));//duration not specified on given mock data
-        wM109.getProgramList().addProgram(new Program("Fast", 0, 1.3));//duration not specified on given mock data
-        wM109.getProgramList().addProgram(new Program("Fast Plus", 0, 1.7));//duration not specified on given mock data
-        wM109.getProgramList().addProgram(new Program("Synthetic 30º", 0, 2.1));//duration not specified on given mock data
+        wM109.getProgramList().addProgram(new FixedTimeProgram("Wool", 0, 0.9));//duration not specified on given mock data
+        wM109.getProgramList().addProgram(new FixedTimeProgram("Fast", 0, 1.3));//duration not specified on given mock data
+        wM109.getProgramList().addProgram(new FixedTimeProgram("Fast Plus", 0, 1.7));//duration not specified on given mock data
+        wM109.getProgramList().addProgram(new FixedTimeProgram("Synthetic 30º", 0, 2.1));//duration not specified on given mock data
         createWm109Logs(wM109);
         roomB109.addDevice(wM109);
 
@@ -236,10 +236,10 @@ public class MockUI {
         dW106.setName("Dishwasher B106");
         dW106.setNominalPower(1.4);
         dW106.setAttributeValue(DishwasherSpec.DW_CAPACITY, 0D); // NOT SPECIFIED ON GIVEN MOCK DATA
-        dW106.getProgramList().addProgram(new Program(GLASSES, 0.0, 0.8));//duration not specified on given mock data
-        dW106.getProgramList().addProgram(new Program("Light", 0.0, 1.3));//duration not specified on given mock data
-        dW106.getProgramList().addProgram(new Program("Light Turbo", 0.0, 1.9));//duration not specified on given mock data
-        dW106.getProgramList().addProgram(new Program(DISHES, 0.0, 2.3));//duration not specified on given mock data
+        dW106.getProgramList().addProgram(new FixedTimeProgram(GLASSES, 0.0, 0.8));//duration not specified on given mock data
+        dW106.getProgramList().addProgram(new FixedTimeProgram("Light", 0.0, 1.3));//duration not specified on given mock data
+        dW106.getProgramList().addProgram(new FixedTimeProgram("Light Turbo", 0.0, 1.9));//duration not specified on given mock data
+        dW106.getProgramList().addProgram(new FixedTimeProgram(DISHES, 0.0, 2.3));//duration not specified on given mock data
         roomB106.addDevice(dW106);
 
         return roomB106;

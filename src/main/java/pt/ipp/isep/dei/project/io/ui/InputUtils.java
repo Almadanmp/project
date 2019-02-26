@@ -4,7 +4,7 @@ import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.device.program.Program;
+import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 
@@ -96,7 +96,7 @@ public class InputUtils {
         }
     }
 
-    Program getSelectedProgramFromDevice(Programmable device) {
+    FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
@@ -105,7 +105,7 @@ public class InputUtils {
             System.out.println(deviceProgramList.buildString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < deviceProgramList.size()) {
-                Program result = deviceProgramList.get(aux);
+                FixedTimeProgram result = deviceProgramList.get(aux);
                 System.out.println("You have chosen the following program: ");
                 System.out.println(result.buildString() + "\n");
                 return result;
