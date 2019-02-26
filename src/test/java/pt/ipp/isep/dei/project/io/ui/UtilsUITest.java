@@ -260,7 +260,7 @@ public class UtilsUITest {
         GeographicArea geographicArea = new GeographicArea("Porto", new TypeArea("Cidade"), 20, 20, new Local(20, 20, 20));
         GregorianCalendar date = new GregorianCalendar(2010, 11, 2, 12, 12);
         Sensor sensor1 = new Sensor("sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
-        geographicArea.addSensorToSensorList(sensor1);
+        geographicArea.addSensor(sensor1);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.geographicAreaSensorListIsValid(geographicArea);

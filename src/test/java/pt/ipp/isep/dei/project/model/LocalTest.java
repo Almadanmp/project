@@ -172,7 +172,7 @@ class LocalTest {
         //Arrange
 
         Local sidney = new Local(-33.865143,151.209900, 50);
-        double expectedResult = 18065.53;
+        double expectedResult = 18066.402164597315;
 
         //Act
 
@@ -204,7 +204,7 @@ class LocalTest {
         //Arrange
 
         Local lisboa = new Local(38.7166700, -9.1333300, 45);
-        double expectedResult = 970.38;
+        double expectedResult = 970.4292200999453;
 
         //Act
 
@@ -220,7 +220,7 @@ class LocalTest {
         //Arrange
 
         Local lisboa = new Local(38.7166700, -9.1333300, 45);
-        double expectedResult = 274.15;
+        double expectedResult = 274.170339162403;
         validLocal.setLatitude(41.1496100);
 
         //Act

@@ -2,10 +2,10 @@ package pt.ipp.isep.dei.project.model;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT;
@@ -15,7 +15,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,215 +27,154 @@ import static org.testng.Assert.assertEquals;
 class HouseTest {
 
     // Common artifacts for testing in this class.
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
-    @Test
-    void seeIfGetListDevice() {
-        Device device = new Fridge(new FridgeSpec());
-        device.setName("sdgfsg");
-        device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 34D);
-        device.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 34D);
-        device.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 65D);
-        Device device2 = new WashingMachine(new WashingMachineSpec());
-        device2.setName("dsfgds");
-        Room room1 = new Room("room1", 19, 23456789, 5, 3);
-        room1.addDevice(device);
-        room1.addDevice(device2);
-        RoomList roomList = new RoomList();
-        roomList.addRoom(room1);
-        DeviceList expectedResult = new DeviceList();
-        expectedResult.addDevice(device);
-        expectedResult.addDevice(device2);
-        DeviceList result = roomList.getDeviceList();
-        assertEquals(expectedResult, result);
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private House validHouse;
+    private GeographicArea validArea;
+    private Sensor firstValidSensor;
+    private Sensor secondValidSensor;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        validArea = new GeographicArea("Europe", new TypeArea("Continent"), 3500, 3000,
+                new Local(20, 12, 33));
+        validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)), 60,
+                180, deviceTypeString);
+        firstValidSensor = new Sensor("tempOne", new TypeSensor("Temperature", "Celsius"), new Local(
+                30, 20, 10), new Date());
+        secondValidSensor = new Sensor("rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(21,
+                40, 15), new Date());
+        validArea.addSensor(firstValidSensor);
+        validArea.addSensor(secondValidSensor);
+        validHouse.setMotherArea(validArea);
     }
 
     @Test
     void seeDistanceToSensor() {
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("20/11/2018 10:02:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        Sensor s = new Sensor("sensor1", new TypeSensor("temperatura", "Celsius"), new Local(4, 5, 5),
-                date);
-        double result = house.calculateDistanceToSensor(s);
-        assertEquals(110.91871788829754, result, 0.01);
+        // Act
+
+        double actualResult = validHouse.calculateDistanceToSensor(firstValidSensor);
+
+        // Assert
+
+        assertEquals(1111.9492664455872, actualResult, 0.01);
     }
 
-    @Test
-    void ensureThatWeGetAltitude() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        house.setLocation(23, 43, 4);
-        double expectedResult = 4;
-        double actualResult = house.getLocation().getAltitude();
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
-    void seeSensorWithMinDistance() {
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50),
-                new GregorianCalendar(4, 4, 9).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50),
-                new GregorianCalendar(4, 4, 4).getTime());
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga.setSensorList(sensorList);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        Sensor result = house.getClosestSensorOfGivenType("temperature");
-        assertEquals(s1, result);
+    void seeIfGetClosestSensorOfGivenTypeWorks() {
+        // Act
+
+        Sensor result = validHouse.getClosestSensorOfGivenType("Temperature");
+
+        // Assert
+
+        assertEquals(firstValidSensor, result);
     }
 
     @Test
     void getMinDistanceToSensorOfGivenType() {
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"), new Local(4, 6, 50),
-                new GregorianCalendar(4, 4, 9).getTime());
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"), new Local(4, 8, 50),
-                new GregorianCalendar(4, 4, 4).getTime());
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga.setSensorList(sensorList);
-        List<String> deviceTypeString = new ArrayList<>();
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        double result = house.getMinDistanceToSensorOfGivenType("temperature");
-        assertEquals(110.91871788829754, result);
+        // Arrange
+
+        double expectedResult = 1111.9492664455872;
+
+        // Act
+
+        double actualResult = validHouse.getMinDistanceToSensorOfGivenType("Temperature");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getMinDistanceToSensorOfGivenTypeIfInSamePosition() {
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("09/04/2018 10:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"),
-                new Local(4, 6, 50), date);
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"),
-                new Local(4, 6, 50), date);
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga.setSensorList(sensorList);
-        List<String> deviceTypeString = new ArrayList<>();
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        double result = house.getMinDistanceToSensorOfGivenType("temperature");
-        assertEquals(110.91871788829754, result);
-    }
+    void getMinDistanceToSensorOfGivenTypeSamePosition() {
+        // Arrange
 
-    //TODO distance should be zero since the sensor1 has the same localization as house. check methods to see why it isn't
-    @Test
-    void getMinDistanceToSensorOfGivenTypeSamePositionAsHouse() {
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("09/04/2018 10:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Sensor s1 = new Sensor("sensor1", new TypeSensor("temperature", "Celsius"),
-                new Local(4, 5, 50), date);
-        Sensor s2 = new Sensor("sensor2", new TypeSensor("temperature", "Celsius"),
-                new Local(16, 17, 18), date);
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        sensorList.addSensor(s2);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        ga.setSensorList(sensorList);
-        List<String> deviceTypeString = new ArrayList<>();
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        double result = house.getMinDistanceToSensorOfGivenType("temperature");
-        assertEquals(9.493073054631141E-5, result);
+        Sensor testSensor = new Sensor("tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(20,
+                20,20), new Date());
+        validArea.addSensor(testSensor);
+        double expectedResult = 0;
+
+        // Act
+
+        double actualResult = validHouse.getMinDistanceToSensorOfGivenType("Temperature");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeEqualToEqualObject() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
+    void seeIfEqualWorksEqualObject() {
+        // Arrange
+
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        House house2 = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
+        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)), 60,
+                180, deviceTypeString);
 
-        boolean actualResult = house.equals(house2);
+        // Act
+
+        boolean actualResult = validHouse.equals(testHouse);
+
+        // Assert
 
         assertTrue(actualResult);
     }
 
     @Test
     void seeEqualToSameObject() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
+        // Act
 
-        boolean actualResult = house.equals(house);
+        boolean actualResult = validHouse.equals(validHouse); // Needed for Sonarqube testing purposes.
+
+        // Assert
 
         assertTrue(actualResult);
     }
 
     @Test
-    void seeEqualsToDifObject() {
+    void seeIfEqualsWorksDifferentObject() {
+        // Arrange
+
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        Address address2 = new Address("Rua do Sol", "4516", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
-        House house2 = new House("casa de campo", address2, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
+        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)), 60,
+                180, deviceTypeString);
 
-        boolean actualResult = house.equals(house2);
-        assertFalse(actualResult);
+        // Act
+
+        boolean actualResult = validHouse.equals(testHouse);
+
+        // Assert
+
+        assertTrue(actualResult);
     }
 
 
     @Test
-    void seeEqualsToDifTypeObject() {
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50),
-                new GeographicArea("porto", new TypeArea("cidade"), 2, 3,
-                        new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+    void seeIfEqualsWorksNotInstanceOf() {
+        // Arrange
 
-        boolean actualResult = house.equals(room);
-        assertFalse(actualResult);
-    }
+        Room testRoom = new Room("Bedroom", 2, 30, 30, 10);
 
-    @Test
-    void seeEqualsToNullObject() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
+        // Act
 
-        boolean actualResult = house.equals(null);
+        boolean actualResult = validHouse.equals(testRoom); // Needed for Sonarqube testing purposes.
+
+        // Assert
 
         assertFalse(actualResult);
     }
@@ -331,11 +269,12 @@ class HouseTest {
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, deviceTypeString);
 
-        //Act
+        // Act
         house.setLocation(7, 78, 50);
         Local actualResult = house.getLocation();
 
-        //Assert
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 

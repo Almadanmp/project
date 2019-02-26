@@ -26,4 +26,22 @@ public class Address {
     public String getTown() {
         return this.town;
     }
+
+    @Override
+    public boolean equals(Object testAddress) {
+        if (this == testAddress) {
+            return true;
+        }
+        if (!(testAddress instanceof Address)) {
+            return false;
+        }
+        Address localVariable = (Address) testAddress;
+        return (this.street.equals(localVariable.street) && this.town.equals(localVariable.town) &&
+                this.zip.equals(localVariable.zip));
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

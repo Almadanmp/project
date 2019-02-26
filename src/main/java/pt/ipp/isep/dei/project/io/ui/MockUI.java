@@ -93,12 +93,12 @@ public class MockUI {
         Sensor rainfallIsepSensor = new Sensor("Meteo Station Isep - Rainfall", this.rainfallST, new GregorianCalendar(2016, Calendar.NOVEMBER, 15).getTime());
         rainfallIsepSensor.setLocal(new Local(41.179230, -8.606409, 125));
         createRainfallIsepSensorReadings(rainfallIsepSensor);
-        geoAreaIsep.addSensorToSensorList(rainfallIsepSensor);
+        geoAreaIsep.addSensor(rainfallIsepSensor);
 
         Sensor temperatureIsepSensor = new Sensor("Meteo Station Isep - Temperature", this.temperatureST, new GregorianCalendar(2016, Calendar.NOVEMBER, 15).getTime());
         temperatureIsepSensor.setLocal(new Local(41.179230, -8.606409, 125));
         createTemperatureIsepSensorReadings(temperatureIsepSensor);
-        geoAreaIsep.addSensorToSensorList(temperatureIsepSensor);
+        geoAreaIsep.addSensor(temperatureIsepSensor);
 
         //PORTO GEOGRAPHIC AREA//
         GeographicArea geoAreaPorto = new GeographicArea("City of Porto", this.city, 3.30, 10.09, new Local(41.164077, -8.620802, 118));

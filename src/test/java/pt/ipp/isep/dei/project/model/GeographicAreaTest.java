@@ -85,7 +85,7 @@ class GeographicAreaTest {
 
         Sensor testSensor = new Sensor("Vento", new TypeSensor("Atmosférico", "km/h"),
                 new Local(12, 31, 21), new Date());
-        validArea.addSensorToSensorList(testSensor);
+        validArea.addSensor(testSensor);
         SensorList expectedResult = new SensorList();
         expectedResult.addSensor(testSensor);
 
@@ -195,9 +195,9 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean result1 = validArea.addSensorToSensorList(firstTestSensor);
-        boolean result2 = validArea.addSensorToSensorList(secondTestSensor);
-        boolean result3 = validArea.addSensorToSensorList(thirdTestSensor);
+        boolean result1 = validArea.addSensor(firstTestSensor);
+        boolean result2 = validArea.addSensor(secondTestSensor);
+        boolean result3 = validArea.addSensor(thirdTestSensor);
 
         // Assert
 

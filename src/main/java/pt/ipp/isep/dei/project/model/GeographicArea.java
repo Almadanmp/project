@@ -148,7 +148,7 @@ public class GeographicArea {
         return this.length;
     }
 
-    public boolean addSensorToSensorList(Sensor sensor) {
+    public boolean addSensor(Sensor sensor) {
         return this.areaSensors.addSensor(sensor);
     }
 

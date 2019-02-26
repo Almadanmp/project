@@ -6,9 +6,7 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -23,12 +21,11 @@ class SensorSettingsControllerTest {
     // Common testing artifacts for class.
 
     private SensorSettingsController controller = new SensorSettingsController();
-    private SimpleDateFormat validSdf;
     private Date validDate1;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate1 = validSdf.parse("01/04/2018 00:00:00");
 
@@ -143,7 +140,7 @@ class SensorSettingsControllerTest {
 
         // Act
 
-        boolean actualResult = geoArea.addSensorToSensorList(secondSensor);
+        boolean actualResult = geoArea.addSensor(secondSensor);
 
         // Assert
 

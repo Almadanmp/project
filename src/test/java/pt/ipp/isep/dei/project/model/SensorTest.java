@@ -715,7 +715,7 @@ class SensorTest {
                         new Local(4, 4, 100)), 60, 180, deviceTypeString);
         Local loc1 = new Local(-5, -5, -5);
         Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
-        double expectedResult = 1579.28;
+        double expectedResult = 1579.3659688476016;
 
         //Act
         double actualResult = s1.getDistanceToHouse(house);

@@ -63,7 +63,8 @@ public class EnergyConsumptionController {
      * @return is the total nominal power of given devices.
      */
 
-    public double getSelectionNominalPower(DeviceList selectedDevices) {
+    public double getSelectionNominalPower(DeviceList selectedDevices)
+    {
         return selectedDevices.getNominalPower();
     }
 

@@ -100,7 +100,7 @@ public class SensorSettingsController {
      */
 
     public boolean addSensorToGeographicArea(Sensor sensor, GeographicArea geoArea) {
-        return (geoArea.addSensorToSensorList(sensor));
+        return (geoArea.addSensor(sensor));
     }
 
 
