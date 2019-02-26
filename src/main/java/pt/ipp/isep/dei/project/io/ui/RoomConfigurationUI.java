@@ -135,7 +135,7 @@ class RoomConfigurationUI {
         List<String> deviceAttributes = controller.getAttributeNames(device);
         for (int i = 0; i < deviceAttributes.size(); i++) {
             System.out.println("Please insert value for: " + deviceAttributes.get(i));
-            Double value = inputUtils.getInputAsDouble();
+            Double value = inputUtils.getInputAsDoublePositive();
             controller.setAttributeValue(device, deviceAttributes.get(i), value);
         }
         System.out.println("Please insert nominal power: ");
@@ -202,7 +202,7 @@ class RoomConfigurationUI {
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + attributeNames.get(i)
                     + " (" + controller.getAttributeUnit(device, i) + ")");
-            Double value = inputUtils.getInputAsDouble();
+            Double value = inputUtils.getInputAsDoublePositive();
             controller.setAttributeValue(device, attributeNames.get(i), value);
         }
         System.out.println("Please insert the value for: Nominal Power (kW)");
@@ -292,7 +292,7 @@ class RoomConfigurationUI {
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + programAttributeNames.get(i)
                     + " (" + controller.getProgramAttributeUnit(program2, i) + ")");
-            Double value = inputUtils.getInputAsDouble();
+            Double value = inputUtils.getInputAsDoublePositive();
             controller.setProgramAttributeValue(program2, i, value);
         }
     }
