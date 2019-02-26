@@ -11,6 +11,6 @@ public class WallTowelHeaterDT implements DeviceType {
     }
 
     public String getDeviceType() {
-        return "Wall Towel Heater";
+        return "WallTowelHeater";
     }
 }

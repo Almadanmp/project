@@ -31,7 +31,7 @@ public class WallTowelHeater implements Device, Metered {
     }
 
     public String getType() {
-        return "Wall Towel Heater";
+        return "WallTowelHeater";
     }
 
     public void setNominalPower(double nominalPower) {
