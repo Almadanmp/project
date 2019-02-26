@@ -151,7 +151,6 @@ class GASettingsUI {
         double geoAreaAlt = readInputNumber("Altitude");
         double geoAreaLength = readInputNumber("Length");
         double geoAreaWidth = readInputNumber("Width");
-        Local geoLocal = new Local (geoAreaLat,geoAreaLong,geoAreaAlt);
         String geoAreDescription = null;
         if (inputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
@@ -163,7 +162,7 @@ class GASettingsUI {
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
         }
-        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoLocal, geoAreaLength, geoAreaWidth);
+        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
     }
 
     private void generateResultUS03(boolean created) {

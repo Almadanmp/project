@@ -82,7 +82,7 @@ public class DeviceList {
      */
     public double getNominalPower() {
         double result = 0;
-        for (Device d : this.getList()) {
+        for (Device d : this.devices) {
             result += d.getNominalPower();
         }
         return result;
@@ -121,12 +121,14 @@ public class DeviceList {
         }
         return result;
     }
+
     /** Adds all devices of a given DeviceList to target list, rejecting duplicates.
      * @param deviceList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
      * **/
     public DeviceList appendListNoDuplicates(DeviceList deviceList){
-        for(Device d : deviceList.getList()){
+        Device[] devices = deviceList.getElementsAsArray();
+        for(Device d : devices){
             this.addDevice(d);
         }
         return this;
@@ -146,6 +148,16 @@ public class DeviceList {
     public Device get(int index) {
         return this.devices.get(index);
     }
+
+    /** This method receives an index as parameter and gets a device type from device list.
+     * @param index The index of the desired Device type
+     * @return returns device type that corresponds to index.
+     */
+    public String getTypeByIndex(int index) {
+        Device device = this.devices.get(index);
+        return device.getType();
+    }
+
 
     /**
      * Returns the energy consumption in a given time interval, that is, the sum of the energy consumption

@@ -26,7 +26,7 @@ public class PowerSource {
         return maxPowerOutput;
     }
 
-    private String getPowerSourceName(){return this.powerSourceName;}
+    public String getPowerSourceName(){return this.powerSourceName;}
 
     @Override
     public boolean equals(Object o) {

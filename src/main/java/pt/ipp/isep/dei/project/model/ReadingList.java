@@ -20,13 +20,6 @@ public class ReadingList {
     }
 
     /**
-     * @return returns complete list of readings stored in attribute.
-     */
-    List<Reading> getListOfReadings() {
-        return this.readings;
-    }
-
-    /**
      * Method to Add a reading only if it's not contained in the list already.
      *
      * @param reading receives a reading.
@@ -50,6 +43,29 @@ public class ReadingList {
     public Reading get(int index) {
         return this.readings.get(index);
     }
+
+    /**
+     * This method receives an index as parameter and gets a value reading from reading list.
+     *
+     * @param index the index of the Reading we want to get value from
+     * @return returns value reading that corresponds to index.
+     */
+    public double getValueReading(int index) {
+        Reading reading = this.readings.get(index);
+        return reading.getValue();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a reading date from reading list.
+     *
+     * @param index the index of the Reading we want to get date from
+     * @return returns date reading that corresponds to index.
+     */
+    public Date getValueDate(int index) {
+        Reading reading = this.readings.get(index);
+        return reading.getDate();
+    }
+
 
     /**
      * Simple method to indicate if this reading list is empty i.e. has no registered readings.
@@ -92,6 +108,16 @@ public class ReadingList {
         }
         return recentReading;
     }
+    /**
+     * Method that goes through every Reading in the list and
+     * returns the most recent reading Date.
+     *
+     * @return most recent reading date
+     **/
+    public Date getMostRecentReadingDate() {
+        return getMostRecentReading().getDate();
+    }
+
 
     /**
      * This method returns the most recent reading value a Reading List.
@@ -133,9 +159,6 @@ public class ReadingList {
      */
     double getListSum(List<Double> valueList) {
         double sum = 0;
-        if (valueList.isEmpty()) {
-            return 0;
-        }
         for (Double aValueList : valueList) {
             sum = sum + aValueList;
         }
@@ -187,7 +210,7 @@ public class ReadingList {
         Date endDate = getLastSecondOfDay(dayMax);
 
         for (int i = 0; i < readings.size(); i++) {
-            Date currentReadingDate = readings.get(i).getDate();
+            Date currentReadingDate = this.getValueDate(i);
             if (isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
                 GregorianCalendar aux = new GregorianCalendar();
                 aux.setTime(currentReadingDate);
@@ -215,9 +238,6 @@ public class ReadingList {
         return (readingDate.after(startDate) || readingDate.equals(startDate)) &&
                 (readingDate.before(endDate) || readingDate.equals(endDate));
     }
-
-
-
 
 
     /**
@@ -255,8 +275,8 @@ public class ReadingList {
     List<Double> getValuesOfSpecificDayReadings(Date day) {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (int i = 0; i < readings.size(); i++) {
-            if (compareDayMonthAndYearBetweenDates(readings.get(i).getDate(), day)) {
-                valueReadingsFromGivenDay.add(readings.get(i).getValue());
+            if (compareDayMonthAndYearBetweenDates(this.getValueDate(i),day)) {
+                valueReadingsFromGivenDay.add(this.getValueReading(i));
             }
         }
         return valueReadingsFromGivenDay;
@@ -295,6 +315,19 @@ public class ReadingList {
         }
         double sum = getListSum(valueList);
         return (sum / valueList.size());
+    }
+
+
+    /** Adds all readings of a given ReadingList to target list, rejecting duplicates.
+     * @param readingList The list to be added to the target list
+     * @return A parallel deviceList with all the devices that could be added
+     * **/
+    public ReadingList appendListNoDuplicates(ReadingList readingList){
+        Reading[] readings = readingList.getElementsAsArray();
+        for(Reading r : readings){
+            this.addReading(r);
+        }
+        return this;
     }
 
     /**

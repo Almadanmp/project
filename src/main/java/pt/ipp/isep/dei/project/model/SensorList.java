@@ -19,7 +19,6 @@ public class SensorList {
         this.sensors = new ArrayList<>();
     }
 
-
     /**
      * Constructor to always create an Array of Sensors.
      *
@@ -45,14 +44,6 @@ public class SensorList {
         return false;
     }
 
-    /**
-     * Gettter (list of sensors)
-     *
-     * @return list of sensors
-     */
-    public List<Sensor> getListOfSensors() {
-        return this.sensors;
-    }
 
     /**
      * Method that goes through the sensor list and looks for the sensor
@@ -73,9 +64,9 @@ public class SensorList {
             return error;
         }
         Sensor mostRecent = this.sensors.get(0);
-        Date recent = mostRecent.getReadingList().getMostRecentReading().getDate();
+        Date recent = mostRecent.getMostRecentReadingDate();
         for (Sensor s : this.sensors) {
-            Date test = s.getReadingList().getMostRecentReading().getDate();
+            Date test = s.getMostRecentReadingDate();
             if (recent.before(test)) {
                 recent = test;
                 mostRecent = s;
@@ -92,7 +83,7 @@ public class SensorList {
     SensorList getSensorListByType(String name) {
         SensorList containedTypeSensors = new SensorList();
         for (Sensor sensor : this.sensors) {
-            if (name.equals(sensor.getTypeSensor().getName())) {
+            if (name.equals(sensor.getSensorTypeName())) {
                 containedTypeSensors.addSensor(sensor);
             }
         }
@@ -131,7 +122,7 @@ public class SensorList {
         for (int i = 0; i < sensors.size(); i++) {
             Sensor aux = sensors.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
-            result.append("Type: ").append(aux.getTypeSensor().getName()).append("\n");
+            result.append("Type: ").append(aux.getSensorTypeName()).append("\n");
         }
         result.append("---------------\n");
         return result.toString();
@@ -146,13 +137,8 @@ public class SensorList {
      **/
     public ReadingList getReadings() {
         ReadingList finalList = new ReadingList();
-        if (this.sensors.isEmpty()) {
-            return finalList;
-        }
         for (Sensor s : this.sensors) {
-            for (Reading r : s.getReadingList().getListOfReadings()) {
-                finalList.addReading(r);
-            }
+            finalList.appendListNoDuplicates(s.getReadingList());
         }
         return finalList;
     }

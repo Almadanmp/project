@@ -71,7 +71,7 @@ public class EnergyGridSettingsController {
      */
 
     public PowerSource createPowerSource(EnergyGrid energyGrid, String name, double maxPowerOutput, double maxEnergyStorage) {
-        return energyGrid.getListOfPowerSources().createPowerSource(name, maxPowerOutput, maxEnergyStorage);
+        return energyGrid.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
     /**

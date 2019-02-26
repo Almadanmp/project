@@ -156,13 +156,16 @@ public class Room implements Metered {
      * in case the room has no readings whatsoever
      * @param day where we want to look for max temperature
      **/
+    //TODO agrupar coisas, ver responsabilidades e encapsulamento
     public double getMaxTemperatureOnGivenDay(Date day) {
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         } else {
-            if (!tempSensors.getReadings().getValuesOfSpecificDayReadings(day).isEmpty()) {
-                return Collections.max(tempSensors.getReadings().getValuesOfSpecificDayReadings(day));
+            ReadingList readingsType = tempSensors.getReadings();
+            List<Double> values = readingsType.getValuesOfSpecificDayReadings(day);
+            if (!values.isEmpty()) {
+                return Collections.max(values);
             }
             throw new NoSuchElementException(noTempReadings);
         }
@@ -185,12 +188,7 @@ public class Room implements Metered {
      * @return true if device was successfully removed from the room, false otherwise.
      */
     public boolean removeDevice(Device device) {
-        if ((deviceList.getList().contains(device))) {
-            deviceList.getList().remove(device);
-            return true;
-        } else {
-            return false;
-        }
+        return deviceList.removeDevice(device);
     }
 
     /**
@@ -200,12 +198,7 @@ public class Room implements Metered {
      * @return true if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensor(Sensor sensor) {
-        if (!(roomSensorList.contains(sensor))) {
-            roomSensorList.addSensor(sensor);
-            return true;
-        } else {
-            return false;
-        }
+        return roomSensorList.addSensor(sensor);
     }
 
     /**
@@ -215,12 +208,7 @@ public class Room implements Metered {
      * @return the result of the operation (true if successful, false otherwise)
      */
     public boolean addDevice(Device device) {
-        if (!(deviceList.containsDevice(device))) {
-            deviceList.addDevice(device);
-            return true;
-        } else {
-            return false;
-        }
+        return deviceList.addDevice(device);
     }
 
     /**
@@ -232,15 +220,12 @@ public class Room implements Metered {
      */
 
     public double getCurrentRoomTemperature() {
-        double currentT;
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }
         ReadingList readingList = tempSensors.getReadings();
-        currentT = readingList.getMostRecentValue();
-
-        return currentT;
+        return readingList.getMostRecentValue();
     }
 
     /**
@@ -356,7 +341,7 @@ public class Room implements Metered {
     String buildDevicesStringByType(String type) {
         StringBuilder result = new StringBuilder();
         for (int x = 0; x < deviceList.size(); x++) {
-            if (type.equals(deviceList.get(x).getType())) {
+            if (type.equals(deviceList.getTypeByIndex(x))) {
                 Device device = deviceList.get(x);
                 result.append("Device type: ").append(type).append(" | ");
                 result.append("Device name: ").append(device.getName()).append(" | ");

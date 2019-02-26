@@ -50,6 +50,12 @@ public class PowerSourceList {
 
 
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){
+        for(PowerSource p : this.powerSources){
+            String testName = p.getPowerSourceName();
+            if(testName.equals(name)){
+                return p;
+            }
+        }
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 

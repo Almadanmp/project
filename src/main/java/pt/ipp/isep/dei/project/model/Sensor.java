@@ -145,13 +145,7 @@ public class Sensor {
      * or false in case the reading already exists
      **/
     public boolean addReading(Reading reading) {
-        for (Reading r : this.readingList.getListOfReadings()) {
-            if (r.equals(reading)) {
-                return false;
-            }
-        }
-        this.readingList.addReading(reading);
-        return true;
+        return readingList.addReading(reading);
     }
 
     /**
@@ -174,10 +168,11 @@ public class Sensor {
     boolean isSensorContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
-        double latTopVert = area.getLocal().getLatitude() + (area.getWidth() / 2);
-        double longTopVert = area.getLocal().getLongitude() - (area.getLength() / 2);
-        double latBotVert = area.getLocal().getLatitude() - (area.getWidth() / 2);
-        double longBotVert = area.getLocal().getLongitude() + (area.getLength() / 2);
+        Local local = area.getLocal();
+        double latTopVert = local.getLatitude() + (area.getWidth() / 2);
+        double longTopVert = local.getLongitude() - (area.getLength() / 2);
+        double latBotVert = local.getLatitude() - (area.getWidth() / 2);
+        double longBotVert = local.getLongitude() + (area.getLength() / 2);
         return (latS <= latTopVert && latS >= latBotVert && longS <= longBotVert && longS >= longTopVert);
     }
 
@@ -203,6 +198,21 @@ public class Sensor {
         result = this.name + ", " + this.typeSensor.getName() + ", " +
                 this.local.getLatitude() + "º lat, " + this.local.getLongitude() + "º long\n";
         return result;
+    }
+
+    /**This method goes through the sensor reading list and return
+     * the most recent reading date.
+     * @return most recent reading date in sensor
+     * **/
+    public Date getMostRecentReadingDate(){
+        return this.readingList.getMostRecentReadingDate();
+    }
+
+    /**This method returns the sensor type name.
+     * @return he sensor type name.
+     * **/
+    public String getSensorTypeName(){
+        return this.typeSensor.getName();
     }
 
     @Override

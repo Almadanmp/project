@@ -55,23 +55,6 @@ class SensorListTest {
         validGeographicArea2 = new GeographicArea("Spain", new TypeArea("Country"), 2, 2, validLocal2);
     }
 
-    @Test
-    void seeIfGetSensorsAsListWorks() {
-        //Arrange
-        Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
-        Sensor s2 = new Sensor("Rain Sensor 1", validTypeSensor1, validLocal1, validDate2);
-        List<Sensor> expectedResult = new ArrayList<>();
-        expectedResult.add(s1);
-        expectedResult.add(s2);
-        validSensorList1.addSensor(s1);
-        validSensorList1.addSensor(s2);
-
-        //Act
-        List<Sensor> result = validSensorList1.getListOfSensors();
-
-        //Assert
-        assertEquals(result, expectedResult);
-    }
 
     @Test
     void seeIfEqualsWorksOnSameObject() {
@@ -379,10 +362,6 @@ class SensorListTest {
         sensorList5.addSensor(sensor10);
 
         Sensor expectedResult1 = new Sensor("emptySensor", new TypeSensor("type", " "), date4);
-        Sensor expectedResult2 = sensor1;
-        Sensor expectedResult3 = sensor2;
-        Sensor expectedResult4 = sensor6;
-        Sensor expectedResult5 = sensor10;
 
         //Act
         Sensor actualResult1 = sensorList1.getMostRecentlyUsedSensor();
@@ -393,10 +372,10 @@ class SensorListTest {
 
         //Assert
         assertEquals(actualResult1, expectedResult1);
-        assertEquals(actualResult2, expectedResult2);
-        assertEquals(actualResult3, expectedResult3);
-        assertEquals(actualResult4, expectedResult4);
-        assertEquals(actualResult5, expectedResult5);
+        assertEquals(actualResult2, sensor1);
+        assertEquals(actualResult3, sensor2);
+        assertEquals(actualResult4, sensor6);
+        assertEquals(actualResult5, sensor10);
     }
 
     @Test

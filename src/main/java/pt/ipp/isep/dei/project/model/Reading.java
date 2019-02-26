@@ -47,7 +47,6 @@ public class Reading {
     }
 
 
-
     /**
      * Method 'equals' is required so that each 'Reading' can be added to a 'ReadingList'.
      * @param o object

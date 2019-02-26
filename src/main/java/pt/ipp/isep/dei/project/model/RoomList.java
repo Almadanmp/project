@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
@@ -21,15 +20,6 @@ public class RoomList {
      */
     public RoomList() {
         this.rooms = new ArrayList<>();
-    }
-
-    /**
-     * RoomList Getter.
-     *
-     * @return a List of Rooms.
-     */
-    public List<Room> getList() {
-        return this.rooms;
     }
 
     /**

@@ -98,12 +98,12 @@ public class GeographicAreaList {
      *
      * @param newName  input string for geographic area name for the new geographic area
      * @param typeArea input string for type area for the new geographic area
-     * @param local    input localization for the new geographic area
      * @param length   input number for length for the new geographic area
      * @param width    input number for width for the new geographic area
      * @return a new geographic area.
      */
-    public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, Local local) {
+    public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, double latitude, double longitude, double altitude) {
+        Local local = new Local(latitude, longitude, altitude);
         return new GeographicArea(newName, typeArea, length, width, local);
     }
 

@@ -95,6 +95,19 @@ class ReadingListTest {
     }
 
     @Test
+    void seeTotalFromEmptyList() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        List<Double> list = new ArrayList<>();
+
+        //Act
+        double actualResult = readingList.getListSum(list);
+
+        //Assert
+        assertEquals(0.0, actualResult);
+    }
+
+    @Test
     void seeAddReadingIfListHasDifferentReading() {
         //Arrange
         ReadingList readingList = new ReadingList();

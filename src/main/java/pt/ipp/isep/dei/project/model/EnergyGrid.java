@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -44,10 +43,6 @@ public class EnergyGrid implements Metered {
 
     public RoomList getRoomList() {
         return roomList;
-    }
-
-    public PowerSourceList getListOfPowerSources() {
-        return listPowerSources;
     }
 
     double getMaxContractedPower() {
@@ -259,6 +254,12 @@ public class EnergyGrid implements Metered {
      **/
     public int roomListSize() {
         return roomList.size();
+    }
+
+    /**
+     * This method creates a power source **/
+    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){
+        return this.listPowerSources.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
     @Override

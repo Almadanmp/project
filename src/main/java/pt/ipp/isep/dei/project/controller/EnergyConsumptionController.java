@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Controller class for Energy Consumption UI
