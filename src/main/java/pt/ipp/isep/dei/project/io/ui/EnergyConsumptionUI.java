@@ -405,7 +405,7 @@ class EnergyConsumptionUI {
 
     private void runUS752(House house) {
         InputUtils inputUtils = new InputUtils();
-        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house);
+        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house).getList();
         if (waterHeaters.isEmpty()) {
             System.out.println("Your house has no Electric Water Heaters. Returning to Main Menu.");
             return;

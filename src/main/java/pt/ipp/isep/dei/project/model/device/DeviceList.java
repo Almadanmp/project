@@ -169,11 +169,11 @@ public class DeviceList {
      * @param deviceType the device type
      * @return the list with all devices of a given type
      */
-    public List<Device> getDevicesOfGivenType(String deviceType) {
-        List<Device> devicesOfGivenType = new ArrayList<>();
+    public DeviceList getDevicesOfGivenType(String deviceType) {
+        DeviceList devicesOfGivenType = new DeviceList();
         for (Device d : this.devices) {
             if (d.getType().equals(deviceType)) {
-                devicesOfGivenType.add(d);
+                devicesOfGivenType.addDevice(d);
             }
         }
         return devicesOfGivenType;

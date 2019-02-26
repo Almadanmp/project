@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.ArrayList;
@@ -237,7 +237,6 @@ public class RoomList {
         }
         return result;
     }
-
 
     /**
      * Getter (array of rooms)

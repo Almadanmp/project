@@ -262,7 +262,7 @@ public class Room implements Metered {
      * @param deviceType the device type
      * @return the list with all devices of a given type
      */
-    List<Device> getDevicesOfGivenType(String deviceType) {
+    DeviceList getDevicesOfGivenType(String deviceType) {
         return this.deviceList.getDevicesOfGivenType(deviceType);
     }
 

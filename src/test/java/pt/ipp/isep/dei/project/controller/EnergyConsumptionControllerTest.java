@@ -502,13 +502,13 @@ class EnergyConsumptionControllerTest {
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
         house.addRoomToRoomList(validRoom1);
-        List<Device> expectedResult = new ArrayList<>();
-        expectedResult.add(validDevice1);
-        expectedResult.add(validDevice2);
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.addDevice(validDevice1);
+        expectedResult.addDevice(validDevice2);
 
         //Act
 
-        List<Device> actualResult = controller.getWaterHeaterDeviceList(house);
+        DeviceList actualResult = controller.getWaterHeaterDeviceList(house);
 
         //Assert
 

@@ -497,10 +497,10 @@ class RoomTest {
         d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        List<Device> expectedResult = new ArrayList<>();
-        expectedResult.add(d2);
-        expectedResult.add(d3);
-        List<Device> result = r1.getDevicesOfGivenType("WaterHeater");
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.addDevice(d2);
+        expectedResult.addDevice(d3);
+        DeviceList result = r1.getDevicesOfGivenType("WaterHeater");
         assertEquals(expectedResult, result);
     }
 
@@ -517,8 +517,8 @@ class RoomTest {
         d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
         r1.addDevice(d2);
         r1.addDevice(d3);
-        List<Device> expectedResult = new ArrayList<>();
-        List<Device> result = r1.getDevicesOfGivenType("Fridge");
+        DeviceList expectedResult = new DeviceList();
+        DeviceList result = r1.getDevicesOfGivenType("Fridge");
         assertEquals(expectedResult, result);
     }
 

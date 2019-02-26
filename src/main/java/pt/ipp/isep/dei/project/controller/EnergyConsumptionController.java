@@ -232,7 +232,7 @@ public class EnergyConsumptionController {
      * @param house user house
      * @return returns a list of water heaters from a house
      */
-    public List<Device> getWaterHeaterDeviceList(House house) {
+    public DeviceList getWaterHeaterDeviceList(House house) {
         return house.getDevicesOfGivenType("WaterHeater");
     }
 

@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.*;
@@ -159,11 +160,8 @@ public class House implements Metered {
      */
 
     double getMinDistanceToSensorOfGivenType(String type) {
-        SensorList workingList = this.getMotherArea().getSensorList().getSensorListByType(type);
-        ArrayList<Double> arrayList = new ArrayList<>();
-        for (Sensor sensor : workingList.getListOfSensors()) {
-            arrayList.add(calculateDistanceToSensor(sensor));
-        }
+        SensorList workingList = this.motherArea.getSensorsOfGivenType(type);
+        List<Double> arrayList = workingList.getSensorsDistanceToHouse(this);
         return Collections.min(arrayList);
     }
 
@@ -176,20 +174,20 @@ public class House implements Metered {
      */
     public Sensor getClosestSensorOfGivenType(String sensorType) {
         Sensor sensor;
-        SensorList sensorList = new SensorList();
+        SensorList minDistSensors = new SensorList();
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
-        for (Sensor s : this.getMotherArea().getSensorList().getSensorListByType(sensorType).getListOfSensors()) {
-            if (Double.compare(this.getMinDistanceToSensorOfGivenType(sensorType), s.getDistanceToHouse(this)) == 0) {
-                sensorList.addSensor(s);
-            }
+        SensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
+        if(!sensorsType.isEmpty()){
+            double minDist = this.getMinDistanceToSensorOfGivenType(sensorType);
+            minDistSensors = sensorsType.getSensorsByDistanceToHouse(this, minDist);
         }
-        if (sensorList.isEmpty()) {
+        if (minDistSensors.isEmpty()) {
             return sensorError;
         }
-        if (sensorList.size() >= 2) {
-            sensor = sensorList.getMostRecentlyUsedSensor();
+        if (minDistSensors.size() >= 2) {
+            sensor = minDistSensors.getMostRecentlyUsedSensor();
         } else {
-            sensor = sensorList.get(0);
+            sensor = minDistSensors.get(0);
         }
         return sensor;
     }
@@ -218,12 +216,9 @@ public class House implements Metered {
      * @param deviceType the device type
      * @return the list with all devices of a given type
      */
-    public List<Device> getDevicesOfGivenType(String deviceType) {
-        List<Device> devicesOfGivenType = new ArrayList<>();
-        for (Room r : roomList.getList()) {
-            devicesOfGivenType.addAll(r.getDevicesOfGivenType(deviceType));
-        }
-        return devicesOfGivenType;
+    public DeviceList getDevicesOfGivenType(String deviceType) {
+        DeviceList houseDevices = getHouseDeviceList();
+        return houseDevices.getDevicesOfGivenType(deviceType);
     }
 
     /**
@@ -343,6 +338,14 @@ public class House implements Metered {
      */
     public EnergyGrid getEnergyGridByIndex(int index) {
         return this.energyGridList.get(index);
+    }
+
+    /** This method gets every device in house. To do this, the method
+     * goes through every room in house and gets every device in room.
+     * @return DeviceList with every device in house.
+     * **/
+    public DeviceList getHouseDeviceList(){
+        return this.roomList.getDeviceList();
     }
 
     @Override

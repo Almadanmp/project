@@ -469,10 +469,10 @@ class HouseTest {
         r1.addDevice(d2);
         r1.addDevice(d3);
         house.addRoomToRoomList(r1);
-        List<Device> expectedResult = new ArrayList<>();
-        expectedResult.add(d2);
-        expectedResult.add(d3);
-        List<Device> result = house.getDevicesOfGivenType("WaterHeater");
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.addDevice(d2);
+        expectedResult.addDevice(d3);
+        DeviceList result = house.getDevicesOfGivenType("WaterHeater");
         Assertions.assertEquals(expectedResult, result);
     }
 
