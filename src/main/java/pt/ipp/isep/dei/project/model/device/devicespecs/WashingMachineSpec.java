@@ -35,7 +35,7 @@ public class WashingMachineSpec implements DeviceSpecs {
         if (attributeName == null) {
             return false;
         }
-        if (attributeName == WM_CAPACITY && attributeValue instanceof Double) {
+        if (attributeName.equals(WM_CAPACITY) && attributeValue instanceof Double) {
             this.wMCapacity = (Double) attributeValue;
             return true;
         }
