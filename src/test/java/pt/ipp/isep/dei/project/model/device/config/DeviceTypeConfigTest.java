@@ -58,6 +58,9 @@ public class DeviceTypeConfigTest {
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.LampDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallTowelHeaterDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricConvectionHeaterDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricOilHeaterDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallElectricHeaterDT");
 
         assertEquals(expectedResult, result);
     }
@@ -132,6 +135,10 @@ public class DeviceTypeConfigTest {
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.LampDT");
         expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallTowelHeaterDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricConvectionHeaterDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricOilHeaterDT");
+        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallElectricHeaterDT");
+
 
         assertEquals(expectedResult, result);
     }
