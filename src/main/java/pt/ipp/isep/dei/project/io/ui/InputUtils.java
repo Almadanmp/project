@@ -254,6 +254,22 @@ public class InputUtils {
     }
 
     /**
+     * Method to read a double value from a user.
+     * Will validate input is a double. if it isn't it will print an error message.
+     *
+     * @return value read from user
+     */
+    Double getInputAsDoublePositive() {
+        UtilsUI utils = new UtilsUI();
+        Scanner scanner = new Scanner(System.in);
+        while (!scanner.hasNextDouble() || scanner.nextDouble()<0) {
+            System.out.println(utils.invalidOption);
+            scanner.next();
+        }
+        return scanner.nextDouble();
+    }
+
+    /**
      * Method will read a group of values from user and return a date (year, month, day, hour and
      * minute). It will only accept valid numbers.
      *

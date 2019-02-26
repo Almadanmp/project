@@ -59,10 +59,6 @@ public class ElectricOven implements Device, Metered {
         }
     }
 
-    public boolean isProgrammable() {
-        return true;
-    }
-
     public VariableTimeProgramList getProgramList() throws IncompatibleClassChangeError {
         return this.programList;
     }
