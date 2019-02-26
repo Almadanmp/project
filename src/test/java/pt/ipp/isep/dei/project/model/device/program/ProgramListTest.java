@@ -2,10 +2,6 @@ package pt.ipp.isep.dei.project.model.device.program;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -18,7 +14,7 @@ class ProgramListTest {
         plist.addProgram(program);
         String expectedResult = "---------------\n" + "\n0) Program Name: program, Duration: 2.0, Energy Consumption: 3.0"
                 + "\n---------------\n";
-        String result = plist.buildProgramListString();
+        String result = plist.buildString();
         assertEquals(expectedResult, result);
     }
 
@@ -26,7 +22,7 @@ class ProgramListTest {
      void testBuildProgramListString2() {
         ProgramList plist = new ProgramList();
         String expectedResult = "This device has no programs\n";
-        String result = plist.buildProgramListString();
+        String result = plist.buildString();
         assertEquals(expectedResult, result);
     }
 

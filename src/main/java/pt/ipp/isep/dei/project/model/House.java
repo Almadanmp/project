@@ -105,8 +105,9 @@ public class House implements Metered {
     }
 
     public void setRoomList(RoomList roomList) {
-        if(roomList != null){
-        this.roomList = roomList;}
+        if (roomList != null) {
+            this.roomList = roomList;
+        }
     }
 
     public void setMotherArea(GeographicArea motherArea) {
@@ -180,6 +181,7 @@ public class House implements Metered {
     /**
      * This method returns the sensor closest to the house. If more than one sensor is close to it,
      * the one with the most recent reading should be used.
+     *
      * @param sensorType the type of sensor to check
      * @return the closest sensor.
      */
@@ -210,25 +212,14 @@ public class House implements Metered {
      * @return string with energy grid list
      */
     public String buildGridListString() {
-        String mStringEnhancer = "---------------\n";
-        StringBuilder result = new StringBuilder(mStringEnhancer);
-        if (this.energyGridList.isEmpty()) {
-            return "Invalid List - List is Empty\n";
-        }
-        for (int i = 0; i < this.energyGridList.size(); i++) {
-            EnergyGrid aux = this.energyGridList.get(i);
-            result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
-            result.append("Max Power: ").append(aux.getMaxContractedPower()).append("\n");
-        }
-        result.append(mStringEnhancer);
-        return result.toString();
+        return this.energyGridList.buildString();
     }
 
     /**
      * @return builds a string from the House's room list.
      */
     public String buildRoomListString() {
-        return this.roomList.buildRoomsString();
+        return this.roomList.buildString();
     }
 
 
@@ -246,13 +237,19 @@ public class House implements Metered {
         return devicesOfGivenType;
     }
 
-    public String buildTypeListString(List<DeviceType> list) {
+    /**
+     * this method builds a String for the deviceTypes available in the house
+     *
+     * @return string with device types
+     */
+
+    public String buildString() {
         StringBuilder result = new StringBuilder(new StringBuilder());
-        if (list.isEmpty()) {
+        if (deviceTypeList.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < list.size(); i++) {
-            result.append(i).append(") DeviceType: ").append(list.get(i).getDeviceType()).append("\n");
+        for (int i = 0; i < deviceTypeList.size(); i++) {
+            result.append(i).append(") DeviceType: ").append(deviceTypeList.get(i).getDeviceType()).append("\n");
         }
         return result.toString();
     }
@@ -281,11 +278,12 @@ public class House implements Metered {
      * This method receives room parameters, checks if room exists in house and
      * returns room with same designation in case it does. In case the room does not
      * exit, a new room will be created and returned.
+     *
      * @param roomDesignation the designation of the room.
-     * @param roomHouseFloor the floor of the room.
-     * @param width the width of the room.
-     * @param height the height of the room.
-     * @param length the length of the room.
+     * @param roomHouseFloor  the floor of the room.
+     * @param width           the width of the room.
+     * @param height          the height of the room.
+     * @param length          the length of the room.
      * @return room with characteristics given as parameters
      **/
     public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
@@ -350,6 +348,7 @@ public class House implements Metered {
 
     /**
      * This method receives an index as parameter and gets energy grid from house's energy grid list.
+     *
      * @param index the index of the Energy Grid
      * @return returns Energy grid that corresponds to index.
      */

@@ -16,7 +16,7 @@ public class GASettingsController {
      */
 
     public String buildGATypeListString(TypeAreaList typeAreaList) {
-        return typeAreaList.buildGATypeWholeListString(typeAreaList);
+        return typeAreaList.buildString();
     }
 
     /**
@@ -25,7 +25,7 @@ public class GASettingsController {
      */
 
     public String buildGAListString(GeographicAreaList geoAreaList) {
-        return geoAreaList.toString();
+        return geoAreaList.buildString();
     }
 
 
@@ -53,7 +53,7 @@ public class GASettingsController {
      */
 
     public String getTypeAreaList(TypeAreaList typeAreaList) {
-        return typeAreaList.buildGATypeWholeListString(typeAreaList);
+        return typeAreaList.buildString();
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */

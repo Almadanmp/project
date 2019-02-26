@@ -32,7 +32,7 @@ public class WaterHeaterTest {
         Device d = new WaterHeater(new WaterHeaterSpec());
         d.setName("WaterHeater 3000");
         d.setNominalPower(150.0);
-        String result = d.buildDeviceString();
+        String result = d.buildString();
         String expectedResult = "The device Name is WaterHeater 3000, and its NominalPower is 150.0 kW.\n";
         assertEquals(expectedResult, result);
     }

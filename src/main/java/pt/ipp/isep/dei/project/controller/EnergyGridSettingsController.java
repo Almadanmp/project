@@ -21,7 +21,7 @@ public class EnergyGridSettingsController {
         if (roomList == null) {
             return "The Room List wasn't properly initialized. Please try again.";
         }
-        return roomList.buildRoomsString();
+        return roomList.buildString();
     }
 
 

@@ -10,7 +10,7 @@ public interface DeviceProgram {
      * device.
      */
 
-    String buildProgramString();
+    String buildString();
 
     void setProgramName(String name);
 

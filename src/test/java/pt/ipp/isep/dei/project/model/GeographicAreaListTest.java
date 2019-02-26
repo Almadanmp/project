@@ -184,7 +184,7 @@ class GeographicAreaListTest {
 
         // Act
 
-        String result = validList.toString();
+        String result = validList.buildString();
 
         // Assert
 
@@ -200,7 +200,7 @@ class GeographicAreaListTest {
 
         // Act
 
-        String actualResult = testList.toString();
+        String actualResult = testList.buildString();
 
         // Assert
 

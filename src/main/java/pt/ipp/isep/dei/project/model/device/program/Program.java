@@ -23,7 +23,7 @@ public class Program implements DeviceProgram {
         setEnergyConsumption(energyConsumption);
     }
 
-    public String buildProgramString() {
+    public String buildString() {
         String result;
         result = "- The Program Name is " + getProgramName() + ", its Duration is " +
                 getDuration() + " hours and its Energy Consumption is " + getEnergyConsumption() + ".\n";

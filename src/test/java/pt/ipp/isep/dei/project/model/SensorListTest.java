@@ -219,7 +219,7 @@ class SensorListTest {
                 "---------------\n";
 
         //Act
-        String actualResult = validSensorList1.buildSensorWholeListString(validSensorList1);
+        String actualResult = validSensorList1.buildString();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -231,7 +231,7 @@ class SensorListTest {
         String expectedResult = "Invalid List - List is Empty\n";
 
         //Act
-        String actualResult = validSensorList1.buildSensorWholeListString(validSensorList1);
+        String actualResult = validSensorList1.buildString();
 
         //Assert
         assertEquals(expectedResult, actualResult);

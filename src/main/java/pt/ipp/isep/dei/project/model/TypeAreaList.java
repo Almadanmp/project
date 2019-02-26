@@ -50,13 +50,15 @@ public class TypeAreaList {
     /**
      * This method builds a string of all the individual members of the geoAreaType list.
      *
-     * @param typeAreaList is a list of all the types a Geographical Area may have.
      * @return builds a string of all the individual members of the geoAreaType list.
      */
-    public String buildGATypeWholeListString(TypeAreaList typeAreaList) {
+    public String buildString() {
         StringBuilder result = new StringBuilder("---------------\n");
-        for (int i = 0; i < typeAreaList.size(); i++) {
-            TypeArea aux = typeAreaList.get(i);
+        if (typeAreas.isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < typeAreas.size(); i++) {
+            TypeArea aux = typeAreas.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" \n");
         }
         result.append("---------------\n");

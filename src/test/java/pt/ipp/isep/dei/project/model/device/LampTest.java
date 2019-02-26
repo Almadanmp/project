@@ -93,7 +93,7 @@ import static org.testng.Assert.assertTrue;
         d1.setAttributeValue(LampSpec.FLUX, 2D);
         d1.setName("frigo");
         d1.setNominalPower(150.0);
-        String result = d1.buildDeviceString();
+        String result = d1.buildString();
         String expectedResult = "The device Name is frigo, and its NominalPower is 150.0 kW.\n";
         assertEquals(expectedResult, result);
     }

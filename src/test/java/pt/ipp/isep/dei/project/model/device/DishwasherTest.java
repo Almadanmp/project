@@ -96,7 +96,7 @@ public class DishwasherTest {
         Dishwasher d = new Dishwasher(new DishwasherSpec());
         d.setName("dishwasher 3000");
         d.setNominalPower(150.0);
-        String result = d.buildDeviceString();
+        String result = d.buildString();
         String expectedResult = "The device Name is dishwasher 3000, and its NominalPower is 150.0 kW.\n";
         assertEquals(expectedResult, result);
     }

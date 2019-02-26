@@ -686,7 +686,7 @@ class SensorTest {
         String expectedResult = validName1 + ", Temperature, 38.0º lat, 7.0º long\n";
 
         //Act
-        String result = s1.buildSensorString();
+        String result = s1.buildString();
 
         //Assert
         Assertions.assertEquals(expectedResult, result);

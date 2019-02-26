@@ -21,7 +21,7 @@ public class ProgramList {
      *
      * @return a string with all the programs
      */
-    public String buildProgramListString() {
+    public String buildString() {
         StringBuilder result = new StringBuilder("---------------\n");
         if (this.isEmpty()) {
             return "This device has no programs\n";

@@ -77,7 +77,7 @@ public class RoomList {
      *
      * @return a String of the Rooms in the RoomList.
      */
-    public String buildRoomsString() {
+    public String buildString() {
         StringBuilder result = new StringBuilder("---------------\n");
         if (this.isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -198,6 +198,7 @@ public class RoomList {
 
     /**
      * This method receives an index as parameter and gets a room from room list.
+     *
      * @param index the index of the room
      * @return returns room that corresponds to index.
      */
@@ -221,7 +222,7 @@ public class RoomList {
      **/
     int getNumberOfDevices() {
         int sum = 0;
-        for(Room r: rooms){
+        for (Room r : rooms) {
             sum = sum + r.getDeviceListSize();
         }
         return sum;

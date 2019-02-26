@@ -80,7 +80,7 @@ class TypeAreaListTest {
                 "2) Name: aldeia \n" +
                 "---------------\n";
         String result;
-        result = list.buildGATypeWholeListString(list);
+        result = list.buildString();
         assertEquals(expectedResult, result);
     }
 

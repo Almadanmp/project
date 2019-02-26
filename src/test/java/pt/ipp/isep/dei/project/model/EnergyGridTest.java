@@ -60,7 +60,7 @@ class EnergyGridTest {
 
         // Act
 
-        String actualResult = validGrid.buildGridString();
+        String actualResult = validGrid.buildString();
 
         // Assert
 
@@ -77,7 +77,7 @@ class EnergyGridTest {
 
         // Act
 
-        String actualResult = validGrid.getRoomList().buildRoomsString();
+        String actualResult = validGrid.getRoomList().buildString();
 
         // Assert
 
@@ -265,7 +265,9 @@ class EnergyGridTest {
     void seeIfPrintDevicesWorks() {
         // Arrange
 
-        String expectedResult = "0) The device Name is null, and its NominalPower is 20.0 kW.\n";
+        String expectedResult = "---------------\n" +
+                "0) device Name: null, device Type: Fridge, device Nominal Power: 20.0\n" +
+                "---------------\n";
 
         // Act
 

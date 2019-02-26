@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import java.text.ParseException;
@@ -72,7 +71,6 @@ class RoomTest {
         room.removeDevice(device1);
         String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
-                "\n" +
                 "0) device Name: waterheater, device Type: WaterHeater, device Nominal Power: 150.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
@@ -92,7 +90,6 @@ class RoomTest {
         room.addDevice(d1);
         String result = room.buildDeviceListString();
         String expectedResult = "---------------\n" +
-                "\n" +
                 "0) device Name: frigorifico, device Type: Fridge, device Nominal Power: 230.0\n" +
                 "---------------\n";
         assertEquals(expectedResult, result);
@@ -257,7 +254,7 @@ class RoomTest {
     @Test
     void seeIfPrintRoomWorks() {
         Room room = new Room("room1", 1, 1, 2, 2);
-        String result = room.buildRoomString();
+        String result = room.buildString();
         assertEquals("room1, 1, 1.0, 2.0, 2.0.\n", result);
     }
 

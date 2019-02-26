@@ -214,7 +214,7 @@ class GeographicAreaTest {
 
         // Act
 
-        String actualResult = validArea.buildGeographicAreaString();
+        String actualResult = validArea.buildString();
 
         // Assert
 

@@ -46,7 +46,7 @@ public class ProgramTest {
     @Test
     void seeIfPrintRoomWorks() {
         Program program = new Program("programa1", 12, 12);
-        String result = program.buildProgramString();
+        String result = program.buildString();
         String expected = "- The Program Name is programa1, its Duration is 12.0 hours and its" +
                 " Energy Consumption is 12.0.\n";
         assertEquals(expected, result);

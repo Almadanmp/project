@@ -875,7 +875,7 @@ class HouseTest {
         List<DeviceType> dtList = new ArrayList<>();
         dtList.add(new WaterHeaterDT());
         String expectedResult = "0) DeviceType: WaterHeater\n";
-        String result = house.buildTypeListString(dtList);
+        String result = house.buildString();
         assertEquals(expectedResult, result);
     }
 
@@ -883,12 +883,10 @@ class HouseTest {
     void buildTypeListStringEmpty() {
         GeographicArea ga = new GeographicArea("Portugal", new TypeArea("cidade"), 10, 20, new Local(16, 17, 18));
         List<String> test = new ArrayList<>();
-        test.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 5, 50), ga, 60, 180, test);
-        List<DeviceType> dtList = new ArrayList<>();
         String expectedResult = "Invalid List - List is Empty\n";
-        String result = house.buildTypeListString(dtList);
+        String result = house.buildString();
         assertEquals(expectedResult, result);
     }
 

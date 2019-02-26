@@ -116,8 +116,11 @@ public class EnergyGrid implements Metered {
      *
      * @return returns a string displaying the name of the grid and respective max nominal power.
      */
-    public String buildGridString() {
-        return "Energy Grid: " + this.name + ", Max Power: " + this.getMaxContractedPower();
+    public String buildString() {
+        String result;
+        result = "Energy Grid: " + this.name + ", Max Power: " + this.getMaxContractedPower();
+        return result;
+
     }
 
     /**
@@ -179,7 +182,7 @@ public class EnergyGrid implements Metered {
      * @return returns a string displaying the name of the devices in the energy grid.
      */
     public String buildDeviceListString() {
-        return this.getDeviceList().buildDevicesString();
+        return this.getDeviceList().buildString();
     }
 
     /**
@@ -188,7 +191,7 @@ public class EnergyGrid implements Metered {
      * @return returns a string displaying the rooms in the energy grid and the room's attributes.
      */
     public String buildRoomListString() {
-        return this.roomList.buildRoomsString();
+        return this.roomList.buildString();
     }
 
 

@@ -34,7 +34,7 @@ public class InputUtils {
             if (aux >= 0 && aux < geographicAreaList.size()) {
                 GeographicArea result = geographicAreaList.get(aux);
                 System.out.println("You have chosen the following geographic area: ");
-                System.out.println(result.buildGeographicAreaString() + "\n");
+                System.out.println(result.buildString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -52,7 +52,7 @@ public class InputUtils {
             if (aux >= 0 && aux < house.roomListSize()) {
                 Room result = house.getRoomByIndex(aux);
                 System.out.println("You have chosen the following room: ");
-                System.out.println(result.buildRoomString() + "\n");
+                System.out.println(result.buildString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -70,7 +70,7 @@ public class InputUtils {
             if (aux >= 0 && aux < grid.roomListSize()) {
                 Room result = grid.getRoom(aux);
                 System.out.println("You have chosen the following room: ");
-                System.out.println(result.buildRoomString() + "\n");
+                System.out.println(result.buildString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -88,7 +88,7 @@ public class InputUtils {
             if (aux >= 0 && aux < grid.getNumberOfDevices()) {
                 Device result = grid.getDeviceByIndex(aux);
                 System.out.println("You have chosen the following device: ");
-                System.out.println(result.buildDeviceString() + "\n");
+                System.out.println(result.buildString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -102,12 +102,12 @@ public class InputUtils {
         while (true) {
             ProgramList deviceProgramList = device.getProgramList();
             System.out.println("Please select one of the existing program in the selected program List: ");
-            System.out.println(deviceProgramList.buildProgramListString());
+            System.out.println(deviceProgramList.buildString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < deviceProgramList.size()) {
                 Program result = deviceProgramList.get(aux);
                 System.out.println("You have chosen the following program: ");
-                System.out.println(result.buildProgramString() + "\n");
+                System.out.println(result.buildString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -125,7 +125,7 @@ public class InputUtils {
             if (aux >= 0 && aux < room.getDeviceListSize()) {
                 Device result = room.getDeviceByIndex(aux);
                 System.out.println("You have chosen the following device:");
-                System.out.println(result.buildDeviceString() + "\n");
+                System.out.println(result.buildString() + "\n");
                 return result;
             } else {
                 System.out.println(utils.invalidOption);
@@ -143,7 +143,7 @@ public class InputUtils {
             if (aux >= 0 && aux < house.energyGridListSize()) {
                 EnergyGrid result = house.getEnergyGridByIndex(aux);
                 System.out.println("You have chosen the following grid:");
-                System.out.println(result.buildGridString() + "\n");
+                System.out.println(result.buildString() + "\n");
                 return result;
             } else {
                 System.out.println(utilsUI.invalidOption);
@@ -176,7 +176,7 @@ public class InputUtils {
         List<DeviceType> deviceTypeList = house.getDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device types: ");
-            System.out.println(house.buildTypeListString(deviceTypeList));
+            System.out.println(house.buildString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < house.deviceTypeListSize()) {
                 DeviceType result = deviceTypeList.get(aux);
@@ -191,7 +191,7 @@ public class InputUtils {
     }
 
     boolean yesOrNo(String question) {
-        String answer= "";
+        String answer = "";
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
         while (!("y".equalsIgnoreCase(answer)) && !("n".equalsIgnoreCase(answer))) {

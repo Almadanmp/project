@@ -104,7 +104,7 @@ class RoomListTest {
     @Test
     void seeIfPrintInvalidRoomsWorks() {
         RoomList roomList = new RoomList();
-        String result = roomList.buildRoomsString();
+        String result = roomList.buildString();
         Assert.assertEquals("Invalid List - List is Empty\n", result);
     }
 

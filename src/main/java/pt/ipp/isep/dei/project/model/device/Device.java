@@ -48,7 +48,7 @@ public interface Device {
      *
      * @return String
      */
-    String buildDeviceString();
+    String buildString();
 
 
     /* LOG RELATED METHODS */

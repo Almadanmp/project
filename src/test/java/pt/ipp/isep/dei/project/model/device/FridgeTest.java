@@ -94,7 +94,7 @@ class FridgeTest {
         Fridge d = new Fridge(new FridgeSpec());
         d.setName("Fridge 3000");
         d.setNominalPower(150.0);
-        String result = d.buildDeviceString();
+        String result = d.buildString();
         String expectedResult = "The device Name is Fridge 3000, and its NominalPower is 150.0 kW.\n";
         assertEquals(expectedResult, result);
     }

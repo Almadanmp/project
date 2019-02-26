@@ -120,15 +120,7 @@ public class Room implements Metered {
      */
 
     public String buildDeviceListString() {
-        StringBuilder result = new StringBuilder("---------------\n");
-        for (int i = 0; i < this.getDeviceListSize(); i++) {
-            Device device = this.getDeviceList().get(i);
-            result.append("\n").append(i).append(") device Name: ").append(device.getName());
-            result.append(", device Type: ").append(device.getType());
-            result.append(", device Nominal Power: ").append(device.getNominalPower());
-        }
-        result.append("\n---------------\n");
-        return result.toString();
+        return deviceList.buildString();
     }
 
     /**
@@ -256,7 +248,7 @@ public class Room implements Metered {
      *
      * @return a String that represents the Room Specifications.
      */
-    public String buildRoomString() {
+    public String buildString() {
         String result;
         result = this.roomName + ", " + this.getHouseFloor() + ", " +
                 this.getRoomWidth() + ", " + this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";

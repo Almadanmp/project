@@ -324,9 +324,11 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 35D);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d1);
-        String expectedResult = "0) The device Name is Fridge, and its NominalPower is 21.0 kW.\n";
+        String expectedResult = "---------------\n" +
+                "0) device Name: Fridge, device Type: Fridge, device Nominal Power: 21.0\n" +
+                "---------------\n";
 
-        String actualResult = deviceList.buildDevicesString();
+        String actualResult = deviceList.buildString();
 
         assertEquals(expectedResult, actualResult);
     }
@@ -340,7 +342,7 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
         Device d2 = new Fridge(new FridgeSpec());
-        d2.setName("Frnidge");
+        d2.setName("Fridge2");
         d2.setNominalPower(21.0);
         d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
@@ -348,10 +350,12 @@ class DeviceListTest {
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(d2);
         deviceList.addDevice(d1);
-        String expectedResult = "0) The device Name is Frnidge, and its NominalPower is 21.0 kW.\n" +
-                "1) The device Name is Fridge, and its NominalPower is 21.0 kW.\n";
+        String expectedResult = "---------------\n" +
+                "0) device Name: Fridge2, device Type: Fridge, device Nominal Power: 21.0\n" +
+                "1) device Name: Fridge, device Type: Fridge, device Nominal Power: 21.0\n" +
+                "---------------\n";
 
-        String actualResult = deviceList.buildDevicesString();
+        String actualResult = deviceList.buildString();
 
         assertEquals(expectedResult, actualResult);
     }

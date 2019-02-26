@@ -32,7 +32,7 @@ public class VariableProgram implements DeviceProgram {
         return this.programNominalPower;
     }
 
-    public String buildProgramString() {
+    public String buildString() {
         String result;
         result = "- The Program Name is " + getProgramName() + ", its Nomimal Power is " +
                 getNominalPower() + " kW.\n";

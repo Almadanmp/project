@@ -86,7 +86,7 @@ public class SensorSettingsController {
      * @return String with sensor parameters
      **/
     public String buildSensorString(Sensor sensor) {
-        return sensor.buildSensorString();
+        return sensor.buildString();
     }
 
     public Sensor createRoomSensor(String name, TypeSensor type, Date date) {

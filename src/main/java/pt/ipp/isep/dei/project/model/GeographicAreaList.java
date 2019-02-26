@@ -52,8 +52,8 @@ public class GeographicAreaList {
      * @return a string with the names of the geographic areas
      */
 
-    @Override
-    public String toString() {
+
+    public String buildString() {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
         if (this.isEmpty()) {

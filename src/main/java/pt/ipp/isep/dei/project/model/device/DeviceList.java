@@ -93,13 +93,15 @@ public class DeviceList {
      *
      * @return a String of Devices from the List.
      */
-    public String buildDevicesString() {
-        int counter = 0;
-        StringBuilder result = new StringBuilder();
-        for (Device d : this.devices) {
-            result.append(counter).append(") ").append(d.buildDeviceString());
-            counter++;
+    public String buildString() {
+        StringBuilder result = new StringBuilder("---------------\n");
+        for (int i = 0; i < devices.size(); i++) {
+            Device device = devices.get(i);
+            result.append(i).append(") device Name: ").append(device.getName());
+            result.append(", device Type: ").append(device.getType());
+            result.append(", device Nominal Power: ").append(device.getNominalPower()).append("\n");
         }
+        result.append("---------------\n");
         return result.toString();
     }
 

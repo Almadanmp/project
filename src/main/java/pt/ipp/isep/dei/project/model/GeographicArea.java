@@ -133,7 +133,7 @@ public class GeographicArea {
      * @return returns a string with Geographic Area Parameters
      */
 
-    public String buildGeographicAreaString() {
+    public String buildString() {
         String result;
         result = this.id + ", " + this.typeArea.getName() + ", " +
                 this.location.getLatitude() + "º lat, " + this.location.getLongitude() + "º long\n";

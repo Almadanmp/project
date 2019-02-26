@@ -138,7 +138,6 @@ class RoomConfigurationControllerTest {
         // Arrange
 
         String expectedResult = "---------------\n" +
-                "\n" +
                 "0) device Name: null, device Type: Fridge, device Nominal Power: 25.0\n" +
                 "---------------\n";
 
@@ -269,7 +268,6 @@ class RoomConfigurationControllerTest {
 
         controller.addDevice(validRoomNoDevices, validDeviceFridge);
         String expectedResult = "---------------\n" +
-                "\n" +
                 "0) device Name: null, device Type: Fridge, device Nominal Power: 25.0\n" +
                 "---------------\n";
 
@@ -329,7 +327,7 @@ class RoomConfigurationControllerTest {
         // Act
 
         controller.addProgramToProgramList(programList, program);
-        String actualResult = programList.buildProgramListString();
+        String actualResult = programList.buildString();
 
         // Assert
 
