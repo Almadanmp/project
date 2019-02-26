@@ -3,62 +3,46 @@ package pt.ipp.isep.dei.project.model.device;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WallTowelHeaterSpec;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
-public class WallTowelHeater implements Device, Metered {
-    private String name;
-    private double nominalPower;
-    private WallTowelHeaterSpec deviceSpecs;
-    private boolean active;
-    private LogList logList;
+public class WallElectricHeater implements Device, Metered {
 
-    public WallTowelHeater(WallTowelHeaterSpec wallTowelHeaterSpec) {
-        this.deviceSpecs = wallTowelHeaterSpec;
-        this.active = true;
-        logList = new LogList();
+    public WallElectricHeater() {
     }
 
     public String getName() {
-        return this.name;
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     public void setName(String name) {
-        this.name = name;
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     public String getType() {
-        return "WallTowelHeater";
+        return "WallElectricHeater";
     }
 
     public void setNominalPower(double nominalPower) {
-        this.nominalPower = nominalPower;
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     public double getNominalPower() {
-        return this.nominalPower;
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     public boolean isActive() {
-        return this.active;
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     public boolean deactivate() {
-        if (isActive()) {
-            this.active = false;
-            return true;
-        } else {
-            return false;
-        }
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
+
     public String buildString() {
-        String result;
-        result = "The device name is " + this.name + ", and its nominal power is " + this.nominalPower + " kW.\n";
-        return result;
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     /**
@@ -67,15 +51,16 @@ public class WallTowelHeater implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return logList;
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     /**
      * Method checks if device LogList is empty
+     *
      * @return true if LogList is empty, false otherwise
-     * */
-    public boolean isLogListEmpty(){
-        return this.logList.isEmpty();
+     */
+    public boolean isLogListEmpty() {
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     /**
@@ -85,12 +70,7 @@ public class WallTowelHeater implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(logList.contains(log)) && this.active) {
-            logList.addLog(log);
-            return true;
-        } else {
-            return false;
-        }
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     /**
@@ -101,11 +81,11 @@ public class WallTowelHeater implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return logList.countLogsInInterval(initialTime, finalTime);
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return logList.getLogsInInterval(startDate, endDate);
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     /**
@@ -116,7 +96,7 @@ public class WallTowelHeater implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     /**
@@ -126,37 +106,25 @@ public class WallTowelHeater implements Device, Metered {
      * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
-        return nominalPower * time;
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return deviceSpecs.getAttributeNames();
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     public Object getAttributeValue(String attributeName) {
-        return deviceSpecs.getAttributeValue(attributeName);
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return deviceSpecs.setAttributeValue(attributeName, attributeValue);
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return deviceSpecs.getAttributeUnit(attributeName);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Device device = (Device) o;
-        return Objects.equals(name, device.getName());
+        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
 
     @Override

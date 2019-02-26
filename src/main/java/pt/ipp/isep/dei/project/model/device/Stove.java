@@ -1,24 +1,30 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
+import pt.ipp.isep.dei.project.model.device.devicespecs.StoveSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WallTowelHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.program.ProgramList;
+import pt.ipp.isep.dei.project.model.device.program.Programmable;
+import pt.ipp.isep.dei.project.model.device.program.VariableTimeProgram;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class WallTowelHeater implements Device, Metered {
+public class Stove implements Device, Metered, Programmable {
     private String name;
     private double nominalPower;
-    private WallTowelHeaterSpec deviceSpecs;
+    private StoveSpec deviceSpecs;
     private boolean active;
+    private ProgramList programList;
     private LogList logList;
 
-    public WallTowelHeater(WallTowelHeaterSpec wallTowelHeaterSpec) {
-        this.deviceSpecs = wallTowelHeaterSpec;
+
+    public Stove(StoveSpec stoveSpec) {
+        this.deviceSpecs = stoveSpec;
         this.active = true;
+        programList = new ProgramList();
         logList = new LogList();
     }
 
@@ -31,7 +37,7 @@ public class WallTowelHeater implements Device, Metered {
     }
 
     public String getType() {
-        return "WallTowelHeater";
+        return "Stove";
     }
 
     public void setNominalPower(double nominalPower) {
@@ -55,9 +61,14 @@ public class WallTowelHeater implements Device, Metered {
         }
     }
 
+
+    public ProgramList getProgramList() throws IncompatibleClassChangeError {
+        return this.programList;
+    }
+
     public String buildString() {
         String result;
-        result = "The device name is " + this.name + ", and its nominal power is " + this.nominalPower + " kW.\n";
+        result = "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
         return result;
     }
 
@@ -72,9 +83,10 @@ public class WallTowelHeater implements Device, Metered {
 
     /**
      * Method checks if device LogList is empty
+     *
      * @return true if LogList is empty, false otherwise
-     * */
-    public boolean isLogListEmpty(){
+     */
+    public boolean isLogListEmpty() {
         return this.logList.isEmpty();
     }
 
@@ -85,8 +97,8 @@ public class WallTowelHeater implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(logList.contains(log)) && this.active) {
-            logList.addLog(log);
+        if (!(logList.getLogListAttribute().contains(log)) && this.active) {
+            logList.getLogListAttribute().add(log);
             return true;
         } else {
             return false;
@@ -120,7 +132,7 @@ public class WallTowelHeater implements Device, Metered {
     }
 
     /**
-     * Energy consumption = Nominal power * time (Wh)
+     * Energy consumption = energy consumption of the program (kWh)
      *
      * @param time the desired time
      * @return the energy consumed in the given time
@@ -129,8 +141,20 @@ public class WallTowelHeater implements Device, Metered {
         return nominalPower * time;
     }
 
+    /**
+     * Energy consumption = energy consumption in a program for a defined period of time (kWh)
+     *
+     * @param time    the desired time
+     * @param program the desired program
+     * @return the energy consumed in the given time
+     */
+    public double getProgramConsumption(float time, VariableTimeProgram program) {
+        return program.getNominalPower() * time;
+    }
+
 
     // WRAPPER METHODS TO DEVICE SPECS
+
     public List<String> getAttributeNames() {
         return deviceSpecs.getAttributeNames();
     }
@@ -165,3 +189,4 @@ public class WallTowelHeater implements Device, Metered {
     }
 
 }
+
