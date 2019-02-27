@@ -3,9 +3,6 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,14 +17,12 @@ class ReadingTest {
     private Date earlyDate;
     private Date lateDate;
     private Reading firstValidReading;
-    private Reading secondValidReading;
 
     @BeforeEach
     void arrangeArtifacts() {
         earlyDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
         lateDate = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
         firstValidReading = new Reading(31, earlyDate);
-        secondValidReading = new Reading(-5, lateDate);
     }
 
     @Test
