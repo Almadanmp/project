@@ -109,7 +109,7 @@ class LogListTest {
     }
 
     @Test
-    void addLogList() {
+    void addEmptyLogList() {
         //Act
 
         boolean actualResult = validLogList2.addLogList(validLogList1);
@@ -120,7 +120,7 @@ class LogListTest {
     }
 
     @Test
-    void addLogList1() {
+    void addSameEmptyLogList() {
         //Act
 
         boolean actualResult = validLogList2.addLogList(validLogList2);
@@ -131,7 +131,7 @@ class LogListTest {
     }
 
     @Test
-    void addLogList2() {
+    void addLogListWithLog() {
         //Act
 
         boolean actualResult = validLogList1.addLogList(validLogList2);

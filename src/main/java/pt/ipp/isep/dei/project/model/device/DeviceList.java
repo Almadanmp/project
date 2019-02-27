@@ -19,9 +19,9 @@ public class DeviceList {
         this.devices = new ArrayList<>();
     }
 
-    /**
-     * ESTE MÉTODO É PARA SER APAGADO. NÃO USAR! ENCAPSULAR!
-     */
+    /*******************************************************************
+     ***** ESTE MÉTODO É PARA SER APAGADO. NÃO USAR! ENCAPSULAR! *******
+     *******************************************************************/
     public List<Device> getList() {
         return this.devices;
     }
