@@ -487,13 +487,7 @@ class ReadingListTest {
     void seeIfGetsFirstSecondOfDay() {
         // Arrange
 
-        Date expectedResult = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        try {
-            expectedResult = sdf.parse("02/10/2018 00:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date expectedResult = new GregorianCalendar(2018, Calendar.OCTOBER, 2).getTime();
 
         // Assert
 
