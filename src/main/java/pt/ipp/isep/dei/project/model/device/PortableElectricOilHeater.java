@@ -126,10 +126,4 @@ public class PortableElectricOilHeater implements Device, Metered {
     public Object getAttributeUnit(String attributeName) {
         throw new UnsupportedOperationException("At the moment, this operation is not supported.");
     }
-
-    @Override
-    public int hashCode() {
-        return 1;
-    }
-
 }
