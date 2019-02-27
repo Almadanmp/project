@@ -250,6 +250,50 @@ class ElectricOvenTest {
         assertFalse(electricOvenValid.addLog(validLog));
         assertFalse(electricOvenValid.isLogListEmpty());
     }
+
+
+    @Test
+    void getLogListEmpty() {
+        electricOvenValid.addLog(validLog1);
+        electricOvenValid.addLog(validLog2);
+        LogList actualResult =electricOvenValid.getLogList();
+        assertEquals(validLogList, actualResult);
+    }
+
+    @Test
+    void addLogToInactive() {
+        this.electricOvenValid.deactivate();
+        boolean result = this.electricOvenValid.addLog(validLog);
+        assertFalse(result);
+    }
+
+    @Test
+    void addLogTrue() {
+        boolean result = electricOvenValid.addLog(validLog);
+        assertTrue(result);
+    }
+
+    @Test
+    void addLogFalse() {
+        electricOvenValid.addLog(validLog);
+        boolean result = electricOvenValid.addLog(validLog);
+        assertFalse(result);
+    }
+
+
+    @Test
+    void isLogListEmptyTrue() {
+        boolean result = electricOvenValid.isLogListEmpty();
+        assertTrue(result);
+    }
+
+    @Test
+    void isLogListEmptyFalse() {
+        electricOvenValid.addLog(validLog1);
+        electricOvenValid.addLog(validLog2);
+        boolean result = electricOvenValid.isLogListEmpty();
+        assertFalse(result);
+    }
 }
 
 

@@ -105,7 +105,7 @@ public class InputUtils {
             System.out.println(deviceProgramList.buildString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < deviceProgramList.size()) {
-                FixedTimeProgram result = (FixedTimeProgram)deviceProgramList.get(aux);
+                FixedTimeProgram result = (FixedTimeProgram) deviceProgramList.get(aux);
                 System.out.println("You have chosen the following program: ");
                 System.out.println(result.buildString() + "\n");
                 return result;
