@@ -33,6 +33,16 @@ public class HouseConfigurationController {
         house.setLocation(latitude, longitude, altitude);
     }
 
+    /**
+     * @param house is the house we want to get the name from.
+     * @return is the name of the given house.
+     */
+
+    public String getHouseName(House house) {
+        return house.getHouseId();
+    }
+
+
     /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
      house floor and dimensions) */
 
@@ -49,13 +59,12 @@ public class HouseConfigurationController {
         return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
     }
 
-    /**
-     * @param house is the house we want to get the name from.
-     * @return is the name of the given house.
-     */
-
-    public String getHouseName(House house) {
-        return house.getHouseId();
+    /** The method receives a house and a room and tries to add the room to house.
+     *
+     * @return true if room was added, false otherwise.
+     * **/
+    public boolean addRoomToHouse(House house, Room room){
+        return house.addRoom(room);
     }
 
 

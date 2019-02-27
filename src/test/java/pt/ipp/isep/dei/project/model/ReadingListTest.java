@@ -322,9 +322,7 @@ class ReadingListTest {
         ReadingList rList = new ReadingList();
         //Act
         //Assert
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            rList.getAverageReadingsBetweenDates(validDate4, dateToTest2);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> rList.getAverageReadingsBetweenDates(validDate4, dateToTest2));
     }
 
     @Test
@@ -396,11 +394,9 @@ class ReadingListTest {
         //Arrange
         ReadingList rl = new ReadingList();
         //Act
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            rl.getTotalValueOfReadingOnGivenDay(validDate13);
-        });
+        Throwable exception = assertThrows(IllegalStateException.class, () -> rl.getTotalValueOfReadingOnGivenDay(validDate13));
         //Assert
-        assertEquals("Warning: Total value was not calculated - no readings were available.", exception.getMessage());
+        assertEquals("Warning: Total value was not calculated - No readings were available.", exception.getMessage());
     }
 
     @Test

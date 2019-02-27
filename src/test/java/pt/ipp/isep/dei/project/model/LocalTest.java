@@ -20,54 +20,52 @@ class LocalTest {
 
     @Test
     void seeIfGetLatitudeWorks() {
-        //Arrange
+        // Arrange
 
         double expectedResult = 30;
 
-        //Act
+        // Act
 
         double actualResult = validLocal.getLatitude();
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult, 0.001);
     }
 
     @Test
     void seeIfGetLongitudeWorks() {
-        //Arrange
+        // Arrange
 
         double expectedResult = -8.6109900;
 
-        //Act
+        // Act
 
         double actualResult = validLocal.getLongitude();
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult, 0.001);
     }
 
     @Test
     void seeIfSetGetAltitudeWorks() {
-        //Arrange
+        // Arrange
 
         double expectedResult = 12;
 
-        //Act
+        // Act
 
         validLocal.setAltitude(12);
         double actualResult = validLocal.getAltitude();
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult, 0.001);
     }
 
     @Test
     void seeIfEqualsWorksSameObject() {
-        //Arrange
-
         //Act
 
         boolean actualResult = validLocal.equals(validLocal); // Necessary for Sonarqube coverage purposes.
@@ -79,158 +77,156 @@ class LocalTest {
 
     @Test
     void seeIfEqualsWorksNotInstance() {
-        //Arrange
+        // Arrange
 
         TypeSensor t1 = new TypeSensor("Temperature", "Celsius");
 
-        //Act
+        // Act
 
         boolean actualResult = validLocal.equals(t1); // Necessary for Sonarqube coverage purposes.
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsWorksDifferentObject() {
-        //Arrange
+        // Arrange
 
         Local l2 = new Local(21, 21, 5);
 
-        //Act
+        // Act
 
         boolean actualResult = validLocal.equals(l2);
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsWorksDifferentLatitude() {
-        //Arrange
+        // Arrange
 
         Local l1 = new Local(23, -8.6109900, 97);
 
-        //Act
+        // Act
 
         boolean actualResult = l1.equals(validLocal);
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsWorksDifferentLongitude() {
-        //Arrange
+        // Arrange
 
         Local l2 = new Local(30, 21, 97);
 
-        //Act
+        // Act
 
         boolean actualResult = validLocal.equals(l2);
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsWorksDifferentAltitude() {
-        //Arrange
+        // Arrange
 
         Local l2 = new Local(30, -8.6109900, 5);
 
-        //Act
+        // Act
 
         boolean actualResult = validLocal.equals(l2);
 
-        //Assert
+        // Assert
 
         assertTrue(actualResult);
     }
 
     @Test
     void hashCodeDummyTest() {
-        //Arrange
+        // Arrange
 
         int expectedResult = 1;
 
-        //Act
+        // Act
 
         int actualResult = validLocal.hashCode();
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfWeGetLinearDistanceInKmBetweenTwoLocations() {
-        //Arrange
+        // Arrange
 
         Local sidney = new Local(-33.865143,151.209900, 50);
         double expectedResult = 18066.402164597315;
 
-        //Act
+        // Act
 
         double result = validLocal.getLinearDistanceBetweenLocalsInKm(sidney);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, result, 0.01);
     }
 
     @Test
     void seeIfWeDoNotGetLinearDistanceInKmBetweenTwoLocations() {
-        //Arrange
+        // Arrange
 
         Local lisboa = new Local(38.7166700,-9.1333300,45);
         double expectedResult = 300;
 
-        //Act
+        // Act
 
         double result = validLocal.getLinearDistanceBetweenLocalsInKm(lisboa);
 
-        //Assert
+        // Assert
 
         assertNotSame(expectedResult, result);
     }
 
     @Test
     void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsWithConstructorWith3Parameters() {
-        //Arrange
+        // Arrange
 
         Local lisboa = new Local(38.7166700, -9.1333300, 45);
         double expectedResult = 970.4292200999453;
 
-        //Act
+        // Act
 
         double result = lisboa.getLinearDistanceBetweenLocalsInKm(validLocal);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, result, 0.01);
     }
 
     @Test
     void seeIfWeGetLinearDistanceInKmBetweenTwoLocationsChangingTheLatitude() {
-        //Arrange
+        // Arrange
 
         Local lisboa = new Local(38.7166700, -9.1333300, 45);
         double expectedResult = 274.170339162403;
         validLocal.setLatitude(41.1496100);
 
-        //Act
-
+        // Act
 
         double result = lisboa.getLinearDistanceBetweenLocalsInKm(validLocal);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, result, 0.01);
     }
-
 }

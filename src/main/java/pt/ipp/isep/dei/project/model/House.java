@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
@@ -128,7 +127,7 @@ public class House implements Metered {
         return this.energyGridList;
     }
 
-    public void setEGList(EnergyGridList energyGridList) {
+    public void setGridList(EnergyGridList energyGridList) {
         this.energyGridList = energyGridList;
     }
 
@@ -136,8 +135,8 @@ public class House implements Metered {
         return deviceTypeList;
     }
 
-    public boolean addRoomToRoomList(Room room) {
-        return this.roomList.addRoom(room);
+    public boolean addRoom(Room room) {
+        return this.roomList.add(room);
     }
 
     /**
@@ -217,7 +216,7 @@ public class House implements Metered {
      * @return the list with all devices of a given type
      */
     public DeviceList getDevicesOfGivenType(String deviceType) {
-        DeviceList houseDevices = getHouseDeviceList();
+        DeviceList houseDevices = getDeviceList();
         return houseDevices.getDevicesOfGivenType(deviceType);
     }
 
@@ -227,7 +226,7 @@ public class House implements Metered {
      * @return string with device types
      */
 
-    public String buildString() {
+    public String buildDeviceTypeString() {
         StringBuilder result = new StringBuilder(new StringBuilder());
         if (deviceTypeList.isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -240,11 +239,12 @@ public class House implements Metered {
     }
 
     /**
-     * Returns the daily estimate of the consumption of all devices of a given type, in all rooms of this house.
+     * Returns an estimate of what the house's energy consumption would be in a full day, for the devices of a given
+     * type.
      *
-     * @param deviceType the device type
-     * @param time       represents a day in minutes
-     * @return the sum of all daily estimate consumptions of that type
+     * @param deviceType the given device type.
+     * @param time       represents a day in minutes.
+     * @return the sum of all estimate daily consumptions for devices of that type.
      */
     public double getDailyConsumptionByDeviceType(String deviceType, int time) {
         return roomList.getDailyConsumptionByDeviceType(deviceType, time);
@@ -257,7 +257,7 @@ public class House implements Metered {
 
     public double getEnergyConsumption(float time) {
         return 0;
-    }
+    } //TODO Make this method throw an UnsupportedOperationException.
 
     /**
      * This method receives room parameters, checks if room exists in house and
@@ -345,7 +345,7 @@ public class House implements Metered {
      * goes through every room in house and gets every device in room.
      * @return DeviceList with every device in house.
      * **/
-    public DeviceList getHouseDeviceList(){
+    public DeviceList getDeviceList(){
         return this.roomList.getDeviceList();
     }
 

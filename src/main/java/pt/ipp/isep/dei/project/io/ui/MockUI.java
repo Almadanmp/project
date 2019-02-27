@@ -112,22 +112,22 @@ public class MockUI {
         EnergyGrid mainGrid = new EnergyGrid("Main Grid", 0);
         EnergyGridList mockEGList = new EnergyGridList();
         mockEGList.addGrid(mainGrid);
-        mockHouse.setEGList(mockEGList);
+        mockHouse.setGridList(mockEGList);
 
         //ROOM B107//
         Room roomB107 = createRoomB107();
         mainGrid.addRoom(roomB107);
-        mockHouse.addRoomToRoomList(roomB107);
+        mockHouse.addRoom(roomB107);
 
         //ROOM B109//
         Room roomB109 = createRoomB109();
         mainGrid.addRoom(roomB109);
-        mockHouse.addRoomToRoomList(roomB109);
+        mockHouse.addRoom(roomB109);
 
 
         //ROOM B106//
         Room roomB106 = createRoomB106();
-        mockHouse.addRoomToRoomList(roomB106);
+        mockHouse.addRoom(roomB106);
         mainGrid.addRoom(roomB106);
 
         return mockHouse;

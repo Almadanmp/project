@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.model.Address;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.Scanner;
 
@@ -119,9 +120,12 @@ class HouseConfigurationUI {
     // house floor and dimensions) - TERESA VARELA.
     private void runUS105(House house){
         getInputRoomCharacteristics();
-        createNewRoom(house);
-        displayStateRoom();
+        Room room = createNewRoom(house);
+        displayRoom();
+        boolean added = addRoomToHouse(house, room);
+        displayFinalState(added);
     }
+
 
     /**
      * Method gets input from user to save as the characteristics of a room.
@@ -140,25 +144,25 @@ class HouseConfigurationUI {
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's width in meters: ");
-        this.roomWidth = inputUtils.getInputAsDouble();
+        this.roomWidth = inputUtils.getInputAsDoubleZeroOrPositive();
 
         System.out.println("Please insert your room's length in meters: ");
-        this.roomLength = inputUtils.getInputAsDouble();
+        this.roomLength = inputUtils.getInputAsDoubleZeroOrPositive();
 
         System.out.println("Please insert your room's height in meters: ");
-        this.roomHeight = inputUtils.getInputAsDouble();
+        this.roomHeight = inputUtils.getInputAsDoubleZeroOrPositive();
     }
 
-    private void createNewRoom(House house){
-        controller.createNewRoom(house,roomName,roomHouseFloor,roomWidth,roomLength,roomHeight);
+    private Room createNewRoom(House house){
+        return controller.createNewRoom(house,roomName,roomHouseFloor,roomWidth,roomLength,roomHeight);
     }
 
     /**
      * Method displays the input room and its characteristics.
      */
-    private void displayStateRoom() {
+    private void displayRoom() {
         String yourNewRoom = "The room is called ";
-        String located = ", it is located on the ";
+        String located = ", located on the ";
         String width = " meters of width, ";
         String length = " meters of length and ";
         String height = " meters of height.";
@@ -171,6 +175,19 @@ class HouseConfigurationUI {
             System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "rd floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
         } else {
             System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "th floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
+        }
+    }
+
+    private boolean addRoomToHouse(House house, Room room){
+        return controller.addRoomToHouse(house, room);
+    }
+
+    private void displayFinalState(boolean addedRoom){
+        if(addedRoom){
+            System.out.println("The " + roomName + " was added to the house.\n");
+        }
+        else {
+            System.out.println("The " + roomName + " wasn't added to the house because it already exists.\n");
         }
     }
 
