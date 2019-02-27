@@ -208,8 +208,6 @@ class HouseConfigurationUI {
     }
 
 
-
-
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
@@ -218,7 +216,6 @@ class HouseConfigurationUI {
         System.out.println("3) List the existing rooms. (US108)");
         System.out.println("0) (Return to main menu)\n");
     }
-
 }
 
 
