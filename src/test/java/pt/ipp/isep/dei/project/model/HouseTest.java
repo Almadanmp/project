@@ -327,7 +327,7 @@ class HouseTest {
         testRoom.addDevice(waterHeater);
         validHouse.addRoom(testRoom);
         DeviceList expectedResult = new DeviceList();
-        expectedResult.addDevice(waterHeater);
+        expectedResult.add(waterHeater);
 
         // Act
 

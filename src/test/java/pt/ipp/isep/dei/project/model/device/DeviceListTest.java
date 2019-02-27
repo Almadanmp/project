@@ -37,9 +37,9 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.addDevice(d1);
+        deviceL1.add(d1);
         //Act
-        Boolean actualResult = deviceL1.addDevice(d1);
+        Boolean actualResult = deviceL1.add(d1);
         //Assert
         assertEquals(false, actualResult);
     }
@@ -69,9 +69,9 @@ class DeviceListTest {
         device2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5D);
         device2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 6D);
         device2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.addDevice(d1);
+        deviceL1.add(d1);
         //Act
-        Boolean actualResult = deviceL1.addDevice(device2);
+        Boolean actualResult = deviceL1.add(device2);
         //Assert
         assertEquals(true, actualResult);
     }
@@ -95,7 +95,7 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.addDevice(d1);
+        deviceL1.add(d1);
         //Act ------------------------------
         boolean result = deviceL1.containsDevice(d1);
         //Assert ---------------------------
@@ -146,7 +146,7 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.addDevice(d1);
+        deviceL1.add(d1);
         //Act ----------------------------
         deviceL1.removeDevice(d1);
         boolean result = deviceL1.containsDevice(d1);
@@ -173,7 +173,7 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.addDevice(d1);
+        deviceL1.add(d1);
         //Act ----------------------------
         boolean result = deviceL1.containsDevice(d1);
         //Assert -------------------------
@@ -199,7 +199,7 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.addDevice(d1);
+        deviceL1.add(d1);
         //Act ----------------------------------
         boolean result = deviceL1.isEmpty();
         //Assert -------------------------------
@@ -248,13 +248,13 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList1.addDevice(d1);
+        dList1.add(d1);
         DeviceList dList2 = new DeviceList();
         Device device2 = new Fridge(new FridgeSpec());
         device2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         device2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         device2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList2.addDevice(device2);
+        dList2.add(device2);
         //Act
         Boolean actualResult = dList1.equals(dList1);
         //Assert
@@ -270,9 +270,9 @@ class DeviceListTest {
         device1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         device1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         device1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList1.addDevice(device1);
+        dList1.add(device1);
         DeviceList dList2 = new DeviceList();
-        dList2.addDevice(device1);
+        dList2.add(device1);
         //Act
         boolean actualResult = dList1.equals(dList2);
         //Assert
@@ -287,7 +287,7 @@ class DeviceListTest {
         device1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         device1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         device1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList1.addDevice(device1);
+        dList1.add(device1);
         //Act
         boolean actualResult = dList1.equals(device1);
         //Assert
@@ -307,8 +307,8 @@ class DeviceListTest {
         device2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         device2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
         device2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList1.addDevice(device1);
-        dList2.addDevice(device2);
+        dList1.add(device1);
+        dList2.add(device2);
         //Act
         boolean actualResult = dList1.equals(dList2);
         assertTrue(actualResult);
@@ -323,7 +323,7 @@ class DeviceListTest {
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 6D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 35D);
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(d1);
+        deviceList.add(d1);
         String expectedResult = "---------------\n" +
                 "0) device Name: Fridge, device Type: Fridge, device Nominal Power: 21.0\n" +
                 "---------------\n";
@@ -348,8 +348,8 @@ class DeviceListTest {
         d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
         d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(d2);
-        deviceList.addDevice(d1);
+        deviceList.add(d2);
+        deviceList.add(d1);
         String expectedResult = "---------------\n" +
                 "0) device Name: Fridge2, device Type: Fridge, device Nominal Power: 21.0\n" +
                 "1) device Name: Fridge, device Type: Fridge, device Nominal Power: 21.0\n" +
@@ -376,8 +376,8 @@ class DeviceListTest {
         d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
         d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(d1);
-        deviceList.addDevice(d2);
+        deviceList.add(d1);
+        deviceList.add(d2);
         Device[] expectedResult = new Device[2];
         expectedResult[0] = d1;
         expectedResult[1] = d2;

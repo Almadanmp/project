@@ -36,7 +36,7 @@ public class SensorList {
      * @return true if sensor was successfully added to the SensorList, false otherwise.
      */
 
-    public boolean addSensor(Sensor sensorToAdd) {
+    public boolean add(Sensor sensorToAdd) {
         if (!(sensors.contains(sensorToAdd))) {
             sensors.add(sensorToAdd);
             return true;
@@ -84,7 +84,7 @@ public class SensorList {
         SensorList containedTypeSensors = new SensorList();
         for (Sensor sensor : this.sensors) {
             if (name.equals(sensor.getSensorTypeName())) {
-                containedTypeSensors.addSensor(sensor);
+                containedTypeSensors.add(sensor);
             }
         }
         return containedTypeSensors;
@@ -151,7 +151,7 @@ public class SensorList {
         SensorList finalList = new SensorList();
         for (Sensor s : this.sensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
-                finalList.addSensor(s);
+                finalList.add(s);
             }
         }
         return finalList;

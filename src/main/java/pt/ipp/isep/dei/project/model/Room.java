@@ -171,10 +171,10 @@ public class Room implements Metered {
      * Method receives a date of a given day and looks for the max temperature
      * recorded in every sensor that measure temperature, in the room.
      *
+     * @param day where we want to look for max temperature
      * @return the max temperature recorded in a sensor that measures temperature or
      * NaN in case there are no readings in the given day or
      * in case the room has no readings whatsoever
-     * @param day where we want to look for max temperature
      **/
     public double getMaxTemperatureOnGivenDay(Date day) {
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
@@ -216,7 +216,7 @@ public class Room implements Metered {
      * @return true if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensor(Sensor sensor) {
-        return roomSensorList.addSensor(sensor);
+        return roomSensorList.add(sensor);
     }
 
     /**
@@ -226,7 +226,7 @@ public class Room implements Metered {
      * @return the result of the operation (true if successful, false otherwise)
      */
     public boolean addDevice(Device device) {
-        return deviceList.addDevice(device);
+        return deviceList.add(device);
     }
 
     /**
@@ -270,14 +270,15 @@ public class Room implements Metered {
     }
 
     /**
-     * Returns the daily estimate consumption of all devices of a given type in this room.
+     * Returns the approximate consumption of all devices of a given type in this room, if they were to work
+     * for the determined period of time.
      *
-     * @param deviceType the device type
-     * @param time       represents a day in minutes
-     * @return the sum of all daily estimate consumptions of that type
+     * @param deviceType is the device type we want to filter for.
+     * @param time       represents the period of time the device is working for, in number of minutes. 1440 is a day.
+     * @return is the sum of approximate consumptions for the given time period of all devices of a given type.
      */
 
-    double getDailyConsumptionByDeviceType(String deviceType, int time) {
+    double getEstimateConsumptionOverTimeByDeviceType(String deviceType, int time) {
         return deviceList.getDailyConsumptionByDeviceType(deviceType, time);
     }
 
@@ -333,6 +334,7 @@ public class Room implements Metered {
 
     /**
      * This method receives an index as parameter and gets a device from room's room list.
+     *
      * @param index the index of the device
      * @return returns device that corresponds to index.
      */
@@ -369,6 +371,11 @@ public class Room implements Metered {
         }
         return result.toString();
     }
+
+    public double getEnergyConsumption(float time) {
+        return this.deviceList.getEnergyConsumption(time);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -382,10 +389,6 @@ public class Room implements Metered {
     }
 
 
-    @Override
-    public double getEnergyConsumption(float time) {
-        return 0;
-    }
 
 
     @Override
