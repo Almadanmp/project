@@ -260,11 +260,9 @@ public class InputUtils {
      * @return value read from user
      */
     Double getInputAsDoublePositive() {
-        UtilsUI utilsUI = new UtilsUI();
         double input = -1.0;
         while (input < 0) {
             input = getInputAsDouble();
-            System.out.println(utilsUI.invalidOption);
         }
         return input;
     }
