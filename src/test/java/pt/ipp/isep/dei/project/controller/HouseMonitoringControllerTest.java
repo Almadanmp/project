@@ -155,7 +155,7 @@ class HouseMonitoringControllerTest {
             controller.getAverageRainfallInterval(validHouse, day, day);
         });
         //Assert
-        assertEquals("Warning: average value not calculated - no readings available.", exception.getMessage());
+        assertEquals("Warning: Average value not calculated - No readings available.", exception.getMessage());
     }
 
     @Test
@@ -179,7 +179,7 @@ class HouseMonitoringControllerTest {
             controller.getAverageRainfallInterval(validHouse, date, date2);
         });
         //Assert
-        assertEquals("Warning: average value not calculated - no readings available.", exception.getMessage());
+        assertEquals("Warning: Average value not calculated - No readings available.", exception.getMessage());
     }
 
     @Test
@@ -218,7 +218,7 @@ class HouseMonitoringControllerTest {
         });
 
         // Assert
-        assertEquals("Warning: Total value was not calculated - no readings were available.", exception.getMessage());
+        assertEquals("Warning: Total value was not calculated - No readings were available.", exception.getMessage());
     }
 
     @Test
@@ -230,9 +230,7 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            controller.getTotalRainfallOnGivenDay(validHouse, validDate4);
-        });
+        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4));
 
         // Assert
 
@@ -255,9 +253,7 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            controller.getTotalRainfallOnGivenDay(validHouse, validDate4);
-        });
+        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4));
 
         // Assert
 
@@ -280,9 +276,7 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            controller.getTotalRainfallOnGivenDay(validHouse, validDate4);
-        });
+        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4));
 
         // Assert
 

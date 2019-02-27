@@ -144,13 +144,13 @@ class HouseConfigurationUI {
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's width in meters: ");
-        this.roomWidth = inputUtils.getInputAsDoublePositive();
+        this.roomWidth = inputUtils.getInputAsDoubleZeroOrPositive();
 
         System.out.println("Please insert your room's length in meters: ");
-        this.roomLength = inputUtils.getInputAsDoublePositive();
+        this.roomLength = inputUtils.getInputAsDoubleZeroOrPositive();
 
         System.out.println("Please insert your room's height in meters: ");
-        this.roomHeight = inputUtils.getInputAsDoublePositive();
+        this.roomHeight = inputUtils.getInputAsDoubleZeroOrPositive();
     }
 
     private Room createNewRoom(House house){
