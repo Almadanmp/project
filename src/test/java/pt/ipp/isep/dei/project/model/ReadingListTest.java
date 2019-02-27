@@ -537,10 +537,10 @@ class ReadingListTest {
 
         // Act
 
-        int actualResult1 = validReadingList.hashCode();
+        int actualResult = validReadingList.hashCode();
 
         // Assert
 
-        assertEquals(actualResult1, 1);
+        assertEquals(actualResult, 1);
     }
 }
