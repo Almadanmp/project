@@ -529,22 +529,6 @@ class HouseTest {
         assertEquals(expectedResult, actualResult);
     }
 
-
-    @Test
-    void testSetAddress() {
-        //Arrange
-        GeographicArea ga = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
-        Address address1 = new Address("Rua das Coisas", "4440-616", "Balongo");
-        Address address2 = new Address("Rua de Nada", "4444-666", "Valongo");
-        List<String> deviceTypeString = new ArrayList<>();
-        House house = new House("Beach House", address2, new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
-        //Act
-        house.setAddress(address1);
-        Address actualResult = house.getAddress();
-        //Assert
-        assertEquals(address1, actualResult);
-    }
-
     @Test
     void seeIfGetRoomListWorks() {
         // Arrange

@@ -71,7 +71,7 @@ class ReadingTest {
     void seeIfSetGetValueWorks() {
         // Arrange
 
-        firstValidReading.setValue(31);
+        firstValidReading.setValue(51);
 
         // Act
 
@@ -79,7 +79,7 @@ class ReadingTest {
 
         // Assert
 
-        assertEquals(31, actualResult, 0.01);
+        assertEquals(51, actualResult, 0.01);
     }
 
     @Test

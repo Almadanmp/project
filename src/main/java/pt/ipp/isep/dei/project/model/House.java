@@ -58,12 +58,12 @@ public class House implements Metered {
     //SETTERS AND GETTERS
 
 
-    public String getHouseId() {
-        return this.id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public String getHouseId() {
+        return this.id;
     }
 
     public Address getAddress() {
@@ -90,7 +90,7 @@ public class House implements Metered {
         return deviceMeteringPeriod;
     }
 
-    Local getLocation() {
+  public  Local getLocation() {
         return location;
     }
 
@@ -98,6 +98,12 @@ public class House implements Metered {
         location.setLatitude(latitude);
         location.setLongitude(longitude);
         location.setAltitude(altitude);
+    }
+
+    public void setAddress(String street, String zip, String town){
+        address.setStreet(street);
+        address.setZip(zip);
+        address.setTown(town);
     }
 
     public void setRoomList(RoomList roomList) {
