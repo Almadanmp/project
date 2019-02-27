@@ -2,26 +2,25 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WineCoolerSpec;
-import pt.ipp.isep.dei.project.model.device.WineCooler;
+import pt.ipp.isep.dei.project.model.device.Freezer;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FreezerSpec;
 
 import static org.testng.Assert.*;
 
-public class WineCoolerDTTest {
-
+public class FreezerDTTest {
     @Test
-    void createWineCoolerType() {
-        WineCoolerDT dt = new WineCoolerDT();
+    void createFreezerType() {
+       FreezerDT dt = new FreezerDT();
         Device result = dt.createDevice();
-        Device expectedResult = new WineCooler(new WineCoolerSpec());
+        Device expectedResult = new Freezer(new FreezerSpec());
         assertEquals(result, expectedResult);
     }
 
     @Test
     void getDeviceType() {
-        WineCoolerDT dt = new WineCoolerDT();
+        FreezerDT dt = new FreezerDT();
         String result = dt.getDeviceType();
-        String expectedResult = "WineCooler";
+        String expectedResult = "Freezer";
         assertEquals(result, expectedResult);
     }
 }

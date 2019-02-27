@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WineCoolerSpec;
-import pt.ipp.isep.dei.project.model.device.program.WineCooler;
+import pt.ipp.isep.dei.project.model.device.WineCooler;
 
 
 public class WineCoolerDT implements DeviceType {

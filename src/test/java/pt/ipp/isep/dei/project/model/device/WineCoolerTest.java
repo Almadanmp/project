@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WineCoolerSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.device.program.WineCooler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
