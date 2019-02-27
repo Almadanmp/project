@@ -18,7 +18,6 @@ public class ElectricOven implements Device, Metered, Programmable {
     private ProgramList programListElectricOven;
     private LogList logListElectricOven;
 
-
     public ElectricOven(ElectricOvenSpec electricOvenSpec) {
         this.deviceSpecsElectricOven = electricOvenSpec;
         this.activeElectricOven = true;
@@ -62,6 +61,11 @@ public class ElectricOven implements Device, Metered, Programmable {
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
         return this.programListElectricOven;
     }
+
+    public void setProgramList(ProgramList plist) {
+        this.programListElectricOven = plist;
+    }
+
 
     public String buildString() {
         String result;

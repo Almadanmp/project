@@ -59,13 +59,17 @@ public class MicrowaveOven implements Device, Metered, Programmable {
         }
     }
 
+    public void setProgramList(ProgramList plist) {
+        this.programList = plist;
+    }
+
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
         return this.programList;
     }
 
     public String buildString() {
         String result;
-        result =  "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
+        result = "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
         return result;
     }
 

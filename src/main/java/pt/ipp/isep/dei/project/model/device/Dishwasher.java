@@ -64,6 +64,11 @@ public class Dishwasher implements Device, Metered, Programmable {
         return this.programList;
     }
 
+    public void setProgramList(ProgramList plist) {
+        this.programList = plist;
+    }
+
+
     public String buildString() {
         String result;
         result =  "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";

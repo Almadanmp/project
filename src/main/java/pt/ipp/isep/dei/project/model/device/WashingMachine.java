@@ -65,6 +65,9 @@ public class WashingMachine implements Device, Metered, Programmable {
         return this.programList;
     }
 
+    public void setProgramList(ProgramList plist) {
+        this.programList = plist;
+    }
 
 
     public String buildString() {

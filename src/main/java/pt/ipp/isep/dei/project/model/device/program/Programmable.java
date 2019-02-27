@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.model.device.program;
 
-import java.util.List;
-
 /**
  * Represents a programmable option for devices.
  * <p>
@@ -12,5 +10,7 @@ import java.util.List;
 public interface Programmable {
 
     ProgramList getProgramList();
+
+    void setProgramList(ProgramList programList);
 
 }
