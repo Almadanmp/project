@@ -17,7 +17,8 @@ import java.util.List;
 /**
  * MOCK DATA FOR TESTING PURPOSES
  */
-public class MockUI {
+
+class MockUI {
 
 
     private static final String GLASSES = "Glasses";
