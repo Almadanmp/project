@@ -30,8 +30,9 @@ public class WineCoolerTest {
     private Date periodBeginning2;
     private Date periodBeginning9AM;
     private Date periodEnding1120AM;
-    private Log validLog1;
-    private Log validLog2;
+    private Log validLog01;
+    private Log validLog02;
+
     @BeforeEach
     void arrangeArtifacts() {
         wineCoolerValid.setName("Wine Cooler");
@@ -43,19 +44,19 @@ public class WineCoolerTest {
         validLogList = wineCoolerValid.getLogList();
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
-            initialTime = validSdf.parse("20/10/2018 10:00:00");
-            finalTime = validSdf.parse("20/10/2018 11:00:00");
-            periodEnding1 = validSdf.parse("20/10/2018 10:20:00");
-            periodBeginning2 = validSdf.parse("20/10/2018 10:30:00");
-            periodBeginning1 = validSdf.parse("20/10/2018 10:01:00");
-            periodEnding2 = validSdf.parse("20/10/2018 10:59:00");
-            periodBeginning9AM = validSdf.parse("20/10/2018 9:00:00");
-            periodEnding1120AM = validSdf.parse("20/10/2018 11:20:00");
+            initialTime = validSdf.parse("20/11/2018 10:00:00");
+            finalTime = validSdf.parse("20/11/2018 11:00:00");
+            periodEnding1 = validSdf.parse("20/11/2018 10:20:00");
+            periodBeginning2 = validSdf.parse("20/11/2018 10:30:00");
+            periodBeginning1 = validSdf.parse("20/11/2018 10:01:00");
+            periodEnding2 = validSdf.parse("20/11/2018 10:59:00");
+            periodBeginning9AM = validSdf.parse("20/11/2018 9:00:00");
+            periodEnding1120AM = validSdf.parse("20/11/2018 11:20:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        validLog1 = new Log(56, initialTime, periodEnding1);
-        validLog2 = new Log(55, periodBeginning2, finalTime);
+        validLog01 = new Log(56, initialTime, periodEnding1);
+        validLog02 = new Log(55, periodBeginning2, finalTime);
     }
 
     @Test
@@ -136,7 +137,7 @@ public class WineCoolerTest {
 
     @Test
     void seeIfGetAttributeValue() {
-       Integer expectedResult = 15;
+        Integer expectedResult = 15;
         Object actualResult = wineCoolerValid.getAttributeValue(WineCoolerSpec.NUMBER_BOTTLES);
         assertEquals(expectedResult, actualResult);
     }
@@ -189,6 +190,15 @@ public class WineCoolerTest {
     @Test
     void getLogList() {
         LogList actualResult = wineCoolerValid.getLogList();
+        LogList logList = new LogList();
+        assertEquals(logList, actualResult);
+    }
+
+    @Test
+    void getLogListEmpty() {
+       wineCoolerValid.addLog(validLog);
+       wineCoolerValid.addLog(validLog01);
+        LogList actualResult =wineCoolerValid.getLogList();
         assertEquals(validLogList, actualResult);
     }
 
@@ -206,6 +216,14 @@ public class WineCoolerTest {
     }
 
     @Test
+    void addLogFalse() {
+        wineCoolerValid.addLog(validLog);
+        boolean result = wineCoolerValid.addLog(validLog);
+        assertFalse(result);
+    }
+
+
+    @Test
     void isLogListEmptyTrue() {
         boolean result = wineCoolerValid.isLogListEmpty();
         assertTrue(result);
@@ -213,17 +231,17 @@ public class WineCoolerTest {
 
     @Test
     void isLogListEmptyFalse() {
-        wineCoolerValid.addLog(validLog2);
-        wineCoolerValid.addLog(validLog1);
+        wineCoolerValid.addLog(validLog02);
+        wineCoolerValid.addLog(validLog01);
         boolean result = wineCoolerValid.isLogListEmpty();
         assertFalse(result);
     }
 
     @Test
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
-        wineCoolerValid.addLog(validLog1);
-       wineCoolerValid.addLog(validLog2);
-       double expectedResult = 111;
+        wineCoolerValid.addLog(validLog01);
+        wineCoolerValid.addLog(validLog02);
+        double expectedResult = 111;
         double actualResult = wineCoolerValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
         assertEquals(expectedResult, actualResult);
     }
@@ -246,15 +264,15 @@ public class WineCoolerTest {
         Log log2 = new Log(23, periodBeginning2, periodEnding1120AM);
         wineCoolerValid.addLog(log1);
         wineCoolerValid.addLog(log2);
-        double expectedResult= 0.0;
+        double expectedResult = 0.0;
         double actualResult = wineCoolerValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void testCountLogsInInterval() {
-        wineCoolerValid.addLog(validLog1);
-        wineCoolerValid.addLog(validLog2);
+        wineCoolerValid.addLog(validLog01);
+        wineCoolerValid.addLog(validLog02);
         //Act
         Integer expectedResult = 2;
         Integer actualResult = wineCoolerValid.countLogsInInterval(initialTime, finalTime);
@@ -264,14 +282,14 @@ public class WineCoolerTest {
 
     @Test
     void testGetLogsInInterval() {
-        wineCoolerValid.addLog(validLog1);
-        wineCoolerValid.addLog(validLog2);
-
+        wineCoolerValid.addLog(validLog01);
+        wineCoolerValid.addLog(validLog02);
+        wineCoolerValid.setNominalPower(13);
         LogList expectedResult = new LogList();
-        expectedResult.addLog(validLog1);
-        expectedResult.addLog(validLog2);
+        expectedResult.addLog(validLog01);
+        expectedResult.addLog(validLog02);
 
-        LogList actualResult =wineCoolerValid.getLogsInInterval(initialTime, finalTime);
+        LogList actualResult = wineCoolerValid.getLogsInInterval(initialTime, finalTime);
         assertEquals(expectedResult, actualResult);
     }
 
