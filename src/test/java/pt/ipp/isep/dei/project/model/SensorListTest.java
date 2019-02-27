@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,7 +58,7 @@ class SensorListTest {
     void seeIfEqualsWorksOnSameObject() {
         //Arrange
         Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
-        validSensorList1.addSensor(s1);
+        validSensorList1.add(s1);
 
         //Act
         boolean actualResult = validSensorList1.equals(validSensorList1);
@@ -103,7 +101,7 @@ class SensorListTest {
         //Arrange
         Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
         Sensor s2 = new Sensor("Rain Sensor 1", validTypeSensor1, validLocal1, validDate2);
-        validSensorList1.addSensor(s1);
+        validSensorList1.add(s1);
 
         //Act
         boolean actualResult = validSensorList1.equals(s2);
@@ -116,7 +114,7 @@ class SensorListTest {
     void seeHashCodeDummyTest() {
         //Arrange
         Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
-        validSensorList1.addSensor(s1);
+        validSensorList1.add(s1);
         int expectedResult = 1;
 
         //Act
@@ -132,15 +130,15 @@ class SensorListTest {
         Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor2, validLocal1, validDate1);
         Sensor s2 = new Sensor("Rain Sensor 1", validTypeSensor1, validLocal1, validDate2);
         Sensor s3 = new Sensor("Pressure Sensor 1", validTypeSensor2, validLocal1, validDate3);
-        validSensorList1.addSensor(s1);
-        validSensorList1.addSensor(s2);
-        validSensorList1.addSensor(s3);
+        validSensorList1.add(s1);
+        validSensorList1.add(s2);
+        validSensorList1.add(s3);
 
         //Act
         SensorList actualResult = validSensorList1.getSensorListByType("Rain");
         SensorList expectedResult = new SensorList();
-        expectedResult.addSensor(s1);
-        expectedResult.addSensor(s3);
+        expectedResult.add(s1);
+        expectedResult.add(s3);
 
         //Assert
         expectedResult.equals(actualResult);
@@ -153,12 +151,12 @@ class SensorListTest {
         Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor2, validLocal1, validDate1);
         Sensor s2 = new Sensor("Rain Sensor 1", validTypeSensor1, validLocal1, validDate2);
         Sensor s3 = new Sensor("Pressure Sensor 1", validTypeSensor2, validLocal1, validDate3);
-        validSensorList1.addSensor(s1);
-        validSensorList1.addSensor(s2);
-        validSensorList1.addSensor(s3);
+        validSensorList1.add(s1);
+        validSensorList1.add(s2);
+        validSensorList1.add(s3);
         SensorList expectedResult = new SensorList();
-        expectedResult.addSensor(s1);
-        expectedResult.addSensor(s3);
+        expectedResult.add(s1);
+        expectedResult.add(s3);
 
         //Act
         SensorList actualResult = validSensorList1.getSensorListByType("Rain");
@@ -173,9 +171,9 @@ class SensorListTest {
         Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor2, validLocal1, validDate1);
         Sensor s2 = new Sensor("Rain Sensor 1", validTypeSensor1, validLocal1, validDate2);
         Sensor s3 = new Sensor("Pressure Sensor 1", validTypeSensor2, validLocal1, validDate3);
-        validSensorList1.addSensor(s1);
-        validSensorList1.addSensor(s2);
-        validSensorList1.addSensor(s3);
+        validSensorList1.add(s1);
+        validSensorList1.add(s2);
+        validSensorList1.add(s3);
         SensorList expectedResult = new SensorList();
 
         //Act
@@ -191,9 +189,9 @@ class SensorListTest {
         Sensor s1 = new Sensor("Temperature Sensor 1", validTypeSensor2, validLocal1, validDate1);
         Sensor s2 = new Sensor("Rain Sensor 1", validTypeSensor1, validLocal1, validDate2);
         Sensor s3 = new Sensor("Pressure Sensor 1", validTypeSensor2, validLocal1, validDate3);
-        validSensorList1.addSensor(s1);
-        validSensorList1.addSensor(s2);
-        validSensorList1.addSensor(s3);
+        validSensorList1.add(s1);
+        validSensorList1.add(s2);
+        validSensorList1.add(s3);
 
         String expectedResult = "---------------\n" +
                 "0) Name: Temperature Sensor 1 | Type: Rain\n" +
@@ -231,7 +229,7 @@ class SensorListTest {
 
         //Arrange 2
         Sensor sensor1 = new Sensor("Temperature Sensor 1", validTypeSensor1, validLocal1, validDate1);
-        sensorList2.addSensor(sensor1);
+        sensorList2.add(sensor1);
 
         //Arrange 3
         Sensor sensor2 = new Sensor("Temperature Sensor 2", validTypeSensor1, validLocal1, validDate1);
@@ -240,16 +238,16 @@ class SensorListTest {
         Reading reading2 = new Reading(21, validDate1);
         sensor2.addReading(reading1);
         sensor2.addReading(reading2);
-        sensorList3.addSensor(sensor2);
-        sensorList3.addSensor(sensor3);
+        sensorList3.add(sensor2);
+        sensorList3.add(sensor3);
 
         //Arrange 4
         Sensor sensor4 = new Sensor("Temperature Sensor 4", validTypeSensor1, validLocal1, validDate1);
         Sensor sensor5 = new Sensor("Temperature Sensor 5", validTypeSensor1, validLocal1, validDate1);
         sensor5.addReading(reading1);
         sensor5.addReading(reading2);
-        sensorList4.addSensor(sensor4);
-        sensorList4.addSensor(sensor5);
+        sensorList4.add(sensor4);
+        sensorList4.add(sensor5);
 
         //Arrange 5
         Sensor sensor6 = new Sensor("sensor6", validTypeSensor1, validLocal1, validDate1);
@@ -260,8 +258,8 @@ class SensorListTest {
         sensor6.addReading(reading2);
         sensor7.addReading(reading3);
         sensor7.addReading(reading4);
-        sensorList5.addSensor(sensor6);
-        sensorList5.addSensor(sensor7);
+        sensorList5.add(sensor6);
+        sensorList5.add(sensor7);
 
         ReadingList expectedResult1 = new ReadingList();
         ReadingList expectedResult2 = new ReadingList();
@@ -317,7 +315,7 @@ class SensorListTest {
         SensorList sensorList5 = new SensorList(); //THREE SENSORS: THIRD MOST RECENT
 
         Sensor sensor1 = new Sensor("sensor1", validTypeSensor1, date1);
-        sensorList2.addSensor(sensor1);
+        sensorList2.add(sensor1);
 
         Sensor sensor2 = new Sensor("sensor2", validTypeSensor1, date1);
         Sensor sensor3 = new Sensor("sensor3", validTypeSensor1, date1);
@@ -329,9 +327,9 @@ class SensorListTest {
         sensor2.addReading(reading1);
         sensor3.addReading(reading2);
         sensor4.addReading(reading3);
-        sensorList3.addSensor(sensor2);
-        sensorList3.addSensor(sensor3);
-        sensorList3.addSensor(sensor4);
+        sensorList3.add(sensor2);
+        sensorList3.add(sensor3);
+        sensorList3.add(sensor4);
 
         Sensor sensor5 = new Sensor("sensor5", validTypeSensor1, date1);
         Sensor sensor6 = new Sensor("sensor6", validTypeSensor1, date1);
@@ -343,9 +341,9 @@ class SensorListTest {
         sensor5.addReading(reading4);
         sensor6.addReading(reading5);
         sensor7.addReading(reading6);
-        sensorList4.addSensor(sensor5);
-        sensorList4.addSensor(sensor6);
-        sensorList4.addSensor(sensor7);
+        sensorList4.add(sensor5);
+        sensorList4.add(sensor6);
+        sensorList4.add(sensor7);
 
         Sensor sensor8 = new Sensor("sensor8", validTypeSensor1, date1);
         Sensor sensor9 = new Sensor("sensor9", validTypeSensor1, date1);
@@ -357,9 +355,9 @@ class SensorListTest {
         sensor8.addReading(reading7);
         sensor9.addReading(reading8);
         sensor10.addReading(reading9);
-        sensorList5.addSensor(sensor8);
-        sensorList5.addSensor(sensor9);
-        sensorList5.addSensor(sensor10);
+        sensorList5.add(sensor8);
+        sensorList5.add(sensor9);
+        sensorList5.add(sensor10);
 
         Sensor expectedResult1 = new Sensor("emptySensor", new TypeSensor("type", " "), date4);
 
@@ -386,11 +384,11 @@ class SensorListTest {
         SensorList sensorList3 = new SensorList(); //TWO SENSORS
 
         Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "ºC"), validDate5);
-        sensorList2.addSensor(sensor1);
+        sensorList2.add(sensor1);
 
         Sensor sensor2 = new Sensor("sensor2", new TypeSensor("temperature", "ºC"), validDate5);
-        sensorList3.addSensor(sensor1);
-        sensorList3.addSensor(sensor2);
+        sensorList3.add(sensor1);
+        sensorList3.add(sensor2);
 
         //Act
         boolean actualResult1 = sensorList1.isEmpty();

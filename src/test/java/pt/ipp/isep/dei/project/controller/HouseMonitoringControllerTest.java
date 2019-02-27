@@ -77,7 +77,7 @@ class HouseMonitoringControllerTest {
         validTemperatureSensor.addReading(firstTempReading);
         validTemperatureSensor.addReading(secondTempReading);
         validTemperatureSensor.addReading(thirdTempReading);
-        validSensorList.addSensor(validTemperatureSensor);
+        validSensorList.add(validTemperatureSensor);
 
 
         // Sets up a valid rainfall sensor with valid readings.
@@ -90,7 +90,7 @@ class HouseMonitoringControllerTest {
         validRainfallSensor.addReading(firstRainReading);
         validRainfallSensor.addReading(secondRainReading);
         validRainfallSensor.addReading(thirdRainReading);
-        validSensorList.addSensor(validRainfallSensor);
+        validSensorList.add(validRainfallSensor);
     }
 
 
@@ -248,7 +248,7 @@ class HouseMonitoringControllerTest {
         }
         SensorList temperatureList = new SensorList();
         Sensor temperatureSensor = new Sensor("temperature sensor", new TypeSensor("temperature", "celsius"), new Local(21, 20, 20), date);
-        temperatureList.addSensor(temperatureSensor);
+        temperatureList.add(temperatureSensor);
         validHouseArea.setSensorList(temperatureList);
 
         // Act
@@ -271,7 +271,7 @@ class HouseMonitoringControllerTest {
         }
         SensorList rainFallSensorList = new SensorList();
         Sensor rainfallSensor = new Sensor("rainfall sensor", new TypeSensor("rainfall", "L"), new Local(21, 20, 20), date);
-        rainFallSensorList.addSensor(rainfallSensor);
+        rainFallSensorList.add(rainfallSensor);
         validHouseArea.setSensorList(rainFallSensorList);
 
         // Act

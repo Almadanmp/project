@@ -81,9 +81,9 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         DeviceList deviceList1 = new DeviceList();
-        deviceList1.addDevice(validDevice1);
-        deviceList1.addDevice(validDevice2);
-        deviceList1.addDevice(validDevice3);
+        deviceList1.add(validDevice1);
+        deviceList1.add(validDevice2);
+        deviceList1.add(validDevice3);
 
         //Act
         boolean actualResult = controller.removeRoomDevicesFromDeviceList(validRoom1, deviceList1);
@@ -196,7 +196,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(validDevice1);
+        deviceList.add(validDevice1);
 
         //Act
         boolean actualResult = controller.addDeviceToList(validDevice1, deviceList);
@@ -227,7 +227,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(validDevice1);
+        deviceList.add(validDevice1);
 
         //Act
         boolean actualResult = controller.removeDeviceFromList(validDevice1, deviceList);
@@ -244,9 +244,9 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(validDevice1);
-        deviceList.addDevice(validDevice2);
-        deviceList.addDevice(validDevice3);
+        deviceList.add(validDevice1);
+        deviceList.add(validDevice2);
+        deviceList.add(validDevice3);
         double expectedResult = 86;
 
         //Act
@@ -503,8 +503,8 @@ class EnergyConsumptionControllerTest {
         validRoom1.addDevice(validDevice2);
         house.addRoom(validRoom1);
         DeviceList expectedResult = new DeviceList();
-        expectedResult.addDevice(validDevice1);
-        expectedResult.addDevice(validDevice2);
+        expectedResult.add(validDevice1);
+        expectedResult.add(validDevice2);
 
         //Act
 

@@ -5,11 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.*;
-import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,227 +17,564 @@ import static org.testng.Assert.assertTrue;
  */
 
 class RoomTest {
+    // Common testing artifacts for this class.
 
-    private Date validDate1;
-    private Date validDate2;
-    private Date validDate3;
-    private Date validDate4;
-    private Date validDate5;
-    private Date validDate6;
-    private Date validDate7;
-    private Date validDate8;
+    private Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
+    private Sensor validSensor; // Valid temperature sensor with valid readings.
+    private Device validDevice; // Valid device, namely of WaterHeater type.
+    private Reading validReading; // Valid temperature reading at February 2, 2018, 00:00:00.
 
     @BeforeEach
-    void arrangeDateFormat() {
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
-
-        try {
-            validDate1 = validSdf.parse("01/02/2018 16:30:00");
-            validDate2 = validSdf.parse("01/02/2018 20:30:00");
-            validDate3 = validSdf.parse("01/01/2018 20:30:00");
-            validDate4 = validSdf.parse("01/12/2017 20:30:00");
-            validDate5 = validSdf.parse("01/01/2018 23:59:59");
-            validDate6 = validSdf.parse("02/01/2018 00:00:00");
-            validDate7 = validSdf.parse("02/01/2018 01:01:00");
-            validDate8 = validSdf.parse("02/01/2018 12:12:00");
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+    void arrangeArtifacts() {
+        validRoom = new Room("Bedroom", 2, 30, 40, 10);
+        validSensor = new Sensor("tempOne", new TypeSensor("Temperature", "Celsius"), new Date());
+        validRoom.addSensor(validSensor);
+        validDevice = new WaterHeater(new WaterHeaterSpec());
+        validDevice.setName("WaterHeater");
+        validDevice.setNominalPower(21.0);
+        validDevice.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 40D);
+        validDevice.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
+        validRoom.addDevice(validDevice);
+        validReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
+                getTime());
+        validSensor.addReading(validReading);
     }
 
+    @Test
+    void seeIfRemoveDeviceWorks() {
+        // Act
+
+        boolean actualResult = validRoom.removeDevice(validDevice);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
 
     @Test
-    void seeIfRemoveDeviceFromRoomWorks() {
-        Device device = new WaterHeater(new WaterHeaterSpec());
-        device.setName("waterheater");
-        device.setNominalPower(150.0);
-        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Device device1 = new WaterHeater(new WaterHeaterSpec());
-        device1.setName("sdgfsgsd");
-        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        room.addDevice(device);
-        room.addDevice(device1);
-        room.removeDevice(device1);
-        String result = room.buildDeviceListString();
+    void seeIfRemoveDeviceWorksNoDevice() {
+        // Arrange
+
+        validRoom.removeDevice(validDevice);
+
+        // Act
+
+        boolean actualResult = validRoom.removeDevice(validDevice);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfBuildDeviceListStringWorks() {
+        // Arrange
+
         String expectedResult = "---------------\n" +
-                "0) device Name: waterheater, device Type: WaterHeater, device Nominal Power: 150.0\n" +
+                "0) device Name: WaterHeater, device Type: WaterHeater, device Nominal Power: 21.0\n" +
                 "---------------\n";
-        assertEquals(expectedResult, result);
-    }
 
-    @Test
-    void SeeIfPrintListOfDevicesFromRoomWorks() {
-        DeviceList deviceList = new DeviceList();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("frigorifico");
-        d1.setNominalPower(230.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 1D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 1D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 34D);
-        deviceList.addDevice(d1);
-        Room room = new Room("cozinha", 0, 1, 1, 1);
-        room.addDevice(d1);
-        String result = room.buildDeviceListString();
-        String expectedResult = "---------------\n" +
-                "0) device Name: frigorifico, device Type: Fridge, device Nominal Power: 230.0\n" +
-                "---------------\n";
-        assertEquals(expectedResult, result);
-    }
+        // Act
 
-    @Test
-    void seeIfGetCurrentRoomTemperatureWorks() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("Temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Reading r1;
-        Reading r2;
-        Reading r3;
-        Reading r4;
-        r1 = new Reading(30, validDate1);
-        r2 = new Reading(20, validDate2);
-        r3 = new Reading(25, validDate3);
-        r4 = new Reading(10, validDate4);
-        listR.addReading(r1);
-        listR.addReading(r2);
-        listR.addReading(r3);
-        listR.addReading(r4);
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setSensorList(list);
-        double result = room.getCurrentRoomTemperature();
-        double expectedResult = 20.0;
-        assertEquals(expectedResult, result, 0.01);
+        String actualResult = validRoom.buildDeviceListString();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetCurrentRoomTemperatureWorksNegative() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("Temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Reading r1;
-        Reading r2;
-        Reading r3;
-        Reading r4;
-        r1 = new Reading(30, validDate1);
-        r2 = new Reading(-20, validDate2);
-        r3 = new Reading(25, validDate3);
-        r4 = new Reading(10, validDate4);
-        listR.addReading(r1);
-        listR.addReading(r2);
-        listR.addReading(r3);
-        listR.addReading(r4);
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setSensorList(list);
-        double result = room.getCurrentRoomTemperature();
-        double expectedResult = -20.0;
-        assertEquals(expectedResult, result, 0.01);
+        // Arrange
+
+        validReading.setValue(-12);
+        double expectedResult = -12;
+
+        // Act
+
+        double actualResult = validRoom.getCurrentRoomTemperature();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
     }
 
     @Test
-    void seeIfGetCurrentRoomTemperatureWorksMinute() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("Temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("01/02/2018 20:31");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Reading r1;
-        Reading r2;
-        Reading r3;
-        Reading r4;
-        r1 = new Reading(30, date);
-        r2 = new Reading(-20, validDate2);
-        r3 = new Reading(25, validDate3);
-        r4 = new Reading(10, validDate4);
-        listR.addReading(r1);
-        listR.addReading(r2);
-        listR.addReading(r3);
-        listR.addReading(r4);
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setSensorList(list);
-        double result = room.getCurrentRoomTemperature();
-        double expectedResult = 30.0;
-        assertEquals(expectedResult, result, 0.01);
+    void seeIfGetCurrentRoomTemperatureWorks() {
+        // Arrange
+
+        double expectedResult = 21;
+
+        // Act
+
+        double actualResult = validRoom.getCurrentRoomTemperature();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
     }
 
     @Test
-    void seeGetCurrentRoomTemperatureWithoutReadings() {
-        SensorList list = new SensorList();
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setSensorList(list);
+    void seeIfGetCurrentRoomTemperatureWorksNoSensors() {
+        // Arrange
 
-        assertThrows(IllegalArgumentException.class, room::getCurrentRoomTemperature);
+        SensorList emptyList = new SensorList();
+        validRoom.setSensorList(emptyList);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class, validRoom::getCurrentRoomTemperature);
+    }
+
+    @Test
+    void seeIfGetCurrentRoomTemperatureWorksNoReadings() {
+        // Arrange
+
+        validSensor.setReadingList(new ReadingList());
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class, validRoom::getCurrentRoomTemperature);
     }
 
     @Test
     void seeIfAddSensorWorks() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("Temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 8, 5, 3);
-        room.setSensorList(list);
-        Sensor s2 = new Sensor("sensor2", type, new Local(1, 1, 50), new Date());
-        s2.setReadingList(listR);
-        boolean result = room.addSensor(s2);
-        assertTrue(result);
+        // Arrange
+
+        Sensor testSensor = new Sensor("testSensor", new TypeSensor("Temperature", "Celsius"),
+                new Local(1, 1, 50), new Date());
+
+        // Act
+
+        boolean actualResult = validRoom.addSensor(testSensor);
+
+        // Assert
+
+        assertTrue(actualResult);
     }
 
     @Test
     void seeIfAddSensorWorksFalse() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("Temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        room.setSensorList(list);
-        boolean result = room.addSensor(s1);
-        assertFalse(result);
+        // Act
+
+        boolean actualResult = validRoom.addSensor(validSensor);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
-    void seeIfEqualsWork() {
-        SensorList list = new SensorList();
-        TypeSensor type = new TypeSensor("Temperature", "Celsius");
-        ReadingList listR = new ReadingList();
-        Sensor s1 = new Sensor("sensor1", type, new Local(1, 1, 50), new Date());
-        s1.setReadingList(listR);
-        list.addSensor(s1);
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        boolean result = room.equals(null);
+    void seeIfEqualsWorksNull() {
+        // Act
+
+        boolean result = validRoom.equals(null); // Needed for Sonarqube testing purposes.
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfEqualsWorkDifClass() {
-        TypeSensor type = new TypeSensor("Temperature", "Celsius");
-        Room room = new Room("quarto", 1, 80, 5, 3);
-        boolean result = room.equals(type);
+        // Arrange
+
+        TypeSensor testType = new TypeSensor("Rainfall", "l/m2");
+
+        // Act
+
+        boolean result = validRoom.equals(testType);
+
+        // Assert
+
         assertFalse(result);
+    }
+
+    @Test
+    void seeIfPrintRoomWorks() {
+        // Arrange
+        String expectedResult = "Bedroom, 2, 30.0, 40.0, 10.0.\n";
+
+        // Act
+
+        String actualResult = validRoom.buildString();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
+    void seeIfGetNominalPowerWorksNoDevices() {
+        // Arrange
+
+        validRoom.removeDevice(validDevice);
+
+        // Act
+
+        double actualResult = validRoom.getNominalPower();
+
+        // Assert
+
+        Assertions.assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfGetNominalPowerWorks() {
+        // Arrange
+
+        double expectedResult = 21;
+
+        // Act
+
+        double actualResult = validRoom.getNominalPower();
+
+        // Assert
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetEstimateConsumptionByDeviceTypeWorks() {
+        // Arrange
+
+        double expectedResult = 97.97112;
+
+        // Act
+
+        double actualResult = validRoom.getEstimateConsumptionOverTimeByDeviceType("WaterHeater", 1440);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddDeviceWorksDuplicate() {
+        // Act
+
+        boolean actualResult = validRoom.addDevice(validDevice);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddDeviceWorksTrue() {
+        // Arrange
+
+        validRoom.removeDevice(validDevice);
+
+        // Act
+
+        boolean actualResult = validRoom.addDevice(validDevice);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void getRoomDevicesOfGivenTypeSuccess() {
+        // Arrange
+
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.add(validDevice);
+
+        // Act
+
+        DeviceList actualResult = validRoom.getDevicesOfGivenType("WaterHeater");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getRoomDevicesOfGivenTypeFails() {
+        // Arrange
+
+        DeviceList expectedResult = new DeviceList();
+
+        // Act
+
+        DeviceList actualResult = validRoom.getDevicesOfGivenType("MassageChair");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetDeviceListWorks() {
+        // Arrange
+
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.add(validDevice);
+
+        // Act
+
+        DeviceList actualResult = validRoom.getDeviceList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetDeviceListWorksNoDevices() {
+        // Arrange
+
+        validRoom.removeDevice(validDevice);
+        DeviceList expectedResult = new DeviceList();
+
+        // Act
+
+        DeviceList actualResult = validRoom.getDeviceList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddRooMDevicesToDeviceListWorks() {
+        // Arrange
+
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.add(validDevice);
+        DeviceList actualResult = new DeviceList();
+
+        // Act
+
+        validRoom.addRoomDevicesToDeviceList(actualResult);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomDevicesToDeviceListWorksAlreadyContained() {
+        // Arrange
+
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.add(validDevice);
+        DeviceList actualResult = new DeviceList();
+        actualResult.add(validDevice);
+
+        // Act
+
+        validRoom.addRoomDevicesToDeviceList(actualResult);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
+    void seeIfGetEnergyConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 1.4287455;
+
+        // Act
+
+        double actualResult = validRoom.getEnergyConsumption(21);
+
+        // Assert
+
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetSensorsByTypeWorks() {
+        // Arrange
+
+        SensorList expectedResult = new SensorList();
+        expectedResult.add(validSensor);
+
+        // Act
+
+        SensorList actualResult = validRoom.getSensorsOfGivenType("Temperature");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetMaxTemperatureGivenDayWorks() {
+        // Arrange
+
+        Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
+                getTime();
+        double expectedResult = 21;
+
+        // Act
+
+        double actualResult = validRoom.getMaxTemperatureOnGivenDay(dayToTest);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetMaxTemperatureGivenDayWorksMultipleReadings() {
+        // Arrange
+
+        Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+                12, 2, 0).getTime());
+        Reading thirdReading = new Reading(28, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+                11, 2, 0).getTime());
+        validSensor.addReading(secondReading);
+        validSensor.addReading(thirdReading);
+        Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
+                getTime();
+        double expectedResult = 28;
+
+        // Act
+
+        double actualResult = validRoom.getMaxTemperatureOnGivenDay(dayToTest);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetMaxTemperatureGivenDayWorksNoReadings() {
+        // Arrange
+
+        Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
+                getTime();
+        Room noSensorRoom = new Room("Mock", 1, 2, 3, 4);
+        validSensor.setReadingList(new ReadingList()); // validSensor has proper sensors, but they have no readings.
+
+
+        // Act and Assert
+
+        assertThrows(IllegalArgumentException.class, () -> noSensorRoom.getMaxTemperatureOnGivenDay(dayToTest));
+        assertThrows(NoSuchElementException.class, () -> validRoom.getMaxTemperatureOnGivenDay(dayToTest));
+    }
+
+    @Test
+    void seeIfGetCurrentRoomTemperatureWorksSameMinuteReadings() {
+        // Arrange
+
+        Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+                12, 2, 2).getTime());
+        Reading thirdReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+                12, 2, 13).getTime());
+        validSensor.addReading(secondReading);
+        validSensor.addReading(thirdReading);
+        double expectedResult = 21;
+
+        // Act
+
+        double actualResult = validRoom.getCurrentRoomTemperature();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetCurrentRoomTemperatureWorksMultipleSensors(){
+        // Arrange
+
+        Sensor firstSensor = new Sensor("firstSensor", new TypeSensor("Temperature", "Celsius"), new Date()); // Has one reading, not the most recent.
+        Sensor secondSensor = new Sensor("secondSensor", new TypeSensor("Temperature", "Celsius"), new Date()); // Has the most recent reading and another reading.
+        Sensor thirdSensor = new Sensor("secondSensor", new TypeSensor("Temperature", "Celsius"), new Date()); // Has no readings.
+        validRoom.addSensor(firstSensor);
+        validRoom.addSensor(secondSensor);
+        validRoom.addSensor(thirdSensor);
+        Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+                12, 2, 2).getTime());
+        Reading thirdReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+                12, 2, 13).getTime());
+        Reading mostRecentReading = new Reading(30, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+                15, 2, 13).getTime());
+        firstSensor.addReading(secondReading);
+        secondSensor.addReading(thirdReading);
+        secondSensor.addReading(mostRecentReading);
+        double expectedResult = 30;
+
+        // Act
+
+        double actualResult = validRoom.getCurrentRoomTemperature();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetCurrentRoomTemperatureWorksIllegalArguments() {
+        //Arrange
+
+        Room noSensorsRoom = new Room("Mock", 1, 2, 3, 4);
+        validSensor.setReadingList(new ReadingList()); // Valid Sensor now has sensors, but no readings.
+
+        //Act and Assert
+
+        assertThrows(IllegalArgumentException.class, noSensorsRoom::getCurrentRoomTemperature);
+        assertThrows(IllegalArgumentException.class, validRoom::getCurrentRoomTemperature);
+    }
+
+
+    @Test
+    void seeIfGetSensorListWorks() {
+        // Arrange
+
+        SensorList expectedResult = new SensorList();
+        expectedResult.add(validSensor);
+
+        // Act
+
+        SensorList actualResult = validRoom.getSensorList();
+
+        // Assert
+        assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void seeIfGetSensorListWorksNoSensors() {
+        // Arrange
+
+        SensorList expectedResult = new SensorList();
+        validRoom.setSensorList(new SensorList());
+
+        // Act
+
+        SensorList actualResult = validRoom.getSensorList();
+
+        // Assert
+        assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void seeIfGetSensorListWorksMultipleSensors() {
+        // Arrange
+
+        Sensor testSensor = new Sensor("Mock", new TypeSensor("Temperature", "Celsius"), new Date());
+        validRoom.addSensor(testSensor);
+        SensorList expectedResult = new SensorList();
+        expectedResult.add(validSensor);
+        expectedResult.add(testSensor);
+
+        // Act
+
+        SensorList actualResult = validRoom.getSensorList();
+
+        // Assert
+        assertEquals(actualResult, expectedResult);
     }
 
     @Test
@@ -249,820 +583,5 @@ class RoomTest {
         int expectedResult = 1;
         int actualResult = room1.hashCode();
         Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintRoomWorks() {
-        Room room = new Room("room1", 1, 1, 2, 2);
-        String result = room.buildString();
-        assertEquals("room1, 1, 1.0, 2.0, 2.0.\n", result);
-    }
-
-
-    @Test
-    void seeNominalPowerOfRoomWithoutDevices() {
-        //ARRANGE
-        Room room1 = new Room("room1", 19, 5, 3, 3);
-        double expectedResult = 0;
-        //ACT
-        double actualResult = room1.getNominalPower();
-        //ASSERT
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeNominalPowerOfRoom() {
-        //ARRANGE
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setNominalPower(12.0);
-        d1.setName("dsgdgdfg");
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        Device d2 = new Fridge(new FridgeSpec());
-        d2.setNominalPower(10.0);
-        d2.setName("fdgdhsd");
-        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
-        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
-        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        Device d3 = new Fridge(new FridgeSpec());
-        d3.setNominalPower(1.0);
-        d3.setName("sdgfddsa");
-        d3.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
-        d3.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
-        d3.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        Room room1 = new Room("room1", 19, 5, 3, 3);
-        room1.addDevice(d1);
-        room1.addDevice(d2);
-        room1.addDevice(d3);
-        double expectedResult = 23;
-        //ACT
-        double actualResult = room1.getNominalPower();
-        //ASSERT
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getDailyRoomConsumptionPerTypeTest() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 2D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 2D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        r1.addDevice(d1);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        Double expectedResult = 0.0;
-        Double result = r1.getDailyConsumptionByDeviceType("WaterHeater", 1440);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfRemoveRoomDevicesFromDeviceListAssertTrue() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        d2.setAttributeValue("coldWaterTemperature", 5.0);
-        d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("coldWaterTemperature", 1.0);
-
-        assertTrue(r1.removeDevice(d2));
-    }
-
-    @Test
-    void seeIfRemoveRoomDevicesFromDeviceListAssertTrueList() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        d2.setAttributeValue("coldWaterTemperature", 5.0);
-        d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("coldWaterTemperature", 1.0);
-
-        assertTrue(r1.removeDevice(d2));
-    }
-
-    @Test
-    void seeIfRemoveRoomDevicesFromDeviceListAssertFalse() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setName("sdgdfg");
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Device d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setName("hgfhs");
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setName("hfhgfh");
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        d2.setAttributeValue("coldWaterTemperature", 5.0);
-        d2.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("volumeOfWaterToHeat", 100.0);
-        d3.setAttributeValue("coldWaterTemperature", 1.0);
-
-        assertFalse(r1.removeDevice(d1));
-    }
-
-    @Test
-    void getDailyRoomConsumptionPerTypeTest2() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setName("sdgfdg");
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setName("fdsgfds");
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        d2.setAttributeValue("Cold Water Temperature", 5.0);
-        d2.setAttributeValue("Volume Of Water To Heat", 100.0);
-        d3.setAttributeValue("Volume Of Water To Heat", 100.0);
-        d3.setAttributeValue("Cold Water Temperature", 1.0);
-        double expectedResult = 4.60548;
-        double result = r1.getDailyConsumptionByDeviceType(d2.getType(), 1440);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void addDeviceFails() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        boolean result = r1.addDevice(d3);
-        assertFalse(result);
-    }
-
-    @Test
-    void addDeviceSucceeds() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setName("dsgsg");
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setName("dssg");
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        boolean result = r1.addDevice(d3);
-        assertTrue(result);
-    }
-
-    @Test
-    void addDeviceSucceeds2() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        boolean result = r1.addDevice(d3);
-        assertFalse(result);
-    }
-
-    @Test
-    void addDeviceSucceeds3() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        boolean expectedResult = true;
-        boolean result = r1.addDevice(d3);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getRoomDevicesOfGivenTypeSuccess() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setName("sdgdh");
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setName("fgdffds");
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        DeviceList expectedResult = new DeviceList();
-        expectedResult.addDevice(d2);
-        expectedResult.addDevice(d3);
-        DeviceList result = r1.getDevicesOfGivenType("WaterHeater");
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getRoomDevicesOfGivenTypeFails() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        DeviceList expectedResult = new DeviceList();
-        DeviceList result = r1.getDevicesOfGivenType("Fridge");
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void removeDeviceSucess() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        boolean result = r1.removeDevice(d2);
-        Assertions.assertTrue(result);
-    }
-
-    @Test
-    void removeDeviceFails() {
-        Room r1 = new Room("quarto", 1, 12, 12, 12);
-        Device d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setName("sdfdsfg");
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        d2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 20D);
-        d2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 10D);
-        Device d3 = new WaterHeater(new WaterHeaterSpec());
-        d3.setName("fdhgh");
-        d3.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 500D);
-        d3.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        d3.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        Device d4 = new WaterHeater(new WaterHeaterSpec());
-        d4.setName("fdgfdsh");
-        d4.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 50D);
-        d4.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 3D);
-        d4.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 1D);
-        r1.addDevice(d2);
-        r1.addDevice(d3);
-        boolean result = r1.removeDevice(d4);
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfSetDeviceListWorksAlreadyContained() {
-        //Arrange
-        Device device1 = new WaterHeater(new WaterHeaterSpec());
-        device1.setName("WaterHeaterOne");
-        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Device device2 = new WaterHeater(new WaterHeaterSpec());
-        device1.setName("WaterHeaterTwo");
-        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        DeviceList expectedResult = new DeviceList();
-        expectedResult.addDevice(device1);
-        expectedResult.addDevice(device2);
-        room.addDevice(device1);
-        room.addDevice(device2);
-        //Act
-        DeviceList actualResult = room.getDeviceList();
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfAddRoomDevicesToDeviceListWorksAlreadyContained() {
-        //Arrange
-        Device device1 = new WaterHeater(new WaterHeaterSpec());
-        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Device device2 = new WaterHeater(new WaterHeaterSpec());
-        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        DeviceList dList = new DeviceList();
-        dList.addDevice(device1);
-        dList.addDevice(device2);
-        DeviceList expectedResult = new DeviceList();
-        room.addRoomDevicesToDeviceList(dList);
-        //Act
-        DeviceList actualResult = room.getDeviceList();
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfAddRoomDevicesToDeviceListWorksWhenNotYetAddedToRoom() {
-        //Arrange
-        Device device1 = new WaterHeater(new WaterHeaterSpec());
-        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Device device2 = new WaterHeater(new WaterHeaterSpec());
-        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        DeviceList dList = new DeviceList();
-        DeviceList expectedResult = new DeviceList();
-        dList.addDevice(device1);
-        dList.addDevice(device2);
-        room.addDevice(device1);
-        room.addDevice(device2);
-        room.addRoomDevicesToDeviceList(expectedResult);
-        //Act
-        DeviceList actualResult = room.getDeviceList();
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfAddRoomDevicesToDeviceListWorksifSomeAreAlreadyInList() {
-        //Arrange
-        Device device1 = new WaterHeater(new WaterHeaterSpec());
-        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Device device2 = new WaterHeater(new WaterHeaterSpec());
-        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Room room = new Room("cozinha", 1, 1, 1, 1);
-        DeviceList dList = new DeviceList();
-        DeviceList expectedResult = new DeviceList();
-        dList.addDevice(device1);
-        dList.addDevice(device2);
-        room.addDevice(device1);
-        room.addDevice(device2);
-        room.addRoomDevicesToDeviceList(expectedResult);
-        //Act
-        DeviceList actualResult = room.getDeviceList();
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void ensureThatWeDoNotAddADeviceToADeviceList() {
-        Device device = new WaterHeater(new WaterHeaterSpec());
-        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Room room = new Room("Room", 1, 2, 3, 4);
-        room.addDevice(device);
-        boolean expectedResult = false;
-        boolean actualResult = room.addDevice(device);
-        assertEquals(expectedResult, actualResult);
-    }
-
-
-    @Test
-    void seeThatWeAddADeviceToADeviceList() {
-        Device device = new WaterHeater(new WaterHeaterSpec());
-        device.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Room room = new Room("Room", 1, 2, 3, 4);
-        boolean expectedResult = true;
-        boolean actualResult = room.addDevice(device);
-        Assertions.assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfGetEnergyConsumption() {
-        Room room = new Room("Room", 1, 2, 3, 4);
-        double expectedResult = 0;
-        double value = room.getEnergyConsumption(21);
-        Assert.assertEquals(expectedResult, value);
-    }
-
-    @Test
-    void getTemperatureSensors() {
-        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
-        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS
-        Room room3 = new Room("room3", 1, 2, 3, 4); //ONE HUMIDITY SENSOR
-        Room room4 = new Room("room4", 1, 2, 3, 4); //TWO TEMP + ONE HUMIDITY
-
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate2);
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate2);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"),validDate2);
-
-        room2.addSensor(sensor1);
-        room2.addSensor(sensor3);
-        room3.addSensor(sensor2);
-        room4.addSensor(sensor1);
-        room4.addSensor(sensor2);
-        room4.addSensor(sensor3);
-
-        SensorList expectedResult1 = new SensorList();
-        SensorList expectedResult2 = new SensorList();
-        SensorList expectedResult3 = new SensorList();
-        SensorList expectedResult4 = new SensorList();
-        expectedResult2.addSensor(sensor1);
-        expectedResult2.addSensor(sensor3);
-        expectedResult4.addSensor(sensor1);
-        expectedResult4.addSensor(sensor3);
-
-        //ACT
-        SensorList actualResult1 = room1.getSensorsOfGivenType("Temperature");
-        SensorList actualResult2 = room2.getSensorsOfGivenType("Temperature");
-        SensorList actualResult3 = room3.getSensorsOfGivenType("Temperature");
-        SensorList actualResult4 = room4.getSensorsOfGivenType("Temperature");
-        //ASSERT
-        assertEquals(actualResult1, expectedResult1);
-        assertEquals(actualResult2, expectedResult2);
-        assertEquals(actualResult3, expectedResult3);
-        assertEquals(actualResult4, expectedResult4);
-    }
-
-    @Test
-    void getMaxTemperatureOnGivenDay() {
-        Room room1 = new Room("room1", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH READINGS SAME VALUE ON DAY TESTED + ONE HUMIDITY
-        Room room2 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MAX IN FIRST SENSOR + ONE HUMIDITY
-        Room room3 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MAX IN SECOND SENSOR + ONE HUMIDITY
-        Room room4 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN FIRST READING) + ONE HUMIDITY
-        Room room5 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN SECOND READING) + ONE HUMIDITY
-        Room room6 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MAX IN THIRD READING) + ONE HUMIDITY
-
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"),validDate5);
-        Reading reading1 = new Reading(20, validDate6);
-        sensor1.addReading(reading1);
-        sensor2.addReading(reading1);
-        sensor3.addReading(reading1);
-
-        room1.addSensor(sensor1);
-        room1.addSensor(sensor2);
-        room1.addSensor(sensor3);
-
-        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("Temperature", "ºC"), validDate5);
-        Reading reading2 = new Reading(24, validDate6);
-        Reading reading3 = new Reading(20, validDate7);
-        sensor4.addReading(reading2);
-        sensor5.addReading(reading3);
-
-        room2.addSensor(sensor2);
-        room2.addSensor(sensor4);
-        room2.addSensor(sensor5);
-
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("Temperature", "ºC"), validDate5);
-        Reading reading4 = new Reading(20, validDate6);
-        Reading reading5 = new Reading(25, validDate7);
-        sensor6.addReading(reading4);
-        sensor7.addReading(reading5);
-
-        room3.addSensor(sensor2);
-        room3.addSensor(sensor6);
-        room3.addSensor(sensor7);
-
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("Temperature", "ºC"), validDate5);
-        Reading reading6 = new Reading(26, validDate6);
-        Reading reading7 = new Reading(21, validDate7);
-        Reading reading8 = new Reading(20, validDate8);
-        sensor8.addReading(reading6);
-        sensor8.addReading(reading7);
-        sensor8.addReading(reading8);
-        sensor9.addReading(reading8);
-
-        room4.addSensor(sensor2);
-        room4.addSensor(sensor8);
-        room4.addSensor(sensor9);
-
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor11 = new Sensor("sensor11", new TypeSensor("Temperature", "ºC"), validDate5);
-        Reading reading9 = new Reading(21, validDate6);
-        Reading reading10 = new Reading(27, validDate7);
-        Reading reading11 = new Reading(20, validDate8);
-        sensor10.addReading(reading9);
-        sensor10.addReading(reading10);
-        sensor11.addReading(reading11);
-        sensor11.addReading(reading11);
-
-        room5.addSensor(sensor2);
-        room5.addSensor(sensor10);
-        room5.addSensor(sensor11);
-
-
-        Sensor sensor12 = new Sensor("sensor12", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor13 = new Sensor("sensor13", new TypeSensor("Temperature", "ºC"), validDate5);
-        Reading reading12 = new Reading(21, validDate6);
-        Reading reading13 = new Reading(20, validDate7);
-        Reading reading14 = new Reading(28, validDate8);
-        sensor12.addReading(reading12);
-        sensor12.addReading(reading13);
-        sensor12.addReading(reading14);
-        sensor13.addReading(reading12);
-
-        room6.addSensor(sensor2);
-        room6.addSensor(sensor12);
-        room6.addSensor(sensor13);
-
-        //ACT
-        double actualResult1 = room1.getMaxTemperatureOnGivenDay(validDate6);
-        double actualResult2 = room2.getMaxTemperatureOnGivenDay(validDate6);
-        double actualResult3 = room3.getMaxTemperatureOnGivenDay(validDate6);
-        double actualResult4 = room4.getMaxTemperatureOnGivenDay(validDate6);
-        double actualResult5 = room5.getMaxTemperatureOnGivenDay(validDate6);
-        double actualResult6 = room6.getMaxTemperatureOnGivenDay(validDate6);
-
-
-        //ASSERT
-        assertEquals(actualResult1, 20, 0.01);
-        assertEquals(actualResult2, 24, 0.01);
-        assertEquals(actualResult3, 25, 0.01);
-        assertEquals(actualResult4, 26, 0.01);
-        assertEquals(actualResult5, 27, 0.01);
-        assertEquals(actualResult6, 28, 0.01);
-    }
-
-    @Test
-    void getMaxTemperatureOnGivenDayIllegalArguments() {
-        //Arrange
-
-        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
-        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
-
-
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), validDate5);
-
-        room2.addSensor(sensor1);
-        room2.addSensor(sensor2);
-        room2.addSensor(sensor3);
-
-        //Act and Assert
-
-        assertThrows(IllegalArgumentException.class, () -> room1.getMaxTemperatureOnGivenDay(validDate5));
-        assertThrows(NoSuchElementException.class, () -> room2.getMaxTemperatureOnGivenDay(validDate5));
-    }
-
-    @Test
-    void seeGetCurrentRoomTemperature() {
-        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
-        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
-        Room room3 = new Room("room3", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MOST RECENT READING ON SAME MINUTE + ONE HUMIDITY
-        Room room4 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MOST RECENT IN FIRST SENSOR + ONE HUMIDITY
-        Room room5 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH MOST RECENT IN SECOND SENSOR + ONE HUMIDITY
-        Room room6 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MOST RECENT IN FIRST READING) + ONE HUMIDITY
-        Room room7 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MOST RECENT IN SECOND READING) + ONE HUMIDITY
-        Room room8 = new Room("room4", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITH 3 READINGS ON SAME SENSOR (MOST RECENT IN THIRD READING) + ONE HUMIDITY
-
-
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), validDate5);
-
-        room2.addSensor(sensor1);
-        room2.addSensor(sensor2);
-        room2.addSensor(sensor3);
-
-        Sensor sensor4 = new Sensor("sensor4", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor5 = new Sensor("sensor5", new TypeSensor("humidity", "%"), validDate5);
-        Sensor sensor6 = new Sensor("sensor6", new TypeSensor("Temperature", "ºC"), validDate5);
-        Reading reading1 = new Reading(20, validDate6);
-        sensor4.addReading(reading1);
-        sensor5.addReading(reading1);
-        sensor6.addReading(reading1);
-
-        room3.addSensor(sensor4);
-        room3.addSensor(sensor5);
-        room3.addSensor(sensor6);
-
-        Sensor sensor7 = new Sensor("sensor7", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor8 = new Sensor("sensor8", new TypeSensor("Temperature", "ºC"), validDate5);
-        Reading reading2 = new Reading(24, validDate6);
-        Reading reading3 = new Reading(20, validDate5);
-        sensor7.addReading(reading2);
-        sensor8.addReading(reading3);
-
-        room4.addSensor(sensor5);
-        room4.addSensor(sensor7);
-        room4.addSensor(sensor8);
-
-        Sensor sensor9 = new Sensor("sensor9", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor10 = new Sensor("sensor10", new TypeSensor("Temperature", "ºC"), validDate5);
-        Reading reading4 = new Reading(20, validDate5);
-        Reading reading5 = new Reading(25, validDate6);
-        sensor9.addReading(reading4);
-        sensor10.addReading(reading5);
-
-        room5.addSensor(sensor5);
-        room5.addSensor(sensor9);
-        room5.addSensor(sensor10);
-
-        Sensor sensor11 = new Sensor("sensor11", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor12 = new Sensor("sensor12", new TypeSensor("Temperature", "ºC"),validDate5);
-        Reading reading6 = new Reading(26, validDate7);
-        Reading reading7 = new Reading(21, validDate5);
-        Reading reading8 = new Reading(20, validDate6);
-        sensor11.addReading(reading6);
-        sensor11.addReading(reading7);
-        sensor11.addReading(reading8);
-        sensor12.addReading(reading8);
-
-        room6.addSensor(sensor5);
-        room6.addSensor(sensor11);
-        room6.addSensor(sensor12);
-
-        Sensor sensor13 = new Sensor("sensor13", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor14 = new Sensor("sensor14", new TypeSensor("Temperature", "ºC"), validDate5);
-        Reading reading9 = new Reading(21, validDate6);
-        Reading reading10 = new Reading(27, validDate7);
-        Reading reading11 = new Reading(20,validDate5);
-        sensor13.addReading(reading9);
-        sensor13.addReading(reading10);
-        sensor13.addReading(reading11);
-        sensor14.addReading(reading11);
-
-        room7.addSensor(sensor5);
-        room7.addSensor(sensor13);
-        room7.addSensor(sensor14);
-
-
-        Sensor sensor15 = new Sensor("sensor15", new TypeSensor("Temperature", "ºC"),validDate5);
-        Sensor sensor16 = new Sensor("sensor16", new TypeSensor("Temperature", "ºC"),validDate5);
-        Reading reading12 = new Reading(21, validDate6);
-        Reading reading13 = new Reading(20, validDate5);
-        Reading reading14 = new Reading(28, validDate7);
-        sensor15.addReading(reading12);
-        sensor15.addReading(reading13);
-        sensor15.addReading(reading14);
-        sensor16.addReading(reading12);
-
-        room8.addSensor(sensor5);
-        room8.addSensor(sensor15);
-        room8.addSensor(sensor16);
-
-        //ACT
-        double actualResult3 = room3.getCurrentRoomTemperature();
-        double actualResult4 = room4.getCurrentRoomTemperature();
-        double actualResult5 = room5.getCurrentRoomTemperature();
-        double actualResult6 = room6.getCurrentRoomTemperature();
-        double actualResult7 = room7.getCurrentRoomTemperature();
-        double actualResult8 = room8.getCurrentRoomTemperature();
-
-
-        //ASSERT
-        assertThrows(IllegalArgumentException.class, room1::getCurrentRoomTemperature);
-        assertThrows(IllegalArgumentException.class, room2::getCurrentRoomTemperature);
-        assertEquals(actualResult3, 20, 0.01);
-        assertEquals(actualResult4, 24, 0.01);
-        assertEquals(actualResult5, 25, 0.01);
-        assertEquals(actualResult6, 26, 0.01);
-        assertEquals(actualResult7, 27, 0.01);
-        assertEquals(actualResult8, 28, 0.01);
-    }
-
-    @Test
-    void getCurrentRoomTemperatureIllegalArguments() {
-        //Arrange
-
-        Room room1 = new Room("room1", 1, 2, 3, 4); //NO SENSORS
-        Room room2 = new Room("room2", 1, 2, 3, 4); //TWO TEMPERATURE SENSORS WITHOUT READINGS + ONE HUMIDITY
-
-
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("Temperature", "ºC"), validDate5);
-
-        room2.addSensor(sensor1);
-        room2.addSensor(sensor2);
-        room2.addSensor(sensor3);
-
-        //Act and Assert
-
-        assertThrows(IllegalArgumentException.class, room1::getCurrentRoomTemperature);
-        assertThrows(IllegalArgumentException.class, room2::getCurrentRoomTemperature);
-    }
-
-
-    @Test
-    void getSensorList() {
-        Room room1 = new Room("room1", 0, 1, 1, 1); //NO SENSORS
-        Room room2 = new Room("room2", 0, 1, 1, 1); //ONE SENSOR
-        Room room3 = new Room("room3", 0, 1, 1, 1); //TWO SENSORS
-
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("Temperature", "ºC"), validDate5);
-        Sensor sensor2 = new Sensor("sensor2", new TypeSensor("humidity", "%"), validDate5);
-
-        room2.addSensor(sensor1);
-        room3.addSensor(sensor1);
-        room3.addSensor(sensor2);
-
-        SensorList expectedResult1 = new SensorList();
-        SensorList expectedResult2 = new SensorList();
-        SensorList expectedResult3 = new SensorList();
-        expectedResult2.addSensor(sensor1);
-        expectedResult3.addSensor(sensor1);
-        expectedResult3.addSensor(sensor2);
-        //ACT
-        SensorList actualResult1 = room1.getSensorList();
-        SensorList actualResult2 = room2.getSensorList();
-        SensorList actualResult3 = room3.getSensorList();
-        //ASSERT
-        assertEquals(actualResult1, expectedResult1);
-        assertEquals(actualResult2, expectedResult2);
-        assertEquals(actualResult3, expectedResult3);
-    }
-
-    @Test
-    void getDeviceList() {
-        Room room1 = new Room("room1", 0, 1, 1, 1); //NO DEVICES
-        Room room2 = new Room("room2", 0, 1, 1, 1); //ONE DEVICE
-        Room room3 = new Room("room3", 0, 1, 1, 1); //TWO DEVICES
-
-        Device device1 = new WaterHeater(new WaterHeaterSpec());
-        device1.setName("WaterHeaterOne");
-        device1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Device device2 = new WaterHeater(new WaterHeaterSpec());
-        device1.setName("WaterHeaterTwo");
-        device2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        device2.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        device2.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-
-        room2.addDevice(device1);
-        room3.addDevice(device1);
-        room3.addDevice(device2);
-
-        DeviceList expectedResult1 = new DeviceList();
-        DeviceList expectedResult2 = new DeviceList();
-        DeviceList expectedResult3 = new DeviceList();
-        expectedResult2.addDevice(device1);
-        expectedResult3.addDevice(device1);
-        expectedResult3.addDevice(device2);
-        //ACT
-        DeviceList actualResult1 = room1.getDeviceList();
-        DeviceList actualResult2 = room2.getDeviceList();
-        DeviceList actualResult3 = room3.getDeviceList();
-        //ASSERT
-        assertEquals(expectedResult1, actualResult1);
-        assertEquals(expectedResult2, actualResult2);
-        assertEquals(expectedResult3, actualResult3);
     }
 }
