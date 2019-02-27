@@ -17,33 +17,18 @@ class PowerSourceTest {
 
     @BeforeEach
     void arrangeArtifacts(){
-        validPowerSource = new PowerSource("Energia", 50, 50);
-    }
-
-    @Test
-    void seeHashCodeDummyTest() {
-        // Arrange
-
-        int expectedResult = 1;
-
-        // Act
-
-        int actualResult = validPowerSource.hashCode();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
+        validPowerSource = new PowerSource("Energy", 50, 50);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithDifferentObject() {
         // Arrange
 
-        int teste = 3;
+        int test = 3;
 
         // Act
 
-        boolean actualResult = validPowerSource.equals(teste); // Necessary for Sonarqube testing purposes.
+        boolean actualResult = validPowerSource.equals(test); // Necessary for Sonarqube testing purposes.
 
         // Assert
 
@@ -54,7 +39,7 @@ class PowerSourceTest {
     void seeIfEqualsPowerSourceWithDifferentContent() {
         // Arrange
 
-        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
+        PowerSource pS2 = new PowerSource("Voltage", 50, 50);
 
         // Act
 
@@ -69,7 +54,7 @@ class PowerSourceTest {
     void seeIfEqualsPowerSourceWithSameContent() {
         // Arrange
 
-        PowerSource pS2 = new PowerSource("Energia", 50, 50);
+        PowerSource pS2 = new PowerSource("Energy", 50, 50);
 
         // Act
 
@@ -145,5 +130,20 @@ class PowerSourceTest {
         //Assert
 
         assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void hashCodeDummyTest() {
+        // Arrange
+
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = validPowerSource.hashCode();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }
