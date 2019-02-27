@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.TypeSensor;
 import pt.ipp.isep.dei.project.model.device.devicespecs.MicrowaveOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -32,6 +33,7 @@ public class MicrowaveOvenTest {
     private ProgramList validProgramList; // A program list containing no programs.
     private LogList validLogList; // a log list containing no logs.
     private Log validLog; // A log of a reading made of the device with a value of 200, read between the validDate1 and validDate2.
+    private Log validLog2; // A log of a reading made of the device with a value of 2000, read between the validDate3 and validDate2.
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private Date validDate1; // Date 20/10/2018 09:02:00
     private Date validDate2; // Date 20/10/2018 10:02:00
@@ -56,6 +58,7 @@ public class MicrowaveOvenTest {
             c.printStackTrace();
         }
         validLog = new Log(200,validDate1,validDate2);
+        validLog2 = new Log(2000,validDate3,validDate2);
     }
 
     @Test
@@ -367,6 +370,87 @@ public class MicrowaveOvenTest {
     }
 
     @Test
+    void seeIfLogListGetterWorks() {
+        //Arrange
+        validMicrowaveOven.addLog(validLog);
+        validLogList.addLog(validLog);
+        LogList expectedResult = validLogList;
+
+        // Act
+        LogList result = validMicrowaveOven.getLogList();
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfLogListGetterFailsDifferentListSize() {
+        //Arrange
+        validMicrowaveOven.addLog(validLog);
+        validLogList.addLog(validLog);
+        validLogList.addLog(validLog2);
+        LogList expectedResult = validLogList;
+
+        // Act
+        LogList result = validMicrowaveOven.getLogList();
+
+        //Assert
+        assertNotEquals(expectedResult, result);
+    }
+
+
+    @Test
+    void seeIfLogListGetterFails() {
+        //Arrange
+        validMicrowaveOven.addLog(validLog);
+        LogList expectedResult = validLogList;
+
+        // Act
+        LogList result = validMicrowaveOven.getLogList();
+
+        //Assert
+        assertNotEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfAddLogWorks() {
+        //Arrange
+        boolean expectedResult = true;
+
+        // Act
+        boolean result = validMicrowaveOven.addLog(validLog);
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfAddLogFailsSameLog() {
+        //Arrange
+        validMicrowaveOven.addLog(validLog);
+        boolean expectedResult = false;
+
+        // Act
+        boolean result = validMicrowaveOven.addLog(validLog);
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfAddLogFailsOnDeactivatedDevice() {
+        //Arrange
+        validMicrowaveOven.deactivate();
+        boolean expectedResult = false;
+
+        // Act
+        boolean result = validMicrowaveOven.addLog(validLog);
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfRealConsumptionCalculatorInAnIntervalWorksWithOneLog() {
         //Arrange
         validMicrowaveOven.addLog(validLog);
@@ -455,7 +539,7 @@ public class MicrowaveOvenTest {
     }
 
     @Test
-    void seeIfAttributesGetterWorks() {
+    void seeIfAttributeNamesGetterWorks() {
         //Arrange
         List<String> expectedResult = new ArrayList<>();
 
@@ -464,6 +548,85 @@ public class MicrowaveOvenTest {
 
         //Assert
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfAttributeValuesGetterWorks() {
+        //Arrange
+        int expectedResult = 0;
+        validMicrowaveOven.setAttributeValue("Weight",2);
+
+        // Act
+        Object result = validMicrowaveOven.getAttributeValue("Weight");
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfAttributeValuesGetterWorksDifferentObject() {
+        //Arrange
+        int expectedResult = 0;
+        validMicrowaveOven.setAttributeValue("Weight","Two");
+        // Act
+        Object result = validMicrowaveOven.getAttributeValue("Weight");
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfAttributeUnitsGetterWorks() {
+        //Arrange
+        boolean expectedResult = false;
+        validMicrowaveOven.setAttributeValue("Kilograms","Kg");
+
+        // Act
+        Object result = validMicrowaveOven.getAttributeUnit("Kilograms");
+
+        //Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfEqualsWorks() {
+        //Arrange
+        // Act
+        //Assert
+        assertTrue(validMicrowaveOven.equals(validMicrowaveOven));
+    }
+
+    @Test
+    void seeIfEqualsFailsDifferentObject() {
+        //Arrange
+        // Act
+        //Assert
+        assertFalse(validMicrowaveOven.equals(new TypeSensor("Rain","mm")));
+    }
+
+    @Test
+    void seeIfEqualsWorksDeviceObject() {
+        //Arrange
+        Device micro = new MicrowaveOven(validSpec);
+        micro.setName(validName1);
+        validMicrowaveOven.setName(validName1);
+
+        // Act
+
+        //Assert
+        assertTrue(micro.equals(validMicrowaveOven));
+    }
+
+    @Test
+    void seeIfEqualsFailsDeviceObject() {
+        //Arrange
+        Device micro = new MicrowaveOven(validSpec);
+        micro.setName(validName1);
+
+        // Act
+
+        //Assert
+        assertFalse(micro.equals(validMicrowaveOven));
     }
 
     @Test
