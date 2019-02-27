@@ -62,7 +62,7 @@ public class Reading {
             return false;
         } else {
             Reading reading = (Reading) o;
-            return (java.lang.Double.compare(this.value, reading.getValue()) == 0 && this.date.equals(reading.getDate()));
+            return (this.date.equals(reading.getDate()));
         }
     }
 

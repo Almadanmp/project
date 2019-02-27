@@ -730,19 +730,16 @@ class SensorTest {
         Reading reading1 = new Reading(20, validDate1);
         Reading reading2 = new Reading(20, validDate2);
         Reading reading3 = new Reading(25, validDate1);
-        Reading reading4 = new Reading(20, validDate1);
 
         //act
         boolean actualResult1 = sensor1.addReading(reading1);
         boolean actualResult2 = sensor1.addReading(reading2);
         boolean actualResult3 = sensor1.addReading(reading3);
-        boolean actualResult4 = sensor1.addReading(reading4);
 
         //assert
         assertTrue(actualResult1);
         assertTrue(actualResult2);
-        assertTrue(actualResult3);
-        assertFalse(actualResult4);
+        assertFalse(actualResult3);
     }
 
     @Test

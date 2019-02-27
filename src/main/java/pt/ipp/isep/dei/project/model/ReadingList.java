@@ -101,7 +101,7 @@ public class ReadingList {
         Date mostRecent = recentReading.getDate();
         for (Reading r : this.readings) {
             Date testDate = r.getDate();
-            if (mostRecent.before(testDate)) {
+            if (testDate.after(mostRecent)) {
                 mostRecent = testDate;
                 recentReading = r;
             }
@@ -139,7 +139,7 @@ public class ReadingList {
      * @return sum
      * @author André (US620)
      */
-    public double getTotalValueOfReadingOnGivenDay(Date givenDate) {
+    public double getValueReadingsInDay(Date givenDate) {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
         List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(givenDate);
         if (valueReadingsThatMatchDay.isEmpty()) {
