@@ -206,14 +206,16 @@ public class Sensor {
      * the most recent reading date.
      * @return most recent reading date in sensor
      * **/
-    public Date getMostRecentReadingDate(){
+
+    Date getMostRecentReadingDate(){
         return this.readingList.getMostRecentReadingDate();
     }
 
     /**This method returns the sensor type name.
      * @return he sensor type name.
      * **/
-    public String getSensorTypeName(){
+
+    String getSensorTypeName(){
         return this.typeSensor.getName();
     }
 

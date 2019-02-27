@@ -23,7 +23,7 @@ class DeviceListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 9, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
         Date d2 = new GregorianCalendar(2008, 2, 2).getTime();
@@ -50,7 +50,7 @@ class DeviceListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 9, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
         Date d2 = new GregorianCalendar(2008, 2, 2).getTime();
@@ -82,7 +82,7 @@ class DeviceListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
@@ -108,7 +108,7 @@ class DeviceListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
@@ -133,7 +133,7 @@ class DeviceListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
@@ -160,7 +160,7 @@ class DeviceListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
@@ -186,7 +186,7 @@ class DeviceListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
@@ -212,7 +212,7 @@ class DeviceListTest {
         //Room List
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         //Reading List
         ReadingList rL1 = new ReadingList();
         Date d2 = new GregorianCalendar(2018, 2, 2).getTime();

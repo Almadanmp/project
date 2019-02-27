@@ -134,7 +134,7 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
         RoomList roomList = new RoomList();
-        roomList.addRoom(validRoom1);
+        roomList.add(validRoom1);
 
         //Act
         boolean actualResult = controller.removeRoomFromList(validRoom1, roomList);
@@ -166,7 +166,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
 
         RoomList roomList = new RoomList();
-        roomList.addRoom(validRoom1);
+        roomList.add(validRoom1);
 
         //Act
         boolean actualResult = controller.addRoomToList(validRoom1, roomList);
@@ -288,7 +288,7 @@ class EnergyConsumptionControllerTest {
         EnergyGrid testGrid = new EnergyGrid("GridOne", 300);
         EnergyGridList houseGrid = new EnergyGridList();
         houseGrid.addGrid(testGrid);
-        house.setEGList(houseGrid);
+        house.setGridList(houseGrid);
         EnergyGridList expectedResult = new EnergyGridList();
         expectedResult.addGrid(testGrid);
 
@@ -348,8 +348,8 @@ class EnergyConsumptionControllerTest {
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
         validRoom2.addDevice(validDevice3);
-        house.addRoomToRoomList(validRoom1);
-        house.addRoomToRoomList(validRoom2);
+        house.addRoom(validRoom1);
+        house.addRoom(validRoom2);
         double expectedResult = 0.0;
 
         //Act
@@ -396,8 +396,8 @@ class EnergyConsumptionControllerTest {
         House house = new House("ISEP", address , new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea
                 ("Cidade"), 2, 3, new Local(4, 4, 100)), 60,
                 180, deviceTypeString);
-        house.addRoomToRoomList(validRoom1);
-        house.addRoomToRoomList(validRoom2);
+        house.addRoom(validRoom1);
+        house.addRoom(validRoom2);
         double expectedResult = 0;
 
         //Act
@@ -422,8 +422,8 @@ class EnergyConsumptionControllerTest {
                 60, 180, deviceTypeString);
         validRoom1.addDevice(validDevice1);
         validRoom2.addDevice(validDevice2);
-        house.addRoomToRoomList(validRoom1);
-        house.addRoomToRoomList(validRoom2);
+        house.addRoom(validRoom1);
+        house.addRoom(validRoom2);
         double expectedResult = 0;
 
         //Act
@@ -448,10 +448,10 @@ class EnergyConsumptionControllerTest {
                 60, 180, deviceTypeString);
         RoomList roomList = new RoomList();
         validGrid.setRoomList(roomList);
-        roomList.addRoom(validRoom2);
-        roomList.addRoom(validRoom1);
-        house.addRoomToRoomList(validRoom1);
-        house.addRoomToRoomList(validRoom2);
+        roomList.add(validRoom2);
+        roomList.add(validRoom1);
+        house.addRoom(validRoom1);
+        house.addRoom(validRoom2);
         double expectedResult = 86;
 
         //Act
@@ -476,7 +476,7 @@ class EnergyConsumptionControllerTest {
                 60, 180, deviceTypeString);
         RoomList roomList = new RoomList();
         validGrid.setRoomList(roomList);
-        house.addRoomToRoomList(validRoom2);
+        house.addRoom(validRoom2);
         double expectedResult = 0;
 
         //Act
@@ -501,7 +501,7 @@ class EnergyConsumptionControllerTest {
                 60, 180, deviceTypeString);
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
-        house.addRoomToRoomList(validRoom1);
+        house.addRoom(validRoom1);
         DeviceList expectedResult = new DeviceList();
         expectedResult.addDevice(validDevice1);
         expectedResult.addDevice(validDevice2);

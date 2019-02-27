@@ -50,7 +50,7 @@ class HouseMonitoringControllerTest {
         validHouse.setMotherArea(validHouseArea);
         validRoom = new Room("Bedroom", 2, 15, 15, 10);
         RoomList validRoomList = new RoomList();
-        validRoomList.addRoom(validRoom);
+        validRoomList.add(validRoom);
         validSensorList = new SensorList();
         validRoom.setSensorList(validSensorList);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

@@ -40,7 +40,7 @@ public class EnergyConsumptionController {
      */
 
     public boolean addRoomToList(Room room, RoomList list) {
-        return list.addRoom(room);
+        return list.add(room);
     }
 
     /**
