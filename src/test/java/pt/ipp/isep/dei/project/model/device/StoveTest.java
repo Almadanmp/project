@@ -7,9 +7,12 @@ import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.program.Program;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
+import pt.ipp.isep.dei.project.model.device.program.VariableTimeProgram;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.testng.Assert.*;
 
@@ -357,5 +360,62 @@ public class StoveTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    public void ensureThatWeGetEnergyConsumption(){
+        Stove stove = new Stove(new StoveSpec());
+        VariableTimeProgram program = new VariableTimeProgram("Program 1",100);
+        double expectedResult = 300;
+        double actualResult = stove.getProgramConsumption(3,program);
+        assertEquals(expectedResult,actualResult);
+    }
 
+    @Test
+    public void ensureThatLogListIsEmpty() {
+        Stove stove = new Stove((new StoveSpec()));
+        assertTrue(stove.isLogListEmpty());
+    }
+
+    @Test
+    public void ensureThatLogListIsNotEmpty() {
+        Stove stove = new Stove(new StoveSpec());
+        Log log = new Log(30,new GregorianCalendar(2018,10,10).getTime(),new GregorianCalendar(2018,11,11).getTime());
+        stove.addLog(log);
+        assertFalse(stove.isLogListEmpty());
+    }
+
+    @Test
+    public void ensureThatWeGetStringListAttributeNamesEmpty(){
+        Stove stove = new Stove(new StoveSpec());
+        List<String> expectedResult = new ArrayList<>();
+        List<String> actualResult = stove.getAttributeNames();
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void ensureThatWeGetProgramListAndAddProgram() {
+        Stove stove = new Stove(new StoveSpec());
+        VariableTimeProgram program = new VariableTimeProgram("Program 1",100);
+        ProgramList programList = new ProgramList();
+        programList.addProgram(program);
+        stove.setProgramList(programList);
+        ProgramList expectedResult = programList;
+        ProgramList actualResult = stove.getProgramList();
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void ensureThatWeGetAttributeUnitFalse() {
+        Stove stove = new Stove(new StoveSpec());
+        Object expectedResult = false;
+        Object actualResult = stove.getAttributeUnit("Unit");
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void ensureThatWeGetAttributeValue0(){
+        Stove stove = new Stove(new StoveSpec());
+        Object expectedResult = 0;
+        Object actualResult = stove.getAttributeValue("Value");
+        assertEquals(expectedResult,actualResult);
+    }
 }

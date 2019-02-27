@@ -58,7 +58,6 @@ public class RoomList {
             }
         }
         Room room = new Room(roomDesignation, roomHouseFloor, width, length, height);
-        this.rooms.add(room);
         return room;
     }
 

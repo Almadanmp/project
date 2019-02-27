@@ -6,7 +6,11 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 
 /**
  * HouseConfigurationController tests class.
@@ -37,14 +41,12 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfGetHouseName() {
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
+        //Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa de praia", address, new Local(4, 5, 4), ga, 60, 180, deviceTypeString);
+
         //Act
-        // Act
 
         String actualResult = controller.getHouseName(validHouse);
 
@@ -99,5 +101,26 @@ class HouseConfigurationControllerTest {
         assertEquals(expectedResult1, actualResult1);
         assertEquals(expectedResult2, actualResult2);
         assertEquals(expectedResult3, actualResult3);
+    }
+
+    @Test
+    void addsRoom() {
+        //Arrange
+
+        Room room1 = new Room("Kitchen", 1, 10, 15, 10);
+        Room room2 = new Room("Room", 1, 10, 15, 10);
+        Room room3 = new Room("Kitchen", 1, 10, 15, 10);
+
+        // Act
+
+        boolean actualResult1 = controller.addRoomToHouse(validHouse, room1);
+        boolean actualResult2 = controller.addRoomToHouse(validHouse, room2);
+        boolean actualResult3 = controller.addRoomToHouse(validHouse, room3);
+
+        // Assert
+
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertFalse(actualResult3);
     }
 }
