@@ -23,7 +23,7 @@ public class CSVReader {
 
     //* TEST METHOD
 
-   /* public static void main(String[] args) {
+ /*  public static void main(String[] args) {
         CSVReader testRead = new CSVReader();
         testRead.getCSVReadings();
         Date validDate1 = new Date();
@@ -40,16 +40,19 @@ public class CSVReader {
         System.out.println(test);
     }
 */
+
     public String[] getCSVReadings() {
         String csvFile = "resources/testCSV.csv";
         BufferedReader buffReader = null;
+        FileReader fileReader = null;
         String line = "";
         String cvsSplit = ",";
         String[] readings = new String[0];
         Date readDate;
         Double readValue = 0.0;
         try {
-            buffReader = new BufferedReader(new FileReader(csvFile));
+            fileReader = new FileReader(csvFile);
+            buffReader = new BufferedReader(fileReader);
             while ((line = buffReader.readLine()) != null) {
                 readings = line.split(cvsSplit);
                 //* System.out.println("Readings [Date= " + readings[1] + " , Value=" + readings[3] + "]");
@@ -72,12 +75,13 @@ public class CSVReader {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (buffReader != null) {
-                try {
+            try {
+                if (buffReader != null)
                     buffReader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                if (fileReader != null)
+                    fileReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return readings;

@@ -237,6 +237,20 @@ public class MicrowaveOvenTest {
     }
 
     @Test
+    void seeIfProgramListFailsWithDifferentLists() {
+        //Arrange
+        validProgramList.addProgram(validVariableTimeProgram);
+        validMicrowaveOven.setProgramList(validProgramList);
+        ProgramList expectedResult = new ProgramList();
+
+        // Act
+        ProgramList result = validMicrowaveOven.getProgramList();
+
+        //Assert
+        assertNotEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfProgramListFails() {
         //Arrange
         validMicrowaveOven.setProgramList(validProgramList);
