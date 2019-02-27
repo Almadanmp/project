@@ -1,94 +1,146 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 /**
  * PowerSource tests class.
  */
 
 class PowerSourceTest {
+    private PowerSource validPowerSource;
+
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        validPowerSource = new PowerSource("Energia", 50, 50);
+    }
 
     @Test
     void seeHashCodeDummyTest() {
-        PowerSource pS1 = new PowerSource("Energia", 1, 1);
+        //Arrange
+
         int expectedResult = 1;
-        int actualResult = pS1.hashCode();
+
+        //Act
+
+        int actualResult = validPowerSource.hashCode();
+
+        //Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithDifferentObject() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        //Arrange
+
         int teste = 3;
-        boolean actualResult = pS1.equals(teste);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
+
+        //Act
+
+        boolean actualResult = validPowerSource.equals(teste);
+
+        //Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithDifferentContent() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        //Arrange
+
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
-        boolean actualResult = pS1.equals(pS2);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
+
+        //Act
+
+        boolean actualResult = validPowerSource.equals(pS2);
+
+        //Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithSameContent() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        //Arrange
+
         PowerSource pS2 = new PowerSource("Energia", 50, 50);
-        boolean actualResult = pS1.equals(pS2);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, actualResult);
+
+        //Act
+
+        boolean actualResult = validPowerSource.equals(pS2);
+
+        //Assert
+
+        assertTrue(actualResult);
     }
 
     @Test
     void seeIfEqualsSameObject() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        boolean actualResult = pS1.equals(pS1);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, actualResult);
+        //Act
+
+        boolean actualResult = validPowerSource.equals(validPowerSource);
+
+        //Assert
+
+        assertTrue(actualResult);
 
     }
 
     @Test
     void seeIfEqualsNotAInstanceOfNull() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        //Act
 
-        Boolean expectedResult = false;
+        boolean actualResult = validPowerSource.equals(null);
 
-        Boolean actualResult = pS1.equals(null);
+        //Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsNotAInstanceOfGetClass() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
+        //Act
 
-        Boolean expectedResult = false;
+        boolean actualResult = validPowerSource.getClass().equals(getClass());
 
-        Boolean actualResult = pS1.getClass().equals(getClass());
+        //Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
     void seeIfGetMaxPowerOutputWorks(){
-        PowerSource ps1 = new PowerSource("Energia", 50, 50);
+        //Arrange
+
         double expectedResult = 50;
-        double actualResult = ps1.getMaxPowerOutput();
+
+        //Act
+
+        double actualResult = validPowerSource.getMaxPowerOutput();
+
+        //Assert
+
         assertEquals(expectedResult,actualResult);
     }
 
     @Test
     void seeIfMaxEnergyStorageWorks(){
-        PowerSource ps1 = new PowerSource("Energia", 50, 50);
+        //Arrange
+
         double expectedResult = 50;
-        double actualResult = ps1.getMaxEnergyStorage();
+
+        //Act
+
+        double actualResult = validPowerSource.getMaxEnergyStorage();
+
+        //Assert
+
         assertEquals(expectedResult,actualResult);
     }
 }

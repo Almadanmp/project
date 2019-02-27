@@ -66,8 +66,6 @@ class LocalTest {
 
     @Test
     void seeIfEqualsWorksSameObject() {
-        //Arrange
-
         //Act
 
         boolean actualResult = validLocal.equals(validLocal); // Necessary for Sonarqube coverage purposes.
@@ -232,5 +230,4 @@ class LocalTest {
 
         assertEquals(expectedResult, result, 0.01);
     }
-
 }
