@@ -260,13 +260,13 @@ public class InputUtils {
      * @return value read from user
      */
     Double getInputAsDoublePositive() {
-        UtilsUI utils = new UtilsUI();
-        Scanner scanner = new Scanner(System.in);
-        while (!scanner.hasNextDouble() || scanner.nextDouble()<0) {
-            System.out.println(utils.invalidOption);
-            scanner.next();
+        UtilsUI utilsUI = new UtilsUI();
+        double input = -1.0;
+        while (input < 0) {
+            input = getInputAsDouble();
+            System.out.println(utilsUI.invalidOption);
         }
-        return scanner.nextDouble();
+        return input;
     }
 
     /**
