@@ -56,5 +56,22 @@ public class Log {
                 ((this.finalDate.before(finalDate)) || this.finalDate.equals(finalDate));
     }
 
+    @Override
+    public boolean equals(Object testObject) {
+        if (this == testObject) {
+            return true;
+        }
+        if (!(testObject instanceof Log)) {
+            return false;
+        }
+        Log log = (Log)testObject;
+        return (log.getInitialDate().equals(this.initialDate) && log.getFinalDate().equals(this.finalDate));
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
 
 }

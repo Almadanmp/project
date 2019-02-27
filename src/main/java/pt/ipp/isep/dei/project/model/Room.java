@@ -156,14 +156,12 @@ public class Room implements Metered {
      * in case the room has no readings whatsoever
      * @param day where we want to look for max temperature
      **/
-    //TODO agrupar coisas, ver responsabilidades e encapsulamento
     public double getMaxTemperatureOnGivenDay(Date day) {
         SensorList tempSensors = getSensorsOfGivenType("Temperature");
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         } else {
-            ReadingList readingsType = tempSensors.getReadings();
-            List<Double> values = readingsType.getValuesOfSpecificDayReadings(day);
+            List<Double> values = tempSensors.getValuesOfSpecificDayReadings(day);
             if (!values.isEmpty()) {
                 return Collections.max(values);
             }

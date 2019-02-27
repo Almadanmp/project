@@ -20,9 +20,7 @@ public class DeviceList {
     }
 
     /**
-     * Getter of the DeviceList.
-     *
-     * @return List of Devices.
+     * ESTE MÉTODO É PARA SER APAGADO. NÃO USAR! ENCAPSULAR!
      */
     public List<Device> getList() {
         return this.devices;
