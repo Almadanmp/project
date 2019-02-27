@@ -64,7 +64,7 @@ public class HouseConfigurationController {
      * @return true if room was added, false otherwise.
      * **/
     public boolean addRoomToHouse(House house, Room room){
-        return house.addRoomToRoomList(room);
+        return house.addRoom(room);
     }
 
 
