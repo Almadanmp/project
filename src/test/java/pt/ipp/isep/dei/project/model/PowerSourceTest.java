@@ -22,71 +22,71 @@ class PowerSourceTest {
 
     @Test
     void seeHashCodeDummyTest() {
-        //Arrange
+        // Arrange
 
         int expectedResult = 1;
 
-        //Act
+        // Act
 
         int actualResult = validPowerSource.hashCode();
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithDifferentObject() {
-        //Arrange
+        // Arrange
 
         int teste = 3;
 
-        //Act
+        // Act
 
-        boolean actualResult = validPowerSource.equals(teste);
+        boolean actualResult = validPowerSource.equals(teste); // Necessary for Sonarqube testing purposes.
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithDifferentContent() {
-        //Arrange
+        // Arrange
 
         PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
 
-        //Act
+        // Act
 
         boolean actualResult = validPowerSource.equals(pS2);
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithSameContent() {
-        //Arrange
+        // Arrange
 
         PowerSource pS2 = new PowerSource("Energia", 50, 50);
 
-        //Act
+        // Act
 
         boolean actualResult = validPowerSource.equals(pS2);
 
-        //Assert
+        // Assert
 
         assertTrue(actualResult);
     }
 
     @Test
     void seeIfEqualsSameObject() {
-        //Act
+        // Act
 
-        boolean actualResult = validPowerSource.equals(validPowerSource);
+        boolean actualResult = validPowerSource.equals(validPowerSource); // Necessary for Sonarqube testing purposes.
 
-        //Assert
+        // Assert
 
         assertTrue(actualResult);
 
@@ -94,11 +94,14 @@ class PowerSourceTest {
 
     @Test
     void seeIfEqualsNotAInstanceOfNull() {
-        //Act
+        // Arrange
 
-        boolean actualResult = validPowerSource.equals(null);
+        PowerSource testPowerSource = null;
+        // Act
 
-        //Assert
+        boolean actualResult = validPowerSource.equals(testPowerSource); // Necessary for Soarqube testing purposes.
+
+        // Assert
 
         assertFalse(actualResult);
     }
