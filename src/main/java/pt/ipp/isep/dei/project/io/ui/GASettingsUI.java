@@ -149,7 +149,7 @@ class GASettingsUI {
         double geoAreaLat = readInputNumber("Latitude");
         double geoAreaLong = readInputNumber("Longitude");
         double geoAreaAlt = readInputNumber("Altitude");
-        double geoAreaLength = readInputNumber("Length");
+        double geoAreaLength = readInputNumber("Length"); //TODO Daniela: para Length e Width o getInput deverá apenas aceitar valores >0 (método existe em InputUtils)
         double geoAreaWidth = readInputNumber("Width");
         String geoAreDescription = null;
         if (inputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
@@ -181,10 +181,6 @@ class GASettingsUI {
         return "That's not a valid " + inputType + ". Please insert only Alphabetic Characters";
     }
 
-    private String createInvalidNumberMsg(String inputType) {
-        return "That's not a valid " + inputType + ". Please insert only Numbers";
-    }
-
     private String readInputString(String inputType) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(createInputMsg(inputType));
@@ -197,14 +193,9 @@ class GASettingsUI {
     }
 
     private double readInputNumber(String inputType) {
-        Scanner scanner = new Scanner(System.in);
+        InputUtils inputUtils = new InputUtils();
         System.out.print(createInputMsg(inputType));
-
-        while (!scanner.hasNextDouble()) {
-            System.out.println(createInvalidNumberMsg(inputType));
-            scanner.next();
-        }
-        return scanner.nextDouble();
+        return inputUtils.getInputAsDouble();
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */

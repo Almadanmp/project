@@ -192,8 +192,8 @@ class TypeAreaListTest {
         list.addTypeArea(type2);
         list.addTypeArea(type3);
         RoomList list2 = new RoomList();
-        list2.addRoom(room1);
-        list2.addRoom(room2);
+        list2.add(room1);
+        list2.add(room2);
 
         //Act
         boolean actualResult = list.equals(list2);

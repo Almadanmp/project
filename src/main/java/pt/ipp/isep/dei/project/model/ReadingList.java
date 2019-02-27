@@ -143,7 +143,7 @@ public class ReadingList {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
         List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(givenDate);
         if (valueReadingsThatMatchDay.isEmpty()) {
-            throw new IllegalStateException("Warning: Total value was not calculated - no readings were available.");
+            throw new IllegalStateException("Warning: Total value was not calculated - No readings were available.");
         }
         double givenD;
         givenD = getListSum(valueReadingsThatMatchDay);
@@ -253,7 +253,7 @@ public class ReadingList {
     public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
-            throw new IllegalArgumentException("Warning: average value not calculated - no readings available.");
+            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
         List<Double> avgDailyValues = new ArrayList<>();
         for (Date day : daysWithReadings) {

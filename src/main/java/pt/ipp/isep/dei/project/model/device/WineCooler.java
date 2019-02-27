@@ -1,50 +1,76 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WineCoolerSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-public class WallElectricHeater implements Device, Metered {
-    private String notSupported = "At the moment, this operation is not supported.";
+public class WineCooler implements Device, Metered {
 
-    public WallElectricHeater() {
-        //This class throws UnsupportedOperationException because it has no attributes, atm.
+    private String name;
+    private double nominalPower;
+    private WineCoolerSpec deviceSpecs;
+    private boolean active;
+    private LogList logList;
+    private double annualConsumption;
+
+
+    public WineCooler(WineCoolerSpec wineCoolerSpec) {
+        this.deviceSpecs = wineCoolerSpec;
+        this.active = true;
+        logList = new LogList();
     }
 
     public String getName() {
-        throw new UnsupportedOperationException(notSupported);
+        return this.name;
     }
 
     public void setName(String name) {
-        throw new UnsupportedOperationException(notSupported);
+        this.name = name;
     }
 
     public String getType() {
-        return "WallElectricHeater";
+        return "WineCooler";
     }
 
     public void setNominalPower(double nominalPower) {
-        throw new UnsupportedOperationException(notSupported);
+        this.nominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        throw new UnsupportedOperationException(notSupported);
+        return this.nominalPower;
+    }
+
+    public void setAnnualConsumption(double annualConsumption) {
+        this.annualConsumption = annualConsumption;
+    }
+
+    public double getAnnualConsumption() {
+        return this.annualConsumption;
     }
 
     public boolean isActive() {
-        throw new UnsupportedOperationException(notSupported);
+        return this.active;
     }
 
     public boolean deactivate() {
-        throw new UnsupportedOperationException(notSupported);
+        if (isActive()) {
+            this.active = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
     public String buildString() {
-        throw new UnsupportedOperationException(notSupported);
+        String result;
+        result = "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
+        return result;
     }
 
     /**
@@ -53,7 +79,7 @@ public class WallElectricHeater implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        throw new UnsupportedOperationException(notSupported);
+        return logList;
     }
 
     /**
@@ -62,7 +88,7 @@ public class WallElectricHeater implements Device, Metered {
      * @return true if LogList is empty, false otherwise
      */
     public boolean isLogListEmpty() {
-        throw new UnsupportedOperationException(notSupported);
+        return this.logList.isEmpty();
     }
 
     /**
@@ -72,7 +98,12 @@ public class WallElectricHeater implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        throw new UnsupportedOperationException(notSupported);
+        if (!(logList.contains(log)) && this.active) {
+            logList.addLog(log);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -83,11 +114,11 @@ public class WallElectricHeater implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        throw new UnsupportedOperationException(notSupported);
+        return logList.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        throw new UnsupportedOperationException(notSupported);
+        return logList.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -98,34 +129,58 @@ public class WallElectricHeater implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        throw new UnsupportedOperationException(notSupported);
+        return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
-     * Energy consumption = Nominal power * time (Wh)
+     * Energy consumption (daily) = annual energy consumption / 365 (kWh)
      *
      * @param time the desired time
      * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
-        throw new UnsupportedOperationException(notSupported);
+        return nominalPower * time;
+    }
+
+    public double getDailyEnergyConsumption() {
+        return this.annualConsumption / 365;
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        throw new UnsupportedOperationException(notSupported);
+        return deviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        throw new UnsupportedOperationException(notSupported);
+        return deviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        throw new UnsupportedOperationException(notSupported);
+        return deviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        throw new UnsupportedOperationException(notSupported);
+        return deviceSpecs.getAttributeUnit(attributeName);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Device device = (Device) o;
+        return Objects.equals(name, device.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
 }
+
+

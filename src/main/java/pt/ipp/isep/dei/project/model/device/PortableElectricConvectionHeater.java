@@ -8,16 +8,18 @@ import java.util.Date;
 import java.util.List;
 
 public class PortableElectricConvectionHeater implements Device, Metered {
+    private String notSupported = "At the moment, this operation is not supported.";
 
     public PortableElectricConvectionHeater() {
+        //This class throws UnsupportedOperationException because it has no attributes, atm.
     }
 
     public String getName() {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     public void setName(String name) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     public String getType() {
@@ -25,24 +27,24 @@ public class PortableElectricConvectionHeater implements Device, Metered {
     }
 
     public void setNominalPower(double nominalPower) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     public double getNominalPower() {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     public boolean isActive() {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     public boolean deactivate() {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
 
     public String buildString() {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     /**
@@ -51,7 +53,7 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     /**
@@ -60,7 +62,7 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @return true if LogList is empty, false otherwise
      */
     public boolean isLogListEmpty() {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     /**
@@ -70,7 +72,7 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     /**
@@ -81,11 +83,11 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     /**
@@ -96,7 +98,7 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     /**
@@ -106,30 +108,24 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     public Object getAttributeValue(String attributeName) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        throw new UnsupportedOperationException("At the moment, this operation is not supported.");
+        throw new UnsupportedOperationException(notSupported);
     }
-
-    @Override
-    public int hashCode() {
-        return 1;
-    }
-
 }

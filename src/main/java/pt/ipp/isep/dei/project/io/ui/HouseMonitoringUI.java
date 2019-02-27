@@ -170,7 +170,7 @@ public class HouseMonitoringUI {
     }
 
     private void updateAndDisplayModelUS620(House house, Date date) {
-        double result = 0;
+        double result;
         try {
             result = houseMonitoringcontroller.getTotalRainfallOnGivenDay(house, date);
         } catch (IllegalStateException ex) {
@@ -213,7 +213,7 @@ public class HouseMonitoringUI {
     }
 
     private void updateAndDisplayUS623(House house, Date startDate, Date endDate) {
-        double result623 = 0;
+        double result623;
         try {
             result623 = houseMonitoringcontroller.getAverageRainfallInterval(house, startDate, endDate);
         } catch (IllegalArgumentException e) {

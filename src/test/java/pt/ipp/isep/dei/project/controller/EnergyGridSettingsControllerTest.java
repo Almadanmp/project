@@ -7,7 +7,6 @@ import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.*;
 
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 
@@ -52,7 +51,7 @@ class EnergyGridSettingsControllerTest {
 
         RoomList roomList = new RoomList();
         Room room = new Room("Quarto", 1, 20, 2, 2);
-        roomList.addRoom(room);
+        roomList.add(room);
         validHouse.setRoomList(roomList);
         String expectedResult = "---------------\n" +
                 "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
@@ -108,7 +107,7 @@ class EnergyGridSettingsControllerTest {
 
         EnergyGridList energyGridList = new EnergyGridList();
         energyGridList.addGrid(validGrid);
-        validHouse.setEGList(energyGridList);
+        validHouse.setGridList(energyGridList);
         String expectedResult = "---------------\n" +
                 "0) Designation: validGrid | Max Power: 300.0\n" +
                 "---------------\n";
@@ -168,7 +167,7 @@ class EnergyGridSettingsControllerTest {
         RoomList roomList = new RoomList();
         validGrid.setRoomList(roomList);
         Room room = new Room("Quarto", 1, 20, 2, 2);
-        roomList.addRoom(room);
+        roomList.add(room);
 
         // Act
 
@@ -285,7 +284,7 @@ class EnergyGridSettingsControllerTest {
         Device fridge = new Fridge(new FridgeSpec());
         room1EdC.addDevice(fridge);
         eg.setRoomList(rl);
-        rl.addRoom(room1EdC);
+        rl.add(room1EdC);
         //Act
         String expectedResult = "---------------\n" +
                 "Device type: Fridge | Device name: null | Nominal power: 0.0 | Room: B107 | \n" +

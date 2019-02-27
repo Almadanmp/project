@@ -82,7 +82,7 @@ public class UtilsUITest {
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
         EnergyGrid energyGrid1 = new EnergyGrid("mainGrid", 200);
-        house.addRoomToRoomList(room1);
+        house.addRoom(room1);
         house.addGrid(energyGrid1);
         UtilsUI utilsUI = new UtilsUI();
         //ACT

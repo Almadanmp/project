@@ -105,7 +105,7 @@ public class InputUtils {
             System.out.println(deviceProgramList.buildString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < deviceProgramList.size()) {
-                FixedTimeProgram result = (FixedTimeProgram)deviceProgramList.get(aux);
+                FixedTimeProgram result = (FixedTimeProgram) deviceProgramList.get(aux);
                 System.out.println("You have chosen the following program: ");
                 System.out.println(result.buildString() + "\n");
                 return result;
@@ -176,7 +176,7 @@ public class InputUtils {
         List<DeviceType> deviceTypeList = house.getDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device types: ");
-            System.out.println(house.buildString());
+            System.out.println(house.buildDeviceTypeString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < house.deviceTypeListSize()) {
                 DeviceType result = deviceTypeList.get(aux);
@@ -255,7 +255,7 @@ public class InputUtils {
 
     /**
      * Method to read a double value from a user.
-     * Will validate input is a double. if it isn't it will print an error message.
+     * Will validate if input is a double and of positive value. if it isn't it will print an error message.
      *
      * @return value read from user
      */
@@ -263,6 +263,22 @@ public class InputUtils {
         UtilsUI utilsUI = new UtilsUI();
         double input = -1.0;
         while (input < 0) {
+            input = getInputAsDouble();
+            System.out.println(utilsUI.invalidOption);
+        }
+        return input;
+    }
+
+    /**
+     * Method to read a double value from a user.
+     * Will validate if input is a double and zero or positive value. if it isn't it will print an error message.
+     *
+     * @return value read from user
+     */
+    Double getInputAsDoubleZeroOrPositive() {
+        UtilsUI utilsUI = new UtilsUI();
+        double input = -1.0;
+        while (input <= 0) {
             input = getInputAsDouble();
             System.out.println(utilsUI.invalidOption);
         }

@@ -1,8 +1,7 @@
-package pt.ipp.isep.dei.project.model.device.program;
+package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
-import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WineCoolerSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FreezerSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
@@ -10,32 +9,32 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class WineCooler implements Device, Metered {
+public class Freezer implements Device, Metered {
 
     private String name;
     private double nominalPower;
-    private WineCoolerSpec deviceSpecs;
+    private FreezerSpec deviceSpecs;
     private boolean active;
     private LogList logList;
     private double annualConsumption;
 
 
-    public WineCooler(WineCoolerSpec wineCoolerSpec) {
-        this.deviceSpecs = wineCoolerSpec;
+    public Freezer(FreezerSpec freezerSpec) {
+        this.deviceSpecs = freezerSpec;
         this.active = true;
         logList = new LogList();
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public String getType() {
-        return "WineCooler";
+        return "Freezer";
     }
 
     public void setNominalPower(double nominalPower) {
@@ -183,5 +182,3 @@ public class WineCooler implements Device, Metered {
     }
 
 }
-
-

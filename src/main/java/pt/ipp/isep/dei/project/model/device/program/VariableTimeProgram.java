@@ -34,7 +34,7 @@ public class VariableTimeProgram implements Program {
 
     public String buildString() {
         String result;
-        result = "- The FixedTimeProgram Name is " + getProgramName() + ", its Nomimal Power is " +
+        result = "- The FixedTimeProgram Name is " + getProgramName() + ", its Nominal Power is " +
                 getNominalPower() + " kW.\n";
         return result;
     }

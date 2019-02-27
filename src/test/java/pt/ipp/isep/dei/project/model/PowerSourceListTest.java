@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -9,147 +10,138 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.*;
 
 /**
- * PowerSourceList tests class.
+ * PowerSourceList class tests.
  */
 
  class PowerSourceListTest {
+     private PowerSourceList validList;
+     private PowerSource validPowerSource;
+     private PowerSource validSecondaryPowerSource;
+
+     @BeforeEach
+     void arrangeArtifacts(){
+         validList = new PowerSourceList();
+         validPowerSource = new PowerSource("Generator", 50, 50);
+         validSecondaryPowerSource = new PowerSource("Generator 101", 50, 50);
+         validList.add(validPowerSource);
+
+     }
 
     @Test
     void seeIfContainsPowerWorksTrue() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.add(pS1);
-        pSList1.add(pS2);
-        boolean actualResult = pSList1.contains(pS2);
-        boolean expectedResult = true;
-        assertEquals(expectedResult, actualResult);
-    }
+        // Act
 
-    @Test
-    void seeIfContainsPowerWorksFalse() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.add(pS1);
-        boolean actualResult = pSList1.contains(pS2);
-        boolean expectedResult = false;
-        assertEquals(expectedResult, actualResult);
-    }
+        validList.add(validSecondaryPowerSource);
+        boolean actualResult = validList.contains(validSecondaryPowerSource);
 
-    @Test
-    void seeIfAddPowerSourceWorks() {
-        //Arrange
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        //Act
-        boolean actualResult = pSList1.add(pS1);
-        //Assert
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void seeIfAddPowerSourceWorks2() {
-        //Arrange
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.add(pS1);
-        //Act
-        boolean actualResult = pSList1.add(pS2);
-        //Assert
+    void seeIfContainsPowerWorksFalse() {
+         //Act
+
+         boolean actualResult = validList.contains(validSecondaryPowerSource);
+
+         //Arrange
+
+         assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddPowerSourceWorks() {
+        // Act
+
+        boolean actualResult = validList.add(validSecondaryPowerSource);
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
     void seeIfAddPowerSourceWorksForFalse() {
-        //Arrange
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSource pS2 = new PowerSource("Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.add(pS1);
-        //Act
-        boolean actualResult = pSList1.add(pS2);
-        //Assert
+        // Act
+
+        boolean actualResult = validList.add(validPowerSource);
+
+        // Assert
+
         assertFalse(actualResult);
     }
-
-
-    @Test
-    void seeIfAddPowerSourceWorksForFalse2() {
-        //Arrange
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.add(pS1);
-        //Act
-        boolean actualResult = pSList1.add(pS1);
-        //Assert
-        assertFalse(actualResult);
-    }
-
 
     @Test
     void seeHashCodeDummyTest() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.add(pS1);
+         // Arrange
+
         int expectedResult = 1;
-        int actualResult = pSList1.hashCode();
+
+        // Act
+
+        int actualResult = validList.hashCode();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithDifferentObject() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        int teste = 3;
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.add(pS1);
-        boolean actualResult = pSList1.equals(teste);
-        assertFalse(actualResult);
+         // Arrange
+
+         int test = 3;
+
+         // Act
+
+         boolean actualResult = validList.equals(test);  // Needed for Sonarqube testing purposes.
+
+         // Assert
+
+         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithDifferentContent() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        PowerSourceList pSList2 = new PowerSourceList();
-        pSList1.add(pS1);
-        pSList2.add(pS2);
-        boolean actualResult = pSList1.equals(pSList2);
-        assertFalse(actualResult);
-    }
+         // Arrange
 
-    @Test
-    void seeIfEqualsPowerSourceWithDifferentContent2() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSource pS2 = new PowerSource("Muita Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.add(pS1);
-        boolean actualResult = pSList1.equals(pS2);
-        assertFalse(actualResult);
+         PowerSourceList pSList2 = new PowerSourceList();
+         pSList2.add(validSecondaryPowerSource);
+
+         // Act
+
+         boolean actualResult = validList.equals(pSList2);
+
+         // Assert
+
+         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithSameContent() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSource pS2 = new PowerSource("Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        PowerSourceList pSList2 = new PowerSourceList();
-        pSList1.add(pS1);
-        pSList2.add(pS2);
-        boolean actualResult = pSList1.equals(pSList2);
-        assertEquals(true, actualResult);
+         // Arrange
+
+         PowerSourceList pSList2 = new PowerSourceList();
+         pSList2.add(validPowerSource);
+
+         // Act
+
+         boolean actualResult = validList.equals(pSList2);
+
+         // Assert
+
+         assertTrue(actualResult);
     }
 
     @Test
     void seeIfEqualsSameObject() {
-        PowerSource pS1 = new PowerSource("Energia", 50, 50);
-        PowerSourceList pSList1 = new PowerSourceList();
-        pSList1.add(pS1);
-        boolean actualResult = pSList1.equals(pSList1);
-        boolean expectedResult = true;
-        assertEquals(true, actualResult);
-    }
+         // Act
 
+         boolean actualResult = validList.equals(validList); // Needed for Sonarqube testing purposes.
+
+         // Assert
+
+         assertTrue(actualResult);
+    }
 }
