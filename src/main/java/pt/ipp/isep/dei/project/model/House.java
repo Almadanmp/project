@@ -58,6 +58,10 @@ public class House implements Metered {
     //SETTERS AND GETTERS
 
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getHouseId() {
         return this.id;
     }
@@ -90,7 +94,7 @@ public class House implements Metered {
         return deviceMeteringPeriod;
     }
 
-    Local getLocation() {
+  public  Local getLocation() {
         return location;
     }
 

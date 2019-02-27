@@ -2,13 +2,8 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.TvSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
-import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
-import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
 import java.util.GregorianCalendar;
 
@@ -94,9 +89,9 @@ class TvTest {
     }
 
     @Test
-    void buildString(){
+    void buildString() {
         String expectedResult = "The device Name is Living Room TV, and its NominalPower is 15.0 kW.\n";
         String result = tv.buildString();
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 }
