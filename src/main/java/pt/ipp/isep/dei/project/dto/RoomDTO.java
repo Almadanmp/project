@@ -5,14 +5,13 @@ import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.RoomList;
 
 public class RoomDTO {
-    //Room Attributes
+
     private String roomName;
     private int houseFloor;
     private double roomWidth;
     private double roomLength;
     private double roomHeight;
-
-    //SETTERS AND GETTERS ROOM
+    private int id;
 
     public String getRoomName() {
         return roomName;
@@ -52,5 +51,13 @@ public class RoomDTO {
 
     public void setRoomHeight(double roomHeight) {
         this.roomHeight = roomHeight;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
