@@ -70,10 +70,11 @@ class EnergyGridSettingsUI {
 
     private EnergyGrid getInputUS130(House programHouse) {
         Scanner scanner = new Scanner(System.in);
+        InputUtils inputUtils = new InputUtils();
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum contracted power for this energy grid.");
-        double power = getInputMaxPower();
+        double power = inputUtils.getInputAsDoubleZeroOrPositive();
         return controller.createEnergyGrid(programHouse, name, power);
     }
 
@@ -106,13 +107,14 @@ class EnergyGridSettingsUI {
 
     private PowerSource getInputAndCreatePowerSource(EnergyGrid energyGrid) {
         Scanner scanner = new Scanner(System.in);
+        InputUtils inputUtils = new InputUtils();
         System.out.println("Type the designation of the power source you want to add: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum power output of this power source.");
-        double maxPowerOutput = getInputMaxPower();
+        double maxPowerOutput = inputUtils.getInputAsDoubleZeroOrPositive();
         System.out.println("Now let's set the maximum energy storage of this power source (it should be 0 in case the " +
                 "power source can't storage any energy).");
-        double maxEnergyStorage = getInputMaxPower();
+        double maxEnergyStorage = inputUtils.getInputAsDoubleZeroOrPositive();
         return controller.createPowerSource(energyGrid, name, maxPowerOutput, maxEnergyStorage);
 
     }
@@ -126,26 +128,6 @@ class EnergyGridSettingsUI {
         }
     }
 
-    //US130 and US135 SHARED METHODS
-
-    private double getInputMaxPower(){
-        Scanner scan = new Scanner(System.in);
-        double power = -1;
-        while (power < 0) {
-            power = getInputDouble(scan);
-            scan.nextLine();
-        }
-        return power;
-    }
-
-    private double getInputDouble(Scanner scan){
-        System.out.println("Please enter a valid number: ");
-        while (!scan.hasNextDouble()) {
-            scan.next();
-            System.out.println("Not a valid number. Try again.");
-        }
-        return scan.nextDouble();
-    }
 
     // USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
     // can attach/detach rooms from it - JOAO CACHADA.

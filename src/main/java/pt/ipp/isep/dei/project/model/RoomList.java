@@ -28,7 +28,7 @@ public class RoomList {
      * @param room is the room we want to add.
      * @return true if the room was successfully added to the RoomList, false otherwise.
      */
-    public boolean addRoom(Room room) {
+    public boolean add(Room room) {
         if (!(rooms.contains(room))) {
             rooms.add(room);
             return true;
@@ -145,7 +145,8 @@ public class RoomList {
      * @param finalDate   for metering period.
      * @return total metered energy consumption of a room list in a given time interval.
      */
-    public double getConsumptionInInterval(Date initialDate, Date finalDate) {
+
+    double getConsumptionInInterval(Date initialDate, Date finalDate) {
         double consumption = 0;
         for (Room r : this.rooms) {
             consumption += r.getConsumptionInInterval(initialDate, finalDate);
@@ -217,7 +218,7 @@ public class RoomList {
         return sum;
     }
 
-    StringBuilder buildDeviceListByType(String deviceType){
+    StringBuilder buildDeviceListByType(String deviceType) {
         StringBuilder result = new StringBuilder();
         for (Room r : this.rooms) {
             if (r != null) {

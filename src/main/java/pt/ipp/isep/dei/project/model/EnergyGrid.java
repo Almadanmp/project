@@ -103,7 +103,7 @@ public class EnergyGrid implements Metered {
      * @return returns true if the room is actually added to the energy grid.
      */
     public boolean addRoom(Room room) {
-        return this.roomList.addRoom(room);
+        return this.roomList.add(room);
     }
 
     /**

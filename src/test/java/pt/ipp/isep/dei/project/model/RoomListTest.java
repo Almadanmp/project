@@ -41,9 +41,9 @@ class RoomListTest {
         r2.setSensorList(sensorList);
         Room r3 = new Room("Quarto", 1, 123, 2, 2);
         r3.setSensorList(sensorList);
-        roomList.addRoom(r1);
+        roomList.add(r1);
         boolean expectedResult = false;
-        boolean actualResult = roomList.addRoom(r2);
+        boolean actualResult = roomList.add(r2);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -64,8 +64,8 @@ class RoomListTest {
         r2.setSensorList(sensorList);
         Room r3 = new Room("Quarto", 1, 123, 2, 2);
         r3.setSensorList(sensorList);
-        roomList.addRoom(r1);
-        boolean actualResult = roomList.addRoom(r2);
+        roomList.add(r1);
+        boolean actualResult = roomList.add(r2);
         Assertions.assertTrue(actualResult);
     }
 
@@ -78,8 +78,8 @@ class RoomListTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
         House house = new House("casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        house.addRoomToRoomList(room);
-        house.addRoomToRoomList(room1);
+        house.addRoom(room);
+        house.addRoom(room1);
 
         String expectedResult = "---------------\n" +
                 "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
@@ -114,11 +114,11 @@ class RoomListTest {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         Room room2 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
-        roomList1.addRoom(room2);
+        roomList1.add(room1);
+        roomList1.add(room2);
         RoomList roomList2 = new RoomList();
-        roomList2.addRoom(room1);
-        roomList2.addRoom(room2);
+        roomList2.add(room1);
+        roomList2.add(room2);
 
         boolean actualResult = roomList1.equals(roomList2);
 
@@ -130,9 +130,9 @@ class RoomListTest {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         Room room2 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         RoomList roomList2 = new RoomList();
-        roomList2.addRoom(room2);
+        roomList2.add(room2);
 
         boolean actualResult = roomList1.equals(roomList2);
 
@@ -143,7 +143,7 @@ class RoomListTest {
     void ensureThatAObjectIsAInstanceOf3() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         boolean actualResult = roomList1.equals(roomList1);
         assertTrue(actualResult);
     }
@@ -153,10 +153,10 @@ class RoomListTest {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         Room room2 = new Room("room2", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
-        roomList1.addRoom(room2);
+        roomList1.add(room1);
+        roomList1.add(room2);
         RoomList roomList2 = new RoomList();
-        roomList2.addRoom(room1);
+        roomList2.add(room1);
 
         boolean actualResult = roomList1.equals(roomList2);
 
@@ -168,7 +168,7 @@ class RoomListTest {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
         Room room2 = new Room("room2", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         boolean actualResult = roomList1.equals(room2);
         assertFalse(actualResult);
     }
@@ -177,7 +177,7 @@ class RoomListTest {
     void ensureThatAObjectIsNotAInstanceOf3() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         boolean actualResult = roomList1.equals(room1);
         assertFalse(actualResult);
     }
@@ -191,9 +191,9 @@ class RoomListTest {
 
         Room room1 = new Room("room1", 1, 22, 22, 4);
         Room room2 = new Room("room2", 2, 21, 21, 4);
-        roomList2.addRoom(room1);
-        roomList3.addRoom(room1);
-        roomList3.addRoom(room2);
+        roomList2.add(room1);
+        roomList3.add(room1);
+        roomList3.add(room2);
         //Act
         boolean actualResult1 = roomList1.isEmpty();
         boolean actualResult2 = roomList2.isEmpty();
@@ -208,7 +208,7 @@ class RoomListTest {
     void hashCodeDummyTest() {
         RoomList roomList1 = new RoomList();
         Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.addRoom(room1);
+        roomList1.add(room1);
         int expectedResult = 1;
         int actualResult = roomList1.hashCode();
         Assertions.assertEquals(expectedResult, actualResult);

@@ -139,6 +139,7 @@ class RoomConfigurationUI {
             controller.setAttributeValue(device, deviceAttributes.get(i), value);
         }
         System.out.println("Please insert nominal power: ");
+        //controller.setNominalPowerDevice(device,inputUtils.getInputAsDoubleZeroOrPositive());
         controller.setNominalPowerDevice(device,inputUtils.getInputAsDoublePositive());
 
         createProgram(device);

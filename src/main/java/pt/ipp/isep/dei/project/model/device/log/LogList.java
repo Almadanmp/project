@@ -68,7 +68,10 @@ public class LogList {
         return (this.logs.contains(log));
     }
 
-
+    /** This method checks if a LogList is empty.
+     *
+     * @return true if empty, false otherwise.
+     * **/
     public boolean isEmpty() {
         return this.logs.isEmpty();
     }

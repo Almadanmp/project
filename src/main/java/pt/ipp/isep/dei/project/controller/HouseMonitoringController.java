@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.ReadingList;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.Sensor;
 
@@ -58,10 +57,10 @@ public class HouseMonitoringController {
      */
     public double getAverageRainfallInterval(House house, Date initialDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
-        if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
-            throw new IllegalArgumentException("Warning: average value not calculated - no readings available.");
+        if (closestSensor.isReadingListEmpty()) {
+            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
-        return closestSensor.getReadingList().getAverageReadingsBetweenDates(initialDate, endDate);
+        return closestSensor.getAverageReadingsBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -71,10 +70,10 @@ public class HouseMonitoringController {
      */
     public double getTotalRainfallOnGivenDay(House house, Date day) {
         Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
-        if (closestSensor.getReadingList() == null || closestSensor.getReadingList().isEmpty()) {
+        if (closestSensor.isReadingListEmpty()) {
             throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
-        return closestSensor.getReadingList().getTotalValueOfReadingOnGivenDay(day);
+        return closestSensor.getTotalValueReadingsOnGivenDay(day);
     }
 
     /**
@@ -83,9 +82,8 @@ public class HouseMonitoringController {
      */
 
     public double getHouseAreaTemperature(House house) {
-        Sensor closest = house.getClosestSensorOfGivenType("Temperature");
-        ReadingList readingList = closest.getReadingList();
-        return readingList.getMostRecentValue();
+        Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
+        return closestSensor.getMostRecentValueReading();
     }
 
 }

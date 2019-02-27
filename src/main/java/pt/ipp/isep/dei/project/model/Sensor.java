@@ -132,7 +132,9 @@ public class Sensor {
      * @param readingList is the readingList we want to set to the sensor.
      */
     public void setReadingList(ReadingList readingList) {
-        this.readingList = readingList;
+        if(readingList != null) {
+            this.readingList = readingList;
+        }
     }
 
 
@@ -204,15 +206,53 @@ public class Sensor {
      * the most recent reading date.
      * @return most recent reading date in sensor
      * **/
-    public Date getMostRecentReadingDate(){
+
+    Date getMostRecentReadingDate(){
         return this.readingList.getMostRecentReadingDate();
     }
 
     /**This method returns the sensor type name.
      * @return he sensor type name.
      * **/
-    public String getSensorTypeName(){
+
+    String getSensorTypeName(){
         return this.typeSensor.getName();
+    }
+
+    /** This method checks if the sensor's reading list is valid.
+     *
+     * @return true if valid, false if invalid.
+     * **/
+    public boolean isReadingListEmpty(){
+        return this.readingList.isEmpty();
+    }
+
+    /** This method receives an interval, goes through the sensor's reading list and returns the
+     * average reading values between the interval given.
+     * @param initialDate start of interval
+     * @param endDate end of interval
+     * @return average reading value between interval
+     ***/
+    public double getAverageReadingsBetweenDates(Date initialDate, Date endDate){
+        return this.readingList.getAverageReadingsBetweenDates(initialDate, endDate);
+    }
+
+    /** This method receives a date of a given day, goes through the sensor's reading list and
+     * returns the total reading values of that day.
+     * @param day date of day
+     * @return total reading values of that day
+     ***/
+    public double getTotalValueReadingsOnGivenDay(Date day){
+        return this.readingList.getTotalValueOfReadingOnGivenDay(day);
+    }
+
+    /** This method goes through the sensor's reading list and
+     * returns the most recent reading value.
+     *
+     * @return sensor's most recent reading value.
+     ***/
+    public double getMostRecentValueReading(){
+        return this.readingList.getMostRecentValue();
     }
 
     @Override
