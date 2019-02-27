@@ -196,6 +196,15 @@ public class SensorList {
         return sensors.contains(sensor);
     }
 
+    /** This method goes through every sensor reading list and returns the
+     * reading values of a given day. This day is given to method as parameter.
+     * @day date of day the method will use to get reading values
+     * @return returns value readings from every sensor from given day
+     * **/
+    public List<Double> getValuesOfSpecificDayReadings(Date day){
+        ReadingList readingList = getReadings();
+        return readingList.getValuesOfSpecificDayReadings(day);
+    }
     /**
      * Getter (array of sensors)
      *

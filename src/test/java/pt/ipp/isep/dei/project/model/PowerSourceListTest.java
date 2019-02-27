@@ -29,12 +29,12 @@ import static org.testng.Assert.*;
 
     @Test
     void seeIfContainsPowerWorksTrue() {
-        //Act
+        // Act
 
         validList.add(validSecondaryPowerSource);
         boolean actualResult = validList.contains(validSecondaryPowerSource);
 
-        //Assert
+        // Assert
 
         assertTrue(actualResult);
     }
@@ -52,129 +52,95 @@ import static org.testng.Assert.*;
 
     @Test
     void seeIfAddPowerSourceWorks() {
-        //Act
+        // Act
 
         boolean actualResult = validList.add(validSecondaryPowerSource);
 
-        //Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfAddPowerSourceWorks2() {
-        //Act
-
-        boolean actualResult = validList.add(validSecondaryPowerSource);
-
-        //Assert
+        // Assert
 
         assertTrue(actualResult);
     }
 
     @Test
     void seeIfAddPowerSourceWorksForFalse() {
-        //Act
+        // Act
 
         boolean actualResult = validList.add(validPowerSource);
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
     }
-
-
-    @Test
-    void seeIfAddPowerSourceWorksForFalse2() {
-        //Act
-
-        boolean actualResult = validList.add(validPowerSource);
-
-        //Assert
-
-        assertFalse(actualResult);
-    }
-
 
     @Test
     void seeHashCodeDummyTest() {
-         //Arrange
+         // Arrange
 
         int expectedResult = 1;
 
-        //Act
+        // Act
 
         int actualResult = validList.hashCode();
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithDifferentObject() {
-         //Arrange
+         // Arrange
 
          int test = 3;
 
-         //Act
+         // Act
 
-         boolean actualResult = validList.equals(test);
+         boolean actualResult = validList.equals(test);  // Needed for Sonarqube testing purposes.
 
-         //Assert
+         // Assert
 
          assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithDifferentContent() {
-         //Arrange
+         // Arrange
 
          PowerSourceList pSList2 = new PowerSourceList();
          pSList2.add(validSecondaryPowerSource);
 
-         //Act
+         // Act
 
          boolean actualResult = validList.equals(pSList2);
 
-         //Assert
-
-         assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfEqualsPowerSourceWithDifferentContent2() {
-         //Act
-
-         boolean actualResult = validList.equals(validSecondaryPowerSource);
-
-        //Assert
+         // Assert
 
          assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsPowerSourceWithSameContent() {
-         //Arrange
+         // Arrange
 
          PowerSourceList pSList2 = new PowerSourceList();
          pSList2.add(validPowerSource);
 
-         //Act
+         // Act
 
          boolean actualResult = validList.equals(pSList2);
 
-         //Assert
+         // Assert
 
          assertTrue(actualResult);
     }
 
     @Test
     void seeIfEqualsSameObject() {
-         //Act
-         boolean actualResult = validList.equals(validList);
+         // Act
 
-         //Assert
+         boolean actualResult = validList.equals(validList); // Needed for Sonarqube testing purposes.
+
+         // Assert
 
          assertTrue(actualResult);
     }
