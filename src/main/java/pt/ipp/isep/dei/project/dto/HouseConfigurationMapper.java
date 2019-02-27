@@ -16,13 +16,12 @@ public class HouseConfigurationMapper {
         return houseDTO;
     }
 
-//    House DTOHouseToHouse(HouseDTO houseDTO) {
-//        House house = new House();
-//        house.setId(houseDTO.getId());
-//        house.setLocation(houseDTO.getLocation().getLatitude(), houseDTO.getLocation().getLongitude(), houseDTO.getLocation().getAltitude());
-//        house.setRoomList(houseDTO.getRoomList());
-//        house.setMotherArea(houseDTO.getMotherArea());
-//    }
+   void  DTOHouseToHouse(House house, HouseDTO houseDTO) {
+        house.setId(houseDTO.getId());
+        house.setLocation(houseDTO.getLocation().getLatitude(), houseDTO.getLocation().getLongitude(), houseDTO.getLocation().getAltitude());
+        house.setRoomList(houseDTO.getRoomList());
+        house.setMotherArea(houseDTO.getMotherArea());
+    }
 
 
     public RoomDTO roomToDTO(Room room){

@@ -66,10 +66,6 @@ public class House implements Metered {
         return this.id;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     public Address getAddress() {
         return address;
     }
@@ -102,6 +98,12 @@ public class House implements Metered {
         location.setLatitude(latitude);
         location.setLongitude(longitude);
         location.setAltitude(altitude);
+    }
+
+    public void setAddress(String street, String zip, String town){
+        address.setStreet(street);
+        address.setZip(zip);
+        address.setTown(town);
     }
 
     public void setRoomList(RoomList roomList) {
