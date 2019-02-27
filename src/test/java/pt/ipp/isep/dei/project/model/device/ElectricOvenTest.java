@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.devicespecs.ElectricOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
+import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.VariableTimeProgram;
 
 import java.text.ParseException;
@@ -223,6 +225,7 @@ class ElectricOvenTest {
         expectedResult.addLog(validLog2);
         LogList result = electricOvenValid.getLogsInInterval(initialTime, finalTime);
         assertEquals(expectedResult, result);
+        assertFalse(electricOvenValid.isLogListEmpty());
     }
 
     @Test
@@ -230,6 +233,22 @@ class ElectricOvenTest {
         double expectedResult = 0;
         double result = electricOvenValid.getEnergyConsumption(0);
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getProgramList() {
+        FixedTimeProgram program1 = new FixedTimeProgram("programa", 2, 2);
+        ProgramList listProgram = electricOvenValid.getProgramList();
+        listProgram.addProgram(program1);
+        ProgramList result = electricOvenValid.getProgramList();
+        assertEquals(listProgram, result);
+    }
+
+    @Test
+    void addLogListFalse() {
+        electricOvenValid.addLog(validLog);
+        assertFalse(electricOvenValid.addLog(validLog));
+        assertFalse(electricOvenValid.isLogListEmpty());
     }
 }
 
