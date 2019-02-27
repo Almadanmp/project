@@ -40,6 +40,26 @@ public class Room implements Metered {
         this.deviceList = new DeviceList();
     }
 
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public void setHouseFloor(int houseFloor) {
+        this.houseFloor = houseFloor;
+    }
+
+    public void setRoomWidth(double roomWidth) {
+        this.roomWidth = roomWidth;
+    }
+
+    public void setRoomLength(double roomLength) {
+        this.roomLength = roomLength;
+    }
+
+    public void setRoomHeight(double roomHeight) {
+        this.roomHeight = roomHeight;
+    }
+
     /**
      * Method that returns the SensorList of the room.
      *
@@ -54,7 +74,7 @@ public class Room implements Metered {
      *
      * @return a double that represents the room height.
      */
-    double getRoomHeight() {
+    public double getRoomHeight() {
         return roomHeight;
     }
 
@@ -63,7 +83,7 @@ public class Room implements Metered {
      *
      * @return a double that represents the room length.
      */
-    double getRoomLength() {
+    public double getRoomLength() {
         return roomLength;
     }
 
@@ -72,7 +92,7 @@ public class Room implements Metered {
      *
      * @return a double that represents the room width.
      */
-    double getRoomWidth() {
+    public double getRoomWidth() {
         return roomWidth;
     }
 
@@ -99,7 +119,7 @@ public class Room implements Metered {
      *
      * @return a int that represents the room house floor.
      */
-    int getHouseFloor() {
+    public int getHouseFloor() {
         return houseFloor;
     }
 

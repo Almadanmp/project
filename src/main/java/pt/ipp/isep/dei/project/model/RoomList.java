@@ -22,6 +22,10 @@ public class RoomList {
         this.rooms = new ArrayList<>();
     }
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
     /**
      * Method that adds a Room to the RoomList.
      *
