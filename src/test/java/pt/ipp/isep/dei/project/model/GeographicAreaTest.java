@@ -87,7 +87,7 @@ class GeographicAreaTest {
                 new Local(12, 31, 21), new Date());
         validArea.addSensor(testSensor);
         SensorList expectedResult = new SensorList();
-        expectedResult.addSensor(testSensor);
+        expectedResult.add(testSensor);
 
         // Act
 

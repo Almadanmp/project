@@ -22,6 +22,10 @@ public class RoomList {
         this.rooms = new ArrayList<>();
     }
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
     /**
      * Method that adds a Room to the RoomList.
      *
@@ -118,7 +122,7 @@ public class RoomList {
     double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
         for (Room r : rooms) {
-            result += r.getDailyConsumptionByDeviceType(deviceType, time);
+            result += r.getEstimateConsumptionOverTimeByDeviceType(deviceType, time);
         }
         return Math.floor(result * 10) / 10;
     }

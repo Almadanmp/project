@@ -153,7 +153,7 @@ public class GeographicArea {
      * @return true in case the sensor is added, false otherwise.
      * **/
     public boolean addSensor(Sensor sensor) {
-        return this.areaSensors.addSensor(sensor);
+        return this.areaSensors.add(sensor);
     }
 
     /**

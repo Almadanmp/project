@@ -52,7 +52,7 @@ public class EnergyConsumptionController {
      */
 
     public boolean addDeviceToList(Device device, DeviceList list) {
-        return list.addDevice(device);
+        return list.add(device);
     }
 
     /**

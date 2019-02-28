@@ -36,7 +36,7 @@ public class SensorList {
      * @return true if sensor was successfully added to the SensorList, false otherwise.
      */
 
-    public boolean addSensor(Sensor sensorToAdd) {
+    public boolean add(Sensor sensorToAdd) {
         if (!(sensors.contains(sensorToAdd))) {
             sensors.add(sensorToAdd);
             return true;
@@ -84,7 +84,7 @@ public class SensorList {
         SensorList containedTypeSensors = new SensorList();
         for (Sensor sensor : this.sensors) {
             if (name.equals(sensor.getSensorTypeName())) {
-                containedTypeSensors.addSensor(sensor);
+                containedTypeSensors.add(sensor);
             }
         }
         return containedTypeSensors;
@@ -151,7 +151,7 @@ public class SensorList {
         SensorList finalList = new SensorList();
         for (Sensor s : this.sensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
-                finalList.addSensor(s);
+                finalList.add(s);
             }
         }
         return finalList;
@@ -196,6 +196,15 @@ public class SensorList {
         return sensors.contains(sensor);
     }
 
+    /** This method goes through every sensor reading list and returns the
+     * reading values of a given day. This day is given to method as parameter.
+     * @day date of day the method will use to get reading values
+     * @return returns value readings from every sensor from given day
+     * **/
+    public List<Double> getValuesOfSpecificDayReadings(Date day){
+        ReadingList readingList = getReadings();
+        return readingList.getValuesOfSpecificDayReadings(day);
+    }
     /**
      * Getter (array of sensors)
      *

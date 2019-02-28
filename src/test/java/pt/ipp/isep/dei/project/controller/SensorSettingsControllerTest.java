@@ -135,7 +135,7 @@ class SensorSettingsControllerTest {
                 new Local(1, 1, 1),
                 validDate1);
         SensorList sensorList = new SensorList();
-        sensorList.addSensor(firstSensor);
+        sensorList.add(firstSensor);
         geoArea.setSensorList(sensorList);
 
         // Act

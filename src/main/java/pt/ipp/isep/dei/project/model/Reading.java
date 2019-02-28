@@ -18,7 +18,7 @@ public class Reading {
      */
     public Reading(double value, Date date) {
         setValue(value);
-        setData(date);
+        setDate(date);
     }
 
     /**
@@ -38,7 +38,7 @@ public class Reading {
      * getters e setters
      * @param date of the reading
      */
-    public void setData(Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -62,7 +62,7 @@ public class Reading {
             return false;
         } else {
             Reading reading = (Reading) o;
-            return (java.lang.Double.compare(this.value, reading.getValue()) == 0 && this.date.equals(reading.getDate()));
+            return (this.date.equals(reading.getDate()));
         }
     }
 

@@ -27,6 +27,18 @@ public class Address {
         return this.town;
     }
 
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
     @Override
     public boolean equals(Object testAddress) {
         if (this == testAddress) {

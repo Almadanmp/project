@@ -1,14 +1,11 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -20,199 +17,154 @@ import static org.testng.Assert.assertTrue;
 
 class RoomListTest {
 
-    // Common artifacts for testing in this class.
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private RoomList validRoomList;
+    private RoomList emptyRoomList;
+    private Room validRoomKitchen;
 
-
-    @Test
-    void seeIfAddRoomFails() {
-        RoomList roomList = new RoomList();
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("21/11/2018");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50), date));
-        Room r1 = new Room("Cozinha", 1, 123, 2, 2);
-        r1.setSensorList(sensorList);
-        Room r2 = new Room("Cozinha", 1, 123, 2, 2);
-        r2.setSensorList(sensorList);
-        Room r3 = new Room("Quarto", 1, 123, 2, 2);
-        r3.setSensorList(sensorList);
-        roomList.add(r1);
-        boolean expectedResult = false;
-        boolean actualResult = roomList.add(r2);
-        assertEquals(expectedResult, actualResult);
+    @BeforeEach
+    void arrangeArtifacts() {
+        validRoomList = new RoomList();
+        emptyRoomList = new RoomList();
+        validRoomKitchen = new Room("Kitchen", 1, 4, 5, 3);
+        validRoomList.add(validRoomKitchen);
     }
 
     @Test
-    void seeIfAddRoomPasses() {
-        RoomList roomList = new RoomList();
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("21/11/2018");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperatura", "Celsius"), new Local(21, 23, 50),date));
-        Room r1 = new Room("Cozinha", 1, 123, 2, 2);
-        r1.setSensorList(sensorList);
-        Room r2 = new Room("Jardim", 1, 123, 2, 2);
-        r2.setSensorList(sensorList);
-        Room r3 = new Room("Quarto", 1, 123, 2, 2);
-        r3.setSensorList(sensorList);
-        roomList.add(r1);
-        boolean actualResult = roomList.add(r2);
+    void seeIfAddRoomFailsDuplicateRoom() {
+        // Arrange
+
+        validRoomList.add(validRoomKitchen);
+
+        // Act
+
+        boolean actualResult = validRoomList.add(validRoomKitchen);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomWorks() {
+        // Act
+
+        boolean actualResult = emptyRoomList.add(validRoomKitchen);
+
+        // Assert
+
         Assertions.assertTrue(actualResult);
     }
 
     @Test
-    void seeIfPrintsRoomList() {
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        Room room = new Room("kitchen", 1, 1, 2, 2);
-        Room room1 = new Room("sala", 1, 1, 2, 2);
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        house.addRoom(room);
-        house.addRoom(room1);
+    void seeIfBuildRoomListStringWorksEmptyList() {
+        // Act
 
-        String expectedResult = "---------------\n" +
-                "0) Designation: kitchen | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
-                "1) Designation: sala | House Floor: 1 | Width: 1.0 | Length: 2.0 | Height: 2.0\n" +
-                "---------------\n";
-        String result = house.buildRoomListString();
-        assertEquals(expectedResult, result);
-    }
+        String result = emptyRoomList.buildString();
 
-    @Test
-    void seeIfPrintsInvalidList() {
-        GeographicArea ga = new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        String expectedResult = "Invalid List - List is Empty\n";
-        String result = house.buildRoomListString();
-        assertEquals(expectedResult, result);
-    }
+        // Assert
 
-    @Test
-    void seeIfPrintInvalidRoomsWorks() {
-        RoomList roomList = new RoomList();
-        String result = roomList.buildString();
         Assert.assertEquals("Invalid List - List is Empty\n", result);
     }
 
 
     @Test
-    void ensureThatAObjectIsAInstanceOf() {
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        Room room2 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        roomList1.add(room2);
-        RoomList roomList2 = new RoomList();
-        roomList2.add(room1);
-        roomList2.add(room2);
+    void seeIfEqualsWorksSameContent() {
+        // Arrange
 
-        boolean actualResult = roomList1.equals(roomList2);
+        emptyRoomList.add(validRoomKitchen);
 
-        assertTrue(actualResult);
-    }
+        // Act
 
-    @Test
-    void ensureThatAObjectIsAInstanceOf2() {
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        Room room2 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        RoomList roomList2 = new RoomList();
-        roomList2.add(room2);
+        boolean actualResult = validRoomList.equals(emptyRoomList);
 
-        boolean actualResult = roomList1.equals(roomList2);
+        // Assert
 
         assertTrue(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOf3() {
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        boolean actualResult = roomList1.equals(roomList1);
+    void seeIfEqualsWorksSameObject() {
+        // Arrange
+
+        validRoomList.add(validRoomKitchen);
+
+        // Act
+
+        boolean actualResult = validRoomList.equals(validRoomList); // Needed for Sonarqube testing purposes.
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsNotAInstanceOf() {
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        Room room2 = new Room("room2", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        roomList1.add(room2);
-        RoomList roomList2 = new RoomList();
-        roomList2.add(room1);
+    void seeIfEqualsDifferentListContents() {
+        // Arrange
 
-        boolean actualResult = roomList1.equals(roomList2);
+        Room testRoom = new Room("Balcony", 4, 2, 4, 3);
+        validRoomList.add(testRoom);
+        emptyRoomList.add(validRoomKitchen);
+
+        // Act
+
+        boolean actualResult = validRoomList.equals(emptyRoomList);
+
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsNotAInstanceOf2() {
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        Room room2 = new Room("room2", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        boolean actualResult = roomList1.equals(room2);
-        assertFalse(actualResult);
-    }
+    void seeIfEqualsDifferentObjectTypes() {
+        // Arrange
 
-    @Test
-    void ensureThatAObjectIsNotAInstanceOf3() {
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        boolean actualResult = roomList1.equals(room1);
-        assertFalse(actualResult);
-    }
+        Room room2 = new Room("Balcony", 3, 2, 4, 3);
+        validRoomList.add(validRoomKitchen);
 
-    @Test
-    void isEmpty() {
-        //Arrange
-        RoomList roomList1 = new RoomList(); //EMPTY LIST
-        RoomList roomList2 = new RoomList(); //ONE ROOM
-        RoomList roomList3 = new RoomList(); //TWO ROOMS
+        // Act
 
-        Room room1 = new Room("room1", 1, 22, 22, 4);
-        Room room2 = new Room("room2", 2, 21, 21, 4);
-        roomList2.add(room1);
-        roomList3.add(room1);
-        roomList3.add(room2);
-        //Act
-        boolean actualResult1 = roomList1.isEmpty();
-        boolean actualResult2 = roomList2.isEmpty();
-        boolean actualResult3 = roomList3.isEmpty();
+        boolean actualResult = validRoomList.equals(room2); // Necessary for Sonarqube testing purposes.
+
         //Assert
-        assertTrue(actualResult1);
-        assertFalse(actualResult2);
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfIsEmptyWorks() {
+        //Arrange
+
+        RoomList roomList3 = new RoomList(); //Has two rooms.
+
+        Room room2 = new Room("Balcony", 2, 21, 21, 4);
+        roomList3.add(validRoomKitchen);
+        roomList3.add(room2);
+
+        // Act
+
+        boolean actualResult1 = validRoomList.isEmpty();
+        boolean actualResult2 = emptyRoomList.isEmpty();
+        boolean actualResult3 = roomList3.isEmpty();
+
+        // Assert
+
+        assertFalse(actualResult1);
+        assertTrue(actualResult2);
         assertFalse(actualResult3);
     }
 
     @Test
     void hashCodeDummyTest() {
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
+        // Arrange
+
         int expectedResult = 1;
-        int actualResult = roomList1.hashCode();
+
+        // Act
+
+        int actualResult = validRoomList.hashCode();
+
+        // Assert
+
         Assertions.assertEquals(expectedResult, actualResult);
     }
-
-
 }
