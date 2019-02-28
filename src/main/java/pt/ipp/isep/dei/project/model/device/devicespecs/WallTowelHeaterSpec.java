@@ -5,8 +5,7 @@ import java.util.List;
 
 public class WallTowelHeaterSpec implements DeviceSpecs {
     public List<String> getAttributeNames() {
-        List<String> result = new ArrayList<>();
-        return result;
+        return new ArrayList<>();
     }
 
     public Object getAttributeValue(String attributeName) {
