@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model.device;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingList;
@@ -805,12 +804,56 @@ class DeviceListTest {
         LogList actualResult2 = listDeviceLogInside.getLogsInInterval(startInterval, endInterval);
         LogList actualResult3 = listDeviceLogOutside.getLogsInInterval(startInterval, endInterval);
 
-
         //Assert
 
         assertEquals(emptyList, actualResult1);
         assertEquals(listOneLog, actualResult2);
         assertEquals(emptyList, actualResult3);
+    }
+
+    @Test
+    void removeDevicesFromGivenList(){
+        //Arrange
+
+        Device d1 = new Fridge(new FridgeSpec());
+        d1.setName("Fridge");
+        d1.setNominalPower(21.0);
+        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
+        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
+        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+
+        Device d2 = new WashingMachine(new WashingMachineSpec());
+        d2.setName("WashingMachine");
+        d2.setNominalPower(21.0);
+        d2.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 4D);
+
+        DeviceList mainDeviceList = new DeviceList(); //mainDeviceList: has two devices
+        DeviceList emptyList = new DeviceList();      //empty list
+        DeviceList listOneDevice = new DeviceList();  //list with one device contained in mainDeviceList
+        DeviceList listTwoDevices = new DeviceList(); //list with two devices contained in mainDeviceList
+
+        mainDeviceList.add(d1);
+        mainDeviceList.add(d2);
+        listOneDevice.add(d1);
+        listTwoDevices.add(d1);
+        listTwoDevices.add(d2);
+
+
+        //Act
+
+        boolean actualResult1 = mainDeviceList.removeDevicesFromGivenList(emptyList);
+        boolean actualResult2 = mainDeviceList.removeDevicesFromGivenList(listOneDevice);
+        boolean actualResult3 = mainDeviceList.removeDevicesFromGivenList(listTwoDevices);
+
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertTrue(actualResult3);
+
+        assertEquals(emptyList, listOneDevice); //See if devices get removed
+        assertEquals(emptyList, listTwoDevices); //See if devices get removed
     }
 }
 
