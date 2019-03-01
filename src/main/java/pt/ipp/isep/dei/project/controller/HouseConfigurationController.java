@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.dto.HouseConfigurationMapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.Address;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
@@ -10,7 +12,7 @@ import pt.ipp.isep.dei.project.model.Room;
 
 
 public class HouseConfigurationController {
-
+HouseConfigurationMapper mapper = new HouseConfigurationMapper();
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
@@ -54,16 +56,22 @@ public class HouseConfigurationController {
      * @param height          is the height of the room we're going to create.
      * @return a new Room
      */
-    public Room createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
+//    public Room createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+//        return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
+//    }
+
+    public RoomDTO createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+        Room room = house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
+        return mapper.roomToDTO(room);
     }
 
     /** The method receives a house and a room and tries to add the room to house.
      *
      * @return true if room was added, false otherwise.
      * **/
-    public boolean addRoomToHouse(House house, Room room){
-        return house.addRoom(room);
+    public boolean addRoomToHouse(House house, RoomDTO room){
+        Room newRoomToAdd = mapper.DTOtoRoom(room,house);
+        return house.addRoom(newRoomToAdd);
     }
 
 

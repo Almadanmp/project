@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 
@@ -95,7 +96,7 @@ class HouseConfigurationUI {
     // house floor and dimensions) - TERESA VARELA.
     private void runUS105(House house) {
         getInputRoomCharacteristics();
-        Room room = createNewRoom(house);
+        RoomDTO room = createNewRoom(house);
         displayRoom();
         boolean added = addRoomToHouse(house, room);
         displayFinalState(added);
@@ -128,7 +129,7 @@ class HouseConfigurationUI {
         this.roomHeight = inputUtils.getInputAsDoubleZeroOrPositive();
     }
 
-    private Room createNewRoom(House house) {
+    private RoomDTO createNewRoom(House house) {
         return controller.createNewRoom(house, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight);
     }
 
@@ -153,7 +154,7 @@ class HouseConfigurationUI {
         }
     }
 
-    private boolean addRoomToHouse(House house, Room room) {
+    private boolean addRoomToHouse(House house, RoomDTO room) {
         return controller.addRoomToHouse(house, room);
     }
 
