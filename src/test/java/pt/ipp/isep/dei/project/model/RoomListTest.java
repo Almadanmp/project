@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,32 +18,26 @@ import static org.testng.Assert.assertTrue;
 class RoomListTest {
 
     private RoomList validRoomList;
-    private RoomList validSecondaryRoomList;
+    private RoomList emptyRoomList;
     private Room validRoomKitchen;
 
     @BeforeEach
     void arrangeArtifacts() {
         validRoomList = new RoomList();
-        validSecondaryRoomList = new RoomList();
+        emptyRoomList = new RoomList();
         validRoomKitchen = new Room("Kitchen", 1, 4, 5, 3);
+        validRoomList.add(validRoomKitchen);
     }
 
     @Test
-    void seeIfAddRoomFails() {
+    void seeIfAddRoomFailsDuplicateRoom() {
         // Arrange
 
-        Date date = new GregorianCalendar(2018, Calendar.NOVEMBER, 21).getTime();
-        SensorList sensorList = new SensorList(new Sensor("sensor", new TypeSensor("Temperature", "Celsius"), new Local(21, 23, 50), date));
-        validRoomKitchen.setSensorList(sensorList);
-        Room r2 = validRoomKitchen;
-        r2.setSensorList(sensorList);
-        Room r3 = new Room("Bedroom", 1, 2, 5, 3);
-        r3.setSensorList(sensorList);
         validRoomList.add(validRoomKitchen);
 
         // Act
 
-        boolean actualResult = validRoomList.add(r2);
+        boolean actualResult = validRoomList.add(validRoomKitchen);
 
         // Assert
 
@@ -53,21 +45,10 @@ class RoomListTest {
     }
 
     @Test
-    void seeIfAddRoom() {
-        // Arrange
-
-        Date date = new GregorianCalendar(2018, Calendar.NOVEMBER, 21).getTime();
-        SensorList sensorList = new SensorList(new Sensor("s1", new TypeSensor("Temperature", "Celsius"), new Local(21, 23, 50),date));
-        validRoomKitchen.setSensorList(sensorList);
-        Room r2 = new Room("Garden", 1, 2, 6, 3);
-        r2.setSensorList(sensorList);
-        Room r3 = new Room("Bedroom", 1, 3, 4, 2);
-        r3.setSensorList(sensorList);
-        validRoomList.add(validRoomKitchen);
-
+    void seeIfAddRoomWorks() {
         // Act
 
-        boolean actualResult = validRoomList.add(r2);
+        boolean actualResult = emptyRoomList.add(validRoomKitchen);
 
         // Assert
 
@@ -75,10 +56,10 @@ class RoomListTest {
     }
 
     @Test
-    void seeIfInvalidRoomsPrints() {
+    void seeIfBuildRoomListStringWorksEmptyList() {
         // Act
 
-        String result = validRoomList.buildString();
+        String result = emptyRoomList.buildString();
 
         // Assert
 
@@ -87,18 +68,14 @@ class RoomListTest {
 
 
     @Test
-    void seeIfEqualsSameContentLists() {
+    void seeIfEqualsWorksSameContent() {
         // Arrange
 
-        Room room2 = new Room("Dinning room", 3, 2, 4, 3);
-        validRoomList.add(validRoomKitchen);
-        validRoomList.add(room2);
-        validSecondaryRoomList.add(validRoomKitchen);
-        validSecondaryRoomList.add(room2);
+        emptyRoomList.add(validRoomKitchen);
 
         // Act
 
-        boolean actualResult = validRoomList.equals(validSecondaryRoomList);
+        boolean actualResult = validRoomList.equals(emptyRoomList);
 
         // Assert
 
@@ -106,14 +83,14 @@ class RoomListTest {
     }
 
     @Test
-    void seeIfEqualsSameObject() {
+    void seeIfEqualsWorksSameObject() {
         // Arrange
 
         validRoomList.add(validRoomKitchen);
 
         // Act
 
-        boolean actualResult = validRoomList.equals(validRoomList); // Necessary for Sonarqube testing purposes.
+        boolean actualResult = validRoomList.equals(validRoomList); // Needed for Sonarqube testing purposes.
 
         // Assert
 
@@ -124,14 +101,13 @@ class RoomListTest {
     void seeIfEqualsDifferentListContents() {
         // Arrange
 
-        Room room2 = new Room("Balcony", 4, 2, 4, 3);
-        validRoomList.add(validRoomKitchen);
-        validRoomList.add(room2);
-        validSecondaryRoomList.add(validRoomKitchen);
+        Room testRoom = new Room("Balcony", 4, 2, 4, 3);
+        validRoomList.add(testRoom);
+        emptyRoomList.add(validRoomKitchen);
 
         // Act
 
-        boolean actualResult = validRoomList.equals(validSecondaryRoomList);
+        boolean actualResult = validRoomList.equals(emptyRoomList);
 
         // Assert
 
@@ -155,26 +131,25 @@ class RoomListTest {
     }
 
     @Test
-    void seeIfIsEmptyBothConditions() {
+    void seeIfIsEmptyWorks() {
         //Arrange
 
         RoomList roomList3 = new RoomList(); //Has two rooms.
 
         Room room2 = new Room("Balcony", 2, 21, 21, 4);
-        validSecondaryRoomList.add(validRoomKitchen);
         roomList3.add(validRoomKitchen);
         roomList3.add(room2);
 
         // Act
 
         boolean actualResult1 = validRoomList.isEmpty();
-        boolean actualResult2 = validSecondaryRoomList.isEmpty();
+        boolean actualResult2 = emptyRoomList.isEmpty();
         boolean actualResult3 = roomList3.isEmpty();
 
         // Assert
 
-        assertTrue(actualResult1);
-        assertFalse(actualResult2);
+        assertFalse(actualResult1);
+        assertTrue(actualResult2);
         assertFalse(actualResult3);
     }
 
@@ -182,7 +157,6 @@ class RoomListTest {
     void hashCodeDummyTest() {
         // Arrange
 
-        validRoomList.add(validRoomKitchen);
         int expectedResult = 1;
 
         // Act

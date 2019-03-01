@@ -246,6 +246,7 @@ public class InputUtils {
     Double getInputAsDouble() {
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Please type a valid number: ");
         while (!scanner.hasNextDouble()) {
             System.out.println(utils.invalidOption);
             scanner.next();
@@ -274,11 +275,9 @@ public class InputUtils {
      * @return value read from user
      */
     Double getInputAsDoubleZeroOrPositive() {
-        UtilsUI utilsUI = new UtilsUI();
         double input = -1.0;
         while (input <= 0) {
             input = getInputAsDouble();
-            System.out.println(utilsUI.invalidOption);
         }
         return input;
     }

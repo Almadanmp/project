@@ -105,7 +105,7 @@ public class ProgramList {
      *
      * @return array of programs
      */
-    private Program[] getElementsAsArray() {
+    Program[] getElementsAsArray() {
         int sizeOfResultArray = programs.size();
         Program[] result = new Program[sizeOfResultArray];
         for (int i = 0; i < programs.size(); i++) {

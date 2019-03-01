@@ -243,7 +243,7 @@ public class Sensor {
      * @return total reading values of that day
      ***/
     public double getTotalValueReadingsOnGivenDay(Date day){
-        return this.readingList.getTotalValueOfReadingOnGivenDay(day);
+        return this.readingList.getValueReadingsInDay(day);
     }
 
     /** This method goes through the sensor's reading list and

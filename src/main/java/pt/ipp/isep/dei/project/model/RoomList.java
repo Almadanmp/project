@@ -122,7 +122,7 @@ public class RoomList {
     double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
         for (Room r : rooms) {
-            result += r.getDailyConsumptionByDeviceType(deviceType, time);
+            result += r.getEstimateConsumptionOverTimeByDeviceType(deviceType, time);
         }
         return Math.floor(result * 10) / 10;
     }

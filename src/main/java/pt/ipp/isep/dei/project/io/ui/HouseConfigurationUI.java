@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
-import pt.ipp.isep.dei.project.model.Address;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 
@@ -14,10 +13,6 @@ class HouseConfigurationUI {
     private double roomWidth;
     private double roomLength;
     private double roomHeight;
-    private double houseLat;
-    private double houseLon;
-    private double houseAlt;
-    private Address address;
     private static final String INVALID_OPTION = "Please enter a valid option";
 
     HouseConfigurationUI() {
@@ -57,13 +52,8 @@ class HouseConfigurationUI {
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
-    private void runUS101(House house){
-        getInputHouseCharacteristicsUS101();
-        updateHouseUS101(house);
-        displayHouseUS101(house);
-    }
 
-    private void getInputHouseCharacteristicsUS101() {
+      private void runUS101(House house) {
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
 
@@ -79,46 +69,31 @@ class HouseConfigurationUI {
         System.out.println("Please, type the town where the house is located: ");
         String town = scanner.nextLine();
 
-        this.address = new Address(street, zip, town);
-
         //get latitude
         System.out.print("Please, type the latitude: ");
-        this.houseLat = inputUtils.getInputAsDouble();
+          double houseLat = inputUtils.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the longitude: ");
-        this.houseLon = inputUtils.getInputAsDouble();
+          double houseLon = inputUtils.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the altitude: ");
-        this.houseAlt = inputUtils.getInputAsDouble();
+          double houseAlt = inputUtils.getInputAsDouble();
 
-    }
-
-    /**
-     * Method updates the house using the input previously stored.
-     * @param house receives the house the program is managing, so its parameters get changed.
-     */
-    private void updateHouseUS101(House house) {
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
-        controller.setHouseAddress(this.address, house);
-    }
+        controller.setHouseAddress(street, zip, town, house);
 
-    /**
-     * Method displays the house after all the changes have happened.
-     * @param house receives the house the program is managing, so its new parameters get displayed.
-     */
-    private void displayHouseUS101(House house) {
         String houseId = controller.getHouseName(house);
         System.out.println("You have successfully changed the location of the house " + houseId + ". \n" + "Street: " +
-                this.address.getStreet() + ". \n" + "ZipCode: " + this.address.getZip() + ". \n" + "Town: " + this.address.getTown() + ". \n" + "Latitude: " + houseLat + ". \n" +
+                street + ". \n" + "ZipCode: " + zip + ". \n" + "Town: " + town + ". \n" + "Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
     }
 
 
     // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
-    private void runUS105(House house){
+    private void runUS105(House house) {
         getInputRoomCharacteristics();
         Room room = createNewRoom(house);
         displayRoom();
@@ -153,8 +128,8 @@ class HouseConfigurationUI {
         this.roomHeight = inputUtils.getInputAsDoubleZeroOrPositive();
     }
 
-    private Room createNewRoom(House house){
-        return controller.createNewRoom(house,roomName,roomHouseFloor,roomWidth,roomLength,roomHeight);
+    private Room createNewRoom(House house) {
+        return controller.createNewRoom(house, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight);
     }
 
     /**
@@ -178,23 +153,22 @@ class HouseConfigurationUI {
         }
     }
 
-    private boolean addRoomToHouse(House house, Room room){
+    private boolean addRoomToHouse(House house, Room room) {
         return controller.addRoomToHouse(house, room);
     }
 
-    private void displayFinalState(boolean addedRoom){
-        if(addedRoom){
+    private void displayFinalState(boolean addedRoom) {
+        if (addedRoom) {
             System.out.println("The " + roomName + " was added to the house.\n");
-        }
-        else {
+        } else {
             System.out.println("The " + roomName + " wasn't added to the house because it already exists.\n");
         }
     }
 
 
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
-    * - MARIA MEIRELES, TERESA VARELA */
-    private void runUS108(House house){
+     * - MARIA MEIRELES, TERESA VARELA */
+    private void runUS108(House house) {
         UtilsUI utilsUI = new UtilsUI();
         if (utilsUI.houseRoomListIsValid(house)) {
             printRoomList(house);

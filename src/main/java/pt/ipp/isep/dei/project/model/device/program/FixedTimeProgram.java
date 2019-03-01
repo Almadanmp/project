@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.project.model.device.program;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FixedTimeProgram implements Program {
 
@@ -100,6 +102,24 @@ public class FixedTimeProgram implements Program {
             default:
                 return 0;
         }
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Program program = (Program) o;
+        return Objects.equals(programName, program.getProgramName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 
 }

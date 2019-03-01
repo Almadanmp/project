@@ -15,11 +15,10 @@ public class HouseConfigurationController {
 
     /**
      * @param house is the house we're going to set the address of.
-     * @param address the houses's address.
      */
 
-    public void setHouseAddress(Address address, House house) {
-        house.setAddress(address);
+    public void setHouseAddress(String street, String zip, String town, House house) {
+        house.setAddress(street,zip,town);
     }
 
     /**

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.*;
@@ -19,9 +20,9 @@ public class DeviceList {
         this.devices = new ArrayList<>();
     }
 
-    /**
-     * ESTE MÉTODO É PARA SER APAGADO. NÃO USAR! ENCAPSULAR!
-     */
+    /*******************************************************************
+     ***** ESTE MÉTODO É PARA SER APAGADO. NÃO USAR! ENCAPSULAR! *******
+     *******************************************************************/
     public List<Device> getList() {
         return this.devices;
     }
@@ -42,12 +43,20 @@ public class DeviceList {
      * @param device is the device that we want to add.
      * @return true if the device was successfully added, false otherwise(device already exists in the list)
      */
-    public boolean addDevice(Device device) {
+    public boolean add(Device device) {
         if (!devices.contains(device)) {
             devices.add(device);
             return true;
         }
         return false;
+    }
+
+    public double getEnergyConsumption(float time) {
+        double result = 0;
+        for (Device d : this.devices){
+            result += d.getEnergyConsumption(time);
+        }
+        return result;
     }
 
     /**
@@ -120,26 +129,32 @@ public class DeviceList {
         return result;
     }
 
-    /** Adds all devices of a given DeviceList to target list, rejecting duplicates.
+    /**
+     * Adds all devices of a given DeviceList to target list, rejecting duplicates.
+     *
      * @param deviceList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
-     * **/
-    public DeviceList appendListNoDuplicates(DeviceList deviceList){
+     **/
+    public DeviceList appendListNoDuplicates(DeviceList deviceList) {
         Device[] devices = deviceList.getElementsAsArray();
-        for(Device d : devices){
-            this.addDevice(d);
+        for (Device d : devices) {
+            this.add(d);
         }
         return this;
     }
 
-    /** Checks the device list size and returns the size as int.\
+    /**
+     * Checks the device list size and returns the size as int.\
+     *
      * @return DeviceList size as int
-     * **/
-    public int size(){
+     **/
+    public int size() {
         return this.devices.size();
     }
 
-    /** This method receives an index as parameter and gets a device from device list.
+    /**
+     * This method receives an index as parameter and gets a device from device list.
+     *
      * @param index The index of the desired Device
      * @return returns device that corresponds to index.
      */
@@ -147,7 +162,9 @@ public class DeviceList {
         return this.devices.get(index);
     }
 
-    /** This method receives an index as parameter and gets a device type from device list.
+    /**
+     * This method receives an index as parameter and gets a device type from device list.
+     *
      * @param index The index of the desired Device type
      * @return returns device type that corresponds to index.
      */
@@ -183,7 +200,7 @@ public class DeviceList {
         DeviceList devicesOfGivenType = new DeviceList();
         for (Device d : this.devices) {
             if (d.getType().equals(deviceType)) {
-                devicesOfGivenType.addDevice(d);
+                devicesOfGivenType.add(d);
             }
         }
         return devicesOfGivenType;
@@ -198,7 +215,7 @@ public class DeviceList {
     public void addDevicesToDeviceList(DeviceList list) {
         for (Device d : this.devices) {
             if (!(list.containsDevice(d))) {
-                list.addDevice(d);
+                list.add(d);
             }
         }
     }
