@@ -41,6 +41,7 @@ class ReadingListTest {
         validReadingList = new ReadingList();
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
+
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
@@ -99,7 +100,7 @@ class ReadingListTest {
     void seeTotalFromEmptyList() {
         // Arrange
 
-        List<Double> list = new ArrayList<>();
+         List<Double> list = new ArrayList<>();
 
         // Act
 
@@ -498,49 +499,78 @@ class ReadingListTest {
     void seeIfReadingDateWithinTwoDates() {
         //Arrange
 
-        Reading testReading = new Reading(22, validDate14);
-        validReadingList.addReading(testReading);
+        Date date1 = new Date();
+        Date date2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            date1 = sd.parse("01/10/2018 23:59");
+            date2 = sd.parse("01/10/2019 23:59");
 
-        // Act
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading reading1 = new Reading(22, validDate14);
+        validReadingList.addReading(reading1);
 
-        boolean actualResult = validReadingList.isReadingDateBetweenTwoDates(testReading.getDate(), validDate12,
-                validDate16);
+            //Assert
 
-        //Assert
-
-        assertTrue(actualResult);
+        assertTrue(validReadingList.isReadingDateBetweenTwoDates(reading1.getDate(), date1, date2));
     }
 
     @Test
     void seeIfReadingDateWithinTwoDatesFalse() {
-        //Arrange
+        // Arrange
 
-        Reading testReading = new Reading(22, validDate14);
-        validReadingList.addReading(testReading);
+        Date date1 = new Date();
+        Date date2 = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            date1 = sd.parse("01/10/2016 23:59");
+            date2 = sd.parse("01/10/2017 23:59");
 
-        // Act
-
-        boolean actualResult = validReadingList.isReadingDateBetweenTwoDates(testReading.getDate(), validDate13,
-                validDate15);
-
-        //Assert
-
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void hashCodeDummyTest() {
-        //Arrange
-
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Reading reading1 = new Reading(22, validDate14);
         validReadingList.addReading(reading1);
 
-        // Act
-
-        int actualResult = validReadingList.hashCode();
-
         // Assert
 
-        assertEquals(actualResult, 1);
+        assertFalse(validReadingList.isReadingDateBetweenTwoDates(reading1.getDate(), date1, date2));
+    }
+
+    @Test
+    void ensureThatWeGetReadingsBetweenDates() {
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(3, validDate4);
+        Reading reading2 = new Reading(6, validDate5);
+        Reading reading3 = new Reading(7, validDate6);
+        Reading reading4 = new Reading(3, validDate7);
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        readingList.addReading(reading3);
+        readingList.addReading(reading4);
+        ReadingList expectedReadingList = new ReadingList();
+        expectedReadingList.addReading(reading2);
+        expectedReadingList.addReading(reading3);
+        ReadingList expectedResult = expectedReadingList;
+        ReadingList actualResult = readingList.getReadingsBetweenDates(validDate5,validDate6);
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetLastDayWithLowestValue(){
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(2, validDate4);
+        Reading reading2 = new Reading(6, validDate5);
+        Reading reading3 = new Reading(7, validDate6);
+        Reading reading4 = new Reading(3, validDate7);
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        readingList.addReading(reading3);
+        readingList.addReading(reading4);
+        Date expectedResult = new GregorianCalendar(2018,9,7).getTime();
+        Date actualResult = readingList.getLastDayWithLowestValue();
+        assertEquals(expectedResult,actualResult);
     }
 }

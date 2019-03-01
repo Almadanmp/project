@@ -1,10 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.Sensor;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Controller class for House Monitoring UI
@@ -74,6 +73,14 @@ public class HouseMonitoringController {
             throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
         return closestSensor.getTotalValueReadingsOnGivenDay(day);
+    }
+
+    public Date getLastColdestDayInInterval(GeographicArea geographicArea, Date initialDate, Date finalDate){
+        SensorList sensorList = geographicArea.getSensorsOfGivenType("Temperature");
+        ReadingList readingList = sensorList.getReadings();
+        ReadingList readinglist1 = readingList.getReadingsBetweenDates(initialDate,finalDate);
+        Date date = readinglist1.getLastDayWithLowestValue();
+        return date;
     }
 
     /**
