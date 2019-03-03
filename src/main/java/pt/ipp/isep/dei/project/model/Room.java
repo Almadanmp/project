@@ -142,6 +142,10 @@ public class Room implements Metered {
         return this.deviceList;
     }
 
+    public void setDeviceList(DeviceList deviceList) {
+        this.deviceList = deviceList;
+    }
+
     /**
      * Method for printing all available devices in a room.
      * Used in US201 and US215

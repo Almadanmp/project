@@ -3,8 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.HouseConfigurationMapper;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.model.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ class HouseConfigurationControllerTest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
     private HouseConfigurationController controller = new HouseConfigurationController();
     private House validHouse;
-    private HouseConfigurationMapper mapper;
+    private Mapper mapper;
 
     @BeforeEach
     void arrangeArtifacts() {

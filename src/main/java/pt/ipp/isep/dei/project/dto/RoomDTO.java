@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.dto;
 
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.RoomList;
+
+import pt.ipp.isep.dei.project.model.SensorList;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.UUID;
 
@@ -13,7 +13,25 @@ public class RoomDTO {
     private double roomWidth;
     private double roomLength;
     private double roomHeight;
+    private SensorList roomSensorList;
+    private DeviceList deviceList;
     private UUID id;
+
+    public SensorList getRoomSensorList() {
+        return roomSensorList;
+    }
+
+    public void setRoomSensorList(SensorList roomSensorList) {
+        this.roomSensorList = roomSensorList;
+    }
+
+    public DeviceList getDeviceList() {
+        return deviceList;
+    }
+
+    public void setDeviceList(DeviceList deviceList) {
+        this.deviceList = deviceList;
+    }
 
     public String getRoomName() {
         return roomName;

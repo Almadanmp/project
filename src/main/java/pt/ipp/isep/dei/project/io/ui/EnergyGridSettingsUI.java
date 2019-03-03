@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.PowerSource;
@@ -160,13 +161,13 @@ class EnergyGridSettingsUI {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
-        Room room = inputUtils.getHouseRoomByList(house);
+        RoomDTO room = inputUtils.getHouseRoomByList(house);
         EnergyGrid energyGrid = inputUtils.getInputGridByList(house);
-        updateGridUS147(energyGrid, room);
+        updateGridUS147(energyGrid, room, house);
     }
 
-    private void updateGridUS147(EnergyGrid grid, Room room) {
-        if (controller.addRoomToGrid(grid, room)) {
+    private void updateGridUS147(EnergyGrid grid, RoomDTO room, House house) {
+        if (controller.addRoomToGrid(grid, room, house)) {
             System.out.println("Room successfully added to the grid!");
         } else {
             System.out.println("It wasn't possible to add the room. Please try again.");

@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 
 
@@ -25,7 +27,7 @@ class HouseMonitoringControllerTest {
     private HouseMonitoringController controller = new HouseMonitoringController();
     private GeographicArea validHouseArea;
     private House validHouse;
-    private Room validRoom;
+    private RoomDTO validRoom;
     private Sensor validTemperatureSensor; // Is a temperature sensor with valid readings.
     private SensorList validSensorList; // Contains the mock sensors mentioned above.
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
@@ -39,6 +41,7 @@ class HouseMonitoringControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
+        Mapper mapper = new Mapper();
 
         validHouseArea = new GeographicArea("Portugal", new TypeArea("Country"), 300,
                 200, new Local(45, 30, 30));
@@ -48,11 +51,12 @@ class HouseMonitoringControllerTest {
                 2, 3, new Local(4, 4, 100)), 60,
                 180, new ArrayList<>());
         validHouse.setMotherArea(validHouseArea);
-        validRoom = new Room("Bedroom", 2, 15, 15, 10);
+        Room validRoom1 = new Room("Bedroom", 2, 15, 15, 10);
         RoomList validRoomList = new RoomList();
-        validRoomList.add(validRoom);
+        validRoomList.add(validRoom1);
         validSensorList = new SensorList();
-        validRoom.setSensorList(validSensorList);
+        validRoom1.setSensorList(validSensorList);
+        validHouse.setRoomList(validRoomList);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate1 = validSdf.parse("01/04/2018 15:00:00");
@@ -91,6 +95,8 @@ class HouseMonitoringControllerTest {
         validRainfallSensor.addReading(secondRainReading);
         validRainfallSensor.addReading(thirdRainReading);
         validSensorList.add(validRainfallSensor);
+        validRoom = mapper.roomToDTO(validRoom1);
+
     }
 
 
@@ -102,7 +108,7 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        double actualResult = controller.getCurrentRoomTemperature(validRoom);
+        double actualResult = controller.getCurrentRoomTemperature(validRoom, validHouse);
 
         // Assert
 
@@ -295,7 +301,7 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        double actualResult = controller.getDayMaxTemperature(validRoom, validDate4);
+        double actualResult = controller.getDayMaxTemperature(validRoom, validDate4,validHouse);
 
         // Assert
 
@@ -311,7 +317,7 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getRoomName(validRoom);
+        String actualResult = controller.getRoomName(validRoom,validHouse);
 
         // Assert
 

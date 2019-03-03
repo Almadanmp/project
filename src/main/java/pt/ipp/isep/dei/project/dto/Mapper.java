@@ -5,10 +5,8 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 
 
-public class HouseConfigurationMapper {
+public class Mapper {
     private RoomDTO roomDTO = new RoomDTO();
-
-
 
     public RoomDTO roomToDTO(Room room) {
         roomDTO.setRoomName(room.getRoomName());
@@ -17,6 +15,8 @@ public class HouseConfigurationMapper {
         roomDTO.setRoomLength(room.getRoomLength());
         roomDTO.setRoomWidth(room.getRoomWidth());
         roomDTO.setId(room.getUniqueID());
+        roomDTO.setRoomSensorList(room.getSensorList());
+        roomDTO.setDeviceList(room.getDeviceList());
         return roomDTO;
     }
 
@@ -30,6 +30,8 @@ public class HouseConfigurationMapper {
                 r.setRoomWidth(roomDTO.getRoomWidth());
                 r.setRoomLength(roomDTO.getRoomLength());
                 r.setRoomHeight(roomDTO.getRoomHeight());
+                r.setSensorList(roomDTO.getRoomSensorList());
+                r.setDeviceList(roomDTO.getDeviceList());
                 room = r;
             }
         }
