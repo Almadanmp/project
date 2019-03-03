@@ -4,6 +4,8 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.RoomList;
 
+import java.util.UUID;
+
 public class RoomDTO {
 
     private String roomName;
@@ -11,7 +13,7 @@ public class RoomDTO {
     private double roomWidth;
     private double roomLength;
     private double roomHeight;
-    private int id;
+    private UUID id;
 
     public String getRoomName() {
         return roomName;
@@ -53,11 +55,11 @@ public class RoomDTO {
         this.roomHeight = roomHeight;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 }
