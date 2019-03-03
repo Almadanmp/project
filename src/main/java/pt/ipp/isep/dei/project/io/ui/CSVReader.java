@@ -1,15 +1,18 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.logger.CustomFormatter;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CSVReader {
 
@@ -105,8 +108,6 @@ public class CSVReader {
                     c.printStackTrace();
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -125,28 +126,28 @@ public class CSVReader {
     // ACCESSORY METHODS
 
     private void setCSVReadings(Sensor sensor, Date date, Double value) {
+
         Date startingDate = sensor.getDateStartedFunctioning();
         if (date.after(startingDate) || date == startingDate) {
             Reading reading = new Reading(value, date);
-            sensor.addReading(reading);  //Boolean
+            sensor.addReading(reading);
         }
-            /*
-        Logger logger = Logger.getLogger("LogOutput");
-        FileHandler fh;
-
-        try {
-            fh = new FileHandler("pt/ipp/isep/dei/project/logger/LogOutput");
-            logger.addHandler(fh);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-
-            logger.info("The reading could not be added to the sensor.");
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (date.before(startingDate)) {
+            Logger logger = Logger.getLogger(CSVReader.class.getName());
+            FileHandler fh;
+            try {
+                fh = new FileHandler("C:\\Users\\andre\\IdeaProjects\\project_g2\\src\\main\\java\\pt\\ipp\\isep\\dei\\project\\logger\\LogOutput.log");
+                logger.addHandler(fh);
+                CustomFormatter myFormat = new CustomFormatter();
+                fh.setFormatter(myFormat);
+                if (logger.isLoggable(Level.WARNING)) {
+                    logger.warning("The reading with value " + value + " and date " + date + " could not be added to the sensor.");
+                }
+                fh.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        */
     }
 
     private SensorList getSensorData(House house) {
