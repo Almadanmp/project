@@ -210,7 +210,7 @@ public class SensorList {
      *
      * @return array of sensors
      */
-    private Sensor[] getElementsAsArray() {
+    public Sensor[] getElementsAsArray() {
         int sizeOfResultArray = sensors.size();
         Sensor[] result = new Sensor[sizeOfResultArray];
         for (int i = 0; i < sensors.size(); i++) {
