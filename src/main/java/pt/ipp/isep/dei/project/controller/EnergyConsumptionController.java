@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -146,14 +148,16 @@ public class EnergyConsumptionController {
     /**
      * Accesses model and returns a Room's Energy Consumption in a given interval.
      *
-     * @param room        the room we want to access.
+     * @param roomDTO        the room we want to access.
      * @param initialDate the start of the interval.
      * @param finalDate   the end of the interval.
      * @return the energy consumption of all metered devices' logs that fall fully within the given interval.
      */
 
 
-    public double getRoomConsumptionInInterval(Room room, Date initialDate, Date finalDate) {
+    public double getRoomConsumptionInInterval(RoomDTO roomDTO, Date initialDate, Date finalDate, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.getConsumptionInInterval(initialDate, finalDate);
     }
 
@@ -185,13 +189,15 @@ public class EnergyConsumptionController {
     /**
      * Method accesses model and gets the logs associated to the devices in a selected room.
      *
-     * @param room      is the room we want to get logs from.
+     * @param roomDTO      is the room we want to get logs from.
      * @param startDate the start of the interval.
      * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
 
-    public LogList getRoomLogsInInterval(Room room, Date startDate, Date endDate) {
+    public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.getLogsInInterval(startDate, endDate);
     }
 
