@@ -252,16 +252,10 @@ class SensorListTest {
         // Arrange
 
         validSensorList = new SensorList();
-        Sensor expectedResult = new Sensor("emptySensor", new TypeSensor("type", " "), new Date());
-
-
-        // Act
-
-        Sensor actualResult = validSensorList.getMostRecentlyUsedSensor();
 
         // Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertThrows(IllegalArgumentException.class, validSensorList::getSensorsWithReadings);
     }
 
     @Test
@@ -330,13 +324,9 @@ class SensorListTest {
 
     @Test
     void seeIfGetMostRecentlyUsedSensorWorksOneSensorNoReadings() {
-        // Act
-
-        Sensor actualResult = validSensorList.getMostRecentlyUsedSensor();
-
         // Assert
 
-        assertEquals(firstValidSensor, actualResult);
+        assertThrows(IllegalArgumentException.class, validSensorList::getMostRecentlyUsedSensor);
     }
 
     @Test
@@ -359,5 +349,31 @@ class SensorListTest {
         assertTrue(actualResult1);
         assertFalse(actualResult2);
         assertFalse(actualResult3);
+    }
+
+    @Test
+    void getSensorsWithReadings() {
+        // Arrange
+
+        SensorList emptyList = new SensorList();
+        SensorList twoSensorsList = new SensorList();
+
+        Reading readingOne = new Reading(31, new Date());
+        secondValidSensor.addReading(readingOne);
+
+        twoSensorsList.add(firstValidSensor);
+        twoSensorsList.add(secondValidSensor);
+
+        SensorList expectedResult1 = new SensorList();
+        expectedResult1.add(secondValidSensor);
+
+        // Act
+
+        SensorList actualResult1 = twoSensorsList.getSensorsWithReadings();
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class, emptyList::getSensorsWithReadings);
+        assertEquals(expectedResult1, actualResult1);
     }
 }

@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -51,20 +49,15 @@ public class SensorList {
      *
      * @return the most recently used sensor
      */
-
-    Sensor getMostRecentlyUsedSensor() { // TODO Make method return error sensor if only sensor in the list has no readings.
-        Date d1 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("01/00/1900");
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
-        Sensor error = new Sensor("emptySensor", new TypeSensor("type", " "), d1);
+    Sensor getMostRecentlyUsedSensor() {
         if (this.sensors.isEmpty()) {
-            return error;
+            throw new IllegalArgumentException("The sensor list is empty.");
         }
-        Sensor mostRecent = this.sensors.get(0);
+        SensorList sensorList = getSensorsWithReadings();
+        if(sensorList.isEmpty()){
+            throw new IllegalArgumentException("The sensor list has no readings available.");
+        }
+        Sensor mostRecent = sensorList.get(0);
         Date recent = mostRecent.getMostRecentReadingDate();
         for (Sensor s : this.sensors) {
             Date test = s.getMostRecentReadingDate();
@@ -74,6 +67,26 @@ public class SensorList {
             }
         }
         return mostRecent;
+    }
+
+    /**
+     * Method that goes through the sensor list and returns a list of those which
+     * have readings. The method throws an exception in case the sensorList is empty.
+     *
+     * @return SensorList of every sensor that has readings. It will return an empty list in
+     * case the original list was empty from readings.
+     */
+    SensorList getSensorsWithReadings(){
+        SensorList finalList = new SensorList();
+        if(this.sensors.isEmpty()) {
+            throw new IllegalArgumentException("The sensor list is empty");
+        }
+        for(Sensor s : this.sensors){
+            if(!s.isReadingListEmpty()){
+                finalList.add(s);
+            }
+        }
+        return finalList;
     }
 
     /**

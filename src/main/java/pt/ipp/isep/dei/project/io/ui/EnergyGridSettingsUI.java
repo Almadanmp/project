@@ -161,7 +161,7 @@ class EnergyGridSettingsUI {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
+        RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
         EnergyGrid energyGrid = inputUtils.getInputGridByList(house);
         updateGridUS147(energyGrid, room, house);
     }
