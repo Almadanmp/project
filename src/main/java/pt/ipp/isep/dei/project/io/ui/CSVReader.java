@@ -94,7 +94,7 @@ public class CSVReader {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
                     readDate = sdf.parse(readings[1]);
                     readName = readings[0];
-                    // System.out.println(sensorList.buildString());
+                    // System.out.println(sensorList.toString());
                     // System.out.println("Readings [Sensor = " + readings[0] + " , Date= " + readings[1] + " , Value=" + readings[3] + "]");
                     for (Sensor sensor : sensorList.getElementsAsArray()) {
                         if (sensor.getName().equals(readName)) {

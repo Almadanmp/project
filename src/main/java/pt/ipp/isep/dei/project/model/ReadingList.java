@@ -114,7 +114,8 @@ public class ReadingList {
      *
      * @return most recent reading date
      **/
-    public Date getMostRecentReadingDate() {
+
+    Date getMostRecentReadingDate() {
         return getMostRecentReading().getDate();
     }
 

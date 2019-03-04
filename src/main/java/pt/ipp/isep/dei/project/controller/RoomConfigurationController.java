@@ -77,7 +77,7 @@ public class RoomConfigurationController {
      */
 
     public String buildSensorListString(SensorList sensorList) {
-        return sensorList.buildString();
+        return sensorList.toString();
     }
 
     /**

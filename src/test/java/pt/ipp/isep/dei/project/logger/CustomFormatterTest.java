@@ -17,7 +17,7 @@ import static org.testng.Assert.*;
  * CustomFormatter tests class.
  */
 
-public class CustomFormatterTest {
+class CustomFormatterTest {
 
     // Common artifacts for testing in this class.
     private StreamHandler validHandler; // Handler of the type StreamHandler

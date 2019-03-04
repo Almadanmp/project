@@ -51,7 +51,8 @@ public class SensorList {
      *
      * @return the most recently used sensor
      */
-    public Sensor getMostRecentlyUsedSensor() {
+
+    Sensor getMostRecentlyUsedSensor() { // TODO Make method return error sensor if only sensor in the list has no readings.
         Date d1 = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -112,7 +113,9 @@ public class SensorList {
      *
      * @return a string of the sensors contained in the list.
      */
-    public String buildString() {
+
+    @Override
+    public String toString() {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
         if (sensors.isEmpty()) {
@@ -143,11 +146,13 @@ public class SensorList {
         return finalList;
     }
 
-    /**This method receives a house and the distance of the sensor closest to it,
+    /**
+     * This method receives a house and the distance of the sensor closest to it,
      * goes through the sensor list and returns the sensors closest to house.
+     *
      * @return SensorList with sensors closest to house.
-     * **/
-    public SensorList getSensorsByDistanceToHouse(House house, double minDist){
+     **/
+    public SensorList getSensorsByDistanceToHouse(House house, double minDist) {
         SensorList finalList = new SensorList();
         for (Sensor s : this.sensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
@@ -196,15 +201,18 @@ public class SensorList {
         return sensors.contains(sensor);
     }
 
-    /** This method goes through every sensor reading list and returns the
+    /**
+     * This method goes through every sensor reading list and returns the
      * reading values of a given day. This day is given to method as parameter.
-     * @day date of day the method will use to get reading values
+     *
      * @return returns value readings from every sensor from given day
-     * **/
-    public List<Double> getValuesOfSpecificDayReadings(Date day){
+     * @day date of day the method will use to get reading values
+     **/
+    public List<Double> getValuesOfSpecificDayReadings(Date day) {
         ReadingList readingList = getReadings();
         return readingList.getValuesOfSpecificDayReadings(day);
     }
+
     /**
      * Getter (array of sensors)
      *

@@ -557,6 +557,7 @@ class RoomTest {
         SensorList actualResult = validRoom.getSensorList();
 
         // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 
@@ -580,16 +581,31 @@ class RoomTest {
 
     @Test
     void seeIFgetid(){
+        // Arrange
+
         validRoom.setUniqueID(UUID.randomUUID());
+
+        // Act
+
         UUID uuid = validRoom.getUniqueID();
-        assertTrue(uuid instanceof UUID);
+
+        // Assert
+
+        assertTrue(uuid instanceof UUID); // Needed for Sonarqube testing purposes.
     }
 
     @Test
     void hashCodeDummyTest() {
-        Room room1 = new Room("room1", 19, 5, 3, 3);
+        // Arrange
+
         int expectedResult = 1;
-        int actualResult = room1.hashCode();
+
+        // Act
+
+        int actualResult = validRoom.hashCode();
+
+        // Assert
+
         Assertions.assertEquals(expectedResult, actualResult);
     }
 }
