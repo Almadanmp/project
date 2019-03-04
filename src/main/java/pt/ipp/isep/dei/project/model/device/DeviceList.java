@@ -157,6 +157,9 @@ public class DeviceList {
      * @return returns device that corresponds to index.
      */
     public Device get(int index) {
+        if(this.devices.isEmpty()){
+            throw new IndexOutOfBoundsException("The device list is empty.");
+        }
         return this.devices.get(index);
     }
 
@@ -167,6 +170,9 @@ public class DeviceList {
      * @return returns device type that corresponds to index.
      */
     public String getTypeByIndex(int index) {
+        if(this.devices.isEmpty()){
+            throw new IndexOutOfBoundsException("The device list is empty.");
+        }
         Device device = this.devices.get(index);
         return device.getType();
     }

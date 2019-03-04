@@ -196,6 +196,9 @@ public class RoomList {
      * @return returns room that corresponds to index.
      */
     public Room get(int index) {
+        if(this.rooms.isEmpty()){
+            throw new IndexOutOfBoundsException("The room list is empty.");
+        }
         return this.rooms.get(index);
     }
 

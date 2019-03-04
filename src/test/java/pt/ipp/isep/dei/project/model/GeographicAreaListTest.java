@@ -283,4 +283,19 @@ class GeographicAreaListTest {
         assertTrue(actualResult1);
         assertFalse(actualResult2);
     }
+
+    @Test
+    void getByIndexEmptyGAList() {
+        //Arrange
+
+        GeographicAreaList emptyList = new GeographicAreaList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
+
+        //Assert
+
+        assertEquals("The geographic area list is empty.", exception.getMessage());
+    }
 }

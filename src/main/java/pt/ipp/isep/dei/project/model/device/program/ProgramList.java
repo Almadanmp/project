@@ -97,6 +97,9 @@ public class ProgramList {
      * @return returns program that corresponds to index.
      */
     public Program get(int index) {
+        if(this.programs.isEmpty()){
+            throw new IndexOutOfBoundsException("The program list is empty.");
+        }
         return this.programs.get(index);
     }
 

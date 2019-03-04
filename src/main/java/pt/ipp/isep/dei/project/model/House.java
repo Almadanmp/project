@@ -324,6 +324,9 @@ public class House implements Metered {
      * @return returns room that corresponds to index.
      */
     public Room getRoomByIndex(int index) {
+        if(this.roomList.isEmpty()){
+            throw new IndexOutOfBoundsException("The room list is empty.");
+        }
         return this.roomList.get(index);
     }
 
@@ -344,6 +347,9 @@ public class House implements Metered {
      * @return returns Energy grid that corresponds to index.
      */
     public EnergyGrid getEnergyGridByIndex(int index) {
+        if(this.energyGridList.isEmpty()){
+            throw new IndexOutOfBoundsException("The energy grid list is empty.");
+        }
         return this.energyGridList.get(index);
     }
 

@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -191,5 +192,20 @@ class TypeSensorListTest {
 
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getByIndexEmptyTypeSensorList() {
+        //Arrange
+
+        TypeSensorList emptyList = new TypeSensorList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
+
+        //Assert
+
+        assertEquals("The type sensor list is empty.", exception.getMessage());
     }
 }

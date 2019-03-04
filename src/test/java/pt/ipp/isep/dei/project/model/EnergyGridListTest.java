@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testng.Assert.*;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -151,6 +154,17 @@ class EnergyGridListTest {
 
         assertEquals(firstValidGrid, actualResult1);
         assertEquals(secondValidGrid, actualResult2);
+    }
+    @Test
+    void getByIndexEmptyGridList() {
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validGridList.get(0));
+
+        //Assert
+
+        assertEquals("The energy grid list is empty.", exception.getMessage());
     }
 
     @Test

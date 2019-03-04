@@ -62,6 +62,9 @@ public class EnergyGridList {
      * @return returns Energy grid that corresponds to index.
      */
     public EnergyGrid get(int index) {
+        if(this.energyGrids.isEmpty()){
+            throw new IndexOutOfBoundsException("The energy grid list is empty.");
+        }
         return this.energyGrids.get(index);
     }
 

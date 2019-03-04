@@ -41,6 +41,9 @@ public class ReadingList {
      * @return returns reading that corresponds to index.
      */
     public Reading get(int index) {
+        if(this.readings.isEmpty()){
+            throw new IndexOutOfBoundsException("The reading list is empty.");
+        }
         return this.readings.get(index);
     }
 
