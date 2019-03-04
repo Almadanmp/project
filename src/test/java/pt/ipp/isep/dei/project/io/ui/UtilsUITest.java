@@ -109,8 +109,8 @@ public class UtilsUITest {
         validHouse.addRoom(room1);
         RoomDTO roomDTO = mapper.roomToDTO(room1);
 
-        boolean result1 = utilsUI.roomSensorListIsValid(roomDTO,validHouse);
-        boolean result2 = utilsUI.roomDeviceListIsValid(roomDTO,validHouse);
+        boolean result1 = utilsUI.roomDTOSensorListIsValid(roomDTO,validHouse);
+        boolean result2 = utilsUI.roomDTODeviceListIsValid(roomDTO,validHouse);
 
         //ASSERT
         assertFalse(result1);
@@ -135,8 +135,8 @@ public class UtilsUITest {
         RoomDTO roomDTO = mapper.roomToDTO(room1);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
-        boolean result1 = utilsUI.roomSensorListIsValid(roomDTO,validHouse);
-        boolean result2 = utilsUI.roomDeviceListIsValid(roomDTO,validHouse);
+        boolean result1 = utilsUI.roomDTOSensorListIsValid(roomDTO,validHouse);
+        boolean result2 = utilsUI.roomDTODeviceListIsValid(roomDTO,validHouse);
 
         //ASSERT
         assertTrue(result1);
