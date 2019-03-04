@@ -18,7 +18,10 @@ public class HouseMonitoringController {
     private String rainfall = "rainfall";
 
     /**
+     * Returns the current temperature in a given Room.
+     *
      * @param roomDTO is the roomDTO we want to get the room from, so that we can get the temperature.
+     * @param house   the house of the project.
      * @return is the most recent temperature recorded in a room.
      */
 
@@ -29,8 +32,9 @@ public class HouseMonitoringController {
     }
 
     /**
-     * @param day  is the day we want to check the temperature in.
+     * @param day     is the day we want to check the temperature in.
      * @param roomDTO is the room we want to check the temperature in.
+     * @param house   the project's house.
      * @return is the max temperature recorded in a room
      */
 
@@ -42,7 +46,9 @@ public class HouseMonitoringController {
 
     /**
      * This method receives a room and return the room's name
+     *
      * @param roomDTO the DTO of the chosen Room.
+     * @param house   the House of the project.
      * @return room's name as a string
      **/
     public String getRoomName(RoomDTO roomDTO, House house) {

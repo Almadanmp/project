@@ -320,7 +320,7 @@ public class House implements Metered {
 
     /**
      * This method receives an index as parameter and gets a room from the house's room list.
-     *
+     * @param index the Index of the room
      * @return returns room that corresponds to index.
      */
     public Room getRoomByIndex(int index) {

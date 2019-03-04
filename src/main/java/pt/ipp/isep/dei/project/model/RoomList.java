@@ -159,7 +159,8 @@ public class RoomList {
 
     /**
      * This method goes through every room in list and returns logs contained in interval given.
-     *
+     * @param initialDate  the date of the beginning of the interval
+     * @param finalDate  the date of the emd of the interval
      * @return log list with every log contained in interval given.
      */
     public LogList getLogsInInterval(Date initialDate, Date finalDate) {

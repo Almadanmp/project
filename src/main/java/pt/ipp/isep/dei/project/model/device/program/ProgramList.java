@@ -94,6 +94,7 @@ public class ProgramList {
     /**
      * This method receives an index as parameter and gets a program from program list.
      *
+     * @param index the index of the Program.
      * @return returns program that corresponds to index.
      */
     public Program get(int index) {

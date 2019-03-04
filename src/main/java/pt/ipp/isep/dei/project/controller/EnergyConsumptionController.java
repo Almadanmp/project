@@ -64,8 +64,7 @@ public class EnergyConsumptionController {
      * @return is the total nominal power of given devices.
      */
 
-    public double getSelectionNominalPower(DeviceList selectedDevices)
-    {
+    public double getSelectionNominalPower(DeviceList selectedDevices) {
         return selectedDevices.getNominalPower();
     }
 
@@ -148,13 +147,12 @@ public class EnergyConsumptionController {
     /**
      * Accesses model and returns a Room's Energy Consumption in a given interval.
      *
-     * @param roomDTO        the room we want to access.
+     * @param roomDTO     the room we want to access.
      * @param initialDate the start of the interval.
      * @param finalDate   the end of the interval.
+     * @param house       the project's house.
      * @return the energy consumption of all metered devices' logs that fall fully within the given interval.
      */
-
-
     public double getRoomConsumptionInInterval(RoomDTO roomDTO, Date initialDate, Date finalDate, House house) {
         Mapper mapper = new Mapper();
         Room room = mapper.DTOtoRoom(roomDTO, house);
@@ -189,9 +187,10 @@ public class EnergyConsumptionController {
     /**
      * Method accesses model and gets the logs associated to the devices in a selected room.
      *
-     * @param roomDTO      is the room we want to get logs from.
+     * @param roomDTO   is the room we want to get logs from.
      * @param startDate the start of the interval.
      * @param endDate   the end of the interval.
+     * @param house     the project's house.
      * @return a List of Logs with the wanted logs.
      */
 

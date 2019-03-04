@@ -1,4 +1,5 @@
 package pt.ipp.isep.dei.project.model.device;
+
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.*;
@@ -20,7 +21,9 @@ public class DeviceList {
 
     /*******************************************************************
      ***** ESTE MÉTODO É PARA SER APAGADO. NÃO USAR! ENCAPSULAR! *******
-     *******************************************************************/
+     ******************************************************************
+     * @return - */
+
     public List<Device> getList() {
         return this.devices;
     }
@@ -51,7 +54,7 @@ public class DeviceList {
 
     public double getEnergyConsumption(float time) {
         double result = 0;
-        for (Device d : this.devices){
+        for (Device d : this.devices) {
             result += d.getEnergyConsumption(time);
         }
         return result;

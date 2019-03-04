@@ -148,10 +148,12 @@ public class GeographicArea {
         return this.length;
     }
 
-    /**Method adds sensor to geographic area sensor list.
-     * @Sensor sensor to add
+    /**
+     * Method adds sensor to geographic area sensor list.
+     *
+     * @param sensor to add
      * @return true in case the sensor is added, false otherwise.
-     * **/
+     **/
     public boolean addSensor(Sensor sensor) {
         return this.areaSensors.add(sensor);
     }
@@ -165,35 +167,46 @@ public class GeographicArea {
         return areaSensors.isEmpty();
     }
 
-    /** This method checks if mother area is equal to geographic area given.
+    /**
+     * This method checks if mother area is equal to geographic area given.
      *
+     * @param geographicArea the GA to be tested.
      * @return true if is equal to geographic area given, false otherwise.
-     * **/
-    public boolean isMotherAreaEqual(GeographicArea geographicArea){
+     **/
+    public boolean isMotherAreaEqual(GeographicArea geographicArea) {
         return this.motherArea.equals(geographicArea);
     }
 
-    /** This method checks if name, type area and local match those of geographic area.
+    /**
+     * This method checks if name, type area and local match those of geographic area.
      *
+     * @param name     the name of the Geographic Area
+     * @param local    the localization on the Geographic Area
+     * @param typeArea the type of Geographic Area
      * @return true if it matches, false if it does not.
-     * **/
-    public boolean equalsParameters(String name, TypeArea typeArea, Local local){
+     **/
+    public boolean equalsParameters(String name, TypeArea typeArea, Local local) {
         return (this.id.equals(name) && (this.typeArea.equals(typeArea) && (this.location.equals(local))));
     }
 
-    /** This method checks if type area given match that of geographic area.
+    /**
+     * This method checks if type area given match that of geographic area.
      *
+     * @param typeArea the type of Area
      * @return true if it matches, false if it does not.
-     * **/
-    public boolean equalsTypeArea(TypeArea typeArea){
+     **/
+    public boolean equalsTypeArea(TypeArea typeArea) {
         return (this.typeArea.equals(typeArea));
     }
 
-    /**This method receives the string type name and returns a list of sensors
+    /**
+     * This method receives the string type name and returns a list of sensors
      * from geographic area of that type.
+     *
+     * @param type the type of Sensor to test.
      * @return SensorList of given type
-     * **/
-    public SensorList getSensorsOfGivenType(String type){
+     **/
+    public SensorList getSensorsOfGivenType(String type) {
         return this.areaSensors.getSensorListByType(type);
     }
 

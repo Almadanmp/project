@@ -162,7 +162,8 @@ public class SensorList {
     /**
      * This method receives a house and the distance of the sensor closest to it,
      * goes through the sensor list and returns the sensors closest to house.
-     *
+     * @param house the House of the project
+     * @param minDist the distance to the sensor
      * @return SensorList with sensors closest to house.
      **/
     public SensorList getSensorsByDistanceToHouse(House house, double minDist) {
@@ -219,7 +220,7 @@ public class SensorList {
      * reading values of a given day. This day is given to method as parameter.
      *
      * @return returns value readings from every sensor from given day
-     * @day date of day the method will use to get reading values
+     * @param day date of day the method will use to get reading values
      **/
     public List<Double> getValuesOfSpecificDayReadings(Date day) {
         ReadingList readingList = getReadings();

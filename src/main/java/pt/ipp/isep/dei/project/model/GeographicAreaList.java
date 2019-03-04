@@ -86,7 +86,7 @@ public class GeographicAreaList {
     public boolean containsObjectMatchesParameters(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
         Local newLocal = new Local(latitude, longitude, altitude);
         for (GeographicArea ga : geographicAreas) {
-            if (ga.equalsParameters(newName,typeArea,newLocal)) {
+            if (ga.equalsParameters(newName, typeArea, newLocal)) {
                 return true;
             }
         }
@@ -96,10 +96,13 @@ public class GeographicAreaList {
     /**
      * Method to create a new geographic area before adding it to a GA List.
      *
-     * @param newName  input string for geographic area name for the new geographic area
-     * @param typeArea input string for type area for the new geographic area
-     * @param length   input number for length for the new geographic area
-     * @param width    input number for width for the new geographic area
+     * @param newName   input string for geographic area name for the new geographic area
+     * @param typeArea  input string for type area for the new geographic area
+     * @param length    input number for length for the new geographic area
+     * @param width     input number for width for the new geographic area
+     * @param altitude  input number for altitude of the new geographic area
+     * @param latitude  input number for latitude of the new geographic area
+     * @param longitude input number for longitude of the new geographic area
      * @return a new geographic area.
      */
     public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, double latitude, double longitude, double altitude) {
@@ -142,6 +145,7 @@ public class GeographicAreaList {
      * This method receives an index as parameter and gets a geographic area from geographic
      * area list.
      *
+     * @param index the index of the GA.
      * @return returns geographic area that corresponds to index.
      */
     public GeographicArea get(int index) {
