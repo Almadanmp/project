@@ -605,6 +605,18 @@ public class MicrowaveOvenTest {
     }
 
     @Test
+    void seeIfEqualsFailsNullObject() {
+        //Arrange
+        Object obj = null;
+        MicrowaveOven micro = null;
+
+        // Act
+        //Assert
+        assertFalse(validMicrowaveOven.equals(obj));
+        assertFalse(validMicrowaveOven.equals(micro));
+    }
+
+    @Test
     void seeIfEqualsWorksDeviceObject() {
         //Arrange
         Device micro = new MicrowaveOven(validSpec);

@@ -128,11 +128,29 @@ class EnergyGridListTest {
     void seeIfEqualsDifferentObjectWorks() {
         // Act
 
-        Boolean actualResult = validGridList.equals(firstValidGrid); // For sonarqube testing purposes.
+        boolean actualResult = validGridList.equals(firstValidGrid); // For sonarqube testing purposes.
 
         // Assert
 
         assertFalse(actualResult);
+    }
+
+    @Test
+    void getGridByIndex() {
+        //Arrange
+
+        validGridList.addGrid(firstValidGrid);
+        validGridList.addGrid(secondValidGrid);
+
+        // Act
+
+        EnergyGrid actualResult1 = validGridList.get(0);
+        EnergyGrid actualResult2 = validGridList.get(1);
+
+        // Assert
+
+        assertEquals(firstValidGrid, actualResult1);
+        assertEquals(secondValidGrid, actualResult2);
     }
 
     @Test

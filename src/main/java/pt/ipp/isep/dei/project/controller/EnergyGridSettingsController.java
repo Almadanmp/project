@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 
 /**
@@ -88,11 +90,13 @@ public class EnergyGridSettingsController {
 
     /**
      * @param grid is the grid we're going to add a room to.
-     * @param room is the room we're going to add to a grid.
+     * @param roomDTO is the room we're going to add to a grid.
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */
 
-    public boolean addRoomToGrid(EnergyGrid grid, Room room) {
+    public boolean addRoomToGrid(EnergyGrid grid, RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return grid.addRoom(room);
     }
 

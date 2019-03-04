@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.Address;
+import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 
@@ -10,7 +11,7 @@ import pt.ipp.isep.dei.project.model.Room;
 
 
 public class HouseConfigurationController {
-
+    Mapper mapper = new Mapper();
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
@@ -18,7 +19,7 @@ public class HouseConfigurationController {
      */
 
     public void setHouseAddress(String street, String zip, String town, House house) {
-        house.setAddress(street,zip,town);
+        house.setAddress(street, zip, town);
     }
 
     /**
@@ -45,8 +46,10 @@ public class HouseConfigurationController {
     /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
      house floor and dimensions) */
 
-    /** This method receives the house and room parameters and creates a new room.
-     * @param house house that will create the room
+    /**
+     * This method receives the house and room parameters and creates a new roomDTO.
+     *
+     * @param house           house that will create the room
      * @param roomDesignation is the name of the room we're going to create.
      * @param roomHouseFloor  is the floor of the room we're going to create.
      * @param width           is the width of the room we're going to create.
@@ -54,16 +57,19 @@ public class HouseConfigurationController {
      * @param height          is the height of the room we're going to create.
      * @return a new Room
      */
-    public Room createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
+    public RoomDTO createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+        Room room = house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
+        return mapper.roomToDTO(room);
     }
 
-    /** The method receives a house and a room and tries to add the room to house.
+    /**
+     * The method receives a house and a roomDTO, transforms it into a room, and tries to add it to house.
      *
      * @return true if room was added, false otherwise.
-     * **/
-    public boolean addRoomToHouse(House house, Room room){
-        return house.addRoom(room);
+     **/
+    public boolean addRoomToHouse(House house, RoomDTO room) {
+        Room newRoomToAdd = mapper.DTOtoRoom(room, house);
+        return house.addRoom(newRoomToAdd);
     }
 
 

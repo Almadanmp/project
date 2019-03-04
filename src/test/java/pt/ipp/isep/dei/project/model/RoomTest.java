@@ -19,7 +19,8 @@ import static org.testng.Assert.assertTrue;
 class RoomTest {
     // Common testing artifacts for this class.
 
-    private Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
+
+    private static Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
     private Sensor validSensor; // Valid temperature sensor with valid readings.
     private Device validDevice; // Valid device, namely of WaterHeater type.
     private Reading validReading; // Valid temperature reading at February 2, 2018, 00:00:00.
@@ -556,6 +557,7 @@ class RoomTest {
         SensorList actualResult = validRoom.getSensorList();
 
         // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 
@@ -578,10 +580,32 @@ class RoomTest {
     }
 
     @Test
+    void seeIFgetid(){
+        // Arrange
+
+        validRoom.setUniqueID(UUID.randomUUID());
+
+        // Act
+
+        UUID uuid = validRoom.getUniqueID();
+
+        // Assert
+
+        assertTrue(uuid instanceof UUID); // Needed for Sonarqube testing purposes.
+    }
+
+    @Test
     void hashCodeDummyTest() {
-        Room room1 = new Room("room1", 19, 5, 3, 3);
+        // Arrange
+
         int expectedResult = 1;
-        int actualResult = room1.hashCode();
+
+        // Act
+
+        int actualResult = validRoom.hashCode();
+
+        // Assert
+
         Assertions.assertEquals(expectedResult, actualResult);
     }
 }

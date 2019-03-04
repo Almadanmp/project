@@ -1,6 +1,4 @@
 package pt.ipp.isep.dei.project.model.device;
-
-import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.*;

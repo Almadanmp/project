@@ -1,9 +1,12 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.Sensor;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Controller class for House Monitoring UI
@@ -15,30 +18,36 @@ public class HouseMonitoringController {
     private String rainfall = "rainfall";
 
     /**
-     * @param room is the room we want to get the temperature from.
+     * @param roomDTO is the roomDTO we want to get the room from, so that we can get the temperature.
      * @return is the most recent temperature recorded in a room.
      */
 
-    public double getCurrentRoomTemperature(Room room) {
+    public double getCurrentRoomTemperature(RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.getCurrentRoomTemperature();
     }
 
     /**
      * @param day  is the day we want to check the temperature in.
-     * @param room is the room we want to check the temperature in.
+     * @param roomDTO is the room we want to check the temperature in.
      * @return is the max temperature recorded in a room
      */
 
-    public double getDayMaxTemperature(Room room, Date day) {
+    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.getMaxTemperatureOnGivenDay(day);
     }
 
     /**
      * This method receives a room and return the room's name
-     * @param room the chosen Room.
+     * @param roomDTO the DTO of the chosen Room.
      * @return room's name as a string
      **/
-    public String getRoomName(Room room) {
+    public String getRoomName(RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.getRoomName();
     }
 
@@ -73,14 +82,6 @@ public class HouseMonitoringController {
             throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
         return closestSensor.getTotalValueReadingsOnGivenDay(day);
-    }
-
-    public Date getLastColdestDayInInterval(GeographicArea geographicArea, Date initialDate, Date finalDate){
-        SensorList sensorList = geographicArea.getSensorsOfGivenType("Temperature");
-        ReadingList readingList = sensorList.getReadings();
-        ReadingList readinglist1 = readingList.getReadingsBetweenDates(initialDate,finalDate);
-        Date date = readinglist1.getLastDayWithLowestValue();
-        return date;
     }
 
     /**

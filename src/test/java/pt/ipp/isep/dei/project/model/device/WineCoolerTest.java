@@ -37,7 +37,7 @@ public class WineCoolerTest {
         wineCoolerValid.setName("Wine Cooler");
         wineCoolerValid.setNominalPower(15);
         wineCoolerValid.setAnnualConsumption(3650);
-        wineCoolerValid.setAttributeValue("Number Bottles", 15);
+        wineCoolerValid.setAttributeValue("Number of Bottles", 15.0);
         validLog = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
                 new GregorianCalendar(2019, 1, 1).getTime());
         validLogList = wineCoolerValid.getLogList();
@@ -136,7 +136,7 @@ public class WineCoolerTest {
 
     @Test
     void seeIfGetAttributeValue() {
-        Integer expectedResult = 15;
+        Double expectedResult = 15.0;
         Object actualResult = wineCoolerValid.getAttributeValue(WineCoolerSpec.NUMBER_BOTTLES);
         assertEquals(expectedResult, actualResult);
     }
@@ -329,9 +329,9 @@ public class WineCoolerTest {
     void testSetAttributeValueForNotDouble() {
         Integer attribute = 6;
         Double attributeD = 9.0;
-        assertFalse(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attributeD));
-        assertTrue(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attribute));
-        Assertions.assertFalse(wineCoolerValid.setAttributeValue("notBottle", attribute));
-        Assertions.assertFalse(wineCoolerValid.setAttributeValue("", attribute));
+        assertFalse(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attribute));
+        assertTrue(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attributeD));
+        Assertions.assertFalse(wineCoolerValid.setAttributeValue("notBottle", attributeD));
+        Assertions.assertFalse(wineCoolerValid.setAttributeValue("", attributeD));
     }
 }

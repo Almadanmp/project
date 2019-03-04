@@ -61,8 +61,7 @@ public class RoomList {
                 return r;
             }
         }
-        Room room = new Room(roomDesignation, roomHouseFloor, width, length, height);
-        return room;
+        return new Room(roomDesignation, roomHouseFloor, width, length, height);
     }
 
     /**
