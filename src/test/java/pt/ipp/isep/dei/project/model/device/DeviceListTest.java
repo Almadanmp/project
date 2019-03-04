@@ -553,6 +553,23 @@ class DeviceListTest {
     }
 
     @Test
+    void getByIndexEmptyDeviceList() {
+        //Arrange
+
+        DeviceList emptyDeviceList = new DeviceList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+            emptyDeviceList.get(0);
+        });
+
+        //Assert
+
+        assertEquals("The device list is empty.", exception.getMessage());
+    }
+
+    @Test
     void getDeviceListSize(){
         //Arrange
 
@@ -621,6 +638,21 @@ class DeviceListTest {
 
         assertEquals("Fridge", actualResult1);
         assertEquals("Washing Machine", actualResult2);
+    }
+
+    @Test
+    void getTypeByIndexEmptyDeviceList() {
+        //Arrange
+
+        DeviceList emptyDeviceList = new DeviceList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyDeviceList.getTypeByIndex(0));
+
+        //Assert
+
+        assertEquals("The device list is empty.", exception.getMessage());
     }
 
     @Test

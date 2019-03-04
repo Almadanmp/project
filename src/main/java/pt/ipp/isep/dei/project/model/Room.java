@@ -353,6 +353,9 @@ public class Room implements Metered {
      * @return returns device that corresponds to index.
      */
     public Device getDeviceByIndex(int index) {
+        if(this.deviceList.isEmpty()){
+            throw new IndexOutOfBoundsException("The device list is empty.");
+        }
         return this.deviceList.get(index);
     }
 

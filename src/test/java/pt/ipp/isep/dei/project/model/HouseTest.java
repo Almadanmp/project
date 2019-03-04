@@ -569,6 +569,74 @@ class HouseTest {
     }
 
     @Test
+    void getByIndexEmptyGridList() {
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validHouse.getEnergyGridByIndex(0));
+
+        //Assert
+
+        Assertions.assertEquals("The energy grid list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void getByIndexEmptyRoomList() {
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validHouse.getRoomByIndex(0));
+
+        //Assert
+
+        Assertions.assertEquals("The room list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void energyGridListSize() {
+        //Act
+
+        int actualResult1 = validHouse.energyGridListSize();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Arrange
+
+        validHouse.addGrid(new EnergyGrid("grid", 200));
+
+        //Act
+
+        int actualResult2 = validHouse.energyGridListSize();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void roomListSize() {
+        //Act
+
+        int actualResult1 = validHouse.roomListSize();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Arrange
+
+        validHouse.addRoom(new Room("room", 2, 20, 20, 3));
+
+        //Act
+
+        int actualResult2 = validHouse.roomListSize();
+
+        //Assert One Room
+
+        Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         // Arrange
 

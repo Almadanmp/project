@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testng.Assert.*;
 
@@ -482,4 +483,70 @@ class EnergyGridTest {
 
         assertEquals(expectedResult, value);
     }
+
+    @Test
+    void setRoomList() {
+        // Arrange
+        RoomList expectedResult1 = new RoomList();
+        RoomList expectedResult2 = new RoomList();
+        RoomList emptyList = new RoomList();
+        RoomList oneRoomList = new RoomList();
+
+        oneRoomList.add(validRoom);
+        expectedResult2.add(validRoom);
+
+        EnergyGrid gridNoRooms1 = new EnergyGrid("noRooms1", 200);
+        EnergyGrid gridNoRooms2 = new EnergyGrid("noRooms2", 200);
+        EnergyGrid gridNoRooms3 = new EnergyGrid("noRooms3", 200);
+
+        // Act
+
+        gridNoRooms1.setRoomList(emptyList);
+        gridNoRooms2.setRoomList(null);
+        gridNoRooms3.setRoomList(oneRoomList);
+
+        // Assert
+
+        assertEquals(expectedResult1, gridNoRooms1.getRoomList());
+        assertEquals(expectedResult1, gridNoRooms2.getRoomList());
+        assertEquals(expectedResult2, gridNoRooms3.getRoomList());
+    }
+    @Test
+    void getByIndexWithEmptyDeviceList() {
+        //Arrange
+
+        EnergyGrid emptyGrid = new EnergyGrid("emptyGrid", 330);
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyGrid.getDeviceByIndex(0));
+
+        //Assert
+
+        assertEquals("The device list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void ListRoomSize() {
+        //Arrange
+
+        EnergyGrid emptyList = new EnergyGrid("noRooms", 200);
+
+        //Act
+
+        int actualResult1 = emptyList.roomListSize();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validGrid.roomListSize();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
+
 }

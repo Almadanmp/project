@@ -157,6 +157,9 @@ public class EnergyGrid implements Metered {
      */
     public Device getDeviceByIndex(int index) {
         DeviceList deviceList = this.getDeviceList();
+        if(deviceList.isEmpty()){
+            throw new IndexOutOfBoundsException("The device list is empty.");
+        }
         return deviceList.get(index);
     }
 

@@ -255,7 +255,7 @@ class SensorListTest {
 
         // Assert
 
-        assertThrows(IllegalArgumentException.class, validSensorList::getSensorsWithReadings);
+        assertThrows(IllegalArgumentException.class, validSensorList::getMostRecentlyUsedSensor);
     }
 
     @Test
@@ -375,5 +375,20 @@ class SensorListTest {
 
         assertThrows(IllegalArgumentException.class, emptyList::getSensorsWithReadings);
         assertEquals(expectedResult1, actualResult1);
+    }
+
+    @Test
+    void getByIndexEmptySensorList() {
+        //Arrange
+
+        SensorList emptyList = new SensorList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
+
+        //Assert
+
+        assertEquals("The sensor list is empty.", exception.getMessage());
     }
 }

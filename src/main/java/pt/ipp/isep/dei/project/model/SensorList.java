@@ -201,6 +201,9 @@ public class SensorList {
      * @return returns sensor that corresponds to index.
      */
     public Sensor get(int index) {
+        if(this.sensors.isEmpty()){
+            throw new IndexOutOfBoundsException("The sensor list is empty.");
+        }
         return this.sensors.get(index);
     }
 

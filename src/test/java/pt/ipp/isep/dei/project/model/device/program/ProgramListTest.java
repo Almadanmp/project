@@ -162,6 +162,16 @@ class ProgramListTest {
         assertEquals(validProgram1, actualResult2);
         assertEquals(validProgram2, actualResult3);
     }
+    @Test
+    void getByIndexEmptyProgramList() {
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validProgramList1.get(0));
+
+        //Assert
+
+        assertEquals("The program list is empty.", exception.getMessage());
+    }
 
     @Test
     void getElementsAsArray() {

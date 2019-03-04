@@ -9,6 +9,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -151,6 +152,44 @@ class RoomListTest {
         assertFalse(actualResult1);
         assertTrue(actualResult2);
         assertFalse(actualResult3);
+    }
+
+    @Test
+    void getByIndexEmptyRoomList() {
+        //Arrange
+
+        RoomList emptyRoomList = new RoomList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyRoomList.get(0));
+
+        //Assert
+
+        assertEquals("The room list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void ListSize() {
+        //Arrange
+
+        RoomList emptyRoomList = new RoomList();
+
+        //Act
+
+        int actualResult1 = emptyRoomList.size();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validRoomList.size();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
     }
 
     @Test

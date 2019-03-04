@@ -149,6 +149,9 @@ public class GeographicAreaList {
      * @return returns geographic area that corresponds to index.
      */
     public GeographicArea get(int index) {
+        if(this.geographicAreas.isEmpty()){
+            throw new IndexOutOfBoundsException("The geographic area list is empty.");
+        }
         return this.geographicAreas.get(index);
     }
 

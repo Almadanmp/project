@@ -529,6 +529,21 @@ class ReadingListTest {
     }
 
     @Test
+    void getByIndexEmptyReadingList() {
+        //Arrange
+
+        ReadingList emptyList = new ReadingList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
+
+        //Assert
+
+        assertEquals("The reading list is empty.", exception.getMessage());
+    }
+
+    @Test
     void hashCodeDummyTest() {
         //Arrange
 
