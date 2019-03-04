@@ -25,9 +25,8 @@ class WashingMachineTest {
         WashingMachine d = new WashingMachine(new WashingMachineSpec());
         d.setAttributeValue("capacity", 12D);
         String dT = "Washing Machine";
-        String expectedResult = dT;
         String result = d.getType();
-        assertEquals(expectedResult, result);
+        assertEquals(dT, result);
     }
 
     @Test
@@ -395,9 +394,36 @@ class WashingMachineTest {
         double result = d.getEnergyConsumption(0);
         assertEquals(expectedResult, result);
     }
+    @Test
+    void isLogListEmpty() {
+        //Arrange
+
+        WashingMachine washingMachine = new WashingMachine(new WashingMachineSpec());
+
+        //Act
+
+        boolean actualResult1 = washingMachine.isLogListEmpty();
+
+        //Assert
+
+        assertTrue(actualResult1);
+
+        //Arrange To Add Log
+
+        Log log = new Log(20, new Date(), new Date());
+        washingMachine.addLog(log);
+
+        //Act
+
+        boolean actualResult2 = washingMachine.isLogListEmpty();
+
+        //Assert
+
+        assertFalse(actualResult2);
+    }
 
     @Test
-    public void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         WashingMachine d1 = new WashingMachine(new WashingMachineSpec());
         d1.setName("FridgeTwo");
         d1.setNominalPower(12.0);

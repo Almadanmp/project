@@ -326,7 +326,7 @@ public class ReadingList {
      * @param readingList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
      * **/
-    public ReadingList appendListNoDuplicates(ReadingList readingList){
+    ReadingList appendListNoDuplicates(ReadingList readingList){
         Reading[] readings = readingList.getElementsAsArray();
         for(Reading r : readings){
             this.addReading(r);
