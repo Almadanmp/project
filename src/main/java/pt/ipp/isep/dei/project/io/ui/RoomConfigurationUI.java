@@ -140,7 +140,8 @@ class RoomConfigurationUI {
             controller.setAttributeValue(device, deviceAttributes.get(i), value);
         }
         System.out.println("Please insert nominal power: ");
-        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoubleZeroOrPositive());
+        //controller.setNominalPowerDevice(device,inputUtils.getInputAsDoubleZeroOrPositive());
+        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoublePositive());
 
         createProgram(device);
         if (controller.addDevice(house, room, device)) {
@@ -207,7 +208,7 @@ class RoomConfigurationUI {
             controller.setAttributeValue(device, attributeNames.get(i), value);
         }
         System.out.println("Please insert the value for: Nominal Power (kW)");
-        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoubleZeroOrPositive());
+        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoublePositive());
         if (device instanceof Programmable) {
             UtilsUI utilsUI = new UtilsUI();
             System.out.println("This device is programmable.");

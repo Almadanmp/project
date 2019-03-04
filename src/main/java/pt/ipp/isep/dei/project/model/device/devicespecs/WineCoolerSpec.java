@@ -5,9 +5,9 @@ import java.util.List;
 
 public class WineCoolerSpec implements DeviceSpecs {
 
-    public static final String NUMBER_BOTTLES = "Number Bottles";
+    public static final String NUMBER_BOTTLES = "Number of Bottles";
 
-    private Integer numberBottles;
+    private Double numberBottles;
 
 
     public List<String> getAttributeNames() {
@@ -35,8 +35,8 @@ public class WineCoolerSpec implements DeviceSpecs {
         if (attributeName == null) {
             return false;
         }
-        if (attributeName.equals(NUMBER_BOTTLES) && attributeValue instanceof Integer) {
-            this.numberBottles = (Integer) attributeValue;
+        if (attributeName.equals(NUMBER_BOTTLES) && attributeValue instanceof Double) {
+            this.numberBottles = (Double) attributeValue;
             return true;
         }
         return false;
