@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -52,18 +50,14 @@ public class SensorList {
      * @return the most recently used sensor
      */
     Sensor getMostRecentlyUsedSensor() {
-        Date d1 = new Date();
-        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            d1 = sd.parse("01/00/1900");
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
-        Sensor error = new Sensor("emptySensor", new TypeSensor("type", " "), d1);
         if (this.sensors.isEmpty()) {
-            return error;
+            throw new IllegalArgumentException("The sensor list is empty.");
         }
-        Sensor mostRecent = this.sensors.get(0);
+        SensorList sensorList = getSensorsWithReadings();
+        if(sensorList.isEmpty()){
+            throw new IllegalArgumentException("The sensor list has no readings available.");
+        }
+        Sensor mostRecent = sensorList.get(0);
         Date recent = mostRecent.getMostRecentReadingDate();
         for (Sensor s : this.sensors) {
             Date test = s.getMostRecentReadingDate();
