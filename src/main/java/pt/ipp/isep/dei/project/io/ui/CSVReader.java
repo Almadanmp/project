@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -43,9 +44,9 @@ public class CSVReader {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        Sensor testSensor1 = new Sensor("Sensor1", new TypeSensor("rain", "mm"),new Local(2,3,4),
+        Sensor testSensor1 = new Sensor("Sensor1", new TypeSensor("rain", "mm"), new Local(2, 3, 4),
                 validDate1);
-        Sensor testSensor2 = new Sensor("Sensor2", new TypeSensor("rain2", "mm2"),new Local(2,2,2),
+        Sensor testSensor2 = new Sensor("Sensor2", new TypeSensor("rain2", "mm2"), new Local(2, 2, 2),
                 validDate2);
         SensorList testList = new SensorList();
         testList.add(testSensor1);
@@ -56,20 +57,22 @@ public class CSVReader {
         testRead.startAndPromptPath();
         testRead.getCSVReadings(testHouse);
 
-
         ReadingList test = testSensor1.getReadingList();
         ReadingList test2 = testSensor2.getReadingList();
         int cenas = test.size();
         int cenas2 = test2.size();
-        System.out.println(cenas+cenas2);
+        System.out.println(cenas + cenas2);
     }
 
 
     public void startAndPromptPath() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert the location of the CSV file");
-        //fixme: Criar os parametros do input da localizacao
-        this.csvFileLocation = scanner.nextLine();
+        this.csvFileLocation = scanner.next();
+        while (!csvFileLocation.endsWith(".csv") || !new File(csvFileLocation).exists()) {
+            System.out.println("Please enter a valid location");
+            this.csvFileLocation = scanner.next();
+        }
     }
 
     public void getCSVReadings(House house) {
@@ -82,28 +85,34 @@ public class CSVReader {
         Double readValue;
         String readName;
         SensorList sensorList = getSensorData(house);
-
         try {
-            fileReader = new FileReader(csvFileLocation);  //csvFileLocation : resources/csv/sensor1CSV.csv
+            fileReader = new FileReader(csvFileLocation);  //csvFileLocation : resources/csv/readings.csv (Or resources/csv/fakeCSV.csv)
             buffReader = new BufferedReader(fileReader);
+            Logger logger = Logger.getLogger(CSVReader.class.getName());
+            CustomFormatter myFormat = new CustomFormatter();
+            FileHandler fileHandler = new FileHandler("./resources/logs/LogOutput.log");
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(myFormat);
             while ((line = buffReader.readLine()) != null) {
                 readings = line.split(cvsSplit);
-                // System.out.println("Readings [Sensor = " + readings[0] + " , Date= " + readings[1] + " , Value=" + readings[3] + "]");
                 try {
                     readValue = Double.parseDouble(readings[3]);
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
                     readDate = sdf.parse(readings[1]);
                     readName = readings[0];
-                    // System.out.println(sensorList.toString());
-                    // System.out.println("Readings [Sensor = " + readings[0] + " , Date= " + readings[1] + " , Value=" + readings[3] + "]");
                     for (Sensor sensor : sensorList.getElementsAsArray()) {
                         if (sensor.getName().equals(readName)) {
                             // System.out.println(sensor.getName());
-                            setCSVReadings(sensor, readDate, readValue);
+                            if (!setCSVReadings(sensor, readDate, readValue)) {
+                                if (logger.isLoggable(Level.WARNING)) {
+                                    logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
+                                }
+                            }
                         }
                     }
                 } catch (NumberFormatException nfe) {
-                    System.out.println("CSV readings values are not numeric.");
+                    System.out.println("The reading values are not numeric.");
+                    logger.warning("The reading values are not numeric.");
                 } catch (ParseException c) {
                     c.printStackTrace();
                 }
@@ -122,32 +131,16 @@ public class CSVReader {
         }
     }
 
-
     // ACCESSORY METHODS
 
-    private void setCSVReadings(Sensor sensor, Date date, Double value) {
-
+    private boolean setCSVReadings(Sensor sensor, Date date, Double value) {
         Date startingDate = sensor.getDateStartedFunctioning();
         if (date.after(startingDate) || date == startingDate) {
             Reading reading = new Reading(value, date);
             sensor.addReading(reading);
+            return true;
         }
-        if (date.before(startingDate)) {
-            Logger logger = Logger.getLogger(CSVReader.class.getName());
-            FileHandler fh;
-            try {
-                fh = new FileHandler("C:\\Users\\andre\\IdeaProjects\\project_g2\\src\\main\\java\\pt\\ipp\\isep\\dei\\project\\logger\\LogOutput.log");
-                logger.addHandler(fh);
-                CustomFormatter myFormat = new CustomFormatter();
-                fh.setFormatter(myFormat);
-                if (logger.isLoggable(Level.WARNING)) {
-                    logger.warning("The reading with value " + value + " and date " + date + " could not be added to the sensor.");
-                }
-                fh.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        return false;
     }
 
     private SensorList getSensorData(House house) {
@@ -155,8 +148,4 @@ public class CSVReader {
         SensorList sensorList = geoArea.getSensorList();
         return sensorList;
     }
-
 }
-
-
-
