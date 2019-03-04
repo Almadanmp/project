@@ -51,8 +51,7 @@ public class SensorList {
      *
      * @return the most recently used sensor
      */
-
-    Sensor getMostRecentlyUsedSensor() { // TODO Make method return error sensor if only sensor in the list has no readings.
+    Sensor getMostRecentlyUsedSensor() {
         Date d1 = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -74,6 +73,26 @@ public class SensorList {
             }
         }
         return mostRecent;
+    }
+
+    /**
+     * Method that goes through the sensor list and returns a list of those which
+     * have readings. The method throws an exception in case the sensorList is empty.
+     *
+     * @return SensorList of every sensor that has readings. It will return an empty list in
+     * case the original list was empty from readings.
+     */
+    SensorList getSensorsWithReadings(){
+        SensorList finalList = new SensorList();
+        if(this.sensors.isEmpty()) {
+            throw new IllegalArgumentException("The sensor list is empty");
+        }
+        for(Sensor s : this.sensors){
+            if(!s.isReadingListEmpty()){
+                finalList.add(s);
+            }
+        }
+        return finalList;
     }
 
     /**
