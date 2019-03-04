@@ -526,6 +526,27 @@ class EnergyGridTest {
         assertEquals("The device list is empty.", exception.getMessage());
     }
 
+    @Test
+    void ListRoomSize() {
+        //Arrange
 
+        EnergyGrid emptyList = new EnergyGrid("noRooms", 200);
+
+        //Act
+
+        int actualResult1 = emptyList.roomListSize();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validGrid.roomListSize();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
 
 }

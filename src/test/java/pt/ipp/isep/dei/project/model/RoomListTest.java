@@ -170,6 +170,29 @@ class RoomListTest {
     }
 
     @Test
+    void ListSize() {
+        //Arrange
+
+        RoomList emptyRoomList = new RoomList();
+
+        //Act
+
+        int actualResult1 = emptyRoomList.size();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validRoomList.size();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         // Arrange
 

@@ -298,4 +298,27 @@ class GeographicAreaListTest {
 
         assertEquals("The geographic area list is empty.", exception.getMessage());
     }
+
+    @Test
+    void ListSize() {
+        //Arrange
+
+        GeographicAreaList emptyList = new GeographicAreaList();
+
+        //Act
+
+        int actualResult1 = emptyList.size();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validList.size();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
 }

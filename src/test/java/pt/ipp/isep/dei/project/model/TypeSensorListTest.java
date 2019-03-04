@@ -208,4 +208,23 @@ class TypeSensorListTest {
 
         assertEquals("The type sensor list is empty.", exception.getMessage());
     }
+
+    @Test
+    void size() {
+        //Arrange
+
+        TypeSensorList emptyList = new TypeSensorList();
+        TypeSensorList oneSensorList = new TypeSensorList();
+        oneSensorList.add(new TypeSensor("temperature", "celsius"));
+
+        //Act
+
+        int actualResult1 = emptyList.size();
+        int actualResult2 = oneSensorList.size();
+
+        //Assert
+
+        assertEquals(0, actualResult1);
+        assertEquals(1, actualResult2);
+    }
 }

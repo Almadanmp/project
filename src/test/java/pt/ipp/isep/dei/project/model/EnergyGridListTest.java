@@ -168,6 +168,29 @@ class EnergyGridListTest {
     }
 
     @Test
+    void gridListSize() {
+        //Act
+
+        int actualResult1 = validGridList.size();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Arrange
+
+        validGridList.addGrid(new EnergyGrid("grid", 200));
+
+        //Act
+
+        int actualResult2 = validGridList.size();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         // Arrange
 

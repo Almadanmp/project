@@ -610,6 +610,29 @@ class RoomTest {
     }
 
     @Test
+    void deviceListSize() {
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+
+        //Act
+
+        int actualResult1 = emptyDeviceList.getDeviceListSize();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validRoom.getDeviceListSize();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         // Arrange
 

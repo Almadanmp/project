@@ -68,6 +68,11 @@ public class EnergyGridList {
         return this.energyGrids.get(index);
     }
 
+    /**
+     * Getter (array of energy grids)
+     *
+     * @return array of energy grids
+     */
     public EnergyGrid[] getElementsAsArray() {
         int size = this.size();
         EnergyGrid[] result = new EnergyGrid[size];
