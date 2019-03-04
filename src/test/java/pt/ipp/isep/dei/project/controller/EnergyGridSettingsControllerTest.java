@@ -237,15 +237,19 @@ class EnergyGridSettingsControllerTest {
     void seeIfCreateGridTrue() {
         // Arrange
 
-        EnergyGrid expectedResult = new EnergyGrid("EG1", 400);
+        EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400);
+        EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400);
 
         // Act
 
-        EnergyGrid actualResult = controller.createEnergyGrid(validHouse, "EG1", 400);
+        EnergyGrid actualResult1 = controller.createEnergyGrid(validHouse, "EG1", 400);
+        validHouse.addGrid(expectedResult2);
+        EnergyGrid actualResult2 = controller.createEnergyGrid(validHouse, "EG2", 400);
 
         // Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
     }
 
     @Test

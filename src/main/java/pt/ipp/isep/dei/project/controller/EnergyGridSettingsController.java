@@ -58,7 +58,7 @@ public class EnergyGridSettingsController {
      * @return a new EnergyGrid.
      */
     public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower) {
-        return programHouse.getGridList().createEnergyGrid(designation, maxPower);
+        return programHouse.createEnergyGrid(designation, maxPower);
     }
 
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced
