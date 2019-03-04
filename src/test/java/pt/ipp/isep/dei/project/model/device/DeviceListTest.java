@@ -368,30 +368,49 @@ class DeviceListTest {
     @Test
     void testGetterElementsAsArray(){
         //Arrange
+
         Device d1 = new Fridge(new FridgeSpec());
         d1.setName("Fridge1");
         d1.setNominalPower(21.0);
         d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
         d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
         d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+
         Device d2 = new Fridge(new FridgeSpec());
         d2.setName("Fridge2");
         d2.setNominalPower(21.0);
         d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
         d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
         d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
-        DeviceList deviceList = new DeviceList();
-        deviceList.add(d1);
-        deviceList.add(d2);
-        Device[] expectedResult = new Device[2];
-        expectedResult[0] = d1;
-        expectedResult[1] = d2;
+
+        DeviceList emptyList = new DeviceList();
+
+        DeviceList oneDeviceList = new DeviceList();
+        oneDeviceList.add(d1);
+
+
+        DeviceList TwoDevicesList = new DeviceList();
+        TwoDevicesList.add(d1);
+        TwoDevicesList.add(d2);
+
+        Device[] expectedResult1 = new Device[0];
+        Device[] expectedResult2 = new Device[1];
+        Device[] expectedResult3 = new Device[2];
+        expectedResult2[0] = d1;
+        expectedResult3[0] = d1;
+        expectedResult3[1] = d2;
 
         //Act
-        Device[] actualResult = deviceList.getElementsAsArray();
+
+        Device[] actualResult1 = emptyList.getElementsAsArray();
+        Device[] actualResult2 = oneDeviceList.getElementsAsArray();
+        Device[] actualResult3 = TwoDevicesList.getElementsAsArray();
 
         //Assert
-        assertArrayEquals(expectedResult,actualResult);
+
+        assertArrayEquals(expectedResult1,actualResult1);
+        assertArrayEquals(expectedResult2,actualResult2);
+        assertArrayEquals(expectedResult3,actualResult3);
     }
 
     @Test

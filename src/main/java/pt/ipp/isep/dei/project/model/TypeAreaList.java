@@ -101,7 +101,7 @@ public class TypeAreaList {
      *
      * @return array of Type Areas
      */
-    private TypeArea[] getElementsAsArray() {
+    TypeArea[] getElementsAsArray() {
         int sizeOfResultArray = typeAreas.size();
         TypeArea[] result = new TypeArea[sizeOfResultArray];
         for (int i = 0; i < typeAreas.size(); i++) {

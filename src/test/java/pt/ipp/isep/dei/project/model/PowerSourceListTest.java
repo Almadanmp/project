@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.*;
@@ -143,5 +144,38 @@ import static org.testng.Assert.*;
          // Assert
 
          assertTrue(actualResult);
+    }
+
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        PowerSource[] expectedResult1 = new PowerSource[0];
+        PowerSource[] expectedResult2 = new PowerSource[1];
+        PowerSource[] expectedResult3 = new PowerSource[2];
+
+        PowerSourceList emptyList = new PowerSourceList();
+        PowerSourceList onePowerSource = new PowerSourceList();
+        PowerSourceList twoPowerSource = new PowerSourceList();
+
+        onePowerSource.add(new PowerSource("powerSource1", 200, 500));
+        twoPowerSource.add(new PowerSource("powerSource1", 200, 500));
+        twoPowerSource.add(new PowerSource("powerSource2", 200, 500));
+
+        expectedResult2[0] = new PowerSource("powerSource1", 200, 500);
+        expectedResult3[0] = new PowerSource("powerSource1", 200, 500);
+        expectedResult3[1] = new PowerSource("powerSource2", 200, 500);
+
+        //Act
+
+        PowerSource[] actualResult1 = emptyList.getElementsAsArray();
+        PowerSource[] actualResult2 = onePowerSource.getElementsAsArray();
+        PowerSource[] actualResult3 = twoPowerSource.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
     }
 }

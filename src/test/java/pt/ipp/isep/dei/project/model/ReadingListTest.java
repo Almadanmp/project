@@ -544,6 +544,37 @@ class ReadingListTest {
     }
 
     @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        Reading[] expectedResult1 = new Reading[0];
+        Reading[] expectedResult2 = new Reading[1];
+        Reading[] expectedResult3 = new Reading[2];
+
+        ReadingList emptyList = new ReadingList();
+        validReadingList.addReading(new Reading(20, validDate1));
+        ReadingList validReadingList2 = new ReadingList();
+        validReadingList2.addReading(new Reading(20, validDate1));
+        validReadingList2.addReading(new Reading(25, validDate2));
+
+        expectedResult2[0] = new Reading(20, validDate1);
+        expectedResult3[0] = new Reading(20, validDate1);
+        expectedResult3[1] = new Reading(25, validDate2);
+
+        //Act
+
+        Reading[] actualResult1 = emptyList.getElementsAsArray();
+        Reading[] actualResult2 = validReadingList.getElementsAsArray();
+        Reading[] actualResult3 = validReadingList2.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         //Arrange
 

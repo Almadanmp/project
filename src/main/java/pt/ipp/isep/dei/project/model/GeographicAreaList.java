@@ -161,7 +161,7 @@ public class GeographicAreaList {
      *
      * @return array of geographic area
      */
-    private GeographicArea[] getElementsAsArray() {
+    GeographicArea[] getElementsAsArray() {
         int sizeOfResultArray = geographicAreas.size();
         GeographicArea[] result = new GeographicArea[sizeOfResultArray];
         for (int i = 0; i < geographicAreas.size(); i++) {

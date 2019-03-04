@@ -240,7 +240,7 @@ public class RoomList {
      *
      * @return array of rooms
      */
-    private Room[] getElementsAsArray() {
+    Room[] getElementsAsArray() {
         int sizeOfResultArray = rooms.size();
         Room[] result = new Room[sizeOfResultArray];
         for (int i = 0; i < rooms.size(); i++) {

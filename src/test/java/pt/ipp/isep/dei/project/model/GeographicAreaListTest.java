@@ -321,4 +321,36 @@ class GeographicAreaListTest {
 
         Assertions.assertEquals(1, actualResult2);
     }
+
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        GeographicArea[] expectedResult1 = new GeographicArea[0];
+        GeographicArea[] expectedResult2 = new GeographicArea[1];
+        GeographicArea[] expectedResult3 = new GeographicArea[2];
+
+        GeographicAreaList emptyList = new GeographicAreaList();
+        GeographicAreaList twoGeographicAreas = new GeographicAreaList();
+
+        twoGeographicAreas.addGeographicArea(firstValidArea);
+        twoGeographicAreas.addGeographicArea(secondValidArea);
+
+        expectedResult2[0] = firstValidArea;
+        expectedResult3[0] = firstValidArea;
+        expectedResult3[1] = secondValidArea;
+
+        //Act
+
+        GeographicArea[] actualResult1 = emptyList.getElementsAsArray();
+        GeographicArea[] actualResult2 = validList.getElementsAsArray();
+        GeographicArea[] actualResult3 = twoGeographicAreas.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
+    }
+
 }

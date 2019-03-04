@@ -19,20 +19,20 @@ class LogListTest {
 
     // Common artifacts for testing in this class.
 
-    private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private Date validDate1; // Date 09/08/2018
     private Date validDate2; // Date 11/02/2014
 
     private Log validLog1;
 
-    private LogList validLogList1 = new LogList(); // Empty LogList
-    private LogList validLogList2 = new LogList(); // One log
+    private LogList emptyLogList = new LogList(); // Empty LogList
+    private LogList validLogList = new LogList(); // One log
 
     @BeforeEach
 
     void arrangeArtifacts() {
 
-        validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        // SimpleDateFormat dd/MM/yyyy HH:mm:ss
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate1 = validSdf.parse("20/10/2019 10:02:00");
             validDate2 = validSdf.parse("20/10/2018 10:02:00");
@@ -40,14 +40,14 @@ class LogListTest {
             c.printStackTrace();
         }
         validLog1 = new Log(300, validDate1,validDate2);
-        validLogList2.addLog(validLog1);
+        validLogList.addLog(validLog1);
     }
 
     @Test
     void testForEmptyLogList() {
         //Act
 
-        boolean result = validLogList1.isEmpty();
+        boolean result = emptyLogList.isEmpty();
         //Assert
 
         assertTrue(result);
@@ -57,7 +57,7 @@ class LogListTest {
     void seeIfEmptyLogListWithLogs() {
         //Act
 
-        boolean result = validLogList2.isEmpty();
+        boolean result = validLogList.isEmpty();
         //Assert
 
         assertFalse(result);
@@ -79,7 +79,7 @@ class LogListTest {
     void seeEqualToSameObject() {
         //Act
 
-        boolean actualResult = validLogList1.equals(validLogList1);
+        boolean actualResult = emptyLogList.equals(emptyLogList);
 
         //Assert
 
@@ -90,7 +90,7 @@ class LogListTest {
     void seeEqualsToDifObject() {
         //Act
 
-        boolean actualResult = validLogList1.equals(validLogList2);
+        boolean actualResult = emptyLogList.equals(validLogList);
 
         //Assert
 
@@ -101,7 +101,7 @@ class LogListTest {
     void addLog() {
         //Act
 
-        boolean actualResult = validLogList1.addLog(validLog1);
+        boolean actualResult = emptyLogList.addLog(validLog1);
 
         //Assert
 
@@ -112,7 +112,7 @@ class LogListTest {
     void addEmptyLogList() {
         //Act
 
-        boolean actualResult = validLogList2.addLogList(validLogList1);
+        boolean actualResult = validLogList.addLogList(emptyLogList);
 
         //Assert
 
@@ -123,7 +123,7 @@ class LogListTest {
     void addSameEmptyLogList() {
         //Act
 
-        boolean actualResult = validLogList2.addLogList(validLogList2);
+        boolean actualResult = validLogList.addLogList(validLogList);
 
         //Assert
 
@@ -134,7 +134,7 @@ class LogListTest {
     void addLogListWithLog() {
         //Act
 
-        boolean actualResult = validLogList1.addLogList(validLogList2);
+        boolean actualResult = emptyLogList.addLogList(validLogList);
 
         //Assert
 
@@ -145,7 +145,7 @@ class LogListTest {
     void seeIfAddsLogTrue() {
         //Act
 
-        boolean actualResult = validLogList1.addLog(validLog1);
+        boolean actualResult = emptyLogList.addLog(validLog1);
 
         //Assert
 
@@ -156,7 +156,7 @@ class LogListTest {
     void seeIfAddsLogFalse() {
         //Act
 
-        boolean actualResult = validLogList2.addLog(validLog1);
+        boolean actualResult = validLogList.addLog(validLog1);
 
         //Assert
 
@@ -172,7 +172,7 @@ class LogListTest {
 
         //Act
 
-        boolean actualResult = validLogList2.equals(room);
+        boolean actualResult = validLogList.equals(room);
 
         //Assert
 
@@ -183,7 +183,7 @@ class LogListTest {
     void hashCodeDummyTest() {
         //Act
 
-        int result = validLogList1.hashCode();
+        int result = emptyLogList.hashCode();
 
         //Assert
 
@@ -195,7 +195,7 @@ class LogListTest {
         //Act
 
         String expectedResult = "There's no valid logs within that interval.";
-        String actualResult = validLogList1.toString();
+        String actualResult = emptyLogList.toString();
 
         //Assert
 
@@ -209,15 +209,15 @@ class LogListTest {
 
         Log log1 = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
         Log log2 = new Log(300, new GregorianCalendar(2019, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
-        validLogList1.addLog(log1);
-        validLogList1.addLog(log2);
+        emptyLogList.addLog(log1);
+        emptyLogList.addLog(log2);
 
         //Act
 
         String expectedResult = "\n" +
                 "0) Start Date: 20/11/2018 10:02:00 | End Date: 20/11/2018 10:10:00 | Value: 300.0\n" +
                 "1) Start Date: 20/11/2019 10:02:00 | End Date: 20/11/2018 10:10:00 | Value: 300.0";
-        String actualResult = validLogList1.toString();
+        String actualResult = emptyLogList.toString();
 
         //Assert
 
@@ -249,7 +249,7 @@ class LogListTest {
 
         //Act
 
-        boolean actualResult1 = validLogList1.contains(log1);
+        boolean actualResult1 = emptyLogList.contains(log1);
         boolean actualResult2 = list2.contains(log2);
         boolean actualResult3 = list3.contains(log3);
 
@@ -260,5 +260,34 @@ class LogListTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
 
+    }
+
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        Log[] expectedResult1 = new Log[0];
+        Log[] expectedResult2 = new Log[1];
+        Log[] expectedResult3 = new Log[2];
+
+        LogList validLogList2 = new LogList();
+        validLogList2.addLog(validLog1);
+        validLogList2.addLog(new Log(220, validDate1, new Date()));
+
+        expectedResult2[0] = validLog1;
+        expectedResult3[0] = validLog1;
+        expectedResult3[1] = new Log(220, validDate1, new Date());
+
+        //Act
+
+        Log[] actualResult1 = emptyLogList.getElementsAsArray();
+        Log[] actualResult2 = validLogList.getElementsAsArray();
+        Log[] actualResult3 = validLogList2.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
     }
 }

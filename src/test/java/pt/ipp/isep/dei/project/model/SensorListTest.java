@@ -391,4 +391,34 @@ class SensorListTest {
 
         assertEquals("The sensor list is empty.", exception.getMessage());
     }
+
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        Sensor[] expectedResult1 = new Sensor[0];
+        Sensor[] expectedResult2 = new Sensor[1];
+        Sensor[] expectedResult3 = new Sensor[2];
+
+        SensorList emptySensorList = new SensorList();
+        SensorList validSensorList2 = new SensorList();
+        validSensorList2.add(firstValidSensor);
+        validSensorList2.add(secondValidSensor);
+
+        expectedResult2[0] = firstValidSensor;
+        expectedResult3[0] = firstValidSensor;
+        expectedResult3[1] = secondValidSensor;
+
+        //Act
+
+        Sensor[] actualResult1 = emptySensorList.getElementsAsArray();
+        Sensor[] actualResult2 = validSensorList.getElementsAsArray();
+        Sensor[] actualResult3 = validSensorList2.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
+    }
 }

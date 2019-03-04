@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testng.Assert.assertFalse;
@@ -226,5 +227,39 @@ class TypeSensorListTest {
 
         assertEquals(0, actualResult1);
         assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        TypeSensor[] expectedResult1 = new TypeSensor[0];
+        TypeSensor[] expectedResult2 = new TypeSensor[1];
+        TypeSensor[] expectedResult3 = new TypeSensor[2];
+
+        TypeSensorList emptyList = new TypeSensorList();
+        TypeSensorList oneTypeSensor = new TypeSensorList();
+        TypeSensorList twoTypeSensor = new TypeSensorList();
+
+        oneTypeSensor.add(new TypeSensor("Temperature", "Celsius"));
+        twoTypeSensor.add(new TypeSensor("Temperature", "Celsius"));
+
+        twoTypeSensor.add(new TypeSensor("Temperature", "Kelvin"));
+
+        expectedResult2[0] = new TypeSensor("Temperature", "Celsius");
+        expectedResult3[0] = new TypeSensor("Temperature", "Celsius");
+        expectedResult3[1] = new TypeSensor("Temperature", "Kelvin");
+
+        //Act
+
+        TypeSensor[] actualResult1 = emptyList.getElementsAsArray();
+        TypeSensor[] actualResult2 = oneTypeSensor.getElementsAsArray();
+        TypeSensor[] actualResult3 = twoTypeSensor.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
     }
 }
