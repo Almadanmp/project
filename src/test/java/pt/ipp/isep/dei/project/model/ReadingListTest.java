@@ -575,6 +575,45 @@ class ReadingListTest {
     }
 
     @Test
+    void appendListNoDuplicates() {
+        //Arrange
+
+        ReadingList expectedResult1 = new ReadingList();
+        ReadingList expectedResult2 = new ReadingList();
+
+        Reading reading1 = new Reading(20, validDate1);
+        Reading reading2 = new Reading(22, validDate2);
+
+        ReadingList emptyList = new ReadingList();
+        validReadingList.addReading(reading1);
+        ReadingList validReadingList2 = new ReadingList();
+        validReadingList2.addReading(reading1);
+        validReadingList2.addReading(reading2);
+
+        expectedResult1.addReading(reading1);
+        expectedResult2.addReading(reading1);
+        expectedResult2.addReading(reading2);
+
+        //Act
+
+        ReadingList actualResult1 = validReadingList.appendListNoDuplicates(emptyList);
+
+        //Assert
+
+        assertEquals(expectedResult1, actualResult1);
+
+        //Act
+
+        ReadingList actualResult2 = emptyList.appendListNoDuplicates(validReadingList);
+        ReadingList actualResult3 = validReadingList.appendListNoDuplicates(validReadingList2);
+
+        //Assert
+
+        assertEquals(expectedResult1, actualResult2);
+        assertEquals(expectedResult2, actualResult3);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         //Arrange
 
