@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
@@ -97,19 +98,19 @@ public class HouseMonitoringUI {
             return;
         }
         InputUtils inputUtils = new InputUtils();
-        Room room = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomSensorListIsValid(room)) {
+        RoomDTO room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomSensorListIsValid(room, house)) {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        updateModelDisplayState605(room);
+        updateModelDisplayState605(room, house);
 
     }
 
-    private void updateModelDisplayState605(Room room) {
+    private void updateModelDisplayState605(RoomDTO room, House house) {
         try {
-            double currentTemp = houseMonitoringcontroller.getCurrentRoomTemperature(room);
-            out.println("The current temperature in the room " + houseMonitoringcontroller.getRoomName(room) +
+            double currentTemp = houseMonitoringcontroller.getCurrentRoomTemperature(room, house);
+            out.println("The current temperature in the room " + houseMonitoringcontroller.getRoomName(room, house) +
                     " is " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
@@ -128,20 +129,20 @@ public class HouseMonitoringUI {
             return;
         }
         InputUtils inputUtils = new InputUtils();
-        Room room = inputUtils.getHouseRoomByList(house);
-        if (!(utilsUI.roomSensorListIsValid(room))) {
+        RoomDTO room = inputUtils.getHouseRoomByList(house);
+        if (!(utilsUI.roomSensorListIsValid(room, house))) {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
         Date date = inputUtils.getInputYearMonthDay();
-        updateModel610(room, date);
+        updateModel610(room, date, house);
     }
 
-    private void updateModel610(Room room, Date date) {
+    private void updateModel610(RoomDTO room, Date date, House house) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         try {
-            double temperature = ctrl.getDayMaxTemperature(room, date);
-            String message = "The maximum temperature in the room " + ctrl.getRoomName(room) +
+            double temperature = ctrl.getDayMaxTemperature(room, date, house);
+            String message = "The maximum temperature in the room " + ctrl.getRoomName(room, house) +
                     " on the day " + date + was + temperature + "°C.";
             System.out.println(message);
         } catch (IllegalArgumentException illegal) {

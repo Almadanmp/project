@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import org.testng.annotations.Test;
+import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Dishwasher;
@@ -98,9 +100,17 @@ public class UtilsUITest {
     public void roomListsAreInvalid() {
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         UtilsUI utilsUI = new UtilsUI();
-        //ACT
-        boolean result1 = utilsUI.roomSensorListIsValid(room1);
-        boolean result2 = utilsUI.roomDeviceListIsValid(room1);
+        Mapper mapper = new Mapper();
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)), 60,
+                180, new ArrayList<>());
+        validHouse.addRoom(room1);
+        RoomDTO roomDTO = mapper.roomToDTO(room1);
+
+        boolean result1 = utilsUI.roomSensorListIsValid(roomDTO,validHouse);
+        boolean result2 = utilsUI.roomDeviceListIsValid(roomDTO,validHouse);
 
         //ASSERT
         assertFalse(result1);
@@ -115,10 +125,18 @@ public class UtilsUITest {
         room1.addSensor(sensor1);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
+        Mapper mapper = new Mapper();
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)), 60,
+                180, new ArrayList<>());
+        validHouse.addRoom(room1);
+        RoomDTO roomDTO = mapper.roomToDTO(room1);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
-        boolean result1 = utilsUI.roomSensorListIsValid(room1);
-        boolean result2 = utilsUI.roomDeviceListIsValid(room1);
+        boolean result1 = utilsUI.roomSensorListIsValid(roomDTO,validHouse);
+        boolean result2 = utilsUI.roomDeviceListIsValid(roomDTO,validHouse);
 
         //ASSERT
         assertTrue(result1);

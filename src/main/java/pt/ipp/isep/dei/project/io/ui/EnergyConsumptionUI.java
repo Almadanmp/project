@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -267,12 +268,12 @@ class EnergyConsumptionUI {
     private void runUS720(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        Room room = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room)) {
+        RoomDTO room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room,house)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(room);
+        Device device = inputUtils.getInputRoomDevicesByList(room,house);
         if (!utilsUI.deviceLogListIsValid(device)) {
             System.out.println("This device has no energy consumption logs.");
             return;
@@ -297,12 +298,12 @@ class EnergyConsumptionUI {
             System.out.print(utilsUI.invalidRoomList);
         }
         InputUtils inputs = new InputUtils();
-        Room room = inputs.getHouseRoomByList(programHouse);
+        RoomDTO room = inputs.getHouseRoomByList(programHouse);
         System.out.println("Please insert the date at which you want to start the interval.");
         Date initialDate = inputs.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
         Date finalDate = inputs.getInputYearMonthDayHourMin();
-        double result = controller.getRoomConsumptionInInterval(room, initialDate, finalDate);
+        double result = controller.getRoomConsumptionInInterval(room, initialDate, finalDate, programHouse);
         System.out.println("The total energy consumption of the selected room in the selected interval is: " + result);
     }
 
@@ -368,17 +369,17 @@ class EnergyConsumptionUI {
 
     private void setRoomData(House programHouse) {
         InputUtils inputs = new InputUtils();
-        Room case2Room = inputs.getHouseRoomByList(programHouse);
+        RoomDTO case2Room = inputs.getHouseRoomByList(programHouse);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
-        LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate);
+        LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, programHouse);
         System.out.println(controller.buildLogListString(roomLogs));
     }
 
     private void setDeviceData(House programHouse) {
         InputUtils inputs = new InputUtils();
-        Room case3Room = inputs.getHouseRoomByList(programHouse);
-        Device device = inputs.getInputRoomDevicesByList(case3Room);
+        RoomDTO case3Room = inputs.getHouseRoomByList(programHouse);
+        Device device = inputs.getInputRoomDevicesByList(case3Room, programHouse);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);

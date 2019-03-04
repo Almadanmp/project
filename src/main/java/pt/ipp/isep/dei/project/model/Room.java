@@ -20,6 +20,7 @@ public class Room implements Metered {
     private SensorList roomSensorList;
     private DeviceList deviceList;
     private String noTempReadings = "There aren't any temperature readings available.";
+    private UUID uniqueID;
 
     /**
      * Room() Constructor receiving 5 parameters and initializing 2 Lists, SensorList and DeviceList.
@@ -38,6 +39,7 @@ public class Room implements Metered {
         this.roomHeight = height;
         this.roomSensorList = new SensorList();
         this.deviceList = new DeviceList();
+        this.uniqueID = UUID.randomUUID();
     }
 
     public void setRoomName(String roomName) {
@@ -123,6 +125,14 @@ public class Room implements Metered {
         return houseFloor;
     }
 
+    public UUID getUniqueID() {
+        return uniqueID;
+    }
+
+    public void setUniqueID(UUID uniqueID) {
+        this.uniqueID = uniqueID;
+    }
+
     /**
      * Method that gets the room's device list.
      *
@@ -130,6 +140,10 @@ public class Room implements Metered {
      */
     public DeviceList getDeviceList() {
         return this.deviceList;
+    }
+
+    public void setDeviceList(DeviceList deviceList) {
+        this.deviceList = deviceList;
     }
 
     /**

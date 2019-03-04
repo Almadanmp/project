@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
+import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
+import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
@@ -42,7 +45,8 @@ public class InputUtils {
         }
     }
 
-    Room getHouseRoomByList(House house) {
+    RoomDTO getHouseRoomByList(House house) {
+        Mapper mapper = new Mapper();
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
@@ -53,7 +57,7 @@ public class InputUtils {
                 Room result = house.getRoomByIndex(aux);
                 System.out.println("You have chosen the following room: ");
                 System.out.println(result.buildString() + "\n");
-                return result;
+                return mapper.roomToDTO(result);
             } else {
                 System.out.println(utils.invalidOption);
             }
@@ -115,15 +119,16 @@ public class InputUtils {
         }
     }
 
-    Device getInputRoomDevicesByList(Room room) {
+    Device getInputRoomDevicesByList(RoomDTO room, House house) {
+        RoomConfigurationController controller = new RoomConfigurationController();
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing devices in the selected room: ");
-            System.out.println(room.buildDeviceListString());
+            System.out.println(controller.buildDeviceListString(room, house));
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < room.getDeviceListSize()) {
-                Device result = room.getDeviceByIndex(aux);
+            if (aux >= 0 && aux < controller.getDeviceListSize(room,house)) {
+                Device result = controller.getDeviceByIndex(room,house,aux);
                 System.out.println("You have chosen the following device:");
                 System.out.println(result.buildString() + "\n");
                 return result;

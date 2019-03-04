@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
@@ -29,7 +31,9 @@ public class UtilsUI {
         return !house.isRoomListEmpty();
     }
 
-    boolean roomSensorListIsValid(Room room) {
+    boolean roomSensorListIsValid(RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
 
@@ -53,7 +57,9 @@ public class UtilsUI {
         return programList != null && !programList.isEmpty();
     }
 
-    boolean roomDeviceListIsValid(Room room) {
+    boolean roomDeviceListIsValid(RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO,house);
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 

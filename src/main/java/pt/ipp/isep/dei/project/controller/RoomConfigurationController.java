@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.Sensor;
 import pt.ipp.isep.dei.project.model.SensorList;
@@ -49,11 +52,19 @@ public class RoomConfigurationController {
     /**
      * This method receives a room and returns that room's total nominal power as a double
      *
-     * @param room is the room to be tested
+     * @param roomDTO is the room to be tested
      * @return room's total nominal power (double)
      */
-    public double getRoomNominalPower(Room room) {
+    public double getRoomNominalPower(RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.getNominalPower();
+    }
+
+    public SensorList getRoomSensorList(RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
+        return room.getSensorList();
     }
 
 
@@ -70,18 +81,20 @@ public class RoomConfigurationController {
     }
 
     /**
-     * @param room the room we want to print the list of devices from.
+     * @param roomDTO the room we want to print the list of devices from.
      * @return string with all the devices in the given room.
      */
-    public String buildDeviceListString(Room room) {
+    public String buildDeviceListString(RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.buildDeviceListString();
     }
 
     /**
      * adds a given program to a program list.
      *
-     * @param programList - the list
-     * @param newFixedTimeProgram  -the program we want to add to the list
+     * @param programList         - the list
+     * @param newFixedTimeProgram -the program we want to add to the list
      */
     public void addProgramToProgramList(ProgramList programList, FixedTimeProgram newFixedTimeProgram) {
         programList.addProgram(newFixedTimeProgram);
@@ -100,23 +113,39 @@ public class RoomConfigurationController {
     /**
      * removes device from a given room
      *
-     * @param room   - room we want to remove the device from
-     * @param device - device we want to remove from the room
+     * @param roomDTO - room we want to remove the device from
+     * @param device  - device we want to remove from the room
      * @return - boolean
      */
-    public boolean removeDevice(Room room, Device device) {
+    public boolean removeDevice(House house, RoomDTO roomDTO, Device device) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.removeDevice(device);
     }
 
     /**
      * adds device to a given room
      *
-     * @param room   - room we want to add the device to
-     * @param device - device we want to add to the room
+     * @param roomDTO - room we want to add the device to
+     * @param device  - device we want to add to the room
      * @return - boolean
      */
-    public boolean addDevice(Room room, Device device) {
+    public boolean addDevice(House house, RoomDTO roomDTO, Device device) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.addDevice(device);
+    }
+
+    public int getDeviceListSize(RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
+        return room.getDeviceListSize();
+    }
+
+    public Device getDeviceByIndex(RoomDTO roomDTO, House house, int index) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
+        return room.getDeviceByIndex(index);
     }
 
     /**
@@ -247,7 +276,6 @@ public class RoomConfigurationController {
     }
 
 
-
     /**
      * sets a programlist to a programmable device
      *
@@ -269,7 +297,9 @@ public class RoomConfigurationController {
         device.setName(name);
     }
 
-    public boolean addSensorToRoom(Room room, Sensor sensor) {
+    public boolean addSensorToRoom(Sensor sensor,RoomDTO roomDTO, House house) {
+        Mapper mapper = new Mapper();
+        Room room = mapper.DTOtoRoom(roomDTO, house);
         return (room.addSensor(sensor));
     }
 }
