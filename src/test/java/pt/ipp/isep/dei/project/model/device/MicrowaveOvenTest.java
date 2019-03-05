@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Microwave Oven tests class.
  */
 
-public class MicrowaveOvenTest {
+class MicrowaveOvenTest {
 
     // Common artifacts for testing in this class.
     private String validName1 = "KUNFT KMW"; // Sensor name "KUNFT KMW"
