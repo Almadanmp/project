@@ -239,15 +239,6 @@ class SensorListTest {
     }
 
     @Test
-    void mostRecentlyUsedSensor() {
-        SensorList sensorList1 = new SensorList(); //EMPTY LIST
-        SensorList sensorList2 = new SensorList(); //ONE SENSOR WITH NO READINGS
-        SensorList sensorList3 = new SensorList(); //THREE SENSORS: FIRST MOST RECENT
-        SensorList sensorList4 = new SensorList(); //THREE SENSORS: SECOND MOST RECENT
-        SensorList sensorList5 = new SensorList(); //THREE SENSORS: THIRD MOST RECENT
-    }
-
-    @Test
     void seeIfGetMostRecentlyUsedSensorWorksNoSensors() {
         // Arrange
 

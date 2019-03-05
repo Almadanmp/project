@@ -5,11 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,583 +16,570 @@ import static org.junit.jupiter.api.Assertions.*;
 class SensorTest {
 
     // Common artifacts for testing in this class.
-    public static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
-    private SimpleDateFormat validSdf1; // SimpleDateFormat dd/MM/yyyy
-    private SimpleDateFormat validSdf2; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
-    private Date validDate1; // Date 09/08/2018
-    private Date validDate2; // Date 11/02/2014
-    private TypeSensor validTypeSensor1; // Sensor Type temperature with unit Celsius;
-    private String validName1 = "Sensor XXV5"; // Sensor name "Sensor XXV5"
-    private Local validLocal1; // Localization with Latitude:38, Longitude:7, Altitude: 5
-    private TypeArea validTypeArea1; // Area of Type 'Country'
+
+    private Sensor validSensor;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validTypeArea1 = new TypeArea("Country");
-        validLocal1 = new Local(38, 7, 5);
-        validTypeSensor1 = new TypeSensor("Temperature", "Celsius");
-        validSdf1 = new SimpleDateFormat("dd/MM/yyyy");
-        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        try {
-            validDate2 = validSdf1.parse("11/02/2014");
-            validDate1 = validSdf1.parse("09/08/2018");
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
+        validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
     }
 
 
     @Test
     void seeIfConstructorSetsTypeArea() {
-        //Arrange
-        TypeSensor actualResult;
-        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
+        // Arrange
 
-        //Act
-        actualResult = c.getTypeSensor();
+        TypeSensor expectedResult = new TypeSensor("Temperature", "Celsius");
 
-        //Assert
-        assertEquals(validTypeSensor1, actualResult);
-    }
+        // Act
 
-    @Test
-    void seeIfSecondConstructorSetsTypeArea() {
-        //Arrange
-        ReadingList rl1 = new ReadingList();
-        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
-        c.setReadingList(rl1);
+        TypeSensor actualResult = validSensor.getTypeSensor();
 
-        //Act
-        TypeSensor actualResult = c.getTypeSensor();
+        // Assert
 
-        //Assert
-        assertEquals(validTypeSensor1, actualResult);
-    }
-
-    @Test
-    void seeIfSecondConstructorSetsLocal() {
-        //Arrange
-        ReadingList rl1 = new ReadingList();
-        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
-        c.setReadingList(rl1);
-        //Act
-        Local actualResult = c.getLocal();
-
-        //Assert
-        assertEquals(validLocal1, actualResult);
-    }
-
-    @Test
-    void seeIfSetGetNameWorks() {
-        //Arrange
-        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
-        c.setName("XXB6");
-        String expectedResult = "XXB6";
-        String actualResult;
-
-        //Act
-        actualResult = c.getName();
-
-        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfSetGetNameWorksWithoutSet() {
-        //Arrange
-        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
-        //Act
-        String actualResult = c.getName();
+    void seeIfSecondConstructorSetsTypeArea() {
+        // Arrange
 
-        //Assert
-        assertEquals(validName1, actualResult);
+        TypeSensor expectedResult = new TypeSensor("Temperature", "Celsius");
+        validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"),
+                new Local(31, 15, 3), new Date());
+
+        // Act
+
+        TypeSensor actualResult = validSensor.getTypeSensor();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSecondConstructorSetsLocal() {
+        // Arrange
+
+        validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"),
+                new Local(31, 15, 3), new Date());
+        Local expectedResult = new Local(31, 15, 3);
+
+        //Act
+
+        Local actualResult = validSensor.getLocal();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetGetNameWorks() {
+        // Arrange
+
+        String expectedResult = "XXB6";
+
+        // Act
+
+        validSensor.setName("XXB6");
+        String actualResult = validSensor.getName();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfNullSensorNameThrowsStringMessage() {
-        //Arrange
-        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
+        // Act
 
-        //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            c.setName(null);
+            validSensor.setName(null);
         });
 
-        //Assert
+        // Assert
+
         assertEquals("Please Insert Valid Name", exception.getMessage());
     }
 
     @Test
     void seeIfEmptySensorNameThrowsException() {
-        //Arrange
-        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
+        // Act
 
-        //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            c.setName("");
+            validSensor.setName("");
         });
 
-        //Assert
+        // Assert
+
         assertEquals("Please Insert Valid Name", exception.getMessage());
     }
 
 
     @Test
     void seeIfSetGetLocalWorks() {
-        //Arrange
-        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
-        Local testLocal = new Local(34, 2, 110);
-        Local expectedResult = new Local(34, 2, 110);
-        Local actualResult;
+        // Arrange
 
-        //Act
-        c.setLocal(testLocal);
-        actualResult = c.getLocal();
+        Local expectedResult = new Local(31, 11, 11);
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
+        // Act
 
-    @Test
-    void seeIfSetGetLocalWorksWithoutSet() {
-        //Arrange
-        Sensor c = new Sensor(validName1, validTypeSensor1, new Local(12, 31, 21), validDate1);
-        Local expectedResult = new Local(12, 31, 21);
-        Local actualResult;
+        validSensor.setLocal(new Local(31, 11, 11));
+        Local actualResult = validSensor.getLocal();
 
-        //Act
-        actualResult = c.getLocal();
+        // Assert
 
-        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetSetTypeSensorWorks() {
-        //Arrange
-        Sensor c = new Sensor(validName1, new TypeSensor("Wind Pressure", "km/h"), validLocal1, validDate1);
-        TypeSensor expectedResult = validTypeSensor1;
+        // Arrange
+
+        TypeSensor expectedResult = new TypeSensor("Rain", "l/m2");
         TypeSensor actualResult;
 
-        //Act
-        c.setTypeSensor(validTypeSensor1);
-        actualResult = c.getTypeSensor();
+        // Act
 
-        //Assert
+        validSensor.setTypeSensor(new TypeSensor("Rain", "l/m2"));
+        actualResult = validSensor.getTypeSensor();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfSeTAndGetReadingList() {
-        //Arrange
-        Sensor c = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
-        ReadingList rList1 = new ReadingList();
-        Reading reading1 = new Reading(15, validDate2);
-        rList1.addReading(reading1);
+        // Arrange
 
-        //Act
-        c.setReadingList(rList1);
-        ReadingList result = c.getReadingList();
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(15, new Date());
+        readingList.addReading(reading1);
 
-        //Assert
-        assertEquals(rList1, result);
+        // Act
+
+        validSensor.setReadingList(readingList);
+        ReadingList actualResult = validSensor.getReadingList();
+
+        // Assert
+
+        assertEquals(readingList, actualResult);
     }
 
     @Test
-    void seeIfEqualsWorksNotAnInstanceFalse() {
-        //Arrange
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
-        Local l1 = new Local(21, 23, 1);
+    void seeIfEqualsWorksNotAnInstance() {
+        // Arrange
 
-        //Act
-        boolean actualResult = s1.equals(l1);
+        Local testLocal = new Local(21, 23, 1);
 
-        //Assert
+        // Act
+
+        boolean actualResult = validSensor.equals(testLocal); // Needed for Sonarqube testing purposes.
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsWorksFalseDifferentSensor() {
-        //Arrange
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
-        Sensor s2 = new Sensor("Temperature Sensor XX56", validTypeSensor1, validLocal1, validDate1);
+        // Arrange
 
-        //Act
-        boolean actualResult = s1.equals(s2);
-        boolean expectedResult = false;
+        Sensor s2 = new Sensor("Temperature Sensor XX56", new TypeSensor("Temperature", "Fahrenheit"),
+                new Local(21, 1, 12), new Date());
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
+        // Act
+
+        boolean actualResult = validSensor.equals(s2);
+
+
+        // Assert
+
+        assertFalse(actualResult);
     }
-
-    @Test
-    void seeIfEqualsWorksFalseDifferentName() {
-        //Arrange
-        Sensor s1 = new Sensor("Wind Sensor 1", validTypeSensor1, validLocal1, validDate1);
-        Sensor s2 = new Sensor("Rain Sensor 1", validTypeSensor1, validLocal1, validDate1);
-        boolean expectedResult = false;
-        boolean actualResult;
-
-        //Act
-        actualResult = s1.equals(s2);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
 
     @Test
     void seeIfEqualsWorksTrueSameSensor() {
-        //Arrange
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate2);
-        Sensor s2 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate2);
-        boolean expectedResult = true;
+        // Arrange
 
-        //Act
-        boolean actualResult = s1.equals(s2);
+        Sensor testSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
+        // Act
 
-    @Test
-    void seeIfEqualsWorksTrueSameName() {
-        //Arrange
-        Sensor s1 = new Sensor(validName1, new TypeSensor("Atmosphere", "km/h"), validLocal1, validDate2);
-        Sensor s2 = new Sensor(validName1, new TypeSensor("Rain", "mm"), validLocal1, validDate2);
-        boolean expectedResult = true;
+        boolean actualResult = validSensor.equals(testSensor);
 
-        //Act
+        // Assert
 
-        boolean actualResult = s1.equals(s2);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
     void hashCodeDummyTest() {
-        //Arrange
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
+        // Arrange
+
         int expectedResult = 1;
 
-        //Act
-        int actualResult = s1.hashCode();
+        // Act
 
-        //Assert
+        int actualResult = validSensor.hashCode();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfSensorIsContainedInArea() {
-        //Arrange
-        Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 20, 30, loc1);
-        Local loc2 = new Local(20, 20, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20, 30,
+                new Local(31, 15, 3));
+        validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"),
+                new Local(31, 15, 3), new Date());
 
-        //Assert
+        // Act
+
+        boolean result = validSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void seeIfSensorIsContainedInAreaNegative() {
-        //Arrange
-        Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 30, 20, loc1);
-        Local loc2 = new Local(20, 20, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
+    void seeIfSensorIsContainedEdgeOfArea() {
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20,
+                30, testLocal);
+        Local testLocal2 = new Local(10, 30, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Rainfall", "l/m2"), testLocal2,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void seeIfSensorIsContainedOnTheEdge() {
-        //Arrange
-        Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 20, 30, loc1);
-        Local loc2 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
+    void seeIfSensorIsContainedInAreaWorksUpperRightVertex() {
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20, 30,
+                testLocal);
+        Local upperRightVertex = new Local(30, 30, 5);
+        Sensor testSensor = new Sensor("SensorOne", new TypeSensor("Pressure", "mm"),
+                upperRightVertex, new Date());
 
-        //Assert
-        assertTrue(result);
-    }
+        // Act
 
-    @Test
-    void seeIfSensorIsContainedOnTheEdgeNegative() {
-        //Arrange
-        Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 20, 30, loc1);
-        Local loc2 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
+        boolean result = testSensor.isContainedInArea(testArea);
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        // Assert
 
-        //Assert
-        assertTrue(result);
-    }
-
-    @Test
-    void seeIfSensorIsContainedOnUpperRightVertex() {
-        //Arrange
-        Local loc1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 20, 30, loc1);
-        Local loc2 = new Local(30, 30, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc2, validDate1);
-
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
-
-        //Assert
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsContainedOnUpperLeftVertex() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 21, 30, l1);
-        Local loc1 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 21,
+                30, testLocal);
+        Local upperLeftVertex = new Local(10, 30, 5);
+        Sensor testSensor = new Sensor("SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsContainedOnBottomLeftVertex() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 25, 35, l1);
-        Local loc1 = new Local(10, 10, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 25,
+                35, testLocal);
+        Local bottomLeftVertex = new Local(10, 10, 5);
+        Sensor testSensor = new Sensor("SensorOne", new TypeSensor("Temperature", "Kelvin"), bottomLeftVertex,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsContainedOnBottomRightVertex() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 32, 23, l1);
-        Local loc1 = new Local(30, 10, 5);
-        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 32,
+                23, testLocal);
+        Local bottomRightVertex = new Local(30, 10, 5);
+        Sensor s1 = new Sensor("XV56-LD1", new TypeSensor("Rainfall", "dm/m2"), bottomRightVertex,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = s1.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLatitude() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 32, 21, l1);
-        Local loc1 = new Local(35, 20, 5);
-        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 32,
+                21, testLocal);
+        Local wrongLatitude = new Local(35, 20, 5);
+        Sensor s1 = new Sensor("XV56-LD1", new TypeSensor("Temperature", "Celsius"), wrongLatitude,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = s1.isContainedInArea(testArea);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLatitudeSecondCondition() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 25, 20, l1);
-        Local loc1 = new Local(-35, 20, 5);
-        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 25,
+                20, testLocal);
+        Local wrongLatitude = new Local(-35, 20, 5);
+        Sensor testSensor = new Sensor("XV56-LD1", new TypeSensor("Rainfall", "l/m2"),
+                wrongLatitude, new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLatitudeThirdCondition() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 32, 21, l1);
-        Local loc1 = new Local(35, 20, 5);
-        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 32,
+                21, testLocal);
+        Local wrongLatitude = new Local(35, 20, 5);
+        Sensor testSensor = new Sensor("XV56-LD1", new TypeSensor("Temperature", "Celsius"),
+                wrongLatitude, new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLatitudeFourthCondition() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 25, 20, l1);
-        Local loc1 = new Local(-35, 20, 5);
-        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 25,
+                20, testLocal);
+        Local wrongLatitude = new Local(-35, 20, 5);
+        Sensor s1 = new Sensor("XV56-LD1", new TypeSensor("Temperature", "Kelvin"),
+                wrongLatitude, new Date());
 
-        //Assert
-        assertFalse(result);
-    }
+        // Act
 
-    @Test
-    void seeIfSensorIsNotContainedInAreaWrongLatitudeNegative() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 32, 21, l1);
-        Local loc1 = new Local(35, 20, 5);
-        Sensor s1 = new Sensor("XV56-LD1", validTypeSensor1, loc1, validDate1);
+        boolean result = s1.isContainedInArea(testArea);
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        // Assert
 
-        //Assert
         assertFalse(result);
     }
 
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLongitude() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 10, l1);
-        Local loc1 = new Local(100, 100, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 10,
+                10, testLocal);
+        Local wrongLongitude = new Local(100, 100, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Temperature", "Fahrenheit"),
+                wrongLongitude, new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLongitudeSecondCondition() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 100, 100, l1);
-        Local loc1 = new Local(20, -35, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 100,
+                100, testLocal);
+        Local wrongLongitude = new Local(20, -35, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLongitudeThirdCondition() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 10, l1);
-        Local loc1 = new Local(100, 100, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 10,
+                10, testLocal);
+        Local wrongLongitude = new Local(100, 100, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLongitudeFourthCondition() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 100, 100, l1);
-        Local loc1 = new Local(20, -35, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 100,
+                100, testLocal);
+        Local wrongLongitude = new Local(20, -35, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
+                new Date());
+        // Act
 
-        //Assert
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfSensorIsNotContainedInAreaWrongLongitudeNegative() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 10, 10, l1);
-        Local loc1 = new Local(100, 20, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 10,
+                10, testLocal);
+        Local wrongLongitude = new Local(100, 20, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfSensorIsContainedInAreaNegativeCoords() {
-        //Arrange
-        Local l1 = new Local(20, 20, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 50, 50, l1);
-        Local loc1 = new Local(-5, -5, -5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(20, 20, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 50,
+                50, testLocal);
+        Local negativeCoords = new Local(-5, -5, -5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Rainfall", "l/m2"), negativeCoords,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsContainedOnTheEdge2() {
-        //Arrange
-        Local l1 = new Local(0, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 20, 30, l1);
-        Local loc1 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(0, 40, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20,
+                30, testLocal);
+        Local edge = new Local(10, 30, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Rainfall", "l/m2"), edge,
+                new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsContainedOnTheEdge2Negative() {
-        //Arrange
-        Local l1 = new Local(0, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 20, 30, l1);
-        Local loc1 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(0, 40, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20,
+                30, testLocal);
+        Local edge = new Local(10, 30, 5);
+        Sensor validSensor = new Sensor("Sensor", new TypeSensor("Temperature", "Celsius"), edge, new Date());
+
+        // Act
+
+        boolean result = validSensor.isContainedInArea(testArea);
 
         //Assert
         assertTrue(result);
@@ -604,154 +587,202 @@ class SensorTest {
 
     @Test
     void seeIfSensorIsContainedOnUpperRightVertex2() {
-        //Arrange
-        Local l1 = new Local(40, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 20, 30, l1);
-        Local loc1 = new Local(30, 30, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(40, 40, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20,
+                30, testLocal);
+        Local upperRightVertex = new Local(30, 30, 5);
+        Sensor validSensor = new Sensor("Sensor", new TypeSensor("Temperature", "Celsius"),
+                upperRightVertex, new Date());
 
-        //Assert
+        // Act
+
+        boolean result = validSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsContainedOnUpperLeftVertex2() {
-        //Arrange
-        Local l1 = new Local(0, 40, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 21, 30, l1);
-        Local loc1 = new Local(10, 30, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(0, 40, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 21,
+                30, testLocal);
+        Local upperLeftVertex = new Local(10, 30, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Temperature", "Celsius"),
+                upperLeftVertex, new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsContainedOnBottomLeftVertex2() {
-        //Arrange
-        Local l1 = new Local(0, 0, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 35, 25, l1);
-        Local loc1 = new Local(10, 10, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(0, 0, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 35,
+                25, testLocal);
+        Local bottomLeftVertex = new Local(10, 10, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Temperature", "Celsius"),
+                bottomLeftVertex, new Date());
+        // Act
 
-        //Assert
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsContainedOnBottomRightVertex2() {
-        //Arrange
-        Local l1 = new Local(40, 0, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 32, 23, l1);
-        Local loc1 = new Local(30, 10, 5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(40, 0, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 32,
+                23, testLocal);
+        Local bottomRightVertex = new Local(30, 10, 5);
+        Sensor testSensor = new Sensor("Sensor", new TypeSensor("Temperature", "Celsius"),
+                bottomRightVertex, new Date());
 
-        //Assert
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
     void seeIfSensorIsContainedInAreaNegativeCoords2() {
-        //Arrange
-        Local l1 = new Local(-30, -30, 5);
-        GeographicArea a1 = new GeographicArea("Portugal", validTypeArea1, 50, 50, l1);
-        Local loc1 = new Local(-5, -5, -5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+        // Arrange
 
-        //Act
-        boolean result = s1.isSensorContainedInArea(a1);
+        Local testLocal = new Local(-30, -30, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 50,
+                50, testLocal);
+        Local testLocal2 = new Local(-5, -5, -5);
+        Sensor s1 = new Sensor("Sensor", new TypeSensor("Temperature", "Celsius"),
+                testLocal2, new Date());
 
-        //Assert
+        // Act
+
+        boolean result = s1.isContainedInArea(testArea);
+
+        // Assert
+
         assertTrue(result);
     }
-    //FIM de testes isSensorContainedInArea
+
+    // End of isContainedInArea tests.
 
     @Test
-    void seeIfPrintSensor() {
-        //Arrange
+    void seeIfPrintSensorWorksNoLocal() {
+        // Arrange
 
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, validLocal1, validDate1);
-        String expectedResult = validName1 + ", Temperature, 38.0º lat, 7.0º long\n";
+        String expectedResult = "SensOne, Temperature. ";
 
-        //Act
-        String result = s1.buildString();
+        // Act
 
-        //Assert
+        String result = validSensor.buildString();
+
+        // Assert
+
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfPrintSensorWorksWithLocal() {
+        // Arrange
+
+        validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Kelvin"), new Local(21,
+                31, 15), new Date());
+        String expectedResult = "SensOne, Temperature, 21.0º lat, 31.0º long\n";
+
+        // Act
+
+        String result = validSensor.buildString();
+
+        // Assert
+
         Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfSecondConstructorSetsTypeSensorCorretly() {
-        //Arrange
-        Sensor c = new Sensor(validName1, validTypeSensor1, validDate1);
+        // Arrange
 
-        //Act
-        TypeSensor actualResult = c.getTypeSensor();
+        validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Kelvin"), new Date());
+        TypeSensor expectedResult = new TypeSensor("Temperature", "Kelvin");
 
-        //Assert
-        assertEquals(validTypeSensor1, actualResult);
+        // Act
+
+        TypeSensor actualResult = validSensor.getTypeSensor();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void ensureThatWeGetDistanceToHouse() {
-        //Arrange
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa 1", address, new Local(4, 6, 6),
-                new GeographicArea("Porto", validTypeArea1, 2, 3,
-                        new Local(4, 4, 100)), 60, 180, deviceTypeString);
-        Local loc1 = new Local(-5, -5, -5);
-        Sensor s1 = new Sensor(validName1, validTypeSensor1, loc1, validDate1);
+    void seeIfGetDistanceToHouseWorks() {
+        // Arrange
+
+        House house = new House("House", new Address("Rua das Flores", "4512", "Porto"), new Local(
+                4, 6, 6), new GeographicArea("Porto", new TypeArea("City"),
+                2, 3, new Local(4, 4, 100)), 60, 180,
+                new ArrayList<>());
+        Local testLocal = new Local(-5, -5, -5);
+        validSensor.setLocal(testLocal);
         double expectedResult = 1579.3659688476016;
 
         //Act
-        double actualResult = s1.getDistanceToHouse(house);
+        double actualResult = validSensor.getDistanceToHouse(house);
 
         //Assert
         assertEquals(expectedResult, actualResult, 0.01);
     }
 
     @Test
-    void addReadings() {
-        Sensor sensor1 = new Sensor(validName1, validTypeSensor1, validDate1);
-        Reading reading1 = new Reading(20, validDate1);
-        Reading reading2 = new Reading(20, validDate2);
-        Reading reading3 = new Reading(25, validDate1);
+    void seeIfAddReadingsWorks() {
+        // Arrange
 
-        //act
-        boolean actualResult1 = sensor1.addReading(reading1);
-        boolean actualResult2 = sensor1.addReading(reading2);
-        boolean actualResult3 = sensor1.addReading(reading3);
+        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
 
-        //assert
+        // Act
+
+        boolean actualResult1 = validSensor.addReading(reading1);
+        boolean actualResult3 = validSensor.addReading(reading1);
+
+        // Assert
+
         assertTrue(actualResult1);
-        assertTrue(actualResult2);
         assertFalse(actualResult3);
     }
 
     @Test
-    void testSetDateSensor(){
-
+    void seeIfGetDateStartedFunctioningWorks() {
         // Arrange
-        Sensor sensor1 = new Sensor(validName1, validTypeSensor1, validDate1);
 
-        //Act
-        Date actualResult = sensor1.getDateStartedFunctioning();
-        Date expectedResult = validDate1;
-        //Assert
+        Date expectedResult = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
+        validSensor.setDateStartedFunctioning(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+
+        // Act
+
+        Date actualResult = validSensor.getDateStartedFunctioning();
+
+
+        // Assert
 
         assertEquals(expectedResult, actualResult);
     }
