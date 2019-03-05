@@ -1,8 +1,9 @@
 package pt.ipp.isep.dei.project.model.device.program;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import pt.ipp.isep.dei.project.model.TypeSensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FixedTimeProgramTest {
+/**
+ * FixedTimeProgram test class.
+ */
+class FixedTimeProgramTest {
+
+    // Common artifacts for testing in this class.
+    private FixedTimeProgram validFixedTimeProgram;
+    private FixedTimeProgram validFixedTimeProgram2;
+
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validFixedTimeProgram = new FixedTimeProgram("Medium Power", 30, 1.2);
+        validFixedTimeProgram2 = new FixedTimeProgram("Max Power", 40, 1.8);
+    }
 
     @Test
     public void seeIfSetProgramName() {
@@ -54,7 +69,7 @@ public class FixedTimeProgramTest {
 
     @Test
     void getAttributeNamesTest() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.DURATION, 5D);
         program.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 5D);
         List<String> expectedResult = new ArrayList<>();
@@ -66,14 +81,16 @@ public class FixedTimeProgramTest {
 
     @Test
     void getAttributeValuesTest() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.DURATION, 5D);
         double expectedResult = 5.0;
         Object result = program.getAttributeValue("Duration");
         assertEquals(expectedResult, result);
-    } @Test
+    }
+
+    @Test
     void getAttributeValuesTestNp() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 5D);
         double expectedResult = 5.0;
         Object result = program.getAttributeValue("Energy Consumption");
@@ -82,7 +99,7 @@ public class FixedTimeProgramTest {
 
     @Test
     void getAttributeUnitTest() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.DURATION, 5D);
         String expectedResult = "min";
         Object result = program.getAttributeUnit("Duration");
@@ -91,7 +108,7 @@ public class FixedTimeProgramTest {
 
     @Test
     void getAttributeUnitTest2() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.DURATION, 5D);
         Object result = program.getAttributeUnit("programList");
         assertEquals(false, result);
@@ -100,7 +117,7 @@ public class FixedTimeProgramTest {
 
     @Test
     void getAttributeUnitTest3() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.DURATION, 5D);
         Object result = program.getAttributeUnit("Duration");
         assertEquals("min", result);
@@ -108,7 +125,7 @@ public class FixedTimeProgramTest {
 
     @Test
     void getAttributeUnitTest4() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 5D);
         Object result = program.getAttributeUnit("Energy Consumption");
         assertEquals("kWh", result);
@@ -116,7 +133,7 @@ public class FixedTimeProgramTest {
 
     @Test
     void getAttributeValuesTest1() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.DURATION, 5D);
         int expectedResult = 0;
         Object result = program.getAttributeValue("Duration" + "Energy Consumption");
@@ -125,7 +142,7 @@ public class FixedTimeProgramTest {
 
     @Test
     void getAttributeValuesWithCapacityEmptyTest() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 34D);
         double expectedResult = 34.0;
         Object result = program.getAttributeValue("Energy Consumption");
@@ -134,7 +151,7 @@ public class FixedTimeProgramTest {
 
     @Test
     void setAttributeValueTestCapacity() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue("Duration", 5.0D);
         Object result = program.getAttributeValue("Duration");
         assertEquals(5.0, result);
@@ -142,7 +159,7 @@ public class FixedTimeProgramTest {
 
     @Test
     void setAttributeValueTestCapacity2() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.DURATION, 23D);
         Object result = program.getAttributeValue("Duration");
         assertEquals(23.0, result);
@@ -151,7 +168,7 @@ public class FixedTimeProgramTest {
     @Test
     void seeIfSetAttributeValueTestTrueWorks() {
         //Arrange
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.DURATION, 5D);
         //Act
         boolean actualResult = program.setAttributeValue("Duration", 12.0);
@@ -160,10 +177,9 @@ public class FixedTimeProgramTest {
     }
 
 
-
     @Test
     void setAttributeValueTestDefault() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue("capacity", 5.0);
         Object result = program.getAttributeValue("lisbon");
         assertEquals(0, result);
@@ -171,16 +187,17 @@ public class FixedTimeProgramTest {
 
     @Test
     void setAttributeValueTestDefault3() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue("Energy Consumption", 5.0);
         program.setAttributeValue("Duration", 6.0);
         Object result = program.getAttributeValue("Duration");
         Object expectedResult = 6.0;
         assertEquals(expectedResult, result);
     }
+
     @Test
     void setAttributeValueTestDefault4() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 5.0);
         program.setAttributeValue(FixedTimeProgram.DURATION, 6.0);
         Object result = program.getAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION);
@@ -190,35 +207,35 @@ public class FixedTimeProgramTest {
 
     @Test
     void setAttributeValueTestFalse() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         boolean result = program.setAttributeValue("lisboa", 5);
         assertEquals(false, result);
     }
 
     @Test
     void setAttributeValueTestFalseAgain() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         Object result = program.setAttributeValue(FixedTimeProgram.DURATION, 5);
         assertEquals(false, result);
     }
 
     @Test
     void setAttributeValueTestFalseAgain2() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         Object result = program.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, "sjfhbfhfh");
         assertEquals(false, result);
     }
 
     @Test
     void setAttributeValueTestTrue() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         Object result = program.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 5.0);
         assertEquals(true, result);
     }
 
     @Test
     void setAttributeValueTestFalseCap() {
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         Object result = program.setAttributeValue(FixedTimeProgram.DURATION, "sjfhbfhfh");
         assertEquals(false, result);
     }
@@ -227,7 +244,7 @@ public class FixedTimeProgramTest {
     @Test
     void testGetAttributeCoveringAllCases() {
         //Arrange
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         program.setAttributeValue(FixedTimeProgram.DURATION, 5D);
         program.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 5D);
         // original strings:
@@ -245,7 +262,7 @@ public class FixedTimeProgramTest {
     @Test
     void testSetAttributeValueCoveringAllCases() {
         //Arrange
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         Double attribute = 6.0;
         // original strings:
         assertTrue(program.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, attribute));
@@ -260,7 +277,7 @@ public class FixedTimeProgramTest {
     @Test
     void seeIfGetAttributeUnitWorksInAllCases() {
         //Arrange
-        FixedTimeProgram program = new FixedTimeProgram("program",2,2);
+        FixedTimeProgram program = new FixedTimeProgram("program", 2, 2);
         String attributeKg = "min";
         String attributeKW = "kWh";
         // original strings:
@@ -271,5 +288,74 @@ public class FixedTimeProgramTest {
         assertEquals(false, program.getAttributeUnit("notCapacity"));
         // distinct hash code to cover default cases of switches
         assertEquals(false, program.getAttributeUnit(""));
+    }
+
+    @Test
+    public void hashCodeDummyTest() {
+        //Arrange
+        int expectedResult = 1;
+
+        // Act
+        int actualResult = validFixedTimeProgram.hashCode();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfEqualsProgramObject() {
+        //Arrange
+        Program fixedProgram = new FixedTimeProgram("Program", 30, 1.2);
+        fixedProgram.setProgramName("Medium Power");
+
+        //Assert
+        assertTrue(fixedProgram.equals(validFixedTimeProgram));
+    }
+
+    @Test
+    void seeIfEqualsFailsProgramObject() {
+        //Arrange
+        Program fixedProgram = new FixedTimeProgram("Program", 30, 1.2);
+        fixedProgram.setProgramName("Medium Power 2");
+
+        //Assert
+        assertFalse(fixedProgram.equals(validFixedTimeProgram));
+    }
+
+    @Test
+    void seeIfEqualsFailsNullObject() {
+        //Arrange
+        Object obj = null;
+        FixedTimeProgram micro = null;
+
+        // Act
+        //Assert
+        assertFalse(validFixedTimeProgram.equals(obj));
+        assertFalse(validFixedTimeProgram.equals(micro));
+    }
+
+    @Test
+    void seeIfEqualsFailsDifferentObject() {
+        //Arrange
+        // Act
+        //Assert
+        assertFalse(validFixedTimeProgram.equals(new TypeSensor("Rain", "mm")));
+    }
+
+    @Test
+    void seeIfEqualsWorks() {
+        //Arrange
+        // Act
+        //Assert
+        assertTrue(validFixedTimeProgram.equals(validFixedTimeProgram));
+    }
+
+    @Test
+    void seeIfEqualsWorks2() {
+        //Arrange
+        FixedTimeProgram ftp = new FixedTimeProgram();
+        // Act
+        //Assert
+        assertFalse(ftp.equals(validFixedTimeProgram));
     }
 }
