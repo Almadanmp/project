@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.config;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
@@ -17,105 +18,126 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * deviceTypeConfig tests class.
  */
 
-public class DeviceTypeConfigTest {
+class DeviceTypeConfigTest {
+    private Properties props;
+    private DeviceTypeConfig dtc;
+    private String propFileName = "resources/devices.properties";
+    private InputStream input;
+    private String deviceTypePath = "pt.ipp.isep.dei.project.model.device.devicetypes.";
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        props = new Properties();
+        dtc = new DeviceTypeConfig();
+        try {
+            input = new FileInputStream(propFileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
-    public void getPropertyValueFromKeySuccess() throws IOException {
-        Properties props = new Properties();
-        DeviceTypeConfig dtc = new DeviceTypeConfig();
-        String propFileName = "resources/devices.properties";
-        InputStream input = new FileInputStream(propFileName);
+    void getPropertyValueFromKeySuccess() throws IOException {
+        // Act
+
         props.load(input);
         String key = "WaterHeater";
         String result = dtc.getPropertyValueFromKey(props, key);
-        String expectedResult = "pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT";
+        String expectedResult = deviceTypePath + "WaterHeaterDT";
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void getPropertyValueFromKeyNullProperty() {
+    void getPropertyValueFromKeyNullProperty() {
+        // Assert
+
         assertThrows(IOException.class,
                 () -> {
-                    Properties props = new Properties();
-                    DeviceTypeConfig dtc = new DeviceTypeConfig();
                     String key = "WaterHeater";
                     dtc.getPropertyValueFromKey(props, key);
                 });
     }
 
     @Test
-    public void getDeviceTypeConfigSuccess() throws IOException {
-        Properties props = new Properties();
-        String propFileName = "resources/devices.properties";
-        InputStream input = new FileInputStream(propFileName);
-        props.load(input);
-        DeviceTypeConfig dtc = new DeviceTypeConfig();
-        List<String> result = dtc.getDeviceTypeConfig();
+    void getDeviceTypeConfigSuccess() throws IOException {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachineDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.LampDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallTowelHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricConvectionHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricOilHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallElectricHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.StoveDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WineCoolerDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.FreezerDT");
+        expectedResult.add(deviceTypePath + "FridgeDT");
+        expectedResult.add(deviceTypePath + "DishwasherDT");
+        expectedResult.add(deviceTypePath + "WashingMachineDT");
+        expectedResult.add(deviceTypePath + "WaterHeaterDT");
+        expectedResult.add(deviceTypePath + "LampDT");
+        expectedResult.add(deviceTypePath + "WallTowelHeaterDT");
+        expectedResult.add(deviceTypePath + "PortableElectricConvectionHeaterDT");
+        expectedResult.add(deviceTypePath + "PortableElectricOilHeaterDT");
+        expectedResult.add(deviceTypePath + "WallElectricHeaterDT");
+        expectedResult.add(deviceTypePath + "StoveDT");
+        expectedResult.add(deviceTypePath + "WineCoolerDT");
+        expectedResult.add(deviceTypePath + "FreezerDT");
+
+        // Act
+
+        props.load(input);
+        List<String> result = dtc.getDeviceTypeConfig();
+
+        // Assert
 
         assertEquals(expectedResult, result);
     }
 
 
     @Test
-    public void getDeviceTypeConfigWrongFileName() {
+    void getDeviceTypeConfigWrongFileName() {
+        // Assert
+
         assertThrows(IOException.class,
                 () -> {
-                    DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    Properties props = new Properties();
-                    String propFileName = "res/deces.prrties";
-                    InputStream input = new FileInputStream(propFileName);
+                    propFileName = "res/deces.prrties";
+                    input = new FileInputStream(propFileName);
                     props.load(input);
                     dtc.getDeviceTypeConfig();
                 });
     }
 
     @Test
-    public void getDeviceTypeConfigNullPropertiesAndWrongName() {
+    void getDeviceTypeConfigNullPropertiesAndWrongName() {
+        // Assert
+
         assertThrows(IOException.class,
                 () -> {
-                    Properties props = null;
-                    DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    String propFileName = "resources/deces.properties";
-                    InputStream input = new FileInputStream(propFileName);
+                    props = null;
+                    propFileName = "resources/deces.properties";
+                    input = new FileInputStream(propFileName);
                     props.load(input);
                     dtc.getDeviceTypeConfig();
                 });
     }
 
     @Test
-    public void getDeviceTypeConfigNullpropFileName() {
+    void getDeviceTypeConfigNullPropFileName() {
+        // Assert
+
         assertThrows(NullPointerException.class,
                 () -> {
-                    Properties props = new Properties();
-                    DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    String propFileName = null;
-                    InputStream input = new FileInputStream(propFileName);
+                    propFileName = null;
+                    input = new FileInputStream(propFileName); // Necessary for Sonarqube testing coverage.
                     props.load(input);
                     dtc.getDeviceTypeConfig();
                 });
     }
 
     @Test
-    public void getDeviceTypeRightPropFileNameButWithNoValuesInside() {
+    void getDeviceTypeRightPropFileNameButWithNoValuesInside() {
+        // Assert
+
         assertThrows(FileNotFoundException.class,
                 () -> {
-                    Properties props = new Properties();
-                    DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    String propFileName = "resources/devices_test.properties";
-                    InputStream input = new FileInputStream(propFileName);
+                    propFileName = "resources/devices_test.properties";
+                    input = new FileInputStream(propFileName);
                     props.load(input);
                     dtc.getDeviceTypeConfig();
                 });
@@ -124,60 +146,63 @@ public class DeviceTypeConfigTest {
     //DEVICETYPECONFIG SPECIF FILE METHOD
 
     @Test
-    public void getDeviceTypeConfigSpecificSuccess() throws IOException {
-        Properties props = new Properties();
-        String propFileName = "resources/devices.properties";
-        InputStream input = new FileInputStream(propFileName);
-        props.load(input);
-        DeviceTypeConfig dtc = new DeviceTypeConfig();
-        List<String> result = dtc.getDeviceTypeConfigFromSpecificFile("resources/devices.properties");
+    void getDeviceTypeConfigSpecificSuccess() throws IOException {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WashingMachineDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.LampDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallTowelHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricConvectionHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.PortableElectricOilHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WallElectricHeaterDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.StoveDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.WineCoolerDT");
-        expectedResult.add("pt.ipp.isep.dei.project.model.device.devicetypes.FreezerDT");
+        expectedResult.add(deviceTypePath + "FridgeDT");
+        expectedResult.add(deviceTypePath + "DishwasherDT");
+        expectedResult.add(deviceTypePath + "WashingMachineDT");
+        expectedResult.add(deviceTypePath + "WaterHeaterDT");
+        expectedResult.add(deviceTypePath + "LampDT");
+        expectedResult.add(deviceTypePath + "WallTowelHeaterDT");
+        expectedResult.add(deviceTypePath + "PortableElectricConvectionHeaterDT");
+        expectedResult.add(deviceTypePath + "PortableElectricOilHeaterDT");
+        expectedResult.add(deviceTypePath + "WallElectricHeaterDT");
+        expectedResult.add(deviceTypePath + "StoveDT");
+        expectedResult.add(deviceTypePath + "WineCoolerDT");
+        expectedResult.add(deviceTypePath + "FreezerDT");
+
+        // Act
+
+        props.load(input);
+        List<String> result = dtc.getDeviceTypeConfigFromSpecificFile(propFileName);
+
+        // Assert
 
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void getDeviceTypeConfigInvalidFileIOException() {
+    void getDeviceTypeConfigInvalidFileIOException() {
+        // Assert
+
         assertThrows(IOException.class,
-                () -> {
-                    DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    dtc.getDeviceTypeConfigFromSpecificFile("resources/devices_test.properties");
-                });
+                () -> dtc.getDeviceTypeConfigFromSpecificFile("resources/devices_test.properties"));
     }
 
     @Test
-    public void getDeviceTypeConfigSpecificFileWrongPropFileName() {
+    void getDeviceTypeConfigSpecificFileWrongPropFileName() {
+        // Assert
+
         assertThrows(IOException.class,
                 () -> {
-                    Properties props = null;
-                    DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    String propFileName = "resources/deces.properties";
-                    InputStream input = new FileInputStream(propFileName);
+                    props = null;
+                    propFileName = "resources/deces.properties";
+                    input = new FileInputStream(propFileName);
                     props.load(input);
                     dtc.getDeviceTypeConfigFromSpecificFile(propFileName);
                 });
     }
 
     @Test
-    public void getDeviceTypeSpecificFileRightPropFileNameButWithNoValuesInside() {
+    void getDeviceTypeSpecificFileRightPropFileNameButWithNoValuesInside() {
+        // Assert
+
         assertThrows(FileNotFoundException.class,
                 () -> {
-                    Properties props = new Properties();
-                    DeviceTypeConfig dtc = new DeviceTypeConfig();
-                    String propFileName = "resources/devices_test.properties";
-                    InputStream input = new FileInputStream(propFileName);
+                    propFileName = "resources/devices_test.properties";
+                    input = new FileInputStream(propFileName);
                     props.load(input);
                     dtc.getDeviceTypeConfigFromSpecificFile(propFileName);
                 });

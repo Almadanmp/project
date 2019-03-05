@@ -268,12 +268,12 @@ class EnergyConsumptionUI {
     private void runUS720(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room,house)) {
+        RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
+        if (!utilsUI.roomDTODeviceListIsValid(room,house)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(room,house);
+        Device device = inputUtils.getInputRoomDTODevicesByList(room,house);
         if (!utilsUI.deviceLogListIsValid(device)) {
             System.out.println("This device has no energy consumption logs.");
             return;
@@ -298,7 +298,7 @@ class EnergyConsumptionUI {
             System.out.print(utilsUI.invalidRoomList);
         }
         InputUtils inputs = new InputUtils();
-        RoomDTO room = inputs.getHouseRoomByList(programHouse);
+        RoomDTO room = inputs.getHouseRoomDTOByList(programHouse);
         System.out.println("Please insert the date at which you want to start the interval.");
         Date initialDate = inputs.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
@@ -369,7 +369,7 @@ class EnergyConsumptionUI {
 
     private void setRoomData(House programHouse) {
         InputUtils inputs = new InputUtils();
-        RoomDTO case2Room = inputs.getHouseRoomByList(programHouse);
+        RoomDTO case2Room = inputs.getHouseRoomDTOByList(programHouse);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, programHouse);
@@ -378,8 +378,8 @@ class EnergyConsumptionUI {
 
     private void setDeviceData(House programHouse) {
         InputUtils inputs = new InputUtils();
-        RoomDTO case3Room = inputs.getHouseRoomByList(programHouse);
-        Device device = inputs.getInputRoomDevicesByList(case3Room, programHouse);
+        RoomDTO case3Room = inputs.getHouseRoomDTOByList(programHouse);
+        Device device = inputs.getInputRoomDTODevicesByList(case3Room, programHouse);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);

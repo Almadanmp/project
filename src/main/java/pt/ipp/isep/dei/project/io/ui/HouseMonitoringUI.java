@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
 
 import java.util.Date;
 
@@ -98,8 +97,8 @@ public class HouseMonitoringUI {
             return;
         }
         InputUtils inputUtils = new InputUtils();
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomSensorListIsValid(room, house)) {
+        RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
+        if (!utilsUI.roomDTOSensorListIsValid(room, house)) {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
@@ -129,8 +128,8 @@ public class HouseMonitoringUI {
             return;
         }
         InputUtils inputUtils = new InputUtils();
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
-        if (!(utilsUI.roomSensorListIsValid(room, house))) {
+        RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
+        if (!(utilsUI.roomDTOSensorListIsValid(room, house))) {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }

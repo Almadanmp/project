@@ -31,12 +31,14 @@ public class UtilsUI {
         return !house.isRoomListEmpty();
     }
 
-    boolean roomSensorListIsValid(RoomDTO roomDTO, House house) {
+    boolean roomDTOSensorListIsValid(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
         Room room = mapper.DTOtoRoom(roomDTO, house);
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
-
+    boolean roomSensorListIsValid(Room room){
+        return room.getSensorList() != null && !room.isSensorListEmpty();
+    }
     boolean houseGridListIsValid(House house) {
         return house.getGridList() != null && !house.isEnergyGridListEmpty();
     }
@@ -57,9 +59,13 @@ public class UtilsUI {
         return programList != null && !programList.isEmpty();
     }
 
-    boolean roomDeviceListIsValid(RoomDTO roomDTO, House house) {
+    boolean roomDTODeviceListIsValid(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
         Room room = mapper.DTOtoRoom(roomDTO,house);
+        return room.getDeviceList() != null && !room.isDeviceListEmpty();
+    }
+
+    boolean roomDeviceListIsValid(Room room) {
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 

@@ -41,6 +41,9 @@ public class ReadingList {
      * @return returns reading that corresponds to index.
      */
     public Reading get(int index) {
+        if(this.readings.isEmpty()){
+            throw new IndexOutOfBoundsException("The reading list is empty.");
+        }
         return this.readings.get(index);
     }
 
@@ -108,7 +111,6 @@ public class ReadingList {
         }
         return recentReading;
     }
-
     /**
      * Method that goes through every Reading in the list and
      * returns the most recent reading Date.
@@ -277,7 +279,7 @@ public class ReadingList {
     List<Double> getValuesOfSpecificDayReadings(Date day) {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (int i = 0; i < readings.size(); i++) {
-            if (compareDayMonthAndYearBetweenDates(this.getValueDate(i), day)) {
+            if (compareDayMonthAndYearBetweenDates(this.getValueDate(i),day)) {
                 valueReadingsFromGivenDay.add(this.getValueReading(i));
             }
         }
@@ -320,41 +322,16 @@ public class ReadingList {
     }
 
 
-    /**
-     * Adds all readings of a given ReadingList to target list, rejecting duplicates.
-     *
+    /** Adds all readings of a given ReadingList to target list, rejecting duplicates.
      * @param readingList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
-     **/
-    public ReadingList appendListNoDuplicates(ReadingList readingList) {
+     * **/
+    ReadingList appendListNoDuplicates(ReadingList readingList){
         Reading[] readings = readingList.getElementsAsArray();
-        for (Reading r : readings) {
+        for(Reading r : readings){
             this.addReading(r);
         }
         return this;
-    }
-
-    public ReadingList getReadingsBetweenDates(Date initialDate, Date finalDate) {
-        Reading[] readings = this.getElementsAsArray();
-        ReadingList result = new ReadingList();
-        for (Reading r : readings) {
-            Date readingDate = r.getDate();
-            if (isReadingDateBetweenTwoDates(readingDate, initialDate, finalDate)) {
-                result.addReading(r);
-            }
-        }
-        return result;
-    }
-
-    public Date getLastDayWithLowestValue() {
-        Reading[] readings = this.getElementsAsArray();
-        Date result = this.get(0).getDate();
-        double value = this.get(0).getValue();
-        for (Reading r : readings) {
-            if(r.getValue() <= value && r.getDate().after(result)||r.getDate().equals(result)){
-                result = r.getDate();
-            }
-        } return result;
     }
 
     /**

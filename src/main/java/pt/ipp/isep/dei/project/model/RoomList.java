@@ -159,7 +159,8 @@ public class RoomList {
 
     /**
      * This method goes through every room in list and returns logs contained in interval given.
-     *
+     * @param initialDate  the date of the beginning of the interval
+     * @param finalDate  the date of the emd of the interval
      * @return log list with every log contained in interval given.
      */
     public LogList getLogsInInterval(Date initialDate, Date finalDate) {
@@ -196,6 +197,9 @@ public class RoomList {
      * @return returns room that corresponds to index.
      */
     public Room get(int index) {
+        if(this.rooms.isEmpty()){
+            throw new IndexOutOfBoundsException("The room list is empty.");
+        }
         return this.rooms.get(index);
     }
 
@@ -236,7 +240,7 @@ public class RoomList {
      *
      * @return array of rooms
      */
-    private Room[] getElementsAsArray() {
+    Room[] getElementsAsArray() {
         int sizeOfResultArray = rooms.size();
         Room[] result = new Room[sizeOfResultArray];
         for (int i = 0; i < rooms.size(); i++) {

@@ -33,8 +33,31 @@ public class EnergyGridList {
         return false;
     }
 
-    public EnergyGrid createEnergyGrid(String designation, double maxPower) {
+    /**
+     * This method creates a new EnergyGrid using its constructor.
+     *
+     * @param designation - designation of the to be created EnergyGrid.
+     * @param maxPower    - maximum power of the to be created EnergyGrid.
+     * @return a new EnergyGrid or an existing one if the designation is the same.
+     */
+    EnergyGrid createEnergyGrid(String designation, double maxPower) {
+        for (EnergyGrid e : this.energyGrids) {
+            String name = e.getName();
+            if (name.equals(designation)) {
+                return e;
+            }
+        }
         return new EnergyGrid(designation, maxPower);
+    }
+
+    /**
+     * This method checks if the Energy Grid List already has a given EnergyGrid
+     *
+     * @param energyGrid - given EnergyGrid
+     * @return whether it contains or not (boolean)
+     */
+    public boolean contains(EnergyGrid energyGrid) {
+        return this.energyGrids.contains(energyGrid);
     }
 
     /**
@@ -62,9 +85,17 @@ public class EnergyGridList {
      * @return returns Energy grid that corresponds to index.
      */
     public EnergyGrid get(int index) {
+        if (this.energyGrids.isEmpty()) {
+            throw new IndexOutOfBoundsException("The energy grid list is empty.");
+        }
         return this.energyGrids.get(index);
     }
 
+    /**
+     * Getter (array of energy grids)
+     *
+     * @return array of energy grids
+     */
     public EnergyGrid[] getElementsAsArray() {
         int size = this.size();
         EnergyGrid[] result = new EnergyGrid[size];

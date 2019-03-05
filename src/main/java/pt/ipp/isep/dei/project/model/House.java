@@ -90,7 +90,7 @@ public class House implements Metered {
         return deviceMeteringPeriod;
     }
 
-  public  Local getLocation() {
+    Local getLocation() {
         return location;
     }
 
@@ -100,7 +100,7 @@ public class House implements Metered {
         location.setAltitude(altitude);
     }
 
-    public void setAddress(String street, String zip, String town){
+    public void setAddress(String street, String zip, String town) {
         address.setStreet(street);
         address.setZip(zip);
         address.setTown(town);
@@ -182,7 +182,7 @@ public class House implements Metered {
         SensorList minDistSensors = new SensorList();
         Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         SensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
-        if(!sensorsType.isEmpty()){
+        if (!sensorsType.isEmpty()) {
             double minDist = this.getMinDistanceToSensorOfGivenType(sensorType);
             minDistSensors = sensorsType.getSensorsByDistanceToHouse(this, minDist);
         }
@@ -321,9 +321,13 @@ public class House implements Metered {
     /**
      * This method receives an index as parameter and gets a room from the house's room list.
      *
+     * @param index the Index of the room
      * @return returns room that corresponds to index.
      */
     public Room getRoomByIndex(int index) {
+        if (this.roomList.isEmpty()) {
+            throw new IndexOutOfBoundsException("The room list is empty.");
+        }
         return this.roomList.get(index);
     }
 
@@ -344,15 +348,30 @@ public class House implements Metered {
      * @return returns Energy grid that corresponds to index.
      */
     public EnergyGrid getEnergyGridByIndex(int index) {
+        if (this.energyGridList.isEmpty()) {
+            throw new IndexOutOfBoundsException("The energy grid list is empty.");
+        }
         return this.energyGridList.get(index);
     }
 
-    /** This method gets every device in house. To do this, the method
+    /**
+     * This method gets every device in house. To do this, the method
      * goes through every room in house and gets every device in room.
+     *
      * @return DeviceList with every device in house.
-     * **/
-    public DeviceList getDeviceList(){
+     **/
+    public DeviceList getDeviceList() {
         return this.roomList.getDeviceList();
+    }
+
+    /**
+     * This method call EnergyGridList method which creates an EnergyGrid.
+     * @param designation - EnergyGrid designation
+     * @param maxPower - EnergyGrid Maximum Power
+     * @return a new EnergyGrid or the EnergyGrid with the same designation
+     */
+    public EnergyGrid createEnergyGrid(String designation, double maxPower) {
+        return this.energyGridList.createEnergyGrid(designation, maxPower);
     }
 
     @Override

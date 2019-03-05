@@ -66,6 +66,9 @@ public class GASettingsController {
      * @param typeArea   input string for type area
      * @param width      the length of the GA
      * @param length     the length of the GA
+     * @param longitude  the longitude of the GA
+     * @param latitude   the latitude of the GA
+     * @param altitude   the altitude of the GA
      * @return success if a new GA is added, false otherwise
      */
     public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, double latitude, double longitude, double altitude, double length, double width) {

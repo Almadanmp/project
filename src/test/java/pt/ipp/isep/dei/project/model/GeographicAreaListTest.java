@@ -283,4 +283,74 @@ class GeographicAreaListTest {
         assertTrue(actualResult1);
         assertFalse(actualResult2);
     }
+
+    @Test
+    void getByIndexEmptyGAList() {
+        //Arrange
+
+        GeographicAreaList emptyList = new GeographicAreaList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
+
+        //Assert
+
+        assertEquals("The geographic area list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void ListSize() {
+        //Arrange
+
+        GeographicAreaList emptyList = new GeographicAreaList();
+
+        //Act
+
+        int actualResult1 = emptyList.size();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validList.size();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        GeographicArea[] expectedResult1 = new GeographicArea[0];
+        GeographicArea[] expectedResult2 = new GeographicArea[1];
+        GeographicArea[] expectedResult3 = new GeographicArea[2];
+
+        GeographicAreaList emptyList = new GeographicAreaList();
+        GeographicAreaList twoGeographicAreas = new GeographicAreaList();
+
+        twoGeographicAreas.addGeographicArea(firstValidArea);
+        twoGeographicAreas.addGeographicArea(secondValidArea);
+
+        expectedResult2[0] = firstValidArea;
+        expectedResult3[0] = firstValidArea;
+        expectedResult3[1] = secondValidArea;
+
+        //Act
+
+        GeographicArea[] actualResult1 = emptyList.getElementsAsArray();
+        GeographicArea[] actualResult2 = validList.getElementsAsArray();
+        GeographicArea[] actualResult3 = twoGeographicAreas.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
+    }
+
 }

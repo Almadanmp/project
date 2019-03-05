@@ -252,16 +252,10 @@ class SensorListTest {
         // Arrange
 
         validSensorList = new SensorList();
-        Sensor expectedResult = new Sensor("emptySensor", new TypeSensor("type", " "), new Date());
-
-
-        // Act
-
-        Sensor actualResult = validSensorList.getMostRecentlyUsedSensor();
 
         // Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertThrows(IllegalArgumentException.class, validSensorList::getMostRecentlyUsedSensor);
     }
 
     @Test
@@ -330,13 +324,9 @@ class SensorListTest {
 
     @Test
     void seeIfGetMostRecentlyUsedSensorWorksOneSensorNoReadings() {
-        // Act
-
-        Sensor actualResult = validSensorList.getMostRecentlyUsedSensor();
-
         // Assert
 
-        assertEquals(firstValidSensor, actualResult);
+        assertThrows(IllegalArgumentException.class, validSensorList::getMostRecentlyUsedSensor);
     }
 
     @Test
@@ -359,5 +349,76 @@ class SensorListTest {
         assertTrue(actualResult1);
         assertFalse(actualResult2);
         assertFalse(actualResult3);
+    }
+
+    @Test
+    void getSensorsWithReadings() {
+        // Arrange
+
+        SensorList emptyList = new SensorList();
+        SensorList twoSensorsList = new SensorList();
+
+        Reading readingOne = new Reading(31, new Date());
+        secondValidSensor.addReading(readingOne);
+
+        twoSensorsList.add(firstValidSensor);
+        twoSensorsList.add(secondValidSensor);
+
+        SensorList expectedResult1 = new SensorList();
+        expectedResult1.add(secondValidSensor);
+
+        // Act
+
+        SensorList actualResult1 = twoSensorsList.getSensorsWithReadings();
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class, emptyList::getSensorsWithReadings);
+        assertEquals(expectedResult1, actualResult1);
+    }
+
+    @Test
+    void getByIndexEmptySensorList() {
+        //Arrange
+
+        SensorList emptyList = new SensorList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
+
+        //Assert
+
+        assertEquals("The sensor list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        Sensor[] expectedResult1 = new Sensor[0];
+        Sensor[] expectedResult2 = new Sensor[1];
+        Sensor[] expectedResult3 = new Sensor[2];
+
+        SensorList emptySensorList = new SensorList();
+        SensorList validSensorList2 = new SensorList();
+        validSensorList2.add(firstValidSensor);
+        validSensorList2.add(secondValidSensor);
+
+        expectedResult2[0] = firstValidSensor;
+        expectedResult3[0] = firstValidSensor;
+        expectedResult3[1] = secondValidSensor;
+
+        //Act
+
+        Sensor[] actualResult1 = emptySensorList.getElementsAsArray();
+        Sensor[] actualResult2 = validSensorList.getElementsAsArray();
+        Sensor[] actualResult3 = validSensorList2.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
     }
 }

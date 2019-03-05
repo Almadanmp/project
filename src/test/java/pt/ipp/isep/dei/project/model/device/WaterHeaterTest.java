@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -428,6 +429,34 @@ public class WaterHeaterTest {
         double expectedResult = 0;
         double result = d.getEnergyConsumption(0);
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void isLogListEmpty() {
+        //Arrange
+
+        WaterHeater waterHeater = new WaterHeater(new WaterHeaterSpec());
+
+        //Act
+
+        boolean actualResult1 = waterHeater.isLogListEmpty();
+
+        //Assert
+
+        assertTrue(actualResult1);
+
+        //Arrange To Add Log
+
+        Log log = new Log(20, new Date(), new Date());
+        waterHeater.addLog(log);
+
+        //Act
+
+        boolean actualResult2 = waterHeater.isLogListEmpty();
+
+        //Assert
+
+        assertFalse(actualResult2);
     }
 
 

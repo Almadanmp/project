@@ -3,6 +3,10 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testng.Assert.*;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -123,6 +127,37 @@ class EnergyGridListTest {
         assertFalse(actualResult3);
     }
 
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        EnergyGrid[] expectedResult1 = new EnergyGrid[0];
+        EnergyGrid[] expectedResult2 = new EnergyGrid[1];
+        EnergyGrid[] expectedResult3 = new EnergyGrid[2];
+
+        EnergyGridList emptyList = new EnergyGridList();
+        validGridList.addGrid(firstValidGrid);
+        EnergyGridList validEnergyGridList2 = new EnergyGridList();
+        validEnergyGridList2.addGrid(firstValidGrid);
+        validEnergyGridList2.addGrid(secondValidGrid);
+
+        expectedResult2[0] = firstValidGrid;
+        expectedResult3[0] = firstValidGrid;
+        expectedResult3[1] = secondValidGrid;
+
+        //Act
+
+        EnergyGrid[] actualResult1 = emptyList.getElementsAsArray();
+        EnergyGrid[] actualResult2 = validGridList.getElementsAsArray();
+        EnergyGrid[] actualResult3 = validEnergyGridList2.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
+    }
+
 
     @Test
     void seeIfEqualsDifferentObjectWorks() {
@@ -151,6 +186,40 @@ class EnergyGridListTest {
 
         assertEquals(firstValidGrid, actualResult1);
         assertEquals(secondValidGrid, actualResult2);
+    }
+    @Test
+    void getByIndexEmptyGridList() {
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validGridList.get(0));
+
+        //Assert
+
+        assertEquals("The energy grid list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void gridListSize() {
+        //Act
+
+        int actualResult1 = validGridList.size();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Arrange
+
+        validGridList.addGrid(new EnergyGrid("grid", 200));
+
+        //Act
+
+        int actualResult2 = validGridList.size();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
     }
 
     @Test

@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.device.program;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.TypeSensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,18 +11,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
- class VariableProgramTest {
+/**
+ * VariableTimeProgram test class.
+ */
+class VariableProgramTest {
+
+    // Common artifacts for testing in this class.
     private VariableTimeProgram program;
+    private VariableTimeProgram validVariableTimeProgram; // A variable time program named "Medium Power" running at 1200 Watt.
+    private VariableTimeProgram validVariableTimeProgram2; // A variable time program named "Max Power" running at 1200 Watt.
 
     @BeforeEach
-    void arrangeArtifacts(){
-        program = new VariableTimeProgram("program1",125);
+    void arrangeArtifacts() {
+        program = new VariableTimeProgram("program1", 125);
         program.setAttributeValue(VariableTimeProgram.NOMINAL_POWER, 5D);
-
+        validVariableTimeProgram = new VariableTimeProgram("Medium Power", 1.2);
+        validVariableTimeProgram2 = new VariableTimeProgram("Mex Power", 1.8);
     }
 
     @Test
-     void seeIfSetProgramName() {
+    void seeIfSetProgramName() {
         program.setProgramName("programa2");
         String expectedResult = "programa2";
         String result = program.getProgramName();
@@ -29,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     }
 
     @Test
-     void seeIfTestSetDuration() {
+    void seeIfTestSetDuration() {
         program.setNominalPower(4);
         double expectedResult = 4;
         double result = program.getNominalPower();
@@ -37,7 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     }
 
     @Test
-     void seeIfTestSetEnergyConsumption() {
+    void seeIfTestSetEnergyConsumption() {
         double expectedResult = 20.0;
         double result = program.getEnergyConsumption(4);
         assertEquals(expectedResult, result);
@@ -153,4 +162,63 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         assertEquals(false, program.getAttributeUnit(""));
     }
 
+    @Test
+    public void hashCodeDummyTest() {
+        //Arrange
+        int expectedResult = 1;
+
+        // Act
+        int actualResult = validVariableTimeProgram.hashCode();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfEqualsProgramObject() {
+        //Arrange
+        Program variableProgram = new VariableTimeProgram("Program", 1.2);
+        variableProgram.setProgramName("Medium Power");
+
+        //Assert
+        assertTrue(variableProgram.equals(validVariableTimeProgram));
+    }
+
+    @Test
+    void seeIfEqualsFailsProgramObject() {
+        //Arrange
+        Program variableProgram = new VariableTimeProgram("Program", 1.2);
+        variableProgram.setProgramName("Medium Power 2");
+
+        //Assert
+        assertFalse(variableProgram.equals(validVariableTimeProgram));
+    }
+
+    @Test
+    void seeIfEqualsFailsNullObject() {
+        //Arrange
+        Object obj = null;
+        VariableTimeProgram micro = null;
+
+        // Act
+        //Assert
+        assertFalse(validVariableTimeProgram.equals(obj));
+        assertFalse(validVariableTimeProgram.equals(micro));
+    }
+
+    @Test
+    void seeIfEqualsFailsDifferentObject() {
+        //Arrange
+        // Act
+        //Assert
+        assertFalse(validVariableTimeProgram.equals(new TypeSensor("Rain", "mm")));
+    }
+
+    @Test
+    void seeIfEqualsWorks() {
+        //Arrange
+        // Act
+        //Assert
+        assertTrue(validVariableTimeProgram.equals(validVariableTimeProgram));
+    }
 }

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
@@ -397,6 +398,35 @@ public class DishwasherTest {
         double expectedResult = 0;
         double result = d.getEnergyConsumption(0);
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void isLogListEmpty() {
+        //Arrange
+
+        Dishwasher dishwasher = new Dishwasher(new DishwasherSpec());
+
+
+        //Act
+
+        boolean actualResult1 = dishwasher.isLogListEmpty();
+
+        //Assert
+
+        Assertions.assertTrue(actualResult1);
+
+        //Arrange To Add Log
+
+        Log log = new Log(20, new Date(), new Date());
+        dishwasher.addLog(log);
+
+        //Act
+
+        boolean actualResult2 = dishwasher.isLogListEmpty();
+
+        //Assert
+
+        Assertions.assertFalse(actualResult2);
     }
 
     @Test

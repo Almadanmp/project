@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
@@ -16,135 +17,178 @@ import static org.testng.Assert.assertTrue;
  */
 
 class DishwasherSpecTest {
+    private DishwasherSpec dishwasherSpec;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        dishwasherSpec = new DishwasherSpec();
+    }
 
     @Test
-    void seeIfGetAttributeNamesTestWorks() {
-        FixedTimeProgram program1 = new FixedTimeProgram("programa", 2, 2);
+    void seeIfGetAttributeNames() {
+        // Arrange
+
+        FixedTimeProgram program1 = new FixedTimeProgram("program", 2, 2);
         ProgramList listProgram = new ProgramList();
         listProgram.addProgram(program1);
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add(DishwasherSpec.DW_CAPACITY);
+
+        // Act
+
         List<String> result = dishwasherSpec.getAttributeNames();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAttributeValuesTestCapacityWorks() {
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+    void seeIfGetAttributeValuesCapacity() {
+        // Arrange
+
         dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        Double expectedResult = 1.0;
+        double expectedResult = 1.0;
+
+        // Act
+
         Object result = dishwasherSpec.getAttributeValue("Capacity");
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAttributeValuesTestCapacityWorksFalse() {
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+    void seeIfGetAttributeValuesCapacityFails() {
+        // Arrange
+
         dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        Double expectedResult = 1.0;
+        double expectedResult = 1.0;
+
+        // Act
+
         Object result = dishwasherSpec.getAttributeValue("Capacity");
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAttributeValuesTestReturn0Works() {
-        //Arrange
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+    void seeIfGetAttributeValuesNonExistent() {
+        // Arrange
+
         dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        //Act
+
+        // Act
+
         int expectedResult = 0;
-        Object actualResult = dishwasherSpec.getAttributeValue("cenas");
+        Object actualResult = dishwasherSpec.getAttributeValue("Anything");
+
         //Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void setAttributeValueTest() {
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+    void setAttributeValueFalse() {
+        // Arrange
+
         dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        boolean result = dishwasherSpec.setAttributeValue("lisboa", 12);
-        assertEquals(false, result);
+
+        // Act
+
+        boolean result = dishwasherSpec.setAttributeValue("EnergyGrid", 12);
+
+        // Assert
+
+        assertFalse(result);
     }
 
     @Test
-    void seeIfSetAttributeValueTestTrueWorks() {
-        //Arrange
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+    void seeIfSetAttributeValue() {
+        // Arrange
+
         dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
+
         //Act
+
         boolean actualResult = dishwasherSpec.setAttributeValue("Capacity", 12.0);
+
         //Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void getAttributeUnitTest() {
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+    void seeIfGetAttributeUnit() {
+        // Arrange
+
         dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 5D);
         String expectedResult = "Kg";
+
+        // Act
+
         Object result = dishwasherSpec.getAttributeUnit("Capacity");
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
-
     @Test
-    void setAttributeValueTestCapacity() {
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
-        dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        dishwasherSpec.setAttributeValue("Capacity", 5.0);
-        Object result = dishwasherSpec.getAttributeValue("Capacity");
-        assertEquals(5.0, result);
-    }
+    void seeIfSetAttributeValueCapacityFalse() {
+        // Arrange
 
-    @Test
-    void setAttributeValueTestDefault() {
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
         dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        dishwasherSpec.setAttributeValue("Capacity", 5.0);
-        Object result = dishwasherSpec.getAttributeValue("lisbon");
-        assertEquals(0, result);
-    }
 
-    @Test
-    void setAttributeValueTestFalseAgain() {
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
-        dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
+        // Act
+
         Object result = dishwasherSpec.setAttributeValue("Capacity", 5);
+
+        // Assert
+
         assertEquals(false, result);
     }
 
-
     @Test
-    void testSetAttributeValueCoveringAllCases() {
-        //Arrange
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
-        Double attribute = 6.0;
-        // original strings:
-        assertTrue(dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, attribute));
-        // same hash codes, but different strings:
-        assertFalse(dishwasherSpec.setAttributeValue("notCAPACITY", attribute));
-        // distinct hash code to cover default cases of switches
-        assertFalse(dishwasherSpec.setAttributeValue("", attribute));
+    void seeIfSetAttributeValueCoveringAllCases() {
+        // Arrange
+
+        double attribute = 6.0;
+
+        // Assert
+
+        assertTrue(dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, attribute)); // original strings:
+        assertFalse(dishwasherSpec.setAttributeValue("notCAPACITY", attribute)); // same hash codes, but different strings:
+        assertFalse(dishwasherSpec.setAttributeValue("", attribute)); // distinct hash code to cover default cases of switches
     }
 
     @Test
-    void seeIfGetAttributeUnitWorksInAllCases() {
-        //Arrange
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+    void seeIfGetAttributeUnitAllCases() {
+        // Arrange
+
         String attributeKg = "Kg";
-        // original strings:
-        assertEquals(attributeKg, dishwasherSpec.getAttributeUnit(DishwasherSpec.DW_CAPACITY));
-        // same hash codes, but different strings:
-        assertEquals(0, dishwasherSpec.getAttributeUnit("notCAPACITY"));
-        // distinct hash code to cover default cases of switches
-        assertEquals(0, dishwasherSpec.getAttributeUnit(""));
+
+        // Assert
+
+        assertEquals(attributeKg, dishwasherSpec.getAttributeUnit(DishwasherSpec.DW_CAPACITY)); // original strings:
+        assertEquals(0, dishwasherSpec.getAttributeUnit("notCAPACITY")); // same hash codes, but different strings:
+        assertEquals(0, dishwasherSpec.getAttributeUnit("")); // distinct hash code to cover default cases of switches
     }
 
     @Test
-    void setAttributeValueTestNull() {
-        DishwasherSpec dishwasherSpec = new DishwasherSpec();
+    void setAttributeValueNull() {
+        // Arrange
+
         dishwasherSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
+
+        // Act
+
         boolean result = dishwasherSpec.setAttributeValue(null, 3D);
-        assertEquals(false, result);
+
+        // Assert
+
+        assertFalse(result);
     }
 }

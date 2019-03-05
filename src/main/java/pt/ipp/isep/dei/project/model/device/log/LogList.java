@@ -26,7 +26,7 @@ public class LogList {
      *
      * @return array of Logs
      */
-    public Log[] getLogs() {
+    public Log[] getElementsAsArray() {
         int sizeOfResultArray = logs.size();
         Log[] result = new Log[sizeOfResultArray];
         for (int i = 0; i < logs.size(); i++) {
@@ -173,7 +173,7 @@ public class LogList {
             return false;
         }
         LogList list = (LogList) testObject;
-        return Arrays.equals(this.getLogs(), list.getLogs());
+        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 
     @Override

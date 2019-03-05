@@ -8,8 +8,9 @@ public interface Program {
      * Represents a program option for devices.
      * A programmable device implements a number of different programs. Types of programs may vary from device to
      * device.
+     *
+     * @return a built String.
      */
-
     String buildString();
 
     void setProgramName(String name);
@@ -24,7 +25,6 @@ public interface Program {
     Object getAttributeUnit(String attributeName);
 
     Object getAttributeValue(String attributeName);
-
 
 
 }

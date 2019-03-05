@@ -58,7 +58,7 @@ public class EnergyGridSettingsController {
      * @return a new EnergyGrid.
      */
     public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower) {
-        return programHouse.getGridList().createEnergyGrid(designation, maxPower);
+        return programHouse.createEnergyGrid(designation, maxPower);
     }
 
     /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced
@@ -89,8 +89,11 @@ public class EnergyGridSettingsController {
     energy consumption is included in that grid. MIGUEL ORTIGAO*/
 
     /**
-     * @param grid is the grid we're going to add a room to.
+     * Adds a room to an Energy grid
+     *
+     * @param grid    is the grid we're going to add a room to.
      * @param roomDTO is the room we're going to add to a grid.
+     * @param house   the project's house.
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */
 

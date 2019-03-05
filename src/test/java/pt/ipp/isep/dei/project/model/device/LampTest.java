@@ -411,4 +411,32 @@ import static org.testng.Assert.assertTrue;
         Assertions.assertFalse(lamp.setAttributeValue("", attribute));
     }
 
+    @Test
+    void isLogListEmpty() {
+        //Arrange
+
+        Lamp lamp = new Lamp(new LampSpec());
+
+        //Act
+
+        boolean actualResult1 = lamp.isLogListEmpty();
+
+        //Assert
+
+        assertTrue(actualResult1);
+
+        //Arrange To Add Log
+
+        Log log = new Log(20, new Date(), new Date());
+        lamp.addLog(log);
+
+        //Act
+
+        boolean actualResult2 = lamp.isLogListEmpty();
+
+        //Assert
+
+        assertFalse(actualResult2);
+    }
+
 }

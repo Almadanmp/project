@@ -15,7 +15,12 @@ public class HouseConfigurationController {
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
-     * @param house is the house we're going to set the address of.
+     * Sets the address of a given House.
+     *
+     * @param street the house's street.
+     * @param town   The house's town.
+     * @param zip    The house's zip code.
+     * @param house  is the house we're going to set the address of.
      */
 
     public void setHouseAddress(String street, String zip, String town, House house) {
@@ -65,6 +70,8 @@ public class HouseConfigurationController {
     /**
      * The method receives a house and a roomDTO, transforms it into a room, and tries to add it to house.
      *
+     * @param house the project House.
+     * @param room  the DTO of a Room.
      * @return true if room was added, false otherwise.
      **/
     public boolean addRoomToHouse(House house, RoomDTO room) {

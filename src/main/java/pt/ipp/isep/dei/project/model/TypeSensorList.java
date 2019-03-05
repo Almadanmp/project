@@ -39,6 +39,9 @@ public class TypeSensorList {
      * @return returns Type Sensor that corresponds to index.
      */
     public TypeSensor get(int index) {
+        if(this.typeSensors.isEmpty()){
+            throw new IndexOutOfBoundsException("The type sensor list is empty.");
+        }
         return this.typeSensors.get(index);
     }
 

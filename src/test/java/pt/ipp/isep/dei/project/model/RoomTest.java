@@ -595,6 +595,44 @@ class RoomTest {
     }
 
     @Test
+    void getByIndexWithEmptyDeviceList() {
+        //Arrange
+
+        Room noDevicesRoom = new Room("noDevices", 3,24,25,3);
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> noDevicesRoom.getDeviceByIndex(0));
+
+        //Assert
+
+        assertEquals("The device list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void deviceListSize() {
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+
+        //Act
+
+        int actualResult1 = emptyDeviceList.getDeviceListSize();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validRoom.getDeviceListSize();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         // Arrange
 

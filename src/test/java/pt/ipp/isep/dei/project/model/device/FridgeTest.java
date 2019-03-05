@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
@@ -380,6 +381,35 @@ class FridgeTest {
         LogList actualResult = device.getLogsInInterval(initialTime, finalTime);
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void isLogListEmpty() {
+        //Arrange
+
+        Fridge fridge = new Fridge(new FridgeSpec());
+
+
+        //Act
+
+        boolean actualResult1 = fridge.isLogListEmpty();
+
+        //Assert
+
+        Assertions.assertTrue(actualResult1);
+
+        //Arrange To Add Log
+
+        Log log = new Log(20, new Date(), new Date());
+        fridge.addLog(log);
+
+        //Act
+
+        boolean actualResult2 = fridge.isLogListEmpty();
+
+        //Assert
+
+        Assertions.assertFalse(actualResult2);
     }
 
     @Test

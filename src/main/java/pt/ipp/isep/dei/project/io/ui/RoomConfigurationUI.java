@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
@@ -91,18 +90,18 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room, house)) {
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        printRoomDeviceList(room, house);
+        printRoomDeviceList(room);
     }
 
-    private void printRoomDeviceList(RoomDTO room, House house) {
+    private void printRoomDeviceList(Room room) {
         System.out.println("Available Devices in Room " + room.getRoomName());
         System.out.println("Please select one of the existing Devices in the selected Room: ");
-        System.out.println(controller.buildDeviceListString(room, house));
+        System.out.println(controller.buildDeviceListString(room));
     }
 
     /**
@@ -117,13 +116,13 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
+        Room room = inputUtils.getHouseRoomByList(house);
         DeviceType deviceType = inputUtils.getInputDeviceTypeByList(house);
-        createDevice(house, room, deviceType);
+        createDevice(room, deviceType);
     }
 
 
-    private void createDevice(House house, RoomDTO room, DeviceType deviceType) {
+    private void createDevice(Room room, DeviceType deviceType) {
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
         // get device name
@@ -140,11 +139,10 @@ class RoomConfigurationUI {
             controller.setAttributeValue(device, deviceAttributes.get(i), value);
         }
         System.out.println("Please insert nominal power: ");
-        //controller.setNominalPowerDevice(device,inputUtils.getInputAsDoubleZeroOrPositive());
-        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoublePositive());
+        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoubleZeroOrPositive());
 
         createProgram(device);
-        if (controller.addDevice(house, room, device)) {
+        if (controller.addDevice(room, device)) {
             System.out.println("You have successfully created a " + controller.getType(device) + " with the name " + deviceName + ". \n");
         } else {
             System.out.println("Device already exists in the room. Please, try again.\n");
@@ -176,18 +174,18 @@ class RoomConfigurationUI {
     private void runUS215(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room, house)) {
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(room, house);
+        Device device = inputUtils.getInputRoomDevicesByList(room);
         getInputDeviceCharacteristicsUS215(device, room, house);
     }
 
     //* gets the input of the new device name, room, attributes and nominal power. If the device is programmable,
     // it shows the list of programs, and allows for the user to choose one or more to edit.
-    private void getInputDeviceCharacteristicsUS215(Device device, RoomDTO room, House house) {
+    private void getInputDeviceCharacteristicsUS215(Device device, Room room, House house) {
         Scanner scanner = new Scanner(System.in);
 
         // get device name
@@ -195,11 +193,11 @@ class RoomConfigurationUI {
         String deviceName = scanner.nextLine();
         controller.setDeviceName(deviceName,device);
         //get room
-        controller.removeDevice(house,room, device);
+        controller.removeDevice(room, device);
         InputUtils inputUtils = new InputUtils();
-        RoomDTO room1;
+        Room room1;
         room1 = inputUtils.getHouseRoomByList(house);
-        controller.addDevice(house, room1, device);
+        controller.addDevice(room1, device);
         List<String> attributeNames = controller.getAttributeNames(device);
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + attributeNames.get(i)
@@ -208,7 +206,7 @@ class RoomConfigurationUI {
             controller.setAttributeValue(device, attributeNames.get(i), value);
         }
         System.out.println("Please insert the value for: Nominal Power (kW)");
-        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoublePositive());
+        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoubleZeroOrPositive());
         if (device instanceof Programmable) {
             UtilsUI utilsUI = new UtilsUI();
             System.out.println("This device is programmable.");
@@ -238,7 +236,7 @@ class RoomConfigurationUI {
 
     // US215 As an Administrator, I want to edit the configuration of an existing device, so that I can reconfigure it - CARINA ALAS
     // displays final string to the user.
-    private void displayDeviceUS215(Device device, RoomDTO room, String deviceName) {
+    private void displayDeviceUS215(Device device, Room room, String deviceName) {
         List<String> attributeNames = controller.getAttributeNames(device);
         System.out.println("\nYou have successfully changed the device name to " + deviceName + "." +
                 "\nThe room is " + room.getRoomName() + "\n");
@@ -329,12 +327,12 @@ class RoomConfigurationUI {
     private void runUS222(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room,house)) {
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(room,house);
+        Device device = inputUtils.getInputRoomDevicesByList(room);
         updateStateUS222(device);
     }
 
@@ -353,12 +351,12 @@ class RoomConfigurationUI {
      **/
     private void runUS230(House house) {
         InputUtils inputUtils = new InputUtils();
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
-        getRoomNominalPower(room, house);
+        Room room = inputUtils.getHouseRoomByList(house);
+        getRoomNominalPower(room);
     }
 
-    private void getRoomNominalPower(RoomDTO room, House house) {
-        double roomNominalPower =controller.getRoomNominalPower(room, house);
+    private void getRoomNominalPower(Room room) {
+        double roomNominalPower =controller.getRoomNominalPower(room);
         System.out.println("This room has a total nominal power of " + roomNominalPower + " kW.\nThis results " +
                 "from the sum of the nominal power of all devices in the room.");
     }
@@ -367,17 +365,17 @@ class RoomConfigurationUI {
     MIGUEL ORTIGAO*/
     private void runUS250(House house) {
         InputUtils inputUtils = new InputUtils();
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
-        displaySensorListUS250(room, house);
+        Room room = inputUtils.getHouseRoomByList(house);
+        displaySensorListUS250(room);
     }
 
-    private void displaySensorListUS250(RoomDTO room, House house) {
+    private void displaySensorListUS250(Room room) {
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.roomSensorListIsValid(room, house)) {
+        if (!utilsUI.roomSensorListIsValid(room)) {
             System.out.println(utilsUI.invalidSensorList);
             return;
         }
-        SensorList sensorList = controller.getRoomSensorList(room, house);
+        SensorList sensorList = room.getSensorList();
         System.out.println(controller.buildSensorListString(sensorList));
     }
 
@@ -395,12 +393,12 @@ class RoomConfigurationUI {
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
+        Room room = inputUtils.getHouseRoomByList(house);
         TypeSensor typeSensor = inputUtils.getInputSensorTypeByList(typeSensorList);
-        getInput253(house,room, typeSensor);
+        getInput253(room, typeSensor);
     }
 
-    private void getInput253(House house, RoomDTO room, TypeSensor typeSensor) {
+    private void getInput253(Room room, TypeSensor typeSensor) {
         Scanner input = new Scanner(System.in);
         // Name Getter
         System.out.println("\nEnter Sensor Name:\t");
@@ -429,15 +427,15 @@ class RoomConfigurationUI {
         }
         int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
-        updateAndDisplay253(typeSensor, room, dateYear, dateMonth, dateDay, sensorName, house);
+        updateAndDisplay253(typeSensor, room, dateYear, dateMonth, dateDay, sensorName);
 
     }
 
-    private void updateAndDisplay253(TypeSensor typeSensor, RoomDTO room, int dateYear, int dateMonth, int dateDay, String sensorName, House house) {
+    private void updateAndDisplay253(TypeSensor typeSensor, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
         SensorSettingsController sensorSettingsController = new SensorSettingsController();
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
         Sensor mSensor = sensorSettingsController.createRoomSensor(sensorName, typeSensor, mDate);
-        if (controller.addSensorToRoom(mSensor,room,house)) {
+        if (controller.addSensorToRoom(mSensor,room)) {
             System.out.println("\nSensor successfully added to the Room " + room.getRoomName());
         } else System.out.println("\nSensor already exists in the room.");
     }
@@ -449,21 +447,21 @@ class RoomConfigurationUI {
     private void runUS220(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        RoomDTO room = inputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room,house)) {
+        Room room = inputUtils.getHouseRoomByList(house);
+        if (!utilsUI.roomDeviceListIsValid(room)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDevicesByList(room,house);
-        removeDeviceUS220(device, room, house);
+        Device device = inputUtils.getInputRoomDevicesByList(room);
+        removeDeviceUS220(device, room);
     }
 
-    private void removeDeviceUS220(Device device, RoomDTO room, House house) {
+    private void removeDeviceUS220(Device device, Room room) {
         if (device == null || room == null) {
             System.out.println("There are no devices in this room.");
             return;
         }
-        controller.removeDevice(house,room, device);
+        controller.removeDevice(room, device);
         System.out.println("The device " + device.getName() + " on room " + room.getRoomName() + " has ceased to be.");
     }
 
@@ -482,4 +480,3 @@ class RoomConfigurationUI {
         System.out.println("0) (Return to main menu)\n");
     }
 }
-

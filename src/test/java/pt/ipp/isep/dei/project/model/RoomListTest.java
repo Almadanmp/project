@@ -7,8 +7,8 @@ import org.testng.Assert;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -151,6 +151,73 @@ class RoomListTest {
         assertFalse(actualResult1);
         assertTrue(actualResult2);
         assertFalse(actualResult3);
+    }
+
+    @Test
+    void getByIndexEmptyRoomList() {
+        //Arrange
+
+        RoomList emptyRoomList = new RoomList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyRoomList.get(0));
+
+        //Assert
+
+        assertEquals("The room list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void ListSize() {
+        //Arrange
+
+        RoomList emptyRoomList = new RoomList();
+
+        //Act
+
+        int actualResult1 = emptyRoomList.size();
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validRoomList.size();
+
+        //Assert One Grid
+
+        Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        Room[] expectedResult1 = new Room[0];
+        Room[] expectedResult2 = new Room[1];
+        Room[] expectedResult3 = new Room[2];
+
+        RoomList validRoomList2 = new RoomList();
+        validRoomList2.add(validRoomKitchen);
+        validRoomList2.add(new Room("room", 2, 20, 20, 3));
+
+        expectedResult2[0] = validRoomKitchen;
+        expectedResult3[0] = validRoomKitchen;
+        expectedResult3[1] = new Room("room", 2, 20, 20, 3);
+
+        //Act
+
+        Room[] actualResult1 = emptyRoomList.getElementsAsArray();
+        Room[] actualResult2 = validRoomList.getElementsAsArray();
+        Room[] actualResult3 = validRoomList2.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
     }
 
     @Test

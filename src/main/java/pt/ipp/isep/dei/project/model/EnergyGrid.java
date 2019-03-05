@@ -82,8 +82,9 @@ public class EnergyGrid implements Metered {
      * @param roomList List of rooms in the energy grid.
      */
     public void setRoomList(RoomList roomList) {
-        if(roomList != null){
-        this.roomList = roomList;}
+        if (roomList != null) {
+            this.roomList = roomList;
+        }
     }
 
     /**
@@ -121,6 +122,7 @@ public class EnergyGrid implements Metered {
     /**
      * This method receives an index as parameter and gets a room from energy grid's room list.
      *
+     * @param index the index of the Room.
      * @return returns room that corresponds to index.
      */
     public Room getRoom(int index) {
@@ -150,10 +152,14 @@ public class EnergyGrid implements Metered {
     /**
      * This method receives an index as parameter and gets a device from energy grid's device list.
      *
+     * @param index the index of the device
      * @return returns device that corresponds to index.
      */
     public Device getDeviceByIndex(int index) {
         DeviceList deviceList = this.getDeviceList();
+        if(deviceList.isEmpty()){
+            throw new IndexOutOfBoundsException("The device list is empty.");
+        }
         return deviceList.get(index);
     }
 
@@ -192,6 +198,7 @@ public class EnergyGrid implements Metered {
 
     /**
      * Creates a String with the device index, device type, device name and the room in which the device is contained.
+     *
      * @param house the house that contains the device types.
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
@@ -205,7 +212,6 @@ public class EnergyGrid implements Metered {
         result.append(stringSpacer);
         return result.toString();
     }
-
 
 
     /**
@@ -223,6 +229,8 @@ public class EnergyGrid implements Metered {
     /**
      * This method goes through every room in list and returns logs contained in interval given.
      *
+     * @param startDate the initial date of the interval
+     * @param endDate   the final date of the interval
      * @return log list with every log contained in interval given.
      */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
@@ -257,8 +265,15 @@ public class EnergyGrid implements Metered {
     }
 
     /**
-     * This method creates a power source **/
-    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){
+     * This method creates a power source
+     *
+     * @param name             the name of the power source to be created
+     * @param maxEnergyStorage the maximum storable energy for the power source
+     * @param maxPowerOutput   the maximum power for the power source
+     * @return creates a new power source.
+     **/
+
+    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
         return this.listPowerSources.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 

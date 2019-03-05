@@ -535,4 +535,6 @@ class GASettingsControllerTest {
 
         assertEquals(actualResult, "Portugal");
     }
+
+
 }

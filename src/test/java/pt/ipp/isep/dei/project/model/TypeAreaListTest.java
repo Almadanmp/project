@@ -2,7 +2,9 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -237,6 +239,54 @@ class TypeAreaListTest {
 
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getByIndexEmptyTypeAreaList() {
+        //Arrange
+
+        TypeAreaList emptyList = new TypeAreaList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
+
+        //Assert
+
+        assertEquals("The type area list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void getElementsAsArray() {
+        //Arrange
+
+        TypeArea[] expectedResult1 = new TypeArea[0];
+        TypeArea[] expectedResult2 = new TypeArea[1];
+        TypeArea[] expectedResult3 = new TypeArea[2];
+
+        TypeAreaList emptyList = new TypeAreaList();
+        TypeAreaList oneTypeArea = new TypeAreaList();
+        TypeAreaList twoTypeArea = new TypeAreaList();
+
+        oneTypeArea.addTypeArea(new TypeArea("typeArea1"));
+        twoTypeArea.addTypeArea(new TypeArea("typeArea1"));
+        twoTypeArea.addTypeArea(new TypeArea("typeArea2"));
+
+        expectedResult2[0] = new TypeArea("typeArea1");
+        expectedResult3[0] = new TypeArea("typeArea1");
+        expectedResult3[1] = new TypeArea("typeArea2");
+
+        //Act
+
+        TypeArea[] actualResult1 = emptyList.getElementsAsArray();
+        TypeArea[] actualResult2 = oneTypeArea.getElementsAsArray();
+        TypeArea[] actualResult3 = twoTypeArea.getElementsAsArray();
+
+        //Assert
+
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
     }
 
 }

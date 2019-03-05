@@ -90,6 +90,9 @@ public class TypeAreaList {
      * @return returns Type Area that corresponds to index.
      */
     public TypeArea get(int index) {
+        if(this.typeAreas.isEmpty()){
+            throw new IndexOutOfBoundsException("The type area list is empty.");
+        }
         return this.typeAreas.get(index);
     }
 
@@ -98,7 +101,7 @@ public class TypeAreaList {
      *
      * @return array of Type Areas
      */
-    private TypeArea[] getElementsAsArray() {
+    TypeArea[] getElementsAsArray() {
         int sizeOfResultArray = typeAreas.size();
         TypeArea[] result = new TypeArea[sizeOfResultArray];
         for (int i = 0; i < typeAreas.size(); i++) {
