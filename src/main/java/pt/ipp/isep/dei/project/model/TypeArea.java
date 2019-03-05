@@ -33,7 +33,7 @@ public class TypeArea {
      * @param name input name to be set as the type area name
      */
     void setName(String name) {
-        if (isNameValid(name)) {
+        if (isValid(name)) {
             this.name = name;
             return;
         }
@@ -41,12 +41,13 @@ public class TypeArea {
     }
 
     /**
-     * Method to restrain input name so they cant be null or empty
+     * Method to check if the present type area is valid, that is, if its name is within acceptable parameters.
      *
-     * @param name name inserted by user
-     * @return will return true if the name is valid or it will throw an exception if Invalid
+     * @param name the name of the Type of Geographic Area.
+     * @return is true if the name of the Type is valid, throws an exception if not.
      */
-    boolean isNameValid(String name) {
+
+    boolean isValid(String name) {
         if (name != null && !name.isEmpty() && !name.matches(".*\\d+.*")) {
             return true;
         }
