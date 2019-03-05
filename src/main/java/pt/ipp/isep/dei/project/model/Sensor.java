@@ -132,7 +132,7 @@ public class Sensor {
      * @param readingList is the readingList we want to set to the sensor.
      */
     public void setReadingList(ReadingList readingList) {
-        if(readingList != null) {
+        if (readingList != null) {
             this.readingList = readingList;
         }
     }
@@ -167,7 +167,7 @@ public class Sensor {
      * @param area is the area we want to check if the sensor is in.
      * @return true if the sensor is in the given area, false otherwise.
      */
-    boolean isSensorContainedInArea(GeographicArea area) {
+    boolean isContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
         Local local = area.getLocal();
@@ -196,62 +196,75 @@ public class Sensor {
      * @return returns a string with Sensor Parameters
      */
     public String buildString() {
+        if (this.getLocal() == null) {
+            return this.name + ", " + this.typeSensor.getName() + ". ";
+        }
         String result;
         result = this.name + ", " + this.typeSensor.getName() + ", " +
                 this.local.getLatitude() + "º lat, " + this.local.getLongitude() + "º long\n";
         return result;
     }
 
-    /**This method goes through the sensor reading list and return
+    /**
+     * This method goes through the sensor reading list and return
      * the most recent reading date.
+     *
      * @return most recent reading date in sensor
-     * **/
+     **/
 
-    Date getMostRecentReadingDate(){
+    Date getMostRecentReadingDate() {
         return this.readingList.getMostRecentReadingDate();
     }
 
-    /**This method returns the sensor type name.
+    /**
+     * This method returns the sensor type name.
+     *
      * @return he sensor type name.
-     * **/
+     **/
 
-    String getSensorTypeName(){
+    String getSensorTypeName() {
         return this.typeSensor.getName();
     }
 
-    /** This method checks if the sensor's reading list is valid.
+    /**
+     * This method checks if the sensor's reading list is valid.
      *
      * @return true if valid, false if invalid.
-     * **/
-    public boolean isReadingListEmpty(){
+     **/
+    public boolean isReadingListEmpty() {
         return this.readingList.isEmpty();
     }
 
-    /** This method receives an interval, goes through the sensor's reading list and returns the
+    /**
+     * This method receives an interval, goes through the sensor's reading list and returns the
      * average reading values between the interval given.
+     *
      * @param initialDate start of interval
-     * @param endDate end of interval
+     * @param endDate     end of interval
      * @return average reading value between interval
      ***/
-    public double getAverageReadingsBetweenDates(Date initialDate, Date endDate){
+    public double getAverageReadingsBetweenDates(Date initialDate, Date endDate) {
         return this.readingList.getAverageReadingsBetweenDates(initialDate, endDate);
     }
 
-    /** This method receives a date of a given day, goes through the sensor's reading list and
+    /**
+     * This method receives a date of a given day, goes through the sensor's reading list and
      * returns the total reading values of that day.
+     *
      * @param day date of day
      * @return total reading values of that day
      ***/
-    public double getTotalValueReadingsOnGivenDay(Date day){
+    public double getTotalValueReadingsOnGivenDay(Date day) {
         return this.readingList.getValueReadingsInDay(day);
     }
 
-    /** This method goes through the sensor's reading list and
+    /**
+     * This method goes through the sensor's reading list and
      * returns the most recent reading value.
      *
      * @return sensor's most recent reading value.
      ***/
-    public double getMostRecentValueReading(){
+    public double getMostRecentValueReading() {
         return this.readingList.getMostRecentValue();
     }
 
