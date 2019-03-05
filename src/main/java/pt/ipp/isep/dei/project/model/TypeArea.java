@@ -35,6 +35,7 @@ public class TypeArea {
     void setName(String name) {
         if (isNameValid(name)) {
             this.name = name;
+            return;
         }
         throw new IllegalArgumentException("Please Insert Valid Name");
     }
