@@ -1,24 +1,33 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * TypeArea tests class.
+ * TypeArea test class.
  */
 
 class TypeAreaTest {
 
+    // Common artifacts for testing in this class.
+    private TypeArea validType;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validType = new TypeArea("Country");
+
+    }
+
     @Test
     void seeTypeOfGeographicAreaConstructor() {
         //Arrange
-        String expectedResult = "Rua";
-        String actualResult;
+        String expectedResult = "Country";
+
         //Act
-        TypeArea typeArea1 = new TypeArea("Rua");
-        actualResult = typeArea1.getName();
+        String actualResult = validType.getName();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -40,11 +49,11 @@ class TypeAreaTest {
     void seeEqualsBetweenTwoGeographicAreaTypesWithDifferentDesignation() {
         //Arrange
         boolean expectedResult = false;
-        boolean actualResult;
-        TypeArea typeArea1 = new TypeArea("Rua");
-        TypeArea typeArea2 = new TypeArea("Freguesia");
+        TypeArea testTypeArea = new TypeArea("City");
+
         //Act
-        actualResult = typeArea1.equals(typeArea2);
+        boolean actualResult = testTypeArea.equals(validType);
+
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -52,10 +61,10 @@ class TypeAreaTest {
     @Test
     void seeEqualsBetweenSameObject() {
         //Arrange
-        boolean actualResult;
-        TypeArea typeArea1 = new TypeArea("Rua");
+
         //Act
-        actualResult = typeArea1.equals(typeArea1);
+        boolean actualResult = validType.equals(validType);
+
         //Assert
         assertTrue(actualResult);
     }
@@ -63,71 +72,143 @@ class TypeAreaTest {
     @Test
     void seeEqualsBetweenObjectsFromDifferentClasses() {
         //Arrange
-        boolean actualResult;
-        TypeArea typeArea1 = new TypeArea("Rua");
         int number = 1;
+
         //Act
-        actualResult = typeArea1.equals(number);
+        boolean actualResult = validType.equals(number);
+
         //Assert
         assertFalse(actualResult);
     }
 
     @Test
     void hashCodeDummyTest() {
-        TypeArea t1 = new TypeArea("Rua");
+        //Arrange
         int expectedResult = 1;
-        int actualResult = t1.hashCode();
+
+        //Act
+        int actualResult = validType.hashCode();
+
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfNameValid() {
         //Arrange
-        TypeArea a1 = new TypeArea("Humidade");
 
         //Act
-        boolean result = a1.isNameValid("Vale");
+        boolean result = validType.isNameValid("City");
 
         //Assert
         assertTrue(result);
     }
 
     @Test
-    void seeIfNameInvalidNameEmpty() {
-
+    void seeIfNameIsNotValidNumericName() {
         //Arrange
-        TypeArea a1 = new TypeArea("Humidade");
+
         //Act
 
         //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            a1.isNameValid("");
+            validType.isNameValid("123");
+        });
+    }
+
+    @Test
+    void seeIfNameInvalidNameEmpty() {
+        //Arrange
+
+        //Act
+
+        //Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            validType.isNameValid("");
         });
     }
 
     @Test
     void seeIfNameInvalidNameWithNumbers() {
-
         //Arrange
-        TypeArea a1 = new TypeArea("Humidade");
+
         //Act
 
         //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            a1.isNameValid("Humidade1");
+            validType.isNameValid("Country1");
         });
     }
 
     @Test
     void seeIfNameInvalidNameNull() {
-
         //Arrange
-        TypeArea a1 = new TypeArea("Humidade");
+
         //Act
 
         //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            a1.isNameValid(null);
+            validType.isNameValid(null);
+        });
+    }
+
+    @Test
+    void seeIfNameSetterWorks() {
+        //Arrange
+        String expectedResult = "City";
+        //Act
+        validType.setName("City");
+        String actualResult = validType.getName();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfNameSetterFailsEmptyName() {
+        //Arrange
+
+        //Act
+
+        //Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            validType.setName("");
+        });
+    }
+
+    @Test
+    void seeIfNameSetterFailsNullName() {
+        //Arrange
+
+        //Act
+
+        //Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            validType.setName(null);
+        });
+    }
+
+    @Test
+    void seeIfNameSetterFailsNumericName() {
+        //Arrange
+
+        //Act
+
+        //Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            validType.setName("123");
+        });
+    }
+
+    @Test
+    void seeIfNameSetterFailsNumbersInName() {
+        //Arrange
+
+        //Act
+
+        //Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            validType.setName("City1");
         });
     }
 
