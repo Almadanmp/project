@@ -24,7 +24,7 @@ public class TypeAreaList {
      * @param name String of the new Area Type that one wishes to create and add to a list.
      * @return true or false depending on if it adds the type to the list or not.
      */
-    public boolean newTAG(String name) {
+    public boolean createTypeArea(String name) {
         if (name == null || name.isEmpty() || name.matches(".*\\d+.*")) {
             return false;
         }

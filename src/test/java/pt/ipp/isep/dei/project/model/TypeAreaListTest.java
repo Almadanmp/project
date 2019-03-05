@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -13,252 +14,205 @@ import static org.testng.Assert.assertTrue;
  */
 
 class TypeAreaListTest {
+    // Common testing artifacts for this class.
+
+    private TypeAreaList validList;
+    private TypeArea firstValidType;
+    private TypeArea secondValidType;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validList = new TypeAreaList();
+        firstValidType = new TypeArea("Country");
+        secondValidType = new TypeArea("City");
+        validList.addTypeArea(firstValidType);
+        validList.addTypeArea(secondValidType);
+    }
+
 
     @Test
-    void newTAG() {
-        TypeAreaList newList = new TypeAreaList();
-        boolean result = newList.newTAG("cidade");
+    void seeIfCreateTypeAreaWorks() {
+        // Act
+
+        boolean result = validList.createTypeArea("Village");
+
+        // Assert
+
         assertTrue(result);
     }
 
-    @Test
-    void seeIfNewTAGWorksWithAnother() {
-        TypeArea type = new TypeArea("rua");
-        TypeAreaList newList = new TypeAreaList();
-        newList.addTypeArea(type);
-        boolean result = newList.newTAG("cidade");
-        assertTrue(result);
-    }
 
     @Test
-    void seeIfNewTAGDoesNotWorkWhenDuplicatedISAdded() {
-        TypeArea tipo = new TypeArea("cidade");
-        TypeAreaList expectedResult = new TypeAreaList();
-        expectedResult.addTypeArea(tipo);
-        boolean result = expectedResult.newTAG("cidade");
+    void seeIfCreateTypeAreaWorksDuplicate() {
+        // Act
+
+        boolean result = validList.createTypeArea("City");
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void seeIfNewTAGDoesNotWorkWhenNullIsAdded() {
-        TypeArea tipo = new TypeArea("cidade");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(tipo);
-        boolean result = list.newTAG(null);
+    void seeIfCreateTypeAreaWorksNull() {
+        // Act
+
+        boolean result = validList.createTypeArea(null);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void seeIfNewTAGDoesNotWorkWhenNameIsEmpty() {
-        TypeArea type = new TypeArea("cidade");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type);
-        boolean result = list.newTAG("");
+    void seeIfCreateTypeAreaWorksEmpty() {
+        // Act
+
+        boolean result = validList.createTypeArea("");
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void seeIfNewTAGDoesNotWorkWhenNumbersAreAdded() {
-        TypeArea type = new TypeArea("cidade");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type);
-        boolean result = list.newTAG("cidade1");
+    void seeIfCreateTypeAreaWorkNumbers() {
+        // Act
+
+        boolean result = validList.createTypeArea("City1");
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfPrintGAWholeList() {
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
-        list.addTypeArea(type1);
+        // Arrange
+
         String expectedResult = "---------------\n" +
-                "0) Name: cidade \n" +
-                "1) Name: distrito \n" +
-                "2) Name: aldeia \n" +
+                "0) Name: Country \n" +
+                "1) Name: City \n" +
                 "---------------\n";
-        String result;
-        result = list.buildString();
-        assertEquals(expectedResult, result);
+
+        // Act
+
+        String actualResult = validList.buildString();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void isEmpty() {
-        //Arrange
-        TypeArea type1 = new TypeArea("city");
-        TypeArea type2 = new TypeArea("village");
-        TypeAreaList list1 = new TypeAreaList(); //EMPTY LIST
-        TypeAreaList list2 = new TypeAreaList(); //ONE TYPE AREA
-        TypeAreaList list3 = new TypeAreaList(); //TWO TYPE AREAS
+    void seeIfIsEmptyWorks() {
+        // Arrange
 
-        list2.addTypeArea(type1);
-        list3.addTypeArea(type1);
-        list3.addTypeArea(type2);
+        TypeAreaList emptyList = new TypeAreaList(); // List is Empty.
+        TypeAreaList oneElementList = new TypeAreaList(); // List has one element.
+        oneElementList.addTypeArea(firstValidType);
 
-        //Act
-        boolean actualResult1 = list1.isEmpty();
-        boolean actualResult2 = list2.isEmpty();
-        boolean actualResult3 = list3.isEmpty();
+        // Act
+
+        boolean actualResult1 = emptyList.isEmpty();
+        boolean actualResult2 = oneElementList.isEmpty();
+        boolean actualResult3 = validList.isEmpty();
 
         //Assert
+
         assertTrue(actualResult1);
         assertFalse(actualResult2);
         assertFalse(actualResult3);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfDifferentLists() {
-        //Assert
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
-        TypeAreaList list2 = new TypeAreaList();
-        list2.addTypeArea(type1);
-        list2.addTypeArea(type2);
-        list2.addTypeArea(type3);
+    void seeIfEqualsWorksTrue() {
+        // Assert
 
-        //Act
-        boolean actualResult = list.equals(list2);
+        TypeAreaList testList = new TypeAreaList();
+        testList.addTypeArea(firstValidType);
+        testList.addTypeArea(secondValidType);
 
-        //Assert
+        // Act
+
+        boolean actualResult = validList.equals(testList);
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfDifferentObjectsWithDifferentContent() {
-        //Arrange
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        TypeArea type4 = new TypeArea("país");
-        TypeArea type5 = new TypeArea("vila");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
-        TypeAreaList list2 = new TypeAreaList();
-        list2.addTypeArea(type1);
-        list2.addTypeArea(type4);
-        list2.addTypeArea(type5);
+    void seeIfEqualsWorksFalse() {
+        // Arrange
 
-        //Act
-        boolean actualResult = list.equals(list2);
+        TypeAreaList testList = new TypeAreaList();
+        testList.addTypeArea(secondValidType);
 
-        //Assert
-        assertFalse( actualResult);
+        // Act
+
+        boolean actualResult = validList.equals(testList);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfDifferentObjectsWithSameContent() {
-        //Arrange
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        TypeArea type4 = new TypeArea("cidade");
-        TypeArea type5 = new TypeArea("distrito");
-        TypeArea type6 = new TypeArea("aldeia");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
-        TypeAreaList list2 = new TypeAreaList();
-        list2.addTypeArea(type4);
-        list2.addTypeArea(type5);
-        list2.addTypeArea(type6);
+    void seeIfEqualsWorksNotAnInstance() {
+        // Act
 
-        //Act
-        boolean actualResult = list.equals(list2);
+        boolean actualResult = validList.equals(new RoomList()); // Needed for sonarqube testing purposes.
 
-        //Assert
-        assertTrue( actualResult);
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfDifferentListTypes() {
-        //Arrange
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        Room room1 = new Room("room1", 1, 12,12,12);
-        Room room2 = new Room("room2", 3, 15,17,12);
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
-        RoomList list2 = new RoomList();
-        list2.add(room1);
-        list2.add(room2);
+    void seeIfEqualsWorksForItself() {
+        // Act
 
-        //Act
-        boolean actualResult = list.equals(list2);
+        boolean actualResult = validList.equals(validList); // Needed for sonarqube testing purposes.
 
-        //Assert
-        assertFalse( actualResult);
+        // Assert
+
+        assertTrue(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfSameList() {
+    void hashCodeDummyTest() {
         //Arrange
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
 
-        //Act
-        boolean actualResult = list.equals(list);
-
-        //Assert
-        assertTrue( actualResult);
-    }
-
-    @Test
-    void seeHashCodeDummyTest() {
-        //Arrange
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
-
-        //Act
         int expectedResult = 1;
-        int actualResult = list.hashCode();
 
-        //Assert
+        // Act
+
+        int actualResult = validList.hashCode();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void getByIndexEmptyTypeAreaList() {
-        //Arrange
+        // Arrange
 
         TypeAreaList emptyList = new TypeAreaList();
 
-        //Act
+        // Act
 
         Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
 
-        //Assert
+        // Assert
 
         assertEquals("The type area list is empty.", exception.getMessage());
     }
 
     @Test
-    void getElementsAsArray() {
-        //Arrange
+    void seeIfGetElementsAsArrayWorks() {
+        // Arrange
 
         TypeArea[] expectedResult1 = new TypeArea[0];
         TypeArea[] expectedResult2 = new TypeArea[1];
@@ -266,21 +220,18 @@ class TypeAreaListTest {
 
         TypeAreaList emptyList = new TypeAreaList();
         TypeAreaList oneTypeArea = new TypeAreaList();
-        TypeAreaList twoTypeArea = new TypeAreaList();
 
         oneTypeArea.addTypeArea(new TypeArea("typeArea1"));
-        twoTypeArea.addTypeArea(new TypeArea("typeArea1"));
-        twoTypeArea.addTypeArea(new TypeArea("typeArea2"));
 
         expectedResult2[0] = new TypeArea("typeArea1");
-        expectedResult3[0] = new TypeArea("typeArea1");
-        expectedResult3[1] = new TypeArea("typeArea2");
+        expectedResult3[0] = firstValidType;
+        expectedResult3[1] = secondValidType;
 
         //Act
 
         TypeArea[] actualResult1 = emptyList.getElementsAsArray();
         TypeArea[] actualResult2 = oneTypeArea.getElementsAsArray();
-        TypeArea[] actualResult3 = twoTypeArea.getElementsAsArray();
+        TypeArea[] actualResult3 = validList.getElementsAsArray();
 
         //Assert
 
@@ -288,5 +239,4 @@ class TypeAreaListTest {
         assertArrayEquals(expectedResult2, actualResult2);
         assertArrayEquals(expectedResult3, actualResult3);
     }
-
 }
