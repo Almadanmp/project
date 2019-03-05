@@ -166,7 +166,7 @@ public class CSVReader implements Reader{
             System.out.println("The reading values are not numeric.");
             logger.warning("The reading values are not numeric.");
         } catch (ParseException c) {
-            c.printStackTrace();
+            System.out.println("The date format is not valid.");;
         }
     }
 

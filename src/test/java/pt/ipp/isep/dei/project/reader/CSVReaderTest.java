@@ -116,6 +116,9 @@ class CSVReaderTest {
 
         //Assert
 
+        Assertions.assertThrows(NoSuchElementException.class, () -> {
+            validReader.readAndSet(validHouse);
+        });
     }
 
     @Test
@@ -132,6 +135,9 @@ class CSVReaderTest {
 
         //Assert
 
+        Assertions.assertThrows(NoSuchElementException.class, () -> {
+            validReader.readAndSet(validHouse);
+        });
     }
 
     @Test
