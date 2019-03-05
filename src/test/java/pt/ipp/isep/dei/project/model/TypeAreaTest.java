@@ -18,195 +18,183 @@ class TypeAreaTest {
     @BeforeEach
     void arrangeArtifacts() {
         validType = new TypeArea("Country");
-
     }
 
     @Test
-    void seeTypeOfGeographicAreaConstructor() {
-        //Arrange
+    void seeIfGetNameWorks() {
+        // Arrange
+
         String expectedResult = "Country";
 
-        //Act
+        // Act
+
         String actualResult = validType.getName();
 
-        //Assert
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeEqualsBetweenTwoGeographicAreaTypesWithSameDesignation() {
-        //Arrange
-        boolean actualResult;
-        TypeArea typeArea1 = new TypeArea("Rua");
-        TypeArea typeArea2 = new TypeArea("Rua");
-        //Act
-        actualResult = typeArea1.equals(typeArea2);
-        //Assert
+    void seeIfEqualsWorksTrue() {
+        // Arrange
+
+        TypeArea testType = new TypeArea("Country");
+
+        // Act
+
+        boolean actualResult = testType.equals(validType);
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void seeEqualsBetweenTwoGeographicAreaTypesWithDifferentDesignation() {
-        //Arrange
-        boolean expectedResult = false;
+    void seeIfEqualsWorksFalse() {
+        // Arrange
+
         TypeArea testTypeArea = new TypeArea("City");
 
-        //Act
+        // Act
+
         boolean actualResult = testTypeArea.equals(validType);
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
-    void seeEqualsBetweenSameObject() {
-        //Arrange
+    void seeEqualsWorksSameObject() {
+        // Act
 
-        //Act
-        boolean actualResult = validType.equals(validType);
+        boolean actualResult = validType.equals(validType); // Needed for sonarqube testing purposes.
 
-        //Assert
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void seeEqualsBetweenObjectsFromDifferentClasses() {
-        //Arrange
-        int number = 1;
+    void seeIfEqualsWorksNotAnInstance() {
+        // Act
 
-        //Act
-        boolean actualResult = validType.equals(number);
+        boolean actualResult = validType.equals(new RoomList()); // Needed for sonarqube testing purposes.
 
-        //Assert
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
     void hashCodeDummyTest() {
-        //Arrange
+        // Arrange
+
         int expectedResult = 1;
 
-        //Act
+        // Act
+
         int actualResult = validType.hashCode();
 
-        //Assert
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfNameValid() {
-        //Arrange
+    void seeIfIsValidWorks() {
+        // Act
 
-        //Act
-        boolean result = validType.isNameValid("City");
+        boolean result = validType.isValid("City");
 
-        //Assert
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void seeIfNameIsNotValidNumericName() {
-        //Arrange
+    void seeIfIsValidWorksFalse() {
+        // Assert
 
-        //Act
-
-        //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.isNameValid("123");
+            validType.isValid("123");
         });
     }
 
     @Test
-    void seeIfNameInvalidNameEmpty() {
-        //Arrange
+    void seeIfIsValidWorksEmpty() {
+        // Assert
 
-        //Act
-
-        //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.isNameValid("");
+            validType.isValid("");
         });
     }
 
     @Test
-    void seeIfNameInvalidNameWithNumbers() {
-        //Arrange
+    void seeIfIsValidWorksFalseNumbers() {
+        // Assert
 
-        //Act
-
-        //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.isNameValid("Country1");
+            validType.isValid("Country1");
         });
     }
 
     @Test
-    void seeIfNameInvalidNameNull() {
-        //Arrange
-
-        //Act
-
-        //Assert
+    void seeIfIsValidWorksNull() {
+        // Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.isNameValid(null);
+            validType.isValid(null);
         });
     }
 
     @Test
-    void seeIfNameSetterWorks() {
-        //Arrange
+    void seeIfSetGetNameWorks() {
+        // Arrange
+
         String expectedResult = "City";
-        //Act
+
+        // Act
+
         validType.setName("City");
         String actualResult = validType.getName();
 
-        //Assert
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfNameSetterFailsEmptyName() {
-        //Arrange
+    void seeIfSetNameWorksEmptyString() {
+        // Assert
 
-        //Act
-
-        //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             validType.setName("");
         });
     }
 
     @Test
-    void seeIfNameSetterFailsNullName() {
-        //Arrange
+    void seeIfSetNameWorksNull() {
+        // Assert
 
-        //Act
-
-        //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             validType.setName(null);
         });
     }
 
     @Test
-    void seeIfNameSetterFailsNumericName() {
-        //Arrange
+    void seeIfSetNameWorksNumbers() {
+        // Assert
 
-        //Act
-
-        //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             validType.setName("123");
         });
     }
 
     @Test
-    void seeIfNameSetterFailsNumbersInName() {
-        //Arrange
+    void seeIfSetNameWorksNumbersAndLetters() {
+        // Assert
 
-        //Act
-
-        //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             validType.setName("City1");
         });

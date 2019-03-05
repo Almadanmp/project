@@ -9,5 +9,4 @@ import pt.ipp.isep.dei.project.model.House;
 public interface Reader {
 
     void readAndSet(House house);
-
 }

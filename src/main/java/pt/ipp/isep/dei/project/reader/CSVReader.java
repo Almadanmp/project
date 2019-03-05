@@ -173,6 +173,7 @@ public class CSVReader implements Reader{
     /**
      * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
      */
+
     private void startAndPromptPath() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert the location of the CSV file");
