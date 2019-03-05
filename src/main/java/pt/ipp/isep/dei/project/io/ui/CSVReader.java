@@ -15,13 +15,16 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * CVSReader Class. Reads .cvs files
+ */
 public class CSVReader {
 
     private String csvFileLocation;
 
 
-    // TEST METHOD MOCK
-
+    // TEST METHOD MOCK - Take out of comment to test
+    /*
     public static void main(String[] args) {
         List<String> deviceTypeConfig;
         try {
@@ -54,7 +57,6 @@ public class CSVReader {
         testArea.setSensorList(testList);
 
         CSVReader testRead = new CSVReader();
-        testRead.startAndPromptPath();
         testRead.getCSVReadings(testHouse);
 
         ReadingList test = testSensor1.getReadingList();
@@ -62,28 +64,23 @@ public class CSVReader {
         int cenas = test.size();
         int cenas2 = test2.size();
         System.out.println(cenas + cenas2);
-    }
+        System.out.println(test.getMostRecentValue());
+        System.out.println(test2.getMostRecentValue());
+    } */
 
-
-    public void startAndPromptPath() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please insert the location of the CSV file");
-        this.csvFileLocation = scanner.next();
-        while (!csvFileLocation.endsWith(".csv") || !new File(csvFileLocation).exists()) {
-            System.out.println("Please enter a valid location");
-            this.csvFileLocation = scanner.next();
-        }
-    }
-
+    /**
+     * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
+     * a sensor to that same sensor ReadingList. Readings that are not possible to be added are displayed in a log file.
+     *
+     * @param house is the House of the application.
+     */
     public void getCSVReadings(House house) {
+        startAndPromptPath();
         BufferedReader buffReader = null;
         FileReader fileReader = null;
         String line = "";
         String cvsSplit = ",";
         String[] readings;
-        Date readDate;
-        Double readValue;
-        String readName;
         SensorList sensorList = getSensorData(house);
         try {
             fileReader = new FileReader(csvFileLocation);  //csvFileLocation : resources/csv/readings.csv (Or resources/csv/fakeCSV.csv)
@@ -95,27 +92,7 @@ public class CSVReader {
             fileHandler.setFormatter(myFormat);
             while ((line = buffReader.readLine()) != null) {
                 readings = line.split(cvsSplit);
-                try {
-                    readValue = Double.parseDouble(readings[3]);
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
-                    readDate = sdf.parse(readings[1]);
-                    readName = readings[0];
-                    for (Sensor sensor : sensorList.getElementsAsArray()) {
-                        if (sensor.getName().equals(readName)) {
-                            // System.out.println(sensor.getName());
-                            if (!setCSVReadings(sensor, readDate, readValue)) {
-                                if (logger.isLoggable(Level.WARNING)) {
-                                    logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
-                                }
-                            }
-                        }
-                    }
-                } catch (NumberFormatException nfe) {
-                    System.out.println("The reading values are not numeric.");
-                    logger.warning("The reading values are not numeric.");
-                } catch (ParseException c) {
-                    c.printStackTrace();
-                }
+                parseAndLog(readings, logger, sensorList);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,6 +110,14 @@ public class CSVReader {
 
     // ACCESSORY METHODS
 
+    /**
+     * Adds a new Reading to a sensor with the date and value read from the CSV file, but only if that date is posterior
+     * to the date when the sensor was activated.
+     * @param sensor is the sensor we want to add the reading to.
+     * @param value is the value read on the reading.
+     * @param date is the read date of the reading.
+     * @return returns true if the reading was successfully added.
+     */
     private boolean setCSVReadings(Sensor sensor, Date date, Double value) {
         Date startingDate = sensor.getDateStartedFunctioning();
         if (date.after(startingDate) || date == startingDate) {
@@ -143,9 +128,55 @@ public class CSVReader {
         return false;
     }
 
+    /**
+     * Gets the list of sensors that exist in the Geographic Area where the house is contained
+     * @param house is the application house.
+     * @return returns a SensorList of the geographical area of the house.
+     */
     private SensorList getSensorData(House house) {
         GeographicArea geoArea = house.getMotherArea();
         SensorList sensorList = geoArea.getSensorList();
         return sensorList;
+    }
+
+    /**
+     * After reading a single line of the file, tries to parse the value, the date and the name to double, Date and
+     * string respectively, and sees if the name of the sensor matches, and the reading is possible to add, else the
+     * adding process fails and a log of the type 'warning' is generated.
+     * @param logger is an instance of a logger.
+     * @param readings is an array of strings of all the parameters (each parameter separated by a comma),
+     *                 in each line of the CSV file.
+     * @param sensorList is the sensorList of the geographic area of the house.
+     */
+    private void parseAndLog(String[] readings, Logger logger, SensorList sensorList) {
+        try {
+            Double readValue = Double.parseDouble(readings[3]);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+            Date readDate = sdf.parse(readings[1]);
+            String readName = readings[0];
+            for (Sensor sensor : sensorList.getElementsAsArray()) {
+                if (sensor.getName().equals(readName) && !setCSVReadings(sensor, readDate, readValue) && logger.isLoggable(Level.WARNING)) {
+                    logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
+                }
+            }
+        } catch (NumberFormatException nfe) {
+            System.out.println("The reading values are not numeric.");
+            logger.warning("The reading values are not numeric.");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+    }
+
+    /**
+     * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
+     */
+    public void startAndPromptPath() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please insert the location of the CSV file");
+        this.csvFileLocation = scanner.next();
+        while (!csvFileLocation.endsWith(".csv") || !new File(csvFileLocation).exists()) {
+            System.out.println("Please enter a valid location");
+            this.csvFileLocation = scanner.next();
+        }
     }
 }
