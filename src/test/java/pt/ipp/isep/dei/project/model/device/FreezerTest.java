@@ -240,7 +240,7 @@ public class FreezerTest {
         freezerValid.addLog(validLog01);
         freezerValid.addLog(validLog02);
         double expectedResult = 40.0;
-        double actualResult = freezerValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double actualResult = freezerValid.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -251,7 +251,7 @@ public class FreezerTest {
         freezerValid.addLog(log1);
         freezerValid.addLog(log2);
         double expectedResult = 60.0;
-        double actualResult = freezerValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double actualResult = freezerValid.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -263,7 +263,7 @@ public class FreezerTest {
         freezerValid.addLog(log1);
         freezerValid.addLog(log2);
         double expectedResult = 0.0;
-        double actualResult = freezerValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double actualResult = freezerValid.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(expectedResult, actualResult);
     }
 

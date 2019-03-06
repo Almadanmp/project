@@ -230,7 +230,7 @@ class RoomConfigurationControllerTest {
         Device washingMachine = new WashingMachine(new WashingMachineSpec());
         FixedTimeProgram program = new FixedTimeProgram("LowHeat", 60, 100);
         ProgramList programList = new ProgramList();
-        programList.addProgram(program);
+        programList.add(program);
 
         // Act
 

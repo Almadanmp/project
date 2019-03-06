@@ -241,7 +241,7 @@ public class WineCoolerTest {
         wineCoolerValid.addLog(validLog01);
         wineCoolerValid.addLog(validLog02);
         double expectedResult = 111;
-        double actualResult = wineCoolerValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double actualResult = wineCoolerValid.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -252,7 +252,7 @@ public class WineCoolerTest {
         wineCoolerValid.addLog(log1);
         wineCoolerValid.addLog(log2);
         double expectedResult = 65;
-        double actualResult = wineCoolerValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double actualResult = wineCoolerValid.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -264,7 +264,7 @@ public class WineCoolerTest {
         wineCoolerValid.addLog(log1);
         wineCoolerValid.addLog(log2);
         double expectedResult = 0.0;
-        double actualResult = wineCoolerValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double actualResult = wineCoolerValid.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(expectedResult, actualResult);
     }
 

@@ -261,7 +261,7 @@ class FridgeTest {
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         device.addLog(log1);
         device.addLog(log2);
-        double result = device.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double result = device.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(111, result);
     }
 
@@ -279,7 +279,7 @@ class FridgeTest {
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         d1.addLog(log1);
         d1.addLog(log2);
-        double result = d1.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double result = d1.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(111, result);
     }
 
@@ -297,7 +297,7 @@ class FridgeTest {
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         d1.addLog(log1);
         d1.addLog(log2);
-        double result = d1.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double result = d1.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(0.0, result);
     }
 

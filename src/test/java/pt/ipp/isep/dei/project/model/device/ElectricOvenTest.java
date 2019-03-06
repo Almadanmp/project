@@ -184,7 +184,7 @@ class ElectricOvenTest {
     void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
         electricOvenValid.addLog(validLog1);
         electricOvenValid.addLog(validLog2);
-        double result = electricOvenValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double result = electricOvenValid.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(111, result);
     }
 
@@ -194,7 +194,7 @@ class ElectricOvenTest {
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         electricOvenValid.addLog(log1);
         electricOvenValid.addLog(log2);
-        double result = electricOvenValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double result = electricOvenValid.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(175, result);
     }
 
@@ -204,7 +204,7 @@ class ElectricOvenTest {
         Log log2 = new Log(55, periodBeginning2, periodEnding1120AM);
         electricOvenValid.addLog(log1);
         electricOvenValid.addLog(log2);
-        double result = electricOvenValid.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double result = electricOvenValid.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(0.0, result);
     }
 
@@ -239,7 +239,7 @@ class ElectricOvenTest {
     void getProgramList() {
         FixedTimeProgram program1 = new FixedTimeProgram("programa", 2, 2);
         ProgramList listProgram = electricOvenValid.getProgramList();
-        listProgram.addProgram(program1);
+        listProgram.add(program1);
         ProgramList result = electricOvenValid.getProgramList();
         assertEquals(listProgram, result);
     }

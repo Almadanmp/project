@@ -91,7 +91,7 @@ public class RoomConfigurationController {
      * @param newFixedTimeProgram -the program we want to add to the list
      */
     public void addProgramToProgramList(ProgramList programList, FixedTimeProgram newFixedTimeProgram) {
-        programList.addProgram(newFixedTimeProgram);
+        programList.add(newFixedTimeProgram);
     }
 
     /**

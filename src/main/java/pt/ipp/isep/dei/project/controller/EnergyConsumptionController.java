@@ -124,7 +124,7 @@ public class EnergyConsumptionController {
             return "This device has no energy consumption logs in the given interval.";
         }
         return "The total Energy Consumption for the given device is: " +
-                device.getConsumptionWithinGivenInterval(initialTime, finalTime) + " kW/h.";
+                device.getConsumptionInInterval(initialTime, finalTime) + " kW/h.";
     }
 
     /* US721As a Power User [or Administrator], I want to know the total metered energy consumption of a room in a

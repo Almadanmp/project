@@ -233,7 +233,7 @@ public class WallTowelHeaterTest {
         validWTHeater.addLog(log2);
         double expectedResult = 111.0;
         // Act
-        double actualResult = validWTHeater.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double actualResult = validWTHeater.getConsumptionInInterval(initialTime, finalTime);
         // Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -253,7 +253,7 @@ public class WallTowelHeaterTest {
         validWTHeater.addLog(log2);
         double expectedResult = 111.0;
         // Act
-        double actualResult = validWTHeater.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double actualResult = validWTHeater.getConsumptionInInterval(initialTime, finalTime);
         // Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -273,7 +273,7 @@ public class WallTowelHeaterTest {
         validWTHeater.addLog(log2);
         double expectedResult = 0.0;
         // Act
-        double actualResult = validWTHeater.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double actualResult = validWTHeater.getConsumptionInInterval(initialTime, finalTime);
         // Assert
         assertEquals(expectedResult, actualResult);
     }

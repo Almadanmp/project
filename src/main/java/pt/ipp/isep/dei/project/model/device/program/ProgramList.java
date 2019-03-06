@@ -49,7 +49,7 @@ public class ProgramList {
      * @param program is the program we want to add.
      * @return true if program was successfully added, false otherwise (already existing program)
      */
-    public boolean addProgram(Program program) {
+    public boolean add(Program program) {
         if (!(programs.contains(program))) {
             programs.add(program);
             return true;

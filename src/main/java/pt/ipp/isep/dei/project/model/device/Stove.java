@@ -132,7 +132,7 @@ public class Stove implements Device, Metered, Programmable {
      * @param finalTime   - Ending of the interval
      * @return total consumption within the defined interval
      */
-    public double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime) {
+    public double getConsumptionInInterval(Date initialTime, Date finalTime) {
         return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
