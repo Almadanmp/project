@@ -27,6 +27,10 @@ public class SensorList {
         sensors.add(sensorToAdd);
     }
 
+    public List<Sensor> getSensors() {
+        return sensors;
+    }
+
     /**
      * Method to Add a sensor only if it's not contained in the list already.
      *
