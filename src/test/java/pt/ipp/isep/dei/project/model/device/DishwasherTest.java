@@ -251,8 +251,11 @@ class DishwasherTest {
         // Arrange
 
         FixedTimeProgram testProgram = new FixedTimeProgram("programa", 2, 2);
+        ProgramList testList = new ProgramList();
+        testList.add(testProgram);
         ProgramList expectedResult = new ProgramList();
         expectedResult.add(testProgram);
+        validDishwasher.setProgramList(testList);
 
         // Act
 
