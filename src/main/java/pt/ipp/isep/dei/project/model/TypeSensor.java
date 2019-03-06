@@ -51,7 +51,7 @@ public class TypeSensor {
      **/
     public String buildString() {
         String result;
-        result = "The type sensor is " + this.name + ", and the unit of measure is " + this.units + ".";
+        result = "The type of the sensor is " + this.name + ", and the unit of measurement is " + this.units + ".";
         return result;
     }
 
