@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Represents a Sensor.
@@ -14,6 +15,9 @@ public class Sensor {
     private Local local;
     private Date dateStartedFunctioning;
     private ReadingList readingList;
+    private UUID uniqueID;
+
+
 
     /**
      * Sensor() constructor with 4 parameters.
@@ -29,6 +33,8 @@ public class Sensor {
         setLocal(local);
         setDateStartedFunctioning(dateStartedFunctioning);
         readingList = new ReadingList();
+        this.uniqueID = UUID.randomUUID();
+
     }
 
     /**
@@ -44,6 +50,7 @@ public class Sensor {
         setTypeSensor(typeSensor);
         setDateStartedFunctioning(dateStartedFunctioning);
         readingList = new ReadingList();
+        this.uniqueID = UUID.randomUUID();
     }
 
     /**
@@ -73,7 +80,7 @@ public class Sensor {
      *
      * @param sensor is the Type we want to set to the sensor.
      */
-    void setTypeSensor(TypeSensor sensor) {
+    public void setTypeSensor(TypeSensor sensor) {
         this.typeSensor = sensor;
     }
 
@@ -82,7 +89,7 @@ public class Sensor {
      *
      * @param dateStartedFunctioning is the date that the sensor started functioning.
      */
-    void setDateStartedFunctioning(Date dateStartedFunctioning) {
+    public void setDateStartedFunctioning(Date dateStartedFunctioning) {
         this.dateStartedFunctioning = dateStartedFunctioning;
     }
 
@@ -136,7 +143,13 @@ public class Sensor {
             this.readingList = readingList;
         }
     }
+    public UUID getUniqueID() {
+        return uniqueID;
+    }
 
+    public void setUniqueID(UUID uniqueID) {
+        this.uniqueID = uniqueID;
+    }
 
     /**
      * Checks if reading already exists in reading list and in case the
