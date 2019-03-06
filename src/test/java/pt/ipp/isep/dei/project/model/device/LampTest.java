@@ -240,7 +240,7 @@ import static org.testng.Assert.assertTrue;
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         device.addLog(log1);
         device.addLog(log2);
-        double result = device.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double result = device.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(111, result);
     }
 
@@ -258,7 +258,7 @@ import static org.testng.Assert.assertTrue;
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         device.addLog(log1);
         device.addLog(log2);
-        double result = device.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double result = device.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(111, result);
     }
 
@@ -276,7 +276,7 @@ import static org.testng.Assert.assertTrue;
         Log log2 = new Log(55, periodBeginning2, periodEnding2);
         device.addLog(log1);
         device.addLog(log2);
-        double result = device.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        double result = device.getConsumptionInInterval(initialTime, finalTime);
         assertEquals(0.0, result);
     }
 

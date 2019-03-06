@@ -95,7 +95,7 @@ public interface Device {
      * @return total consumption within the defined interval
      */
 
-    double getConsumptionWithinGivenInterval(Date initialTime, Date finalTime);
+    double getConsumptionInInterval(Date initialTime, Date finalTime);
 
 
 // Wrapper Methods to Metered

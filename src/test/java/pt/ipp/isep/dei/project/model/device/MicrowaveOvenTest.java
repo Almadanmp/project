@@ -228,7 +228,7 @@ class MicrowaveOvenTest {
     @Test
     void seeIfProgramListIsAdded() {
         //Arrange
-        validProgramList.addProgram(validVariableTimeProgram);
+        validProgramList.add(validVariableTimeProgram);
         validMicrowaveOven.setProgramList(validProgramList);
         ProgramList expectedResult = validProgramList;
 
@@ -242,7 +242,7 @@ class MicrowaveOvenTest {
     @Test
     void seeIfProgramListFailsWithDifferentLists() {
         //Arrange
-        validProgramList.addProgram(validVariableTimeProgram);
+        validProgramList.add(validVariableTimeProgram);
         validMicrowaveOven.setProgramList(validProgramList);
         ProgramList expectedResult = new ProgramList();
 
@@ -458,7 +458,7 @@ class MicrowaveOvenTest {
         double expectedResult = 200;
 
         // Act
-        double result = validMicrowaveOven.getConsumptionWithinGivenInterval(validDate3,validDate4);
+        double result = validMicrowaveOven.getConsumptionInInterval(validDate3,validDate4);
 
         //Assert
         assertEquals(expectedResult, result);
@@ -470,7 +470,7 @@ class MicrowaveOvenTest {
         double expectedResult = 0;
 
         // Act
-        double result = validMicrowaveOven.getConsumptionWithinGivenInterval(validDate3,validDate4);
+        double result = validMicrowaveOven.getConsumptionInInterval(validDate3,validDate4);
 
         //Assert
         assertEquals(expectedResult, result);

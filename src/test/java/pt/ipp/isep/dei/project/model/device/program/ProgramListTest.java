@@ -18,7 +18,7 @@ class ProgramListTest {
         validProgram1 = new FixedTimeProgram("validProgram1", 2, 3);
         validProgramList1 = new ProgramList();
         validProgramList2 = new ProgramList();
-        validProgramList2.addProgram(validProgram1);
+        validProgramList2.add(validProgram1);
     }
 
     @Test
@@ -57,7 +57,7 @@ class ProgramListTest {
     void seeIfAddProgramToEmptyList() {
         //Act
 
-        boolean result = validProgramList1.addProgram(validProgram1);
+        boolean result = validProgramList1.add(validProgram1);
 
         //Assert
 
@@ -68,7 +68,7 @@ class ProgramListTest {
     void seeIfAddsRepeatedProgram() {
         //Act
 
-        boolean result = validProgramList2.addProgram(validProgram1);
+        boolean result = validProgramList2.add(validProgram1);
 
         //Assert
 
@@ -102,7 +102,7 @@ class ProgramListTest {
         //Arrange
 
         VariableTimeProgram program2 = new VariableTimeProgram("validProgram2",70);
-        validProgramList2.addProgram(program2);
+        validProgramList2.add(program2);
         String expectedResult = "---------------\n" + "\n0) Program Name: validProgram1, Duration: 2.0, Energy Consumption: 3.0"
                 + "\n1) Program Name: validProgram2, Nominal Power: 70.0"
                 + "\n---------------\n";
@@ -146,9 +146,9 @@ class ProgramListTest {
     void get() {
         //Arrange
 
-        validProgramList1.addProgram(validProgram1);
+        validProgramList1.add(validProgram1);
         Program validProgram2 = new VariableTimeProgram("validProgram2", 200);
-        validProgramList2.addProgram(validProgram2);
+        validProgramList2.add(validProgram2);
 
         //Act
 
@@ -182,9 +182,9 @@ class ProgramListTest {
         Program[] expectedResult3 = new Program[2];
 
         ProgramList emptyList = new ProgramList();
-        validProgramList1.addProgram(validProgram1);
+        validProgramList1.add(validProgram1);
         Program validProgram2 = new VariableTimeProgram("validProgram2", 200);
-        validProgramList2.addProgram(validProgram2);
+        validProgramList2.add(validProgram2);
 
         expectedResult2[0] = validProgram1;
         expectedResult3[0] = validProgram1;
@@ -208,7 +208,7 @@ class ProgramListTest {
         //Arrange
 
         ProgramList programList = new ProgramList();
-        programList.addProgram(validProgram1);
+        programList.add(validProgram1);
 
         //Act
 

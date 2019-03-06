@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,160 +10,143 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class TypeSensorTest {
+    // Common testing artifacts for this class.
+
+    private TypeSensor validType;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validType = new TypeSensor("Temperature", "Celsius");
+    }
 
     @Test
-    void constructorTypeSensorTest() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        String actualResult = "Humidade";
+    void seeIfGetNameWorks() {
+        // Arrange
 
-        //Act
-        String expectedResult = t1.getName();
+        String expectedResult = "Temperature";
 
-        //Assert
+        // Act
+
+        String actualResult = validType.getName();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void constructorTypeSensorTestSameObject() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        TypeSensor t2 = new TypeSensor("Humidade", "kg/m³");
+    void seeIfEqualsWorksSameContent() {
+        // Arrange
 
-        //Act
-        boolean expectedResult = t1.equals(t2);
-        boolean result = true;
+        TypeSensor testType = new TypeSensor("Temperature", "Celsius");
 
-        //Assert
-        assertEquals(result, expectedResult);
-    }
+        // Act
 
+        boolean result = validType.equals(testType);
 
-    @Test
-    void testTypeSensorGetAndSet() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        String actualResult = "Humidade";
+        // Assert
 
-        //Act
-        String expectedResult = t1.getName();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
+        assertTrue(result);
     }
 
     @Test
-    void testTypeSensorGetAndSetPartII() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Humidade", "kg/m³");
-        String actualResult = "Humidade";
+    void seeIfEqualsWorksFalse() {
+        // Arrange
 
-        //Act
-        String expectedResult = t1.getName();
+        TypeSensor testType = new TypeSensor("Rainfall", "l/m2");
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
+        // Act
 
-    @Test
-    void seeIfEqualsWorksDifferentObject() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        TypeSensor t2 = new TypeSensor("Pluviosidade", "l/m2");
-        boolean expectedResult = false;
-        boolean actualResult;
+        boolean actualResult = validType.equals(testType);
 
-        //Act
-        actualResult = t1.equals(t2);
+        // Assert
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfEqualsWorksObject() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Movimento", "m/s");
-        TypeSensor t2 = new TypeSensor("Movimento", "m/s");
-        boolean actualResult;
-
-        //Act
-        actualResult = t1.equals(t2);
-
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfEqualsWorksSameObject() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Movimento", "m/s");
-        TypeSensor t2 = new TypeSensor("Movimento", "m/s");
-        boolean actualResult;
-
-        //Act
-        actualResult = t1.equals(t2);
-
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfEqualsFalseWorksSameODifUnits() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Movimento", "m");
-        TypeSensor t2 = new TypeSensor("Movimento", "m/s");
-        boolean actualResult;
-
-        //Act
-        actualResult = t1.equals(t2);
-
-        //Assert
         assertFalse(actualResult);
     }
 
     @Test
-    void seeIfEqualsFalseWorksSameObjectDifName() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Coisa", "m/s");
-        TypeSensor t2 = new TypeSensor("Movimento", "m/s");
-        boolean actualResult;
+    void seeIfEqualsWorksFalseDifferentUnits() {
+        // Arrange
 
-        //Act
-        actualResult = t1.equals(t2);
+        TypeSensor testType = new TypeSensor("Temperature", "Kelvin");
 
-        //Assert
+        // Act
+
+        boolean actualResult = testType.equals(validType);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalseDifferentName() {
+        // Arrange
+
+        TypeSensor testType = new TypeSensor("Movement", "Celsius");
+
+        // Act
+
+        boolean actualResult = testType.equals(validType);
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
-        //Arrange
-        TypeSensor t1 = new TypeSensor("Movimento", "m/s");
-        Local l1 = new Local(21, 3, 55);
-        boolean actualResult;
+        // Arrange
 
-        //Act
-        actualResult = t1.equals(l1);
+        Local testLocal = new Local(21, 3, 55);
 
-        //Assert
+        // Act
+
+        boolean actualResult = validType.equals(testLocal); // Needed for Sonarqube testing purposes.
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void hashCodeDummyTest() {
-        TypeSensor t1 = new TypeSensor("Temperatura", "Celsius");
-        int expectedResult = 1;
-        int actualResult = t1.hashCode();
+    void seeIfEqualsWorksOnItself() {
+        // Act
+
+        boolean actualResult = validType.equals(validType); // Needed for Sonarqube testing purposes.
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void buildTypeSensorString() {
+        // Arrange
+
+        String expectedResult = "The type of the sensor is Temperature, and the unit of measurement is Celsius.";
+
+        // Act
+
+        String actualResult = validType.buildString();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void buildTypeSensorString(){
-        TypeSensor t1 = new TypeSensor("temperature", "celsius");
-        String expectedResult = "The type sensor is temperature, and the unit of measure is celsius.";
-        //ACT
-        String actualResult = t1.buildString();
+    void hashCodeDummyTest() {
+        // Arrange
+
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = validType.hashCode();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 }

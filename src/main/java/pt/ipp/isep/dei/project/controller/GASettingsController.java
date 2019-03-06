@@ -45,7 +45,7 @@ public class GASettingsController {
      */
 
     public boolean createAndAddTypeAreaToList(String input, TypeAreaList typeAreaList) {
-        return typeAreaList.newTAG(input);
+        return typeAreaList.createTypeArea(input);
     }
 
     /* User Story 02

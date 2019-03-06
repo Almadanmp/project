@@ -218,7 +218,7 @@ public class UtilsUITest {
     public void testProgramListIsValid() {
         ProgramList programList = new ProgramList();
         FixedTimeProgram program = new FixedTimeProgram("eco", 25, 50);
-        programList.addProgram(program);
+        programList.add(program);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.programListIsValid(programList);

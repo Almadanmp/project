@@ -63,7 +63,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Throwable exception12 = assertThrows(UnsupportedOperationException.class,
                 () -> portableElectricConvectionHeater.getLogsInInterval(new GregorianCalendar().getTime(),new GregorianCalendar().getTime()));
         Throwable exception13 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricConvectionHeater.getConsumptionWithinGivenInterval(new GregorianCalendar().getTime(),new GregorianCalendar().getTime()));
+                () -> portableElectricConvectionHeater.getConsumptionInInterval(new GregorianCalendar().getTime(),new GregorianCalendar().getTime()));
         Throwable exception14 = assertThrows(UnsupportedOperationException.class,
                 () -> portableElectricConvectionHeater.getEnergyConsumption(20));
 

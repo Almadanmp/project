@@ -192,7 +192,7 @@ public class DeviceList {
     public double getConsumptionInInterval(Date initialDate, Date finalDate) {
         double result = 0;
         for (Device d : this.devices) {
-            result += d.getConsumptionWithinGivenInterval(initialDate, finalDate);
+            result += d.getConsumptionInInterval(initialDate, finalDate);
         }
         return result;
     }

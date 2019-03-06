@@ -1,5 +1,4 @@
-package pt.ipp.isep.dei.project.logger;
-
+package pt.ipp.isep.dei.project.reader;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -143,7 +143,7 @@ class DeviceTypeConfigTest {
                 });
     }
 
-    //DEVICETYPECONFIG SPECIF FILE METHOD
+    // DEVICE TYPE CONFIG SPECIFIC FILE METHOD
 
     @Test
     void getDeviceTypeConfigSpecificSuccess() throws IOException {

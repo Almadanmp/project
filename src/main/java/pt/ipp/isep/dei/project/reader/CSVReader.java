@@ -1,6 +1,5 @@
-package pt.ipp.isep.dei.project.io.ui;
+package pt.ipp.isep.dei.project.reader;
 
-import pt.ipp.isep.dei.project.logger.CustomFormatter;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
 /**
  * CVSReader Class. Reads .cvs files
  */
-public class CSVReader {
+public class CSVReader implements Reader{
 
     private String csvFileLocation;
 
@@ -57,7 +56,7 @@ public class CSVReader {
         testArea.setSensorList(testList);
 
         CSVReader testRead = new CSVReader();
-        testRead.getCSVReadings(testHouse);
+        testRead.readAndSet(testHouse);
 
         ReadingList test = testSensor1.getReadingList();
         ReadingList test2 = testSensor2.getReadingList();
@@ -66,7 +65,8 @@ public class CSVReader {
         System.out.println(cenas + cenas2);
         System.out.println(test.getMostRecentValue());
         System.out.println(test2.getMostRecentValue());
-    } */
+    }
+    */
 
     /**
      * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
@@ -74,7 +74,7 @@ public class CSVReader {
      *
      * @param house is the House of the application.
      */
-    public void getCSVReadings(House house) {
+    public void readAndSet(House house) {
         startAndPromptPath();
         BufferedReader buffReader = null;
         FileReader fileReader = null;
@@ -113,9 +113,10 @@ public class CSVReader {
     /**
      * Adds a new Reading to a sensor with the date and value read from the CSV file, but only if that date is posterior
      * to the date when the sensor was activated.
+     *
      * @param sensor is the sensor we want to add the reading to.
-     * @param value is the value read on the reading.
-     * @param date is the read date of the reading.
+     * @param value  is the value read on the reading.
+     * @param date   is the read date of the reading.
      * @return returns true if the reading was successfully added.
      */
     private boolean setCSVReadings(Sensor sensor, Date date, Double value) {
@@ -130,6 +131,7 @@ public class CSVReader {
 
     /**
      * Gets the list of sensors that exist in the Geographic Area where the house is contained
+     *
      * @param house is the application house.
      * @return returns a SensorList of the geographical area of the house.
      */
@@ -143,9 +145,10 @@ public class CSVReader {
      * After reading a single line of the file, tries to parse the value, the date and the name to double, Date and
      * string respectively, and sees if the name of the sensor matches, and the reading is possible to add, else the
      * adding process fails and a log of the type 'warning' is generated.
-     * @param logger is an instance of a logger.
-     * @param readings is an array of strings of all the parameters (each parameter separated by a comma),
-     *                 in each line of the CSV file.
+     *
+     * @param logger     is an instance of a logger.
+     * @param readings   is an array of strings of all the parameters (each parameter separated by a comma),
+     *                   in each line of the CSV file.
      * @param sensorList is the sensorList of the geographic area of the house.
      */
     private void parseAndLog(String[] readings, Logger logger, SensorList sensorList) {
@@ -163,13 +166,14 @@ public class CSVReader {
             System.out.println("The reading values are not numeric.");
             logger.warning("The reading values are not numeric.");
         } catch (ParseException c) {
-            c.printStackTrace();
+            System.out.println("The date format is not valid.");;
         }
     }
 
     /**
      * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
      */
+
     private void startAndPromptPath() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert the location of the CSV file");

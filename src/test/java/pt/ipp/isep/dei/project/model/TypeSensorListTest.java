@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -10,253 +11,204 @@ import static org.testng.Assert.assertTrue;
 
 
 class TypeSensorListTest {
+    // Common Testing Artifacts for this test class.
+
+    private TypeSensorList validList;
+    private TypeSensor firstTypeSensor; // Is in the list.
+    private TypeSensor secondTypeSensor; // Is not in the list.
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validList = new TypeSensorList();
+        firstTypeSensor = new TypeSensor("Temperature", "Celsius");
+        secondTypeSensor = new TypeSensor("Rainfall", "l/m2");
+        validList.add(firstTypeSensor);
+    }
 
     @Test
-    void testAdd() {
-        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
-        TypeSensor typeSensor3 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor4 = new TypeSensor("humidity", "percentage");
-        TypeSensorList typeList = new TypeSensorList();
-        //ACT
-        boolean actualResult1 = typeList.add(typeSensor1);
-        boolean actualResult2 = typeList.add(typeSensor2);
-        boolean actualResult3 = typeList.add(typeSensor3);
-        boolean actualResult4 = typeList.add(typeSensor4);
-        //ASSERT
+    void seeIfAddSensorTypeWorks() {
+        // Act
+
+        boolean actualResult1 = validList.add(secondTypeSensor);
+        boolean actualResult2 = validList.add(new TypeSensor("Pressure", "Percentage"));
+        boolean actualResult3 = validList.add(firstTypeSensor);
+
+
+        // Assert
+
         assertTrue(actualResult1);
         assertTrue(actualResult2);
         assertFalse(actualResult3);
-        assertTrue(actualResult4);
     }
 
     @Test
     void testBuildString() {
-        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
-        TypeSensorList typeList1 = new TypeSensorList();
-        TypeSensorList typeList2 = new TypeSensorList();
-        typeList1.add(typeSensor1);
-        typeList1.add(typeSensor2);
-        String expectedResult2 = "Invalid List - List is Empty\n";
+        // Arrange
+
         String expectedResult1 = "---------------\n" +
-                "0) Name: temperature | Unit: celsius\n" +
-                "1) Name: temperature | Unit: kelvin\n" +
+                "0) Name: Temperature | Unit: Celsius\n" +
                 "---------------\n";
-        //ACT
-        String actualResult1= typeList1.buildString();
-        String actualResult2= typeList2.buildString();
-        //ASSERT
-        assertEquals(actualResult1,expectedResult1);
-        assertEquals(actualResult2,expectedResult2);
+        String expectedResult2 = "Invalid List - List is Empty\n";
+        TypeSensorList emptyList = new TypeSensorList();
+
+        // Act
+
+        String actualResult1 = validList.buildString();
+        String actualResult2 = emptyList.buildString();
+
+        // Assert
+
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
     }
 
     @Test
-    void isEmpty() {
-        //Arrange
-        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
+    void seeIfIsEmptyWorks() {
+        // Arrange
 
-        TypeSensorList typeList1 = new TypeSensorList(); //EMPTY LIST
-        TypeSensorList typeList2 = new TypeSensorList(); //ONE TYPE SENSOR
-        TypeSensorList typeList3 = new TypeSensorList(); //TWO TYPE SENSORS
+        TypeSensorList emptyList = new TypeSensorList();
+        TypeSensorList twoElementsList = new TypeSensorList();
 
-        typeList2.add(typeSensor1);
-        typeList3.add(typeSensor1);
-        typeList3.add(typeSensor2);
+        twoElementsList.add(firstTypeSensor);
+        twoElementsList.add(secondTypeSensor);
 
-        //Act
-        boolean actualResult1 = typeList1.isEmpty();
-        boolean actualResult2 = typeList2.isEmpty();
-        boolean actualResult3 = typeList3.isEmpty();
+        // Act
 
-        //Assert
+        boolean actualResult1 = emptyList.isEmpty();
+        boolean actualResult2 = validList.isEmpty();
+        boolean actualResult3 = twoElementsList.isEmpty();
+
+        // Assert
+
         assertTrue(actualResult1);
         assertFalse(actualResult2);
         assertFalse(actualResult3);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfDifferentLists() {
-        //Arrange
-        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
-        TypeSensorList list = new TypeSensorList();
-        list.add(typeSensor1);
-        list.add(typeSensor2);
-        TypeSensorList list2 = new TypeSensorList();
-        list2.add(typeSensor1);
-        list2.add(typeSensor2);
+    void seeIfEqualsWorks() {
+        // Arrange
 
-        //Act
-        boolean actualResult = list.equals(list2);
+        TypeSensorList testList = new TypeSensorList();
+        testList.add(firstTypeSensor);
 
-        //Assert
+        // Act
+
+        boolean actualResult = testList.equals(validList);
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfDifferentObjectsWithDifferentContent() {
-        //Arrange
-        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
-        TypeSensor typeSensor3 = new TypeSensor("humidade", "metro");
-        TypeSensor typeSensor4 = new TypeSensor("humidade", "volume");
+    void seeIfEqualsWorksFalse() {
+        // Arrange
 
-        TypeSensorList list = new TypeSensorList();
-        list.add(typeSensor1);
-        list.add(typeSensor2);
-        TypeSensorList list2 = new TypeSensorList();
-        list2.add(typeSensor3);
-        list2.add(typeSensor4);
+        TypeSensorList testList = new TypeSensorList();
+        testList.add(firstTypeSensor);
+        testList.add(secondTypeSensor);
 
-        //Act
-        boolean actualResult = list.equals(list2);
+        // Act
 
-        //Assert
-        assertFalse( actualResult);
+        boolean actualResult = testList.equals(validList);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfDifferentObjectsWithSameContent() {
-        //Arrange
-        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
-        TypeSensor typeSensor3 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor4 = new TypeSensor("temperature", "kelvin");
-
-        TypeSensorList list = new TypeSensorList();
-        list.add(typeSensor1);
-        list.add(typeSensor2);
-        TypeSensorList list2 = new TypeSensorList();
-        list2.add(typeSensor3);
-        list2.add(typeSensor4);
-
+    void seeIfEqualsWorksNotAnInstanceOf() {
         //Act
-        boolean actualResult = list.equals(list2);
 
-        //Assert
-        assertTrue( actualResult);
+        boolean actualResult = validList.equals(new RoomList()); // Needed for Sonarqube testing purposes.
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfDifferentListTypes() {
-        //Arrange
-        TypeArea type1 = new TypeArea("cidade");
-        TypeArea type2 = new TypeArea("distrito");
-        TypeArea type3 = new TypeArea("aldeia");
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(type1);
-        list.addTypeArea(type2);
-        list.addTypeArea(type3);
-        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
-        TypeSensorList list2 = new TypeSensorList();
-        list2.add(typeSensor1);
-        list2.add(typeSensor2);
+    void seeIfEqualsWorksOnItself() {
+        // Act
 
-        //Act
-        boolean actualResult = list.equals(list2);
+        boolean actualResult = validList.equals(validList); // Needed for Sonarqube testing purposes.
 
-        //Assert
-        assertFalse( actualResult);
+        // Assert
+
+        assertTrue(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOfSameList() {
-        //Arrange
-        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
-        TypeSensorList list = new TypeSensorList();
-        list.add(typeSensor1);
-        list.add(typeSensor2);
+    void hashCodeDummyTest() {
+        // Act
 
-        //Act
-        boolean actualResult = list.equals(list);
-
-        //Assert
-        assertTrue( actualResult);
-    }
-
-    @Test
-    void seeHashCodeDummyTest() {
-        //Arrange
-        TypeSensor typeSensor1 = new TypeSensor("temperature", "celsius");
-        TypeSensor typeSensor2 = new TypeSensor("temperature", "kelvin");
-        TypeSensorList list = new TypeSensorList();
-        list.add(typeSensor1);
-        list.add(typeSensor2);
-
-        //Act
         int expectedResult = 1;
-        int actualResult = list.hashCode();
+        int actualResult = validList.hashCode();
 
-        //Assert
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getByIndexEmptyTypeSensorList() {
-        //Arrange
+    void seeIfGetElementWorksEmptyList() {
+        // Arrange
 
         TypeSensorList emptyList = new TypeSensorList();
 
-        //Act
+        // Act
 
         Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
 
-        //Assert
+        // Assert
 
         assertEquals("The type sensor list is empty.", exception.getMessage());
     }
 
     @Test
-    void size() {
-        //Arrange
+    void seeIfSizeWorks() {
+        // Arrange
 
         TypeSensorList emptyList = new TypeSensorList();
-        TypeSensorList oneSensorList = new TypeSensorList();
-        oneSensorList.add(new TypeSensor("temperature", "celsius"));
 
-        //Act
+        // Act
 
         int actualResult1 = emptyList.size();
-        int actualResult2 = oneSensorList.size();
+        int actualResult2 = validList.size();
 
-        //Assert
+        // Assert
 
         assertEquals(0, actualResult1);
         assertEquals(1, actualResult2);
     }
 
     @Test
-    void getElementsAsArray() {
-        //Arrange
+    void seeIfGetElementsAsArrayWorks() {
+        // Arrange
 
         TypeSensor[] expectedResult1 = new TypeSensor[0];
         TypeSensor[] expectedResult2 = new TypeSensor[1];
         TypeSensor[] expectedResult3 = new TypeSensor[2];
 
         TypeSensorList emptyList = new TypeSensorList();
-        TypeSensorList oneTypeSensor = new TypeSensorList();
-        TypeSensorList twoTypeSensor = new TypeSensorList();
+        TypeSensorList twoElementsList = new TypeSensorList();
 
-        oneTypeSensor.add(new TypeSensor("Temperature", "Celsius"));
-        twoTypeSensor.add(new TypeSensor("Temperature", "Celsius"));
+        twoElementsList.add(firstTypeSensor);
+        twoElementsList.add(secondTypeSensor);
 
-        twoTypeSensor.add(new TypeSensor("Temperature", "Kelvin"));
+        expectedResult2[0] = firstTypeSensor;
+        expectedResult3[0] = firstTypeSensor;
+        expectedResult3[1] = secondTypeSensor;
 
-        expectedResult2[0] = new TypeSensor("Temperature", "Celsius");
-        expectedResult3[0] = new TypeSensor("Temperature", "Celsius");
-        expectedResult3[1] = new TypeSensor("Temperature", "Kelvin");
-
-        //Act
+        // Act
 
         TypeSensor[] actualResult1 = emptyList.getElementsAsArray();
-        TypeSensor[] actualResult2 = oneTypeSensor.getElementsAsArray();
-        TypeSensor[] actualResult3 = twoTypeSensor.getElementsAsArray();
+        TypeSensor[] actualResult2 = validList.getElementsAsArray();
+        TypeSensor[] actualResult3 = twoElementsList.getElementsAsArray();
 
-        //Assert
+        // Assert
 
         assertArrayEquals(expectedResult1, actualResult1);
         assertArrayEquals(expectedResult2, actualResult2);

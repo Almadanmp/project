@@ -30,7 +30,7 @@ class DishwasherSpecTest {
 
         FixedTimeProgram program1 = new FixedTimeProgram("program", 2, 2);
         ProgramList listProgram = new ProgramList();
-        listProgram.addProgram(program1);
+        listProgram.add(program1);
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add(DishwasherSpec.DW_CAPACITY);
 

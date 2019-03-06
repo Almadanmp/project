@@ -15,7 +15,7 @@ public class StoveSpecTest {
     void seeIfGetAttributeNamesTestWorks() {
         VariableTimeProgram program1 = new VariableTimeProgram("Program 1", 78);
         ProgramList listProgram = new ProgramList();
-        listProgram.addProgram(program1);
+        listProgram.add(program1);
         StoveSpec stoveSpec = new StoveSpec();
         List<String> expectedResult = new ArrayList<>();
         List<String> result = stoveSpec.getAttributeNames();

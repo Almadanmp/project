@@ -15,7 +15,7 @@ public class MicrowaveOvenSpecTest {
     void seeIfGetAttributeNamesTestWorks() {
         VariableTimeProgram program1 = new VariableTimeProgram("programa", 78);
         ProgramList listProgram = new ProgramList();
-        listProgram.addProgram(program1);
+        listProgram.add(program1);
         MicrowaveOvenSpec microwaveOvenSpec = new MicrowaveOvenSpec();
         List<String> expectedResult = new ArrayList<>();
         List<String> result = microwaveOvenSpec.getAttributeNames();
