@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import java.util.UUID;
+
 /**
  * Class that represents a Geographical Area.
  */
@@ -14,6 +16,8 @@ public class GeographicArea {
     private Local location;
     private SensorList areaSensors;
     private String description;
+    private UUID uniqueId;
+
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -36,9 +40,51 @@ public class GeographicArea {
         this.width = width;
         this.location = location;
         this.areaSensors = new SensorList();
+        this.uniqueId = UUID.randomUUID();
+
     }
 
     // Setters and Getters for all the parameters.
+
+    public void setUniqueId(UUID id) {
+        this.uniqueId = id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setTypeArea(TypeArea typeArea) {
+        this.typeArea = typeArea;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public Local getLocation() {
+        return location;
+    }
+
+    public void setLocation(Local location) {
+        this.location = location;
+    }
+
+    public SensorList getAreaSensors() {
+        return areaSensors;
+    }
+
+    public void setAreaSensors(SensorList areaSensors) {
+        this.areaSensors = areaSensors;
+    }
+
+    public UUID getUniqueID() {
+        return uniqueId;
+    }
 
     public String getId() {
         return this.id;
@@ -54,7 +100,7 @@ public class GeographicArea {
         this.description = description;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
@@ -76,7 +122,7 @@ public class GeographicArea {
         }
     }
 
-    GeographicArea getMotherArea() {
+    public GeographicArea getMotherArea() {
         return this.motherArea;
     }
 
@@ -104,7 +150,7 @@ public class GeographicArea {
      *
      * @return returns the attribute TypeArea from an object of the class Geographic Area
      */
-    TypeArea getTypeArea() {
+    public TypeArea getTypeArea() {
         return this.typeArea;
     }
 
@@ -140,7 +186,7 @@ public class GeographicArea {
         return result;
     }
 
-    double getWidth() {
+    public double getWidth() {
         return this.width;
     }
 
