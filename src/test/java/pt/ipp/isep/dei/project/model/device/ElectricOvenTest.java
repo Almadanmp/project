@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.device;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.ElectricOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -12,287 +13,507 @@ import pt.ipp.isep.dei.project.model.device.program.VariableTimeProgram;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 class ElectricOvenTest {
-    private ElectricOven electricOvenValid = new ElectricOven(new ElectricOvenSpec());
-    private VariableTimeProgram variableTimeProgramValid;
+    private ElectricOven validOven = new ElectricOven(new ElectricOvenSpec());
+    private VariableTimeProgram validVariableTimeProgram;
     private Log validLog;
-    private LogList validLogList;
-    private Date initialTime;
-    private Date finalTime;
-    private Date periodEnding1;
-    private Date periodEnding2;
-    private Date periodBeginning1;
-    private Date periodBeginning2;
-    private Date periodBeginning9AM;
-    private Date periodEnding1120AM;
-    private Log validLog1;
-    private Log validLog2;
 
 
     @BeforeEach
     void arrangeArtifacts() {
-        variableTimeProgramValid = new VariableTimeProgram("VariableTimeProgram 1", 70);
-        electricOvenValid.setName("Electric Oven 3000");
-        electricOvenValid.setNominalPower(15);
-        validLog = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        validLogList = electricOvenValid.getLogList();
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        try {
-            initialTime = validSdf.parse("20/10/2018 10:00:00");
-            finalTime = validSdf.parse("20/10/2018 11:00:00");
-            periodEnding1 = validSdf.parse("20/10/2018 10:20:00");
-            periodBeginning2 = validSdf.parse("20/10/2018 10:30:00");
-            periodBeginning1 = validSdf.parse("20/10/2018 10:01:00");
-            periodEnding2 = validSdf.parse("20/10/2018 10:59:00");
-            periodBeginning9AM = validSdf.parse("20/10/2018 9:00:00");
-            periodEnding1120AM = validSdf.parse("20/10/2018 11:20:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        validLog1 = new Log(56, initialTime, periodEnding1);
-        validLog2 = new Log(55, periodBeginning2, finalTime);
+        validVariableTimeProgram = new VariableTimeProgram("VariableTimeProgram 1", 70);
+        validOven.setName("Electric Oven 3000");
+        validOven.setNominalPower(15);
+        validLog = new Log(1, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        validOven.addLog(validLog);
     }
 
     @Test
-    void getConsumption() {
+    void seeIfGetConsumptionWorks() {
+        // Arrange
+
         double expectedResult = 360;
-        double result = electricOvenValid.getEnergyConsumption(24);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getProgramEnergyConsumptionTest() {
-        double result = electricOvenValid.getProgramEnergyConsumption(20, variableTimeProgramValid);
-        double expectedResult = 1400;
         double expectedResultZero = 0;
-        double resultZero = electricOvenValid.getEnergyConsumption(0);
+
+        // Act
+
+        double result = validOven.getEnergyConsumption(24);
+        double resultZero = validOven.getEnergyConsumption(0);
+
+        // Assert
+
         assertEquals(expectedResult, result);
         assertEquals(expectedResultZero, resultZero);
     }
 
     @Test
+    void seeIfGetProgramConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 1400;
+
+        // Act
+
+        double result = validOven.getProgramEnergyConsumption(20, validVariableTimeProgram);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    @Test
     void seeIfPrintDeviceWorks() {
-        String result = electricOvenValid.buildString();
+        // Arrange
+
         String expectedResult = "The device Name is Electric Oven 3000, and its NominalPower is 15.0 kW.\n";
+
+        // Act
+
+        String result = validOven.buildString();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void setAndGetNameTest() {
-        electricOvenValid.setName("Fridge 3000");
-        String result = electricOvenValid.getName();
+    void seeIfGetSetNameWorks() {
+        // Arrange
+
+        validOven.setName("Fridge 3000");
         String expectedResult = "Fridge 3000";
+
+        // Act
+
+        String result = validOven.getName();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getAndSetNominalPowerTest() {
-        electricOvenValid.setNominalPower(150);
-        double result = electricOvenValid.getNominalPower();
+    void seeIfGetSetNominalPowerWorks() {
+        // Arrange
+
+        validOven.setNominalPower(150);
         double expectedResult = 150;
+
+        // Act
+
+        double result = validOven.getNominalPower();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getAndSetAttributeValueTest() {
-        Object result = electricOvenValid.getAttributeValue("");
+    void seeIfGetSetAttributeValueWorks() {
+        // Test for get with an empty string.
+
+        // Arrange
+
         Object expectedResult = 0;
+
+        // Act
+
+        Object result = validOven.getAttributeValue("");
+
+        // Assert
+
         assertEquals(expectedResult, result);
-        boolean resultSet = electricOvenValid.setAttributeValue("", 10);
+
+        // Test for set with an empty string.
+
+        // Act
+
+        boolean resultSet = validOven.setAttributeValue("", 10);
+
+        // Assert
+
         assertFalse(resultSet);
-        Object resultUnit = electricOvenValid.getAttributeUnit("");
+    }
+
+    @Test
+    void seeIfGetAttributeUnitsWorksEmptyAttribute(){
+        // Test for getting an attribute unit for an empty attribute string.
+
+        // Act
+
+        Object resultUnit = validOven.getAttributeUnit("");
+
+        // Assert
+
         assertEquals(false, resultUnit);
-        List<String> resultString = electricOvenValid.getAttributeNames();
+    }
+
+    @Test
+    void seeIfGetAttributeNamesWorksEmpty(){
+        // Act
+
+        List<String> resultString = validOven.getAttributeNames();
+
+        // Assert
+
         assertEquals(new ArrayList<>(), resultString);
     }
 
     @Test
-    void deactivateElectricOven() {
-        boolean expectedResult = true;
-        boolean actualResult = electricOvenValid.deactivate();
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfDeactivateWorks() {
+        // Act
 
-    @Test
-    void notDeactivateElectricOven() {
-        electricOvenValid.deactivate();
-        boolean expectedResult = false;
-        boolean actualResult = electricOvenValid.deactivate();
-        assertEquals(expectedResult, actualResult);
-    }
+        boolean actualResult = validOven.deactivate();
 
-    @Test
-    void getLogList() {
-        electricOvenValid.addLog(validLog);
-        LogList result = electricOvenValid.getLogList();
-        assertEquals(validLogList, result);
-    }
+        // Assert
 
-    @Test
-    void seeIfGetDeviceTypeTest() {
-        String dT = "Electric Oven";
-        String result = electricOvenValid.getType();
-        assertEquals(dT, result);
-    }
-
-    @Test
-    void seeIfEqualToSameObject() {
-        boolean actualResult = electricOvenValid.equals(electricOvenValid);
         assertTrue(actualResult);
     }
 
     @Test
-    void seeIfEqualsToDifObject() {
-        ElectricOven d2 = new ElectricOven(new ElectricOvenSpec());
-        d2.setName("EOTwo");
-        d2.setNominalPower(12.0);
-        boolean actualResult = electricOvenValid.equals(d2);
+    void seeIfDeactivateWorksAlreadyDeactivated() {
+        // Arrange
+
+        validOven.deactivate();
+
+        // Act
+
+        boolean actualResult = validOven.deactivate();
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void seeEqualsToDifTypeObject() {
-        Room room = new Room("quarto", 1, 80, 2, 2);
-        boolean actualResult = electricOvenValid.equals(room);
+    void seeIfGetLogListWorks() {
+        // Arrange
+
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog);
+
+        // Act
+
+        LogList result = validOven.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
+        String expectedResult = "Electric Oven";
+
+        // Act
+
+        String result = validOven.getType();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfEqualsWorksOnItself() {
+        // Act
+
+        boolean actualResult = validOven.equals(validOven); // Needed for sonarqube testing purposes.
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalse() {
+        // Arrange
+
+        ElectricOven testOven = new ElectricOven(new ElectricOvenSpec());
+        testOven.setName("EOTwo");
+        testOven.setNominalPower(12.0);
+
+        // Act
+
+        boolean actualResult = validOven.equals(testOven);
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void seeEqualsToNullObject() {
-        boolean actualResult = electricOvenValid == null;
+    void seeEqualsWorksNotAnInstance() {
+        // Act
+
+        boolean actualResult = validOven.equals(new RoomList()); // Needed for sonarqube testing purposes.
+
+        // Assert
+
         assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksNull() {
+        // Act
+
+        boolean actualResult = validOven.equals(null);  // Needed for sonarqube testing purposes.
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfGetConsumptionInIntervalWorksBounds() {
+        // Act
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 31, 10,0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 2, 11,0,
+                0).getTime();
+        double result = validOven.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(1, result);
+    }
+
+    @Test
+    void seeIfGetConsumptionInIntervalWorksInBounds() {
+        // Arrange
+
+        // Time Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 10,0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 11,0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(120, new GregorianCalendar(2018, Calendar.OCTOBER, 20, 10,
+                1, 0).getTime(), new GregorianCalendar(2018, Calendar.OCTOBER, 20,
+                10, 20, 0).getTime());
+        Log secondLog = new Log(55, new GregorianCalendar(2018, Calendar.OCTOBER, 20, 10,
+                30, 0).getTime(), new GregorianCalendar(2018, Calendar.OCTOBER, 20,
+                10, 59, 0).getTime());
+        validOven.addLog(firstLog);
+        validOven.addLog(secondLog);
+
+        // Act
+
+        double result = validOven.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+        assertEquals(175, result);
+    }
+
+    @Test
+    void seeIfGetConsumptionInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        // Time Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 10,0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 11,0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(56, new GregorianCalendar(2018, Calendar.OCTOBER, 20, 9,
+                1, 0).getTime(), new GregorianCalendar(2018, Calendar.OCTOBER, 20,
+                10, 20, 0).getTime());
+        Log secondLog = new Log(55, new GregorianCalendar(2018, Calendar.OCTOBER, 20,
+                10, 30, 0).getTime(), new GregorianCalendar(2018, Calendar.OCTOBER,
+                20, 11, 20, 0).getTime());
+        validOven.addLog(firstLog);
+        validOven.addLog(secondLog);
+
+        // Act
+
+        double result = validOven.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(0.0, result);
+    }
+
+    @Test
+    void seeIfCountLogsInIntervalWorks() {
+        // Arrange
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 31, 10,0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 2, 11,0,
+                0).getTime();
+
+        // Act
+
+        double result = validOven.countLogsInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(1, result);
+    }
+
+    @Test
+    void seeIfGetLogsInIntervalWorks() {
+        // Arrange
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 31, 10,0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 2, 11,0,
+                0).getTime();
+
+        // Expected
+
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog);
+
+        // Act
+
+        LogList result = validOven.getLogsInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetConsumptionWorksTimeZero() {
+        // Arrange
+
+        double expectedResult = 0;
+
+        // Act
+
+        double result = validOven.getEnergyConsumption(0);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetProgramListWorks() {
+        // Arrange
+
+        FixedTimeProgram testProgram = new FixedTimeProgram("programa", 2, 2);
+        ProgramList testList = new ProgramList();
+        testList.add(testProgram);
+        validOven.setProgramList(testList);
+
+        // Act
+
+        ProgramList result = validOven.getProgramList();
+
+        // Assert
+
+        assertEquals(testList, result);
+    }
+
+    @Test
+    void seeIfAddLogWorksDuplicate() {
+        // Act and Assert
+
+        assertFalse(validOven.addLog(validLog));
+    }
+
+
+    @Test
+    void seeIfGetLogListWorksEmpty() {
+        // Arrange
+
+        validOven = new ElectricOven(new ElectricOvenSpec());
+        LogList expectedResult = new LogList();
+
+        // Act
+
+        LogList actualResult = validOven.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddLogWorksInactive() {
+        // Arrange
+
+        this.validOven.deactivate();
+
+        // Act
+
+        boolean result = this.validOven.addLog(validLog);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfAddLogWorks() {
+        // Arrange
+
+        validOven = new ElectricOven(new ElectricOvenSpec());
+
+        // Act
+
+        boolean result = validOven.addLog(validLog);
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+
+    @Test
+    void seeIfIsLogListEmptyWorks() {
+        // Arrange
+
+        validOven = new ElectricOven(new ElectricOvenSpec());
+
+        // Act
+
+        boolean result = validOven.isLogListEmpty();
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+    @Test
+    void seeIfIsLogListEmptyWorksFalse() {
+        // Act
+
+        boolean result = validOven.isLogListEmpty();
+
+        // Assert
+
+        assertFalse(result);
     }
 
     @Test
     void hashCodeDummyTest() {
         int expectedResult = 1;
-        int actualResult = electricOvenValid.hashCode();
+        int actualResult = validOven.hashCode();
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
-        electricOvenValid.addLog(validLog1);
-        electricOvenValid.addLog(validLog2);
-        double result = electricOvenValid.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(111, result);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBefore() {
-        Log log1 = new Log(120, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        electricOvenValid.addLog(log1);
-        electricOvenValid.addLog(log2);
-        double result = electricOvenValid.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(175, result);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBeforeReverseOutOfBounds() {
-        Log log1 = new Log(56, periodBeginning9AM, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding1120AM);
-        electricOvenValid.addLog(log1);
-        electricOvenValid.addLog(log2);
-        double result = electricOvenValid.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(0.0, result);
-    }
-
-    @Test
-    void testCountLogsInInterval() {
-        electricOvenValid.addLog(validLog1);
-        electricOvenValid.addLog(validLog2);
-        double result = electricOvenValid.countLogsInInterval(initialTime, finalTime);
-        assertEquals(2, result);
-    }
-
-    @Test
-    void getLogsInInterval() {
-        electricOvenValid.addLog(validLog1);
-        electricOvenValid.addLog(validLog2);
-        LogList expectedResult = new LogList();
-        expectedResult.addLog(validLog1);
-        expectedResult.addLog(validLog2);
-        LogList result = electricOvenValid.getLogsInInterval(initialTime, finalTime);
-        assertEquals(expectedResult, result);
-        assertFalse(electricOvenValid.isLogListEmpty());
-    }
-
-    @Test
-    void getConsumptionTimeZero() {
-        double expectedResult = 0;
-        double result = electricOvenValid.getEnergyConsumption(0);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getProgramList() {
-        FixedTimeProgram program1 = new FixedTimeProgram("programa", 2, 2);
-        ProgramList listProgram = electricOvenValid.getProgramList();
-        listProgram.add(program1);
-        ProgramList result = electricOvenValid.getProgramList();
-        assertEquals(listProgram, result);
-    }
-
-    @Test
-    void addLogListFalse() {
-        electricOvenValid.addLog(validLog);
-        assertFalse(electricOvenValid.addLog(validLog));
-        assertFalse(electricOvenValid.isLogListEmpty());
-    }
-
-
-    @Test
-    void getLogListEmpty() {
-        electricOvenValid.addLog(validLog1);
-        electricOvenValid.addLog(validLog2);
-        LogList actualResult =electricOvenValid.getLogList();
-        assertEquals(validLogList, actualResult);
-    }
-
-    @Test
-    void addLogToInactive() {
-        this.electricOvenValid.deactivate();
-        boolean result = this.electricOvenValid.addLog(validLog);
-        assertFalse(result);
-    }
-
-    @Test
-    void addLogTrue() {
-        boolean result = electricOvenValid.addLog(validLog);
-        assertTrue(result);
-    }
-
-    @Test
-    void addLogFalse() {
-        electricOvenValid.addLog(validLog);
-        boolean result = electricOvenValid.addLog(validLog);
-        assertFalse(result);
-    }
-
-
-    @Test
-    void isLogListEmptyTrue() {
-        boolean result = electricOvenValid.isLogListEmpty();
-        assertTrue(result);
-    }
-
-    @Test
-    void isLogListEmptyFalse() {
-        electricOvenValid.addLog(validLog1);
-        electricOvenValid.addLog(validLog2);
-        boolean result = electricOvenValid.isLogListEmpty();
-        assertFalse(result);
     }
 }
 
