@@ -38,7 +38,7 @@ public class Mapper {
         return room;
     }
 
-    public GeographicArea createGeographicAreaFromDTO(GeographicAreaDTO geographicAreaDTO){
+    private GeographicArea createGeographicAreaFromDTO(GeographicAreaDTO geographicAreaDTO){
         GeographicArea geographicArea = new GeographicArea(geographicAreaDTO.getId(), geographicAreaDTO.getTypeArea(), geographicAreaDTO.getLength(),
                 geographicAreaDTO.getWidth(), geographicAreaDTO.getLocation());
         geographicArea.setMotherArea(geographicAreaDTO.getMotherArea());
