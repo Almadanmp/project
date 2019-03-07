@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Tv implements Device, Metered {
+public class TV implements Device, Metered {
     private String name;
     private double nominalPower;
     private TvSpec deviceSpecs;
@@ -17,7 +17,7 @@ public class Tv implements Device, Metered {
     private LogList logList;
 
 
-    public Tv(TvSpec tVSpec) {
+    public TV(TvSpec tVSpec) {
         this.deviceSpecs = tVSpec;
         this.active = true;
         logList = new LogList();

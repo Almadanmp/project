@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * TV Device tests class.
  */
 
-class TvTest {
+class TVTest {
 
     // Common artifacts for testing in this class.
-    private Tv tv = new Tv(new TvSpec());
+    private TV tv = new TV(new TvSpec());
 
     @BeforeEach
     void arrangeArtifacts() {
