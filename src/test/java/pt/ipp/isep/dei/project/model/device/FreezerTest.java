@@ -3,13 +3,12 @@ package pt.ipp.isep.dei.project.model.device;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FreezerSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -17,321 +16,512 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
 
-public class FreezerTest {
-    private Freezer freezerValid = new Freezer(new FreezerSpec());
-    private Log validLog;
-    private LogList validLogList;
-    private Date initialTime;
-    private Date finalTime;
-    private Date periodEnding01;
-    private Date periodEnding02;
-    private Date periodBeginning01;
-    private Date periodBeginning02;
-    private Date periodBeginning9AM;
-    private Date periodEnding1120AM;
-    private Log validLog01;
-    private Log validLog02;
+class FreezerTest {
+    private Freezer validFreezer = new Freezer(new FreezerSpec());
+    private Log validLog; // February 1, 2019.
+    private Log secondValidLog; // September 20th 2018, from 10h00 to 10h20.
+    private Log thirdValidLog; // September 20th 2018, from 10h01 to 11h00.
 
     @BeforeEach
     void arrangeArtifacts() {
-        freezerValid.setName("Freezer");
-        freezerValid.setNominalPower(30);
-        freezerValid.setAnnualConsumption(3650);
-        freezerValid.setAttributeValue("Capacity", 15.0);
-        validLog = new Log(2, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        validLogList = freezerValid.getLogList();
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        try {
-            initialTime = validSdf.parse("20/09/2018 10:00:00");
-            finalTime = validSdf.parse("20/09/2018 11:00:00");
-            periodEnding01 = validSdf.parse("20/09/2018 10:20:00");
-            periodBeginning02 = validSdf.parse("20/09/2018 10:30:00");
-            periodBeginning01 = validSdf.parse("20/09/2018 10:01:00");
-            periodEnding02 = validSdf.parse("20/09/2018 10:59:00");
-            periodBeginning9AM = validSdf.parse("20/09/2018 9:00:00");
-            periodEnding1120AM = validSdf.parse("20/09/2018 11:20:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        validLog01 = new Log(20, initialTime, periodEnding01);
-        validLog02 = new Log(20, periodBeginning02, finalTime);
+        validFreezer.setName("Freezer");
+        validFreezer.setNominalPower(30);
+        validFreezer.setAnnualConsumption(3650);
+        validFreezer.setAttributeValue("Capacity", 15.0);
+        validLog = new Log(2, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        secondValidLog = new Log(20, new GregorianCalendar(2018, Calendar.SEPTEMBER, 20,
+                10, 0, 0).getTime(), new GregorianCalendar(2018, Calendar.SEPTEMBER, 20
+                , 10, 20, 0).getTime());
+        thirdValidLog = new Log(20, new GregorianCalendar(2018, Calendar.SEPTEMBER, 20,
+                10, 1, 0).getTime(), new GregorianCalendar(2018, Calendar.SEPTEMBER, 20,
+                11, 0, 0).getTime());
+        validFreezer.addLog(validLog);
+        validFreezer.addLog(secondValidLog);
+        validFreezer.addLog(thirdValidLog);
     }
 
     @Test
-    void seeIfGetDeviceTypeTest() {
-        String dT = "Freezer";
-        String expectedResult = dT;
-        String result = freezerValid.getType();
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
+        String expectedResult = "Freezer";
+
+        // Act
+
+        String result = validFreezer.getType();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfEqualToSameObject() {
-        boolean actualResult = freezerValid.equals(freezerValid);
+    void seeIfEqualsWorksOnItself() {
+        // Act
+
+        boolean actualResult = validFreezer.equals(validFreezer); // Needed for sonarqube testing purposes.
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void seeIfGetNominalPowerTest() {
+    void seeIfGetNominalPowerWorks() {
+        // Arrange
+
         double expectedResult = 30;
-        double actualResult = freezerValid.getNominalPower();
+
+        // Act
+
+        double actualResult = validFreezer.getNominalPower();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfGetAnnualConsumptionTest() {
+    void seeIfGetAnnualConsumptionWorks() {
+        // Arrange
+
         double expectedResult = 3650;
-        double actualResult = freezerValid.getAnnualConsumption();
+
+        // Act
+
+        double actualResult = validFreezer.getAnnualConsumption();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfEqualsToDifObject() {
-        Freezer d2 = new Freezer(new FreezerSpec());
-        d2.setName("FreezerTwo");
-        d2.setNominalPower(12.0);
-        d2.setAttributeValue(FreezerSpec.CAPACITY, 45);
+    void seeIfEqualsWorksDifferentObject() {
+        // Arrange
 
-        boolean actualResult = freezerValid.equals(d2);
+        Freezer testFreezer = new Freezer(new FreezerSpec());
+        testFreezer.setName("FreezerTwo");
+        testFreezer.setNominalPower(12.0);
+        testFreezer.setAttributeValue(FreezerSpec.CAPACITY, 45);
+
+        // Act
+
+        boolean actualResult = validFreezer.equals(testFreezer);
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void seeEqualsToDifTypeObject() {
-        Room room = new Room("quarto", 1, 80, 2, 2);
+    void seeIfEqualsWorksNotAnInstance() {
+        // Act
 
-        boolean actualResult = freezerValid.equals(room);
+        boolean actualResult = validFreezer.equals(new RoomList()); // Needed for sonarqube testing purposes.
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
     void seeEqualsToNullObject() {
-        boolean actualResult = freezerValid.equals(null);
+        // Act
+
+        boolean actualResult = validFreezer.equals(null); // Needed for sonarqube testing purposes.
+
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfPrintDeviceWorks() {
+        // Arrange
+
         String expectedResult = "The device Name is Freezer, and its NominalPower is 30.0 kW.\n";
-        String actualResult = freezerValid.buildString();
+
+        // Act
+
+        String actualResult = validFreezer.buildString();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetNameWorks() {
+        // Arrange
+
         String expectedResult = "Freezer";
-        String actualResult = freezerValid.getName();
+
+        // Act
+
+        String actualResult = validFreezer.getName();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAttributeValueWorks() {
+        // Arrange
+
+        Double expectedResult = 15.0;
+
+        // Act
+
+        Object actualResult = validFreezer.getAttributeValue(FreezerSpec.CAPACITY);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAttributeUnitWorks() {
+        // Arrange
+
+        String expectedResult = "l";
+
+        // Act
+
+        Object actualResult = validFreezer.getAttributeUnit(FreezerSpec.CAPACITY);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAttributeNamesWorks() {
+        // Act
+
+        List<String> actualResult = validFreezer.getAttributeNames();
+
+        // Assert
+
+        assertTrue(actualResult.contains(FreezerSpec.CAPACITY));
+        assertEquals(actualResult.size(), 1);
+    }
+
+    @Test
+    void seeIfDeactivateWorks() {
+        // Act
+
+        boolean actualResult = validFreezer.deactivate();
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateWorksAlreadyInactive() {
+        // Arrange
+
+        validFreezer.deactivate();
+
+        // Act
+
+        boolean actualResult = validFreezer.deactivate();
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfGetEnergyConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 60.0;
+
+        // Act
+
+        double actualResult = validFreezer.getEnergyConsumption(2);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetDailyEnergyConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 10.0;
+
+        // Act
+
+        double actualResult = validFreezer.getDailyEnergyConsumption();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetLogListWorksEmptyList() {
+        // Arrange
+
+        validFreezer = new Freezer(new FreezerSpec());
+        LogList expectedResult = new LogList();
+
+        // Act
+
+        LogList actualResult = validFreezer.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetLogListWorks() {
+        // Arrange
+
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog);
+        expectedResult.addLog(secondValidLog);
+        expectedResult.addLog(thirdValidLog);
+
+        // Act
+
+        LogList actualResult = validFreezer.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddLogWorksDeactivated() {
+        // Arrange
+
+        validFreezer.deactivate();
+
+        // Act
+
+        boolean result = this.validFreezer.addLog(validLog);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfAddLogWorks() {
+        // Act
+
+        validFreezer = new Freezer(new FreezerSpec());
+        boolean result = validFreezer.addLog(validLog);
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+    @Test
+    void seeIfAddLogWorksDuplicate() {
+        // Arrange
+
+        validFreezer.addLog(validLog);
+
+        // Act
+
+        boolean result = validFreezer.addLog(validLog);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+
+    @Test
+    void seeIfIsEmptyWorks() {
+        // Act
+
+        validFreezer = new Freezer(new FreezerSpec());
+        boolean result = validFreezer.isLogListEmpty();
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+    @Test
+    void seeIfIsEmptyWorksFalse() {
+        // Act
+
+        boolean result = validFreezer.isLogListEmpty();
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfGetConsumptionInIntervalWorks() {
+        // Arrange
+
+        double expectedResult = 40.0;
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Act
+
+        double actualResult = validFreezer.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetConsumptionInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        validFreezer = new Freezer(new FreezerSpec());
+        double expectedResult = 0.0;
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validFreezer.addLog(firstLog);
+
+        // Act
+
+        double actualResult = validFreezer.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCountGetLogsInIntervalWorks() {
+        // Arrange
+
+        Integer expectedResult = 2;
+        LogList expectedResultList = new LogList();
+        expectedResultList.addLog(validLog);
+        expectedResultList.addLog(secondValidLog);
+        expectedResultList.addLog(thirdValidLog);
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Act
+
+        Integer actualResult = validFreezer.countLogsInInterval(initialTime, finalTime);
+        LogList actualResultList = validFreezer.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResultList, actualResultList);
+    }
+
+    @Test
+    void seeIfGetLogsInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        validFreezer = new Freezer(new FreezerSpec());
+        LogList expectedResult = new LogList();
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validFreezer.addLog(firstLog);
+
+        // Act
+
+        LogList actualResult = validFreezer.getLogsInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 720.0;
+
+        // Act
+
+        double actualResult = validFreezer.getEnergyConsumption(24);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetConsumptionWorksTimeZero() {
+        // Arrange
+
+        double expectedResult = 0;
+
+        // Act
+
+        double actualResult = validFreezer.getEnergyConsumption(0);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetAttributeValueWorks() {
+        // Arrange
+
+        Integer testAttribute = 6;
+        Double testAttributeDouble = 9.0;
+
+        // Act and Assert
+
+        assertFalse(validFreezer.setAttributeValue(FreezerSpec.CAPACITY, testAttribute));
+        assertTrue(validFreezer.setAttributeValue(FreezerSpec.CAPACITY, testAttributeDouble));
+        Assertions.assertFalse(validFreezer.setAttributeValue("notCapacity", testAttributeDouble));
+        Assertions.assertFalse(validFreezer.setAttributeValue("", testAttributeDouble));
     }
 
     @Test
     void hashCodeDummyTest() {
         int expectedResult = 1;
-        int actualResult = freezerValid.hashCode();
+        int actualResult = validFreezer.hashCode();
         assertEquals(expectedResult, actualResult);
     }
-
-    @Test
-    void seeIfGetAttributeValue() {
-        Double expectedResult = 15.0;
-        Object actualResult = freezerValid.getAttributeValue(FreezerSpec.CAPACITY);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetAndSetAttributeUnit() {
-        String expectedResult = "l";
-        Object actualResult = freezerValid.getAttributeUnit(FreezerSpec.CAPACITY);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetAttributeNames() {
-
-        List<String> actualResult = freezerValid.getAttributeNames();
-        assertTrue(actualResult.contains(FreezerSpec.CAPACITY));
-
-        assertEquals(actualResult.size(), 1);
-    }
-
-    @Test
-    void ensureThatWeDeactivateADevice() {
-        boolean expectedResult = true;
-        boolean actualResult = freezerValid.deactivate();
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void ensureThatWeDoNotDeactivate() {
-        freezerValid.deactivate();
-        boolean expectedResult = false;
-        boolean actualResult = freezerValid.deactivate();
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetEnergyConsumptionWithNominalPower() {
-        double expectedResult = 60.0;
-        double actualResult = freezerValid.getEnergyConsumption(2);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetDailyEnergyConsumption() {
-        double expectedResult = 10.0;
-        double actualResult = freezerValid.getDailyEnergyConsumption();
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getLogList() {
-        LogList actualResult = freezerValid.getLogList();
-        LogList logList = new LogList();
-        assertEquals(logList, actualResult);
-    }
-
-    @Test
-    void getLogListEmpty() {
-        freezerValid.addLog(validLog);
-        freezerValid.addLog(validLog01);
-        LogList actualResult = freezerValid.getLogList();
-        assertEquals(validLogList, actualResult);
-    }
-
-    @Test
-    void addLogToInactive() {
-        this.freezerValid.deactivate();
-        boolean result = this.freezerValid.addLog(validLog);
-        assertFalse(result);
-    }
-
-    @Test
-    void addLogTrue() {
-        boolean result = freezerValid.addLog(validLog);
-        assertTrue(result);
-    }
-
-    @Test
-    void addLogFalse() {
-        freezerValid.addLog(validLog);
-        boolean result = freezerValid.addLog(validLog);
-        assertFalse(result);
-    }
-
-
-    @Test
-    void isLogListEmptyTrue() {
-        boolean result = freezerValid.isLogListEmpty();
-        assertTrue(result);
-    }
-
-    @Test
-    void isLogListEmptyFalse() {
-        freezerValid.addLog(validLog02);
-        freezerValid.addLog(validLog01);
-        boolean result = freezerValid.isLogListEmpty();
-        assertFalse(result);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
-        freezerValid.addLog(validLog01);
-        freezerValid.addLog(validLog02);
-        double expectedResult = 40.0;
-        double actualResult = freezerValid.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBefore() {
-        Log log1 = new Log(10, periodBeginning01, periodEnding01);
-        Log log2 = new Log(50, periodBeginning02, periodEnding02);
-        freezerValid.addLog(log1);
-        freezerValid.addLog(log2);
-        double expectedResult = 60.0;
-        double actualResult = freezerValid.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBeforeReverseOutOfBounds() {
-
-        Log log1 = new Log(10, periodBeginning9AM, periodEnding01);
-        Log log2 = new Log(20, periodBeginning02, periodEnding1120AM);
-        freezerValid.addLog(log1);
-        freezerValid.addLog(log2);
-        double expectedResult = 0.0;
-        double actualResult = freezerValid.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void testCountLogsInInterval() {
-        freezerValid.addLog(validLog01);
-        freezerValid.addLog(validLog02);
-        Log log = new Log(10, periodBeginning01, periodEnding01);
-        freezerValid.addLog(log);
-        Integer expectedResult = 3;
-        Integer actualResult = freezerValid.countLogsInInterval(initialTime, finalTime);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void testGetLogsInInterval() {
-        freezerValid.addLog(validLog01);
-        freezerValid.addLog(validLog02);
-        freezerValid.setNominalPower(30);
-        LogList expectedResult = new LogList();
-        expectedResult.addLog(validLog01);
-        expectedResult.addLog(validLog02);
-
-        LogList actualResult = freezerValid.getLogsInInterval(initialTime, finalTime);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void testGetLogsInIntervalOutOfBounds() {
-        Date initialTime = new GregorianCalendar(2019, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2019, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2019, 10, 20, 9, 50).getTime();
-        Date periodEnding1 = new GregorianCalendar(2019, 10, 20, 10, 10).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2019, 10, 20, 10, 50).getTime();
-        Date periodEnding2 = new GregorianCalendar(2019, 10, 20, 11, 10).getTime();
-        Log log1 = new Log(20, periodBeginning1, periodEnding1);
-        Log log2 = new Log(20, periodBeginning2, periodEnding2);
-        freezerValid.addLog(log1);
-        freezerValid.addLog(log2);
-        //Act
-        LogList expectedResult = new LogList();
-        LogList actualResult = freezerValid.getLogsInInterval(initialTime, finalTime);
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getConsumption() {
-        double expectedResult = 720.0;
-        double actualResult = freezerValid.getEnergyConsumption(24);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getConsumptionTimeZero() {
-        double expectedResult = 0;
-        double actualResult = freezerValid.getEnergyConsumption(0);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void testSetAttributeValueForNotDouble() {
-        Integer attribute = 6;
-        Double attributeD = 9.0;
-        assertFalse(freezerValid.setAttributeValue(FreezerSpec.CAPACITY, attribute));
-        assertTrue(freezerValid.setAttributeValue(FreezerSpec.CAPACITY, attributeD));
-        Assertions.assertFalse(freezerValid.setAttributeValue("notCapacity", attributeD));
-        Assertions.assertFalse(freezerValid.setAttributeValue("", attributeD));
-    }
-
 }
