@@ -1,420 +1,503 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.StoveSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.VariableTimeProgram;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.testng.Assert.*;
 
-public class StoveTest {
+class StoveTest {
+    // Common testing artifacts for this class
+
+    private Stove validStove;
+    private Log validLog; // February 1st, 2019.
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validStove = new Stove(new StoveSpec());
+        validStove.setName("Stove 3000");
+        validStove.setNominalPower(150.0);
+        validLog = new Log(1, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        validStove.addLog(validLog);
+    }
 
     @Test
-    void getDeviceTypeTest() {
-        Stove s = new Stove(new StoveSpec());
-        String dT = "Stove";
-        String expectedResult = dT;
-        String result = s.getType();
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
+        String expectedResult = "Stove";
+
+        // Act
+
+        String result = validStove.getType();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void testSetAttributeForNullAttribute() {
-        //Arrange
-        Stove d = new Stove(new StoveSpec());
+    void seeIfSetAttributeValueWorksNull() {
+        // Act
 
-        //Act
-        boolean result = d.setAttributeValue(null, 12D);
+        boolean result = validStove.setAttributeValue(null, 12D);
 
-        //Assert
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void seeEqualToSameObject() {
-        Stove d = new Stove(new StoveSpec());
-        d.setName("Stove");
-        d.setNominalPower(12.0);
-        d.setAttributeValue("Fast Heating", 12D);
-        boolean actualResult = d.equals(d);
-        assertTrue(actualResult);
+    void seeIfEqualsWorksOnItself() {
+        // Assert
+
+        assertEquals(validStove, validStove);
     }
 
     @Test
-    void seeEqualsToDifObject() {
-        Stove d = new Stove(new StoveSpec());
-        d.setName("Stove 1000");
-        d.setNominalPower(12.0);
-        d.setAttributeValue("Fast Heating", 32);
-        Device d2 = new Stove(new StoveSpec());
-        d2.setName("Stove 1500");
-        d2.setNominalPower(12.0);
-        d.setAttributeValue("Fast Heating", 45);
-        boolean actualResult = d.equals(d2);
+    void seeIfEqualsWorksFalse() {
+        // Arrange
+
+        Device testStove = new Stove(new StoveSpec());
+        testStove.setName("Stove 1500");
+        testStove.setNominalPower(12.0);
+
+        // Act
+
+        boolean actualResult = validStove.equals(testStove);
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
 
     @Test
-    void seeEqualsToDifTypeObject() {
-        Stove d = new Stove(new StoveSpec());
-        d.setName("Stove 1000");
-        d.setNominalPower(12.0);
-        d.setAttributeValue("Fast Heating", 23);
-        Room room = new Room("Room", 1, 80, 2, 2);
-        boolean actualResult = d.equals(room);
-        assertFalse(actualResult);
+    void seeIfEqualsWorksNotAnInstance() {
+        // Assert
+
+        assertNotEquals(validStove, new RoomList()); // Needed for sonarqube testing purposes.
     }
 
     @Test
-    void seeEqualsToNullObject() {
-        Stove d = new Stove(new StoveSpec());
-        d.setAttributeValue("Fast Heating", 23);
-        boolean actualResult = d.equals(null);
-        assertFalse(actualResult);
+    void seeIfEqualsWorksNull() {
+        // Assert
+
+        assertNotEquals(validStove, null);
     }
 
     @Test
-    void seeIfPrintDeviceWorks() {
-        Stove d = new Stove(new StoveSpec());
-        d.setName("Stove 3000");
-        d.setNominalPower(150.0);
-        String result = d.buildString();
+    void seeIfBuildStringWorks() {
+        // Arrange
+
         String expectedResult = "The device Name is Stove 3000, and its NominalPower is 150.0 kW.\n";
+
+        // Act
+
+        String result = validStove.buildString();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfSetNameWorks() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setName("Stove 2000");
-        String result = d1.getName();
+        // Arrange
+
+        validStove.setName("Stove 2000");
         String expectedResult = "Stove 2000";
+
+        // Act
+
+        String result = validStove.getName();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getNominalPowerTest() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setName("Stove 2.0");
-        d1.setNominalPower(150);
-        double result = d1.getNominalPower();
+    void seeIfGetNominalPowerWorks() {
+        // Arrange
+
         double expectedResult = 150;
+
+        // Act
+
+        double result = validStove.getNominalPower();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void ensureThatWeDeactivateADevice() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        boolean expectedResult = true;
-        boolean actualResult = d1.deactivate();
+    void seeIfDeactivateWorks() {
+        // Act
+
+        boolean actualResult = validStove.deactivate();
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateWorksAlreadyDeactivated() {
+        // Arrange
+
+        validStove.deactivate();
+
+        // Act
+
+        boolean actualResult = validStove.deactivate();
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+
+    @Test
+    void seeIfGetEnergyConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 300;
+
+        // Act
+
+        double actualResult = validStove.getEnergyConsumption(2);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void ensureThatWeDoNotDeactivate() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        d1.deactivate();
-        boolean expectedResult = false;
-        boolean actualResult = d1.deactivate();
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfGetLogListWorks() {
+        // Arrange
 
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog);
 
-    @Test
-    void seeIfGetEnergyConsumption() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        d1.deactivate();
-        double expectedResult = 0;
-        double actualResult = d1.getEnergyConsumption(2);
-        assertEquals(expectedResult, actualResult);
+        // Act
+
+        LogList result = validStove.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void getLogList() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        LogList logList = d1.getLogList();
-        d1.addLog(log);
-        LogList result = d1.getLogList();
-        assertEquals(logList, result);
+    void seeIfGetLogListWorksEmpty() {
+        // Arrange
+
+        LogList expectedResult = new LogList();
+        validStove = new Stove(new StoveSpec());
+
+        // Act
+
+        LogList result = validStove.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void getLogListBreakTest() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        LogList logList = new LogList();
-        LogList result = d1.getLogList();
-        assertEquals(logList, result);
-    }
+    void seeIfAddLogWorksDuplicate() {
+        // Arrange
 
-    @Test
-    void addLogListFalse() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        d1.addLog(log);
-        assertFalse(d1.addLog(log));
-    }
+        validStove = new Stove(new StoveSpec());
 
-    @Test
-    void addLogToInactive() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        d1.deactivate();
-        boolean result = d1.addLog(log);
-        assertFalse(result);
-    }
+        // Act
 
-    @Test
-    void addLogTrue() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        boolean result = d1.addLog(log);
+        boolean result = validStove.addLog(validLog);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Device device = new Stove(new StoveSpec());
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        double result = device.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(111, result);
+    void seeIfAddLogWorksDeactivated() {
+        // Arrange
+
+        validStove = new Stove(new StoveSpec());
+        validStove.deactivate();
+
+        // Act
+
+        boolean result = validStove.addLog(validLog);
+
+        // Assert
+
+        assertFalse(result);
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBefore() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 1).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 59).getTime();
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        d1.addLog(log1);
-        d1.addLog(log2);
-        double result = d1.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(111, result);
+    void seeIfAddLogWorks() {
+        // Arrange
+
+        validStove = new Stove(new StoveSpec());
+        validStove.addLog(validLog);
+
+        // Act
+
+        boolean result = validStove.addLog(validLog);
+
+        // Assert
+
+        assertFalse(result);
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBeforeReverseOutOfBounds() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setAttributeValue("Fast Heating", 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        d1.addLog(log1);
-        d1.addLog(log2);
-        double result = d1.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(0.0, result);
-    }
+    void seeIfGetConsumptionInIntervalWorks() {
+        // Arrange
 
-    @Test
-    void testCountLogsInInterval() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Stove device = new Stove(new StoveSpec());
-        device.setAttributeValue("Fast Heating", 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        Log log3 = new Log(55, periodBeginning3, periodEnding3);
-        device.addLog(log1);
-        device.addLog(log2);
-        device.addLog(log3);
-        //Act
-        Integer expectedResult = 3;
-        Integer actualResult = device.countLogsInInterval(initialTime, finalTime);
-        //Assert
+        double expectedResult = 1;
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
+        // Act
+
+        double actualResult = validStove.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testGetLogsInInterval() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning4 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodEnding4 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
-        Date periodBeginning5 = new GregorianCalendar(2018, 10, 20, 9, 40).getTime();
-        Date periodEnding5 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Stove device = new Stove(new StoveSpec());
-        device.setAttributeValue("Fast Heating", 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        Log log3 = new Log(55, periodBeginning3, periodEnding3);
-        Log log4 = new Log(55, periodBeginning4, periodEnding4);
-        Log log5 = new Log(55, periodBeginning5, periodEnding5);
-        device.addLog(log1);
-        device.addLog(log2);
-        device.addLog(log3);
-        device.addLog(log4);
-        device.addLog(log5);
-        //Act
+    void seeIfGetConsumptionInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        validStove = new Stove(new StoveSpec());
+        double expectedResult = 0.0;
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validStove.addLog(firstLog);
+
+        // Act
+
+        double actualResult = validStove.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCountGetLogsInIntervalWorks() {
+        // Arrange
+
+        Integer expectedResult = 1;
+        LogList expectedResultList = new LogList();
+        expectedResultList.addLog(validLog);
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
+        // Act
+
+        Integer actualResult = validStove.countLogsInInterval(initialTime, finalTime);
+        LogList actualResultList = validStove.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResultList, actualResultList);
+    }
+
+    @Test
+    void seeIfGetLogsInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        validStove = new Stove(new StoveSpec());
         LogList expectedResult = new LogList();
-        expectedResult.addLog(log1);
-        expectedResult.addLog(log2);
-        expectedResult.addLog(log3);
-        LogList actualResult = device.getLogsInInterval(initialTime, finalTime);
-        //Assert
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validStove.addLog(firstLog);
+
+        // Act
+
+        LogList actualResult = validStove.getLogsInInterval(initialTime, finalTime);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testGetLogsInIntervalOutOfBounds() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 50).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 10).getTime();
-        Stove device = new Stove(new StoveSpec());
-        device.setAttributeValue("Fast Heating", 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        //Act
-        LogList expectedResult = new LogList();
-        LogList actualResult = device.getLogsInInterval(initialTime, finalTime);
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfGetConsumptionWorks() {
+        // Arrange
 
-    @Test
-    public void getConsumption() {
-        Stove d = new Stove(new StoveSpec());
-        d.setNominalPower(15);
-        double expectedResult = 360;
-        double result = d.getEnergyConsumption(24);
+        double expectedResult = 3600;
+
+        // Act
+
+        double result = validStove.getEnergyConsumption(24);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void getConsumptionTimeZero() {
-        Stove d = new Stove(new StoveSpec());
-        d.setNominalPower(15);
+    void seeIfGetConsumptionWorksTimeZero() {
+        // Arrange
+
         double expectedResult = 0;
-        double result = d.getEnergyConsumption(0);
+
+        // Act
+
+        double result = validStove.getEnergyConsumption(0);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void hashCodeDummyTest() {
-        Stove d1 = new Stove(new StoveSpec());
-        d1.setName("Stove");
-        d1.setNominalPower(12.0);
-        d1.setAttributeValue("Fast Heating", 4D);
-        int expectedResult = 1;
-        int actualResult = d1.hashCode();
+    void seeIfGetProgramConsumptioNWorks() {
+        // Arrange
+
+        VariableTimeProgram program = new VariableTimeProgram("Program 1", 100);
+        double expectedResult = 300;
+
+        // Act
+
+        double actualResult = validStove.getProgramConsumption(3, program);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void ensureThatWeGetEnergyConsumption(){
-        Stove stove = new Stove(new StoveSpec());
-        VariableTimeProgram program = new VariableTimeProgram("Program 1",100);
-        double expectedResult = 300;
-        double actualResult = stove.getProgramConsumption(3,program);
-        assertEquals(expectedResult,actualResult);
+    void seeIfIsLogListEmptyWorks() {
+        // Assert
+
+        assertFalse(validStove.isLogListEmpty());
     }
 
     @Test
-    public void ensureThatLogListIsEmpty() {
-        Stove stove = new Stove((new StoveSpec()));
-        assertTrue(stove.isLogListEmpty());
+    void seeIfIsLogListEmptyTrue() {
+        // Arrange
+
+        validStove = new Stove(new StoveSpec());
+
+        // Assert
+
+        assertTrue(validStove.isLogListEmpty());
     }
 
     @Test
-    public void ensureThatLogListIsNotEmpty() {
-        Stove stove = new Stove(new StoveSpec());
-        Log log = new Log(30,new GregorianCalendar(2018,10,10).getTime(),new GregorianCalendar(2018,11,11).getTime());
-        stove.addLog(log);
-        assertFalse(stove.isLogListEmpty());
-    }
+    void seeIfGetAttributeNamesWorks() {
+        // Arrange
 
-    @Test
-    public void ensureThatWeGetStringListAttributeNamesEmpty(){
-        Stove stove = new Stove(new StoveSpec());
         List<String> expectedResult = new ArrayList<>();
-        List<String> actualResult = stove.getAttributeNames();
-        assertEquals(expectedResult,actualResult);
+
+        // Act
+
+        List<String> actualResult = validStove.getAttributeNames();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void ensureThatWeGetProgramListAndAddProgram() {
-        Stove stove = new Stove(new StoveSpec());
-        VariableTimeProgram program = new VariableTimeProgram("Program 1",100);
-        ProgramList programList = new ProgramList();
-        programList.add(program);
-        stove.setProgramList(programList);
-        ProgramList expectedResult = programList;
-        ProgramList actualResult = stove.getProgramList();
-        assertEquals(expectedResult,actualResult);
+    void seeIfGetProgramListWorks() {
+        // Arrange
+
+        VariableTimeProgram program = new VariableTimeProgram("Program 1", 100);
+        ProgramList expectedResult = new ProgramList();
+        expectedResult.add(program);
+        validStove.setProgramList(expectedResult);
+
+        // Act
+
+        ProgramList actualResult = validStove.getProgramList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void ensureThatWeGetAttributeUnitFalse() {
-        Stove stove = new Stove(new StoveSpec());
-        Object expectedResult = false;
-        Object actualResult = stove.getAttributeUnit("Unit");
-        assertEquals(expectedResult,actualResult);
+    void seeIfGetAttributeUnitWorksWrongAttributeName() {
+        // Act
+
+        Object actualResult = validStove.getAttributeUnit("Unit");
+
+        // Assert
+
+        assertEquals(false, actualResult);
     }
 
     @Test
-    public void ensureThatWeGetAttributeValue0(){
-        Stove stove = new Stove(new StoveSpec());
-        Object expectedResult = 0;
-        Object actualResult = stove.getAttributeValue("Value");
-        assertEquals(expectedResult,actualResult);
+    void seeIfGetAttributeValueWorksWrongAttributeName() {
+        // Act
+
+        Object actualResult = validStove.getAttributeValue("Unit");
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void hashCodeDummyTest() {
+        // Arrange
+
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = validStove.hashCode();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }

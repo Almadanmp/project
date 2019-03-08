@@ -26,7 +26,7 @@ class PortableElectricConvectionHeaterTest {
     }
 
     @Test
-    void getDeviceTypeTest() {
+    void seeIfGetDeviceTypeWorks() {
         // Act
 
         String result = validHeater.getType();
