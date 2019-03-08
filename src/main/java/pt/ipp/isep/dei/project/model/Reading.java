@@ -30,7 +30,7 @@ public class Reading {
         this.value = value;
     }
 
-    double getValue() {
+    public double getValue() {
         return this.value;
     }
 
@@ -42,7 +42,7 @@ public class Reading {
         this.date = date;
     }
 
-    Date getDate() {
+    public Date getDate() {
         return this.date;
     }
 
