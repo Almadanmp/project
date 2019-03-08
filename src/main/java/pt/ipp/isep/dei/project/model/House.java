@@ -180,7 +180,7 @@ public class House implements Metered {
     public Sensor getClosestSensorOfGivenType(String sensorType) {
         Sensor sensor;
         SensorList minDistSensors = new SensorList();
-        Sensor sensorError = new Sensor("EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
+        Sensor sensorError = new Sensor("RF12345","EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         SensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
         if (!sensorsType.isEmpty()) {
             double minDist = this.getMinDistanceToSensorOfGivenType(sensorType);

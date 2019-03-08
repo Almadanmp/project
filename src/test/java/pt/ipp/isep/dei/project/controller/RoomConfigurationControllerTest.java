@@ -110,10 +110,10 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Sensor s1 = new Sensor("SensorOne", new TypeSensor("Wind", "km/h"),
+        Sensor s1 = new Sensor("RF12345","SensorOne", new TypeSensor("Wind", "km/h"),
                 new Local(12, 31, 21),
                 date);
-        Sensor s2 = new Sensor("SensorTwo", new TypeSensor("Rain", "l/m2"),
+        Sensor s2 = new Sensor("RF12345","SensorTwo", new TypeSensor("Rain", "l/m2"),
                 new Local(10, 30, 20),
                 date);
         SensorList sensorList = new SensorList();

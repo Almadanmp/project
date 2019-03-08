@@ -1,16 +1,15 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.EnergyGridList;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,132 +18,201 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class FridgeTest {
+    // Common testing artifacts for this class.
+
+    private Fridge validFridge;
+    private Log validLog; // February 1, 2019.
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validFridge = new Fridge(new FridgeSpec());
+        validFridge.setNominalPower(15);
+        validFridge.setName("FridgeOne");
+        validFridge.setNominalPower(12.0);
+        validFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 34);
+        validLog = new Log(1, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        validFridge.addLog(validLog);
+    }
+
     @Test
-    public void getDeviceTypeTest() {
-        Fridge d = new Fridge(new FridgeSpec());
-        String dT = "Fridge";
-        String expectedResult = dT;
-        String result = d.getType();
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
+        String expectedResult = "Fridge";
+
+        // Act
+
+        String result = validFridge.getType();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void getConsumption() {
-        Fridge d = new Fridge(new FridgeSpec());
-        d.setNominalPower(15);
-        double expectedResult = 360;
-        double result = d.getEnergyConsumption(24);
+    void seeIfGetConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 288;
+
+        // Act
+
+        double result = validFridge.getEnergyConsumption(24);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void getConsumptionTimeZero() {
-        Fridge d = new Fridge(new FridgeSpec());
-        d.setNominalPower(15);
+    void seeIfgetConsumptionWorksTimeZero() {
+        // Arrange
+
         double expectedResult = 0;
-        double result = d.getEnergyConsumption(0);
+
+        // Act
+
+        double result = validFridge.getEnergyConsumption(0);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeEqualToSameObject() {
-        Fridge d = new Fridge(new FridgeSpec());
-        d.setName("WMOne");
-        boolean actualResult = d.equals(d);
+    void seeIfEqualsWorksSameObject() {
+        // Act
+
+        boolean actualResult = validFridge.equals(validFridge); // Needed for sonarqube testing purposes.
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void seeEqualsToDifObject() {
-        Fridge d = new Fridge(new FridgeSpec());
-        d.setName("WMOne");
-        d.setNominalPower(12.0);
-        d.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 34);
-        Device d2 = new Fridge(new FridgeSpec());
-        d2.setName("WMTwo");
-        d2.setNominalPower(12.0);
-        d.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 45);
+    void seeIfEqualsWorksFalse() {
+        // Arrange
 
-        boolean actualResult = d.equals(d2);
+        Fridge testFridge = new Fridge(new FridgeSpec());
+        testFridge.setName("FridgeTwo");
+        testFridge.setNominalPower(12.0);
+        testFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 45);
+
+        // Act
+
+        boolean actualResult = validFridge.equals(testFridge);
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
 
     @Test
-    void seeEqualsToDifTypeObject() {
-        Fridge d = new Fridge(new FridgeSpec());
-        d.setName("WMOne");
-        d.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 56);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+    void seeIfEqualsWorksNotAnInstance() {
+        // Act
 
-        boolean actualResult = d.equals(room);
+        boolean actualResult = validFridge.equals(new EnergyGridList()); // Needed for sonarqube testing purposes.
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void seeEqualsToNullObject() {
-        Fridge d = new Fridge(new FridgeSpec());
-        d.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 34);
-        boolean actualResult = d.equals(null);
+    void seeEqualWorksNull() {
+        // Act
+
+        boolean actualResult = validFridge.equals(null); // Needed for sonarqube testing purposes.
+
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfPrintDeviceWorks() {
-        Fridge d = new Fridge(new FridgeSpec());
-        d.setName("Fridge 3000");
-        d.setNominalPower(150.0);
-        String result = d.buildString();
-        String expectedResult = "The device Name is Fridge 3000, and its NominalPower is 150.0 kW.\n";
+        // Arrange
+
+        String expectedResult = "The device Name is FridgeOne, and its NominalPower is 12.0 kW.\n";
+
+        // Act
+
+        String result = validFridge.buildString();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfSetNameWorks() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge 3000");
-        String result = d1.getName();
+        // Arrange
+
+        validFridge.setName("Fridge 3000");
         String expectedResult = "Fridge 3000";
+
+        // Act
+
+        String actualResult = validFridge.getName();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetNominalPowerWorks() {
+        // Arrange
+
+        double expectedResult = 12;
+
+        // Act
+
+        double result = validFridge.getNominalPower();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getNominalPowerTest() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge 3000");
-        d1.setNominalPower(150);
-        double result = d1.getNominalPower();
-        double expectedResult = 150;
-        assertEquals(expectedResult, result);
-    }
+    void seeIfGetAttributeUnitWorks() {
+        // Arrange
 
-    @Test
-    void seeIfGetAndSetAttributeUnit() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.getAttributeUnit(FridgeSpec.ANNUAL_CONSUMPTION);
-        d1.getAttributeUnit(FridgeSpec.REFRIGERATOR_CAPACITY);
-        d1.getAttributeUnit(FridgeSpec.FREEZER_CAPACITY);
         String expectedResult1 = "Kg";
         String expectedResult2 = "kWh";
-        Object result1 = d1.getAttributeUnit(FridgeSpec.FREEZER_CAPACITY);
-        Object result2 = d1.getAttributeUnit(FridgeSpec.REFRIGERATOR_CAPACITY);
-        Object result3 = d1.getAttributeUnit(FridgeSpec.ANNUAL_CONSUMPTION);
+
+        // Act
+
+        Object result1 = validFridge.getAttributeUnit(FridgeSpec.FREEZER_CAPACITY);
+        Object result2 = validFridge.getAttributeUnit(FridgeSpec.REFRIGERATOR_CAPACITY);
+        Object result3 = validFridge.getAttributeUnit(FridgeSpec.ANNUAL_CONSUMPTION);
+
+        // Assert
+
         assertEquals(expectedResult1, result1);
         assertEquals(expectedResult1, result2);
         assertEquals(expectedResult2, result3);
     }
 
     @Test
-    void seeIfGetAndSetAttributeValues() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 13D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 14D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 16D);
+    void seeIfGetSetAttributeValuesWorks() {
+        // Arrange
 
-        Object result1 = d1.getAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION);
-        Object result2 = d1.getAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY);
-        Object result3 = d1.getAttributeValue(FridgeSpec.FREEZER_CAPACITY);
+        validFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 13D);
+        validFridge.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 14D);
+        validFridge.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 16D);
+
+        // Act
+
+        Object result1 = validFridge.getAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION);
+        Object result2 = validFridge.getAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY);
+        Object result3 = validFridge.getAttributeValue(FridgeSpec.FREEZER_CAPACITY);
+
+        // Assert
 
         assertEquals(16D, result1);
         assertEquals(14D, result2);
@@ -152,271 +220,280 @@ class FridgeTest {
     }
 
     @Test
-    void seeIfGetAttributeNames() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
+    void seeIfGetAttributeNamesWorks() {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add(FridgeSpec.FREEZER_CAPACITY);
         expectedResult.add(FridgeSpec.REFRIGERATOR_CAPACITY);
         expectedResult.add(FridgeSpec.ANNUAL_CONSUMPTION);
-        List<String> result = d1.getAttributeNames();
+
+        // Act
+
+        List<String> result = validFridge.getAttributeNames();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void ensureThatWeDeactivateADevice() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        boolean expectedResult = true;
-        boolean actualResult = d1.deactivate();
+    void seeIfDeactivateWorks() {
+        // Act
+
+        boolean actualResult = validFridge.deactivate();
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateWorksAlreadyInactive() {
+        // Arrange
+
+        validFridge.deactivate();
+
+        // Act
+
+        boolean actualResult = validFridge.deactivate();
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfGetEnergyConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 288;
+
+        // Act
+
+        double actualResult = validFridge.getEnergyConsumption(24);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
+
     @Test
-    void ensureThatWeDoNotDeactivate() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        d1.deactivate();
-        boolean expectedResult = false;
-        boolean actualResult = d1.deactivate();
-        assertEquals(expectedResult, actualResult);
+    void seeIfGetLogListWorks() {
+        // Arrange
+
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog);
+
+        // Act
+
+        LogList result = validFridge.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetEnergyConsumption() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        d1.deactivate();
-        double expectedResult = 0;
-        double actualResult = d1.getEnergyConsumption(2);
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfGetLogListWorksEmpty() {
+        // Arrange
 
+        validFridge = new Fridge(new FridgeSpec());
+        LogList expectedResult = new LogList();
 
+        // Act
 
-    @Test
-    void getLogList() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        LogList logList = d1.getLogList();
-        d1.addLog(log);
-        LogList result = d1.getLogList();
-        assertEquals(logList, result);
+        LogList result = validFridge.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void getLogListBreakTest() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        LogList logList = new LogList();
-        LogList result = d1.getLogList();
-        assertEquals(logList, result);
-    }
+    void seeIfAddLogWorksDuplicate() {
+        // Act
 
-    @Test
-    void addLogListFalse() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        d1.addLog(log);
-        assertFalse(d1.addLog(log));
-    }
+        boolean result = validFridge.addLog(validLog);
 
-    @Test
-    void addLogToInactive() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        d1.deactivate();
-        boolean result = d1.addLog(log);
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void addLogTrue() {
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        boolean result = d1.addLog(log);
+    void seeIfAddLogWorksDeactivated() {
+        // Arrange
+
+        validFridge = new Fridge(new FridgeSpec());
+        validFridge.deactivate();
+
+        // Act
+
+        boolean result = validFridge.addLog(validLog);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfAddLogWorks() {
+        // Arrange
+
+        validFridge = new Fridge(new FridgeSpec());
+
+        // Act
+
+        boolean result = validFridge.addLog(validLog);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Device device = new Fridge(new FridgeSpec());
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        double result = device.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(111, result);
-    }
+    void seeIfGetConsumptionInIntervalWorks() {
+        // Arrange
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBefore() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 1).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 59).getTime();
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        d1.addLog(log1);
-        d1.addLog(log2);
-        double result = d1.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(111, result);
-    }
+        double expectedResult = 1;
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBeforeReverseOutOfBounds() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
-        Fridge d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        d1.addLog(log1);
-        d1.addLog(log2);
-        double result = d1.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(0.0, result);
-    }
+        // Interval
 
-    @Test
-    void testCountLogsInInterval() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Fridge device = new Fridge(new FridgeSpec());
-        device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        Log log3 = new Log(55, periodBeginning3, periodEnding3);
-        device.addLog(log1);
-        device.addLog(log2);
-        device.addLog(log3);
-        //Act
-        Integer expectedResult = 3;
-        Integer actualResult = device.countLogsInInterval(initialTime, finalTime);
-        //Assert
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
+        // Act
+
+        double actualResult = validFridge.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testGetLogsInInterval() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning4 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodEnding4 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
-        Date periodBeginning5 = new GregorianCalendar(2018, 10, 20, 9, 40).getTime();
-        Date periodEnding5 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Fridge device = new Fridge(new FridgeSpec());
-        device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        Log log3 = new Log(55, periodBeginning3, periodEnding3);
-        Log log4 = new Log(55, periodBeginning4, periodEnding4);
-        Log log5 = new Log(55, periodBeginning5, periodEnding5);
-        device.addLog(log1);
-        device.addLog(log2);
-        device.addLog(log3);
-        device.addLog(log4);
-        device.addLog(log5);
-        //Act
+    void seeIfGetConsumptionInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        validFridge = new Fridge(new FridgeSpec());
+        double expectedResult = 0.0;
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validFridge.addLog(firstLog);
+
+        // Act
+
+        double actualResult = validFridge.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCountGetLogsInIntervalWorks() {
+        // Arrange
+
+        Integer expectedResult = 1;
+        LogList expectedResultList = new LogList();
+        expectedResultList.addLog(validLog);
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
+        // Act
+
+        Integer actualResult = validFridge.countLogsInInterval(initialTime, finalTime);
+        LogList actualResultList = validFridge.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResultList, actualResultList);
+    }
+
+    @Test
+    void seeIfGetLogsInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        validFridge = new Fridge(new FridgeSpec());
         LogList expectedResult = new LogList();
-        expectedResult.addLog(log1);
-        expectedResult.addLog(log2);
-        expectedResult.addLog(log3);
-        LogList actualResult = device.getLogsInInterval(initialTime, finalTime);
-        //Assert
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validFridge.addLog(firstLog);
+
+        // Act
+
+        LogList actualResult = validFridge.getLogsInInterval(initialTime, finalTime);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testGetLogsInIntervalOutOfBounds() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 50).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 10).getTime();
-        Fridge device = new Fridge(new FridgeSpec());
-        device.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 12D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        //Act
-        LogList expectedResult = new LogList();
-        LogList actualResult = device.getLogsInInterval(initialTime, finalTime);
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfIsLogListEmptyWorks() {
+        // Act
 
-    @Test
-    void isLogListEmpty() {
-        //Arrange
+        boolean actualResult1 = validFridge.isLogListEmpty();
 
-        Fridge fridge = new Fridge(new FridgeSpec());
+        // Assert
 
+        assertFalse(actualResult1);
 
-        //Act
+        // Arrange To Remove Log
 
-        boolean actualResult1 = fridge.isLogListEmpty();
+        validFridge = new Fridge(new FridgeSpec());
 
-        //Assert
+        // Act
 
-        Assertions.assertTrue(actualResult1);
+        boolean actualResult2 = validFridge.isLogListEmpty();
 
-        //Arrange To Add Log
+        // Assert
 
-        Log log = new Log(20, new Date(), new Date());
-        fridge.addLog(log);
-
-        //Act
-
-        boolean actualResult2 = fridge.isLogListEmpty();
-
-        //Assert
-
-        Assertions.assertFalse(actualResult2);
+        assertTrue(actualResult2);
     }
 
     @Test
     void hashCodeDummyTest() {
-        Fridge device = new Fridge(new FridgeSpec());
+        // Arrange
+
         int expectedResult = 1;
-        int actualResult = device.hashCode();
+
+        // Act
+
+        int actualResult = validFridge.hashCode();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 }

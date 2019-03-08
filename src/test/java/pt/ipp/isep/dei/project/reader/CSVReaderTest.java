@@ -1,12 +1,12 @@
 package pt.ipp.isep.dei.project.reader;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,9 +58,9 @@ class CSVReaderTest {
                 "4455-125", "Porto"),
                 new Local(20, 20, 20),validGeoArea, 60,
                 180, deviceTypeString);
-        validSensor1 = new Sensor("Sensor1", new TypeSensor("rain", "mm"), new Local(2, 3, 4),
+        validSensor1 = new Sensor("RF12345","Sensor1", new TypeSensor("rain", "mm"), new Local(2, 3, 4),
                 validDate1);
-        validSensor2 = new Sensor("Sensor2", new TypeSensor("rain2", "mm2"), new Local(2, 2, 2),
+        validSensor2 = new Sensor("RF12345","Sensor2", new TypeSensor("rain2", "mm2"), new Local(2, 2, 2),
                 validDate2);
         validSensorList = new SensorList();
         validSensorList.add(validSensor1);
@@ -194,5 +194,150 @@ class CSVReaderTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+  */
+
+//-----------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------
+
+/*
+    private final InputStream systemIn = System.in;
+    private final PrintStream systemOut = System.out;
+
+    private ByteArrayInputStream testIn;
+    private ByteArrayOutputStream testOut;
+
+    @BeforeEach
+    public void setUpOutput() {
+        testOut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(testOut));
+    }
+    private void provideInput(String data) {
+        testIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(testIn);
+    }
+    private String getOutput() {
+        return testOut.toString();
+    }
+    @AfterEach
+    public void restoreSystemInputOutput() {
+        System.setIn(systemIn);
+        System.setOut(systemOut);
+    }
+
+    @Test
+    void seeIfReadAndSetterWorks() {
+
+        //Arrange
+
+        provideInput(validLocation1);
+
+        // Act
+
+        validReader.readAndSet(validHouse);
+
+        //Assert
+
+    }
+
+    @Test
+    void seeIfReadAndSetterFailsWrongLocation() {
+
+        //Arrange
+
+        provideInput(wrongLocation1);
+
+        // Act
+
+        //Assert
+
+        Assertions.assertThrows(NoSuchElementException.class, () -> {
+            validReader.readAndSet(validHouse);
+        });
+
+    }
+
+    @Test
+    void seeIfReadAndSetterFailsNonNumericValue() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+
+        // Act
+
+        validReader.readAndSet(validHouse);
+
+        //Assert
+
+    }
+
+    @Test
+    void seeIfReadAndSetterFailsUnparseableDate() {
+
+        //Arrange
+
+        provideInput(validLocation3);
+
+        // Act
+
+        validReader.readAndSet(validHouse);
+
+        //Assert
+
+    }
+
+    @Test
+    void seeIfReadAndSetterFailsUnreachableSensorName() {
+
+        //Arrange
+
+        provideInput(validLocation4);
+
+        // Act
+
+        validReader.readAndSet(validHouse);
+
+        //Assert
+
+    }
+
+    @Test
+    void seeIfReadAndSetterFailsNonSetReadings() {
+
+        //Arrange
+
+        provideInput(validLocation5);
+        ReadingList expectedResult = new ReadingList();
+
+
+        // Act
+
+        validReader.readAndSet(validHouse);
+        ReadingList actualResult = validSensor1.getReadingList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadAndSetterWorksWithReadings() {
+
+        //Arrange
+
+        provideInput(validLocation4);
+        ReadingList expectedResult = new ReadingList();
+        Reading reading = new Reading(16.5,validDate3);
+        expectedResult.addReading(reading);
+
+        // Act
+
+        validReader.readAndSet(validHouse);
+        ReadingList actualResult = validSensor1.getReadingList();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
     */
 }

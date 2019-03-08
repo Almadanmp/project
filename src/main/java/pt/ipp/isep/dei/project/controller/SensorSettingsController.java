@@ -20,7 +20,8 @@ public class SensorSettingsController {
     /**
      * This method receives a list and a type sensor and tries to add the type sensor
      * to the list. The type sensor will not be added in case the list already contains it.
-     * @param typeSensor the type of sensor to be added
+     *
+     * @param typeSensor     the type of sensor to be added
      * @param typeSensorList the list of types of sensors
      * @return true if the type of sensor was added to the list of type sensors.
      */
@@ -68,6 +69,7 @@ public class SensorSettingsController {
 
 
     /**
+     * @param id    is the new sensor's ID.
      * @param name  is the new sensor's name.
      * @param type  is the new sensor's type.
      * @param local is the new sensor's local.
@@ -76,12 +78,13 @@ public class SensorSettingsController {
      */
 
 
-    public Sensor createSensor(String name, TypeSensor type, Local local, Date date) {
-        return new Sensor(name, type, local, date);
+    public Sensor createSensor(String id, String name, TypeSensor type, Local local, Date date) {
+        return new Sensor(id, name, type, local, date);
     }
 
     /**
      * This method receives a sensor and returns a string with the sensor's parameters
+     *
      * @param sensor the chosen sensor.
      * @return String with sensor parameters
      **/
