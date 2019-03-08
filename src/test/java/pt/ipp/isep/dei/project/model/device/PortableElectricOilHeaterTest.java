@@ -68,7 +68,6 @@ class PortableElectricOilHeaterTest {
         Throwable exception14 = assertThrows(UnsupportedOperationException.class,
                 () -> validHeater.getEnergyConsumption(20));
 
-
         //Assert
 
         Assert.assertEquals("At the moment, this operation is not supported.", exception1.getMessage());
@@ -85,7 +84,5 @@ class PortableElectricOilHeaterTest {
         Assert.assertEquals("At the moment, this operation is not supported.", exception12.getMessage());
         Assert.assertEquals("At the moment, this operation is not supported.", exception13.getMessage());
         Assert.assertEquals("At the moment, this operation is not supported.", exception14.getMessage());
-
-
     }
 }
