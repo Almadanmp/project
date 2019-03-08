@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Reading;
 
 import java.util.Date;
 
@@ -48,6 +49,10 @@ public class HouseMonitoringUI {
                     break;
                 case 5:
                     runUS623(programHouse);
+                    activeInput = true;
+                    break;
+                case 6:
+                    runUS630(programHouse);
                     activeInput = true;
                     break;
                 case 0:
@@ -181,7 +186,7 @@ public class HouseMonitoringUI {
     }
 
     private void printResultMessageUS620(Date date, double result) {
-            System.out.println("The average rainfall on " + date + was + result + "%.");
+        System.out.println("The average rainfall on " + date + was + result + "%.");
     }
 
     /**
@@ -224,6 +229,37 @@ public class HouseMonitoringUI {
                 + result623 + "%.");
     }
 
+    /**
+     *  US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
+     *  in the house area in a given period.
+     */
+
+    private void runUS630(House house) {
+        UtilsUI utils = new UtilsUI();
+        if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
+            System.out.println(utils.invalidSensorList);
+            return;
+        }
+        Date startDate = getInputStartDate();
+        Date endDate = getInputEndDate();
+        updateAndDisplayUS630(house, startDate, endDate);
+    }
+
+    private void updateAndDisplayUS630(House house, Date startDate, Date endDate) {
+        Date dateResult630;
+        double valueResult630;
+        try {
+            Reading reading = houseMonitoringcontroller.getLastColdestDayInInterval(house, startDate, endDate);
+            dateResult630 = reading.getDate();
+            valueResult630 = reading.getValue();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("The last coldest day between " + startDate + " and " + endDate + was
+                + dateResult630 + " and it's maximum temperature"+ was + valueResult630 + "ºC.");
+    }
+
     private void printOptionMessage() {
         System.out.println("House Monitoring Options:\n");
         System.out.println("1) Get Max Temperature in a room in a specific day (US610).");
@@ -231,6 +267,8 @@ public class HouseMonitoringUI {
         System.out.println("3) Get Current Temperature in a House Area. (US600)");
         System.out.println("4) Get The Average Rainfall on a specific day in a House Area. (US620)"); // TODO this is calling total
         System.out.println("5) Get The Average Rainfall on a day interval in a House Area. (US623)");
+        System.out.println("6) Get the Last Coldest Day (lower maximum temperature) in the House" +
+                " Area in a given period. (US630)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

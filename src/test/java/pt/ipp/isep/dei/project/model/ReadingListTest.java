@@ -628,4 +628,161 @@ class ReadingListTest {
 
         assertEquals(actualResult, 1);
     }
+
+    @Test
+    void ensureThatWeGetMaxValueOfTheDay() {
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(24, validDate4);
+        Reading reading2 = new Reading(22, validDate5);
+        Reading reading3 = new Reading(25, new GregorianCalendar(2018, 9, 8, 11, 00).getTime());
+        Reading reading4 = new Reading(19, new GregorianCalendar(2018, 9, 8, 21, 30).getTime());
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        readingList.addReading(reading3);
+        readingList.addReading(reading4);
+        double expectedResult = 25;
+        double actualResult = readingList.getMaxValueOfTheDay(new GregorianCalendar(2018, 9, 8).getTime());
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetMinValueInListOfDoubles() {
+        ReadingList readingList = new ReadingList();
+        List<Double> list = new ArrayList<>();
+        double n1 = 23;
+        double n2 = 23;
+        double n3 = 22;
+        double n4 = 22;
+        double n5 = 24;
+        list.add(n1);
+        list.add(n2);
+        list.add(n3);
+        list.add(n4);
+        list.add(n5);
+        double expectedResult = 22;
+        double actualResult = readingList.getMinValueInListOfDoubles(list);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetReadingListWithSpecificValue() {
+        ReadingList readingList = new ReadingList();
+        ReadingList expectedResult = new ReadingList();
+        Reading r1 = new Reading(22, validDate5);
+        Reading r2 = new Reading(24, validDate14);
+        Reading r3 = new Reading(22, validDate2);
+        Reading r4 = new Reading(21, validDate15);
+        Reading r5 = new Reading(22, validDate12);
+        Reading r6 = new Reading(29, validDate2);
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+        readingList.addReading(r6);
+        expectedResult.addReading(r1);
+        expectedResult.addReading(r3);
+        expectedResult.addReading(r5);
+        ReadingList actualResult = readingList.getReadingListOfReadingsWithSpecificValue(22.0);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetReadingWithSpecificDate() {
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(22, validDate5);
+        Reading r2 = new Reading(24, validDate14);
+        Reading r3 = new Reading(22, validDate2);
+        Reading r4 = new Reading(21, validDate15);
+        Reading r5 = new Reading(22, validDate12);
+        Reading r6 = new Reading(29, validDate2);
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+        readingList.addReading(r6);
+        Reading expectedResult = r3;
+        Reading actualResult = readingList.getReadingWithSpecificDate(readingList, validDate2);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetListOfMaxValuesForEachDay() {
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(22, validDate5);
+        Reading r2 = new Reading(24, validDate14);
+        Reading r3 = new Reading(22, validDate2);
+        Reading r4 = new Reading(21, validDate15);
+        Reading r5 = new Reading(22, validDate12);
+        Reading r6 = new Reading(23, new GregorianCalendar(2018, 9, 8, 21, 00).getTime());
+        Reading r7 = new Reading(26, new GregorianCalendar(2018, 9, 2, 10, 00).getTime());
+        Reading r8 = new Reading(20, new GregorianCalendar(2018, 8, 3, 23, 30).getTime());
+        Reading r10 = new Reading(20, validDate12);
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+        readingList.addReading(r6);
+        readingList.addReading(r7);
+        readingList.addReading(r8);
+        readingList.addReading(r10);
+        List<Double> expectedResult = new ArrayList<>();
+        expectedResult.add(23.0);
+        expectedResult.add(26.0);
+        expectedResult.add(22.0);
+        expectedResult.add(21.0);
+        expectedResult.add(22.0);
+        List<Double> actualResult = readingList.getListOfMaxValuesForEachDay(validDate12, validDate5);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void ensureThatWeGetLastColdestDayInGivenInterval() {
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(23,new GregorianCalendar(2018,6,1,10,30).getTime());
+        Reading reading2 = new Reading(19,new GregorianCalendar(2018,6,1,14,30).getTime());
+        Reading reading3 = new Reading(19,new GregorianCalendar(2018,6,2,11,30).getTime());
+        Reading reading4 = new Reading(29,new GregorianCalendar(2018,6,2,16,30).getTime());
+        Reading reading5 = new Reading(34,new GregorianCalendar(2018,6,3,9,30).getTime());
+        Reading reading6 = new Reading(32,new GregorianCalendar(2018,6,3,10,30).getTime());
+        Reading reading7 = new Reading(15,new GregorianCalendar(2018,6,4,10,30).getTime());
+        Reading reading8 = new Reading(17,new GregorianCalendar(2018,6,4,15,30).getTime());
+        Reading reading9 = new Reading(12,new GregorianCalendar(2018,6,5,11,30).getTime());
+        Reading reading10 = new Reading(15,new GregorianCalendar(2018,6,5,19,30).getTime());
+        Reading reading11 = new Reading(17,new GregorianCalendar(2018,6,6,23,30).getTime());
+        Reading reading12 = new Reading(19,new GregorianCalendar(2018,6,6,23,35).getTime());
+        Reading reading13 = new Reading(20,new GregorianCalendar(2018,6,7,10,30).getTime());
+        Reading reading14 = new Reading(25,new GregorianCalendar(2018,6,7,14,30).getTime());
+        Reading reading15 = new Reading(26,new GregorianCalendar(2018,6,8,9,30).getTime());
+        Reading reading16 = new Reading(22,new GregorianCalendar(2018,6,8,10,30).getTime());
+        Reading reading17 = new Reading(21,new GregorianCalendar(2018,6,9,13,30).getTime());
+        Reading reading18 = new Reading(25,new GregorianCalendar(2018,6,9,15,30).getTime());
+        Reading reading19 = new Reading(32,new GregorianCalendar(2018,6,10,10,30).getTime());
+        Reading reading20 = new Reading(31,new GregorianCalendar(2018,6,10,15,30).getTime());
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        readingList.addReading(reading3);
+        readingList.addReading(reading4);
+        readingList.addReading(reading5);
+        readingList.addReading(reading6);
+        readingList.addReading(reading7);
+        readingList.addReading(reading8);
+        readingList.addReading(reading9);
+        readingList.addReading(reading10);
+        readingList.addReading(reading11);
+        readingList.addReading(reading12);
+        readingList.addReading(reading13);
+        readingList.addReading(reading14);
+        readingList.addReading(reading15);
+        readingList.addReading(reading16);
+        readingList.addReading(reading17);
+        readingList.addReading(reading18);
+        readingList.addReading(reading19);
+        readingList.addReading(reading20);
+        Reading expectedResult = reading10;
+        Reading actualResult = readingList.getLastColdestDayInGivenInterval(new GregorianCalendar(2018,6,1,05,00).getTime(),new GregorianCalendar(2018,6,10,23,00).getTime());
+        assertEquals(expectedResult,actualResult);
+    }
 }

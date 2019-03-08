@@ -2,9 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.Sensor;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
 
@@ -100,5 +98,17 @@ public class HouseMonitoringController {
         return closestSensor.getMostRecentValueReading();
     }
 
+    /**
+     *US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
+     * in the house area in a given period.
+     */
+    public Reading getLastColdestDayInInterval(House house,Date startDate,Date endDate){
+        Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
+        if (closestSensor.isReadingListEmpty()) {
+            throw new IllegalStateException("Warning: Value could not be calculated - No readings were available.");
+        }
+        ReadingList readingList = closestSensor.getReadingList();
+        return readingList.getLastColdestDayInGivenInterval(startDate,endDate);
+    }
 }
 
