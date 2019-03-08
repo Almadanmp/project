@@ -86,7 +86,5 @@ class PortableElectricConvectionHeaterTest {
         Assert.assertEquals("At the moment, this operation is not supported.", exception12.getMessage());
         Assert.assertEquals("At the moment, this operation is not supported.", exception13.getMessage());
         Assert.assertEquals("At the moment, this operation is not supported.", exception14.getMessage());
-
-
     }
 }
