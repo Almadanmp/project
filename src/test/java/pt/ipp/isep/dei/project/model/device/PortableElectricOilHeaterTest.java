@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.log.Log;
@@ -13,59 +14,59 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Lamp Device tests class.
  */
 
- class PortableElectricOilHeaterTest {
+class PortableElectricOilHeaterTest {
+    // Common testing artifacts for this class.
+
+    private PortableElectricOilHeater validHeater;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validHeater = new PortableElectricOilHeater();
+    }
 
     @Test
-     void getDeviceTypeTest() {
-        //Arrange
+    void getDeviceTypeTest() {
+        // Act
 
-        PortableElectricOilHeater d = new PortableElectricOilHeater();
+        String result = validHeater.getType();
 
-        //Act
-
-        String result = d.getType();
-
-        //Act
+        // Act
 
         assertEquals("PortableElectricOilHeater", result);
     }
 
     @Test
     void seeIfAllMethodsThrowException() {
-        // Arrange
-
-        PortableElectricOilHeater portableElectricOilHeater = new PortableElectricOilHeater();
-
         // Act
 
         Throwable exception1 = assertThrows(UnsupportedOperationException.class,
-                portableElectricOilHeater::getName);
+                validHeater::getName);
         Throwable exception2 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricOilHeater.setName("empty"));
+                () -> validHeater.setName("empty"));
         Throwable exception3 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricOilHeater.setNominalPower(100));
+                () -> validHeater.setNominalPower(100));
         Throwable exception4 = assertThrows(UnsupportedOperationException.class,
-                portableElectricOilHeater::getNominalPower);
+                validHeater::getNominalPower);
         Throwable exception5 = assertThrows(UnsupportedOperationException.class,
-                portableElectricOilHeater::isActive);
+                validHeater::isActive);
         Throwable exception6 = assertThrows(UnsupportedOperationException.class,
-                portableElectricOilHeater::deactivate);
+                validHeater::deactivate);
         Throwable exception7 = assertThrows(UnsupportedOperationException.class,
-                portableElectricOilHeater::buildString);
+                validHeater::buildString);
         Throwable exception8 = assertThrows(UnsupportedOperationException.class,
-                portableElectricOilHeater::getLogList);
+                validHeater::getLogList);
         Throwable exception9 = assertThrows(UnsupportedOperationException.class,
-                portableElectricOilHeater::isLogListEmpty);
+                validHeater::isLogListEmpty);
         Throwable exception10 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricOilHeater.addLog(new Log(10,new GregorianCalendar().getTime(),new GregorianCalendar().getTime())));
+                () -> validHeater.addLog(new Log(10, new GregorianCalendar().getTime(), new GregorianCalendar().getTime())));
         Throwable exception11 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricOilHeater.countLogsInInterval(new GregorianCalendar().getTime(),new GregorianCalendar().getTime()));
+                () -> validHeater.countLogsInInterval(new GregorianCalendar().getTime(), new GregorianCalendar().getTime()));
         Throwable exception12 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricOilHeater.getLogsInInterval(new GregorianCalendar().getTime(),new GregorianCalendar().getTime()));
+                () -> validHeater.getLogsInInterval(new GregorianCalendar().getTime(), new GregorianCalendar().getTime()));
         Throwable exception13 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricOilHeater.getConsumptionInInterval(new GregorianCalendar().getTime(),new GregorianCalendar().getTime()));
+                () -> validHeater.getConsumptionInInterval(new GregorianCalendar().getTime(), new GregorianCalendar().getTime()));
         Throwable exception14 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricOilHeater.getEnergyConsumption(20));
+                () -> validHeater.getEnergyConsumption(20));
 
 
         //Assert
