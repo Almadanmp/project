@@ -37,9 +37,9 @@ class HouseTest {
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60,
                 180, deviceTypeString);
-        firstValidSensor = new Sensor("tempOne", new TypeSensor("Temperature", "Celsius"), new Local(
+        firstValidSensor = new Sensor("RF12345","tempOne", new TypeSensor("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        Sensor secondValidSensor = new Sensor("rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(21,
+        Sensor secondValidSensor = new Sensor("RF17745","rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(21,
                 40, 15), new Date());
         validArea.addSensor(firstValidSensor);
         validArea.addSensor(secondValidSensor);
@@ -88,7 +88,7 @@ class HouseTest {
     void getMinDistanceToSensorOfGivenTypeSamePosition() {
         // Arrange
 
-        Sensor testSensor = new Sensor("tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(20,
+        Sensor testSensor = new Sensor("RF12666","tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(20,
                 20, 20), new Date());
         validArea.addSensor(testSensor);
         double expectedResult = 0;
@@ -364,7 +364,7 @@ class HouseTest {
     void seeIfGetClosestSensorOfTypeWorksByDistance() {
         // Arrange
 
-        Sensor testSensor = new Sensor("rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(20,
+        Sensor testSensor = new Sensor("RF12345","rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(20,
                 21, 20), new Date());
         validArea.addSensor(testSensor);
 
@@ -382,7 +382,7 @@ class HouseTest {
     void seeIfGetClosestSensorOfTypeWorksNoSensor() {
         // Arrange
 
-        Sensor expectedResult = new Sensor("EmptyList", new TypeSensor("temperature", ""),
+        Sensor expectedResult = new Sensor("RF12345","EmptyList", new TypeSensor("temperature", ""),
                 new Local(0, 0, 0), new Date());
 
         // Act

@@ -121,7 +121,7 @@ public class UtilsUITest {
     public void roomListsAreValid() {
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         GregorianCalendar date = new GregorianCalendar(2010, 11, 2, 12, 12);
-        Sensor sensor1 = new Sensor("sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
+        Sensor sensor1 = new Sensor("RF12345","sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
         room1.addSensor(sensor1);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
@@ -277,7 +277,7 @@ public class UtilsUITest {
     public void geographicAreaSensorListIsValid() {
         GeographicArea geographicArea = new GeographicArea("Porto", new TypeArea("Cidade"), 20, 20, new Local(20, 20, 20));
         GregorianCalendar date = new GregorianCalendar(2010, 11, 2, 12, 12);
-        Sensor sensor1 = new Sensor("sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
+        Sensor sensor1 = new Sensor("RF12345","sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
         geographicArea.addSensor(sensor1);
         UtilsUI utilsUI = new UtilsUI();
         //ACT

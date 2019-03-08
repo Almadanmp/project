@@ -72,7 +72,7 @@ class HouseMonitoringControllerTest {
 
         // Sets up a valid temperature sensor with valid Readings.
 
-        validTemperatureSensor = new Sensor("TempOne", new TypeSensor("Temperature", "Celsius"),
+        validTemperatureSensor = new Sensor("RF12345","TempOne", new TypeSensor("Temperature", "Celsius"),
                 new Local(21, 10, 15),
                 new Date());
         Reading firstTempReading = new Reading(15, validDate1);
@@ -86,7 +86,7 @@ class HouseMonitoringControllerTest {
 
         // Sets up a valid rainfall sensor with valid readings.
 
-        Sensor validRainfallSensor = new Sensor("RainOne", new TypeSensor("rainfall", "l/m2 "), new Local
+        Sensor validRainfallSensor = new Sensor("RF12366","RainOne", new TypeSensor("rainfall", "l/m2 "), new Local
                 (21, 41, 11), new Date());
         Reading firstRainReading = new Reading(40, validDate4);
         Reading secondRainReading = new Reading(10, validDate5);
@@ -253,7 +253,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         SensorList temperatureList = new SensorList();
-        Sensor temperatureSensor = new Sensor("temperature sensor", new TypeSensor("temperature", "celsius"), new Local(21, 20, 20), date);
+        Sensor temperatureSensor = new Sensor("RF12345","temperature sensor", new TypeSensor("temperature", "celsius"), new Local(21, 20, 20), date);
         temperatureList.add(temperatureSensor);
         validHouseArea.setSensorList(temperatureList);
 
@@ -276,7 +276,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         SensorList rainFallSensorList = new SensorList();
-        Sensor rainfallSensor = new Sensor("rainfall sensor", new TypeSensor("rainfall", "L"), new Local(21, 20, 20), date);
+        Sensor rainfallSensor = new Sensor("RF12345","rainfall sensor", new TypeSensor("rainfall", "L"), new Local(21, 20, 20), date);
         rainFallSensorList.add(rainfallSensor);
         validHouseArea.setSensorList(rainFallSensorList);
 

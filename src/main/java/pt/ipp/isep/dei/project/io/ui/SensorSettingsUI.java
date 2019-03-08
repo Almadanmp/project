@@ -112,11 +112,18 @@ class SensorSettingsUI {
     }
 
     private Sensor createSensor() {
+        String id = getInputSensorId();
         String name = getInputSensorName();
         TypeSensor typeSensor = getInputTypeSensor();
         Local local = getInputSensorLocal();
         Date startDate = getInputStartDate();
-        return controller.createSensor(name, typeSensor, local, startDate);
+        return controller.createSensor(id, name, typeSensor, local, startDate);
+    }
+
+    private String getInputSensorId() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("\nEnter the sensor's ID:\t");
+        return input.nextLine();
     }
 
     private String getInputSensorName() {

@@ -83,7 +83,7 @@ class GeographicAreaTest {
     void seeIfGetSetSensorListWork() {
         // Arrange
 
-        Sensor testSensor = new Sensor("Vento", new TypeSensor("Atmosférico", "km/h"),
+        Sensor testSensor = new Sensor("RF12345","Vento", new TypeSensor("Atmosférico", "km/h"),
                 new Local(12, 31, 21), new Date());
         validArea.addSensor(testSensor);
         SensorList expectedResult = new SensorList();

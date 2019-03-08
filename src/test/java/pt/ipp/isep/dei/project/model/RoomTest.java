@@ -144,7 +144,7 @@ class RoomTest {
     void seeIfAddSensorWorks() {
         // Arrange
 
-        Sensor testSensor = new Sensor("testSensor", new TypeSensor("Temperature", "Celsius"),
+        Sensor testSensor = new Sensor("RF12345","testSensor", new TypeSensor("Temperature", "Celsius"),
                 new Local(1, 1, 50), new Date());
 
         // Act

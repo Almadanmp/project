@@ -96,6 +96,7 @@ class SensorSettingsControllerTest {
 
         // Arrange
 
+        String idString = "RF12345";
         String nameString = "XV-56D";
         double lat = 50.0;
         double lon = 50.0;
@@ -108,13 +109,13 @@ class SensorSettingsControllerTest {
         int month = 8;
         int day = 9;
         Date date1 = controller.createDate(year, month, day);
-        controller.createSensor(nameString, type1, loc1, date1);
+        controller.createSensor(idString, nameString, type1, loc1, date1);
         TypeSensor t1 = new TypeSensor(typeStr, "kg/m³");
-        Sensor expectedResult = new Sensor("XV-56D", t1, loc1,
+        Sensor expectedResult = new Sensor("RF12345","XV-56D", t1, loc1,
                validDate1);
 
         //Act
-        Sensor actualResult = controller.createSensor(nameString, type1, loc1, date1);
+        Sensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -127,11 +128,11 @@ class SensorSettingsControllerTest {
         GeographicArea geoArea = new GeographicArea("Portugal",
                 new TypeArea("Country"), 300, 200,
                 new Local(30, 30, 50));
-        Sensor firstSensor = new Sensor("SensorOne", new TypeSensor
+        Sensor firstSensor = new Sensor("RF12345","SensorOne", new TypeSensor
                 ("Temperature", "Celsius"),
                 new Local(1, 1, 1),
                 validDate1);
-        Sensor secondSensor = new Sensor("SensorTwo", new TypeSensor("Temperature", "Celsius"),
+        Sensor secondSensor = new Sensor("RF12777","SensorTwo", new TypeSensor("Temperature", "Celsius"),
                 new Local(1, 1, 1),
                 validDate1);
         SensorList sensorList = new SensorList();
@@ -227,11 +228,11 @@ class SensorSettingsControllerTest {
         // Arrange
 
         GeographicArea ga1 = new GeographicArea("Porto", new TypeArea("City"), 2, 3, new Local(4, 4, 100));
-        Sensor sensor1 = new Sensor("sensor1", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
+        Sensor sensor1 = new Sensor("RF12345","sensor1", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
                 validDate1);
-        Sensor sensor2 = new Sensor("sensor1", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
+        Sensor sensor2 = new Sensor("RF12345","sensor1", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
                 validDate1);
-        Sensor sensor3 = new Sensor("sensor3", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
+        Sensor sensor3 = new Sensor("RF12345","sensor3", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
                 validDate1);
 
         // Act
@@ -249,7 +250,7 @@ class SensorSettingsControllerTest {
     void testBuildSensorString() {
         // Arrange
 
-        Sensor sensor = new Sensor("Sensor", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
+        Sensor sensor = new Sensor("RF12345","Sensor", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
                 validDate1);
         String expectedResult = "Sensor, temperature, 1.0º lat, 1.0º long\n";
 

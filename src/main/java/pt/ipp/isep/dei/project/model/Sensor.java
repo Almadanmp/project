@@ -10,6 +10,7 @@ import java.util.UUID;
  */
 
 public class Sensor {
+    private String id;
     private String name;
     private TypeSensor typeSensor;
     private Local local;
@@ -18,16 +19,17 @@ public class Sensor {
     private UUID uniqueID;
 
 
-
     /**
-     * Sensor() constructor with 4 parameters.
+     * Sensor() constructor with 5 parameters.
      *
+     * @param id                     is the id we want to set to the Sensor.
      * @param name                   is the name we want to set to the Sensor.
      * @param typeSensor             is the Type of the Sensor.
      * @param local                  is the Local of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public Sensor(String name, TypeSensor typeSensor, Local local, Date dateStartedFunctioning) {
+    public Sensor(String id, String name, TypeSensor typeSensor, Local local, Date dateStartedFunctioning) {
+        setId(id);
         setName(name);
         setTypeSensor(typeSensor);
         setLocal(local);
@@ -51,6 +53,15 @@ public class Sensor {
         setDateStartedFunctioning(dateStartedFunctioning);
         readingList = new ReadingList();
         this.uniqueID = UUID.randomUUID();
+    }
+
+    /**
+     * Setter: Id
+     *
+     * @param id is the id we want to set to the sensor.
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -95,6 +106,15 @@ public class Sensor {
 
     public Date getDateStartedFunctioning() {
         return this.dateStartedFunctioning;
+    }
+
+    /**
+     * Getter: Id
+     *
+     * @return a string that represents the name of the sensor.
+     */
+    public String getId() {
+        return (this.id);
     }
 
     /**
@@ -143,6 +163,7 @@ public class Sensor {
             this.readingList = readingList;
         }
     }
+
     public UUID getUniqueID() {
         return uniqueID;
     }
