@@ -32,11 +32,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
     @Test
     void seeIfAllMethodsThrowException() {
-        //Arrange
+        // Arrange
 
         PortableElectricOilHeater portableElectricOilHeater = new PortableElectricOilHeater();
 
-        //Act
+        // Act
 
         Throwable exception1 = assertThrows(UnsupportedOperationException.class,
                 portableElectricOilHeater::getName);
