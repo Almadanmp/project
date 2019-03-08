@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.log.Log;
@@ -13,17 +14,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Lamp Device tests class.
  */
 
- class WallElectricHeaterTest {
+class WallElectricHeaterTest {
+    // Common testing artifacts in this class
+
+    private WallElectricHeater validHeater;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validHeater = new WallElectricHeater();
+    }
 
     @Test
-     void getDeviceTypeTest() {
-        //Arrange
+    void getDeviceTypeTest() {
+        // Act
 
-        WallElectricHeater d = new WallElectricHeater();
-
-        //Act
-
-        String result = d.getType();
+        String result = validHeater.getType();
 
         //Act
 
@@ -32,43 +37,39 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
     @Test
     void seeIfAllMethodsThrowException() {
-        //Arrange
-
-        WallElectricHeater wallElectricHeater = new WallElectricHeater();
-
         //Act
 
         Throwable exception1 = assertThrows(UnsupportedOperationException.class,
-                wallElectricHeater::getName);
+                validHeater::getName);
         Throwable exception2 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeater.setName("empty"));
+                () -> validHeater.setName("empty"));
         Throwable exception3 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeater.setNominalPower(100));
+                () -> validHeater.setNominalPower(100));
         Throwable exception4 = assertThrows(UnsupportedOperationException.class,
-                wallElectricHeater::getNominalPower);
+                validHeater::getNominalPower);
         Throwable exception5 = assertThrows(UnsupportedOperationException.class,
-                wallElectricHeater::isActive);
+                validHeater::isActive);
         Throwable exception6 = assertThrows(UnsupportedOperationException.class,
-                wallElectricHeater::deactivate);
+                validHeater::deactivate);
         Throwable exception7 = assertThrows(UnsupportedOperationException.class,
-                wallElectricHeater::buildString);
+                validHeater::buildString);
         Throwable exception8 = assertThrows(UnsupportedOperationException.class,
-                wallElectricHeater::getLogList);
+                validHeater::getLogList);
         Throwable exception9 = assertThrows(UnsupportedOperationException.class,
-                wallElectricHeater::isLogListEmpty);
+                validHeater::isLogListEmpty);
         Throwable exception10 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeater.addLog(new Log(10,new GregorianCalendar().getTime(),new GregorianCalendar().getTime())));
+                () -> validHeater.addLog(new Log(10, new GregorianCalendar().getTime(), new GregorianCalendar().getTime())));
         Throwable exception11 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeater.countLogsInInterval(new GregorianCalendar().getTime(),new GregorianCalendar().getTime()));
+                () -> validHeater.countLogsInInterval(new GregorianCalendar().getTime(), new GregorianCalendar().getTime()));
         Throwable exception12 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeater.getLogsInInterval(new GregorianCalendar().getTime(),new GregorianCalendar().getTime()));
+                () -> validHeater.getLogsInInterval(new GregorianCalendar().getTime(), new GregorianCalendar().getTime()));
         Throwable exception13 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeater.getConsumptionInInterval(new GregorianCalendar().getTime(),new GregorianCalendar().getTime()));
+                () -> validHeater.getConsumptionInInterval(new GregorianCalendar().getTime(), new GregorianCalendar().getTime()));
         Throwable exception14 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeater.getEnergyConsumption(20));
+                () -> validHeater.getEnergyConsumption(20));
 
 
-        //Assert
+        // Assert
 
         Assert.assertEquals("At the moment, this operation is not supported.", exception1.getMessage());
         Assert.assertEquals("At the moment, this operation is not supported.", exception2.getMessage());
@@ -84,7 +85,5 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         Assert.assertEquals("At the moment, this operation is not supported.", exception12.getMessage());
         Assert.assertEquals("At the moment, this operation is not supported.", exception13.getMessage());
         Assert.assertEquals("At the moment, this operation is not supported.", exception14.getMessage());
-
-
     }
 }
