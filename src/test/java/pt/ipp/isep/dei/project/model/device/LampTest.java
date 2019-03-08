@@ -1,12 +1,14 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -19,424 +21,489 @@ import static org.testng.Assert.assertTrue;
  * Lamp Device tests class.
  */
 
- class LampTest {
+class LampTest {
+    // Common testing artifacts for this class.
+
+    private Lamp validLamp;
+    private Log validLog;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validLamp = new Lamp(new LampSpec());
+        validLamp.setNominalPower(30);
+        validLamp.setName("validLampOne");
+        validLog = new Log(1, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        validLamp.addLog(validLog);
+    }
 
     @Test
-     void getDeviceTypeTest() {
-        Lamp d = new Lamp(new LampSpec());
-        d.setAttributeValue("capacity", 12D);
-        String dT = "Lamp";
-        String expectedResult = dT;
-        String result = d.getType();
+    void getDeviceTypeTest() {
+        // Arrange
+
+        String expectedResult = "Lamp";
+
+        // Act
+
+        String result = validLamp.getType();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeEqualToSameObject() {
-        Lamp d = new Lamp(new LampSpec());
-        d.setName("WMOne");
-        d.setNominalPower(12.0);
-        d.setAttributeValue("capacity", 12D);
-        boolean actualResult = d.equals(d);
+    void seeIfEqualsWorksSameObject() {
+        // Act
+
+        boolean actualResult = validLamp.equals(validLamp); // Needed for sonarqube testing purposes.
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void getNominalPowerTest() {
-        Lamp d = new Lamp(new LampSpec());
-        d.setNominalPower(30);
+    void seeIfGetNominalPowerWorks() {
+        // Arrange
+
         double expectedResult = 30;
-        double result = d.getNominalPower();
+
+        // Act
+
+        double result = validLamp.getNominalPower();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeEqualsToDifObject() {
-        Lamp d = new Lamp(new LampSpec());
-        d.setName("WMOne");
-        d.setNominalPower(12.0);
-        d.setAttributeValue(LampSpec.FLUX, 34);
-        Lamp d2 = new Lamp(new LampSpec());
-        d2.setName("WMTwo");
-        d2.setNominalPower(12.0);
-        d.setAttributeValue(LampSpec.FLUX, 45);
+    void seeIfEqualsWorksFalse() {
+        // Arrange
 
-        boolean actualResult = d.equals(d2);
+        Lamp testLamp = new Lamp(new LampSpec());
+        testLamp.setName("LampTest");
+        testLamp.setNominalPower(12.0);
+        testLamp.setAttributeValue(LampSpec.FLUX, 34);
+
+        // Act
+
+        boolean actualResult = testLamp.equals(validLamp);
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
 
     @Test
-    void seeEqualsToDifTypeObject() {
-        Lamp d = new Lamp(new LampSpec());
-        d.setName("WMOne");
-        d.setNominalPower(12.0);
-        d.setAttributeValue(LampSpec.FLUX, 56);
-        Room room = new Room("quarto", 1, 80, 2, 2);
+    void seeIfEqualsWorksNotAnInstance() {
+        // Act
 
-        boolean actualResult = d.equals(room);
+        boolean actualResult = validLamp.equals(new RoomList()); // Needed for sonarqube testing purposes.
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void seeEqualsToNullObject() {
-        Lamp d = new Lamp(new LampSpec());
-        d.setAttributeValue(LampSpec.FLUX, 34);
-        boolean actualResult = d.equals(null);
+    void seeIfEqualsWorksNull() {
+        // Act
+
+        boolean actualResult = validLamp.equals(null); // Needed for sonarqube testing purposes.
+
+        // Assert
 
         assertFalse(actualResult);
     }
 
     @Test
     void seeIfPrintDeviceWorks() {
-        Lamp d1 = new Lamp(new LampSpec());
-        d1.setAttributeValue(LampSpec.FLUX, 2D);
-        d1.setName("frigo");
-        d1.setNominalPower(150.0);
-        String result = d1.buildString();
-        String expectedResult = "The device Name is frigo, and its NominalPower is 150.0 kW.\n";
+        // Arrange
+
+        String expectedResult = "The device Name is validLampOne, and its nominal power is 30.0 kW.\n";
+
+        // Act
+
+        String result = validLamp.buildString();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfSetNameWorks() {
-        Lamp d1 = new Lamp(new LampSpec());
-        d1.setName("frigo");
-        d1.setAttributeValue(LampSpec.FLUX, 2D);
-        d1.setName("frigorifico");
-        String result = d1.getName();
-        String expectedResult = "frigorifico";
+        // Arrange
+
+        String expectedResult = "testName";
+        validLamp.setName("testName");
+
+        // Act
+
+        String result = validLamp.getName();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-     void hashCodeDummyTest() {
-        Lamp d1 = new Lamp(new LampSpec());
-        d1.setName("FridgeTwo");
-        d1.setNominalPower(12.0);
-        d1.setAttributeValue(LampSpec.FLUX, 4D);
-        int expectedResult = 1;
-        int actualResult = d1.hashCode();
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfGetAndSetAttributeValueWork() {
+        // Arrange
 
-    @Test
-    void seeIfGetAndSetAttributeValue() {
-        Lamp d1 = new Lamp(new LampSpec());
-        d1.setAttributeValue(LampSpec.FLUX, 12D);
         Double expectedResult = 33.3;
-        d1.setAttributeValue(LampSpec.FLUX, 33.3);
-        Object result = d1.getAttributeValue(LampSpec.FLUX);
+        validLamp.setAttributeValue(LampSpec.FLUX, 33.3);
+
+        // Act
+
+        Object result = validLamp.getAttributeValue(LampSpec.FLUX);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAndSetAttributeUnit() {
-        Lamp d1 = new Lamp(new LampSpec());
-        d1.setAttributeValue(LampSpec.FLUX, 12D);
+    void seeIfGetAttributeUnitWorks() {
+        // Arrange
+
         String expectedResult = "lm";
-        d1.setAttributeValue(LampSpec.FLUX, 33.3);
-        Object result = d1.getAttributeUnit(LampSpec.FLUX);
+
+        // Act
+
+        Object result = validLamp.getAttributeUnit(LampSpec.FLUX);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfGetAttributeNames() {
-        Lamp d1 = new Lamp(new LampSpec());
-        d1.setAttributeValue(LampSpec.FLUX, 12D);
+    void seeIfGetAttributeNamesWorks() {
+        // Act
 
-        List<String> result = d1.getAttributeNames();
+        List<String> result = validLamp.getAttributeNames();
+
+        // Assert
+
         assertTrue(result.contains(LampSpec.FLUX));
-
         assertEquals(result.size(), 1);
     }
 
     @Test
-    void ensureThatWeDeactivateADevice() {
-        Lamp d1 = new Lamp(new LampSpec());
-        boolean expectedResult = true;
-        boolean actualResult = d1.deactivate();
+    void seeIfDeactivateWorks() {
+        // Act
+
+        boolean actualResult = validLamp.deactivate();
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateWorksAlreadyDeactivated() {
+        // Arrange
+
+        validLamp.deactivate();
+
+        // Act
+
+        boolean actualResult = validLamp.deactivate();
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+
+    @Test
+    void seeIfGetEnergyConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 60;
+
+        // Act
+
+        double actualResult = validLamp.getEnergyConsumption(2);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void ensureThatWeDoNotDeactivate() {
-        Lamp d1 = new Lamp(new LampSpec());
-        d1.setAttributeValue(LampSpec.FLUX, 12D);
-        d1.deactivate();
-        boolean expectedResult = false;
-        boolean actualResult = d1.deactivate();
-        assertEquals(expectedResult, actualResult);
+    void seeIfGetLogListWorks() {
+        // Arrange
+
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog);
+
+        // Act
+
+        LogList result = validLamp.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetLogListWorksEmpty() {
+        // Arrange
+
+        validLamp = new Lamp(new LampSpec());
+        LogList expectedResult = new LogList();
+
+        // Act
+
+        LogList result = validLamp.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfAddLogWorksDuplicate() {
+        // Act
+
+        boolean result = validLamp.addLog(validLog);
+
+        // Assert
+
+        assertFalse(result);
     }
 
 
     @Test
-    void seeIfGetEnergyConsumption() {
-        Lamp d1 = new Lamp(new LampSpec());
-        d1.setAttributeValue(LampSpec.FLUX, 12D);
-        double expectedResult = 0;
-        double actualResult = d1.getEnergyConsumption(2);
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfAddLogWorksDeactivated() {
+        // Arrange
 
-    @Test
-    void getLogList() {
-        Lamp d1 = new Lamp(new LampSpec());
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        LogList logList = d1.getLogList();
-        d1.addLog(log);
-        LogList result = d1.getLogList();
-        assertEquals(logList, result);
-    }
+        validLamp = new Lamp(new LampSpec());
+        validLamp.deactivate();
 
-    @Test
-    void getLogListBreakTest() {
-        Lamp d1 = new Lamp(new LampSpec());
-        LogList logList = new LogList();
-        LogList result = d1.getLogList();
-        assertEquals(logList, result);
-    }
+        // Act
 
-    @Test
-    void addLogListFalse() {
-        Lamp d1 = new Lamp(new LampSpec());
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        d1.addLog(log);
-        assertFalse(d1.addLog(log));
-    }
+        boolean result = validLamp.addLog(validLog);
 
-    @Test
-    void addLogToInactive() {
-        Lamp d1 = new Lamp(new LampSpec());
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        d1.deactivate();
-        boolean result = d1.addLog(log);
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void addLogTrue() {
-        Lamp d1 = new Lamp(new LampSpec());
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        boolean result = d1.addLog(log);
+    void seeIfAddLogWorks() {
+        // Arrange
+
+        validLamp = new Lamp(new LampSpec());
+
+        // Act
+
+        boolean result = validLamp.addLog(validLog);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Lamp device = new Lamp(new LampSpec());
-        device.setAttributeValue(LampSpec.FLUX, 400D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        double result = device.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(111, result);
-    }
+    void seeIfGetConsumptionInIntervalWorks() {
+        // Arrange
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBefore() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 1).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 59).getTime();
-        Lamp device = new Lamp(new LampSpec());
-        device.setAttributeValue(LampSpec.FLUX, 400D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        double result = device.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(111, result);
-    }
+        double expectedResult = 1;
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBeforeReverseOutOfBounds() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
-        Lamp device = new Lamp(new LampSpec());
-        device.setAttributeValue(LampSpec.FLUX, 400D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        double result = device.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(0.0, result);
-    }
+        // Interval
 
-    @Test
-    void testCountLogsInInterval() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Lamp device = new Lamp(new LampSpec());
-        device.setAttributeValue(LampSpec.FLUX, 400D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        Log log3 = new Log(55, periodBeginning3, periodEnding3);
-        device.addLog(log1);
-        device.addLog(log2);
-        device.addLog(log3);
-        //Act
-        Integer expectedResult = 3;
-        Integer actualResult = device.countLogsInInterval(initialTime, finalTime);
-        //Assert
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
+        // Act
+
+        double actualResult = validLamp.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testGetLogsInInterval() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning4 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodEnding4 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
-        Date periodBeginning5 = new GregorianCalendar(2018, 10, 20, 9, 40).getTime();
-        Date periodEnding5 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Lamp device = new Lamp(new LampSpec());
-        device.setAttributeValue(LampSpec.FLUX, 400D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        Log log3 = new Log(55, periodBeginning3, periodEnding3);
-        Log log4 = new Log(55, periodBeginning4, periodEnding4);
-        Log log5 = new Log(55, periodBeginning5, periodEnding5);
-        device.addLog(log1);
-        device.addLog(log2);
-        device.addLog(log3);
-        device.addLog(log4);
-        device.addLog(log5);
-        //Act
+    void seeIfGetConsumptionInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        validLamp = new Lamp(new LampSpec());
+        double expectedResult = 0.0;
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validLamp.addLog(firstLog);
+
+        // Act
+
+        double actualResult = validLamp.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCountGetLogsInIntervalWorks() {
+        // Arrange
+
+        Integer expectedResult = 1;
+        LogList expectedResultList = new LogList();
+        expectedResultList.addLog(validLog);
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
+        // Act
+
+        Integer actualResult = validLamp.countLogsInInterval(initialTime, finalTime);
+        LogList actualResultList = validLamp.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResultList, actualResultList);
+    }
+
+    @Test
+    void seeIfGetLogsInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        validLamp = new Lamp(new LampSpec());
         LogList expectedResult = new LogList();
-        expectedResult.addLog(log1);
-        expectedResult.addLog(log2);
-        expectedResult.addLog(log3);
-        LogList actualResult = device.getLogsInInterval(initialTime, finalTime);
-        //Assert
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validLamp.addLog(firstLog);
+
+        // Act
+
+        LogList actualResult = validLamp.getLogsInInterval(initialTime, finalTime);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testGetLogsInIntervalOutOfBounds() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 50).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 10).getTime();
-        Lamp device = new Lamp(new LampSpec());
-        device.setAttributeValue(LampSpec.FLUX, 400D);
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        device.addLog(log1);
-        device.addLog(log2);
-        //Act
-        LogList expectedResult = new LogList();
-        LogList actualResult = device.getLogsInInterval(initialTime, finalTime);
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfGetConsumptionWorksTimeZero() {
+        // Arrange
 
-    @Test
-    void getConsumption() {
-        Lamp d = new Lamp(new LampSpec());
-        d.setNominalPower(15);
-        double expectedResult = 360;
-        double result = d.getEnergyConsumption(24);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getConsumptionTimeZero() {
-        Lamp d = new Lamp(new LampSpec());
-        d.setNominalPower(15);
         double expectedResult = 0;
-        double result = d.getEnergyConsumption(0);
+
+        // Act
+
+        double result = validLamp.getEnergyConsumption(0);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void testSetAttributeValueForAllCases() {
+    void seeIfSetAttributeValueWorks() {
         //Arrange
-        LampSpec lspec = new LampSpec();
-        Lamp lamp = new Lamp(lspec);
+
         Double attribute = 6.0;
-        // original strings + double:
-        assertTrue(lamp.setAttributeValue(LampSpec.FLUX, attribute));
-        // same hash codes, but different strings + double:
-        Assertions.assertFalse(lamp.setAttributeValue("notFLUX", attribute));
-        // distinct hash code to cover default cases of switches + double
-        Assertions.assertFalse(lamp.setAttributeValue("", attribute));
+
+        // Proper attribute name and object.
+
+        assertTrue(validLamp.setAttributeValue(LampSpec.FLUX, attribute));
+
+        // Proper value object, but incorrect attribute name.
+
+        Assertions.assertFalse(validLamp.setAttributeValue("notFLUX", attribute));
+
+        // Empty attribute name, proper value object.
+
+        Assertions.assertFalse(validLamp.setAttributeValue("", attribute));
     }
 
     @Test
-    void testSetAttributeValueForNotDouble() {
+    void seeIfSetAttributeValueWorksNotDouble() {
         //Arrange
-        LampSpec lspec = new LampSpec();
-        Lamp lamp = new Lamp(lspec);
-        Double attributeD = 6.0;
         Integer attribute = 6;
-        lamp.setAttributeValue(LampSpec.FLUX, attributeD);
-        // original strings + not double:
-        Assertions.assertFalse(lamp.setAttributeValue(LampSpec.FLUX, attribute));
-        // same hash codes, but different strings + not double:
-        Assertions.assertFalse(lamp.setAttributeValue("notFLUX", attribute));
-        Assertions.assertFalse(lamp.setAttributeValue("notNOMINAL_POWER", attribute));
-        // distinct hash code to cover default cases of switches + not double
-        Assertions.assertFalse(lamp.setAttributeValue("", attribute));
+
+        // Proper attribute name, but value isn't double:
+
+        Assertions.assertFalse(validLamp.setAttributeValue(LampSpec.FLUX, attribute));
+
+        // Improper attribute name and value isn't double:
+
+        Assertions.assertFalse(validLamp.setAttributeValue("notFLUX", attribute));
+        Assertions.assertFalse(validLamp.setAttributeValue("notNOMINAL_POWER", attribute));
+
+        // Empty attribute name and value isn't double:
+
+        Assertions.assertFalse(validLamp.setAttributeValue("", attribute));
     }
 
     @Test
-    void isLogListEmpty() {
-        //Arrange
-
-        Lamp lamp = new Lamp(new LampSpec());
-
+    void seeIfIsLogListEmptyWorks() {
         //Act
 
-        boolean actualResult1 = lamp.isLogListEmpty();
+        boolean actualResult1 = validLamp.isLogListEmpty();
 
         //Assert
 
-        assertTrue(actualResult1);
+        assertFalse(actualResult1);
 
-        //Arrange To Add Log
+        // Arrange To Remove Log
 
-        Log log = new Log(20, new Date(), new Date());
-        lamp.addLog(log);
+        validLamp = new Lamp(new LampSpec());
 
         //Act
 
-        boolean actualResult2 = lamp.isLogListEmpty();
+        boolean actualResult2 = validLamp.isLogListEmpty();
 
         //Assert
 
-        assertFalse(actualResult2);
+        assertTrue(actualResult2);
     }
 
+    @Test
+    void hashCodeDummyTest() {
+        // Arrange
+
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = validLamp.hashCode();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 }

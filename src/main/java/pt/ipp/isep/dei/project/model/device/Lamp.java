@@ -59,7 +59,7 @@ public class Lamp implements Device, Metered {
 
     public String buildString() {
         String result;
-        result= "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
+        result= "The device Name is " + this.name + ", and its nominal power is " + this.nominalPower + " kW.\n";
         return result;
     }
 

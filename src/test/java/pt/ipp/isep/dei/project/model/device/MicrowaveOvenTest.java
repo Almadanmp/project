@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MicrowaveOvenTest {
 
     // Common artifacts for testing in this class.
+
     private String validName1 = "KUNFT KMW"; // Sensor name "KUNFT KMW"
     private MicrowaveOvenSpec validSpec; // Microwave Oven Spec
     private VariableTimeProgram validVariableTimeProgram; // A variable time program named "Medium Power" running at 1200 Watt.
