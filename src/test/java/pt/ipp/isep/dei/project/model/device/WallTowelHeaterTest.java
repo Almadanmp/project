@@ -1,406 +1,450 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WallTowelHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
 
-public class WallTowelHeaterTest {
-
+class WallTowelHeaterTest {
     // Common artifacts for testing in this class.
-    private WallTowelHeater validWTHeater = new WallTowelHeater(new WallTowelHeaterSpec());
+
+    private WallTowelHeater validWTHeater;
+    private Log validLog;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validWTHeater = new WallTowelHeater(new WallTowelHeaterSpec());
+        validWTHeater.setNominalPower(20);
+        validWTHeater.setName("WallTowelHeater");
+        validLog = new Log(1, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        validWTHeater.addLog(validLog);
+    }
 
     @Test
-    void testGetDeviceType() {
+    void seeIIfGetDeviceTypeWorks() {
         // Arrange
+
         String expectedResult = "WallTowelHeater";
+
         // Act
+
         String actualResult = validWTHeater.getType();
+
         // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 
     @Test
-    void testSetGetName() {
+    void seeIfSetGetNameWork() {
         // Arrange
-        validWTHeater.setName("wTH1");
-        validWTHeater.setName("Aquece Toalhas");
-        String expectedResult = "Aquece Toalhas";
+
+        validWTHeater.setName("TowelHeater");
+        String expectedResult = "TowelHeater";
+
         // Act
+
         String actualResult = validWTHeater.getName();
+
         // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 
     @Test
-    void testSetGetNominalPower() {
+    void seeIfSetGetNominalPowerWork() {
         // Arrange
+
         validWTHeater.setNominalPower(20);
         double expectedResult = 20;
+
         // Act
+
         double actualResult = validWTHeater.getNominalPower();
+
         // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 
     @Test
-    void testEqualsOverrideToSameObject() {
-        // Arrange
-        validWTHeater.setName("WTHeater1");
-        validWTHeater.setNominalPower(10.0);
-        // Act
-        boolean actualResult = validWTHeater.equals(validWTHeater);
-        // Assert
-        assertTrue(actualResult);
+    void seeIfEqualsWorksOnItself() {
+        assertEquals(validWTHeater, validWTHeater);
     }
 
     @Test
-    void testEqualsOverrideToDifferentObject() {
+    void seeIfEqualsWorksFalse() {
         // Arrange
-        validWTHeater.setName("WTHeater1");
-        validWTHeater.setNominalPower(40);
-        WallTowelHeater wTHeater2 = new WallTowelHeater(new WallTowelHeaterSpec());
-        wTHeater2.setName("WTHeater2");
-        wTHeater2.setNominalPower(45);
+
+        WallTowelHeater testHeater = new WallTowelHeater(new WallTowelHeaterSpec());
+        testHeater.setName("WTHeater2");
+        testHeater.setNominalPower(45);
+
         // Act
-        boolean actualResult = validWTHeater.equals(wTHeater2);
+
+        boolean actualResult = validWTHeater.equals(testHeater);
+
         // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void testEqualsOverrideToNullObject() {
-        // Arrange
-        validWTHeater.setName("WallTowelHeater");
-        // Act
-        boolean actualResult = validWTHeater.equals(null);
-        // Assert
-        assertFalse(actualResult);
+    void seeIfEqualsWorksNull() {
+        assertNotEquals(validWTHeater, null);
     }
 
     @Test
-    void testPrintDevice() {
+    void seeIfBuildStringWorks() {
         // Arrange
-        validWTHeater.setName("Toalha Quentinha 3000");
-        validWTHeater.setNominalPower(100);
-        String expectedResult = "The device name is Toalha Quentinha 3000, and its nominal power is 100.0 kW.\n";
+
+        String expectedResult = "The device name is WallTowelHeater, and its nominal power is 20.0 kW.\n";
+
         // Act
+
         String actualResult = validWTHeater.buildString();
+
         // Assert
-        assertEquals(actualResult, expectedResult);
+
+        assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void testHashCode() {
-        // Arrange
-        int expectedResult = 1;
-        // Act
-        int actualResult = validWTHeater.hashCode();
-        // Assert
-        assertEquals(actualResult, expectedResult);
-    }
 
     @Test
-    void testSetGetAttributeValue() {
+    void seeIfSetGetAttributeValueWorkWrongAttributeName() {
         // Arrange
+
         validWTHeater.setAttributeValue("Anything", 10);
         Integer expectedResult = 0;
+
         // Act
+
         Object actualResult = validWTHeater.getAttributeValue("Anything");
+
         // Assert
-        assertEquals(actualResult, expectedResult);
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testGetAttributeUnit() {
+    void seeIfSetGetAttributeUnitWorkWrongAttributeName() {
         // Arrange
+
         validWTHeater.setAttributeValue("Anything", 10);
-        boolean expectedResult = false;
+
         // Act
+
         Object actualResult = validWTHeater.getAttributeUnit("Anything");
+
         // Assert
-        assertEquals(actualResult, expectedResult);
+
+        assertEquals(false, actualResult);
     }
 
     @Test
-    void testGetAttributeNames() {
+    void seeIfGetAttributeNamesWorks() {
         // Arrange
+
         validWTHeater.setAttributeValue("Anything", 10);
         List<String> expectedResult = new ArrayList<>();
+
         // Act
+
         Object actualResult = validWTHeater.getAttributeNames();
+
         // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 
     @Test
-    void testDeactivateReturnTrue() {
+    void seeIfDeactivateWorks() {
         // Act
+
         boolean actualResult = validWTHeater.deactivate();
+
         // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void testDeactivateReturnFalse() {
+    void seeIfDeactivateWorksAlreadyDeactivated() {
         // Arrange
+
         validWTHeater.deactivate();
+
         // Act
+
         boolean actualResult = validWTHeater.deactivate();
+
         // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void testGetEnergyConsumption() {
+    void seeIfGetEnergyConsumptionWorks() {
         // Arrange
+
         validWTHeater.setNominalPower(20.0);
         double expectedResult = 40.0;
+
         // Act
+
         double actualResult = validWTHeater.getEnergyConsumption(2);
+
         // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 
     @Test
-    void testGetLogList() {
+    void seeIfGetLogListWorks() {
         // Arrange
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        validWTHeater.addLog(log);
+
         LogList expectedResult = new LogList();
-        expectedResult.addLog(log);
+        expectedResult.addLog(validLog);
+
         // Act
+
         LogList actualResult = validWTHeater.getLogList();
+
         // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 
     @Test
-    void testAddLog() {
-        // Arrange
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
+    void seeIfAddLogWorksDuplicate() {
         // Act
-        boolean actualResult = validWTHeater.addLog(log);
+
+        boolean actualResult = validWTHeater.addLog(validLog);
+
         // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddLogWorks() {
+        // Arrange
+
+        validWTHeater = new WallTowelHeater(new WallTowelHeaterSpec());
+
+        // Act
+
+        boolean actualResult = validWTHeater.addLog(validLog);
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void testAddLogReturnFalse() {
+    void seeIfAddLogWorksDeactivated() {
         // Arrange
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        validWTHeater.addLog(log);
-        // Act
-        boolean actualResult = validWTHeater.addLog(log);
-        // Assert
-        assertFalse(actualResult);
-    }
 
-    @Test
-    void testAddLogToInactive() {
-        // Arrange
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
+        validWTHeater = new WallTowelHeater(new WallTowelHeaterSpec());
         validWTHeater.deactivate();
+
         // Act
-        boolean actualResult = validWTHeater.addLog(log);
+
+        boolean actualResult = validWTHeater.addLog(validLog);
+
         // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
+    void seeIfGetConsumptionInIntervalWorks() {
         // Arrange
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        validWTHeater.addLog(log1);
-        validWTHeater.addLog(log2);
-        double expectedResult = 111.0;
+
+        double expectedResult = 1;
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
         // Act
+
         double actualResult = validWTHeater.getConsumptionInInterval(initialTime, finalTime);
+
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBefore() {
+    void seeIfGetConsumptionInIntervalWorksOutOfBounds() {
         // Arrange
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 1).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 59).getTime();
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        validWTHeater.addLog(log1);
-        validWTHeater.addLog(log2);
-        double expectedResult = 111.0;
-        // Act
-        double actualResult = validWTHeater.getConsumptionInInterval(initialTime, finalTime);
-        // Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBeforeReverseOutOfBounds() {
-        // Arrange
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 30).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        validWTHeater.addLog(log1);
-        validWTHeater.addLog(log2);
+        validWTHeater = new WallTowelHeater(new WallTowelHeaterSpec());
         double expectedResult = 0.0;
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validWTHeater.addLog(firstLog);
+
         // Act
+
         double actualResult = validWTHeater.getConsumptionInInterval(initialTime, finalTime);
+
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testCountLogsInInterval() {
+    void seeIfCountGetLogsInIntervalWorks() {
         // Arrange
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        Log log3 = new Log(55, periodBeginning3, periodEnding3);
-        validWTHeater.addLog(log1);
-        validWTHeater.addLog(log2);
-        validWTHeater.addLog(log3);
-        Integer expectedResult = 3;
+
+        Integer expectedResult = 1;
+        LogList expectedResultList = new LogList();
+        expectedResultList.addLog(validLog);
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
         // Act
+
         Integer actualResult = validWTHeater.countLogsInInterval(initialTime, finalTime);
+        LogList actualResultList = validWTHeater.getLogList();
+
         // Assert
+
         assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResultList, actualResultList);
     }
 
     @Test
-    void testGetLogsInInterval() {
+    void seeIfGetLogsInIntervalWorksOutOfBounds() {
         // Arrange
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 20).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodBeginning3 = new GregorianCalendar(2018, 10, 20, 10, 40).getTime();
-        Date periodEnding3 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning4 = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodEnding4 = new GregorianCalendar(2018, 10, 20, 11, 20).getTime();
-        Date periodBeginning5 = new GregorianCalendar(2018, 10, 20, 9, 40).getTime();
-        Date periodEnding5 = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        Log log3 = new Log(55, periodBeginning3, periodEnding3);
-        Log log4 = new Log(55, periodBeginning4, periodEnding4);
-        Log log5 = new Log(55, periodBeginning5, periodEnding5);
-        validWTHeater.addLog(log1);
-        validWTHeater.addLog(log2);
-        validWTHeater.addLog(log3);
-        validWTHeater.addLog(log4);
-        validWTHeater.addLog(log5);
-        LogList expectedResult = new LogList();
-        expectedResult.addLog(log1);
-        expectedResult.addLog(log2);
-        expectedResult.addLog(log3);
-        // Act
-        LogList actualResult = validWTHeater.getLogsInInterval(initialTime, finalTime);
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
-    @Test
-    void testGetLogsInIntervalOutOfBounds() {
-        // Arrange
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 50).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 10).getTime();
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        validWTHeater.addLog(log1);
-        validWTHeater.addLog(log2);
+        validWTHeater = new WallTowelHeater(new WallTowelHeaterSpec());
         LogList expectedResult = new LogList();
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validWTHeater.addLog(firstLog);
+
         // Act
+
         LogList actualResult = validWTHeater.getLogsInInterval(initialTime, finalTime);
+
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getConsumption() {
+    void seeIfGetConsumptionWorks() {
         // Arrange
+
         validWTHeater.setNominalPower(15);
         double expectedResult = 360;
+
         // Act
+
         double result = validWTHeater.getEnergyConsumption(24);
+
         // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getConsumptionTimeZero() {
+    void seeIfGetConsumptionWorksTimeZero() {
         // Arrange
+
         validWTHeater.setNominalPower(15);
         double expectedResult = 0;
+
         // Act
+
         double result = validWTHeater.getEnergyConsumption(0);
+
         // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void testSetAttributeValueForAllCases() {
-        //Arrange
+    void seeIfSetAttributeValueWorksWrongName() {
+        // Arrange
+
         Double attribute = 6.0;
-        // same hash codes, but different strings + double:
+
+        // Wrong attribute name.
+
         assertFalse(validWTHeater.setAttributeValue("Anything", attribute));
-        // distinct hash code to cover default cases of switches + double
+
+        // Empty attribute name.
+
         assertFalse(validWTHeater.setAttributeValue("", attribute));
     }
 
     @Test
-    void testSetAttributeValueForNotDouble() {
-        //Arrange
-        Double dAttribute = 6.0;
+    void seeIfSetAttributeValueWorksNotDouble() {
+        // Arrange
+
         Integer attribute = 6;
-        validWTHeater.setAttributeValue("Anything", dAttribute);
-        // original strings + not double:
+
+        // Wrong attribute name and not double:
+
         assertFalse(validWTHeater.setAttributeValue("Anything", attribute));
-        // same hash codes, but different strings + not double:
         assertFalse(validWTHeater.setAttributeValue("notAnything", attribute));
         assertFalse(validWTHeater.setAttributeValue("notNOMINAL_POWER", attribute));
-        // distinct hash code to cover default cases of switches + not double
+
+        // Empty attribute name and not double:
+
         assertFalse(validWTHeater.setAttributeValue("", attribute));
+    }
+
+    @Test
+    void hashCodeDummyTest() {
+        // Arrange
+
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = validWTHeater.hashCode();
+
+        // Assert
+
+        assertEquals(actualResult, expectedResult);
     }
 }
