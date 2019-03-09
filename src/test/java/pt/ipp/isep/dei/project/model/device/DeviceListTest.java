@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingList;
@@ -21,432 +22,238 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class DeviceListTest {
+    // Common testing artifacts for testing in this class.
 
-    @Test
-    void seeIfAddDeviceWorksWithSameDevice() {
-        //Arrange
-        //Room List
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 9, 23456789, 2, 2);
-        roomList1.add(room1);
-        //Reading List
-        ReadingList rL1 = new ReadingList();
-        Date d2 = new GregorianCalendar(2008, 2, 2).getTime();
-        Reading r1;
-        r1 = new Reading(30, d2);
-        rL1.addReading(r1);
-        //Total Power
-        //device List
-        DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.add(d1);
-        //Act
-        Boolean actualResult = deviceL1.add(d1);
-        //Assert
-        assertEquals(false, actualResult);
+    private DeviceList validList;
+    private Device firstValidDevice;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validList = new DeviceList();
+        firstValidDevice = new Fridge(new FridgeSpec());
+        firstValidDevice.setName("FridgeOne");
+        firstValidDevice.setNominalPower(30);
     }
 
     @Test
-    void seeIfAddDeviceWorksWithDifferentDevice() {
-        //Arrange
-        //Room List
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 9, 23456789, 2, 2);
-        roomList1.add(room1);
-        //Reading List
-        ReadingList rL1 = new ReadingList();
-        Date d2 = new GregorianCalendar(2008, 2, 2).getTime();
-        Reading r1;
-        r1 = new Reading(30, d2);
-        rL1.addReading(r1);
-        //device List
-        DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("fdhgfhs");
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        Device device2 = new Fridge(new FridgeSpec());
-        device2.setName("fdhggfh");
-        device2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5D);
-        device2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 6D);
-        device2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.add(d1);
-        //Act
-        Boolean actualResult = deviceL1.add(device2);
-        //Assert
-        assertEquals(true, actualResult);
+    void seeIfAddDeviceWorksDuplicate() {
+        // Arrange
+
+        validList.add(firstValidDevice);
+
+        // Act
+
+        boolean result = validList.add(firstValidDevice);
+
+        // Assert
+
+        assertFalse(result);
     }
 
     @Test
-    void seeIfContainsDeviceWorks() {
-        //Arrange --------------------------
-        //Room List
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        //Reading List
-        ReadingList rL1 = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Reading r1;
-        r1 = new Reading(30, d2);
-        rL1.addReading(r1);
-        //device List
-        DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.add(d1);
-        //Act ------------------------------
-        boolean result = deviceL1.containsDevice(d1);
-        //Assert ---------------------------
+    void seeIfAddDeviceWorks() {
+        // Act
+
+        boolean result = validList.add(firstValidDevice);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void seeIfContainsDeviceWorksForFalse() {
-        //Arrange --------------------------
-        //Room List
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        //Reading List
-        ReadingList rL1 = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Reading r1;
-        r1 = new Reading(30, d2);
-        rL1.addReading(r1);
-        //device List
-        DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        //Act ------------------------------
-        boolean result = deviceL1.containsDevice(d1);
-        //Assert ---------------------------
+    void seeIfContainsDeviceWorks() {
+        // Arrange
+
+        validList.add(firstValidDevice);
+
+        // Act
+
+        boolean result = validList.containsDevice(firstValidDevice);
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+    @Test
+    void seeIfContainsDeviceWorksFalse() {
+        // Act
+
+        boolean result = validList.containsDevice(firstValidDevice);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
     void seeIfRemoveDeviceWorks() {
-        //Arrange ------------------------
-        //Room List
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        //Reading List
-        ReadingList rL1 = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Reading r1;
-        r1 = new Reading(30, d2);
-        rL1.addReading(r1);
-        //device List
-        DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.add(d1);
-        //Act ----------------------------
-        deviceL1.removeDevice(d1);
-        boolean result = deviceL1.containsDevice(d1);
-        //Assert -------------------------
-        assertFalse(result);
+        // Arrange
+
+        validList.add(firstValidDevice);
+
+        // Act
+
+        boolean result = validList.removeDevice(firstValidDevice);
+
+        // Assert
+
+        assertTrue(result);
     }
 
     @Test
     void seeIfRemoveDeviceWorksForFalse() {
-        //Arrange ------------------------
-        //Room List
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        //Reading List
-        ReadingList rL1 = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Reading r1;
-        r1 = new Reading(30, d2);
-        rL1.addReading(r1);
-        //device List
-        DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.add(d1);
-        //Act ----------------------------
-        boolean result = deviceL1.containsDevice(d1);
-        //Assert -------------------------
-        assertTrue(result);
-    }
+        // Act
 
-    @Test
-    void seeIfListIsNotEmpty() {
-        //Arrange ------------------------------
-        //Room List
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        //Reading List
-        ReadingList rL1 = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Reading r1;
-        r1 = new Reading(30, d2);
-        rL1.addReading(r1);
-        //device List
-        DeviceList deviceL1 = new DeviceList();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        deviceL1.add(d1);
-        //Act ----------------------------------
-        boolean result = deviceL1.isEmpty();
-        //Assert -------------------------------
+        boolean result = validList.removeDevice(firstValidDevice);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void checkIfListIsEmpty() {
-        //Arrange ------------------------------
-        //Room List
-        RoomList roomList1 = new RoomList();
-        Room room1 = new Room("room1", 19, 23456789, 2, 2);
-        roomList1.add(room1);
-        //Reading List
-        ReadingList rL1 = new ReadingList();
-        Date d2 = new GregorianCalendar(2018, 2, 2).getTime();
-        Reading r1;
-        r1 = new Reading(30, d2);
-        rL1.addReading(r1);
-        //device List
-        DeviceList deviceL1 = new DeviceList();
-        //Act ----------------------------------
-        boolean result = deviceL1.isEmpty();
-        //Assert -------------------------------
+    void seeIfIsEmptyWorksFalse() {
+        // Arrange
+
+        validList.add(firstValidDevice);
+
+        // Act
+
+        boolean result = validList.isEmpty();
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfIsEmptyWorks() {
+        // Act
+
+        boolean result = validList.isEmpty();
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void hashCodeDummyTest() {
-        //Arrange -------------------
-        DeviceList deviceL1 = new DeviceList();
-        //Act -----------------------
-        int expectedResult = 1;
-        int actualResult = deviceL1.hashCode();
-        //Assert --------------------
-        assertEquals(expectedResult, actualResult);
-    }
-
-    //This test can only work after Devices is re-worked.
-
-    @Test
-    void ensureThatAObjectIsAInstanceOf() {
-        //Arrange
-        DeviceList dList1 = new DeviceList();
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList1.add(d1);
-        DeviceList dList2 = new DeviceList();
-        Device device2 = new Fridge(new FridgeSpec());
-        device2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        device2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        device2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList2.add(device2);
-        //Act
-        boolean actualResult = dList1.equals(dList1);
-        //Assert
-        assertTrue(actualResult);
+    void seeIfEqualsWorksOnItself() {
+        assertEquals(validList, validList);
     }
 
 
     @Test
-    void ensureThatAObjectIsAInstanceOf2() {
-        //Arrange
-        DeviceList dList1 = new DeviceList();
-        Device device1 = new Fridge(new FridgeSpec());
-        device1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        device1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        device1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList1.add(device1);
-        DeviceList dList2 = new DeviceList();
-        dList2.add(device1);
-        //Act
-        boolean actualResult = dList1.equals(dList2);
-        //Assert
+    void seeIfEqualsWorksTrue() {
+        // Arrange
+
+        DeviceList testList = new DeviceList();
+        validList.add(firstValidDevice);
+        testList.add(firstValidDevice);
+
+        // Act
+
+        boolean actualResult = validList.equals(testList);
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-    void ensureThatAObjectIsAInstanceOf3() {
-        //Arrange
-        DeviceList dList1 = new DeviceList();
-        Device device1 = new Fridge(new FridgeSpec());
-        device1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        device1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        device1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList1.add(device1);
-        //Act
-        boolean actualResult = dList1.equals(device1);
-        //Assert
-        assertFalse(actualResult);
+    void seeIfEqualsWorksNotAnInstance() {
+        assertNotEquals(validList, new RoomList());
     }
 
     @Test
-    void ensureThatAObjectIsNotAInstanceOf() {
-        //Arrange
-        DeviceList dList1 = new DeviceList();
-        DeviceList dList2 = new DeviceList();
-        Device device1 = new Fridge(new FridgeSpec());
-        device1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        device1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        device1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        Device device2 = new Fridge(new FridgeSpec());
-        device2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        device2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 56D);
-        device2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        dList1.add(device1);
-        dList2.add(device2);
-        //Act
-        boolean actualResult = dList1.equals(dList2);
-        assertTrue(actualResult);
-    }
+    void seeIfBuildStringWorks() {
+        // Arrange
 
-    @Test
-    void seeIfPrintDevicesWorks() {
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 35D);
-        DeviceList deviceList = new DeviceList();
-        deviceList.add(d1);
+        validList.add(firstValidDevice);
         String expectedResult = "---------------\n" +
-                "0) device Name: Fridge, device Type: Fridge, device Nominal Power: 21.0\n" +
+                "0) device Name: FridgeOne, device Type: Fridge, device Nominal Power: 30.0\n" +
                 "---------------\n";
 
-        String actualResult = deviceList.buildString();
+        // Act
+
+        String actualResult = validList.buildString();
+
+        // Assert
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfPrintDevicesWorks2() {
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-        Device d2 = new Fridge(new FridgeSpec());
-        d2.setName("Fridge2");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
-        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
-        DeviceList deviceList = new DeviceList();
-        deviceList.add(d2);
-        deviceList.add(d1);
-        String expectedResult = "---------------\n" +
-                "0) device Name: Fridge2, device Type: Fridge, device Nominal Power: 21.0\n" +
-                "1) device Name: Fridge, device Type: Fridge, device Nominal Power: 21.0\n" +
-                "---------------\n";
-
-        String actualResult = deviceList.buildString();
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void testGetterElementsAsArray(){
+    void testGetterElementsAsArray() {
         //Arrange
 
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge1");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        // Device
 
-        Device d2 = new Fridge(new FridgeSpec());
-        d2.setName("Fridge2");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
-        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
+        Device testDevice = new Fridge(new FridgeSpec());
+        testDevice.setName("Fridge2");
+        testDevice.setNominalPower(21.0);
+        testDevice.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
+        testDevice.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
+        testDevice.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
+
+        // Lists
 
         DeviceList emptyList = new DeviceList();
-
         DeviceList oneDeviceList = new DeviceList();
-        oneDeviceList.add(d1);
+        oneDeviceList.add(firstValidDevice);
+        DeviceList twoDevicesList = new DeviceList();
+        twoDevicesList.add(firstValidDevice);
+        twoDevicesList.add(testDevice);
 
-
-        DeviceList TwoDevicesList = new DeviceList();
-        TwoDevicesList.add(d1);
-        TwoDevicesList.add(d2);
+        // Expected Results
 
         Device[] expectedResult1 = new Device[0];
         Device[] expectedResult2 = new Device[1];
         Device[] expectedResult3 = new Device[2];
-        expectedResult2[0] = d1;
-        expectedResult3[0] = d1;
-        expectedResult3[1] = d2;
+        expectedResult2[0] = firstValidDevice;
+        expectedResult3[0] = firstValidDevice;
+        expectedResult3[1] = testDevice;
 
-        //Act
+        // Act
 
         Device[] actualResult1 = emptyList.getElementsAsArray();
         Device[] actualResult2 = oneDeviceList.getElementsAsArray();
-        Device[] actualResult3 = TwoDevicesList.getElementsAsArray();
+        Device[] actualResult3 = twoDevicesList.getElementsAsArray();
 
-        //Assert
+        // Assert
 
-        assertArrayEquals(expectedResult1,actualResult1);
-        assertArrayEquals(expectedResult2,actualResult2);
-        assertArrayEquals(expectedResult3,actualResult3);
+        assertArrayEquals(expectedResult1, actualResult1);
+        assertArrayEquals(expectedResult2, actualResult2);
+        assertArrayEquals(expectedResult3, actualResult3);
     }
 
     @Test
-    void appendDuplicatedList(){
-        //Arrange
+    void seeIfAppendListNoDuplicatesWorks() {
+        // Arrange
 
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge1");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        // Device
 
-        Device d2 = new Fridge(new FridgeSpec());
-        d2.setName("Fridge2");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
-        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
+        Device testDevice = new Fridge(new FridgeSpec());
+        testDevice.setName("Fridge2");
+        testDevice.setNominalPower(21.0);
 
-        DeviceList mainDeviceList = new DeviceList();
-        DeviceList addedDeviceList = new DeviceList();
-        mainDeviceList.add(d1);
-        mainDeviceList.add(d2);
+        // List
 
-        addedDeviceList.add(d1);
-        addedDeviceList.add(d2);
+        validList.add(firstValidDevice);
+        DeviceList listToAppend = new DeviceList();
+        listToAppend.add(testDevice);
 
+        // Expected result.
 
         DeviceList expectedResult = new DeviceList();
-        expectedResult.add(d1);
-        expectedResult.add(d2);
+        expectedResult.add(firstValidDevice);
+        expectedResult.add(testDevice);
 
         //Act
 
-        DeviceList actualResult = mainDeviceList.appendListNoDuplicates(addedDeviceList);
+        DeviceList actualResult = validList.appendListNoDuplicates(listToAppend);
 
         //Assert
 
@@ -454,46 +261,23 @@ class DeviceListTest {
     }
 
     @Test
-    void appendListOneDuplicatedDevice(){
-        //Arrange
+    void seeIfAppendListNoDuplicatesWorksWithDuplicates() {
+        // Arrange
 
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge1");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        // List
 
-        Device d2 = new Fridge(new FridgeSpec());
-        d2.setName("Fridge2");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
-        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
+        validList.add(firstValidDevice);
+        DeviceList listToAppend = new DeviceList();
+        listToAppend.add(firstValidDevice);
 
-        Device d3 = new Fridge(new FridgeSpec());
-        d2.setName("Fridge3");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 10D);
-        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 70D);
-        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
-
-        DeviceList mainDeviceList = new DeviceList();
-        DeviceList addedDeviceList = new DeviceList();
-        mainDeviceList.add(d1);
-        mainDeviceList.add(d2);
-
-        addedDeviceList.add(d1);
-        addedDeviceList.add(d3);
+        // Expected result.
 
         DeviceList expectedResult = new DeviceList();
-        expectedResult.add(d1);
-        expectedResult.add(d2);
-        expectedResult.add(d3);
+        expectedResult.add(firstValidDevice);
 
         //Act
 
-        DeviceList actualResult = mainDeviceList.appendListNoDuplicates(addedDeviceList);
+        DeviceList actualResult = validList.appendListNoDuplicates(listToAppend);
 
         //Assert
 
@@ -501,27 +285,22 @@ class DeviceListTest {
     }
 
     @Test
-    void appendEmptyList(){
-        //Arrange
+    void seeIfAppendListNoDuplicatesWorksEmpty() {
+        // Arrange
 
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge1");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        // List
 
-        DeviceList mainDeviceList = new DeviceList();
-        DeviceList addedDeviceList = new DeviceList();
-        mainDeviceList.add(d1);
+        validList.add(firstValidDevice);
+        DeviceList listToAppend = new DeviceList();
 
+        // Expected result.
 
         DeviceList expectedResult = new DeviceList();
-        expectedResult.add(d1);
+        expectedResult.add(firstValidDevice);
 
         //Act
 
-        DeviceList actualResult = mainDeviceList.appendListNoDuplicates(addedDeviceList);
+        DeviceList actualResult = validList.appendListNoDuplicates(listToAppend);
 
         //Assert
 
@@ -529,97 +308,75 @@ class DeviceListTest {
     }
 
     @Test
-    void getDeviceByIndex(){
-        //Arrange
+    void seeIfGetWorks() {
+        // Arrange
 
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge1");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        Device testDevice = new Fridge(new FridgeSpec());
+        testDevice.setName("Fridge2");
+        testDevice.setNominalPower(21.0);
+        testDevice.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
+        testDevice.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
+        testDevice.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
 
-        Device d2 = new Fridge(new FridgeSpec());
-        d2.setName("Fridge2");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
-        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
+        Device secondTestDevice = new Fridge(new FridgeSpec());
+        testDevice.setName("Fridge3");
+        testDevice.setNominalPower(21.0);
+        testDevice.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 10D);
+        testDevice.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 70D);
+        testDevice.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
 
-        Device d3 = new Fridge(new FridgeSpec());
-        d2.setName("Fridge3");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 10D);
-        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 70D);
-        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 45D);
+        validList.add(firstValidDevice);
+        validList.add(testDevice);
+        validList.add(secondTestDevice);
 
-        DeviceList mainDeviceList = new DeviceList();
-        mainDeviceList.add(d1);
-        mainDeviceList.add(d2);
-        mainDeviceList.add(d3);
+        // Act
 
-        //Act
+        Device actualResult1 = validList.get(0);
+        Device actualResult2 = validList.get(1);
+        Device actualResult3 = validList.get(2);
 
-        Device actualResult1 = mainDeviceList.get(0);
-        Device actualResult2 = mainDeviceList.get(1);
-        Device actualResult3 = mainDeviceList.get(2);
+        // Assert
 
-        //Assert
-
-        assertEquals(d1, actualResult1);
-        assertEquals(d2, actualResult2);
-        assertEquals(d3, actualResult3);
+        assertEquals(firstValidDevice, actualResult1);
+        assertEquals(testDevice, actualResult2);
+        assertEquals(secondTestDevice, actualResult3);
     }
 
     @Test
-    void getByIndexEmptyDeviceList() {
-        //Arrange
+    void seeIfGetWorksEmptyList() {
+        // Act
 
-        DeviceList emptyDeviceList = new DeviceList();
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validList.get(0));
 
-        //Act
-
-        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-            emptyDeviceList.get(0);
-        });
-
-        //Assert
+        // Assert
 
         assertEquals("The device list is empty.", exception.getMessage());
     }
 
     @Test
-    void getDeviceListSize(){
-        //Arrange
+    void seeIfSizeWorks() {
+        // Act
 
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge1");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        int actualResult1 = validList.size();
 
-        Device d2 = new Fridge(new FridgeSpec());
-        d2.setName("Fridge2");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 4D);
-        d2.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 7D);
-        d2.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 435D);
+        // Arrange to add one device.
 
-        DeviceList emptyList = new DeviceList();
+        validList.add(firstValidDevice);
 
-        DeviceList listWithOneDevice = new DeviceList();
-        listWithOneDevice.add(d1);
+        // Act
 
-        DeviceList listWithTwoDevices = new DeviceList();
-        listWithTwoDevices.add(d1);
-        listWithTwoDevices.add(d2);
+        int actualResult2 = validList.size();
 
-        //Act
+        // Arrange to add second device.
 
-        int actualResult1 = emptyList.size();
-        int actualResult2 = listWithOneDevice.size();
-        int actualResult3 = listWithTwoDevices.size();
+        Device testDevice = new Fridge(new FridgeSpec());
+        testDevice.setName("Fridge2");
+        testDevice.setNominalPower(21.0);
+        validList.add(testDevice);
+
+        // Act
+
+        int actualResult3 = validList.size();
 
         //Assert
 
@@ -629,29 +386,17 @@ class DeviceListTest {
     }
 
     @Test
-    void getTypeByIndex(){
-        //Arrange
+    void seeIfGetTypeByIndexWorks() {
+        // Arrange
 
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
-
-        Device d2 = new WashingMachine(new WashingMachineSpec());
-        d2.setName("WashingMachine");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 4D);
-
-        DeviceList deviceList = new DeviceList();
-        deviceList.add(d1);
-        deviceList.add(d2);
+        Device testDevice = new WashingMachine(new WashingMachineSpec());
+        validList.add(firstValidDevice);
+        validList.add(testDevice);
 
         //Act
 
-        String actualResult1 = deviceList.getTypeByIndex(0);
-        String actualResult2 = deviceList.getTypeByIndex(1);
+        String actualResult1 = validList.getTypeByIndex(0);
+        String actualResult2 = validList.getTypeByIndex(1);
 
         //Assert
 
@@ -660,14 +405,10 @@ class DeviceListTest {
     }
 
     @Test
-    void getTypeByIndexEmptyDeviceList() {
-        //Arrange
-
-        DeviceList emptyDeviceList = new DeviceList();
-
+    void seeIfGetTypeByIndexWorksEmpty() {
         //Act
 
-        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyDeviceList.getTypeByIndex(0));
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validList.getTypeByIndex(0));
 
         //Assert
 
@@ -675,236 +416,173 @@ class DeviceListTest {
     }
 
     @Test
-    void getDeviceListConsumptionInInterval(){
-        //Arrange
+    void seeIfGetConsumptionInIntervalWorks() {
+        // Arrange
 
-        Date startInterval = new Date();
-        Date endInterval = new Date();
-        Date log01Start = new Date();
-        Date log01End = new Date();
-        Date log02Start = new Date();
-        Date log02End = new Date();
-        Date log03Start = new Date();
-        Date log03End = new Date();
+        double expectedResult = 21;
 
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        try {
-            startInterval = validSdf.parse("20/11/2018 9:00:00");
-            endInterval = validSdf.parse("20/11/2018 11:00:00");
-            log01Start = validSdf.parse("20/11/2018 9:00:00");
-            log01End = validSdf.parse("20/11/2018 9:30:00");
-            log02Start = validSdf.parse("20/11/2018 10:00:00");
-            log02End = validSdf.parse("20/11/2018 10:30:00");
-            log03Start = validSdf.parse("20/11/2018 11:00:00");
-            log03End = validSdf.parse("20/11/2018 11:30:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Log logInsideInterval1 = new Log(10, log01Start, log01End); // Log inside interval 1
-        Log logInsideInterval2 = new Log(10, log02Start, log02End); // Log inside interval 2
-        Log logOutsideInterval = new Log(10, log03Start, log03End); // Log outside interval
+        // Logs
 
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        Log firstLog = new Log(21, new GregorianCalendar(2019, Calendar.JANUARY, 21).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        firstValidDevice.addLog(firstLog);
+        validList.add(firstValidDevice);
 
-        d1.addLog(logInsideInterval1);
-        d1.addLog(logInsideInterval2);
-        d1.addLog(logOutsideInterval);
+        // Interval
 
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
 
-        Device d2 = new WashingMachine(new WashingMachineSpec());
-        d2.setName("WashingMachine");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 4D);
+        // Act
 
-        d2.addLog(logInsideInterval1);
-        d2.addLog(logInsideInterval2);
-        d2.addLog(logOutsideInterval);
+        double actualResult = validList.getConsumptionInInterval(initialTime, finalTime);
 
-        DeviceList emptyList = new DeviceList();
-        DeviceList listTwoDevices = new DeviceList();
-        listTwoDevices.add(d1);
-        listTwoDevices.add(d2);
+        // Assert
 
-        //Act
-
-        double sumOfTwoDevices = listTwoDevices.getConsumptionInInterval(startInterval, endInterval);
-        double sumEmptyList = emptyList.getConsumptionInInterval(startInterval, endInterval);
-
-        //Assert
-
-        assertEquals(40, sumOfTwoDevices);
-        assertEquals(0, sumEmptyList);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getDeviceListLogList(){
-        //Arrange
+    void seeIfGetConsumptionInIntervalWorksOutOfBounds() {
+        // Arrange
 
-        Date log01Start = new Date();
-        Date log01End = new Date();
-        Date log02Start = new Date();
-        Date log02End = new Date();
+        firstValidDevice = new Fridge(new FridgeSpec());
+        validList.add(firstValidDevice);
+        double expectedResult = 0.0;
 
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        try {
-            log01Start = validSdf.parse("20/11/2018 9:00:00");
-            log01End = validSdf.parse("20/11/2018 9:30:00");
-            log02Start = validSdf.parse("20/11/2018 10:00:00");
-            log02End = validSdf.parse("20/11/2018 10:30:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Log log1 = new Log(10, log01Start, log01End);
-        Log log2 = new Log(10, log02Start, log02End);
+        // Interval
 
-        Device deviceEmptyLogList = new Fridge(new FridgeSpec());
-        deviceEmptyLogList.setName("Fridge");
-        deviceEmptyLogList.setNominalPower(21.0);
-        deviceEmptyLogList.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        deviceEmptyLogList.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        deviceEmptyLogList.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
 
+        // Logs
 
-        Device deviceWithLogs = new WashingMachine(new WashingMachineSpec());
-        deviceWithLogs.setName("WashingMachine");
-        deviceWithLogs.setNominalPower(21.0);
-        deviceWithLogs.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 4D);
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        firstValidDevice.addLog(firstLog);
 
-        deviceWithLogs.addLog(log1);
-        deviceWithLogs.addLog(log2);
+        // Act
 
-        LogList emptyLogList = new LogList();
-        LogList listWithLogs = new LogList();
-        listWithLogs.addLog(log1);
-        listWithLogs.addLog(log2);
+        double actualResult = firstValidDevice.getConsumptionInInterval(initialTime, finalTime);
 
+        // Assert
 
-        //Act
-
-        LogList actualResult1 = deviceEmptyLogList.getLogList();
-        LogList actualResult2 = deviceWithLogs.getLogList();
-
-        //Assert
-
-        assertEquals(emptyLogList, actualResult1);
-        assertEquals(listWithLogs, actualResult2);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getLogListInInterval(){
-        //Arrange
+    void seeIfGetLogsInIntervalWorks() {
+        // Arrange
 
-        Date startInterval = new Date();
-        Date endInterval = new Date();
-        Date log01Start = new Date();
-        Date log01End = new Date();
-        Date log02Start = new Date();
-        Date log02End = new Date();
+        LogList expectedResultList = new LogList();
+        Log validLog = new Log(1, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        expectedResultList.addLog(validLog);
+        firstValidDevice.addLog(validLog);
+        validList.add(firstValidDevice);
 
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        try {
-            startInterval = validSdf.parse("20/11/2018 9:00:00");
-            endInterval = validSdf.parse("20/11/2018 11:00:00");
-            log01Start = validSdf.parse("20/11/2018 9:00:00");
-            log01End = validSdf.parse("20/11/2018 9:30:00");
-            log02Start = validSdf.parse("20/11/2018 11:00:00");
-            log02End = validSdf.parse("20/11/2018 11:30:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Log logInsideInterval1 = new Log(10, log01Start, log01End); // Log inside interval
-        Log logOutsideInterval = new Log(10, log02Start, log02End); // Log outside interval
+        // Interval
 
-        Device deviceOneLogInInterval = new Fridge(new FridgeSpec());
-        deviceOneLogInInterval.setName("Fridge");
-        deviceOneLogInInterval.setNominalPower(21.0);
-        deviceOneLogInInterval.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        deviceOneLogInInterval.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        deviceOneLogInInterval.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
 
-        deviceOneLogInInterval.addLog(logInsideInterval1);
-        deviceOneLogInInterval.addLog(logOutsideInterval);
+        // Act
 
+        LogList actualResultList = validList.getLogsInInterval(initialTime, finalTime);
 
-        Device deviceNoLogsFromInterval = new WashingMachine(new WashingMachineSpec());
-        deviceNoLogsFromInterval.setName("WashingMachine");
-        deviceNoLogsFromInterval.setNominalPower(21.0);
-        deviceNoLogsFromInterval.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 4D);
+        // Assert
 
-        deviceNoLogsFromInterval.addLog(logOutsideInterval);
-
-        DeviceList emptyDeviceList = new DeviceList();
-        DeviceList listDeviceLogInside = new DeviceList();
-        DeviceList listDeviceLogOutside = new DeviceList();
-
-        listDeviceLogInside.add(deviceOneLogInInterval);
-        listDeviceLogOutside.add(deviceNoLogsFromInterval);
-
-        LogList emptyList = new LogList();
-        LogList listOneLog = new LogList();
-        listOneLog.addLog(logInsideInterval1);
-
-        //Act
-
-        LogList actualResult1 = emptyDeviceList.getLogsInInterval(startInterval, endInterval);
-        LogList actualResult2 = listDeviceLogInside.getLogsInInterval(startInterval, endInterval);
-        LogList actualResult3 = listDeviceLogOutside.getLogsInInterval(startInterval, endInterval);
-
-        //Assert
-
-        assertEquals(emptyList, actualResult1);
-        assertEquals(listOneLog, actualResult2);
-        assertEquals(emptyList, actualResult3);
+        assertEquals(expectedResultList, actualResultList);
     }
 
     @Test
-    void removeDevicesFromGivenList(){
-        //Arrange
+    void seeIfGetLogsInIntervalWorksOutOfBounds() {
+        // Arrange
 
-        Device d1 = new Fridge(new FridgeSpec());
-        d1.setName("Fridge");
-        d1.setNominalPower(21.0);
-        d1.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 6D);
-        d1.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
-        d1.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 345D);
+        firstValidDevice = new Fridge(new FridgeSpec());
+        validList.add(firstValidDevice);
+        LogList expectedResult = new LogList();
 
-        Device d2 = new WashingMachine(new WashingMachineSpec());
-        d2.setName("WashingMachine");
-        d2.setNominalPower(21.0);
-        d2.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 4D);
+        // Interval
 
-        DeviceList mainDeviceList = new DeviceList(); //mainDeviceList: has two devices
-        DeviceList emptyList = new DeviceList();      //empty list
-        DeviceList listOneDevice = new DeviceList();  //list with one device contained in mainDeviceList
-        DeviceList listTwoDevices = new DeviceList(); //list with two devices contained in mainDeviceList
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
 
-        mainDeviceList.add(d1);
-        mainDeviceList.add(d2);
-        listOneDevice.add(d1);
-        listTwoDevices.add(d1);
-        listTwoDevices.add(d2);
+        // Logs
 
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        firstValidDevice.addLog(firstLog);
 
-        //Act
+        // Act
 
-        boolean actualResult1 = mainDeviceList.removeDevicesFromGivenList(emptyList);
-        boolean actualResult2 = mainDeviceList.removeDevicesFromGivenList(listOneDevice);
-        boolean actualResult3 = mainDeviceList.removeDevicesFromGivenList(listTwoDevices);
+        LogList actualResult = validList.getLogsInInterval(initialTime, finalTime);
 
+        // Assert
 
-        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfRemoveDevicesFromGivenListWorks() {
+        // Arrange
+
+        // Device.
+
+        Device testDevice = new WashingMachine(new WashingMachineSpec());
+        testDevice.setName("WashingMachine");
+        testDevice.setNominalPower(21.0);
+        testDevice.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 4D);
+
+        // Create the Lists.
+
+        DeviceList emptyList = new DeviceList();      // empty list.
+        DeviceList oneDeviceList = new DeviceList();  // list with one of the devices already contained in ValidList.
+        DeviceList twoDevicesList = new DeviceList(); // list with both of the devices already contained in ValidList.
+
+        // Populate the lists.
+
+        validList.add(firstValidDevice);
+        validList.add(testDevice);
+        oneDeviceList.add(firstValidDevice);
+        twoDevicesList.add(firstValidDevice);
+        twoDevicesList.add(testDevice);
+
+        // Act
+
+        boolean actualResult1 = validList.removeDevicesFromGivenList(emptyList);
+        boolean actualResult2 = validList.removeDevicesFromGivenList(oneDeviceList);
+        boolean actualResult3 = validList.removeDevicesFromGivenList(twoDevicesList);
+
+        // Assert
 
         assertTrue(actualResult1);
         assertTrue(actualResult2);
         assertTrue(actualResult3);
+        assertEquals(emptyList, oneDeviceList); //See if devices get removed
+        assertEquals(emptyList, twoDevicesList); //See if devices get removed
+    }
 
-        assertEquals(emptyList, listOneDevice); //See if devices get removed
-        assertEquals(emptyList, listTwoDevices); //See if devices get removed
+    @Test
+    void hashCodeDummyTest() {
+        // Arrange
+
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = validList.hashCode();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
     }
 }
 
