@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.ElectricOven;
@@ -7,21 +8,42 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.ElectricOvenSpec;
 
 import static org.testng.Assert.assertEquals;
 
- class ElectricOvenDTTest {
+class ElectricOvenDTTest {
+    // Common testing artifacts for tests in this class.
+    private ElectricOvenDT electricOvenType;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        electricOvenType = new ElectricOvenDT();
+    }
 
     @Test
-    void ensureWeCreateElectricOvenType() {
-        ElectricOvenDT dt = new ElectricOvenDT();
-        Device result = dt.createDevice();
+    void seeIfCreateDeviceWorks() {
+        // Arrange
+
         Device expectedResult = new ElectricOven(new ElectricOvenSpec());
+
+        // Act
+
+        Device result = electricOvenType.createDevice();
+
+        // Assert
+
         assertEquals(result, expectedResult);
     }
 
     @Test
-    void ensureWeGetDeviceType() {
-        ElectricOvenDT dt = new ElectricOvenDT();
-        String result = dt.getDeviceType();
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
         String expectedResult = "Electric Oven";
+
+        // Act
+
+        String result = electricOvenType.getDeviceType();
+
+        // Assert
+
         assertEquals(result, expectedResult);
     }
 
