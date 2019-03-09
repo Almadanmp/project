@@ -1,49 +1,67 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.program.ProgramList;
-import pt.ipp.isep.dei.project.model.device.program.VariableTimeProgram;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.testng.Assert.*;
 
-public class StoveSpecTest {
+class StoveSpecTest {
+    private StoveSpec validStoveSpec;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validStoveSpec = new StoveSpec();
+    }
 
     @Test
-    void seeIfGetAttributeNamesTestWorks() {
-        VariableTimeProgram program1 = new VariableTimeProgram("Program 1", 78);
-        ProgramList listProgram = new ProgramList();
-        listProgram.add(program1);
-        StoveSpec stoveSpec = new StoveSpec();
+    void seeIfGetAttributeNamesWorks() {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
-        List<String> result = stoveSpec.getAttributeNames();
+
+        // Act
+
+        List<String> result = validStoveSpec.getAttributeNames();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void setAttributeValueTest() {
-        StoveSpec stoveSpec = new StoveSpec();
-        stoveSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        boolean result = stoveSpec.setAttributeValue("Fast Heating", 100);
+    void seeIfSetAttributeValueWorksWrongName() {
+        // Act
+        boolean result = validStoveSpec.setAttributeValue("Fast Heating", 100);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfGetAttributeUnitWorks() {
+        // Act
+
+        Object result = validStoveSpec.getAttributeUnit("Capacity");
+
+        // Assert
+
         assertEquals(false, result);
     }
 
     @Test
-    void getAttributeUnitTest() {
-        StoveSpec stoveSpec = new StoveSpec();
-        stoveSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 5D);
-        Object result = stoveSpec.getAttributeUnit("Capacity");
-        assertEquals(false, result);
-    }
+    void seeIfSetAttributeValueWorksCapacity() {
+        // Arrange
 
-    @Test
-    void setAttributeValueTestCapacity() {
-        StoveSpec stoveSpec = new StoveSpec();
-        stoveSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        stoveSpec.setAttributeValue("Capacity", 5.0);
-        Object result = stoveSpec.getAttributeValue("Capacity");
+        validStoveSpec.setAttributeValue("Capacity", 5.0);
+
+        // Act
+
+        Object result = validStoveSpec.getAttributeValue("Capacity");
+
+        // Assert
+
         assertEquals(0, result);
     }
 
