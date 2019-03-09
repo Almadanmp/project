@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Room;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -58,6 +59,7 @@ class LogListTest {
         //Act
 
         boolean result = validLogList.isEmpty();
+
         //Assert
 
         assertFalse(result);
@@ -65,11 +67,12 @@ class LogListTest {
 
     @Test
     void seeEqualToEqualObject() {
-        //Act
+        // Act
 
         LogList list1 = new LogList();
         LogList list2 = new LogList();
         boolean actualResult = list1.equals(list2);
+
         //Assert
 
         assertTrue(actualResult);
@@ -79,7 +82,7 @@ class LogListTest {
     void seeEqualToSameObject() {
         //Act
 
-        boolean actualResult = emptyLogList.equals(emptyLogList);
+        boolean actualResult = emptyLogList.equals(emptyLogList); // Needed for sonarqube testing purposes.
 
         //Assert
 
@@ -172,7 +175,7 @@ class LogListTest {
 
         //Act
 
-        boolean actualResult = validLogList.equals(room);
+        boolean actualResult = validLogList.equals(room); // Needed for sonarqube testing purposes.
 
         //Assert
 
@@ -207,8 +210,12 @@ class LogListTest {
 
         //Arrange
 
-        Log log1 = new Log(300, new GregorianCalendar(2018, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
-        Log log2 = new Log(300, new GregorianCalendar(2019, 10, 20, 10, 2).getTime(), new GregorianCalendar(2018, 10, 20, 10, 10).getTime());
+        Log log1 = new Log(300, new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10,
+                2).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10,
+                10).getTime());
+        Log log2 = new Log(300, new GregorianCalendar(2019, Calendar.NOVEMBER, 20, 10,
+                2).getTime(), new GregorianCalendar(2018, Calendar.NOVEMBER, 20, 10,
+                10).getTime());
         emptyLogList.addLog(log1);
         emptyLogList.addLog(log2);
 
