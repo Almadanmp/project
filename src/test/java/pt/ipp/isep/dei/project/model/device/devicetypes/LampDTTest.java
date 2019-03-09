@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Lamp;
@@ -12,20 +13,42 @@ import static org.testng.Assert.assertEquals;
  */
 
 class LampDTTest {
+    // Common testing artifacts for tests in this class.
+    private LampDT lampType;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        lampType = new LampDT();
+    }
 
     @Test
-    void createLampType() {
-        LampDT dt = new LampDT();
-        Device result = dt.createDevice();
+    void seeIfCreateDeviceWorks() {
+        // Arrange
+
         Device expectedResult = new Lamp(new LampSpec());
+
+        // Act
+
+        Device result = lampType.createDevice();
+
+        // Assert
+
         assertEquals(result, expectedResult);
     }
 
     @Test
-    void getDeviceType() {
-        LampDT dt = new LampDT();
-        String result = dt.getDeviceType();
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
         String expectedResult = "Lamp";
+
+        // Act
+
+        String result = lampType.getDeviceType();
+
+        // Assert
+
         assertEquals(result, expectedResult);
     }
+
 }
