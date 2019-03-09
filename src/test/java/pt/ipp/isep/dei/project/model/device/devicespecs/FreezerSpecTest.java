@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.*;
 
-public class FreezerSpecTest {
+class FreezerSpecTest {
     private Freezer freezerValid = new Freezer(new FreezerSpec());
 
     @BeforeEach
