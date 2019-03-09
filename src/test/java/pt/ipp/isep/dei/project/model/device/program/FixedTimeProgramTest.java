@@ -201,7 +201,7 @@ class FixedTimeProgramTest {
     void seeIfSetGetAttributeValueWorksConsumption() {
         // Arrange
 
-        Object expectedResult = 5.0;
+        Object expectedResult = 1.2;
 
         // Act
 
