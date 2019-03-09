@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.*;
 
 class FreezerSpecTest {
-    private Freezer freezerValid = new Freezer(new FreezerSpec());
+    private Freezer validFreezer = new Freezer(new FreezerSpec());
 
     @BeforeEach
     void arrangeArtifacts() {
-        freezerValid.setName("Freezer");
-        freezerValid.setNominalPower(30);
-        freezerValid.setAnnualConsumption(3650);
-        freezerValid.setAttributeValue("Capacity", 15.0);}
+        validFreezer.setName("Freezer");
+        validFreezer.setNominalPower(30);
+        validFreezer.setAnnualConsumption(3650);
+        validFreezer.setAttributeValue("Capacity", 15.0);}
 
 
     @Test
@@ -31,7 +31,7 @@ class FreezerSpecTest {
 
         // Act
 
-        List<String> actualResult = freezerValid.getAttributeNames();
+        List<String> actualResult = validFreezer.getAttributeNames();
 
         // Assert
 
@@ -42,7 +42,7 @@ class FreezerSpecTest {
     void seeIfSetAttributeValueFalse() {
         // Act
 
-        boolean result = freezerValid.setAttributeValue("Bottle", 12.0);
+        boolean result = validFreezer.setAttributeValue("Bottle", 12.0);
 
         // Assert
 
@@ -57,15 +57,15 @@ class FreezerSpecTest {
 
         // Act
 
-        boolean actualResult = freezerValid.setAttributeValue("Capacity", 16.0);
-        boolean actualResultDouble = freezerValid.setAttributeValue(FreezerSpec.CAPACITY, 16);
+        boolean actualResult = validFreezer.setAttributeValue("Capacity", 16.0);
+        boolean actualResultDouble = validFreezer.setAttributeValue(FreezerSpec.CAPACITY, 16);
 
         // Assert
 
-        assertTrue(freezerValid.setAttributeValue(FreezerSpec.CAPACITY, attribute));
-        assertFalse(freezerValid.setAttributeValue("notBottle", attribute));
-        assertFalse(freezerValid.setAttributeValue("", attribute));
-        assertFalse(freezerValid.setAttributeValue(null, attribute));
+        assertTrue(validFreezer.setAttributeValue(FreezerSpec.CAPACITY, attribute));
+        assertFalse(validFreezer.setAttributeValue("notBottle", attribute));
+        assertFalse(validFreezer.setAttributeValue("", attribute));
+        assertFalse(validFreezer.setAttributeValue(null, attribute));
         assertFalse(actualResultDouble);
         assertTrue(actualResult);
     }
@@ -78,9 +78,9 @@ class FreezerSpecTest {
 
         // Act
 
-        Object actualResult = freezerValid.getAttributeValue(FreezerSpec.CAPACITY);
-        Object actualResultFalse = freezerValid.getAttributeValue("bottle");
-        Object actualResultEmpty = freezerValid.getAttributeValue("");
+        Object actualResult = validFreezer.getAttributeValue(FreezerSpec.CAPACITY);
+        Object actualResultFalse = validFreezer.getAttributeValue("bottle");
+        Object actualResultEmpty = validFreezer.getAttributeValue("");
 
         // Assert
 
@@ -97,9 +97,9 @@ class FreezerSpecTest {
 
         // Act
 
-        Object actualResult = freezerValid.getAttributeUnit(FreezerSpec.CAPACITY);
-        Object actualResultFalse = freezerValid.getAttributeUnit("bottle");
-        Object actualResultEmpty = freezerValid.getAttributeUnit("");
+        Object actualResult = validFreezer.getAttributeUnit(FreezerSpec.CAPACITY);
+        Object actualResultFalse = validFreezer.getAttributeUnit("bottle");
+        Object actualResultEmpty = validFreezer.getAttributeUnit("");
 
         // Assert
 
@@ -131,13 +131,13 @@ class FreezerSpecTest {
         // Arrange
 
         Integer attributeD = 6;
-        freezerValid.setAttributeValue(FreezerSpec.CAPACITY, attributeD);
+        validFreezer.setAttributeValue(FreezerSpec.CAPACITY, attributeD);
 
         // Assert
 
-        assertFalse(freezerValid.setAttributeValue(FreezerSpec.CAPACITY, attributeD));
-        assertFalse(freezerValid.setAttributeValue("notBottle", attributeD));
-        assertFalse(freezerValid.setAttributeValue("notNOMINAL_POWER", attributeD));
-        assertFalse(freezerValid.setAttributeValue("", attributeD));
+        assertFalse(validFreezer.setAttributeValue(FreezerSpec.CAPACITY, attributeD));
+        assertFalse(validFreezer.setAttributeValue("notBottle", attributeD));
+        assertFalse(validFreezer.setAttributeValue("notNOMINAL_POWER", attributeD));
+        assertFalse(validFreezer.setAttributeValue("", attributeD));
     }
 }
