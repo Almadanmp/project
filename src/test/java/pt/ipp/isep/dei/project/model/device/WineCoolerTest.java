@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WineCoolerSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -17,321 +17,477 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testng.Assert.*;
 
-public class WineCoolerTest {
-    private WineCooler wineCoolerValid = new WineCooler(new WineCoolerSpec());
+class WineCoolerTest {
+    private WineCooler validCooler = new WineCooler(new WineCoolerSpec());
     private Log validLog;
-    private LogList validLogList;
-    private Date initialTime;
-    private Date finalTime;
-    private Date periodEnding1;
-    private Date periodEnding2;
-    private Date periodBeginning1;
-    private Date periodBeginning2;
-    private Date periodBeginning9AM;
-    private Date periodEnding1120AM;
-    private Log validLog01;
-    private Log validLog02;
 
     @BeforeEach
     void arrangeArtifacts() {
-        wineCoolerValid.setName("Wine Cooler");
-        wineCoolerValid.setNominalPower(15);
-        wineCoolerValid.setAnnualConsumption(3650);
-        wineCoolerValid.setAttributeValue("Number of Bottles", 15.0);
-        validLog = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        validLogList = wineCoolerValid.getLogList();
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        try {
-            initialTime = validSdf.parse("20/11/2018 10:00:00");
-            finalTime = validSdf.parse("20/11/2018 11:00:00");
-            periodEnding1 = validSdf.parse("20/11/2018 10:20:00");
-            periodBeginning2 = validSdf.parse("20/11/2018 10:30:00");
-            periodBeginning1 = validSdf.parse("20/11/2018 10:01:00");
-            periodEnding2 = validSdf.parse("20/11/2018 10:59:00");
-            periodBeginning9AM = validSdf.parse("20/11/2018 9:00:00");
-            periodEnding1120AM = validSdf.parse("20/11/2018 11:20:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        validLog01 = new Log(56, initialTime, periodEnding1);
-        validLog02 = new Log(55, periodBeginning2, finalTime);
+        validCooler.setName("Wine Cooler");
+        validCooler.setNominalPower(15);
+        validCooler.setAnnualConsumption(3650);
+        validCooler.setAttributeValue("Number of Bottles", 15.0);
+        validLog = new Log(1, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        validCooler.addLog(validLog);
     }
 
     @Test
-    void seeIfGetDeviceTypeTest() {
-        String dT = "WineCooler";
-        String expectedResult = dT;
-        String result = wineCoolerValid.getType();
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
+        String expectedResult = "WineCooler";
+
+        // Act
+
+        String result = validCooler.getType();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfEqualToSameObject() {
-        boolean actualResult = wineCoolerValid.equals(wineCoolerValid);
-        assertTrue(actualResult);
+    void seeIfEqualsWorksOnItself() {
+        assertEquals(validCooler, validCooler);
     }
 
     @Test
-    void seeIfGetNominalPowerTest() {
+    void seeIfGetNominalPowerWorks() {
+        // Arrange
+
         double expectedResult = 15;
-        double actualResult = wineCoolerValid.getNominalPower();
+
+        // Act
+
+        double actualResult = validCooler.getNominalPower();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfGetAnnualConsumptionTest() {
+    void seeIfGetAnnualConsumptionWorks() {
+        // Arrange
+
         double expectedResult = 3650;
-        double actualResult = wineCoolerValid.getAnnualConsumption();
+
+        // Act
+
+        double actualResult = validCooler.getAnnualConsumption();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfEqualsToDifObject() {
-        WineCooler d2 = new WineCooler(new WineCoolerSpec());
-        d2.setName("WCTwo");
-        d2.setNominalPower(12.0);
-        d2.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 45);
+    void seeIfEqualsWorksFalse() {
+        // Arrange
 
-        boolean actualResult = wineCoolerValid.equals(d2);
+        WineCooler testCooler = new WineCooler(new WineCoolerSpec());
+        testCooler.setName("WCTwo");
+        testCooler.setNominalPower(12.0);
+        testCooler.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 45);
+
+        // Act
+
+        boolean actualResult = validCooler.equals(testCooler);
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
 
     @Test
-    void seeEqualsToDifTypeObject() {
-        Room room = new Room("quarto", 1, 80, 2, 2);
-
-        boolean actualResult = wineCoolerValid.equals(room);
-        assertFalse(actualResult);
+    void seeIfEqualsWorksNotAnInstance() {
+        assertNotEquals(validCooler, new RoomList());
     }
 
     @Test
-    void seeEqualsToNullObject() {
-        boolean actualResult = wineCoolerValid.equals(null);
-
-        assertFalse(actualResult);
+    void seeIfEqualsWorksNull() {
+        assertNotEquals(validCooler, null);
     }
 
     @Test
-    void seeIfPrintDeviceWorks() {
+    void seeIfBuildStringWorks() {
+        // Arrange
+
         String expectedResult = "The device Name is Wine Cooler, and its NominalPower is 15.0 kW.\n";
-        String actualResult = wineCoolerValid.buildString();
+
+        // Act
+
+        String actualResult = validCooler.buildString();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetNameWorks() {
+        // Arrange
+
         String expectedResult = "Wine Cooler";
-        String actualResult = wineCoolerValid.getName();
+
+        // Act
+
+        String actualResult = validCooler.getName();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void hashCodeDummyTest() {
-        int expectedResult = 1;
-        int actualResult = wineCoolerValid.hashCode();
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfGetAttributeValueWorks() {
+        // Arrange
 
-    @Test
-    void seeIfGetAttributeValue() {
         Double expectedResult = 15.0;
-        Object actualResult = wineCoolerValid.getAttributeValue(WineCoolerSpec.NUMBER_BOTTLES);
+
+        // Act
+
+        Object actualResult = validCooler.getAttributeValue(WineCoolerSpec.NUMBER_BOTTLES);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfGetAndSetAttributeUnit() {
+    void seeIfGetAttributeUnitWorks() {
+        // Arrange
+
         String expectedResult = "bottles";
-        Object actualResult = wineCoolerValid.getAttributeUnit(WineCoolerSpec.NUMBER_BOTTLES);
+
+        // Act
+
+        Object actualResult = validCooler.getAttributeUnit(WineCoolerSpec.NUMBER_BOTTLES);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfGetAttributeNames() {
+    void seeIfGetAttributeNamesWorks() {
+        // Act
 
-        List<String> actualResult = wineCoolerValid.getAttributeNames();
+        List<String> actualResult = validCooler.getAttributeNames();
+
+        // Assert
+
         assertTrue(actualResult.contains(WineCoolerSpec.NUMBER_BOTTLES));
-
         assertEquals(actualResult.size(), 1);
     }
 
     @Test
-    void ensureThatWeDeactivateADevice() {
-        boolean expectedResult = true;
-        boolean actualResult = wineCoolerValid.deactivate();
-        assertEquals(expectedResult, actualResult);
+    void seeIfDeactivateWorks() {
+        // Act
+
+        boolean actualResult = validCooler.deactivate();
+
+        // Assert
+
+        assertTrue(actualResult);
     }
 
     @Test
-    void ensureThatWeDoNotDeactivate() {
-        wineCoolerValid.deactivate();
-        boolean expectedResult = false;
-        boolean actualResult = wineCoolerValid.deactivate();
-        assertEquals(expectedResult, actualResult);
+    void seeIfDeactivateWorksAlreadyDeactivated() {
+        // Arrange
+
+        validCooler.deactivate();
+
+        // Act
+
+        boolean actualResult = validCooler.deactivate();
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
-    void seeIfGetEnergyConsumptionWithNominalPower() {
+    void seeIfGetEnergyConsumptionWorks() {
+        // Arrange
+
         double expectedResult = 30.0;
-        double actualResult = wineCoolerValid.getEnergyConsumption(2);
+
+        // Act
+
+        double actualResult = validCooler.getEnergyConsumption(2);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfGetDailyEnergyConsumption() {
+    void seeIfGetDailyEnergyConsumptionWorks() {
+        // Arrange
+
         double expectedResult = 10.0;
-        double actualResult = wineCoolerValid.getDailyEnergyConsumption();
+
+        // Act
+
+        double actualResult = validCooler.getDailyEnergyConsumption();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getLogList() {
-        LogList actualResult = wineCoolerValid.getLogList();
-        LogList logList = new LogList();
-        assertEquals(logList, actualResult);
+    void seeIfGetLogListWorks() {
+        // Arrange
+
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog);
+
+        // Act
+
+        LogList actualResult = validCooler.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getLogListEmpty() {
-       wineCoolerValid.addLog(validLog);
-       wineCoolerValid.addLog(validLog01);
-        LogList actualResult =wineCoolerValid.getLogList();
-        assertEquals(validLogList, actualResult);
+    void seeIfGetLogListWorksEmpty() {
+        // Arrange
+
+        validCooler = new WineCooler(new WineCoolerSpec());
+        LogList expectedResult = new LogList();
+
+        // Act
+
+        LogList actualResult = validCooler.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void addLogToInactive() {
-        this.wineCoolerValid.deactivate();
-        boolean result = this.wineCoolerValid.addLog(validLog);
+    void seeIfAddLogWorksDeactivated() {
+        // Arrange
+
+        validCooler = new WineCooler(new WineCoolerSpec());
+        validCooler.deactivate();
+
+        // Act
+
+        boolean result = this.validCooler.addLog(validLog);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void addLogTrue() {
-        boolean result = wineCoolerValid.addLog(validLog);
+    void seeIfAddLogWorksDuplicate() {
+        // Act
+
+        boolean result = validCooler.addLog(validLog);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfAddLogWorks() {
+        // Arrange
+
+        validCooler = new WineCooler(new WineCoolerSpec());
+
+        // Act
+
+        boolean result = validCooler.addLog(validLog);
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+
+    @Test
+    void seeIfIsLogListEmptyWorksFalse() {
+        // Act
+
+        boolean result = validCooler.isLogListEmpty();
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfIsLogListEmptyWorks() {
+        // Arrange
+
+        validCooler = new WineCooler(new WineCoolerSpec());
+
+        // Act
+
+        boolean result = validCooler.isLogListEmpty();
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void addLogFalse() {
-        wineCoolerValid.addLog(validLog);
-        boolean result = wineCoolerValid.addLog(validLog);
-        assertFalse(result);
-    }
+    void seeIfGetConsumptionInIntervalWorks() {
+        // Arrange
 
+        double expectedResult = 1;
 
-    @Test
-    void isLogListEmptyTrue() {
-        boolean result = wineCoolerValid.isLogListEmpty();
-        assertTrue(result);
-    }
+        // Interval
 
-    @Test
-    void isLogListEmptyFalse() {
-        wineCoolerValid.addLog(validLog02);
-        wineCoolerValid.addLog(validLog01);
-        boolean result = wineCoolerValid.isLogListEmpty();
-        assertFalse(result);
-    }
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalEquals() {
-        wineCoolerValid.addLog(validLog01);
-        wineCoolerValid.addLog(validLog02);
-        double expectedResult = 111;
-        double actualResult = wineCoolerValid.getConsumptionInInterval(initialTime, finalTime);
+        // Act
+
+        double actualResult = validCooler.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBefore() {
-        Log log1 = new Log(10, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        wineCoolerValid.addLog(log1);
-        wineCoolerValid.addLog(log2);
-        double expectedResult = 65;
-        double actualResult = wineCoolerValid.getConsumptionInInterval(initialTime, finalTime);
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfGetConsumptionInIntervalWorksOutOfBounds() {
+        // Arrange
 
-    @Test
-    void getTotalMeteredEnergyConsumptionInDeviceWithinGivenTimeIntervalAfterBeforeReverseOutOfBounds() {
-
-        Log log1 = new Log(18, periodBeginning9AM, periodEnding1);
-        Log log2 = new Log(23, periodBeginning2, periodEnding1120AM);
-        wineCoolerValid.addLog(log1);
-        wineCoolerValid.addLog(log2);
+        validCooler = new WineCooler(new WineCoolerSpec());
         double expectedResult = 0.0;
-        double actualResult = wineCoolerValid.getConsumptionInInterval(initialTime, finalTime);
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validCooler.addLog(firstLog);
+
+        // Act
+
+        double actualResult = validCooler.getConsumptionInInterval(initialTime, finalTime);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testCountLogsInInterval() {
-        wineCoolerValid.addLog(validLog01);
-        wineCoolerValid.addLog(validLog02);
-        //Act
-        Integer expectedResult = 2;
-        Integer actualResult = wineCoolerValid.countLogsInInterval(initialTime, finalTime);
-        //Assert
+    void seeIfCountGetLogsInIntervalWorks() {
+        // Arrange
+
+        Integer expectedResult = 1;
+        LogList expectedResultList = new LogList();
+        expectedResultList.addLog(validLog);
+
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
+        // Act
+
+        Integer actualResult = validCooler.countLogsInInterval(initialTime, finalTime);
+        LogList actualResultList = validCooler.getLogList();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResultList, actualResultList);
     }
 
     @Test
-    void testGetLogsInInterval() {
-        wineCoolerValid.addLog(validLog01);
-        wineCoolerValid.addLog(validLog02);
-        wineCoolerValid.setNominalPower(13);
+    void seeIfGetLogsInIntervalWorksOutOfBounds() {
+        // Arrange
+
+        validCooler = new WineCooler(new WineCoolerSpec());
         LogList expectedResult = new LogList();
-        expectedResult.addLog(validLog01);
-        expectedResult.addLog(validLog02);
 
-        LogList actualResult = wineCoolerValid.getLogsInInterval(initialTime, finalTime);
+        // Interval
+
+        Date initialTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2018, Calendar.SEPTEMBER, 20, 11, 0,
+                0).getTime();
+
+        // Logs
+
+        Log firstLog = new Log(21, new GregorianCalendar(2018, Calendar.SEPTEMBER, 19).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validCooler.addLog(firstLog);
+
+        // Act
+
+        LogList actualResult = validCooler.getLogsInInterval(initialTime, finalTime);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testGetLogsInIntervalOutOfBounds() {
-        Date initialTime = new GregorianCalendar(2018, 10, 20, 10, 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, 10, 20, 11, 0).getTime();
-        Date periodBeginning1 = new GregorianCalendar(2018, 10, 20, 9, 50).getTime();
-        Date periodEnding1 = new GregorianCalendar(2018, 10, 20, 10, 10).getTime();
-        Date periodBeginning2 = new GregorianCalendar(2018, 10, 20, 10, 50).getTime();
-        Date periodEnding2 = new GregorianCalendar(2018, 10, 20, 11, 10).getTime();
-        Log log1 = new Log(56, periodBeginning1, periodEnding1);
-        Log log2 = new Log(55, periodBeginning2, periodEnding2);
-        wineCoolerValid.addLog(log1);
-        wineCoolerValid.addLog(log2);
-        //Act
-        LogList expectedResult = new LogList();
-        LogList actualResult = wineCoolerValid.getLogsInInterval(initialTime, finalTime);
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
+    void seeIfGetConsumptionWorksTimeZero() {
+        // Arrange
 
-    @Test
-    void getConsumption() {
-        double expectedResult = 360;
-        double actualResult = wineCoolerValid.getEnergyConsumption(24);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getConsumptionTimeZero() {
         double expectedResult = 0;
-        double actualResult = wineCoolerValid.getEnergyConsumption(0);
+
+        // Act
+
+        double actualResult = validCooler.getEnergyConsumption(0);
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testSetAttributeValueForNotDouble() {
+    void seeIfSetAttriubteValueWorks() {
+        // Arrange
+
         Integer attribute = 6;
         Double attributeD = 9.0;
-        assertFalse(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attribute));
-        assertTrue(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attributeD));
-        Assertions.assertFalse(wineCoolerValid.setAttributeValue("notBottle", attributeD));
-        Assertions.assertFalse(wineCoolerValid.setAttributeValue("", attributeD));
+
+        // Assert
+
+        assertFalse(validCooler.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attribute));
+        assertTrue(validCooler.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attributeD));
+        Assertions.assertFalse(validCooler.setAttributeValue("notBottle", attributeD));
+        Assertions.assertFalse(validCooler.setAttributeValue("", attributeD));
+    }
+
+    @Test
+    void hashCodeDummyTest() {
+        // Arrange
+
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = validCooler.hashCode();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }
