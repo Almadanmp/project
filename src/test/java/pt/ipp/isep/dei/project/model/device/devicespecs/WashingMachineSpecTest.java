@@ -1,6 +1,7 @@
 
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,159 +15,166 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class WashingMachineSpecTest {
+    private WashingMachineSpec validWashingMachineSpec;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validWashingMachineSpec = new WashingMachineSpec();
+    }
 
     @Test
-    void getAttributeNamesTest() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
+    void seeIfGetAttributeNamesWorks() {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add(WashingMachineSpec.WM_CAPACITY);
-        List<String> result = washingMachineSpec.getAttributeNames();
+
+        // Act
+
+        List<String> result = validWashingMachineSpec.getAttributeNames();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getAttributeValuesTest() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
+    void seeIfGetSetAttributeValueWorks() {
+        // Arrange
+
+        validWashingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
         double expectedResult = 5.0;
-        Object result = washingMachineSpec.getAttributeValue("Capacity");
+
+        // Act
+
+        Object result = validWashingMachineSpec.getAttributeValue("Capacity");
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getAttributeUnitTest() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
+    void seeIfGetAttributeUnitWorks() {
+        // Arrange
+
         String expectedResult = "Kg";
-        Object result = washingMachineSpec.getAttributeUnit("Capacity");
+
+        // Act
+
+        Object result = validWashingMachineSpec.getAttributeUnit("Capacity");
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
 
     @Test
-    void getAttributeValuesTest1() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
+    void seeIfGetAttributeValueWorksWrongName() {
+        // Arrange
+
         int expectedResult = 0;
-        Object result = washingMachineSpec.getAttributeValue("Capacity" + "programList");
+
+        // Act
+
+        Object result = validWashingMachineSpec.getAttributeValue("Capacity" + "programList");
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getAttributeValuesWithCapacityEmptyTest() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 34D);
+    void seeIfGetAttributeValueWorksCapacity() {
+        // Arrange
+
+        validWashingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 34D);
         double expectedResult = 34.0;
-        Object result = washingMachineSpec.getAttributeValue("Capacity");
-        assertEquals(expectedResult, result);
-    }
 
-    @Test
-    void setAttributeValueTestCapacity() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue("Capacity", 5.0D);
-        Object result = washingMachineSpec.getAttributeValue("Capacity");
-        assertEquals(5.0, result);
-    }
+        // Act
 
-    @Test
-    void setAttributeValueTestCapacity2() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 23D);
-        Object result = washingMachineSpec.getAttributeValue("Capacity");
-        assertEquals(23.0, result);
-    }
+        Object result = validWashingMachineSpec.getAttributeValue("Capacity");
 
-    @Test
-    void seeIfSetAttributeValueTestTrueWorks() {
-        //Arrange
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
-        //Act
-        boolean actualResult = washingMachineSpec.setAttributeValue("Capacity", 12.0);
-        //Assert
-        assertEquals(true, actualResult);
-    }
+        // Assert
 
-    @Test
-    void setAttributeValueTestDefault() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue("capacity", 5.0);
-        Object result = washingMachineSpec.getAttributeValue("lisbon");
-        assertEquals(0, result);
-    }
-
-    @Test
-    void setAttributeValueTestDefault3() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue("Capacity", 6.0);
-        Object result = washingMachineSpec.getAttributeValue("Capacity");
-        Object expectedResult = 6.0;
         assertEquals(expectedResult, result);
     }
 
 
     @Test
-    void setAttributeValueTestFalseAgain() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5);
+    void seeIfSetAttributeValueWorks() {
+        // Act
+
+        boolean actualResult = validWashingMachineSpec.setAttributeValue("Capacity", 12.0);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfSetAttributeValueWorksNotDouble() {
+        // Act
+
+        Object result = validWashingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5);
+
+        // Assert
+
         assertEquals(false, result);
     }
 
-
     @Test
-    void setAttributeValueTestFalseCap() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        Object result = washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, "sjfhbfhfh");
-        assertEquals(false, result);
+    void seeIfSetAttributeValueWorksWrongName() {
+        // Act
+
+        boolean result = validWashingMachineSpec.setAttributeValue("Lisbon", 12);
+
+        // Assert
+
+        assertFalse(result);
     }
 
     @Test
-    void setAttributeValueTest() {
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        boolean result = washingMachineSpec.setAttributeValue("lisboa", 12);
-        assertEquals(false, result);
+    void seeIfGetAttributeValueWorks() {
+        // Arrange
+
+        validWashingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
+
+        // Happy Case
+
+        assertEquals(5.0, validWashingMachineSpec.getAttributeValue(WashingMachineSpec.WM_CAPACITY));
+
+        //  Wrong Attribute Name.
+
+        assertEquals(0, validWashingMachineSpec.getAttributeValue("\0Capacity"));
+
+        // Empty attribute name.
+
+        assertEquals(0, validWashingMachineSpec.getAttributeValue(""));
     }
 
     @Test
-    void testGetAttributeCoveringAllCases() {
-        //Arrange
-        WashingMachineSpec washingMachineSpec = new WashingMachineSpec();
-        washingMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, 5D);
-        // original strings:
-        assertEquals(5.0, washingMachineSpec.getAttributeValue(WashingMachineSpec.WM_CAPACITY));
-
-        // same hash codes, but different strings:
-        assertEquals(0, washingMachineSpec.getAttributeValue("\0Capacity"));
-
-        // distinct hash code to cover default cases of switches
-        assertEquals(0, washingMachineSpec.getAttributeValue(""));
+    void seeIfSetAttributeValueWorksEmptyName() {
+        assertFalse(validWashingMachineSpec.setAttributeValue("", 6D));
     }
 
     @Test
-    void testSetAttributeValueCoveringAllCases() {
-        //Arrange
-        WashingMachineSpec wMachineSpec = new WashingMachineSpec();
-        Double attribute = 6.0;
-        // original strings:
-        assertTrue(wMachineSpec.setAttributeValue(WashingMachineSpec.WM_CAPACITY, attribute));
-        // same hash codes, but different strings:
-        assertFalse(wMachineSpec.setAttributeValue("notCapacity", attribute));
-        // distinct hash code to cover default cases of switches
-        assertFalse(wMachineSpec.setAttributeValue("", attribute));
-    }
+    void seeIifGetAttributeUnitWorks() {
+        // Arrange
 
-    @Test
-    void seeIfGetAttributeUnitWorksInAllCases() {
-        //Arrange
-        WashingMachineSpec wMachineSpec = new WashingMachineSpec();
         String attributeKg = "Kg";
-        // original strings:
-        assertEquals(attributeKg, wMachineSpec.getAttributeUnit(WashingMachineSpec.WM_CAPACITY));
-        // same hash codes, but different strings:
-        assertEquals(false, wMachineSpec.getAttributeUnit("notCapacity"));
-        // distinct hash code to cover default cases of switches
-        assertEquals(false, wMachineSpec.getAttributeUnit(""));
+
+        // Happy case
+
+        assertEquals(attributeKg, validWashingMachineSpec.getAttributeUnit(WashingMachineSpec.WM_CAPACITY));
+
+        // Wrong attribute name.
+
+        assertEquals(false, validWashingMachineSpec.getAttributeUnit("notCapacity"));
+
+        // Empty attribute name.
+
+        assertEquals(false, validWashingMachineSpec.getAttributeUnit(""));
     }
 }
