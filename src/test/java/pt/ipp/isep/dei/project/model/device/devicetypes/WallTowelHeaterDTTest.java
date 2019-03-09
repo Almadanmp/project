@@ -7,28 +7,38 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WallTowelHeaterSpec;
 
 import static org.testng.Assert.*;
 
-public class WallTowelHeaterDTTest {
+class WallTowelHeaterDTTest {
 
     // Common artifacts for testing in this class.
     private WallTowelHeaterDT validWTHDT = new WallTowelHeaterDT();
 
     @Test
-    void testCreateWallTowelHeater() {
-        //Arrange
+    void seeIfCreateDeviceWorks() {
+        // Arrange
+
         Device expectedResult = new WallTowelHeater(new WallTowelHeaterSpec());
-        //Act
+
+        // Act
+
         Device actualResult = validWTHDT.createDevice();
-        //Assert
+
+        // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 
     @Test
-    void testGetDeviceType() {
-        //Arrange
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
         String expectedResult = "WallTowelHeater";
-        //Act
+
+        // Act
+
         String actualResult = validWTHDT.getDeviceType();
-        //Assert
+
+        // Assert
+
         assertEquals(actualResult, expectedResult);
     }
 }
