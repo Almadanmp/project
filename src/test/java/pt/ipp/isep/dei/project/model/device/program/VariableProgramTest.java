@@ -60,7 +60,7 @@ class VariableProgramTest {
     void seeIfGetEnergyConsumptionWorks() {
         // Arrange
 
-        double expectedResult = 20.0;
+        double expectedResult = 500.0;
 
         // Act
 
@@ -75,7 +75,7 @@ class VariableProgramTest {
     void seeIfBuildStringWorks() {
         // Arrange
 
-        String expected = "- The FixedTimeProgram Name is program1, its Nominal Power is 5.0 kW.\n";
+        String expected = "- The FixedTimeProgram Name is program1, its Nominal Power is 125.0 kW.\n";
 
         // Act
 
@@ -141,7 +141,7 @@ class VariableProgramTest {
     void seeIfGetAttributeValueWorks() {
         // Correct attribute names.
 
-        assertEquals(5.0, validProgramOne.getAttributeValue(VariableTimeProgram.NOMINAL_POWER));
+        assertEquals(125D, validProgramOne.getAttributeValue(VariableTimeProgram.NOMINAL_POWER));
 
         // Wrong attribute names.
 
