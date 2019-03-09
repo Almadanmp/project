@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,45 +12,56 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class WaterHeaterSpecTest {
+    private WaterHeaterSpec validHeaterSpec;
 
+    @BeforeEach
+    void arrangeArtifacts() {
+        validHeaterSpec = new WaterHeaterSpec();
+        validHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 5D);
+        validHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 5D);
+        validHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 5D);
+    }
 
     //Test Attributes
 
     @Test
-    void seeIfGetAndSetAttributeValue() {
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Double volumeOfWater = 0.6;
+    void seeIfGetAndSetAttributeValueWork() {
+        // Arrange
+
         String attribute = "Volume Of Water";
         Double expectedResult = 0.6;
-        boolean setResult = waterHeaterSpec.setAttributeValue(attribute, volumeOfWater);
-        Object getResult = waterHeaterSpec.getAttributeValue(attribute);
+
+        // Act
+
+        boolean setResult = validHeaterSpec.setAttributeValue(attribute, 0.6D);
+        Object getResult = validHeaterSpec.getAttributeValue(attribute);
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
     }
 
 
     @Test
-    void seeIfSetAttributeValueInvalid() {
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Double value = 0.6;
-        String attribute = "invalid";
-        boolean result = waterHeaterSpec.setAttributeValue(attribute, value);
+    void seeIfSetAttributeValueWorksWrongName() {
+        // Act
+
+        boolean result = validHeaterSpec.setAttributeValue("Wrong", 0.6D);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void seeIfGetAttributeNames() {
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        List<String> result = waterHeaterSpec.getAttributeNames();
+    void seeIfGetAttributeNamesWorks() {
+        // Act
+
+        List<String> result = validHeaterSpec.getAttributeNames();
+
+        // Assert
+
         assertTrue(result.contains(WaterHeaterSpec.VOLUME_OF_WATER));
         assertTrue(result.contains(WaterHeaterSpec.HOT_WATER_TEMP));
         assertTrue(result.contains(WaterHeaterSpec.PERFORMANCE_RATIO));
@@ -57,263 +69,219 @@ class WaterHeaterSpecTest {
     }
 
     @Test
-    void seeIfGetAttributeValueDefaultTest() {
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        String attribute = "Lisboa";
-        Double expectedResult = 0.0;
-        Object getResult = waterHeaterSpec.getAttributeValue(attribute);
-        assertEquals(expectedResult, getResult);
+    void seeIfGetAttributeValueWorksWrongName() {
+        // Act
+
+        Object getResult = validHeaterSpec.getAttributeValue("Lisbon");
+
+        // Assert
+
+        assertEquals(0D, getResult);
     }
 
 
     @Test
-    void seeIfGetAndSetAttributeValues() {
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        String attribute = "Volume Of Water";
+    void seeIfGetAndSetAttributeValuesWork() {
+        // Arrange
+
         Double expectedResult = 2.0;
-        Double attributeValue = 2.0;
-        boolean setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
-        Object getResult = waterHeaterSpec.getAttributeValue(attribute);
+
+        // Act
+
+        boolean setResult = validHeaterSpec.setAttributeValue("Volume Of Water", 2.0);
+        Object getResult = validHeaterSpec.getAttributeValue("Volume Of Water");
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 
-        attribute = "Hot Water Temperature";
-        attributeValue = 3.0;
+        // Arrange
+
         expectedResult = 3.0;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
-        getResult = waterHeaterSpec.getAttributeValue(attribute);
+
+        // Act
+
+        setResult = validHeaterSpec.setAttributeValue("Hot Water Temperature", 3D);
+        getResult = validHeaterSpec.getAttributeValue("Hot Water Temperature");
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 
-        attribute = "Cold Water Temperature";
-        attributeValue = 4.0;
+        // Arrange
+
         expectedResult = 4.0;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
-        getResult = waterHeaterSpec.getAttributeValue(attribute);
+
+        // Act
+
+        setResult = validHeaterSpec.setAttributeValue("Cold Water Temperature", 4D);
+        getResult = validHeaterSpec.getAttributeValue("Cold Water Temperature");
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 
-        attribute = "Performance Ratio";
+        // Arrange
+
         expectedResult = 5.0;
-        attributeValue = 5.0;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
-        getResult = waterHeaterSpec.getAttributeValue(attribute);
+
+        // Act
+
+        setResult = validHeaterSpec.setAttributeValue("Performance Ratio", 5D);
+        getResult = validHeaterSpec.getAttributeValue("Performance Ratio");
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 
-        attribute = "Volume Of Water To Heat";
+        // Arrange
+
         expectedResult = 10.0;
-        attributeValue = 10.0;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
-        getResult = waterHeaterSpec.getAttributeValue(attribute);
+        setResult = validHeaterSpec.setAttributeValue("Volume Of Water To Heat", 10D);
+        getResult = validHeaterSpec.getAttributeValue("Volume Of Water To Heat");
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
     }
 
     @Test
-    void seeIFSetAttributeValuesFails() {
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+    void seeIfSetAttributeValuesWorksNotDouble() {
+        // Volume of Water
+
         String attribute = "Volume Of Water";
         int attributeValue = 2;
-        boolean setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
+        boolean setResult = validHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
+
+        // Hot Water Temp
 
         attribute = "Hot Water Temperature";
         attributeValue = 3;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
+        setResult = validHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
+
+        // Cold Water Temp
 
         attribute = "Cold Water Temperature";
         attributeValue = 4;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
+        setResult = validHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
+
+        // Performance Ratio
 
         attribute = "Performance Ratio";
         attributeValue = 5;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
+        setResult = validHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
+
+        // Volume of Water to Heat
 
         attribute = "Volume Of Water To Heat";
         attributeValue = 10;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
+        setResult = validHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
     }
 
     @Test
-    void seeIFSetAttributeValuesFails2() {
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+    void seeIfSetAttributeValueFailsWrongName() {
+        // Arrange
 
-        String attribute = "njfdjkndfk";
-        int attributeValue = 2;
-        boolean setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
-        assertFalse(setResult);
+        String attribute = "Wrong";
 
-        attribute = "htfcf";
-        attributeValue = 3;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
-        assertFalse(setResult);
+        // Act
 
-        attribute = "fhj";
-        attributeValue = 4;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
-        assertFalse(setResult);
+        boolean setResult = validHeaterSpec.setAttributeValue(attribute, 2D);
 
-        attribute = "fhjg";
-        attributeValue = 5;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
-        assertFalse(setResult);
+        // Assert
 
-        attribute = "gfdjcktuyvuh";
-        attributeValue = 10;
-        setResult = waterHeaterSpec.setAttributeValue(attribute, attributeValue);
         assertFalse(setResult);
     }
 
     @Test
-    void testSetAttributeCoveringAllCasesFalse() {
-        //Arrange
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        Double attribute = 6.0;
-        waterHeaterSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, null);
-        waterHeaterSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, null);
-        waterHeaterSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, null);
+    void seeIfSetAttributeValuesWorks() {
+        // Happy Cases
 
-        // original strings:
-        assertTrue(waterHeaterSpec.setAttributeValue("Volume Of Water", attribute));
-        assertTrue(waterHeaterSpec.setAttributeValue("Cold Water Temperature", attribute));
-        assertTrue(waterHeaterSpec.setAttributeValue("Hot Water Temperature", attribute));
-        assertTrue(waterHeaterSpec.setAttributeValue("Performance Ratio", attribute));
-        assertTrue(waterHeaterSpec.setAttributeValue("Volume Of Water To Heat", attribute));
+        assertTrue(validHeaterSpec.setAttributeValue("Volume Of Water", 6D));
+        assertTrue(validHeaterSpec.setAttributeValue("Cold Water Temperature", 6D));
+        assertTrue(validHeaterSpec.setAttributeValue("Hot Water Temperature", 6D));
+        assertTrue(validHeaterSpec.setAttributeValue("Performance Ratio", 6D));
+        assertTrue(validHeaterSpec.setAttributeValue("Volume Of Water To Heat", 6D));
 
-        // same hash codes, but different strings:
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Volume Of Water", attribute));
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Cold Water Temperature", attribute));
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Hot Water Temperature", attribute));
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Performance Ratio", attribute));
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Volume Of Water To Heat", attribute));
+        // Wrong Attribute Names
 
-        // distinct hash code to cover default cases of switches
-        assertFalse(waterHeaterSpec.setAttributeValue("", attribute));
+        assertFalse(validHeaterSpec.setAttributeValue("\0Volume Of Water", 5D));
+        assertFalse(validHeaterSpec.setAttributeValue("\0Cold Water Temperature", 5D));
+        assertFalse(validHeaterSpec.setAttributeValue("\0Hot Water Temperature", 5D));
+        assertFalse(validHeaterSpec.setAttributeValue("\0Performance Ratio", 5D));
+        assertFalse(validHeaterSpec.setAttributeValue("\0Volume Of Water To Heat", 5D));
+
+        // Empty Attribute Name
+
+        assertFalse(validHeaterSpec.setAttributeValue("", 6D));
     }
 
 
     @Test
-    void seeIfGetAndSetAttributeValues2() {
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        Double attributeValue = 3.0;
-        boolean setResult = waterHeaterSpec.setAttributeValue(null, attributeValue);
+    void seeIfSetAttributeValueWorksNull() {
+        // Act
+
+        boolean setResult = validHeaterSpec.setAttributeValue(null, 6D);
+
+        // Assert
+
         assertFalse(setResult);
     }
 
 
     @Test
-    void testGetAttributeCoveringAllCases() {
-        //Arrange
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 5D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 5D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 5D);
+    void seeIfGetAttributeValueWorks() {
+        // Happy Cases
 
-        // original strings:
-        assertEquals(5.0, waterHeaterSpec.getAttributeValue("Volume Of Water"));
-        assertEquals(5.0, waterHeaterSpec.getAttributeValue("Hot Water Temperature"));
-        assertEquals(0.0, waterHeaterSpec.getAttributeValue("Cold Water Temperature"));
-        assertEquals(5.0, waterHeaterSpec.getAttributeValue("Performance Ratio"));
-        assertEquals(0.0, waterHeaterSpec.getAttributeValue("Volume Of Water To Heat"));
+        assertEquals(5.0, validHeaterSpec.getAttributeValue("Volume Of Water"));
+        assertEquals(5.0, validHeaterSpec.getAttributeValue("Hot Water Temperature"));
+        assertEquals(0.0, validHeaterSpec.getAttributeValue("Cold Water Temperature"));
+        assertEquals(5.0, validHeaterSpec.getAttributeValue("Performance Ratio"));
+        assertEquals(0.0, validHeaterSpec.getAttributeValue("Volume Of Water To Heat"));
 
-        // same hash codes, but different strings:
-        assertEquals(0.0, waterHeaterSpec.getAttributeValue("\0Volume Of Water"));
-        assertEquals(0.0, waterHeaterSpec.getAttributeValue("\0Hot Water Temperature"));
-        assertEquals(0.0, waterHeaterSpec.getAttributeValue("\0Cold Water Temperature"));
-        assertEquals(0.0, waterHeaterSpec.getAttributeValue("\0Performance Ratio"));
-        assertEquals(0.0, waterHeaterSpec.getAttributeValue("\0Volume Of Water To Heat"));
+        // Wrong attribute Names.
 
-        // distinct hash code to cover default cases of switches
-        assertEquals(0.0, waterHeaterSpec.getAttributeValue(""));
+        assertEquals(0.0, validHeaterSpec.getAttributeValue("\0Volume Of Water"));
+        assertEquals(0.0, validHeaterSpec.getAttributeValue("\0Hot Water Temperature"));
+        assertEquals(0.0, validHeaterSpec.getAttributeValue("\0Cold Water Temperature"));
+        assertEquals(0.0, validHeaterSpec.getAttributeValue("\0Performance Ratio"));
+        assertEquals(0.0, validHeaterSpec.getAttributeValue("\0Volume Of Water To Heat"));
+
+        // Empty attribute name.
+
+        assertEquals(0.0, validHeaterSpec.getAttributeValue(""));
     }
 
     @Test
-    void testGetAttributeUnitCoveringAllCases() {
-        //Arrange
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 5D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 5D);
-        waterHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 5D);
+    void seeIfGetAttributeUnitWorks() {
+        // Happy Case
 
-        // original strings:
-        assertEquals("L", waterHeaterSpec.getAttributeUnit("Volume Of Water"));
-        assertEquals("ºC", waterHeaterSpec.getAttributeUnit("Hot Water Temperature"));
-        assertEquals("ºC", waterHeaterSpec.getAttributeUnit("Cold Water Temperature"));
-        assertEquals("", waterHeaterSpec.getAttributeUnit("Performance Ratio"));
-        assertEquals("L", waterHeaterSpec.getAttributeUnit("Volume Of Water To Heat"));
+        assertEquals("L", validHeaterSpec.getAttributeUnit("Volume Of Water"));
+        assertEquals("ºC", validHeaterSpec.getAttributeUnit("Hot Water Temperature"));
+        assertEquals("ºC", validHeaterSpec.getAttributeUnit("Cold Water Temperature"));
+        assertEquals("", validHeaterSpec.getAttributeUnit("Performance Ratio"));
+        assertEquals("L", validHeaterSpec.getAttributeUnit("Volume Of Water To Heat"));
 
-        // same hash codes, but different strings:
-        assertEquals(false, waterHeaterSpec.getAttributeUnit("\0VolumeOfWater"));
-        assertEquals(false, waterHeaterSpec.getAttributeUnit("\0HotWaterTemperature"));
-        assertEquals(false, waterHeaterSpec.getAttributeUnit("\0ColdWaterTemperature"));
-        assertEquals(false, waterHeaterSpec.getAttributeUnit("\0PerformanceRatio"));
-        assertEquals(false, waterHeaterSpec.getAttributeUnit("\0VolumeOfWaterToHeat"));
+        // Wrong Attribute Names.
 
-        // distinct hash code to cover default cases of switches
-        assertEquals(false, waterHeaterSpec.getAttributeUnit(""));
-    }
+        assertEquals(false, validHeaterSpec.getAttributeUnit("\0VolumeOfWater"));
+        assertEquals(false, validHeaterSpec.getAttributeUnit("\0HotWaterTemperature"));
+        assertEquals(false, validHeaterSpec.getAttributeUnit("\0ColdWaterTemperature"));
+        assertEquals(false, validHeaterSpec.getAttributeUnit("\0PerformanceRatio"));
+        assertEquals(false, validHeaterSpec.getAttributeUnit("\0VolumeOfWaterToHeat"));
 
-    @Test
-    void testSetAttributeCoveringAllCases() {
-        //Arrange
-        WaterHeaterSpec waterHeaterSpec = new WaterHeaterSpec();
-        Double attribute = 6.0;
+        // Empty Attribute Name.
 
-        // original strings:
-        assertTrue(waterHeaterSpec.setAttributeValue("Volume Of Water", attribute));
-        assertTrue(waterHeaterSpec.setAttributeValue("Hot Water Temperature", attribute));
-        assertTrue(waterHeaterSpec.setAttributeValue("Cold Water Temperature", attribute));
-        assertTrue(waterHeaterSpec.setAttributeValue("Performance Ratio", attribute));
-        assertTrue(waterHeaterSpec.setAttributeValue("Volume Of Water To Heat", attribute));
-
-        // same hash codes, but different strings:
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Volume Of Water", attribute));
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Hot Water Temperature", attribute));
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Cold Water Temperature", attribute));
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Performance Ratio", attribute));
-        assertFalse(waterHeaterSpec.setAttributeValue("\0Volume Of Water To Heat", attribute));
-
-        // distinct hash code to cover default cases of switches
-        assertFalse(waterHeaterSpec.setAttributeValue("", attribute));
-    }
-
-    @Test
-    void testGetAttributeUnitForAllConditions() {
-        //Arrange
-        WaterHeaterSpec wHeaterSpec = new WaterHeaterSpec();
-        String attributeL = "L";
-        String attributeC = "ºC";
-        String attribute = "";
-        // original strings:
-        assertEquals(attributeL, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER));
-        assertEquals(attributeC, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP));
-        assertEquals(attributeC, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP));
-        assertEquals(attribute, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO));
-        assertEquals(attributeL, wHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER_HEAT));
-        // same hash codes, but different strings:
-        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_VOLUME_OF_WATER"));
-        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_HOT_WATER_TEMP"));
-        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_COLD_WATER_TEMP"));
-        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_PERFORMANCE_RATIO"));
-        assertEquals(false, wHeaterSpec.getAttributeUnit("notATTRIBUTE_VOLUME_OF_WATER_HEAT"));
-        // distinct hash code to cover default cases of switches
-        assertEquals(false, wHeaterSpec.getAttributeUnit(""));
+        assertEquals(false, validHeaterSpec.getAttributeUnit(""));
     }
 }
