@@ -150,6 +150,7 @@ public class WaterHeater implements Device, Metered {
      * @param time time in minutes
      * @return an estimate energy consumption for a water heater
      */
+
     public double getEnergyConsumption(float time) {
         double volumeOfWaterToHeat = (double) deviceSpecs.getAttributeValue("Volume Of Water To Heat");
         double performanceRatio = (double) deviceSpecs.getAttributeValue("Performance Ratio");

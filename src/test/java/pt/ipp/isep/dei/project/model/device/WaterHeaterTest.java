@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.project.model.device;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -16,171 +19,149 @@ import static org.junit.jupiter.api.Assertions.*;
  * WaterHeater device tests class.
  */
 
-public class WaterHeaterTest {
+class WaterHeaterTest {
+    // Common testing artifacts for tests in this class.
+
+    private WaterHeater validHeater;
+    private Log validLog;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validHeater = new WaterHeater(new WaterHeaterSpec());
+        validHeater.setName("WaterHeater");
+        validHeater.setNominalPower(12.0);
+        validHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 300D);
+        validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
+        validHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        validHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
+        validLog = new Log(1, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        validHeater.addLog(validLog);
+    }
 
     @Test
-    void getTypeTest() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
         String expectedResult = "WaterHeater";
-        String result = waterHeater.getType();
-        assertEquals(expectedResult, result);
-    }
 
-    //getConsumption Tests
+        // Act
 
-    @Test
-    void seeIfPrintDeviceWorks() {
-        Device d = new WaterHeater(new WaterHeaterSpec());
-        d.setName("WaterHeater 3000");
-        d.setNominalPower(150.0);
-        String result = d.buildString();
-        String expectedResult = "The device Name is WaterHeater 3000, and its NominalPower is 150.0 kW.\n";
+        String result = validHeater.getType();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getConsumptionTest() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+    void seeIfBuildDeviceWorks() {
+        // Arrange
 
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Double coldT = 12.0;
-        Double waterV = 300.0;
-        Double hotT = 25.0;
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
-        Double expectedResult = 0.0028348125;
-        Double result = waterHeater.getEnergyConsumption(1);
+        String expectedResult = "The device Name is WaterHeater, and its NominalPower is 12.0 kW.\n";
+
+        // Act
+
+        String result = validHeater.buildString();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getConsumptionWithSetsFailsTest() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+    void seeIfGetConsumptionWorks() {
+        // Arrange
 
-        Double coldT = 30.0;
-        Double waterV = 200.0;
-        Double hotT = 25.0;
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 23D);
+        Double expectedResult = 0.003925125;
+
+        // Act
+
+        Double result = validHeater.getEnergyConsumption(1);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+
+    @Test
+    void seeIfGetConsumptionWorksZero() {
+        // Arrange
+
+        validHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
+        validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+        validHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
+        validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 200D);
+        validHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 300D);
         double expectedResult = 0;
-        double result = waterHeater.getEnergyConsumption(1);
+
+        // Act
+
+        double result = validHeater.getEnergyConsumption(1);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getConsumptionTestFails() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+    void seeIfGetConsumptionWorksColdWaterEqualsHotWater() {
+        // Arrange
 
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        Double coldT = 200.0;
-        Double waterV = 300.0;
-        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
-        double expectedResult = 0;
-        double result = waterHeater.getEnergyConsumption(1);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getConsumptionTestFailsWithoutColdTemp() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
-
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 5D);
-        Double hotT = 1.0;
-        Double waterV = 300.0;
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
-        double expectedResult = 0;
-        double result = waterHeater.getEnergyConsumption(1);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getConsumptionTestFailsWithoutWaterVolume() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
-
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 5D);
-        Double hotT = 1.0;
-        Double coldT = 300.0;
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
-        double expectedResult = 0;
-        double result = waterHeater.getEnergyConsumption(1);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getConsumptionTestColdWaterEqualsHotWater() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
         Double coldT = 25.0;
-        Double waterV = 100.0;
         Double hotT = 25.0;
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 23D);
+        validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
         double expectedResult = 0;
-        double result = waterHeater.getEnergyConsumption(1);
+
+        // Act
+
+        double result = validHeater.getEnergyConsumption(1);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getConsumptionTestColdWaterMinorHotWater() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+    void seeIfGetConsumptionWorksColdWaterSmallerThanHotWater() {
+        // Arrange
 
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         Double coldT = 2.0;
-        Double waterV = 100.0;
         Double hotT = 25.0;
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, waterV);
-        double expectedResult = 0.0016718125000000001;
-        double result = waterHeater.getEnergyConsumption(1);
+        validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, hotT);
+        validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, coldT);
+        double expectedResult = 0.0050154375;
+
+        // Act
+
+        double result = validHeater.getEnergyConsumption(1);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getConsumptionTestColdWaterMinorHotWaterDifferentString() {
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+    void seeIfGetAttributeUnitWorks() {
+        // Arrange
 
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 0.6D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        double expectedResult = 0.0;
-        double result = waterHeater.getEnergyConsumption(1);
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfGetAndSetAttributeUnit() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP);
-        d1.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO);
-        d1.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER);
-        d1.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP);
-        d1.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER_HEAT);
         String expectedResult1 = "L";
         String expectedResult2 = "ºC";
         String expectedResult3 = "";
-        Object result1 = d1.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP);
-        Object result2 = d1.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO);
-        Object result3 = d1.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER);
-        Object result4 = d1.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP);
-        Object result5 = d1.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER_HEAT);
+
+        // Act
+
+        Object result1 = validHeater.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP);
+        Object result2 = validHeater.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO);
+        Object result3 = validHeater.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER);
+        Object result4 = validHeater.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP);
+        Object result5 = validHeater.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER_HEAT);
+
+        // Assert
+
         assertEquals(expectedResult2, result1);
         assertEquals(expectedResult3, result2);
         assertEquals(expectedResult1, result3);
@@ -189,12 +170,13 @@ public class WaterHeaterTest {
     }
 
     @Test
-    void seeIfGetAndSetAttributeNames() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
-        List<String> result = d1.getAttributeNames();
+    void seeIfGetAttributeNamesWorks() {
+        // Act
+
+        List<String> result = validHeater.getAttributeNames();
+
+        // Assert
+
         assertTrue(result.contains(WaterHeaterSpec.VOLUME_OF_WATER));
         assertTrue(result.contains(WaterHeaterSpec.HOT_WATER_TEMP));
         assertTrue(result.contains(WaterHeaterSpec.PERFORMANCE_RATIO));
@@ -202,271 +184,296 @@ public class WaterHeaterTest {
     }
 
     @Test
-    void seeIfGetAndSetAttributeValues() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        d1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 40D);
-        d1.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+    void seeIfSetGetAttributeValueWork() {
+        // Arrange
+
         String attribute = "Volume Of Water";
         Double expectedResult = 2.0;
-        double attributeValue = 2.0;
-        boolean setResult = d1.setAttributeValue(attribute, attributeValue);
-        Object getResult = d1.getAttributeValue(attribute);
+
+        // Act
+
+        boolean setResult = validHeater.setAttributeValue(attribute, 2.0);
+        Object getResult = validHeater.getAttributeValue(attribute);
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
+
+        // Arrange
 
         attribute = "Hot Water Temperature";
-        attributeValue = 3.0;
         expectedResult = 3.0;
-        setResult = d1.setAttributeValue(attribute, attributeValue);
-        getResult = d1.getAttributeValue(attribute);
+
+        // Act
+
+        setResult = validHeater.setAttributeValue(attribute, 3.0);
+        getResult = validHeater.getAttributeValue(attribute);
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
 
+        // Arrange
+
         attribute = "Cold Water Temperature";
-        attributeValue = 4.0;
         expectedResult = 4.0;
-        setResult = d1.setAttributeValue(attribute, attributeValue);
-        getResult = d1.getAttributeValue(attribute);
+
+        // Act
+
+        setResult = validHeater.setAttributeValue(attribute, 4.0);
+        getResult = validHeater.getAttributeValue(attribute);
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
+
+        // Arrange
 
         attribute = "Performance Ratio";
         expectedResult = 5.0;
-        attributeValue = 5.0;
-        setResult = d1.setAttributeValue(attribute, attributeValue);
-        getResult = d1.getAttributeValue(attribute);
+
+        // Act
+
+        setResult = validHeater.setAttributeValue(attribute, 5.0);
+        getResult = validHeater.getAttributeValue(attribute);
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
+
+        // Arrange
 
         attribute = "Volume Of Water To Heat";
         expectedResult = 10.0;
-        attributeValue = 10.0;
-        setResult = d1.setAttributeValue(attribute, attributeValue);
-        getResult = d1.getAttributeValue(attribute);
+
+        // Act
+
+        setResult = validHeater.setAttributeValue(attribute, 10.0);
+        getResult = validHeater.getAttributeValue(attribute);
+
+        // Assert
+
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
     }
 
     @Test
-    void getLogList() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        LogList logList = d1.getLogList();
-        d1.addLog(log);
-        LogList result = d1.getLogList();
-        assertEquals(logList, result);
+    void seeIfGetLogListWorks() {
+        // Arrange
+
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog);
+
+        // Act
+
+        LogList result = validHeater.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void getLogListBreakTest() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        LogList logList = new LogList();
-        LogList result = d1.getLogList();
-        assertEquals(logList, result);
+    void seeIfGetLogListWorksEmpty() {
+        // Arrange
+
+        validHeater = new WaterHeater(new WaterHeaterSpec());
+        LogList expectedResult = new LogList();
+
+        // Act
+
+        LogList result = validHeater.getLogList();
+
+        // Assert
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    void addLogListFalse() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        d1.addLog(log);
-        assertFalse(d1.addLog(log));
+    void seeIfAddLogWorksDuplicate() {
+        // Act
+
+        boolean result = validHeater.addLog(validLog);
+
+        // Assert
+
+        assertFalse(result);
     }
 
     @Test
-    void testDeactivateBothConditions() {
-        //Arrange
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        WaterHeater d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        //Act
-        d1.deactivate();
-        boolean actualResult1 = d1.deactivate(); //Deactivates a second time to get false return.
-        boolean actualResult2 = d2.deactivate(); //Deactivate once for true return.
+    void seeIfDeactivateWorks() {
+        // Act
+
+        boolean actualResult1 = validHeater.deactivate(); // Deactivates device.
+        boolean actualResult2 = validHeater.deactivate(); // Fails to deactivate because device was already deactivated.
+
+        // Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfAddLogWorksDeactivatedDevice() {
+        // Act
+
+        validHeater.deactivate();
+        boolean result = validHeater.addLog(validLog);
+
         //Assert
-        assertFalse(actualResult1);
-        assertTrue(actualResult2);
-    }
 
-    @Test
-    void addLogToInactiveTrue() {
-        //Arrange
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        //Act
-        d1.deactivate();
-        boolean result = d1.addLog(log);
-        //Assert
         assertFalse(result);
     }
 
 
     @Test
-    void ensureThatWeDeactivateADevice() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        boolean actualResult = d1.deactivate();
-        assertTrue(actualResult);
-    }
+    void seeIfAddLogWorks() {
+        // Arrange
 
-    @Test
-    void ensureThatWeDoNotDeactivate() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        d1.deactivate();
-        boolean actualResult = d1.deactivate();
-        assertFalse(actualResult);
-    }
+        validHeater = new WaterHeater(new WaterHeaterSpec());
 
-    @Test
-    void addLogTrue() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        Log log = new Log(1, new GregorianCalendar(2019, 1, 1).getTime(),
-                new GregorianCalendar(2019, 1, 1).getTime());
-        boolean result = d1.addLog(log);
+        // Act
+
+        boolean result = validHeater.addLog(validLog);
+
+        // Assert
+
         assertTrue(result);
     }
 
     @Test
-    void seeEqualToSameObject() {
-        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
-        d.setName("WMOne");
-        boolean actualResult = d.equals(d);
-        assertTrue(actualResult);
+    void seeIfEqualsWorksOnItself() {
+        assertEquals(validHeater, validHeater);
     }
 
     @Test
-    void seeEqualsToDifObject() {
-        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
-        d.setName("WHOne");
-        d.setNominalPower(12.0);
-        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 34);
-        WaterHeater d2 = new WaterHeater(new WaterHeaterSpec());
-        d2.setName("WHTwo");
-        d2.setNominalPower(12.0);
-        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 45);
+    void seeIfEqualsWorksFalse() {
+        // Arrange
 
-        boolean actualResult = d.equals(d2);
+        WaterHeater testHeater = new WaterHeater(new WaterHeaterSpec());
+        testHeater.setName("WHTwo");
+        testHeater.setNominalPower(12.0);
+
+        // Act
+
+        boolean actualResult = validHeater.equals(testHeater);
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
 
     @Test
-    void dTQuotient() {
-        WaterHeater device = new WaterHeater(new WaterHeaterSpec());
-        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
-        device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 300D);
+    void seeIfdTQuotientWorks() {
+        // Arrange
+
+        validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 300D);
         double expectedResultColdWater = 0;
-        double resultColdWater = device.dTQuotient();
+
+        // Act
+
+        double resultColdWater = validHeater.dTQuotient();
+
+        // Assert
+
         assertEquals(expectedResultColdWater, resultColdWater);
 
-        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
-        device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
+        // Arrange
+
+        validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
         double expectedResultSameValues = 0;
-        double resultSameValues = device.dTQuotient();
+
+        // Act
+
+        double resultSameValues = validHeater.dTQuotient();
+
+        // Assert
+
         assertEquals(expectedResultSameValues, resultSameValues);
 
-        device.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 300D);
-        device.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
+        // Arrange
+
+        validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 300D);
+        validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
         double expectedResultHotWater = 288.0;
-        double resultHotWater = device.dTQuotient();
+
+        // Act
+
+        double resultHotWater = validHeater.dTQuotient();
+
+        // Assert
+
         assertEquals(expectedResultHotWater, resultHotWater);
     }
 
     @Test
-    void seeEqualsToDifTypeObject() {
-        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
-        d.setName("WMOne");
-        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 56);
-        Room room = new Room("quarto", 1, 80, 2, 2);
-
-        boolean actualResult = d.equals(room);
-        assertFalse(actualResult);
+    void seeIfEqualsWorksNotAnInstance() {
+        assertNotEquals(validHeater, new RoomList());
     }
 
     @Test
     void seeEqualsToNullObject() {
-        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
-        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 34);
-        boolean actualResult = d.equals(null);
-
-        assertFalse(actualResult);
+        assertNotEquals(validHeater, null);
     }
 
     @Test
-    void getConsumption() {
-        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
-        d.setNominalPower(15);
-        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        d.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 5D);
-        d.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 12D);
-        d.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
-        double expectedResult = 0.019538399999999997;
-        double result = d.getEnergyConsumption(24);
-        assertEquals(expectedResult, result);
-    }
+    void seeIfGetConsumptionWorksTimeZero() {
+        // Arrange
 
-    @Test
-    void getConsumptionTimeZero() {
-        WaterHeater d = new WaterHeater(new WaterHeaterSpec());
-        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 12D);
-        d.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 12D);
-        d.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 12D);
-        d.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 12D);
-        d.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
-        d.setNominalPower(15);
         double expectedResult = 0;
-        double result = d.getEnergyConsumption(0);
+
+        // Act
+
+        double result = validHeater.getEnergyConsumption(0);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void isLogListEmpty() {
-        //Arrange
-
-        WaterHeater waterHeater = new WaterHeater(new WaterHeaterSpec());
-
+    void seeIfIsLogListEmptyWorks() {
         //Act
 
-        boolean actualResult1 = waterHeater.isLogListEmpty();
+        boolean actualResult1 = validHeater.isLogListEmpty();
 
         //Assert
 
-        assertTrue(actualResult1);
+        assertFalse(actualResult1);
 
-        //Arrange To Add Log
+        //Arrange To Remove Log
 
-        Log log = new Log(20, new Date(), new Date());
-        waterHeater.addLog(log);
+        validHeater = new WaterHeater(new WaterHeaterSpec());
 
         //Act
 
-        boolean actualResult2 = waterHeater.isLogListEmpty();
+        boolean actualResult2 = validHeater.isLogListEmpty();
 
         //Assert
 
-        assertFalse(actualResult2);
+        assertTrue(actualResult2);
     }
 
 
     @Test
     void hashCodeDummyTest() {
-        WaterHeater d1 = new WaterHeater(new WaterHeaterSpec());
-        d1.setNominalPower(12.0);
-        d1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 4D);
+        // Arrange
+
         int expectedResult = 1;
-        int actualResult = d1.hashCode();
+
+        // Act
+
+        int actualResult = validHeater.hashCode();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 }
