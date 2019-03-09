@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Dishwasher;
@@ -12,20 +13,41 @@ import static org.testng.Assert.assertEquals;
  */
 
 class DishwasherDTTest {
+    // Common testing artifacts for tests in this class.
+    private DishwasherDT dishwasherType;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        dishwasherType = new DishwasherDT();
+    }
 
     @Test
-    void createDishwasherType() {
-        DishwasherDT dt = new DishwasherDT();
-        Device result = dt.createDevice();
+    void seeIfCreateDeviceWorks() {
+        // Arrange
+
         Device expectedResult = new Dishwasher(new DishwasherSpec());
+
+        // Act
+
+        Device result = dishwasherType.createDevice();
+
+        // Assert
+
         assertEquals(result, expectedResult);
     }
 
     @Test
-    void getDeviceType() {
-        DishwasherDT dt = new DishwasherDT();
-        String result = dt.getDeviceType();
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
         String expectedResult = "Dishwasher";
+
+        // Act
+
+        String result = dishwasherType.getDeviceType();
+
+        // Assert
+
         assertEquals(result, expectedResult);
     }
 }
