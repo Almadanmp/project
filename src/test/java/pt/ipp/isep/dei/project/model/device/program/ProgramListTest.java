@@ -22,7 +22,7 @@ class ProgramListTest {
     }
 
     @Test
-    void testBuildProgramListString() {
+    void seeIfBuildStringWorksTrue() {
         //Arrange
 
         String expectedResult = "---------------\n" + "\n0) Program Name: validProgram1, Duration: 2.0, Energy Consumption: 3.0"
@@ -38,7 +38,7 @@ class ProgramListTest {
     }
 
     @Test
-    void testBuildEmptyProgramListString() {
+    void seeIfBuildStringWorksEmpty() {
         //Arrange
 
         String expectedResult = "This device has no programs\n";
@@ -54,7 +54,7 @@ class ProgramListTest {
 
 
     @Test
-    void seeIfAddProgramToEmptyList() {
+    void seeIfAddProgramWorks() {
         //Act
 
         boolean result = validProgramList1.add(validProgram1);
@@ -65,7 +65,7 @@ class ProgramListTest {
     }
 
     @Test
-    void seeIfAddsRepeatedProgram() {
+    void seeIfAddProgramWorksDuplicate() {
         //Act
 
         boolean result = validProgramList2.add(validProgram1);
@@ -76,7 +76,7 @@ class ProgramListTest {
     }
 
     @Test
-    void seeIfRemovesProgramOfEmptyList() {
+    void seeIfRemoveProgramWorksEmpty() {
         //Act
 
         boolean result = validProgramList1.removeProgram(validProgram1);
@@ -87,19 +87,19 @@ class ProgramListTest {
     }
 
     @Test
-    void seeIfRemovesProgram() {
-        //Act
+    void seeIfRemoveProgramWorks() {
+        // Act
 
         boolean result = validProgramList2.removeProgram(validProgram1);
 
-        //Assert
+        // Assert
 
         assertTrue(result);
     }
 
     @Test
-    void testBuildDifferentProgramListString() {
-        //Arrange
+    void seeIfBuildStringWorks() {
+        // Arrange
 
         VariableTimeProgram program2 = new VariableTimeProgram("validProgram2",70);
         validProgramList2.add(program2);
@@ -107,17 +107,17 @@ class ProgramListTest {
                 + "\n1) Program Name: validProgram2, Nominal Power: 70.0"
                 + "\n---------------\n";
 
-        //Act
+        // Act
 
         String result = validProgramList2.buildString();
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void isEmpty() {
+    void seeIfIsEmptyWorks() {
         //Act
 
         boolean actualResult1 = validProgramList1.isEmpty();
@@ -130,7 +130,7 @@ class ProgramListTest {
     }
 
     @Test
-    void size() {
+    void seeIfSizeWorks() {
         //Act
 
         int actualResult1 = validProgramList1.size();
@@ -143,7 +143,7 @@ class ProgramListTest {
     }
 
     @Test
-    void get() {
+    void seeIfGetWorks() {
         //Arrange
 
         validProgramList1.add(validProgram1);
@@ -163,7 +163,7 @@ class ProgramListTest {
         assertEquals(validProgram2, actualResult3);
     }
     @Test
-    void getByIndexEmptyProgramList() {
+    void seeIfGetWorksEmpty() {
         //Act
 
         Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validProgramList1.get(0));
@@ -174,7 +174,7 @@ class ProgramListTest {
     }
 
     @Test
-    void getElementsAsArray() {
+    void seeIfGetElementsAsArrayWorks() {
         //Arrange
 
         Program[] expectedResult1 = new Program[0];
@@ -204,7 +204,7 @@ class ProgramListTest {
     }
 
     @Test
-    void equals() {
+    void seeIfEqualsWorks() {
         //Arrange
 
         ProgramList programList = new ProgramList();
@@ -212,10 +212,10 @@ class ProgramListTest {
 
         //Act
 
-        boolean actualResult1 = validProgramList1.equals(validProgramList1);
+        boolean actualResult1 = validProgramList1.equals(validProgramList1); // Needed for Sonarqube testing purposes.
         boolean actualResult2 = validProgramList2.equals(validProgramList1);
         boolean actualResult3 = validProgramList2.equals(programList);
-        boolean actualResult4 = validProgramList2.equals(2D);
+        boolean actualResult4 = validProgramList2.equals(2D); // Needed for Sonarqube testing purposes.
 
         //Assert
 
