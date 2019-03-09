@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,142 +14,184 @@ import static org.testng.Assert.assertTrue;
  * LampSpec tests class.
  */
 
- class LampSpecTest {
+class LampSpecTest {
+    private LampSpec validLampSpec;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validLampSpec = new LampSpec();
+    }
 
     @Test
-     void getAttributeNamesTest() {
-        LampSpec lampSpec = new LampSpec();
+    void seeIfGetAttributeNamesWorks() {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("Luminous Flux");
-        List<String> result = lampSpec.getAttributeNames();
+
+        // Act
+
+        List<String> result = validLampSpec.getAttributeNames();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-     void setAttributeValueTest() {
-        LampSpec lampSpec = new LampSpec();
-        boolean result = lampSpec.setAttributeValue("lisboa", 12);
+    void seeIfSetAttributeValueWorksFalseWrongAttributeName() {
+        // Act
+
+        boolean result = validLampSpec.setAttributeValue("Lisbon", 12);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-     void setAttributeValueTestTrue2() {
-        LampSpec lampSpec = new LampSpec();
-        boolean actualResult = lampSpec.setAttributeValue("Luminous Flux", 12.0);
+    void seeIfSetAttributeValueWorks() {
+        // Act
+
+        boolean actualResult = validLampSpec.setAttributeValue("Luminous Flux", 12.0);
+
+        // Assert
+
         assertTrue(actualResult);
     }
 
     @Test
-     void getObjectAttributeValueTest() {
-        LampSpec lampSpec = new LampSpec();
-        lampSpec.setAttributeValue(LampSpec.FLUX, 4D);
+    void seeIfGetSetAttributeValueWorks() {
+        // Arrange
+
         Double expectedResult = 4.0;
-        Object result = lampSpec.getAttributeValue(LampSpec.FLUX);
+        validLampSpec.setAttributeValue(LampSpec.FLUX, 4D);
+
+        // Act
+
+        Object result = validLampSpec.getAttributeValue(LampSpec.FLUX);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-     void getObjectAttributeUnitTest() {
-        LampSpec lampSpec = new LampSpec();
+    void seeIfGetAttributeUnitWorks() {
+        // Arrange
+
         String expectedResult = "lm";
-        Object result = lampSpec.getAttributeUnit(LampSpec.FLUX);
+
+        // Act
+
+        Object result = validLampSpec.getAttributeUnit(LampSpec.FLUX);
+
+        // Assert
+
         assertEquals(expectedResult, result);
-        assertEquals(false, lampSpec.getAttributeUnit(""));
-
+        assertEquals(false, validLampSpec.getAttributeUnit(""));
     }
 
     @Test
-     void setAttributeValueTestFalse() {
-        LampSpec lampSpec = new LampSpec();
-        Object result = lampSpec.setAttributeValue("luminousFlux", 5);
+    void seeIfSetAttributeValueWorksWrongNameNotDouble() {
+        // Act
+
+        Object result = validLampSpec.setAttributeValue("luminousFlux", 5);
+
+        // Assert
+
         assertEquals(false, result);
     }
 
     @Test
-     void setAttributeValueTestDefault() {
-        LampSpec lampSpec = new LampSpec();
-        lampSpec.setAttributeValue("luminousFlux", 5.0);
-        Object result = lampSpec.getAttributeValue("lisbon");
+    void seeIfGetAttributeValueWorksWrongName() {
+        // Act
+
+        Object result = validLampSpec.getAttributeValue("Lisbon");
+
+        // Assert
+
         assertEquals(false, result);
     }
 
     @Test
-     void setAttributeValueTestTrue() {
-        LampSpec lampSpec = new LampSpec();
-        lampSpec.setAttributeValue("Luminous Flux", 5.0);
-        Object result = lampSpec.getAttributeValue("Luminous Flux");
-        assertEquals(5.0, result);
-    }
+    void seeIfSetAttributeValueWorksFalseNotDouble() {
+        // Act
 
+        Object result = validLampSpec.setAttributeValue(LampSpec.FLUX, 5);
 
-    @Test
-     void setAttributeValueTestFalseFlux() {
-        LampSpec lampSpec = new LampSpec();
-        Object result = lampSpec.setAttributeValue(LampSpec.FLUX, 5);
+        // Assert
+
         assertEquals(false, result);
     }
 
     @Test
-     void setAttributeValueTestTrueFlux() {
-        LampSpec lampSpec = new LampSpec();
-        lampSpec.setAttributeValue(LampSpec.FLUX, 5.0);
-        Object result = lampSpec.getAttributeValue("Luminous Flux");
-        assertEquals(5.0, result);
+    void seeIfGetAttributeValueWorks() {
+        // Arrange
+
+
+        validLampSpec.setAttributeValue(LampSpec.FLUX, 6D);
+
+        // Happy Case
+
+        assertEquals(6D, validLampSpec.getAttributeValue(LampSpec.FLUX));
+
+        // Wrong attribute name.
+
+        assertEquals(false, validLampSpec.getAttributeValue("notFLUX"));
+
+        // Empty attribute name.
+
+        assertEquals(false, validLampSpec.getAttributeValue(""));
     }
 
     @Test
-    void testGetAttributeValueForAllCases() {
-        //Arrange
-        LampSpec lSpec = new LampSpec();
-        Double attribute = 6.0;
-        lSpec.setAttributeValue(LampSpec.FLUX, attribute);
-        // original strings:
-        assertEquals(attribute, lSpec.getAttributeValue(LampSpec.FLUX));
-        // same hash codes, but different strings:
-        assertEquals(false, lSpec.getAttributeValue("notFLUX"));
-        // distinct hash code to cover default cases of switches
-        assertEquals(false, lSpec.getAttributeValue(""));
-    }
+    void seeIfGetAttributeUnitWorksAllCases() {
+        // Arrange
 
-    @Test
-    void testGetAttributeUnitForAllCases() {
-        //Arrange
-        LampSpec lSpec = new LampSpec();
         String attributeLm = "lm";
-        // original strings:
-        assertEquals(attributeLm, lSpec.getAttributeUnit(LampSpec.FLUX));
-        // same hash codes, but different strings:
-        assertEquals(false, lSpec.getAttributeUnit("notFLUX"));
-        // distinct hash code to cover default cases of switches
-        assertEquals(false, lSpec.getAttributeUnit(""));
+
+        // Happy case.
+
+        assertEquals(attributeLm, validLampSpec.getAttributeUnit(LampSpec.FLUX));
+
+        // Wrong attribute name.
+
+        assertEquals(false, validLampSpec.getAttributeUnit("notFLUX"));
+
+        // Empty attribute name.
+
+        assertEquals(false, validLampSpec.getAttributeUnit(""));
     }
 
     @Test
-    void testSetAttributeValueForAllCases() {
-        //Arrange
-        LampSpec lSpec = new LampSpec();
-        Double attribute = 6.0;
-        // original strings + double:
-        assertTrue(lSpec.setAttributeValue(LampSpec.FLUX, attribute));
-        // same hash codes, but different strings + double:
-        assertFalse(lSpec.setAttributeValue("notFLUX", attribute));
-        // distinct hash code to cover default cases of switches + double
-        assertFalse(lSpec.setAttributeValue("", attribute));
+    void seeIfSetAttributeValueWorksAllCases() {
+        // Happy case.
+
+        assertTrue(validLampSpec.setAttributeValue(LampSpec.FLUX, 6D));
+
+        // Wrong attribute name.
+
+        assertFalse(validLampSpec.setAttributeValue("notFLUX", 6D));
+
+        // Empty attribute name.
+
+        assertFalse(validLampSpec.setAttributeValue("", 6D));
     }
 
     @Test
-    void testSetAttributeValueForNotDouble() {
-        //Arrange
-        LampSpec lSpec = new LampSpec();
-        Double attributeD = 6.0;
-        Integer attribute = 6;
-        lSpec.setAttributeValue(LampSpec.FLUX, attributeD);
-        // original strings + not double:
-        assertFalse(lSpec.setAttributeValue(LampSpec.FLUX, attribute));
-        // same hash codes, but different strings + not double:
-        assertFalse(lSpec.setAttributeValue("notFLUX", attribute));
-        assertFalse(lSpec.setAttributeValue("notNOMINAL_POWER", attribute));
-        // distinct hash code to cover default cases of switches + not double
-        assertFalse(lSpec.setAttributeValue("", attribute));
+    void seeIfSetAttributeValueWorksNotDoubles() {
+        // Correct name, not a double.
+
+        assertFalse(validLampSpec.setAttributeValue(LampSpec.FLUX, 5));
+
+        // Incorrect name, not a double.
+
+        assertFalse(validLampSpec.setAttributeValue("notFLUX", 5));
+        assertFalse(validLampSpec.setAttributeValue("notNOMINAL_POWER", 5));
+
+        // Empty name, not a double.
+
+        assertFalse(validLampSpec.setAttributeValue("", 5));
     }
 }
