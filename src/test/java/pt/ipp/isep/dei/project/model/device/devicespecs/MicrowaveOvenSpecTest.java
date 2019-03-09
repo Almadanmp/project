@@ -1,49 +1,72 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.program.ProgramList;
-import pt.ipp.isep.dei.project.model.device.program.VariableTimeProgram;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class MicrowaveOvenSpecTest {
+class MicrowaveOvenSpecTest {
+    // Common testing artifacts for testing in this class.
+
+    private MicrowaveOvenSpec validOvenSpec;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        validOvenSpec = new MicrowaveOvenSpec();
+    }
 
     @Test
-    void seeIfGetAttributeNamesTestWorks() {
-        VariableTimeProgram program1 = new VariableTimeProgram("programa", 78);
-        ProgramList listProgram = new ProgramList();
-        listProgram.add(program1);
-        MicrowaveOvenSpec microwaveOvenSpec = new MicrowaveOvenSpec();
+    void seeIfGetAttributeNamesWorks() {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
-        List<String> result = microwaveOvenSpec.getAttributeNames();
+
+        // Act
+
+        List<String> result = validOvenSpec.getAttributeNames();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void setAttributeValueTest() {
-        MicrowaveOvenSpec microwaveOvenSpec = new MicrowaveOvenSpec();
-        microwaveOvenSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        boolean result = microwaveOvenSpec.setAttributeValue("lisboa", 12);
+    void seeIfSetAttributeValuesWorksWrongAttributeName() {
+        // Act
+
+        boolean result = validOvenSpec.setAttributeValue("Lisbon", 12);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfGetAttributeUnitWorks() {
+        // Act
+
+        Object result = validOvenSpec.getAttributeUnit("Capacity");
+
+        // Assert
+
         assertEquals(false, result);
     }
 
     @Test
-    void getAttributeUnitTest() {
-        MicrowaveOvenSpec microwaveOvenSpec = new MicrowaveOvenSpec();
-        microwaveOvenSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 5D);
-        Object result = microwaveOvenSpec.getAttributeUnit("Capacity");
-        assertEquals(false, result);
-    }
+    void seeIfSetAttributeValueWorksCapacity() {
+        // Arrange
 
-    @Test
-    void setAttributeValueTestCapacity() {
-        MicrowaveOvenSpec microwaveOvenSpec = new MicrowaveOvenSpec();
-        microwaveOvenSpec.setAttributeValue(DishwasherSpec.DW_CAPACITY, 1D);
-        microwaveOvenSpec.setAttributeValue("Capacity", 5.0);
-        Object result = microwaveOvenSpec.getAttributeValue("Capacity");
+        validOvenSpec.setAttributeValue("Capacity", 5.0);
+
+        // Act
+
+        Object result = validOvenSpec.getAttributeValue("Capacity");
+
+        // Act
+
         assertEquals(0, result);
     }
 
