@@ -13,10 +13,18 @@ import static org.testng.Assert.assertEquals;
 class PortableElectricOilDTTest {
 
     @Test
-    void getDeviceType() {
-        WallElectricHeaterDT dt = new WallElectricHeaterDT();
-        String result = dt.getDeviceType();
+    void seeIfGetDeviceTypeWorks() {
+        // Arrange
+
         String expectedResult = "WallElectricHeater";
+        WallElectricHeaterDT dt = new WallElectricHeaterDT();
+
+        // Act
+
+        String result = dt.getDeviceType();
+
+        // Assert
+
         assertEquals(result, expectedResult);
     }
 }
