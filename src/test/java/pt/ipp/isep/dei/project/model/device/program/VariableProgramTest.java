@@ -2,14 +2,11 @@ package pt.ipp.isep.dei.project.model.device.program;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.TypeSensor;
-
+import pt.ipp.isep.dei.project.model.RoomList;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * VariableTimeProgram test class.
@@ -17,153 +14,204 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class VariableProgramTest {
 
     // Common artifacts for testing in this class.
-    private VariableTimeProgram program;
-    private VariableTimeProgram validVariableTimeProgram; // A variable time program named "Medium Power" running at 1200 Watt.
-    private VariableTimeProgram validVariableTimeProgram2; // A variable time program named "Max Power" running at 1200 Watt.
+
+    private VariableTimeProgram validProgramOne; // A variable time validProgramOne named "ProgramOne" running at 1200 Watt.
+    private VariableTimeProgram validVariableTimeProgram; // A variable time validProgramOne named "Medium Power" running at 1200 Watt.
 
     @BeforeEach
     void arrangeArtifacts() {
-        program = new VariableTimeProgram("program1", 125);
-        program.setAttributeValue(VariableTimeProgram.NOMINAL_POWER, 5D);
+        validProgramOne = new VariableTimeProgram("program1", 125);
         validVariableTimeProgram = new VariableTimeProgram("Medium Power", 1.2);
-        validVariableTimeProgram2 = new VariableTimeProgram("Mex Power", 1.8);
     }
 
     @Test
-    void seeIfSetProgramName() {
-        program.setProgramName("programa2");
-        String expectedResult = "programa2";
-        String result = program.getProgramName();
+    void seeIfGetSetProgramNameWorks() {
+        // Arrange
+
+        String expectedResult = "programTwo";
+
+        // Act
+
+        validProgramOne.setProgramName("programTwo");
+        String result = validProgramOne.getProgramName();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfTestSetDuration() {
-        program.setNominalPower(4);
+    void seeIfGetSetNominalPowerWorks() {
+        // Arrange
+
+        validProgramOne.setNominalPower(4);
         double expectedResult = 4;
-        double result = program.getNominalPower();
+
+        // Act
+
+        double result = validProgramOne.getNominalPower();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfTestSetEnergyConsumption() {
+    void seeIfGetEnergyConsumptionWorks() {
+        // Arrange
+
         double expectedResult = 20.0;
-        double result = program.getEnergyConsumption(4);
+
+        // Act
+
+        double result = validProgramOne.getEnergyConsumption(4);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void seeIfPrintRoomWorks() {
-        String result = program.buildString();
+    void seeIfBuildStringWorks() {
+        // Arrange
+
         String expected = "- The FixedTimeProgram Name is program1, its Nominal Power is 5.0 kW.\n";
+
+        // Act
+
+        String result = validProgramOne.buildString();
+
+        // Assert
+
         assertEquals(expected, result);
     }
 
     @Test
-    void getAttributeNamesTest() {
+    void seeIfGetAttributeNamesWorks() {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add(VariableTimeProgram.NOMINAL_POWER);
-        List<String> result = program.getAttributeNames();
+
+        // Act
+
+        List<String> result = validProgramOne.getAttributeNames();
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void getAttributeValuesTest() {
-        double expectedResult = 5.0;
-        Object result = program.getAttributeValue("Nominal Power");
-        assertEquals(expectedResult, result);
-    }
+    void seeIfSetAttributeValueWorks() {
+        // Act
 
+        boolean actualResult = validProgramOne.setAttributeValue("Nominal Power", 12.0);
 
-    @Test
-    void getAttributeUnitTest() {
-        String expectedResult = "kW";
-        Object result = program.getAttributeUnit("Nominal Power");
-        assertEquals(expectedResult, result);
-    }
+        // Assert
 
-    @Test
-    void getAttributeUnitTest2() {
-        Object result = program.getAttributeUnit("programList");
-        assertEquals(false, result);
-        assertEquals(false, program.getAttributeUnit(""));
-    }
-
-    @Test
-    void getAttributeValuesTest1() {
-        int expectedResult = 0;
-        Object result = program.getAttributeValue("Duration" + "Energy Consumption");
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfSetAttributeValueTestTrueWorks() {
-        //Act
-        boolean actualResult = program.setAttributeValue("Nominal Power", 12.0);
-        //Assert
         assertTrue(actualResult);
     }
 
-    @Test
-    void setAttributeValueTestDefault() {
-        program.setAttributeValue("capacity", 5.0);
-        Object result = program.getAttributeValue("lisbon");
-        assertEquals(0, result);
-    }
-
 
     @Test
-    void setAttributeValueTestFalse() {
-        boolean result = program.setAttributeValue("lisboa", 5);
+    void seeIfSetAttributeValueWorksWrongName() {
+        // Act
+
+        boolean result = validProgramOne.setAttributeValue("Lisbbon", 5);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void setAttributeValueTestFalseAgain() {
-        Object result = program.setAttributeValue(VariableTimeProgram.NOMINAL_POWER, 5);
-        assertEquals(false, result);
-    }
+    void seeIfSetAttributeValueWorksNotDouble() {
+        // Act
 
-    @Test
-    void setAttributeValueTestTrue() {
-        Object result = program.setAttributeValue(VariableTimeProgram.NOMINAL_POWER, 5.0);
-        assertEquals(true, result);
-    }
+        Object result = validProgramOne.setAttributeValue(VariableTimeProgram.NOMINAL_POWER, 5);
 
-    @Test
-    void setAttributeValueTestFalseCap() {
-        Object result = program.setAttributeValue(VariableTimeProgram.NOMINAL_POWER, "sjfhbfhfh");
+        // Assert
+
         assertEquals(false, result);
     }
 
 
     @Test
-    void testGetAttributeCoveringAllCases() {
-        // original strings:
-        assertEquals(5.0, program.getAttributeValue(VariableTimeProgram.NOMINAL_POWER));
+    void seeIfGetAttributeValueWorks() {
+        // Correct attribute names.
 
-        // same hash codes, but different strings:
-        assertEquals(0, program.getAttributeValue("\0Capacity"));
+        assertEquals(5.0, validProgramOne.getAttributeValue(VariableTimeProgram.NOMINAL_POWER));
 
-        // distinct hash code to cover default cases of switches
-        assertEquals(0, program.getAttributeValue(""));
+        // Wrong attribute names.
+
+        assertEquals(0, validProgramOne.getAttributeValue("\0Capacity"));
+
+        // Empty attribute names.
+
+        assertEquals(0, validProgramOne.getAttributeValue(""));
     }
 
 
     @Test
-    void seeIfGetAttributeUnitWorksInAllCases() {
-        //Arrange
-        String attributeKW = "kW";
-        // original strings:
-        assertEquals(attributeKW, program.getAttributeUnit(VariableTimeProgram.NOMINAL_POWER));
-        // same hash codes, but different strings:
-        assertEquals(false, program.getAttributeUnit("notNominalPower"));
-        // distinct hash code to cover default cases of switches
-        assertEquals(false, program.getAttributeUnit(""));
+    void seeIfGetAttributeUnitWorks() {
+        // Arrange
+
+        String expectedResult = "kW";
+
+        // Correct attribute names.
+
+        assertEquals(expectedResult, validProgramOne.getAttributeUnit(VariableTimeProgram.NOMINAL_POWER));
+
+        // Wrong attribute names.
+
+        assertEquals(false, validProgramOne.getAttributeUnit("notNominalPower"));
+
+        // Empty attribute names.
+
+        assertEquals(false, validProgramOne.getAttributeUnit(""));
     }
 
     @Test
-    public void hashCodeDummyTest() {
+    void seeIfEqualsWorks() {
+        // Arrange
+
+        Program variableProgram = new VariableTimeProgram("Program", 1.2);
+        variableProgram.setProgramName("Medium Power");
+
+        // Assert
+        assertEquals(variableProgram, validVariableTimeProgram);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalse() {
+        // Arrange
+
+        Program variableProgram = new VariableTimeProgram("Program", 1.2);
+        variableProgram.setProgramName("Medium Power 2");
+
+        // Assert
+
+        assertNotEquals(variableProgram, validVariableTimeProgram);
+    }
+
+    @Test
+    void seeIfEqualsWorksNull() {
+        assertNotEquals(null, validVariableTimeProgram);
+    }
+
+    @Test
+    void seeIfEqualsWorksNotAnInstance() {
+       assertNotEquals(validVariableTimeProgram, new RoomList());
+    }
+
+    @Test
+    void seeIfEqualsWorksOnItself() {
+        assertEquals(validVariableTimeProgram, validVariableTimeProgram);
+    }
+
+    @Test
+    void hashCodeDummyTest() {
         //Arrange
         int expectedResult = 1;
 
@@ -172,53 +220,5 @@ class VariableProgramTest {
 
         //Assert
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfEqualsProgramObject() {
-        //Arrange
-        Program variableProgram = new VariableTimeProgram("Program", 1.2);
-        variableProgram.setProgramName("Medium Power");
-
-        //Assert
-        assertTrue(variableProgram.equals(validVariableTimeProgram));
-    }
-
-    @Test
-    void seeIfEqualsFailsProgramObject() {
-        //Arrange
-        Program variableProgram = new VariableTimeProgram("Program", 1.2);
-        variableProgram.setProgramName("Medium Power 2");
-
-        //Assert
-        assertFalse(variableProgram.equals(validVariableTimeProgram));
-    }
-
-    @Test
-    void seeIfEqualsFailsNullObject() {
-        //Arrange
-        Object obj = null;
-        VariableTimeProgram micro = null;
-
-        // Act
-        //Assert
-        assertFalse(validVariableTimeProgram.equals(obj));
-        assertFalse(validVariableTimeProgram.equals(micro));
-    }
-
-    @Test
-    void seeIfEqualsFailsDifferentObject() {
-        //Arrange
-        // Act
-        //Assert
-        assertFalse(validVariableTimeProgram.equals(new TypeSensor("Rain", "mm")));
-    }
-
-    @Test
-    void seeIfEqualsWorks() {
-        //Arrange
-        // Act
-        //Assert
-        assertTrue(validVariableTimeProgram.equals(validVariableTimeProgram));
     }
 }
