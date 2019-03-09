@@ -8,47 +8,61 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class WallTowelHeaterSpecTest {
-
+class WallTowelHeaterSpecTest {
     // Common artifacts for testing in this class.
+
     private WallTowelHeaterSpec validWTHSpec = new WallTowelHeaterSpec();
 
     @Test
-    void testGetAttributeNames() {
-        //Arrange
+    void seeIfGetAttributeNamesWorks() {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
-        //Act
+
+        // Act
+
         List<String> actualResult = validWTHSpec.getAttributeNames();
-        //Assert
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void testSetAttributeValue() {
-        //Act
+    void seeifSetAttributeValueWorks() {
+        // Act
+
         boolean actualResult = validWTHSpec.setAttributeValue("anything", 12);
-        //Assert
+
+        // Assert
+
         assertFalse(actualResult);
     }
 
     @Test
-    void testGetAttributeUnit() {
-        //Arrange
-        boolean expectedResult = false;
-        //Act
+    void seeIfGetAttributeUnitWorks() {
+        // Act
+
         Object actualResult = validWTHSpec.getAttributeUnit("anything");
-        //Assert
-        assertEquals(expectedResult, actualResult);
+
+        // Assert
+
+        assertEquals(false, actualResult);
     }
 
     @Test
-    void testSetAttributeValueAnything() {
-        //Arrange
+    void seeIfGetSetAttributeValueWorksWrongName() {
+        // Arrange
+
         validWTHSpec.setAttributeValue("Anything", 5.0);
         int expectedResult = 0;
-        //Act
+
+        // Act
+
         Object actualResult = validWTHSpec.getAttributeValue("Anything");
-        //Assert
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 }
