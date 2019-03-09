@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.*;
 
-public class WineCoolerSpecTest {
+class WineCoolerSpecTest {
     private WineCooler wineCoolerValid = new WineCooler(new WineCoolerSpec());
 
     @BeforeEach
@@ -22,71 +22,96 @@ public class WineCoolerSpecTest {
 
 
     @Test
-    void seeIfGetAttributeNamesTest() {
+    void seeIfGetAttributeNamesWorks() {
+        // Arrange
+
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("Number of Bottles");
+
+        // Act
+
         List<String> actualResult = wineCoolerValid.getAttributeNames();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfSetAttributeValueTestFalse() {
+    void seeIfSetAttributeValueWorksWrongNameNotDouble() {
+        // Act
+
         boolean result = wineCoolerValid.setAttributeValue("Flux", 12);
+
+        // Assert
+
         assertFalse(result);
     }
 
     @Test
-    void seeIfSetAttributeValueTestTrueFalse() {
-        Double attribute = 6.0;
+    void seeIfSetAttributeValueWorks() {
+        // Act
+
         boolean actualResult = wineCoolerValid.setAttributeValue("Number of Bottles", 12.0);
         boolean actualResultDouble = wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 5);
-        assertTrue(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attribute));
-        assertFalse(wineCoolerValid.setAttributeValue("notFLUX", attribute));
-        assertFalse(wineCoolerValid.setAttributeValue("", attribute));
-        assertFalse(wineCoolerValid.setAttributeValue(null, attribute));
+
+        // Assert
+
+        assertTrue(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 6D));
+        assertFalse(wineCoolerValid.setAttributeValue("notFLUX", 6D));
+        assertFalse(wineCoolerValid.setAttributeValue("", 6D));
+        assertFalse(wineCoolerValid.setAttributeValue(null, 6D));
         assertFalse(actualResultDouble);
         assertTrue(actualResult);
     }
 
     @Test
-    void seeIfGetObjectAttributeValueTest() {
-       Double expectedResult = 15.0;
+    void seeIfGetAttributeValueWorks() {
+        // Arrange
+
+        Double expectedResult = 15.0;
+
+        // Act
+
         Object actualResult = wineCoolerValid.getAttributeValue(WineCoolerSpec.NUMBER_BOTTLES);
         Object actualResultFalse = wineCoolerValid.getAttributeValue("flux");
         Object actualResultEmpty = wineCoolerValid.getAttributeValue("");
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
         assertEquals(false, actualResultFalse);
         assertEquals(false, actualResultEmpty);
     }
 
     @Test
-    void seeIfGetObjectAttributeUnitTest() {
+    void seeIfGetAttributeUnitWorks() {
+        // Arrange
+
         String expectedResult = "bottles";
+
+        // Act
+
         Object actualResult = wineCoolerValid.getAttributeUnit(WineCoolerSpec.NUMBER_BOTTLES);
         Object actualResultFalse = wineCoolerValid.getAttributeUnit("flux");
         Object actualResultEmpty = wineCoolerValid.getAttributeUnit("");
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
         assertEquals(false, actualResultFalse);
         assertEquals(false, actualResultEmpty);
 
     }
 
-    @Test
-    void setAttributeValueTestTrueBottle() {
-        WineCoolerSpec spec = new WineCoolerSpec();
-        spec.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 5.0);
-        Object result = spec.getAttributeValue("Number of Bottles");
-        assertEquals(5.0, result);
-    }
-
 
     @Test
-    void testSetAttributeValueForNotInteger() {
-       Integer attributeD = 6;
-        wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attributeD);
-        assertFalse(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attributeD));
-        assertFalse(wineCoolerValid.setAttributeValue("notFLUX", attributeD));
-        assertFalse(wineCoolerValid.setAttributeValue("notNOMINAL_POWER", attributeD));
-        assertFalse(wineCoolerValid.setAttributeValue("", attributeD));
+    void seeIfSetAttributeValueWorksNotDouble() {
+        // Assert
+
+        assertFalse(wineCoolerValid.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 5));
+        assertFalse(wineCoolerValid.setAttributeValue("notFLUX", 5));
+        assertFalse(wineCoolerValid.setAttributeValue("notNOMINAL_POWER", 5));
+        assertFalse(wineCoolerValid.setAttributeValue("", 5));
     }
 }
