@@ -10,7 +10,7 @@ import static java.lang.Double.NaN;
 
 public class ReadingList {
 
-    private List<Reading> readings;
+    private ArrayList<Reading> readings;
 
     /**
      * Empty Constructor to always allow the creation of an ArrayList of Readings.
@@ -335,6 +335,31 @@ public class ReadingList {
             this.addReading(r);
         }
         return this;
+    }
+
+    /**
+     * Method that gives the Highest Amplitude of Readings between two dates (given days)
+     * It will throw an IllegalArgumentException if there are no readings between the selected dates
+     *
+     * @param minDate the lower (min) date for interval comparison
+     * @param maxDate the upper (max) date for interval comparison
+     * @return the Highest Amplitude of all values in the reading list between the two given dates
+     * @author Daniela (US633)
+     */
+    public double getHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
+        if (daysWithReadings.isEmpty()) {
+            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
+        }
+        List<Double> amplitudeValues = new ArrayList<>();
+        for (Date day : daysWithReadings) {
+            List<Double> specificDayValues = getValuesOfSpecificDayReadings(day);
+            double maxTemp = Collections.max(specificDayValues);
+            double lowestTemp = Collections.min(specificDayValues);
+            double amplitudeValue = maxTemp-lowestTemp;
+            amplitudeValues.add(amplitudeValue);
+        }
+        return Collections.max(amplitudeValues);
     }
 
     /**

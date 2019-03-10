@@ -18,11 +18,10 @@ class TVTest {
 
     // Common artifacts for testing in this class.
 
-    private TV validTV;
+    private TV validTV = new TV(new TvSpec());
 
     @BeforeEach
     void arrangeArtifacts() {
-        validTV = new TV(new TvSpec());
         validTV.setName("Living Room TV");
         validTV.setNominalPower(15D);
         validTV.setAttributeValue(TvSpec.STANDBY_POWER, 15D);
@@ -81,9 +80,7 @@ class TVTest {
     @Test
     void seeIfSetNominalPowerWorksNegative() {
         assertThrows(IllegalArgumentException.class,
-                () -> {
-                    validTV.setNominalPower(-20);
-                });
+                () -> validTV.setNominalPower(-20));
     }
 
     @Test

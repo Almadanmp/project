@@ -65,7 +65,7 @@ public class HouseMonitoringController {
      * @param house       is the house we want to get the average rainfall from.
      * @param initialDate is the date where we want to start measuring average rainfall (lower limit).
      * @param endDate     is the date where we want to stop measuring average rainfall (upper limit).
-     * @return is the average rainfall of the house, as measured by the closest sensor to the house.
+     * @Author Daniela
      */
     public double getAverageRainfallInterval(House house, Date initialDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
@@ -79,6 +79,7 @@ public class HouseMonitoringController {
      * @param house is the house we want to get the total rainfall from.
      * @param day   is the date where we want to  measure total rainfall.
      * @return is the total rainfall of the house, as measured by the closest sensor to the house.
+     * @Author André
      */
     public double getTotalRainfallOnGivenDay(House house, Date day) {
         Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
@@ -110,5 +111,27 @@ public class HouseMonitoringController {
         ReadingList readingList = closestSensor.getReadingList();
         return readingList.getLastColdestDayInGivenInterval(startDate,endDate);
     }
+
+       /* US 633 - Controller Methods
+        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
+         period. */
+
+    /**
+     * @param house       is the house we want to get the average rainfall from.
+     * @param initialDate is the date where we want to start measuring temperature (lower limit).
+     * @param endDate     is the date where we want to stop measuring temperature(upper limit).
+     * @return is the highest temperature amplitude in the house area, in given period, as measured by the closest
+     * sensor to the house.
+     * @Author Daniela
+     */
+    public double getHighestTempAmplitude (House house, Date initialDate, Date endDate) {
+        Sensor closestSensor = house.getClosestSensorOfGivenType("temperature");
+        if (closestSensor.isReadingListEmpty()) {
+            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
+        }
+        return closestSensor.getHighestAmplitudeBetweenDates(initialDate, endDate);
+    }
+
+
 }
 

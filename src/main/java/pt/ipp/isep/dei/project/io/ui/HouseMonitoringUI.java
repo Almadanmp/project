@@ -265,7 +265,7 @@ public class HouseMonitoringUI {
         System.out.println("1) Get Max Temperature in a room in a specific day (US610).");
         System.out.println("2) Get Current Temperature in a room. (US605).");
         System.out.println("3) Get Current Temperature in a House Area. (US600)");
-        System.out.println("4) Get The Average Rainfall on a specific day in a House Area. (US620)"); // TODO this is calling total
+        System.out.println("4) Get The Total Rainfall on a specific day in a House Area. (US620)");
         System.out.println("5) Get The Average Rainfall on a day interval in a House Area. (US623)");
         System.out.println("6) Get the Last Coldest Day (lower maximum temperature) in the House" +
                 " Area in a given period. (US630)");
