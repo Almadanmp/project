@@ -103,7 +103,7 @@ class KettlerSpecTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.getAttributeUnit("invalid string"));
+                () -> this.kettlerSpec.getAttributeUnit(""));
     }
 
     @Test
@@ -111,12 +111,12 @@ class KettlerSpecTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.getAttributeValue("invalid string"));
+                () -> this.kettlerSpec.getAttributeValue(""));
 
         //AssertThrows
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.setAttributeValue("invalid string", 200D));
+                () -> this.kettlerSpec.setAttributeValue("", 200D));
     }
 
     @Test
@@ -124,7 +124,7 @@ class KettlerSpecTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.setAttributeValue("invalid string", 200D));
+                () -> this.kettlerSpec.setAttributeValue("", 200D));
     }
 
     @Test
