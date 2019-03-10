@@ -67,7 +67,7 @@ class CSVReaderTest {
         validSensorList.add(validSensor2);
         validGeoArea.setSensorList(validSensorList);
     }
-
+/* Novo metodo
     @Test
     void seeIfReadAndSetterWorks() {
 
@@ -174,6 +174,7 @@ class CSVReaderTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+    */ //Novo metodo
 /*
     @Test
     void seeIfReadAndSetterWorksWithReadings() {
