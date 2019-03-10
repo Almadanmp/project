@@ -10,7 +10,7 @@ import static org.testng.Assert.*;
 public class KettlerDTTest {
 
     @Test
-    public void testCreateDevice() {
+    public void seeIfCreateDeviceWorks() {
         //Arrange
 
         KettlerDT kettlerDT = new KettlerDT();
@@ -26,7 +26,7 @@ public class KettlerDTTest {
     }
 
     @Test
-    public void testGetDeviceType() {
+    public void seeIfGetDeviceTypeWorks() {
         //Arrange
 
         KettlerDT kettlerDT = new KettlerDT();

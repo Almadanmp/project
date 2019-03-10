@@ -12,7 +12,7 @@ public class KettlerSpecTest {
     private KettlerSpec kettlerSpec = new KettlerSpec(); //TODO Teresa tirar dúvida com João before each dava erro
 
     @Test
-    void testGetAttributeNames() {
+    void seeIfGetAttributeNamesWorks() {
         //Arrange
 
         List<String> expectedResult = new ArrayList<>();
@@ -30,7 +30,7 @@ public class KettlerSpecTest {
     }
 
     @Test
-    void testGetAttributeValue() {
+    void seeIfGetAttributeValueWorks() {
         //Act
 
         Object actualResult1 = this.kettlerSpec.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
@@ -45,7 +45,7 @@ public class KettlerSpecTest {
     }
 
     @Test
-    void testSetAttributeValue() {
+    void seeIfSetAttributeValueWorks() {
         //Act
 
         this.kettlerSpec.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 100D);
@@ -64,7 +64,7 @@ public class KettlerSpecTest {
     }
 
     @Test
-    void testGetAttributeUnit() {
+    void seeIfGetAttributeUnitWorks() {
         //Act
 
         Object actualResult1 = this.kettlerSpec.getAttributeUnit(KettlerSpec.COLD_WATER_TEMP);
@@ -79,7 +79,7 @@ public class KettlerSpecTest {
     }
 
     @Test
-    void testSetAttributeValueInvalidValue() {
+    void seeIfSetAttributeValueWorksWithInvalidValue() {
         //Act
 
         boolean actualResult1 = this.kettlerSpec.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 100);
@@ -98,7 +98,7 @@ public class KettlerSpecTest {
     }
 
     @Test
-    void testGetAttributeUnitIllegalArgument() {
+    void seeIfGetAttributeUnitThrowsIllegalArgument() {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
@@ -106,7 +106,7 @@ public class KettlerSpecTest {
     }
 
     @Test
-    void testGetAttributeValueIllegalArgument() {
+    void seeIfGetAttributeValueThrowsIllegalArgument() {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
@@ -119,7 +119,7 @@ public class KettlerSpecTest {
     }
 
     @Test
-    void testSetAttributeValueIllegalArgument() {
+    void seeIfSetAttributeValueThrowsIllegalArgument() {
         //Assert
 
         assertThrows(IllegalArgumentException.class,

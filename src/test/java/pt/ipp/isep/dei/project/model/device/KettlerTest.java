@@ -16,7 +16,7 @@ import static org.testng.Assert.*;
 public class KettlerTest {
 
     @Test
-    public void testSetGetName() {
+    void seeIfSetGetNameWorks() {
 
         //Arrange
 
@@ -33,7 +33,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testGetType() {
+    void seeIfGetTypeWorks() {
 
         //Arrange
 
@@ -49,7 +49,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testSetNominalPower() {
+    void seeIfSetNominalPowerWorks() {
 
         //Arrange
 
@@ -66,7 +66,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testThatDeactivateFails() {
+    void seeIfDeactivateFails() { //The success case is tested in the next test indirectly
 
         //Arrange
 
@@ -82,7 +82,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testIsActive() {
+    void seeIfIsActiveWorks() {
 
         //Arrange
 
@@ -102,7 +102,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testBuildString() {
+    void seeIfBuildStringWorks() {
 
         //Arrange
 
@@ -120,7 +120,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testIsLogListEmpty() {
+    void seeIfIsLogListEmptyWorks() {
 
         //Arrange
 
@@ -132,7 +132,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testGetLogList() {
+    void seeIfGetLogListWorks() {
 
         //Arrange
 
@@ -151,7 +151,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testLogListNotEmpty() {
+    void seeIfIsLogListEmptyWorksWhenNotEmpty() {
         //Arrange
 
         Kettler kettler = new Kettler(new KettlerSpec());
@@ -165,7 +165,7 @@ public class KettlerTest {
 
 
     @Test
-    public void testCountLogsInInterval() {
+    void seeIfCountLogsInIntervalWorks() {
 
         //Arrange
 
@@ -206,7 +206,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testGetLogsInInterval() {
+    void seeIfGetLogsInIntervalWorks() {
 
         //Arrange
 
@@ -251,7 +251,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testGetConsumptionInInterval() {
+    void seeIfGetConsumptionInIntervalWorks() {
 
         //Arrange
 
@@ -292,9 +292,8 @@ public class KettlerTest {
 
     }
 
-    //TODO
     @Test
-    public void testGetEnergyConsumption() {
+    void seeIfGetEnergyConsumptionWorks() {
         //Arrange
 
         Kettler kettler = new Kettler(new KettlerSpec());
@@ -310,7 +309,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testGetEnergyConsumptionWithInvalidTemperature() {
+    void seeIfGetEnergyConsumptionWorksWithInvalidTemperature() {
         //Arrange
 
         Kettler kettler = new Kettler(new KettlerSpec());
@@ -326,7 +325,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testGetAttributeNames() {
+    void seeIfGetAttributeNamesWorks() {
 
         //Arrange
 
@@ -346,7 +345,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testGetAttributeValue() {
+    void seeIfGetAttributeValueWorks() {
 
         //Arrange
 
@@ -366,7 +365,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testSetAttributeValue() {
+    void seeIfSetAttributeValueWorks() {
 
         //Arrange
 
@@ -390,7 +389,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testGetAttributeUnit() {
+    void seeIfGetAttributeUnitWorks() {
 
         //Arrange
 
@@ -410,7 +409,7 @@ public class KettlerTest {
     }
 
     @Test
-    void testSetAttributeValueInvalidValue() {
+    void seeIfSetAttributeValueWorksWithInvalidValue() {
 
         //Arrange
 
@@ -434,7 +433,7 @@ public class KettlerTest {
     }
 
     @Test
-    void testGetAttributeUnitIllegalArgument() {
+    void seeIfGetAttributeUnitIllegalThrowsArgument() {
 
         //Arrange
 
@@ -447,7 +446,7 @@ public class KettlerTest {
     }
 
     @Test
-    void testGetAttributeValueIllegalArgument() {
+    void seeIfGetAttributeValueThrowsIllegalArgument() {
 
         //Arrange
 
@@ -465,7 +464,7 @@ public class KettlerTest {
     }
 
     @Test
-    void testSetAttributeValueIllegalArgument() {
+    void seeIfSetAttributeValueThrowsIllegalArgument() {
 
         //Arrange
 
@@ -478,7 +477,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testEquals() {
+    void seeIfEqualsWorks() {
 
         //Arrange
 
@@ -505,7 +504,7 @@ public class KettlerTest {
     }
 
     @Test
-    public void testHashCode() {
+    void seeIfHashCodeWorks() {
 
         //Arrange
 
