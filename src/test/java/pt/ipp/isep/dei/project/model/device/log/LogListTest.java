@@ -273,17 +273,27 @@ class LogListTest {
     void getElementsAsArray() {
         //Arrange
 
+        Date date1 = new Date();
+
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            date1 = simpleDate.parse("01/10/2018 23:30:59");
+
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+
         Log[] expectedResult1 = new Log[0];
         Log[] expectedResult2 = new Log[1];
         Log[] expectedResult3 = new Log[2];
 
         LogList validLogList2 = new LogList();
         validLogList2.addLog(validLog1);
-        validLogList2.addLog(new Log(220, validDate1, new Date()));
+        validLogList2.addLog(new Log(220, validDate1, date1));
 
         expectedResult2[0] = validLog1;
         expectedResult3[0] = validLog1;
-        expectedResult3[1] = new Log(220, validDate1, new Date());
+        expectedResult3[1] = new Log(220, validDate1, date1);
 
         //Act
 
