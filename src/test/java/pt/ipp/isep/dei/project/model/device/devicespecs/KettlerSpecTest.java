@@ -1,15 +1,22 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
-import org.testng.annotations.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.Assert.*;
 
-public class KettlerSpecTest {
+class KettlerSpecTest {
 
-    private KettlerSpec kettlerSpec = new KettlerSpec(); //TODO Teresa tirar dúvida com João before each dava erro
+    private KettlerSpec kettlerSpec;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        kettlerSpec = new KettlerSpec();
+    }
 
     @Test
     void seeIfGetAttributeNamesWorks() {

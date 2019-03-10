@@ -1,16 +1,16 @@
 package pt.ipp.isep.dei.project.model.device.devicetypes;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Kettler;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 
 import static org.testng.Assert.*;
 
-public class KettlerDTTest {
+class KettlerDTTest {
 
     @Test
-    public void seeIfCreateDeviceWorks() {
+    void seeIfCreateDeviceWorks() {
         //Arrange
 
         KettlerDT kettlerDT = new KettlerDT();
@@ -26,7 +26,7 @@ public class KettlerDTTest {
     }
 
     @Test
-    public void seeIfGetDeviceTypeWorks() {
+    void seeIfGetDeviceTypeWorks() {
         //Arrange
 
         KettlerDT kettlerDT = new KettlerDT();

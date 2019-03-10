@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model.device;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -13,31 +14,30 @@ import java.util.List;
 
 import static org.testng.Assert.*;
 
-public class KettlerTest {
+class KettlerTest {
+
+    private Kettler kettler;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        kettler = new Kettler(new KettlerSpec());
+        kettler.setName("validKettler1");
+    }
 
     @Test
     void seeIfSetGetNameWorks() {
 
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
-
         //Act
 
-        kettler.setName("kettler1");
         String actualResult = kettler.getName();
 
         //Assert
 
-        assertEquals("kettler1", actualResult);
+        assertEquals("validKettler1", actualResult);
     }
 
     @Test
     void seeIfGetTypeWorks() {
-
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
 
         //Act
 
@@ -50,10 +50,6 @@ public class KettlerTest {
 
     @Test
     void seeIfSetNominalPowerWorks() {
-
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
 
         //Act
 
@@ -68,10 +64,6 @@ public class KettlerTest {
     @Test
     void seeIfDeactivateFails() { //The success case is tested in the next test indirectly
 
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
-
         //Act
         kettler.deactivate();
         boolean actualResult1 = kettler.deactivate();
@@ -84,21 +76,21 @@ public class KettlerTest {
     @Test
     void seeIfIsActiveWorks() {
 
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
-
         //Assert
 
         assertTrue(kettler.isActive());
 
-        //Act
+        //Arrange
 
         kettler.deactivate();
 
-        //
+        //Act
 
-        assertFalse(kettler.isActive());
+        boolean actualResult = kettler.isActive();
+
+        //Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
@@ -107,7 +99,7 @@ public class KettlerTest {
         //Arrange
 
         Kettler kettler = new Kettler(new KettlerSpec());
-        kettler.setName("kettler1");
+        kettler.setName("validKettler1");
         kettler.setNominalPower(900D);
 
         //Act
@@ -116,15 +108,11 @@ public class KettlerTest {
 
         //Assert
 
-        assertEquals("The device Name is kettler1, and its Nominal Power is 900.0 kW.\n", actualResult);
+        assertEquals("The device Name is validKettler1, and its Nominal Power is 900.0 kW.\n", actualResult);
     }
 
     @Test
     void seeIfIsLogListEmptyWorks() {
-
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
 
         //Assert
 
@@ -136,7 +124,6 @@ public class KettlerTest {
 
         //Arrange
 
-        Kettler kettler = new Kettler(new KettlerSpec());
         kettler.addLog(new Log(20, new Date(), new Date()));
         LogList expectedResult = new LogList();
         expectedResult.addLog(new Log(20, new Date(), new Date()));
@@ -152,9 +139,9 @@ public class KettlerTest {
 
     @Test
     void seeIfIsLogListEmptyWorksWhenNotEmpty() {
+
         //Arrange
 
-        Kettler kettler = new Kettler(new KettlerSpec());
         kettler.addLog(new Log(20, new Date(), new Date()));
 
 
@@ -296,7 +283,6 @@ public class KettlerTest {
     void seeIfGetEnergyConsumptionWorks() {
         //Arrange
 
-        Kettler kettler = new Kettler(new KettlerSpec());
         kettler.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 50D);
         kettler.setAttributeValue(KettlerSpec.VOLUME_WATER, 1.5);
 
@@ -312,7 +298,6 @@ public class KettlerTest {
     void seeIfGetEnergyConsumptionWorksWithInvalidTemperature() {
         //Arrange
 
-        Kettler kettler = new Kettler(new KettlerSpec());
         kettler.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 150D);
         kettler.setAttributeValue(KettlerSpec.VOLUME_WATER, 1.5);
 
@@ -329,7 +314,6 @@ public class KettlerTest {
 
         //Arrange
 
-        Kettler kettler = new Kettler(new KettlerSpec());
         List<String> expectedResult = new ArrayList<>();
         expectedResult.add("Cold Water Temperature");
         expectedResult.add("Volume Water To Heat");
@@ -347,10 +331,6 @@ public class KettlerTest {
     @Test
     void seeIfGetAttributeValueWorks() {
 
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
-
         //Act
 
         Object actualResult1 = kettler.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
@@ -366,10 +346,6 @@ public class KettlerTest {
 
     @Test
     void seeIfSetAttributeValueWorks() {
-
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
 
         //Act
 
@@ -391,10 +367,6 @@ public class KettlerTest {
     @Test
     void seeIfGetAttributeUnitWorks() {
 
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
-
         //Act
 
         Object actualResult1 = kettler.getAttributeUnit(KettlerSpec.COLD_WATER_TEMP);
@@ -410,10 +382,6 @@ public class KettlerTest {
 
     @Test
     void seeIfSetAttributeValueWorksWithInvalidValue() {
-
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
 
         //Act
 
@@ -435,10 +403,6 @@ public class KettlerTest {
     @Test
     void seeIfGetAttributeUnitIllegalThrowsArgument() {
 
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
-
         //Assert
 
         assertThrows(IllegalArgumentException.class,
@@ -447,10 +411,6 @@ public class KettlerTest {
 
     @Test
     void seeIfGetAttributeValueThrowsIllegalArgument() {
-
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
 
         //Assert
 
@@ -466,10 +426,6 @@ public class KettlerTest {
     @Test
     void seeIfSetAttributeValueThrowsIllegalArgument() {
 
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
-
         //Assert
 
         assertThrows(IllegalArgumentException.class,
@@ -479,21 +435,17 @@ public class KettlerTest {
     @Test
     void seeIfEqualsWorks() {
 
-        //Arrange
-
-        Kettler kettler1 = new Kettler(new KettlerSpec());
         Kettler kettler2 = new Kettler(new KettlerSpec());
         Kettler kettler3 = new Kettler(new KettlerSpec());
-        kettler1.setName("kettler1");
-        kettler2.setName("kettler2");
-        kettler3.setName("kettler1");
+        kettler2.setName("validKettler2");
+        kettler3.setName("validKettler1");
 
         //Act
 
-        boolean actualResult1 = kettler1.equals(kettler2);
-        boolean actualResult2 = kettler1.equals(kettler3);
-        boolean actualResult3 = kettler1.equals(20D);
-        boolean actualResult4 = kettler1.equals(kettler1);
+        boolean actualResult1 = kettler.equals(kettler2);
+        boolean actualResult2 = kettler.equals(kettler3);
+        boolean actualResult3 = kettler.equals(20D);
+        boolean actualResult4 = kettler.equals(kettler);
 
         //Assert
 
@@ -505,10 +457,6 @@ public class KettlerTest {
 
     @Test
     void seeIfHashCodeWorks() {
-
-        //Arrange
-
-        Kettler kettler = new Kettler(new KettlerSpec());
 
         //Act
 
