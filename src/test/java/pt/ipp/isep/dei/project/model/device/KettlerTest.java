@@ -62,15 +62,27 @@ class KettlerTest {
     }
 
     @Test
-    void seeIfDeactivateFails() { //The success case is tested in the next test indirectly
+    void seeIfDeactivateWorks() {
 
         //Act
-        kettler.deactivate();
-        boolean actualResult1 = kettler.deactivate();
+
+        boolean actualResult = kettler.deactivate();
 
         //Assert
 
-        assertFalse(actualResult1);
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateFails() {
+
+        //Act
+        kettler.deactivate();
+        boolean actualResult = kettler.deactivate();
+
+        //Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
@@ -310,6 +322,21 @@ class KettlerTest {
     }
 
     @Test
+    void seeIfGetEnergyConsumptionWorksWithInvalidTemperatureOnLimit() {
+        //Arrange
+
+        kettler.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 100D);
+        kettler.setAttributeValue(KettlerSpec.VOLUME_WATER, 1.5);
+
+        //Act
+
+        double consumption = kettler.getEnergyConsumption(10);
+
+        //Assert
+        assertEquals(0, consumption, 0.01);
+    }
+
+    @Test
     void seeIfGetAttributeNamesWorks() {
 
         //Arrange
@@ -446,6 +473,7 @@ class KettlerTest {
         boolean actualResult2 = kettler.equals(kettler3);
         boolean actualResult3 = kettler.equals(20D);
         boolean actualResult4 = kettler.equals(kettler);
+        boolean actualResult5 = kettler.equals(null);
 
         //Assert
 
@@ -453,6 +481,7 @@ class KettlerTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
         assertTrue(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test
