@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.reader;
 
-import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
 
 /**
  * Represents all the objects that have the function of reading a file.
@@ -8,5 +8,6 @@ import pt.ipp.isep.dei.project.model.House;
 
 public interface Reader {
 
-    void readAndSet(House house);
+    void readAndSet(GeographicAreaList geographicAreaList);
+
 }

@@ -77,13 +77,13 @@ public class MainUI {
         int option;
         while (true) {
             System.out.println(
-                     "                      ______          ___ _    _____ _    _ \n" +
-                     "                    / ____\\ \\        / (_) |  / ____| |  | |\n" +
-                     "                   | (___  \\ \\  /\\  / / _| |_| |    | |__| |\n" +
-                     "                    \\___ \\  \\ \\/  \\/ / | | __| |    |  __  |\n" +
-                     "                    ____) |  \\  /\\  /  | | |_| |____| |  | |\n" +
-                     "                   |_____/    \\/  \\/   |_|\\__|\\_____|_|  |_|    2018\n" +
-                     "                          \n                                Smart Grid Menu \n"
+                    "                      ______          ___ _    _____ _    _ \n" +
+                            "                    / ____\\ \\        / (_) |  / ____| |  | |\n" +
+                            "                   | (___  \\ \\  /\\  / / _| |_| |    | |__| |\n" +
+                            "                    \\___ \\  \\ \\/  \\/ / | | __| |    |  __  |\n" +
+                            "                    ____) |  \\  /\\  /  | | |_| |____| |  | |\n" +
+                            "                   |_____/    \\/  \\/   |_|\\__|\\_____|_|  |_|    2018\n" +
+                            "                          \n                                Smart Grid Menu \n"
             );
 
             // Submenus Input selection
@@ -95,7 +95,8 @@ public class MainUI {
                     "4. Sensor Settings.\n",
                     "5. Energy Grid Settings.\n",
                     "6. House Monitoring.\n",
-                    "7. Energy Consumption Management.\n" +
+                    "7. Energy Consumption Management.\n",
+                    "8. Import Data Files. \n" +
                             " 0. Exit Application\n"};
 
             System.out.println("Select the task you want to do:");
@@ -155,6 +156,10 @@ public class MainUI {
                     case 7:
                         EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
                         energyConsumptionUI.run(mockHouse);
+                        returnToMenu(enterToReturnToConsole);
+                        activeInput = false;
+                        break;
+                    case 8:
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;
