@@ -108,7 +108,13 @@ class KettlerSpecTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.getAttributeUnit("invalidName")); //same hashcode, diff strings
+                () -> this.kettlerSpec.getAttributeUnit("\0" + KettlerSpec.COLD_WATER_TEMP)); //same hashcode, diff strings
+
+        assertThrows(IllegalArgumentException.class,
+                () -> this.kettlerSpec.getAttributeUnit("\0" + KettlerSpec.VOLUME_WATER)); //same hashcode, diff strings
+
+        assertThrows(IllegalArgumentException.class,
+                () -> this.kettlerSpec.getAttributeUnit("\0" + KettlerSpec.PERFORMANCE_RATIO)); //same hashcode, diff strings
     }
 
     @Test
@@ -121,7 +127,14 @@ class KettlerSpecTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.getAttributeValue("invalidName")); //same hashcode, diff strings
+                () -> this.kettlerSpec.getAttributeValue("\0" + KettlerSpec.COLD_WATER_TEMP)); //same hashcode, diff strings
+
+        assertThrows(IllegalArgumentException.class,
+                () -> this.kettlerSpec.getAttributeValue("\0" + KettlerSpec.VOLUME_WATER)); //same hashcode, diff strings
+
+        assertThrows(IllegalArgumentException.class,
+                () -> this.kettlerSpec.getAttributeValue("\0" + KettlerSpec.PERFORMANCE_RATIO)); //same hashcode, diff strings
+
     }
 
     @Test
@@ -134,7 +147,13 @@ class KettlerSpecTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.setAttributeValue("invalidName", 200D)); //same hashcode, diff strings
+                () -> this.kettlerSpec.setAttributeValue("\0" + KettlerSpec.COLD_WATER_TEMP, 200D)); //same hashcode, diff strings
+
+        assertThrows(IllegalArgumentException.class,
+                () -> this.kettlerSpec.setAttributeValue("\0" + KettlerSpec.VOLUME_WATER, 200D)); //same hashcode, diff strings
+
+        assertThrows(IllegalArgumentException.class,
+                () -> this.kettlerSpec.setAttributeValue("\0" + KettlerSpec.PERFORMANCE_RATIO, 200D)); //same hashcode, diff strings
     }
 
     @Test
