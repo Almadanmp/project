@@ -460,6 +460,35 @@ class KettlerTest {
     }
 
     @Test
+    void seeIfAddLogWorks(){
+
+        //Arrange
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date startInterval = new Date();
+        Date endInterval = new Date();
+
+        try {
+            startInterval = validSdf.parse("11/01/2018 10:00:00");
+            endInterval = validSdf.parse("11/02/2018 10:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log log1 = new Log(20D, startInterval, endInterval);
+
+        //Act
+
+        boolean actualResult1 = kettler.addLog(log1);
+        boolean actualResult2 = kettler.addLog(log1);
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+    }
+
+    @Test
     void seeIfEqualsWorks() {
 
         Kettler kettler2 = new Kettler(new KettlerSpec());
