@@ -112,9 +112,9 @@ public class HouseMonitoringController {
         return readingList.getLastColdestDayInGivenInterval(startDate,endDate);
     }
 
-       /* US 633 - Controller Methods
-        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
-         period. */
+    /* US 633 - Controller Methods
+       As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
+       period. */
 
     /**
      * @param house       is the house we want to get the average rainfall from.
@@ -124,14 +124,12 @@ public class HouseMonitoringController {
      * sensor to the house.
      * @Author Daniela
      */
-    public double getHighestTempAmplitude (House house, Date initialDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType("temperature");
+    public Date getHighestTempAmplitude (House house, Date initialDate, Date endDate) {
+        Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
         return closestSensor.getHighestAmplitudeBetweenDates(initialDate, endDate);
     }
-
-
 }
 

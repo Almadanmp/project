@@ -291,8 +291,8 @@ public class Sensor {
      * @return highest amplitude reading value between interval
      * @Author Daniela - US633
      ***/
-    public double getHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
-        return this.readingList.getHighestAmplitudeBetweenDates(initialDate, endDate);
+    public Date getHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
+        return this.readingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
 
     /**
