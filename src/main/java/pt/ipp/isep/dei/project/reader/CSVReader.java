@@ -78,6 +78,7 @@ public class CSVReader implements Reader {
         String line = "";
         String cvsSplit = ",";
         String[] readings;
+        SensorList fullSensorList = getSensorData(geographicAreaList);
         try {
             fileReader = new FileReader(csvFileLocation);  //csvFileLocation : resources/csv/readings.csv (Or resources/csv/fakeCSV.csv)
             buffReader = new BufferedReader(fileReader);
@@ -88,7 +89,7 @@ public class CSVReader implements Reader {
             fileHandler.setFormatter(myFormat);
             while ((line = buffReader.readLine()) != null) {
                 readings = line.split(cvsSplit);
-                parseAndLog(readings, logger, geographicAreaList);
+                parseAndLog(readings, logger, fullSensorList);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,65 +126,64 @@ public class CSVReader implements Reader {
         return false;
     }
 
-/*
+
     /**
      * Gets the list of sensors that exist in the Geographic Area where the house is contained
      *
-     * @param house is the application house.
+     * @param geographicAreaList is the application Geographic Area List.
      * @return returns a SensorList of the geographical area of the house.
-     *
-    private SensorList getSensorData(House house) {
-        GeographicArea geoArea = house.getMotherArea();
-        SensorList sensorList = geoArea.getSensorList();
-        return sensorList;
+     */
+    private SensorList getSensorData(GeographicAreaList geographicAreaList) {
+        SensorList fullSensorList = new SensorList();
+        for (GeographicArea ga : geographicAreaList.getElementsAsArray()) {
+            for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
+                fullSensorList.add(sensor);
+            }
+        }
+        return fullSensorList;
     }
-*/
+
 
     /**
      * After reading a single line of the file, tries to parse the value, the date and the name to double, Date and
      * string respectively, and sees if the name of the sensor matches, and the reading is possible to add, else the
      * adding process fails and a log of the type 'warning' is generated.
      *
-     * @param logger             is an instance of a logger.
-     * @param readings           is an array of strings of all the parameters (each parameter separated by a comma),
-     *                           in each line of the CSV file.
-     * @param geographicAreaList is the Geographical Area List of the program.
+     * @param logger     is an instance of a logger.
+     * @param readings   is an array of strings of all the parameters (each parameter separated by a comma),
+     *                   in each line of the CSV file.
+     * @param sensorList is the Sensor List containing all sensors from all the geographic areas in the Geographic Area List.
      */
-    private void parseAndLog(String[] readings, Logger logger, GeographicAreaList geographicAreaList) {
-        try {
-            Double readValue = Double.parseDouble(readings[2]);
-            String readID = readings[0];
+    private void parseAndLog(String[] readings, Logger logger, SensorList sensorList) {
+        Double readValue = Double.parseDouble(readings[2]);
+        String readID = readings[0];
 
-            List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-            knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
-            knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy"));
-            knownPatterns.add(new SimpleDateFormat("d-MM-yyyy"));
+        List<SimpleDateFormat> knownPatterns = new ArrayList<>();
+        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
+        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
 
-            for (SimpleDateFormat pattern : knownPatterns) {
+        for (SimpleDateFormat pattern : knownPatterns) { //TODO:  Runs both parses for all the lines, yet to find different approach.
+
+            try {
                 Date readDate = pattern.parse(readings[1]);
-
-                for (GeographicArea ga : geographicAreaList.getElementsAsArray()) {
-                    for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
-
-                        if (sensor.getId().equals(readID) && !setCSVReadings(sensor, readDate, readValue) && logger.isLoggable(Level.WARNING)) {
-                            logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
-                        }
+                for (Sensor sensor : sensorList.getElementsAsArray()) {
+                    if (sensor.getId().equals(readID) && !setCSVReadings(sensor, readDate, readValue) && logger.isLoggable(Level.WARNING)) {
+                        logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
                     }
                 }
+            } catch (NumberFormatException nfe) {
+                System.out.println("The reading values are not numeric.");
+                logger.warning("The reading values are not numeric.");
+            } catch (ParseException c) {
+                // System.out.println("The date format is not valid.");
             }
-        } catch (NumberFormatException nfe) {
-            System.out.println("The reading values are not numeric.");
-            logger.warning("The reading values are not numeric.");
-        } catch (ParseException c) {
-            System.out.println("The date format is not valid.");
         }
-    }
 
+    }
 
     /**
      * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
      */
-
     private void startAndPromptPath() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert the location of the CSV file");
