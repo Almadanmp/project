@@ -192,7 +192,7 @@ public class Kettler implements Device, Metered {
         double specificHeat = 1.163;
         double heatingVolume = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.VOLUME_WATER);
         double coldWaterT = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
-        if (Math.max(coldWaterT, 100) == coldWaterT) {
+        if (coldWaterT > 100.0) {
             return 0;
         }
         double dT = 100 - coldWaterT;
