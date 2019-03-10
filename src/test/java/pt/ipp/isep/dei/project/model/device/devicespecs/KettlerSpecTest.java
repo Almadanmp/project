@@ -1,6 +1,4 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
-
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +12,7 @@ class KettlerSpecTest {
     private KettlerSpec kettlerSpec;
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         kettlerSpec = new KettlerSpec();
     }
 
@@ -55,19 +53,15 @@ class KettlerSpecTest {
     void seeIfSetAttributeValueWorks() {
         //Act
 
-        this.kettlerSpec.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 100D);
-        this.kettlerSpec.setAttributeValue(KettlerSpec.VOLUME_WATER, 200D);
-        this.kettlerSpec.setAttributeValue(KettlerSpec.PERFORMANCE_RATIO, 0.99);
-
-        Object actualResult1 = this.kettlerSpec.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
-        Object actualResult2 = this.kettlerSpec.getAttributeValue(KettlerSpec.VOLUME_WATER);
-        Object actualResult3 = this.kettlerSpec.getAttributeValue(KettlerSpec.PERFORMANCE_RATIO);
+        boolean actualResult1 = this.kettlerSpec.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 100D);
+        boolean actualResult2 = this.kettlerSpec.setAttributeValue(KettlerSpec.VOLUME_WATER, 200D);
+        boolean actualResult3 = this.kettlerSpec.setAttributeValue(KettlerSpec.PERFORMANCE_RATIO, 0.99);
 
         // Assert
 
-        assertEquals(100D, actualResult1);
-        assertEquals(200D, actualResult2);
-        assertEquals(0.99, actualResult3);
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertTrue(actualResult3);
     }
 
     @Test
@@ -132,4 +126,25 @@ class KettlerSpecTest {
         assertThrows(IllegalArgumentException.class,
                 () -> this.kettlerSpec.setAttributeValue("invalid string", 200D));
     }
+
+    @Test
+    void seeIfisRatioWorks() {
+        //Act
+
+        boolean actualResult1 = this.kettlerSpec.isARatio(0.0);
+        boolean actualResult2 = this.kettlerSpec.isARatio(0.90);
+        boolean actualResult3 = this.kettlerSpec.isARatio(1.0);
+        boolean actualResult4 = this.kettlerSpec.isARatio(1.50);
+        boolean actualResult5 = this.kettlerSpec.isARatio(-0.50);
+
+        // Assert
+
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertTrue(actualResult3);
+        assertFalse(actualResult4);
+        assertFalse(actualResult5);
+    }
+
+
 }

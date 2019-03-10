@@ -19,7 +19,7 @@ class KettlerTest {
     private Kettler kettler;
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         kettler = new Kettler(new KettlerSpec());
         kettler.setName("validKettler1");
     }
