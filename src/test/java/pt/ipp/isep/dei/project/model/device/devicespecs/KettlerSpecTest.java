@@ -103,7 +103,12 @@ class KettlerSpecTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.getAttributeUnit(""));
+                () -> this.kettlerSpec.getAttributeUnit("")); //diff hashcode
+
+        //Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> this.kettlerSpec.getAttributeUnit("invalidName")); //same hashcode, diff strings
     }
 
     @Test
@@ -111,12 +116,12 @@ class KettlerSpecTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.getAttributeValue(""));
+                () -> this.kettlerSpec.getAttributeValue("")); //diff hashcode
 
-        //AssertThrows
+        //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.setAttributeValue("", 200D));
+                () -> this.kettlerSpec.getAttributeValue("invalidName")); //same hashcode, diff strings
     }
 
     @Test
@@ -124,11 +129,16 @@ class KettlerSpecTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> this.kettlerSpec.setAttributeValue("", 200D));
+                () -> this.kettlerSpec.setAttributeValue("", 200D)); //diff hashcode
+
+        //Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> this.kettlerSpec.setAttributeValue("invalidName", 200D)); //same hashcode, diff strings
     }
 
     @Test
-    void seeIfisRatioWorks() {
+    void seeIfIsRatioWorks() {
         //Act
 
         boolean actualResult1 = this.kettlerSpec.isARatio(0.0);
