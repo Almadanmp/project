@@ -633,6 +633,85 @@ class RoomTest {
     }
 
     @Test
+    void seeIfIsSensorListEmptyWorks() {
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+
+        //Act
+
+        boolean actualResult1 = emptyDeviceList.isSensorListEmpty();
+        boolean actualResult2 = validRoom.isSensorListEmpty();
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfIsDeviceListEmptyWorks() {
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+
+        //Act
+
+        boolean actualResult1 = emptyDeviceList.isDeviceListEmpty();
+        boolean actualResult2 = validRoom.isDeviceListEmpty();
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfGetDeviceByIndexWorks() {
+
+        //Act
+
+        Device actualResult = validRoom.getDeviceByIndex(0);
+
+        //Assert
+
+        assertEquals(validDevice, actualResult);
+    }
+
+    @Test
+    void seeIfGetDeviceByIndexThrowsException() {
+
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+
+        //Assert
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            emptyDeviceList.getDeviceByIndex(0);
+        });
+    }
+
+    @Test
+    void seeIfBuildDevicesStringByTypeWorks() {
+
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+
+        //Act
+
+        String actualResult1 = emptyDeviceList.buildDevicesStringByType("WaterHeater");
+        String actualResult2 = validRoom.buildDevicesStringByType("WaterHeater");
+
+
+        //Assert
+
+        assertEquals("", actualResult1);
+        assertEquals("Device type: WaterHeater | Device name: WaterHeater | Nominal power: 21.0 | Room: Bedroom | \n", actualResult2);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         // Arrange
 
