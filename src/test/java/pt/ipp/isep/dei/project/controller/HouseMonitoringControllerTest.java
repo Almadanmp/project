@@ -69,6 +69,15 @@ class HouseMonitoringControllerTest {
         validRoom1.setSensorList(validSensorList);
         validHouse.setRoomList(validRoomList);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        // Pessoal, não vou apagar estas datas porque estão a ser usadas em vários testes
+        // Mas tanto em readability como em lógica, estão aleatórias e complicam bastante
+        // para quem quer ler e perceber uma data de inicio e de fim.
+        // Também por terem datas aleatórias, seguem um padrão de instancializaçao errado
+        // visto que um sensor guardará sempre as datas pela ordem em que as regista e nunca registará
+        // um dia 5 depois de um dia 10, no mesmo mes (por exemplo).
+        // Acrescentei portanto 10 datas novas para quem quiser usar nos testes.
+        // O ideal seria mudarem os vossos testes para todos usarem estas e poder apagar as antigas.
+        // Nas datas já está previstas as US630, 631 e 633, min max e amplitude.
         try {
             validDate1 = validSdf.parse("01/04/2018 15:00:00");
             validDate2 = validSdf.parse("01/04/2018 17:00:00");

@@ -407,7 +407,7 @@ public class ReadingList {
             throw new IllegalArgumentException("Warning: No temperature readings available.");
         }
         Date firstHottestDay = new Date();
-        double temp = 0.0;
+        double temp = -1000;
 
         for (Date day: daysWithReadings) {
             List<Double> listOfMaxReadings = getValuesOfSpecificDayReadings(day);
