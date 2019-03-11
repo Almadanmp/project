@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.reader.CSVReader;
 import pt.ipp.isep.dei.project.reader.JSONReader;
 
 import java.util.Scanner;
@@ -38,14 +39,18 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS101(house);
+                    runUS20(list);
                     activeInput = false;
                     break;
                 case 3:
-                    runUS105(house);
+                    runUS101(house);
                     activeInput = false;
                     break;
                 case 4:
+                    runUS105(house);
+                    activeInput = false;
+                    break;
+                case 5:
                     runUS108(house);
                     activeInput = false;
                     break;
@@ -82,6 +87,23 @@ class HouseConfigurationUI {
 
     private void updateModel(GeographicAreaDTO[] fileAreas, GeographicAreaList list){
         controller.addGeoAreasToList(fileAreas, list);
+    }
+
+    /* USER STORY 20 - As an Administrator,want to import geographical areas sensors’ readings into the application
+     from a CSV file. Data outside the valid sensor operation period shouldn’t be imported but registered in the
+     application log. */
+
+    /**
+     * As an Administrator, I want to import geographical areas sensors’ readings into the application
+     *      from a CSV file.
+     * @param list is the static, program list of geographic areas that comes from mainUI.
+     */
+    private void runUS20(GeographicAreaList list){
+        CSVReader reader = new CSVReader();
+        reader.readAndSet(list);
+
+        // C:\Users\andre\OneDrive\Desktop\DataSet_sprint04_GA.json
+        // C:\Users\andre\IdeaProjects\project_g2\resources\csv\DataSet_sp04_SensorData.csv
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
@@ -220,9 +242,10 @@ class HouseConfigurationUI {
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
         System.out.println("1) Import Geographic Areas and Sensors from a JSON file.");
-        System.out.println("2) Configure the location of the house. (US101)");
-        System.out.println("3) Add a new room to the house. (US105)");
-        System.out.println("4) List the existing rooms. (US108)");
+        System.out.println("2) Import Geographic Area Sensor Readings from a CSV file.");
+        System.out.println("3) Configure the location of the house. (US101)");
+        System.out.println("4) Add a new room to the house. (US105)");
+        System.out.println("5) List the existing rooms. (US108)");
         System.out.println("0) (Return to main menu)\n");
     }
 }
