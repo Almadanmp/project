@@ -22,7 +22,7 @@ public class CSVReader implements Reader {
 
 
     // TEST METHOD MOCK - Take out of comment to test
-
+/*
     public static void main(String[] args) {
 
         GeographicAreaList testGeoList = new GeographicAreaList();
@@ -63,13 +63,14 @@ public class CSVReader implements Reader {
         //System.out.println(test.getMostRecentValue());
         //System.out.println(test2.getMostRecentValue());
     }
-
+*/
 
     /**
      * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
      * a sensor to that same sensor ReadingList. Readings that are not possible to be added are displayed in a log file.
      *
      * @param geographicAreaList is the Geographic Area List of the application.
+     * @author Andre
      */
     public void readAndSet(GeographicAreaList geographicAreaList) {
         startAndPromptPath();
@@ -84,6 +85,7 @@ public class CSVReader implements Reader {
             buffReader = new BufferedReader(fileReader);
             Logger logger = Logger.getLogger(CSVReader.class.getName());
             CustomFormatter myFormat = new CustomFormatter();
+
             FileHandler fileHandler = new FileHandler("./resources/logs/LogOutput.log");
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
@@ -115,8 +117,9 @@ public class CSVReader implements Reader {
      * @param value  is the value read on the reading.
      * @param date   is the read date of the reading.
      * @return returns true if the reading was successfully added.
+     * @author Andre
      */
-    private boolean setCSVReadings(Sensor sensor, Date date, Double value) {
+    boolean setCSVReadings(Sensor sensor, Date date, Double value) {
         Date startingDate = sensor.getDateStartedFunctioning();
         if (date.after(startingDate) || date == startingDate) {
             Reading reading = new Reading(value, date);
@@ -132,8 +135,9 @@ public class CSVReader implements Reader {
      *
      * @param geographicAreaList is the application Geographic Area List.
      * @return returns a SensorList of the geographical area of the house.
+     * @author Andre
      */
-    private SensorList getSensorData(GeographicAreaList geographicAreaList) {
+    SensorList getSensorData(GeographicAreaList geographicAreaList) {
         SensorList fullSensorList = new SensorList();
         for (GeographicArea ga : geographicAreaList.getElementsAsArray()) {
             for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
@@ -142,7 +146,6 @@ public class CSVReader implements Reader {
         }
         return fullSensorList;
     }
-
 
     /**
      * After reading a single line of the file, tries to parse the value, the date and the name to double, Date and
@@ -153,8 +156,9 @@ public class CSVReader implements Reader {
      * @param readings   is an array of strings of all the parameters (each parameter separated by a comma),
      *                   in each line of the CSV file.
      * @param sensorList is the Sensor List containing all sensors from all the geographic areas in the Geographic Area List.
+     * @author Andre
      */
-    private void parseAndLog(String[] readings, Logger logger, SensorList sensorList) {
+    void parseAndLog(String[] readings, Logger logger, SensorList sensorList) {
         Double readValue = Double.parseDouble(readings[2]);
         String readID = readings[0];
 
@@ -183,8 +187,9 @@ public class CSVReader implements Reader {
 
     /**
      * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
+     * @author Andre
      */
-    private void startAndPromptPath() {
+    void startAndPromptPath() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert the location of the CSV file");
         this.csvFileLocation = scanner.next();
