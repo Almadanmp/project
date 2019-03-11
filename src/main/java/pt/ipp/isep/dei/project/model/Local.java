@@ -76,13 +76,6 @@ public class Local {
         return this.altitude;
     }
 
-    /**
-     * Convert coordinates TO radians
-     */
-    private static double deg2rad(double deg) {
-        return ((deg * Math.PI) / 180.0);
-    }
-
 
     /**
      * Method to obtain the linear distance between two locals in Km.
