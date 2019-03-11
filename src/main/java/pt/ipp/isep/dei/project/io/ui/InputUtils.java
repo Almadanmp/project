@@ -333,12 +333,14 @@ public class InputUtils {
      * @return date introduced by user
      */
     Date getInputYearMonthDay() {
+        Scanner scan = new Scanner(System.in);
         int year = getInputYear();
         boolean isLeapyear = new GregorianCalendar().isLeapYear(year);
         int month = getInputMonth();
         int day = getInputDay(isLeapyear, month);
         Date date = new GregorianCalendar(year, month, day).getTime();
         System.out.println(("You have chosen the following date:\n") + date.toString() + "\n");
+        scan.nextLine();
         return date;
     }
 

@@ -316,7 +316,7 @@ public class Sensor {
      * given period (lower maximum temperature).
      *
      * @param initialDate is the Initial Date of the period.
-     * @param finalDate   is the Final Date of the period.
+     * @param endDate   is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
     public Reading getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
