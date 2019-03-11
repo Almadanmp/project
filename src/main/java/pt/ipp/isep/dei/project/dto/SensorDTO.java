@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
-import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.ReadingList;
-import pt.ipp.isep.dei.project.model.TypeSensor;
 
 import java.util.Date;
 import java.util.UUID;
@@ -10,8 +8,11 @@ import java.util.UUID;
 public class SensorDTO {
 
     private String name;
-    private TypeSensor typeSensor;
-    private Local local;
+    private String typeSensorName;
+    private String typeSensorUnits;
+    private double latitude;
+    private double longitude;
+    private double altitude;
     private Date dateStartedFunctioning;
     private ReadingList readingList;
     private UUID uniqueID;
@@ -32,20 +33,36 @@ public class SensorDTO {
         this.name = name;
     }
 
-    public TypeSensor getTypeSensor() {
-        return typeSensor;
+    public String getTypeSensorName() {
+        return typeSensorName;
     }
 
-    public void setTypeSensor(TypeSensor typeSensor) {
-        this.typeSensor = typeSensor;
+    public void setTypeSensorName(String typeSensorName) {
+        this.typeSensorName = typeSensorName;
     }
 
-    public Local getLocal() {
-        return local;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLocal(Local local) {
-        this.local = local;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getAltitude() {
+        return altitude;
+    }
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
     }
 
     public Date getDateStartedFunctioning() {
@@ -54,6 +71,14 @@ public class SensorDTO {
 
     public void setDateStartedFunctioning(Date dateStartedFunctioning) {
         this.dateStartedFunctioning = dateStartedFunctioning;
+    }
+
+    public String getTypeSensorUnits() {
+        return typeSensorUnits;
+    }
+
+    public void setTypeSensorUnits(String typeSensorUnits) {
+        this.typeSensorUnits = typeSensorUnits;
     }
 
     public ReadingList getReadingList() {

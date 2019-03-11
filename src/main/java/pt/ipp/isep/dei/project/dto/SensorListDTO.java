@@ -13,18 +13,13 @@ public class SensorListDTO {
         this.sensors = new ArrayList<>();
     }
 
-    /**
-     * Constructor to always create an Array of Sensors.
-     *
-     * @param sensorToAdd the selected sensor.
-     */
-    public SensorListDTO(SensorDTO sensorToAdd) {
-        sensors = new ArrayList<>();
-        sensors.add(sensorToAdd);
-    }
 
     public List<SensorDTO> getSensors() {
         return sensors;
+    }
+
+    public void setSensors(List<SensorDTO> sensors) {
+        this.sensors = sensors;
     }
 
     /**

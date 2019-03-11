@@ -66,9 +66,12 @@ public class Mapper {
     public SensorDTO sensorToDTO(Sensor sensor) {
         sensorDTO.setName(sensor.getName());
         sensorDTO.setDateStartedFunctioning(sensor.getDateStartedFunctioning());
-        sensorDTO.setLocal(sensor.getLocal());
+        sensorDTO.setLongitude(sensor.getLocal().getLongitude());
+        sensorDTO.setLatitude(sensor.getLocal().getLatitude());
+        sensorDTO.setAltitude(sensor.getLocal().getAltitude());
         sensorDTO.setReadingList(sensor.getReadingList());
-        sensorDTO.setTypeSensor(sensor.getTypeSensor());
+        sensorDTO.setTypeSensorName(sensor.getTypeSensor().getName());
+        sensorDTO.setTypeSensorUnits(sensor.getTypeSensor().getUnits());
         sensorDTO.setUniqueID(sensor.getUniqueID());
         return sensorDTO;
     }
@@ -108,15 +111,18 @@ public class Mapper {
             if (s.getUniqueID().compareTo(sensorDTO.getUniqueID()) == 0) {
                 s.setName(sensorDTO.getName());
                 s.setReadingList(sensorDTO.getReadingList());
-                s.setLocal(sensorDTO.getLocal());
+
+                s.setLocal(new Local(sensorDTO.getLatitude(),sensorDTO.getLongitude(),sensorDTO.getAltitude()));
                 s.setDateStartedFunctioning(sensorDTO.getDateStartedFunctioning());
-                s.setTypeSensor(sensorDTO.getTypeSensor());
+                s.setTypeSensor(new TypeSensor(sensorDTO.getTypeSensorName(),sensorDTO.getTypeSensorUnits()));
                 s.setUniqueID(sensorDTO.getUniqueID());
                 sensor = s;
             }
         }
         return sensor;
     }
+
+
 }
 
 

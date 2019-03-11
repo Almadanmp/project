@@ -410,7 +410,7 @@ public class ReadingList {
     public ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
         ReadingList result = new ReadingList();
         for (Reading r : this.readings) {
-            if (r.getValue() == value) {
+            if (Double.compare(r.getValue(),value)==0) {
                 result.addReading(r);
             }
         }
