@@ -111,6 +111,14 @@ public class HouseMonitoringController {
         return closestSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
 
+    public Date getLastColdestDayInIntervalDate(Reading reading){
+        return reading.getDate();
+    }
+
+    public double getLastColdestDayInIntervalValue(Reading reading){
+        return reading.getValue();
+    }
+
     /* US 633 - Controller Methods
        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
        period. */
