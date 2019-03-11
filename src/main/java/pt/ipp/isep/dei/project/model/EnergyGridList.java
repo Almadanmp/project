@@ -51,16 +51,6 @@ public class EnergyGridList {
     }
 
     /**
-     * This method checks if the Energy Grid List already has a given EnergyGrid
-     *
-     * @param energyGrid - given EnergyGrid
-     * @return whether it contains or not (boolean)
-     */
-    public boolean contains(EnergyGrid energyGrid) {
-        return this.energyGrids.contains(energyGrid);
-    }
-
-    /**
      * This method checks if the energy grid list is empty.
      *
      * @return returns true if the list is empty, false otherwise.
