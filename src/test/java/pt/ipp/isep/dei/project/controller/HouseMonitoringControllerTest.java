@@ -151,7 +151,7 @@ class HouseMonitoringControllerTest {
     void seeIfGetCurrentRoomTemperatureWorks() {
         // Arrange
 
-        double expectedResult = 20;
+        double expectedResult = 21.2;
 
         // Act
 
@@ -168,7 +168,7 @@ class HouseMonitoringControllerTest {
 
         validHouseArea.setSensorList(validSensorList);
         validHouse.setMotherArea(validHouseArea);
-        double expectedResult = 20;
+        double expectedResult = 21.2;
 
         // Act
 

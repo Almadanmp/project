@@ -23,7 +23,7 @@ public class MapperTest {
         mapper = new Mapper();
         SimpleDateFormat day = new SimpleDateFormat("dd-MM-yyyy");
         try {
-            date = day.parse("12/12/2018");
+            date = day.parse("12-12-2018");
         } catch (ParseException e) {
             e.printStackTrace();
         }
