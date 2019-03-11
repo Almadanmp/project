@@ -391,7 +391,7 @@ public class ReadingList {
      * @param value is the value we want to choose.
      * @return a ReadingList with a chosen value.
      */
-    public ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
+    ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
         ReadingList result = new ReadingList();
         for (Reading r : this.readings) {
             if (Double.compare(r.getValue(), value) == 0) {
@@ -409,7 +409,7 @@ public class ReadingList {
      * @param date        is the Date of the reading we want to get.
      * @return a Reading from the ReadingList with a Specific Date.
      */
-    public Reading getReadingWithSpecificDate(ReadingList readingList, Date date) {
+    Reading getReadingWithSpecificDate(ReadingList readingList, Date date) {
         Reading result = null;
         for (int i = 0; i < readingList.size(); i++) {
             if (readingList.get(i).getDate().equals(date)) {
@@ -430,7 +430,7 @@ public class ReadingList {
      * @param finalDate   is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
-    public Reading getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
+    Reading getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
         List<Double> listOfMaxValuesForEachDay = getListOfMaxValuesForEachDay(initialDate, finalDate);
         double minValueInList = Collections.min(listOfMaxValuesForEachDay);
         ReadingList readingList = getReadingListOfReadingsWithSpecificValue(minValueInList);
@@ -446,7 +446,7 @@ public class ReadingList {
      * @param day is the day we want to know the maximum value.
      * @return a double that represents the maximum value of the day.
      */
-    public Double getMaxValueOfTheDay(Date day) {
+    Double getMaxValueOfTheDay(Date day) {
         double result = getValuesOfSpecificDayReadings(day).get(0);
         day.setTime(getFirstSecondOfDay(day).getTime());
         for (Reading r : this.readings) {
@@ -468,7 +468,7 @@ public class ReadingList {
      * @return a List of doubles that represents a List of maximum values of the ReadingList for each
      * day within a given period.
      */
-    public List<Double> getListOfMaxValuesForEachDay(Date initialDate, Date finalDate) {
+    List<Double> getListOfMaxValuesForEachDay(Date initialDate, Date finalDate) {
         List<Double> list = new ArrayList<>();
         List<Date> dateList = new ArrayList<>();
         for (int listIndex = 0; listIndex < size(); listIndex++) {
