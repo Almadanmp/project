@@ -283,17 +283,30 @@ public class Sensor {
     }
 
     /**
-     * This method receives an interval, goes through the sensor's reading list and returns the
+     * This method receives an interval, goes through the sensor's reading list and returns the date with the
      * highest amplitude reading value between the interval given.
      *
      * @param initialDate start of interval
      * @param endDate     end of interval
-     * @return highest amplitude reading value between interval
+     * @return date with the highest amplitude reading value between interval
      * @Author Daniela - US633
      ***/
-    public Date getHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
+    public Date getDateHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
         return this.readingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
+
+    /**
+     * This method receives a date, goes through the sensor's reading list and returns the highest amplitude reading
+     * value on that date.
+     *
+     * @param date start of interval
+     * @return highest amplitude reading value on date
+     * @Author Daniela - US633
+     ***/
+    public double getHighestAmplitudeInDate(Date date) {
+        return this.readingList.getAmplitudeValueFromDate(date);
+    }
+
 
     /**
      * US630
@@ -306,8 +319,8 @@ public class Sensor {
      * @param finalDate   is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
-    public Reading getLastColdestDayInGivenInterval(Date initialDate, Date endDate){
-        return this.readingList.getLastColdestDayInGivenInterval(initialDate,endDate);
+    public Reading getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
+        return this.readingList.getLastColdestDayInGivenInterval(initialDate, endDate);
     }
 
     /**

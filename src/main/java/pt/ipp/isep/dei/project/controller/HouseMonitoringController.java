@@ -153,7 +153,17 @@ public class HouseMonitoringController {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
                     "available.");
         }
-        return closestSensor.getHighestAmplitudeBetweenDates(initialDate, endDate);
+        return closestSensor.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
+    }
+
+    public double getHighestTempAmplitudeValue(House house, Date dateInput) {
+        Date date = dateInput;
+        Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
+        if (closestSensor.isReadingListEmpty()) {
+            throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
+                    "available.");
+        }
+        return closestSensor.getHighestAmplitudeInDate(date);
     }
 }
 

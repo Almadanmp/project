@@ -342,18 +342,70 @@ class HouseMonitoringControllerTest {
 
 
     @Test
-    void seeIfGetHighestTempAmplitudeDateSuccessThrowsException() {
+    void seeIfGetHighestTempAmplitudeDateThrowsException() {
         //Test if it throws exception when there is no readings available for the period requested
         SensorList invalidSensorList = new SensorList();
         validHouseArea.setSensorList(invalidSensorList);
         GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            controller.getHighestTempAmplitudeDate(validHouse, startDate.getTime(), endDate.getTime());
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getHighestTempAmplitudeDate(validHouse, startDate.getTime(), endDate.getTime()));
 
         assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
+                exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeValueSuccess() {
+        validHouseArea.setSensorList(validSensorList);
+
+        double expectedResult = 15.0;
+
+        double actualResult = controller.getHighestTempAmplitudeValue(validHouse, validDate1);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeValueThrowsException() {
+        //Test if it throws exception when there is no readings available for the period requested
+        SensorList invalidSensorList = new SensorList();
+        validHouseArea.setSensorList(invalidSensorList);
+        GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getHighestTempAmplitudeValue(validHouse, startDate.getTime()));
+
+        assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
+                exception.getMessage());
+    }
+
+    @Test
+    void seeIfWeGetLastColdestDayInIntervalDateAndValueWorks() {
+        //Arrange
+        validHouseArea.setSensorList(validSensorList);
+        Reading readingExpectedResult = new Reading(30, validDate3);
+        Date dateExpectedResult = validDate3;
+        double valueExpectedResult= 30.0;
+        //Act
+        Reading readingActualResult = controller.getLastColdestDayInInterval(validHouse,validDate6,validDate1);
+        Date dateActualResult = controller.getLastColdestDayInIntervalDate(readingActualResult);
+        double valueActualResult = controller.getLastColdestDayInIntervalValue(readingActualResult);
+        //Assert
+        assertEquals(readingExpectedResult,readingActualResult);
+        assertEquals(dateExpectedResult,dateActualResult);
+        assertEquals(valueExpectedResult,valueActualResult);
+    }
+
+    @Test
+    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException() {
+        //Act
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            controller.getLastColdestDayInInterval(validHouse,validDate6,validDate1);
+        });
+
+        assertEquals("Warning: Values could not be calculated - No readings available.",
                 exception.getMessage());
     }
 }
