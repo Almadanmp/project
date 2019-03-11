@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.spi.CalendarNameProvider;
 
 import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.*;
@@ -802,17 +801,26 @@ class ReadingListTest {
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDates() {
-        GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.JANUARY, 1);
-        GregorianCalendar endDate = new GregorianCalendar(2019, Calendar.JANUARY, 1);
-        validReadingList.addReading(new Reading(22, validDate5));
-        validReadingList.addReading(new Reading(30, validDate5));
-        validReadingList.addReading(new Reading(30, validDate14));
-        validReadingList.addReading(new Reading(30, validDate14));
-        validReadingList.addReading(new Reading(-5, validDate2));
-        validReadingList.addReading(new Reading(50, validDate17));
-        Date expectedResult = validDate2;
+        validReadingList.addReading(new Reading(22, validDate9));
+        validReadingList.addReading(new Reading(30, validDate16));
+        validReadingList.addReading(new Reading(5, validDate18));
+        validReadingList.addReading(new Reading(50, validDate19));
+        Date expectedResult = validDate18;
 
-        Date result = validReadingList.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime());
+        Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChange() {
+        validReadingList.addReading(new Reading(22, validDate9));
+        validReadingList.addReading(new Reading(22, validDate16));
+        validReadingList.addReading(new Reading(22, validDate18));
+        validReadingList.addReading(new Reading(22, validDate19));
+        Date expectedResult = validDate18;
+
+        Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
 
         assertEquals(expectedResult, result);
     }
@@ -823,9 +831,8 @@ class ReadingListTest {
         GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            validReadingList.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime());
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                validReadingList.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime()));
 
         assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
                 exception.getMessage());
