@@ -38,6 +38,17 @@ class HouseMonitoringControllerTest {
     private Date validDate5;
     private Date validDate6;
 
+    private Date validDate01;
+    private Date validDate02;
+    private Date validDate03;
+    private Date validDate04;
+    private Date validDate05;
+    private Date validDate06;
+    private Date validDate07;
+    private Date validDate08;
+    private Date validDate09;
+    private Date validDate10;
+
     @BeforeEach
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
@@ -66,6 +77,17 @@ class HouseMonitoringControllerTest {
             validDate5 = validSdf.parse("08/12/2017 15:00:00");
             validDate6 = validSdf.parse("19/12/2017 15:00:00");
 
+            validDate01 = validSdf.parse("02/02/2017 01:00:00");
+            validDate02 = validSdf.parse("02/02/2017 22:30:00");
+            validDate03 = validSdf.parse("25/06/2017 10:00:00");
+            validDate04 = validSdf.parse("02/10/2017 15:30:00");
+            validDate05 = validSdf.parse("13/12/2017 01:02:00");
+            validDate06 = validSdf.parse("02/01/2018 22:00:00");
+            validDate07 = validSdf.parse("09/07/2018 12:20:00");
+            validDate08 = validSdf.parse("02/08/2018 08:00:00");
+            validDate09 = validSdf.parse("05/02/2019 01:15:00");
+            validDate10 = validSdf.parse("05/02/2019 20:00:00");
+
         } catch (ParseException c) {
             c.printStackTrace();
         }
@@ -87,6 +109,27 @@ class HouseMonitoringControllerTest {
         validTemperatureSensor.addReading(fifthTempReading);
         validSensorList.add(validTemperatureSensor);
 
+        Reading r01 = new Reading(20, validDate01); // Max Amplitude First Date
+        Reading r02 = new Reading(1, validDate02); // Max Amplitude First Date
+        Reading r03 = new Reading(22, validDate03);
+        Reading r04 = new Reading(10, validDate04); // Min First Date
+        Reading r05 = new Reading(40, validDate05);
+        Reading r06 = new Reading(40.2, validDate06); // Max First Date
+        Reading r07 = new Reading(10.2, validDate07);
+        Reading r08 = new Reading(12, validDate08);
+        Reading r09 = new Reading(40.2, validDate09); // Max Final Date ALSO Max Amplitude Final Date
+        Reading r10 = new Reading(21.2, validDate10); // Min Final Date ALSO Max Amplitude Final Date
+
+        validTemperatureSensor.addReading(r01);
+        validTemperatureSensor.addReading(r02);
+        validTemperatureSensor.addReading(r03);
+        validTemperatureSensor.addReading(r04);
+        validTemperatureSensor.addReading(r05);
+        validTemperatureSensor.addReading(r06);
+        validTemperatureSensor.addReading(r07);
+        validTemperatureSensor.addReading(r08);
+        validTemperatureSensor.addReading(r09);
+        validTemperatureSensor.addReading(r10);
 
         // Sets up a valid rainfall sensor with valid readings.
 
@@ -407,5 +450,20 @@ class HouseMonitoringControllerTest {
 
         assertEquals("Warning: Values could not be calculated - No readings available.",
                 exception.getMessage());
+    }
+
+    /**
+     * Tests for getFirstHottestDayInPeriod
+     */
+
+    @Test
+    void testGetFirstHottestDayInPeriod() {
+        // Arrange
+        validHouseArea.setSensorList(validSensorList);
+        Date expectedResult = validDate06;
+        // Act
+        Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate10);
+        // Assert
+        assertEquals(expectedResult,actualResult);
     }
 }
