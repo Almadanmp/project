@@ -10,6 +10,7 @@ import static java.lang.Double.NaN;
 
 public class ReadingList {
 
+    private static final String EMPTY_LIST = "The reading list is empty.";
     private ArrayList<Reading> readings;
 
     /**
@@ -42,7 +43,7 @@ public class ReadingList {
      */
     public Reading get(int index) {
         if (this.readings.isEmpty()) {
-            throw new IndexOutOfBoundsException("The reading list is empty.");
+            throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
         return this.readings.get(index);
     }
@@ -55,7 +56,7 @@ public class ReadingList {
      */
     double getValueReading(int index) {
         if (this.readings.isEmpty()) {
-            throw new IndexOutOfBoundsException("The reading list is empty.");
+            throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
         Reading reading = this.readings.get(index);
         return reading.getValue();
@@ -69,7 +70,7 @@ public class ReadingList {
      */
     Date getValueDate(int index) {
         if (this.readings.isEmpty()) {
-            throw new IndexOutOfBoundsException("The reading list is empty.");
+            throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
         Reading reading = this.readings.get(index);
         return reading.getDate();
@@ -223,9 +224,8 @@ public class ReadingList {
         for (int i = 0; i < readings.size(); i++) {
             Date currentReadingDate = this.getValueDate(i);
             if (isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
-                GregorianCalendar aux = new GregorianCalendar();
-                aux.setTime(currentReadingDate);
-                Date readingDay = getFirstSecondOfDay(aux.getTime());
+
+                Date readingDay = getFirstSecondOfDay(currentReadingDate);
 
                 if (!daysProcessed.contains(readingDay)) {
                     daysProcessed.add(readingDay);
