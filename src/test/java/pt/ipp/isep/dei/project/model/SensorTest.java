@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Sensor tests class.
@@ -396,7 +397,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 32,
                 21, testLocal);
         Local wrongLatitude = new Local(35, 20, 5);
-        Sensor testSensor = new Sensor("RF12345","XV56-LD1", new TypeSensor("Temperature", "Celsius"),
+        Sensor testSensor = new Sensor("RF123451","XV56-LD1", new TypeSensor("Temperature", "Celsius"),
                 wrongLatitude, new Date());
 
         // Act
@@ -436,7 +437,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 10,
                 10, testLocal);
         Local wrongLongitude = new Local(100, 100, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Temperature", "Fahrenheit"),
+        Sensor testSensor = new Sensor("RF123452","Sensor", new TypeSensor("Temperature", "Fahrenheit"),
                 wrongLongitude, new Date());
 
         // Act
@@ -456,7 +457,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 100,
                 100, testLocal);
         Local wrongLongitude = new Local(20, -35, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
+        Sensor testSensor = new Sensor("RF123453","Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
                 new Date());
 
         // Act
@@ -801,6 +802,21 @@ class SensorTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetId() {
+        // Arrange
+
+        validSensor.setUniqueID(UUID.randomUUID());
+
+        // Act
+
+        UUID uuid = validSensor.getUniqueID();
+
+        // Assert
+
+        assertTrue(uuid instanceof UUID); // Needed for Sonarqube testing purposes.
     }
 }
 

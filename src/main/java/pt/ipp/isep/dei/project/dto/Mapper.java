@@ -49,8 +49,8 @@ public class Mapper {
                 geographicAreaDTO.getWidth(), new Local(geographicAreaDTO.getLatitudeGeoAreaDTO(), geographicAreaDTO.getLongitudeGeoAreaDTO(),
                 geographicAreaDTO.getAltitudeGeoAreaDTO()));
         SensorList sensorList = new SensorList();
-        for (SensorDTO sensorDTO : geographicAreaDTO.getAreaSensors()) {
-            Sensor sensor = sensorDTOToObject(sensorDTO);
+        for (SensorDTO sensorsDTO : geographicAreaDTO.getAreaSensors()) {
+            Sensor sensor = sensorDTOToObject(sensorsDTO);
             sensorList.add(sensor);
         }
         geographicArea.setAreaSensors(sensorList);
@@ -69,8 +69,8 @@ public class Mapper {
         geographicAreaDTO.setLongitudeGeoAreaDTO(geographicArea.getLocation().getLongitude());
         geographicAreaDTO.setAltitudeGeoAreaDTO(geographicArea.getLocation().getAltitude());
         for (Sensor s : geographicArea.getAreaSensors().getSensors()) {
-            SensorDTO sensorDTO = sensorToDTO(s);
-            listSensorDTO.add(sensorDTO);
+            SensorDTO sensorsDTO = sensorToDTO(s);
+            listSensorDTO.add(sensorsDTO);
         }
         geographicAreaDTO.setAreaSensors(listSensorDTO);
         geographicAreaDTO.setDescription(geographicArea.getDescription());
