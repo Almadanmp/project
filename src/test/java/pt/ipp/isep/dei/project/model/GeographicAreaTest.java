@@ -263,7 +263,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetId() {
+    void seeIfGetUUId() {
         // Arrange
 
         validArea.setUniqueId(UUID.randomUUID());
@@ -275,6 +275,86 @@ class GeographicAreaTest {
         // Assert
 
         assertTrue(uuid instanceof UUID); // Needed for Sonarqube testing purposes.
+    }
+
+    @Test
+    void seeIfGetId() {
+        // Arrange
+
+        validArea.setId("Malta");
+
+        // Act
+
+        String id = validArea.getId();
+
+        // Assert
+
+        assertEquals("Malta", id);
+    }
+
+    @Test
+    void seeIfGetTypeArea() {
+        // Arrange
+
+        TypeArea type = new TypeArea("Island");
+        validArea.setTypeArea(type);
+
+        // Act
+
+        TypeArea actualType = validArea.getTypeArea();
+
+        // Assert
+
+        assertEquals(type, actualType);
+    }
+
+    @Test
+    void seeIfGetLocation() {
+        // Arrange
+
+        Local local = new Local(51, 24, 36);
+        validArea.setLocation(local);
+
+        // Act
+
+        Local actualLocal = validArea.getLocal();
+
+        // Assert
+
+        assertEquals(local, actualLocal);
+    }
+
+    @Test
+    void seeIfGetSensorList() {
+        // Arrange
+
+        SensorList sensorList = new SensorList();
+        validArea.setSensorList(sensorList);
+
+        // Act
+
+        SensorList actualSensorList = validArea.getSensorList();
+
+        // Assert
+
+        assertEquals(sensorList, actualSensorList);
+    }
+    @Test
+    void seeIfGetLengthWidth() {
+        // Arrange
+
+        validArea.setWidth(5);
+        validArea.setLength(10);
+
+        // Act
+
+        double actualWidth = validArea.getWidth();
+        double actualLength = validArea.getLength();
+
+        // Assert
+
+        assertEquals(10, actualLength);
+        assertEquals(5,actualWidth);
     }
 }
 
