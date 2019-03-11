@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.dto;
 
 import pt.ipp.isep.dei.project.model.GeographicArea;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,13 +17,13 @@ public class GeographicAreaDTO {
     private double latitude;
     private double longitude;
     private double altitude;
-    private List<SensorDTO> areaSensors;
+    private List<SensorDTO> areaSensors = new ArrayList<>();
     private String description;
     private UUID uniqueId;
 
-    public void setUniqueId(UUID uniqueId){this.uniqueId = uniqueId;}
+    void setUniqueId(UUID uniqueId){this.uniqueId = uniqueId;}
 
-    public UUID getUniqueId() {
+    UUID getUniqueId() {
         return uniqueId;
     }
 
@@ -34,7 +35,7 @@ public class GeographicAreaDTO {
         return this.id;
     }
 
-    public String getTypeArea() {
+    String getTypeArea() {
         return typeArea;
     }
 
@@ -58,7 +59,7 @@ public class GeographicAreaDTO {
         this.width = width;
     }
 
-    public GeographicArea getMotherArea() {
+    GeographicArea getMotherArea() {
         return motherArea;
     }
 
@@ -90,15 +91,19 @@ public class GeographicAreaDTO {
         this.altitude = altitude;
     }
 
-    public List<SensorDTO> getAreaSensors() {
+    public void addSensorDTO(SensorDTO sensorToAdd){
+        this.areaSensors.add(sensorToAdd);
+    }
+
+    List<SensorDTO> getAreaSensors() {
         return areaSensors;
     }
 
-    public void setAreaSensors(List<SensorDTO> areaSensors) {
+    void setAreaSensors(List<SensorDTO> areaSensors) {
         this.areaSensors = areaSensors;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
