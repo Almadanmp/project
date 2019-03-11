@@ -22,6 +22,7 @@ public class TypeSensorList {
     /**
      * Method receives a type Sensor, checks if it already exists in list
      * and adds it in case it does not exist in list.
+     *
      * @param typeSensor The type of the Sensor
      * @return true in case the type sensor is added, false otherwise
      **/
@@ -35,11 +36,12 @@ public class TypeSensorList {
 
     /**
      * This method receives an index as parameter and gets a type sensor from Type Sensor list.
+     *
      * @param index the type sensor index
      * @return returns Type Sensor that corresponds to index.
      */
     public TypeSensor get(int index) {
-        if(this.typeSensors.isEmpty()){
+        if (this.typeSensors.isEmpty()) {
             throw new IndexOutOfBoundsException("The type sensor list is empty.");
         }
         return this.typeSensors.get(index);
@@ -85,7 +87,7 @@ public class TypeSensorList {
 
     /**
      * Getter (array of Type Sensors)
-
+     *
      * @return array of Type Sensors
      */
     TypeSensor[] getElementsAsArray() {

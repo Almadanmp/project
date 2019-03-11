@@ -2,9 +2,10 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -412,4 +413,91 @@ class SensorListTest {
         assertArrayEquals(expectedResult2, actualResult2);
         assertArrayEquals(expectedResult3, actualResult3);
     }
+
+    @Test
+    void seeIfGetSensorsByDistanceToHouseWorks() {
+        //Arrange
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+
+        try {
+            date = validSdf.parse("10/02/2017 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //Sensors
+
+        Sensor sensorSameLocalHouse = new Sensor("123", "sameLocalAsHouse", new TypeSensor("Temperature", "K"), new Local(20, 20, 20), date);
+        Sensor sensorDiffLocalHouse = new Sensor("125", "DiffLocalAsHouse", new TypeSensor("Temperature", "K"), new Local(20, 25, 20), date);
+
+        SensorList validSensorList = new SensorList();
+        validSensorList.add(sensorDiffLocalHouse);
+        validSensorList.add(sensorSameLocalHouse);
+
+        //House
+
+        List<String> deviceTypeString = new ArrayList<>();
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea
+                ("Cidade"), 2, 3, new Local(4, 4, 100)), 60,
+                180, deviceTypeString);
+
+
+        SensorList expectedResult = new SensorList();
+        expectedResult.add(sensorSameLocalHouse);
+
+        //Act
+
+        SensorList actualResult = validSensorList.getSensorsByDistanceToHouse(house, 0);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSizeWorks() {
+
+        //Arrange
+
+        SensorList emptyList = new SensorList();
+        SensorList twoSensors = new SensorList();
+        twoSensors.add(firstValidSensor);
+        twoSensors.add(secondValidSensor);
+
+        //Act
+
+        int actualResult1 = emptyList.size();
+        int actualResult2 = validSensorList.size();
+        int actualResult3 = twoSensors.size();
+
+        //Assert
+
+        assertEquals(0, actualResult1);
+        assertEquals(1, actualResult2);
+        assertEquals(2, actualResult3);
+    }
+
+    @Test
+    void seeIfContainsWorks() {
+
+        //Arrange
+
+        SensorList emptyList = new SensorList();
+
+        //Act
+
+        boolean actualResult1 = emptyList.contains(firstValidSensor);
+        boolean actualResult2 = validSensorList.contains(firstValidSensor);
+        boolean actualResult3 = validSensorList.contains(secondValidSensor);
+
+        //Assert
+
+        assertFalse(actualResult1);
+        assertTrue(actualResult2);
+        assertFalse(actualResult3);
+    }
+
 }
