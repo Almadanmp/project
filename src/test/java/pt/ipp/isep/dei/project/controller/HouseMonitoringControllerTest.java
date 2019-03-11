@@ -430,23 +430,22 @@ class HouseMonitoringControllerTest {
         validHouseArea.setSensorList(validSensorList);
         Reading readingExpectedResult = new Reading(30, validDate3);
         Date dateExpectedResult = validDate3;
-        double valueExpectedResult= 30.0;
+        double valueExpectedResult = 30.0;
         //Act
-        Reading readingActualResult = controller.getLastColdestDayInInterval(validHouse,validDate6,validDate1);
+        Reading readingActualResult = controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1);
         Date dateActualResult = controller.getLastColdestDayInIntervalDate(readingActualResult);
         double valueActualResult = controller.getLastColdestDayInIntervalValue(readingActualResult);
         //Assert
-        assertEquals(readingExpectedResult,readingActualResult);
-        assertEquals(dateExpectedResult,dateActualResult);
-        assertEquals(valueExpectedResult,valueActualResult);
+        assertEquals(readingExpectedResult, readingActualResult);
+        assertEquals(dateExpectedResult, dateActualResult);
+        assertEquals(valueExpectedResult, valueActualResult);
     }
 
     @Test
     void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException() {
         //Act
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            controller.getLastColdestDayInInterval(validHouse,validDate6,validDate1);
-        });
+        Throwable exception = assertThrows(IllegalStateException.class, () ->
+                controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1));
 
         assertEquals("Warning: Values could not be calculated - No readings available.",
                 exception.getMessage());
@@ -464,6 +463,6 @@ class HouseMonitoringControllerTest {
         // Act
         Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate10);
         // Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 }
