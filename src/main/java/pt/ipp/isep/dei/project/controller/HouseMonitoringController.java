@@ -28,7 +28,7 @@ public class HouseMonitoringController {
 
     public double getCurrentRoomTemperature(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getCurrentRoomTemperature();
     }
 
@@ -41,7 +41,7 @@ public class HouseMonitoringController {
 
     public double getDayMaxTemperature(RoomDTO roomDTO, Date day, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getMaxTemperatureOnGivenDay(day);
     }
 
@@ -54,7 +54,7 @@ public class HouseMonitoringController {
      **/
     public String getRoomName(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getRoomName();
     }
 

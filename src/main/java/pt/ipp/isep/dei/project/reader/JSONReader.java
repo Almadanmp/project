@@ -41,9 +41,9 @@ public class JSONReader {
             areaDTO.setTypeArea(area.getString("type"));
             areaDTO.setWidth(area.getDouble("width"));
             areaDTO.setLength(area.getDouble("length"));
-            areaDTO.setLatitude(local.getDouble("latitude"));
-            areaDTO.setLongitude(local.getDouble("longitude"));
-            areaDTO.setAltitude(local.getDouble("altitude"));
+            areaDTO.setLatitudeGeoAreaDTO(local.getDouble("latitude"));
+            areaDTO.setLongitudeGeoAreaDTO(local.getDouble("longitude"));
+            areaDTO.setAltitudeGeoAreaDTO(local.getDouble("altitude"));
             geographicAreasArray[i] = areaDTO;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
             SensorDTO[] areaSensorsArray = readAreaSensors(areaSensors);

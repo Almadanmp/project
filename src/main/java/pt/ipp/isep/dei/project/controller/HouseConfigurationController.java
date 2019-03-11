@@ -97,7 +97,7 @@ public class HouseConfigurationController {
      * @return true if room was added, false otherwise.
      **/
     public boolean addRoomToHouse(House house, RoomDTO room) {
-        Room newRoomToAdd = mapper.DTOtoRoom(room, house);
+        Room newRoomToAdd = mapper.dtoToRoom(room, house);
         return house.addRoom(newRoomToAdd);
     }
 

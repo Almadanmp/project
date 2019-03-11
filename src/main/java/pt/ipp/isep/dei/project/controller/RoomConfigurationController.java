@@ -128,13 +128,13 @@ public class RoomConfigurationController {
 
     public int getDeviceListSize(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getDeviceListSize();
     }
 
     public Device getDeviceByIndex(RoomDTO roomDTO, House house, int index) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getDeviceByIndex(index);
     }
 

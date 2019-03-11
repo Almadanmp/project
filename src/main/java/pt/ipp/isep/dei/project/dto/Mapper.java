@@ -26,7 +26,7 @@ public class Mapper {
         return roomDTO;
     }
 
-    public Room DTOtoRoom(RoomDTO roomDTO, House house) {
+    public Room dtoToRoom(RoomDTO roomDTO, House house) {
         Room room = null;
         RoomList roomlist = house.getRoomList();
         for (Room r : roomlist.getRooms()) {
@@ -46,9 +46,8 @@ public class Mapper {
 
     public GeographicArea createGeographicAreaFromDTO(GeographicAreaDTO geographicAreaDTO) {
         GeographicArea geographicArea = new GeographicArea(geographicAreaDTO.getId(), new TypeArea(geographicAreaDTO.getTypeArea()), geographicAreaDTO.getLength(),
-                geographicAreaDTO.getWidth(), new Local(geographicAreaDTO.getLatitude(), geographicAreaDTO.getLongitude(),
-                geographicAreaDTO.getAltitude()));
-        geographicArea.setMotherArea(geographicAreaDTO.getMotherArea());
+                geographicAreaDTO.getWidth(), new Local(geographicAreaDTO.getLatitudeGeoAreaDTO(), geographicAreaDTO.getLongitudeGeoAreaDTO(),
+                geographicAreaDTO.getAltitudeGeoAreaDTO()));
         SensorList sensorList = new SensorList();
         for (SensorDTO sensorDTO : geographicAreaDTO.getAreaSensors()) {
             Sensor sensor = sensorDTOToObject(sensorDTO);
@@ -66,10 +65,9 @@ public class Mapper {
         geographicAreaDTO.setTypeArea(geographicArea.getTypeArea().getName());
         geographicAreaDTO.setLength(geographicArea.getLength());
         geographicAreaDTO.setWidth(geographicArea.getWidth());
-        geographicAreaDTO.setLatitude(geographicArea.getLocation().getLatitude());
-        geographicAreaDTO.setLongitude(geographicArea.getLocation().getLongitude());
-        geographicAreaDTO.setAltitude(geographicArea.getLocation().getAltitude());
-        geographicAreaDTO.setMotherArea(geographicArea.getMotherArea());
+        geographicAreaDTO.setLatitudeGeoAreaDTO(geographicArea.getLocation().getLatitude());
+        geographicAreaDTO.setLongitudeGeoAreaDTO(geographicArea.getLocation().getLongitude());
+        geographicAreaDTO.setAltitudeGeoAreaDTO(geographicArea.getLocation().getAltitude());
         for (Sensor s : geographicArea.getAreaSensors().getSensors()) {
             SensorDTO sensorDTO = sensorToDTO(s);
             listSensorDTO.add(sensorDTO);
@@ -107,5 +105,3 @@ public class Mapper {
         return sensorObject;
     }
 }
-
-

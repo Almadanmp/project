@@ -155,7 +155,7 @@ public class EnergyConsumptionController {
      */
     public double getRoomConsumptionInInterval(RoomDTO roomDTO, Date initialDate, Date finalDate, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getConsumptionInInterval(initialDate, finalDate);
     }
 
@@ -196,7 +196,7 @@ public class EnergyConsumptionController {
 
     public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getLogsInInterval(startDate, endDate);
     }
 

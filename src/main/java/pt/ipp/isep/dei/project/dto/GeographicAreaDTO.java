@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
 
-import pt.ipp.isep.dei.project.model.GeographicArea;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,11 +10,10 @@ public class GeographicAreaDTO {
     private String typeArea;
     private double length;
     private double width;
-    private GeographicArea motherArea;
-    private double latitude;
-    private double longitude;
-    private double altitude;
-    private List<SensorDTO> areaSensors = new ArrayList<>();
+    private double latitudeGeoAreaDTO;
+    private double longitudeGeoAreaDTO;
+    private double altitudeGeoAreaDTO;
+    private List<SensorDTO> areaSensors;
     private String description;
     private UUID uniqueId;
 
@@ -59,36 +55,28 @@ public class GeographicAreaDTO {
         this.width = width;
     }
 
-    GeographicArea getMotherArea() {
-        return motherArea;
+    public double getLatitudeGeoAreaDTO() {
+        return latitudeGeoAreaDTO;
     }
 
-    public void setMotherArea(GeographicArea motherArea) {
-        this.motherArea = motherArea;
+    public void setLatitudeGeoAreaDTO(double latitudeGeoAreaDTO) {
+        this.latitudeGeoAreaDTO = latitudeGeoAreaDTO;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public double getLongitudeGeoAreaDTO() {
+        return longitudeGeoAreaDTO;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setLongitudeGeoAreaDTO(double longitudeGeoAreaDTO) {
+        this.longitudeGeoAreaDTO = longitudeGeoAreaDTO;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public double getAltitudeGeoAreaDTO() {
+        return altitudeGeoAreaDTO;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public double getAltitude() {
-        return altitude;
-    }
-
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
+    public void setAltitudeGeoAreaDTO(double altitudeGeoAreaDTO) {
+        this.altitudeGeoAreaDTO = altitudeGeoAreaDTO;
     }
 
     public void addSensorDTO(SensorDTO sensorToAdd){

@@ -145,7 +145,7 @@ public class InputUtils {
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing devices in the selected room: ");
-            System.out.println(controller.buildDeviceListString(mapper.DTOtoRoom(room, house)));
+            System.out.println(controller.buildDeviceListString(mapper.dtoToRoom(room, house)));
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < controller.getDeviceListSize(room, house)) {
                 Device result = controller.getDeviceByIndex(room, house, aux);

@@ -33,7 +33,7 @@ public class UtilsUI {
 
     boolean roomDTOSensorListIsValid(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
     boolean roomSensorListIsValid(Room room){
@@ -61,7 +61,7 @@ public class UtilsUI {
 
     boolean roomDTODeviceListIsValid(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO,house);
+        Room room = mapper.dtoToRoom(roomDTO,house);
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 
