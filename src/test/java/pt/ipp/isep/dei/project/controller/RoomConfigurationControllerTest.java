@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
+import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
@@ -33,7 +34,7 @@ class RoomConfigurationControllerTest {
     private RoomConfigurationController controller = new RoomConfigurationController();
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         validRoomWithDevices = new Room("Office", 2, 15, 15, 10);
         validRoomNoDevices = new Room("Kitchen", 1, 20, 20, 10);
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.FREEZER_CAPACITY, 4D);
@@ -87,7 +88,6 @@ class RoomConfigurationControllerTest {
     }
 
 
-
     @Test
     void seeIfSetAttributeValuesWorksFalse() {
         // Assert
@@ -103,17 +103,18 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfPrintSensorListWorks() {
         //Arrange
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");;
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        ;
         Date date = new Date();
         try {
             date = validSdf.parse("03/12/2017 10:02:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Sensor s1 = new Sensor("RF12345","SensorOne", new TypeSensor("Wind", "km/h"),
+        Sensor s1 = new Sensor("RF12345", "SensorOne", new TypeSensor("Wind", "km/h"),
                 new Local(12, 31, 21),
                 date);
-        Sensor s2 = new Sensor("RF12345","SensorTwo", new TypeSensor("Rain", "l/m2"),
+        Sensor s2 = new Sensor("RF12345", "SensorTwo", new TypeSensor("Rain", "l/m2"),
                 new Local(10, 30, 20),
                 date);
         SensorList sensorList = new SensorList();
@@ -161,7 +162,7 @@ class RoomConfigurationControllerTest {
         Sensor testSensor = new Sensor("SensorOne", new TypeSensor("Rain", "mm"), date);
         // Act
 
-        boolean actualResult = controller.addSensorToRoom(testSensor,validRoomWithDevices);
+        boolean actualResult = controller.addSensorToRoom(testSensor, validRoomWithDevices);
 
         // Assert
 
@@ -365,7 +366,7 @@ class RoomConfigurationControllerTest {
         // Act
 
         Object actualResultUnit = controller.getProgramAttributeUnit(program, 0);
-        Object actualResultValue = controller.getProgramAttributeValue(program,0);
+        Object actualResultValue = controller.getProgramAttributeValue(program, 0);
 
         // Assert
 
@@ -391,7 +392,6 @@ class RoomConfigurationControllerTest {
     }
 
 
-
     @Test
     void seeIfSetDeviceName() {
         // Arrange
@@ -408,4 +408,65 @@ class RoomConfigurationControllerTest {
         assertEquals(actualResult, "Not a Washing Machine");
     }
 
+    @Test
+    void seeIfGetSensorListWorks() {
+        // Arrange
+
+        SensorList expectedResult = new SensorList();
+        validRoomNoDevices.setSensorList(expectedResult);
+        // Act
+
+        SensorList actualResult = controller.getRoomSensorList(validRoomNoDevices);
+
+        // Assert
+        assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void deviceListSize() {
+        //Arrange
+        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)), 60,
+                180, deviceTypeString);
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+        validHouse.addRoom(emptyDeviceList);
+        Mapper mapper = new Mapper();
+        //Act
+
+        int actualResult1 = controller.getDeviceListSize(mapper.roomToDTO(emptyDeviceList), validHouse);
+
+        //Assert Empty List
+
+        Assertions.assertEquals(0, actualResult1);
+    }
+
+    @Test
+    void see(){
+        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)), 60,
+                180, deviceTypeString);
+        Room validRoom = new Room("Bedroom", 2, 30, 40, 10);
+        Device validDevice = new WaterHeater(new WaterHeaterSpec());
+        validRoom.addDevice(validDevice);
+        validHouse.addRoom(validRoom);
+        Mapper mapper = new Mapper();
+
+        //Act
+
+        Device actualResult = controller.getDeviceByIndex(mapper.roomToDTO(validRoom),validHouse,0);
+
+        //Assert
+
+        assertEquals(validDevice, actualResult);
+    }
 }

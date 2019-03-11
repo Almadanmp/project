@@ -38,6 +38,17 @@ class HouseMonitoringControllerTest {
     private Date validDate5;
     private Date validDate6;
 
+    private Date validDate01;
+    private Date validDate02;
+    private Date validDate03;
+    private Date validDate04;
+    private Date validDate05;
+    private Date validDate06;
+    private Date validDate07;
+    private Date validDate08;
+    private Date validDate09;
+    private Date validDate10;
+
     @BeforeEach
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
@@ -58,6 +69,15 @@ class HouseMonitoringControllerTest {
         validRoom1.setSensorList(validSensorList);
         validHouse.setRoomList(validRoomList);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        // Pessoal, não vou apagar estas datas porque estão a ser usadas em vários testes
+        // Mas tanto em readability como em lógica, estão aleatórias e complicam bastante
+        // para quem quer ler e perceber uma data de inicio e de fim.
+        // Também por terem datas aleatórias, seguem um padrão de instancializaçao errado
+        // visto que um sensor guardará sempre as datas pela ordem em que as regista e nunca registará
+        // um dia 5 depois de um dia 10, no mesmo mes (por exemplo).
+        // Acrescentei portanto 10 datas novas para quem quiser usar nos testes.
+        // O ideal seria mudarem os vossos testes para todos usarem estas e poder apagar as antigas.
+        // Nas datas já está previstas as US630, 631 e 633, min max e amplitude.
         try {
             validDate1 = validSdf.parse("01/04/2018 15:00:00");
             validDate2 = validSdf.parse("01/04/2018 17:00:00");
@@ -65,6 +85,17 @@ class HouseMonitoringControllerTest {
             validDate4 = validSdf.parse("03/12/2017 15:00:00");
             validDate5 = validSdf.parse("08/12/2017 15:00:00");
             validDate6 = validSdf.parse("19/12/2017 15:00:00");
+
+            validDate01 = validSdf.parse("02/02/2017 01:00:00");
+            validDate02 = validSdf.parse("02/02/2017 22:30:00");
+            validDate03 = validSdf.parse("25/06/2017 10:00:00");
+            validDate04 = validSdf.parse("02/10/2017 15:30:00");
+            validDate05 = validSdf.parse("13/12/2017 01:02:00");
+            validDate06 = validSdf.parse("02/01/2018 22:00:00");
+            validDate07 = validSdf.parse("09/07/2018 12:20:00");
+            validDate08 = validSdf.parse("02/08/2018 08:00:00");
+            validDate09 = validSdf.parse("05/02/2019 01:15:00");
+            validDate10 = validSdf.parse("05/02/2019 20:00:00");
 
         } catch (ParseException c) {
             c.printStackTrace();
@@ -87,6 +118,27 @@ class HouseMonitoringControllerTest {
         validTemperatureSensor.addReading(fifthTempReading);
         validSensorList.add(validTemperatureSensor);
 
+        Reading r01 = new Reading(20, validDate01); // Max Amplitude First Date
+        Reading r02 = new Reading(1, validDate02); // Max Amplitude First Date
+        Reading r03 = new Reading(22, validDate03);
+        Reading r04 = new Reading(10, validDate04); // Min First Date
+        Reading r05 = new Reading(40, validDate05);
+        Reading r06 = new Reading(40.2, validDate06); // Max First Date
+        Reading r07 = new Reading(10.2, validDate07);
+        Reading r08 = new Reading(12, validDate08);
+        Reading r09 = new Reading(40.2, validDate09); // Max Final Date ALSO Max Amplitude Final Date
+        Reading r10 = new Reading(21.2, validDate10); // Min Final Date ALSO Max Amplitude Final Date
+
+        validTemperatureSensor.addReading(r01);
+        validTemperatureSensor.addReading(r02);
+        validTemperatureSensor.addReading(r03);
+        validTemperatureSensor.addReading(r04);
+        validTemperatureSensor.addReading(r05);
+        validTemperatureSensor.addReading(r06);
+        validTemperatureSensor.addReading(r07);
+        validTemperatureSensor.addReading(r08);
+        validTemperatureSensor.addReading(r09);
+        validTemperatureSensor.addReading(r10);
 
         // Sets up a valid rainfall sensor with valid readings.
 
@@ -108,7 +160,7 @@ class HouseMonitoringControllerTest {
     void seeIfGetCurrentRoomTemperatureWorks() {
         // Arrange
 
-        double expectedResult = 20;
+        double expectedResult = 21.2;
 
         // Act
 
@@ -125,7 +177,7 @@ class HouseMonitoringControllerTest {
 
         validHouseArea.setSensorList(validSensorList);
         validHouse.setMotherArea(validHouseArea);
-        double expectedResult = 20;
+        double expectedResult = 21.2;
 
         // Act
 
@@ -387,25 +439,39 @@ class HouseMonitoringControllerTest {
         validHouseArea.setSensorList(validSensorList);
         Reading readingExpectedResult = new Reading(30, validDate3);
         Date dateExpectedResult = validDate3;
-        double valueExpectedResult= 30.0;
+        double valueExpectedResult = 30.0;
         //Act
-        Reading readingActualResult = controller.getLastColdestDayInInterval(validHouse,validDate6,validDate1);
+        Reading readingActualResult = controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1);
         Date dateActualResult = controller.getLastColdestDayInIntervalDate(readingActualResult);
         double valueActualResult = controller.getLastColdestDayInIntervalValue(readingActualResult);
         //Assert
-        assertEquals(readingExpectedResult,readingActualResult);
-        assertEquals(dateExpectedResult,dateActualResult);
-        assertEquals(valueExpectedResult,valueActualResult);
+        assertEquals(readingExpectedResult, readingActualResult);
+        assertEquals(dateExpectedResult, dateActualResult);
+        assertEquals(valueExpectedResult, valueActualResult);
     }
 
     @Test
     void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException() {
         //Act
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            controller.getLastColdestDayInInterval(validHouse,validDate6,validDate1);
-        });
+        Throwable exception = assertThrows(IllegalStateException.class, () ->
+                controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1));
 
         assertEquals("Warning: Values could not be calculated - No readings available.",
                 exception.getMessage());
+    }
+
+    /**
+     * Tests for getFirstHottestDayInPeriod
+     */
+
+    @Test
+    void testGetFirstHottestDayInPeriod() {
+        // Arrange
+        validHouseArea.setSensorList(validSensorList);
+        Date expectedResult = validDate06;
+        // Act
+        Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate10);
+        // Assert
+        assertEquals(expectedResult, actualResult);
     }
 }

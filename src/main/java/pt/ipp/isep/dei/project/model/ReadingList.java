@@ -53,7 +53,7 @@ public class ReadingList {
      * @param index the index of the Reading we want to get value from
      * @return returns value reading that corresponds to index.
      */
-    public double getValueReading(int index) {
+    double getValueReading(int index) {
         if (this.readings.isEmpty()) {
             throw new IndexOutOfBoundsException("The reading list is empty.");
         }
@@ -67,7 +67,7 @@ public class ReadingList {
      * @param index the index of the Reading we want to get date from
      * @return returns date reading that corresponds to index.
      */
-    public Date getValueDate(int index) {
+    Date getValueDate(int index) {
         if (this.readings.isEmpty()) {
             throw new IndexOutOfBoundsException("The reading list is empty.");
         }
@@ -136,7 +136,7 @@ public class ReadingList {
      * @return the most recent reading value or NaN when the Reading List is empty
      * @author Carina (US600 e US605)
      */
-    public double getMostRecentValue() {
+    double getMostRecentValue() {
         if (this.readings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }
@@ -150,7 +150,7 @@ public class ReadingList {
      * @return sum
      * @author André (US620)
      */
-    public double getValueReadingsInDay(Date givenDate) {
+    double getValueReadingsInDay(Date givenDate) {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
         List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(givenDate);
         if (valueReadingsThatMatchDay.isEmpty()) {
@@ -220,7 +220,7 @@ public class ReadingList {
         Date startDate = getFirstSecondOfDay(dayMin);
         Date endDate = getLastSecondOfDay(dayMax);
 
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < readings.size(); i++) {
             Date currentReadingDate = this.getValueDate(i);
             if (isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
                 GregorianCalendar aux = new GregorianCalendar();
@@ -261,7 +261,7 @@ public class ReadingList {
      * @return the average of all values in the reading list between the two given dates
      * @author Daniela (US623)
      */
-    public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
+    double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
@@ -335,25 +335,27 @@ public class ReadingList {
      * @param minDate the lower (min) date for interval comparison
      * @param maxDate the upper (max) date for interval comparison
      * @return the Date with Highest Amplitude of all values in the reading list between the two given dates
+     * if there is more than one day with the same temperature amplitude, the return will be the most recent day
      * @author Daniela (US633)
      */
 
-    public Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
+    Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings available.");
         }
 
-        Date dateAmplitude = new Date();
-        //Check if there is any way to remove the -1000
+        Date dateAmplitude = daysWithReadings.get(0);
+
         double amplitudeValue = -1000.0;
 
         for (Date day : daysWithReadings) {
             double amplitudeTemperature = getAmplitudeValueFromDate(day);
-
-            if (amplitudeValue < amplitudeTemperature) {
+            if (amplitudeValue <= amplitudeTemperature) {
                 amplitudeValue = amplitudeTemperature;
-                dateAmplitude = day;
+                if (day.after(dateAmplitude)) {
+                    dateAmplitude = day;
+                }
             }
         }
         return dateAmplitude;
@@ -364,13 +366,13 @@ public class ReadingList {
      *
      * @param date for each we want the amplitude value
      * @return highest amplitude value
-     * @Author Daniela (US633)
+     * @author Daniela (US633)
      */
-    public double getAmplitudeValueFromDate(Date date) {
+    double getAmplitudeValueFromDate(Date date) {
         List<Double> specificDayValues = getValuesOfSpecificDayReadings(date);
         double maxTemp = Collections.max(specificDayValues);
         double lowestTemp = Collections.min(specificDayValues);
-        return maxTemp - lowestTemp;
+        return maxTemp - (lowestTemp);
     }
 
     /**
@@ -401,15 +403,15 @@ public class ReadingList {
      * @author Nuno (US631)
      */
 
-    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+    Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: No temperature readings available.");
         }
         Date firstHottestDay = new Date();
-        double temp = 0.0;
+        double temp = -1000;
 
-        for (Date day: daysWithReadings) {
+        for (Date day : daysWithReadings) {
             List<Double> listOfMaxReadings = getValuesOfSpecificDayReadings(day);
             double maxTemp = Collections.max(listOfMaxReadings);
             if (temp < maxTemp) {
@@ -444,7 +446,7 @@ public class ReadingList {
     ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
         ReadingList result = new ReadingList();
         for (Reading r : this.readings) {
-            if (Double.compare(r.getValue(),value)==0) {
+            if (Double.compare(r.getValue(), value) == 0) {
                 result.addReading(r);
             }
         }
