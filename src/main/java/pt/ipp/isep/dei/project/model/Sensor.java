@@ -296,6 +296,21 @@ public class Sensor {
     }
 
     /**
+     * US630
+     * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
+     * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
+     * it returns a Reading within an interval from a ReadingList that represents the last coldest day in the
+     * given period (lower maximum temperature).
+     *
+     * @param initialDate is the Initial Date of the period.
+     * @param finalDate   is the Final Date of the period.
+     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
+     */
+    public Reading getLastColdestDayInGivenInterval(Date initialDate, Date endDate){
+        return this.readingList.getLastColdestDayInGivenInterval(initialDate,endDate);
+    }
+
+    /**
      * This method receives a date of a given day, goes through the sensor's reading list and
      * returns the total reading values of that day.
      *

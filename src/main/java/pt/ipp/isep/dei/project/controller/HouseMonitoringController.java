@@ -100,16 +100,15 @@ public class HouseMonitoringController {
     }
 
     /**
-     *US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
+     * US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
      * in the house area in a given period.
      */
-    public Reading getLastColdestDayInInterval(House house,Date startDate,Date endDate){
+    public Reading getLastColdestDayInInterval(House house, Date startDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
         if (closestSensor.isReadingListEmpty()) {
-            throw new IllegalStateException("Warning: Value could not be calculated - No readings were available.");
+            throw new IllegalStateException("Warning: Values could not be calculated - No readings available.");
         }
-        ReadingList readingList = closestSensor.getReadingList();
-        return readingList.getLastColdestDayInGivenInterval(startDate,endDate);
+        return closestSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
 
     /* US 633 - Controller Methods
@@ -124,7 +123,7 @@ public class HouseMonitoringController {
      * sensor to the house.
      * @Author Daniela
      */
-    public Date getHighestTempAmplitude (House house, Date initialDate, Date endDate) {
+    public Date getHighestTempAmplitude(House house, Date initialDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
