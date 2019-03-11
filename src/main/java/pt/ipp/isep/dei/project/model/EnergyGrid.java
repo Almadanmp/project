@@ -126,6 +126,9 @@ public class EnergyGrid implements Metered {
      * @return returns room that corresponds to index.
      */
     public Room getRoom(int index) {
+        if (this.roomList.isEmpty()) {
+            throw new IndexOutOfBoundsException("The room list is empty.");
+        }
         return this.roomList.get(index);
     }
 

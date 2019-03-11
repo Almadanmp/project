@@ -527,6 +527,17 @@ class EnergyGridTest {
     }
 
     @Test
+    void seeIfGetDeviceByIndexWorks() {
+        //Act
+
+        Device actualResult = validGrid.getDeviceByIndex(0);
+
+        //Assert
+
+        assertEquals(validFridge, actualResult);
+    }
+
+    @Test
     void ListRoomSize() {
         //Arrange
 
@@ -547,6 +558,87 @@ class EnergyGridTest {
         //Assert One Grid
 
         Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void seeIfGetRoomWorks() {
+        //Act
+
+        Room actualResult1 = validGrid.getRoom(0);
+
+        //Assert
+
+        assertEquals(validRoom, actualResult1);
+    }
+
+    @Test
+    void seeIfGetRoomThrowsException() {
+        //Arrange
+
+        EnergyGrid emptyGrid = new EnergyGrid("noRooms", 330);
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyGrid.getRoom(0));
+
+        //Assert
+
+        assertEquals("The room list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetNumberOfDevicesWorks() {
+        //Arrange
+
+        EnergyGrid emptyList = new EnergyGrid("noDevices", 200);
+
+        //Act
+
+        int actualResult1 = emptyList.getNumberOfDevices();
+        int actualResult2 = validGrid.getNumberOfDevices();
+
+
+        //Assert
+
+        assertEquals(0, actualResult1);
+        assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void seeIfIsDeviceListEmptyWorks() {
+        //Arrange
+
+        EnergyGrid emptyList = new EnergyGrid("noDevices", 200);
+
+        //Act
+
+        boolean actualResult1 = emptyList.isDeviceListEmpty();
+        boolean actualResult2 = validGrid.isDeviceListEmpty();
+
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfRoomListEmptyWorks() {
+        //Arrange
+
+        EnergyGrid emptyList = new EnergyGrid("noRooms", 200);
+
+        //Act
+
+        boolean actualResult1 = emptyList.isRoomListEmpty();
+        boolean actualResult2 = validGrid.isRoomListEmpty();
+
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+
     }
 
 }
