@@ -98,9 +98,8 @@ public class WineCooler implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(logList.contains(log)) && this.active) {
-            logList.addLog(log);
-            return true;
+        if (this.active) {
+            return this.logList.addLog(log);
         } else {
             return false;
         }

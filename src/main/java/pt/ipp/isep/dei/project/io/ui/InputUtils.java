@@ -288,10 +288,10 @@ public class InputUtils {
     Double getInputAsDouble() {
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please type a valid number: ");
+        System.out.println("Please type a number: ");
         while (!scanner.hasNextDouble()) {
             System.out.println(utils.invalidOption);
-            scanner.next();
+            scanner.nextDouble();
         }
         return scanner.nextDouble();
     }

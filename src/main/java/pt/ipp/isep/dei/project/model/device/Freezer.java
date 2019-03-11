@@ -11,26 +11,26 @@ import java.util.Objects;
 
 public class Freezer implements Device, Metered {
 
-    private String name;
-    private double nominalPower;
-    private FreezerSpec deviceSpecs;
+    private String nameFreezer;
+    private double nominalPowerFreezer;
+    private FreezerSpec freezerSpecs;
     private boolean active;
     private LogList logList;
     private double annualConsumption;
 
 
     public Freezer(FreezerSpec freezerSpec) {
-        this.deviceSpecs = freezerSpec;
+        this.freezerSpecs = freezerSpec;
         this.active = true;
         logList = new LogList();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nameFreezer = name;
     }
 
     public String getName() {
-        return this.name;
+        return this.nameFreezer;
     }
 
     public String getType() {
@@ -38,11 +38,11 @@ public class Freezer implements Device, Metered {
     }
 
     public void setNominalPower(double nominalPower) {
-        this.nominalPower = nominalPower;
+        this.nominalPowerFreezer = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.nominalPower;
+        return this.nominalPowerFreezer;
     }
 
     public void setAnnualConsumption(double annualConsumption) {
@@ -69,7 +69,7 @@ public class Freezer implements Device, Metered {
 
     public String buildString() {
         String result;
-        result = "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
+        result = "The device Name is " + this.nameFreezer + ", and its NominalPower is " + this.nominalPowerFreezer + " kW.\n";
         return result;
     }
 
@@ -98,9 +98,8 @@ public class Freezer implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(logList.contains(log)) && this.active) {
-            logList.addLog(log);
-            return true;
+        if (this.active) {
+            return this.logList.addLog(log);
         } else {
             return false;
         }
@@ -139,7 +138,7 @@ public class Freezer implements Device, Metered {
      * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
-        return nominalPower * time;
+        return nominalPowerFreezer * time;
     }
 
     public double getDailyEnergyConsumption() {
@@ -149,19 +148,19 @@ public class Freezer implements Device, Metered {
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        return deviceSpecs.getAttributeNames();
+        return freezerSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        return deviceSpecs.getAttributeValue(attributeName);
+        return freezerSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return deviceSpecs.setAttributeValue(attributeName, attributeValue);
+        return freezerSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        return deviceSpecs.getAttributeUnit(attributeName);
+        return freezerSpecs.getAttributeUnit(attributeName);
     }
 
     @Override
@@ -173,7 +172,7 @@ public class Freezer implements Device, Metered {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(name, device.getName());
+        return Objects.equals(nameFreezer, device.getName());
     }
 
     @Override
