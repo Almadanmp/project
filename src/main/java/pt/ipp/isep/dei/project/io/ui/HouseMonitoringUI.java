@@ -250,8 +250,8 @@ public class HouseMonitoringUI {
         double valueResult630;
         try {
             Reading reading = houseMonitoringcontroller.getLastColdestDayInInterval(house, startDate, endDate);
-            dateResult630 = reading.getDate();
-            valueResult630 = reading.getValue();
+            dateResult630 = houseMonitoringcontroller.getLastColdestDayInIntervalDate(reading);
+            valueResult630 = houseMonitoringcontroller.getLastColdestDayInIntervalValue(reading);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
