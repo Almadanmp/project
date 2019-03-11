@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Reading;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static java.lang.System.out;
@@ -258,6 +260,36 @@ public class HouseMonitoringUI {
         }
         System.out.println("The last coldest day between " + startDate + " and " + endDate + was
                 + dateResult630 + " and it's maximum temperature"+ was + valueResult630 + "ºC.");
+    }
+
+    /* US633:  As Regular User, I want to get the day with the highest temperature amplitude in the house area in a
+       given period. */
+    private void runUS633(House house) {
+        UtilsUI utils = new UtilsUI();
+        if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
+            System.out.println(utils.invalidSensorList);
+            return;
+        }
+        Date startDate = getInputStartDate();
+        Date endDate = getInputEndDate();
+        updateAndDisplayUS633(house, startDate, endDate);
+    }
+
+    private void updateAndDisplayUS633(House house, Date startDate, Date endDate) {
+        Date resultDate633;
+        double resultValue633;
+
+        try {
+            resultDate633 = houseMonitoringcontroller.getHighestTempAmplitudeDate(house, startDate, endDate);
+            resultValue633 = houseMonitoringcontroller.getHighestTempAmplitudeValue(house, resultDate633);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateResultFormatted = formatter.format(resultDate633);
+        System.out.println("The day with the highest temperature amplitude was " + dateResultFormatted + ", with a" +
+                " temperature amplitude of " + resultValue633 + "ºC.");
     }
 
     private void printOptionMessage() {
