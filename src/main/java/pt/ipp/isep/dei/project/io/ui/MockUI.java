@@ -88,6 +88,8 @@ class MockUI {
     private GeographicAreaList mockGeographicAreaList() {
         GeographicAreaList mockGeographicAreaList = new GeographicAreaList();
 
+        /* Now created with JSON import
+
         //ISEP GEOGRAPHIC AREA//
         this.geoAreaIsep = new GeographicArea("ISEP", this.urbanArea, 0.249, 0.261, new Local(41.178553, -8.608035, 111));
         mockGeographicAreaList.addGeographicArea(this.geoAreaIsep);
@@ -105,6 +107,7 @@ class MockUI {
         GeographicArea geoAreaPorto = new GeographicArea("City of Porto", this.city, 3.30, 10.09, new Local(41.164077, -8.620802, 118));
         mockGeographicAreaList.addGeographicArea(geoAreaPorto);
 
+        */
         return mockGeographicAreaList;
     }
 
@@ -181,12 +184,12 @@ class MockUI {
         Sensor temperatureSensorB109 = new Sensor("Temperature B109", this.temperatureST, new GregorianCalendar(2018, Calendar.NOVEMBER, 15).getTime());
         roomB109.addSensor(temperatureSensorB109);
 
-        createTemperatureSensorB109Readings(temperatureSensorB109);
+        //      createTemperatureSensorB109Readings(temperatureSensorB109);
 
         Sensor humiditySensorB109 = new Sensor("Humidity B109", this.humidityST, new GregorianCalendar(2018, Calendar.NOVEMBER, 22).getTime());
         roomB109.addSensor(humiditySensorB109);
 
-        createHumiditySensorB109Readings(humiditySensorB109);
+//        createHumiditySensorB109Readings(humiditySensorB109);
 
         WaterHeater wH109 = new WaterHeater(new WaterHeaterSpec());
         wH109.setName("EHW B109");
@@ -323,6 +326,8 @@ class MockUI {
 
     //METHODS TO CREATE READINGS ON SENSORS
 
+    /* Now created with CSV import.
+
     private void createRainfallIsepSensorReadings(Sensor rainfallIsepSensor) {
         rainfallIsepSensor.addReading(new Reading(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 29).getTime()));
         rainfallIsepSensor.addReading(new Reading(1.2, new GregorianCalendar(2018, Calendar.DECEMBER, 30).getTime()));
@@ -387,4 +392,5 @@ class MockUI {
         humiditySensorB109.addReading(new Reading(71.5, new GregorianCalendar(2019, Calendar.JANUARY, 2, 14, 0).getTime()));
         humiditySensorB109.addReading(new Reading(72.8, new GregorianCalendar(2019, Calendar.JANUARY, 2, 20, 0).getTime()));
     }
+    */
 }
