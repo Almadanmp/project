@@ -58,6 +58,10 @@ public class HouseMonitoringUI {
                     activeInput = true;
                     break;
                 case 7:
+                    runUS631(programHouse);
+                    activeInput = true;
+                    break;
+                case 8:
                     runUS633(programHouse);
                     activeInput = true;
                     break;
@@ -269,6 +273,35 @@ public class HouseMonitoringUI {
                 + dateResult630 + " and it's maximum temperature" + was + valueResult630 + "ºC.");
     }
 
+    /**
+     * US631 : As a Regular User, I want to get the first hottest day (higher maximum temperature)
+     * in the house area in a given period.
+     */
+
+    private void runUS631(House house) {
+        UtilsUI utils = new UtilsUI();
+        if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
+            System.out.print("\n" + utils.invalidSensorList);
+            return;
+        }
+        Date startDate = getInputStartDate();
+        Date endDate = getInputEndDate();
+        updateAndDisplayUS631(house, startDate, endDate);
+    }
+
+    private void updateAndDisplayUS631(House house, Date startDate, Date endDate) {
+        Date dateUS631;
+        try {
+            dateUS631 = houseMonitoringcontroller.getFirstHottestDayInPeriod(house, startDate, endDate);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        Format simpleDateFinal = new SimpleDateFormat("EEEEEEE,' the 'dd' of 'MMMMM' (dd/MM/yyyy)");
+        String formattedUS631Date = simpleDateFinal.format(dateUS631);
+        System.out.println("The first day with the hottest temperature in the given period was " + formattedUS631Date + ".");
+    }
+
     /* US633:  As Regular User, I want to get the day with the highest temperature amplitude in the house area in a
     given period. */
     private void runUS633(House house) {
@@ -307,7 +340,9 @@ public class HouseMonitoringUI {
         System.out.println("5) Get The Average Rainfall on a day interval in a House Area. (US623)");
         System.out.println("6) Get the Last Coldest Day (lower maximum temperature) in the House" +
                 " Area in a given period. (US630)");
-        System.out.println("7) Get the day with the highest temperature amplitude in the House Area in a given period."
+        System.out.println("7) Get the First Hottest Day (higher maximum temperature) in the House" +
+                " Area in a given period. (US631)");
+        System.out.println("8) Get the day with the highest temperature amplitude in the House Area in a given period."
                 + "(US633)");
         System.out.println("0) (Return to main menu)\n");
     }

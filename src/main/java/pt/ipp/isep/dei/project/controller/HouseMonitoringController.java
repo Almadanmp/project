@@ -122,6 +122,19 @@ public class HouseMonitoringController {
         return reading.getValue();
     }
 
+    /** US 631 - Controller Methods
+       As a Regular User, I want to get the first hottest day (higher maximum temperature)
+       in the house area in a given period. **/
+
+    public Date getFirstHottestDayInPeriod(House house, Date startDate, Date endDate) {
+        Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
+        if (closestSensor.isReadingListEmpty()) {
+            throw new IllegalArgumentException("Warning: No readings available to calculate first hottest day.");
+        }
+        return closestSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
+    }
+
+
     /* US 633 - Controller Methods
        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
        period. */

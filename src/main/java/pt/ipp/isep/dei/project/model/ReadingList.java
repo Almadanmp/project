@@ -352,6 +352,7 @@ public class ReadingList {
      * @return the Date with Highest Amplitude of all values in the reading list between the two given dates
      * @author Daniela (US633)
      */
+
     public Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
@@ -359,7 +360,6 @@ public class ReadingList {
         }
 
         Date dateAmplitude = new Date();
-        //Check if there is any way to remove the -1000
         double amplitudeValue = -1000.0;
 
         for (Date day : daysWithReadings) {
@@ -374,6 +374,38 @@ public class ReadingList {
             }
         }
         return dateAmplitude;
+    }
+
+    /**
+     * Method that gives the Date with the First Hottest Day Readings in given period
+     * It will throw an IllegalArgumentException if there are no available readings between the dates
+     * This method runs the array of dates in the given period, storing the first hottest temperature Date,
+     * only overwritting if there's a day with a higher temperature, ensuring the final return will be
+     * the first hottest day in period.
+     *
+     * @param minDate the lower (min) date for interval comparison
+     * @param maxDate the upper (max) date for interval comparison
+     * @return the Date with First Hottest Day in given period.
+     * @author Nuno (US631)
+     */
+
+    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
+        if (daysWithReadings.isEmpty()) {
+            throw new IllegalArgumentException("Warning: No temperature readings available.");
+        }
+        Date firstHottestDay = new Date();
+        double temp = 0.0;
+
+        for (Date day: daysWithReadings) {
+            List<Double> listOfMaxReadings = getValuesOfSpecificDayReadings(day);
+            double maxTemp = Collections.max(listOfMaxReadings);
+            if (temp < maxTemp) {
+                temp = maxTemp;
+                firstHottestDay = day;
+            }
+        }
+        return firstHottestDay;
     }
 
     /**
@@ -400,7 +432,7 @@ public class ReadingList {
     ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
         ReadingList result = new ReadingList();
         for (Reading r : this.readings) {
-            if (Double.compare(r.getValue(), value) == 0) {
+            if (Double.compare(r.getValue(),value)==0) {
                 result.addReading(r);
             }
         }

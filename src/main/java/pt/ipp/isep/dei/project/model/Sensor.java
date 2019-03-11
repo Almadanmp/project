@@ -311,6 +311,20 @@ public class Sensor {
     }
 
     /**
+     * US631
+     * This method returns a DATE for the first hottest day (higher maximum temperature) in the house area in a given period
+     * (higher maximum temperature).
+     *
+     * @param startDate is the Initial Date of the period.
+     * @param endDate   is the Final Date of the period.
+     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
+     */
+
+    public Date getFirstHottestDayInGivenPeriod(Date startDate, Date endDate) {
+        return this.readingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
+    }
+
+    /**
      * This method receives a date of a given day, goes through the sensor's reading list and
      * returns the total reading values of that day.
      *
