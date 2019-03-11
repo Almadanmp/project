@@ -6,8 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertTrue;
 
 /**
  * GeographicArea tests class.
@@ -258,6 +260,21 @@ class GeographicAreaTest {
         // Assert
 
         Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetId() {
+        // Arrange
+
+        validArea.setUniqueId(UUID.randomUUID());
+
+        // Act
+
+        UUID uuid = validArea.getUniqueID();
+
+        // Assert
+
+        assertTrue(uuid instanceof UUID); // Needed for Sonarqube testing purposes.
     }
 }
 

@@ -581,7 +581,7 @@ class RoomTest {
     }
 
     @Test
-    void seeIFgetid() {
+    void seeIfGetId() {
         // Arrange
 
         validRoom.setUniqueID(UUID.randomUUID());
