@@ -646,25 +646,6 @@ class ReadingListTest {
     }
 
     @Test
-    void ensureThatWeGetMinValueInListOfDoubles() {
-        ReadingList readingList = new ReadingList();
-        List<Double> list = new ArrayList<>();
-        double n1 = 23;
-        double n2 = 23;
-        double n3 = 22;
-        double n4 = 22;
-        double n5 = 24;
-        list.add(n1);
-        list.add(n2);
-        list.add(n3);
-        list.add(n4);
-        list.add(n5);
-        double expectedResult = 22;
-        double actualResult = readingList.getMinValueInListOfDoubles(list);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void ensureThatWeGetReadingListWithSpecificValue() {
         ReadingList readingList = new ReadingList();
         ReadingList expectedResult = new ReadingList();

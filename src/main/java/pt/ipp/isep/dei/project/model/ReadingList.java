@@ -385,23 +385,6 @@ public class ReadingList {
 
     /**
      * US630
-     * Method that returns the minimum value of a list of doubles.
-     *
-     * @param list is the list of doubles.
-     * @return the minimum value of the list.
-     */
-    public double getMinValueInListOfDoubles(List<Double> list) {
-        double result = list.get(0);
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) < result) {
-                result = list.get(i);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * US630
      * This method filters the existing ReadingList so that it returns the ReadingList with the chosen value.
      *
      * @param value is the value we want to choose.
@@ -448,7 +431,7 @@ public class ReadingList {
      */
     public Reading getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
         List<Double> listOfMaxValuesForEachDay = getListOfMaxValuesForEachDay(initialDate, finalDate);
-        double minValueInList = getMinValueInListOfDoubles(listOfMaxValuesForEachDay);
+        double minValueInList = Collections.min(listOfMaxValuesForEachDay);
         ReadingList readingList = getReadingListOfReadingsWithSpecificValue(minValueInList);
         Date mostRecentDate = readingList.getMostRecentReadingDate();
         return getReadingWithSpecificDate(readingList, mostRecentDate);
@@ -478,7 +461,6 @@ public class ReadingList {
      * US630
      * This method returns a List of Doubles that represents a List of maximum values of the ReadingList for each
      * day within a given period.
-     * PROBLEM - If we have two Readings with exactly the same date, this method gets the first one.
      *
      * @param initialDate is the initial date of the period.
      * @param finalDate   is the final date of the period.
