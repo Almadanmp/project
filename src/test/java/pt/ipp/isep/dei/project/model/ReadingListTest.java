@@ -35,6 +35,7 @@ class ReadingListTest {
     private Date validDate13;
     private Date validDate14; // 02/10/2018 23:59:00
     private Date validDate15;
+    private Date validDate17; // same date as validDate2, different hours
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -44,6 +45,7 @@ class ReadingListTest {
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
+            validDate17 = validSdf.parse("03/09/2018 15:00:00");
             validDate3 = validSdf.parse("31/09/2018 23:59:59");
             validDate4 = validSdf.parse("07/10/2018 00:00:00");
             validDate5 = validSdf.parse("08/10/2018 23:26:21");
@@ -722,26 +724,26 @@ class ReadingListTest {
     @Test
     void ensureThatWeGetLastColdestDayInGivenInterval() {
         ReadingList readingList = new ReadingList();
-        Reading reading1 = new Reading(23,new GregorianCalendar(2018,6,1,10,30).getTime());
-        Reading reading2 = new Reading(19,new GregorianCalendar(2018,6,1,14,30).getTime());
-        Reading reading3 = new Reading(19,new GregorianCalendar(2018,6,2,11,30).getTime());
-        Reading reading4 = new Reading(29,new GregorianCalendar(2018,6,2,16,30).getTime());
-        Reading reading5 = new Reading(34,new GregorianCalendar(2018,6,3,9,30).getTime());
-        Reading reading6 = new Reading(32,new GregorianCalendar(2018,6,3,10,30).getTime());
-        Reading reading7 = new Reading(15,new GregorianCalendar(2018,6,4,10,30).getTime());
-        Reading reading8 = new Reading(17,new GregorianCalendar(2018,6,4,15,30).getTime());
-        Reading reading9 = new Reading(12,new GregorianCalendar(2018,6,5,11,30).getTime());
-        Reading reading10 = new Reading(15,new GregorianCalendar(2018,6,5,19,30).getTime());
-        Reading reading11 = new Reading(17,new GregorianCalendar(2018,6,6,23,30).getTime());
-        Reading reading12 = new Reading(19,new GregorianCalendar(2018,6,6,23,35).getTime());
-        Reading reading13 = new Reading(20,new GregorianCalendar(2018,6,7,10,30).getTime());
-        Reading reading14 = new Reading(25,new GregorianCalendar(2018,6,7,14,30).getTime());
-        Reading reading15 = new Reading(26,new GregorianCalendar(2018,6,8,9,30).getTime());
-        Reading reading16 = new Reading(22,new GregorianCalendar(2018,6,8,10,30).getTime());
-        Reading reading17 = new Reading(21,new GregorianCalendar(2018,6,9,13,30).getTime());
-        Reading reading18 = new Reading(25,new GregorianCalendar(2018,6,9,15,30).getTime());
-        Reading reading19 = new Reading(32,new GregorianCalendar(2018,6,10,10,30).getTime());
-        Reading reading20 = new Reading(31,new GregorianCalendar(2018,6,10,15,30).getTime());
+        Reading reading1 = new Reading(23, new GregorianCalendar(2018, 6, 1, 10, 30).getTime());
+        Reading reading2 = new Reading(19, new GregorianCalendar(2018, 6, 1, 14, 30).getTime());
+        Reading reading3 = new Reading(19, new GregorianCalendar(2018, 6, 2, 11, 30).getTime());
+        Reading reading4 = new Reading(29, new GregorianCalendar(2018, 6, 2, 16, 30).getTime());
+        Reading reading5 = new Reading(34, new GregorianCalendar(2018, 6, 3, 9, 30).getTime());
+        Reading reading6 = new Reading(32, new GregorianCalendar(2018, 6, 3, 10, 30).getTime());
+        Reading reading7 = new Reading(15, new GregorianCalendar(2018, 6, 4, 10, 30).getTime());
+        Reading reading8 = new Reading(17, new GregorianCalendar(2018, 6, 4, 15, 30).getTime());
+        Reading reading9 = new Reading(12, new GregorianCalendar(2018, 6, 5, 11, 30).getTime());
+        Reading reading10 = new Reading(15, new GregorianCalendar(2018, 6, 5, 19, 30).getTime());
+        Reading reading11 = new Reading(17, new GregorianCalendar(2018, 6, 6, 23, 30).getTime());
+        Reading reading12 = new Reading(19, new GregorianCalendar(2018, 6, 6, 23, 35).getTime());
+        Reading reading13 = new Reading(20, new GregorianCalendar(2018, 6, 7, 10, 30).getTime());
+        Reading reading14 = new Reading(25, new GregorianCalendar(2018, 6, 7, 14, 30).getTime());
+        Reading reading15 = new Reading(26, new GregorianCalendar(2018, 6, 8, 9, 30).getTime());
+        Reading reading16 = new Reading(22, new GregorianCalendar(2018, 6, 8, 10, 30).getTime());
+        Reading reading17 = new Reading(21, new GregorianCalendar(2018, 6, 9, 13, 30).getTime());
+        Reading reading18 = new Reading(25, new GregorianCalendar(2018, 6, 9, 15, 30).getTime());
+        Reading reading19 = new Reading(32, new GregorianCalendar(2018, 6, 10, 10, 30).getTime());
+        Reading reading20 = new Reading(31, new GregorianCalendar(2018, 6, 10, 15, 30).getTime());
         readingList.addReading(reading1);
         readingList.addReading(reading2);
         readingList.addReading(reading3);
@@ -763,7 +765,38 @@ class ReadingListTest {
         readingList.addReading(reading19);
         readingList.addReading(reading20);
         Reading expectedResult = reading10;
-        Reading actualResult = readingList.getLastColdestDayInGivenInterval(new GregorianCalendar(2018,6,1,05,00).getTime(),new GregorianCalendar(2018,6,10,23,00).getTime());
-        assertEquals(expectedResult,actualResult);
+        Reading actualResult = readingList.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, 6, 1, 05, 00).getTime(), new GregorianCalendar(2018, 6, 10, 23, 00).getTime());
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetDateHighestAmplitudeBetweenDates() {
+        GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.JANUARY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2019, Calendar.JANUARY, 1);
+        validReadingList.addReading(new Reading(22, validDate5));
+        validReadingList.addReading(new Reading(30, validDate5));
+        validReadingList.addReading(new Reading(30, validDate14));
+        validReadingList.addReading(new Reading(30, validDate14));
+        validReadingList.addReading(new Reading(-5, validDate2));
+        validReadingList.addReading(new Reading(50, validDate17));
+        Date expectedResult = validDate2;
+
+        Date result = validReadingList.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime());
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetDateHighestAmplitudeBetweenDatesThrowsException() {
+        //Test if it throws exception when there is no readings available for the period requested
+        GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            validReadingList.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime());
+        });
+
+        assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
+                exception.getMessage());
     }
 }

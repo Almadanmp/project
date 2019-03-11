@@ -2,7 +2,10 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.Sensor;
 
 import java.util.Date;
 
@@ -111,11 +114,11 @@ public class HouseMonitoringController {
         return closestSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
 
-    public Date getLastColdestDayInIntervalDate(Reading reading){
+    public Date getLastColdestDayInIntervalDate(Reading reading) {
         return reading.getDate();
     }
 
-    public double getLastColdestDayInIntervalValue(Reading reading){
+    public double getLastColdestDayInIntervalValue(Reading reading) {
         return reading.getValue();
     }
 
@@ -124,14 +127,14 @@ public class HouseMonitoringController {
        period. */
 
     /**
-     * @param house       is the house we want to get the average rainfall from.
+     * @param house       is the house we want to get the highest temperature amplitude on its area
      * @param initialDate is the date where we want to start measuring temperature (lower limit).
      * @param endDate     is the date where we want to stop measuring temperature(upper limit).
      * @return is the highest temperature amplitude in the house area, in given period, as measured by the closest
      * sensor to the house.
      * @Author Daniela
      */
-    public Date getHighestTempAmplitude(House house, Date initialDate, Date endDate) {
+    public Date getHighestTempAmplitudeDate(House house, Date initialDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");

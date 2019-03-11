@@ -6,8 +6,9 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Reading;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static java.lang.System.out;
 
@@ -283,13 +284,18 @@ public class HouseMonitoringUI {
 
     private void updateAndDisplayUS633(House house, Date startDate, Date endDate) {
         Date result633;
+        //double resultValue; to be implemented
+
         try {
-            result633 = houseMonitoringcontroller.getHighestTempAmplitude(house, startDate, endDate);
+            result633 = houseMonitoringcontroller.getHighestTempAmplitudeDate(house, startDate, endDate);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("The day with the highest temperature amplitude was " + result633.toString() +".");
+
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateResulFormatted = formatter.format(result633);
+        System.out.println("The day with the highest temperature amplitude was " + dateResulFormatted + ".");
     }
 
     private void printOptionMessage() {
@@ -301,8 +307,8 @@ public class HouseMonitoringUI {
         System.out.println("5) Get The Average Rainfall on a day interval in a House Area. (US623)");
         System.out.println("6) Get the Last Coldest Day (lower maximum temperature) in the House" +
                 " Area in a given period. (US630)");
-        System.out.println("7) Get the day with the highest temperature amplitude in the House Area in a given period." +
-                "(US633)");
+        System.out.println("7) Get the day with the highest temperature amplitude in the House Area in a given period."
+                + "(US633)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

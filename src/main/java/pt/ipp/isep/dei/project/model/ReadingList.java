@@ -353,6 +353,7 @@ public class ReadingList {
         }
 
         Date dateAmplitude = new Date();
+        //Check if there is any way to remove the -1000
         double amplitudeValue = -1000.0;
 
         for (Date day : daysWithReadings) {
@@ -393,7 +394,7 @@ public class ReadingList {
     public ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
         ReadingList result = new ReadingList();
         for (Reading r : this.readings) {
-            if (Double.compare(r.getValue(),value)==0) {
+            if (Double.compare(r.getValue(), value) == 0) {
                 result.addReading(r);
             }
         }
