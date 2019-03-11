@@ -178,4 +178,21 @@ import static org.testng.Assert.*;
         assertArrayEquals(expectedResult2, actualResult2);
         assertArrayEquals(expectedResult3, actualResult3);
     }
+
+    @Test
+    void seeIfCreatePowerSourceWorks() {
+         //Arrange
+
+        PowerSource powerSource = new PowerSource("powerSource", 200, 100);
+        // Act
+
+        PowerSource actualResult1 = validList.createPowerSource("Generator", 50, 50);
+        PowerSource actualResult2 = validList.createPowerSource("powerSource", 200, 100);
+
+        // Assert
+
+        assertEquals(validPowerSource, actualResult1);
+        assertEquals(powerSource, actualResult2);
+    }
+
 }

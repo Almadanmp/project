@@ -17,7 +17,7 @@ class GeographicAreaTest {
     private GeographicArea validArea;
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         validArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
                 new Local(50, 50, 10));
     }
@@ -83,7 +83,7 @@ class GeographicAreaTest {
     void seeIfGetSetSensorListWork() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12345","Vento", new TypeSensor("Atmosférico", "km/h"),
+        Sensor testSensor = new Sensor("RF12345", "Vento", new TypeSensor("Atmosférico", "km/h"),
                 new Local(12, 31, 21), new Date());
         validArea.addSensor(testSensor);
         SensorList expectedResult = new SensorList();
@@ -207,6 +207,30 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfIsSensorListEmptyWorks() {
+        // Act With No Sensors
+
+        boolean actualResult1 = validArea.isSensorListEmpty();
+
+        // Assert With No Sensors
+
+        assertTrue(actualResult1);
+
+        // Arrange
+
+        Sensor sensor = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new Date());
+        validArea.addSensor(sensor);
+
+        // Act
+
+        boolean actualResult2 = validArea.isSensorListEmpty();
+
+        // Assert
+
+        assertFalse(actualResult2);
+    }
+
+    @Test
     void seeIfToStringWorks() {
         // Arrange
 
@@ -222,7 +246,7 @@ class GeographicAreaTest {
     }
 
     @Test
-   void hashCodeDummyTest() {
+    void hashCodeDummyTest() {
         // Arrange
 
         int expectedResult = 1;

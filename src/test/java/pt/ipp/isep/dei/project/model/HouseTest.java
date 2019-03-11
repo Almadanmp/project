@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.*;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT;
@@ -569,6 +570,26 @@ class HouseTest {
     }
 
     @Test
+    void seeIfGetEnergyGridByIndexWorks() {
+        //Arrange
+
+        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 200);
+        EnergyGrid energyGrid2 = new EnergyGrid("energyGrid2", 200);
+        validHouse.addGrid(energyGrid1);
+        validHouse.addGrid(energyGrid2);
+
+        //Act
+
+        EnergyGrid actualResult1 = validHouse.getEnergyGridByIndex(0);
+        EnergyGrid actualResult2 = validHouse.getEnergyGridByIndex(1);
+
+        //Assert
+
+        assertEquals(energyGrid1, actualResult1);
+        assertEquals(energyGrid2, actualResult2);
+    }
+
+    @Test
     void getByIndexEmptyGridList() {
         //Act
 
@@ -634,6 +655,17 @@ class HouseTest {
         //Assert One Room
 
         Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void seeIfDeviceTypeListSizeWorks() {
+        //Act
+
+        int actualResult1 = validHouse.deviceTypeListSize();
+
+        //Assert
+
+        assertEquals(1, actualResult1);
     }
 
     @Test

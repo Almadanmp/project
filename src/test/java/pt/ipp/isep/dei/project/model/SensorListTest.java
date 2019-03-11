@@ -370,6 +370,23 @@ class SensorListTest {
     }
 
     @Test
+    void seeIfGetByIndexWorks() {
+        //Arrange
+
+        validSensorList.add(secondValidSensor);
+
+        //Act
+
+        Sensor actualResult1 = validSensorList.get(0);
+        Sensor actualResult2 = validSensorList.get(1);
+
+        //Assert
+
+        assertEquals(firstValidSensor, actualResult1);
+        assertEquals(secondValidSensor, actualResult2);
+    }
+
+    @Test
     void getByIndexEmptySensorList() {
         //Arrange
 

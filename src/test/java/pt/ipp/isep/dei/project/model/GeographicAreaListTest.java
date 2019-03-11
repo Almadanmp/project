@@ -285,6 +285,23 @@ class GeographicAreaListTest {
     }
 
     @Test
+    void seeIfGetByIndexWorks() {
+        //Arrange
+
+        validList.addGeographicArea(secondValidArea);
+
+        //Act
+
+        GeographicArea actualResult1 = validList.get(0);
+        GeographicArea actualResult2 = validList.get(1);
+
+        //Assert
+
+        assertEquals(firstValidArea, actualResult1);
+        assertEquals(secondValidArea, actualResult2);
+    }
+
+    @Test
     void getByIndexEmptyGAList() {
         //Arrange
 
