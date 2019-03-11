@@ -433,7 +433,7 @@ class CSVReaderTest {
         });
     }
 
-    @Test
+    /*  @Test
     void seeIfParseAndLogFailsNonNumericValue() {
 
         //Arrange
@@ -451,7 +451,7 @@ class CSVReaderTest {
             validReader.parseAndLog(readings, logger, validSensorList);
         });
     }
-
+*/
     @Test
     void seeIfParseAndLogFailsNullPointerException() {
 
