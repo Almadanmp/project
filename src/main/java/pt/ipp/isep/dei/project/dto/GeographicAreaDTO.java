@@ -2,20 +2,20 @@ package pt.ipp.isep.dei.project.dto;
 
 
 import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.SensorList;
-import pt.ipp.isep.dei.project.model.TypeArea;
 
 import java.util.UUID;
 
 public class GeographicAreaDTO {
 
     private String id;
-    private TypeArea typeArea;
+    private String typeArea;
     private double length;
     private double width;
     private GeographicArea motherArea;
-    private Local location;
+    private double latitude;
+    private double longitude;
+    private double altitude;
     private SensorList areaSensors;
     private String description;
     private UUID uniqueId;
@@ -34,11 +34,11 @@ public class GeographicAreaDTO {
         return this.id;
     }
 
-    public TypeArea getTypeArea() {
+    public String getTypeArea() {
         return typeArea;
     }
 
-    public void setTypeArea(TypeArea typeArea) {
+    public void setTypeArea(String typeArea) {
         this.typeArea = typeArea;
     }
 
@@ -66,12 +66,28 @@ public class GeographicAreaDTO {
         this.motherArea = motherArea;
     }
 
-    public Local getLocation() {
-        return location;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLocation(Local location) {
-        this.location = location;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getAltitude() {
+        return altitude;
+    }
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
     }
 
     public SensorList getAreaSensors() {

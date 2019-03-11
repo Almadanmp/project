@@ -7,6 +7,7 @@ public class Mapper {
     private RoomDTO roomDTO = new RoomDTO();
     private GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
     private SensorDTO sensorDTO = new SensorDTO();
+    private SensorListDTO sensorListDTO = new SensorListDTO();
 
     public RoomDTO roomToDTO(Room room) {
         roomDTO.setRoomName(room.getRoomName());
@@ -39,8 +40,8 @@ public class Mapper {
     }
 
     private GeographicArea createGeographicAreaFromDTO(GeographicAreaDTO geographicAreaDTO){
-        GeographicArea geographicArea = new GeographicArea(geographicAreaDTO.getId(), geographicAreaDTO.getTypeArea(), geographicAreaDTO.getLength(),
-                geographicAreaDTO.getWidth(), geographicAreaDTO.getLocation());
+        GeographicArea geographicArea = new GeographicArea(geographicAreaDTO.getId(), new TypeArea(geographicAreaDTO.getTypeArea()), geographicAreaDTO.getLength(),
+                geographicAreaDTO.getWidth(), new Local(geographicAreaDTO.getLatitude(),geographicAreaDTO.getLongitude(),geographicAreaDTO.getAltitude()));
         geographicArea.setMotherArea(geographicAreaDTO.getMotherArea());
         geographicArea.setAreaSensors(geographicAreaDTO.getAreaSensors());
         geographicArea.setDescription(geographicAreaDTO.getDescription());
@@ -50,10 +51,12 @@ public class Mapper {
 
     public GeographicAreaDTO geographicAreaDTO(GeographicArea geographicArea) {
         geographicAreaDTO.setId(geographicArea.getId());
-        geographicAreaDTO.setTypeArea(geographicArea.getTypeArea());
+        geographicAreaDTO.setTypeArea(geographicArea.getTypeArea().getName());
         geographicAreaDTO.setLength(geographicArea.getLength());
         geographicAreaDTO.setWidth(geographicArea.getWidth());
-        geographicAreaDTO.setLocation(geographicArea.getLocation());
+        geographicAreaDTO.setLatitude(geographicArea.getLocation().getLatitude());
+        geographicAreaDTO.setLongitude(geographicArea.getLocation().getLongitude());
+        geographicAreaDTO.setAltitude(geographicArea.getLocation().getAltitude());
         geographicAreaDTO.setMotherArea(geographicArea.getMotherArea());
         geographicAreaDTO.setAreaSensors(geographicArea.getAreaSensors());
         geographicAreaDTO.setDescription(geographicArea.getDescription());
@@ -70,24 +73,36 @@ public class Mapper {
         return sensorDTO;
     }
 
+    /**
+     * getting a sensor from a geographic area from the corresponding DTO
+     * @param sensorDTO
+     * @param gaDTO
+     * @return
+     */
     public Sensor DTOToGeoAreaSensor(SensorDTO sensorDTO, GeographicAreaDTO gaDTO) {
         Sensor sensor;
         GeographicArea ga = createGeographicAreaFromDTO(gaDTO);
         SensorList sensorList = ga.getSensorList();
-        sensor = sensorListVoid(sensorDTO,sensorList);
+        sensor = selectSensorFromSensorList(sensorDTO,sensorList);
         return sensor;
     }
 
+    /**
+     *
+     * @param sensorDTO
+     * @param house
+     * @return
+     */
     public Sensor DTOToHouseSensor(SensorDTO sensorDTO, House house) {
         Sensor sensor = null;
         for (Room room : house.getRoomList().getRooms()) {
             SensorList sensorList = room.getSensorList();
-            sensor = sensorListVoid(sensorDTO,sensorList);
+            sensor = selectSensorFromSensorList(sensorDTO,sensorList);
         }
         return sensor;
     }
 
-    private Sensor sensorListVoid(SensorDTO sensorDTO, SensorList sensorList) {
+    private Sensor selectSensorFromSensorList(SensorDTO sensorDTO, SensorList sensorList) {
         Sensor sensor = null;
         for (Sensor s : sensorList.getSensors()) {
             if (s.getUniqueID().compareTo(sensorDTO.getUniqueID()) == 0) {

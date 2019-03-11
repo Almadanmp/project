@@ -98,9 +98,8 @@ public class ElectricOven implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(logListElectricOven.getLogListAttribute().contains(log)) && this.activeElectricOven) {
-            logListElectricOven.getLogListAttribute().add(log);
-            return true;
+        if (this.activeElectricOven) {
+            return logListElectricOven.addLog(log);
         } else {
             return false;
         }
