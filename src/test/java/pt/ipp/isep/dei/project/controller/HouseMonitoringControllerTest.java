@@ -344,7 +344,8 @@ class HouseMonitoringControllerTest {
     @Test
     void seeIfGetHighestTempAmplitudeDateSuccessThrowsException() {
         //Test if it throws exception when there is no readings available for the period requested
-        validHouseArea.setSensorList(validSensorList);
+        SensorList invalidSensorList = new SensorList();
+        validHouseArea.setSensorList(invalidSensorList);
         GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
 
