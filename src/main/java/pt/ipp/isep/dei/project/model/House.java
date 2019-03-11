@@ -262,7 +262,7 @@ public class House implements Metered {
 
 
     public double getEnergyConsumption(float time) {
-        return 0;
+        throw new UnsupportedOperationException("This operation is unsupported.");
     } //TODO Make this method throw an UnsupportedOperationException.
 
     /**
