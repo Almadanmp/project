@@ -206,7 +206,7 @@ public class ReadingList {
 
     /**
      * Returns return a list with every day with readings between two given dates.
-     * Returns the date of the first reading for each day (no duplicated days)
+     * Returns the date of the first reading for each day (no duplicated days - same day, month, year).
      *
      * @param dayMin start date given by user, will be the start of the  date interval;
      * @param dayMax end date given by user, will be the end of the date interval;
@@ -215,7 +215,7 @@ public class ReadingList {
      */
     List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
         List<Date> daysWithReadings = new ArrayList<>();
-        List<Integer> daysProcessed = new ArrayList<>();
+        List<Date> daysProcessed = new ArrayList<>();
 
         Date startDate = getFirstSecondOfDay(dayMin);
         Date endDate = getLastSecondOfDay(dayMax);
@@ -225,7 +225,7 @@ public class ReadingList {
             if (isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
                 GregorianCalendar aux = new GregorianCalendar();
                 aux.setTime(currentReadingDate);
-                Integer readingDay = aux.get(Calendar.DAY_OF_MONTH);
+                Date readingDay = getFirstSecondOfDay(aux.getTime());
 
                 if (!daysProcessed.contains(readingDay)) {
                     daysProcessed.add(readingDay);

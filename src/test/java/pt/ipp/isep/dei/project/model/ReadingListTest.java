@@ -37,6 +37,8 @@ class ReadingListTest {
     private Date validDate14; // 02/10/2018 23:59:00
     private Date validDate15;
     private Date validDate17; // same date as validDate2, different hours
+    private Date validDate18; // same day and month as 9 ans 16 but different year
+    private Date validDate19; // same day and month as 9 ans 16 but different year, different hour
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -44,23 +46,30 @@ class ReadingListTest {
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            validDate1 = validSdf.parse("21/11/2018 00:00:00");
+            validDate12 = validSdf.parse("02/11/2015 20:00:00");
+
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
             validDate17 = validSdf.parse("03/09/2018 15:00:00");
             validDate3 = validSdf.parse("31/09/2018 23:59:59");
+
+            validDate13 = validSdfDay.parse("03/10/2018");
+            validDate14 = validSdf.parse("02/10/2018 23:59:00");
+            validDate15 = validSdf.parse("03/10/2018 00:00:00");
             validDate4 = validSdf.parse("07/10/2018 00:00:00");
             validDate5 = validSdf.parse("08/10/2018 23:26:21");
             validDate6 = validSdf.parse("09/10/2018 08:21:22");
             validDate7 = validSdf.parse("10/10/2018 18:14:03");
-            validDate8 = validSdf.parse("23/10/2018 12:14:23");
             validDate9 = validSdf.parse("13/10/2018 12:12:12");
-            validDate10 = validSdf.parse("30/10/2018 23:59:59");
-            validDate11 = validSdf.parse("01/11/2018 00:00:00");
-            validDate12 = validSdf.parse("02/11/2015 20:00:00");
-            validDate13 = validSdfDay.parse("03/10/2018");
-            validDate14 = validSdf.parse("02/10/2018 23:59:00");
-            validDate15 = validSdf.parse("03/10/2018 00:00:00");
             validDate16 = validSdf.parse("13/10/2018 23:59:59");
+            validDate8 = validSdf.parse("23/10/2018 12:14:23");
+            validDate10 = validSdf.parse("30/10/2018 23:59:59");
+
+            validDate1 = validSdf.parse("21/11/2018 00:00:00");
+            validDate11 = validSdf.parse("01/11/2018 00:00:00");
+
+            validDate18 = validSdf.parse("13/10/2019 12:12:12");
+            validDate19 = validSdf.parse("13/10/2019 23:59:59");
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -198,6 +207,8 @@ class ReadingListTest {
         Reading r6 = new Reading(22, validDate9);
         Reading r7 = new Reading(23, validDate10);
         Reading r8 = new Reading(22, validDate11);
+        Reading r9 = new Reading(23, validDate18);
+        Reading r10 = new Reading(22, validDate19);
         validReadingList.addReading(r0);
         validReadingList.addReading(r1);
         validReadingList.addReading(r2);
@@ -207,16 +218,22 @@ class ReadingListTest {
         validReadingList.addReading(r6);
         validReadingList.addReading(r7);
         validReadingList.addReading(r8);
+        validReadingList.addReading(r9);
+        validReadingList.addReading(r10);
         List<Date> expectedResult = new ArrayList<>();
         expectedResult.add(validDate4);
         expectedResult.add(validDate5);
         expectedResult.add(validDate6);
         expectedResult.add(validDate7);
+        expectedResult.add(validDate8);
         expectedResult.add(validDate9);
+        expectedResult.add(validDate10);
+        expectedResult.add(validDate11);
+        expectedResult.add(validDate18);
 
         // Act
 
-        List<Date> actualResult = validReadingList.getDaysWithReadingsBetweenDates(validDate4, validDate16);
+        List<Date> actualResult = validReadingList.getDaysWithReadingsBetweenDates(validDate4, validDate19);
 
         // Assert
 
