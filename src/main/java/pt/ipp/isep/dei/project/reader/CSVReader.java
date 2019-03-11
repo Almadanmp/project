@@ -86,7 +86,7 @@ public class CSVReader implements Reader {
             Logger logger = Logger.getLogger(CSVReader.class.getName());
             CustomFormatter myFormat = new CustomFormatter();
 
-            FileHandler fileHandler = new FileHandler("./resources/logs/LogOutput.log");
+            FileHandler fileHandler = new FileHandler("./resources/logs/logOut.log");
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             while ((line = buffReader.readLine()) != null) {
@@ -159,9 +159,6 @@ public class CSVReader implements Reader {
      * @author Andre
      */
     void parseAndLog(String[] readings, Logger logger, SensorList sensorList) {
-        Double readValue = Double.parseDouble(readings[2]);
-        String readID = readings[0];
-
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
         knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
@@ -169,6 +166,8 @@ public class CSVReader implements Reader {
         for (SimpleDateFormat pattern : knownPatterns) { //TODO:  Runs both parses for all the lines, yet to find different approach.
 
             try {
+                Double readValue = Double.parseDouble(readings[2]);
+                String readID = readings[0];
                 Date readDate = pattern.parse(readings[1]);
                 for (Sensor sensor : sensorList.getElementsAsArray()) {
                     if (sensor.getId().equals(readID) && !setCSVReadings(sensor, readDate, readValue) && logger.isLoggable(Level.WARNING)) {
