@@ -813,4 +813,34 @@ class ReadingListTest {
         assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
                 exception.getMessage());
     }
+
+    @Test
+    void seeIfGetValueReadingThrowsException() {
+        //Arrange
+
+        ReadingList emptyList = new ReadingList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.getValueReading(0));
+
+        //Assert
+
+        assertEquals("The reading list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetDateReadingThrowsException() {
+        //Arrange
+
+        ReadingList emptyList = new ReadingList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.getValueDate(0));
+
+        //Assert
+
+        assertEquals("The reading list is empty.", exception.getMessage());
+    }
 }

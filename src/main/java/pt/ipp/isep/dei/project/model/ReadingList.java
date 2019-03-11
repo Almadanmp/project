@@ -54,6 +54,9 @@ public class ReadingList {
      * @return returns value reading that corresponds to index.
      */
     public double getValueReading(int index) {
+        if (this.readings.isEmpty()) {
+            throw new IndexOutOfBoundsException("The reading list is empty.");
+        }
         Reading reading = this.readings.get(index);
         return reading.getValue();
     }
@@ -65,6 +68,9 @@ public class ReadingList {
      * @return returns date reading that corresponds to index.
      */
     public Date getValueDate(int index) {
+        if (this.readings.isEmpty()) {
+            throw new IndexOutOfBoundsException("The reading list is empty.");
+        }
         Reading reading = this.readings.get(index);
         return reading.getDate();
     }
