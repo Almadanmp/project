@@ -84,4 +84,47 @@ public class UtilsUI {
     boolean houseMotherAreaIsValid(House house) {
         return house.getMotherArea() != null;
     }
+
+    /**
+     * Methods for display String results in pretty boxes in console for User.
+     * Use method printBox instead of System.out.println for this effect.
+     * Use a simple coma ',' in between lines to separate lines instead of '\n'.
+     * Old example: System.out.println("Line 1 blablabla \n Line 2 blablabla");
+     * New example: printBox("Line 1 blablabla" , "Line 2 blablabla");
+     *
+     * @param strings means the string to be adapted with printBox.
+     * @return same string but with box format.
+     */
+
+    private static int getStringMaxLength(String... strings) {
+        int length = Integer.MIN_VALUE;
+        for (String str : strings) {
+            length = Math.max(str.length(), length);
+        }
+        return length;
+    }
+
+    private static String padString(String str, int length) {
+        StringBuilder sBuilder =  new StringBuilder(str);
+        return sBuilder.append(fill(' ', length - str.length())).toString();
+    }
+
+    private static String fill(char ch, int length) {
+        StringBuilder sBuilder = new StringBuilder(length);
+        for (int i=0; i < length; i++) {
+            sBuilder.append(ch);
+        }
+        return sBuilder.toString();
+    }
+
+    public static void printBox(String... strings) {
+        int maxBoxWidth = getStringMaxLength(strings);
+        String line = "+" + fill('-', maxBoxWidth + 2) + "+";
+        System.out.println(line);
+        for (String str : strings) {
+            System.out.printf("| %s |%n", padString(str, maxBoxWidth));
+        }
+        System.out.println(line);
+    }
+    // End of methods for printBox
 }

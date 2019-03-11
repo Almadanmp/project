@@ -300,7 +300,7 @@ public class HouseMonitoringUI {
         }
         Format simpleDateFinal = new SimpleDateFormat("EEEEEEE,' the 'dd' of 'MMMMM', ('dd/MM/yyyy')'", Locale.US);
         String formattedUS631Date = simpleDateFinal.format(dateUS631);
-        printBox("The first day with the hottest temperature in the given period" , "was " + formattedUS631Date + ".");
+        UtilsUI.printBox("The first day with the hottest temperature in the given" , "period was " + formattedUS631Date + ".");
     }
 
     /* US633:  As Regular User, I want to get the day with the highest temperature amplitude in the house area in a
@@ -331,47 +331,6 @@ public class HouseMonitoringUI {
         String dateResultFormatted = formatter.format(resultDate633);
         System.out.println("The day with the highest temperature amplitude was " + dateResultFormatted + ", with a" +
                 " temperature amplitude of " + resultValue633 + "ºC.");
-    }
-
-    /**
-     * Methods for display String results in pretty boxes in console for User.
-     * Use method printBox instead of System.out.println for this effect.
-     * Use a simple coma ',' in between lines to separate lines instead of '\n'.
-     * Old example: System.out.println("Line 1 blablabla \n Line 2 blablabla");
-     * New example: printBox("Line 1 blablabla" , "Line 2 blablabla");
-     * @param strings
-     * @return
-     */
-
-    private static int getStringMaxLength(String... strings) {
-        int length = Integer.MIN_VALUE;
-        for (String str : strings) {
-            length = Math.max(str.length(), length);
-        }
-        return length;
-    }
-
-    private static String padString(String str, int length) {
-        StringBuilder sBuilder =  new StringBuilder(str);
-        return sBuilder.append(fill(' ', length - str.length())).toString();
-    }
-
-    private static String fill(char ch, int length) {
-        StringBuilder sBuilder = new StringBuilder(length);
-        for (int i=0; i < length; i++) {
-            sBuilder.append(ch);
-        }
-        return sBuilder.toString();
-    }
-
-    public static void printBox(String... strings) {
-        int maxBoxWidth = getStringMaxLength(strings);
-        String line = "+" + fill('-', maxBoxWidth + 2) + "+";
-        System.out.println(line);
-        for (String str : strings) {
-            System.out.printf("| %s |%n", padString(str, maxBoxWidth));
-        }
-        System.out.println(line);
     }
 
     /**
