@@ -84,7 +84,6 @@ public class Mapper {
         sensorDTO.setAltitude(sensor.getLocal().getAltitude());
         sensorDTO.setLongitude(sensor.getLocal().getLongitude());
         sensorDTO.setLatitude(sensor.getLocal().getLatitude());
-        sensorDTO.setReadingList(sensor.getReadingList());
         sensorDTO.setTypeSensor(sensor.getTypeSensor().getName());
         sensorDTO.setUniqueID(sensor.getUniqueID());
         return sensorDTO;

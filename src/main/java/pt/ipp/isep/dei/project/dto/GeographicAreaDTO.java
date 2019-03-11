@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.dto;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class GeographicAreaDTO {
     private double latitudeGeoAreaDTO;
     private double longitudeGeoAreaDTO;
     private double altitudeGeoAreaDTO;
-    private List<SensorDTO> areaSensors;
+    private List<SensorDTO> areaSensors = new ArrayList<>();
     private String description;
     private UUID uniqueId;
 

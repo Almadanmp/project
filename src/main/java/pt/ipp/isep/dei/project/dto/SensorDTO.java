@@ -1,5 +1,4 @@
 package pt.ipp.isep.dei.project.dto;
-import pt.ipp.isep.dei.project.model.ReadingList;
 
 import java.util.UUID;
 
@@ -13,7 +12,6 @@ public class SensorDTO {
     private double longitude;
     private double altitude;
     private String dateStartedFunctioning;
-    private ReadingList readingList;
     private UUID uniqueID;
 
     public UUID getUniqueID() {
@@ -86,13 +84,5 @@ public class SensorDTO {
 
     public void setDateStartedFunctioning(String dateStartedFunctioning) {
         this.dateStartedFunctioning = dateStartedFunctioning;
-    }
-
-    public ReadingList getReadingList() {
-        return readingList;
-    }
-
-    public void setReadingList(ReadingList readingList) {
-        this.readingList = readingList;
     }
 }
