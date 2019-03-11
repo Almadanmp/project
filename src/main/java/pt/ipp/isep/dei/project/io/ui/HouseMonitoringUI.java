@@ -283,19 +283,20 @@ public class HouseMonitoringUI {
     }
 
     private void updateAndDisplayUS633(House house, Date startDate, Date endDate) {
-        Date result633;
-        //double resultValue; to be implemented
+        Date resultDate633;
+        double resultValue633;
 
         try {
-            result633 = houseMonitoringcontroller.getHighestTempAmplitudeDate(house, startDate, endDate);
+            resultDate633 = houseMonitoringcontroller.getHighestTempAmplitudeDate(house, startDate, endDate);
+            resultValue633 = houseMonitoringcontroller.getHighestTempAmplitudeValue(house, resultDate633);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
         }
-
         Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dateResulFormatted = formatter.format(result633);
-        System.out.println("The day with the highest temperature amplitude was " + dateResulFormatted + ".");
+        String dateResultFormatted = formatter.format(resultDate633);
+        System.out.println("The day with the highest temperature amplitude was " + dateResultFormatted + ", with a" +
+                " temperature amplitude of " + resultValue633 + "ºC.");
     }
 
     private void printOptionMessage() {

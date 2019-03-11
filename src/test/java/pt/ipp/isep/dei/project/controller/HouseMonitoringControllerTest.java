@@ -342,18 +342,43 @@ class HouseMonitoringControllerTest {
 
 
     @Test
-    void seeIfGetHighestTempAmplitudeDateSuccessThrowsException() {
+    void seeIfGetHighestTempAmplitudeDateThrowsException() {
         //Test if it throws exception when there is no readings available for the period requested
         SensorList invalidSensorList = new SensorList();
         validHouseArea.setSensorList(invalidSensorList);
         GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            controller.getHighestTempAmplitudeDate(validHouse, startDate.getTime(), endDate.getTime());
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getHighestTempAmplitudeDate(validHouse, startDate.getTime(), endDate.getTime()));
 
         assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
                 exception.getMessage());
     }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeValueSuccess() {
+        validHouseArea.setSensorList(validSensorList);
+
+        double expectedResult = 15.0;
+
+        double actualResult = controller.getHighestTempAmplitudeValue(validHouse, validDate1);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeValueThrowsException() {
+        //Test if it throws exception when there is no readings available for the period requested
+        SensorList invalidSensorList = new SensorList();
+        validHouseArea.setSensorList(invalidSensorList);
+        GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getHighestTempAmplitudeValue(validHouse, startDate.getTime()));
+
+        assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
+                exception.getMessage());
+    }
+
 }

@@ -328,21 +328,6 @@ public class ReadingList {
         return (sum / valueList.size());
     }
 
-
-    /**
-     * Adds all readings of a given ReadingList to target list, rejecting duplicates.
-     *
-     * @param readingList The list to be added to the target list
-     * @return A parallel deviceList with all the devices that could be added
-     **/
-    ReadingList appendListNoDuplicates(ReadingList readingList) {
-        Reading[] readings = readingList.getElementsAsArray();
-        for (Reading r : readings) {
-            this.addReading(r);
-        }
-        return this;
-    }
-
     /**
      * Method that gives the Date with the Highest Amplitude of Readings between two dates (given days)
      * It will throw an IllegalArgumentException if there are no readings between the selected dates
@@ -363,10 +348,7 @@ public class ReadingList {
         double amplitudeValue = -1000.0;
 
         for (Date day : daysWithReadings) {
-            List<Double> specificDayValues = getValuesOfSpecificDayReadings(day);
-            double maxTemp = Collections.max(specificDayValues);
-            double lowestTemp = Collections.min(specificDayValues);
-            double amplitudeTemperature = maxTemp - lowestTemp;
+            double amplitudeTemperature = getAmplitudeValueFromDate(day);
 
             if (amplitudeValue < amplitudeTemperature) {
                 amplitudeValue = amplitudeTemperature;
@@ -375,6 +357,35 @@ public class ReadingList {
         }
         return dateAmplitude;
     }
+
+    /**
+     * Method that gives the highest amplitude value on a given date
+     *
+     * @param date for each we want the amplitude value
+     * @return highest amplitude value
+     * @Author Daniela (US633)
+     */
+    public double getAmplitudeValueFromDate(Date date) {
+        List<Double> specificDayValues = getValuesOfSpecificDayReadings(date);
+        double maxTemp = Collections.max(specificDayValues);
+        double lowestTemp = Collections.min(specificDayValues);
+        return maxTemp - lowestTemp;
+    }
+
+    /**
+     * Adds all readings of a given ReadingList to target list, rejecting duplicates.
+     *
+     * @param readingList The list to be added to the target list
+     * @return A parallel deviceList with all the devices that could be added
+     **/
+    ReadingList appendListNoDuplicates(ReadingList readingList) {
+        Reading[] readings = readingList.getElementsAsArray();
+        for (Reading r : readings) {
+            this.addReading(r);
+        }
+        return this;
+    }
+
 
     /**
      * Getter (array of readings)
