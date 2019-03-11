@@ -168,6 +168,23 @@ class TypeSensorListTest {
     }
 
     @Test
+    void seeIfGetElementWorks() {
+        // Arrange
+
+        validList.add(secondTypeSensor);
+
+        // Act
+
+        TypeSensor actualResult1 = validList.get(0);
+        TypeSensor actualResult2 = validList.get(1);
+
+        // Assert
+
+        assertEquals(firstTypeSensor, actualResult1);
+        assertEquals(secondTypeSensor, actualResult2);
+    }
+
+    @Test
     void seeIfSizeWorks() {
         // Arrange
 

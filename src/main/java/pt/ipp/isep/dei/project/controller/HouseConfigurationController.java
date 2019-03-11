@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 
@@ -11,7 +14,26 @@ import pt.ipp.isep.dei.project.model.Room;
 
 
 public class HouseConfigurationController {
-    Mapper mapper = new Mapper();
+
+    private Mapper mapper = new Mapper();
+
+    // USER STORY 15 - As an Administrator, I want to import geographical areas and sensors from a JSON file.
+
+    /**
+     * The given method receives a list of geographic areas and calls mapper to convert every DTO created upon reading
+     * the json file, before adding the newly created Geographic Areas (and their sensors) to the list.
+     * @param fileAreas is the list of Geographic Area DTOs created by reading a given .json file.
+     * @param list comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
+     */
+
+    public void addGeoAreasToList(GeographicAreaDTO[] fileAreas, GeographicAreaList list){
+        for (GeographicAreaDTO fileArea : fileAreas) {
+            Mapper mapper = new Mapper();
+            GeographicArea area = mapper.createGeographicAreaFromDTO(fileArea);
+            list.addGeographicArea(area);
+        }
+    }
+
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
@@ -75,7 +97,7 @@ public class HouseConfigurationController {
      * @return true if room was added, false otherwise.
      **/
     public boolean addRoomToHouse(House house, RoomDTO room) {
-        Room newRoomToAdd = mapper.DTOtoRoom(room, house);
+        Room newRoomToAdd = mapper.dtoToRoom(room, house);
         return house.addRoom(newRoomToAdd);
     }
 

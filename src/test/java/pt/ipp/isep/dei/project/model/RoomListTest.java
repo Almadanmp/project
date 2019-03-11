@@ -154,6 +154,23 @@ class RoomListTest {
     }
 
     @Test
+    void seeIfGetByIndexWorks() {
+        //Arrange
+        Room room = new Room("room", 2, 20, 20, 4);
+        validRoomList.add(room);
+
+        //Act
+
+        Room actualResult1 = validRoomList.get(0);
+        Room actualResult2 = validRoomList.get(1);
+
+        //Assert
+
+        assertEquals(validRoomKitchen, actualResult1);
+        assertEquals(room, actualResult2);
+    }
+
+    @Test
     void getByIndexEmptyRoomList() {
         //Arrange
 

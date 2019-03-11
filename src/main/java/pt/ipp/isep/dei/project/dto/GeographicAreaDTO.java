@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.project.dto;
 
 
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.SensorList;
-
+import java.util.List;
 import java.util.UUID;
 
 public class GeographicAreaDTO {
@@ -12,17 +10,16 @@ public class GeographicAreaDTO {
     private String typeArea;
     private double length;
     private double width;
-    private GeographicArea motherArea;
-    private double latitude;
-    private double longitude;
-    private double altitude;
-    private SensorList areaSensors;
+    private double latitudeGeoAreaDTO;
+    private double longitudeGeoAreaDTO;
+    private double altitudeGeoAreaDTO;
+    private List<SensorDTO> areaSensors;
     private String description;
     private UUID uniqueId;
 
-    public void setUniqueId(UUID uniqueId){this.uniqueId = uniqueId;}
+    void setUniqueId(UUID uniqueId){this.uniqueId = uniqueId;}
 
-    public UUID getUniqueId() {
+    UUID getUniqueId() {
         return uniqueId;
     }
 
@@ -34,7 +31,7 @@ public class GeographicAreaDTO {
         return this.id;
     }
 
-    public String getTypeArea() {
+    String getTypeArea() {
         return typeArea;
     }
 
@@ -58,47 +55,43 @@ public class GeographicAreaDTO {
         this.width = width;
     }
 
-    public GeographicArea getMotherArea() {
-        return motherArea;
+    public double getLatitudeGeoAreaDTO() {
+        return latitudeGeoAreaDTO;
     }
 
-    public void setMotherArea(GeographicArea motherArea) {
-        this.motherArea = motherArea;
+    public void setLatitudeGeoAreaDTO(double latitudeGeoAreaDTO) {
+        this.latitudeGeoAreaDTO = latitudeGeoAreaDTO;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public double getLongitudeGeoAreaDTO() {
+        return longitudeGeoAreaDTO;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setLongitudeGeoAreaDTO(double longitudeGeoAreaDTO) {
+        this.longitudeGeoAreaDTO = longitudeGeoAreaDTO;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public double getAltitudeGeoAreaDTO() {
+        return altitudeGeoAreaDTO;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setAltitudeGeoAreaDTO(double altitudeGeoAreaDTO) {
+        this.altitudeGeoAreaDTO = altitudeGeoAreaDTO;
     }
 
-    public double getAltitude() {
-        return altitude;
+    public void addSensorDTO(SensorDTO sensorToAdd){
+        this.areaSensors.add(sensorToAdd);
     }
 
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
-    }
-
-    public SensorList getAreaSensors() {
+    List<SensorDTO> getAreaSensors() {
         return areaSensors;
     }
 
-    public void setAreaSensors(SensorList areaSensors) {
+    void setAreaSensors(List<SensorDTO> areaSensors) {
         this.areaSensors = areaSensors;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 

@@ -6,12 +6,12 @@ import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,21 +72,25 @@ class HouseMonitoringControllerTest {
 
         // Sets up a valid temperature sensor with valid Readings.
 
-        validTemperatureSensor = new Sensor("RF12345","TempOne", new TypeSensor("Temperature", "Celsius"),
+        validTemperatureSensor = new Sensor("RF12345", "TempOne", new TypeSensor("Temperature", "Celsius"),
                 new Local(21, 10, 15),
                 new Date());
         Reading firstTempReading = new Reading(15, validDate1);
         Reading secondTempReading = new Reading(20, validDate2);
         Reading thirdTempReading = new Reading(30, validDate3);
+        Reading fourthTempReading = new Reading(30, validDate4);
+        Reading fifthTempReading = new Reading(-5, validDate5);
         validTemperatureSensor.addReading(firstTempReading);
         validTemperatureSensor.addReading(secondTempReading);
         validTemperatureSensor.addReading(thirdTempReading);
+        validTemperatureSensor.addReading(fourthTempReading);
+        validTemperatureSensor.addReading(fifthTempReading);
         validSensorList.add(validTemperatureSensor);
 
 
         // Sets up a valid rainfall sensor with valid readings.
 
-        Sensor validRainfallSensor = new Sensor("RF12366","RainOne", new TypeSensor("rainfall", "l/m2 "), new Local
+        Sensor validRainfallSensor = new Sensor("RF12366", "RainOne", new TypeSensor("rainfall", "l/m2 "), new Local
                 (21, 41, 11), new Date());
         Reading firstRainReading = new Reading(40, validDate4);
         Reading secondRainReading = new Reading(10, validDate5);
@@ -253,7 +257,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         SensorList temperatureList = new SensorList();
-        Sensor temperatureSensor = new Sensor("RF12345","temperature sensor", new TypeSensor("temperature", "celsius"), new Local(21, 20, 20), date);
+        Sensor temperatureSensor = new Sensor("RF12345", "temperature sensor", new TypeSensor("temperature", "celsius"), new Local(21, 20, 20), date);
         temperatureList.add(temperatureSensor);
         validHouseArea.setSensorList(temperatureList);
 
@@ -276,7 +280,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         SensorList rainFallSensorList = new SensorList();
-        Sensor rainfallSensor = new Sensor("RF12345","rainfall sensor", new TypeSensor("rainfall", "L"), new Local(21, 20, 20), date);
+        Sensor rainfallSensor = new Sensor("RF12345", "rainfall sensor", new TypeSensor("rainfall", "L"), new Local(21, 20, 20), date);
         rainFallSensorList.add(rainfallSensor);
         validHouseArea.setSensorList(rainFallSensorList);
 
@@ -301,7 +305,7 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        double actualResult = controller.getDayMaxTemperature(validRoom, validDate4,validHouse);
+        double actualResult = controller.getDayMaxTemperature(validRoom, validDate4, validHouse);
 
         // Assert
 
@@ -317,11 +321,91 @@ class HouseMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getRoomName(validRoom,validHouse);
+        String actualResult = controller.getRoomName(validRoom, validHouse);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
 
+    }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeDateSuccess() {
+        validHouseArea.setSensorList(validSensorList);
+
+        Date expectedResult = validDate1;
+
+        Date actualResult = controller.getHighestTempAmplitudeDate(validHouse, validDate4, validDate1);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
+    void seeIfGetHighestTempAmplitudeDateThrowsException() {
+        //Test if it throws exception when there is no readings available for the period requested
+        SensorList invalidSensorList = new SensorList();
+        validHouseArea.setSensorList(invalidSensorList);
+        GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getHighestTempAmplitudeDate(validHouse, startDate.getTime(), endDate.getTime()));
+
+        assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
+                exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeValueSuccess() {
+        validHouseArea.setSensorList(validSensorList);
+
+        double expectedResult = 15.0;
+
+        double actualResult = controller.getHighestTempAmplitudeValue(validHouse, validDate1);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeValueThrowsException() {
+        //Test if it throws exception when there is no readings available for the period requested
+        SensorList invalidSensorList = new SensorList();
+        validHouseArea.setSensorList(invalidSensorList);
+        GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getHighestTempAmplitudeValue(validHouse, startDate.getTime()));
+
+        assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
+                exception.getMessage());
+    }
+
+    @Test
+    void seeIfWeGetLastColdestDayInIntervalDateAndValueWorks() {
+        //Arrange
+        validHouseArea.setSensorList(validSensorList);
+        Reading readingExpectedResult = new Reading(30, validDate3);
+        Date dateExpectedResult = validDate3;
+        double valueExpectedResult= 30.0;
+        //Act
+        Reading readingActualResult = controller.getLastColdestDayInInterval(validHouse,validDate6,validDate1);
+        Date dateActualResult = controller.getLastColdestDayInIntervalDate(readingActualResult);
+        double valueActualResult = controller.getLastColdestDayInIntervalValue(readingActualResult);
+        //Assert
+        assertEquals(readingExpectedResult,readingActualResult);
+        assertEquals(dateExpectedResult,dateActualResult);
+        assertEquals(valueExpectedResult,valueActualResult);
+    }
+
+    @Test
+    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException() {
+        //Act
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            controller.getLastColdestDayInInterval(validHouse,validDate6,validDate1);
+        });
+
+        assertEquals("Warning: Values could not be calculated - No readings available.",
+                exception.getMessage());
     }
 }

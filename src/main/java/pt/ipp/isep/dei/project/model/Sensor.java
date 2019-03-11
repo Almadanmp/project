@@ -283,16 +283,58 @@ public class Sensor {
     }
 
     /**
-     * This method receives an interval, goes through the sensor's reading list and returns the
+     * This method receives an interval, goes through the sensor's reading list and returns the date with the
      * highest amplitude reading value between the interval given.
      *
      * @param initialDate start of interval
      * @param endDate     end of interval
-     * @return highest amplitude reading value between interval
+     * @return date with the highest amplitude reading value between interval
      * @Author Daniela - US633
      ***/
-    public Date getHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
+    public Date getDateHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
         return this.readingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
+    }
+
+    /**
+     * This method receives a date, goes through the sensor's reading list and returns the highest amplitude reading
+     * value on that date.
+     *
+     * @param date start of interval
+     * @return highest amplitude reading value on date
+     * @Author Daniela - US633
+     ***/
+    public double getHighestAmplitudeInDate(Date date) {
+        return this.readingList.getAmplitudeValueFromDate(date);
+    }
+
+
+    /**
+     * US630
+     * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
+     * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
+     * it returns a Reading within an interval from a ReadingList that represents the last coldest day in the
+     * given period (lower maximum temperature).
+     *
+     * @param initialDate is the Initial Date of the period.
+     * @param finalDate   is the Final Date of the period.
+     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
+     */
+    public Reading getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
+        return this.readingList.getLastColdestDayInGivenInterval(initialDate, endDate);
+    }
+
+    /**
+     * US631
+     * This method returns a DATE for the first hottest day (higher maximum temperature) in the house area in a given period
+     * (higher maximum temperature).
+     *
+     * @param startDate is the Initial Date of the period.
+     * @param endDate   is the Final Date of the period.
+     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
+     */
+
+    public Date getFirstHottestDayInGivenPeriod(Date startDate, Date endDate) {
+        return this.readingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
     /**

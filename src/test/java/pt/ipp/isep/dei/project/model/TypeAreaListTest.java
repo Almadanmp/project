@@ -196,6 +196,19 @@ class TypeAreaListTest {
     }
 
     @Test
+    void seeIfGetTypeAreaByIndexWorks() {
+        //Act
+
+        TypeArea actualResult1 = validList.get(0);
+        TypeArea actualResult2 = validList.get(1);
+
+        //Assert
+
+        assertEquals(firstValidType, actualResult1);
+        assertEquals(secondValidType, actualResult2);
+    }
+
+    @Test
     void getByIndexEmptyTypeAreaList() {
         // Arrange
 
@@ -238,5 +251,23 @@ class TypeAreaListTest {
         assertArrayEquals(expectedResult1, actualResult1);
         assertArrayEquals(expectedResult2, actualResult2);
         assertArrayEquals(expectedResult3, actualResult3);
+    }
+
+    @Test
+    void seeIfGetSizeWorks() {
+        // Arrange
+
+        TypeAreaList emptyList = new TypeAreaList();
+
+        // Act
+
+        int actualResult1 = emptyList.size();
+        int actualResult2 = validList.size();
+
+
+        // Assert
+
+        assertEquals(0, actualResult1);
+        assertEquals(2, actualResult2);
     }
 }

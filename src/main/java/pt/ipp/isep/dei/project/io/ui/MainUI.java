@@ -124,7 +124,7 @@ public class MainUI {
                         break;
                     case 2:
                         HouseConfigurationUI houseC = new HouseConfigurationUI();
-                        houseC.run(mockHouse);
+                        houseC.run(mockHouse, mockGeographicAreaList);
                         returnToMenu(enterToReturnToConsole);
                         activeInput = false;
                         break;

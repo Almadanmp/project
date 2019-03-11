@@ -569,6 +569,47 @@ class HouseTest {
     }
 
     @Test
+    void seeIfGetRoomByIndexWorks() {
+        //Arrange
+
+        Room room1 = new Room("room1", 1, 20, 15, 10);
+        Room room2 = new Room("room2", 2, 20, 15, 10);
+        validHouse.addRoom(room1);
+        validHouse.addRoom(room2);
+
+        //Act
+
+        Room actualResult1 = validHouse.getRoomByIndex(0);
+        Room actualResult2 = validHouse.getRoomByIndex(1);
+
+        //Assert
+
+        assertEquals(room1, actualResult1);
+        assertEquals(room2, actualResult2);
+    }
+
+
+    @Test
+    void seeIfGetEnergyGridByIndexWorks() {
+        //Arrange
+
+        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 200);
+        EnergyGrid energyGrid2 = new EnergyGrid("energyGrid2", 200);
+        validHouse.addGrid(energyGrid1);
+        validHouse.addGrid(energyGrid2);
+
+        //Act
+
+        EnergyGrid actualResult1 = validHouse.getEnergyGridByIndex(0);
+        EnergyGrid actualResult2 = validHouse.getEnergyGridByIndex(1);
+
+        //Assert
+
+        assertEquals(energyGrid1, actualResult1);
+        assertEquals(energyGrid2, actualResult2);
+    }
+
+    @Test
     void getByIndexEmptyGridList() {
         //Act
 
@@ -588,6 +629,17 @@ class HouseTest {
         //Assert
 
         Assertions.assertEquals("The room list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetEnergyConsumptionThrowsException() {
+        //Act
+
+        Throwable exception = assertThrows(UnsupportedOperationException.class, () -> validHouse.getEnergyConsumption(0));
+
+        //Assert
+
+        Assertions.assertEquals("This operation is unsupported.", exception.getMessage());
     }
 
     @Test
@@ -634,6 +686,63 @@ class HouseTest {
         //Assert One Room
 
         Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void seeIfIsRoomListEmptyWorks() {
+        //Act
+
+        boolean actualResult1 = validHouse.isRoomListEmpty();
+
+        //Assert Empty List
+
+        assertTrue(actualResult1);
+
+        //Arrange
+
+        validHouse.addRoom(new Room("room", 2, 20, 20, 3));
+
+        //Act
+
+        boolean actualResult2 = validHouse.isRoomListEmpty();
+
+        //Assert One Room
+
+        assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfIsEnergyGridListEmptyWorks() {
+        //Act
+
+        boolean actualResult1 = validHouse.isEnergyGridListEmpty();
+
+        //Assert Empty List
+
+        assertTrue(actualResult1);
+
+        //Arrange
+
+        validHouse.addGrid(new EnergyGrid("energyGrid", 230));
+
+        //Act
+
+        boolean actualResult2 = validHouse.isEnergyGridListEmpty();
+
+        //Assert One Room
+
+        assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfDeviceTypeListSizeWorks() {
+        //Act
+
+        int actualResult1 = validHouse.deviceTypeListSize();
+
+        //Assert
+
+        assertEquals(1, actualResult1);
     }
 
     @Test

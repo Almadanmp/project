@@ -76,19 +76,6 @@ public class Local {
         return this.altitude;
     }
 
-    /**
-     * Convert coordinates TO radians
-     */
-    private static double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    /**
-     * Convert coordinates FROM radians
-     */
-    private static double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
-    }
 
     /**
      * Method to obtain the linear distance between two locals in Km.
@@ -103,12 +90,12 @@ public class Local {
         double latitude2 = getLatitude();
         double longitude1 = local1.getLongitude();
         double longitude2 = getLongitude();
-        double dLat = deg2rad(latitude2 - latitude1);
-        double dLon = deg2rad(longitude2 - longitude1);
-        latitude1 = deg2rad(latitude1);
-        latitude2 = deg2rad(latitude2);
+        double dLat = Math.toRadians(latitude2 - latitude1);
+        double dLon = Math.toRadians(longitude2 - longitude1);
+        latitude1 = Math.toRadians(latitude1);
+        latitude2 = Math.toRadians(latitude2);
         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(latitude1) * Math.cos(latitude2);
+                Math.cos(latitude1) * Math.cos(latitude2) * (Math.sin(dLon / 2) * Math.sin(dLon / 2));
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRadiusInKm * c;
     }

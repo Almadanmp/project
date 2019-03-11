@@ -2,12 +2,17 @@ package pt.ipp.isep.dei.project.dto;
 
 import pt.ipp.isep.dei.project.model.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 
 public class Mapper {
     private RoomDTO roomDTO = new RoomDTO();
     private GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
     private SensorDTO sensorDTO = new SensorDTO();
-    private SensorListDTO sensorListDTO = new SensorListDTO();
 
     public RoomDTO roomToDTO(Room room) {
         roomDTO.setRoomName(room.getRoomName());
@@ -21,7 +26,7 @@ public class Mapper {
         return roomDTO;
     }
 
-    public Room DTOtoRoom(RoomDTO roomDTO, House house) {
+    public Room dtoToRoom(RoomDTO roomDTO, House house) {
         Room room = null;
         RoomList roomlist = house.getRoomList();
         for (Room r : roomlist.getRooms()) {
@@ -39,84 +44,64 @@ public class Mapper {
         return room;
     }
 
-    private GeographicArea createGeographicAreaFromDTO(GeographicAreaDTO geographicAreaDTO){
+    public GeographicArea createGeographicAreaFromDTO(GeographicAreaDTO geographicAreaDTO) {
         GeographicArea geographicArea = new GeographicArea(geographicAreaDTO.getId(), new TypeArea(geographicAreaDTO.getTypeArea()), geographicAreaDTO.getLength(),
-                geographicAreaDTO.getWidth(), new Local(geographicAreaDTO.getLatitude(),geographicAreaDTO.getLongitude(),geographicAreaDTO.getAltitude()));
-        geographicArea.setMotherArea(geographicAreaDTO.getMotherArea());
-        geographicArea.setAreaSensors(geographicAreaDTO.getAreaSensors());
+                geographicAreaDTO.getWidth(), new Local(geographicAreaDTO.getLatitudeGeoAreaDTO(), geographicAreaDTO.getLongitudeGeoAreaDTO(),
+                geographicAreaDTO.getAltitudeGeoAreaDTO()));
+        SensorList sensorList = new SensorList();
+        for (SensorDTO sensorDTO : geographicAreaDTO.getAreaSensors()) {
+            Sensor sensor = sensorDTOToObject(sensorDTO);
+            sensorList.add(sensor);
+        }
+        geographicArea.setAreaSensors(sensorList);
         geographicArea.setDescription(geographicAreaDTO.getDescription());
         geographicArea.setUniqueId(geographicAreaDTO.getUniqueId());
         return geographicArea;
     }
 
-    public GeographicAreaDTO geographicAreaDTO(GeographicArea geographicArea) {
+    public GeographicAreaDTO geographicAreaToDTO(GeographicArea geographicArea) {
+        List<SensorDTO> listSensorDTO = new ArrayList<>();
         geographicAreaDTO.setId(geographicArea.getId());
         geographicAreaDTO.setTypeArea(geographicArea.getTypeArea().getName());
         geographicAreaDTO.setLength(geographicArea.getLength());
         geographicAreaDTO.setWidth(geographicArea.getWidth());
-        geographicAreaDTO.setLatitude(geographicArea.getLocation().getLatitude());
-        geographicAreaDTO.setLongitude(geographicArea.getLocation().getLongitude());
-        geographicAreaDTO.setAltitude(geographicArea.getLocation().getAltitude());
-        geographicAreaDTO.setMotherArea(geographicArea.getMotherArea());
-        geographicAreaDTO.setAreaSensors(geographicArea.getAreaSensors());
+        geographicAreaDTO.setLatitudeGeoAreaDTO(geographicArea.getLocation().getLatitude());
+        geographicAreaDTO.setLongitudeGeoAreaDTO(geographicArea.getLocation().getLongitude());
+        geographicAreaDTO.setAltitudeGeoAreaDTO(geographicArea.getLocation().getAltitude());
+        for (Sensor s : geographicArea.getAreaSensors().getSensors()) {
+            SensorDTO sensorDTO = sensorToDTO(s);
+            listSensorDTO.add(sensorDTO);
+        }
+        geographicAreaDTO.setAreaSensors(listSensorDTO);
         geographicAreaDTO.setDescription(geographicArea.getDescription());
         geographicAreaDTO.setUniqueId(geographicArea.getUniqueID());
         return geographicAreaDTO;
     }
+
     public SensorDTO sensorToDTO(Sensor sensor) {
         sensorDTO.setName(sensor.getName());
-        sensorDTO.setDateStartedFunctioning(sensor.getDateStartedFunctioning());
-        sensorDTO.setLocal(sensor.getLocal());
+        sensorDTO.setDateStartedFunctioning(sensor.getDateStartedFunctioning().toString());
+        sensorDTO.setAltitude(sensor.getLocal().getAltitude());
+        sensorDTO.setLongitude(sensor.getLocal().getLongitude());
+        sensorDTO.setLatitude(sensor.getLocal().getLatitude());
         sensorDTO.setReadingList(sensor.getReadingList());
-        sensorDTO.setTypeSensor(sensor.getTypeSensor());
+        sensorDTO.setTypeSensor(sensor.getTypeSensor().getName());
         sensorDTO.setUniqueID(sensor.getUniqueID());
         return sensorDTO;
     }
 
-    /**
-     * getting a sensor from a geographic area from the corresponding DTO
-     * @param sensorDTO
-     * @param gaDTO
-     * @return
-     */
-    public Sensor DTOToGeoAreaSensor(SensorDTO sensorDTO, GeographicAreaDTO gaDTO) {
-        Sensor sensor;
-        GeographicArea ga = createGeographicAreaFromDTO(gaDTO);
-        SensorList sensorList = ga.getSensorList();
-        sensor = selectSensorFromSensorList(sensorDTO,sensorList);
-        return sensor;
-    }
-
-    /**
-     *
-     * @param sensorDTO
-     * @param house
-     * @return
-     */
-    public Sensor DTOToHouseSensor(SensorDTO sensorDTO, House house) {
-        Sensor sensor = null;
-        for (Room room : house.getRoomList().getRooms()) {
-            SensorList sensorList = room.getSensorList();
-            sensor = selectSensorFromSensorList(sensorDTO,sensorList);
+    public Sensor sensorDTOToObject(SensorDTO sensorDTO) {
+        Sensor sensorObject = new Sensor(sensorDTO.getId(), sensorDTO.getName(), new TypeSensor(sensorDTO.getTypeSensor()
+                , sensorDTO.getUnits()), new Local(sensorDTO.getLatitude(), sensorDTO.getLongitude(), sensorDTO.getAltitude())
+                , new Date());
+        SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = validDateFormat.parse(sensorDTO.getDateStartedFunctioning());
+            sensorObject.setDateStartedFunctioning(date);
+        } catch (ParseException c) {
+            c.printStackTrace();
         }
-        return sensor;
-    }
-
-    private Sensor selectSensorFromSensorList(SensorDTO sensorDTO, SensorList sensorList) {
-        Sensor sensor = null;
-        for (Sensor s : sensorList.getSensors()) {
-            if (s.getUniqueID().compareTo(sensorDTO.getUniqueID()) == 0) {
-                s.setName(sensorDTO.getName());
-                s.setReadingList(sensorDTO.getReadingList());
-                s.setLocal(sensorDTO.getLocal());
-                s.setDateStartedFunctioning(sensorDTO.getDateStartedFunctioning());
-                s.setTypeSensor(sensorDTO.getTypeSensor());
-                s.setUniqueID(sensorDTO.getUniqueID());
-                sensor = s;
-            }
-        }
-        return sensor;
+        sensorObject.setUniqueID(sensorDTO.getUniqueID());
+        return sensorObject;
     }
 }
-
-

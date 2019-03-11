@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.*;
+import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import java.util.*;
@@ -144,7 +145,7 @@ class RoomTest {
     void seeIfAddSensorWorks() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12345","testSensor", new TypeSensor("Temperature", "Celsius"),
+        Sensor testSensor = new Sensor("RF12345", "testSensor", new TypeSensor("Temperature", "Celsius"),
                 new Local(1, 1, 50), new Date());
 
         // Act
@@ -487,7 +488,7 @@ class RoomTest {
     }
 
     @Test
-    void seeIfGetCurrentRoomTemperatureWorksMultipleSensors(){
+    void seeIfGetCurrentRoomTemperatureWorksMultipleSensors() {
         // Arrange
 
         Sensor firstSensor = new Sensor("firstSensor", new TypeSensor("Temperature", "Celsius"), new Date()); // Has one reading, not the most recent.
@@ -580,7 +581,7 @@ class RoomTest {
     }
 
     @Test
-    void seeIFgetid(){
+    void seeIFgetid() {
         // Arrange
 
         validRoom.setUniqueID(UUID.randomUUID());
@@ -598,7 +599,7 @@ class RoomTest {
     void getByIndexWithEmptyDeviceList() {
         //Arrange
 
-        Room noDevicesRoom = new Room("noDevices", 3,24,25,3);
+        Room noDevicesRoom = new Room("noDevices", 3, 24, 25, 3);
 
         //Act
 
@@ -630,6 +631,86 @@ class RoomTest {
         //Assert One Grid
 
         Assertions.assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void seeIfIsSensorListEmptyWorks() {
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+
+        //Act
+
+        boolean actualResult1 = emptyDeviceList.isSensorListEmpty();
+        boolean actualResult2 = validRoom.isSensorListEmpty();
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfIsDeviceListEmptyWorks() {
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+
+        //Act
+
+        boolean actualResult1 = emptyDeviceList.isDeviceListEmpty();
+        boolean actualResult2 = validRoom.isDeviceListEmpty();
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfGetDeviceByIndexWorks() {
+
+        //Act
+
+        Device actualResult = validRoom.getDeviceByIndex(0);
+
+        //Assert
+
+        assertEquals(validDevice, actualResult);
+    }
+
+    @Test
+    void seeIfGetDeviceByIndexThrowsException() {
+
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+
+        //Assert
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            emptyDeviceList.getDeviceByIndex(0);
+        });
+    }
+
+    @Test
+    void seeIfBuildDevicesStringByTypeWorks() {
+
+        //Arrange
+
+        Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
+        Device kettler = new Kettler(new KettlerSpec());
+        validRoom.addDevice(kettler);
+        //Act
+
+        String actualResult1 = emptyDeviceList.buildDevicesStringByType("WaterHeater");
+        String actualResult2 = validRoom.buildDevicesStringByType("WaterHeater");
+
+
+        //Assert
+
+        assertEquals("", actualResult1);
+        assertEquals("Device type: WaterHeater | Device name: WaterHeater | Nominal power: 21.0 | Room: Bedroom | \n", actualResult2);
     }
 
     @Test

@@ -6,8 +6,9 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Reading;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static java.lang.System.out;
 
@@ -54,10 +55,6 @@ public class HouseMonitoringUI {
                     break;
                 case 6:
                     runUS630(programHouse);
-                    activeInput = true;
-                    break;
-                case 7:
-                    runUS633(programHouse);
                     activeInput = true;
                     break;
                 case 0:
@@ -194,9 +191,10 @@ public class HouseMonitoringUI {
         System.out.println("The average rainfall on " + date + was + result + "%.");
     }
 
-
-     /* US623: As a Regular User, I want to get the average daily rainfall in the house area for a
-      given period (days), as it is needed to assess the garden’s watering needs.*/
+    /**
+     * US623: As a Regular User, I want to get the average daily rainfall in the house area for a
+     * given period (days), as it is needed to assess the garden’s watering needs.
+     */
 
     private void runUS623(House house) {
         UtilsUI utils = new UtilsUI();
@@ -204,12 +202,8 @@ public class HouseMonitoringUI {
             System.out.println(utils.invalidSensorList);
             return;
         }
-
-        InputUtils inputUtils = new InputUtils();
-        System.out.println("Please enter the start date.");
-        Date startDate = inputUtils.getInputYearMonthDay();
-        Date endDate = inputUtils.getInputYearMonthDay();
-        System.out.println("Please enter the end date.");
+        Date startDate = getInputStartDate();
+        Date endDate = getInputEndDate();
         updateAndDisplayUS623(house, startDate, endDate);
     }
 
@@ -238,8 +232,8 @@ public class HouseMonitoringUI {
     }
 
     /**
-     * US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
-     * in the house area in a given period.
+     *  US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
+     *  in the house area in a given period.
      */
 
     private void runUS630(House house) {
@@ -258,18 +252,18 @@ public class HouseMonitoringUI {
         double valueResult630;
         try {
             Reading reading = houseMonitoringcontroller.getLastColdestDayInInterval(house, startDate, endDate);
-            dateResult630 = reading.getDate();
-            valueResult630 = reading.getValue();
+            dateResult630 = houseMonitoringcontroller.getLastColdestDayInIntervalDate(reading);
+            valueResult630 = houseMonitoringcontroller.getLastColdestDayInIntervalValue(reading);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
         }
         System.out.println("The last coldest day between " + startDate + " and " + endDate + was
-                + dateResult630 + " and it's maximum temperature" + was + valueResult630 + "ºC.");
+                + dateResult630 + " and it's maximum temperature"+ was + valueResult630 + "ºC.");
     }
 
     /* US633:  As Regular User, I want to get the day with the highest temperature amplitude in the house area in a
-    given period. */
+       given period. */
     private void runUS633(House house) {
         UtilsUI utils = new UtilsUI();
         if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
@@ -282,14 +276,20 @@ public class HouseMonitoringUI {
     }
 
     private void updateAndDisplayUS633(House house, Date startDate, Date endDate) {
-        Date result633;
+        Date resultDate633;
+        double resultValue633;
+
         try {
-            result633 = houseMonitoringcontroller.getHighestTempAmplitude(house, startDate, endDate);
+            resultDate633 = houseMonitoringcontroller.getHighestTempAmplitudeDate(house, startDate, endDate);
+            resultValue633 = houseMonitoringcontroller.getHighestTempAmplitudeValue(house, resultDate633);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("The day with the highest temperature amplitude was " + result633.toString() +".");
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateResultFormatted = formatter.format(resultDate633);
+        System.out.println("The day with the highest temperature amplitude was " + dateResultFormatted + ", with a" +
+                " temperature amplitude of " + resultValue633 + "ºC.");
     }
 
     private void printOptionMessage() {
@@ -301,8 +301,6 @@ public class HouseMonitoringUI {
         System.out.println("5) Get The Average Rainfall on a day interval in a House Area. (US623)");
         System.out.println("6) Get the Last Coldest Day (lower maximum temperature) in the House" +
                 " Area in a given period. (US630)");
-        System.out.println("7) Get the day with the highest temperature amplitude in the House Area in a given period." +
-                "(US633)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

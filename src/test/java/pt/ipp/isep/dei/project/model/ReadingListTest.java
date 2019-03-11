@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.spi.CalendarNameProvider;
 
 import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,6 +36,9 @@ class ReadingListTest {
     private Date validDate13;
     private Date validDate14; // 02/10/2018 23:59:00
     private Date validDate15;
+    private Date validDate17; // same date as validDate2, different hours
+    private Date validDate18; // same day and month as 9 ans 16 but different year
+    private Date validDate19; // same day and month as 9 ans 16 but different year, different hour
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -42,22 +46,30 @@ class ReadingListTest {
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            validDate1 = validSdf.parse("21/11/2018 00:00:00");
+            validDate12 = validSdf.parse("02/11/2015 20:00:00");
+
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
+            validDate17 = validSdf.parse("03/09/2018 15:00:00");
             validDate3 = validSdf.parse("31/09/2018 23:59:59");
+
+            validDate13 = validSdfDay.parse("03/10/2018");
+            validDate14 = validSdf.parse("02/10/2018 23:59:00");
+            validDate15 = validSdf.parse("03/10/2018 00:00:00");
             validDate4 = validSdf.parse("07/10/2018 00:00:00");
             validDate5 = validSdf.parse("08/10/2018 23:26:21");
             validDate6 = validSdf.parse("09/10/2018 08:21:22");
             validDate7 = validSdf.parse("10/10/2018 18:14:03");
-            validDate8 = validSdf.parse("23/10/2018 12:14:23");
             validDate9 = validSdf.parse("13/10/2018 12:12:12");
-            validDate10 = validSdf.parse("30/10/2018 23:59:59");
-            validDate11 = validSdf.parse("01/11/2018 00:00:00");
-            validDate12 = validSdf.parse("02/11/2015 20:00:00");
-            validDate13 = validSdfDay.parse("03/10/2018");
-            validDate14 = validSdf.parse("02/10/2018 23:59:00");
-            validDate15 = validSdf.parse("03/10/2018 00:00:00");
             validDate16 = validSdf.parse("13/10/2018 23:59:59");
+            validDate8 = validSdf.parse("23/10/2018 12:14:23");
+            validDate10 = validSdf.parse("30/10/2018 23:59:59");
+
+            validDate1 = validSdf.parse("21/11/2018 00:00:00");
+            validDate11 = validSdf.parse("01/11/2018 00:00:00");
+
+            validDate18 = validSdf.parse("13/10/2019 12:12:12");
+            validDate19 = validSdf.parse("13/10/2019 23:59:59");
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -195,6 +207,8 @@ class ReadingListTest {
         Reading r6 = new Reading(22, validDate9);
         Reading r7 = new Reading(23, validDate10);
         Reading r8 = new Reading(22, validDate11);
+        Reading r9 = new Reading(23, validDate18);
+        Reading r10 = new Reading(22, validDate19);
         validReadingList.addReading(r0);
         validReadingList.addReading(r1);
         validReadingList.addReading(r2);
@@ -204,16 +218,22 @@ class ReadingListTest {
         validReadingList.addReading(r6);
         validReadingList.addReading(r7);
         validReadingList.addReading(r8);
+        validReadingList.addReading(r9);
+        validReadingList.addReading(r10);
         List<Date> expectedResult = new ArrayList<>();
         expectedResult.add(validDate4);
         expectedResult.add(validDate5);
         expectedResult.add(validDate6);
         expectedResult.add(validDate7);
+        expectedResult.add(validDate8);
         expectedResult.add(validDate9);
+        expectedResult.add(validDate10);
+        expectedResult.add(validDate11);
+        expectedResult.add(validDate18);
 
         // Act
 
-        List<Date> actualResult = validReadingList.getDaysWithReadingsBetweenDates(validDate4, validDate16);
+        List<Date> actualResult = validReadingList.getDaysWithReadingsBetweenDates(validDate4, validDate19);
 
         // Assert
 
@@ -630,43 +650,28 @@ class ReadingListTest {
     }
 
     @Test
-    void ensureThatWeGetMaxValueOfTheDay() {
-        ReadingList readingList = new ReadingList();
+    void seeIfWeGetMaxValueOfTheDayWorks() {
+        //Arrange
+        validReadingList = new ReadingList();
         Reading reading1 = new Reading(24, validDate4);
         Reading reading2 = new Reading(22, validDate5);
-        Reading reading3 = new Reading(25, new GregorianCalendar(2018, 9, 8, 11, 00).getTime());
-        Reading reading4 = new Reading(19, new GregorianCalendar(2018, 9, 8, 21, 30).getTime());
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        readingList.addReading(reading3);
-        readingList.addReading(reading4);
+        Reading reading3 = new Reading(25, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 0).getTime());
+        Reading reading4 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime());
+        validReadingList.addReading(reading1);
+        validReadingList.addReading(reading2);
+        validReadingList.addReading(reading3);
+        validReadingList.addReading(reading4);
         double expectedResult = 25;
-        double actualResult = readingList.getMaxValueOfTheDay(new GregorianCalendar(2018, 9, 8).getTime());
+        //Act
+        double actualResult = validReadingList.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void ensureThatWeGetMinValueInListOfDoubles() {
-        ReadingList readingList = new ReadingList();
-        List<Double> list = new ArrayList<>();
-        double n1 = 23;
-        double n2 = 23;
-        double n3 = 22;
-        double n4 = 22;
-        double n5 = 24;
-        list.add(n1);
-        list.add(n2);
-        list.add(n3);
-        list.add(n4);
-        list.add(n5);
-        double expectedResult = 22;
-        double actualResult = readingList.getMinValueInListOfDoubles(list);
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void ensureThatWeGetReadingListWithSpecificValue() {
-        ReadingList readingList = new ReadingList();
+    void seeIfWeGetReadingListWithSpecificValueWorks() {
+        //Arrange
+        validReadingList = new ReadingList();
         ReadingList expectedResult = new ReadingList();
         Reading r1 = new Reading(22, validDate5);
         Reading r2 = new Reading(24, validDate14);
@@ -674,115 +679,185 @@ class ReadingListTest {
         Reading r4 = new Reading(21, validDate15);
         Reading r5 = new Reading(22, validDate12);
         Reading r6 = new Reading(29, validDate2);
-        readingList.addReading(r1);
-        readingList.addReading(r2);
-        readingList.addReading(r3);
-        readingList.addReading(r4);
-        readingList.addReading(r5);
-        readingList.addReading(r6);
+        validReadingList.addReading(r1);
+        validReadingList.addReading(r2);
+        validReadingList.addReading(r3);
+        validReadingList.addReading(r4);
+        validReadingList.addReading(r5);
+        validReadingList.addReading(r6);
         expectedResult.addReading(r1);
         expectedResult.addReading(r3);
         expectedResult.addReading(r5);
-        ReadingList actualResult = readingList.getReadingListOfReadingsWithSpecificValue(22.0);
+        //Act
+        ReadingList actualResult = validReadingList.getReadingListOfReadingsWithSpecificValue(22.0);
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void ensureThatWeGetReadingWithSpecificDate() {
-        ReadingList readingList = new ReadingList();
+    void seeIfWeGetReadingWithSpecificDateWorks() {
+        //Arrange
+        validReadingList = new ReadingList();
         Reading r1 = new Reading(22, validDate5);
         Reading r2 = new Reading(24, validDate14);
         Reading r3 = new Reading(22, validDate2);
         Reading r4 = new Reading(21, validDate15);
         Reading r5 = new Reading(22, validDate12);
         Reading r6 = new Reading(29, validDate2);
-        readingList.addReading(r1);
-        readingList.addReading(r2);
-        readingList.addReading(r3);
-        readingList.addReading(r4);
-        readingList.addReading(r5);
-        readingList.addReading(r6);
-        Reading expectedResult = r3;
-        Reading actualResult = readingList.getReadingWithSpecificDate(readingList, validDate2);
-        assertEquals(expectedResult, actualResult);
+        validReadingList.addReading(r1);
+        validReadingList.addReading(r2);
+        validReadingList.addReading(r3);
+        validReadingList.addReading(r4);
+        validReadingList.addReading(r5);
+        validReadingList.addReading(r6);
+        //Act
+        Reading actualResult = validReadingList.getReadingWithSpecificDate(validReadingList, validDate2);
+        //Assert
+        assertEquals(r3, actualResult);
     }
 
     @Test
-    void ensureThatWeGetListOfMaxValuesForEachDay() {
-        ReadingList readingList = new ReadingList();
+    void seeIfWeGetListOfMaxValuesForEachDayWorks() {
+        //Arrange
+        validReadingList = new ReadingList();
         Reading r1 = new Reading(22, validDate5);
         Reading r2 = new Reading(24, validDate14);
         Reading r3 = new Reading(22, validDate2);
         Reading r4 = new Reading(21, validDate15);
         Reading r5 = new Reading(22, validDate12);
-        Reading r6 = new Reading(23, new GregorianCalendar(2018, 9, 8, 21, 00).getTime());
-        Reading r7 = new Reading(26, new GregorianCalendar(2018, 9, 2, 10, 00).getTime());
-        Reading r8 = new Reading(20, new GregorianCalendar(2018, 8, 3, 23, 30).getTime());
+        Reading r6 = new Reading(23, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 0).getTime());
+        Reading r7 = new Reading(26, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 10, 0).getTime());
+        Reading r8 = new Reading(20, new GregorianCalendar(2018, Calendar.SEPTEMBER, 3, 23, 30).getTime());
         Reading r10 = new Reading(20, validDate12);
-        readingList.addReading(r1);
-        readingList.addReading(r2);
-        readingList.addReading(r3);
-        readingList.addReading(r4);
-        readingList.addReading(r5);
-        readingList.addReading(r6);
-        readingList.addReading(r7);
-        readingList.addReading(r8);
-        readingList.addReading(r10);
+        validReadingList.addReading(r1);
+        validReadingList.addReading(r2);
+        validReadingList.addReading(r3);
+        validReadingList.addReading(r4);
+        validReadingList.addReading(r5);
+        validReadingList.addReading(r6);
+        validReadingList.addReading(r7);
+        validReadingList.addReading(r8);
+        validReadingList.addReading(r10);
         List<Double> expectedResult = new ArrayList<>();
         expectedResult.add(23.0);
         expectedResult.add(26.0);
         expectedResult.add(22.0);
         expectedResult.add(21.0);
         expectedResult.add(22.0);
-        List<Double> actualResult = readingList.getListOfMaxValuesForEachDay(validDate12, validDate5);
+        //Act
+        List<Double> actualResult = validReadingList.getListOfMaxValuesForEachDay(validDate12, validDate5);
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void ensureThatWeGetLastColdestDayInGivenInterval() {
-        ReadingList readingList = new ReadingList();
-        Reading reading1 = new Reading(23,new GregorianCalendar(2018,6,1,10,30).getTime());
-        Reading reading2 = new Reading(19,new GregorianCalendar(2018,6,1,14,30).getTime());
-        Reading reading3 = new Reading(19,new GregorianCalendar(2018,6,2,11,30).getTime());
-        Reading reading4 = new Reading(29,new GregorianCalendar(2018,6,2,16,30).getTime());
-        Reading reading5 = new Reading(34,new GregorianCalendar(2018,6,3,9,30).getTime());
-        Reading reading6 = new Reading(32,new GregorianCalendar(2018,6,3,10,30).getTime());
-        Reading reading7 = new Reading(15,new GregorianCalendar(2018,6,4,10,30).getTime());
-        Reading reading8 = new Reading(17,new GregorianCalendar(2018,6,4,15,30).getTime());
-        Reading reading9 = new Reading(12,new GregorianCalendar(2018,6,5,11,30).getTime());
-        Reading reading10 = new Reading(15,new GregorianCalendar(2018,6,5,19,30).getTime());
-        Reading reading11 = new Reading(17,new GregorianCalendar(2018,6,6,23,30).getTime());
-        Reading reading12 = new Reading(19,new GregorianCalendar(2018,6,6,23,35).getTime());
-        Reading reading13 = new Reading(20,new GregorianCalendar(2018,6,7,10,30).getTime());
-        Reading reading14 = new Reading(25,new GregorianCalendar(2018,6,7,14,30).getTime());
-        Reading reading15 = new Reading(26,new GregorianCalendar(2018,6,8,9,30).getTime());
-        Reading reading16 = new Reading(22,new GregorianCalendar(2018,6,8,10,30).getTime());
-        Reading reading17 = new Reading(21,new GregorianCalendar(2018,6,9,13,30).getTime());
-        Reading reading18 = new Reading(25,new GregorianCalendar(2018,6,9,15,30).getTime());
-        Reading reading19 = new Reading(32,new GregorianCalendar(2018,6,10,10,30).getTime());
-        Reading reading20 = new Reading(31,new GregorianCalendar(2018,6,10,15,30).getTime());
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        readingList.addReading(reading3);
-        readingList.addReading(reading4);
-        readingList.addReading(reading5);
-        readingList.addReading(reading6);
-        readingList.addReading(reading7);
-        readingList.addReading(reading8);
-        readingList.addReading(reading9);
-        readingList.addReading(reading10);
-        readingList.addReading(reading11);
-        readingList.addReading(reading12);
-        readingList.addReading(reading13);
-        readingList.addReading(reading14);
-        readingList.addReading(reading15);
-        readingList.addReading(reading16);
-        readingList.addReading(reading17);
-        readingList.addReading(reading18);
-        readingList.addReading(reading19);
-        readingList.addReading(reading20);
-        Reading expectedResult = reading10;
-        Reading actualResult = readingList.getLastColdestDayInGivenInterval(new GregorianCalendar(2018,6,1,05,00).getTime(),new GregorianCalendar(2018,6,10,23,00).getTime());
-        assertEquals(expectedResult,actualResult);
+    void seeIfWeGetLastColdestDayInGivenIntervalWorks() {
+        //Arrange
+        validReadingList = new ReadingList();
+        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
+        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime());
+        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime());
+        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime());
+        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime());
+        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime());
+        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime());
+        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime());
+        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime());
+        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime());
+        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime());
+        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime());
+        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime());
+        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime());
+        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime());
+        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime());
+        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime());
+        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime());
+        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime());
+        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime());
+        validReadingList.addReading(reading1);
+        validReadingList.addReading(reading2);
+        validReadingList.addReading(reading3);
+        validReadingList.addReading(reading4);
+        validReadingList.addReading(reading5);
+        validReadingList.addReading(reading6);
+        validReadingList.addReading(reading7);
+        validReadingList.addReading(reading8);
+        validReadingList.addReading(reading9);
+        validReadingList.addReading(reading10);
+        validReadingList.addReading(reading11);
+        validReadingList.addReading(reading12);
+        validReadingList.addReading(reading13);
+        validReadingList.addReading(reading14);
+        validReadingList.addReading(reading15);
+        validReadingList.addReading(reading16);
+        validReadingList.addReading(reading17);
+        validReadingList.addReading(reading18);
+        validReadingList.addReading(reading19);
+        validReadingList.addReading(reading20);
+        //Act
+        Reading actualResult = validReadingList.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
+        //Assert
+        assertEquals(reading10, actualResult);
+    }
+
+    @Test
+    void seeIfGetDateHighestAmplitudeBetweenDates() {
+        GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.JANUARY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2019, Calendar.JANUARY, 1);
+        validReadingList.addReading(new Reading(22, validDate5));
+        validReadingList.addReading(new Reading(30, validDate5));
+        validReadingList.addReading(new Reading(30, validDate14));
+        validReadingList.addReading(new Reading(30, validDate14));
+        validReadingList.addReading(new Reading(-5, validDate2));
+        validReadingList.addReading(new Reading(50, validDate17));
+        Date expectedResult = validDate2;
+
+        Date result = validReadingList.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime());
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetDateHighestAmplitudeBetweenDatesThrowsException() {
+        //Test if it throws exception when there is no readings available for the period requested
+        GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            validReadingList.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime());
+        });
+
+        assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
+                exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetValueReadingThrowsException() {
+        //Arrange
+
+        ReadingList emptyList = new ReadingList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.getValueReading(0));
+
+        //Assert
+
+        assertEquals("The reading list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetDateReadingThrowsException() {
+        //Arrange
+
+        ReadingList emptyList = new ReadingList();
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.getValueDate(0));
+
+        //Assert
+
+        assertEquals("The reading list is empty.", exception.getMessage());
     }
 }

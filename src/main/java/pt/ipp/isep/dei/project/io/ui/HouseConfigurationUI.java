@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.reader.JSONReader;
 
 import java.util.Scanner;
 
@@ -20,7 +22,7 @@ class HouseConfigurationUI {
         this.controller = new HouseConfigurationController();
     }
 
-    void run(House house) {
+    void run(House house, GeographicAreaList list) {
         InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
@@ -32,14 +34,18 @@ class HouseConfigurationUI {
             option = inputUtils.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS101(house);
+                    runUS15(list);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS105(house);
+                    runUS101(house);
                     activeInput = false;
                     break;
                 case 3:
+                    runUS105(house);
+                    activeInput = false;
+                    break;
+                case 4:
                     runUS108(house);
                     activeInput = false;
                     break;
@@ -50,6 +56,32 @@ class HouseConfigurationUI {
                     break;
             }
         }
+    }
+
+    // USER STORY 15 - As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.
+
+    /**
+     * As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.
+     * @param list is the static, program list of geographic areas that comes from mainUI.
+     */
+
+    private void runUS15(GeographicAreaList list){
+        InputUtils input = new InputUtils();
+        String filePath = input.getInputPath();
+        JSONReader reader = new JSONReader();
+        GeographicAreaDTO[] fileAreas = reader.readFile(filePath);
+        updateModel(fileAreas, list);
+    }
+
+    /**
+     * Transfer changes from the US to model: Calls the controller to add
+     * geographic areas from reading the file to program's list of geographic areas.
+     * @param fileAreas is an array of all the Geographic Area DTOs created upon reading the .json file.
+     * @param list is the static list of the program's Geographic Areas.
+     */
+
+    private void updateModel(GeographicAreaDTO[] fileAreas, GeographicAreaList list){
+        controller.addGeoAreasToList(fileAreas, list);
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
@@ -136,6 +168,7 @@ class HouseConfigurationUI {
     /**
      * Method displays the input room and its characteristics.
      */
+
     private void displayRoom() {
         String yourNewRoom = "The room is called ";
         String located = ", located on the ";
@@ -186,9 +219,10 @@ class HouseConfigurationUI {
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
-        System.out.println("1) Configure the location of the house. (US101)");
-        System.out.println("2) Add a new room to the house. (US105)");
-        System.out.println("3) List the existing rooms. (US108)");
+        System.out.println("1) Import Geographic Areas and Sensors from a JSON file.");
+        System.out.println("2) Configure the location of the house. (US101)");
+        System.out.println("3) Add a new room to the house. (US105)");
+        System.out.println("4) List the existing rooms. (US108)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

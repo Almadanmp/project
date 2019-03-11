@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 
+import java.io.File;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -144,10 +145,10 @@ public class InputUtils {
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing devices in the selected room: ");
-            System.out.println(controller.buildDeviceListString(mapper.DTOtoRoom(room,house)));
+            System.out.println(controller.buildDeviceListString(mapper.dtoToRoom(room, house)));
             int aux = inputUtils.getInputAsInt();
-            if (aux >= 0 && aux < controller.getDeviceListSize(room,house)) {
-                Device result = controller.getDeviceByIndex(room,house,aux);
+            if (aux >= 0 && aux < controller.getDeviceListSize(room, house)) {
+                Device result = controller.getDeviceByIndex(room, house, aux);
                 System.out.println("You have chosen the following device:");
                 System.out.println(result.buildString() + "\n");
                 return result;
@@ -175,6 +176,7 @@ public class InputUtils {
             }
         }
     }
+
     EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         UtilsUI utilsUI = new UtilsUI();
@@ -534,5 +536,22 @@ public class InputUtils {
             System.out.println("Not a valid " + dataType + ". Try again");
         }
         return scan.nextInt();
+    }
+
+    /**
+     * Gets input of a filepath. For now, this file is either a .csv file or a .json file, since those are the only kind
+     * of files the program is ready to manipulate.
+     * @return returns a filepath.
+     */
+
+    String getInputPath() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please insert the location of the file you want to import:");
+        String result = scanner.next();
+        while (!(result.endsWith(".csv") || result.endsWith(".json")) || !new File(result).exists()) {
+            System.out.println("Please enter a valid location");
+            result = scanner.next();
+        }
+        return result;
     }
 }

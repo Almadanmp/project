@@ -78,6 +78,7 @@ class DeviceTypeConfigTest {
         expectedResult.add(deviceTypePath + "StoveDT");
         expectedResult.add(deviceTypePath + "WineCoolerDT");
         expectedResult.add(deviceTypePath + "FreezerDT");
+        expectedResult.add(deviceTypePath + "ElectricOvenDT");
 
         // Act
 
@@ -162,6 +163,8 @@ class DeviceTypeConfigTest {
         expectedResult.add(deviceTypePath + "StoveDT");
         expectedResult.add(deviceTypePath + "WineCoolerDT");
         expectedResult.add(deviceTypePath + "FreezerDT");
+        expectedResult.add(deviceTypePath + "ElectricOvenDT");
+
 
         // Act
 

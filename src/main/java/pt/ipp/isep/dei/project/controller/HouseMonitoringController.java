@@ -2,7 +2,10 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.Sensor;
 
 import java.util.Date;
 
@@ -25,7 +28,7 @@ public class HouseMonitoringController {
 
     public double getCurrentRoomTemperature(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getCurrentRoomTemperature();
     }
 
@@ -38,7 +41,7 @@ public class HouseMonitoringController {
 
     public double getDayMaxTemperature(RoomDTO roomDTO, Date day, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getMaxTemperatureOnGivenDay(day);
     }
 
@@ -51,7 +54,7 @@ public class HouseMonitoringController {
      **/
     public String getRoomName(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.DTOtoRoom(roomDTO, house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getRoomName();
     }
 
@@ -100,36 +103,67 @@ public class HouseMonitoringController {
     }
 
     /**
-     *US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
+     * US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
      * in the house area in a given period.
      */
-    public Reading getLastColdestDayInInterval(House house,Date startDate,Date endDate){
+    public Reading getLastColdestDayInInterval(House house, Date startDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
         if (closestSensor.isReadingListEmpty()) {
-            throw new IllegalStateException("Warning: Value could not be calculated - No readings were available.");
+            throw new IllegalStateException("Warning: Values could not be calculated - No readings available.");
         }
-        ReadingList readingList = closestSensor.getReadingList();
-        return readingList.getLastColdestDayInGivenInterval(startDate,endDate);
+        return closestSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
+
+    public Date getLastColdestDayInIntervalDate(Reading reading) {
+        return reading.getDate();
+    }
+
+    public double getLastColdestDayInIntervalValue(Reading reading) {
+        return reading.getValue();
+    }
+
+    /** US 631 - Controller Methods
+       As a Regular User, I want to get the first hottest day (higher maximum temperature)
+       in the house area in a given period. **/
+
+    public Date getFirstHottestDayInPeriod(House house, Date startDate, Date endDate) {
+        Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
+        if (closestSensor.isReadingListEmpty()) {
+            throw new IllegalArgumentException("Warning: No readings available to calculate first hottest day.");
+        }
+        return closestSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
+    }
+
 
     /* US 633 - Controller Methods
        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
        period. */
 
     /**
-     * @param house       is the house we want to get the average rainfall from.
+     * @param house       is the house we want to get the highest temperature amplitude on its area
      * @param initialDate is the date where we want to start measuring temperature (lower limit).
      * @param endDate     is the date where we want to stop measuring temperature(upper limit).
      * @return is the highest temperature amplitude in the house area, in given period, as measured by the closest
      * sensor to the house.
      * @Author Daniela
      */
-    public Date getHighestTempAmplitude (House house, Date initialDate, Date endDate) {
+    public Date getHighestTempAmplitudeDate(House house, Date initialDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
         if (closestSensor.isReadingListEmpty()) {
-            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
+            throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
+                    "available.");
         }
-        return closestSensor.getHighestAmplitudeBetweenDates(initialDate, endDate);
+        return closestSensor.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
+    }
+
+    public double getHighestTempAmplitudeValue(House house, Date dateInput) {
+        Date date = dateInput;
+        Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
+        if (closestSensor.isReadingListEmpty()) {
+            throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
+                    "available.");
+        }
+        return closestSensor.getHighestAmplitudeInDate(date);
     }
 }
 
