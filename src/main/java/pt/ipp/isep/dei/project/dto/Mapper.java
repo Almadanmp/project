@@ -93,13 +93,14 @@ public class Mapper {
         Sensor sensorObject = new Sensor(sensorDTO.getId(), sensorDTO.getName(), new TypeSensor(sensorDTO.getTypeSensor()
                 , sensorDTO.getUnits()), new Local(sensorDTO.getLatitude(), sensorDTO.getLongitude(), sensorDTO.getAltitude())
                 , new Date());
-        SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat validDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         try {
             Date date = validDateFormat.parse(sensorDTO.getDateStartedFunctioning());
             sensorObject.setDateStartedFunctioning(date);
         } catch (ParseException c) {
             c.printStackTrace();
         }
+
         sensorObject.setUniqueID(sensorDTO.getUniqueID());
         return sensorObject;
     }
