@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Reading;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
