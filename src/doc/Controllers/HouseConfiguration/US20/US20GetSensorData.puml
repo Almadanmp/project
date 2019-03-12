@@ -1,7 +1,41 @@
 @startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+ }
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+
+
+
+-> CSVReader: getSensorData(GeographicAreaList geographicAreaList)
+activate CSVReader
+CSVReader -->> SensorList: fullSensorList = new SensorList()
+
+loop All Sensors IN GeographicAreaList
+
+
+CSVReader -->> SensorList: fullSensorList.add(sensor);
+end
+
+
+
 @enduml

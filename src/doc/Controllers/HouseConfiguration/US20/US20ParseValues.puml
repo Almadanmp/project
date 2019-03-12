@@ -26,38 +26,26 @@ skinparam actor {
 
 
 
--> CSVReader: startAndPromptPath()
+-> CSVReader: parseAndLog(String[] readings, Logger logger, SensorList sensorList)
 activate CSVReader
-CSVReader -->> Properties: props = new Properties()
-activate Properties
+
+CSVReader -->> SimpleDateFormat: sdf 1 = new SimpleDateFormat("dd/MM/yyyy")
+CSVReader -->> SimpleDateFormat: sdf 2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'")
+CSVReader -->> SimpleDateFormat: sdf N = new SimpleDateFormat("...")
 
 alt try
 
-CSVReader -->> FileInputStream: input = new FileInputStream(file location)
-activate FileInputStream
-CSVReader -> Properties: load(input)
-CSVReader -> Properties: deviceMetering = props.getProperty("DeviceMeteringPeriod")
-CSVReader --x FileInputStream: input.close()
-deactivate FileInputStream
-deactivate Properties
-
-else catch
-CSVReader -> FileInputUtils: IOException
-
-end
-
-alt try
-FileInputUtils -> Integer: parseInt(deviceMeteringPeriod)
-activate Integer
-Integer --> CSVReader: return deviceMeteringPeriod
-deactivate Integer
-<-- CSVReader: return deviceMeteringPeriod
-
+CSVReader -->> Double: Double readValue = Double.parseDouble(readings[2]);
+CSVReader -->> String:String readID = readings[0];
+CSVReader -->> Date:Date readDate = sdf N.parse(readings[1]);
+CSVReader -->> CSVReader: setCSVReadings(sensor, readDate, readValue)
 
 else catch
 CSVReader -> CSVReader: NumberFormatException
+CSVReader -> CSVReader: ParseException
 
 end
+
 
 
 @enduml

@@ -1,0 +1,51 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+ }
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+
+
+
+-> CSVReader: parseAndLog(String[] readings, Logger logger, SensorList sensorList)
+activate CSVReader
+
+CSVReader -->> CSVReader: SensorList fullSensorList = getSensorData(geographicAreaList)
+
+alt try
+
+CSVReader -->> FileReader: fileReader = new FileReader
+CSVReader -->> BufferedReader: buffReader = new BufferedReader
+CSVReader -->> Logger: Logger logger = Logger.getLogger(CSVReader.class.getName())
+CSVReader -->> CustomFormatter: CustomFormatter myFormat = new CustomFormatter();
+CSVReader -->> FileHandler: FileHandler fileHandler = new FileHandler( Log Output Path)
+CSVReader -->> CSVReader: logger.addHandler(fileHandler);
+CSVReader -->> CSVReader: fileHandler.setFormatter(myFormat);
+CSVReader -->> CSVReader: readings = line.split(cvsSplit);
+CSVReader -->> CSVReader: parseAndLog(readings, logger, fullSensorList);
+
+else catch
+CSVReader -> CSVReader: IOException
+
+end
+
+@enduml
