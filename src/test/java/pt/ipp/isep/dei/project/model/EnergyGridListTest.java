@@ -233,6 +233,7 @@ class EnergyGridListTest {
         int actualResult = validGridList.hashCode();
 
         // Assert
+
         Assertions.assertEquals(expectedResult, actualResult);
     }
 }

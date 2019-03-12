@@ -13,6 +13,13 @@ import java.io.InputStream;
 
 public class JSONReader {
 
+    /**
+     * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed
+     * from the data in the file.
+     * @param filePath is the absolute filepath of the .json file in the system.
+     * @return is an array of data transfer geographic area objects created with the data in the .json file.
+     */
+
     public GeographicAreaDTO[] readFile(String filePath) {
         try {
             File file = new File(filePath);
@@ -29,6 +36,12 @@ public class JSONReader {
         }
         return new GeographicAreaDTO[0];
     }
+
+    /**
+     * Is the method that loads geographic areas from the .json file.
+     * @param geoAreas is the JSONArray corresponding to the list of geographic areas in the .json file.
+     * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
+     */
 
     private GeographicAreaDTO[] readGeoAreas(JSONArray geoAreas) {
         GeographicAreaDTO[] geographicAreasArray = new GeographicAreaDTO[geoAreas.length()];
@@ -51,6 +64,13 @@ public class JSONReader {
         }
         return geographicAreasArray;
     }
+
+    /**
+     * Is the method that loads sensors from a list of sensors in the .json file.
+     * @param areaSensors is the array of sensors contained in the .json file, usually the list of sensors
+     *                    that belong to an area.
+     * @return is an array of data transfer sensor objects created with the data in the given JSON Array.
+     */
 
     private SensorDTO[] readAreaSensors(JSONArray areaSensors) {
         SensorDTO[] result = new SensorDTO[areaSensors.length()];
@@ -79,6 +99,12 @@ public class JSONReader {
         }
         return result;
     }
+
+    /**
+     * Method that adds all the sensorDTOs in an array to a GeographicAreaDTO.
+     * @param sensorsToAdd is the array containing all the sensor DTOs that we want to add somewhere.
+     * @param area is the area to which we want to add the sensors.
+     */
 
     private void addSensorDTOStoAreaDTO(SensorDTO[] sensorsToAdd, GeographicAreaDTO area) {
         for (SensorDTO sensor : sensorsToAdd) {
