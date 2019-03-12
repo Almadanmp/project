@@ -29,20 +29,26 @@ title US020 \n  I want to import geographical area sensor readings into the appl
 actor Administrator
 Administrator -> MainUI:run()
 
-MainUI -->> HouseConfigurationUI: Import Geographic Area Sensor Readings from a CSV file.
-
+MainUI -> HouseConfigurationUI: Import Geographic Area Sensor Readings from a CSV file.
+activate HouseConfigurationUI
 HouseConfigurationUI -> CSVReader: readAndSet(GeographicAreaList geographicAreaList)
 activate CSVReader
-CSVReader --> HouseConfigurationUI: Request File Path
-HouseConfigurationUI --> Administrator: Request File Path
-Administrator -> HouseConfigurationUI: Insert File Path (.csv)
-HouseConfigurationUI -> CSVReader: File Path (.csv)
 CSVReader -> CSVReader: readAndSet(GeographicAreaList geographicAreaList)
-CSVReader -> CSVReader: set File Path (.csv)
+CSVReader -> CSVReader: startAndPromptPath()
+CSVReader -> HouseConfigurationUI: Request File Path
+HouseConfigurationUI -> Administrator: Request File Path
+Administrator --> HouseConfigurationUI: Insert File Path (.csv)
+HouseConfigurationUI --> CSVReader: File Path (.csv)
+deactivate HouseConfigurationUI
+
+
 CSVReader -> CSVReader: getSensorData(GeographicAreaList geographicAreaList)
 CSVReader -> CSVReader: parseAndLog(String[] readings, Logger logger, SensorList sensorList)
+alt Try
 CSVReader -> CSVReader: setCSVReadings(Sensor sensor, Date date, Double value)
+else
+CSVReader -> Log: Create new entry
 
+end
 deactivate CSVReader
-
 @enduml

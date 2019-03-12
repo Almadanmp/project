@@ -30,14 +30,11 @@ skinparam actor {
 activate CSVReader
 CSVReader -->> Scanner: input = new Scanner()
 
-alt while
+loop While
 
-CSVReader -->> CSVReader: filePath != filePath.endsWith(".csv")
+CSVReader -->> CSVReader: filePath != input.endsWith(".csv")
 CSVReader -->> CSVReader: filePath != !new File(filePath).exists()
 
-
-else
-CSVReader -> CSVReader: Loop
 
 end
 

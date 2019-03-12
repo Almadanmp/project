@@ -32,7 +32,7 @@ CSVReader -->> Sensor: Date startingDate = sensor.getDateStartedFunctioning();
 alt IF date.after(startingDate) OR date == startingDate
 
 CSVReader -->> Reading: Reading reading = new Reading(value, date);
-CSVReader -->> Sensor: addReading(reading);
+CSVReader -> Sensor: addReading(reading);
 
 
 end

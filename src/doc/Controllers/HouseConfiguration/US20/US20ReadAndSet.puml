@@ -38,10 +38,10 @@ CSVReader -->> BufferedReader: buffReader = new BufferedReader
 CSVReader -->> Logger: Logger logger = Logger.getLogger(CSVReader.class.getName())
 CSVReader -->> CustomFormatter: CustomFormatter myFormat = new CustomFormatter();
 CSVReader -->> FileHandler: FileHandler fileHandler = new FileHandler( Log Output Path)
-CSVReader -->> CSVReader: logger.addHandler(fileHandler);
-CSVReader -->> CSVReader: fileHandler.setFormatter(myFormat);
-CSVReader -->> CSVReader: readings = line.split(cvsSplit);
-CSVReader -->> CSVReader: parseAndLog(readings, logger, fullSensorList);
+CSVReader -> CSVReader: logger.addHandler(fileHandler);
+CSVReader -> CSVReader: fileHandler.setFormatter(myFormat);
+CSVReader -> CSVReader: readings = line.split(cvsSplit);
+CSVReader -> CSVReader: parseAndLog(readings, logger, fullSensorList);
 
 else catch
 CSVReader -> CSVReader: IOException

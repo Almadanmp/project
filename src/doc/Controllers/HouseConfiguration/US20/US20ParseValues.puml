@@ -38,7 +38,7 @@ alt try
 CSVReader -->> Double: Double readValue = Double.parseDouble(readings[2]);
 CSVReader -->> String:String readID = readings[0];
 CSVReader -->> Date:Date readDate = sdf N.parse(readings[1]);
-CSVReader -->> CSVReader: setCSVReadings(sensor, readDate, readValue)
+CSVReader -> CSVReader: setCSVReadings(sensor, readDate, readValue)
 
 else catch
 CSVReader -> CSVReader: NumberFormatException
