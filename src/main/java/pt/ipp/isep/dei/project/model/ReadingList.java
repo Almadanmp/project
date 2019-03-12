@@ -485,7 +485,7 @@ public class ReadingList {
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
     Date getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
-        if (this.readings.isEmpty()) {
+        if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
         ReadingList readingListBetweenDates = getReadingListBetweenDates(initialDate,finalDate);
