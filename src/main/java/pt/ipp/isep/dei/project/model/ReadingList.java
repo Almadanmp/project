@@ -413,7 +413,7 @@ public class ReadingList {
         for (Date day : daysWithReadings) {
             List<Double> listOfMaxReadings = getValuesOfSpecificDayReadings(day);
             double maxTemp = Collections.max(listOfMaxReadings);
-            if ((tempTemp < maxTemp) || (day.before(firstHottestDay))){
+            if ((tempTemp < maxTemp) || (day.before(firstHottestDay))) {
                 tempTemp = maxTemp;
                 firstHottestDay = day;
             }
@@ -511,6 +511,7 @@ public class ReadingList {
             Date readingDate = getFirstSecondOfDay(r.getDate());
             if (readingDate.equals(auxDay) && r.getValue() > auxValue) {
                 result = r;
+                auxValue = result.getValue();
             }
         }
         return result;
@@ -525,9 +526,9 @@ public class ReadingList {
      */
     public ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
         ReadingList result = new ReadingList();
-        for (int i = 0; i < size(); i++) {
-            if (isReadingDateBetweenTwoDates(this.readings.get(i).getDate(), initialDate, finalDate)) {
-                result.addReading(this.readings.get(i));
+        for (Reading r : this.readings) {
+            if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
+                result.addReading(r);
             }
         }
         return result;
@@ -544,10 +545,10 @@ public class ReadingList {
     ReadingList getListOfMaxValuesForEachDay() {
         ReadingList result = new ReadingList();
         List<Date> dateList = new ArrayList<>();
-        for (int i = 0; i < size(); i++) {
-            Date aux = getFirstSecondOfDay(this.readings.get(i).getDate());
+        for (Reading r : this.readings) {
+            Date aux = getFirstSecondOfDay(r.getDate());
             if (!dateList.contains(aux)) {
-                Reading maxOfTheDay = getMaxValueOfTheDay(this.readings.get(i).getDate());
+                Reading maxOfTheDay = getMaxValueOfTheDay(r.getDate());
                 dateList.add(aux);
                 result.addReading(maxOfTheDay);
             }
@@ -562,9 +563,9 @@ public class ReadingList {
      */
     public double getMinValueInReadingList() {
         double result = this.readings.get(0).getValue();
-        for (int i = 0; i < size(); i++) {
-            if (this.readings.get(i).getValue() < result) {
-                result = this.readings.get(i).getValue();
+        for (Reading r : this.readings) {
+            if (r.getValue() < result) {
+                result = r.getValue();
             }
         }
         return result;
