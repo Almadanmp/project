@@ -403,7 +403,8 @@ public class ReadingList {
      * @author Nuno (US631)
      */
 
-    Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+    /*
+    Date getFirstHottestDayInGivenPeriod2(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: No temperature readings available.");
@@ -420,12 +421,42 @@ public class ReadingList {
         }
         return firstHottestDay;
     }
+    */
 
-    /**
-     * Getter (array of readings)
-     *
-     * @return array of readings
-     */
+    private Date getFirstDayForGivenTemperature(double temperature, List<Date> dates) {
+        List<Date> daysWithTemperature = new ArrayList<>();
+        for (Date date : dates) {
+            if (getValuesOfSpecificDayReadings(date).contains(temperature)) {
+                daysWithTemperature.add(date);
+            }
+        }
+        return Collections.min(daysWithTemperature);
+    }
+
+    private double getMaxValue(List<Date> list){
+        ArrayList<Double> values = new ArrayList<>();
+        for(Date day : list){
+            values.addAll (getValuesOfSpecificDayReadings(day));
+        }
+        return Collections.max(values);
+    }
+
+    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
+        if (daysWithReadings.isEmpty()) {
+            throw new IllegalArgumentException("Warning: No temperature readings available.");
+        }
+        double maxTemperature = getMaxValue(daysWithReadings);
+        return getFirstDayForGivenTemperature(maxTemperature, daysWithReadings);
+    }
+
+
+
+        /**
+         * Getter (array of readings)
+         *
+         * @return array of readings
+         */
     Reading[] getElementsAsArray() {
         int sizeOfResultArray = size();
         Reading[] result = new Reading[sizeOfResultArray];
