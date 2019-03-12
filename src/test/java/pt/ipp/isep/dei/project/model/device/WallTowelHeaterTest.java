@@ -27,6 +27,18 @@ class WallTowelHeaterTest {
     }
 
     @Test
+    void testIsLogListEmpty() {
+        // Arrange
+        WallTowelHeater emptyWallTH = new WallTowelHeater(new WallTowelHeaterSpec());
+        // Act
+       Boolean actualResult1 = validWTHeater.isLogListEmpty();
+       Boolean actualResult2 = emptyWallTH.isLogListEmpty();
+        // Assert
+        assertFalse(actualResult1);
+        assertTrue(actualResult2);
+    }
+
+    @Test
     void seeIIfGetDeviceTypeWorks() {
         // Arrange
 
