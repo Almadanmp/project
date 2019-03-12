@@ -11,7 +11,7 @@ import static java.lang.Double.NaN;
 public class ReadingList {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
-    private ArrayList<Reading> readings;
+    private List<Reading> readings;
 
     /**
      * Empty Constructor to always allow the creation of an ArrayList of Readings.
