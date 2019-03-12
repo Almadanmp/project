@@ -1,26 +1,24 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class PortableElectricOilHeaterSpec implements DeviceSpecs {
 
-    private String notSupported = "At the moment, this operation is not supported.";
-    //This class throws UnsupportedOperationException because it has no attributes, atm.
-
     public List<String> getAttributeNames() {
-        throw new UnsupportedOperationException(notSupported);
+        return new ArrayList<>();
     }
 
     public Object getAttributeValue(String attributeName) {
-        throw new UnsupportedOperationException(notSupported);
+        return 0;
     }
 
     public Object getAttributeUnit(String attributeName) {
-        throw new UnsupportedOperationException(notSupported);
+        return false;
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        throw new UnsupportedOperationException(notSupported);
+        return false;
     }
 }

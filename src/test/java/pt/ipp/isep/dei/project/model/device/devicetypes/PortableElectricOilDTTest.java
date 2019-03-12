@@ -2,7 +2,8 @@ package pt.ipp.isep.dei.project.model.device.devicetypes;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.WallElectricHeater;
+import pt.ipp.isep.dei.project.model.device.PortableElectricOilHeater;
+import pt.ipp.isep.dei.project.model.device.devicespecs.PortableElectricOilHeaterSpec;
 
 import static org.testng.Assert.assertEquals;
 
@@ -13,11 +14,27 @@ import static org.testng.Assert.assertEquals;
 class PortableElectricOilDTTest {
 
     @Test
+    void seeCreateDevice(){
+        // Arrange
+
+        PortableElectricOilHeaterDT dt = new PortableElectricOilHeaterDT();
+        Device expectedResult = new PortableElectricOilHeater(new PortableElectricOilHeaterSpec());
+
+        // Act
+
+        Device actualResult = dt.createDevice();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetDeviceTypeWorks() {
         // Arrange
 
-        String expectedResult = "WallElectricHeater";
-        WallElectricHeaterDT dt = new WallElectricHeaterDT();
+        String expectedResult = "PortableElectricOilHeater";
+        PortableElectricOilHeaterDT dt = new PortableElectricOilHeaterDT();
 
         // Act
 
