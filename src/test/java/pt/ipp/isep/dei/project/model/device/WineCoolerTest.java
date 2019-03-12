@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WineCoolerSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -89,14 +90,19 @@ class WineCoolerTest {
         testCooler.setName("WCTwo");
         testCooler.setNominalPower(12.0);
         testCooler.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, 45);
+        Fridge fridge = new Fridge(new FridgeSpec());
 
         // Act
 
+        boolean actualResultObject = validCooler.equals(fridge);
+        boolean actualResultNull = validCooler.equals(null);
         boolean actualResult = validCooler.equals(testCooler);
 
         // Assert
 
         assertFalse(actualResult);
+        assertFalse(actualResultNull);
+        assertFalse(actualResultObject);
     }
 
 
