@@ -403,26 +403,21 @@ public class ReadingList {
      * @author Nuno (US631)
      */
 
-    /*
-    Date getFirstHottestDayInGivenPeriod2(Date minDate, Date maxDate) {
+    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: No temperature readings available.");
         }
-        Date firstHottestDay = daysWithReadings.get(0);
-        double tempTemp = -1000;
-        for (Date day : daysWithReadings) {
-            List<Double> listOfMaxReadings = getValuesOfSpecificDayReadings(day);
-            double maxTemp = Collections.max(listOfMaxReadings);
-            if ((tempTemp < maxTemp) || (day.before(firstHottestDay))) {
-                tempTemp = maxTemp;
-                firstHottestDay = day;
-            }
-        }
-        return firstHottestDay;
+        double maxTemperature = getMaxValue(daysWithReadings);
+        return getFirstDayForGivenTemperature(maxTemperature, daysWithReadings);
     }
-    */
 
+    /**
+     * Auxiliary method for getFirstHottestDayInGivenPeriod
+     * @param temperature
+     * @param dates
+     * @return
+     */
     private Date getFirstDayForGivenTemperature(double temperature, List<Date> dates) {
         List<Date> daysWithTemperature = new ArrayList<>();
         for (Date date : dates) {
@@ -433,6 +428,12 @@ public class ReadingList {
         return Collections.min(daysWithTemperature);
     }
 
+    /**
+     * Auxiliary method for getFirstHottestDayInGivenPeriod
+     * @param list
+     * @return
+     */
+
     private double getMaxValue(List<Date> list){
         ArrayList<Double> values = new ArrayList<>();
         for(Date day : list){
@@ -440,17 +441,6 @@ public class ReadingList {
         }
         return Collections.max(values);
     }
-
-    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
-        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
-        if (daysWithReadings.isEmpty()) {
-            throw new IllegalArgumentException("Warning: No temperature readings available.");
-        }
-        double maxTemperature = getMaxValue(daysWithReadings);
-        return getFirstDayForGivenTemperature(maxTemperature, daysWithReadings);
-    }
-
-
 
         /**
          * Getter (array of readings)
