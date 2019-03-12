@@ -29,15 +29,15 @@ autonumber
 
 actor User
 
-User -> ":MainUI": start program
+User -> ":MainUI": Start program
 activate ":MainUI"
 
-":MainUI" --> User: show option menu
+":MainUI" --> User: Show option menu
 User-> ":MainUI": Select House Monitoring opt
 ":MainUI" -> ":HouseMonitoringUI": option6(house)
 deactivate ":MainUI"
 activate ":HouseMonitoringUI"
-":HouseMonitoringUI" --> User: show option menu
+":HouseMonitoringUI" --> User: Show option menu
 User -> ":HouseMonitoringUI": Select opt
 ":HouseMonitoringUI" -> ":HouseMonitoringUI": runUS623(house)
 
@@ -48,19 +48,20 @@ end ref
 
 ":HouseMonitoringUI" -> ":HouseMonitoringUI": updateUS623(house, date, date)
 ref over ":HouseMonitoringUI"
-get closest sensor
+Get closest sensor
 to house area
 end ref
 
-":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeDate(house, date, date)
+":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeDate\n                 (house, date, date)
 deactivate ":HouseMonitoringUI"
 activate ":HouseMonitoringController"
-":HouseMonitoringController" -> ":Sensor": getDateHighestAmplitudeBetweenDates(date, date)
+":HouseMonitoringController" -> ":Sensor": getDateHighestAmplitudeBetweenDates\n                                   (date, date)
 
 activate ":Sensor"
 
-":Sensor" -> ":ReadingList": getDateHighestAmplitudeBetweenDates (date, date)
+":Sensor" -> ":ReadingList": getDateHighestAmplitudeBetweenDates\n                                    (date, date)
 activate ":ReadingList"
+
 ":ReadingList" --> ":Sensor": return date
 deactivate ":ReadingList"
 ":Sensor" --> ":HouseMonitoringController": return date
@@ -69,14 +70,18 @@ deactivate ":Sensor"
 ":HouseMonitoringController" --> ":HouseMonitoringUI": return date
 deactivate ":HouseMonitoringController"
 activate ":HouseMonitoringUI"
-":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeValue(house, date)
+":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeValue\n                       (house, date)
 deactivate ":HouseMonitoringUI"
 activate ":HouseMonitoringController"
 
-":HouseMonitoringController" -> ":Sensor": getHighestTempAmplitudeValue(date, date)
+":HouseMonitoringController" -> ":Sensor": getHighestTempAmplitudeValue\n                                  (date, date)
 activate ":Sensor"
-":Sensor" -> ":ReadingList": getHighestAmplitudeInDate (date, date)
+":Sensor" -> ":ReadingList": getHighestAmplitudeInDate\n                                (date, date)
+
 activate ":ReadingList"
+
+
+
 ":ReadingList" --> ":Sensor": return double
 deactivate ":ReadingList"
 ":Sensor" --> ":HouseMonitoringController": return double
